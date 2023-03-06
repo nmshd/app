@@ -1,0 +1,28 @@
+name: enmeshed
+repository: https://github.com/nmshd/cns-app
+
+packages:
+  - "apps/*"
+  - "packages/**"
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+ide:
+  intellij:
+    enabled: false
+
+scripts:
+  analyze:
+    run: melos exec -- "flutter analyze"
+    description: Run `flutter analyze` in all packages
+
+  format:
+    run: melos exec -- "dart format . --set-exit-if-changed -l 150"
+    description: Run `dart format .` in all packages
+
+  test:
+    # Only run the test command when the package has a test directory
+    run: melos exec --dir-exists=test -- "flutter test"
+    description: Run `flutter test` in all packages

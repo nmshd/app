@@ -1,0 +1,12 @@
+name: enmeshed
+publish_to: none
+
+repository: https://github.com/nmshd/cns-app
+homepage: https://enmeshed.eu
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dev_dependencies:
+  flutter_lints: ^2.0.1
+  melos: ^2.9.0
