@@ -26,3 +26,11 @@ scripts:
     # Only run the test command when the package has a test directory
     run: melos exec --dir-exists=test -- "flutter test"
     description: Run `flutter test` in all packages
+
+  # https://github.com/dart-code-checker/dart-code-metrics/issues/313
+  # flutter analyze cannot use the dcm plugin
+  metrics:
+    run: melos exec -c 1 -- flutter pub run dart_code_metrics:metrics analyze lib
+    description: |
+      Run `dart_code_metrics` in all packages.
+      - Note: you can also rely on your IDEs Dart Analysis / Issues window.

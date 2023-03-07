@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  push:
+    branches-ignore: [main, release/**]
+
+jobs:
+  run-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2.8.0
+      - run: dart pub global activate melos
+      - run: melos bootstrap
+      - run: melos analyze
+      - run: melos format
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2.8.0
+      - run: dart pub global activate melos
+      - run: melos test
