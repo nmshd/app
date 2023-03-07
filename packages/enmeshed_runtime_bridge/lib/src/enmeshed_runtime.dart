@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:logger/logger.dart';
 
 import 'filesystem_adapter.dart';
 import 'services/services.dart';
@@ -25,15 +26,17 @@ class EnmeshedRuntime {
   late final Session _currentSession;
   Session get currentSession => _currentSession;
 
-  EnmeshedRuntime(this.runtimeReadyCallback) {
+  final Logger _logger;
+
+  EnmeshedRuntime(this.runtimeReadyCallback, {Logger? logger}) : _logger = logger ?? Logger() {
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
         await addJavaScriptHandlers(controller);
-        print('WebView created');
+        _logger.i('WebView created');
       },
       onConsoleMessage: (_, consoleMessage) {
-        print('js runtime: ${consoleMessage.message}');
+        _logger.i('js runtime: ${consoleMessage.message}');
       },
       onLoadStop: (controller, _) async {
         await loadLibs(controller);
@@ -54,7 +57,7 @@ class EnmeshedRuntime {
       handlerName: 'publishEvent',
       callback: (args) async {
         final payload = args[0];
-        print('Event published: $payload');
+        _logger.i('Event published: $payload');
       },
     );
 
@@ -68,7 +71,7 @@ class EnmeshedRuntime {
           final fileContent = await fs.readFile(path, storage);
           return {'ok': true, 'content': fileContent};
         } catch (e) {
-          print('Error reading file: $e');
+          _logger.e('Error reading file: $e');
           return {'ok': false, 'content': e.toString()};
         }
       },
@@ -86,7 +89,7 @@ class EnmeshedRuntime {
           await fs.writeFile(path, storage, data, append);
           return {'ok': true};
         } catch (e) {
-          print('Error writing file: $e');
+          _logger.e('Error writing file: $e');
           return {'ok': false, 'content': e.toString()};
         }
       },
@@ -102,7 +105,7 @@ class EnmeshedRuntime {
           await fs.deleteFile(path, storage);
           return {'ok': true};
         } catch (e) {
-          print('Error deleting file: $e');
+          _logger.e('Error deleting file: $e');
           return {'ok': false, 'content': e.toString()};
         }
       },
@@ -119,17 +122,10 @@ class EnmeshedRuntime {
 
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/loki.js');
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
-
-    final loadedLibs = await controller.evaluateJavascript(
-      source: '''Object.keys(globalThis).filter(x => x.includes("NMSHD") || x.includes("TS"))''',
-    );
-    print(loadedLibs);
   }
 
   Future<void> run() async {
     await _headlessWebView.run();
-
-    print(_isReady);
   }
 
   Future<void> dispose() async {
