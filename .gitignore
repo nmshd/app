@@ -1,2 +1,4 @@
 pubspec_overrides.yaml
 .dart_tool
+node_modules
+build
