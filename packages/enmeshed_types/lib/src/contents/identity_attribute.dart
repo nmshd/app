@@ -1,13 +1,15 @@
-part of 'abstract_attribute.dart';
+import 'abstract_attribute.dart';
+import 'attribute_values/attribute_values.dart';
 
 class IdentityAttribute extends AbstractAttribute {
+  final IdentityAttributeValue value;
   final List<String>? tags;
 
   IdentityAttribute({
     required super.owner,
     super.validFrom,
     super.validTo,
-    required super.value,
+    required this.value,
     this.tags,
   });
 
@@ -20,7 +22,7 @@ class IdentityAttribute extends AbstractAttribute {
         owner: json['owner'],
         validFrom: json['validFrom'],
         validTo: json['validTo'],
-        value: json['value'],
+        value: IdentityAttributeValue.fromJson(json['value']),
         tags: json['tags'],
       );
 
@@ -28,6 +30,7 @@ class IdentityAttribute extends AbstractAttribute {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         '@type': 'IdentityAttribute',
+        'value': value.toJson(),
         if (tags != null) 'tags': tags,
       };
 }

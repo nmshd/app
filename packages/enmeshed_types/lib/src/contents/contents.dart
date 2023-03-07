@@ -1,6 +1,9 @@
 export 'abstract_attribute.dart';
 export 'attribute_query/attribute_query.dart';
+export 'attribute_values/attribute_values.dart';
+export 'identity_attribute.dart';
 export 'message_content/message_content.dart';
+export 'relationship_attribute.dart';
 export 'relationship_change_request_content/relationship_change_request_content.dart';
 export 'relationship_change_response_content.dart';
 export 'relationship_template_content.dart';
