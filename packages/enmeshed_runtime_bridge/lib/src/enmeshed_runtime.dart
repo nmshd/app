@@ -17,7 +17,7 @@ class EnmeshedRuntime {
   final _filesystemAdapter = FilesystemAdapter();
   FilesystemAdapter get fs => _filesystemAdapter;
 
-  final VoidCallback? runtimeReadyCallback;
+  final VoidCallback? _runtimeReadyCallback;
 
   late final AccountServices _accountServices;
   AccountServices get accountServices => _accountServices;
@@ -29,12 +29,13 @@ class EnmeshedRuntime {
   Session get currentSession => _currentSession;
 
   final Logger _logger;
-  final Completer runtimeReadyCompleter = Completer();
+  final _runtimeReadyCompleter = Completer();
 
   EnmeshedRuntime({
     Logger? logger,
-    this.runtimeReadyCallback,
-  }) : _logger = logger ?? Logger() {
+    VoidCallback? runtimeReadyCallback,
+  })  : _logger = logger ?? Logger(),
+        _runtimeReadyCallback = runtimeReadyCallback {
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
@@ -57,6 +58,11 @@ class EnmeshedRuntime {
   }
 
   Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
+
+  Future<void> selectAccount(String accountReference) async {
+    final result = await evaluateJavascript('await runtime.selectAccount(username, "")');
+    result.throwOnError();
+  }
 
   Future<void> addJavaScriptHandlers(InAppWebViewController controller) async {
     controller.addJavaScriptHandler(
@@ -121,8 +127,8 @@ class EnmeshedRuntime {
       handlerName: 'runtimeReady',
       callback: (_) {
         _isReady = true;
-        runtimeReadyCallback?.call();
-        runtimeReadyCompleter.complete();
+        _runtimeReadyCallback?.call();
+        _runtimeReadyCompleter.complete();
       },
     );
   }
@@ -134,8 +140,11 @@ class EnmeshedRuntime {
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
   }
 
-  Future<void> run() async {
+  Future<EnmeshedRuntime> run() async {
     await _headlessWebView.run();
+    await _runtimeReadyCompleter.future;
+
+    return this;
   }
 
   Future<void> dispose() async {
