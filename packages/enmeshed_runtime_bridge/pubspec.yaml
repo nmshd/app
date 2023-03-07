@@ -15,9 +15,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_inappwebview: ^5.7.2+3
+  logger: ^1.2.2
   path_provider: ^2.0.13
 
 dev_dependencies:
+  dart_code_metrics: ^5.6.0
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter

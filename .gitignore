@@ -3,3 +3,4 @@ pubspec_overrides.yaml
 node_modules
 build
 .flutter-plugins
+.flutter-plugins-dependencies

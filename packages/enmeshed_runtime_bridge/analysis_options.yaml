@@ -1,6 +1,1 @@
 include: ../../analysis_options.yaml
-
-linter:
-  rules:
-    # TODO: Remove this once we use a logger
-    avoid_print: false
