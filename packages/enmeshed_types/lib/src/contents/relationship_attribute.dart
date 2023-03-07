@@ -1,8 +1,10 @@
-part of 'abstract_attribute.dart';
+import 'abstract_attribute.dart';
+import 'attribute_values/attribute_values.dart';
 
 enum RelationshipAttributeConfidentiality { public, private, protected }
 
 class RelationshipAttribute extends AbstractAttribute {
+  final RelationshipAttributeValue value;
   final String key;
   final bool? isTechnical;
   final RelationshipAttributeConfidentiality confidentiality;
@@ -11,7 +13,7 @@ class RelationshipAttribute extends AbstractAttribute {
     required super.owner,
     super.validFrom,
     super.validTo,
-    required super.value,
+    required this.value,
     required this.key,
     this.isTechnical,
     required this.confidentiality,
@@ -26,7 +28,7 @@ class RelationshipAttribute extends AbstractAttribute {
         owner: json['owner'],
         validFrom: json['validFrom'],
         validTo: json['validTo'],
-        value: json['value'],
+        value: RelationshipAttributeValue.fromJson(json['value']),
         key: json['key'],
         isTechnical: json['isTechnical'],
         confidentiality: RelationshipAttributeConfidentiality.values.byName(json['confidentiality']),
@@ -36,6 +38,7 @@ class RelationshipAttribute extends AbstractAttribute {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         '@type': 'RelationshipAttribute',
+        'value': value.toJson(),
         'key': key,
         if (isTechnical != null) 'isTechnical': isTechnical,
         'confidentiality': confidentiality.name,

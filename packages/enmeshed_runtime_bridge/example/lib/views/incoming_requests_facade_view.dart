@@ -193,209 +193,239 @@ class IncomingRequestsFacadeView extends StatelessWidget {
 
   IdentityAttribute generateIdentityAtrribute(IdentityAttributeQuery query, String currentIdentityAddress) {
     final type = query.valueType;
-    if (type == 'AffiliationOrganization' ||
-        type == 'AffiliationRole' ||
-        type == 'AffiliationUnit' ||
-        type == 'BirthCity' ||
-        type == 'BirthName' ||
-        type == 'BirthState' ||
-        type == 'City' ||
-        type == 'DisplayName' ||
-        type == 'FileReference' ||
-        type == 'GivenName' ||
-        type == 'HonorificPrefix' ||
-        type == 'HonorificSuffix' ||
-        type == 'HouseNumber' ||
-        type == 'JobTitle' ||
-        type == 'MiddleName' ||
-        type == 'PhoneNumber' ||
-        type == 'Pseudonym' ||
-        type == 'State' ||
-        type == 'Street' ||
-        type == 'Surname' ||
-        type == 'ZipCode') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 'Test$type',
-        },
-      );
-    } else if (type == 'Affiliation') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'role': 'TestRole',
-          'organization': 'TestOrganization',
-          'unit': 'TestUnit',
-        },
-      );
-    } else if (type == 'BirthCountry') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 'DE',
-        },
-      );
-    } else if (type == 'BirthDate') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'day': 1,
-          'month': 1,
-          'year': 2000,
-        },
-      );
-    } else if (type == 'BirthDay') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 5,
-        },
-      );
-    } else if (type == 'BirthMonth') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 5,
-        },
-      );
-    } else if (type == 'BirthPlace') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'city': 'TestCity',
-          'country': 'DE',
-        },
-      );
-    } else if (type == 'BirthYear') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 2000,
-        },
-      );
-    } else if (type == 'Citizenship') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 'DE',
-        },
-      );
-    } else if (type == 'CommunicationLanguage') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 'de',
-        },
-      );
-    } else if (type == 'Country') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 'DE',
-        },
-      );
-    } else if (type == 'DeliveryBoxAddress') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'recipient': 'TestRecipient',
-          'deliveryBoxId': 'TestDeliveryBoxId',
-          'userId': 'TestUserId',
-          'zipCode': 'TestZipCode',
-          'city': 'TestCity',
-          'country': 'DE',
-        },
-      );
-    } else if (type == 'EMailAddress') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 'test@test.com',
-        },
-      );
-    } else if (type == 'FaxNumber') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': '123456789',
-        },
-      );
-    } else if (type == 'Nationality') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 'DE',
-        },
-      );
-    } else if (type == 'PersonName') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'givenName': 'TestGivenName',
-          'surname': 'TestSurname',
-        },
-      );
-    } else if (type == 'PostOfficeBoxAddress') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'recipient': 'TestRecipient',
-          'boxId': 'TestBoxId',
-          'zipCode': 'TestZipCode',
-          'city': 'TestCity',
-          'country': 'DE',
-        },
-      );
-    } else if (type == 'Sex') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 'male',
-        },
-      );
-    } else if (type == 'StreetAddress') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'recipient': 'TestRecipient',
-          'street': 'TestStreet',
-          'houseNo': 'TestHouseNumber',
-          'zipCode': 'TestZipCode',
-          'city': 'TestCity',
-          'country': 'DE',
-          'state': 'TestState',
-        },
-      );
-    } else if (type == 'Website') {
-      return IdentityAttribute(
-        owner: currentIdentityAddress,
-        value: {
-          '@type': type,
-          'value': 'www.testwebsite.com',
-        },
-      );
-    } else {
-      throw UnimplementedError();
+    switch (type) {
+      case 'AffiliationOrganization':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: AffiliationOrganization(value: 'Test$type'),
+        );
+      case 'AffiliationRole':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: AffiliationRole(value: 'Test$type'),
+        );
+      case 'AffiliationUnit':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: AffiliationUnit(value: 'Test$type'),
+        );
+      case 'BirthCity':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: BirthCity(value: 'Test$type'),
+        );
+      case 'BirthName':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: BirthName(value: 'Test$type'),
+        );
+      case 'BirthState':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: BirthState(value: 'Test$type'),
+        );
+      case 'City':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: City(value: 'Test$type'),
+        );
+      case 'DisplayName':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: DisplayName(value: 'Test$type'),
+        );
+      case 'FileReference':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: FileReference(value: 'Test${type}WithMinimunLengthOf30'),
+        );
+      case 'GivenName':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: GivenName(value: 'Test$type'),
+        );
+      case 'HonorificPrefix':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: HonorificPrefix(value: 'Test$type'),
+        );
+      case 'HonorificSuffix':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: HonorificSuffix(value: 'Test$type'),
+        );
+      case 'HouseNumber':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: HouseNumber(value: 'Test$type'),
+        );
+      case 'JobTitle':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: JobTitle(value: 'Test$type'),
+        );
+      case 'MiddleName':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: MiddleName(value: 'Test$type'),
+        );
+      case 'PhoneNumber':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: PhoneNumber(value: 'Test$type'),
+        );
+      case 'Pseudonym':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: Pseudonym(value: 'Test$type'),
+        );
+      case 'State':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: StateAttribute(value: 'Test$type'),
+        );
+      case 'Street':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: Street(value: 'Test$type'),
+        );
+      case 'Surname':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: Surname(value: 'Test$type'),
+        );
+      case 'ZipCode':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: ZipCode(value: 'Test$type'),
+        );
+      case 'Affiliation':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: Affiliation(role: 'TestRole', organization: 'TestOrganization', unit: 'TestUnit'),
+        );
+      case 'BirthCountry':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: BirthCountry(value: 'DE'),
+        );
+      case 'BirthDate':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: BirthDate(day: 1, month: 1, year: 2000),
+        );
+      case 'BirthDay':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: BirthDay(value: 5),
+        );
+      case 'BirthMonth':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: BirthMonth(value: 5),
+        );
+      case 'BirthPlace':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: BirthPlace(city: 'TestCity', country: 'DE'),
+        );
+      case 'BirthYear':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: BirthYear(value: 2000),
+        );
+      case 'Citizenship':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: Citizenship(value: 'DE'),
+        );
+      case 'CommunicationLanguage':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: CommunicationLanguage(value: 'de'),
+        );
+      case 'Country':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: Country(value: 'DE'),
+        );
+      case 'DeliveryBoxAddress':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: DeliveryBoxAddress(
+            recipient: 'recipient',
+            deliveryBoxId: 'deliveryBoxId',
+            userId: 'userId',
+            zipCode: 'zipCode',
+            city: 'city',
+            country: 'country',
+            phoneNumber: 'phoneNumber',
+            state: 'state',
+          ),
+        );
+      case 'EMailAddress':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: EMailAddress(value: 'test@test.com'),
+        );
+      case 'FaxNumber':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: FaxNumber(value: '123456789'),
+        );
+      case 'Nationality':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: Nationality(value: 'DE'),
+        );
+      case 'PersonName':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: PersonName(
+            givenName: 'givenName',
+            surname: 'surname',
+            honorificPrefix: 'honorificPrefix',
+            honorificSuffix: 'honorificSuffix',
+            middleName: 'middleName',
+          ),
+        );
+      case 'PostOfficeBoxAddress':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: PostOfficeBoxAddress(
+            recipient: 'recipient',
+            boxId: 'boxId',
+            zipCode: 'zipCode',
+            city: 'city',
+            country: 'DE',
+            state: 'state',
+          ),
+        );
+      case 'Sex':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: Sex(value: 'male'),
+        );
+      case 'StreetAddress':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: StreetAddress(
+            recipient: 'recipient',
+            street: 'street',
+            houseNumber: 'houseNumber',
+            zipCode: 'zipCode',
+            city: 'city',
+            country: 'country',
+            state: 'state',
+          ),
+        );
+      case 'Website':
+        return IdentityAttribute(
+          owner: currentIdentityAddress,
+          value: Website(value: 'www.testwebsite.com'),
+        );
+      default:
+        throw UnimplementedError();
     }
   }
 
@@ -405,101 +435,100 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       case 'Consent':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'Consent', 'consent': 'testConsent'},
+          value: Consent(consent: 'TestConsent'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryBoolean':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryBoolean', 'title': 'aTitle', 'value': true},
+          value: ProprietaryBoolean(title: 'atitle', value: true),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryCountry':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryCountry', 'title': 'aTitle', 'value': 'DE'},
+          value: ProprietaryCountry(title: 'atitle', value: 'DE'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryEMailAddress':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryEMailAddress', 'title': 'aTitle', 'value': 'test@test.com'},
+          value: ProprietaryEMailAddress(title: 'atitle', value: 'test@test.com'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryFileReference':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryFileReference', 'title': 'aTitle', 'value': 'fileReference'},
+          value: ProprietaryFileReference(title: 'atitle', value: 'fileReference'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryFloat':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryFloat', 'title': 'aTitle', 'value': 25.5},
+          value: ProprietaryFloat(title: 'atitle', value: 25.5),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryHEXColor':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryHEXColor', 'title': 'aTitle', 'value': '#3d6dba'},
+          value: ProprietaryHEXColor(title: 'aTitle', value: '3d6dba'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryInteger':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryInteger', 'title': 'aTitle', 'value': 1},
+          value: ProprietaryInteger(title: 'atitle', value: 5),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryJSON':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {
-            '@type': 'ProprietaryJSON',
-            'title': 'aTitle',
-            'value': {
+          value: ProprietaryJSON(
+            title: 'atitle',
+            value: {
               'foo': 'bar',
               'baz': 123,
               'qux': true,
               'quux': {'corge': 'grault'},
               'garply': ['waldo', 'fred', 'plugh'],
             },
-          },
+          ),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryLanguage':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryLanguage', 'title': 'aTitle', 'value': 'de'},
+          value: ProprietaryLanguage(title: 'atitle', value: 'de'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryPhoneNumber':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryPhoneNumber', 'title': 'aTitle', 'value': '123456789'},
+          value: ProprietaryPhoneNumber(title: 'atitle', value: '123456789'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryString':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryString', 'title': 'aTitle', 'value': 'propString'},
+          value: ProprietaryString(title: 'atitle', value: 'propString'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryURL':
         return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: {'@type': 'ProprietaryURL', 'title': 'aTitle', 'value': 'www.google.com'},
+          value: ProprietaryURL(title: 'atitle', value: 'www.google.com'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
         );

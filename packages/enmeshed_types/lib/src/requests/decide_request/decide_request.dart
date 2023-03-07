@@ -33,6 +33,7 @@ abstract class DecideRequestItemParameters extends DecideRequestParametersItem {
 
 class DecideRequestItemGroupParameters extends DecideRequestParametersItem {
   List<DecideRequestItemParameters> items;
+
   DecideRequestItemGroupParameters({required this.items});
 
   @override

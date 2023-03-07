@@ -1,19 +1,17 @@
 import 'package:meta/meta.dart';
 
-part 'identitiy_attribute.dart';
-part 'relationship_attribute.dart';
+import 'identity_attribute.dart';
+import 'relationship_attribute.dart';
 
 abstract class AbstractAttribute {
   final String owner;
   final String? validFrom;
   final String? validTo;
-  final Map<String, dynamic> value;
 
   AbstractAttribute({
     required this.owner,
     this.validFrom,
     this.validTo,
-    required this.value,
   });
 
   static fromJson(Map<String, dynamic> json) {
@@ -35,6 +33,5 @@ abstract class AbstractAttribute {
         'owner': owner,
         if (validFrom != null) 'validFrom': validFrom,
         if (validTo != null) 'validTo': validTo,
-        'value': value,
       };
 }

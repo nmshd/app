@@ -179,6 +179,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
 class SendMailView extends StatelessWidget {
   final void Function(String body, String subject) onTriggerSend;
+
   SendMailView({super.key, required this.onTriggerSend});
 
   final subjectController = TextEditingController();
@@ -225,6 +226,7 @@ class SendMailView extends StatelessWidget {
 
 class RelationshipsView extends StatelessWidget {
   final List<RelationshipDTO> relationships;
+
   const RelationshipsView({super.key, required this.relationships});
 
   @override
@@ -244,6 +246,7 @@ class RelationshipsView extends StatelessWidget {
 
 class MessagesView extends StatelessWidget {
   final List<MessageDTO> messages;
+
   const MessagesView({super.key, required this.messages});
 
   @override
@@ -267,6 +270,7 @@ class MessagesView extends StatelessWidget {
 class RequestsView extends StatelessWidget {
   final List<LocalRequestDTO> requests;
   final EnmeshedRuntime runtime;
+
   const RequestsView({super.key, required this.requests, required this.runtime});
 
   @override
@@ -296,6 +300,7 @@ class RequestsView extends StatelessWidget {
 class RequestView extends StatelessWidget {
   final LocalRequestDTO request;
   final EnmeshedRuntime runtime;
+
   const RequestView({super.key, required this.request, required this.runtime});
 
   @override

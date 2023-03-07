@@ -3,6 +3,7 @@ part of 'response_item.dart';
 class RejectResponseItem extends ResponseItemDerivation {
   final String? code;
   final String? message;
+
   RejectResponseItem({
     this.code,
     this.message,
