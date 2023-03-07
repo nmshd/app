@@ -117,7 +117,7 @@ class _ScannerViewState extends State<ScannerView> with SingleTickerProviderStat
 
     final barcode = barcodeCapture.barcodes.first;
     if (barcode.rawValue == null) {
-      debugPrint('Failed to scan Barcode');
+      print('Failed to scan Barcode');
       return;
     }
 
