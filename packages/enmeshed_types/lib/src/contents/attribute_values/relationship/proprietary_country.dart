@@ -3,6 +3,7 @@ import 'proprietary_attribute_value.dart';
 
 class ProprietaryCountry extends ProprietaryAttributeValue {
   final String value;
+
   ProprietaryCountry({
     required super.title,
     super.description,

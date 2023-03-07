@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class FileReference extends IdentityAttributeValue {
   final String value;
+
   FileReference({
     required this.value,
   });

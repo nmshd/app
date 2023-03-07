@@ -4,6 +4,7 @@ abstract class AcceptReadAttributeRequestItemParameters extends AcceptRequestIte
 
 class AcceptReadAttributeRequestItemParametersWithExistingAttribute extends AcceptRequestItemParameters {
   final String existingAttributeId;
+
   AcceptReadAttributeRequestItemParametersWithExistingAttribute({required this.existingAttributeId});
 
   @override
@@ -12,6 +13,7 @@ class AcceptReadAttributeRequestItemParametersWithExistingAttribute extends Acce
 
 class AcceptReadAttributeRequestItemParametersWithNewAttribute extends AcceptRequestItemParameters {
   final AbstractAttribute newAttribute;
+
   AcceptReadAttributeRequestItemParametersWithNewAttribute({required this.newAttribute});
 
   @override

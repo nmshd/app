@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class Pseudonym extends IdentityAttributeValue {
   final String value;
+
   Pseudonym({
     required this.value,
   });

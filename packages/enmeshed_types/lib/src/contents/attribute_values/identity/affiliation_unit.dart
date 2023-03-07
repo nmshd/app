@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class AffiliationUnit extends IdentityAttributeValue {
   final String value;
+
   AffiliationUnit({
     required this.value,
   });

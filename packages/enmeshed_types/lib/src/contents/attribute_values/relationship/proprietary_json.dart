@@ -4,6 +4,7 @@ class ProprietaryJSON extends RelationshipAttributeValue {
   final String title;
   final String? description;
   final Map<String, dynamic> value;
+
   ProprietaryJSON({
     required this.title,
     this.description,

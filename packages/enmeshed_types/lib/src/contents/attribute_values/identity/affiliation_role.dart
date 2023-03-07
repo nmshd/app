@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class AffiliationRole extends IdentityAttributeValue {
   final String value;
+
   AffiliationRole({
     required this.value,
   });

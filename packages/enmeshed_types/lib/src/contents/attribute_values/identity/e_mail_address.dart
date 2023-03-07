@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class EMailAddress extends IdentityAttributeValue {
   final String value;
+
   EMailAddress({
     required this.value,
   });

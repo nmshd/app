@@ -5,6 +5,7 @@ abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
   final String title;
   final String? description;
   final ValueHints? valueHintsOverride;
+
   ProprietaryAttributeValue({
     required this.title,
     this.description,

@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class HouseNumber extends IdentityAttributeValue {
   final String value;
+
   HouseNumber({
     required this.value,
   });

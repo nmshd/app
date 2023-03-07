@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class Street extends IdentityAttributeValue {
   final String value;
+
   Street({
     required this.value,
   });

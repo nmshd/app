@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class Sex extends IdentityAttributeValue {
   final String value;
+
   Sex({
     required this.value,
   });

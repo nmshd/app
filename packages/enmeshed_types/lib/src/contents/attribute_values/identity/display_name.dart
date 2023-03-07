@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class DisplayName extends IdentityAttributeValue {
   final String value;
+
   DisplayName({
     required this.value,
   });

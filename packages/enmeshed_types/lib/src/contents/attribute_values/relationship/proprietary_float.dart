@@ -3,6 +3,7 @@ import 'proprietary_attribute_value.dart';
 
 class ProprietaryFloat extends ProprietaryAttributeValue {
   final double value;
+
   ProprietaryFloat({
     required super.title,
     super.description,

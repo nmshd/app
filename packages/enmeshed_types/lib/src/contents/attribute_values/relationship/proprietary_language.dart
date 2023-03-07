@@ -3,6 +3,7 @@ import 'proprietary_attribute_value.dart';
 
 class ProprietaryLanguage extends ProprietaryAttributeValue {
   final String value;
+
   ProprietaryLanguage({
     required super.title,
     super.description,

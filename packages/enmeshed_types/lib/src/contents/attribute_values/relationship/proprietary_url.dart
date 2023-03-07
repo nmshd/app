@@ -3,6 +3,7 @@ import 'proprietary_attribute_value.dart';
 
 class ProprietaryURL extends ProprietaryAttributeValue {
   final String value;
+
   ProprietaryURL({
     required super.title,
     super.description,

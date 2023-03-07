@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class PhoneNumber extends IdentityAttributeValue {
   final String value;
+
   PhoneNumber({
     required this.value,
   });

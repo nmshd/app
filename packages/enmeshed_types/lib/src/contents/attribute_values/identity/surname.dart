@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class Surname extends IdentityAttributeValue {
   final String value;
+
   Surname({
     required this.value,
   });

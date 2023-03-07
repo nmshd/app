@@ -8,6 +8,7 @@ class StreetAddress extends IdentityAttributeValue {
   final String city;
   final String country;
   final String state;
+
   StreetAddress({
     required this.recipient,
     required this.street,

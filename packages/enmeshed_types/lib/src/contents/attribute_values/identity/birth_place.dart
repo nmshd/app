@@ -4,6 +4,7 @@ class BirthPlace extends IdentityAttributeValue {
   final String city;
   final String country;
   final String? state;
+
   BirthPlace({
     required this.city,
     required this.country,

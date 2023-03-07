@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class Website extends IdentityAttributeValue {
   final String value;
+
   Website({
     required this.value,
   });

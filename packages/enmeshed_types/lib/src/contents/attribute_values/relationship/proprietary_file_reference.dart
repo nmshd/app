@@ -3,6 +3,7 @@ import 'proprietary_attribute_value.dart';
 
 class ProprietaryFileReference extends ProprietaryAttributeValue {
   final String value;
+
   ProprietaryFileReference({
     required super.title,
     super.description,

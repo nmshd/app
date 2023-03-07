@@ -3,6 +3,7 @@ import 'proprietary_attribute_value.dart';
 
 class ProprietaryBoolean extends ProprietaryAttributeValue {
   final bool value;
+
   ProprietaryBoolean({
     required super.title,
     super.description,

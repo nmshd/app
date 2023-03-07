@@ -3,6 +3,7 @@ import 'proprietary_attribute_value.dart';
 
 class ProprietaryInteger extends ProprietaryAttributeValue {
   final int value;
+
   ProprietaryInteger({
     required super.title,
     super.description,

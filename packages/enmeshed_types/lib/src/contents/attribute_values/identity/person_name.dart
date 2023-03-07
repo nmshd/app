@@ -6,6 +6,7 @@ class PersonName extends IdentityAttributeValue {
   final String surname;
   final String? honorificSuffix;
   final String? honorificPrefix;
+
   PersonName({
     required this.givenName,
     this.middleName,

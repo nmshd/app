@@ -3,6 +3,7 @@ import 'proprietary_attribute_value.dart';
 
 class ProprietaryPhoneNumber extends ProprietaryAttributeValue {
   final String value;
+
   ProprietaryPhoneNumber({
     required super.title,
     super.description,

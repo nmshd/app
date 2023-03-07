@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class GivenName extends IdentityAttributeValue {
   final String value;
+
   GivenName({
     required this.value,
   });

@@ -3,6 +3,7 @@ import 'proprietary_attribute_value.dart';
 
 class ProprietaryHEXColor extends ProprietaryAttributeValue {
   final String value;
+
   ProprietaryHEXColor({
     required super.title,
     super.description,

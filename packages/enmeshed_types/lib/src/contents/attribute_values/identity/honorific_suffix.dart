@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class HonorificSuffix extends IdentityAttributeValue {
   final String value;
+
   HonorificSuffix({
     required this.value,
   });

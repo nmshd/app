@@ -4,6 +4,7 @@ class Affiliation extends IdentityAttributeValue {
   final String role;
   final String organization;
   final String unit;
+
   Affiliation({
     required this.role,
     required this.organization,

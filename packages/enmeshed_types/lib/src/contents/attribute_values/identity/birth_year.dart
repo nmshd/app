@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class BirthYear extends IdentityAttributeValue {
   final int value;
+
   BirthYear({
     required this.value,
   });

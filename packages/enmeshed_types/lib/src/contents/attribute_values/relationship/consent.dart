@@ -5,6 +5,7 @@ class Consent extends RelationshipAttributeValue {
   final String consent;
   final ValueHints? valueHintsOverride;
   final String? link;
+
   Consent({
     required this.consent,
     this.valueHintsOverride,

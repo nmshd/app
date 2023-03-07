@@ -9,6 +9,7 @@ class DeliveryBoxAddress extends IdentityAttributeValue {
   final String country;
   final String? phoneNumber;
   final String? state;
+
   DeliveryBoxAddress({
     required this.recipient,
     required this.deliveryBoxId,

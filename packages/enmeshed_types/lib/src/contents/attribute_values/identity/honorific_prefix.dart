@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class HonorificPrefix extends IdentityAttributeValue {
   final String value;
+
   HonorificPrefix({
     required this.value,
   });

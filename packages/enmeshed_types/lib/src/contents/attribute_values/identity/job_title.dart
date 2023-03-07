@@ -2,6 +2,7 @@ import 'identity_attriube_value.dart';
 
 class JobTitle extends IdentityAttributeValue {
   final String value;
+
   JobTitle({
     required this.value,
   });

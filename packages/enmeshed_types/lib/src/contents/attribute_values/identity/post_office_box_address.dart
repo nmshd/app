@@ -7,6 +7,7 @@ class PostOfficeBoxAddress extends IdentityAttributeValue {
   final String city;
   final String country;
   final String? state;
+
   PostOfficeBoxAddress({
     required this.recipient,
     required this.boxId,
