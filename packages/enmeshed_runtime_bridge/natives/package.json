@@ -1,0 +1,27 @@
+{
+  "name": "natives",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --minify --target=chrome60,firefox60,safari11,edge18 --outdir=../assets",
+    "build:watch": "npm run build -- --watch",
+    "lint:prettier": "prettier --check ."
+  },
+  "dependencies": {
+    "@js-soft/logging-abstractions": "^1.0.0",
+    "@js-soft/native-abstractions": "^1.2.1",
+    "@js-soft/ts-utils": "^2.3.1",
+    "@nmshd/app-runtime": "2.3.3",
+    "@nmshd/runtime": "2.4.4",
+    "js-logger": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.2.0",
+    "@types/node": "^18.14.6",
+    "esbuild": "^0.17.11",
+    "luxon": "^3.3.0",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
+  }
+}
