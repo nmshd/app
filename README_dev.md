@@ -7,7 +7,7 @@
 
   TLDR: `dart pub global activate melos`
 
-  Make sure to [add the system cache bin directory to your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path) (e.g. `export PATH="$PATH":"$HOME/.pub-cache/bin"` for mac and linux).
+  Make sure to [add the system cache bin directory to your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path) (`$HOME/.pub-cache/bin` for mac and linux and `%LOCALAPPDATA%\Pub\Cache\bin` for most Windows versions).
 
 ## Getting Started
 
