@@ -6,9 +6,10 @@ Framework for building apps using the Enmeshed Runtime with Dart and Flutter.
 
 ## Packages
 
-| Package                                   | Description                                                 |
-| ----------------------------------------- | ----------------------------------------------------------- |
-| [enmeshed_types](packages/enmeshed_types) | Enmeshed types translated from TypeScript / JSON into Dart. |
+| Package                                                     | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- |
+| [enmeshed_types](packages/enmeshed_types)                   | Enmeshed types translated from TypeScript / JSON into Dart. |
+| [enmeshed_runtime_bridge](packages/enmeshed_runtime_bridge) | A bridge between the Enmeshed TypeScript runtime and Dart.  |
 
 ## Apps
 
