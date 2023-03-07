@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
@@ -15,7 +17,7 @@ class EnmeshedRuntime {
   final _filesystemAdapter = FilesystemAdapter();
   FilesystemAdapter get fs => _filesystemAdapter;
 
-  final VoidCallback runtimeReadyCallback;
+  final VoidCallback? runtimeReadyCallback;
 
   late final AccountServices _accountServices;
   AccountServices get accountServices => _accountServices;
@@ -27,8 +29,12 @@ class EnmeshedRuntime {
   Session get currentSession => _currentSession;
 
   final Logger _logger;
+  final Completer runtimeReadyCompleter = Completer();
 
-  EnmeshedRuntime(this.runtimeReadyCallback, {Logger? logger}) : _logger = logger ?? Logger() {
+  EnmeshedRuntime({
+    Logger? logger,
+    this.runtimeReadyCallback,
+  }) : _logger = logger ?? Logger() {
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
@@ -113,7 +119,11 @@ class EnmeshedRuntime {
 
     controller.addJavaScriptHandler(
       handlerName: 'runtimeReady',
-      callback: (_) => {_isReady = true, runtimeReadyCallback()},
+      callback: (_) {
+        _isReady = true;
+        runtimeReadyCallback?.call();
+        runtimeReadyCompleter.complete();
+      },
     );
   }
 

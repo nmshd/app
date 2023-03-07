@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    runtime = EnmeshedRuntime(() {
+    runtime = EnmeshedRuntime(runtimeReadyCallback: () {
       print('Runtime ready');
       setState(() {
         runtimeReady = true;
