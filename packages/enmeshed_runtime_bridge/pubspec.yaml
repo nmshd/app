@@ -1,0 +1,43 @@
+name: enmeshed_runtime_bridge
+description: A bridge between the Enmeshed TypeScript runtime and Dart.
+version: 1.0.0
+publish_to: none
+
+repository: https://github.com/nmshd/cns-app
+homepage: https://enmeshed.eu
+
+environment:
+  sdk: ">=2.19.3 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  enmeshed_types: 1.0.0
+  flutter:
+    sdk: flutter
+  flutter_inappwebview: ^5.7.2+3
+  path_provider: ^2.0.13
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  windows:
+
+flutter:
+  assets:
+    - assets/loki.js
+    - assets/index.js
+    # - assets/main.js
+    # - natives/node_modules/@js-soft/ts-serval/lib-web/tsserval.js
+    # - natives/node_modules/@nmshd/crypto/lib-web/nmshd.crypto.js
+    # - natives/node_modules/@nmshd/transport/lib-web/nmshd.transport.js
+    # - natives/node_modules/@nmshd/content/lib-web/nmshd.content.js
+    # - natives/node_modules/@nmshd/consumption/lib-web/nmshd.consumption.js
+    # - natives/node_modules/@nmshd/runtime/lib-web/nmshd.runtime.js
+    # - natives/node_modules/@nmshd/app-runtime/lib-web/nmshd.app-runtime.js
