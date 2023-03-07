@@ -18,7 +18,4 @@ abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
         if (description != null) 'description': description,
         if (valueHintsOverride != null) 'valueHintsOverride': valueHintsOverride?.toJson(),
       };
-
-  @override
-  String toString() => 'ProprietaryAttributeValue(title: $title, description: $description, valueHintsOverride: $valueHintsOverride)';
 }
