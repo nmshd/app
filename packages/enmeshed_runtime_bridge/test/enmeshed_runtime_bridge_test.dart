@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('runtime is not ready', () {
     WidgetsFlutterBinding.ensureInitialized();
-    final runtime = EnmeshedRuntime(() {});
+    final runtime = EnmeshedRuntime(runtimeReadyCallback: () {});
     expect(runtime.isReady, false);
   });
 }
