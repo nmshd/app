@@ -3,7 +3,11 @@
 ## Prerequisites
 
 - [Flutter](https://flutter.dev/docs/get-started/install) (we are using the `stable` channel)
-- [melos](https://melos.invertase.dev/getting-started) (dart pub global activate melos)
+- [melos](https://melos.invertase.dev/getting-started)
+
+  TLDR: `dart pub global activate melos`
+
+  Make sure to [add the system cache bin directory to your path](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path) (e.g. `export PATH="$PATH":"$HOME/.pub-cache/bin"` for mac and linux).
 
 ## Getting Started
 
