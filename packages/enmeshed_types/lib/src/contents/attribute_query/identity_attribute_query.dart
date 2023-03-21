@@ -3,14 +3,12 @@ part of 'attribute_query.dart';
 class IdentityAttributeQuery extends AttributeQuery {
   final String valueType;
   final List<String>? tags;
-  final String? validFrom;
-  final String? validTo;
 
-  IdentityAttributeQuery({
+  const IdentityAttributeQuery({
     required this.valueType,
     this.tags,
-    this.validFrom,
-    this.validTo,
+    super.validFrom,
+    super.validTo,
   });
 
   factory IdentityAttributeQuery.fromJson(Map<String, dynamic> json) {
@@ -35,4 +33,11 @@ class IdentityAttributeQuery extends AttributeQuery {
 
   @override
   String toString() => 'IdentityAttributeQuery(valueType: $valueType, tags: $tags)';
+
+  @override
+  List<Object?> get props => [
+        super.props,
+        valueType,
+        tags,
+      ];
 }

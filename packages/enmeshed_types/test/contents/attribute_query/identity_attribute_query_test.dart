@@ -8,12 +8,19 @@ void main() {
     });
 
     test('valid IdentityAttributeQuery', () {
-      final identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress');
-      expect(identityAttributeQuery.toJson(), equals({'@type': 'IdentityAttributeQuery', 'valueType': 'StreetAddress'}));
+      const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress');
+      final identityJson = identityAttributeQuery.toJson();
+      expect(
+        identityJson,
+        equals({
+          '@type': 'IdentityAttributeQuery',
+          'valueType': 'StreetAddress',
+        }),
+      );
     });
 
     test('valid IdentityAttributeQuery with tags', () {
-      final identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', tags: const ['tag1', 'tag2']);
+      const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', tags: ['tag1', 'tag2']);
       expect(
         identityAttributeQuery.toJson(),
         equals({
@@ -25,16 +32,25 @@ void main() {
     });
 
     test('valid IdentityAttributeQuery with validFrom and validTo', () {
-      final identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '20220131', validTo: '20230131');
+      const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1970');
       expect(
         identityAttributeQuery.toJson(),
-        equals({'@type': 'IdentityAttributeQuery', 'valueType': 'StreetAddress', 'validFrom': '20220131', 'validTo': '20230131'}),
+        equals({
+          '@type': 'IdentityAttributeQuery',
+          'valueType': 'StreetAddress',
+          'validFrom': '20220131',
+          'validTo': '20230131',
+        }),
       );
     });
 
     test('valid IdentityAttributeQuery with validFrom, validTo and tags', () {
-      final identityAttributeQuery =
-          IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '20220131', validTo: '20230131', tags: const ['tag1', 'tag2']);
+      const identityAttributeQuery = IdentityAttributeQuery(
+        valueType: 'StreetAddress',
+        validFrom: '20220131',
+        validTo: '20230131',
+        tags: ['tag1', 'tag2'],
+      );
       expect(
         identityAttributeQuery.toJson(),
         equals({
@@ -55,7 +71,7 @@ void main() {
 
     test('valid IdentityAttributeQuery', () {
       final json = {'valueType': 'StreetAddress'};
-      expect(IdentityAttributeQuery.fromJson(json).valueType, equals('StreetAddress'));
+      expect(IdentityAttributeQuery.fromJson(json), equals(const IdentityAttributeQuery(valueType: 'StreetAddress')));
     });
 
     test('valid IdentityAttributeQuery with tags', () {
@@ -64,8 +80,7 @@ void main() {
         'tags': ['tag1', 'tag2'],
       };
 
-      expect(IdentityAttributeQuery.fromJson(json).valueType, equals('StreetAddress'));
-      expect(IdentityAttributeQuery.fromJson(json).tags, equals(['tag1', 'tag2']));
+      expect(IdentityAttributeQuery.fromJson(json), equals(const IdentityAttributeQuery(valueType: 'StreetAddress', tags: ['tag1', 'tag2'])));
     });
 
     test('valid IdentityAttributeQuery with validFrom and validTo', () {
@@ -75,9 +90,14 @@ void main() {
         'validTo': '20230131',
       };
 
-      expect(IdentityAttributeQuery.fromJson(json).valueType, equals('StreetAddress'));
-      expect(IdentityAttributeQuery.fromJson(json).validFrom, equals('20220131'));
-      expect(IdentityAttributeQuery.fromJson(json).validTo, equals('20230131'));
+      expect(
+        IdentityAttributeQuery.fromJson(json),
+        equals(const IdentityAttributeQuery(
+          valueType: 'StreetAddress',
+          validFrom: '1970',
+          validTo: '1970',
+        )),
+      );
     });
 
     test('valid IdentityAttributeQuery with validFrom, validTo and tags', () {
@@ -88,10 +108,15 @@ void main() {
         'validTo': '20230131',
       };
 
-      expect(IdentityAttributeQuery.fromJson(json).valueType, equals('StreetAddress'));
-      expect(IdentityAttributeQuery.fromJson(json).tags, equals(['tag1', 'tag2']));
-      expect(IdentityAttributeQuery.fromJson(json).validFrom, equals('20220131'));
-      expect(IdentityAttributeQuery.fromJson(json).validTo, equals('20230131'));
+      expect(
+        IdentityAttributeQuery.fromJson(json),
+        equals(const IdentityAttributeQuery(
+          valueType: 'StreetAddress',
+          validFrom: '1970',
+          validTo: '1970',
+          tags: ['tag1', 'tag2'],
+        )),
+      );
     });
   });
 }
