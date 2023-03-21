@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/driver_extension.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as modal_bottom_sheet;
 import 'package:permission_handler/permission_handler.dart';
@@ -10,6 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'views/views.dart';
 
 void main() async {
+  enableFlutterDriverExtension();
   WidgetsFlutterBinding.ensureInitialized();
 
   await Permission.camera.request();
@@ -98,9 +100,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         actions: [IconButton(icon: const Icon(Icons.refresh), onPressed: () => reloadData(true))],
         bottom: TabBar(
           tabs: const [
-            Tab(icon: Icon(Icons.people)),
-            Tab(icon: Icon(Icons.message)),
-            Tab(icon: Icon(Icons.feedback)),
+            Tab(icon: Icon(Icons.people), key: Key('people')),
+            Tab(icon: Icon(Icons.message), key: Key('messages')),
+            Tab(icon: Icon(Icons.feedback), key: Key('feedback')),
           ],
           controller: _tabController,
         ),
