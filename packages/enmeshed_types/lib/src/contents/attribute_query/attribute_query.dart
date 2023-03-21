@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
 import '../value_hints.dart';
 
 part 'identity_attribute_query.dart';
+part 'relationship_attribute_creation_hints.dart';
 part 'relationship_attribute_query.dart';
 part 'third_party_relationship_attribute_query.dart';
 
@@ -29,6 +31,7 @@ abstract class AttributeQuery extends Equatable {
     }
   }
 
+  @mustCallSuper
   Map<String, dynamic> toJson();
 
   @override

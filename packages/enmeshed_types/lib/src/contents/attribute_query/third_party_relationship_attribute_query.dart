@@ -5,7 +5,7 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
   final String owner;
   final List<String> thirdParty;
 
-  ThirdPartyRelationshipAttributeQuery({
+  const ThirdPartyRelationshipAttributeQuery({
     required this.key,
     required this.owner,
     required this.thirdParty,
@@ -27,4 +27,7 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
 
   @override
   String toString() => 'ThirdPartyRelationshipAttributeQuery(key: $key, owner: $owner, thirdParty: $thirdParty)';
+
+  @override
+  List<Object?> get props => [key, owner, thirdParty];
 }
