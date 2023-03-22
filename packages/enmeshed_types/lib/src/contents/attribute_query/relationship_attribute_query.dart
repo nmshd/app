@@ -17,10 +17,13 @@ class RelationshipAttributeQuery extends AttributeQuery {
         key: json['key'],
         owner: json['owner'],
         attributeCreationHints: RelationshipAttributeCreationHints.fromJson(json['attributeCreationHints']),
+        validFrom: json['validFrom'],
+        validTo: json['validTo'],
       );
 
   @override
   Map<String, dynamic> toJson() => {
+    ...super.toJson(),
         '@type': 'RelationshipAttributeQuery',
         'key': key,
         'owner': owner,
@@ -31,5 +34,11 @@ class RelationshipAttributeQuery extends AttributeQuery {
   String toString() => 'RelationshipAttributeQuery(key: $key, owner: $owner, attributeCreationHints: $attributeCreationHints)';
 
   @override
-  List<Object?> get props => [key, owner, attributeCreationHints];
+  List<Object?> get props => [
+        key,
+        owner,
+        attributeCreationHints,
+        validFrom,
+        validTo,
+      ];
 }
