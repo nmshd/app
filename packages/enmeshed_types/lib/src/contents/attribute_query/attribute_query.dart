@@ -11,6 +11,7 @@ part 'third_party_relationship_attribute_query.dart';
 abstract class AttributeQuery extends Equatable {
   final String? validFrom;
   final String? validTo;
+
   const AttributeQuery({
     this.validFrom,
     this.validTo,
@@ -37,6 +38,7 @@ abstract class AttributeQuery extends Equatable {
         if (validTo != null) 'validTo': validTo,
       };
 
+  @mustCallSuper
   @override
   List<Object?> get props => [validFrom, validTo];
 }
