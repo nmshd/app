@@ -32,7 +32,10 @@ abstract class AttributeQuery extends Equatable {
   }
 
   @mustCallSuper
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => {
+        if (validFrom != null) 'validFrom': validFrom,
+        if (validTo != null) 'validTo': validTo,
+      };
 
   @override
   List<Object?> get props => [validFrom, validTo];
