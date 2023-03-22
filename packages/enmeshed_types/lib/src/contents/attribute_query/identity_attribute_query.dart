@@ -23,11 +23,10 @@ class IdentityAttributeQuery extends AttributeQuery {
   @override
   Map<String, dynamic> toJson() {
     return {
+      ...super.toJson(),
       '@type': 'IdentityAttributeQuery',
       'valueType': valueType,
       if (tags != null) 'tags': tags,
-      if (validFrom != null) 'validFrom': validFrom,
-      if (validTo != null) 'validTo': validTo,
     };
   }
 
@@ -39,5 +38,7 @@ class IdentityAttributeQuery extends AttributeQuery {
         super.props,
         valueType,
         tags,
+        validFrom,
+        validTo,
       ];
 }
