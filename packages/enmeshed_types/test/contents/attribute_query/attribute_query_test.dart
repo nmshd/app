@@ -41,7 +41,7 @@ void main() {
     });
   });
 
-  group('Attribute Query from json  withexception', () {
+  group('Attribute Query from json with exception', () {
     test('AttributeQuery.fromJson with wrong @type should throw an Exception', () {
       final invalidJson = {'@type': 'wrongType'};
 
