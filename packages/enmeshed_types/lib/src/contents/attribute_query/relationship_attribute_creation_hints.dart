@@ -1,6 +1,5 @@
 part of 'attribute_query.dart';
 
-
 class RelationshipAttributeCreationHints extends Equatable {
   final String title;
   final String valueType;
@@ -37,6 +36,12 @@ class RelationshipAttributeCreationHints extends Equatable {
     return 'RelationshipAttributeCreationHints(title: $title, valueType: $valueType, description: $description, valueHints: $valueHints, confidentiality: $confidentiality)';
   }
 
-   @override
-  List<Object?> get props => [title, valueType, description, valueHints, confidentiality];
+  @override
+  List<Object?> get props => [
+        title,
+        valueType,
+        description,
+        valueHints,
+        confidentiality,
+      ];
 }
