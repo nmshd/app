@@ -160,7 +160,7 @@ class AttributesFacadeView extends StatelessWidget {
                 },
               );
 
-              final query = IdentityAttributeQuery(valueType: 'PhoneNumber');
+              const query = IdentityAttributeQuery(valueType: 'PhoneNumber');
               final attributes = await runtime.currentSession.consumptionServices.attributes.executeIdentityAttributeQuery(
                 query: query,
               );
@@ -187,7 +187,7 @@ class AttributesFacadeView extends StatelessWidget {
                 },
               );
               final owner = identityInfo.address;
-              final attributeCreationHints = RelationshipAttributeCreationHints(
+              const attributeCreationHints = RelationshipAttributeCreationHints(
                 title: 'AnAttributeHint',
                 valueType: 'ProprietaryString',
                 confidentiality: 'protected',
@@ -207,7 +207,7 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final query = ThirdPartyRelationshipAttributeQuery(key: '', owner: '', thirdParty: ['']);
+              const query = ThirdPartyRelationshipAttributeQuery(key: '', owner: '', thirdParty: ['']);
               final attributes = await runtime.currentSession.consumptionServices.attributes.executeThirdPartyRelationshipAttributeQuery(
                 query: query,
               );
