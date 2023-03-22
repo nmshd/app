@@ -38,7 +38,5 @@ class IdentityAttributeQuery extends AttributeQuery {
         super.props,
         valueType,
         tags,
-        validFrom,
-        validTo,
       ];
 }

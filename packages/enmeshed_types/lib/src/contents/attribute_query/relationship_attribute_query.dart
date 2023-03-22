@@ -35,10 +35,9 @@ class RelationshipAttributeQuery extends AttributeQuery {
 
   @override
   List<Object?> get props => [
+        super.props,
         key,
         owner,
         attributeCreationHints,
-        validFrom,
-        validTo,
       ];
 }

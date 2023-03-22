@@ -35,10 +35,9 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
 
   @override
   List<Object?> get props => [
+        super.props,
         key,
         owner,
         thirdParty,
-        validFrom,
-        validTo,
       ];
 }
