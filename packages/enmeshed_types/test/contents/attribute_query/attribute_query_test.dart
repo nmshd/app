@@ -2,11 +2,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const attributeCreationHints = RelationshipAttributeCreationHints(
-    title: 'aTitle',
-    valueType: 'aValueType',
-    confidentiality: 'public',
-  );
   group('Attribute Query from json correctly', () {
     test('AttributeQuery.fromJson should parse valid IdentityAttributeQuery correctly', () {
       final identityAttributeJson = {
@@ -18,6 +13,12 @@ void main() {
     });
 
     test('AttributeQuery.fromJson should parse valid RelationshipAttributeQuery correctly', () {
+      const attributeCreationHints = RelationshipAttributeCreationHints(
+        title: 'aTitle',
+        valueType: 'aValueType',
+        confidentiality: 'public',
+      );
+
       final relationshipAttributeJson = {
         '@type': 'RelationshipAttributeQuery',
         'key': 'ProprietaryInteger',
@@ -40,11 +41,10 @@ void main() {
     });
   });
 
-  group('Attribute Query from json with exception', () {
+  group('Attribute Query from json  withexception', () {
     test('AttributeQuery.fromJson with wrong @type should throw an Exception', () {
-      final invalidJson = {
-        '@type': 'wrongType',
-      };
+      final invalidJson = {'@type': 'wrongType'};
+
       expect(() => AttributeQuery.fromJson(invalidJson), throwsA(isA<Exception>()));
     });
   });
@@ -53,20 +53,12 @@ void main() {
     test('valid AttributeQuery', () {
       const mockAttributeQuery = MockAttributeQuery();
 
-      final attributeQueryJson = <String, dynamic>{};
-
-      expect(mockAttributeQuery.toJson(), equals(attributeQueryJson));
+      expect(mockAttributeQuery.toJson(), equals(<String, dynamic>{}));
     });
     test('valid AttributeQuery with validFrom and validTo', () {
-      const mockAttributeQuery = MockAttributeQuery(
-        validFrom: '1970',
-        validTo: '1980',
-      );
+      const mockAttributeQuery = MockAttributeQuery(validFrom: '1970', validTo: '1980');
 
-      final attributeQueryJson = {
-        'validFrom': '1970',
-        'validTo': '1980',
-      };
+      final attributeQueryJson = {'validFrom': '1970', 'validTo': '1980'};
 
       expect(mockAttributeQuery.toJson(), equals(attributeQueryJson));
     });

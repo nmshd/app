@@ -7,50 +7,47 @@ void main() {
     valueType: 'aValueType',
     confidentiality: 'public',
   );
-  group(
-    'Relationship Attribute Query to json',
-    () {
-      test('valid RelationshipAttributeQuery', () {
-        const relationshipAttributeQuery = RelationshipAttributeQuery(
-          key: 'ProprietaryInteger',
-          owner: 'anOwner',
-          attributeCreationHints: attributeCreationHints,
-        );
-        final relationshipJson = relationshipAttributeQuery.toJson();
-        expect(
-          relationshipJson,
-          equals({
-            '@type': 'RelationshipAttributeQuery',
-            'key': 'ProprietaryInteger',
-            'owner': 'anOwner',
-            'attributeCreationHints': attributeCreationHints.toJson(),
-          }),
-        );
-      });
+  group('Relationship Attribute Query to json', () {
+    test('valid RelationshipAttributeQuery', () {
+      const relationshipAttributeQuery = RelationshipAttributeQuery(
+        key: 'ProprietaryInteger',
+        owner: 'anOwner',
+        attributeCreationHints: attributeCreationHints,
+      );
+      final relationshipJson = relationshipAttributeQuery.toJson();
+      expect(
+        relationshipJson,
+        equals({
+          '@type': 'RelationshipAttributeQuery',
+          'key': 'ProprietaryInteger',
+          'owner': 'anOwner',
+          'attributeCreationHints': attributeCreationHints.toJson(),
+        }),
+      );
+    });
 
-      test('valid RelationshipAttributeQuery with validFrom and validTo', () {
-        const relationshipAttributeQuery = RelationshipAttributeQuery(
-          key: 'ProprietaryInteger',
-          owner: 'anOwner',
-          attributeCreationHints: attributeCreationHints,
-          validFrom: '1970',
-          validTo: '1980',
-        );
-        final relationshipJson = relationshipAttributeQuery.toJson();
-        expect(
-          relationshipJson,
-          equals({
-            '@type': 'RelationshipAttributeQuery',
-            'key': 'ProprietaryInteger',
-            'owner': 'anOwner',
-            'attributeCreationHints': attributeCreationHints.toJson(),
-            'validFrom': '1970',
-            'validTo': '1980',
-          }),
-        );
-      });
-    },
-  );
+    test('valid RelationshipAttributeQuery with validFrom and validTo', () {
+      const relationshipAttributeQuery = RelationshipAttributeQuery(
+        key: 'ProprietaryInteger',
+        owner: 'anOwner',
+        attributeCreationHints: attributeCreationHints,
+        validFrom: '1970',
+        validTo: '1980',
+      );
+      final relationshipJson = relationshipAttributeQuery.toJson();
+      expect(
+        relationshipJson,
+        equals({
+          '@type': 'RelationshipAttributeQuery',
+          'key': 'ProprietaryInteger',
+          'owner': 'anOwner',
+          'attributeCreationHints': attributeCreationHints.toJson(),
+          'validFrom': '1970',
+          'validTo': '1980',
+        }),
+      );
+    });
+  });
 
   group('Relationship Attribute Query from json', () {
     test('valid RelationshipAttributeQuery', () {
