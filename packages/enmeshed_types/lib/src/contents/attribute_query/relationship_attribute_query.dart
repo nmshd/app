@@ -23,7 +23,7 @@ class RelationshipAttributeQuery extends AttributeQuery {
 
   @override
   Map<String, dynamic> toJson() => {
-    ...super.toJson(),
+        ...super.toJson(),
         '@type': 'RelationshipAttributeQuery',
         'key': key,
         'owner': owner,
