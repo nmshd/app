@@ -1,4 +1,4 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class PersonName extends IdentityAttributeValue {
   final String givenName;
@@ -7,7 +7,7 @@ class PersonName extends IdentityAttributeValue {
   final String? honorificSuffix;
   final String? honorificPrefix;
 
-  PersonName({
+  const PersonName({
     required this.givenName,
     this.middleName,
     required this.surname,
@@ -37,4 +37,7 @@ class PersonName extends IdentityAttributeValue {
   String toString() {
     return 'PersonName(givenName: $givenName, middleName: $middleName, surname: $surname, honorificSuffix: $honorificSuffix, honorificPrefix: $honorificPrefix)';
   }
+
+  @override
+  List<Object?> get props => [givenName, middleName, surname, honorificSuffix, honorificPrefix];
 }

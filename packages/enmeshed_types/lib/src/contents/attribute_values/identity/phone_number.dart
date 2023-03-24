@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class PhoneNumber extends IdentityAttributeValue {
   final String value;
 
-  PhoneNumber({
+  const PhoneNumber({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class PhoneNumber extends IdentityAttributeValue {
 
   @override
   String toString() => 'PhoneNumber(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

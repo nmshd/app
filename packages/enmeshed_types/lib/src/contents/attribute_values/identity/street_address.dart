@@ -1,4 +1,4 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class StreetAddress extends IdentityAttributeValue {
   final String recipient;
@@ -9,7 +9,7 @@ class StreetAddress extends IdentityAttributeValue {
   final String country;
   final String state;
 
-  StreetAddress({
+  const StreetAddress({
     required this.recipient,
     required this.street,
     required this.houseNumber,
@@ -45,4 +45,7 @@ class StreetAddress extends IdentityAttributeValue {
   String toString() {
     return 'StreetAddress(recipient: $recipient, street: $street, houseNumber: $houseNumber, zipCode: $zipCode, city: $city, country: $country, state: $state)';
   }
+
+  @override
+  List<Object?> get props => [recipient, street, zipCode, city, country, state];
 }

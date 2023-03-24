@@ -1,8 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import 'identity.dart';
 
-abstract class IdentityAttributeValue {
+abstract class IdentityAttributeValue extends Equatable {
+  const IdentityAttributeValue();
+
   static IdentityAttributeValue fromJson(Map<String, dynamic> json) {
     final type = json['@type'];
 
@@ -42,7 +45,7 @@ abstract class IdentityAttributeValue {
       case 'Pseudonym':
         return Pseudonym.fromJson(json);
       case 'State':
-        return StateAttribute.fromJson(json);
+        return State.fromJson(json);
       case 'Street':
         return Street.fromJson(json);
       case 'Surname':
@@ -94,4 +97,8 @@ abstract class IdentityAttributeValue {
 
   @mustCallSuper
   Map<String, dynamic> toJson();
+
+  @mustCallSuper
+  @override
+  List<Object?> get props;
 }

@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class HonorificSuffix extends IdentityAttributeValue {
   final String value;
 
-  HonorificSuffix({
+  const HonorificSuffix({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class HonorificSuffix extends IdentityAttributeValue {
 
   @override
   String toString() => 'HonorificSuffix(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }
