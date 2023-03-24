@@ -1,6 +1,6 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide State;
 
 class IncomingRequestsFacadeView extends StatelessWidget {
   final EnmeshedRuntime runtime;
@@ -282,7 +282,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       case 'State':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: StateAttribute(value: 'Test$type'),
+          value: State(value: 'Test$type'),
         );
       case 'Street':
         return IdentityAttribute(
@@ -302,57 +302,57 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       case 'Affiliation':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: Affiliation(role: 'TestRole', organization: 'TestOrganization', unit: 'TestUnit'),
+          value: const Affiliation(role: 'TestRole', organization: 'TestOrganization', unit: 'TestUnit'),
         );
       case 'BirthCountry':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: BirthCountry(value: 'DE'),
+          value: const BirthCountry(value: 'DE'),
         );
       case 'BirthDate':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: BirthDate(day: 1, month: 1, year: 2000),
+          value: const BirthDate(day: 1, month: 1, year: 2000),
         );
       case 'BirthDay':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: BirthDay(value: 5),
+          value: const BirthDay(value: 5),
         );
       case 'BirthMonth':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: BirthMonth(value: 5),
+          value: const BirthMonth(value: 5),
         );
       case 'BirthPlace':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: BirthPlace(city: 'TestCity', country: 'DE'),
+          value: const BirthPlace(city: 'TestCity', country: 'DE'),
         );
       case 'BirthYear':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: BirthYear(value: 2000),
+          value: const BirthYear(value: 2000),
         );
       case 'Citizenship':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: Citizenship(value: 'DE'),
+          value: const Citizenship(value: 'DE'),
         );
       case 'CommunicationLanguage':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: CommunicationLanguage(value: 'de'),
+          value: const CommunicationLanguage(value: 'de'),
         );
       case 'Country':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: Country(value: 'DE'),
+          value: const Country(value: 'DE'),
         );
       case 'DeliveryBoxAddress':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: DeliveryBoxAddress(
+          value: const DeliveryBoxAddress(
             recipient: 'recipient',
             deliveryBoxId: 'deliveryBoxId',
             userId: 'userId',
@@ -366,22 +366,22 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       case 'EMailAddress':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: EMailAddress(value: 'test@test.com'),
+          value: const EMailAddress(value: 'test@test.com'),
         );
       case 'FaxNumber':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: FaxNumber(value: '123456789'),
+          value: const FaxNumber(value: '123456789'),
         );
       case 'Nationality':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: Nationality(value: 'DE'),
+          value: const Nationality(value: 'DE'),
         );
       case 'PersonName':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: PersonName(
+          value: const PersonName(
             givenName: 'givenName',
             surname: 'surname',
             honorificPrefix: 'honorificPrefix',
@@ -392,7 +392,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       case 'PostOfficeBoxAddress':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: PostOfficeBoxAddress(
+          value: const PostOfficeBoxAddress(
             recipient: 'recipient',
             boxId: 'boxId',
             zipCode: 'zipCode',
@@ -404,12 +404,12 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       case 'Sex':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: Sex(value: 'male'),
+          value: const Sex(value: 'male'),
         );
       case 'StreetAddress':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: StreetAddress(
+          value: const StreetAddress(
             recipient: 'recipient',
             street: 'street',
             houseNumber: 'houseNumber',
@@ -422,7 +422,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       case 'Website':
         return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: Website(value: 'www.testwebsite.com'),
+          value: const Website(value: 'www.testwebsite.com'),
         );
       default:
         throw UnimplementedError();
