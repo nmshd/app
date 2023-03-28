@@ -5,10 +5,6 @@ packages:
   - "apps/*"
   - "packages/**"
 
-command:
-  bootstrap:
-    usePubspecOverrides: true
-
 ide:
   intellij:
     enabled: false
