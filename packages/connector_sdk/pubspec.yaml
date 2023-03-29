@@ -1,5 +1,5 @@
 name: connector_sdk
-description: A starting point for Dart libraries or applications.
+description: A Dart SDK for the Enmeshed Connector.
 version: 1.0.0
 publish_to: none
 
