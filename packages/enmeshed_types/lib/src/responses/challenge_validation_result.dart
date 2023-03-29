@@ -1,10 +1,12 @@
+import 'package:equatable/equatable.dart';
+
 import '../dtos/dtos.dart';
 
-class ChallengeValidationResult {
+class ChallengeValidationResult extends Equatable {
   final bool isValid;
   final RelationshipDTO? correspondingRelationship;
 
-  ChallengeValidationResult({
+  const ChallengeValidationResult({
     required this.isValid,
     this.correspondingRelationship,
   });
@@ -15,4 +17,7 @@ class ChallengeValidationResult {
       correspondingRelationship: json['correspondingRelationship'] != null ? RelationshipDTO.fromJson(json['correspondingRelationship']) : null,
     );
   }
+
+  @override
+  List<Object?> get props => [isValid, correspondingRelationship];
 }
