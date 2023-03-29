@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class ZipCode extends IdentityAttributeValue {
   final String value;
 
-  ZipCode({
+  const ZipCode({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class ZipCode extends IdentityAttributeValue {
 
   @override
   String toString() => 'ZipCode(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

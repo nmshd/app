@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class BirthMonth extends IdentityAttributeValue {
   final int value;
 
-  BirthMonth({
+  const BirthMonth({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class BirthMonth extends IdentityAttributeValue {
 
   @override
   String toString() => 'BirthMonth(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }
