@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class MiddleName extends IdentityAttributeValue {
   final String value;
 
-  MiddleName({
+  const MiddleName({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class MiddleName extends IdentityAttributeValue {
 
   @override
   String toString() => 'MiddleName(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

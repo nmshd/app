@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class CommunicationLanguage extends IdentityAttributeValue {
   final String value;
 
-  CommunicationLanguage({
+  const CommunicationLanguage({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class CommunicationLanguage extends IdentityAttributeValue {
 
   @override
   String toString() => 'CommunicationLanguage(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }
