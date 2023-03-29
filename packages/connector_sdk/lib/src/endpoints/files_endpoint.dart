@@ -37,7 +37,7 @@ class FilesEndpoint extends Endpoint {
         query: query,
       );
 
-  Future<ConnectorResponse<FileDTO>> loadPeerFileFromTruncatedReference(String truncatedReference) => post(
+  Future<ConnectorResponse<FileDTO>> loadPeerFileByTruncatedReference({required String truncatedReference}) => post(
         '/api/v2/Files/Peer',
         transformer: fileTransformer,
         data: {
@@ -45,7 +45,7 @@ class FilesEndpoint extends Endpoint {
         },
       );
 
-  Future<ConnectorResponse<FileDTO>> loadPeerFileFromKeyAndId(String id, String secretKey) => post(
+  Future<ConnectorResponse<FileDTO>> loadPeerFileByIdAndKey({required String id, required String secretKey}) => post(
         '/api/v2/Files/Peer',
         transformer: fileTransformer,
         data: {'id': id, 'secretKey': secretKey},
