@@ -16,3 +16,8 @@ List<RelationshipTemplateDTO> relationshipTemplateListTransformer(dynamic v) => 
       v.map((e) => RelationshipTemplateDTO.fromJson(e)),
     );
 RelationshipTemplateDTO relationshipTemplateTransformer(dynamic v) => RelationshipTemplateDTO.fromJson(v);
+
+List<LocalRequestDTO> localRequestListTransformer(dynamic v) => List<LocalRequestDTO>.from(v.map((e) => LocalRequestDTO.fromJson(e)));
+LocalRequestDTO localRequestTransformer(dynamic v) => LocalRequestDTO.fromJson(v);
+
+RequestValidationResultDTO requestValidationResultTransformer(dynamic v) => RequestValidationResultDTO.fromJson(v);

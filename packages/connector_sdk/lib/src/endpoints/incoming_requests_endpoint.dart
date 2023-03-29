@@ -1,7 +1,45 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
+
 import 'endpoint.dart';
+import 'transformers.dart';
 
 class IncomingRequestsEndpoint extends Endpoint {
   IncomingRequestsEndpoint(super.dio);
 
-  // TODO: implement endpoint
+  Future<ConnectorResponse<RequestValidationResultDTO>> canAccept(String requestId, List<DecideRequestParametersItem> items) =>
+      put<RequestValidationResultDTO>(
+        '/api/v2/Requests/Incoming/$requestId/CanAccept',
+        data: {'items': items.map((e) => e.toJson()).toList()},
+        transformer: requestValidationResultTransformer,
+      );
+
+  Future<ConnectorResponse<LocalRequestDTO>> accept(String requestId, List<DecideRequestParametersItem> items) => put<LocalRequestDTO>(
+        '/api/v2/Requests/Incoming/$requestId/Accept',
+        data: {'items': items.map((e) => e.toJson()).toList()},
+        transformer: localRequestTransformer,
+      );
+
+  Future<ConnectorResponse<RequestValidationResultDTO>> canReject(String requestId, List<DecideRequestParametersItem> items) =>
+      put<RequestValidationResultDTO>(
+        '/api/v2/Requests/Incoming/$requestId/CanReject',
+        data: {'items': items.map((e) => e.toJson()).toList()},
+        transformer: requestValidationResultTransformer,
+      );
+
+  Future<ConnectorResponse<LocalRequestDTO>> reject(String requestId, List<DecideRequestParametersItem> items) => put<LocalRequestDTO>(
+        '/api/v2/Requests/Incoming/$requestId/Reject',
+        data: {'items': items.map((e) => e.toJson()).toList()},
+        transformer: localRequestTransformer,
+      );
+
+  Future<ConnectorResponse<LocalRequestDTO>> getRequest(String requestId) => get<LocalRequestDTO>(
+        '/api/v2/Requests/Incoming/$requestId',
+        transformer: localRequestTransformer,
+      );
+
+  Future<ConnectorResponse<List<LocalRequestDTO>>> getRequests([Map<String, dynamic>? query]) => get<List<LocalRequestDTO>>(
+        '/api/v2/Requests/Incoming',
+        transformer: localRequestListTransformer,
+        query: query,
+      );
 }
