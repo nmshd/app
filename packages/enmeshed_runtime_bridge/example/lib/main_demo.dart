@@ -100,8 +100,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         actions: [IconButton(icon: const Icon(Icons.refresh), onPressed: () => reloadData(true))],
         bottom: TabBar(
           tabs: const [
-            Tab(icon: Icon(Icons.people), key: Key('people')),
-            Tab(icon: Icon(Icons.message), key: Key('messages')),
+            Tab(icon: Icon(Icons.people)),
+            Tab(icon: Icon(Icons.message, semanticLabel: 'Message logo'), key: Key('messages')),
             Tab(icon: Icon(Icons.feedback), key: Key('feedback')),
           ],
           controller: _tabController,
