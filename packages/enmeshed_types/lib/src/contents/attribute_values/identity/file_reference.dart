@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class FileReference extends IdentityAttributeValue {
   final String value;
 
-  FileReference({
+  const FileReference({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class FileReference extends IdentityAttributeValue {
 
   @override
   String toString() => 'FileReference(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

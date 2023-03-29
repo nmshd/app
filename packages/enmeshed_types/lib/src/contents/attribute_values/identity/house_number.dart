@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class HouseNumber extends IdentityAttributeValue {
   final String value;
 
-  HouseNumber({
+  const HouseNumber({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class HouseNumber extends IdentityAttributeValue {
 
   @override
   String toString() => 'HouseNumber(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

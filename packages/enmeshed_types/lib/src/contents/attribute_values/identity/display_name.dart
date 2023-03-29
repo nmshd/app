@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class DisplayName extends IdentityAttributeValue {
   final String value;
 
-  DisplayName({
+  const DisplayName({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class DisplayName extends IdentityAttributeValue {
 
   @override
   String toString() => 'DisplayName(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

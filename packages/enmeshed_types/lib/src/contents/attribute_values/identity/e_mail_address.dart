@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class EMailAddress extends IdentityAttributeValue {
   final String value;
 
-  EMailAddress({
+  const EMailAddress({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class EMailAddress extends IdentityAttributeValue {
 
   @override
   String toString() => 'EMailAddress(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

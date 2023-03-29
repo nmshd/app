@@ -5,20 +5,25 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
   final String owner;
   final List<String> thirdParty;
 
-  ThirdPartyRelationshipAttributeQuery({
+  const ThirdPartyRelationshipAttributeQuery({
     required this.key,
     required this.owner,
     required this.thirdParty,
+    super.validFrom,
+    super.validTo,
   });
 
   factory ThirdPartyRelationshipAttributeQuery.fromJson(Map<String, dynamic> json) => ThirdPartyRelationshipAttributeQuery(
         key: json['key'],
         owner: json['owner'],
         thirdParty: List<String>.from(json['thirdParty']),
+        validFrom: json['validFrom'],
+        validTo: json['validTo'],
       );
 
   @override
   Map<String, dynamic> toJson() => {
+        ...super.toJson(),
         '@type': 'ThirdPartyRelationshipAttributeQuery',
         'key': key,
         'owner': owner,
@@ -27,4 +32,12 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
 
   @override
   String toString() => 'ThirdPartyRelationshipAttributeQuery(key: $key, owner: $owner, thirdParty: $thirdParty)';
+
+  @override
+  List<Object?> get props => [
+        super.props,
+        key,
+        owner,
+        thirdParty,
+      ];
 }

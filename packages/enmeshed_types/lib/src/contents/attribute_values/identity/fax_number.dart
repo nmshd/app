@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class FaxNumber extends IdentityAttributeValue {
   final String value;
 
-  FaxNumber({
+  const FaxNumber({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class FaxNumber extends IdentityAttributeValue {
 
   @override
   String toString() => 'FaxNumber(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

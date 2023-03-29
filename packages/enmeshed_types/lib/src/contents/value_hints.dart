@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'contents.dart';
 
-class ValueHints {
+class ValueHints extends Equatable {
   final String? editHelp;
   final int? min;
   final int? max;
@@ -9,7 +11,7 @@ class ValueHints {
   final dynamic defaultValue;
   final Map<String, ValueHints>? propertyHints;
 
-  ValueHints({
+  const ValueHints({
     this.editHelp,
     this.min,
     this.max,
@@ -59,4 +61,7 @@ class ValueHints {
   String toString() {
     return 'ValueHints(editHelp: $editHelp, min: $min, max: $max, pattern: $pattern, values: $values, defaultValue: $defaultValue, propertyHints: $propertyHints)';
   }
+
+  @override
+  List<Object?> get props => [editHelp, min, max, pattern, values, defaultValue, propertyHints];
 }
