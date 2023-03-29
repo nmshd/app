@@ -1,7 +1,7 @@
-import 'package:connector_sdk/src/endpoints/transformers.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 
 import 'endpoint.dart';
+import 'transformers.dart';
 
 class MessagesEndpoint extends Endpoint {
   MessagesEndpoint(super.dio);

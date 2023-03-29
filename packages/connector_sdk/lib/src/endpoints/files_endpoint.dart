@@ -1,8 +1,8 @@
-import 'package:connector_sdk/src/endpoints/transformers.dart';
 import 'package:dio/dio.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-import './endpoint.dart';
+import 'endpoint.dart';
+import 'transformers.dart';
 
 class FilesEndpoint extends Endpoint {
   FilesEndpoint(super.dio);
