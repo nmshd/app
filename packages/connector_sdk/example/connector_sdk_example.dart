@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:connector_sdk/connector_sdk.dart';
 
 void main() async {
-  final cc = ConnectorClient('https://jkoenig.is.enmeshed.eu', 'EryuQRBhPRwiQ1f9Do7Hif0qK679AnxN');
+  final cc = ConnectorClient(const String.fromEnvironment('BASE_URL'), const String.fromEnvironment('API_KEY'));
 
   final file = await cc.files.uploadOwnFile(
     title: 'test',
