@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 enum ChallengeType { Relationship, Identity, Device }
 
-class ChallengeDTO {
+class ChallengeDTO extends Equatable {
   final String id;
   final String expiresAt;
   final String? createdBy;
@@ -9,7 +11,7 @@ class ChallengeDTO {
   final String signature;
   final String challengeString;
 
-  ChallengeDTO({
+  const ChallengeDTO({
     required this.id,
     required this.expiresAt,
     this.createdBy,
@@ -19,15 +21,16 @@ class ChallengeDTO {
     required this.challengeString,
   });
 
-  factory ChallengeDTO.fromJson(Map<String, dynamic> json) {
-    return ChallengeDTO(
-      id: json['id'],
-      expiresAt: json['expiresAt'],
-      createdBy: json['createdBy'],
-      createdByDevice: json['createdByDevice'],
-      type: ChallengeType.values.byName(json['type']),
-      signature: json['signature'],
-      challengeString: json['challengeString'],
-    );
-  }
+  factory ChallengeDTO.fromJson(Map<String, dynamic> json) => ChallengeDTO(
+        id: json['id'],
+        expiresAt: json['expiresAt'],
+        createdBy: json['createdBy'],
+        createdByDevice: json['createdByDevice'],
+        type: ChallengeType.values.byName(json['type']),
+        signature: json['signature'],
+        challengeString: json['challengeString'],
+      );
+
+  @override
+  List<Object?> get props => [id, expiresAt, createdBy, createdByDevice, type, signature, challengeString];
 }
