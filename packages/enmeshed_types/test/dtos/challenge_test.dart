@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('ChallengeDTO from json', () {
-    test('valid ChallengeDTO', () {
+  group('ChallengeDTO fromJson', () {
+    test('is correctly converted', () {
       final json = {
         'id': 'anId',
         'expiresAt': 'anExpiryDate',
