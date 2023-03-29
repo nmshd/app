@@ -4,7 +4,7 @@ import 'proprietary_attribute_value.dart';
 class ProprietaryHEXColor extends ProprietaryAttributeValue {
   final String value;
 
-  ProprietaryHEXColor({
+  const ProprietaryHEXColor({
     required super.title,
     super.description,
     super.valueHintsOverride,
@@ -27,4 +27,7 @@ class ProprietaryHEXColor extends ProprietaryAttributeValue {
 
   @override
   String toString() => 'ProprietaryHEXColor(value: $value)';
+
+  @override
+  List<Object?> get props => [super.props, value];
 }

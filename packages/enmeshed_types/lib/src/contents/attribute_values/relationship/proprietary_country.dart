@@ -4,7 +4,7 @@ import 'proprietary_attribute_value.dart';
 class ProprietaryCountry extends ProprietaryAttributeValue {
   final String value;
 
-  ProprietaryCountry({
+  const ProprietaryCountry({
     required super.title,
     super.description,
     super.valueHintsOverride,
@@ -27,4 +27,7 @@ class ProprietaryCountry extends ProprietaryAttributeValue {
 
   @override
   String toString() => 'ProprietaryCountry(value: $value)';
+
+  @override
+  List<Object?> get props => [super.props, value];
 }

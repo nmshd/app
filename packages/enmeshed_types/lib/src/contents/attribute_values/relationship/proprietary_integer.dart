@@ -4,7 +4,7 @@ import 'proprietary_attribute_value.dart';
 class ProprietaryInteger extends ProprietaryAttributeValue {
   final int value;
 
-  ProprietaryInteger({
+  const ProprietaryInteger({
     required super.title,
     super.description,
     super.valueHintsOverride,
@@ -27,4 +27,7 @@ class ProprietaryInteger extends ProprietaryAttributeValue {
 
   @override
   String toString() => 'ProprietaryInteger(value: $value)';
+
+  @override
+  List<Object?> get props => [super.props, value];
 }
