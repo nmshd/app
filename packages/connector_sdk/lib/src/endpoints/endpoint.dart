@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:meta/meta.dart';
 
 class ConnectorError {
   final String id;
@@ -70,12 +71,11 @@ class ConnectorResponse<T> {
 abstract class Endpoint {
   final Dio _dio;
 
-  Dio get httpClient => _dio;
-
   Endpoint(this._dio);
 
+  @protected
   Future<T> getPlain<T>(String path) async {
-    final response = await httpClient.get<T>(path);
+    final response = await _dio.get<T>(path);
     if (response.data == null) {
       throw Exception('Invalid response type');
     }
@@ -83,11 +83,13 @@ abstract class Endpoint {
     return response.data!;
   }
 
+  @protected
   Future<ConnectorResponse<T>> get<T>(String path, {required T Function(dynamic) transformer, Map<String, dynamic>? query}) async {
-    final response = await httpClient.get<Map<String, dynamic>>(path, queryParameters: query);
-    return makeResult(response, transformer);
+    final response = await _dio.get<Map<String, dynamic>>(path, queryParameters: query);
+    return _makeResult(response, transformer);
   }
 
+  @protected
   Future<ConnectorResponse<T>> post<T>(
     String path, {
     required T Function(dynamic) transformer,
@@ -95,16 +97,17 @@ abstract class Endpoint {
     int? expectedStatus,
     Map<String, dynamic>? params,
   }) async {
-    final response = await httpClient.post<Map<String, dynamic>>(path, data: data, queryParameters: params);
-    return makeResult(response, transformer, expectedStatus: expectedStatus);
+    final response = await _dio.post<Map<String, dynamic>>(path, data: data, queryParameters: params);
+    return _makeResult(response, transformer, expectedStatus: expectedStatus);
   }
 
+  @protected
   Future<ConnectorResponse<T>> put<T>(String path, {required T Function(dynamic) transformer, Object? data}) async {
-    final response = await httpClient.put<Map<String, dynamic>>(path, data: data);
-    return makeResult(response, transformer);
+    final response = await _dio.put<Map<String, dynamic>>(path, data: data);
+    return _makeResult(response, transformer);
   }
 
-  ConnectorResponse<T> makeResult<T>(Response<Map<String, dynamic>> httpResponse, T Function(dynamic) transformer, {int? expectedStatus}) {
+  ConnectorResponse<T> _makeResult<T>(Response<Map<String, dynamic>> httpResponse, T Function(dynamic) transformer, {int? expectedStatus}) {
     if (expectedStatus == null) {
       switch (httpResponse.requestOptions.method.toUpperCase()) {
         case 'POST':
@@ -136,8 +139,9 @@ abstract class Endpoint {
     return ConnectorResponse.success(transformer(payload['result']));
   }
 
+  @protected
   Future<ConnectorResponse<List<int>>> download(String url) async {
-    final httpResponse = await httpClient.get<List<int>>(url, options: Options(responseType: ResponseType.bytes));
+    final httpResponse = await _dio.get<List<int>>(url, options: Options(responseType: ResponseType.bytes));
 
     final payload = httpResponse.data;
     if (payload == null) {
@@ -160,6 +164,7 @@ abstract class Endpoint {
     return ConnectorResponse.success(payload);
   }
 
+  @protected
   Future<ConnectorResponse<List<int>>> downloadQrCode(String method, String url, {Map<String, dynamic>? request}) async {
     final Options config = Options(responseType: ResponseType.bytes, headers: {'accept': 'image/png'});
 
@@ -167,10 +172,10 @@ abstract class Endpoint {
 
     switch (method) {
       case 'GET':
-        httpResponse = await httpClient.get<List<int>>(url, options: config, queryParameters: request);
+        httpResponse = await _dio.get<List<int>>(url, options: config, queryParameters: request);
         break;
       case 'POST':
-        httpResponse = await httpClient.post<List<int>>(url, data: request, options: config);
+        httpResponse = await _dio.post<List<int>>(url, data: request, options: config);
         break;
       default:
         throw Exception('Unsupported method');
