@@ -3,70 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 
-class ConnectorError {
-  final String id;
-  final String docs;
-  final String time;
-  final String code;
-  final String message;
+import '../types/types.dart';
 
-  ConnectorError({
-    required this.id,
-    required this.docs,
-    required this.time,
-    required this.code,
-    required this.message,
-  });
-}
-
-class ConnectorResponse<T> {
-  final T? _data;
-  final ConnectorError? _error;
-
-  T get data {
-    if (_data == null) {
-      throw Exception('${error.code}: ${error.message}');
-    }
-
-    return _data!;
-  }
-
-  ConnectorError get error {
-    if (_error == null) {
-      throw Exception('No error');
-    }
-
-    return _error!;
-  }
-
-  ConnectorResponse._(this._data, this._error);
-
-  static ConnectorResponse<T> success<T>(T data) {
-    return ConnectorResponse._(data, null);
-  }
-
-  static ConnectorResponse<T> fromError<T>({
-    required String id,
-    required String docs,
-    required String time,
-    required String code,
-    required String message,
-  }) {
-    return ConnectorResponse._(
-      null,
-      ConnectorError(
-        id: id,
-        docs: docs,
-        time: time,
-        code: code,
-        message: message,
-      ),
-    );
-  }
-
-  bool get hasError => _error != null;
-  bool get hasData => _data != null;
-}
+export '../types/connector_response.dart';
 
 abstract class Endpoint {
   final Dio _dio;
@@ -126,14 +65,7 @@ abstract class Endpoint {
 
     if (httpResponse.statusCode != expectedStatus) {
       final errorPayload = payload['error'];
-
-      return ConnectorResponse.fromError(
-        id: errorPayload['id'],
-        docs: errorPayload['docs'],
-        time: errorPayload['time'],
-        code: errorPayload['code'],
-        message: errorPayload['message'],
-      );
+      return ConnectorResponse.fromError(ConnectorError.fromJson(errorPayload));
     }
 
     return ConnectorResponse.success(transformer(payload['result']));
@@ -151,14 +83,7 @@ abstract class Endpoint {
     if (httpResponse.statusCode != 200) {
       // Manually parse data because responseType is "arrayBuffer"
       final errorPayload = jsonDecode(utf8.decode(payload))['error'];
-
-      return ConnectorResponse.fromError(
-        id: errorPayload['id'],
-        docs: errorPayload['docs'],
-        time: errorPayload['time'],
-        code: errorPayload['code'],
-        message: errorPayload['message'],
-      );
+      return ConnectorResponse.fromError(ConnectorError.fromJson(errorPayload));
     }
 
     return ConnectorResponse.success(payload);
@@ -189,14 +114,7 @@ abstract class Endpoint {
     final expectedStatus = method == 'GET' ? 200 : 201;
     if (httpResponse.statusCode != expectedStatus) {
       final errorPayload = jsonDecode(utf8.decode(payload))['error'];
-
-      return ConnectorResponse.fromError(
-        id: errorPayload['id'],
-        docs: errorPayload['docs'],
-        time: errorPayload['time'],
-        code: errorPayload['code'],
-        message: errorPayload['message'],
-      );
+      return ConnectorResponse.fromError(ConnectorError.fromJson(errorPayload));
     }
 
     return ConnectorResponse.success(payload);
