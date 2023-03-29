@@ -7,7 +7,7 @@ import 'transformers.dart';
 class FilesEndpoint extends Endpoint {
   FilesEndpoint(super.dio);
 
-  Future<ConnectorResponse<List<FileDTO>>> getFiles([Map<String, dynamic>? query]) => get<List<FileDTO>>(
+  Future<ConnectorResponse<List<FileDTO>>> getFiles([Map<String, dynamic>? query]) => get(
         '/api/v2/Files',
         transformer: fileListTransformer,
         query: query,
@@ -57,12 +57,10 @@ class FilesEndpoint extends Endpoint {
         query: query,
       );
 
-  Future<ConnectorResponse<FileDTO>> getFile(String fileIdOrReference) async {
-    return await get(
-      '/api/v2/Files/$fileIdOrReference',
-      transformer: fileTransformer,
-    );
-  }
+  Future<ConnectorResponse<FileDTO>> getFile(String fileIdOrReference) async => get(
+        '/api/v2/Files/$fileIdOrReference',
+        transformer: fileTransformer,
+      );
 
   Future<ConnectorResponse<List<int>>> downloadFile(String fileId) => download('/api/v2/Files/$fileId/Download');
 

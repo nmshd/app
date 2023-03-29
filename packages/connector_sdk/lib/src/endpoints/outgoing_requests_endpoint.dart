@@ -6,8 +6,7 @@ import 'transformers.dart';
 class OutgoingRequestsEndpoint extends Endpoint {
   OutgoingRequestsEndpoint(super.dio);
 
-  Future<ConnectorResponse<RequestValidationResultDTO>> canCreateRequest({required Request content, String? peer}) =>
-      post<RequestValidationResultDTO>(
+  Future<ConnectorResponse<RequestValidationResultDTO>> canCreateRequest({required Request content, String? peer}) => post(
         '/api/v2/Requests/Outgoing/Validate',
         transformer: requestValidationResultTransformer,
         data: {
@@ -16,7 +15,7 @@ class OutgoingRequestsEndpoint extends Endpoint {
         },
       );
 
-  Future<ConnectorResponse<LocalRequestDTO>> createRequest({required Request content, required String peer}) => post<LocalRequestDTO>(
+  Future<ConnectorResponse<LocalRequestDTO>> createRequest({required Request content, required String peer}) => post(
         '/api/v2/Requests/Outgoing',
         transformer: localRequestTransformer,
         data: {
@@ -25,12 +24,12 @@ class OutgoingRequestsEndpoint extends Endpoint {
         },
       );
 
-  Future<ConnectorResponse<LocalRequestDTO>> getRequest(String requestId) => get<LocalRequestDTO>(
+  Future<ConnectorResponse<LocalRequestDTO>> getRequest(String requestId) => get(
         '/api/v2/Requests/Outgoing/$requestId',
         transformer: localRequestTransformer,
       );
 
-  Future<ConnectorResponse<List<LocalRequestDTO>>> getRequests([Map<String, dynamic>? query]) => get<List<LocalRequestDTO>>(
+  Future<ConnectorResponse<List<LocalRequestDTO>>> getRequests([Map<String, dynamic>? query]) => get(
         '/api/v2/Requests/Outgoing',
         transformer: localRequestListTransformer,
         query: query,
