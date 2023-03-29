@@ -11,3 +11,8 @@ RelationshipDTO relationshipTransformer(dynamic v) => RelationshipDTO.fromJson(v
 
 List<LocalAttributeDTO> localAttributeListTransformer(dynamic v) => List<LocalAttributeDTO>.from(v.map((e) => LocalAttributeDTO.fromJson(e)));
 LocalAttributeDTO localAttributeTransformer(dynamic v) => LocalAttributeDTO.fromJson(v);
+
+List<RelationshipTemplateDTO> relationshipTemplateListTransformer(dynamic v) => List<RelationshipTemplateDTO>.from(
+      v.map((e) => RelationshipTemplateDTO.fromJson(e)),
+    );
+RelationshipTemplateDTO relationshipTemplateTransformer(dynamic v) => RelationshipTemplateDTO.fromJson(v);
