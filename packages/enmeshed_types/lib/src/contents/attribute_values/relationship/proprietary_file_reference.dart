@@ -4,7 +4,7 @@ import 'proprietary_attribute_value.dart';
 class ProprietaryFileReference extends ProprietaryAttributeValue {
   final String value;
 
-  ProprietaryFileReference({
+  const ProprietaryFileReference({
     required super.title,
     super.description,
     super.valueHintsOverride,
@@ -27,4 +27,7 @@ class ProprietaryFileReference extends ProprietaryAttributeValue {
 
   @override
   String toString() => 'ProprietaryFileReference(value: $value)';
+
+  @override
+  List<Object?> get props => [super.props, value];
 }

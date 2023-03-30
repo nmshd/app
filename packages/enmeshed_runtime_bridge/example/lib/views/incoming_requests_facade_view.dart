@@ -440,63 +440,63 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       case 'Consent':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.Consent(consent: 'TestConsent'),
+          value: const types.Consent(consent: 'TestConsent'),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryBoolean':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryBoolean(title: 'atitle', value: true),
+          value: const types.ProprietaryBoolean(title: 'atitle', value: true),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryCountry':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryCountry(title: 'atitle', value: 'DE'),
+          value: const types.ProprietaryCountry(title: 'atitle', value: 'DE'),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryEMailAddress':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryEMailAddress(title: 'atitle', value: 'test@test.com'),
+          value: const types.ProprietaryEMailAddress(title: 'atitle', value: 'test@test.com'),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryFileReference':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryFileReference(title: 'atitle', value: 'fileReference'),
+          value: const types.ProprietaryFileReference(title: 'atitle', value: 'fileReference'),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryFloat':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryFloat(title: 'atitle', value: 25.5),
+          value: const types.ProprietaryFloat(title: 'atitle', value: 25.5),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryHEXColor':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryHEXColor(title: 'aTitle', value: '3d6dba'),
+          value: const types.ProprietaryHEXColor(title: 'aTitle', value: '3d6dba'),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryInteger':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryInteger(title: 'atitle', value: 5),
+          value: const types.ProprietaryInteger(title: 'atitle', value: 5),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryJSON':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryJSON(
+          value: const types.ProprietaryJSON(
             title: 'atitle',
             value: {
               'foo': 'bar',
@@ -512,28 +512,28 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       case 'ProprietaryLanguage':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryLanguage(title: 'atitle', value: 'de'),
+          value: const types.ProprietaryLanguage(title: 'atitle', value: 'de'),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryPhoneNumber':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryPhoneNumber(title: 'atitle', value: '123456789'),
+          value: const types.ProprietaryPhoneNumber(title: 'atitle', value: '123456789'),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryString':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryString(title: 'atitle', value: 'propString'),
+          value: const types.ProprietaryString(title: 'atitle', value: 'propString'),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryURL':
         return types.RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: types.ProprietaryURL(title: 'atitle', value: 'www.google.com'),
+          value: const types.ProprietaryURL(title: 'atitle', value: 'www.google.com'),
           key: 'key',
           confidentiality: types.RelationshipAttributeConfidentiality.public,
         );

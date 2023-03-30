@@ -4,7 +4,7 @@ import 'proprietary_attribute_value.dart';
 class ProprietaryURL extends ProprietaryAttributeValue {
   final String value;
 
-  ProprietaryURL({
+  const ProprietaryURL({
     required super.title,
     super.description,
     super.valueHintsOverride,
@@ -27,4 +27,7 @@ class ProprietaryURL extends ProprietaryAttributeValue {
 
   @override
   String toString() => 'ProprietaryURL(value: $value)';
+
+  @override
+  List<Object?> get props => [super.props, value];
 }

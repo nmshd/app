@@ -4,7 +4,7 @@ import 'proprietary_attribute_value.dart';
 class ProprietaryFloat extends ProprietaryAttributeValue {
   final double value;
 
-  ProprietaryFloat({
+  const ProprietaryFloat({
     required super.title,
     super.description,
     super.valueHintsOverride,
@@ -27,4 +27,7 @@ class ProprietaryFloat extends ProprietaryAttributeValue {
 
   @override
   String toString() => 'ProprietaryFloat(value: $value)';
+
+  @override
+  List<Object?> get props => [super.props, value];
 }
