@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_types/enmeshed_types.dart' as types;
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/driver_extension.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -234,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onDetected: (String truncatedReference) async {
           final item = await runtime.currentSession.transportServices.accounts.loadItemFromTruncatedReference(reference: truncatedReference);
 
-          if (item.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
+          if (item.type != types.LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
 
           final template = item.relationshipTemplateValue;
           print(template);

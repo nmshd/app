@@ -4,7 +4,7 @@ import 'proprietary_attribute_value.dart';
 class ProprietaryEMailAddress extends ProprietaryAttributeValue {
   final String value;
 
-  ProprietaryEMailAddress({
+  const ProprietaryEMailAddress({
     required super.title,
     super.description,
     super.valueHintsOverride,
@@ -27,4 +27,7 @@ class ProprietaryEMailAddress extends ProprietaryAttributeValue {
 
   @override
   String toString() => 'ProprietaryEMailAddress(value: $value)';
+
+  @override
+  List<Object?> get props => [super.props, value];
 }

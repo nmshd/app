@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class Country extends IdentityAttributeValue {
   final String value;
 
-  Country({
+  const Country({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class Country extends IdentityAttributeValue {
 
   @override
   String toString() => 'Country(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

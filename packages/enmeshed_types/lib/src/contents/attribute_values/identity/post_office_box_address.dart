@@ -1,4 +1,4 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class PostOfficeBoxAddress extends IdentityAttributeValue {
   final String recipient;
@@ -8,7 +8,7 @@ class PostOfficeBoxAddress extends IdentityAttributeValue {
   final String country;
   final String? state;
 
-  PostOfficeBoxAddress({
+  const PostOfficeBoxAddress({
     required this.recipient,
     required this.boxId,
     required this.zipCode,
@@ -41,4 +41,7 @@ class PostOfficeBoxAddress extends IdentityAttributeValue {
   String toString() {
     return 'PostOfficeBoxAddress(recipient: $recipient, boxId: $boxId, zipCode: $zipCode, city: $city, country: $country, state: $state)';
   }
+
+  @override
+  List<Object?> get props => [recipient, boxId, zipCode, city, country, state];
 }

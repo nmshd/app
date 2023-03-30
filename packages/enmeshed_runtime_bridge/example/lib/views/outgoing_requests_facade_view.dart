@@ -21,7 +21,7 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
                 items: [
                   ReadAttributeRequestItem(
                     mustBeAccepted: true,
-                    query: IdentityAttributeQuery(valueType: 'GivenName'),
+                    query: const IdentityAttributeQuery(valueType: 'GivenName'),
                   ),
                 ],
               );
@@ -42,7 +42,7 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
                 items: [
                   ReadAttributeRequestItem(
                     mustBeAccepted: true,
-                    query: IdentityAttributeQuery(valueType: 'GivenName'),
+                    query: const IdentityAttributeQuery(valueType: 'GivenName'),
                   ),
                 ],
               );

@@ -4,7 +4,7 @@ import 'proprietary_attribute_value.dart';
 class ProprietaryPhoneNumber extends ProprietaryAttributeValue {
   final String value;
 
-  ProprietaryPhoneNumber({
+  const ProprietaryPhoneNumber({
     required super.title,
     super.description,
     super.valueHintsOverride,
@@ -27,4 +27,7 @@ class ProprietaryPhoneNumber extends ProprietaryAttributeValue {
 
   @override
   String toString() => 'ProprietaryPhoneNumber(value: $value)';
+
+  @override
+  List<Object?> get props => [super.props, value];
 }

@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class Pseudonym extends IdentityAttributeValue {
   final String value;
 
-  Pseudonym({
+  const Pseudonym({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class Pseudonym extends IdentityAttributeValue {
 
   @override
   String toString() => 'Pseudonym(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

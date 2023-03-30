@@ -5,10 +5,6 @@ packages:
   - "apps/*"
   - "packages/**"
 
-command:
-  bootstrap:
-    usePubspecOverrides: true
-
 ide:
   intellij:
     enabled: false
@@ -24,7 +20,7 @@ scripts:
 
   test:
     # Only run the test command when the package has a test directory
-    run: melos exec --dir-exists=test -- "flutter test"
+    run: melos exec --dir-exists=test --flutter -- "flutter test" && melos exec --dir-exists=test --no-flutter -- "dart test"
     description: Run `flutter test` in all packages
 
   # https://github.com/dart-code-checker/dart-code-metrics/issues/313

@@ -6,7 +6,7 @@ class Consent extends RelationshipAttributeValue {
   final ValueHints? valueHintsOverride;
   final String? link;
 
-  Consent({
+  const Consent({
     required this.consent,
     this.valueHintsOverride,
     this.link,
@@ -28,4 +28,7 @@ class Consent extends RelationshipAttributeValue {
 
   @override
   String toString() => 'Consent(consent: $consent, valueHintsOverride: $valueHintsOverride, link: $link)';
+
+  @override
+  List<Object?> get props => [consent, valueHintsOverride, link];
 }

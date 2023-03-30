@@ -32,7 +32,7 @@ export 'phone_number.dart';
 export 'post_office_box_address.dart';
 export 'pseudonym.dart';
 export 'sex.dart';
-export 'state_attribute.dart';
+export 'state.dart';
 export 'street.dart';
 export 'street_address.dart';
 export 'surname.dart';

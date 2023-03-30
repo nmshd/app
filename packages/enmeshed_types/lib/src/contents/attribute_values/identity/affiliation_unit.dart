@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class AffiliationUnit extends IdentityAttributeValue {
   final String value;
 
-  AffiliationUnit({
+  const AffiliationUnit({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class AffiliationUnit extends IdentityAttributeValue {
 
   @override
   String toString() => 'AffiliationUnit(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }

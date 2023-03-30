@@ -1,9 +1,9 @@
-import 'identity_attriube_value.dart';
+import 'identity_attribute_value.dart';
 
 class JobTitle extends IdentityAttributeValue {
   final String value;
 
-  JobTitle({
+  const JobTitle({
     required this.value,
   });
 
@@ -19,4 +19,7 @@ class JobTitle extends IdentityAttributeValue {
 
   @override
   String toString() => 'JobTitle(value: $value)';
+
+  @override
+  List<Object?> get props => [value];
 }
