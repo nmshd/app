@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Relationship Attribute Creation Hints to json', () {
-    test('valid RelationshipAttributeCreationHints', () {
+  group('RelationshipAttributeCreationHints toJson', () {
+    test('is correctly converted', () {
       const relationshipAttributeCreationHints = RelationshipAttributeCreationHints(
         title: 'aCreationHint',
         valueType: 'ProprietaryInteger',
@@ -20,7 +20,7 @@ void main() {
       );
     });
 
-    test('valid RelationshipAttributeCreationHints with description', () {
+    test('is correctly converted with property "description"', () {
       const relationshipAttributeCreationHints = RelationshipAttributeCreationHints(
         title: 'aCreationHint',
         valueType: 'ProprietaryInteger',
@@ -39,7 +39,7 @@ void main() {
       );
     });
 
-    test('valid RelationshipAttributeCreationHints with valueHints', () {
+    test('is correctly converted with property "valueHints"', () {
       const relationshipAttributeCreationHints = RelationshipAttributeCreationHints(
         title: 'aCreationHint',
         valueType: 'ProprietaryInteger',
@@ -58,7 +58,7 @@ void main() {
       );
     });
 
-    test('valid RelationshipAttributeCreationHints with description and valueHints', () {
+    test('is correctly converted with properties "description" and "valueHints"', () {
       const relationshipAttributeCreationHints = RelationshipAttributeCreationHints(
         title: 'aCreationHint',
         valueType: 'ProprietaryInteger',
@@ -80,8 +80,8 @@ void main() {
     });
   });
 
-  group('Relationship Attribute Creation Hints from json', () {
-    test('valid RelationshipAttributeCreationHints', () {
+  group('RelationshipAttributeCreationHints fromJson', () {
+    test('is correctly converted', () {
       final json = {
         'title': 'aCreationHint',
         'valueType': 'ProprietaryInteger',
@@ -97,7 +97,7 @@ void main() {
       );
     });
 
-    test('valid RelationshipAttributeCreationHints with description', () {
+    test('is correctly converted with property "description"', () {
       final json = {
         'title': 'aCreationHint',
         'valueType': 'ProprietaryInteger',
@@ -115,7 +115,7 @@ void main() {
       );
     });
 
-    test('valid RelationshipAttributeCreationHints with valueHints', () {
+    test('is correctly converted with property "valueHints"', () {
       final json = {
         'title': 'aCreationHint',
         'valueType': 'ProprietaryInteger',
@@ -133,7 +133,7 @@ void main() {
       );
     });
 
-    test('valid RelationshipAttributeCreationHints with description and valueHints', () {
+    test('is correctly converted with properties "description" and "valueHints"', () {
       final json = {
         'title': 'aCreationHint',
         'valueType': 'ProprietaryInteger',

@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Attribute Query from json correctly', () {
-    test('AttributeQuery.fromJson should parse valid IdentityAttributeQuery correctly', () {
+  group('AttributeQuery fromJson correctly', () {
+    test('parsed valid IdentityAttributeQuery', () {
       final identityAttributeJson = {
         '@type': 'IdentityAttributeQuery',
         'valueType': 'StreetAddress',
@@ -12,7 +12,7 @@ void main() {
       expect(identityAttributeQuery, isA<IdentityAttributeQuery>());
     });
 
-    test('AttributeQuery.fromJson should parse valid RelationshipAttributeQuery correctly', () {
+    test('parsed valid RelationshipAttributeQuery', () {
       const attributeCreationHints = RelationshipAttributeCreationHints(
         title: 'aTitle',
         valueType: 'aValueType',
@@ -29,7 +29,7 @@ void main() {
       expect(relationshipAttributeQuery, isA<RelationshipAttributeQuery>());
     });
 
-    test('AttributeQuery.fromJson should parse valid ThirdPartyRelationshipAttributeQuery correctly', () {
+    test('parsed valid ThirdPartyRelationshipAttributeQuery', () {
       final thirdPartyRelationshipAttributeJson = {
         '@type': 'ThirdPartyRelationshipAttributeQuery',
         'key': 'ProprietaryInteger',
@@ -41,21 +41,21 @@ void main() {
     });
   });
 
-  group('Attribute Query from json with exception', () {
-    test('AttributeQuery.fromJson with wrong @type should throw an Exception', () {
+  group('AttributeQuery fromJson with wrong @type', () {
+    test('throws an Exception', () {
       final invalidJson = {'@type': 'wrongType'};
 
       expect(() => AttributeQuery.fromJson(invalidJson), throwsA(isA<Exception>()));
     });
   });
 
-  group('Attribute Query to json', () {
-    test('valid AttributeQuery', () {
+  group('AttributeQuery toJson', () {
+    test('is correctly converted', () {
       const mockAttributeQuery = MockAttributeQuery();
 
       expect(mockAttributeQuery.toJson(), equals(<String, dynamic>{}));
     });
-    test('valid AttributeQuery with validFrom and validTo', () {
+    test('is correctly converted with properties "validFrom" and "validTo"', () {
       const mockAttributeQuery = MockAttributeQuery(validFrom: '1970', validTo: '1980');
 
       final attributeQueryJson = {'validFrom': '1970', 'validTo': '1980'};
