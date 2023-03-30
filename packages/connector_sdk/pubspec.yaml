@@ -1,0 +1,19 @@
+name: connector_sdk
+description: A Dart SDK for the Enmeshed Connector.
+version: 1.0.0
+publish_to: none
+
+repository: https://github.com/nmshd/cns-app
+homepage: https://enmeshed.eu
+
+environment:
+  sdk: ">=2.19.5 <3.0.0"
+
+dependencies:
+  dio: ^5.1.0
+  enmeshed_types: 1.0.0
+  meta: ^1.9.1
+
+dev_dependencies:
+  dart_code_metrics: ^5.7.0
+  flutter_lints: ^2.0.1

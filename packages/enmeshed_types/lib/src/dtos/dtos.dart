@@ -1,3 +1,4 @@
+export 'challenge.dart';
 export 'device.dart';
 export 'device_onboarding_info.dart';
 export 'file.dart';

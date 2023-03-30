@@ -1,10 +1,12 @@
+import 'package:equatable/equatable.dart';
+
 import 'identity.dart';
 import 'relationship_change.dart';
 import 'relationship_template.dart';
 
 enum RelationshipStatus { Pending, Active, Rejected, Revoked, Terminating, Terminated }
 
-class RelationshipDTO {
+class RelationshipDTO extends Equatable {
   final String id;
   final RelationshipTemplateDTO template;
   final RelationshipStatus status;
@@ -12,7 +14,7 @@ class RelationshipDTO {
   final IdentityDTO peerIdentity;
   final List<RelationshipChangeDTO> changes;
 
-  RelationshipDTO({
+  const RelationshipDTO({
     required this.id,
     required this.template,
     required this.status,
@@ -35,7 +37,7 @@ class RelationshipDTO {
         'template': template.toJson(),
         'status': status.name,
         'peer': peer,
-        'peerIdentity': peerIdentity,
+        'peerIdentity': peerIdentity.toJson(),
         'changes': changes.map((e) => e.toJson()).toList(),
       };
 
@@ -43,4 +45,8 @@ class RelationshipDTO {
   String toString() {
     return 'RelationshipDTO(id: $id, template: $template, status: $status, peer: $peer, peerIdentity: $peerIdentity, changes: $changes)';
   }
+
+  @override
+  // TODO: correctly compare Relationships
+  List<Object?> get props => [id];
 }
