@@ -18,10 +18,7 @@ class _MainScreenState extends State<MainScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () {
-              GetIt.I.unregister<ConnectorClient>();
-              Navigator.of(context).pushReplacementNamed('/login');
-            },
+            onPressed: _logout,
           ),
         ],
       ),
@@ -29,5 +26,10 @@ class _MainScreenState extends State<MainScreen> {
         child: Text('Main Screen'),
       ),
     );
+  }
+
+  void _logout() {
+    GetIt.I.unregister<ConnectorClient>();
+    Navigator.of(context).pushReplacementNamed('/login');
   }
 }
