@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('IdentityAttributeValue fromJson correctly', () {
+  group('IdentityAttributeValue fromJson', () {
     test('parsed valid AffiliationOrganization', () {
       final affiliationOrganizationJson = {
         '@type': 'AffiliationOrganization',

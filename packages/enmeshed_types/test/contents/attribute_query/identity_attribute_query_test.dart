@@ -61,10 +61,6 @@ void main() {
   });
 
   group('IdentityAttributeQuery fromJson', () {
-    setUp(() {
-      // Additional setup goes here.
-    });
-
     test('is correctly converted', () {
       final json = {'valueType': 'StreetAddress'};
       expect(IdentityAttributeQuery.fromJson(json), equals(const IdentityAttributeQuery(valueType: 'StreetAddress')));

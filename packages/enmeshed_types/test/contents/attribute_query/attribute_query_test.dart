@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('AttributeQuery fromJson correctly', () {
+  group('AttributeQuery fromJson', () {
     test('parsed valid IdentityAttributeQuery', () {
       final identityAttributeJson = {
         '@type': 'IdentityAttributeQuery',

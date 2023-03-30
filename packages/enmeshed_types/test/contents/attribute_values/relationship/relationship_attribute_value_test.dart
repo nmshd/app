@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('RelationshipAttributeValue fromJson correctly', () {
+  group('RelationshipAttributeValue fromJson', () {
     test('parsed valid Consent', () {
       final consentJson = {'@type': 'Consent', 'consent': 'aConsent'};
       final relationshipAttributeValue = RelationshipAttributeValue.fromJson(consentJson);
