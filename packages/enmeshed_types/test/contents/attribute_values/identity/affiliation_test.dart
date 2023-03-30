@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   const identityAttributeValue = Affiliation(role: 'aRole', organization: 'anOrganization', unit: 'anUnit');
-  group('Affiliation to json', () {
-    test('valid Affiliation', () {
+  group('Affiliation toJson', () {
+    test('is correctly converted', () {
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -18,8 +18,8 @@ void main() {
     });
   });
 
-  group('Affiliation from json', () {
-    test('valid Affiliation', () {
+  group('Affiliation fromJson', () {
+    test('is correctly converted', () {
       final json = {
         'role': 'aRole',
         'organization': 'anOrganization',

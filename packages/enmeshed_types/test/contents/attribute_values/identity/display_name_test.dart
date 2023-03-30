@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   const identityAttributeValue = DisplayName(value: 'aDisplayName');
-  group('Display Name to json', () {
-    test('valid DisplayName', () {
+  group('DisplayName toJson', () {
+    test('is correctly converted', () {
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,8 +16,8 @@ void main() {
     });
   });
 
-  group('Display Name from json', () {
-    test('valid DisplayName', () {
+  group('DisplayName fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 'aDisplayName'};
       expect(DisplayName.fromJson(json), equals(identityAttributeValue));
     });

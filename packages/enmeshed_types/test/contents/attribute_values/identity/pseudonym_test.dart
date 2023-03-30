@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   const identityAttributeValue = Pseudonym(value: 'aPseudonym');
-  group('Pseudonym to json', () {
-    test('valid Pseudonym', () {
+  group('Pseudonym toJson', () {
+    test('is correctly converted', () {
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,8 +16,8 @@ void main() {
     });
   });
 
-  group('Pseudonym from json', () {
-    test('valid Pseudonym', () {
+  group('Pseudonym fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 'aPseudonym'};
       expect(Pseudonym.fromJson(json), equals(identityAttributeValue));
     });

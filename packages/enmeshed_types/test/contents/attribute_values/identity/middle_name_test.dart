@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   const identityAttributeValue = MiddleName(value: 'aMiddleName');
-  group('Middle Name to json', () {
-    test('valid MiddleName', () {
+  group('MiddleName toJson', () {
+    test('is correctly converted', () {
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,8 +16,8 @@ void main() {
     });
   });
 
-  group('Middle Name from json', () {
-    test('valid MiddleName', () {
+  group('MiddleName fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 'aMiddleName'};
       expect(MiddleName.fromJson(json), equals(identityAttributeValue));
     });

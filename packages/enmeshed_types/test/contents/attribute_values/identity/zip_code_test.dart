@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   const identityAttributeValue = ZipCode(value: 'aZipCode');
-  group('Zip Code to json', () {
-    test('valid ZipCode', () {
+  group('ZipCode toJson', () {
+    test('is correctly converted', () {
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,8 +16,8 @@ void main() {
     });
   });
 
-  group('Zip Code from json', () {
-    test('valid ZipCode', () {
+  group('ZipCode fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 'aZipCode'};
       expect(ZipCode.fromJson(json), equals(identityAttributeValue));
     });

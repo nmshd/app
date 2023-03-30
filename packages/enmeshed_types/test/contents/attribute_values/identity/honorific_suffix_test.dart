@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   const identityAttributeValue = HonorificSuffix(value: 'aHonorificSuffix');
-  group('Honorific Suffix to json', () {
-    test('valid HonorificSuffix', () {
+  group('HonorificSuffix toJson', () {
+    test('is correctly converted', () {
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,8 +16,8 @@ void main() {
     });
   });
 
-  group('Honorific Suffix from json', () {
-    test('valid HonorificSuffix', () {
+  group('HonorificSuffix fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 'aHonorificSuffix'};
       expect(HonorificSuffix.fromJson(json), equals(identityAttributeValue));
     });

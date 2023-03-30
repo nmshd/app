@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   const identityAttributeValue = EMailAddress(value: 'test@test.com');
-  group('E-Mail Address to json', () {
-    test('valid EMailAddress', () {
+  group('EMailAddress toJson', () {
+    test('is correctly converted', () {
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,8 +16,8 @@ void main() {
     });
   });
 
-  group('E-Mail Address from json', () {
-    test('valid EMailAddress', () {
+  group('EMailAddress fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 'test@test.com'};
       expect(EMailAddress.fromJson(json), equals(identityAttributeValue));
     });
