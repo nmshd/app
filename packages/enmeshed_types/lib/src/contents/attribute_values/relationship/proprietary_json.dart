@@ -5,7 +5,7 @@ class ProprietaryJSON extends RelationshipAttributeValue {
   final String? description;
   final Map<String, dynamic> value;
 
-  ProprietaryJSON({
+  const ProprietaryJSON({
     required this.title,
     this.description,
     required this.value,
@@ -27,4 +27,7 @@ class ProprietaryJSON extends RelationshipAttributeValue {
 
   @override
   String toString() => 'ProprietaryJSON(title: $title, description: $description, value: $value)';
+
+  @override
+  List<Object?> get props => [title, description, value];
 }

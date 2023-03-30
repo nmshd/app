@@ -4,7 +4,7 @@ import 'proprietary_attribute_value.dart';
 class ProprietaryLanguage extends ProprietaryAttributeValue {
   final String value;
 
-  ProprietaryLanguage({
+  const ProprietaryLanguage({
     required super.title,
     super.description,
     super.valueHintsOverride,
@@ -27,4 +27,7 @@ class ProprietaryLanguage extends ProprietaryAttributeValue {
 
   @override
   String toString() => 'ProprietaryLanguage(value: $value)';
+
+  @override
+  List<Object?> get props => [super.props, value];
 }

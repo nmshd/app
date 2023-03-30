@@ -1,8 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import 'relationship.dart';
 
-abstract class RelationshipAttributeValue {
+abstract class RelationshipAttributeValue extends Equatable {
+  const RelationshipAttributeValue();
+
   static RelationshipAttributeValue fromJson(Map<String, dynamic> json) {
     final type = json['@type'];
 
@@ -40,4 +43,8 @@ abstract class RelationshipAttributeValue {
 
   @mustCallSuper
   Map<String, dynamic> toJson();
+
+  @mustCallSuper
+  @override
+  List<Object?> get props;
 }

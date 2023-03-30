@@ -6,7 +6,7 @@ abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
   final String? description;
   final ValueHints? valueHintsOverride;
 
-  ProprietaryAttributeValue({
+  const ProprietaryAttributeValue({
     required this.title,
     this.description,
     this.valueHintsOverride,
@@ -18,4 +18,7 @@ abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
         if (description != null) 'description': description,
         if (valueHintsOverride != null) 'valueHintsOverride': valueHintsOverride?.toJson(),
       };
+
+  @override
+  List<Object?> get props => [title, description, valueHintsOverride];
 }
