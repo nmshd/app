@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Proprietary URL to json', () {
-    test('valid ProprietaryURL', () {
+  group('ProprietaryURL toJson', () {
+    test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryURL(title: 'aTitle', value: 'www.test.com');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -12,7 +12,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryURL with description', () {
+    test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryURL(title: 'aTitle', description: 'aDescription', value: 'www.test.com');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -21,7 +21,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryURL with valueHintsOverride', () {
+    test('is correctly converted with property "valueHintsOverride"', () {
       const relationshipAttributeValue = ProprietaryURL(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'www.test.com');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -30,7 +30,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryURL with description and valueHintsOverride', () {
+    test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       const relationshipAttributeValue = ProprietaryURL(
         title: 'aTitle',
         description: 'aDescription',
@@ -51,8 +51,8 @@ void main() {
     });
   });
 
-  group('Proprietary URL from json', () {
-    test('valid ProprietaryURL', () {
+  group('ProprietaryURL fromJson', () {
+    test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 'www.test.com'};
       expect(
         ProprietaryURL.fromJson(json),
@@ -60,7 +60,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryURL with description', () {
+    test('is correctly converted with property "description"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'value': 'www.test.com'};
       expect(
         ProprietaryURL.fromJson(json),
@@ -68,14 +68,14 @@ void main() {
       );
     });
 
-    test('valid ProprietaryURL with valueHintsOverride', () {
+    test('is correctly converted with property "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'www.test.com'};
       expect(
         ProprietaryURL.fromJson(json),
         equals(const ProprietaryURL(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'www.test.com')),
       );
     });
-    test('valid ProprietaryURL description and valueHintsOverride', () {
+    test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'www.test.com'};
       expect(
         ProprietaryURL.fromJson(json),

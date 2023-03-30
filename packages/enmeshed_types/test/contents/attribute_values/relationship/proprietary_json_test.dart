@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Proprietary JSON to json', () {
-    test('valid ProprietaryJSON', () {
+  group('ProprietaryJSON toJson', () {
+    test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryJSON(title: 'aTitle', value: {'value': 'aValue'});
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -16,7 +16,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryJSON with description', () {
+    test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryJSON(title: 'aTitle', description: 'aDescription', value: {'value': 'aValue'});
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -31,8 +31,8 @@ void main() {
     });
   });
 
-  group('Proprietary JSON from json', () {
-    test('valid ProprietaryJSON', () {
+  group('ProprietaryJSON fromJson', () {
+    test('is correctly converted', () {
       final json = {
         'title': 'aTitle',
         'value': {'value': 'aValue'},
@@ -43,7 +43,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryJSON with description', () {
+    test('is correctly converted with property "description"', () {
       final json = {
         'title': 'aTitle',
         'description': 'aDescription',

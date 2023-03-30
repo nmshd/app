@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Consent to json', () {
-    test('valid Consent', () {
+  group('Consent toJson', () {
+    test('is correctly converted', () {
       const relationshipAttributeValue = Consent(consent: 'aConsent');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -12,7 +12,7 @@ void main() {
       );
     });
 
-    test('valid Consent with valueHintsOverride', () {
+    test('is correctly converted with property "valueHintsOverride"', () {
       const relationshipAttributeValue = Consent(consent: 'aConsent', valueHintsOverride: ValueHints());
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -21,7 +21,7 @@ void main() {
       );
     });
 
-    test('valid Consent with link', () {
+    test('is correctly converted with property "link"', () {
       const relationshipAttributeValue = Consent(consent: 'aConsent', link: 'www.test.com');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -30,7 +30,7 @@ void main() {
       );
     });
 
-    test('valid Consent with link and valueHintsOverride', () {
+    test('is correctly converted with properties "link" and "valueHintsOverride"', () {
       const relationshipAttributeValue = Consent(consent: 'aConsent', valueHintsOverride: ValueHints(), link: 'www.test.com');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -40,8 +40,8 @@ void main() {
     });
   });
 
-  group('Consent from json', () {
-    test('valid Consent', () {
+  group('Consent fromJson', () {
+    test('is correctly converted', () {
       final json = {
         'consent': 'aConsent',
       };
@@ -51,7 +51,7 @@ void main() {
       );
     });
 
-    test('valid Consent with valueHintsOverride', () {
+    test('is correctly converted with property "valueHintsOverride"', () {
       final json = {'consent': 'aConsent', 'valueHintsOverride': const ValueHints().toJson()};
       expect(
         Consent.fromJson(json),
@@ -59,14 +59,14 @@ void main() {
       );
     });
 
-    test('valid Consent with link', () {
+    test('is correctly converted with property "link"', () {
       final json = {'consent': 'aConsent', 'link': 'www.test.com'};
       expect(
         Consent.fromJson(json),
         equals(const Consent(consent: 'aConsent', link: 'www.test.com')),
       );
     });
-    test('valid Consent with link and valueHintsOverride', () {
+    test('is correctly converted with properties "link" and "valueHintsOverride"', () {
       final json = {'consent': 'aConsent', 'valueHintsOverride': const ValueHints().toJson(), 'link': 'www.test.com'};
       expect(
         Consent.fromJson(json),

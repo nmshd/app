@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Proprietary Boolean to json', () {
-    test('valid ProprietaryBoolean', () {
+  group('ProprietaryBoolean toJson', () {
+    test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryBoolean(title: 'aTitle', value: true);
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -12,7 +12,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryBoolean with description', () {
+    test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryBoolean(title: 'aTitle', description: 'aDescription', value: true);
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -21,7 +21,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryBoolean with valueHintsOverride', () {
+    test('is correctly converted with property "valueHintsOverride"', () {
       const relationshipAttributeValue = ProprietaryBoolean(title: 'aTitle', valueHintsOverride: ValueHints(), value: true);
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -30,7 +30,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryBoolean with description and valueHintsOverride', () {
+    test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       const relationshipAttributeValue = ProprietaryBoolean(
         title: 'aTitle',
         description: 'aDescription',
@@ -51,8 +51,8 @@ void main() {
     });
   });
 
-  group('Proprietary Boolean from json', () {
-    test('valid ProprietaryBoolean', () {
+  group('ProprietaryBoolean fromJson', () {
+    test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': true};
       expect(
         ProprietaryBoolean.fromJson(json),
@@ -60,7 +60,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryBoolean with description', () {
+    test('is correctly converted with property "description"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'value': true};
       expect(
         ProprietaryBoolean.fromJson(json),
@@ -68,14 +68,14 @@ void main() {
       );
     });
 
-    test('valid ProprietaryBoolean with valueHintsOverride', () {
+    test('is correctly converted with property "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'valueHintsOverride': const ValueHints().toJson(), 'value': true};
       expect(
         ProprietaryBoolean.fromJson(json),
         equals(const ProprietaryBoolean(title: 'aTitle', valueHintsOverride: ValueHints(), value: true)),
       );
     });
-    test('valid ProprietaryBoolean description and valueHintsOverride', () {
+    test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': true};
       expect(
         ProprietaryBoolean.fromJson(json),

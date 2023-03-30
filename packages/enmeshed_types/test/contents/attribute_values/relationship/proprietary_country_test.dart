@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Proprietary Country to json', () {
-    test('valid ProprietaryCountry', () {
+  group('ProprietaryCountry toJson', () {
+    test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryCountry(title: 'aTitle', value: 'aCountry');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -12,7 +12,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryCountry with description', () {
+    test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryCountry(title: 'aTitle', description: 'aDescription', value: 'aCountry');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -21,7 +21,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryCountry with valueHintsOverride', () {
+    test('is correctly converted with property "valueHintsOverride"', () {
       const relationshipAttributeValue = ProprietaryCountry(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aCountry');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -30,7 +30,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryCountry with description and valueHintsOverride', () {
+    test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       const relationshipAttributeValue = ProprietaryCountry(
         title: 'aTitle',
         description: 'aDescription',
@@ -51,8 +51,8 @@ void main() {
     });
   });
 
-  group('Proprietary Country from json', () {
-    test('valid ProprietaryCountry', () {
+  group('ProprietaryCountry fromJson', () {
+    test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 'aCountry'};
       expect(
         ProprietaryCountry.fromJson(json),
@@ -60,7 +60,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryCountry with description', () {
+    test('is correctly converted with property "description"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'value': 'aCountry'};
       expect(
         ProprietaryCountry.fromJson(json),
@@ -68,14 +68,14 @@ void main() {
       );
     });
 
-    test('valid ProprietaryCountry with valueHintsOverride', () {
+    test('is correctly converted with property "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aCountry'};
       expect(
         ProprietaryCountry.fromJson(json),
         equals(const ProprietaryCountry(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aCountry')),
       );
     });
-    test('valid ProprietaryCountry description and valueHintsOverride', () {
+    test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aCountry'};
       expect(
         ProprietaryCountry.fromJson(json),

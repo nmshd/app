@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Proprietary Attribute Value to json', () {
-    test('valid ProprietaryAttributeValue', () {
+  group('ProprietaryAttributeValue toJson', () {
+    test('is correctly converted', () {
       const relationshipAttributeValue = MockProprietaryAttributeValue(title: 'aTitle');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -12,7 +12,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryAttributeValue with description', () {
+    test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = MockProprietaryAttributeValue(title: 'aTitle', description: 'aDescription');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -21,7 +21,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryAttributeValue with valueHintsOverride', () {
+    test('is correctly converted with property "valueHintsOverride"', () {
       const relationshipAttributeValue = MockProprietaryAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints());
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
@@ -30,7 +30,7 @@ void main() {
       );
     });
 
-    test('valid ProprietaryAttributeValue with description and valueHintsOverride', () {
+    test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       const relationshipAttributeValue = MockProprietaryAttributeValue(
         title: 'aTitle',
         description: 'aDescription',
