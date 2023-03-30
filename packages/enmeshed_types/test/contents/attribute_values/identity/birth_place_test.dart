@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Birth Place to json', () {
-    test('valid BirthPlace', () {
+  group('BirthPlace toJson', () {
+    test('is correctly converted', () {
       const identityAttributeValue = BirthPlace(city: 'aCity', country: 'aCountry');
       final identityJson = identityAttributeValue.toJson();
       expect(
@@ -12,7 +12,7 @@ void main() {
       );
     });
 
-    test('valid BirthPlace with state', () {
+    test('is correctly converted with property "state"', () {
       const identityAttributeValue = BirthPlace(city: 'aCity', country: 'aCountry', state: 'aState');
       final identityJson = identityAttributeValue.toJson();
       expect(
@@ -22,13 +22,13 @@ void main() {
     });
   });
 
-  group('Birth Place from json', () {
-    test('valid BirthPlace', () {
+  group('BirthPlace fromJson', () {
+    test('is correctly converted', () {
       final json = {'city': 'aCity', 'country': 'aCountry'};
       expect(BirthPlace.fromJson(json), equals(const BirthPlace(city: 'aCity', country: 'aCountry')));
     });
 
-    test('valid BirthPlace with state', () {
+    test('is correctly converted with property "state"', () {
       final json = {'city': 'aCity', 'country': 'aCountry', 'state': 'aState'};
       expect(BirthPlace.fromJson(json), equals(const BirthPlace(city: 'aCity', country: 'aCountry', state: 'aState')));
     });

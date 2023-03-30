@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   const identityAttributeValue = BirthMonth(value: 01);
-  group('Birth Month to json', () {
-    test('valid BirthMonth', () {
+  group('BirthMonth toJson', () {
+    test('is correctly converted', () {
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,8 +16,8 @@ void main() {
     });
   });
 
-  group('Birth Month from json', () {
-    test('valid BirthMonth', () {
+  group('BirthMonth fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 01};
       expect(BirthMonth.fromJson(json), equals(identityAttributeValue));
     });

@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   const identityAttributeValue = BirthCountry(value: 'aBirthCountry');
-  group('Birth Country to json', () {
-    test('valid BirthCountry', () {
+  group('BirthCountry toJson', () {
+    test('is correctly converted', () {
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,8 +16,8 @@ void main() {
     });
   });
 
-  group('Birth Country from json', () {
-    test('valid BirthCountry', () {
+  group('BirthCountry fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 'aBirthCountry'};
       expect(BirthCountry.fromJson(json), equals(identityAttributeValue));
     });

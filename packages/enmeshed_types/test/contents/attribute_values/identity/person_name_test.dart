@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Person Name to json', () {
-    test('valid PersonName', () {
+  group('PersonName toJson', () {
+    test('is correctly converted', () {
       const identityAttributeValue = PersonName(givenName: 'aGivenName', surname: 'aSurname');
       final identityJson = identityAttributeValue.toJson();
       expect(
@@ -12,7 +12,7 @@ void main() {
       );
     });
 
-    test('valid PersonName with middleName', () {
+    test('is correctly converted with property "middleName"', () {
       const identityAttributeValue = PersonName(givenName: 'aGivenName', middleName: 'aMiddleName', surname: 'aSurname');
       final identityJson = identityAttributeValue.toJson();
       expect(
@@ -21,7 +21,7 @@ void main() {
       );
     });
 
-    test('valid PersonName with honorificSuffix', () {
+    test('is correctly converted with property "honorificSuffix"', () {
       const identityAttributeValue = PersonName(givenName: 'aGivenName', surname: 'aSurname', honorificSuffix: 'aHonorificSuffix');
       final identityJson = identityAttributeValue.toJson();
       expect(
@@ -30,7 +30,7 @@ void main() {
       );
     });
 
-    test('valid PersonName with honorificPrefix', () {
+    test('is correctly converted with property "honorificPrefix"', () {
       const identityAttributeValue = PersonName(givenName: 'aGivenName', surname: 'aSurname', honorificPrefix: 'aHonorificPrefix');
       final identityJson = identityAttributeValue.toJson();
       expect(
@@ -39,7 +39,7 @@ void main() {
       );
     });
 
-    test('valid PersonName with middleName, honorificSuffix and honorificPrefix', () {
+    test('is correctly converted with properties "middleName", "honorificSuffix" and "honorificPrefix"', () {
       const identityAttributeValue = PersonName(
         givenName: 'aGivenName',
         middleName: 'aMiddleName',
@@ -62,28 +62,28 @@ void main() {
     });
   });
 
-  group('Person Name from json', () {
-    test('valid PersonName', () {
+  group('PersonName fromJson', () {
+    test('is correctly converted', () {
       final json = {'givenName': 'aGivenName', 'surname': 'aSurname'};
       expect(PersonName.fromJson(json), equals(const PersonName(givenName: 'aGivenName', surname: 'aSurname')));
     });
 
-    test('valid PersonName with middleName', () {
+    test('is correctly converted with property "middleName"', () {
       final json = {'givenName': 'aGivenName', 'middleName': 'aMiddleName', 'surname': 'aSurname'};
       expect(PersonName.fromJson(json), equals(const PersonName(givenName: 'aGivenName', middleName: 'aMiddleName', surname: 'aSurname')));
     });
 
-    test('valid PersonName with honorificSuffix', () {
+    test('is correctly converted with property "honorificSuffix"', () {
       final json = {'givenName': 'aGivenName', 'surname': 'aSurname', 'honorificSuffix': 'aHonorificSuffix'};
       expect(PersonName.fromJson(json), equals(const PersonName(givenName: 'aGivenName', surname: 'aSurname', honorificSuffix: 'aHonorificSuffix')));
     });
 
-    test('valid PersonName with honorificPrefix', () {
+    test('is correctly converted with property "honorificPrefix"', () {
       final json = {'givenName': 'aGivenName', 'surname': 'aSurname', 'honorificPrefix': 'aHonorificPrefix'};
       expect(PersonName.fromJson(json), equals(const PersonName(givenName: 'aGivenName', surname: 'aSurname', honorificPrefix: 'aHonorificPrefix')));
     });
 
-    test('valid PersonName with middleName, honorificSuffix and honorificPrefix', () {
+    test('is correctly converted with properties "middleName", "honorificSuffix" and "honorificPrefix"', () {
       final json = {
         'givenName': 'aGivenName',
         'middleName': 'aMiddleName',

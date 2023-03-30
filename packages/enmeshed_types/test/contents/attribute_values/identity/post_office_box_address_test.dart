@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Post Office Box Address to json', () {
-    test('valid PostOfficeBoxAddress', () {
+  group('PostOfficeBoxAddress toJson', () {
+    test('is correctly converted', () {
       const identityAttributeValue = PostOfficeBoxAddress(
         recipient: 'aRecipient',
         boxId: 'aBoxId',
@@ -25,7 +25,7 @@ void main() {
       );
     });
 
-    test('valid PostOfficeBoxAddress with state', () {
+    test('is correctly converted with property "state"', () {
       const identityAttributeValue = PostOfficeBoxAddress(
         recipient: 'aRecipient',
         boxId: 'aBoxId',
@@ -50,8 +50,8 @@ void main() {
     });
   });
 
-  group('Post Office Box Address from json', () {
-    test('valid PostOfficeBoxAddress', () {
+  group('PostOfficeBoxAddress fromJson', () {
+    test('is correctly converted', () {
       final json = {
         'recipient': 'aRecipient',
         'boxId': 'aBoxId',
@@ -71,7 +71,7 @@ void main() {
       );
     });
 
-    test('valid PostOfficeBoxAddress with state', () {
+    test('is correctly converted with property "state"', () {
       final json = {
         'recipient': 'aRecipient',
         'boxId': 'aBoxId',
