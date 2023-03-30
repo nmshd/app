@@ -1,3 +1,4 @@
+export 'challenge_validation_result.dart';
 export 'create_qr_code.dart';
 export 'download_file.dart';
 export 'get_identity_info.dart';
