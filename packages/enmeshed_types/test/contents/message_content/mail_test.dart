@@ -4,13 +4,13 @@ import 'package:test/test.dart';
 void main() {
   group('Mail toJson', () {
     test('is correctly converted', () {
-      const mail = Mail(to: ['test@test.com'], subject: 'aSubject', body: 'aBody');
+      const mail = Mail(to: ['aRecipient'], subject: 'aSubject', body: 'aBody');
       final mailJson = mail.toJson();
       expect(
         mailJson,
         equals({
           '@type': 'Mail',
-          'to': ['test@test.com'],
+          'to': ['aRecipient'],
           'subject': 'aSubject',
           'body': 'aBody',
         }),
@@ -18,14 +18,14 @@ void main() {
     });
 
     test('is correctly converted with property "cc"', () {
-      const mail = Mail(to: ['test@test.com'], cc: ['test2@test.com'], subject: 'aSubject', body: 'aBody');
+      const mail = Mail(to: ['aRecipient'], cc: ['copyRecipient'], subject: 'aSubject', body: 'aBody');
       final mailJson = mail.toJson();
       expect(
         mailJson,
         equals({
           '@type': 'Mail',
-          'to': ['test@test.com'],
-          'cc': ['test2@test.com'],
+          'to': ['aRecipient'],
+          'cc': ['copyRecipient'],
           'subject': 'aSubject',
           'body': 'aBody',
         }),
@@ -35,9 +35,9 @@ void main() {
 
   group('Mail fromJson', () {
     test('is correctly converted', () {
-      const mail = Mail(to: ['test@test.com'], subject: 'aSubject', body: 'aBody');
+      const mail = Mail(to: ['aRecipient'], subject: 'aSubject', body: 'aBody');
       final json = {
-        'to': ['test@test.com'],
+        'to': ['aRecipient'],
         'subject': 'aSubject',
         'body': 'aBody',
       };
@@ -45,10 +45,10 @@ void main() {
     });
 
     test('is correctly converted with property "cc"', () {
-      const mail = Mail(to: ['test@test.com'], cc: ['test2@test.com'], subject: 'aSubject', body: 'aBody');
+      const mail = Mail(to: ['aRecipient'], cc: ['copyRecipient'], subject: 'aSubject', body: 'aBody');
       final json = {
-        'to': ['test@test.com'],
-        'cc': ['test2@test.com'],
+        'to': ['aRecipient'],
+        'cc': ['copyRecipient'],
         'subject': 'aSubject',
         'body': 'aBody',
       };
