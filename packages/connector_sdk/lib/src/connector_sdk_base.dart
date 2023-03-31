@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 import 'endpoints/endpoints.dart';
 
 class ConnectorClient {
+  final String baseUrl;
+
   late final AccountEndpoint account;
   late final AttributesEndpoint attributes;
   late final ChallengesEndpoint challenges;
@@ -15,7 +17,7 @@ class ConnectorClient {
   late final RelationshipsEndpoint relationships;
   late final TokensEndpoint tokens;
 
-  ConnectorClient(String baseUrl, String apiKey) {
+  ConnectorClient(this.baseUrl, String apiKey) {
     final dio = Dio(BaseOptions(
       baseUrl: baseUrl,
       headers: {'X-API-KEY': apiKey},
