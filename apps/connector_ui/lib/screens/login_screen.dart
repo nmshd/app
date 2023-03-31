@@ -40,8 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void textUpdated() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
