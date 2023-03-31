@@ -35,24 +35,22 @@ void main() {
 
   group('Mail fromJson', () {
     test('is correctly converted', () {
-      const mail = Mail(to: ['aRecipient'], subject: 'aSubject', body: 'aBody');
       final json = {
         'to': ['aRecipient'],
         'subject': 'aSubject',
         'body': 'aBody',
       };
-      expect(Mail.fromJson(json), equals(mail));
+      expect(Mail.fromJson(json), equals(const Mail(to: ['aRecipient'], subject: 'aSubject', body: 'aBody')));
     });
 
     test('is correctly converted with property "cc"', () {
-      const mail = Mail(to: ['aRecipient'], cc: ['copyRecipient'], subject: 'aSubject', body: 'aBody');
       final json = {
         'to': ['aRecipient'],
         'cc': ['copyRecipient'],
         'subject': 'aSubject',
         'body': 'aBody',
       };
-      expect(Mail.fromJson(json), equals(mail));
+      expect(Mail.fromJson(json), equals(const Mail(to: ['aRecipient'], cc: ['copyRecipient'], subject: 'aSubject', body: 'aBody')));
     });
   });
 }
