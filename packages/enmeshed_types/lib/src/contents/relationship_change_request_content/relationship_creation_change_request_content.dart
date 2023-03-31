@@ -3,7 +3,7 @@ part of 'relationship_change_request_content.dart';
 class RelationshipCreationChangeRequestContent extends RelationshipChangeRequestContent {
   final Response response;
 
-  RelationshipCreationChangeRequestContent({
+  const RelationshipCreationChangeRequestContent({
     required this.response,
   });
 
@@ -18,4 +18,7 @@ class RelationshipCreationChangeRequestContent extends RelationshipChangeRequest
       'response': response.toJson(),
     };
   }
+
+  @override
+  List<Object?> get props => [response];
 }
