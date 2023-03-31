@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const identityAttributeValue = State(value: 'aState');
   group('State toJson', () {
     test('is correctly converted', () {
+      const identityAttributeValue = State(value: 'aState');
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -19,7 +19,7 @@ void main() {
   group('State fromJson', () {
     test('is correctly converted', () {
       final json = {'value': 'aState'};
-      expect(State.fromJson(json), equals(identityAttributeValue));
+      expect(State.fromJson(json), equals(const State(value: 'aState')));
     });
   });
 }
