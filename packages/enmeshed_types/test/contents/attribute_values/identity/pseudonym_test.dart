@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const identityAttributeValue = Pseudonym(value: 'aPseudonym');
   group('Pseudonym toJson', () {
     test('is correctly converted', () {
+      const identityAttributeValue = Pseudonym(value: 'aPseudonym');
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -19,7 +19,7 @@ void main() {
   group('Pseudonym fromJson', () {
     test('is correctly converted', () {
       final json = {'value': 'aPseudonym'};
-      expect(Pseudonym.fromJson(json), equals(identityAttributeValue));
+      expect(Pseudonym.fromJson(json), equals(const Pseudonym(value: 'aPseudonym')));
     });
   });
 }
