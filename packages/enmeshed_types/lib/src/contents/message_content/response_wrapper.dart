@@ -5,10 +5,10 @@ enum RequestSourceType { RelationshipTemplate, Message }
 class ResponseWrapper extends MessageContent {
   final String requestId;
   final String requestSourceReference;
-  RequestSourceType requestSourceType;
+  final RequestSourceType requestSourceType;
   final Response response;
 
-  ResponseWrapper({
+  const ResponseWrapper({
     required this.requestId,
     required this.requestSourceReference,
     required this.requestSourceType,
@@ -34,4 +34,7 @@ class ResponseWrapper extends MessageContent {
       'response': response.toJson(),
     };
   }
+
+  @override
+  List<Object?> get props => [requestId, requestSourceReference, requestSourceType, response];
 }
