@@ -17,7 +17,7 @@ void main() {
           '@type': 'ResponseWrapper',
           'requestId': 'aRequestId',
           'requestSourceReference': 'aRequestSourceReference',
-          'requestSourceType': RequestSourceType.Message.name,
+          'requestSourceType': 'Message',
           'response': const Response(result: 'aResult', requestId: 'aRequestId', items: []).toJson(),
         }),
       );
@@ -30,7 +30,7 @@ void main() {
         '@type': 'ResponseWrapper',
         'requestId': 'aRequestId',
         'requestSourceReference': 'aRequestSourceReference',
-        'requestSourceType': RequestSourceType.Message.name,
+        'requestSourceType': 'Message',
         'response': const Response(result: 'aResult', requestId: 'aRequestId', items: []).toJson(),
       };
       expect(ResponseWrapper.fromJson(json), equals(responseWrapper));

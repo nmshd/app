@@ -6,7 +6,7 @@ void main() {
     test('parsed valid Mail', () {
       final mailJson = {
         '@type': 'Mail',
-        'to': ['test@test.com'],
+        'to': ['aRecipient'],
         'subject': 'aSubject',
         'body': 'aBody',
       };
@@ -19,7 +19,7 @@ void main() {
         '@type': 'ResponseWrapper',
         'requestId': 'aRequestId',
         'requestSourceReference': 'aRequestSourceReference',
-        'requestSourceType': RequestSourceType.Message.name,
+        'requestSourceType': 'Message',
         'response': const Response(result: 'aResult', requestId: 'aRequestId', items: []).toJson(),
       };
       final messageContent = MessageContent.fromJson(responseWrapperJson);
