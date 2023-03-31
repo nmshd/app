@@ -3,11 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('A group of tests', () {
-    final mail = Mail(body: 'A Body', subject: 'A Subject', to: ['A Recipient']);
-
-    setUp(() {
-      // Additional setup goes here.
-    });
+    const mail = Mail(body: 'A Body', subject: 'A Subject', to: ['A Recipient']);
 
     test('First Test', () {
       expect(mail.body, equals('A Body'));
