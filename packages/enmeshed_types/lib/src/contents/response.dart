@@ -1,11 +1,13 @@
+import 'package:equatable/equatable.dart';
+
 import 'response_item/response_item.dart';
 
-class Response {
+class Response extends Equatable {
   final String result;
   final String requestId;
   final List<ResponseItem> items;
 
-  Response({
+  const Response({
     required this.result,
     required this.requestId,
     required this.items,
@@ -27,4 +29,7 @@ class Response {
 
   @override
   String toString() => 'ResponseJSON(result: $result, requestId: $requestId, items: $items)';
+
+  @override
+  List<Object?> get props => [result, requestId, items];
 }
