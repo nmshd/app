@@ -29,7 +29,6 @@ void main() {
     test('parsed valid ArbitraryMessageContent when given an unknown @type', () {
       final arbitraryMessageContentJson = {
         '@type': 'unknownType',
-        'internalJson': 'anInternalJson',
       };
       final messageContent = MessageContent.fromJson(arbitraryMessageContentJson);
       expect(messageContent, isA<ArbitraryMessageContent>());
