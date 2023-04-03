@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:connector_sdk/connector_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:window_size/window_size.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
