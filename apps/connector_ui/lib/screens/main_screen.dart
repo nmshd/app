@@ -103,6 +103,11 @@ class _MainScreenState extends State<MainScreen> {
 
   void _logout() {
     GetIt.I.unregister<ConnectorClient>();
+
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      setWindowTitle('Connector Management UI');
+    }
+
     Navigator.of(context).pushReplacementNamed('/login');
   }
 }
