@@ -27,8 +27,8 @@ class _SharedPreferencesEnabledTextFieldState extends State<SharedPreferencesEna
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final sp = GetIt.I.get<SharedPreferences>();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final sp = await GetIt.I.getAsync<SharedPreferences>();
       if (sp.containsKey(widget.sharedPreferencesKey)) {
         widget.controller.text = sp.getString(widget.sharedPreferencesKey)!;
         setState(() {
