@@ -5,7 +5,7 @@ class IdentityAttribute extends AbstractAttribute {
   final IdentityAttributeValue value;
   final List<String>? tags;
 
-  IdentityAttribute({
+  const IdentityAttribute({
     required super.owner,
     super.validFrom,
     super.validTo,
@@ -33,4 +33,7 @@ class IdentityAttribute extends AbstractAttribute {
         'value': value.toJson(),
         if (tags != null) 'tags': tags,
       };
+
+  @override
+  List<Object?> get props => [super.props, value, tags];
 }
