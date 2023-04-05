@@ -31,7 +31,4 @@ class AcceptResponseItem extends ResponseItemDerivation {
         ...super.toJson(),
         '@type': 'AcceptResponseItem',
       };
-
-  @override
-  List<Object?> get props => [super.props];
 }
