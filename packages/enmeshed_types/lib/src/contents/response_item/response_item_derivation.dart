@@ -1,7 +1,7 @@
 part of 'response_item.dart';
 
 abstract class ResponseItemDerivation extends ResponseItem {
-  ResponseItemDerivation({required super.result});
+  const ResponseItemDerivation({required super.result});
 
   factory ResponseItemDerivation.fromJson(Map<String, dynamic> json) {
     final type = json['@type'];
@@ -15,4 +15,7 @@ abstract class ResponseItemDerivation extends ResponseItem {
 
     throw Exception('Unknown type: $type');
   }
+
+  @override
+  List<Object?> get props => [super.props];
 }

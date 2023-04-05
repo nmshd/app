@@ -1,12 +1,12 @@
 part of 'response_item.dart';
 
 class AcceptResponseItem extends ResponseItemDerivation {
-  AcceptResponseItem() : super(result: ResponseItemResult.Accepted);
+  const AcceptResponseItem() : super(result: ResponseItemResult.Accepted);
 
   factory AcceptResponseItem.fromJson(Map<String, dynamic> json) {
     final type = json['@type'];
 
-    if (type == 'AcceptResponseItem') return AcceptResponseItem();
+    if (type == 'AcceptResponseItem') return const AcceptResponseItem();
 
     switch (type) {
       case 'CreateAttributeAcceptResponseItem':
@@ -31,4 +31,7 @@ class AcceptResponseItem extends ResponseItemDerivation {
         ...super.toJson(),
         '@type': 'AcceptResponseItem',
       };
+
+  @override
+  List<Object?> get props => [super.props];
 }

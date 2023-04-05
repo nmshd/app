@@ -3,7 +3,7 @@ part of 'response_item.dart';
 class RegisterAttributeListenerAcceptResponseItem extends AcceptResponseItem {
   final String listenerId;
 
-  RegisterAttributeListenerAcceptResponseItem({
+  const RegisterAttributeListenerAcceptResponseItem({
     required this.listenerId,
   });
 
@@ -22,4 +22,7 @@ class RegisterAttributeListenerAcceptResponseItem extends AcceptResponseItem {
 
   @override
   String toString() => 'RegisterAttributeListenerAcceptResponseItem(listenerId: $listenerId)';
+
+  @override
+  List<Object?> get props => [super.props, listenerId];
 }
