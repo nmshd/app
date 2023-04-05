@@ -4,7 +4,7 @@ class ProposeAttributeAcceptResponseItem extends AcceptResponseItem {
   final String attributeId;
   final AbstractAttribute attribute;
 
-  ProposeAttributeAcceptResponseItem({
+  const ProposeAttributeAcceptResponseItem({
     required this.attributeId,
     required this.attribute,
   });
@@ -26,4 +26,7 @@ class ProposeAttributeAcceptResponseItem extends AcceptResponseItem {
 
   @override
   String toString() => 'ProposeAttributeAcceptResponseItem(attributeId: $attributeId, attribute: $attribute)';
+
+  @override
+  List<Object?> get props => [super.props, attributeId, attribute];
 }

@@ -3,7 +3,7 @@ part of 'response_item.dart';
 class ResponseItemGroup extends ResponseItem {
   final List<ResponseItemDerivation> items;
 
-  ResponseItemGroup({
+  const ResponseItemGroup({
     required this.items,
   });
 
@@ -21,4 +21,7 @@ class ResponseItemGroup extends ResponseItem {
 
   @override
   String toString() => 'ResponseItemGroup(items: $items)';
+
+  @override
+  List<Object?> get props => [items];
 }

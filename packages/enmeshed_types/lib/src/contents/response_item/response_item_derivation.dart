@@ -3,7 +3,7 @@ part of 'response_item.dart';
 abstract class ResponseItemDerivation extends ResponseItem {
   final ResponseItemResult result;
 
-  ResponseItemDerivation({required this.result});
+  const ResponseItemDerivation({required this.result});
 
   factory ResponseItemDerivation.fromJson(Map<String, dynamic> json) {
     final type = json['@type'];
@@ -22,4 +22,7 @@ abstract class ResponseItemDerivation extends ResponseItem {
   Map<String, dynamic> toJson() => {
         'result': result.name,
       };
+
+  @override
+  List<Object?> get props => [result];
 }

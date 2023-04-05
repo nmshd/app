@@ -1,14 +1,15 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import 'identity_attribute.dart';
 import 'relationship_attribute.dart';
 
-abstract class AbstractAttribute {
+abstract class AbstractAttribute extends Equatable {
   final String owner;
   final String? validFrom;
   final String? validTo;
 
-  AbstractAttribute({
+  const AbstractAttribute({
     required this.owner,
     this.validFrom,
     this.validTo,
@@ -34,4 +35,8 @@ abstract class AbstractAttribute {
         if (validFrom != null) 'validFrom': validFrom,
         if (validTo != null) 'validTo': validTo,
       };
+
+  @mustCallSuper
+  @override
+  List<Object?> get props => [owner, validFrom, validTo];
 }

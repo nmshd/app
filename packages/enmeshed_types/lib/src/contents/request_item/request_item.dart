@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../../contents/contents.dart';
@@ -13,15 +14,13 @@ part 'request_item_group.dart';
 part 'share_attribute_request_item.dart';
 part 'succeed_attribute_request_item.dart';
 
-abstract class RequestItem {
+abstract class RequestItem extends Equatable {
   final String? title;
   final String? description;
-
   final Map<String, dynamic>? metadata;
-
   final bool mustBeAccepted;
 
-  RequestItem({
+  const RequestItem({
     this.title,
     this.description,
     this.metadata,
@@ -50,4 +49,8 @@ abstract class RequestItem {
   String toString() {
     return 'RequestItem(title: $title, description: $description, metadata: $metadata, mustBeAccepted: $mustBeAccepted)';
   }
+
+  @mustCallSuper
+  @override
+  List<Object?> get props => [title, description, metadata, mustBeAccepted];
 }
