@@ -56,16 +56,33 @@ class _MainScreenState extends State<MainScreen> {
               Text('ID: ${relationships[index].id}'),
               Text('Peer: ${relationships[index].peer}'),
               Text('Status: ${relationships[index].status.name}'),
-              ExpansionTile(
-                title: const Text('Attributes'),
-                children: [
-                  FutureBuilder(
-                    future: client.relationships.getAttributesForRelationship(relationships[index].id),
-                    builder: (context, snapshot) => snapshot.hasData
-                        ? Column(children: snapshot.data!.data.map((e) => Text(e.content.toString())).toList())
-                        : const Text('Loading...'),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ExpansionTile(
+                  title: const Text('Attributes'),
+                  children: [
+                    FutureBuilder(
+                      future: client.relationships.getAttributesForRelationship(relationships[index].id),
+                      builder: (context, snapshot) => snapshot.hasData
+                          ? Column(children: snapshot.data!.data.map((e) => Text(e.content.toString())).toList())
+                          : const Text('Loading...'),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ExpansionTile(
+                  title: const Text('Messages'),
+                  children: [
+                    FutureBuilder(
+                      future: client.messages.getMessages({'participant': relationships[index].peer}),
+                      builder: (context, snapshot) => snapshot.hasData
+                          ? Column(children: snapshot.data!.data.map((e) => Text(e.content.toString())).toList())
+                          : const Text('Loading...'),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
