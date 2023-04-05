@@ -3,7 +3,7 @@ part of 'request_item.dart';
 abstract class RequestItemDerivation extends RequestItem {
   final bool? requireManualDecision;
 
-  RequestItemDerivation({
+  const RequestItemDerivation({
     super.title,
     super.description,
     super.metadata,
@@ -44,4 +44,7 @@ abstract class RequestItemDerivation extends RequestItem {
 
   @override
   String toString() => 'RequestItemDerivation(requireManualDecision: $requireManualDecision)';
+
+  @override
+  List<Object?> get props => [super.props, requireManualDecision];
 }

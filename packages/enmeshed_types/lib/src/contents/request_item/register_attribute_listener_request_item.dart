@@ -3,7 +3,7 @@ part of 'request_item.dart';
 class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
   final AttributeQuery query;
 
-  RegisterAttributeListenerRequestItem({
+  const RegisterAttributeListenerRequestItem({
     super.title,
     super.description,
     super.metadata,
@@ -32,4 +32,7 @@ class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
 
   @override
   String toString() => 'RegisterAttributeListenerRequestItem(query: $query)';
+
+  @override
+  List<Object?> get props => [super.props, query];
 }

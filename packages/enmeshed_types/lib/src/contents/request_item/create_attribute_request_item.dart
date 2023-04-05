@@ -3,7 +3,7 @@ part of 'request_item.dart';
 class CreateAttributeRequestItem extends RequestItemDerivation {
   final AbstractAttribute attribute;
 
-  CreateAttributeRequestItem({
+  const CreateAttributeRequestItem({
     super.title,
     super.description,
     super.metadata,
@@ -32,4 +32,7 @@ class CreateAttributeRequestItem extends RequestItemDerivation {
 
   @override
   String toString() => 'CreateAttributeRequestItem(attribute: $attribute)';
+
+  @override
+  List<Object?> get props => [super.props, attribute];
 }

@@ -4,7 +4,7 @@ class ConsentRequestItem extends RequestItemDerivation {
   final String consent;
   final String? link;
 
-  ConsentRequestItem({
+  const ConsentRequestItem({
     super.title,
     super.description,
     super.metadata,
@@ -36,4 +36,7 @@ class ConsentRequestItem extends RequestItemDerivation {
 
   @override
   String toString() => 'ConsentRequestItem(consent: $consent, link: $link)';
+
+  @override
+  List<Object?> get props => [super.props, consent, link];
 }

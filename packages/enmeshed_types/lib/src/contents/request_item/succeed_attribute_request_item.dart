@@ -5,7 +5,7 @@ class SucceedAttributeRequestItem extends RequestItemDerivation {
   final AbstractAttribute succeededAttribute;
   final AbstractAttribute newAttribute;
 
-  SucceedAttributeRequestItem({
+  const SucceedAttributeRequestItem({
     super.title,
     super.description,
     super.metadata,
@@ -40,4 +40,7 @@ class SucceedAttributeRequestItem extends RequestItemDerivation {
 
   @override
   String toString() => 'SucceedAttributeRequestItem(succeededId: $succeededId, succeededAttribute: $succeededAttribute, newAttribute: $newAttribute)';
+
+  @override
+  List<Object?> get props => [super.props, succeededId, succeededAttribute, newAttribute];
 }

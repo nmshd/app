@@ -19,9 +19,9 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
             onPressed: () async {
               final Request content = Request(
                 items: [
-                  ReadAttributeRequestItem(
+                  const ReadAttributeRequestItem(
                     mustBeAccepted: true,
-                    query: const IdentityAttributeQuery(valueType: 'GivenName'),
+                    query: IdentityAttributeQuery(valueType: 'GivenName'),
                   ),
                 ],
               );
@@ -40,9 +40,9 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
 
               final content = Request(
                 items: [
-                  ReadAttributeRequestItem(
+                  const ReadAttributeRequestItem(
                     mustBeAccepted: true,
-                    query: const IdentityAttributeQuery(valueType: 'GivenName'),
+                    query: IdentityAttributeQuery(valueType: 'GivenName'),
                   ),
                 ],
               );
