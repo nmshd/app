@@ -10,6 +10,7 @@ export 'relationship_template_content.dart';
 export 'request.dart';
 export 'request_item/request_item.dart';
 export 'response.dart';
+export 'response_item/response_item.dart';
 export 'token_content/token_content.dart';
 export 'value_hints.dart';
 export 'value_hints_value.dart';

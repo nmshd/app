@@ -3,7 +3,7 @@ part of 'response_item.dart';
 class SucceedAttributeAcceptResponseItem extends AcceptResponseItem {
   final String attributeId;
 
-  SucceedAttributeAcceptResponseItem({
+  const SucceedAttributeAcceptResponseItem({
     required this.attributeId,
   });
 
@@ -22,4 +22,7 @@ class SucceedAttributeAcceptResponseItem extends AcceptResponseItem {
 
   @override
   String toString() => 'SucceedAttributeAcceptResponseItem(attributeId: $attributeId)';
+
+  @override
+  List<Object?> get props => [super.props, attributeId];
 }
