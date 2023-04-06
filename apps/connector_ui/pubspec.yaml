@@ -42,6 +42,6 @@ flutter_icons:
 msix_config:
   display_name: Connector UI
   publisher_display_name: j&s-soft GmbH
-  identity_name: de.enmeshed.connector_ui
+  identity_name: de.enmeshed.connectorui
   msix_version: 1.0.0.0
   logo_path: .\assets\images\icon.png
