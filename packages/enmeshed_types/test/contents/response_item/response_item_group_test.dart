@@ -8,7 +8,7 @@ void main() {
       final responseItemGroupJson = responseItemGroup.toJson();
       expect(
         responseItemGroupJson,
-        equals({'@type': 'ResponseItemGroup', 'result': 'Accepted', 'items': []}),
+        equals({'@type': 'ResponseItemGroup', 'items': []}),
       );
     });
   });
