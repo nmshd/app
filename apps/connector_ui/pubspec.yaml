@@ -25,7 +25,6 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  msix: ^3.9.1
 
 flutter:
   uses-material-design: true
@@ -38,10 +37,3 @@ flutter_icons:
   macos:
     generate: true
     image_path: "assets/images/icon-mac.png"
-
-msix_config:
-  display_name: Connector UI
-  publisher_display_name: j&s-soft GmbH
-  identity_name: de.enmeshed.connectorui
-  msix_version: 1.0.0.0
-  logo_path: .\assets\images\icon.png

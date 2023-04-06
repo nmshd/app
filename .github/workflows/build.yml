@@ -30,9 +30,7 @@ jobs:
       - run: melos bootstrap
       - run: flutter build windows --release
         working-directory: ${{ github.workspace }}/apps/connector_ui
-      - run: flutter pub run msix:create
-        working-directory: ${{ github.workspace }}/apps/connector_ui
       - uses: actions/upload-artifact@v3
         with:
-          name: mac app
-          path: ./apps/connector_ui/connector_ui.dmg
+          name: windows app
+          path: ./apps/connector_ui/build/windows/runner/Release

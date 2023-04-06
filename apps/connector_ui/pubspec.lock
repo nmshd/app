@@ -112,14 +112,6 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
-  console:
-    dependency: transitive
-    description:
-      name: console
-      sha256: e04e7824384c5b39389acdd6dc7d33f3efe6b232f6f16d7626f194f6a01ad69a
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.1.0"
   convert:
     dependency: transitive
     description:
@@ -342,14 +334,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
-  msix:
-    dependency: "direct dev"
-    description:
-      name: msix
-      sha256: "68679afc7d7117467250363dea4fb62db7520a23a9490bf4b65794655235a1d5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.9.1"
   package_config:
     dependency: transitive
     description:
