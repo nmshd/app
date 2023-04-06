@@ -12,9 +12,11 @@ jobs:
       - uses: subosito/flutter-action@v2.8.0
       - run: dart pub global activate melos
       - run: melos bootstrap
-      - run: cd apps/connector_ui && flutter build macos --release
+      - run: flutter build macos --release
+        working-directory: ${{ github.workspace }}/apps/connector_ui
       - run: npx appdmg ./installers/dmg_creator/config.json ./connector_ui.dmg
+        working-directory: ${{ github.workspace }}/apps/connector_ui
       - uses: actions/upload-artifact@v3
         with:
           name: mac app
-          path: ./connector_ui.dmg
+          path: ./apps/connector_ui/connector_ui.dmg
