@@ -8,7 +8,11 @@ void main() {
         requestId: 'aRequestId',
         requestSourceReference: 'aRequestSourceReference',
         requestSourceType: RequestSourceType.Message,
-        response: Response(result: 'aResult', requestId: 'aRequestId', items: []),
+        response: Response(
+          result: 'aResult',
+          requestId: 'aRequestId',
+          items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        ),
       );
       final responseWrapperJson = responseWrapper.toJson();
       expect(
@@ -18,7 +22,11 @@ void main() {
           'requestId': 'aRequestId',
           'requestSourceReference': 'aRequestSourceReference',
           'requestSourceType': 'Message',
-          'response': const Response(result: 'aResult', requestId: 'aRequestId', items: []).toJson(),
+          'response': const Response(
+            result: 'aResult',
+            requestId: 'aRequestId',
+            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+          ).toJson(),
         }),
       );
     });
@@ -31,7 +39,11 @@ void main() {
         'requestId': 'aRequestId',
         'requestSourceReference': 'aRequestSourceReference',
         'requestSourceType': 'Message',
-        'response': const Response(result: 'aResult', requestId: 'aRequestId', items: []).toJson(),
+        'response': const Response(
+          result: 'aResult',
+          requestId: 'aRequestId',
+          items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        ).toJson(),
       };
       expect(
         ResponseWrapper.fromJson(json),
@@ -39,7 +51,11 @@ void main() {
           requestId: 'aRequestId',
           requestSourceReference: 'aRequestSourceReference',
           requestSourceType: RequestSourceType.Message,
-          response: Response(result: 'aResult', requestId: 'aRequestId', items: []),
+          response: Response(
+            result: 'aResult',
+            requestId: 'aRequestId',
+            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+          ),
         )),
       );
     });
