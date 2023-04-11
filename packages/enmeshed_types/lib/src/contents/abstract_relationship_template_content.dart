@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+import 'arbitraty_json.dart';
 import 'contents.dart';
 
 abstract class AbstractRelationshipTemplateContent extends Equatable {
