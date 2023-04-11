@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'request_item/request_item.dart';
 
-class Request {
+class Request extends Equatable {
   final String? id;
   final String? expiresAt;
   final List<RequestItem> items;
@@ -8,7 +10,7 @@ class Request {
   final String? description;
   final Map<String, dynamic>? metadata;
 
-  Request({
+  const Request({
     this.id,
     this.expiresAt,
     required this.items,
@@ -43,4 +45,7 @@ class Request {
   String toString() {
     return 'Request(id: $id, expiresAt: $expiresAt, items: $items, title: $title, description: $description, metadata: $metadata)';
   }
+
+  @override
+  List<Object?> get props => [id, expiresAt, items, title, description, metadata];
 }

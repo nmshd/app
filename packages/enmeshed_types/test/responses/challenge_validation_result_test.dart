@@ -20,7 +20,7 @@ void main() {
           createdBy: 'createdBy',
           createdByDevice: 'createdByDevice',
           createdAt: 'createdAt',
-          content: ArbitraryRelationshipTemplateContent({}),
+          content: ArbitraryRelationshipTemplateContent(const {}),
           truncatedReference: 'truncatedReference',
         ),
         status: RelationshipStatus.Active,
