@@ -1,29 +1,4 @@
-import 'dart:collection';
-
-import 'arbitraty_json.dart';
 import 'contents.dart';
-
-abstract class AbstractRelationshipTemplateContent {
-  const AbstractRelationshipTemplateContent();
-
-  factory AbstractRelationshipTemplateContent.fromJson(Map<String, dynamic> json) {
-    final type = json['@type'];
-    if (type == 'RelationshipTemplateContent') {
-      return RelationshipTemplateContent.fromJson(json);
-    }
-
-    return ArbitraryRelationshipTemplateContent(json);
-  }
-
-  Map<String, dynamic> toJson();
-}
-
-class ArbitraryRelationshipTemplateContent extends AbstractRelationshipTemplateContent with MapMixin<String, dynamic>, ArbitraryJSON {
-  @override
-  final Map<String, dynamic> internalJson;
-
-  ArbitraryRelationshipTemplateContent(this.internalJson);
-}
 
 class RelationshipTemplateContent extends AbstractRelationshipTemplateContent {
   final String? title;
@@ -31,11 +6,11 @@ class RelationshipTemplateContent extends AbstractRelationshipTemplateContent {
   final Request onNewRelationship;
   final Request? onExistingRelationship;
 
-  RelationshipTemplateContent({
+  const RelationshipTemplateContent({
     this.title,
     this.metadata,
     required this.onNewRelationship,
-    required this.onExistingRelationship,
+    this.onExistingRelationship,
   });
 
   factory RelationshipTemplateContent.fromJson(Map<String, dynamic> json) => RelationshipTemplateContent(
@@ -47,9 +22,13 @@ class RelationshipTemplateContent extends AbstractRelationshipTemplateContent {
 
   @override
   Map<String, dynamic> toJson() => {
-        'title': title,
-        'metadata': metadata,
+        '@type': 'RelationshipTemplateContent',
+        if (title != null) 'title': title,
+        if (metadata != null) 'metadata': metadata,
         'onNewRelationship': onNewRelationship.toJson(),
         if (onExistingRelationship != null) 'onExistingRelationship': onExistingRelationship?.toJson(),
       };
+
+  @override
+  List<Object?> get props => [title, metadata, onNewRelationship, onExistingRelationship];
 }
