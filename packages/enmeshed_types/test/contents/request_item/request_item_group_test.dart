@@ -4,20 +4,27 @@ import 'package:test/test.dart';
 void main() {
   group('RequestItemGroup toJson', () {
     test('is correctly converted', () {
-      const requestItemGroup = RequestItemGroup(mustBeAccepted: true, items: []);
+      const requestItemGroup = RequestItemGroup(
+        mustBeAccepted: true,
+        items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+      );
       final requestItemGroupJson = requestItemGroup.toJson();
       expect(
         requestItemGroupJson,
         equals({
           '@type': 'RequestItemGroup',
           'mustBeAccepted': true,
-          'items': [],
+          'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType')).toJson()],
         }),
       );
     });
 
     test('is correctly converted with property "title"', () {
-      const requestItemGroup = RequestItemGroup(title: 'aTitle', mustBeAccepted: true, items: []);
+      const requestItemGroup = RequestItemGroup(
+        title: 'aTitle',
+        mustBeAccepted: true,
+        items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+      );
       final requestItemGroupJson = requestItemGroup.toJson();
       expect(
         requestItemGroupJson,
@@ -25,7 +32,7 @@ void main() {
           '@type': 'RequestItemGroup',
           'title': 'aTitle',
           'mustBeAccepted': true,
-          'items': [],
+          'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType')).toJson()],
         }),
       );
     });
