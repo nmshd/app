@@ -25,7 +25,7 @@ void main() {
         ),
         status: RelationshipStatus.Active,
         peer: 'peer',
-        peerIdentity: IdentityDTO(address: 'address', publicKey: 'publicKey', realm: 'realm'),
+        peerIdentity: const IdentityDTO(address: 'address', publicKey: 'publicKey', realm: 'realm'),
         changes: const [],
       );
 
