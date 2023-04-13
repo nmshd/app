@@ -1,10 +1,12 @@
-class RequestValidationResultDTO {
+import 'package:equatable/equatable.dart';
+
+class RequestValidationResultDTO extends Equatable {
   final bool isSuccess;
   final String? code;
   final String? message;
   final List<RequestValidationResultDTO> items;
 
-  RequestValidationResultDTO({
+  const RequestValidationResultDTO({
     required this.isSuccess,
     this.code,
     this.message,
@@ -29,4 +31,7 @@ class RequestValidationResultDTO {
         if (message != null) 'message': message,
         'items': items.map((x) => x.toJson()).toList(),
       };
+
+  @override
+  List<Object?> get props => [isSuccess, code, message, items];
 }

@@ -1,36 +1,11 @@
+import 'package:equatable/equatable.dart';
+
 import '../contents/contents.dart';
 import '../dtos/dtos.dart';
 
-class LocalRequestSourceDTO {
-  final String type;
-  final String reference;
-
-  LocalRequestSourceDTO({
-    required this.type,
-    required this.reference,
-  });
-
-  factory LocalRequestSourceDTO.fromJson(Map<String, dynamic> json) {
-    return LocalRequestSourceDTO(
-      type: json['type'],
-      reference: json['reference'],
-    );
-  }
-
-  static LocalRequestSourceDTO? fromJsonNullable(Map<String, dynamic>? json) => json != null ? LocalRequestSourceDTO.fromJson(json) : null;
-
-  Map<String, dynamic> toJson() => {
-        'type': type,
-        'reference': reference,
-      };
-
-  @override
-  String toString() => 'LocalRequestSourceDTO(type: $type, reference: $reference)';
-}
-
 enum LocalRequestStatus { Draft, Open, DecisionRequired, ManualDecisionRequired, Decided, Completed, Expired }
 
-class LocalRequestDTO {
+class LocalRequestDTO extends Equatable {
   final String id;
   final bool isOwn;
   final String peer;
@@ -40,7 +15,7 @@ class LocalRequestDTO {
   final LocalRequestSourceDTO? source;
   final LocalResponseDTO? response;
 
-  LocalRequestDTO({
+  const LocalRequestDTO({
     required this.id,
     required this.isOwn,
     required this.peer,
@@ -79,4 +54,7 @@ class LocalRequestDTO {
   String toString() {
     return 'LocalRequestDTO(id: $id, isOwn: $isOwn, peer: $peer, createdAt: $createdAt, status: $status, content: $content, source: $source, response: $response)';
   }
+
+  @override
+  List<Object?> get props => [id, isOwn, peer, createdAt, status, content, source, response];
 }

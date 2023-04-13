@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import '../contents/contents.dart';
 
-class TokenDTO {
+class TokenDTO extends Equatable {
   final String id;
   final String createdBy;
   final String createdByDevice;
@@ -11,7 +13,7 @@ class TokenDTO {
   final String truncatedReference;
   final bool isEphemeral;
 
-  TokenDTO({
+  const TokenDTO({
     required this.id,
     required this.createdBy,
     required this.createdByDevice,
@@ -55,4 +57,7 @@ class TokenDTO {
       'isEphemeral': isEphemeral,
     };
   }
+
+  @override
+  List<Object?> get props => [id, createdBy, createdByDevice, content, createdAt, expiresAt, secretKey, truncatedReference];
 }
