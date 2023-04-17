@@ -1,0 +1,38 @@
+name: build ios app
+
+on:
+  push:
+    branches: [feat/e2e-testing*]
+
+jobs:
+  build-ios-debug:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: prep flutter env
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.7.11"
+          channel: "stable"
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:" # optional, change this to force refresh cache
+          # cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:" # optional, change this to specify the cache path
+          architecture: x64
+      - name: install dependencies
+        run: |
+          dart pub global activate melos
+          melos bootstrap
+          flutter pub get
+
+      - name: build ios app
+        run: |
+          cd packages/enmeshed_runtime_bridge/example
+          flutter build ipa -t lib/main_demo.dart --debug --export-method development
+
+      - name: ios build directory -> artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ios-debug-development
+          path: packages/enmeshed_runtime_bridge/example/build/ios/ipa/
+          retention-days: 7
