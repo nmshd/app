@@ -26,7 +26,10 @@ jobs:
           cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:" # optional, change this to force refresh cache
           # cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:" # optional, change this to specify the cache path
           architecture: x64
-      - run: flutter pub get
+      - run: |
+          dart pub global activate melos
+          melos bootstrap
+          flutter pub get
 
       - name: build android app
         run: |
