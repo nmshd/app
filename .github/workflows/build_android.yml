@@ -29,7 +29,9 @@ jobs:
       - run: flutter pub get
 
       - name: build android app
-        run: flutter build apk -t lib/main_demo.dart --debug
+        run: |
+          cd packages/enmeshed_runtime_bridge/example
+          flutter build apk -t lib/main_demo.dart --debug
 
       - name: android build -> artifact
         uses: actions/upload-artifact@v2
