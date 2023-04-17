@@ -1,8 +1,10 @@
-class GetIdentityInfoResponse {
+import 'package:equatable/equatable.dart';
+
+class GetIdentityInfoResponse extends Equatable {
   final String address;
   final String publicKey;
 
-  GetIdentityInfoResponse({
+  const GetIdentityInfoResponse({
     required this.address,
     required this.publicKey,
   });
@@ -16,11 +18,14 @@ class GetIdentityInfoResponse {
 
   Map<String, dynamic> toJson() {
     return {
-      'qrCodeBytes': address,
+      'address': address,
       'publicKey': publicKey,
     };
   }
 
   @override
   String toString() => 'GetIdentityInfoResponse(address: $address, publicKey: $publicKey)';
+
+  @override
+  List<Object?> get props => [address, publicKey];
 }
