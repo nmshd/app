@@ -1,4 +1,5 @@
 export 'consent.dart';
+export 'proprietary_attribute_value.dart';
 export 'proprietary_boolean.dart';
 export 'proprietary_country.dart';
 export 'proprietary_e_mail_address.dart';

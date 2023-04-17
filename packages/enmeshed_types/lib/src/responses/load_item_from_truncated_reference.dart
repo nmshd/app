@@ -1,12 +1,14 @@
+import 'package:equatable/equatable.dart';
+
 import '../dtos/dtos.dart';
 
 enum LoadItemFromTruncatedReferenceResponseType { Token, File, RelationshipTemplate, DeviceOnboardingInfo }
 
-class LoadItemFromTruncatedReferenceResponse {
+class LoadItemFromTruncatedReferenceResponse extends Equatable {
   final LoadItemFromTruncatedReferenceResponseType type;
   final Map<String, dynamic> _value;
 
-  LoadItemFromTruncatedReferenceResponse({
+  const LoadItemFromTruncatedReferenceResponse({
     required this.type,
     required Map<String, dynamic> value,
   }) : _value = value;
@@ -53,4 +55,7 @@ class LoadItemFromTruncatedReferenceResponse {
 
   @override
   String toString() => 'LoadItemFromTruncatedReferenceResponse(type: $type, value: $_value)';
+
+  @override
+  List<Object?> get props => [type, _value];
 }

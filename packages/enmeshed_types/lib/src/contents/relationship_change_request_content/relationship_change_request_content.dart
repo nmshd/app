@@ -1,11 +1,14 @@
 import 'dart:collection';
 
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+
 import '../arbitraty_json.dart';
 import '../response.dart';
 
 part 'relationship_creation_change_request_content.dart';
 
-abstract class RelationshipChangeRequestContent {
+abstract class RelationshipChangeRequestContent extends Equatable {
   const RelationshipChangeRequestContent();
 
   factory RelationshipChangeRequestContent.fromJson(Map<String, dynamic> json) {
@@ -19,6 +22,10 @@ abstract class RelationshipChangeRequestContent {
   }
 
   Map<String, dynamic> toJson();
+
+  @mustCallSuper
+  @override
+  List<Object?> get props;
 }
 
 class ArbitraryRelationshipChangeRequestContent extends RelationshipChangeRequestContent with MapMixin<String, dynamic>, ArbitraryJSON {
@@ -26,4 +33,7 @@ class ArbitraryRelationshipChangeRequestContent extends RelationshipChangeReques
   final Map<String, dynamic> internalJson;
 
   ArbitraryRelationshipChangeRequestContent(this.internalJson);
+
+  @override
+  List<Object?> get props => [internalJson];
 }

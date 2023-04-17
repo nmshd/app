@@ -1,4 +1,6 @@
-class FileDTO {
+import 'package:equatable/equatable.dart';
+
+class FileDTO extends Equatable {
   final String id;
   final String filename;
   final int filesize;
@@ -13,7 +15,7 @@ class FileDTO {
   final String? description;
   final String truncatedReference;
 
-  FileDTO({
+  const FileDTO({
     required this.id,
     required this.filename,
     required this.filesize,
@@ -65,4 +67,8 @@ class FileDTO {
   String toString() {
     return 'FileDTO { id: $id, filename: $filename, filesize: $filesize, createdAt: $createdAt, createdBy: $createdBy, createdByDevice: $createdByDevice, expiresAt: $expiresAt, mimetype: $mimetype, isOwn: $isOwn, title: $title, secretKey: $secretKey, description: $description, truncatedReference: $truncatedReference }';
   }
+
+  @override
+  List<Object?> get props =>
+      [id, filename, filesize, createdAt, createdBy, createdByDevice, expiresAt, mimetype, isOwn, title, secretKey, description, truncatedReference];
 }

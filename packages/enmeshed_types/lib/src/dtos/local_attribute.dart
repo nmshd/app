@@ -1,37 +1,9 @@
+import 'package:equatable/equatable.dart';
+
 import '../contents/contents.dart';
+import 'local_attribute_share_info.dart';
 
-class LocalAttributeShareInfo {
-  final String requestReference;
-  final String peer;
-  final String? sourceAttribute;
-
-  LocalAttributeShareInfo({
-    required this.requestReference,
-    required this.peer,
-    this.sourceAttribute,
-  });
-
-  factory LocalAttributeShareInfo.fromJson(Map<String, dynamic> json) {
-    return LocalAttributeShareInfo(
-      requestReference: json['requestReference'],
-      peer: json['peer'],
-      sourceAttribute: json['sourceAttribute'],
-    );
-  }
-
-  static LocalAttributeShareInfo? fromJsonNullable(Map<String, dynamic>? json) => json != null ? LocalAttributeShareInfo.fromJson(json) : null;
-
-  Map<String, dynamic> toJson() => {
-        'requestReference': requestReference,
-        'peer': peer,
-        if (sourceAttribute != null) 'sourceAttribute': sourceAttribute,
-      };
-
-  @override
-  String toString() => 'LocalAttributeShareInfoJSON(requestReference: $requestReference, peer: $peer, sourceAttribute: $sourceAttribute)';
-}
-
-class LocalAttributeDTO {
+class LocalAttributeDTO extends Equatable {
   final String id;
   final String? parentId;
   final String createdAt;
@@ -40,7 +12,7 @@ class LocalAttributeDTO {
   final String? succeededBy;
   final LocalAttributeShareInfo? shareInfo;
 
-  LocalAttributeDTO({
+  const LocalAttributeDTO({
     required this.id,
     this.parentId,
     required this.createdAt,
@@ -86,4 +58,7 @@ class LocalAttributeDTO {
   String toString() {
     return 'LocalAttributeDTO(id: $id, parentId: $parentId, createdAt: $createdAt, content: $content, succeeds: $succeeds, succeededBy: $succeededBy, shareInfo: $shareInfo)';
   }
+
+  @override
+  List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo];
 }

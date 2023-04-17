@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const identityAttributeValue = AffiliationRole(value: 'anAffiliationRole');
-  group('Affiliation Role to json', () {
-    test('valid AffiliationRole', () {
+  group('AffiliationRole toJson', () {
+    test('is correctly converted', () {
+      const identityAttributeValue = AffiliationRole(value: 'anAffiliationRole');
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,10 +16,10 @@ void main() {
     });
   });
 
-  group('Affiliation Role from json', () {
-    test('valid AffiliationRole', () {
+  group('AffiliationRole fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 'anAffiliationRole'};
-      expect(AffiliationRole.fromJson(json), equals(identityAttributeValue));
+      expect(AffiliationRole.fromJson(json), equals(const AffiliationRole(value: 'anAffiliationRole')));
     });
   });
 }

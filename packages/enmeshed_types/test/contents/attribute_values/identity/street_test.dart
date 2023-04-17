@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const identityAttributeValue = Street(value: 'aStreet');
-  group('Street to json', () {
-    test('valid Street', () {
+  group('Street toJson', () {
+    test('is correctly converted', () {
+      const identityAttributeValue = Street(value: 'aStreet');
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,10 +16,10 @@ void main() {
     });
   });
 
-  group('Street from json', () {
-    test('valid Street', () {
+  group('Street fromJson', () {
+    test('is correctly converted', () {
       final json = {'value': 'aStreet'};
-      expect(Street.fromJson(json), equals(identityAttributeValue));
+      expect(Street.fromJson(json), equals(const Street(value: 'aStreet')));
     });
   });
 }

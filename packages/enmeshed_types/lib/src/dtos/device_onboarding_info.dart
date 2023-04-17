@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'identity.dart';
 
-class DeviceOnboardingInfoDTO {
+class DeviceOnboardingInfoDTO extends Equatable {
   final String id;
   final String createdAt;
   final String createdByDevice;
@@ -14,7 +16,7 @@ class DeviceOnboardingInfoDTO {
   final String password;
   final String username;
 
-  DeviceOnboardingInfoDTO({
+  const DeviceOnboardingInfoDTO({
     required this.id,
     required this.createdAt,
     required this.createdByDevice,
@@ -67,4 +69,20 @@ class DeviceOnboardingInfoDTO {
       'username': username,
     };
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        createdAt,
+        createdByDevice,
+        name,
+        description,
+        secretBaseKey,
+        deviceIndex,
+        synchronizationKey,
+        identityPrivateKey,
+        identity,
+        password,
+        username,
+      ];
 }

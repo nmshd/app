@@ -6,7 +6,7 @@ class Mail extends MessageContent {
   final String subject;
   final String body;
 
-  Mail({
+  const Mail({
     required this.to,
     this.cc,
     required this.subject,
@@ -32,4 +32,7 @@ class Mail extends MessageContent {
       'body': body,
     };
   }
+
+  @override
+  List<Object?> get props => [to, cc, subject, body];
 }

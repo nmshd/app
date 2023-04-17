@@ -3,7 +3,7 @@ part of 'response_item.dart';
 class ShareAttributeAcceptResponseItem extends AcceptResponseItem {
   final String attributeId;
 
-  ShareAttributeAcceptResponseItem({
+  const ShareAttributeAcceptResponseItem({
     required this.attributeId,
   });
 
@@ -22,4 +22,7 @@ class ShareAttributeAcceptResponseItem extends AcceptResponseItem {
 
   @override
   String toString() => 'ShareAttributeAcceptResponseItem(attributeId: $attributeId)';
+
+  @override
+  List<Object?> get props => [super.props, attributeId];
 }

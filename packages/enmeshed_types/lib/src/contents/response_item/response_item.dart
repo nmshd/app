@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../contents.dart';
@@ -16,10 +17,10 @@ part 'succeed_attribute_accept_response_item.dart';
 
 enum ResponseItemResult { Accepted, Rejected, Error }
 
-abstract class ResponseItem {
+abstract class ResponseItem extends Equatable {
   final ResponseItemResult result;
 
-  ResponseItem({required this.result});
+  const ResponseItem({required this.result});
 
   factory ResponseItem.fromJson(Map<String, dynamic> json) {
     final type = json['@type'];
@@ -38,4 +39,8 @@ abstract class ResponseItem {
 
   @override
   String toString() => 'ResponseItem(result: $result)';
+
+  @mustCallSuper
+  @override
+  List<Object?> get props => [result];
 }

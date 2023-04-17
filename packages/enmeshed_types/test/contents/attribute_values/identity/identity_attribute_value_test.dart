@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Identity Attribute Value from json correctly', () {
-    test('IdentityAttributeValue.fromJson should parse valid AffiliationOrganization correctly', () {
+  group('IdentityAttributeValue fromJson', () {
+    test('parsed valid AffiliationOrganization', () {
       final affiliationOrganizationJson = {
         '@type': 'AffiliationOrganization',
         'value': 'anAffiliationOrganization',
@@ -12,7 +12,7 @@ void main() {
       expect(identityAttributeValue, isA<AffiliationOrganization>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid AffiliationRole correctly', () {
+    test('parsed valid AffiliationRole', () {
       final affiliationRoleJson = {
         '@type': 'AffiliationRole',
         'value': 'anAffiliationRole',
@@ -21,7 +21,7 @@ void main() {
       expect(identityAttributeValue, isA<AffiliationRole>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid AffiliationUnit correctly', () {
+    test('parsed valid AffiliationUnit', () {
       final affiliationUnitJson = {
         '@type': 'AffiliationUnit',
         'value': 'anAffiliationUnit',
@@ -30,7 +30,7 @@ void main() {
       expect(identityAttributeValue, isA<AffiliationUnit>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid BirthCity correctly', () {
+    test('parsed valid BirthCity', () {
       final birthCityJson = {
         '@type': 'BirthCity',
         'value': 'aBirthCity',
@@ -39,7 +39,7 @@ void main() {
       expect(identityAttributeValue, isA<BirthCity>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid BirthName correctly', () {
+    test('parsed valid BirthName', () {
       final birthNameJson = {
         '@type': 'BirthName',
         'value': 'aBirthName',
@@ -48,7 +48,7 @@ void main() {
       expect(identityAttributeValue, isA<BirthName>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid BirthState correctly', () {
+    test('parsed valid BirthState', () {
       final birthStateJson = {
         '@type': 'BirthState',
         'value': 'aBirthState',
@@ -57,7 +57,7 @@ void main() {
       expect(identityAttributeValue, isA<BirthState>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid City correctly', () {
+    test('parsed valid City', () {
       final cityJson = {
         '@type': 'City',
         'value': 'aCity',
@@ -66,7 +66,7 @@ void main() {
       expect(identityAttributeValue, isA<City>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid DisplayName correctly', () {
+    test('parsed valid DisplayName', () {
       final displayNameJson = {
         '@type': 'DisplayName',
         'value': 'aDisplayName',
@@ -75,7 +75,7 @@ void main() {
       expect(identityAttributeValue, isA<DisplayName>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid FileReference correctly', () {
+    test('parsed valid FileReference', () {
       final fileReferenceJson = {
         '@type': 'FileReference',
         'value': 'aFileReference',
@@ -84,7 +84,7 @@ void main() {
       expect(identityAttributeValue, isA<FileReference>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid GivenName correctly', () {
+    test('parsed valid GivenName', () {
       final givenNameJson = {
         '@type': 'GivenName',
         'value': 'aGivenName',
@@ -93,7 +93,7 @@ void main() {
       expect(identityAttributeValue, isA<GivenName>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid HonorificPrefix correctly', () {
+    test('parsed valid HonorificPrefix', () {
       final honorificPrefixJson = {
         '@type': 'HonorificPrefix',
         'value': 'aHonorificPrefix',
@@ -102,7 +102,7 @@ void main() {
       expect(identityAttributeValue, isA<HonorificPrefix>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid HonorificSuffix correctly', () {
+    test('parsed valid HonorificSuffix', () {
       final honorificSuffixJson = {
         '@type': 'HonorificSuffix',
         'value': 'aHonorificSuffix',
@@ -111,7 +111,7 @@ void main() {
       expect(identityAttributeValue, isA<HonorificSuffix>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid HouseNumber correctly', () {
+    test('parsed valid HouseNumber', () {
       final houseNumberJson = {
         '@type': 'HouseNumber',
         'value': 'aHouseNumber',
@@ -120,7 +120,7 @@ void main() {
       expect(identityAttributeValue, isA<HouseNumber>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid JobTitle correctly', () {
+    test('parsed valid JobTitle', () {
       final jobTitleJson = {
         '@type': 'JobTitle',
         'value': 'aJobTitle',
@@ -129,7 +129,7 @@ void main() {
       expect(identityAttributeValue, isA<JobTitle>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid MiddleName correctly', () {
+    test('parsed valid MiddleName', () {
       final middleNameJson = {
         '@type': 'MiddleName',
         'value': 'aMiddleName',
@@ -138,7 +138,7 @@ void main() {
       expect(identityAttributeValue, isA<MiddleName>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid PhoneNumber correctly', () {
+    test('parsed valid PhoneNumber', () {
       final phoneNumberJson = {
         '@type': 'PhoneNumber',
         'value': 'aPhoneNumber',
@@ -147,7 +147,7 @@ void main() {
       expect(identityAttributeValue, isA<PhoneNumber>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid Pseudonym correctly', () {
+    test('parsed valid Pseudonym', () {
       final pseudonymJson = {
         '@type': 'Pseudonym',
         'value': 'aPseudonym',
@@ -156,7 +156,7 @@ void main() {
       expect(identityAttributeValue, isA<Pseudonym>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid State correctly', () {
+    test('parsed valid State', () {
       final stateJson = {
         '@type': 'State',
         'value': 'aState',
@@ -165,7 +165,7 @@ void main() {
       expect(identityAttributeValue, isA<State>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid Street correctly', () {
+    test('parsed valid Street', () {
       final streetJson = {
         '@type': 'Street',
         'value': 'aStreet',
@@ -174,7 +174,7 @@ void main() {
       expect(identityAttributeValue, isA<Street>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid Surname correctly', () {
+    test('parsed valid Surname', () {
       final surnameJson = {
         '@type': 'Surname',
         'value': 'aSurname',
@@ -183,7 +183,7 @@ void main() {
       expect(identityAttributeValue, isA<Surname>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid ZipCode correctly', () {
+    test('parsed valid ZipCode', () {
       final zipCodeJson = {
         '@type': 'ZipCode',
         'value': 'aZipCode',
@@ -192,7 +192,7 @@ void main() {
       expect(identityAttributeValue, isA<ZipCode>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid Affiliation correctly', () {
+    test('parsed valid Affiliation', () {
       final affiliationJson = {
         '@type': 'Affiliation',
         'role': 'aRole',
@@ -203,7 +203,7 @@ void main() {
       expect(identityAttributeValue, isA<Affiliation>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid BirthCountry correctly', () {
+    test('parsed valid BirthCountry', () {
       final birthCountryJson = {
         '@type': 'BirthCountry',
         'value': 'DE',
@@ -212,7 +212,7 @@ void main() {
       expect(identityAttributeValue, isA<BirthCountry>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid BirthDate correctly', () {
+    test('parsed valid BirthDate', () {
       final birthDateJson = {
         '@type': 'BirthDate',
         'day': 01,
@@ -223,7 +223,7 @@ void main() {
       expect(identityAttributeValue, isA<BirthDate>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid BirthDay correctly', () {
+    test('parsed valid BirthDay', () {
       final birthDayJson = {
         '@type': 'BirthDay',
         'value': 01,
@@ -232,7 +232,7 @@ void main() {
       expect(identityAttributeValue, isA<BirthDay>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid BirthMonth correctly', () {
+    test('parsed valid BirthMonth', () {
       final birthMonthJson = {
         '@type': 'BirthMonth',
         'value': 01,
@@ -241,7 +241,7 @@ void main() {
       expect(identityAttributeValue, isA<BirthMonth>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid BirthPlace correctly', () {
+    test('parsed valid BirthPlace', () {
       final birthPlaceJson = {
         '@type': 'BirthPlace',
         'city': 'aCity',
@@ -252,7 +252,7 @@ void main() {
       expect(identityAttributeValue, isA<BirthPlace>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid BirthYear correctly', () {
+    test('parsed valid BirthYear', () {
       final birthYearJson = {
         '@type': 'BirthYear',
         'value': 01,
@@ -261,7 +261,7 @@ void main() {
       expect(identityAttributeValue, isA<BirthYear>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid Citizenship correctly', () {
+    test('parsed valid Citizenship', () {
       final citizenshipJson = {
         '@type': 'Citizenship',
         'value': 'DE',
@@ -270,7 +270,7 @@ void main() {
       expect(identityAttributeValue, isA<Citizenship>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid CommunicationLanguage correctly', () {
+    test('parsed valid CommunicationLanguage', () {
       final communicationLanguageJson = {
         '@type': 'CommunicationLanguage',
         'value': 'de',
@@ -279,7 +279,7 @@ void main() {
       expect(identityAttributeValue, isA<CommunicationLanguage>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid Country correctly', () {
+    test('parsed valid Country', () {
       final countryJson = {
         '@type': 'Country',
         'value': 'DE',
@@ -288,7 +288,7 @@ void main() {
       expect(identityAttributeValue, isA<Country>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid DeliveryBoxAddress correctly', () {
+    test('parsed valid DeliveryBoxAddress', () {
       final deliveryBoxAddressJson = {
         '@type': 'DeliveryBoxAddress',
         'recipient': 'aRecipient',
@@ -302,7 +302,7 @@ void main() {
       expect(identityAttributeValue, isA<DeliveryBoxAddress>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid EMailAddress correctly', () {
+    test('parsed valid EMailAddress', () {
       final eMailAddressJson = {
         '@type': 'EMailAddress',
         'value': 'test@test.com',
@@ -311,7 +311,7 @@ void main() {
       expect(identityAttributeValue, isA<EMailAddress>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid FaxNumber correctly', () {
+    test('parsed valid FaxNumber', () {
       final faxNumberJson = {
         '@type': 'FaxNumber',
         'value': '0123456789',
@@ -320,7 +320,7 @@ void main() {
       expect(identityAttributeValue, isA<FaxNumber>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid Nationality correctly', () {
+    test('parsed valid Nationality', () {
       final nationalityJson = {
         '@type': 'Nationality',
         'value': 'DE',
@@ -329,7 +329,7 @@ void main() {
       expect(identityAttributeValue, isA<Nationality>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid PersonName correctly', () {
+    test('parsed valid PersonName', () {
       final personNameJson = {
         '@type': 'PersonName',
         'givenName': 'aGivenName',
@@ -339,7 +339,7 @@ void main() {
       expect(identityAttributeValue, isA<PersonName>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid PostOfficeBoxAddress correctly', () {
+    test('parsed valid PostOfficeBoxAddress', () {
       final postOfficeBoxAddressJson = {
         '@type': 'PostOfficeBoxAddress',
         'recipient': 'aRecipient',
@@ -352,7 +352,7 @@ void main() {
       expect(identityAttributeValue, isA<PostOfficeBoxAddress>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid Sex correctly', () {
+    test('parsed valid Sex', () {
       final sexJson = {
         '@type': 'Sex',
         'value': 'male',
@@ -361,7 +361,7 @@ void main() {
       expect(identityAttributeValue, isA<Sex>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid StreetAddress correctly', () {
+    test('parsed valid StreetAddress', () {
       final streetAddressJson = {
         '@type': 'StreetAddress',
         'recipient': 'aRecipient',
@@ -376,7 +376,7 @@ void main() {
       expect(identityAttributeValue, isA<StreetAddress>());
     });
 
-    test('IdentityAttributeValue.fromJson should parse valid Website correctly', () {
+    test('parsed valid Website', () {
       final websiteJson = {
         '@type': 'Website',
         'value': 'www.test.com',
@@ -386,8 +386,8 @@ void main() {
     });
   });
 
-  group('Identity Attribute Value from json with exception', () {
-    test('IdentityAttributeValue.fromJson with wrong @type should throw an Exception', () {
+  group('IdentityAttributeValue fromJson with wrong @type', () {
+    test('throws an Exception', () {
       final invalidJson = {'@type': 'wrongType'};
 
       expect(() => IdentityAttributeValue.fromJson(invalidJson), throwsA(isA<Exception>()));

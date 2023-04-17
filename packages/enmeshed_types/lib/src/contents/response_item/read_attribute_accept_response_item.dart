@@ -4,7 +4,7 @@ class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
   final String attributeId;
   final AbstractAttribute attribute;
 
-  ReadAttributeAcceptResponseItem({
+  const ReadAttributeAcceptResponseItem({
     required this.attributeId,
     required this.attribute,
   });
@@ -26,4 +26,7 @@ class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
 
   @override
   String toString() => 'ReadAttributeAcceptResponseItem(attributeId: $attributeId, attribute: $attribute)';
+
+  @override
+  List<Object?> get props => [super.props, attributeId, attribute];
 }

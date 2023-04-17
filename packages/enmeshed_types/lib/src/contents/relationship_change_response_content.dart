@@ -14,5 +14,5 @@ class ArbitraryRelationshipChangeResponseContent extends RelationshipChangeRespo
   @override
   final Map<String, dynamic> internalJson;
 
-  ArbitraryRelationshipChangeResponseContent(this.internalJson);
+  const ArbitraryRelationshipChangeResponseContent(this.internalJson);
 }

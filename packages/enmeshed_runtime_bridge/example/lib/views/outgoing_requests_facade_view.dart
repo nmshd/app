@@ -17,11 +17,11 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () async {
-              final Request content = Request(
+              const Request content = Request(
                 items: [
                   ReadAttributeRequestItem(
                     mustBeAccepted: true,
-                    query: const IdentityAttributeQuery(valueType: 'GivenName'),
+                    query: IdentityAttributeQuery(valueType: 'GivenName'),
                   ),
                 ],
               );
@@ -38,11 +38,11 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
 
               final peer = relationships.first.peerIdentity.address;
 
-              final content = Request(
+              const content = Request(
                 items: [
                   ReadAttributeRequestItem(
                     mustBeAccepted: true,
-                    query: const IdentityAttributeQuery(valueType: 'GivenName'),
+                    query: IdentityAttributeQuery(valueType: 'GivenName'),
                   ),
                 ],
               );
