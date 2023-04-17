@@ -1,10 +1,12 @@
+import 'package:equatable/equatable.dart';
+
 import '../dtos/dtos.dart';
 
-class SyncEverythingResponse {
+class SyncEverythingResponse extends Equatable {
   final List<RelationshipDTO> relationships;
   final List<MessageDTO> messages;
 
-  SyncEverythingResponse({
+  const SyncEverythingResponse({
     required this.relationships,
     required this.messages,
   });
@@ -25,4 +27,7 @@ class SyncEverythingResponse {
 
   @override
   String toString() => 'SyncEverythingResponse(relationships: $relationships, messages: $messages)';
+
+  @override
+  List<Object?> get props => [relationships, messages];
 }

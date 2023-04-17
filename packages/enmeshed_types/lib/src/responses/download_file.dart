@@ -1,9 +1,11 @@
-class DownloadFileResponse {
+import 'package:equatable/equatable.dart';
+
+class DownloadFileResponse extends Equatable {
   final List<int> content;
   final String filename;
   final String mimeType;
 
-  DownloadFileResponse({
+  const DownloadFileResponse({
     required this.content,
     required this.filename,
     required this.mimeType,
@@ -11,7 +13,7 @@ class DownloadFileResponse {
 
   factory DownloadFileResponse.fromJson(Map<String, dynamic> json) {
     return DownloadFileResponse(
-      content: List<int>.from(json['content'].values),
+      content: List<int>.from(json['content']),
       filename: json['filename'],
       mimeType: json['mimetype'],
     );
@@ -27,4 +29,7 @@ class DownloadFileResponse {
 
   @override
   String toString() => 'DownloadFileResponse(content: $content, filename: $filename, mimeType: $mimeType)';
+
+  @override
+  List<Object?> get props => [content, filename, mimeType];
 }
