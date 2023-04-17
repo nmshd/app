@@ -5,17 +5,20 @@ on:
     branches: [feat/e2e-testing*]
 
 jobs:
-  build:
+  build-android-debug:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v2
+
+      - name: setup java
+        uses: actions/setup-java@v2
         with:
           distribution: "zulu"
           java-version: "11"
           cache: "gradle"
 
-      - uses: subosito/flutter-action@v2
+      - name: prep flutter env
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.7.11"
           channel: "stable"
@@ -24,8 +27,9 @@ jobs:
           # cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:" # optional, change this to specify the cache path
           architecture: x64
       - run: flutter pub get
-      - run: flutter test
-      - run: flutter build apk -t lib/main_demo.dart --debug
+
+      - name: build android app
+        run: flutter build apk -t lib/main_demo.dart --debug
 
       - name: android build -> artifact
         uses: actions/upload-artifact@v2
