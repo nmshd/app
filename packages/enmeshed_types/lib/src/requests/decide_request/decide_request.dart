@@ -9,7 +9,7 @@ class DecideRequestParameters {
   final String requestId;
   final List<DecideRequestParametersItem> items;
 
-  DecideRequestParameters({
+  const DecideRequestParameters({
     required this.requestId,
     required this.items,
   });
@@ -23,24 +23,25 @@ class DecideRequestParameters {
 }
 
 abstract class DecideRequestParametersItem {
-  DecideRequestParametersItem();
+  const DecideRequestParametersItem();
   Map<String, dynamic> toJson();
 }
 
 abstract class DecideRequestItemParameters extends DecideRequestParametersItem {
-  DecideRequestItemParameters();
+  const DecideRequestItemParameters();
 }
 
 class DecideRequestItemGroupParameters extends DecideRequestParametersItem {
-  List<DecideRequestItemParameters> items;
+  final List<DecideRequestItemParameters> items;
 
-  DecideRequestItemGroupParameters({required this.items});
+  const DecideRequestItemGroupParameters({required this.items});
 
   @override
   Map<String, dynamic> toJson() => {'items': List<dynamic>.from(items.map((x) => x.toJson()))};
 }
 
 class AcceptRequestItemParameters extends DecideRequestItemParameters {
+  const AcceptRequestItemParameters();
   @override
   @mustCallSuper
   Map<String, dynamic> toJson() => {'accept': true};
@@ -50,7 +51,7 @@ class RejectRequestItemParameters implements DecideRequestItemParameters {
   final String? code;
   final String? message;
 
-  RejectRequestItemParameters({this.code, this.message});
+  const RejectRequestItemParameters({this.code, this.message});
 
   @override
   Map<String, dynamic> toJson() => {
