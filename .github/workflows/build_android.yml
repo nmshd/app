@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: setup java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: "zulu"
           java-version: "11"
@@ -38,7 +38,7 @@ jobs:
           flutter build apk -t lib/main_demo.dart --debug
 
       - name: android build -> artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: android-debug
+          name: android-debug.apk
           path: packages/enmeshed_runtime_bridge/example/build/app/outputs/apk/debug/*.apk
