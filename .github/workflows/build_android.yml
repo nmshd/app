@@ -41,4 +41,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: android-debug
-          path: build/app/outputs/apk/debug/*.apk
+          path: packages/enmeshed_runtime_bridge/example/build/app/outputs/apk/debug/*.apk
