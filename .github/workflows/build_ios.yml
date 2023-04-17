@@ -25,10 +25,14 @@ jobs:
           melos bootstrap
           flutter pub get
 
-      - name: build ios app
+      - name: build ios archive
         run: |
           cd packages/enmeshed_runtime_bridge/example
-          flutter build ipa -t lib/main_demo.dart --debug --export-method development
+          # flutter build ipa -t lib/main_demo.dart --debug --export-method development
+
+      - name: sign ios archive + build ipa
+        run: |
+          # todo
 
       - name: ios build directory -> artifact
         uses: actions/upload-artifact@v3
