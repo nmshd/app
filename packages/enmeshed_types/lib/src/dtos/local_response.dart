@@ -1,36 +1,14 @@
+import 'package:equatable/equatable.dart';
+
 import '../contents/contents.dart';
+import 'local_response_source.dart';
 
-class LocalResponseSourceDTO {
-  final String type;
-  final String reference;
-
-  LocalResponseSourceDTO({
-    required this.type,
-    required this.reference,
-  });
-
-  factory LocalResponseSourceDTO.fromJson(Map<String, dynamic> json) {
-    return LocalResponseSourceDTO(
-      type: json['type'],
-      reference: json['reference'],
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'type': type,
-        'reference': reference,
-      };
-
-  @override
-  String toString() => 'LocalResponseSourceDTO(type: $type, reference: $reference)';
-}
-
-class LocalResponseDTO {
+class LocalResponseDTO extends Equatable {
   final String createdAt;
   final Response content;
   final LocalResponseSourceDTO? source;
 
-  LocalResponseDTO({
+  const LocalResponseDTO({
     required this.createdAt,
     required this.content,
     this.source,
@@ -54,4 +32,7 @@ class LocalResponseDTO {
 
   @override
   String toString() => 'LocalResponseDTO(createdAt: $createdAt, content: $content, source: $source)';
+
+  @override
+  List<Object?> get props => [createdAt, content, source];
 }

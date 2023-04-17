@@ -1,4 +1,6 @@
-class DeviceDTO {
+import 'package:equatable/equatable.dart';
+
+class DeviceDTO extends Equatable {
   final String id;
   final String? publicKey;
   final String? certificate;
@@ -11,7 +13,7 @@ class DeviceDTO {
   final String type;
   final String username;
 
-  DeviceDTO({
+  const DeviceDTO({
     required this.id,
     this.publicKey,
     this.certificate,
@@ -57,4 +59,19 @@ class DeviceDTO {
   String toString() {
     return 'DeviceDTO(id: $id, publicKey: $publicKey, certificate: $certificate, name: $name, description: $description, createdAt: $createdAt, createdByDevice: $createdByDevice, operatingSystem: $operatingSystem, lastLoginAt: $lastLoginAt, type: $type, username: $username)';
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        publicKey,
+        certificate,
+        name,
+        description,
+        createdAt,
+        createdByDevice,
+        operatingSystem,
+        lastLoginAt,
+        type,
+        username,
+      ];
 }

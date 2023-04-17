@@ -28,7 +28,7 @@ class AccountServicesView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final onboardingInfo = DeviceOnboardingInfoDTO(
+              const onboardingInfo = DeviceOnboardingInfoDTO(
                 id: 'id',
                 createdAt: 'createdAt',
                 createdByDevice: 'createdByDevice',

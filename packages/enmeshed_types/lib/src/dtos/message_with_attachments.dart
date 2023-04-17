@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 import '../contents/contents.dart';
+import 'file.dart';
 import 'recipient.dart';
 
-class MessageDTO extends Equatable {
+class MessageWithAttachmentsDTO extends Equatable {
   final String id;
   final bool isOwn;
   final MessageContent content;
@@ -11,9 +12,9 @@ class MessageDTO extends Equatable {
   final String createdByDevice;
   final List<RecipientDTO> recipients;
   final String createdAt;
-  final List<String> attachments;
+  final List<FileDTO> attachments;
 
-  const MessageDTO({
+  const MessageWithAttachmentsDTO({
     required this.id,
     required this.isOwn,
     required this.content,
@@ -24,7 +25,7 @@ class MessageDTO extends Equatable {
     required this.attachments,
   });
 
-  factory MessageDTO.fromJson(Map<String, dynamic> json) => MessageDTO(
+  factory MessageWithAttachmentsDTO.fromJson(Map<String, dynamic> json) => MessageWithAttachmentsDTO(
         id: json['id'],
         isOwn: json['isOwn'],
         content: MessageContent.fromJson(json['content']),
@@ -32,7 +33,7 @@ class MessageDTO extends Equatable {
         createdByDevice: json['createdByDevice'],
         recipients: List<RecipientDTO>.from(json['recipients'].map((x) => RecipientDTO.fromJson(x))),
         createdAt: json['createdAt'],
-        attachments: List<String>.from(json['attachments']),
+        attachments: List<FileDTO>.from(json['attachments'].map((x) => FileDTO.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,12 +44,12 @@ class MessageDTO extends Equatable {
         'createdByDevice': createdByDevice,
         'recipients': recipients.map((x) => x.toJson()).toList(),
         'createdAt': createdAt,
-        'attachments': attachments,
+        'attachments': attachments.map((e) => e.toJson()).toList(),
       };
 
   @override
   String toString() {
-    return 'MessageDTO { id: $id, isOwn: $isOwn, content: $content, createdBy: $createdBy, createdByDevice: $createdByDevice, recipients: $recipients, createdAt: $createdAt, attachments: $attachments }';
+    return 'MessageWithAttachmentsDTO { id: $id, isOwn: $isOwn, content: $content, createdBy: $createdBy, createdByDevice: $createdByDevice, recipients: $recipients, createdAt: $createdAt, attachments: $attachments }';
   }
 
   @override

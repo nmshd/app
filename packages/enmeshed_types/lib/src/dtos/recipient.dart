@@ -1,13 +1,15 @@
-class RecipientDTO {
+import 'package:equatable/equatable.dart';
+
+class RecipientDTO extends Equatable {
   final String address;
   final String? receivedAt;
   final String? receivedByDevice;
   final String relationshipId;
 
-  RecipientDTO({
+  const RecipientDTO({
     required this.address,
-    required this.receivedAt,
-    required this.receivedByDevice,
+    this.receivedAt,
+    this.receivedByDevice,
     required this.relationshipId,
   });
 
@@ -29,4 +31,7 @@ class RecipientDTO {
   String toString() {
     return 'RecipientDTO { address: $address, receivedAt: $receivedAt, receivedByDevice: $receivedByDevice, relationshipId: $relationshipId }';
   }
+
+  @override
+  List<Object?> get props => [address, receivedAt, receivedByDevice, relationshipId];
 }

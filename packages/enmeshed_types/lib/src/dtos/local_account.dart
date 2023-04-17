@@ -1,4 +1,6 @@
-class LocalAccountDTO {
+import 'package:equatable/equatable.dart';
+
+class LocalAccountDTO extends Equatable {
   final String id;
   final String address;
   final String name;
@@ -6,7 +8,7 @@ class LocalAccountDTO {
   final String directory;
   final int order;
 
-  LocalAccountDTO({
+  const LocalAccountDTO({
     required this.id,
     required this.address,
     required this.name,
@@ -30,4 +32,7 @@ class LocalAccountDTO {
       order: json['order'],
     );
   }
+
+  @override
+  List<Object?> get props => [id, address, name, realm, directory, order];
 }
