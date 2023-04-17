@@ -2,7 +2,7 @@ name: Test
 
 on:
   push:
-    branches-ignore: [main, release/**]
+    branches-ignore: [main, release/**, feat/e2e-testing*]
 
 jobs:
   run-checks:
