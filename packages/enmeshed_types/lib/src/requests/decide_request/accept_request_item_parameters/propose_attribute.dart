@@ -1,5 +1,5 @@
 import '../../../contents/abstract_attribute.dart';
-import '../accept_request_item_parameters.dart';
+import 'accept_request_item_parameters.dart';
 
 abstract class AcceptProposeAttributeRequestItemParameters extends AcceptRequestItemParameters {
   const AcceptProposeAttributeRequestItemParameters();
