@@ -42,3 +42,4 @@ jobs:
         with:
           name: android-debug.apk
           path: packages/enmeshed_runtime_bridge/example/build/app/outputs/apk/debug/*.apk
+          retention-days: 7
