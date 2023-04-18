@@ -31,7 +31,7 @@ class RelationshipTemplatesEndpoint extends Endpoint {
       post(
         '/api/v2/RelationshipTemplates/Own',
         data: {
-          'maxNumberOfAllocations': maxNumberOfAllocations,
+          if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
           'expiresAt': expiresAt,
           'content': content,
         },
@@ -43,8 +43,8 @@ class RelationshipTemplatesEndpoint extends Endpoint {
   Future<ConnectorResponse<TokenDTO>> createTokenForOwnRelationshipTemplate(String id, {String? expiresAt, bool? ephemeral}) => post(
         '/api/v2/RelationshipTemplates/Own/$id/Token',
         data: {
-          'expiresAt': expiresAt,
-          'ephemeral': ephemeral,
+          if (expiresAt != null) 'expiresAt': expiresAt,
+          if (ephemeral != null) 'ephemeral': ephemeral,
         },
         transformer: tokenTransformer,
       );
@@ -53,8 +53,8 @@ class RelationshipTemplatesEndpoint extends Endpoint {
         'POST',
         '/api/v2/RelationshipTemplates/Own/$id/Token',
         request: {
-          'expiresAt': expiresAt,
-          'ephemeral': ephemeral,
+          if (expiresAt != null) 'expiresAt': expiresAt,
+          if (ephemeral != null) 'ephemeral': ephemeral,
         },
       );
 
