@@ -9,7 +9,7 @@ extension QueryValueFromEnum on Enum {
 abstract class QueryValue {
   dynamic toJson();
 
-  QueryValue();
+  const QueryValue();
 
   factory QueryValue.string(String value) => _QueryValueString(value);
   factory QueryValue.stringList(List<String> value) => _QueryValueStringList(value);
@@ -17,7 +17,7 @@ abstract class QueryValue {
 
 class _QueryValueString extends QueryValue {
   final String value;
-  _QueryValueString(this.value);
+  const _QueryValueString(this.value);
 
   @override
   dynamic toJson() => value;
@@ -25,7 +25,7 @@ class _QueryValueString extends QueryValue {
 
 class _QueryValueStringList extends QueryValue {
   final List<String> value;
-  _QueryValueStringList(this.value);
+  const _QueryValueStringList(this.value);
 
   @override
   dynamic toJson() => value;

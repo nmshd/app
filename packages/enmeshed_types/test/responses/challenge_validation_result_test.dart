@@ -20,12 +20,12 @@ void main() {
           createdBy: 'createdBy',
           createdByDevice: 'createdByDevice',
           createdAt: 'createdAt',
-          content: ArbitraryRelationshipTemplateContent({}),
+          content: ArbitraryRelationshipTemplateContent(const {}),
           truncatedReference: 'truncatedReference',
         ),
         status: RelationshipStatus.Active,
         peer: 'peer',
-        peerIdentity: IdentityDTO(address: 'address', publicKey: 'publicKey', realm: 'realm'),
+        peerIdentity: const IdentityDTO(address: 'address', publicKey: 'publicKey', realm: 'realm'),
         changes: const [],
       );
 

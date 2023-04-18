@@ -126,10 +126,10 @@ class IncomingRequestsFacadeView extends StatelessWidget {
 
   List<types.DecideRequestParametersItem> generateRejectItems(List<types.RequestItem> items) => items.map((e) {
         if (e is types.RequestItemGroup) {
-          return types.DecideRequestItemGroupParameters(items: e.items.map((itemDerivation) => types.RejectRequestItemParameters()).toList());
+          return types.DecideRequestItemGroupParameters(items: e.items.map((itemDerivation) => const types.RejectRequestItemParameters()).toList());
         }
 
-        return types.RejectRequestItemParameters();
+        return const types.RejectRequestItemParameters();
       }).toList();
 
   List<types.DecideRequestParametersItem> generateAcceptItems(List<types.RequestItem> items, String currentIdentityAddress) => items
@@ -148,10 +148,10 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           currentIdentityAddress,
         );
       case types.CreateAttributeRequestItem:
-        return types.AcceptRequestItemParameters();
+        return const types.AcceptRequestItemParameters();
 
       case types.ShareAttributeRequestItem:
-        return types.AcceptRequestItemParameters();
+        return const types.AcceptRequestItemParameters();
 
       case types.ProposeAttributeRequestItem:
         return types.AcceptProposeAttributeRequestItemParametersWithNewAttribute(
@@ -159,13 +159,13 @@ class IncomingRequestsFacadeView extends StatelessWidget {
         );
 
       case types.ConsentRequestItem:
-        return types.AcceptRequestItemParameters();
+        return const types.AcceptRequestItemParameters();
 
       case types.AuthenticationRequestItem:
-        return types.AcceptRequestItemParameters();
+        return const types.AcceptRequestItemParameters();
 
       case types.RegisterAttributeListenerRequestItem:
-        return types.AcceptRequestItemParameters();
+        return const types.AcceptRequestItemParameters();
 
       case types.SucceedAttributeRequestItem:
         // not implemented in the runtime

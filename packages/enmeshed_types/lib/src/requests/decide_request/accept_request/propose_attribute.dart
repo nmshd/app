@@ -1,11 +1,14 @@
-part of '../decide_request.dart';
+import '../../../contents/abstract_attribute.dart';
+import 'accept_request_item_parameters.dart';
 
-abstract class AcceptProposeAttributeRequestItemParameters extends AcceptRequestItemParameters {}
+abstract class AcceptProposeAttributeRequestItemParameters extends AcceptRequestItemParameters {
+  const AcceptProposeAttributeRequestItemParameters();
+}
 
 class AcceptProposeAttributeRequestItemParametersWithNewAttribute extends AcceptProposeAttributeRequestItemParameters {
   final AbstractAttribute attribute;
 
-  AcceptProposeAttributeRequestItemParametersWithNewAttribute({required this.attribute});
+  const AcceptProposeAttributeRequestItemParametersWithNewAttribute({required this.attribute});
 
   @override
   Map<String, dynamic> toJson() => {...super.toJson(), 'attribute': attribute.toJson()};
@@ -14,7 +17,7 @@ class AcceptProposeAttributeRequestItemParametersWithNewAttribute extends Accept
 class AcceptProposeAttributeRequestItemParametersWithExistingAttribute extends AcceptProposeAttributeRequestItemParameters {
   final String attributeId;
 
-  AcceptProposeAttributeRequestItemParametersWithExistingAttribute({required this.attributeId});
+  const AcceptProposeAttributeRequestItemParametersWithExistingAttribute({required this.attributeId});
 
   @override
   Map<String, dynamic> toJson() => {...super.toJson(), 'attributeId': attributeId};

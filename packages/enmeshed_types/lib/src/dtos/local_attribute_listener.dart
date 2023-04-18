@@ -1,11 +1,13 @@
+import 'package:equatable/equatable.dart';
+
 import '../contents/contents.dart';
 
-class LocalAttributeListenerDTO {
+class LocalAttributeListenerDTO extends Equatable {
   final String id;
   final AttributeQuery query;
   final String peer;
 
-  LocalAttributeListenerDTO({
+  const LocalAttributeListenerDTO({
     required this.id,
     required this.query,
     required this.peer,
@@ -27,4 +29,7 @@ class LocalAttributeListenerDTO {
 
   @override
   String toString() => 'LocalAttributeListenerDTO(id: $id, query: $query, peer: $peer)';
+
+  @override
+  List<Object?> get props => [id, query, peer];
 }

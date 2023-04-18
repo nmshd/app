@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import '../contents/contents.dart';
 
-class RelationshipTemplateDTO {
+class RelationshipTemplateDTO extends Equatable {
   final String id;
   final bool isOwn;
   final String createdBy;
@@ -11,7 +13,7 @@ class RelationshipTemplateDTO {
   final int? maxNumberOfAllocations;
   final String truncatedReference;
 
-  RelationshipTemplateDTO({
+  const RelationshipTemplateDTO({
     required this.id,
     required this.isOwn,
     required this.createdBy,
@@ -50,4 +52,7 @@ class RelationshipTemplateDTO {
   @override
   String toString() =>
       'RelationshipTemplateDTO(id: $id, isOwn: $isOwn, createdBy: $createdBy, createdByDevice: $createdByDevice, createdAt: $createdAt, content: $content, expiresAt: $expiresAt, maxNumberOfAllocations: $maxNumberOfAllocations, truncatedReference: $truncatedReference)';
+
+  @override
+  List<Object?> get props => [id, isOwn, createdBy, createdByDevice, createdAt, content, expiresAt, maxNumberOfAllocations, truncatedReference];
 }
