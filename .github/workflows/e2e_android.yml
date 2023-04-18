@@ -3,7 +3,7 @@ name: e2e test android app
 # only trigger when android build succeeded
 on:
   workflow_run:
-    workflows: ["build android app"]
+    workflows: [build android app]
     types:
       - completed
 
