@@ -12,7 +12,6 @@ void main() {
         responseItemGroupJson,
         equals({
           '@type': 'ResponseItemGroup',
-          'result': 'Accepted',
           'items': [const CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId').toJson()],
         }),
       );
@@ -22,7 +21,6 @@ void main() {
   group('ResponseItemGroup fromJson', () {
     test('is correctly converted', () {
       final json = {
-        'result': 'Accepted',
         'items': [const CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId').toJson()],
       };
       expect(
