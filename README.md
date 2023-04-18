@@ -8,13 +8,15 @@ Framework for building apps using the Enmeshed Runtime with Dart and Flutter.
 
 | Package                                                     | Description                                                 |
 | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| [enmeshed_types](packages/enmeshed_types)                   | Enmeshed types translated from TypeScript / JSON into Dart. |
+| [connector_sdk](packages/connector_sdk)                     | A Dart SDK for the Enmeshed Connector API.                  |
 | [enmeshed_runtime_bridge](packages/enmeshed_runtime_bridge) | A bridge between the Enmeshed TypeScript runtime and Dart.  |
+| [enmeshed_types](packages/enmeshed_types)                   | Enmeshed types translated from TypeScript / JSON into Dart. |
 
 ## Apps
 
-| App | Description |
-| --- | ----------- |
+| App                               | Description                                                              |
+| --------------------------------- | ------------------------------------------------------------------------ |
+| [connector_ui](apps/connector_ui) | A simple UI showcasing the dart [connector_sdk](packages/connector_sdk). |
 
 ## Documentation
 

@@ -31,23 +31,4 @@ void main() {
       expect(() => ResponseItem.fromJson(json), throwsA(isA<Exception>()));
     });
   });
-
-  group('ResponseItem toJson', () {
-    test('is correctly converted', () {
-      const mockMockResponseItem = MockResponseItem(result: ResponseItemResult.Accepted);
-
-      expect(mockMockResponseItem.toJson(), equals({'result': 'Accepted'}));
-    });
-  });
-}
-
-class MockResponseItem extends ResponseItem {
-  const MockResponseItem({required super.result});
-
-  @override
-  Map<String, dynamic> toJson() {
-    return {
-      ...super.toJson(),
-    };
-  }
 }

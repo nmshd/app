@@ -1,7 +1,9 @@
 part of 'response_item.dart';
 
 abstract class ResponseItemDerivation extends ResponseItem {
-  const ResponseItemDerivation({required super.result});
+  final ResponseItemResult result;
+
+  const ResponseItemDerivation({required this.result});
 
   factory ResponseItemDerivation.fromJson(Map<String, dynamic> json) {
     final type = json['@type'];
@@ -17,5 +19,10 @@ abstract class ResponseItemDerivation extends ResponseItem {
   }
 
   @override
-  List<Object?> get props => [super.props];
+  Map<String, dynamic> toJson() => {
+        'result': result.name,
+      };
+
+  @override
+  List<Object?> get props => [result];
 }

@@ -12,7 +12,7 @@ environment:
 dependencies:
   dio: ^5.1.0
   enmeshed_types: 1.0.0
-  meta: ^1.9.1
+  meta: any
 
 dev_dependencies:
   dart_code_metrics: ^5.7.0
