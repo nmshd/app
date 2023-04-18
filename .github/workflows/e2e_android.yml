@@ -1,0 +1,65 @@
+name: e2e test android app
+
+# only trigger when android build succeeded
+on:
+  workflow_run:
+    workflows: ["build android app"]
+    types:
+      - completed
+
+env:
+  ANDROID_ARCH: x86_64
+  ANDROID_TARGET: google_apis
+  API_LEVEL: 30
+  ANDROID_BUILD_TOOLS_VERSION: 33.0.2
+  ANDROID_SDK_PACKAGES: system-images;android-30;google_apis;x86_64 platforms;android-30 build-tools;33.0.2 platform-tools emulator
+  EMULATOR_TIMEOUT: 350
+  EMULATOR_NAME: nexus
+
+jobs:
+  e2e-test-android:
+    timeout-minutes: 20
+
+    runs-on: macos-latest
+
+    steps:
+      - name: get built android app from downstream
+        uses: actions/download-artifact@v3
+        with:
+          name: android-debug.apk
+          # packages/enmeshed_runtime_bridge/example/build/app/outputs/apk/debug/app-debug.apk
+
+      - uses: actions/checkout@v3
+
+      - name: add avdmanager and sdkmanager to $PATH
+        run: |
+          echo "$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/${{ env.ANDROID_BUILD_TOOLS_VERSION }}" >> $GITHUB_PATH
+
+      - name: install android sdk packages
+        run: |
+          yes Y | sdkmanager --licenses
+          sdkmanager --install ${ANDROID_SDK_PACKAGES}
+
+      - name: build android emulator
+        run: |
+          echo "no" | avdmanager --verbose create avd --force -n $EMULATOR_NAME --abi "${ANDROID_TARGET}/${ANDROID_ARCH}" -k "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
+
+      - name: launch emulator
+        run: |
+          chmod +x ./e2e-test/start_emu_headless.sh
+          EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME ./e2e-test/start_emu_headless.sh
+
+      - name: install appium + flutter driver
+        run: |
+          npm i -g appium@next --unsafe-perm=true --allow-root
+          appium driver install appium
+
+      - name: install node deps
+        run: |
+          cd e2e-test
+          npm i
+
+      - name: run the test
+        run: |
+          cd e2e-test
+          npm run android.app
