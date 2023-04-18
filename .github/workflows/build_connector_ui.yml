@@ -2,7 +2,9 @@ name: Build Connector UI
 
 on:
   push:
-    branches-ignore: [main, release/**]
+    branches: [main, release/**]
+    paths:
+      - apps/connector_ui/**
 
 jobs:
   build-connector-ui-macos:
