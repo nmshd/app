@@ -88,13 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final client = ConnectorClient(baseUrl, apiKey);
 
-    final x = await client.account.getIdentityInfo().catchError((e) {
+    final identityInfoResult = await client.account.getIdentityInfo().catchError((e) {
       final error = ConnectorError(id: 'id', docs: 'docs', time: 'time', code: 'network error', message: e.toString());
       return ConnectorResponse.fromError<types.GetIdentityInfoResponse>(error);
     });
 
-    if (x.hasError) {
-      final errorMessage = x.error.code == 'error.connector.unauthorized' ? 'Login failed: Invalid API key' : 'Login failed: ${x.error.code}';
+    if (identityInfoResult.hasError) {
+      final errorMessage = identityInfoResult.error.code == 'error.connector.unauthorized'
+          ? 'Login failed: Invalid API key'
+          : 'Login failed: ${identityInfoResult.error.code}';
       setState(() {
         _errorMessage = errorMessage;
       });
