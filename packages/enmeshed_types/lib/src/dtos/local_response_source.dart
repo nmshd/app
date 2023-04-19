@@ -11,7 +11,7 @@ class LocalResponseSourceDTO extends Equatable {
     required this.reference,
   });
 
-  factory LocalResponseSourceDTO.fromJson(Map<String, dynamic> json) {
+  factory LocalResponseSourceDTO.fromJson(Map json) {
     return LocalResponseSourceDTO(
       type: LocalResponseSourceType.values.byName(json['type']),
       reference: json['reference'],

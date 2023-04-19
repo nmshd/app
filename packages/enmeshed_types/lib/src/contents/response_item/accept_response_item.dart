@@ -3,7 +3,7 @@ part of 'response_item.dart';
 class AcceptResponseItem extends ResponseItemDerivation {
   const AcceptResponseItem() : super(result: ResponseItemResult.Accepted);
 
-  factory AcceptResponseItem.fromJson(Map<String, dynamic> json) {
+  factory AcceptResponseItem.fromJson(Map json) {
     final type = json['@type'];
 
     if (type == 'AcceptResponseItem') return const AcceptResponseItem();

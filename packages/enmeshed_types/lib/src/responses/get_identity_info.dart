@@ -9,7 +9,7 @@ class GetIdentityInfoResponse extends Equatable {
     required this.publicKey,
   });
 
-  factory GetIdentityInfoResponse.fromJson(Map<String, dynamic> json) {
+  factory GetIdentityInfoResponse.fromJson(Map json) {
     return GetIdentityInfoResponse(
       address: json['address'],
       publicKey: json['publicKey'],

@@ -7,7 +7,7 @@ class ZipCode extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory ZipCode.fromJson(Map<String, dynamic> json) => ZipCode(
+  factory ZipCode.fromJson(Map json) => ZipCode(
         value: json['value'],
       );
 

@@ -7,7 +7,7 @@ class PhoneNumber extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory PhoneNumber.fromJson(Map<String, dynamic> json) => PhoneNumber(
+  factory PhoneNumber.fromJson(Map json) => PhoneNumber(
         value: json['value'],
       );
 

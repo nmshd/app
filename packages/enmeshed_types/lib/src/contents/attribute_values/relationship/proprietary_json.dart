@@ -11,7 +11,7 @@ class ProprietaryJSON extends RelationshipAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryJSON.fromJson(Map<String, dynamic> json) => ProprietaryJSON(
+  factory ProprietaryJSON.fromJson(Map json) => ProprietaryJSON(
         title: json['title'],
         description: json['description'],
         value: json['value'],

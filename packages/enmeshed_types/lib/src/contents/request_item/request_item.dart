@@ -27,7 +27,7 @@ abstract class RequestItem extends Equatable {
     required this.mustBeAccepted,
   });
 
-  factory RequestItem.fromJson(Map<String, dynamic> json) {
+  factory RequestItem.fromJson(Map json) {
     final type = json['@type'];
     if (type == null) throw Exception('missing @type on RequestItem');
 

@@ -7,7 +7,7 @@ class CreateAttributeAcceptResponseItem extends AcceptResponseItem {
     required this.attributeId,
   });
 
-  factory CreateAttributeAcceptResponseItem.fromJson(Map<String, dynamic> json) {
+  factory CreateAttributeAcceptResponseItem.fromJson(Map json) {
     return CreateAttributeAcceptResponseItem(
       attributeId: json['attributeId'],
     );

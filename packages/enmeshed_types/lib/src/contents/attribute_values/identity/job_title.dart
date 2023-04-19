@@ -7,7 +7,7 @@ class JobTitle extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory JobTitle.fromJson(Map<String, dynamic> json) => JobTitle(
+  factory JobTitle.fromJson(Map json) => JobTitle(
         value: json['value'],
       );
 

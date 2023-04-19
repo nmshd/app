@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('TokenDTO toJson', () {
     test('is correctly converted', () {
-      const dto = TokenDTO(
+      final dto = TokenDTO(
         id: 'anId',
         createdBy: 'aCreator',
         createdByDevice: 'aCreatorDeviceId',
@@ -22,7 +22,7 @@ void main() {
           'id': 'anId',
           'createdBy': 'aCreator',
           'createdByDevice': 'aCreatorDeviceId',
-          'content': const ArbitraryTokenContent({'aKey': 'aValue'}).toJson(),
+          'content': ArbitraryTokenContent({'aKey': 'aValue'}).toJson(),
           'createdAt': '2023',
           'expiresAt': '2024',
           'secretKey': 'aSecretKey',
@@ -39,7 +39,7 @@ void main() {
         'id': 'anId',
         'createdBy': 'aCreator',
         'createdByDevice': 'aCreatorDeviceId',
-        'content': const ArbitraryTokenContent({'aKey': 'aValue'}),
+        'content': ArbitraryTokenContent({'aKey': 'aValue'}).toJson(),
         'createdAt': '2023',
         'expiresAt': '2024',
         'secretKey': 'aSecretKey',
@@ -48,7 +48,7 @@ void main() {
       };
       expect(
         TokenDTO.fromJson(json),
-        equals(const TokenDTO(
+        equals(TokenDTO(
           id: 'anId',
           createdBy: 'aCreator',
           createdByDevice: 'aCreatorDeviceId',

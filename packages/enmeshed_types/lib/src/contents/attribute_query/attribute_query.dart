@@ -17,7 +17,7 @@ abstract class AttributeQuery extends Equatable {
     this.validTo,
   });
 
-  factory AttributeQuery.fromJson(Map<String, dynamic> json) {
+  factory AttributeQuery.fromJson(Map json) {
     final type = json['@type'];
 
     switch (type) {

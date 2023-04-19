@@ -7,7 +7,7 @@ class RegisterAttributeListenerAcceptResponseItem extends AcceptResponseItem {
     required this.listenerId,
   });
 
-  factory RegisterAttributeListenerAcceptResponseItem.fromJson(Map<String, dynamic> json) {
+  factory RegisterAttributeListenerAcceptResponseItem.fromJson(Map json) {
     return RegisterAttributeListenerAcceptResponseItem(
       listenerId: json['listenerId'],
     );

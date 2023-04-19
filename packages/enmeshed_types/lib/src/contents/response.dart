@@ -15,7 +15,7 @@ class Response extends Equatable {
     required this.items,
   });
 
-  factory Response.fromJson(Map<String, dynamic> json) {
+  factory Response.fromJson(Map json) {
     return Response(
       result: ResponseResult.values.byName(json['result']),
       requestId: json['requestId'],

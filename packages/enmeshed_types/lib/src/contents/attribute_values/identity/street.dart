@@ -7,7 +7,7 @@ class Street extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory Street.fromJson(Map<String, dynamic> json) => Street(
+  factory Street.fromJson(Map json) => Street(
         value: json['value'],
       );
 

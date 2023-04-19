@@ -23,7 +23,7 @@ class RelationshipDTO extends Equatable {
     required this.changes,
   });
 
-  factory RelationshipDTO.fromJson(Map<String, dynamic> json) => RelationshipDTO(
+  factory RelationshipDTO.fromJson(Map json) => RelationshipDTO(
         id: json['id'],
         template: RelationshipTemplateDTO.fromJson(json['template']),
         status: RelationshipStatus.values.byName(json['status']),

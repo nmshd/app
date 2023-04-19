@@ -11,7 +11,7 @@ class ProprietaryString extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryString.fromJson(Map<String, dynamic> json) => ProprietaryString(
+  factory ProprietaryString.fromJson(Map json) => ProprietaryString(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

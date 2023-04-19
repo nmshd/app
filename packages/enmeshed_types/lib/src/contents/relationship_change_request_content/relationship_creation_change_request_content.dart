@@ -7,7 +7,7 @@ class RelationshipCreationChangeRequestContent extends RelationshipChangeRequest
     required this.response,
   });
 
-  factory RelationshipCreationChangeRequestContent.fromJson(Map<String, dynamic> json) => RelationshipCreationChangeRequestContent(
+  factory RelationshipCreationChangeRequestContent.fromJson(Map json) => RelationshipCreationChangeRequestContent(
         response: Response.fromJson(json['response']),
       );
 

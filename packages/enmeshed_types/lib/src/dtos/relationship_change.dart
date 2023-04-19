@@ -21,7 +21,7 @@ class RelationshipChangeDTO extends Equatable {
     this.response,
   });
 
-  factory RelationshipChangeDTO.fromJson(Map<String, dynamic> json) => RelationshipChangeDTO(
+  factory RelationshipChangeDTO.fromJson(Map json) => RelationshipChangeDTO(
         id: json['id'],
         request: RelationshipChangeRequestDTO.fromJson(json['request']),
         status: RelationshipChangeStatus.values.byName(json['status']),

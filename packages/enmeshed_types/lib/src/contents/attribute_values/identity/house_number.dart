@@ -7,7 +7,7 @@ class HouseNumber extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory HouseNumber.fromJson(Map<String, dynamic> json) => HouseNumber(
+  factory HouseNumber.fromJson(Map json) => HouseNumber(
         value: json['value'],
       );
 

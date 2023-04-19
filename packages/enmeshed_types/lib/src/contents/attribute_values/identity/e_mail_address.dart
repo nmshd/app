@@ -7,7 +7,7 @@ class EMailAddress extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory EMailAddress.fromJson(Map<String, dynamic> json) => EMailAddress(
+  factory EMailAddress.fromJson(Map json) => EMailAddress(
         value: json['value'],
       );
 

@@ -7,7 +7,7 @@ class CommunicationLanguage extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory CommunicationLanguage.fromJson(Map<String, dynamic> json) => CommunicationLanguage(
+  factory CommunicationLanguage.fromJson(Map json) => CommunicationLanguage(
         value: json['value'],
       );
 

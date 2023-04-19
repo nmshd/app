@@ -7,7 +7,7 @@ class BirthName extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory BirthName.fromJson(Map<String, dynamic> json) => BirthName(
+  factory BirthName.fromJson(Map json) => BirthName(
         value: json['value'],
       );
 

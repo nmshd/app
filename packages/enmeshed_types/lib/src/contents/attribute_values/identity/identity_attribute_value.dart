@@ -6,7 +6,7 @@ import 'identity.dart';
 abstract class IdentityAttributeValue extends Equatable {
   const IdentityAttributeValue();
 
-  static IdentityAttributeValue fromJson(Map<String, dynamic> json) {
+  static IdentityAttributeValue fromJson(Map json) {
     final type = json['@type'];
 
     switch (type) {

@@ -9,7 +9,7 @@ import 'contents.dart';
 abstract class AbstractRelationshipTemplateContent extends Equatable {
   const AbstractRelationshipTemplateContent();
 
-  factory AbstractRelationshipTemplateContent.fromJson(Map<String, dynamic> json) {
+  factory AbstractRelationshipTemplateContent.fromJson(Map json) {
     final type = json['@type'];
     if (type == 'RelationshipTemplateContent') {
       return RelationshipTemplateContent.fromJson(json);
@@ -29,7 +29,7 @@ class ArbitraryRelationshipTemplateContent extends AbstractRelationshipTemplateC
   @override
   final Map<String, dynamic> internalJson;
 
-  ArbitraryRelationshipTemplateContent(this.internalJson);
+  ArbitraryRelationshipTemplateContent(Map internalJson) : internalJson = Map<String, dynamic>.from(internalJson);
 
   @override
   List<Object?> get props => [internalJson];

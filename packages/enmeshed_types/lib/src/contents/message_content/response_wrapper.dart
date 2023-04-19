@@ -15,7 +15,7 @@ class ResponseWrapper extends MessageContent {
     required this.response,
   });
 
-  factory ResponseWrapper.fromJson(Map<String, dynamic> json) {
+  factory ResponseWrapper.fromJson(Map json) {
     return ResponseWrapper(
       requestId: json['requestId'],
       requestSourceReference: json['requestSourceReference'],

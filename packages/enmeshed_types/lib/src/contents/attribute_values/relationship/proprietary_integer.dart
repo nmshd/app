@@ -11,7 +11,7 @@ class ProprietaryInteger extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryInteger.fromJson(Map<String, dynamic> json) => ProprietaryInteger(
+  factory ProprietaryInteger.fromJson(Map json) => ProprietaryInteger(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

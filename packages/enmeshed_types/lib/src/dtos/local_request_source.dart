@@ -11,14 +11,14 @@ class LocalRequestSourceDTO extends Equatable {
     required this.reference,
   });
 
-  factory LocalRequestSourceDTO.fromJson(Map<String, dynamic> json) {
+  factory LocalRequestSourceDTO.fromJson(Map json) {
     return LocalRequestSourceDTO(
       type: LocalRequestSourceType.values.byName(json['type']),
       reference: json['reference'],
     );
   }
 
-  static LocalRequestSourceDTO? fromJsonNullable(Map<String, dynamic>? json) => json != null ? LocalRequestSourceDTO.fromJson(json) : null;
+  static LocalRequestSourceDTO? fromJsonNullable(Map? json) => json != null ? LocalRequestSourceDTO.fromJson(json) : null;
 
   Map<String, dynamic> toJson() => {
         'type': type.name,

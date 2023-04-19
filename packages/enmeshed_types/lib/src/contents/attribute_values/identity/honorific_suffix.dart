@@ -7,7 +7,7 @@ class HonorificSuffix extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory HonorificSuffix.fromJson(Map<String, dynamic> json) => HonorificSuffix(
+  factory HonorificSuffix.fromJson(Map json) => HonorificSuffix(
         value: json['value'],
       );
 

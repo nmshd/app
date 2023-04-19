@@ -15,7 +15,7 @@ class RelationshipAttributeCreationHints extends Equatable {
     required this.confidentiality,
   });
 
-  factory RelationshipAttributeCreationHints.fromJson(Map<String, dynamic> json) => RelationshipAttributeCreationHints(
+  factory RelationshipAttributeCreationHints.fromJson(Map json) => RelationshipAttributeCreationHints(
         title: json['title'],
         valueType: json['valueType'],
         description: json['description'],

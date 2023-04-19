@@ -6,7 +6,7 @@ import 'relationship.dart';
 abstract class RelationshipAttributeValue extends Equatable {
   const RelationshipAttributeValue();
 
-  static RelationshipAttributeValue fromJson(Map<String, dynamic> json) {
+  static RelationshipAttributeValue fromJson(Map json) {
     final type = json['@type'];
 
     switch (type) {

@@ -7,7 +7,7 @@ class AffiliationRole extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory AffiliationRole.fromJson(Map<String, dynamic> json) => AffiliationRole(
+  factory AffiliationRole.fromJson(Map json) => AffiliationRole(
         value: json['value'],
       );
 

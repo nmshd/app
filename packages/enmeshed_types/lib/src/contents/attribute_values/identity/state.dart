@@ -7,7 +7,7 @@ class State extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory State.fromJson(Map<String, dynamic> json) => State(
+  factory State.fromJson(Map json) => State(
         value: json['value'],
       );
 

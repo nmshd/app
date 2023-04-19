@@ -19,7 +19,7 @@ class StreetAddress extends IdentityAttributeValue {
     required this.state,
   });
 
-  factory StreetAddress.fromJson(Map<String, dynamic> json) => StreetAddress(
+  factory StreetAddress.fromJson(Map json) => StreetAddress(
         recipient: json['recipient'],
         street: json['street'],
         houseNumber: json['houseNumber'],

@@ -30,12 +30,12 @@ class TokenDTO extends Equatable {
     return 'TokenDTO(id: $id, createdBy: $createdBy, createdByDevice: $createdByDevice, content: $content, createdAt: $createdAt, expiresAt: $expiresAt, secretKey: $secretKey, truncatedReference: $truncatedReference, isEphemeral: $isEphemeral)';
   }
 
-  factory TokenDTO.fromJson(Map<String, dynamic> json) {
+  factory TokenDTO.fromJson(Map json) {
     return TokenDTO(
       id: json['id'],
       createdBy: json['createdBy'],
       createdByDevice: json['createdByDevice'],
-      content: json['content'],
+      content: TokenContent.fromJson(json['content']),
       createdAt: json['createdAt'],
       expiresAt: json['expiresAt'],
       secretKey: json['secretKey'],
@@ -49,7 +49,7 @@ class TokenDTO extends Equatable {
       'id': id,
       'createdBy': createdBy,
       'createdByDevice': createdByDevice,
-      'content': content,
+      'content': content.toJson(),
       'createdAt': createdAt,
       'expiresAt': expiresAt,
       'secretKey': secretKey,

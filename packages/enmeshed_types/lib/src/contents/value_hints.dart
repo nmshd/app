@@ -21,7 +21,7 @@ class ValueHints extends Equatable {
     this.propertyHints,
   });
 
-  factory ValueHints.fromJson(Map<String, dynamic> json) {
+  factory ValueHints.fromJson(Map json) {
     return ValueHints(
       editHelp: json['editHelp'],
       min: json['min']?.toInt(),

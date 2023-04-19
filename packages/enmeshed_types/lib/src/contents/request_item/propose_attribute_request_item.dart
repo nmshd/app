@@ -14,7 +14,7 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
     required this.attribute,
   });
 
-  factory ProposeAttributeRequestItem.fromJson(Map<String, dynamic> json) {
+  factory ProposeAttributeRequestItem.fromJson(Map json) {
     return ProposeAttributeRequestItem(
       title: json['title'],
       description: json['description'],

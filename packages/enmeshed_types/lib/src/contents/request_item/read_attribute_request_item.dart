@@ -12,7 +12,7 @@ class ReadAttributeRequestItem extends RequestItemDerivation {
     required this.query,
   });
 
-  factory ReadAttributeRequestItem.fromJson(Map<String, dynamic> json) {
+  factory ReadAttributeRequestItem.fromJson(Map json) {
     return ReadAttributeRequestItem(
       title: json['title'],
       description: json['description'],

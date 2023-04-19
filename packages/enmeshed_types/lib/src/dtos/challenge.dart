@@ -21,7 +21,7 @@ class ChallengeDTO extends Equatable {
     required this.challengeString,
   });
 
-  factory ChallengeDTO.fromJson(Map<String, dynamic> json) => ChallengeDTO(
+  factory ChallengeDTO.fromJson(Map json) => ChallengeDTO(
         id: json['id'],
         expiresAt: json['expiresAt'],
         createdBy: json['createdBy'],
