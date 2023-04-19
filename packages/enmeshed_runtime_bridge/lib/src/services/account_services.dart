@@ -20,7 +20,7 @@ class AccountServices {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final account = LocalAccountDTO.fromJson(value);
     return account;
   }
@@ -33,7 +33,7 @@ class AccountServices {
       arguments: {'onboardingInfo': onboardingInfo.toJson()},
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final account = LocalAccountDTO.fromJson(value);
     return account;
   }
@@ -43,7 +43,7 @@ class AccountServices {
       'return await runtime.accountServices.getAccounts()',
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final accounts = value.map((e) => LocalAccountDTO.fromJson(e)).toList();
     return accounts;
   }

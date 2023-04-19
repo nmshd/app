@@ -44,7 +44,7 @@ class DeviceOnboardingInfoDTO extends Equatable {
       name: json['name'],
       description: json['description'],
       secretBaseKey: json['secretBaseKey'],
-      deviceIndex: json['deviceIndex'],
+      deviceIndex: json['deviceIndex'].toInt(),
       synchronizationKey: json['synchronizationKey'],
       identityPrivateKey: json['identityPrivateKey'],
       identity: IdentityDTO.fromJson(json['identity']),
