@@ -34,7 +34,7 @@ class FileDTO extends Equatable {
   factory FileDTO.fromJson(Map<String, dynamic> json) => FileDTO(
         id: json['id'],
         filename: json['filename'],
-        filesize: json['filesize'],
+        filesize: json['filesize'].toInt(),
         createdAt: json['createdAt'],
         createdBy: json['createdBy'],
         createdByDevice: json['createdByDevice'],

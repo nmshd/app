@@ -25,7 +25,7 @@ class MessagesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final message = MessageDTO.fromJson(value);
     return message;
   }
@@ -42,7 +42,7 @@ class MessagesFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final messages = value.map((e) => MessageDTO.fromJson(e)).toList();
     return messages;
   }
@@ -59,7 +59,7 @@ class MessagesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final message = MessageWithAttachmentsDTO.fromJson(value);
     return message;
   }
@@ -80,7 +80,7 @@ class MessagesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final response = DownloadFileResponse.fromJson(value);
     return response;
   }
@@ -101,7 +101,7 @@ class MessagesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final file = FileDTO.fromJson(value);
     return file;
   }

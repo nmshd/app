@@ -15,7 +15,7 @@ class ProprietaryInteger extends ProprietaryAttributeValue {
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,
-        value: json['value'],
+        value: json['value'].toInt(),
       );
 
   @override

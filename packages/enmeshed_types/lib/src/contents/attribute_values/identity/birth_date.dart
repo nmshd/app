@@ -12,9 +12,9 @@ class BirthDate extends IdentityAttributeValue {
   });
 
   factory BirthDate.fromJson(Map<String, dynamic> json) => BirthDate(
-        day: json['day'],
-        month: json['month'],
-        year: json['year'],
+        day: json['day'].toInt(),
+        month: json['month'].toInt(),
+        year: json['year'].toInt(),
       );
 
   @override

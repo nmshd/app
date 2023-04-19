@@ -21,7 +21,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final attribute = LocalAttributeDTO.fromJson(value);
     return attribute;
   }
@@ -44,7 +44,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final attribute = LocalAttributeDTO.fromJson(value);
     return attribute;
   }
@@ -84,7 +84,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
     return attributes;
   }
@@ -107,7 +107,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
     return attributes;
   }
@@ -126,7 +126,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final attribute = LocalAttributeDTO.fromJson(value);
     return attribute;
   }
@@ -147,7 +147,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
     return attributes;
   }
@@ -166,7 +166,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
     return attributes;
   }
@@ -185,7 +185,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final attribute = LocalAttributeDTO.fromJson(value);
     return attribute;
   }
@@ -204,7 +204,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
     return attributes;
   }
@@ -225,7 +225,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final attribute = LocalAttributeDTO.fromJson(value);
     return attribute;
   }
@@ -246,7 +246,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final attribute = LocalAttributeDTO.fromJson(value);
     return attribute;
   }
@@ -277,7 +277,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final request = LocalRequestDTO.fromJson(value);
     return request;
   }
