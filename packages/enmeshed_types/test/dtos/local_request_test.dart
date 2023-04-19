@@ -40,7 +40,7 @@ void main() {
         content: Request(
           items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
         ),
-        source: LocalRequestSourceDTO(type: 'aType', reference: 'aReference'),
+        source: LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference'),
       );
       final dtoJson = dto.toJson();
       expect(
@@ -54,7 +54,7 @@ void main() {
           'content': const Request(
             items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
           ).toJson(),
-          'source': const LocalRequestSourceDTO(type: 'aType', reference: 'aReference').toJson(),
+          'source': const LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference').toJson(),
         }),
       );
     });
@@ -97,7 +97,7 @@ void main() {
         'content': const Request(
           items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
         ).toJson(),
-        'source': const LocalRequestSourceDTO(type: 'aType', reference: 'aReference').toJson(),
+        'source': const LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference').toJson(),
       };
       expect(
         LocalRequestDTO.fromJson(json),
@@ -110,7 +110,7 @@ void main() {
           content: Request(
             items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
           ),
-          source: LocalRequestSourceDTO(type: 'aType', reference: 'aReference'),
+          source: LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference'),
         )),
       );
     });

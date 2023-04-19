@@ -6,7 +6,7 @@ void main() {
     test('parsed valid RelationshipCreationChangeRequestContent', () {
       final relationshipCreationChangeRequestContentJson = {
         '@type': 'RelationshipCreationChangeRequestContent',
-        'response': const Response(result: 'aResult', requestId: 'aRequestId', items: []).toJson(),
+        'response': const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: []).toJson(),
       };
       final relationshipChangeRequestContent = RelationshipChangeRequestContent.fromJson(relationshipCreationChangeRequestContentJson);
       expect(relationshipChangeRequestContent, isA<RelationshipCreationChangeRequestContent>());

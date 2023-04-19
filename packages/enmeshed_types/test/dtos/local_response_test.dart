@@ -7,7 +7,7 @@ void main() {
       const dto = LocalResponseDTO(
         createdAt: '2023',
         content: Response(
-          result: 'aResult',
+          result: ResponseResult.Accepted,
           requestId: 'aRequestId',
           items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
         ),
@@ -18,7 +18,7 @@ void main() {
         equals({
           'createdAt': '2023',
           'content': const Response(
-            result: 'aResult',
+            result: ResponseResult.Accepted,
             requestId: 'aRequestId',
             items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
           ).toJson(),
@@ -30,11 +30,11 @@ void main() {
       const dto = LocalResponseDTO(
         createdAt: '2023',
         content: Response(
-          result: 'aResult',
+          result: ResponseResult.Accepted,
           requestId: 'aRequestId',
           items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
         ),
-        source: LocalResponseSourceDTO(type: 'aType', reference: 'aReference'),
+        source: LocalResponseSourceDTO(type: LocalResponseSourceType.Message, reference: 'aReference'),
       );
       final dtoJson = dto.toJson();
       expect(
@@ -42,11 +42,11 @@ void main() {
         equals({
           'createdAt': '2023',
           'content': const Response(
-            result: 'aResult',
+            result: ResponseResult.Accepted,
             requestId: 'aRequestId',
             items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
           ).toJson(),
-          'source': const LocalResponseSourceDTO(type: 'aType', reference: 'aReference').toJson(),
+          'source': const LocalResponseSourceDTO(type: LocalResponseSourceType.Message, reference: 'aReference').toJson(),
         }),
       );
     });
@@ -57,7 +57,7 @@ void main() {
       final json = {
         'createdAt': '2023',
         'content': const Response(
-          result: 'aResult',
+          result: ResponseResult.Accepted,
           requestId: 'aRequestId',
           items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
         ).toJson(),
@@ -67,7 +67,7 @@ void main() {
         equals(const LocalResponseDTO(
           createdAt: '2023',
           content: Response(
-            result: 'aResult',
+            result: ResponseResult.Accepted,
             requestId: 'aRequestId',
             items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
           ),
@@ -79,22 +79,22 @@ void main() {
       final json = {
         'createdAt': '2023',
         'content': const Response(
-          result: 'aResult',
+          result: ResponseResult.Accepted,
           requestId: 'aRequestId',
           items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
         ).toJson(),
-        'source': const LocalResponseSourceDTO(type: 'aType', reference: 'aReference').toJson(),
+        'source': const LocalResponseSourceDTO(type: LocalResponseSourceType.Message, reference: 'aReference').toJson(),
       };
       expect(
         LocalResponseDTO.fromJson(json),
         equals(const LocalResponseDTO(
           createdAt: '2023',
           content: Response(
-            result: 'aResult',
+            result: ResponseResult.Accepted,
             requestId: 'aRequestId',
             items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
           ),
-          source: LocalResponseSourceDTO(type: 'aType', reference: 'aReference'),
+          source: LocalResponseSourceDTO(type: LocalResponseSourceType.Message, reference: 'aReference'),
         )),
       );
     });
