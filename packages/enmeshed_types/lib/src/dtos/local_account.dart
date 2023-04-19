@@ -29,7 +29,7 @@ class LocalAccountDTO extends Equatable {
       name: json['name'],
       realm: json['realm'],
       directory: json['directory'],
-      order: json['order'],
+      order: json['order'].toInt(),
     );
   }
 
