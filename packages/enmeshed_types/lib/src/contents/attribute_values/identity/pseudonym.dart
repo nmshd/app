@@ -7,7 +7,7 @@ class Pseudonym extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory Pseudonym.fromJson(Map<String, dynamic> json) => Pseudonym(
+  factory Pseudonym.fromJson(Map json) => Pseudonym(
         value: json['value'],
       );
 

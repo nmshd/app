@@ -11,7 +11,7 @@ class ProprietaryFileReference extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryFileReference.fromJson(Map<String, dynamic> json) => ProprietaryFileReference(
+  factory ProprietaryFileReference.fromJson(Map json) => ProprietaryFileReference(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

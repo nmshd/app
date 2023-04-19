@@ -18,7 +18,7 @@ class IdentityAttribute extends AbstractAttribute {
     return 'IdentityAttribute(owner: $owner, validFrom: $validFrom, validTo: $validTo, value: $value, tags: $tags)';
   }
 
-  factory IdentityAttribute.fromJson(Map<String, dynamic> json) => IdentityAttribute(
+  factory IdentityAttribute.fromJson(Map json) => IdentityAttribute(
         owner: json['owner'],
         validFrom: json['validFrom'],
         validTo: json['validTo'],

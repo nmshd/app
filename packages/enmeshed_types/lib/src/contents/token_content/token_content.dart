@@ -8,7 +8,7 @@ abstract class TokenContent {
   /// could support more types here, e.g.:
   /// TokenContentRelationshipTemplate, TokenContentFile, TokenContentDeviceSharedSecret
   /// these types are processed automatically by the Enmeshed runtime and do not have to be rendered
-  factory TokenContent.fromJson(Map<String, dynamic> json) => ArbitraryTokenContent(json);
+  factory TokenContent.fromJson(Map json) => ArbitraryTokenContent(json);
 
   Map<String, dynamic> toJson();
 }
@@ -17,5 +17,5 @@ class ArbitraryTokenContent extends TokenContent with MapMixin<String, dynamic>,
   @override
   final Map<String, dynamic> internalJson;
 
-  const ArbitraryTokenContent(this.internalJson);
+  ArbitraryTokenContent(Map internalJson) : internalJson = Map<String, dynamic>.from(internalJson);
 }

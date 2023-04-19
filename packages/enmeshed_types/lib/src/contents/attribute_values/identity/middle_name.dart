@@ -7,7 +7,7 @@ class MiddleName extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory MiddleName.fromJson(Map<String, dynamic> json) => MiddleName(
+  factory MiddleName.fromJson(Map json) => MiddleName(
         value: json['value'],
       );
 

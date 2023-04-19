@@ -11,7 +11,7 @@ part 'relationship_creation_change_request_content.dart';
 abstract class RelationshipChangeRequestContent extends Equatable {
   const RelationshipChangeRequestContent();
 
-  factory RelationshipChangeRequestContent.fromJson(Map<String, dynamic> json) {
+  factory RelationshipChangeRequestContent.fromJson(Map json) {
     final type = json['@type'];
 
     if (type == 'RelationshipCreationChangeRequestContent') {
@@ -32,7 +32,7 @@ class ArbitraryRelationshipChangeRequestContent extends RelationshipChangeReques
   @override
   final Map<String, dynamic> internalJson;
 
-  ArbitraryRelationshipChangeRequestContent(this.internalJson);
+  ArbitraryRelationshipChangeRequestContent(Map internalJson) : internalJson = Map<String, dynamic>.from(internalJson);
 
   @override
   List<Object?> get props => [internalJson];

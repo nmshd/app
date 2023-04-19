@@ -24,7 +24,7 @@ class MessageDTO extends Equatable {
     required this.attachments,
   });
 
-  factory MessageDTO.fromJson(Map<String, dynamic> json) => MessageDTO(
+  factory MessageDTO.fromJson(Map json) => MessageDTO(
         id: json['id'],
         isOwn: json['isOwn'],
         content: MessageContent.fromJson(json['content']),

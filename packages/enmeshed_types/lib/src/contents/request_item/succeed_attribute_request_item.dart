@@ -16,7 +16,7 @@ class SucceedAttributeRequestItem extends RequestItemDerivation {
     required this.newAttribute,
   });
 
-  factory SucceedAttributeRequestItem.fromJson(Map<String, dynamic> json) {
+  factory SucceedAttributeRequestItem.fromJson(Map json) {
     return SucceedAttributeRequestItem(
       title: json['title'],
       description: json['description'],

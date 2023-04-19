@@ -15,7 +15,7 @@ class RelationshipChangeRequestDTO extends Equatable {
     required this.content,
   });
 
-  factory RelationshipChangeRequestDTO.fromJson(Map<String, dynamic> json) => RelationshipChangeRequestDTO(
+  factory RelationshipChangeRequestDTO.fromJson(Map json) => RelationshipChangeRequestDTO(
         createdBy: json['createdBy'],
         createdByDevice: json['createdByDevice'],
         createdAt: json['createdAt'],

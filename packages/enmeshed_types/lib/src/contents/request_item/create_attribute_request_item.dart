@@ -12,7 +12,7 @@ class CreateAttributeRequestItem extends RequestItemDerivation {
     required this.attribute,
   });
 
-  factory CreateAttributeRequestItem.fromJson(Map<String, dynamic> json) {
+  factory CreateAttributeRequestItem.fromJson(Map json) {
     return CreateAttributeRequestItem(
       title: json['title'],
       description: json['description'],

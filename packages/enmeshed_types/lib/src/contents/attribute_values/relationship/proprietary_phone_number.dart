@@ -11,7 +11,7 @@ class ProprietaryPhoneNumber extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryPhoneNumber.fromJson(Map<String, dynamic> json) => ProprietaryPhoneNumber(
+  factory ProprietaryPhoneNumber.fromJson(Map json) => ProprietaryPhoneNumber(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

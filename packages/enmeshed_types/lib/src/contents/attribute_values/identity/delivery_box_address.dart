@@ -21,7 +21,7 @@ class DeliveryBoxAddress extends IdentityAttributeValue {
     this.state,
   });
 
-  factory DeliveryBoxAddress.fromJson(Map<String, dynamic> json) => DeliveryBoxAddress(
+  factory DeliveryBoxAddress.fromJson(Map json) => DeliveryBoxAddress(
         recipient: json['recipient'],
         deliveryBoxId: json['deliveryBoxId'],
         userId: json['userId'],

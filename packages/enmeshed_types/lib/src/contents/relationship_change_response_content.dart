@@ -5,7 +5,7 @@ import 'arbitraty_json.dart';
 abstract class RelationshipChangeResponseContent {
   const RelationshipChangeResponseContent();
 
-  factory RelationshipChangeResponseContent.fromJson(Map<String, dynamic> json) => ArbitraryRelationshipChangeResponseContent(json);
+  factory RelationshipChangeResponseContent.fromJson(Map json) => ArbitraryRelationshipChangeResponseContent(json);
 
   Map<String, dynamic> toJson();
 }
@@ -14,5 +14,5 @@ class ArbitraryRelationshipChangeResponseContent extends RelationshipChangeRespo
   @override
   final Map<String, dynamic> internalJson;
 
-  const ArbitraryRelationshipChangeResponseContent(this.internalJson);
+  ArbitraryRelationshipChangeResponseContent(Map internalJson) : internalJson = Map<String, dynamic>.from(internalJson);
 }

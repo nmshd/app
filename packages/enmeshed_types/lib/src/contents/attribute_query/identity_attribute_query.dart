@@ -11,7 +11,7 @@ class IdentityAttributeQuery extends AttributeQuery {
     super.validTo,
   });
 
-  factory IdentityAttributeQuery.fromJson(Map<String, dynamic> json) {
+  factory IdentityAttributeQuery.fromJson(Map json) {
     return IdentityAttributeQuery(
       valueType: json['valueType'],
       tags: json['tags'] != null ? List<String>.from(json['tags']) : null,

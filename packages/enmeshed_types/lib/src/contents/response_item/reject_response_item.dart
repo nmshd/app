@@ -9,7 +9,7 @@ class RejectResponseItem extends ResponseItemDerivation {
     this.message,
   }) : super(result: ResponseItemResult.Rejected);
 
-  factory RejectResponseItem.fromJson(Map<String, dynamic> json) {
+  factory RejectResponseItem.fromJson(Map json) {
     return RejectResponseItem(
       code: json['code'],
       message: json['message'],

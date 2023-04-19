@@ -13,7 +13,7 @@ class Mail extends MessageContent {
     required this.body,
   });
 
-  factory Mail.fromJson(Map<String, dynamic> json) {
+  factory Mail.fromJson(Map json) {
     return Mail(
       to: List<String>.from(json['to']),
       cc: json['cc'] != null ? List<String>.from(json['cc']) : null,

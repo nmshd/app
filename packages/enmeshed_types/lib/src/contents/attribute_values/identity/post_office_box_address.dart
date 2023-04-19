@@ -17,7 +17,7 @@ class PostOfficeBoxAddress extends IdentityAttributeValue {
     this.state,
   });
 
-  factory PostOfficeBoxAddress.fromJson(Map<String, dynamic> json) => PostOfficeBoxAddress(
+  factory PostOfficeBoxAddress.fromJson(Map json) => PostOfficeBoxAddress(
         recipient: json['recipient'],
         boxId: json['boxId'],
         zipCode: json['zipCode'],

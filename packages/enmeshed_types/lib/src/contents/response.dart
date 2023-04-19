@@ -13,7 +13,7 @@ class Response extends Equatable {
     required this.items,
   });
 
-  factory Response.fromJson(Map<String, dynamic> json) {
+  factory Response.fromJson(Map json) {
     return Response(
       result: json['result'],
       requestId: json['requestId'],

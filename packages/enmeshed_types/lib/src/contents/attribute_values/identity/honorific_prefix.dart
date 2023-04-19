@@ -7,7 +7,7 @@ class HonorificPrefix extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory HonorificPrefix.fromJson(Map<String, dynamic> json) => HonorificPrefix(
+  factory HonorificPrefix.fromJson(Map json) => HonorificPrefix(
         value: json['value'],
       );
 

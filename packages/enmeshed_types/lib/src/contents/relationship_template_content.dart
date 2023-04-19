@@ -13,7 +13,7 @@ class RelationshipTemplateContent extends AbstractRelationshipTemplateContent {
     this.onExistingRelationship,
   });
 
-  factory RelationshipTemplateContent.fromJson(Map<String, dynamic> json) => RelationshipTemplateContent(
+  factory RelationshipTemplateContent.fromJson(Map json) => RelationshipTemplateContent(
         title: json['title'],
         metadata: json['metadata'],
         onNewRelationship: Request.fromJson(json['onNewRelationship']),

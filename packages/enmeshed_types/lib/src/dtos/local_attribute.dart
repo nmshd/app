@@ -32,7 +32,7 @@ class LocalAttributeDTO extends Equatable {
     return content as IdentityAttribute;
   }
 
-  factory LocalAttributeDTO.fromJson(Map<String, dynamic> json) {
+  factory LocalAttributeDTO.fromJson(Map json) {
     return LocalAttributeDTO(
       id: json['id'],
       parentId: json['parentId'],

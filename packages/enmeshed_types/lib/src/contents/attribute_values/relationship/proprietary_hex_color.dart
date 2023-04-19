@@ -11,7 +11,7 @@ class ProprietaryHEXColor extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryHEXColor.fromJson(Map<String, dynamic> json) => ProprietaryHEXColor(
+  factory ProprietaryHEXColor.fromJson(Map json) => ProprietaryHEXColor(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

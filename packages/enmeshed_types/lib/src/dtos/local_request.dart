@@ -26,7 +26,7 @@ class LocalRequestDTO extends Equatable {
     this.response,
   });
 
-  factory LocalRequestDTO.fromJson(Map<String, dynamic> json) {
+  factory LocalRequestDTO.fromJson(Map json) {
     return LocalRequestDTO(
       id: json['id'],
       isOwn: json['isOwn'],

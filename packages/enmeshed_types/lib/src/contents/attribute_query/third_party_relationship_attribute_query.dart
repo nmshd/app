@@ -13,7 +13,7 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
     super.validTo,
   });
 
-  factory ThirdPartyRelationshipAttributeQuery.fromJson(Map<String, dynamic> json) => ThirdPartyRelationshipAttributeQuery(
+  factory ThirdPartyRelationshipAttributeQuery.fromJson(Map json) => ThirdPartyRelationshipAttributeQuery(
         key: json['key'],
         owner: json['owner'],
         thirdParty: List<String>.from(json['thirdParty']),

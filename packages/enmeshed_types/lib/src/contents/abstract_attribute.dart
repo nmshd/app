@@ -15,7 +15,7 @@ abstract class AbstractAttribute extends Equatable {
     this.validTo,
   });
 
-  static fromJson(Map<String, dynamic> json) {
+  static fromJson(Map json) {
     final type = json['@type'];
 
     if (type == 'IdentityAttribute') {

@@ -19,7 +19,7 @@ class Request extends Equatable {
     this.metadata,
   });
 
-  factory Request.fromJson(Map<String, dynamic> json) {
+  factory Request.fromJson(Map json) {
     return Request(
       id: json['id'],
       expiresAt: json['expiresAt'],

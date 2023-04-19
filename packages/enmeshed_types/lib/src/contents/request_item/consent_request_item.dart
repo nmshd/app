@@ -14,7 +14,7 @@ class ConsentRequestItem extends RequestItemDerivation {
     this.link,
   });
 
-  factory ConsentRequestItem.fromJson(Map<String, dynamic> json) {
+  factory ConsentRequestItem.fromJson(Map json) {
     return ConsentRequestItem(
       title: json['title'],
       description: json['description'],

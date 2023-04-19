@@ -12,7 +12,7 @@ class Consent extends RelationshipAttributeValue {
     this.link,
   });
 
-  factory Consent.fromJson(Map<String, dynamic> json) => Consent(
+  factory Consent.fromJson(Map json) => Consent(
         consent: json['consent'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,
         link: json['link'],

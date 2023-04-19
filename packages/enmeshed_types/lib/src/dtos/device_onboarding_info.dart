@@ -36,7 +36,7 @@ class DeviceOnboardingInfoDTO extends Equatable {
     return 'DeviceOnboardingInfo { id: $id, createdAt: $createdAt, createdByDevice: $createdByDevice, name: $name, description: $description, secretBaseKey: $secretBaseKey, deviceIndex: $deviceIndex, synchronizationKey: $synchronizationKey, identityPrivateKey: $identityPrivateKey, identity: $identity, password: $password, username: $username }';
   }
 
-  factory DeviceOnboardingInfoDTO.fromJson(Map<String, dynamic> json) {
+  factory DeviceOnboardingInfoDTO.fromJson(Map json) {
     return DeviceOnboardingInfoDTO(
       id: json['id'],
       createdAt: json['createdAt'],

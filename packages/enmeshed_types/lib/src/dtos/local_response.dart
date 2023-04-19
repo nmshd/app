@@ -14,7 +14,7 @@ class LocalResponseDTO extends Equatable {
     this.source,
   });
 
-  factory LocalResponseDTO.fromJson(Map<String, dynamic> json) {
+  factory LocalResponseDTO.fromJson(Map json) {
     return LocalResponseDTO(
       createdAt: json['createdAt'],
       content: Response.fromJson(json['content']),
@@ -22,7 +22,7 @@ class LocalResponseDTO extends Equatable {
     );
   }
 
-  static LocalResponseDTO? fromJsonNullable(Map<String, dynamic>? json) => json != null ? LocalResponseDTO.fromJson(json) : null;
+  static LocalResponseDTO? fromJsonNullable(Map? json) => json != null ? LocalResponseDTO.fromJson(json) : null;
 
   Map<String, dynamic> toJson() => {
         'createdAt': createdAt,

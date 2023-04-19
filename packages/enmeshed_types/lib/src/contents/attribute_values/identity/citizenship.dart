@@ -7,7 +7,7 @@ class Citizenship extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory Citizenship.fromJson(Map<String, dynamic> json) => Citizenship(
+  factory Citizenship.fromJson(Map json) => Citizenship(
         value: json['value'],
       );
 

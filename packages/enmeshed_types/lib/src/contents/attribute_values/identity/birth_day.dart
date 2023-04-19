@@ -7,7 +7,7 @@ class BirthDay extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory BirthDay.fromJson(Map<String, dynamic> json) => BirthDay(
+  factory BirthDay.fromJson(Map json) => BirthDay(
         value: json['value'].toInt(),
       );
 

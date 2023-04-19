@@ -13,7 +13,7 @@ class RelationshipAttributeQuery extends AttributeQuery {
     super.validTo,
   });
 
-  factory RelationshipAttributeQuery.fromJson(Map<String, dynamic> json) => RelationshipAttributeQuery(
+  factory RelationshipAttributeQuery.fromJson(Map json) => RelationshipAttributeQuery(
         key: json['key'],
         owner: json['owner'],
         attributeCreationHints: RelationshipAttributeCreationHints.fromJson(json['attributeCreationHints']),

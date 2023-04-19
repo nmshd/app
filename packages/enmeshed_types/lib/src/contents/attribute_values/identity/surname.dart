@@ -7,7 +7,7 @@ class Surname extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory Surname.fromJson(Map<String, dynamic> json) => Surname(
+  factory Surname.fromJson(Map json) => Surname(
         value: json['value'],
       );
 
