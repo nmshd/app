@@ -17,5 +17,5 @@ class ArbitraryTokenContent extends TokenContent with MapMixin<String, dynamic>,
   @override
   final Map<String, dynamic> internalJson;
 
-  ArbitraryTokenContent(this.internalJson);
+  const ArbitraryTokenContent(this.internalJson);
 }

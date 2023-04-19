@@ -8,6 +8,13 @@ import 'package:connector_sdk/connector_sdk.dart';
 void main() async {
   final cc = ConnectorClient(const String.fromEnvironment('BASE_URL'), const String.fromEnvironment('API_KEY'));
 
+  final templateResult = await cc.relationshipTemplates.createOwnRelationshipTemplate(
+    expiresAt: DateTime.now().add(const Duration(days: 365)).toIso8601String(),
+    content: {},
+  );
+  final templateResult2 = await cc.relationshipTemplates.getRelationshipTemplate(templateResult.data.id);
+  print(templateResult2.data);
+
   final file = await cc.files.uploadOwnFile(
     title: 'test',
     description: 'test',

@@ -1,20 +1,12 @@
-class SyncInfoEntry {
-  final String completedAt;
+import 'package:equatable/equatable.dart';
 
-  SyncInfoEntry({required this.completedAt});
-  factory SyncInfoEntry.fromJson(Map<String, dynamic> json) => SyncInfoEntry(completedAt: json['completedAt']);
-  static SyncInfoEntry? fromJsonNullable(Map<String, dynamic>? json) => json != null ? SyncInfoEntry.fromJson(json) : null;
-  Map<String, dynamic> toJson() => {'completedAt': completedAt};
+import 'sync_info_entry.dart';
 
-  @override
-  String toString() => 'SyncInfoEntry(completedAt: $completedAt)';
-}
-
-class SyncInfoResponse {
+class SyncInfoResponse extends Equatable {
   final SyncInfoEntry? lastDatawalletSync;
   final SyncInfoEntry? lastSyncRun;
 
-  SyncInfoResponse({
+  const SyncInfoResponse({
     this.lastDatawalletSync,
     this.lastSyncRun,
   });
@@ -31,4 +23,7 @@ class SyncInfoResponse {
 
   @override
   String toString() => 'SyncInfoResponse(lastDatawalletSync: $lastDatawalletSync, lastSyncRun: $lastSyncRun)';
+
+  @override
+  List<Object?> get props => [lastDatawalletSync, lastSyncRun];
 }

@@ -11,7 +11,7 @@ class OutgoingRequestsEndpoint extends Endpoint {
         transformer: requestValidationResultTransformer,
         data: {
           'content': content.toJson(),
-          'peer': peer,
+          if (peer != null) 'peer': peer,
         },
       );
 

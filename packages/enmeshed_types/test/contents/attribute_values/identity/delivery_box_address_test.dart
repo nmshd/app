@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Delivery Box Address to json', () {
-    test('valid DeliveryBoxAddress', () {
+  group('DeliveryBoxAddress toJson', () {
+    test('is correctly converted', () {
       const identityAttributeValue = DeliveryBoxAddress(
         recipient: 'aRecipient',
         deliveryBoxId: 'aDeliveryBoxId',
@@ -27,7 +27,7 @@ void main() {
       );
     });
 
-    test('valid DeliveryBoxAddress with phoneNumber', () {
+    test('is correctly converted with property "phoneNumber"', () {
       const identityAttributeValue = DeliveryBoxAddress(
         recipient: 'aRecipient',
         deliveryBoxId: 'aDeliveryBoxId',
@@ -53,7 +53,7 @@ void main() {
       );
     });
 
-    test('valid DeliveryBoxAddress with state', () {
+    test('is correctly converted with property "state"', () {
       const identityAttributeValue = DeliveryBoxAddress(
         recipient: 'aRecipient',
         deliveryBoxId: 'aDeliveryBoxId',
@@ -79,7 +79,7 @@ void main() {
       );
     });
 
-    test('valid DeliveryBoxAddress with phoneNumber and state', () {
+    test('is correctly converted with properties "phoneNumber" and "state"', () {
       const identityAttributeValue = DeliveryBoxAddress(
         recipient: 'aRecipient',
         deliveryBoxId: 'aDeliveryBoxId',
@@ -108,8 +108,8 @@ void main() {
     });
   });
 
-  group('Delivery Box Address from json', () {
-    test('valid DeliveryBoxAddress', () {
+  group('DeliveryBoxAddress fromJson', () {
+    test('is correctly converted', () {
       final json = {
         'recipient': 'aRecipient',
         'deliveryBoxId': 'aDeliveryBoxId',
@@ -131,7 +131,7 @@ void main() {
       );
     });
 
-    test('valid DeliveryBoxAddress with phoneNumber', () {
+    test('is correctly converted with property "phoneNumber"', () {
       final json = {
         'recipient': 'aRecipient',
         'deliveryBoxId': 'aDeliveryBoxId',
@@ -155,7 +155,7 @@ void main() {
       );
     });
 
-    test('valid DeliveryBoxAddress with state', () {
+    test('is correctly converted with property "state"', () {
       final json = {
         'recipient': 'aRecipient',
         'deliveryBoxId': 'aDeliveryBoxId',
@@ -179,7 +179,7 @@ void main() {
       );
     });
 
-    test('valid DeliveryBoxAddress with phoneNumber and state', () {
+    test('is correctly converted with properties "phoneNumber" and "state"', () {
       final json = {
         'recipient': 'aRecipient',
         'deliveryBoxId': 'aDeliveryBoxId',

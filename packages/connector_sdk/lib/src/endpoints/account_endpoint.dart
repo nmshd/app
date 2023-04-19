@@ -10,7 +10,11 @@ class AccountEndpoint extends Endpoint {
         transformer: (v) => GetIdentityInfoResponse.fromJson(v),
       );
 
-  Future<ConnectorResponse<SyncEverythingResponse>> sync() => post('/api/v2/Account/Sync', transformer: (v) => SyncEverythingResponse.fromJson(v));
+  Future<ConnectorResponse<SyncEverythingResponse>> sync() => post(
+        '/api/v2/Account/Sync',
+        transformer: (v) => SyncEverythingResponse.fromJson(v),
+        expectedStatus: 200,
+      );
 
   Future<ConnectorResponse<SyncInfoResponse>> getSyncInfo() => get('/api/v2/Account/SyncInfo', transformer: (v) => SyncInfoResponse.fromJson(v));
 }

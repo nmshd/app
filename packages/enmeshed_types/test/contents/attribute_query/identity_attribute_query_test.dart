@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Identity Attribute Query to json', () {
-    test('valid IdentityAttributeQuery', () {
+  group('IdentityAttributeQuery toJson', () {
+    test('is correctly converted', () {
       const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress');
       final identityJson = identityAttributeQuery.toJson();
       expect(
@@ -15,7 +15,7 @@ void main() {
       );
     });
 
-    test('valid IdentityAttributeQuery with tags', () {
+    test('is correctly converted with property "tags"', () {
       const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', tags: ['tag1', 'tag2']);
       expect(
         identityAttributeQuery.toJson(),
@@ -27,7 +27,7 @@ void main() {
       );
     });
 
-    test('valid IdentityAttributeQuery with validFrom and validTo', () {
+    test('is correctly converted with properties "validFrom" and "validTo"', () {
       const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1980');
       expect(
         identityAttributeQuery.toJson(),
@@ -40,7 +40,7 @@ void main() {
       );
     });
 
-    test('valid IdentityAttributeQuery with validFrom, validTo and tags', () {
+    test('is correctly converted with properties "validFrom", "validTo" and "tags"', () {
       const identityAttributeQuery = IdentityAttributeQuery(
         valueType: 'StreetAddress',
         validFrom: '1970',
@@ -60,17 +60,13 @@ void main() {
     });
   });
 
-  group('Identity Attribute Query from json', () {
-    setUp(() {
-      // Additional setup goes here.
-    });
-
-    test('valid IdentityAttributeQuery', () {
+  group('IdentityAttributeQuery fromJson', () {
+    test('is correctly converted', () {
       final json = {'valueType': 'StreetAddress'};
       expect(IdentityAttributeQuery.fromJson(json), equals(const IdentityAttributeQuery(valueType: 'StreetAddress')));
     });
 
-    test('valid IdentityAttributeQuery with tags', () {
+    test('is correctly converted with property "tags"', () {
       final json = {
         'valueType': 'StreetAddress',
         'tags': ['tag1', 'tag2'],
@@ -79,7 +75,7 @@ void main() {
       expect(IdentityAttributeQuery.fromJson(json), equals(const IdentityAttributeQuery(valueType: 'StreetAddress', tags: ['tag1', 'tag2'])));
     });
 
-    test('valid IdentityAttributeQuery with validFrom and validTo', () {
+    test('is correctly converted with properties "validFrom" and "validTo"', () {
       final json = {
         'valueType': 'StreetAddress',
         'validFrom': '1970',
@@ -96,7 +92,7 @@ void main() {
       );
     });
 
-    test('valid IdentityAttributeQuery with validFrom, validTo and tags', () {
+    test('is correctly converted with properties "validFrom", "validTo" and "tags"', () {
       final json = {
         'valueType': 'StreetAddress',
         'tags': ['tag1', 'tag2'],

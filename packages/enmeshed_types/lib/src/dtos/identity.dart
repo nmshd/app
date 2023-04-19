@@ -1,9 +1,11 @@
-class IdentityDTO {
+import 'package:equatable/equatable.dart';
+
+class IdentityDTO extends Equatable {
   final String address;
   final String publicKey;
   final String realm;
 
-  IdentityDTO({
+  const IdentityDTO({
     required this.address,
     required this.publicKey,
     required this.realm,
@@ -29,4 +31,7 @@ class IdentityDTO {
       'realm': realm,
     };
   }
+
+  @override
+  List<Object?> get props => [address, publicKey, realm];
 }

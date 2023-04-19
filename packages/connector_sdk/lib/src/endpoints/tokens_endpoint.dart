@@ -21,7 +21,7 @@ class TokensEndpoint extends Endpoint {
         data: {
           'expiresAt': expiresAt,
           'content': content,
-          'ephemeral': ephemeral,
+          if (ephemeral != null) 'ephemeral': ephemeral,
         },
         transformer: tokenTransformer,
       );
@@ -36,7 +36,7 @@ class TokensEndpoint extends Endpoint {
         '/api/v2/Tokens/Peer',
         data: {
           'reference': reference,
-          'ephemeral': ephemeral,
+          if (ephemeral != null) 'ephemeral': ephemeral,
         },
         transformer: tokenTransformer,
       );
@@ -46,7 +46,7 @@ class TokensEndpoint extends Endpoint {
         data: {
           'id': id,
           'secretKey': secretKey,
-          'ephemeral': ephemeral,
+          if (ephemeral != null) 'ephemeral': ephemeral,
         },
         transformer: tokenTransformer,
       );

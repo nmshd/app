@@ -1,7 +1,7 @@
 part of 'request_item.dart';
 
 class AuthenticationRequestItem extends RequestItemDerivation {
-  AuthenticationRequestItem({
+  const AuthenticationRequestItem({
     super.title,
     super.description,
     super.metadata,
@@ -24,4 +24,7 @@ class AuthenticationRequestItem extends RequestItemDerivation {
         ...super.toJson(),
         '@type': 'AuthenticationRequestItem',
       };
+
+  @override
+  List<Object?> get props => [super.props];
 }

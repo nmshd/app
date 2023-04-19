@@ -24,7 +24,11 @@ abstract class Endpoint {
 
   @protected
   Future<ConnectorResponse<T>> get<T>(String path, {required T Function(dynamic) transformer, Map<String, dynamic>? query}) async {
-    final response = await _dio.get<Map<String, dynamic>>(path, queryParameters: query);
+    final response = await _dio.get<Map<String, dynamic>>(
+      path,
+      queryParameters: query,
+      options: Options(headers: {'Accept': 'application/json'}),
+    );
     return _makeResult(response, transformer);
   }
 

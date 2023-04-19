@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Third Party Relationship Attribute Query to json', () {
-    test('valid ThirdPartyRelationshipAttributeQuery', () {
+  group('ThirdPartyRelationshipAttributeQuery toJson', () {
+    test('is correctly converted', () {
       const thirdPartyRelationshipAttributeQuery = ThirdPartyRelationshipAttributeQuery(
         key: 'ProprietaryInteger',
         owner: 'anOwner',
@@ -21,7 +21,7 @@ void main() {
       );
     });
 
-    test('valid ThirdPartyRelationshipAttributeQuery with validFrom and validTo', () {
+    test('is correctly converted with properties "validFrom" and "validTo"', () {
       const thirdPartyRelationshipAttributeQuery = ThirdPartyRelationshipAttributeQuery(
         key: 'ProprietaryInteger',
         owner: 'anOwner',
@@ -44,8 +44,8 @@ void main() {
     });
   });
 
-  group('Third Party Relationship Attribute Query from json', () {
-    test('valid ThirdPartyRelationshipAttributeQuery', () {
+  group('ThirdPartyRelationshipAttributeQuery fromJson', () {
+    test('is correctly converted', () {
       final json = {
         'key': 'ProprietaryInteger',
         'owner': 'anOwner',
@@ -61,7 +61,7 @@ void main() {
       );
     });
 
-    test('valid ThirdPartyRelationshipAttributeQuery with validFrom and validTo', () {
+    test('is correctly converted with properties "validFrom" and "validTo"', () {
       final json = {
         'key': 'ProprietaryInteger',
         'owner': 'anOwner',

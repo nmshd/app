@@ -4,7 +4,7 @@ class ErrorResponseItem extends ResponseItemDerivation {
   final String code;
   final String message;
 
-  ErrorResponseItem({
+  const ErrorResponseItem({
     required this.code,
     required this.message,
   }) : super(result: ResponseItemResult.Error);
@@ -26,4 +26,7 @@ class ErrorResponseItem extends ResponseItemDerivation {
 
   @override
   String toString() => 'ErrorResponseItem(code: $code, message: $message)';
+
+  @override
+  List<Object?> get props => [super.props, code, message];
 }

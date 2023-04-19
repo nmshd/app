@@ -9,7 +9,7 @@ class RelationshipAttribute extends AbstractAttribute {
   final bool? isTechnical;
   final RelationshipAttributeConfidentiality confidentiality;
 
-  RelationshipAttribute({
+  const RelationshipAttribute({
     required super.owner,
     super.validFrom,
     super.validTo,
@@ -43,4 +43,7 @@ class RelationshipAttribute extends AbstractAttribute {
         if (isTechnical != null) 'isTechnical': isTechnical,
         'confidentiality': confidentiality.name,
       };
+
+  @override
+  List<Object?> get props => [super.props, value, key, isTechnical, confidentiality];
 }

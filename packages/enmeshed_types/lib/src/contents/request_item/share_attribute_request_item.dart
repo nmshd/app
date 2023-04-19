@@ -4,7 +4,7 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
   final AbstractAttribute attribute;
   final String sourceAttributeId;
 
-  ShareAttributeRequestItem({
+  const ShareAttributeRequestItem({
     super.title,
     super.description,
     super.metadata,
@@ -36,4 +36,7 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
 
   @override
   String toString() => 'ShareAttributeRequestItem(attribute: $attribute, sourceAttributeId: $sourceAttributeId)';
+
+  @override
+  List<Object?> get props => [super.props, attribute, sourceAttributeId];
 }

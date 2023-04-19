@@ -7,8 +7,8 @@ void main() {
     valueType: 'aValueType',
     confidentiality: 'public',
   );
-  group('Relationship Attribute Query to json', () {
-    test('valid RelationshipAttributeQuery', () {
+  group('RelationshipAttributeQuery toJson', () {
+    test('is correctly converted', () {
       const relationshipAttributeQuery = RelationshipAttributeQuery(
         key: 'ProprietaryInteger',
         owner: 'anOwner',
@@ -26,7 +26,7 @@ void main() {
       );
     });
 
-    test('valid RelationshipAttributeQuery with validFrom and validTo', () {
+    test('is correctly converted with properties "validFrom" and "validTo"', () {
       const relationshipAttributeQuery = RelationshipAttributeQuery(
         key: 'ProprietaryInteger',
         owner: 'anOwner',
@@ -49,8 +49,8 @@ void main() {
     });
   });
 
-  group('Relationship Attribute Query from json', () {
-    test('valid RelationshipAttributeQuery', () {
+  group('RelationshipAttributeQuery fromJson', () {
+    test('is correctly converted', () {
       final json = {
         'key': 'ProprietaryInteger',
         'owner': 'anOwner',
@@ -66,7 +66,7 @@ void main() {
       );
     });
 
-    test('valid RelationshipAttributeQuery with validFrom and validTo', () {
+    test('is correctly converted with properties "validFrom" and "validTo"', () {
       final json = {
         'key': 'ProprietaryInteger',
         'owner': 'anOwner',

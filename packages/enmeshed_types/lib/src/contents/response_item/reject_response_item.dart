@@ -4,7 +4,7 @@ class RejectResponseItem extends ResponseItemDerivation {
   final String? code;
   final String? message;
 
-  RejectResponseItem({
+  const RejectResponseItem({
     this.code,
     this.message,
   }) : super(result: ResponseItemResult.Rejected);
@@ -26,4 +26,7 @@ class RejectResponseItem extends ResponseItemDerivation {
 
   @override
   String toString() => 'RejectResponseItem(code: $code, message: $message)';
+
+  @override
+  List<Object?> get props => [super.props, code, message];
 }

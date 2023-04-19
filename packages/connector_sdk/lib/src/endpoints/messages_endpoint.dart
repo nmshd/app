@@ -6,9 +6,9 @@ import 'transformers.dart';
 class MessagesEndpoint extends Endpoint {
   MessagesEndpoint(super.dio);
 
-  Future<ConnectorResponse<MessageDTO>> getMessages([Map<String, dynamic>? query]) => get(
+  Future<ConnectorResponse<List<MessageDTO>>> getMessages([Map<String, dynamic>? query]) => get(
         '/api/v2/Messages',
-        transformer: (v) => MessageDTO.fromJson(v),
+        transformer: (v) => List<MessageDTO>.from(v.map((e) => MessageDTO.fromJson(e))),
         query: query,
       );
 

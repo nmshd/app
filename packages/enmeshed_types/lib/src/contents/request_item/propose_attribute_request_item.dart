@@ -4,7 +4,7 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
   final AttributeQuery query;
   final AbstractAttribute attribute;
 
-  ProposeAttributeRequestItem({
+  const ProposeAttributeRequestItem({
     super.title,
     super.description,
     super.metadata,
@@ -36,4 +36,7 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
 
   @override
   String toString() => 'ProposeAttributeRequestItem(query: $query, attribute: $attribute)';
+
+  @override
+  List<Object?> get props => [super.props, query, attribute];
 }

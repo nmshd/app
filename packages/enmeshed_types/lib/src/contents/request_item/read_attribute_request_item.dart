@@ -3,7 +3,7 @@ part of 'request_item.dart';
 class ReadAttributeRequestItem extends RequestItemDerivation {
   final AttributeQuery query;
 
-  ReadAttributeRequestItem({
+  const ReadAttributeRequestItem({
     super.title,
     super.description,
     super.metadata,
@@ -32,4 +32,7 @@ class ReadAttributeRequestItem extends RequestItemDerivation {
 
   @override
   String toString() => 'ReadAttributeRequestItem(query: $query)';
+
+  @override
+  List<Object?> get props => [super.props, query];
 }

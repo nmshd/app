@@ -350,10 +350,10 @@ class RequestView extends StatelessWidget {
   Future<void> onRejectPressed(BuildContext context) async {
     final items = request.content.items.map((e) {
       if (e is types.RequestItemGroup) {
-        return types.DecideRequestItemGroupParameters(items: e.items.map((itemDerivation) => types.RejectRequestItemParameters()).toList());
+        return types.DecideRequestItemGroupParameters(items: e.items.map((itemDerivation) => const types.RejectRequestItemParameters()).toList());
       }
 
-      return types.RejectRequestItemParameters();
+      return const types.RejectRequestItemParameters();
     }).toList();
 
     await runtime.currentSession.consumptionServices.incomingRequests.reject(
