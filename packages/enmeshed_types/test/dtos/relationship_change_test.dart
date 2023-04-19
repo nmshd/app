@@ -37,9 +37,9 @@ void main() {
     });
 
     test('is correctly converted with property "response"', () {
-      const dto = RelationshipChangeDTO(
+      final dto = RelationshipChangeDTO(
         id: 'anId',
-        request: RelationshipChangeRequestDTO(
+        request: const RelationshipChangeRequestDTO(
           createdBy: 'aCreator',
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
@@ -71,7 +71,7 @@ void main() {
           ).toJson(),
           'status': 'Accepted',
           'type': 'Creation',
-          'response': const RelationshipChangeResponseDTO(
+          'response': RelationshipChangeResponseDTO(
             createdBy: 'aCreator',
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
@@ -128,7 +128,7 @@ void main() {
         ).toJson(),
         'status': 'Accepted',
         'type': 'Creation',
-        'response': const RelationshipChangeResponseDTO(
+        'response': RelationshipChangeResponseDTO(
           createdBy: 'aCreator',
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
@@ -137,9 +137,9 @@ void main() {
       };
       expect(
         RelationshipChangeDTO.fromJson(json),
-        equals(const RelationshipChangeDTO(
+        equals(RelationshipChangeDTO(
           id: 'anId',
-          request: RelationshipChangeRequestDTO(
+          request: const RelationshipChangeRequestDTO(
             createdBy: 'aCreator',
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
