@@ -11,7 +11,7 @@ void main() {
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
           content: RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
         ),
         status: RelationshipChangeStatus.Accepted,
@@ -27,7 +27,7 @@ void main() {
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
             content: RelationshipCreationChangeRequestContent(
-              response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+              response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),
           ).toJson(),
           'status': 'Accepted',
@@ -44,7 +44,7 @@ void main() {
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
           content: RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
         ),
         status: RelationshipChangeStatus.Accepted,
@@ -66,7 +66,7 @@ void main() {
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
             content: RelationshipCreationChangeRequestContent(
-              response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+              response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),
           ).toJson(),
           'status': 'Accepted',
@@ -91,7 +91,7 @@ void main() {
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
           content: RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
         ).toJson(),
         'status': 'Accepted',
@@ -106,7 +106,7 @@ void main() {
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
             content: RelationshipCreationChangeRequestContent(
-              response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+              response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),
           ),
           status: RelationshipChangeStatus.Accepted,
@@ -123,7 +123,7 @@ void main() {
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
           content: RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
         ).toJson(),
         'status': 'Accepted',
@@ -144,7 +144,7 @@ void main() {
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
             content: RelationshipCreationChangeRequestContent(
-              response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+              response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),
           ),
           status: RelationshipChangeStatus.Accepted,

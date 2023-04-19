@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 
+enum LocalRequestSourceType { Message, RelationshipTemplate }
+
 class LocalRequestSourceDTO extends Equatable {
-  final String type;
+  final LocalRequestSourceType type;
   final String reference;
 
   const LocalRequestSourceDTO({
@@ -11,7 +13,7 @@ class LocalRequestSourceDTO extends Equatable {
 
   factory LocalRequestSourceDTO.fromJson(Map<String, dynamic> json) {
     return LocalRequestSourceDTO(
-      type: json['type'],
+      type: LocalRequestSourceType.values.byName(json['type']),
       reference: json['reference'],
     );
   }
@@ -19,7 +21,7 @@ class LocalRequestSourceDTO extends Equatable {
   static LocalRequestSourceDTO? fromJsonNullable(Map<String, dynamic>? json) => json != null ? LocalRequestSourceDTO.fromJson(json) : null;
 
   Map<String, dynamic> toJson() => {
-        'type': type,
+        'type': type.name,
         'reference': reference,
       };
 

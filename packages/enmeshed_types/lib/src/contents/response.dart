@@ -2,8 +2,10 @@ import 'package:equatable/equatable.dart';
 
 import 'response_item/response_item.dart';
 
+enum ResponseResult { Accepted, Rejected }
+
 class Response extends Equatable {
-  final String result;
+  final ResponseResult result;
   final String requestId;
   final List<ResponseItem> items;
 
@@ -15,14 +17,14 @@ class Response extends Equatable {
 
   factory Response.fromJson(Map<String, dynamic> json) {
     return Response(
-      result: json['result'],
+      result: ResponseResult.values.byName(json['result']),
       requestId: json['requestId'],
       items: List<ResponseItem>.from(json['items'].map((x) => ResponseItem.fromJson(x))),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'result': result,
+        'result': result.name,
         'requestId': requestId,
         'items': items.map((e) => e.toJson()).toList(),
       };
