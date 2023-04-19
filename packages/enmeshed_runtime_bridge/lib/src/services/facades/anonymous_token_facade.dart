@@ -21,7 +21,7 @@ class AnonymousTokensFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final token = TokenDTO.fromJson(value);
     return token;
   }
@@ -39,7 +39,7 @@ class AnonymousTokensFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final token = TokenDTO.fromJson(value);
     return token;
   }

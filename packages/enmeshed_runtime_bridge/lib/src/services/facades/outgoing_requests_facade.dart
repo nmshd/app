@@ -23,7 +23,7 @@ class OutgoingRequestsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final validationResult = RequestValidationResultDTO.fromJson(value);
     return validationResult;
   }
@@ -44,7 +44,7 @@ class OutgoingRequestsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final request = LocalRequestDTO.fromJson(value);
     return request;
   }
@@ -67,7 +67,7 @@ class OutgoingRequestsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final request = LocalRequestDTO.fromJson(value);
     return request;
   }
@@ -88,7 +88,7 @@ class OutgoingRequestsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final request = LocalRequestDTO.fromJson(value);
     return request;
   }
@@ -109,7 +109,7 @@ class OutgoingRequestsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final request = LocalRequestDTO.fromJson(value);
     return request;
   }
@@ -128,7 +128,7 @@ class OutgoingRequestsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final request = LocalRequestDTO.fromJson(value);
     return request;
   }
@@ -147,7 +147,7 @@ class OutgoingRequestsFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final requests = value.map((e) => LocalRequestDTO.fromJson(e)).toList();
     return requests;
   }

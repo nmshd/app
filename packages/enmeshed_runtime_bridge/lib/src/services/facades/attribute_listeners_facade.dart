@@ -21,7 +21,7 @@ class AttributeListenersFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final listener = LocalAttributeListenerDTO.fromJson(value);
     return listener;
   }
@@ -33,7 +33,7 @@ class AttributeListenersFacade {
       return result.value''',
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final listeners = value.map((e) => LocalAttributeListenerDTO.fromJson(e)).toList();
     return listeners;
   }

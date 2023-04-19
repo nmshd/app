@@ -14,7 +14,7 @@ class AccountFacade {
       return result.value''',
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final response = GetIdentityInfoResponse.fromJson(value);
     return response;
   }
@@ -26,7 +26,7 @@ class AccountFacade {
       return result.value''',
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final device = DeviceDTO.fromJson(value);
     return device;
   }
@@ -69,7 +69,7 @@ class AccountFacade {
       return result.value''',
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final response = SyncEverythingResponse.fromJson(value);
     return response;
   }
@@ -81,7 +81,7 @@ class AccountFacade {
       return result.value''',
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final syncInfo = SyncInfoResponse.fromJson(value);
     return syncInfo;
   }
@@ -120,7 +120,7 @@ class AccountFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final response = LoadItemFromTruncatedReferenceResponse.fromJson(value);
     return response;
   }

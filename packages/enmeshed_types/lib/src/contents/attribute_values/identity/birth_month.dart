@@ -8,7 +8,7 @@ class BirthMonth extends IdentityAttributeValue {
   });
 
   factory BirthMonth.fromJson(Map<String, dynamic> json) => BirthMonth(
-        value: json['value'],
+        value: json['value'].toInt(),
       );
 
   @override
