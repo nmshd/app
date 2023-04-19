@@ -9,7 +9,7 @@ void main() {
         createdByDevice: 'aCreatorDeviceId',
         createdAt: '2023',
         content: RelationshipCreationChangeRequestContent(
-          response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+          response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
         ),
       );
       final dtoJson = dto.toJson();
@@ -20,7 +20,7 @@ void main() {
           'createdByDevice': 'aCreatorDeviceId',
           'createdAt': '2023',
           'content': const RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ).toJson(),
         }),
       );
@@ -34,7 +34,7 @@ void main() {
         'createdByDevice': 'aCreatorDeviceId',
         'createdAt': '2023',
         'content': const RelationshipCreationChangeRequestContent(
-          response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+          response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
         ).toJson(),
       };
       expect(
@@ -44,7 +44,7 @@ void main() {
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
           content: RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
         )),
       );

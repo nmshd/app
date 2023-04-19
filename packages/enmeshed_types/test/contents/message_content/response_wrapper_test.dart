@@ -9,7 +9,7 @@ void main() {
         requestSourceReference: 'aRequestSourceReference',
         requestSourceType: RequestSourceType.Message,
         response: Response(
-          result: 'aResult',
+          result: ResponseResult.Accepted,
           requestId: 'aRequestId',
           items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
         ),
@@ -23,7 +23,7 @@ void main() {
           'requestSourceReference': 'aRequestSourceReference',
           'requestSourceType': 'Message',
           'response': const Response(
-            result: 'aResult',
+            result: ResponseResult.Accepted,
             requestId: 'aRequestId',
             items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
           ).toJson(),
@@ -40,7 +40,7 @@ void main() {
         'requestSourceReference': 'aRequestSourceReference',
         'requestSourceType': 'Message',
         'response': const Response(
-          result: 'aResult',
+          result: ResponseResult.Accepted,
           requestId: 'aRequestId',
           items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
         ).toJson(),
@@ -52,7 +52,7 @@ void main() {
           requestSourceReference: 'aRequestSourceReference',
           requestSourceType: RequestSourceType.Message,
           response: Response(
-            result: 'aResult',
+            result: ResponseResult.Accepted,
             requestId: 'aRequestId',
             items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
           ),

@@ -6,7 +6,7 @@ void main() {
     test('is correctly converted', () {
       const relationshipCreationChangeRequestContent = RelationshipCreationChangeRequestContent(
         response: Response(
-          result: 'aResult',
+          result: ResponseResult.Accepted,
           requestId: 'aRequestId',
           items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
         ),
@@ -17,7 +17,7 @@ void main() {
         equals({
           '@type': 'RelationshipCreationChangeRequestContent',
           'response': const Response(
-            result: 'aResult',
+            result: ResponseResult.Accepted,
             requestId: 'aRequestId',
             items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
           ).toJson(),
@@ -31,7 +31,7 @@ void main() {
       final json = {
         '@type': 'RelationshipCreationChangeRequestContent',
         'response': const Response(
-          result: 'aResult',
+          result: ResponseResult.Accepted,
           requestId: 'aRequestId',
           items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
         ).toJson(),
@@ -40,7 +40,7 @@ void main() {
         RelationshipCreationChangeRequestContent.fromJson(json),
         equals(const RelationshipCreationChangeRequestContent(
           response: Response(
-            result: 'aResult',
+            result: ResponseResult.Accepted,
             requestId: 'aRequestId',
             items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
           ),

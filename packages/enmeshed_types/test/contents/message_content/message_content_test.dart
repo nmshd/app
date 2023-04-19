@@ -20,7 +20,7 @@ void main() {
         'requestId': 'aRequestId',
         'requestSourceReference': 'aRequestSourceReference',
         'requestSourceType': 'Message',
-        'response': const Response(result: 'aResult', requestId: 'aRequestId', items: []).toJson(),
+        'response': const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: []).toJson(),
       };
       final messageContent = MessageContent.fromJson(responseWrapperJson);
       expect(messageContent, isA<ResponseWrapper>());
