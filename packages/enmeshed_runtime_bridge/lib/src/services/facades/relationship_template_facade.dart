@@ -25,7 +25,7 @@ class RelationshipTemplatesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationshipTemplate = RelationshipTemplateDTO.fromJson(value);
     return relationshipTemplate;
   }
@@ -46,7 +46,7 @@ class RelationshipTemplatesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationshipTemplate = RelationshipTemplateDTO.fromJson(value);
     return relationshipTemplate;
   }
@@ -65,7 +65,7 @@ class RelationshipTemplatesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationshipTemplate = RelationshipTemplateDTO.fromJson(value);
     return relationshipTemplate;
   }
@@ -82,7 +82,7 @@ class RelationshipTemplatesFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final relationshipTemplates = value.map((e) => RelationshipTemplateDTO.fromJson(e)).toList();
     return relationshipTemplates;
   }
@@ -101,7 +101,7 @@ class RelationshipTemplatesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationshipTemplate = RelationshipTemplateDTO.fromJson(value);
     return relationshipTemplate;
   }
@@ -120,7 +120,7 @@ class RelationshipTemplatesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final response = CreateQrCodeResponse.fromJson(value);
     return response;
   }
@@ -141,7 +141,7 @@ class RelationshipTemplatesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final response = CreateQrCodeResponse.fromJson(value);
     return response;
   }
@@ -164,7 +164,7 @@ class RelationshipTemplatesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final token = TokenDTO.fromJson(value);
     return token;
   }

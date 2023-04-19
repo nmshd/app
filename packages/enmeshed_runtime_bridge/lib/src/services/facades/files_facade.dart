@@ -19,7 +19,7 @@ class FilesFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final files = value.map((e) => FileDTO.fromJson(e)).toList();
     return files;
   }
@@ -40,7 +40,7 @@ class FilesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final file = FileDTO.fromJson(value);
     return file;
   }
@@ -59,7 +59,7 @@ class FilesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final file = FileDTO.fromJson(value);
     return file;
   }
@@ -78,7 +78,7 @@ class FilesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final response = DownloadFileResponse.fromJson(value);
     return response;
   }
@@ -97,7 +97,7 @@ class FilesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final file = FileDTO.fromJson(value);
     return file;
   }
@@ -127,7 +127,7 @@ class FilesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final file = FileDTO.fromJson(value);
     return file;
   }
@@ -146,7 +146,7 @@ class FilesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final response = CreateQrCodeResponse.fromJson(value);
     return response;
   }
@@ -169,7 +169,7 @@ class FilesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final token = TokenDTO.fromJson(value);
     return token;
   }
@@ -190,7 +190,7 @@ class FilesFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final response = CreateQrCodeResponse.fromJson(value);
     return response;
   }

@@ -19,7 +19,7 @@ class RelationshipsFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final relationships = value.map((e) => RelationshipDTO.fromJson(e)).toList();
     return relationships;
   }
@@ -38,7 +38,7 @@ class RelationshipsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationship = RelationshipDTO.fromJson(value);
     return relationship;
   }
@@ -57,7 +57,7 @@ class RelationshipsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationship = RelationshipDTO.fromJson(value);
     return relationship;
   }
@@ -78,7 +78,7 @@ class RelationshipsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationship = RelationshipDTO.fromJson(value);
     return relationship;
   }
@@ -101,7 +101,7 @@ class RelationshipsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationship = RelationshipDTO.fromJson(value);
     return relationship;
   }
@@ -124,7 +124,7 @@ class RelationshipsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationship = RelationshipDTO.fromJson(value);
     return relationship;
   }
@@ -147,7 +147,7 @@ class RelationshipsFacade {
       },
     );
 
-    final value = result.toValue<Map<String, dynamic>>();
+    final value = result.valueToMap();
     final relationship = RelationshipDTO.fromJson(value);
     return relationship;
   }
@@ -168,7 +168,7 @@ class RelationshipsFacade {
       },
     );
 
-    final value = result.toValue<List<dynamic>>();
+    final value = result.valueToList();
     final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
     return attributes;
   }
