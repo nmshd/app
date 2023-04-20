@@ -5,7 +5,7 @@ void main() {
   group('Response toJson', () {
     test('is correctly converted with an AcceptResponseItem', () {
       const response = Response(
-        result: 'aResult',
+        result: ResponseResult.Accepted,
         requestId: 'aRequestId',
         items: [
           ReadAttributeAcceptResponseItem(
@@ -18,7 +18,7 @@ void main() {
       expect(
         responseJson,
         equals({
-          'result': 'aResult',
+          'result': 'Accepted',
           'requestId': 'aRequestId',
           'items': [
             const ReadAttributeAcceptResponseItem(
@@ -32,7 +32,7 @@ void main() {
 
     test('is correctly converted with a RejectResponseItem', () {
       const response = Response(
-        result: 'aResult',
+        result: ResponseResult.Accepted,
         requestId: 'aRequestId',
         items: [RejectResponseItem()],
       );
@@ -40,7 +40,7 @@ void main() {
       expect(
         responseJson,
         equals({
-          'result': 'aResult',
+          'result': 'Accepted',
           'requestId': 'aRequestId',
           'items': [const RejectResponseItem().toJson()],
         }),
@@ -49,7 +49,7 @@ void main() {
 
     test('is correctly converted with an ErrorResponseItem', () {
       const response = Response(
-        result: 'aResult',
+        result: ResponseResult.Accepted,
         requestId: 'aRequestId',
         items: [ErrorResponseItem(code: 'aCode', message: 'aMessage')],
       );
@@ -57,7 +57,7 @@ void main() {
       expect(
         responseJson,
         equals({
-          'result': 'aResult',
+          'result': 'Accepted',
           'requestId': 'aRequestId',
           'items': [const ErrorResponseItem(code: 'aCode', message: 'aMessage').toJson()],
         }),
@@ -68,7 +68,7 @@ void main() {
   group('Response fromJson', () {
     test('is correctly converted with an AcceptResponseItem', () {
       final json = {
-        'result': 'aResult',
+        'result': 'Accepted',
         'requestId': 'aRequestId',
         'items': [
           const ReadAttributeAcceptResponseItem(
@@ -79,7 +79,7 @@ void main() {
       };
       expect(
         Response.fromJson(json),
-        equals(const Response(result: 'aResult', requestId: 'aRequestId', items: [
+        equals(const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [
           ReadAttributeAcceptResponseItem(
             attributeId: 'anAttributeId',
             attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
@@ -90,25 +90,27 @@ void main() {
 
     test('is correctly converted with a RejectResponseItem', () {
       final json = {
-        'result': 'aResult',
+        'result': 'Accepted',
         'requestId': 'aRequestId',
         'items': [const RejectResponseItem().toJson()],
       };
       expect(
         Response.fromJson(json),
-        equals(const Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()])),
+        equals(const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()])),
       );
     });
 
     test('is correctly converted with an ErrorResponseItem', () {
       final json = {
-        'result': 'aResult',
+        'result': 'Accepted',
         'requestId': 'aRequestId',
         'items': [const ErrorResponseItem(code: 'aCode', message: 'aMessage').toJson()],
       };
       expect(
         Response.fromJson(json),
-        equals(const Response(result: 'aResult', requestId: 'aRequestId', items: [ErrorResponseItem(code: 'aCode', message: 'aMessage')])),
+        equals(
+          const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [ErrorResponseItem(code: 'aCode', message: 'aMessage')]),
+        ),
       );
     });
   });

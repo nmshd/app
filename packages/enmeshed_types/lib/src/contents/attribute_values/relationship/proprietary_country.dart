@@ -11,7 +11,7 @@ class ProprietaryCountry extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryCountry.fromJson(Map<String, dynamic> json) => ProprietaryCountry(
+  factory ProprietaryCountry.fromJson(Map json) => ProprietaryCountry(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

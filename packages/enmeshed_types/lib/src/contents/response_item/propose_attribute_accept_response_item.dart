@@ -9,7 +9,7 @@ class ProposeAttributeAcceptResponseItem extends AcceptResponseItem {
     required this.attribute,
   });
 
-  factory ProposeAttributeAcceptResponseItem.fromJson(Map<String, dynamic> json) {
+  factory ProposeAttributeAcceptResponseItem.fromJson(Map json) {
     return ProposeAttributeAcceptResponseItem(
       attributeId: json['attributeId'],
       attribute: AbstractAttribute.fromJson(json['attribute']),

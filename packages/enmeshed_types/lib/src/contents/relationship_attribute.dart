@@ -24,7 +24,7 @@ class RelationshipAttribute extends AbstractAttribute {
     return 'RelationshipAttribute(owner: $owner, validFrom: $validFrom, validTo: $validTo, value: $value, key: $key, isTechnical: $isTechnical, confidentiality: $confidentiality)';
   }
 
-  factory RelationshipAttribute.fromJson(Map<String, dynamic> json) => RelationshipAttribute(
+  factory RelationshipAttribute.fromJson(Map json) => RelationshipAttribute(
         owner: json['owner'],
         validFrom: json['validFrom'],
         validTo: json['validTo'],

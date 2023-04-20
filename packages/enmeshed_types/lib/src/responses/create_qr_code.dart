@@ -5,7 +5,7 @@ class CreateQrCodeResponse extends Equatable {
 
   const CreateQrCodeResponse({required this.qrCodeBytes});
 
-  factory CreateQrCodeResponse.fromJson(Map<String, dynamic> json) => CreateQrCodeResponse(qrCodeBytes: json['qrCodeBytes']);
+  factory CreateQrCodeResponse.fromJson(Map json) => CreateQrCodeResponse(qrCodeBytes: json['qrCodeBytes']);
   Map<String, dynamic> toJson() => {'qrCodeBytes': qrCodeBytes};
 
   @override

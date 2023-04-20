@@ -27,7 +27,7 @@ class DeviceDTO extends Equatable {
     required this.username,
   });
 
-  factory DeviceDTO.fromJson(Map<String, dynamic> json) => DeviceDTO(
+  factory DeviceDTO.fromJson(Map json) => DeviceDTO(
         id: json['id'],
         publicKey: json['publicKey'],
         certificate: json['certificate'],

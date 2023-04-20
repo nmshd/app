@@ -11,7 +11,7 @@ class DownloadFileResponse extends Equatable {
     required this.mimeType,
   });
 
-  factory DownloadFileResponse.fromJson(Map<String, dynamic> json) {
+  factory DownloadFileResponse.fromJson(Map json) {
     return DownloadFileResponse(
       content: List<int>.from(json['content']),
       filename: json['filename'],

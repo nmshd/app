@@ -11,7 +11,7 @@ class LocalAttributeShareInfo extends Equatable {
     this.sourceAttribute,
   });
 
-  factory LocalAttributeShareInfo.fromJson(Map<String, dynamic> json) {
+  factory LocalAttributeShareInfo.fromJson(Map json) {
     return LocalAttributeShareInfo(
       requestReference: json['requestReference'],
       peer: json['peer'],
@@ -19,7 +19,7 @@ class LocalAttributeShareInfo extends Equatable {
     );
   }
 
-  static LocalAttributeShareInfo? fromJsonNullable(Map<String, dynamic>? json) => json != null ? LocalAttributeShareInfo.fromJson(json) : null;
+  static LocalAttributeShareInfo? fromJsonNullable(Map? json) => json != null ? LocalAttributeShareInfo.fromJson(json) : null;
 
   Map<String, dynamic> toJson() => {
         'requestReference': requestReference,

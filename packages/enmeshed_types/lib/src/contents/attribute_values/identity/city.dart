@@ -7,7 +7,7 @@ class City extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory City.fromJson(Map<String, dynamic> json) => City(
+  factory City.fromJson(Map json) => City(
         value: json['value'],
       );
 

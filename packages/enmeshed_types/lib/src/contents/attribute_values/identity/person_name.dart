@@ -15,7 +15,7 @@ class PersonName extends IdentityAttributeValue {
     this.honorificPrefix,
   });
 
-  factory PersonName.fromJson(Map<String, dynamic> json) => PersonName(
+  factory PersonName.fromJson(Map json) => PersonName(
         givenName: json['givenName'],
         middleName: json['middleName'],
         surname: json['surname'],

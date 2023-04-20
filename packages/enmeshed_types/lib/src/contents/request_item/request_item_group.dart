@@ -11,7 +11,7 @@ class RequestItemGroup extends RequestItem {
     required this.items,
   });
 
-  factory RequestItemGroup.fromJson(Map<String, dynamic> json) {
+  factory RequestItemGroup.fromJson(Map json) {
     return RequestItemGroup(
       title: json['title'],
       description: json['description'],

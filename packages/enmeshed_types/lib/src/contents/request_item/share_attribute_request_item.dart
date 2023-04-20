@@ -14,7 +14,7 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
     required this.sourceAttributeId,
   });
 
-  factory ShareAttributeRequestItem.fromJson(Map<String, dynamic> json) {
+  factory ShareAttributeRequestItem.fromJson(Map json) {
     return ShareAttributeRequestItem(
       title: json['title'],
       description: json['description'],

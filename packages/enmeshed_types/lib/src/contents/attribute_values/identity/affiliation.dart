@@ -11,7 +11,7 @@ class Affiliation extends IdentityAttributeValue {
     required this.unit,
   });
 
-  factory Affiliation.fromJson(Map<String, dynamic> json) => Affiliation(
+  factory Affiliation.fromJson(Map json) => Affiliation(
         role: json['role'],
         organization: json['organization'],
         unit: json['unit'],

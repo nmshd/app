@@ -7,7 +7,7 @@ class ResponseItemGroup extends ResponseItem {
     required this.items,
   });
 
-  factory ResponseItemGroup.fromJson(Map<String, dynamic> json) {
+  factory ResponseItemGroup.fromJson(Map json) {
     return ResponseItemGroup(
       items: List<ResponseItemDerivation>.from(json['items'].map((x) => ResponseItemDerivation.fromJson(x))),
     );

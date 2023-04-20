@@ -31,7 +31,7 @@ class FileDTO extends Equatable {
     required this.truncatedReference,
   });
 
-  factory FileDTO.fromJson(Map<String, dynamic> json) => FileDTO(
+  factory FileDTO.fromJson(Map json) => FileDTO(
         id: json['id'],
         filename: json['filename'],
         filesize: json['filesize'].toInt(),

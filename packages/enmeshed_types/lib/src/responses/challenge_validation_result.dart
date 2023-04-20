@@ -11,7 +11,7 @@ class ChallengeValidationResult extends Equatable {
     this.correspondingRelationship,
   });
 
-  factory ChallengeValidationResult.fromJson(Map<String, dynamic> json) {
+  factory ChallengeValidationResult.fromJson(Map json) {
     return ChallengeValidationResult(
       isValid: json['isValid'],
       correspondingRelationship: json['correspondingRelationship'] != null ? RelationshipDTO.fromJson(json['correspondingRelationship']) : null,

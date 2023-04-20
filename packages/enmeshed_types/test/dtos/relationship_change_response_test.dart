@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('RelationshipChangeResponseDTO toJson', () {
     test('is correctly converted', () {
-      const dto = RelationshipChangeResponseDTO(
+      final dto = RelationshipChangeResponseDTO(
         createdBy: 'aCreator',
         createdByDevice: 'aCreatorDeviceId',
         createdAt: '2023',
@@ -17,7 +17,7 @@ void main() {
           'createdBy': 'aCreator',
           'createdByDevice': 'aCreatorDeviceId',
           'createdAt': '2023',
-          'content': const ArbitraryRelationshipChangeResponseContent({'aKey': 'aValue'}).toJson(),
+          'content': ArbitraryRelationshipChangeResponseContent({'aKey': 'aValue'}).toJson(),
         }),
       );
     });
@@ -29,11 +29,11 @@ void main() {
         'createdBy': 'aCreator',
         'createdByDevice': 'aCreatorDeviceId',
         'createdAt': '2023',
-        'content': const ArbitraryRelationshipChangeResponseContent({'aKey': 'aValue'}).toJson(),
+        'content': ArbitraryRelationshipChangeResponseContent({'aKey': 'aValue'}).toJson(),
       };
       expect(
         RelationshipChangeResponseDTO.fromJson(json),
-        equals(const RelationshipChangeResponseDTO(
+        equals(RelationshipChangeResponseDTO(
           createdBy: 'aCreator',
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',

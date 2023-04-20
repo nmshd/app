@@ -7,7 +7,7 @@ class AffiliationOrganization extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory AffiliationOrganization.fromJson(Map<String, dynamic> json) => AffiliationOrganization(
+  factory AffiliationOrganization.fromJson(Map json) => AffiliationOrganization(
         value: json['value'],
       );
 

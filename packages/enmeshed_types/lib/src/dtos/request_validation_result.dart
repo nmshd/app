@@ -18,7 +18,7 @@ class RequestValidationResultDTO extends Equatable {
     return 'RequestValidationResult(isSuccess: $isSuccess, code: $code, message: $message, items: $items)';
   }
 
-  factory RequestValidationResultDTO.fromJson(Map<String, dynamic> json) => RequestValidationResultDTO(
+  factory RequestValidationResultDTO.fromJson(Map json) => RequestValidationResultDTO(
         isSuccess: json['isSuccess'],
         code: json['code'],
         message: json['message'],

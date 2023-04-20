@@ -7,7 +7,7 @@ class Website extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory Website.fromJson(Map<String, dynamic> json) => Website(
+  factory Website.fromJson(Map json) => Website(
         value: json['value'],
       );
 

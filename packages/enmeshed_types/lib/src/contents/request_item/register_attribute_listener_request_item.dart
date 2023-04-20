@@ -12,7 +12,7 @@ class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
     required this.query,
   });
 
-  factory RegisterAttributeListenerRequestItem.fromJson(Map<String, dynamic> json) {
+  factory RegisterAttributeListenerRequestItem.fromJson(Map json) {
     return RegisterAttributeListenerRequestItem(
       title: json['title'],
       description: json['description'],

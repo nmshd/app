@@ -5,7 +5,7 @@ abstract class ResponseItemDerivation extends ResponseItem {
 
   const ResponseItemDerivation({required this.result});
 
-  factory ResponseItemDerivation.fromJson(Map<String, dynamic> json) {
+  factory ResponseItemDerivation.fromJson(Map json) {
     final type = json['@type'];
 
     if (type == null || type.runtimeType != String) throw Exception('missing @type on ResponseItemDerivation');

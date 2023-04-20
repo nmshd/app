@@ -7,7 +7,7 @@ class SucceedAttributeAcceptResponseItem extends AcceptResponseItem {
     required this.attributeId,
   });
 
-  factory SucceedAttributeAcceptResponseItem.fromJson(Map<String, dynamic> json) {
+  factory SucceedAttributeAcceptResponseItem.fromJson(Map json) {
     return SucceedAttributeAcceptResponseItem(
       attributeId: json['attributeId'],
     );

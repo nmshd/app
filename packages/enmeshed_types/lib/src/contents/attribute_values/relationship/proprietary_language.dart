@@ -11,7 +11,7 @@ class ProprietaryLanguage extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryLanguage.fromJson(Map<String, dynamic> json) => ProprietaryLanguage(
+  factory ProprietaryLanguage.fromJson(Map json) => ProprietaryLanguage(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

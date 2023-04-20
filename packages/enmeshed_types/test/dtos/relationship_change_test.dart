@@ -11,7 +11,7 @@ void main() {
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
           content: RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
         ),
         status: RelationshipChangeStatus.Accepted,
@@ -27,7 +27,7 @@ void main() {
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
             content: RelationshipCreationChangeRequestContent(
-              response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+              response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),
           ).toJson(),
           'status': 'Accepted',
@@ -37,14 +37,14 @@ void main() {
     });
 
     test('is correctly converted with property "response"', () {
-      const dto = RelationshipChangeDTO(
+      final dto = RelationshipChangeDTO(
         id: 'anId',
-        request: RelationshipChangeRequestDTO(
+        request: const RelationshipChangeRequestDTO(
           createdBy: 'aCreator',
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
           content: RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
         ),
         status: RelationshipChangeStatus.Accepted,
@@ -66,12 +66,12 @@ void main() {
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
             content: RelationshipCreationChangeRequestContent(
-              response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+              response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),
           ).toJson(),
           'status': 'Accepted',
           'type': 'Creation',
-          'response': const RelationshipChangeResponseDTO(
+          'response': RelationshipChangeResponseDTO(
             createdBy: 'aCreator',
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
@@ -91,7 +91,7 @@ void main() {
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
           content: RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
         ).toJson(),
         'status': 'Accepted',
@@ -106,7 +106,7 @@ void main() {
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
             content: RelationshipCreationChangeRequestContent(
-              response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+              response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),
           ),
           status: RelationshipChangeStatus.Accepted,
@@ -123,12 +123,12 @@ void main() {
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
           content: RelationshipCreationChangeRequestContent(
-            response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
         ).toJson(),
         'status': 'Accepted',
         'type': 'Creation',
-        'response': const RelationshipChangeResponseDTO(
+        'response': RelationshipChangeResponseDTO(
           createdBy: 'aCreator',
           createdByDevice: 'aCreatorDeviceId',
           createdAt: '2023',
@@ -137,14 +137,14 @@ void main() {
       };
       expect(
         RelationshipChangeDTO.fromJson(json),
-        equals(const RelationshipChangeDTO(
+        equals(RelationshipChangeDTO(
           id: 'anId',
-          request: RelationshipChangeRequestDTO(
+          request: const RelationshipChangeRequestDTO(
             createdBy: 'aCreator',
             createdByDevice: 'aCreatorDeviceId',
             createdAt: '2023',
             content: RelationshipCreationChangeRequestContent(
-              response: Response(result: 'aResult', requestId: 'aRequestId', items: [RejectResponseItem()]),
+              response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),
           ),
           status: RelationshipChangeStatus.Accepted,

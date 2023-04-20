@@ -11,7 +11,7 @@ class SyncInfoResponse extends Equatable {
     this.lastSyncRun,
   });
 
-  factory SyncInfoResponse.fromJson(Map<String, dynamic> json) => SyncInfoResponse(
+  factory SyncInfoResponse.fromJson(Map json) => SyncInfoResponse(
         lastDatawalletSync: SyncInfoEntry.fromJsonNullable(json['lastDatawalletSync']),
         lastSyncRun: SyncInfoEntry.fromJsonNullable(json['lastSyncRun']),
       );

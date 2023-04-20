@@ -7,7 +7,7 @@ class BirthState extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory BirthState.fromJson(Map<String, dynamic> json) => BirthState(
+  factory BirthState.fromJson(Map json) => BirthState(
         value: json['value'],
       );
 

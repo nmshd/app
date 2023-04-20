@@ -9,7 +9,7 @@ class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
     required this.attribute,
   });
 
-  factory ReadAttributeAcceptResponseItem.fromJson(Map<String, dynamic> json) {
+  factory ReadAttributeAcceptResponseItem.fromJson(Map json) {
     return ReadAttributeAcceptResponseItem(
       attributeId: json['attributeId'],
       attribute: AbstractAttribute.fromJson(json['attribute']),

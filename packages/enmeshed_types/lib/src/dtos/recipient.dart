@@ -13,7 +13,7 @@ class RecipientDTO extends Equatable {
     required this.relationshipId,
   });
 
-  factory RecipientDTO.fromJson(Map<String, dynamic> json) => RecipientDTO(
+  factory RecipientDTO.fromJson(Map json) => RecipientDTO(
         address: json['address'],
         receivedAt: json['receivedAt'],
         receivedByDevice: json['receivedByDevice'],

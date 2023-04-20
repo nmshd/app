@@ -7,7 +7,7 @@ class ShareAttributeAcceptResponseItem extends AcceptResponseItem {
     required this.attributeId,
   });
 
-  factory ShareAttributeAcceptResponseItem.fromJson(Map<String, dynamic> json) {
+  factory ShareAttributeAcceptResponseItem.fromJson(Map json) {
     return ShareAttributeAcceptResponseItem(
       attributeId: json['attributeId'],
     );

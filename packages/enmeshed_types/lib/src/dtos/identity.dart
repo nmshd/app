@@ -16,7 +16,7 @@ class IdentityDTO extends Equatable {
     return 'Identity { address: $address, publicKey: $publicKey, realm: $realm }';
   }
 
-  factory IdentityDTO.fromJson(Map<String, dynamic> json) {
+  factory IdentityDTO.fromJson(Map json) {
     return IdentityDTO(
       address: json['address'],
       publicKey: json['publicKey'],

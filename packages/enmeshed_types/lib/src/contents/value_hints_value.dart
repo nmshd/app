@@ -9,7 +9,7 @@ class ValueHintsValue extends Equatable {
     required this.displayName,
   });
 
-  factory ValueHintsValue.fromJson(Map<String, dynamic> json) => ValueHintsValue(
+  factory ValueHintsValue.fromJson(Map json) => ValueHintsValue(
         key: json['key'],
         displayName: json['displayName'],
       );

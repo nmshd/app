@@ -25,7 +25,7 @@ class RelationshipTemplateDTO extends Equatable {
     required this.truncatedReference,
   });
 
-  factory RelationshipTemplateDTO.fromJson(Map<String, dynamic> json) => RelationshipTemplateDTO(
+  factory RelationshipTemplateDTO.fromJson(Map json) => RelationshipTemplateDTO(
         id: json['id'],
         isOwn: json['isOwn'],
         createdBy: json['createdBy'],

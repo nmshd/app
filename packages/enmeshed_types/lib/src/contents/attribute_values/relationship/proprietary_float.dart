@@ -11,7 +11,7 @@ class ProprietaryFloat extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryFloat.fromJson(Map<String, dynamic> json) => ProprietaryFloat(
+  factory ProprietaryFloat.fromJson(Map json) => ProprietaryFloat(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

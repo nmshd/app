@@ -7,7 +7,7 @@ class Sex extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory Sex.fromJson(Map<String, dynamic> json) => Sex(
+  factory Sex.fromJson(Map json) => Sex(
         value: json['value'],
       );
 

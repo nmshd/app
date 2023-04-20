@@ -11,7 +11,7 @@ class ProprietaryBoolean extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryBoolean.fromJson(Map<String, dynamic> json) => ProprietaryBoolean(
+  factory ProprietaryBoolean.fromJson(Map json) => ProprietaryBoolean(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

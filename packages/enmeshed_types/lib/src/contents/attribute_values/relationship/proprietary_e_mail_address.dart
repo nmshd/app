@@ -11,7 +11,7 @@ class ProprietaryEMailAddress extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryEMailAddress.fromJson(Map<String, dynamic> json) => ProprietaryEMailAddress(
+  factory ProprietaryEMailAddress.fromJson(Map json) => ProprietaryEMailAddress(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

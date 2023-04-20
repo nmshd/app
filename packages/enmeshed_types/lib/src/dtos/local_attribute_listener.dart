@@ -13,7 +13,7 @@ class LocalAttributeListenerDTO extends Equatable {
     required this.peer,
   });
 
-  factory LocalAttributeListenerDTO.fromJson(Map<String, dynamic> json) {
+  factory LocalAttributeListenerDTO.fromJson(Map json) {
     return LocalAttributeListenerDTO(
       id: json['id'],
       query: AttributeQuery.fromJson(json['query']),

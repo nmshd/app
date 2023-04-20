@@ -12,7 +12,7 @@ part 'response_wrapper.dart';
 abstract class MessageContent extends Equatable {
   const MessageContent();
 
-  factory MessageContent.fromJson(Map<String, dynamic> json) {
+  factory MessageContent.fromJson(Map json) {
     final type = json['@type'];
 
     switch (type) {
@@ -36,7 +36,7 @@ class ArbitraryMessageContent extends MessageContent with MapMixin<String, dynam
   @override
   final Map<String, dynamic> internalJson;
 
-  ArbitraryMessageContent(this.internalJson);
+  ArbitraryMessageContent(Map internalJson) : internalJson = Map<String, dynamic>.from(internalJson);
 
   @override
   List<Object?> get props => [internalJson];

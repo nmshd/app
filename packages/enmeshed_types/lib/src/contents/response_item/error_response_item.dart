@@ -9,7 +9,7 @@ class ErrorResponseItem extends ResponseItemDerivation {
     required this.message,
   }) : super(result: ResponseItemResult.Error);
 
-  factory ErrorResponseItem.fromJson(Map<String, dynamic> json) {
+  factory ErrorResponseItem.fromJson(Map json) {
     return ErrorResponseItem(
       code: json['code'],
       message: json['message'],

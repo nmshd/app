@@ -7,7 +7,7 @@ class FaxNumber extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory FaxNumber.fromJson(Map<String, dynamic> json) => FaxNumber(
+  factory FaxNumber.fromJson(Map json) => FaxNumber(
         value: json['value'],
       );
 

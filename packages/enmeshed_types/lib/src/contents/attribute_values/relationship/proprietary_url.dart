@@ -11,7 +11,7 @@ class ProprietaryURL extends ProprietaryAttributeValue {
     required this.value,
   });
 
-  factory ProprietaryURL.fromJson(Map<String, dynamic> json) => ProprietaryURL(
+  factory ProprietaryURL.fromJson(Map json) => ProprietaryURL(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,

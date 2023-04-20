@@ -15,15 +15,14 @@ class RelationshipChangeResponseDTO extends Equatable {
     required this.content,
   });
 
-  factory RelationshipChangeResponseDTO.fromJson(Map<String, dynamic> json) => RelationshipChangeResponseDTO(
+  factory RelationshipChangeResponseDTO.fromJson(Map json) => RelationshipChangeResponseDTO(
         createdBy: json['createdBy'],
         createdByDevice: json['createdByDevice'],
         createdAt: json['createdAt'],
         content: RelationshipChangeResponseContent.fromJson(json['content']),
       );
 
-  static RelationshipChangeResponseDTO? fromJsonNullable(Map<String, dynamic>? json) =>
-      json != null ? RelationshipChangeResponseDTO.fromJson(json) : null;
+  static RelationshipChangeResponseDTO? fromJsonNullable(Map? json) => json != null ? RelationshipChangeResponseDTO.fromJson(json) : null;
 
   Map<String, dynamic> toJson() => {
         'createdBy': createdBy,

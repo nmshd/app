@@ -7,7 +7,7 @@ class DisplayName extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory DisplayName.fromJson(Map<String, dynamic> json) => DisplayName(
+  factory DisplayName.fromJson(Map json) => DisplayName(
         value: json['value'],
       );
 

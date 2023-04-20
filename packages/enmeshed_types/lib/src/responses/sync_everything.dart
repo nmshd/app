@@ -11,7 +11,7 @@ class SyncEverythingResponse extends Equatable {
     required this.messages,
   });
 
-  factory SyncEverythingResponse.fromJson(Map<String, dynamic> json) {
+  factory SyncEverythingResponse.fromJson(Map json) {
     return SyncEverythingResponse(
       relationships: List<RelationshipDTO>.from(json['relationships'].map((x) => RelationshipDTO.fromJson(x))),
       messages: List<MessageDTO>.from(json['messages'].map((x) => MessageDTO.fromJson(x))),

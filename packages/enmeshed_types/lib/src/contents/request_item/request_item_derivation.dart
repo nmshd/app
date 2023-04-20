@@ -11,7 +11,7 @@ abstract class RequestItemDerivation extends RequestItem {
     this.requireManualDecision,
   });
 
-  factory RequestItemDerivation.fromJson(Map<String, dynamic> json) {
+  factory RequestItemDerivation.fromJson(Map json) {
     final type = json['@type'];
 
     switch (type) {

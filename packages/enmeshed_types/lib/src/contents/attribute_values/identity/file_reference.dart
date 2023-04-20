@@ -7,7 +7,7 @@ class FileReference extends IdentityAttributeValue {
     required this.value,
   });
 
-  factory FileReference.fromJson(Map<String, dynamic> json) => FileReference(
+  factory FileReference.fromJson(Map json) => FileReference(
         value: json['value'],
       );
 

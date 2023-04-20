@@ -9,7 +9,7 @@ class AuthenticationRequestItem extends RequestItemDerivation {
     super.requireManualDecision,
   });
 
-  factory AuthenticationRequestItem.fromJson(Map<String, dynamic> json) {
+  factory AuthenticationRequestItem.fromJson(Map json) {
     return AuthenticationRequestItem(
       title: json['title'],
       description: json['description'],
