@@ -11,6 +11,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
@@ -20,16 +21,12 @@ dependencies:
 
 dev_dependencies:
   dart_code_metrics: ^5.6.0
+  connector_sdk: 1.0.0
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-
-platforms:
-  android:
-  ios:
-  linux:
-  macos:
-  windows:
+  integration_test:
+    sdk: flutter
 
 flutter:
   assets:

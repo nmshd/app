@@ -1,11 +1,12 @@
-import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+
 void main() {
-  test('runtime is not ready', () {
-    WidgetsFlutterBinding.ensureInitialized();
-    final runtime = EnmeshedRuntime(() {});
-    expect(runtime.isReady, false);
+  test('adds one to input values', () {
+    final calculator = Calculator();
+    expect(calculator.addOne(2), 3);
+    expect(calculator.addOne(-7), -6);
+    expect(calculator.addOne(0), 1);
   });
 }

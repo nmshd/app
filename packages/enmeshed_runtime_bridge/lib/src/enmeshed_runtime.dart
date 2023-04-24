@@ -113,12 +113,15 @@ class EnmeshedRuntime {
 
     controller.addJavaScriptHandler(
       handlerName: 'runtimeReady',
-      callback: (_) => {_isReady = true, runtimeReadyCallback()},
+      callback: (_) => {
+        _isReady = true,
+        runtimeReadyCallback(),
+      },
     );
   }
 
   Future<void> loadLibs(InAppWebViewController controller) async {
-    const assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
+    const assetsFolder = 'assets';
 
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/loki.js');
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
