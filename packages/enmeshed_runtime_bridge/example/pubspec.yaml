@@ -19,8 +19,6 @@ dependencies:
 
 dev_dependencies:
   dart_code_metrics: ^5.6.0
-  flutter_driver:
-    sdk: flutter
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
