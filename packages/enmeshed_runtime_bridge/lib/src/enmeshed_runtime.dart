@@ -60,7 +60,10 @@ class EnmeshedRuntime {
   Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
 
   Future<void> selectAccount(String accountReference) async {
-    final result = await evaluateJavascript('await runtime.selectAccount(username, "")');
+    final result = await evaluateJavascript('await runtime.selectAccount(accountReference, password)', arguments: {
+      'accountReference': accountReference,
+      'password': '',
+    });
     result.throwOnError();
   }
 
