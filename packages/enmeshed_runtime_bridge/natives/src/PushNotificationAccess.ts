@@ -3,7 +3,7 @@ import {
   IElectronConfig,
   INativeConfigAccess,
   INativeEventBus,
-  INativePushNotificationAccess,
+  INativePushNotificationAccess
 } from "@js-soft/native-abstractions";
 import { Result } from "@js-soft/ts-utils";
 

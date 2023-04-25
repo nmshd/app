@@ -1,9 +1,5 @@
 import { ILogger } from "@js-soft/logging-abstractions";
-import {
-  INativeConfigAccess,
-  INativeEventBus,
-  INativeLaunchOptions,
-} from "@js-soft/native-abstractions";
+import { INativeConfigAccess, INativeEventBus, INativeLaunchOptions } from "@js-soft/native-abstractions";
 import { Result } from "@js-soft/ts-utils";
 
 export class LaunchOptions implements INativeLaunchOptions {

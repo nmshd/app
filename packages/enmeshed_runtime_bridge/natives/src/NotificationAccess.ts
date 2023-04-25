@@ -2,7 +2,7 @@ import { ILogger } from "@js-soft/logging-abstractions";
 import {
   INativeConfigAccess,
   INativeNotificationAccess,
-  INativeNotificationScheduleOptions,
+  INativeNotificationScheduleOptions
 } from "@js-soft/native-abstractions";
 import { Result } from "@js-soft/ts-utils";
 
@@ -10,24 +10,14 @@ export class NotificationAccess implements INativeNotificationAccess {
   // Store scheduled notifications in memory => resets after restart
   private readonly notifications: number[] = [];
 
-  public constructor(
-    private readonly logger: ILogger,
-    private readonly config: INativeConfigAccess
-  ) {}
+  public constructor(private readonly logger: ILogger, private readonly config: INativeConfigAccess) {}
 
   public init(): Promise<Result<void>> {
     return Promise.resolve(Result.ok(undefined));
   }
 
-  public schedule(
-    title: string,
-    body: string,
-    options?: INativeNotificationScheduleOptions
-  ): Promise<Result<number>> {
-    if (options?.textInput)
-      this.logger.warn(
-        "Notification text input actions not supported on this platform"
-      );
+  public schedule(title: string, body: string, options?: INativeNotificationScheduleOptions): Promise<Result<number>> {
+    if (options?.textInput) this.logger.warn("Notification text input actions not supported on this platform");
 
     const id = options?.id ? options.id : Math.round(Math.random() * 1000);
 

@@ -16,7 +16,7 @@ import {
   INativeScannerAccess,
   NativeErrorCodes,
   NativePlatform,
-  ThemeEvent,
+  ThemeEvent
 } from "@js-soft/native-abstractions";
 import { Result } from "@js-soft/ts-utils";
 import { AuthenticationAccess } from "./AuthenticationAccess";
@@ -69,7 +69,7 @@ export class NativeBootstrapper implements INativeBootstrapper {
       loggerFactory: this.nativeLoggerFactory,
       notificationAccess: this.nativeNotificationAccess,
       pushNotificationAccess: this.nativePushNotificationAccess,
-      scannerAccess: this.nativeScannerAccess,
+      scannerAccess: this.nativeScannerAccess
     };
   }
 
@@ -99,26 +99,16 @@ export class NativeBootstrapper implements INativeBootstrapper {
     this.nativeLoggerFactory = new LoggerFactory();
     await this.nativeLoggerFactory.init();
     this.logger = this.nativeLoggerFactory.getLogger(NativeBootstrapper);
-    this.nativeLaunchOptions = new LaunchOptions(
-      this.logger,
-      this.nativeEventBus,
-      this.nativeConfigAccess
-    );
+    this.nativeLaunchOptions = new LaunchOptions(this.logger, this.nativeEventBus, this.nativeConfigAccess);
     await this.nativeLaunchOptions.init();
     this.nativeAuthenticationAccess = new AuthenticationAccess(this.logger);
     this.nativeDatabaseFactory = new DatabaseFactory(fileAccess);
     this.nativeDeviceInfoAccess = new DeviceInfoAccess();
     await this.nativeDeviceInfoAccess.init();
-    const keychainAccess = new KeychainAccess(
-      this.logger,
-      this.nativeConfigAccess
-    );
+    const keychainAccess = new KeychainAccess(this.logger, this.nativeConfigAccess);
     await keychainAccess.init();
     this.nativeKeychainAccess = keychainAccess;
-    this.nativeNotificationAccess = new NotificationAccess(
-      this.logger,
-      this.nativeConfigAccess
-    );
+    this.nativeNotificationAccess = new NotificationAccess(this.logger, this.nativeConfigAccess);
     await this.nativeNotificationAccess.init();
     this.nativeScannerAccess = new ScannerAccess(this.logger);
     this.nativePushNotificationAccess = new PushNotificationAccess(

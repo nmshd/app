@@ -3,16 +3,13 @@ import {
   INativeConfigAccess,
   INativeKeychainAccess,
   INativeKeychainEntry,
-  NativeErrorCodes,
+  NativeErrorCodes
 } from "@js-soft/native-abstractions";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
 
 export class KeychainAccess implements INativeKeychainAccess {
   private readonly service: string;
-  public constructor(
-    private readonly logger: ILogger,
-    private readonly config: INativeConfigAccess
-  ) {
+  public constructor(private readonly logger: ILogger, private readonly config: INativeConfigAccess) {
     this.service = this.config.get("name").value;
   }
 
@@ -21,21 +18,15 @@ export class KeychainAccess implements INativeKeychainAccess {
   }
 
   public async get(key: string): Promise<Result<INativeKeychainEntry>> {
-    return Result.fail(
-      new ApplicationError(NativeErrorCodes.KEYCHAIN_UNKNOWN, `not implemented`)
-    );
+    return Result.fail(new ApplicationError(NativeErrorCodes.KEYCHAIN_UNKNOWN, `not implemented`));
   }
 
   public async set(key: string, value: any): Promise<Result<void>> {
-    return Result.fail(
-      new ApplicationError(NativeErrorCodes.KEYCHAIN_UNKNOWN, `not implemented`)
-    );
+    return Result.fail(new ApplicationError(NativeErrorCodes.KEYCHAIN_UNKNOWN, `not implemented`));
   }
 
   public async delete(_key: string): Promise<Result<void>> {
-    return Result.fail(
-      new ApplicationError(NativeErrorCodes.KEYCHAIN_UNKNOWN, `not implemented`)
-    );
+    return Result.fail(new ApplicationError(NativeErrorCodes.KEYCHAIN_UNKNOWN, `not implemented`));
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
