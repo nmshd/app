@@ -12,16 +12,16 @@
     "@js-soft/logging-abstractions": "^1.0.0",
     "@js-soft/native-abstractions": "^1.2.1",
     "@js-soft/ts-utils": "^2.3.1",
-    "@nmshd/app-runtime": "2.3.3",
-    "@nmshd/runtime": "2.4.4",
+    "@nmshd/app-runtime": "2.3.5",
+    "@nmshd/runtime": "2.4.6",
     "js-logger": "^1.6.1"
   },
   "devDependencies": {
-    "@types/luxon": "^3.2.0",
-    "@types/node": "^18.14.6",
-    "esbuild": "^0.17.11",
+    "@types/luxon": "^3.3.0",
+    "@types/node": "^18.16.1",
+    "esbuild": "^0.17.18",
     "luxon": "^3.3.0",
-    "prettier": "^2.8.4",
-    "typescript": "^4.9.5"
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4"
   }
 }

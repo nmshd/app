@@ -1,4 +1,4 @@
-import { ILogger } from "@js-soft/logging-abstractions";
+import { ILogger, ILoggerFactory } from "@js-soft/logging-abstractions";
 import {
   INativeConfigAccess,
   INativeNotificationAccess,
@@ -9,10 +9,12 @@ import { Result } from "@js-soft/ts-utils";
 export class NotificationAccess implements INativeNotificationAccess {
   // Store scheduled notifications in memory => resets after restart
   private readonly notifications: number[] = [];
+  private logger: ILogger;
 
-  public constructor(private readonly logger: ILogger, private readonly config: INativeConfigAccess) {}
+  public constructor(private readonly loggerFactory: ILoggerFactory, private readonly config: INativeConfigAccess) {}
 
   public init(): Promise<Result<void>> {
+    this.logger = this.loggerFactory.getLogger("NotificationAccess");
     return Promise.resolve(Result.ok(undefined));
   }
 
