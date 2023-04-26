@@ -11,10 +11,12 @@
             "type": "dart"
         },
         {
-            "name": "connector_sdk",
-            "cwd": "packages/connector_sdk",
+            "name": "runtime_bridge_tests",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "cwd": "packages/enmeshed_runtime_bridge",
+            "program": "integration_test/suite_test.dart",
+            "toolArgs": ["--dart-define-from-file=../../config.json"]
         },
         {
             "name": "enmeshed_runtime_bridge",
