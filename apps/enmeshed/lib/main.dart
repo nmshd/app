@@ -8,14 +8,15 @@ import 'package:get_it/get_it.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Permission.camera.request();
   if (Platform.isAndroid) {
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
 
-  GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => EnmeshedRuntime().run());
+  GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => EnmeshedRuntime(runtimeReadyCallback: () => FlutterNativeSplash.remove()).run());
 
   runApp(const EnmeshedApp());
 }
