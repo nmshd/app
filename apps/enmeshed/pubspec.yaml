@@ -29,8 +29,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/enmeshed-logo.png
-    - assets/enmeshed-logo_invertiert.png
+    - assets/enmeshed_logo_dark.png
+    - assets/enmeshed_logo_light.png
 
 flutter_icons:
   image_path: "assets/icon.png"
