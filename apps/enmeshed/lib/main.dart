@@ -1,89 +1,65 @@
 import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'screens/account_screen.dart';
+import 'screens/onboarding_screen.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Permission.camera.request();
-  if (Platform.isAndroid) {
+
+  if (Platform.isAndroid && kDebugMode) {
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
 
-  GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => EnmeshedRuntime(runtimeReadyCallback: () => FlutterNativeSplash.remove()).run());
+  final logger = Logger(printer: SimplePrinter(colors: false));
+  GetIt.I.registerSingleton(logger);
 
-  runApp(const EnmeshedApp());
+  final runtime = EnmeshedRuntime(logger: logger, runtimeReadyCallback: () => FlutterNativeSplash.remove());
+  GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
+  await GetIt.I.allReady();
+
+  final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
+  if (accounts.isEmpty) {
+    runApp(const EnmeshedApp(home: OnboardingScreen()));
+    return;
+  }
+
+  final lastAccount = accounts.first;
+  // TODO: sort account on last accessed at
+  runApp(EnmeshedApp(home: AccountScreen(lastAccount.id)));
 }
 
 class EnmeshedApp extends StatelessWidget {
-  const EnmeshedApp({super.key});
+  final Widget home;
+  const EnmeshedApp({super.key, required this.home});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return MaterialApp(
-      home: Scaffold(
-        body: FutureBuilder(
-          future: GetIt.I.allReady(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (!snapshot.hasData) return const CircularProgressIndicator();
-
-            return const Scaffold(
-              body: Center(
-                child: Text('The first real Page of your App'),
-              ),
-            );
-          },
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      home: home,
     );
-  }
-}
-
-class AccountSelectionScreen extends StatelessWidget {
-  const AccountSelectionScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      builder: (BuildContext context, AsyncSnapshot<List<LocalAccountDTO>> snapshot) {
-        if (!snapshot.hasData) return const CircularProgressIndicator();
-
-        return ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            final item = snapshot.data![index];
-            return ListTile(
-              title: Text(item.name),
-              onTap: () async {
-                GetIt.I.get<EnmeshedRuntime>().selectAccount(item.id);
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (BuildContext context) => AccountScreen(item.id)),
-                );
-              },
-            );
-          },
-          itemCount: snapshot.data!.length,
-        );
-      },
-      future: GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts(),
-    );
-  }
-}
-
-class AccountScreen extends StatelessWidget {
-  final String accountId;
-
-  const AccountScreen(this.accountId, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final services = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
-
-    return const Placeholder();
   }
 }
