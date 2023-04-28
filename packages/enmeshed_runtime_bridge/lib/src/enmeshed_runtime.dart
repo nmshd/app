@@ -86,7 +86,7 @@ class EnmeshedRuntime {
           final fileContent = await fs.readFile(path, storage);
           return {'ok': true, 'content': fileContent};
         } catch (e) {
-          _logger.e('Error reading file: $e');
+          _logger.i('Error reading file: $e');
           return {'ok': false, 'content': e.toString()};
         }
       },
@@ -104,7 +104,7 @@ class EnmeshedRuntime {
           await fs.writeFile(path, storage, data, append);
           return {'ok': true};
         } catch (e) {
-          _logger.e('Error writing file: $e');
+          _logger.i('Error writing file: $e');
           return {'ok': false, 'content': e.toString()};
         }
       },
@@ -120,7 +120,7 @@ class EnmeshedRuntime {
           await fs.deleteFile(path, storage);
           return {'ok': true};
         } catch (e) {
-          _logger.e('Error deleting file: $e');
+          _logger.i('Error deleting file: $e');
           return {'ok': false, 'content': e.toString()};
         }
       },
