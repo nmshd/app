@@ -1,4 +1,5 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -20,10 +21,11 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-            onPressed: () async => await GetIt.I.get<EnmeshedRuntime>().accountServices.clearAccounts(),
-            icon: const Icon(Icons.clear),
-          ),
+          if (kDebugMode)
+            IconButton(
+              onPressed: () async => await GetIt.I.get<EnmeshedRuntime>().accountServices.clearAccounts(),
+              icon: const Icon(Icons.clear),
+            ),
         ],
         title: Text(_title),
       ),
