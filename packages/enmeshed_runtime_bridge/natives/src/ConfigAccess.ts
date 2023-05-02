@@ -14,27 +14,7 @@ export class ConfigAccess implements INativeConfigAccess {
       platformClientId: "dev",
       platformClientSecret: "SY3nxukl6Xn8kGDk52EwBKXZMR9OR5"
     },
-    firebase: {
-      config: {
-        apiKey: "AIzaSyBv0FRrupywUCQmvKKh4pFt4ZMn6u3VYDI",
-        authDomain: "enmeshed.firebaseapp.com",
-        projectId: "enmeshed",
-        storageBucket: "enmeshed.appspot.com",
-        messagingSenderId: "41802216214",
-        appId: "1:41802216214:web:dbfa2b14f9d84f4cbd1637"
-      },
-      vapidKey: "BKb8ZrRPZgHXiA4gs62vUxpeT1aaxaH-UE62bEU4cQxmEaVbJCz045yAJpSZBsuMwW-nHr991lKSi5pp1p5Fppw"
-    },
-    localforage: {
-      driver: "asyncStorage",
-      name: "Enmeshed",
-      version: 1.0,
-      size: 4980736,
-      storeName: "filesystem",
-      description: "filesystem"
-    },
-    pushToken: null,
-    theme: null
+    pushToken: null
   };
 
   // eslint-disable-next-line @typescript-eslint/require-await
