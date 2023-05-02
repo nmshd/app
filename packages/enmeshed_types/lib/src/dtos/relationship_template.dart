@@ -11,6 +11,7 @@ class RelationshipTemplateDTO extends Equatable {
   final AbstractRelationshipTemplateContent content;
   final String? expiresAt;
   final int? maxNumberOfAllocations;
+  final String secretKey;
   final String truncatedReference;
 
   const RelationshipTemplateDTO({
@@ -22,6 +23,7 @@ class RelationshipTemplateDTO extends Equatable {
     required this.content,
     this.expiresAt,
     this.maxNumberOfAllocations,
+    required this.secretKey,
     required this.truncatedReference,
   });
 
@@ -33,7 +35,8 @@ class RelationshipTemplateDTO extends Equatable {
         createdAt: json['createdAt'],
         content: AbstractRelationshipTemplateContent.fromJson(json['content']),
         expiresAt: json['expiresAt'],
-        maxNumberOfAllocations: json['maxNumberOfAllocations'],
+        maxNumberOfAllocations: json['maxNumberOfAllocations']?.toInt(),
+        secretKey: json['secretKey'],
         truncatedReference: json['truncatedReference'],
       );
 
@@ -46,13 +49,25 @@ class RelationshipTemplateDTO extends Equatable {
         'content': content.toJson(),
         if (expiresAt != null) 'expiresAt': expiresAt,
         if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
+        'secretKey': secretKey,
         'truncatedReference': truncatedReference,
       };
 
   @override
   String toString() =>
-      'RelationshipTemplateDTO(id: $id, isOwn: $isOwn, createdBy: $createdBy, createdByDevice: $createdByDevice, createdAt: $createdAt, content: $content, expiresAt: $expiresAt, maxNumberOfAllocations: $maxNumberOfAllocations, truncatedReference: $truncatedReference)';
+      'RelationshipTemplateDTO(id: $id, isOwn: $isOwn, createdBy: $createdBy, createdByDevice: $createdByDevice, createdAt: $createdAt, content: $content, expiresAt: $expiresAt, maxNumberOfAllocations: $maxNumberOfAllocations, secretKey: $secretKey, truncatedReference: $truncatedReference)';
 
   @override
-  List<Object?> get props => [id, isOwn, createdBy, createdByDevice, createdAt, content, expiresAt, maxNumberOfAllocations, truncatedReference];
+  List<Object?> get props => [
+        id,
+        isOwn,
+        createdBy,
+        createdByDevice,
+        createdAt,
+        content,
+        expiresAt,
+        maxNumberOfAllocations,
+        secretKey,
+        truncatedReference,
+      ];
 }

@@ -19,6 +19,7 @@ void main() {
                   CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
                 ]),
               ),
+              secretKey: 'aSecretKey',
               truncatedReference: 'aTruncatedReference',
             ),
             status: RelationshipStatus.Active,
@@ -55,6 +56,11 @@ void main() {
         ],
       );
       final responseJson = response.toJson();
+      print(const RelationshipTemplateContent(
+        onNewRelationship: Request(items: [
+          CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+        ]),
+      ).toJson());
       expect(
         responseJson,
         equals({
@@ -72,6 +78,7 @@ void main() {
                     CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
                   ]),
                 ),
+                secretKey: 'aSecretKey',
                 truncatedReference: 'aTruncatedReference',
               ),
               status: RelationshipStatus.Active,
@@ -128,6 +135,7 @@ void main() {
                   CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
                 ]),
               ),
+              secretKey: 'aSecretKey',
               truncatedReference: 'aTruncatedReference',
             ),
             status: RelationshipStatus.Active,
@@ -180,6 +188,7 @@ void main() {
                     CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
                   ]),
                 ),
+                secretKey: 'aSecretKey',
                 truncatedReference: 'aTruncatedReference',
               ),
               status: RelationshipStatus.Active,

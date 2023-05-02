@@ -4,8 +4,7 @@ import 'package:connector_sdk/connector_sdk.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:integration_test/integration_test.dart';
 
-import './enmeshed_runtime_bridge1.dart' as bridge_test;
-import './enmeshed_runtime_bridge2.dart' as bridge_test2;
+import './src/services/facades/relationship_template_facade_test.dart' as relationship_template_facade_test;
 import 'dummy_app.dart' as dummyApp;
 
 void main() async {
@@ -22,6 +21,5 @@ void main() async {
   await completer.future;
   connector = ConnectorClient(const String.fromEnvironment('connector_baseURL'), const String.fromEnvironment('connector_apiKey'));
 
-  bridge_test.run(runtime, connector);
-  bridge_test2.run(runtime, connector);
+  relationship_template_facade_test.run(runtime, connector);
 }

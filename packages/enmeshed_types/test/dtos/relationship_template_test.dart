@@ -15,6 +15,7 @@ void main() {
             CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
           ]),
         ),
+        secretKey: 'aSecretKey',
         truncatedReference: 'aTruncatedReference',
       );
       final dtoJson = dto.toJson();
@@ -31,6 +32,7 @@ void main() {
               items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
             ),
           ).toJson(),
+          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -48,6 +50,7 @@ void main() {
             CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
           ]),
         ),
+        secretKey: 'aSecretKey',
         expiresAt: '2024',
         truncatedReference: 'aTruncatedReference',
       );
@@ -66,6 +69,7 @@ void main() {
             ),
           ).toJson(),
           'expiresAt': '2024',
+          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -84,6 +88,7 @@ void main() {
           ]),
         ),
         maxNumberOfAllocations: 1,
+        secretKey: 'aSecretKey',
         truncatedReference: 'aTruncatedReference',
       );
       final dtoJson = dto.toJson();
@@ -101,6 +106,7 @@ void main() {
             ),
           ).toJson(),
           'maxNumberOfAllocations': 1,
+          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -120,6 +126,7 @@ void main() {
         ),
         expiresAt: '2024',
         maxNumberOfAllocations: 1,
+        secretKey: 'aSecretKey',
         truncatedReference: 'aTruncatedReference',
       );
       final dtoJson = dto.toJson();
@@ -138,6 +145,7 @@ void main() {
           ).toJson(),
           'expiresAt': '2024',
           'maxNumberOfAllocations': 1,
+          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -157,6 +165,7 @@ void main() {
             items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
           ),
         ).toJson(),
+        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
@@ -172,6 +181,7 @@ void main() {
               CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
             ]),
           ),
+          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
         )),
       );
@@ -190,6 +200,7 @@ void main() {
           ),
         ).toJson(),
         'expiresAt': '2024',
+        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
@@ -206,6 +217,7 @@ void main() {
             ]),
           ),
           expiresAt: '2024',
+          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
         )),
       );
@@ -224,6 +236,7 @@ void main() {
           ),
         ).toJson(),
         'maxNumberOfAllocations': 1,
+        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
@@ -240,6 +253,7 @@ void main() {
             ]),
           ),
           maxNumberOfAllocations: 1,
+          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
         )),
       );
@@ -259,6 +273,7 @@ void main() {
         ).toJson(),
         'expiresAt': '2024',
         'maxNumberOfAllocations': 1,
+        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
@@ -276,6 +291,7 @@ void main() {
           ),
           expiresAt: '2024',
           maxNumberOfAllocations: 1,
+          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
         )),
       );
