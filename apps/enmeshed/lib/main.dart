@@ -37,7 +37,7 @@ void main() async {
     return;
   }
 
-  accounts.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '1970') ?? 0);
+  accounts.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
   runApp(EnmeshedApp(home: AccountScreen(accounts.first.id)));
 }
 
