@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:enmeshed/screens/account_screen.dart';
-import 'package:enmeshed/views/scanner_view.dart';
+import 'package:enmeshed/views/views.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -88,20 +88,46 @@ class AccountCreationScreen extends StatelessWidget {
   void _onboardingPressed(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => ScannerView(onDetected: onDetect)),
+      MaterialPageRoute(builder: (_) => ScannerView(onSubmit: onSubmit)),
     );
   }
 
-  void onDetect({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) {
+  void onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
     pause();
 
+    GetIt.I.get<Logger>().v('Scanned code: $content');
+
     if (!content.startsWith('nmshd://')) {
+      const duration = Duration(seconds: 2);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(AppLocalizations.of(context)!.onboarding_invalidCode),
+        duration: duration,
+      ));
+      await Future.delayed(duration);
+
       resume();
       return;
     }
 
-    GetIt.I.get<Logger>().i('Scanned code: $content');
-    Navigator.pop(context);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const CircularProgressIndicator(),
+            const SizedBox(height: 10),
+            Material(child: Text(AppLocalizations.of(context)!.onboarding_processingCode)),
+          ],
+        ),
+      ),
+    );
+
+    await Future.delayed(const Duration(seconds: 10));
+    if (context.mounted) Navigator.pop(context);
+
+    resume();
   }
 }
 

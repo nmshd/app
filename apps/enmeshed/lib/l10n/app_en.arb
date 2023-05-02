@@ -23,5 +23,5 @@
   "onboarding_dataPrivacy_link": "data protection conditions",
   "onboarding_dataPrivacy_end": ".",
   "onboarding_invalidCode": "The code is invalid. Try another one.",
-  "onboarding_processingCode": "Processing code..."
+  "onboarding_processingCode": "Processing the code."
 }

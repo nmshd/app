@@ -23,5 +23,5 @@
   "onboarding_dataPrivacy_link": "Datenschutzbedingungen",
   "onboarding_dataPrivacy_end": " einverstanden.",
   "onboarding_invalidCode": "Der Code ist ungültig. Versuche es mit einem anderen.",
-  "onboarding_processingCode": "Code wird verarbeitet..."
+  "onboarding_processingCode": "Der Code wird verarbeitet."
 }
