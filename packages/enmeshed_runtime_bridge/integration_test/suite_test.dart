@@ -10,28 +10,17 @@ import 'dummy_app.dart' as dummyApp;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // print(File('./.env').absolute);
-  // print(Platform.environment);
-  // DotEnv().testLoad(fileInput: File('.env').readAsStringSync());
-  // dummy application to have all the required plugins available
   dummyApp.main();
 
   Completer completer;
   EnmeshedRuntime runtime;
   ConnectorClient connector;
 
-  // setUpAll(() async => {
   completer = Completer();
   runtime = EnmeshedRuntime(completer.complete);
   await runtime.run();
   await completer.future;
   connector = ConnectorClient(const String.fromEnvironment('connector_baseURL'), const String.fromEnvironment('connector_apiKey'));
-  // });
-  // completer = Completer();
-  // runtime = EnmeshedRuntime(completer.complete);
-  // await runtime.run();
-  // await completer.future;
-  // connector = ConnectorClient(const String.fromEnvironment('connector_baseURL'), const String.fromEnvironment('connector_apiKey'));
 
   bridge_test.run(runtime, connector);
   bridge_test2.run(runtime, connector);
