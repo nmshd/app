@@ -21,5 +21,7 @@
   "onboarding_defaultIdentityName": "Profil",
   "onboarding_dataPrivacy_start": "Durch Klick auf einen der beiden Links, erklärst Du dich mit den ",
   "onboarding_dataPrivacy_link": "Datenschutzbedingungen",
-  "onboarding_dataPrivacy_end": " einverstanden."
+  "onboarding_dataPrivacy_end": " einverstanden.",
+  "onboarding_invalidCode": "Der Code ist ungültig. Versuche es mit einem anderen.",
+  "onboarding_processingCode": "Code wird verarbeitet..."
 }
