@@ -37,9 +37,8 @@ void main() async {
     return;
   }
 
-  final lastAccount = accounts.first;
-  // TODO: sort account on last accessed at
-  runApp(EnmeshedApp(home: AccountScreen(lastAccount.id)));
+  accounts.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '1970') ?? 0);
+  runApp(EnmeshedApp(home: AccountScreen(accounts.first.id)));
 }
 
 class EnmeshedApp extends StatelessWidget {
