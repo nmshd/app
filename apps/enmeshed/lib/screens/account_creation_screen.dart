@@ -139,13 +139,23 @@ class CreateNewIdentity extends StatefulWidget {
 }
 
 class _CreateNewIdentityState extends State<CreateNewIdentity> {
-  bool enabled = true;
+  bool _confirmEnabled = false;
+  bool _loading = false;
 
-  final controller = TextEditingController();
+  final _controller = TextEditingController();
+  final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    _controller.addListener(() => setState(() => _confirmEnabled = _controller.text.isNotEmpty));
+    _focusNode.requestFocus();
+
+    super.initState();
+  }
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
 
     super.dispose();
   }
@@ -163,7 +173,13 @@ class _CreateNewIdentityState extends State<CreateNewIdentity> {
                 style: const TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
-              const TextField(),
+              TextField(
+                enabled: !_loading,
+                focusNode: _focusNode,
+                controller: _controller,
+                decoration: InputDecoration(hintText: '${AppLocalizations.of(context)!.onboarding_defaultIdentityName} 1'),
+                onSubmitted: _loading ? null : (_) => _confirmEnabled ? _confirm() : _focusNode.requestFocus(),
+              ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -171,29 +187,13 @@ class _CreateNewIdentityState extends State<CreateNewIdentity> {
                 children: [
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(minimumSize: const Size(130, 36.0)),
-                    onPressed: enabled ? () => Navigator.pop(context) : null,
+                    onPressed: _loading ? null : () => Navigator.pop(context),
                     child: Text(AppLocalizations.of(context)!.cancel),
                   ),
                   const SizedBox(width: 10),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(minimumSize: const Size(130, 36.0)),
-                    onPressed: enabled
-                        ? () async {
-                            setState(() => enabled = false);
-
-                            final name =
-                                controller.text.isEmpty ? '${AppLocalizations.of(context)!.onboarding_defaultIdentityName} 1' : controller.text;
-                            final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: name);
-
-                            if (context.mounted) {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (BuildContext context) => AccountScreen(account.id)),
-                                (_) => false,
-                              );
-                            }
-                          }
-                        : null,
+                    onPressed: _confirmEnabled && !_loading ? _confirm : null,
                     child: Text(AppLocalizations.of(context)!.onboarding_confirmCreate),
                   ),
                 ],
@@ -203,6 +203,22 @@ class _CreateNewIdentityState extends State<CreateNewIdentity> {
         ],
       ),
     );
+  }
+
+  void _confirm() async {
+    setState(() {
+      _confirmEnabled = false;
+      _loading = true;
+    });
+
+    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: _controller.text);
+    if (context.mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => AccountScreen(account.id)),
+        (_) => false,
+      );
+    }
   }
 }
 
