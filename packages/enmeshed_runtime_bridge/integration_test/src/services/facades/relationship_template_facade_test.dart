@@ -6,9 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../utils.dart';
 
 void run(EnmeshedRuntime runtime, ConnectorClient connector) {
-
   group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
-    test('via the bridge with the runtime correctly', () async {
+    test('returns a valid RelationshipTemplateDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -24,7 +23,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
       expect(RelationshipTemplateDTO, template.runtimeType);
     });
 
-    test('via the bridge with the runtime correctly with all properties', () async {
+    test('returns a valid RelationshipTemplateDTO with all properties', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -45,7 +44,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
   });
 
   group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByIdAndKey', () {
-    test('via the bridge with the runtime correctly', () async {
+    test('returns a valid RelationshipTemplateDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -61,6 +60,8 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
         secretKey: responseTemplate.data.secretKey,
       );
 
+      expect(expiresAt, template.expiresAt);
+      expect(content, template.content.toJson());
       expect(responseTemplate.data.id, template.id);
       expect(responseTemplate.data.secretKey, template.secretKey);
       expect(RelationshipTemplateDTO, template.runtimeType);
@@ -68,7 +69,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
   });
 
   group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByReference', () {
-    test('via the bridge with the runtime correctly', () async {
+    test('returns a valid RelationshipTemplateDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -83,38 +84,35 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
         reference: responseTemplate.data.truncatedReference,
       );
 
+      expect(expiresAt, template.expiresAt);
+      expect(content, template.content.toJson());
       expect(responseTemplate.data.truncatedReference, template.truncatedReference);
       expect(RelationshipTemplateDTO, template.runtimeType);
     });
   });
 
   group('RelationshipTemplatesFacade: getRelationshipTemplates', () {
-    test('via the bridge with the runtime correctly', () async {
+    test('returns the correct amount of own relationship templates', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
+
+      final currentTemplates = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
 
       await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
         maxNumberOfAllocations: 1,
       );
-      await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: content,
-        maxNumberOfAllocations: 2,
-      );
 
-      final templates = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+      final allTemplates = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
 
-      expect(templates.length, greaterThan(1));
-      expect(List<RelationshipTemplateDTO>, templates.runtimeType);
+      expect(allTemplates.length, greaterThan(currentTemplates.length));
+      expect(List<RelationshipTemplateDTO>, allTemplates.runtimeType);
     });
-  });
 
-  group('RelationshipTemplatesFacade: getRelationshipTemplate', () {
-    test('via the bridge with the runtime correctly', () async {
+    test('returns the correct amount of own relationship templates with all properties', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -136,6 +134,10 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
         query: {'expiresAt': QueryValue.string(expiresAt)},
       );
 
+      final templatesWithNoResponse = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates(
+        query: {'expiresAt': QueryValue.string('2023')},
+      );
+
       final templatesWithQueryMnoa = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'maxNumberOfAllocations': QueryValue.string('1')},
       );
@@ -147,14 +149,85 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
       }
 
       expect(templatesWithQueryExpiresAt.length, 1);
+      expect(templatesWithNoResponse.length, 0);
       expect(false, isAnyTemplateWithAnotherMnoa1);
       expect(List<RelationshipTemplateDTO>, templatesWithQueryExpiresAt.runtimeType);
       expect(List<RelationshipTemplateDTO>, templatesWithQueryMnoa.runtimeType);
     });
   });
 
+  group('RelationshipTemplatesFacade: getRelationshipTemplate', () {
+    test('returns a valid RelationshipTemplateDTO', () async {
+      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
+      final content = const RelationshipTemplateContent(
+        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
+      ).toJson();
+
+      final createdTemplate = await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+        expiresAt: expiresAt,
+        content: content,
+      );
+
+      final template = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate(
+        relationshipTemplateId: createdTemplate.id,
+      );
+
+      expect(expiresAt, template.expiresAt);
+      expect(content, template.content.toJson());
+      expect(RelationshipTemplateDTO, template.runtimeType);
+    });
+
+    test('throws an exception on empty template id', () async {
+      const expectedErrorMessage = 'Exception: Error: {\n'
+          '  "code": "error.runtime.validation.invalidPropertyValue",\n'
+          '  "message": "id must match pattern RLT[A-Za-z0-9]{17}"\n'
+          '}';
+
+      try {
+        await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate(
+          relationshipTemplateId: '',
+        );
+      } catch (e) {
+        expect(e, isInstanceOf<Exception>());
+        expect(e.toString(), expectedErrorMessage);
+      }
+    });
+
+    test('throws an exception if template id do not match the pattern', () async {
+      const expectedErrorMessage = 'Exception: Error: {\n'
+          '  "code": "error.runtime.validation.invalidPropertyValue",\n'
+          '  "message": "id must match pattern RLT[A-Za-z0-9]{17}"\n'
+          '}';
+
+      try {
+        await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate(
+          relationshipTemplateId: 'RTLX123456789',
+        );
+      } catch (e) {
+        expect(e, isInstanceOf<Exception>());
+        expect(e.toString(), expectedErrorMessage);
+      }
+    });
+
+    test('throws an exception on not existing template id', () async {
+      const expectedErrorMessage = 'Exception: Error: {\n'
+          '  "code": "error.runtime.recordNotFound",\n'
+          '  "message": "em not found. Make sure the ID exists and the record is not expired."\n'
+          '}';
+
+      try {
+        await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate(
+          relationshipTemplateId: 'RLTXZKg9TestveduKiGs',
+        );
+      } catch (e) {
+        expect(e, isInstanceOf<Exception>());
+        expect(e.toString(), expectedErrorMessage);
+      }
+    });
+  });
+
   group('RelationshipTemplatesFacade: createQrCodeForOwnTemplate', () {
-    test('via the bridge with the runtime correctly', () async {
+    test('returns a valid CreateQrCodeResponse', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -174,7 +247,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
   });
 
   group('RelationshipTemplatesFacade: createTokenQrCodeForOwnTemplate', () {
-    test('via the bridge with the runtime correctly', () async {
+    test('returns a valid CreateQrCodeResponse', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -192,7 +265,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
       expect(CreateQrCodeResponse, response.runtimeType);
     });
 
-    test('via the bridge with the runtime correctly with all properties', () async {
+    test('returns a valid CreateQrCodeResponse with all properties', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -213,7 +286,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
   });
 
   group('RelationshipTemplatesFacade: createTokenForOwnTemplate', () {
-    test('via the bridge with the runtime correctly', () async {
+    test('returns a valid TokenDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -228,10 +301,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
         templateId: createdTemplate.id,
       );
 
+      expect(expiresAt, token.expiresAt);
       expect(TokenDTO, token.runtimeType);
     });
 
-    test('via the bridge with the runtime correctly with all properties', () async {
+    test('returns a valid TokenDTO with all properties', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
       final content = const RelationshipTemplateContent(
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -248,6 +322,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
         ephemeral: true,
       );
 
+      expect(expiresAt, token.expiresAt);
       expect(createdTemplate.expiresAt, token.expiresAt);
       expect(true, token.isEphemeral);
       expect(TokenDTO, token.runtimeType);
