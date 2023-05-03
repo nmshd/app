@@ -61,12 +61,6 @@ export class NativeBootstrapper implements RuntimeNativeBootstrapper {
     // await this.configAccess.initRuntimeConfig();
 
     await this.fileAccess.init();
-    // if (!(await this.nativeFileAccess.existsDirectory("logs")).value) {
-    //     await this.nativeFileAccess.createDirectory("logs");
-    // }
-    // if (!(await this.nativeFileAccess.existsDirectory("data")).value) {
-    //     await this.nativeFileAccess.createDirectory("data");
-    // }
 
     await this.loggerFactory.init();
 
