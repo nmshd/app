@@ -3,7 +3,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../utils.dart';
+import '../../utils.dart';
 
 void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   late Session session;
