@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
@@ -15,7 +17,7 @@ class EnmeshedRuntime {
   final _filesystemAdapter = FilesystemAdapter();
   FilesystemAdapter get fs => _filesystemAdapter;
 
-  final VoidCallback runtimeReadyCallback;
+  final VoidCallback? _runtimeReadyCallback;
 
   late final AccountServices _accountServices;
   AccountServices get accountServices => _accountServices;
@@ -27,8 +29,13 @@ class EnmeshedRuntime {
   Session get currentSession => _currentSession;
 
   final Logger _logger;
+  final _runtimeReadyCompleter = Completer();
 
-  EnmeshedRuntime(this.runtimeReadyCallback, {Logger? logger}) : _logger = logger ?? Logger() {
+  EnmeshedRuntime({
+    Logger? logger,
+    VoidCallback? runtimeReadyCallback,
+  })  : _logger = logger ?? Logger(),
+        _runtimeReadyCallback = runtimeReadyCallback {
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
@@ -52,6 +59,14 @@ class EnmeshedRuntime {
 
   Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
 
+  Future<void> selectAccount(String accountReference) async {
+    final result = await evaluateJavascript('await runtime.selectAccount(accountReference, password)', arguments: {
+      'accountReference': accountReference,
+      'password': '',
+    });
+    result.throwOnError();
+  }
+
   Future<void> addJavaScriptHandlers(InAppWebViewController controller) async {
     controller.addJavaScriptHandler(
       handlerName: 'publishEvent',
@@ -71,7 +86,7 @@ class EnmeshedRuntime {
           final fileContent = await fs.readFile(path, storage);
           return {'ok': true, 'content': fileContent};
         } catch (e) {
-          _logger.e('Error reading file: $e');
+          _logger.i('Error reading file: $e');
           return {'ok': false, 'content': e.toString()};
         }
       },
@@ -89,7 +104,7 @@ class EnmeshedRuntime {
           await fs.writeFile(path, storage, data, append);
           return {'ok': true};
         } catch (e) {
-          _logger.e('Error writing file: $e');
+          _logger.i('Error writing file: $e');
           return {'ok': false, 'content': e.toString()};
         }
       },
@@ -105,7 +120,7 @@ class EnmeshedRuntime {
           await fs.deleteFile(path, storage);
           return {'ok': true};
         } catch (e) {
-          _logger.e('Error deleting file: $e');
+          _logger.i('Error deleting file: $e');
           return {'ok': false, 'content': e.toString()};
         }
       },
@@ -113,9 +128,10 @@ class EnmeshedRuntime {
 
     controller.addJavaScriptHandler(
       handlerName: 'runtimeReady',
-      callback: (_) => {
-        _isReady = true,
-        runtimeReadyCallback(),
+      callback: (_) {
+        _isReady = true;
+        _runtimeReadyCallback?.call();
+        _runtimeReadyCompleter.complete();
       },
     );
   }
@@ -127,8 +143,11 @@ class EnmeshedRuntime {
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
   }
 
-  Future<void> run() async {
+  Future<EnmeshedRuntime> run() async {
     await _headlessWebView.run();
+    await _runtimeReadyCompleter.future;
+
+    return this;
   }
 
   Future<void> dispose() async {

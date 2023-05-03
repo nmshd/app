@@ -1,8 +1,4 @@
-import {
-  INativeDeviceInfo,
-  INativeDeviceInfoAccess,
-  PushServices,
-} from "@js-soft/native-abstractions";
+import { INativeDeviceInfo, INativeDeviceInfoAccess, PushServices } from "@js-soft/native-abstractions";
 import { Result } from "@js-soft/ts-utils";
 
 export class DeviceInfoAccess implements INativeDeviceInfoAccess {
@@ -17,7 +13,7 @@ export class DeviceInfoAccess implements INativeDeviceInfoAccess {
     isVirtual: false,
     languageCode: "",
     version: "",
-    pushService: PushServices.fcm,
+    pushService: PushServices.fcm
   };
 
   // eslint-disable-next-line @typescript-eslint/require-await

@@ -17,12 +17,13 @@ Framework for building apps using the Enmeshed Runtime with Dart and Flutter.
 | App                               | Description                                                              |
 | --------------------------------- | ------------------------------------------------------------------------ |
 | [connector_ui](apps/connector_ui) | A simple UI showcasing the dart [connector_sdk](packages/connector_sdk). |
+| [enmeshed](apps/enmeshed)         | The Enmeshed app.                                                        |
 
 ## Documentation
 
 You can find the documentation for Enmeshed on [enmeshed.eu](https://enmeshed.eu).
 
-For a kickstart for developing inside this repository, head over to the [development guide](README_dev.md).
+To get started developing in this repository, see the [developer's guide](README_dev.md).
 
 ## Feedback
 

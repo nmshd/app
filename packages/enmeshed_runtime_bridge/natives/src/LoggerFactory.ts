@@ -9,12 +9,8 @@ export class LoggerFactory implements INativeLoggerFactory {
 
     const consoleHandler = Logger.createDefaultHandler({
       formatter: function (messages, context) {
-        messages.unshift(
-          `${new Date().toISOString()} [${
-            context.name === undefined ? "default" : context.name
-          }]`
-        );
-      },
+        messages.unshift(`${new Date().toISOString()} [${context.name === undefined ? "default" : context.name}]`);
+      }
     });
 
     Logger.setHandler(consoleHandler);

@@ -16,6 +16,7 @@ void main() async {
   if (Platform.isAndroid) {
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
+
   runApp(const DemoApp());
 }
 
@@ -56,7 +57,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    runtime = EnmeshedRuntime(() async {
+    runtime = EnmeshedRuntime(runtimeReadyCallback: () async {
       await reloadData(false);
 
       setState(() {

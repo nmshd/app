@@ -7,6 +7,7 @@ class LocalAccountDTO extends Equatable {
   final String realm;
   final String directory;
   final int order;
+  final String? lastAccessedAt;
 
   const LocalAccountDTO({
     required this.id,
@@ -15,6 +16,7 @@ class LocalAccountDTO extends Equatable {
     required this.realm,
     required this.directory,
     required this.order,
+    this.lastAccessedAt,
   });
 
   @override
@@ -30,6 +32,7 @@ class LocalAccountDTO extends Equatable {
       realm: json['realm'],
       directory: json['directory'],
       order: json['order'].toInt(),
+      lastAccessedAt: json['lastAccessedAt'],
     );
   }
 
