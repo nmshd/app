@@ -23,6 +23,10 @@ scripts:
     run: melos exec --dir-exists=test --flutter -- "flutter test" && melos exec --dir-exists=test --no-flutter -- "dart test"
     description: Run `flutter test` in all packages
 
+  integration_test:
+    run: melos exec --dir-exists=integration_test --flutter -- "flutter test --dart-define-from-file=../../config.json integration_test/suite_test.dart"
+    description: Run `integration tests` in all packages that have the folder `integration_test``
+
   # https://github.com/dart-code-checker/dart-code-metrics/issues/313
   # flutter analyze cannot use the dcm plugin
   metrics:

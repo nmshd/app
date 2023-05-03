@@ -4,3 +4,4 @@ node_modules
 build
 .flutter-plugins
 .flutter-plugins-dependencies
+config.json

@@ -21,6 +21,7 @@ void main() {
           createdByDevice: 'createdByDevice',
           createdAt: 'createdAt',
           content: ArbitraryRelationshipTemplateContent(const {}),
+          secretKey: 'aSecretKey',
           truncatedReference: 'truncatedReference',
         ),
         status: RelationshipStatus.Active,

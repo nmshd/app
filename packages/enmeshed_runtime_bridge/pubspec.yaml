@@ -16,20 +16,21 @@ dependencies:
     sdk: flutter
   flutter_inappwebview: ^5.7.2+3
   logger: ^1.2.2
+  meta: any
   path_provider: ^2.0.13
 
 dev_dependencies:
+  connector_sdk: 1.0.0
   dart_code_metrics: ^5.6.0
   flutter_lints: ^2.0.0
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
 platforms:
   android:
   ios:
-  linux:
-  macos:
-  windows:
 
 flutter:
   assets:
