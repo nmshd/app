@@ -11,8 +11,8 @@ void main() async {
 
   EnmeshedRuntime.setAssetsFolder('assets');
   final runtime = EnmeshedRuntime();
-
   await runtime.run();
+
   final connectorClient = ConnectorClient(const String.fromEnvironment('connector_baseURL'), const String.fromEnvironment('connector_apiKey'));
 
   relationship_template_facade_test.run(runtime, connectorClient);

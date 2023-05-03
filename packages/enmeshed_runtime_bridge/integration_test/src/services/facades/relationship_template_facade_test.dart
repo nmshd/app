@@ -11,6 +11,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     final account = await runtime.accountServices.createAccount(name: 'relationshipTemplateFacade Test');
     session = runtime.getSession(account.id);
   });
+
   group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
     test('returns a valid RelationshipTemplateDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
