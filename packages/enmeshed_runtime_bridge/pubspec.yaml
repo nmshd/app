@@ -20,14 +20,17 @@ dependencies:
   path_provider: ^2.0.13
 
 dev_dependencies:
-  dart_code_metrics: ^5.6.0
   connector_sdk: 1.0.0
+  dart_code_metrics: ^5.6.0
   flutter_lints: ^2.0.0
-  flutter_dotenv: ^5.0.2
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
+
+platforms:
+  android:
+  ios:
 
 flutter:
   assets:
