@@ -3,7 +3,7 @@ import {
   INativeFile,
   INativeFileAccess,
   INativeFileMetadata,
-  NativeFileStorage,
+  NativeFileStorage
 } from "@js-soft/native-abstractions";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
 
@@ -27,16 +27,10 @@ export class FileAccess implements INativeFileAccess {
     storage?: NativeFileStorage | undefined
   ): Promise<Result<string, ApplicationError>> {
     const result: { ok: true; content: string } | { ok: false; error: string } =
-      await window.flutter_inappwebview.callHandler(
-        "readFile",
-        path,
-        storage ?? NativeFileStorage.Data
-      );
+      await window.flutter_inappwebview.callHandler("readFile", path, storage ?? NativeFileStorage.Data);
 
     if (!result.ok) {
-      return Result.fail(
-        new ApplicationError("err.filesystem.read", result.error)
-      );
+      return Result.fail(new ApplicationError("err.filesystem.read", result.error));
     }
 
     return Result.ok(result.content);
@@ -55,19 +49,16 @@ export class FileAccess implements INativeFileAccess {
     storage?: NativeFileStorage | undefined,
     append?: boolean | undefined
   ): Promise<Result<void, ApplicationError>> {
-    const result: { ok: true } | { ok: false; error: string } =
-      await window.flutter_inappwebview.callHandler(
-        "writeFile",
-        path,
-        storage ?? NativeFileStorage.Data,
-        data,
-        append ?? false
-      );
+    const result: { ok: true } | { ok: false; error: string } = await window.flutter_inappwebview.callHandler(
+      "writeFile",
+      path,
+      storage ?? NativeFileStorage.Data,
+      data,
+      append ?? false
+    );
 
     if (!result.ok) {
-      return Result.fail(
-        new ApplicationError("err.filesystem.write", result.error)
-      );
+      return Result.fail(new ApplicationError("err.filesystem.write", result.error));
     }
 
     return Result.ok(undefined);
@@ -77,26 +68,20 @@ export class FileAccess implements INativeFileAccess {
     path: string,
     storage?: NativeFileStorage | undefined
   ): Promise<Result<void, ApplicationError>> {
-    const result: { ok: true } | { ok: false; error: string } =
-      await window.flutter_inappwebview.callHandler(
-        "deleteFile",
-        path,
-        storage ?? NativeFileStorage.Data
-      );
+    const result: { ok: true } | { ok: false; error: string } = await window.flutter_inappwebview.callHandler(
+      "deleteFile",
+      path,
+      storage ?? NativeFileStorage.Data
+    );
 
     if (!result.ok) {
-      return Result.fail(
-        new ApplicationError("err.filesystem.delete", result.error)
-      );
+      return Result.fail(new ApplicationError("err.filesystem.delete", result.error));
     }
 
     return Result.ok(undefined);
   }
 
-  public existsFile(
-    path: string,
-    storage?: NativeFileStorage | undefined
-  ): Promise<Result<boolean, ApplicationError>> {
+  public existsFile(path: string, storage?: NativeFileStorage | undefined): Promise<Result<boolean, ApplicationError>> {
     throw new Error("Method not implemented.");
   }
 
@@ -132,17 +117,11 @@ export class FileAccess implements INativeFileAccess {
     throw new Error("Method not implemented.");
   }
 
-  public openFile(
-    path: string,
-    storage?: NativeFileStorage | undefined
-  ): Promise<Result<void, ApplicationError>> {
+  public openFile(path: string, storage?: NativeFileStorage | undefined): Promise<Result<void, ApplicationError>> {
     throw new Error("Method not implemented.");
   }
 
-  public openFileContent(
-    content: Uint8Array,
-    metadata: INativeFileMetadata
-  ): Promise<Result<void, ApplicationError>> {
+  public openFileContent(content: Uint8Array, metadata: INativeFileMetadata): Promise<Result<void, ApplicationError>> {
     throw new Error("Method not implemented.");
   }
 }

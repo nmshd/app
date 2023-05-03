@@ -1,27 +1,17 @@
 import { AppReadyEvent, INativeEventBus } from "@js-soft/native-abstractions";
-import {
-  Event,
-  EventBus as UtilsEventBus,
-  EventEmitter2EventBus,
-  Result,
-} from "@js-soft/ts-utils";
+import { Event, EventEmitter2EventBus, Result, EventBus as UtilsEventBus } from "@js-soft/ts-utils";
 
 export class EventBus implements INativeEventBus {
   private eventBus!: UtilsEventBus;
   private locked = true;
   private queue: Event[] = [];
 
-  public init(
-    errorCallback?: (error: unknown, namespace: string) => void
-  ): Promise<Result<void>> {
+  public init(errorCallback?: (error: unknown, namespace: string) => void): Promise<Result<void>> {
     this.eventBus = new EventEmitter2EventBus(
       errorCallback ??
         ((error: unknown, namespace: string) => {
           // eslint-disable-next-line no-console
-          console.error(
-            `Error in EventBus for namespace '${namespace}':`,
-            error
-          );
+          console.error(`Error in EventBus for namespace '${namespace}':`, error);
         })
     );
 
@@ -32,18 +22,12 @@ export class EventBus implements INativeEventBus {
     return Promise.resolve(Result.ok(undefined));
   }
 
-  public subscribe(
-    event: Event,
-    handler: (event: any) => void
-  ): Result<number> {
+  public subscribe(event: Event, handler: (event: any) => void): Result<number> {
     const id = this.eventBus.subscribe(event.namespace, handler);
     return Result.ok(id);
   }
 
-  public subscribeOnce(
-    event: Event,
-    handler: (event: any) => void
-  ): Result<number> {
+  public subscribeOnce(event: Event, handler: (event: any) => void): Result<number> {
     const id = this.eventBus.subscribeOnce(event.namespace, handler);
     return Result.ok(id);
   }
