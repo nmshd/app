@@ -21,57 +21,55 @@ class AccountCreationScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
-        child: SizedBox(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: smallerSide / 8),
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.onboarding_yourIdentity,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.start,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: smallerSide / 8),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.onboarding_yourIdentity,
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.start,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(AppLocalizations.of(context)!.onboarding_identityNeeded),
+                      Text(AppLocalizations.of(context)!.onboarding_existingIdentity),
+                      const SizedBox(height: 20),
+                      Text(AppLocalizations.of(context)!.onboarding_chooseOption),
+                      const SizedBox(height: 50),
+                      OutlinedButton(
+                        onPressed: () => _onboardingPressed(context),
+                        child: Text(
+                          AppLocalizations.of(context)!.onboarding_migrateIdentity,
+                          textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 10),
-                        Text(AppLocalizations.of(context)!.onboarding_identityNeeded),
-                        Text(AppLocalizations.of(context)!.onboarding_existingIdentity),
-                        const SizedBox(height: 20),
-                        Text(AppLocalizations.of(context)!.onboarding_chooseOption),
-                        const SizedBox(height: 50),
-                        OutlinedButton(
-                          onPressed: () => _onboardingPressed(context),
-                          child: Text(
-                            AppLocalizations.of(context)!.onboarding_migrateIdentity,
-                            textAlign: TextAlign.center,
-                          ),
+                      ),
+                      const SizedBox(height: 10),
+                      OutlinedButton(
+                        onPressed: () => _createNewIdentityPressed(context),
+                        child: Text(
+                          AppLocalizations.of(context)!.onboarding_createIdentity,
+                          textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 10),
-                        OutlinedButton(
-                          onPressed: () => _createNewIdentityPressed(context),
-                          child: Text(
-                            AppLocalizations.of(context)!.onboarding_createIdentity,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 20,
-                  left: 10,
-                  right: 10,
-                  child: const DataPrivacyNote(),
-                ),
-              ],
-            ),
+              ),
+              Positioned(
+                bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+                left: 10,
+                right: 10,
+                child: const DataPrivacyNote(),
+              ),
+            ],
           ),
         ),
       ),
