@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../../utils.dart';
 
-void run(EnmeshedRuntime runtime, ConnectorClient connector) {
+void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
     test('returns a valid RelationshipTemplateDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
@@ -50,7 +50,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final responseTemplate = await connector.relationshipTemplates.createOwnRelationshipTemplate(
+      final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
@@ -75,7 +75,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connector) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final responseTemplate = await connector.relationshipTemplates.createOwnRelationshipTemplate(
+      final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
