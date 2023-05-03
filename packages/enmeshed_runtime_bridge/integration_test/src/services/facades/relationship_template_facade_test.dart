@@ -6,6 +6,11 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../utils.dart';
 
 void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
+  late Session session;
+  setUpAll(() async {
+    final account = await runtime.accountServices.createAccount(name: 'relationshipTemplateFacade Test');
+    session = runtime.getSession(account.id);
+  });
   group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
     test('returns a valid RelationshipTemplateDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
@@ -13,7 +18,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final template = await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final template = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
@@ -30,7 +35,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       ).toJson();
       const maxNumberOfAllocations = 1;
 
-      final template = await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final template = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
         maxNumberOfAllocations: maxNumberOfAllocations,
@@ -55,7 +60,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         content: content,
       );
 
-      final template = await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByIdAndKey(
+      final template = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByIdAndKey(
         relationshipTemplateId: responseTemplate.data.id,
         secretKey: responseTemplate.data.secretKey,
       );
@@ -80,7 +85,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         content: content,
       );
 
-      final template = await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
+      final template = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
         reference: responseTemplate.data.truncatedReference,
       );
 
@@ -98,15 +103,15 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final currentTemplates = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+      final currentTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
-      await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
         maxNumberOfAllocations: 1,
       );
 
-      final allTemplates = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+      final allTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
       expect(allTemplates.length, greaterThan(currentTemplates.length));
       expect(List<RelationshipTemplateDTO>, allTemplates.runtimeType);
@@ -118,27 +123,27 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
         maxNumberOfAllocations: 1,
       );
 
-      await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: DateTime.now().add(const Duration(days: 100)).toRuntimeIsoString(),
         content: content,
         maxNumberOfAllocations: 2,
       );
 
-      final templatesWithQueryExpiresAt = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates(
+      final templatesWithQueryExpiresAt = await session.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'expiresAt': QueryValue.string(expiresAt)},
       );
 
-      final templatesWithNoResponse = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates(
+      final templatesWithNoResponse = await session.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'expiresAt': QueryValue.string('2023')},
       );
 
-      final templatesWithQueryMnoa = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates(
+      final templatesWithQueryMnoa = await session.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'maxNumberOfAllocations': QueryValue.string('1')},
       );
       bool isAnyTemplateWithAnotherMnoa1 = false;
@@ -163,12 +168,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final createdTemplate = await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final template = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate(
+      final template = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
         relationshipTemplateId: createdTemplate.id,
       );
 
@@ -184,7 +189,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
           '}';
 
       try {
-        await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate(
+        await session.transportServices.relationshipTemplates.getRelationshipTemplate(
           relationshipTemplateId: '',
         );
       } catch (e) {
@@ -200,7 +205,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
           '}';
 
       try {
-        await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate(
+        await session.transportServices.relationshipTemplates.getRelationshipTemplate(
           relationshipTemplateId: 'RTLX123456789',
         );
       } catch (e) {
@@ -216,7 +221,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
           '}';
 
       try {
-        await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate(
+        await session.transportServices.relationshipTemplates.getRelationshipTemplate(
           relationshipTemplateId: 'RLTXZKg9TestveduKiGs',
         );
       } catch (e) {
@@ -233,12 +238,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final createdTemplate = await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final response = await runtime.currentSession.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(
+      final response = await session.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(
         templateId: createdTemplate.id,
       );
 
@@ -253,12 +258,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final createdTemplate = await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final response = await runtime.currentSession.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
+      final response = await session.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
         templateId: createdTemplate.id,
       );
 
@@ -271,12 +276,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final createdTemplate = await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final response = await runtime.currentSession.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
+      final response = await session.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
         templateId: createdTemplate.id,
         expiresAt: expiresAt,
       );
@@ -292,12 +297,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final createdTemplate = await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final token = await runtime.currentSession.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+      final token = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
         templateId: createdTemplate.id,
       );
 
@@ -311,12 +316,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
       ).toJson();
 
-      final createdTemplate = await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final token = await runtime.currentSession.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+      final token = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
         templateId: createdTemplate.id,
         expiresAt: expiresAt,
         ephemeral: true,
