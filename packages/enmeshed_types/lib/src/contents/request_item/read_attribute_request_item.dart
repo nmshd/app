@@ -16,7 +16,7 @@ class ReadAttributeRequestItem extends RequestItemDerivation {
     return ReadAttributeRequestItem(
       title: json['title'],
       description: json['description'],
-      metadata: json['metadata'],
+      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
       mustBeAccepted: json['mustBeAccepted'],
       requireManualDecision: json['requireManualDecision'],
       query: AttributeQuery.fromJson(json['query']),

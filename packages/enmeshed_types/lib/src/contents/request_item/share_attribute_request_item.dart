@@ -18,7 +18,7 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
     return ShareAttributeRequestItem(
       title: json['title'],
       description: json['description'],
-      metadata: json['metadata'],
+      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
       mustBeAccepted: json['mustBeAccepted'],
       requireManualDecision: json['requireManualDecision'],
       attribute: AbstractAttribute.fromJson(json['attribute']),

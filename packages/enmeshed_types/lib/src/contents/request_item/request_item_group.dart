@@ -15,7 +15,7 @@ class RequestItemGroup extends RequestItem {
     return RequestItemGroup(
       title: json['title'],
       description: json['description'],
-      metadata: json['metadata'],
+      metadata: Map<String, dynamic>.from(json['metadata']),
       mustBeAccepted: json['mustBeAccepted'],
       items: List<RequestItemDerivation>.from(json['items'].map((x) => RequestItemDerivation.fromJson(x))),
     );

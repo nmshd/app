@@ -26,7 +26,7 @@ class Request extends Equatable {
       items: List<RequestItem>.from(json['items'].map((x) => RequestItem.fromJson(x))),
       title: json['title'],
       description: json['description'],
-      metadata: json['metadata'],
+      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
     );
   }
 

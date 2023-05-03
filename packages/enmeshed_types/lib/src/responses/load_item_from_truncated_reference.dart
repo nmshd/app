@@ -48,7 +48,7 @@ class LoadItemFromTruncatedReferenceResponse extends Equatable {
 
   factory LoadItemFromTruncatedReferenceResponse.fromJson(Map json) => LoadItemFromTruncatedReferenceResponse(
         type: LoadItemFromTruncatedReferenceResponseType.values.byName(json['type']),
-        value: json['value'],
+        value: Map<String, dynamic>.from(json['value']),
       );
 
   Map<String, dynamic> toJson() => {'type': type.name, 'value': _value};
