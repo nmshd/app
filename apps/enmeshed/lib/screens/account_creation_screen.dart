@@ -76,19 +76,9 @@ class AccountCreationScreen extends StatelessWidget {
     );
   }
 
-  void _createNewIdentityPressed(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) => const CreateNewIdentity(),
-    );
-  }
+  void _createNewIdentityPressed(BuildContext context) => showModalBottomSheet(context: context, builder: (_) => const CreateNewIdentity());
 
-  void _onboardingPressed(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => ScannerView(onSubmit: onSubmit)),
-    );
-  }
+  void _onboardingPressed(BuildContext context) => Navigator.push(context, MaterialPageRoute(builder: (_) => ScannerView(onSubmit: onSubmit)));
 
   void onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
     pause();
@@ -96,14 +86,8 @@ class AccountCreationScreen extends StatelessWidget {
     GetIt.I.get<Logger>().v('Scanned code: $content');
 
     if (!content.startsWith('nmshd://')) {
-      const duration = Duration(seconds: 2);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(AppLocalizations.of(context)!.onboarding_invalidCode),
-        duration: duration,
-      ));
-      await Future.delayed(duration);
-
       resume();
+      _showWrongTokenMessage(context);
       return;
     }
 
@@ -126,6 +110,14 @@ class AccountCreationScreen extends StatelessWidget {
     if (context.mounted) Navigator.pop(context);
 
     resume();
+  }
+
+  void _showWrongTokenMessage(BuildContext context) {
+    const duration = Duration(seconds: 2);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(AppLocalizations.of(context)!.onboarding_invalidCode),
+      duration: duration,
+    ));
   }
 }
 
