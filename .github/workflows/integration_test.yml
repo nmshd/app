@@ -21,6 +21,28 @@ jobs:
           cd ./packages/enmeshed_runtime_bridge
           flutter pub get
 
+      - name: Gradle cache
+        uses: gradle/gradle-build-action@v2
+
+      - name: AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+
       # Run integration test
       - name: Start emulator and run tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -29,4 +51,4 @@ jobs:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
           profile: Nexus 9
-          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart
+          script: ./gradlew connectedCheck
