@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('ProprietaryString toJson', () {
     test('is correctly converted', () {
-      const relationshipAttributeValue = ProprietaryString(title: 'aTitle', value: 'aString');
+      const relationshipAttributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
@@ -13,7 +13,7 @@ void main() {
     });
 
     test('is correctly converted with property "description"', () {
-      const relationshipAttributeValue = ProprietaryString(title: 'aTitle', description: 'aDescription', value: 'aString');
+      const relationshipAttributeValue = ProprietaryStringAttributeValue(title: 'aTitle', description: 'aDescription', value: 'aString');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
@@ -22,7 +22,7 @@ void main() {
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
-      const relationshipAttributeValue = ProprietaryString(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aString');
+      const relationshipAttributeValue = ProprietaryStringAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aString');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
@@ -31,7 +31,7 @@ void main() {
     });
 
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
-      const relationshipAttributeValue = ProprietaryString(
+      const relationshipAttributeValue = ProprietaryStringAttributeValue(
         title: 'aTitle',
         description: 'aDescription',
         valueHintsOverride: ValueHints(),
@@ -55,31 +55,31 @@ void main() {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 'aString'};
       expect(
-        ProprietaryString.fromJson(json),
-        equals(const ProprietaryString(title: 'aTitle', value: 'aString')),
+        ProprietaryStringAttributeValue.fromJson(json),
+        equals(const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString')),
       );
     });
 
     test('is correctly converted with property "description"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'value': 'aString'};
       expect(
-        ProprietaryString.fromJson(json),
-        equals(const ProprietaryString(title: 'aTitle', description: 'aDescription', value: 'aString')),
+        ProprietaryStringAttributeValue.fromJson(json),
+        equals(const ProprietaryStringAttributeValue(title: 'aTitle', description: 'aDescription', value: 'aString')),
       );
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aString'};
       expect(
-        ProprietaryString.fromJson(json),
-        equals(const ProprietaryString(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aString')),
+        ProprietaryStringAttributeValue.fromJson(json),
+        equals(const ProprietaryStringAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aString')),
       );
     });
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aString'};
       expect(
-        ProprietaryString.fromJson(json),
-        equals(const ProprietaryString(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aString')),
+        ProprietaryStringAttributeValue.fromJson(json),
+        equals(const ProprietaryStringAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aString')),
       );
     });
   });

@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('HonorificSuffix toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = HonorificSuffix(value: 'aHonorificSuffix');
+      const identityAttributeValue = HonorificSuffixAttributeValue(value: 'aHonorificSuffix');
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -19,7 +19,7 @@ void main() {
   group('HonorificSuffix fromJson', () {
     test('is correctly converted', () {
       final json = {'value': 'aHonorificSuffix'};
-      expect(HonorificSuffix.fromJson(json), equals(const HonorificSuffix(value: 'aHonorificSuffix')));
+      expect(HonorificSuffixAttributeValue.fromJson(json), equals(const HonorificSuffixAttributeValue(value: 'aHonorificSuffix')));
     });
   });
 }

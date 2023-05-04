@@ -49,7 +49,7 @@ void main() {
   });
 }
 
-class MockProprietaryAttributeValue extends ProprietaryAttributeValue {
+class MockProprietaryAttributeValue extends ProprietaryAttributeValueAttributeValue {
   const MockProprietaryAttributeValue({
     required super.title,
     super.description,

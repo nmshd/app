@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('Street toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = Street(value: 'aStreet');
+      const identityAttributeValue = StreetAttributeValue(value: 'aStreet');
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -19,7 +19,7 @@ void main() {
   group('Street fromJson', () {
     test('is correctly converted', () {
       final json = {'value': 'aStreet'};
-      expect(Street.fromJson(json), equals(const Street(value: 'aStreet')));
+      expect(StreetAttributeValue.fromJson(json), equals(const StreetAttributeValue(value: 'aStreet')));
     });
   });
 }

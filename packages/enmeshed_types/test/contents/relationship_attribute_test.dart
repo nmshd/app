@@ -6,7 +6,7 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttribute = RelationshipAttribute(
         owner: 'anOwner',
-        value: ProprietaryBoolean(title: 'aTitle', value: true),
+        value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
       );
@@ -16,7 +16,7 @@ void main() {
         equals({
           '@type': 'RelationshipAttribute',
           'owner': 'anOwner',
-          'value': const ProprietaryBoolean(title: 'aTitle', value: true).toJson(),
+          'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
           'key': 'aKey',
           'confidentiality': 'public',
         }),
@@ -28,7 +28,7 @@ void main() {
         owner: 'anOwner',
         validFrom: '1970',
         validTo: '1980',
-        value: ProprietaryBoolean(title: 'aTitle', value: true),
+        value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
       );
@@ -40,7 +40,7 @@ void main() {
           'owner': 'anOwner',
           'validFrom': '1970',
           'validTo': '1980',
-          'value': const ProprietaryBoolean(title: 'aTitle', value: true).toJson(),
+          'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
           'key': 'aKey',
           'confidentiality': 'public',
         }),
@@ -50,7 +50,7 @@ void main() {
     test('is correctly converted with property "isTechnical"', () {
       const relationshipAttribute = RelationshipAttribute(
         owner: 'anOwner',
-        value: ProprietaryBoolean(title: 'aTitle', value: true),
+        value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         key: 'aKey',
         isTechnical: true,
         confidentiality: RelationshipAttributeConfidentiality.public,
@@ -61,7 +61,7 @@ void main() {
         equals({
           '@type': 'RelationshipAttribute',
           'owner': 'anOwner',
-          'value': const ProprietaryBoolean(title: 'aTitle', value: true).toJson(),
+          'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
           'key': 'aKey',
           'isTechnical': true,
           'confidentiality': 'public',
@@ -74,7 +74,7 @@ void main() {
         owner: 'anOwner',
         validFrom: '1970',
         validTo: '1980',
-        value: ProprietaryBoolean(title: 'aTitle', value: true),
+        value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         key: 'aKey',
         isTechnical: true,
         confidentiality: RelationshipAttributeConfidentiality.public,
@@ -87,7 +87,7 @@ void main() {
           'owner': 'anOwner',
           'validFrom': '1970',
           'validTo': '1980',
-          'value': const ProprietaryBoolean(title: 'aTitle', value: true).toJson(),
+          'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
           'key': 'aKey',
           'isTechnical': true,
           'confidentiality': 'public',
@@ -100,7 +100,7 @@ void main() {
     test('is correctly converted', () {
       final json = {
         'owner': 'anOwner',
-        'value': const ProprietaryBoolean(title: 'aTitle', value: true).toJson(),
+        'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
         'key': 'aKey',
         'confidentiality': 'public',
       };
@@ -108,7 +108,7 @@ void main() {
         RelationshipAttribute.fromJson(json),
         equals(const RelationshipAttribute(
           owner: 'anOwner',
-          value: ProprietaryBoolean(title: 'aTitle', value: true),
+          value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
           key: 'aKey',
           confidentiality: RelationshipAttributeConfidentiality.public,
         )),
@@ -120,7 +120,7 @@ void main() {
         'owner': 'anOwner',
         'validFrom': '1970',
         'validTo': '1980',
-        'value': const ProprietaryBoolean(title: 'aTitle', value: true).toJson(),
+        'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
         'key': 'aKey',
         'confidentiality': 'public',
       };
@@ -130,7 +130,7 @@ void main() {
           owner: 'anOwner',
           validFrom: '1970',
           validTo: '1980',
-          value: ProprietaryBoolean(title: 'aTitle', value: true),
+          value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
           key: 'aKey',
           confidentiality: RelationshipAttributeConfidentiality.public,
         )),
@@ -140,7 +140,7 @@ void main() {
     test('is correctly converted with property "isTechnical"', () {
       final json = {
         'owner': 'anOwner',
-        'value': const ProprietaryBoolean(title: 'aTitle', value: true).toJson(),
+        'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
         'key': 'aKey',
         'isTechnical': true,
         'confidentiality': 'public',
@@ -149,7 +149,7 @@ void main() {
         RelationshipAttribute.fromJson(json),
         equals(const RelationshipAttribute(
           owner: 'anOwner',
-          value: ProprietaryBoolean(title: 'aTitle', value: true),
+          value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
           key: 'aKey',
           isTechnical: true,
           confidentiality: RelationshipAttributeConfidentiality.public,
@@ -162,7 +162,7 @@ void main() {
         'owner': 'anOwner',
         'validFrom': '1970',
         'validTo': '1980',
-        'value': const ProprietaryBoolean(title: 'aTitle', value: true).toJson(),
+        'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
         'key': 'aKey',
         'isTechnical': true,
         'confidentiality': 'public',
@@ -173,7 +173,7 @@ void main() {
           owner: 'anOwner',
           validFrom: '1970',
           validTo: '1980',
-          value: ProprietaryBoolean(title: 'aTitle', value: true),
+          value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
           key: 'aKey',
           isTechnical: true,
           confidentiality: RelationshipAttributeConfidentiality.public,

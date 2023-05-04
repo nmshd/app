@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('BirthDate toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = BirthDate(day: 01, month: 01, year: 1970);
+      const identityAttributeValue = BirthDateAttributeValue(day: 01, month: 01, year: 1970);
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -16,7 +16,7 @@ void main() {
   group('BirthDate fromJson', () {
     test('is correctly converted', () {
       final json = {'day': 01, 'month': 01, 'year': 1970};
-      expect(BirthDate.fromJson(json), equals(const BirthDate(day: 01, month: 01, year: 1970)));
+      expect(BirthDateAttributeValue.fromJson(json), equals(const BirthDateAttributeValue(day: 01, month: 01, year: 1970)));
     });
   });
 }

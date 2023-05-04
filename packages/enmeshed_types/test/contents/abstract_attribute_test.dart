@@ -7,7 +7,7 @@ void main() {
       final identityAttributeJson = {
         '@type': 'IdentityAttribute',
         'owner': 'anOwner',
-        'value': const City(value: 'aCity').toJson(),
+        'value': const CityAttributeValue(value: 'aCity').toJson(),
       };
       final abstractAttribute = AbstractAttribute.fromJson(identityAttributeJson);
       expect(abstractAttribute, isA<IdentityAttribute>());
@@ -17,7 +17,7 @@ void main() {
       final relationshipAttributeJson = {
         '@type': 'RelationshipAttribute',
         'owner': 'anOwner',
-        'value': const ProprietaryBoolean(title: 'aTitle', value: true).toJson(),
+        'value': const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true).toJson(),
         'key': 'aKey',
         'confidentiality': 'public',
       };

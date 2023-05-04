@@ -4,11 +4,11 @@ import 'package:test/test.dart';
 void main() {
   group('LocalAttributeDTO toJson', () {
     test('is correctly converted', () {
-      const dto = LocalAttributeDTO(id: 'anId', createdAt: '2023', content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')));
+      const dto = LocalAttributeDTO(id: 'anId', createdAt: '2023', content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')));
       final dtoJson = dto.toJson();
       expect(
         dtoJson,
-        equals({'id': 'anId', 'createdAt': '2023', 'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson()}),
+        equals({'id': 'anId', 'createdAt': '2023', 'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson()}),
       );
     });
 
@@ -17,7 +17,7 @@ void main() {
         id: 'anId',
         parentId: 'aParentId',
         createdAt: '2023',
-        content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
       );
       final dtoJson = dto.toJson();
       expect(
@@ -26,7 +26,7 @@ void main() {
           'id': 'anId',
           'parentId': 'aParentId',
           'createdAt': '2023',
-          'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         }),
       );
     });
@@ -35,7 +35,7 @@ void main() {
       const dto = LocalAttributeDTO(
         id: 'anId',
         createdAt: '2023',
-        content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         succeeds: 'succeed',
       );
       final dtoJson = dto.toJson();
@@ -44,7 +44,7 @@ void main() {
         equals({
           'id': 'anId',
           'createdAt': '2023',
-          'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'succeeds': 'succeed',
         }),
       );
@@ -54,7 +54,7 @@ void main() {
       const dto = LocalAttributeDTO(
         id: 'anId',
         createdAt: '2023',
-        content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         succeededBy: 'anAddress',
       );
       final dtoJson = dto.toJson();
@@ -63,7 +63,7 @@ void main() {
         equals({
           'id': 'anId',
           'createdAt': '2023',
-          'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'succeededBy': 'anAddress',
         }),
       );
@@ -73,7 +73,7 @@ void main() {
       const dto = LocalAttributeDTO(
         id: 'anId',
         createdAt: '2023',
-        content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         shareInfo: LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer'),
       );
       final dtoJson = dto.toJson();
@@ -82,7 +82,7 @@ void main() {
         equals({
           'id': 'anId',
           'createdAt': '2023',
-          'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'shareInfo': const LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer').toJson(),
         }),
       );
@@ -93,7 +93,7 @@ void main() {
         id: 'anId',
         parentId: 'aParentId',
         createdAt: '2023',
-        content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         succeeds: 'succeed',
         succeededBy: 'anAddress',
         shareInfo: LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer'),
@@ -105,7 +105,7 @@ void main() {
           'id': 'anId',
           'parentId': 'aParentId',
           'createdAt': '2023',
-          'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'succeeds': 'succeed',
           'succeededBy': 'anAddress',
           'shareInfo': const LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer').toJson(),
@@ -116,10 +116,10 @@ void main() {
 
   group('LocalAttributeDTO fromJson', () {
     test('is correctly converted', () {
-      final json = {'id': 'anId', 'createdAt': '2023', 'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson()};
+      final json = {'id': 'anId', 'createdAt': '2023', 'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson()};
       expect(
         LocalAttributeDTO.fromJson(json),
-        equals(const LocalAttributeDTO(id: 'anId', createdAt: '2023', content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))),
+        equals(const LocalAttributeDTO(id: 'anId', createdAt: '2023', content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))),
       );
     });
 
@@ -128,7 +128,7 @@ void main() {
         'id': 'anId',
         'parentId': 'aParentId',
         'createdAt': '2023',
-        'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
       expect(
         LocalAttributeDTO.fromJson(json),
@@ -136,7 +136,7 @@ void main() {
           id: 'anId',
           parentId: 'aParentId',
           createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         )),
       );
     });
@@ -145,7 +145,7 @@ void main() {
       final json = {
         'id': 'anId',
         'createdAt': '2023',
-        'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'succeeds': 'succeed',
       };
       expect(
@@ -153,7 +153,7 @@ void main() {
         equals(const LocalAttributeDTO(
           id: 'anId',
           createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           succeeds: 'succeed',
         )),
       );
@@ -163,7 +163,7 @@ void main() {
       final json = {
         'id': 'anId',
         'createdAt': '2023',
-        'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'succeededBy': 'anAddress',
       };
       expect(
@@ -171,7 +171,7 @@ void main() {
         equals(const LocalAttributeDTO(
           id: 'anId',
           createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           succeededBy: 'anAddress',
         )),
       );
@@ -181,7 +181,7 @@ void main() {
       final json = {
         'id': 'anId',
         'createdAt': '2023',
-        'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'shareInfo': const LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer').toJson(),
       };
       expect(
@@ -189,7 +189,7 @@ void main() {
         equals(const LocalAttributeDTO(
           id: 'anId',
           createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           shareInfo: LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer'),
         )),
       );
@@ -200,7 +200,7 @@ void main() {
         'id': 'anId',
         'parentId': 'aParentId',
         'createdAt': '2023',
-        'content': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'succeeds': 'succeed',
         'succeededBy': 'anAddress',
         'shareInfo': const LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer').toJson(),
@@ -211,7 +211,7 @@ void main() {
           id: 'anId',
           parentId: 'aParentId',
           createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           succeeds: 'succeed',
           succeededBy: 'anAddress',
           shareInfo: LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer'),

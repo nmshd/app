@@ -12,7 +12,7 @@ void main() {
         createdAt: '2023',
         content: RelationshipTemplateContent(
           onNewRelationship: Request(items: [
-            CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+            CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
           ]),
         ),
         secretKey: 'aSecretKey',
@@ -29,7 +29,7 @@ void main() {
           'createdAt': '2023',
           'content': const RelationshipTemplateContent(
             onNewRelationship: Request(
-              items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
+              items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))],
             ),
           ).toJson(),
           'secretKey': 'aSecretKey',
@@ -47,7 +47,7 @@ void main() {
         createdAt: '2023',
         content: RelationshipTemplateContent(
           onNewRelationship: Request(items: [
-            CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+            CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
           ]),
         ),
         secretKey: 'aSecretKey',
@@ -65,7 +65,7 @@ void main() {
           'createdAt': '2023',
           'content': const RelationshipTemplateContent(
             onNewRelationship: Request(
-              items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
+              items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))],
             ),
           ).toJson(),
           'expiresAt': '2024',
@@ -84,7 +84,7 @@ void main() {
         createdAt: '2023',
         content: RelationshipTemplateContent(
           onNewRelationship: Request(items: [
-            CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+            CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
           ]),
         ),
         maxNumberOfAllocations: 1,
@@ -102,7 +102,7 @@ void main() {
           'createdAt': '2023',
           'content': const RelationshipTemplateContent(
             onNewRelationship: Request(
-              items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
+              items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))],
             ),
           ).toJson(),
           'maxNumberOfAllocations': 1,
@@ -121,7 +121,7 @@ void main() {
         createdAt: '2023',
         content: RelationshipTemplateContent(
           onNewRelationship: Request(items: [
-            CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+            CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
           ]),
         ),
         expiresAt: '2024',
@@ -140,7 +140,7 @@ void main() {
           'createdAt': '2023',
           'content': const RelationshipTemplateContent(
             onNewRelationship: Request(
-              items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
+              items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))],
             ),
           ).toJson(),
           'expiresAt': '2024',
@@ -162,7 +162,7 @@ void main() {
         'createdAt': '2023',
         'content': const RelationshipTemplateContent(
           onNewRelationship: Request(
-            items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
+            items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))],
           ),
         ).toJson(),
         'secretKey': 'aSecretKey',
@@ -178,7 +178,7 @@ void main() {
           createdAt: '2023',
           content: RelationshipTemplateContent(
             onNewRelationship: Request(items: [
-              CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+              CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
             ]),
           ),
           secretKey: 'aSecretKey',
@@ -196,7 +196,7 @@ void main() {
         'createdAt': '2023',
         'content': const RelationshipTemplateContent(
           onNewRelationship: Request(
-            items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
+            items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))],
           ),
         ).toJson(),
         'expiresAt': '2024',
@@ -213,7 +213,7 @@ void main() {
           createdAt: '2023',
           content: RelationshipTemplateContent(
             onNewRelationship: Request(items: [
-              CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+              CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
             ]),
           ),
           expiresAt: '2024',
@@ -232,7 +232,7 @@ void main() {
         'createdAt': '2023',
         'content': const RelationshipTemplateContent(
           onNewRelationship: Request(
-            items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
+            items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))],
           ),
         ).toJson(),
         'maxNumberOfAllocations': 1,
@@ -249,7 +249,7 @@ void main() {
           createdAt: '2023',
           content: RelationshipTemplateContent(
             onNewRelationship: Request(items: [
-              CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+              CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
             ]),
           ),
           maxNumberOfAllocations: 1,
@@ -268,7 +268,7 @@ void main() {
         'createdAt': '2023',
         'content': const RelationshipTemplateContent(
           onNewRelationship: Request(
-            items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')))],
+            items: [CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))],
           ),
         ).toJson(),
         'expiresAt': '2024',
@@ -286,7 +286,7 @@ void main() {
           createdAt: '2023',
           content: RelationshipTemplateContent(
             onNewRelationship: Request(items: [
-              CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+              CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
             ]),
           ),
           expiresAt: '2024',

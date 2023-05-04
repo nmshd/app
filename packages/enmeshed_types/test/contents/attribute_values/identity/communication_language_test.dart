@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('CommunicationLanguage toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = CommunicationLanguage(value: 'de');
+      const identityAttributeValue = CommunicationLanguageAttributeValue(value: 'de');
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -19,7 +19,7 @@ void main() {
   group('CommunicationLanguage fromJson', () {
     test('is correctly converted', () {
       final json = {'value': 'de'};
-      expect(CommunicationLanguage.fromJson(json), equals(const CommunicationLanguage(value: 'de')));
+      expect(CommunicationLanguageAttributeValue.fromJson(json), equals(const CommunicationLanguageAttributeValue(value: 'de')));
     });
   });
 }

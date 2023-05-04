@@ -6,7 +6,7 @@ void main() {
     test('is correctly converted', () {
       const shareAttributeRequestItem = ShareAttributeRequestItem(
         mustBeAccepted: true,
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         sourceAttributeId: 'aSourceAttributeId',
       );
       final requestItemJson = shareAttributeRequestItem.toJson();
@@ -15,7 +15,7 @@ void main() {
         equals({
           '@type': 'ShareAttributeRequestItem',
           'mustBeAccepted': true,
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'sourceAttributeId': 'aSourceAttributeId',
         }),
       );
@@ -25,7 +25,7 @@ void main() {
       const shareAttributeRequestItem = ShareAttributeRequestItem(
         title: 'aTitle',
         mustBeAccepted: true,
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         sourceAttributeId: 'aSourceAttributeId',
       );
       final requestItemJson = shareAttributeRequestItem.toJson();
@@ -35,7 +35,7 @@ void main() {
           '@type': 'ShareAttributeRequestItem',
           'title': 'aTitle',
           'mustBeAccepted': true,
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'sourceAttributeId': 'aSourceAttributeId',
         }),
       );
@@ -45,7 +45,7 @@ void main() {
       const shareAttributeRequestItem = ShareAttributeRequestItem(
         description: 'aDescription',
         mustBeAccepted: true,
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         sourceAttributeId: 'aSourceAttributeId',
       );
       final requestItemJson = shareAttributeRequestItem.toJson();
@@ -55,7 +55,7 @@ void main() {
           '@type': 'ShareAttributeRequestItem',
           'description': 'aDescription',
           'mustBeAccepted': true,
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'sourceAttributeId': 'aSourceAttributeId',
         }),
       );
@@ -65,7 +65,7 @@ void main() {
       const shareAttributeRequestItem = ShareAttributeRequestItem(
         metadata: {},
         mustBeAccepted: true,
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         sourceAttributeId: 'aSourceAttributeId',
       );
       final requestItemJson = shareAttributeRequestItem.toJson();
@@ -75,7 +75,7 @@ void main() {
           '@type': 'ShareAttributeRequestItem',
           'metadata': {},
           'mustBeAccepted': true,
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'sourceAttributeId': 'aSourceAttributeId',
         }),
       );
@@ -85,7 +85,7 @@ void main() {
       const shareAttributeRequestItem = ShareAttributeRequestItem(
         mustBeAccepted: true,
         requireManualDecision: true,
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         sourceAttributeId: 'aSourceAttributeId',
       );
       final requestItemJson = shareAttributeRequestItem.toJson();
@@ -95,7 +95,7 @@ void main() {
           '@type': 'ShareAttributeRequestItem',
           'mustBeAccepted': true,
           'requireManualDecision': true,
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'sourceAttributeId': 'aSourceAttributeId',
         }),
       );
@@ -108,7 +108,7 @@ void main() {
         metadata: {},
         mustBeAccepted: true,
         requireManualDecision: true,
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         sourceAttributeId: 'aSourceAttributeId',
       );
       final requestItemJson = shareAttributeRequestItem.toJson();
@@ -121,7 +121,7 @@ void main() {
           'metadata': {},
           'mustBeAccepted': true,
           'requireManualDecision': true,
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'sourceAttributeId': 'aSourceAttributeId',
         }),
       );
@@ -132,14 +132,14 @@ void main() {
     test('is correctly converted', () {
       final json = {
         'mustBeAccepted': true,
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'sourceAttributeId': 'aSourceAttributeId',
       };
       expect(
         ShareAttributeRequestItem.fromJson(json),
         equals(const ShareAttributeRequestItem(
           mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           sourceAttributeId: 'aSourceAttributeId',
         )),
       );
@@ -149,7 +149,7 @@ void main() {
       final json = {
         'title': 'aTitle',
         'mustBeAccepted': true,
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'sourceAttributeId': 'aSourceAttributeId',
       };
       expect(
@@ -157,7 +157,7 @@ void main() {
         equals(const ShareAttributeRequestItem(
           title: 'aTitle',
           mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           sourceAttributeId: 'aSourceAttributeId',
         )),
       );
@@ -167,7 +167,7 @@ void main() {
       final json = {
         'description': 'aDescription',
         'mustBeAccepted': true,
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'sourceAttributeId': 'aSourceAttributeId',
       };
       expect(
@@ -175,7 +175,7 @@ void main() {
         equals(const ShareAttributeRequestItem(
           description: 'aDescription',
           mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           sourceAttributeId: 'aSourceAttributeId',
         )),
       );
@@ -185,7 +185,7 @@ void main() {
       final json = {
         'metadata': {'aKey': 'aValue'},
         'mustBeAccepted': true,
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'sourceAttributeId': 'aSourceAttributeId',
       };
       expect(
@@ -193,7 +193,7 @@ void main() {
         equals(const ShareAttributeRequestItem(
           metadata: {'aKey': 'aValue'},
           mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           sourceAttributeId: 'aSourceAttributeId',
         )),
       );
@@ -203,7 +203,7 @@ void main() {
       final json = {
         'requireManualDecision': true,
         'mustBeAccepted': true,
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'sourceAttributeId': 'aSourceAttributeId',
       };
       expect(
@@ -211,7 +211,7 @@ void main() {
         equals(const ShareAttributeRequestItem(
           requireManualDecision: true,
           mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           sourceAttributeId: 'aSourceAttributeId',
         )),
       );
@@ -224,7 +224,7 @@ void main() {
         'metadata': {'aKey': 'aValue'},
         'mustBeAccepted': true,
         'requireManualDecision': true,
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'sourceAttributeId': 'aSourceAttributeId',
       };
       expect(
@@ -235,7 +235,7 @@ void main() {
           metadata: {'aKey': 'aValue'},
           mustBeAccepted: true,
           requireManualDecision: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           sourceAttributeId: 'aSourceAttributeId',
         )),
       );

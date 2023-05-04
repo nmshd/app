@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('ProprietaryJSON toJson', () {
     test('is correctly converted', () {
-      const relationshipAttributeValue = ProprietaryJSON(title: 'aTitle', value: {'value': 'aValue'});
+      const relationshipAttributeValue = ProprietaryJSONAttributeValue(title: 'aTitle', value: {'value': 'aValue'});
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
@@ -17,7 +17,7 @@ void main() {
     });
 
     test('is correctly converted with property "description"', () {
-      const relationshipAttributeValue = ProprietaryJSON(title: 'aTitle', description: 'aDescription', value: {'value': 'aValue'});
+      const relationshipAttributeValue = ProprietaryJSONAttributeValue(title: 'aTitle', description: 'aDescription', value: {'value': 'aValue'});
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
@@ -38,8 +38,8 @@ void main() {
         'value': {'value': 'aValue'},
       };
       expect(
-        ProprietaryJSON.fromJson(json),
-        equals(const ProprietaryJSON(title: 'aTitle', value: {'value': 'aValue'})),
+        ProprietaryJSONAttributeValue.fromJson(json),
+        equals(const ProprietaryJSONAttributeValue(title: 'aTitle', value: {'value': 'aValue'})),
       );
     });
 
@@ -50,8 +50,8 @@ void main() {
         'value': {'value': 'aValue'},
       };
       expect(
-        ProprietaryJSON.fromJson(json),
-        equals(const ProprietaryJSON(title: 'aTitle', description: 'aDescription', value: {'value': 'aValue'})),
+        ProprietaryJSONAttributeValue.fromJson(json),
+        equals(const ProprietaryJSONAttributeValue(title: 'aTitle', description: 'aDescription', value: {'value': 'aValue'})),
       );
     });
   });

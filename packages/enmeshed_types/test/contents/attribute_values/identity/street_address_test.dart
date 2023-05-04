@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('StreetAddress toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = StreetAddress(
+      const identityAttributeValue = StreetAddressAttributeValue(
         recipient: 'aRecipient',
         street: 'aStreet',
         houseNumber: 'aHouseNumber',
@@ -42,8 +42,8 @@ void main() {
         'state': 'aState',
       };
       expect(
-        StreetAddress.fromJson(json),
-        equals(const StreetAddress(
+        StreetAddressAttributeValue.fromJson(json),
+        equals(const StreetAddressAttributeValue(
           recipient: 'aRecipient',
           street: 'aStreet',
           houseNumber: 'aHouseNumber',

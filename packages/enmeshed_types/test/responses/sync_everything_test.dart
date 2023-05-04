@@ -16,7 +16,7 @@ void main() {
               createdAt: '2023',
               content: RelationshipTemplateContent(
                 onNewRelationship: Request(items: [
-                  CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+                  CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
                 ]),
               ),
               secretKey: 'aSecretKey',
@@ -70,7 +70,7 @@ void main() {
                 createdAt: '2023',
                 content: RelationshipTemplateContent(
                   onNewRelationship: Request(items: [
-                    CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+                    CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
                   ]),
                 ),
                 secretKey: 'aSecretKey',
@@ -127,7 +127,7 @@ void main() {
               createdAt: '2023',
               content: RelationshipTemplateContent(
                 onNewRelationship: Request(items: [
-                  CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+                  CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
                 ]),
               ),
               secretKey: 'aSecretKey',
@@ -180,7 +180,7 @@ void main() {
                 createdAt: '2023',
                 content: RelationshipTemplateContent(
                   onNewRelationship: Request(items: [
-                    CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity'))),
+                    CreateAttributeRequestItem(mustBeAccepted: true, attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))),
                   ]),
                 ),
                 secretKey: 'aSecretKey',

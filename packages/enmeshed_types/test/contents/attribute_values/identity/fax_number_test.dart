@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('FaxNumber toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = FaxNumber(value: '0123456789');
+      const identityAttributeValue = FaxNumberAttributeValue(value: '0123456789');
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -19,7 +19,7 @@ void main() {
   group('FaxNumber fromJson', () {
     test('is correctly converted', () {
       final json = {'value': '0123456789'};
-      expect(FaxNumber.fromJson(json), equals(const FaxNumber(value: '0123456789')));
+      expect(FaxNumberAttributeValue.fromJson(json), equals(const FaxNumberAttributeValue(value: '0123456789')));
     });
   });
 }

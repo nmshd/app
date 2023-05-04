@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('Sex toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = Sex(value: 'male');
+      const identityAttributeValue = SexAttributeValue(value: 'male');
       final identityJson = identityAttributeValue.toJson();
       expect(
         identityJson,
@@ -19,7 +19,7 @@ void main() {
   group('Sex fromJson', () {
     test('is correctly converted', () {
       final json = {'value': 'male'};
-      expect(Sex.fromJson(json), equals(const Sex(value: 'male')));
+      expect(SexAttributeValue.fromJson(json), equals(const SexAttributeValue(value: 'male')));
     });
   });
 }
