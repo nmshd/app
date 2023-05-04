@@ -35,6 +35,53 @@ void main() {
 
       final content = TokenContent.fromJson(json);
       expect(content, isA<TokenContentDeviceSharedSecret>());
+      expect((content as TokenContentDeviceSharedSecret).sharedSecret, equals(sharedSecret));
+    });
+
+    test('is correctly converted with json as keys', () {
+      final json = {
+        '@type': 'TokenContentDeviceSharedSecret',
+        'sharedSecret': {
+          'id': 'anId',
+          'createdAt': 'aDate',
+          'createdByDevice': 'aDeviceId',
+          'secretBaseKey': {'a': 'b'},
+          'deviceIndex': 0,
+          'synchronizationKey': {'a': 'b'},
+          'identityPrivateKey': {'a': 'b'},
+          'identity': {
+            'address': 'anAddress',
+            'publicKey': {'a': 'b'},
+            'realm': 'aRealm',
+          },
+          'password': 'aPassword',
+          'username': 'aUsername',
+        },
+      };
+
+      final content = TokenContent.fromJson(json);
+      expect(content, isA<TokenContentDeviceSharedSecret>());
+      expect(
+        (content as TokenContentDeviceSharedSecret).sharedSecret,
+        equals(
+          const DeviceSharedSecret(
+            id: 'anId',
+            createdAt: 'aDate',
+            createdByDevice: 'aDeviceId',
+            secretBaseKey: 'eyJhIjoiYiJ9',
+            deviceIndex: 0,
+            synchronizationKey: 'eyJhIjoiYiJ9',
+            identityPrivateKey: 'eyJhIjoiYiJ9',
+            identity: IdentityDTO(
+              address: 'anAddress',
+              publicKey: 'eyJhIjoiYiJ9',
+              realm: 'aRealm',
+            ),
+            password: 'aPassword',
+            username: 'aUsername',
+          ),
+        ),
+      );
     });
   });
 }
