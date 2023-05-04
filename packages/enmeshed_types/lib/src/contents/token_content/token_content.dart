@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert' as convert;
 
 import '../../dtos/device_shared_secret.dart';
 import '../arbitraty_json.dart';
