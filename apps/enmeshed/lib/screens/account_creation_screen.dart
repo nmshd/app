@@ -116,7 +116,10 @@ class AccountCreationScreen extends StatelessWidget {
 
       if (token.content is! TokenContentDeviceSharedSecret) {
         resume();
-        if (context.mounted) _showWrongTokenMessage(context);
+        if (context.mounted) {
+          Navigator.pop(context);
+          _showWrongTokenMessage(context);
+        }
         return;
       }
 
@@ -131,7 +134,10 @@ class AccountCreationScreen extends StatelessWidget {
     } catch (e) {
       GetIt.I.get<Logger>().e(e);
       resume();
-      if (context.mounted) _showWrongTokenMessage(context);
+      if (context.mounted) {
+        Navigator.pop(context);
+        _showWrongTokenMessage(context);
+      }
       return;
     }
   }
