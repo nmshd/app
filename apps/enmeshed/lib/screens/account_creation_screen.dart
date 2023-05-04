@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:enmeshed/screens/account_screen.dart';
 import 'package:enmeshed/views/views.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:enmeshed_types/enmeshed_types.dart' hide State;
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
