@@ -117,8 +117,6 @@ class AccountCreationScreen extends StatelessWidget {
     try {
       final token = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference(truncatedReference);
 
-      print('asdsad');
-
       if (token.content is! TokenContentDeviceSharedSecret) {
         resume();
         if (context.mounted) {
