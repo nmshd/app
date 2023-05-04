@@ -19,7 +19,7 @@ class IdentityDTO extends Equatable {
   factory IdentityDTO.fromJson(Map json) {
     return IdentityDTO(
       address: json['address'],
-      publicKey: json['publicKey'],
+      publicKey: json['publicKey'].toBase64WithNoPadding(),
       realm: json['realm'],
     );
   }
