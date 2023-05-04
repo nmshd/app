@@ -17,6 +17,9 @@ jobs:
       - run: flutter --version
       - run: dart pub global activate melos
       - run: melos bootstrap
+      - run: |
+          cd ./packages/enmeshed_runtime_bridge
+          flutter pub get
 
       # Run integration test
       - name: Start emulator and run tests
@@ -26,7 +29,4 @@ jobs:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
           profile: Nexus 9
-          script: |
-            cd ./packages/enmeshed_runtime_bridge
-            flutter pub get
-            flutter test  integration_test/suite_test.dart
+          script: flutter test integration_test/suite_test.dart
