@@ -107,7 +107,7 @@ class AccountCreationScreen extends StatelessWidget {
       ),
     );
 
-    final truncatedReference = content.replaceAll('nmshd://qr#', '');
+    final truncatedReference = content.replaceAll('nmshd://qr#', '').replaceAll('nmshd://tr#', '');
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
