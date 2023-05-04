@@ -29,4 +29,4 @@ jobs:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
           profile: Nexus 9
-          script: flutter test integration_test/suite_test.dart
+          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart
