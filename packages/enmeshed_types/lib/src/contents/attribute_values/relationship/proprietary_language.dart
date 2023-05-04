@@ -1,17 +1,17 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryLanguage extends ProprietaryAttributeValue {
+class ProprietaryLanguageAttributeValue extends ProprietaryAttributeValueAttributeValue {
   final String value;
 
-  const ProprietaryLanguage({
+  const ProprietaryLanguageAttributeValue({
     required super.title,
     super.description,
     super.valueHintsOverride,
     required this.value,
   });
 
-  factory ProprietaryLanguage.fromJson(Map json) => ProprietaryLanguage(
+  factory ProprietaryLanguageAttributeValue.fromJson(Map json) => ProprietaryLanguageAttributeValue(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,
@@ -26,7 +26,7 @@ class ProprietaryLanguage extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryLanguage(value: $value)';
+  String toString() => 'ProprietaryLanguageAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [super.props, value];

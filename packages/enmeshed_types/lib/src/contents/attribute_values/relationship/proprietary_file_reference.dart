@@ -1,17 +1,17 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryFileReference extends ProprietaryAttributeValue {
+class ProprietaryFileReferenceAttributeValue extends ProprietaryAttributeValueAttributeValue {
   final String value;
 
-  const ProprietaryFileReference({
+  const ProprietaryFileReferenceAttributeValue({
     required super.title,
     super.description,
     super.valueHintsOverride,
     required this.value,
   });
 
-  factory ProprietaryFileReference.fromJson(Map json) => ProprietaryFileReference(
+  factory ProprietaryFileReferenceAttributeValue.fromJson(Map json) => ProprietaryFileReferenceAttributeValue(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,
@@ -26,7 +26,7 @@ class ProprietaryFileReference extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryFileReference(value: $value)';
+  String toString() => 'ProprietaryFileReferenceAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [super.props, value];

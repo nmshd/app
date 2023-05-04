@@ -1,17 +1,17 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryHEXColor extends ProprietaryAttributeValue {
+class ProprietaryHEXColorAttributeValue extends ProprietaryAttributeValueAttributeValue {
   final String value;
 
-  const ProprietaryHEXColor({
+  const ProprietaryHEXColorAttributeValue({
     required super.title,
     super.description,
     super.valueHintsOverride,
     required this.value,
   });
 
-  factory ProprietaryHEXColor.fromJson(Map json) => ProprietaryHEXColor(
+  factory ProprietaryHEXColorAttributeValue.fromJson(Map json) => ProprietaryHEXColorAttributeValue(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,
@@ -26,7 +26,7 @@ class ProprietaryHEXColor extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryHEXColor(value: $value)';
+  String toString() => 'ProprietaryHEXColorAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [super.props, value];

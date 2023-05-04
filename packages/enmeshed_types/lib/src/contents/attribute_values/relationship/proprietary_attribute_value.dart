@@ -1,12 +1,12 @@
 import '../../value_hints.dart';
 import 'relationship_attribute_value.dart';
 
-abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
+abstract class ProprietaryAttributeValueAttributeValue extends RelationshipAttributeValue {
   final String title;
   final String? description;
   final ValueHints? valueHintsOverride;
 
-  const ProprietaryAttributeValue({
+  const ProprietaryAttributeValueAttributeValue({
     required this.title,
     this.description,
     this.valueHintsOverride,
@@ -18,6 +18,9 @@ abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
         if (description != null) 'description': description,
         if (valueHintsOverride != null) 'valueHintsOverride': valueHintsOverride?.toJson(),
       };
+
+  @override
+  String toString() => 'ProprietaryAttributeValueAttributeValue(title: $title, description: $description, valueHintsOverride: $valueHintsOverride)';
 
   @override
   List<Object?> get props => [title, description, valueHintsOverride];
