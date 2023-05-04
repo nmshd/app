@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'identity.dart';
 
-class DeviceOnboardingInfoDTO extends Equatable {
+class DeviceSharedSecret extends Equatable {
   final String id;
   final String createdAt;
   final String createdByDevice;
@@ -16,7 +16,7 @@ class DeviceOnboardingInfoDTO extends Equatable {
   final String password;
   final String username;
 
-  const DeviceOnboardingInfoDTO({
+  const DeviceSharedSecret({
     required this.id,
     required this.createdAt,
     required this.createdByDevice,
@@ -36,8 +36,8 @@ class DeviceOnboardingInfoDTO extends Equatable {
     return 'DeviceOnboardingInfo { id: $id, createdAt: $createdAt, createdByDevice: $createdByDevice, name: $name, description: $description, secretBaseKey: $secretBaseKey, deviceIndex: $deviceIndex, synchronizationKey: $synchronizationKey, identityPrivateKey: $identityPrivateKey, identity: $identity, password: $password, username: $username }';
   }
 
-  factory DeviceOnboardingInfoDTO.fromJson(Map json) {
-    return DeviceOnboardingInfoDTO(
+  factory DeviceSharedSecret.fromJson(Map json) {
+    return DeviceSharedSecret(
       id: json['id'],
       createdAt: json['createdAt'],
       createdByDevice: json['createdByDevice'],

@@ -1,14 +1,27 @@
 import 'dart:collection';
+import 'dart:convert' as convert;
 
+import '../../dtos/device_shared_secret.dart';
 import '../arbitraty_json.dart';
+
+part 'token_content_device_shared_secret.dart';
 
 abstract class TokenContent {
   const TokenContent();
 
   /// could support more types here, e.g.:
-  /// TokenContentRelationshipTemplate, TokenContentFile, TokenContentDeviceSharedSecret
+  /// TokenContentRelationshipTemplate, TokenContentFile
   /// these types are processed automatically by the Enmeshed runtime and do not have to be rendered
-  factory TokenContent.fromJson(Map json) => ArbitraryTokenContent(json);
+  factory TokenContent.fromJson(Map json) {
+    final type = json['@type'];
+
+    switch (type) {
+      case 'TokenContentDeviceSharedSecret':
+        return TokenContentDeviceSharedSecret.fromJson(json);
+      default:
+        return ArbitraryTokenContent(json);
+    }
+  }
 
   Map<String, dynamic> toJson();
 }

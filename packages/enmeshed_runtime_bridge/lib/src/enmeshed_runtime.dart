@@ -18,7 +18,6 @@ class EnmeshedRuntime {
   late final HeadlessInAppWebView _headlessWebView;
 
   final _filesystemAdapter = FilesystemAdapter();
-  FilesystemAdapter get fs => _filesystemAdapter;
 
   final VoidCallback? _runtimeReadyCallback;
 
@@ -89,7 +88,7 @@ class EnmeshedRuntime {
         final storage = args[1] as String;
 
         try {
-          final fileContent = await fs.readFile(path, storage);
+          final fileContent = await _filesystemAdapter.readFile(path, storage);
           return {'ok': true, 'content': fileContent};
         } catch (e) {
           _logger.i('Error reading file: $e');
@@ -107,7 +106,7 @@ class EnmeshedRuntime {
         final append = args[3] as bool;
 
         try {
-          await fs.writeFile(path, storage, data, append);
+          await _filesystemAdapter.writeFile(path, storage, data, append);
           return {'ok': true};
         } catch (e) {
           _logger.i('Error writing file: $e');
@@ -123,7 +122,7 @@ class EnmeshedRuntime {
         final storage = args[1] as String;
 
         try {
-          await fs.deleteFile(path, storage);
+          await _filesystemAdapter.deleteFile(path, storage);
           return {'ok': true};
         } catch (e) {
           _logger.i('Error deleting file: $e');

@@ -28,7 +28,7 @@ class AccountServicesView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              const onboardingInfo = DeviceOnboardingInfoDTO(
+              const onboardingInfo = DeviceSharedSecret(
                 id: 'id',
                 createdAt: 'createdAt',
                 createdByDevice: 'createdByDevice',

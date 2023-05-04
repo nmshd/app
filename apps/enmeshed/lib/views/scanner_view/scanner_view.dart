@@ -29,18 +29,18 @@ class _ScannerViewState extends State<ScannerView> {
         ),
       ),
       body: scannerMode == ScannerMode.scan
-          ? ScannerEntry(onSubmit: onSubmit, toggleScannerMode: _toggleScannerMode)
-          : UrlEntry(onSubmit: onSubmit, toggleScannerMode: _toggleScannerMode),
+          ? ScannerEntry(onSubmit: _onSubmit, toggleScannerMode: _toggleScannerMode)
+          : UrlEntry(onSubmit: _onSubmit, toggleScannerMode: _toggleScannerMode),
     );
   }
 
-  void onSubmit({required String content}) {
+  void _onSubmit({required String content}) {
     if (_paused) return;
 
     widget.onSubmit(
       content: content,
-      pause: () => setState(() => _paused = true),
-      resume: () => setState(() => _paused = false),
+      pause: () => _paused = true,
+      resume: () => _paused = false,
       context: context,
     );
   }
