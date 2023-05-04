@@ -1,6 +1,6 @@
 import 'identity_attribute_value.dart';
 
-class StreetAddress extends IdentityAttributeValue {
+class StreetAddressAttributeValue extends IdentityAttributeValue {
   final String recipient;
   final String street;
   final String houseNumber;
@@ -9,7 +9,7 @@ class StreetAddress extends IdentityAttributeValue {
   final String country;
   final String state;
 
-  const StreetAddress({
+  const StreetAddressAttributeValue({
     required this.recipient,
     required this.street,
     required this.houseNumber,
@@ -19,7 +19,7 @@ class StreetAddress extends IdentityAttributeValue {
     required this.state,
   });
 
-  factory StreetAddress.fromJson(Map json) => StreetAddress(
+  factory StreetAddressAttributeValue.fromJson(Map json) => StreetAddressAttributeValue(
         recipient: json['recipient'],
         street: json['street'],
         houseNumber: json['houseNumber'],
@@ -43,7 +43,7 @@ class StreetAddress extends IdentityAttributeValue {
 
   @override
   String toString() {
-    return 'StreetAddress(recipient: $recipient, street: $street, houseNumber: $houseNumber, zipCode: $zipCode, city: $city, country: $country, state: $state)';
+    return 'StreetAddressAttributeValue(recipient: $recipient, street: $street, houseNumber: $houseNumber, zipCode: $zipCode, city: $city, country: $country, state: $state)';
   }
 
   @override

@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class HonorificPrefix extends IdentityAttributeValue {
+class HonorificPrefixAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const HonorificPrefix({
+  const HonorificPrefixAttributeValue({
     required this.value,
   });
 
-  factory HonorificPrefix.fromJson(Map json) => HonorificPrefix(
+  factory HonorificPrefixAttributeValue.fromJson(Map json) => HonorificPrefixAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class HonorificPrefix extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'HonorificPrefix(value: $value)';
+  String toString() => 'HonorificPrefixAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

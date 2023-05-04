@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class ZipCode extends IdentityAttributeValue {
+class ZipCodeAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const ZipCode({
+  const ZipCodeAttributeValue({
     required this.value,
   });
 
-  factory ZipCode.fromJson(Map json) => ZipCode(
+  factory ZipCodeAttributeValue.fromJson(Map json) => ZipCodeAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class ZipCode extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'ZipCode(value: $value)';
+  String toString() => 'ZipCodeAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

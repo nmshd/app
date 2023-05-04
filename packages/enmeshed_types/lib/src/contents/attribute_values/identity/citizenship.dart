@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class Citizenship extends IdentityAttributeValue {
+class CitizenshipAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const Citizenship({
+  const CitizenshipAttributeValue({
     required this.value,
   });
 
-  factory Citizenship.fromJson(Map json) => Citizenship(
+  factory CitizenshipAttributeValue.fromJson(Map json) => CitizenshipAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class Citizenship extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'Citizenship(value: $value)';
+  String toString() => 'CitizenshipAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

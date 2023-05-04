@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class BirthMonth extends IdentityAttributeValue {
+class BirthMonthAttributeValue extends IdentityAttributeValue {
   final int value;
 
-  const BirthMonth({
+  const BirthMonthAttributeValue({
     required this.value,
   });
 
-  factory BirthMonth.fromJson(Map json) => BirthMonth(
+  factory BirthMonthAttributeValue.fromJson(Map json) => BirthMonthAttributeValue(
         value: json['value'].toInt(),
       );
 
@@ -18,7 +18,7 @@ class BirthMonth extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'BirthMonth(value: $value)';
+  String toString() => 'BirthMonthAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

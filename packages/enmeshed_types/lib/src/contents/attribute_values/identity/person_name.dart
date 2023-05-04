@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class PersonName extends IdentityAttributeValue {
+class PersonNameAttributeValue extends IdentityAttributeValue {
   final String givenName;
   final String? middleName;
   final String surname;
   final String? honorificSuffix;
   final String? honorificPrefix;
 
-  const PersonName({
+  const PersonNameAttributeValue({
     required this.givenName,
     this.middleName,
     required this.surname,
@@ -15,7 +15,7 @@ class PersonName extends IdentityAttributeValue {
     this.honorificPrefix,
   });
 
-  factory PersonName.fromJson(Map json) => PersonName(
+  factory PersonNameAttributeValue.fromJson(Map json) => PersonNameAttributeValue(
         givenName: json['givenName'],
         middleName: json['middleName'],
         surname: json['surname'],
@@ -35,7 +35,7 @@ class PersonName extends IdentityAttributeValue {
 
   @override
   String toString() {
-    return 'PersonName(givenName: $givenName, middleName: $middleName, surname: $surname, honorificSuffix: $honorificSuffix, honorificPrefix: $honorificPrefix)';
+    return 'PersonNameAttributeValue(givenName: $givenName, middleName: $middleName, surname: $surname, honorificSuffix: $honorificSuffix, honorificPrefix: $honorificPrefix)';
   }
 
   @override
