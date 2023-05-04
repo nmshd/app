@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('DeliveryBoxAddress toJson', () {
+  group('DeliveryBoxAddressAttributeValue toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = DeliveryBoxAddress(
+      const identityAttributeValue = DeliveryBoxAddressAttributeValue(
         recipient: 'aRecipient',
         deliveryBoxId: 'aDeliveryBoxId',
         userId: 'anUserId',
@@ -28,7 +28,7 @@ void main() {
     });
 
     test('is correctly converted with property "phoneNumber"', () {
-      const identityAttributeValue = DeliveryBoxAddress(
+      const identityAttributeValue = DeliveryBoxAddressAttributeValue(
         recipient: 'aRecipient',
         deliveryBoxId: 'aDeliveryBoxId',
         userId: 'anUserId',
@@ -54,7 +54,7 @@ void main() {
     });
 
     test('is correctly converted with property "state"', () {
-      const identityAttributeValue = DeliveryBoxAddress(
+      const identityAttributeValue = DeliveryBoxAddressAttributeValue(
         recipient: 'aRecipient',
         deliveryBoxId: 'aDeliveryBoxId',
         userId: 'anUserId',
@@ -80,7 +80,7 @@ void main() {
     });
 
     test('is correctly converted with properties "phoneNumber" and "state"', () {
-      const identityAttributeValue = DeliveryBoxAddress(
+      const identityAttributeValue = DeliveryBoxAddressAttributeValue(
         recipient: 'aRecipient',
         deliveryBoxId: 'aDeliveryBoxId',
         userId: 'anUserId',
@@ -108,7 +108,7 @@ void main() {
     });
   });
 
-  group('DeliveryBoxAddress fromJson', () {
+  group('DeliveryBoxAddressAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {
         'recipient': 'aRecipient',
@@ -119,8 +119,8 @@ void main() {
         'country': 'aCountry',
       };
       expect(
-        DeliveryBoxAddress.fromJson(json),
-        equals(const DeliveryBoxAddress(
+        DeliveryBoxAddressAttributeValue.fromJson(json),
+        equals(const DeliveryBoxAddressAttributeValue(
           recipient: 'aRecipient',
           deliveryBoxId: 'aDeliveryBoxId',
           userId: 'anUserId',
@@ -142,8 +142,8 @@ void main() {
         'phoneNumber': 'aPhoneNumber',
       };
       expect(
-        DeliveryBoxAddress.fromJson(json),
-        equals(const DeliveryBoxAddress(
+        DeliveryBoxAddressAttributeValue.fromJson(json),
+        equals(const DeliveryBoxAddressAttributeValue(
           recipient: 'aRecipient',
           deliveryBoxId: 'aDeliveryBoxId',
           userId: 'anUserId',
@@ -166,8 +166,8 @@ void main() {
         'state': 'aState',
       };
       expect(
-        DeliveryBoxAddress.fromJson(json),
-        equals(const DeliveryBoxAddress(
+        DeliveryBoxAddressAttributeValue.fromJson(json),
+        equals(const DeliveryBoxAddressAttributeValue(
           recipient: 'aRecipient',
           deliveryBoxId: 'aDeliveryBoxId',
           userId: 'anUserId',
@@ -191,8 +191,8 @@ void main() {
         'state': 'aState',
       };
       expect(
-        DeliveryBoxAddress.fromJson(json),
-        equals(const DeliveryBoxAddress(
+        DeliveryBoxAddressAttributeValue.fromJson(json),
+        equals(const DeliveryBoxAddressAttributeValue(
           recipient: 'aRecipient',
           deliveryBoxId: 'aDeliveryBoxId',
           userId: 'anUserId',

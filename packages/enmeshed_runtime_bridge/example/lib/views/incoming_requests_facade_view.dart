@@ -1,5 +1,5 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:enmeshed_types/enmeshed_types.dart' as types;
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 class IncomingRequestsFacadeView extends StatelessWidget {
@@ -24,7 +24,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
               if (requestToDecide == null) return;
 
               final result = await runtime.currentSession.consumptionServices.incomingRequests.canAccept(
-                params: types.DecideRequestParameters(
+                params: DecideRequestParameters(
                   requestId: requestToDecide.id,
                   items: generateAcceptItems(requestToDecide.content.items, currentIdentityAddress),
                 ),
@@ -43,7 +43,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
               if (requestToDecide == null) return;
 
               final request = await runtime.currentSession.consumptionServices.incomingRequests.accept(
-                params: types.DecideRequestParameters(
+                params: DecideRequestParameters(
                   requestId: requestToDecide.id,
                   items: generateAcceptItems(requestToDecide.content.items, currentIdentityAddress),
                 ),
@@ -59,7 +59,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
               if (requestToDecide == null) return;
 
               final validationResult = await runtime.currentSession.consumptionServices.incomingRequests.canReject(
-                params: types.DecideRequestParameters(
+                params: DecideRequestParameters(
                   requestId: requestToDecide.id,
                   items: generateRejectItems(requestToDecide.content.items),
                 ),
@@ -75,7 +75,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
               if (requestToDecide == null) return;
 
               final decidedRequest = await runtime.currentSession.consumptionServices.incomingRequests.reject(
-                params: types.DecideRequestParameters(
+                params: DecideRequestParameters(
                   requestId: requestToDecide.id,
                   items: generateRejectItems(requestToDecide.content.items),
                 ),
@@ -103,7 +103,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
               await runtime.currentSession.transportServices.accounts.syncEverything();
 
               final requests = await runtime.currentSession.consumptionServices.incomingRequests.getRequests(query: {
-                'status': types.LocalRequestStatus.ManualDecisionRequired.asQueryValue,
+                'status': LocalRequestStatus.ManualDecisionRequired.asQueryValue,
               });
 
               if (requests.isEmpty) {
@@ -124,50 +124,50 @@ class IncomingRequestsFacadeView extends StatelessWidget {
     );
   }
 
-  List<types.DecideRequestParametersItem> generateRejectItems(List<types.RequestItem> items) => items.map((e) {
-        if (e is types.RequestItemGroup) {
-          return types.DecideRequestItemGroupParameters(items: e.items.map((itemDerivation) => const types.RejectRequestItemParameters()).toList());
+  List<DecideRequestParametersItem> generateRejectItems(List<RequestItem> items) => items.map((e) {
+        if (e is RequestItemGroup) {
+          return DecideRequestItemGroupParameters(items: e.items.map((itemDerivation) => const RejectRequestItemParameters()).toList());
         }
 
-        return const types.RejectRequestItemParameters();
+        return const RejectRequestItemParameters();
       }).toList();
 
-  List<types.DecideRequestParametersItem> generateAcceptItems(List<types.RequestItem> items, String currentIdentityAddress) => items
-      .map((e) => e is types.RequestItemGroup
-          ? types.DecideRequestItemGroupParameters(
+  List<DecideRequestParametersItem> generateAcceptItems(List<RequestItem> items, String currentIdentityAddress) => items
+      .map((e) => e is RequestItemGroup
+          ? DecideRequestItemGroupParameters(
               items: e.items.map((item) => generateAcceptItem(item, currentIdentityAddress)).toList(),
             )
-          : generateAcceptItem(e as types.RequestItemDerivation, currentIdentityAddress))
+          : generateAcceptItem(e as RequestItemDerivation, currentIdentityAddress))
       .toList();
 
-  types.AcceptRequestItemParameters generateAcceptItem(types.RequestItemDerivation requestItem, String currentIdentityAddress) {
+  AcceptRequestItemParameters generateAcceptItem(RequestItemDerivation requestItem, String currentIdentityAddress) {
     switch (requestItem.runtimeType) {
-      case types.ReadAttributeRequestItem:
+      case ReadAttributeRequestItem:
         return generateAcceptReadAttributeRequestItemParametersWithNewAttribute(
-          requestItem as types.ReadAttributeRequestItem,
+          requestItem as ReadAttributeRequestItem,
           currentIdentityAddress,
         );
-      case types.CreateAttributeRequestItem:
-        return const types.AcceptRequestItemParameters();
+      case CreateAttributeRequestItem:
+        return const AcceptRequestItemParameters();
 
-      case types.ShareAttributeRequestItem:
-        return const types.AcceptRequestItemParameters();
+      case ShareAttributeRequestItem:
+        return const AcceptRequestItemParameters();
 
-      case types.ProposeAttributeRequestItem:
-        return types.AcceptProposeAttributeRequestItemParametersWithNewAttribute(
-          attribute: (requestItem as types.ProposeAttributeRequestItem).attribute,
+      case ProposeAttributeRequestItem:
+        return AcceptProposeAttributeRequestItemParametersWithNewAttribute(
+          attribute: (requestItem as ProposeAttributeRequestItem).attribute,
         );
 
-      case types.ConsentRequestItem:
-        return const types.AcceptRequestItemParameters();
+      case ConsentRequestItem:
+        return const AcceptRequestItemParameters();
 
-      case types.AuthenticationRequestItem:
-        return const types.AcceptRequestItemParameters();
+      case AuthenticationRequestItem:
+        return const AcceptRequestItemParameters();
 
-      case types.RegisterAttributeListenerRequestItem:
-        return const types.AcceptRequestItemParameters();
+      case RegisterAttributeListenerRequestItem:
+        return const AcceptRequestItemParameters();
 
-      case types.SucceedAttributeRequestItem:
+      case SucceedAttributeRequestItem:
         // not implemented in the runtime
         throw UnimplementedError();
 
@@ -176,188 +176,188 @@ class IncomingRequestsFacadeView extends StatelessWidget {
     }
   }
 
-  types.AcceptRequestItemParameters generateAcceptReadAttributeRequestItemParametersWithNewAttribute(
-    types.ReadAttributeRequestItem requestItem,
+  AcceptRequestItemParameters generateAcceptReadAttributeRequestItemParametersWithNewAttribute(
+    ReadAttributeRequestItem requestItem,
     String currentIdentityAddress,
   ) {
     switch (requestItem.query.runtimeType) {
-      case types.IdentityAttributeQuery:
-        return types.AcceptReadAttributeRequestItemParametersWithNewAttribute(
-          newAttribute: generateIdentityAtrribute(requestItem.query as types.IdentityAttributeQuery, currentIdentityAddress),
+      case IdentityAttributeQuery:
+        return AcceptReadAttributeRequestItemParametersWithNewAttribute(
+          newAttribute: generateIdentityAtrribute(requestItem.query as IdentityAttributeQuery, currentIdentityAddress),
         );
-      case types.RelationshipAttributeQuery:
-        return types.AcceptReadAttributeRequestItemParametersWithNewAttribute(
-          newAttribute: generateRelationshipAtrribute(requestItem.query as types.RelationshipAttributeQuery, currentIdentityAddress),
+      case RelationshipAttributeQuery:
+        return AcceptReadAttributeRequestItemParametersWithNewAttribute(
+          newAttribute: generateRelationshipAtrribute(requestItem.query as RelationshipAttributeQuery, currentIdentityAddress),
         );
-      case types.ThirdPartyRelationshipAttributeQuery:
+      case ThirdPartyRelationshipAttributeQuery:
         throw UnimplementedError();
       default:
         throw UnimplementedError();
     }
   }
 
-  types.IdentityAttribute generateIdentityAtrribute(types.IdentityAttributeQuery query, String currentIdentityAddress) {
+  IdentityAttribute generateIdentityAtrribute(IdentityAttributeQuery query, String currentIdentityAddress) {
     final type = query.valueType;
     switch (type) {
       case 'AffiliationOrganization':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.AffiliationOrganization(value: 'Test$type'),
+          value: AffiliationOrganizationAttributeValue(value: 'Test$type'),
         );
       case 'AffiliationRole':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.AffiliationRole(value: 'Test$type'),
+          value: AffiliationRoleAttributeValue(value: 'Test$type'),
         );
       case 'AffiliationUnit':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.AffiliationUnit(value: 'Test$type'),
+          value: AffiliationUnitAttributeValue(value: 'Test$type'),
         );
       case 'BirthCity':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.BirthCity(value: 'Test$type'),
+          value: BirthCityAttributeValue(value: 'Test$type'),
         );
       case 'BirthName':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.BirthName(value: 'Test$type'),
+          value: BirthNameAttributeValue(value: 'Test$type'),
         );
       case 'BirthState':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.BirthState(value: 'Test$type'),
+          value: BirthStateAttributeValue(value: 'Test$type'),
         );
       case 'City':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.City(value: 'Test$type'),
+          value: CityAttributeValue(value: 'Test$type'),
         );
       case 'DisplayName':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.DisplayName(value: 'Test$type'),
+          value: DisplayNameAttributeValue(value: 'Test$type'),
         );
       case 'FileReference':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.FileReference(value: 'Test${type}WithMinimunLengthOf30'),
+          value: FileReferenceAttributeValue(value: 'Test${type}WithMinimunLengthOf30'),
         );
       case 'GivenName':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.GivenName(value: 'Test$type'),
+          value: GivenNameAttributeValue(value: 'Test$type'),
         );
       case 'HonorificPrefix':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.HonorificPrefix(value: 'Test$type'),
+          value: HonorificPrefixAttributeValue(value: 'Test$type'),
         );
       case 'HonorificSuffix':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.HonorificSuffix(value: 'Test$type'),
+          value: HonorificSuffixAttributeValue(value: 'Test$type'),
         );
       case 'HouseNumber':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.HouseNumber(value: 'Test$type'),
+          value: HouseNumberAttributeValue(value: 'Test$type'),
         );
       case 'JobTitle':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.JobTitle(value: 'Test$type'),
+          value: JobTitleAttributeValue(value: 'Test$type'),
         );
       case 'MiddleName':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.MiddleName(value: 'Test$type'),
+          value: MiddleNameAttributeValue(value: 'Test$type'),
         );
       case 'PhoneNumber':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.PhoneNumber(value: 'Test$type'),
+          value: PhoneNumberAttributeValue(value: 'Test$type'),
         );
       case 'Pseudonym':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.Pseudonym(value: 'Test$type'),
+          value: PseudonymAttributeValue(value: 'Test$type'),
         );
       case 'State':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.State(value: 'Test$type'),
+          value: StateAttributeValue(value: 'Test$type'),
         );
       case 'Street':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.Street(value: 'Test$type'),
+          value: StreetAttributeValue(value: 'Test$type'),
         );
       case 'Surname':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.Surname(value: 'Test$type'),
+          value: SurnameAttributeValue(value: 'Test$type'),
         );
       case 'ZipCode':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: types.ZipCode(value: 'Test$type'),
+          value: ZipCodeAttributeValue(value: 'Test$type'),
         );
       case 'Affiliation':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.Affiliation(role: 'TestRole', organization: 'TestOrganization', unit: 'TestUnit'),
+          value: const AffiliationAttributeValue(role: 'TestRole', organization: 'TestOrganization', unit: 'TestUnit'),
         );
       case 'BirthCountry':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.BirthCountry(value: 'DE'),
+          value: const BirthCountryAttributeValue(value: 'DE'),
         );
       case 'BirthDate':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.BirthDate(day: 1, month: 1, year: 2000),
+          value: const BirthDateAttributeValue(day: 1, month: 1, year: 2000),
         );
       case 'BirthDay':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.BirthDay(value: 5),
+          value: const BirthDayAttributeValue(value: 5),
         );
       case 'BirthMonth':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.BirthMonth(value: 5),
+          value: const BirthMonthAttributeValue(value: 5),
         );
       case 'BirthPlace':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.BirthPlace(city: 'TestCity', country: 'DE'),
+          value: const BirthPlaceAttributeValue(city: 'TestCity', country: 'DE'),
         );
       case 'BirthYear':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.BirthYear(value: 2000),
+          value: const BirthYearAttributeValue(value: 2000),
         );
       case 'Citizenship':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.Citizenship(value: 'DE'),
+          value: const CitizenshipAttributeValue(value: 'DE'),
         );
       case 'CommunicationLanguage':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.CommunicationLanguage(value: 'de'),
+          value: const CommunicationLanguageAttributeValue(value: 'de'),
         );
       case 'Country':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.Country(value: 'DE'),
+          value: const CountryAttributeValue(value: 'DE'),
         );
       case 'DeliveryBoxAddress':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.DeliveryBoxAddress(
+          value: const DeliveryBoxAddressAttributeValue(
             recipient: 'recipient',
             deliveryBoxId: 'deliveryBoxId',
             userId: 'userId',
@@ -369,24 +369,24 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           ),
         );
       case 'EMailAddress':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.EMailAddress(value: 'test@test.com'),
+          value: const EMailAddressAttributeValue(value: 'test@test.com'),
         );
       case 'FaxNumber':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.FaxNumber(value: '123456789'),
+          value: const FaxNumberAttributeValue(value: '123456789'),
         );
       case 'Nationality':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.Nationality(value: 'DE'),
+          value: const NationalityAttributeValue(value: 'DE'),
         );
       case 'PersonName':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.PersonName(
+          value: const PersonNameAttributeValue(
             givenName: 'givenName',
             surname: 'surname',
             honorificPrefix: 'honorificPrefix',
@@ -395,9 +395,9 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           ),
         );
       case 'PostOfficeBoxAddress':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.PostOfficeBoxAddress(
+          value: const PostOfficeBoxAddressAttributeValue(
             recipient: 'recipient',
             boxId: 'boxId',
             zipCode: 'zipCode',
@@ -407,14 +407,14 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           ),
         );
       case 'Sex':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.Sex(value: 'male'),
+          value: const SexAttributeValue(value: 'male'),
         );
       case 'StreetAddress':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.StreetAddress(
+          value: const StreetAddressAttributeValue(
             recipient: 'recipient',
             street: 'street',
             houseNumber: 'houseNumber',
@@ -425,78 +425,78 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           ),
         );
       case 'Website':
-        return types.IdentityAttribute(
+        return IdentityAttribute(
           owner: currentIdentityAddress,
-          value: const types.Website(value: 'www.testwebsite.com'),
+          value: const WebsiteAttributeValue(value: 'www.testwebsite.com'),
         );
       default:
         throw UnimplementedError();
     }
   }
 
-  types.RelationshipAttribute generateRelationshipAtrribute(types.RelationshipAttributeQuery query, String currentIdentityAddress) {
+  RelationshipAttribute generateRelationshipAtrribute(RelationshipAttributeQuery query, String currentIdentityAddress) {
     final type = query.attributeCreationHints.valueType;
     switch (type) {
       case 'Consent':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.Consent(consent: 'TestConsent'),
+          value: const ConsentAttributeValue(consent: 'TestConsent'),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryBoolean':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryBoolean(title: 'atitle', value: true),
+          value: const ProprietaryBooleanAttributeValue(title: 'atitle', value: true),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryCountry':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryCountry(title: 'atitle', value: 'DE'),
+          value: const ProprietaryCountryAttributeValue(title: 'atitle', value: 'DE'),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryEMailAddress':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryEMailAddress(title: 'atitle', value: 'test@test.com'),
+          value: const ProprietaryEMailAddressAttributeValue(title: 'atitle', value: 'test@test.com'),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryFileReference':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryFileReference(title: 'atitle', value: 'fileReference'),
+          value: const ProprietaryFileReferenceAttributeValue(title: 'atitle', value: 'fileReference'),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryFloat':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryFloat(title: 'atitle', value: 25.5),
+          value: const ProprietaryFloatAttributeValue(title: 'atitle', value: 25.5),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryHEXColor':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryHEXColor(title: 'aTitle', value: '3d6dba'),
+          value: const ProprietaryHEXColorAttributeValue(title: 'aTitle', value: '3d6dba'),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryInteger':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryInteger(title: 'atitle', value: 5),
+          value: const ProprietaryIntegerAttributeValue(title: 'atitle', value: 5),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryJSON':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryJSON(
+          value: const ProprietaryJSONAttributeValue(
             title: 'atitle',
             value: {
               'foo': 'bar',
@@ -507,44 +507,44 @@ class IncomingRequestsFacadeView extends StatelessWidget {
             },
           ),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryLanguage':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryLanguage(title: 'atitle', value: 'de'),
+          value: const ProprietaryLanguageAttributeValue(title: 'atitle', value: 'de'),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryPhoneNumber':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryPhoneNumber(title: 'atitle', value: '123456789'),
+          value: const ProprietaryPhoneNumberAttributeValue(title: 'atitle', value: '123456789'),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryString':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryString(title: 'atitle', value: 'propString'),
+          value: const ProprietaryStringAttributeValue(title: 'atitle', value: 'propString'),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       case 'ProprietaryURL':
-        return types.RelationshipAttribute(
+        return RelationshipAttribute(
           owner: currentIdentityAddress,
-          value: const types.ProprietaryURL(title: 'atitle', value: 'www.google.com'),
+          value: const ProprietaryURLAttributeValue(title: 'atitle', value: 'www.google.com'),
           key: 'key',
-          confidentiality: types.RelationshipAttributeConfidentiality.public,
+          confidentiality: RelationshipAttributeConfidentiality.public,
         );
       default:
         throw UnimplementedError();
     }
   }
 
-  Future<types.LocalRequestDTO?> getDecidableRequest() async {
+  Future<LocalRequestDTO?> getDecidableRequest() async {
     final requests = await runtime.currentSession.consumptionServices.incomingRequests.getRequests(query: {
-      'status': types.LocalRequestStatus.ManualDecisionRequired.asQueryValue,
+      'status': LocalRequestStatus.ManualDecisionRequired.asQueryValue,
     });
     if (requests.isEmpty) return null;
 

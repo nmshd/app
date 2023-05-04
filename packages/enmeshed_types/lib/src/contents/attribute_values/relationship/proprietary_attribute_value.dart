@@ -20,5 +20,8 @@ abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
       };
 
   @override
+  String toString() => 'ProprietaryAttributeValueAttributeValue(title: $title, description: $description, valueHintsOverride: $valueHintsOverride)';
+
+  @override
   List<Object?> get props => [title, description, valueHintsOverride];
 }

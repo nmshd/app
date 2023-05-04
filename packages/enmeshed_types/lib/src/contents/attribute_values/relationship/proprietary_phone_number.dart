@@ -1,17 +1,17 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryPhoneNumber extends ProprietaryAttributeValue {
+class ProprietaryPhoneNumberAttributeValue extends ProprietaryAttributeValue {
   final String value;
 
-  const ProprietaryPhoneNumber({
+  const ProprietaryPhoneNumberAttributeValue({
     required super.title,
     super.description,
     super.valueHintsOverride,
     required this.value,
   });
 
-  factory ProprietaryPhoneNumber.fromJson(Map json) => ProprietaryPhoneNumber(
+  factory ProprietaryPhoneNumberAttributeValue.fromJson(Map json) => ProprietaryPhoneNumberAttributeValue(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,
@@ -26,7 +26,7 @@ class ProprietaryPhoneNumber extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryPhoneNumber(value: $value)';
+  String toString() => 'ProprietaryPhoneNumberAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [super.props, value];

@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class Pseudonym extends IdentityAttributeValue {
+class PseudonymAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const Pseudonym({
+  const PseudonymAttributeValue({
     required this.value,
   });
 
-  factory Pseudonym.fromJson(Map json) => Pseudonym(
+  factory PseudonymAttributeValue.fromJson(Map json) => PseudonymAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class Pseudonym extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'Pseudonym(value: $value)';
+  String toString() => 'PseudonymAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

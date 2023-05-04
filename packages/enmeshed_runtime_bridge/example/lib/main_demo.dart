@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:enmeshed_types/enmeshed_types.dart' as types;
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as modal_bottom_sheet;
@@ -47,9 +47,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   late final EnmeshedRuntime runtime;
   bool runtimeReady = false;
 
-  List<types.RelationshipDTO> relationships = [];
-  List<types.MessageDTO> messages = [];
-  List<types.LocalRequestDTO> requests = [];
+  List<RelationshipDTO> relationships = [];
+  List<MessageDTO> messages = [];
+  List<LocalRequestDTO> requests = [];
 
   late final TabController _tabController;
 
@@ -125,7 +125,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         onDetected: (String truncatedReference) async {
           final item = await runtime.currentSession.transportServices.accounts.loadItemFromTruncatedReference(reference: truncatedReference);
 
-          if (item.type != types.LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
+          if (item.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
 
           final template = item.relationshipTemplateValue;
           await runtime.currentSession.transportServices.relationships.createRelationship(
@@ -159,7 +159,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       onTriggerSend: (String subject, String body) async {
         await runtime.currentSession.transportServices.messages.sendMessage(
           recipients: [relationships.first.peer],
-          content: types.Mail(body: body, subject: subject, to: [relationships.first.peer]).toJson(),
+          content: Mail(body: body, subject: subject, to: [relationships.first.peer]).toJson(),
         );
 
         await reloadData(false);
@@ -226,7 +226,7 @@ class SendMailView extends StatelessWidget {
 }
 
 class RelationshipsView extends StatelessWidget {
-  final List<types.RelationshipDTO> relationships;
+  final List<RelationshipDTO> relationships;
 
   const RelationshipsView({super.key, required this.relationships});
 
@@ -246,21 +246,21 @@ class RelationshipsView extends StatelessWidget {
 }
 
 class MessagesView extends StatelessWidget {
-  final List<types.MessageDTO> messages;
+  final List<MessageDTO> messages;
 
   const MessagesView({super.key, required this.messages});
 
   @override
   Widget build(BuildContext context) {
-    final messagesToDisplay = messages.where((e) => e.content is types.Mail).toList()..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    final messagesToDisplay = messages.where((e) => e.content is Mail).toList()..sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
     return ListView(
       padding: const EdgeInsets.all(4),
       children: [
         for (final message in messagesToDisplay)
           ListTile(
-            title: Text((message.content as types.Mail).subject),
-            subtitle: Text((message.content as types.Mail).body),
+            title: Text((message.content as Mail).subject),
+            subtitle: Text((message.content as Mail).body),
             leading: Icon(message.isOwn ? Icons.upload : Icons.download),
           ),
       ],
@@ -269,7 +269,7 @@ class MessagesView extends StatelessWidget {
 }
 
 class RequestsView extends StatelessWidget {
-  final List<types.LocalRequestDTO> requests;
+  final List<LocalRequestDTO> requests;
   final EnmeshedRuntime runtime;
 
   const RequestsView({super.key, required this.requests, required this.runtime});
@@ -290,7 +290,7 @@ class RequestsView extends StatelessWidget {
     );
   }
 
-  Future<void> requestTapped(types.LocalRequestDTO request, BuildContext context) async {
+  Future<void> requestTapped(LocalRequestDTO request, BuildContext context) async {
     await modal_bottom_sheet.showMaterialModalBottomSheet(
       context: context,
       builder: (context) => RequestView(runtime: runtime, request: request),
@@ -299,14 +299,14 @@ class RequestsView extends StatelessWidget {
 }
 
 class RequestView extends StatelessWidget {
-  final types.LocalRequestDTO request;
+  final LocalRequestDTO request;
   final EnmeshedRuntime runtime;
 
   const RequestView({super.key, required this.request, required this.runtime});
 
   @override
   Widget build(BuildContext context) {
-    final isDecidable = request.status == types.LocalRequestStatus.ManualDecisionRequired;
+    final isDecidable = request.status == LocalRequestStatus.ManualDecisionRequired;
 
     return SizedBox(
       height: 500,
@@ -346,15 +346,15 @@ class RequestView extends StatelessWidget {
 
   Future<void> onRejectPressed(BuildContext context) async {
     final items = request.content.items.map((e) {
-      if (e is types.RequestItemGroup) {
-        return types.DecideRequestItemGroupParameters(items: e.items.map((itemDerivation) => const types.RejectRequestItemParameters()).toList());
+      if (e is RequestItemGroup) {
+        return DecideRequestItemGroupParameters(items: e.items.map((itemDerivation) => const RejectRequestItemParameters()).toList());
       }
 
-      return const types.RejectRequestItemParameters();
+      return const RejectRequestItemParameters();
     }).toList();
 
     await runtime.currentSession.consumptionServices.incomingRequests.reject(
-      params: types.DecideRequestParameters(
+      params: DecideRequestParameters(
         requestId: request.id,
         items: items,
       ),

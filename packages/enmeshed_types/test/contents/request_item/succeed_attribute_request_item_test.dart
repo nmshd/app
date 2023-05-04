@@ -7,8 +7,8 @@ void main() {
       const succeedAttributeRequestItem = SucceedAttributeRequestItem(
         mustBeAccepted: true,
         succeededId: 'aSucceededId',
-        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-        newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
       );
       final requestItemJson = succeedAttributeRequestItem.toJson();
       expect(
@@ -17,8 +17,8 @@ void main() {
           '@type': 'SucceedAttributeRequestItem',
           'mustBeAccepted': true,
           'succeededId': 'aSucceededId',
-          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
         }),
       );
     });
@@ -28,8 +28,8 @@ void main() {
         title: 'aTitle',
         mustBeAccepted: true,
         succeededId: 'aSucceededId',
-        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-        newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
       );
       final requestItemJson = succeedAttributeRequestItem.toJson();
       expect(
@@ -39,8 +39,8 @@ void main() {
           'title': 'aTitle',
           'mustBeAccepted': true,
           'succeededId': 'aSucceededId',
-          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
         }),
       );
     });
@@ -50,8 +50,8 @@ void main() {
         description: 'aDescription',
         mustBeAccepted: true,
         succeededId: 'aSucceededId',
-        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-        newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
       );
       final requestItemJson = succeedAttributeRequestItem.toJson();
       expect(
@@ -61,8 +61,8 @@ void main() {
           'description': 'aDescription',
           'mustBeAccepted': true,
           'succeededId': 'aSucceededId',
-          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
         }),
       );
     });
@@ -72,8 +72,8 @@ void main() {
         metadata: {},
         mustBeAccepted: true,
         succeededId: 'aSucceededId',
-        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-        newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
       );
       final requestItemJson = succeedAttributeRequestItem.toJson();
       expect(
@@ -83,8 +83,8 @@ void main() {
           'metadata': {},
           'mustBeAccepted': true,
           'succeededId': 'aSucceededId',
-          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
         }),
       );
     });
@@ -94,8 +94,8 @@ void main() {
         mustBeAccepted: true,
         requireManualDecision: true,
         succeededId: 'aSucceededId',
-        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-        newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
       );
       final requestItemJson = succeedAttributeRequestItem.toJson();
       expect(
@@ -105,8 +105,8 @@ void main() {
           'mustBeAccepted': true,
           'requireManualDecision': true,
           'succeededId': 'aSucceededId',
-          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
         }),
       );
     });
@@ -119,8 +119,8 @@ void main() {
         mustBeAccepted: true,
         requireManualDecision: true,
         succeededId: 'aSucceededId',
-        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-        newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+        succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
       );
       final requestItemJson = succeedAttributeRequestItem.toJson();
       expect(
@@ -133,8 +133,8 @@ void main() {
           'mustBeAccepted': true,
           'requireManualDecision': true,
           'succeededId': 'aSucceededId',
-          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+          'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+          'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
         }),
       );
     });
@@ -145,16 +145,16 @@ void main() {
       final json = {
         'mustBeAccepted': true,
         'succeededId': 'aSucceededId',
-        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
       };
       expect(
         SucceedAttributeRequestItem.fromJson(json),
         equals(const SucceedAttributeRequestItem(
           mustBeAccepted: true,
           succeededId: 'aSucceededId',
-          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-          newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
         )),
       );
     });
@@ -164,8 +164,8 @@ void main() {
         'title': 'aTitle',
         'mustBeAccepted': true,
         'succeededId': 'aSucceededId',
-        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
       };
       expect(
         SucceedAttributeRequestItem.fromJson(json),
@@ -173,8 +173,8 @@ void main() {
           title: 'aTitle',
           mustBeAccepted: true,
           succeededId: 'aSucceededId',
-          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-          newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
         )),
       );
     });
@@ -184,8 +184,8 @@ void main() {
         'description': 'aDescription',
         'mustBeAccepted': true,
         'succeededId': 'aSucceededId',
-        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
       };
       expect(
         SucceedAttributeRequestItem.fromJson(json),
@@ -193,8 +193,8 @@ void main() {
           description: 'aDescription',
           mustBeAccepted: true,
           succeededId: 'aSucceededId',
-          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-          newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
         )),
       );
     });
@@ -204,8 +204,8 @@ void main() {
         'metadata': {'aKey': 'aValue'},
         'mustBeAccepted': true,
         'succeededId': 'aSucceededId',
-        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
       };
       expect(
         SucceedAttributeRequestItem.fromJson(json),
@@ -213,8 +213,8 @@ void main() {
           metadata: {'aKey': 'aValue'},
           mustBeAccepted: true,
           succeededId: 'aSucceededId',
-          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-          newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
         )),
       );
     });
@@ -224,8 +224,8 @@ void main() {
         'requireManualDecision': true,
         'mustBeAccepted': true,
         'succeededId': 'aSucceededId',
-        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
       };
       expect(
         SucceedAttributeRequestItem.fromJson(json),
@@ -233,8 +233,8 @@ void main() {
           requireManualDecision: true,
           mustBeAccepted: true,
           succeededId: 'aSucceededId',
-          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-          newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
         )),
       );
     });
@@ -247,8 +247,8 @@ void main() {
         'mustBeAccepted': true,
         'requireManualDecision': true,
         'succeededId': 'aSucceededId',
-        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
       };
       expect(
         SucceedAttributeRequestItem.fromJson(json),
@@ -259,8 +259,8 @@ void main() {
           mustBeAccepted: true,
           requireManualDecision: true,
           succeededId: 'aSucceededId',
-          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
-          newAttribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')),
+          succeededAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          newAttribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')),
         )),
       );
     });

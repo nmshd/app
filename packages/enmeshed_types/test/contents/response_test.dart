@@ -10,7 +10,7 @@ void main() {
         items: [
           ReadAttributeAcceptResponseItem(
             attributeId: 'anAttributeId',
-            attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           ),
         ],
       );
@@ -23,7 +23,7 @@ void main() {
           'items': [
             const ReadAttributeAcceptResponseItem(
               attributeId: 'anAttributeId',
-              attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+              attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
             ).toJson(),
           ],
         }),
@@ -73,7 +73,7 @@ void main() {
         'items': [
           const ReadAttributeAcceptResponseItem(
             attributeId: 'anAttributeId',
-            attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           ).toJson(),
         ],
       };
@@ -82,7 +82,7 @@ void main() {
         equals(const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [
           ReadAttributeAcceptResponseItem(
             attributeId: 'anAttributeId',
-            attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           ),
         ])),
       );

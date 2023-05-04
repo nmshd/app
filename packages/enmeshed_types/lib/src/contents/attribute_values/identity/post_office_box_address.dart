@@ -1,6 +1,6 @@
 import 'identity_attribute_value.dart';
 
-class PostOfficeBoxAddress extends IdentityAttributeValue {
+class PostOfficeBoxAddressAttributeValue extends IdentityAttributeValue {
   final String recipient;
   final String boxId;
   final String zipCode;
@@ -8,7 +8,7 @@ class PostOfficeBoxAddress extends IdentityAttributeValue {
   final String country;
   final String? state;
 
-  const PostOfficeBoxAddress({
+  const PostOfficeBoxAddressAttributeValue({
     required this.recipient,
     required this.boxId,
     required this.zipCode,
@@ -17,7 +17,7 @@ class PostOfficeBoxAddress extends IdentityAttributeValue {
     this.state,
   });
 
-  factory PostOfficeBoxAddress.fromJson(Map json) => PostOfficeBoxAddress(
+  factory PostOfficeBoxAddressAttributeValue.fromJson(Map json) => PostOfficeBoxAddressAttributeValue(
         recipient: json['recipient'],
         boxId: json['boxId'],
         zipCode: json['zipCode'],
@@ -39,7 +39,7 @@ class PostOfficeBoxAddress extends IdentityAttributeValue {
 
   @override
   String toString() {
-    return 'PostOfficeBoxAddress(recipient: $recipient, boxId: $boxId, zipCode: $zipCode, city: $city, country: $country, state: $state)';
+    return 'PostOfficeBoxAddressAttributeValue(recipient: $recipient, boxId: $boxId, zipCode: $zipCode, city: $city, country: $country, state: $state)';
   }
 
   @override

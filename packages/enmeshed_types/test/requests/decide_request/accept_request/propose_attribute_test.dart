@@ -5,12 +5,12 @@ void main() {
   group('AcceptProposeAttributeRequestItemParametersWithNewAttribute toJson', () {
     test('is correctly converted', () {
       const item = AcceptProposeAttributeRequestItemParametersWithNewAttribute(
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
       );
       final itemJson = item.toJson();
       expect(
         itemJson,
-        equals({'accept': true, 'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson()}),
+        equals({'accept': true, 'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson()}),
       );
     });
   });

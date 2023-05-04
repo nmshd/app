@@ -1,17 +1,17 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryCountry extends ProprietaryAttributeValue {
+class ProprietaryCountryAttributeValue extends ProprietaryAttributeValue {
   final String value;
 
-  const ProprietaryCountry({
+  const ProprietaryCountryAttributeValue({
     required super.title,
     super.description,
     super.valueHintsOverride,
     required this.value,
   });
 
-  factory ProprietaryCountry.fromJson(Map json) => ProprietaryCountry(
+  factory ProprietaryCountryAttributeValue.fromJson(Map json) => ProprietaryCountryAttributeValue(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,
@@ -26,7 +26,7 @@ class ProprietaryCountry extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryCountry(value: $value)';
+  String toString() => 'ProprietaryCountryAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [super.props, value];

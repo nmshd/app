@@ -1,6 +1,6 @@
 import 'identity_attribute_value.dart';
 
-class DeliveryBoxAddress extends IdentityAttributeValue {
+class DeliveryBoxAddressAttributeValue extends IdentityAttributeValue {
   final String recipient;
   final String deliveryBoxId;
   final String userId;
@@ -10,7 +10,7 @@ class DeliveryBoxAddress extends IdentityAttributeValue {
   final String? phoneNumber;
   final String? state;
 
-  const DeliveryBoxAddress({
+  const DeliveryBoxAddressAttributeValue({
     required this.recipient,
     required this.deliveryBoxId,
     required this.userId,
@@ -21,7 +21,7 @@ class DeliveryBoxAddress extends IdentityAttributeValue {
     this.state,
   });
 
-  factory DeliveryBoxAddress.fromJson(Map json) => DeliveryBoxAddress(
+  factory DeliveryBoxAddressAttributeValue.fromJson(Map json) => DeliveryBoxAddressAttributeValue(
         recipient: json['recipient'],
         deliveryBoxId: json['deliveryBoxId'],
         userId: json['userId'],
@@ -47,7 +47,7 @@ class DeliveryBoxAddress extends IdentityAttributeValue {
 
   @override
   String toString() {
-    return 'DeliveryBoxAddress(recipient: $recipient, deliveryBoxId: $deliveryBoxId, userId: $userId, zipCode: $zipCode, city: $city, country: $country, phoneNumber: $phoneNumber, state: $state)';
+    return 'DeliveryBoxAddressAttributeValue(recipient: $recipient, deliveryBoxId: $deliveryBoxId, userId: $userId, zipCode: $zipCode, city: $city, country: $country, phoneNumber: $phoneNumber, state: $state)';
   }
 
   @override

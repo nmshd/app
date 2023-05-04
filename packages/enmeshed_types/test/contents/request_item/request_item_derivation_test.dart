@@ -18,7 +18,7 @@ void main() {
       final requestItemJson = {
         '@type': 'CreateAttributeRequestItem',
         'mustBeAccepted': true,
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
 
       final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
@@ -29,7 +29,7 @@ void main() {
       final requestItemJson = {
         '@type': 'ShareAttributeRequestItem',
         'mustBeAccepted': true,
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'sourceAttributeId': 'aSourceAttributeId',
       };
 
@@ -42,7 +42,7 @@ void main() {
         '@type': 'ProposeAttributeRequestItem',
         'mustBeAccepted': true,
         'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
 
       final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
@@ -86,8 +86,8 @@ void main() {
         '@type': 'SucceedAttributeRequestItem',
         'mustBeAccepted': true,
         'succeededId': 'aSucceededId',
-        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
-        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'newCity')).toJson(),
+        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
       };
 
       final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);

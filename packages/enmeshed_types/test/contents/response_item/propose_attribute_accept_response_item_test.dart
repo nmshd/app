@@ -6,7 +6,7 @@ void main() {
     test('is correctly converted', () {
       const responseItem = ProposeAttributeAcceptResponseItem(
         attributeId: 'anAttributeId',
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
       );
       final responseItemJson = responseItem.toJson();
       expect(
@@ -15,7 +15,7 @@ void main() {
           '@type': 'ProposeAttributeAcceptResponseItem',
           'result': 'Accepted',
           'attributeId': 'anAttributeId',
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         }),
       );
     });
@@ -25,13 +25,13 @@ void main() {
     test('is correctly converted', () {
       final json = {
         'attributeId': 'anAttributeId',
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
       expect(
         ProposeAttributeAcceptResponseItem.fromJson(json),
         equals(const ProposeAttributeAcceptResponseItem(
           attributeId: 'anAttributeId',
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         )),
       );
     });

@@ -21,7 +21,7 @@ void main() {
       final responseItemJson = {
         '@type': 'ProposeAttributeAcceptResponseItem',
         'attributeId': 'anAttributeId',
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
 
       final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);
@@ -32,7 +32,7 @@ void main() {
       final responseItemJson = {
         '@type': 'ReadAttributeAcceptResponseItem',
         'attributeId': 'anAttributeId',
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
 
       final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);

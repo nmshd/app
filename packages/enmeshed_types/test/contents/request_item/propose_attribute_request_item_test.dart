@@ -7,7 +7,7 @@ void main() {
       const proposeAttributeRequestItem = ProposeAttributeRequestItem(
         mustBeAccepted: true,
         query: IdentityAttributeQuery(valueType: 'City'),
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
       );
       final requestItemJson = proposeAttributeRequestItem.toJson();
       expect(
@@ -16,7 +16,7 @@ void main() {
           '@type': 'ProposeAttributeRequestItem',
           'mustBeAccepted': true,
           'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         }),
       );
     });
@@ -26,7 +26,7 @@ void main() {
         title: 'aTitle',
         mustBeAccepted: true,
         query: IdentityAttributeQuery(valueType: 'City'),
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
       );
       final requestItemJson = proposeAttributeRequestItem.toJson();
       expect(
@@ -36,7 +36,7 @@ void main() {
           'title': 'aTitle',
           'mustBeAccepted': true,
           'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         }),
       );
     });
@@ -46,7 +46,7 @@ void main() {
         description: 'aDescription',
         mustBeAccepted: true,
         query: IdentityAttributeQuery(valueType: 'City'),
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
       );
       final requestItemJson = proposeAttributeRequestItem.toJson();
       expect(
@@ -56,7 +56,7 @@ void main() {
           'description': 'aDescription',
           'mustBeAccepted': true,
           'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         }),
       );
     });
@@ -66,7 +66,7 @@ void main() {
         metadata: {},
         mustBeAccepted: true,
         query: IdentityAttributeQuery(valueType: 'City'),
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
       );
       final requestItemJson = proposeAttributeRequestItem.toJson();
       expect(
@@ -76,7 +76,7 @@ void main() {
           'metadata': {},
           'mustBeAccepted': true,
           'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         }),
       );
     });
@@ -86,7 +86,7 @@ void main() {
         mustBeAccepted: true,
         requireManualDecision: true,
         query: IdentityAttributeQuery(valueType: 'City'),
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
       );
       final requestItemJson = proposeAttributeRequestItem.toJson();
       expect(
@@ -96,7 +96,7 @@ void main() {
           'mustBeAccepted': true,
           'requireManualDecision': true,
           'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         }),
       );
     });
@@ -109,7 +109,7 @@ void main() {
         mustBeAccepted: true,
         requireManualDecision: true,
         query: IdentityAttributeQuery(valueType: 'City'),
-        attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
       );
       final requestItemJson = proposeAttributeRequestItem.toJson();
       expect(
@@ -122,7 +122,7 @@ void main() {
           'mustBeAccepted': true,
           'requireManualDecision': true,
           'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-          'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+          'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         }),
       );
     });
@@ -133,14 +133,14 @@ void main() {
       final json = {
         'mustBeAccepted': true,
         'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
       expect(
         ProposeAttributeRequestItem.fromJson(json),
         equals(const ProposeAttributeRequestItem(
           mustBeAccepted: true,
           query: IdentityAttributeQuery(valueType: 'City'),
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         )),
       );
     });
@@ -150,7 +150,7 @@ void main() {
         'title': 'aTitle',
         'mustBeAccepted': true,
         'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
       expect(
         ProposeAttributeRequestItem.fromJson(json),
@@ -158,7 +158,7 @@ void main() {
           title: 'aTitle',
           mustBeAccepted: true,
           query: IdentityAttributeQuery(valueType: 'City'),
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         )),
       );
     });
@@ -168,7 +168,7 @@ void main() {
         'description': 'aDescription',
         'mustBeAccepted': true,
         'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
       expect(
         ProposeAttributeRequestItem.fromJson(json),
@@ -176,7 +176,7 @@ void main() {
           description: 'aDescription',
           mustBeAccepted: true,
           query: IdentityAttributeQuery(valueType: 'City'),
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         )),
       );
     });
@@ -186,7 +186,7 @@ void main() {
         'metadata': {'aKey': 'aValue'},
         'mustBeAccepted': true,
         'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
       expect(
         ProposeAttributeRequestItem.fromJson(json),
@@ -194,7 +194,7 @@ void main() {
           metadata: {'aKey': 'aValue'},
           mustBeAccepted: true,
           query: IdentityAttributeQuery(valueType: 'City'),
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         )),
       );
     });
@@ -204,7 +204,7 @@ void main() {
         'requireManualDecision': true,
         'mustBeAccepted': true,
         'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
       expect(
         ProposeAttributeRequestItem.fromJson(json),
@@ -212,7 +212,7 @@ void main() {
           requireManualDecision: true,
           mustBeAccepted: true,
           query: IdentityAttributeQuery(valueType: 'City'),
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         )),
       );
     });
@@ -225,7 +225,7 @@ void main() {
         'mustBeAccepted': true,
         'requireManualDecision': true,
         'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
       expect(
         ProposeAttributeRequestItem.fromJson(json),
@@ -236,7 +236,7 @@ void main() {
           mustBeAccepted: true,
           requireManualDecision: true,
           query: IdentityAttributeQuery(valueType: 'City'),
-          attribute: IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')),
+          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         )),
       );
     });

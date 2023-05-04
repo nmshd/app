@@ -11,31 +11,31 @@ abstract class RelationshipAttributeValue extends Equatable {
 
     switch (type) {
       case 'Consent':
-        return Consent.fromJson(json);
+        return ConsentAttributeValue.fromJson(json);
       case 'ProprietaryBoolean':
-        return ProprietaryBoolean.fromJson(json);
+        return ProprietaryBooleanAttributeValue.fromJson(json);
       case 'ProprietaryCountry':
-        return ProprietaryCountry.fromJson(json);
+        return ProprietaryCountryAttributeValue.fromJson(json);
       case 'ProprietaryEMailAddress':
-        return ProprietaryEMailAddress.fromJson(json);
+        return ProprietaryEMailAddressAttributeValue.fromJson(json);
       case 'ProprietaryFileReference':
-        return ProprietaryFileReference.fromJson(json);
+        return ProprietaryFileReferenceAttributeValue.fromJson(json);
       case 'ProprietaryFloat':
-        return ProprietaryFloat.fromJson(json);
+        return ProprietaryFloatAttributeValue.fromJson(json);
       case 'ProprietaryHEXColor':
-        return ProprietaryHEXColor.fromJson(json);
+        return ProprietaryHEXColorAttributeValue.fromJson(json);
       case 'ProprietaryInteger':
-        return ProprietaryInteger.fromJson(json);
+        return ProprietaryIntegerAttributeValue.fromJson(json);
       case 'ProprietaryJSON':
-        return ProprietaryJSON.fromJson(json);
+        return ProprietaryJSONAttributeValue.fromJson(json);
       case 'ProprietaryLanguage':
-        return ProprietaryLanguage.fromJson(json);
+        return ProprietaryLanguageAttributeValue.fromJson(json);
       case 'ProprietaryPhoneNumber':
-        return ProprietaryPhoneNumber.fromJson(json);
+        return ProprietaryPhoneNumberAttributeValue.fromJson(json);
       case 'ProprietaryString':
-        return ProprietaryString.fromJson(json);
+        return ProprietaryStringAttributeValue.fromJson(json);
       case 'ProprietaryURL':
-        return ProprietaryURL.fromJson(json);
+        return ProprietaryURLAttributeValue.fromJson(json);
       default:
         throw Exception('Unknown AbstractAttributeValue: $type');
     }

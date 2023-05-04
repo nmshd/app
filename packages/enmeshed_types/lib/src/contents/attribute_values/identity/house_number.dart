@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class HouseNumber extends IdentityAttributeValue {
+class HouseNumberAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const HouseNumber({
+  const HouseNumberAttributeValue({
     required this.value,
   });
 
-  factory HouseNumber.fromJson(Map json) => HouseNumber(
+  factory HouseNumberAttributeValue.fromJson(Map json) => HouseNumberAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class HouseNumber extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'HouseNumber(value: $value)';
+  String toString() => 'HouseNumberAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];
