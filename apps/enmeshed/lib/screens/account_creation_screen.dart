@@ -95,14 +95,17 @@ class AccountCreationScreen extends StatelessWidget {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const CircularProgressIndicator(),
-            const SizedBox(height: 10),
-            Material(child: Text(AppLocalizations.of(context)!.onboarding_processingCode)),
-          ],
+      builder: (_) => WillPopScope(
+        onWillPop: () async => false,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 10),
+              Material(child: Text(AppLocalizations.of(context)!.onboarding_processingCode)),
+            ],
+          ),
         ),
       ),
     );
@@ -113,6 +116,8 @@ class AccountCreationScreen extends StatelessWidget {
 
     try {
       final token = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference(truncatedReference);
+
+      print('asdsad');
 
       if (token.content is! TokenContentDeviceSharedSecret) {
         resume();
