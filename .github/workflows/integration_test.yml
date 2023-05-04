@@ -28,4 +28,5 @@ jobs:
           profile: Nexus 9
           script: |
             cd ./packages/enmeshed_runtime_bridge
-            flutter test --dart-define-from-file=./config.json integration_test/suite_test.dart
+            flutter pub get
+            flutter test  integration_test/suite_test.dart
