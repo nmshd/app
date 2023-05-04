@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:enmeshed/screens/account_screen.dart';
 import 'package:enmeshed/views/views.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_types/enmeshed_types.dart' hide State;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -106,10 +107,33 @@ class AccountCreationScreen extends StatelessWidget {
       ),
     );
 
-    await Future.delayed(const Duration(seconds: 10));
-    if (context.mounted) Navigator.pop(context);
+    final truncatedReference = content.replaceAll('nmshd://qr#', '');
 
-    resume();
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+
+    try {
+      final token = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference(truncatedReference);
+
+      if (token.content is! TokenContentDeviceSharedSecret) {
+        resume();
+        if (context.mounted) _showWrongTokenMessage(context);
+        return;
+      }
+
+      final account = await runtime.accountServices.onboardAccount((token.content as TokenContentDeviceSharedSecret).sharedSecret);
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => AccountScreen(account.id)),
+          (_) => false,
+        );
+      }
+    } catch (e) {
+      GetIt.I.get<Logger>().e(e);
+      resume();
+      if (context.mounted) _showWrongTokenMessage(context);
+      return;
+    }
   }
 
   void _showWrongTokenMessage(BuildContext context) {
