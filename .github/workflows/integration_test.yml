@@ -15,6 +15,8 @@ jobs:
           # flutter-version: "2.8.1"
           channel: "stable"
       - run: flutter --version
+      - run: dart pub global activate melos
+      - run: melos bootstrap
 
       # Run integration test
       - name: Start emulator and run tests
@@ -24,4 +26,6 @@ jobs:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
           profile: Nexus 9
-          script: cd ./packages/enmeshed_runtime_bridge && flutter test --dart-define-from-file=./config.json integration_test/suite_test.dart
+          script: |
+            cd ./packages/enmeshed_runtime_bridge
+            flutter test --dart-define-from-file=./config.json integration_test/suite_test.dart
