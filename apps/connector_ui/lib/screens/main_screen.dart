@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:connector_sdk/connector_sdk.dart';
-import 'package:enmeshed_types/enmeshed_types.dart' as enmeshed_types;
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -16,7 +16,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<enmeshed_types.RelationshipDTO> relationships = [];
+  List<RelationshipDTO> relationships = [];
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
       body: Center(
         child: ListView.builder(
           itemBuilder: (context, index) => ExpansionTile(
-            leading: relationships[index].status == enmeshed_types.RelationshipStatus.Active
+            leading: relationships[index].status == RelationshipStatus.Active
                 ? const Icon(
                     Icons.check_circle,
                     color: Colors.lightGreen,
@@ -185,7 +185,7 @@ class _MainScreenState extends State<MainScreen> {
     Navigator.of(context).pushReplacementNamed('/login');
   }
 
-  Future<String> renderRelationship(enmeshed_types.RelationshipDTO relationship) async {
+  Future<String> renderRelationship(RelationshipDTO relationship) async {
     final client = GetIt.I.get<ConnectorClient>();
 
     final response = await client.relationships.getAttributesForRelationship(relationship.id);
@@ -193,26 +193,26 @@ class _MainScreenState extends State<MainScreen> {
 
     final displayName = relationshipAttributes
         .where(
-          (a) => a.content is enmeshed_types.IdentityAttribute && (a.content as enmeshed_types.IdentityAttribute).value is enmeshed_types.DisplayName,
+          (a) => a.content is IdentityAttribute && (a.content as IdentityAttribute).value is DisplayNameAttributeValue,
         )
         .firstOrNull;
     if (displayName != null) {
-      return '${relationship.peer} (${((displayName.content as enmeshed_types.IdentityAttribute).value as enmeshed_types.DisplayName).value})';
+      return '${relationship.peer} (${((displayName.content as IdentityAttribute).value as DisplayNameAttributeValue).value})';
     }
 
     final surname = relationshipAttributes
         .where(
-          (a) => a.content is enmeshed_types.IdentityAttribute && (a.content as enmeshed_types.IdentityAttribute).value is enmeshed_types.Surname,
+          (a) => a.content is IdentityAttribute && (a.content as IdentityAttribute).value is SurnameAttributeValue,
         )
         .firstOrNull;
     final givenName = relationshipAttributes
         .where(
-          (a) => a.content is enmeshed_types.IdentityAttribute && (a.content as enmeshed_types.IdentityAttribute).value is enmeshed_types.GivenName,
+          (a) => a.content is IdentityAttribute && (a.content as IdentityAttribute).value is GivenNameAttributeValue,
         )
         .firstOrNull;
     if (surname != null || givenName != null) {
       final name =
-          '${((surname!.content as enmeshed_types.IdentityAttribute).value as enmeshed_types.Surname).value} ${((givenName!.content as enmeshed_types.IdentityAttribute).value as enmeshed_types.GivenName).value}'
+          '${((surname!.content as IdentityAttribute).value as SurnameAttributeValue).value} ${((givenName!.content as IdentityAttribute).value as GivenNameAttributeValue).value}'
               .trim();
       return '${relationship.peer} ($name)';
     }
