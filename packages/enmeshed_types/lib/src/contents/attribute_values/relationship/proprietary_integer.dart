@@ -1,7 +1,7 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryIntegerAttributeValue extends ProprietaryAttributeValueAttributeValue {
+class ProprietaryIntegerAttributeValue extends ProprietaryAttributeValue {
   final int value;
 
   const ProprietaryIntegerAttributeValue({

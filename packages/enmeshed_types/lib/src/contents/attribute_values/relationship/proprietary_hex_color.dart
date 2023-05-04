@@ -1,7 +1,7 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryHEXColorAttributeValue extends ProprietaryAttributeValueAttributeValue {
+class ProprietaryHEXColorAttributeValue extends ProprietaryAttributeValue {
   final String value;
 
   const ProprietaryHEXColorAttributeValue({

@@ -1,12 +1,12 @@
 import '../../value_hints.dart';
 import 'relationship_attribute_value.dart';
 
-abstract class ProprietaryAttributeValueAttributeValue extends RelationshipAttributeValue {
+abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
   final String title;
   final String? description;
   final ValueHints? valueHintsOverride;
 
-  const ProprietaryAttributeValueAttributeValue({
+  const ProprietaryAttributeValue({
     required this.title,
     this.description,
     this.valueHintsOverride,

@@ -1,7 +1,7 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryEMailAddressAttributeValue extends ProprietaryAttributeValueAttributeValue {
+class ProprietaryEMailAddressAttributeValue extends ProprietaryAttributeValue {
   final String value;
 
   const ProprietaryEMailAddressAttributeValue({

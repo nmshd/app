@@ -1,7 +1,7 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryCountryAttributeValue extends ProprietaryAttributeValueAttributeValue {
+class ProprietaryCountryAttributeValue extends ProprietaryAttributeValue {
   final String value;
 
   const ProprietaryCountryAttributeValue({

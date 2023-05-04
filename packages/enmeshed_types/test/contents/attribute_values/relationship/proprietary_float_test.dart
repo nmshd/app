@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('ProprietaryFloat toJson', () {
+  group('ProprietaryFloatAttributeValue toJson', () {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryFloatAttributeValue(title: 'aTitle', value: 10.5);
       final relationshipJson = relationshipAttributeValue.toJson();
@@ -51,7 +51,7 @@ void main() {
     });
   });
 
-  group('ProprietaryFloat fromJson', () {
+  group('ProprietaryFloatAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 10.5};
       expect(

@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('AffiliationOrganization toJson', () {
+  group('AffiliationOrganizationAttributeValue toJson', () {
     test('is correctly converted', () {
       const identityAttributeValue = AffiliationOrganizationAttributeValue(value: 'anAffiliationOrganization');
       final identityJson = identityAttributeValue.toJson();
@@ -16,7 +16,7 @@ void main() {
     });
   });
 
-  group('AffiliationOrganization fromJson', () {
+  group('AffiliationOrganizationAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'value': 'anAffiliationOrganization'};
       expect(

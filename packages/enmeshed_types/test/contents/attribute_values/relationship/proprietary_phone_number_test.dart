@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('ProprietaryPhoneNumber toJson', () {
+  group('ProprietaryPhoneNumberAttributeValue toJson', () {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryPhoneNumberAttributeValue(title: 'aTitle', value: 'aPhoneNumber');
       final relationshipJson = relationshipAttributeValue.toJson();
@@ -52,7 +52,7 @@ void main() {
     });
   });
 
-  group('ProprietaryPhoneNumber fromJson', () {
+  group('ProprietaryPhoneNumberAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 'aPhoneNumber'};
       expect(

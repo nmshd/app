@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('BirthMonth toJson', () {
+  group('BirthMonthAttributeValue toJson', () {
     test('is correctly converted', () {
       const identityAttributeValue = BirthMonthAttributeValue(value: 01);
       final identityJson = identityAttributeValue.toJson();
@@ -16,7 +16,7 @@ void main() {
     });
   });
 
-  group('BirthMonth fromJson', () {
+  group('BirthMonthAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'value': 01};
       expect(BirthMonthAttributeValue.fromJson(json), equals(const BirthMonthAttributeValue(value: 01)));

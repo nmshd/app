@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Consent toJson', () {
+  group('ConsentAttributeValue toJson', () {
     test('is correctly converted', () {
       const relationshipAttributeValue = ConsentAttributeValue(consent: 'aConsent');
       final relationshipJson = relationshipAttributeValue.toJson();
@@ -40,7 +40,7 @@ void main() {
     });
   });
 
-  group('Consent fromJson', () {
+  group('ConsentAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {
         'consent': 'aConsent',

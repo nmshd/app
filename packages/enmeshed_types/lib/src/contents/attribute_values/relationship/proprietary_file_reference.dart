@@ -1,7 +1,7 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryFileReferenceAttributeValue extends ProprietaryAttributeValueAttributeValue {
+class ProprietaryFileReferenceAttributeValue extends ProprietaryAttributeValue {
   final String value;
 
   const ProprietaryFileReferenceAttributeValue({

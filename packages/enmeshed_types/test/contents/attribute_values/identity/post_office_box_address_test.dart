@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('PostOfficeBoxAddress toJson', () {
+  group('PostOfficeBoxAddressAttributeValue toJson', () {
     test('is correctly converted', () {
       const identityAttributeValue = PostOfficeBoxAddressAttributeValue(
         recipient: 'aRecipient',
@@ -50,7 +50,7 @@ void main() {
     });
   });
 
-  group('PostOfficeBoxAddress fromJson', () {
+  group('PostOfficeBoxAddressAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {
         'recipient': 'aRecipient',

@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('ProprietaryEMailAddress toJson', () {
+  group('ProprietaryEMailAddressAttributeValue toJson', () {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryEMailAddressAttributeValue(title: 'aTitle', value: 'test@test.com');
       final relationshipJson = relationshipAttributeValue.toJson();
@@ -52,7 +52,7 @@ void main() {
     });
   });
 
-  group('ProprietaryEMailAddress fromJson', () {
+  group('ProprietaryEMailAddressAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 'test@test.com'};
       expect(

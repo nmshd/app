@@ -1,7 +1,7 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryLanguageAttributeValue extends ProprietaryAttributeValueAttributeValue {
+class ProprietaryLanguageAttributeValue extends ProprietaryAttributeValue {
   final String value;
 
   const ProprietaryLanguageAttributeValue({

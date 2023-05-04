@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('ProprietaryCountry toJson', () {
+  group('ProprietaryCountryAttributeValue toJson', () {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryCountryAttributeValue(title: 'aTitle', value: 'aCountry');
       final relationshipJson = relationshipAttributeValue.toJson();
@@ -51,7 +51,7 @@ void main() {
     });
   });
 
-  group('ProprietaryCountry fromJson', () {
+  group('ProprietaryCountryAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 'aCountry'};
       expect(

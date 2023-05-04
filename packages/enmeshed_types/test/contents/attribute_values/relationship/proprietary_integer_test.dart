@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('ProprietaryInteger toJson', () {
+  group('ProprietaryIntegerAttributeValue toJson', () {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryIntegerAttributeValue(title: 'aTitle', value: 10);
       final relationshipJson = relationshipAttributeValue.toJson();
@@ -51,7 +51,7 @@ void main() {
     });
   });
 
-  group('ProprietaryInteger fromJson', () {
+  group('ProprietaryIntegerAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 10};
       expect(

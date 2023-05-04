@@ -1,7 +1,7 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryPhoneNumberAttributeValue extends ProprietaryAttributeValueAttributeValue {
+class ProprietaryPhoneNumberAttributeValue extends ProprietaryAttributeValue {
   final String value;
 
   const ProprietaryPhoneNumberAttributeValue({

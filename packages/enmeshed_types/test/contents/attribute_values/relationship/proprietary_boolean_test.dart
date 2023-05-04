@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('ProprietaryBoolean toJson', () {
+  group('ProprietaryBooleanAttributeValue toJson', () {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryBooleanAttributeValue(title: 'aTitle', value: true);
       final relationshipJson = relationshipAttributeValue.toJson();
@@ -51,7 +51,7 @@ void main() {
     });
   });
 
-  group('ProprietaryBoolean fromJson', () {
+  group('ProprietaryBooleanAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': true};
       expect(

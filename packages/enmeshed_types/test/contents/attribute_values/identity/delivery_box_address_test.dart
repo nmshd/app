@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('DeliveryBoxAddress toJson', () {
+  group('DeliveryBoxAddressAttributeValue toJson', () {
     test('is correctly converted', () {
       const identityAttributeValue = DeliveryBoxAddressAttributeValue(
         recipient: 'aRecipient',
@@ -108,7 +108,7 @@ void main() {
     });
   });
 
-  group('DeliveryBoxAddress fromJson', () {
+  group('DeliveryBoxAddressAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {
         'recipient': 'aRecipient',
