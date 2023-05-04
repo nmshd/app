@@ -97,14 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: showBottomSheet,
                   child: const Text('run evaluation on the runtime'),
                 ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () async {
-                    final content = await runtime.fs.listFiles('data', 'data');
-                    print(content);
-                  },
-                  child: const Text('check filesystem'),
-                ),
                 const SizedBox(height: 20),
                 if (isLoading) const CircularProgressIndicator(),
                 if (isLoading) const SizedBox(height: 10),

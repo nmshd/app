@@ -28,9 +28,9 @@ class LoadItemFromTruncatedReferenceResponse extends Equatable {
     return RelationshipTemplateDTO.fromJson(_value);
   }
 
-  DeviceOnboardingInfoDTO get deviceOnboardingInfoValue {
+  DeviceSharedSecret get deviceOnboardingInfoValue {
     if (type != LoadItemFromTruncatedReferenceResponseType.DeviceOnboardingInfo) throw Exception('Not a deviceOnboardingInfo');
-    return DeviceOnboardingInfoDTO.fromJson(_value);
+    return DeviceSharedSecret.fromJson(_value);
   }
 
   dynamic get valueAsObject {

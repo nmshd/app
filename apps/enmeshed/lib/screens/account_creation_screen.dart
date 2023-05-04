@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:enmeshed/screens/account_screen.dart';
 import 'package:enmeshed/views/views.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_types/enmeshed_types.dart' hide State;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -76,19 +77,9 @@ class AccountCreationScreen extends StatelessWidget {
     );
   }
 
-  void _createNewIdentityPressed(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) => const CreateNewIdentity(),
-    );
-  }
+  void _createNewIdentityPressed(BuildContext context) => showModalBottomSheet(context: context, builder: (_) => const CreateNewIdentity());
 
-  void _onboardingPressed(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => ScannerView(onSubmit: onSubmit)),
-    );
-  }
+  void _onboardingPressed(BuildContext context) => Navigator.push(context, MaterialPageRoute(builder: (_) => ScannerView(onSubmit: onSubmit)));
 
   void onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
     pause();
@@ -96,36 +87,70 @@ class AccountCreationScreen extends StatelessWidget {
     GetIt.I.get<Logger>().v('Scanned code: $content');
 
     if (!content.startsWith('nmshd://')) {
-      const duration = Duration(seconds: 2);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(AppLocalizations.of(context)!.onboarding_invalidCode),
-        duration: duration,
-      ));
-      await Future.delayed(duration);
-
       resume();
+      _showWrongTokenMessage(context);
       return;
     }
 
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const CircularProgressIndicator(),
-            const SizedBox(height: 10),
-            Material(child: Text(AppLocalizations.of(context)!.onboarding_processingCode)),
-          ],
+      builder: (_) => WillPopScope(
+        onWillPop: () async => false,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 10),
+              Material(child: Text(AppLocalizations.of(context)!.onboarding_processingCode)),
+            ],
+          ),
         ),
       ),
     );
 
-    await Future.delayed(const Duration(seconds: 10));
-    if (context.mounted) Navigator.pop(context);
+    final truncatedReference = content.replaceAll('nmshd://qr#', '').replaceAll('nmshd://tr#', '');
 
-    resume();
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+
+    try {
+      final token = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference(truncatedReference);
+
+      if (token.content is! TokenContentDeviceSharedSecret) {
+        resume();
+        if (context.mounted) {
+          Navigator.pop(context);
+          _showWrongTokenMessage(context);
+        }
+        return;
+      }
+
+      final account = await runtime.accountServices.onboardAccount((token.content as TokenContentDeviceSharedSecret).sharedSecret);
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => AccountScreen(account.id)),
+          (_) => false,
+        );
+      }
+    } catch (e) {
+      GetIt.I.get<Logger>().e(e);
+      resume();
+      if (context.mounted) {
+        Navigator.pop(context);
+        _showWrongTokenMessage(context);
+      }
+      return;
+    }
+  }
+
+  void _showWrongTokenMessage(BuildContext context) {
+    const duration = Duration(seconds: 2);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(AppLocalizations.of(context)!.onboarding_invalidCode),
+      duration: duration,
+    ));
   }
 }
 

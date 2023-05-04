@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('DeviceOnboardingInfoDTO toJson', () {
+  group('DeviceSharedSecret toJson', () {
     test('is correctly converted', () {
-      const dto = DeviceOnboardingInfoDTO(
+      const dto = DeviceSharedSecret(
         id: 'anId',
         createdAt: '2023',
         createdByDevice: 'aCreatorDeviceId',
@@ -33,7 +33,7 @@ void main() {
     });
 
     test('is correctly converted with property "name"', () {
-      const dto = DeviceOnboardingInfoDTO(
+      const dto = DeviceSharedSecret(
         id: 'anId',
         createdAt: '2023',
         createdByDevice: 'aCreatorDeviceId',
@@ -64,7 +64,7 @@ void main() {
     });
 
     test('is correctly converted with property "description"', () {
-      const dto = DeviceOnboardingInfoDTO(
+      const dto = DeviceSharedSecret(
         id: 'anId',
         createdAt: '2023',
         createdByDevice: 'aCreatorDeviceId',
@@ -95,7 +95,7 @@ void main() {
     });
 
     test('is correctly converted with property "identityPrivateKey"', () {
-      const dto = DeviceOnboardingInfoDTO(
+      const dto = DeviceSharedSecret(
         id: 'anId',
         createdAt: '2023',
         createdByDevice: 'aCreatorDeviceId',
@@ -126,7 +126,7 @@ void main() {
     });
 
     test('is correctly converted with properties "name", "description", and "identityPrivateKey"', () {
-      const dto = DeviceOnboardingInfoDTO(
+      const dto = DeviceSharedSecret(
         id: 'anId',
         createdAt: '2023',
         createdByDevice: 'aCreatorDeviceId',
@@ -161,7 +161,7 @@ void main() {
     });
   });
 
-  group('DeviceOnboardingInfoDTO fromJson', () {
+  group('DeviceSharedSecret fromJson', () {
     test('is correctly converted', () {
       final json = {
         'id': 'anId',
@@ -175,8 +175,8 @@ void main() {
         'username': 'anUsername',
       };
       expect(
-        DeviceOnboardingInfoDTO.fromJson(json),
-        equals(const DeviceOnboardingInfoDTO(
+        DeviceSharedSecret.fromJson(json),
+        equals(const DeviceSharedSecret(
           id: 'anId',
           createdAt: '2023',
           createdByDevice: 'aCreatorDeviceId',
@@ -204,8 +204,8 @@ void main() {
         'username': 'anUsername',
       };
       expect(
-        DeviceOnboardingInfoDTO.fromJson(json),
-        equals(const DeviceOnboardingInfoDTO(
+        DeviceSharedSecret.fromJson(json),
+        equals(const DeviceSharedSecret(
           id: 'anId',
           createdAt: '2023',
           createdByDevice: 'aCreatorDeviceId',
@@ -234,8 +234,8 @@ void main() {
         'username': 'anUsername',
       };
       expect(
-        DeviceOnboardingInfoDTO.fromJson(json),
-        equals(const DeviceOnboardingInfoDTO(
+        DeviceSharedSecret.fromJson(json),
+        equals(const DeviceSharedSecret(
           id: 'anId',
           createdAt: '2023',
           createdByDevice: 'aCreatorDeviceId',
@@ -264,8 +264,8 @@ void main() {
         'username': 'anUsername',
       };
       expect(
-        DeviceOnboardingInfoDTO.fromJson(json),
-        equals(const DeviceOnboardingInfoDTO(
+        DeviceSharedSecret.fromJson(json),
+        equals(const DeviceSharedSecret(
           id: 'anId',
           createdAt: '2023',
           createdByDevice: 'aCreatorDeviceId',
@@ -296,8 +296,8 @@ void main() {
         'username': 'anUsername',
       };
       expect(
-        DeviceOnboardingInfoDTO.fromJson(json),
-        equals(const DeviceOnboardingInfoDTO(
+        DeviceSharedSecret.fromJson(json),
+        equals(const DeviceSharedSecret(
           id: 'anId',
           createdAt: '2023',
           createdByDevice: 'aCreatorDeviceId',
