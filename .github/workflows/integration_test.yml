@@ -17,11 +17,11 @@ jobs:
       - run: flutter --version
 
       # Run integration test
-      - name: Run Flutter Driver tests
+      - name: Start emulator and run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           target: ${{ matrix.target }}
           api-level: ${{ matrix.api-level }}
           arch: x86_64
           profile: Nexus 9
-          script: flutter test --dart-define-from-file=./config.json packages/enmeshed_runtime_bridge/integration_test/suite_test.dart
+          script: cd ./packages/enmeshed_runtime_bridge && flutter test --dart-define-from-file=./config.json integration_test/suite_test.dart
