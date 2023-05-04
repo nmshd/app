@@ -13,7 +13,8 @@ void main() {
     });
 
     test('is correctly converted with property "description"', () {
-      const relationshipAttributeValue = ProprietaryFileReferenceAttributeValue(title: 'aTitle', description: 'aDescription', value: 'aFileReference');
+      const relationshipAttributeValue =
+          ProprietaryFileReferenceAttributeValue(title: 'aTitle', description: 'aDescription', value: 'aFileReference');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
@@ -22,7 +23,8 @@ void main() {
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
-      const relationshipAttributeValue = ProprietaryFileReferenceAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aFileReference');
+      const relationshipAttributeValue =
+          ProprietaryFileReferenceAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aFileReference');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,

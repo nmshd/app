@@ -22,7 +22,8 @@ void main() {
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
-      const relationshipAttributeValue = ProprietaryPhoneNumberAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aPhoneNumber');
+      const relationshipAttributeValue =
+          ProprietaryPhoneNumberAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aPhoneNumber');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
@@ -79,7 +80,12 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aPhoneNumber'};
       expect(
         ProprietaryPhoneNumberAttributeValue.fromJson(json),
-        equals(const ProprietaryPhoneNumberAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aPhoneNumber')),
+        equals(const ProprietaryPhoneNumberAttributeValue(
+          title: 'aTitle',
+          description: 'aDescription',
+          valueHintsOverride: ValueHints(),
+          value: 'aPhoneNumber',
+        )),
       );
     });
   });

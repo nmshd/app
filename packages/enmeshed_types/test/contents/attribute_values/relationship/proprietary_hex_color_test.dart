@@ -79,7 +79,12 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aHEXColor'};
       expect(
         ProprietaryHEXColorAttributeValue.fromJson(json),
-        equals(const ProprietaryHEXColorAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aHEXColor')),
+        equals(const ProprietaryHEXColorAttributeValue(
+          title: 'aTitle',
+          description: 'aDescription',
+          valueHintsOverride: ValueHints(),
+          value: 'aHEXColor',
+        )),
       );
     });
   });

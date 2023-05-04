@@ -118,7 +118,10 @@ void main() {
 
   group('CreateAttributeRequestItem fromJson', () {
     test('is correctly converted', () {
-      final json = {'mustBeAccepted': true, 'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson()};
+      final json = {
+        'mustBeAccepted': true,
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+      };
       expect(
         CreateAttributeRequestItem.fromJson(json),
         equals(const CreateAttributeRequestItem(

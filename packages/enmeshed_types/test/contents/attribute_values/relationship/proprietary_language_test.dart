@@ -79,7 +79,12 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aLanguage'};
       expect(
         ProprietaryLanguageAttributeValue.fromJson(json),
-        equals(const ProprietaryLanguageAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aLanguage')),
+        equals(const ProprietaryLanguageAttributeValue(
+          title: 'aTitle',
+          description: 'aDescription',
+          valueHintsOverride: ValueHints(),
+          value: 'aLanguage',
+        )),
       );
     });
   });

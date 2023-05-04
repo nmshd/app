@@ -22,7 +22,8 @@ void main() {
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
-      const relationshipAttributeValue = ProprietaryEMailAddressAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'test@test.com');
+      const relationshipAttributeValue =
+          ProprietaryEMailAddressAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'test@test.com');
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
@@ -79,7 +80,12 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'test@test.com'};
       expect(
         ProprietaryEMailAddressAttributeValue.fromJson(json),
-        equals(const ProprietaryEMailAddressAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'test@test.com')),
+        equals(const ProprietaryEMailAddressAttributeValue(
+          title: 'aTitle',
+          description: 'aDescription',
+          valueHintsOverride: ValueHints(),
+          value: 'test@test.com',
+        )),
       );
     });
   });

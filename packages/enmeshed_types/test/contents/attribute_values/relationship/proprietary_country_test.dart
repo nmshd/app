@@ -79,7 +79,12 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aCountry'};
       expect(
         ProprietaryCountryAttributeValue.fromJson(json),
-        equals(const ProprietaryCountryAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aCountry')),
+        equals(const ProprietaryCountryAttributeValue(
+          title: 'aTitle',
+          description: 'aDescription',
+          valueHintsOverride: ValueHints(),
+          value: 'aCountry',
+        )),
       );
     });
   });

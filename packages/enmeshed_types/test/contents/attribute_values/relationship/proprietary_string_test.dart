@@ -79,7 +79,9 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aString'};
       expect(
         ProprietaryStringAttributeValue.fromJson(json),
-        equals(const ProprietaryStringAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aString')),
+        equals(
+          const ProprietaryStringAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aString'),
+        ),
       );
     });
   });

@@ -4,11 +4,16 @@ import 'package:test/test.dart';
 void main() {
   group('LocalAttributeDTO toJson', () {
     test('is correctly converted', () {
-      const dto = LocalAttributeDTO(id: 'anId', createdAt: '2023', content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')));
+      const dto =
+          LocalAttributeDTO(id: 'anId', createdAt: '2023', content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')));
       final dtoJson = dto.toJson();
       expect(
         dtoJson,
-        equals({'id': 'anId', 'createdAt': '2023', 'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson()}),
+        equals({
+          'id': 'anId',
+          'createdAt': '2023',
+          'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+        }),
       );
     });
 
@@ -116,10 +121,20 @@ void main() {
 
   group('LocalAttributeDTO fromJson', () {
     test('is correctly converted', () {
-      final json = {'id': 'anId', 'createdAt': '2023', 'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson()};
+      final json = {
+        'id': 'anId',
+        'createdAt': '2023',
+        'content': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+      };
       expect(
         LocalAttributeDTO.fromJson(json),
-        equals(const LocalAttributeDTO(id: 'anId', createdAt: '2023', content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')))),
+        equals(
+          const LocalAttributeDTO(
+            id: 'anId',
+            createdAt: '2023',
+            content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
 

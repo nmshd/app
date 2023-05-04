@@ -19,7 +19,10 @@ void main() {
   group('AffiliationOrganization fromJson', () {
     test('is correctly converted', () {
       final json = {'value': 'anAffiliationOrganization'};
-      expect(AffiliationOrganizationAttributeValue.fromJson(json), equals(const AffiliationOrganizationAttributeValue(value: 'anAffiliationOrganization')));
+      expect(
+        AffiliationOrganizationAttributeValue.fromJson(json),
+        equals(const AffiliationOrganizationAttributeValue(value: 'anAffiliationOrganization')),
+      );
     });
   });
 }

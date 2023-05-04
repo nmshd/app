@@ -79,7 +79,12 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'www.test.com'};
       expect(
         ProprietaryURLAttributeValue.fromJson(json),
-        equals(const ProprietaryURLAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'www.test.com')),
+        equals(const ProprietaryURLAttributeValue(
+          title: 'aTitle',
+          description: 'aDescription',
+          valueHintsOverride: ValueHints(),
+          value: 'www.test.com',
+        )),
       );
     });
   });

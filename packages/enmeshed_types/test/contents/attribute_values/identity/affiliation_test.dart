@@ -25,7 +25,10 @@ void main() {
         'organization': 'anOrganization',
         'unit': 'anUnit',
       };
-      expect(AffiliationAttributeValue.fromJson(json), equals(const AffiliationAttributeValue(role: 'aRole', organization: 'anOrganization', unit: 'anUnit')));
+      expect(
+        AffiliationAttributeValue.fromJson(json),
+        equals(const AffiliationAttributeValue(role: 'aRole', organization: 'anOrganization', unit: 'anUnit')),
+      );
     });
   });
 }
