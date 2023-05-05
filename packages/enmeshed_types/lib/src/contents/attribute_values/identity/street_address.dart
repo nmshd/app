@@ -7,7 +7,7 @@ class StreetAddressAttributeValue extends IdentityAttributeValue {
   final String zipCode;
   final String city;
   final String country;
-  final String state;
+  final String? state;
 
   const StreetAddressAttributeValue({
     required this.recipient,
@@ -22,7 +22,7 @@ class StreetAddressAttributeValue extends IdentityAttributeValue {
   factory StreetAddressAttributeValue.fromJson(Map json) => StreetAddressAttributeValue(
         recipient: json['recipient'],
         street: json['street'],
-        houseNumber: json['houseNumber'],
+        houseNumber: json['houseNo'],
         zipCode: json['zipCode'],
         city: json['city'],
         country: json['country'],
@@ -34,11 +34,11 @@ class StreetAddressAttributeValue extends IdentityAttributeValue {
         '@type': 'StreetAddress',
         'recipient': recipient,
         'street': street,
-        'houseNumber': houseNumber,
+        'houseNo': houseNumber,
         'zipCode': zipCode,
         'city': city,
         'country': country,
-        'state': state,
+        if (state != null) 'state': state,
       };
 
   @override

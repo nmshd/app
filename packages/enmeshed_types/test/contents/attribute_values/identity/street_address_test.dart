@@ -20,7 +20,7 @@ void main() {
           '@type': 'StreetAddress',
           'recipient': 'aRecipient',
           'street': 'aStreet',
-          'houseNumber': 'aHouseNumber',
+          'houseNo': 'aHouseNumber',
           'zipCode': 'aZipCode',
           'city': 'aCity',
           'country': 'aCountry',
@@ -35,7 +35,7 @@ void main() {
       final json = {
         'recipient': 'aRecipient',
         'street': 'aStreet',
-        'houseNumber': 'aHouseNumber',
+        'houseNo': 'aHouseNumber',
         'zipCode': 'aZipCode',
         'city': 'aCity',
         'country': 'aCountry',
