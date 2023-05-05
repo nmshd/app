@@ -1,4 +1,5 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,6 +16,12 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen> {
   int _selectedIndex = 0;
+
+  static final List<Widget Function(BuildContext)> _widgetOptions = <Widget Function(BuildContext)>[
+    (BuildContext context) => const HomeView(),
+    (BuildContext context) => const ContactsView(),
+    (BuildContext context) => const Center(child: Text('My Data')),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +54,7 @@ class _AccountScreenState extends State<AccountScreen> {
         currentIndex: _selectedIndex,
         onTap: (index) => setState(() => _selectedIndex = index),
       ),
+      body: Builder(builder: _widgetOptions[_selectedIndex]),
     );
   }
 
@@ -61,5 +69,103 @@ class _AccountScreenState extends State<AccountScreen> {
       default:
         return '';
     }
+  }
+}
+
+class ContactsView extends StatefulWidget {
+  const ContactsView({super.key});
+
+  @override
+  State<ContactsView> createState() => _ContactsViewState();
+}
+
+class _ContactsViewState extends State<ContactsView> {
+  List<RelationshipDTO>? _relationships;
+
+  @override
+  void initState() {
+    _reload();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _relationships = null;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_relationships == null) return const Center(child: CircularProgressIndicator());
+
+    return RefreshIndicator(
+      onRefresh: () async => await _reload(true),
+      child: ListView.separated(
+        itemBuilder: (context, index) => ListTile(title: Text(_relationships![index].peer)),
+        itemCount: _relationships!.length,
+        separatorBuilder: (_, __) => const Divider(),
+      ),
+    );
+  }
+
+  Future<void> _reload([bool syncBefore = false]) async {
+    if (syncBefore) {
+      await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.accounts.syncEverything();
+    }
+
+    final relationships = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.relationships.getRelationships();
+    setState(() => _relationships = relationships);
+  }
+}
+
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  List<MessageDTO>? _messages;
+
+  @override
+  void initState() {
+    _reload();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _messages = null;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_messages == null) return const Center(child: CircularProgressIndicator());
+
+    return RefreshIndicator(
+      onRefresh: () async => await _reload(true),
+      child: ListView.separated(
+        itemBuilder: (context, index) => ListTile(
+          title: Text(
+            _messages![index].content is Mail
+                ? '${(_messages![index].content as Mail).subject} | ‚${(_messages![index].content as Mail).body}'
+                : 'technical message',
+          ),
+        ),
+        itemCount: _messages!.length,
+        separatorBuilder: (_, __) => const Divider(),
+      ),
+    );
+  }
+
+  Future<void> _reload([bool syncBefore = false]) async {
+    if (syncBefore) {
+      await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.accounts.syncEverything();
+    }
+
+    final messages = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.messages.getMessages();
+    setState(() => _messages = messages);
   }
 }
