@@ -127,6 +127,7 @@ class AccountCreationScreen extends StatelessWidget {
       }
 
       final account = await runtime.accountServices.onboardAccount((token.content as TokenContentDeviceSharedSecret).sharedSecret);
+      await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
       if (context.mounted) {
         Navigator.pushAndRemoveUntil(
           context,
@@ -235,6 +236,7 @@ class _CreateNewIdentityState extends State<CreateNewIdentity> {
     });
 
     final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: _controller.text);
+    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
     if (context.mounted) {
       Navigator.pushAndRemoveUntil(
         context,

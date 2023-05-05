@@ -27,7 +27,7 @@ void main() async {
   final logger = Logger(printer: SimplePrinter(colors: false));
   GetIt.I.registerSingleton(logger);
 
-  final runtime = EnmeshedRuntime(logger: logger, runtimeReadyCallback: () => FlutterNativeSplash.remove());
+  final runtime = EnmeshedRuntime(logger: logger);
   GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
   await GetIt.I.allReady();
 
@@ -38,7 +38,10 @@ void main() async {
   }
 
   accounts.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
-  runApp(EnmeshedApp(home: AccountScreen(accounts.first.id)));
+
+  final accountId = accounts.first.id;
+  await GetIt.I.get<EnmeshedRuntime>().selectAccount(accountId);
+  runApp(EnmeshedApp(home: AccountScreen(accountId)));
 }
 
 class EnmeshedApp extends StatelessWidget {
@@ -47,6 +50,8 @@ class EnmeshedApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
