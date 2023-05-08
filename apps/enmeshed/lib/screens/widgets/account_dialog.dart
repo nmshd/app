@@ -12,8 +12,9 @@ import 'create_new_identity.dart';
 
 class AccountDialog extends StatefulWidget {
   final Function(LocalAccountDTO) accountsChanged;
+  final LocalAccountDTO initialSelectedAccount;
 
-  const AccountDialog({super.key, required this.accountsChanged});
+  const AccountDialog({super.key, required this.accountsChanged, required this.initialSelectedAccount});
 
   @override
   State<AccountDialog> createState() => _AccountDialogState();
@@ -21,11 +22,13 @@ class AccountDialog extends StatefulWidget {
 
 class _AccountDialogState extends State<AccountDialog> {
   List<LocalAccountDTO>? _accounts;
+  late LocalAccountDTO _selectedAccount;
 
   @override
   void initState() {
     super.initState();
 
+    _selectedAccount = widget.initialSelectedAccount;
     _reloadAccounts();
   }
 
@@ -72,14 +75,16 @@ class _AccountDialogState extends State<AccountDialog> {
             if (_accounts == null) const Center(child: CircularProgressIndicator()),
             if (_accounts != null) ...[
               const Divider(),
-              for (final entry in _accounts!.asMap().entries)
+              for (final account in _accounts!)
                 ListTile(
-                  leading: CircleAvatar(child: Text(entry.value.name.substring(0, 2))),
-                  title: Text(entry.value.name),
-                  selected: entry.key == 0,
+                  leading: CircleAvatar(child: Text(account.name.substring(0, 2))),
+                  title: Text(account.name),
+                  selected: _selectedAccount.id == account.id,
                   onTap: () async {
-                    await GetIt.I.get<EnmeshedRuntime>().selectAccount(entry.value.id);
-                    widget.accountsChanged(entry.value);
+                    setState(() => _selectedAccount = account);
+
+                    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+                    widget.accountsChanged(account);
                     _reloadAccounts();
                   },
                 ),
@@ -90,6 +95,8 @@ class _AccountDialogState extends State<AccountDialog> {
                   context: context,
                   builder: (_) => CreateNewIdentity(
                     onAccountCreated: (account) async {
+                      setState(() => _selectedAccount = account);
+
                       await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
                       widget.accountsChanged(account);
                       _reloadAccounts();
@@ -143,7 +150,7 @@ class _AccountDialogState extends State<AccountDialog> {
 
   void _reloadAccounts() async {
     final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-    accounts.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
+    accounts.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     setState(() => _accounts = accounts);
   }
 }

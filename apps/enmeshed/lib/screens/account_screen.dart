@@ -104,10 +104,13 @@ class _AccountScreenState extends State<AccountScreen> {
   Future<void> _openAccountDialog() async => await showDialog(
         context: context,
         barrierDismissible: true,
-        builder: (context) => AccountDialog(accountsChanged: (dto) {
-          _controller.reload();
-          setState(() => _account = dto);
-        }),
+        builder: (context) => AccountDialog(
+          accountsChanged: (dto) {
+            _controller.reload();
+            setState(() => _account = dto);
+          },
+          initialSelectedAccount: _account,
+        ),
       );
 }
 
