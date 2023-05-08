@@ -366,7 +366,7 @@ void main() {
         '@type': 'StreetAddress',
         'recipient': 'aRecipient',
         'street': 'aStreet',
-        'houseNumber': 'aHouseNo',
+        'houseNo': 'aHouseNo',
         'zipCode': 'aZipCode',
         'city': 'aCity',
         'country': 'DE',

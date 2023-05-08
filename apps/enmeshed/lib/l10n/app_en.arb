@@ -23,5 +23,7 @@
   "onboarding_dataPrivacy_link": "data protection conditions",
   "onboarding_dataPrivacy_end": ".",
   "onboarding_invalidCode": "The code is invalid. Try another one.",
-  "onboarding_processingCode": "Processing the code."
+  "onboarding_processingCode": "Processing the code.",
+  "menu_dataPrivacy": "Data Privacy",
+  "menu_licenses": "Open Source Licenses"
 }

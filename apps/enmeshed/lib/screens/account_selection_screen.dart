@@ -40,7 +40,7 @@ class _AccountSelectionScreenState extends State<AccountSelectionScreen> {
                   onTap: () async {
                     GetIt.I.get<EnmeshedRuntime>().selectAccount(item.id);
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (BuildContext context) => AccountScreen(item.id)),
+                      MaterialPageRoute(builder: (BuildContext context) => AccountScreen(initialAccount: item)),
                     );
                   },
                 );

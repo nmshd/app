@@ -24,6 +24,7 @@ class _ScannerViewState extends State<ScannerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           scannerMode == ScannerMode.scan ? AppLocalizations.of(context)!.scanner_scanQR : AppLocalizations.of(context)!.scanner_enterManual,
         ),

@@ -33,7 +33,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/enmeshed_logo_dark.png
+    - assets/enmeshed_logo_dark_cut.png
     - assets/enmeshed_logo_light.png
+    - assets/enmeshed_logo_light_cut.png
 
 flutter_icons:
   image_path: "assets/icon.png"
