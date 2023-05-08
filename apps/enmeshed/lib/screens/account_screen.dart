@@ -5,6 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
+class ReloadController {
+  VoidCallback? _onReload;
+  set onReload(VoidCallback callback) => _onReload = callback;
+
+  void dispose() {
+    _onReload = null;
+  }
+
+  void reload() => _onReload?.call();
+}
+
 class AccountScreen extends StatefulWidget {
   late final Session session;
 
@@ -15,13 +26,30 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  final _controller = ReloadController();
+
   int _selectedIndex = 0;
 
-  static final List<Widget Function(BuildContext)> _widgetOptions = <Widget Function(BuildContext)>[
-    (BuildContext context) => const HomeView(),
-    (BuildContext context) => const ContactsView(),
-    (BuildContext context) => const Center(child: Text('My Data')),
-  ];
+  late final List<Widget Function(BuildContext)> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _account = widget.initialAccount;
+
+    _widgetOptions = <Widget Function(BuildContext)>[
+      (BuildContext context) => HomeView(reloadController: _controller),
+      (BuildContext context) => ContactsView(reloadController: _controller),
+      (BuildContext context) => const Center(child: Text('My Data')),
+    ];
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +128,9 @@ class _AccountScreenState extends State<AccountScreen> {
 }
 
 class ContactsView extends StatefulWidget {
-  const ContactsView({super.key});
+  final ReloadController reloadController;
+
+  const ContactsView({super.key, required this.reloadController});
 
   @override
   State<ContactsView> createState() => _ContactsViewState();
@@ -111,14 +141,9 @@ class _ContactsViewState extends State<ContactsView> {
 
   @override
   void initState() {
+    widget.reloadController.onReload = _reload;
     _reload();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _relationships = null;
-    super.dispose();
   }
 
   @override
@@ -146,7 +171,9 @@ class _ContactsViewState extends State<ContactsView> {
 }
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  final ReloadController reloadController;
+
+  const HomeView({super.key, required this.reloadController});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -157,14 +184,9 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
+    widget.reloadController.onReload = _reload;
     _reload();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _messages = null;
-    super.dispose();
   }
 
   @override
