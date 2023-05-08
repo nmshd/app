@@ -27,7 +27,12 @@ jobs:
           target: ${{ matrix.target }}
           api-level: ${{ matrix.api-level }}
           force-avd-creation: false
+          cores: 2
+          ram-size: 4096M
+          heap-size: 512M
+          avd-name: integration_test
+          disable-spellchecker: true
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           arch: x86_64
-          profile: Nexus 9
+          profile: pixel
           script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=$connector_baseURL --dart-define=connector_apiKey=$connector_apiKey
