@@ -39,9 +39,9 @@ void main() async {
 
   accounts.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
 
-  final accountId = accounts.first.id;
-  await GetIt.I.get<EnmeshedRuntime>().selectAccount(accountId);
-  runApp(EnmeshedApp(home: AccountScreen(accountId)));
+  final account = accounts.first;
+  await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+  runApp(EnmeshedApp(home: AccountScreen(initialAccount: account)));
 }
 
 class EnmeshedApp extends StatelessWidget {

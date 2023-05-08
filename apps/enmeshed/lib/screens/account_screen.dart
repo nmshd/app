@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
+import 'widgets/widgets.dart';
+
 class ReloadController {
   VoidCallback? _onReload;
   set onReload(VoidCallback callback) => _onReload = callback;
@@ -17,9 +19,9 @@ class ReloadController {
 }
 
 class AccountScreen extends StatefulWidget {
-  late final Session session;
+  final LocalAccountDTO initialAccount;
 
-  AccountScreen(String accountId, {super.key}) : session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
+  const AccountScreen({super.key, required this.initialAccount});
 
   @override
   State<AccountScreen> createState() => _AccountScreenState();
@@ -28,6 +30,7 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   final _controller = ReloadController();
 
+  late LocalAccountDTO _account;
   int _selectedIndex = 0;
 
   late final List<Widget Function(BuildContext)> _widgetOptions;
@@ -65,7 +68,7 @@ class _AccountScreenState extends State<AccountScreen> {
             ),
           IconButton(
             onPressed: _openAccountDialog,
-            icon: const Padding(padding: EdgeInsets.all(2.0), child: CircleAvatar(child: Text('AB'))),
+            icon: Padding(padding: const EdgeInsets.all(2.0), child: CircleAvatar(child: Text(_account.name.substring(0, 2)))),
           ),
         ],
       ),
@@ -104,27 +107,14 @@ class _AccountScreenState extends State<AccountScreen> {
     }
   }
 
-  Future<void> _openAccountDialog() async {
-    final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-    if (context.mounted) {
-      await showDialog(
+  Future<void> _openAccountDialog() async => await showDialog(
         context: context,
-        builder: (context) => SimpleDialog(
-          title: Text(AppLocalizations.of(context)!.cancel),
-          children: [
-            for (final account in accounts)
-              SimpleDialogOption(
-                child: Text(account.name),
-                onPressed: () {
-                  GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
-                  Navigator.of(context).pop();
-                },
-              ),
-          ],
-        ),
+        barrierDismissible: true,
+        builder: (context) => AccountDialog(accountsChanged: (dto) {
+          _controller.reload();
+          setState(() => _account = dto);
+        }),
       );
-    }
-  }
 }
 
 class ContactsView extends StatefulWidget {
