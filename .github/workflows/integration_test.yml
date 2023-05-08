@@ -34,7 +34,7 @@ jobs:
       - run: dart pub global activate melos
       - run: melos bootstrap
       - name: Run integration tests
-        run: flutter test integration_test --verbose
+        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=$connector_baseURL --dart-define=connector_apiKey=$connector_apiKey
   android:
     runs-on: macos-latest
     strategy:
