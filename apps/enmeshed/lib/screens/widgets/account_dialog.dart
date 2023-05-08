@@ -1,11 +1,13 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../onboarding_screen.dart';
 import 'create_new_identity.dart';
 
 class AccountDialog extends StatefulWidget {
@@ -49,6 +51,22 @@ class _AccountDialogState extends State<AccountDialog> {
                     fit: BoxFit.contain,
                   ),
                 ),
+                if (kDebugMode)
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      onPressed: () async {
+                        await GetIt.I.get<EnmeshedRuntime>().accountServices.clearAccounts();
+                        if (context.mounted) {
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+                            (_) => false,
+                          );
+                        }
+                      },
+                      icon: const Icon(Icons.delete_forever),
+                    ),
+                  ),
               ],
             ),
             if (_accounts == null) const Center(child: CircularProgressIndicator()),

@@ -1,6 +1,5 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -61,11 +60,6 @@ class _AccountScreenState extends State<AccountScreen> {
         centerTitle: true,
         title: Text(_title),
         actions: [
-          if (kDebugMode)
-            IconButton(
-              onPressed: () async => await GetIt.I.get<EnmeshedRuntime>().accountServices.clearAccounts(),
-              icon: const Icon(Icons.clear),
-            ),
           IconButton(
             onPressed: _openAccountDialog,
             icon: Padding(padding: const EdgeInsets.all(2.0), child: CircleAvatar(child: Text(_account.name.substring(0, 2)))),
