@@ -20,7 +20,7 @@ jobs:
         # the assignment of the UDID variable consists of retrieving the ID of the simulator
         # by extracting it from the command "xcrun xctrace list devices"
         run: |
-          UDID=$(xcrun xctrace list devices | grep "^${{ matrix.device }}" | awk '{gsub(/[()]/,""); print $NF}')
+          UDID=$(xcrun xctrace list devices | grep -m 1 "^${{ matrix.device }}" | awk '{gsub(/[()]/,""); print $NF}')
           echo $UDID
           xcrun simctl boot "${UDID:?No Simulator with this name found}"
       - uses: actions/checkout@v3
