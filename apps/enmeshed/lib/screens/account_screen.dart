@@ -33,6 +33,10 @@ class _AccountScreenState extends State<AccountScreen> {
               onPressed: () async => await GetIt.I.get<EnmeshedRuntime>().accountServices.clearAccounts(),
               icon: const Icon(Icons.clear),
             ),
+          IconButton(
+            onPressed: () async {},
+            icon: const Icon(Icons.delete),
+          ),
         ],
         title: Text(_title),
       ),
@@ -147,13 +151,13 @@ class _HomeViewState extends State<HomeView> {
     return RefreshIndicator(
       onRefresh: () async => await _reload(true),
       child: ListView.separated(
-        itemBuilder: (context, index) => ListTile(
-          title: Text(
-            _messages![index].content is Mail
-                ? '${(_messages![index].content as Mail).subject} | ‚${(_messages![index].content as Mail).body}'
-                : 'technical message',
-          ),
-        ),
+        itemBuilder: (context, index) {
+          final content = _messages![index].content;
+          return ListTile(
+            title: content is Mail ? Text(content.subject) : const Text('technical message'),
+            subtitle: content is Mail ? Text(content.body) : null,
+          );
+        },
         itemCount: _messages!.length,
         separatorBuilder: (_, __) => const Divider(),
       ),
