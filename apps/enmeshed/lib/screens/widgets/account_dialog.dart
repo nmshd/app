@@ -43,7 +43,7 @@ class _AccountDialogState extends State<AccountDialog> {
               children: [
                 const Align(alignment: Alignment.topLeft, child: CloseButton()),
                 SizedBox(
-                  height: 24,
+                  height: 35,
                   child: Image.asset(
                     MediaQuery.of(context).platformBrightness == Brightness.light
                         ? 'assets/enmeshed_logo_light_cut.png'
