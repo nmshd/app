@@ -27,6 +27,8 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        title: Text(_title),
         actions: [
           if (kDebugMode)
             IconButton(
@@ -34,11 +36,10 @@ class _AccountScreenState extends State<AccountScreen> {
               icon: const Icon(Icons.clear),
             ),
           IconButton(
-            onPressed: () async {},
-            icon: const Icon(Icons.delete),
+            onPressed: _openAccountDialog,
+            icon: const Padding(padding: EdgeInsets.all(2.0), child: CircleAvatar(child: Text('AB'))),
           ),
         ],
-        title: Text(_title),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
@@ -72,6 +73,28 @@ class _AccountScreenState extends State<AccountScreen> {
         return AppLocalizations.of(context)!.myData;
       default:
         return '';
+    }
+  }
+
+  Future<void> _openAccountDialog() async {
+    final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
+    if (context.mounted) {
+      await showDialog(
+        context: context,
+        builder: (context) => SimpleDialog(
+          title: Text(AppLocalizations.of(context)!.cancel),
+          children: [
+            for (final account in accounts)
+              SimpleDialogOption(
+                child: Text(account.name),
+                onPressed: () {
+                  GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+                  Navigator.of(context).pop();
+                },
+              ),
+          ],
+        ),
+      );
     }
   }
 }
