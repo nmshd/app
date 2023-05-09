@@ -34,9 +34,9 @@ jobs:
       - run: dart pub global activate melos
       - run: melos bootstrap
       - name: Run integration tests
-        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=$connector_baseURL --dart-define=connector_apiKey=$connector_apiKey
+        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{TESTCONNECTOR_APIKEY}}
   android:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         api-level: [33]
@@ -65,18 +65,24 @@ jobs:
             ~/.android/avd/*
             ~/.android/adb*
           key: avd-${{ matrix.api-level }}
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
       - name: Start emulator and run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           target: ${{ matrix.target }}
           api-level: ${{ matrix.api-level }}
           force-avd-creation: false
-          cores: 2
-          ram-size: 4096M
-          heap-size: 512M
           avd-name: integration_test
           disable-spellchecker: true
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           arch: x86_64
           profile: pixel
-          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=$connector_baseURL --dart-define=connector_apiKey=$connector_apiKey
+          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{TESTCONNECTOR_APIKEY}}
