@@ -34,7 +34,7 @@ jobs:
       - run: dart pub global activate melos
       - run: melos bootstrap
       - name: Run integration tests
-        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{env.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{env.TESTCONNECTOR_APIKEY}}
+        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{vars.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{vars.TESTCONNECTOR_APIKEY}}
   android:
     runs-on: macos-latest
     strategy:
@@ -62,8 +62,8 @@ jobs:
         id: avd-cache
         with:
           path: |
-            ~/.android/avd/*
-            ~/.android/adb*
+            ~/.android/**/avd/*
+            ~/.android/**/adb*
           key: avd-${{ matrix.api-level }}
       - name: create AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
@@ -87,4 +87,4 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           arch: x86_64
           profile: pixel
-          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{env.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{env.TESTCONNECTOR_APIKEY}}
+          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{vars.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{vars.TESTCONNECTOR_APIKEY}}
