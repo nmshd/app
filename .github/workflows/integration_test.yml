@@ -36,7 +36,7 @@ jobs:
       - name: Run integration tests
         run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=$connector_baseURL --dart-define=connector_apiKey=$connector_apiKey
   android:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         api-level: [33]
@@ -65,18 +65,6 @@ jobs:
             ~/.android/avd/*
             ~/.android/adb*
           key: avd-${{ matrix.api-level }}
-
-      - name: create AVD and generate snapshot for caching
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          arch: x86_64
-          script: echo "Generated AVD snapshot for caching."
       - name: Start emulator and run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
