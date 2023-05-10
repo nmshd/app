@@ -16,11 +16,10 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   group('RelationshipsFacade: getRelationships', () {
     test('returns a valid list of RelationshipDTOs', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-      final content = ArbitraryRelationshipTemplateContent(const {}).toJson();
 
       final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
-        content: content,
+        content: {},
       );
 
       final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
@@ -39,7 +38,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
 
       expect(expiresAt, relationship.template.expiresAt);
-      expect(content, relationship.template.content.toJson());
+      expect({}, relationship.template.content.toJson());
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
       final relationships = await session.transportServices.relationships.getRelationships();
@@ -52,11 +51,10 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   group('RelationshipsFacade: getRelationship', () {
     test('returns a valid RelationshipDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-      final content = ArbitraryRelationshipTemplateContent(const {}).toJson();
 
       final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
-        content: content,
+        content: {},
       );
 
       final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
@@ -73,11 +71,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final relationship = await session.transportServices.relationships.getRelationship(relationshipId: createdRelationship.id);
 
       expect(expiresAt, createdRelationship.template.expiresAt);
-      expect(content, createdRelationship.template.content.toJson());
+      expect({}, createdRelationship.template.content.toJson());
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
       expect(expiresAt, relationship.template.expiresAt);
-      expect(content, relationship.template.content.toJson());
+      expect({}, relationship.template.content.toJson());
       expect(relationship.id, createdRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
@@ -128,11 +126,10 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   group('RelationshipsFacade: getRelationshipByAddress', () {
     test('returns a valid RelationshipDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-      final content = ArbitraryRelationshipTemplateContent(const {}).toJson();
 
       final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
-        content: content,
+        content: {},
       );
 
       final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
@@ -152,11 +149,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final relationship = await session.transportServices.relationships.getRelationshipByAddress(address: address);
 
       expect(expiresAt, createdRelationship.template.expiresAt);
-      expect(content, createdRelationship.template.content.toJson());
+      expect({}, createdRelationship.template.content.toJson());
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
       expect(expiresAt, relationship.template.expiresAt);
-      expect(content, relationship.template.content.toJson());
+      expect({}, relationship.template.content.toJson());
       expect(relationship.id, createdRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
@@ -165,11 +162,10 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   group('RelationshipsFacade: createRelationship', () {
     test('returns a valid RelationshipDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-      final content = ArbitraryRelationshipTemplateContent(const {}).toJson();
 
       final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
-        content: content,
+        content: {},
       );
 
       final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
@@ -184,7 +180,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
 
       expect(expiresAt, relationship.template.expiresAt);
-      expect(content, relationship.template.content.toJson());
+      expect({}, relationship.template.content.toJson());
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
   });
@@ -256,11 +252,10 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   group('RelationshipsFacade: getAttributesForRelationship', () {
     test('returns a valid list of LocalAttributeDTOs', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-      final content = ArbitraryRelationshipTemplateContent(const {}).toJson();
 
       final connectorTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
-        content: content,
+        content: {},
       );
       final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
         reference: connectorTemplate.data.truncatedReference,
@@ -292,11 +287,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final response = await session.transportServices.relationships.getAttributesForRelationship(relationshipId: relationship.id);
 
       expect(expiresAt, createdRelationship.template.expiresAt);
-      expect(content, createdRelationship.template.content.toJson());
+      expect({}, createdRelationship.template.content.toJson());
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
       expect(expiresAt, relationship.template.expiresAt);
-      expect(content, relationship.template.content.toJson());
+      expect({}, relationship.template.content.toJson());
       expect(relationship.id, createdRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
