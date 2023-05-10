@@ -1,18 +1,20 @@
 on:
-  push:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "packages/enmeshed_runtime_bridge/**"
 name: enmeshed_bridge integration tests
 jobs:
   ios:
-    # Creates a build matrix for your jobs. You can define different variations of an environment to run each job
     strategy:
       matrix:
         device:
-          # The available simulators are listed by the "xcrun xctrace list devices" command
           - "iPhone 14 Simulator (16.2)" # the name of the simulator could be different depending on the macos version you are using
-      # if one of the jobs in the matrix expansion fails, the rest of the jobs will be cancelled
       fail-fast: true
-    runs-on: macos-latest # or macos-latest if you prefer, but be aware that the available simulators could be different if you run a different version
+    runs-on: macos-latest
     steps:
+      - uses: actions/checkout@v3
       - name: "List all simulators"
         run: "xcrun xctrace list devices"
       - name: "Start Simulator"
@@ -23,16 +25,14 @@ jobs:
           UDID=$(xcrun xctrace list devices | grep -m 1 "^${{ matrix.device }}" | awk '{gsub(/[()]/,""); print $NF}')
           echo $UDID
           xcrun simctl boot "${UDID:?No Simulator with this name found}"
-      - uses: actions/checkout@v3
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          # instead of "channel: stable", you could be more precise by specifying the exact version of Flutter you're using:
-          # flutter-version: '<FLUTTER_VERSION>'
-
-      - run: dart pub global activate melos
-      - run: melos bootstrap
+      - name: Install Dependencies
+        run: |
+          dart pub global activate melos
+          melos bootstrap
       - name: Run integration tests
         run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{secrets.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{secrets.TESTCONNECTOR_APIKEY}}
   android:
@@ -41,19 +41,23 @@ jobs:
       matrix:
         api-level: [32]
         target: [playstore]
+      fail-fast: true
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
           distribution: "oracle"
           java-version: 17
           cache: "gradle"
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
         with:
           channel: stable
-      - run: flutter --version
-      - run: dart pub global activate melos
-      - run: melos bootstrap
+      - name: Install Dependencies
+        run: |
+          dart pub global activate melos
+          melos bootstrap
       - name: Start emulator and run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
