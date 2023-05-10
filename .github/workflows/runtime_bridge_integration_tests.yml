@@ -2,8 +2,6 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - "packages/enmeshed_runtime_bridge/**"
 name: enmeshed_bridge integration tests
 jobs:
   ios:
@@ -58,6 +56,23 @@ jobs:
         run: |
           dart pub global activate melos
           melos bootstrap
+      - name: Setup AVD Cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-29
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
       - name: Start emulator and run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
