@@ -37,13 +37,13 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         content: {'a': 'b'},
       );
 
-      expect(expiresAt, relationship.template.expiresAt);
-      expect({}, relationship.template.content.toJson());
+      expect(relationship.template.expiresAt, expiresAt);
+      expect(relationship.template.content.toJson(), {});
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
       final relationships = await session.transportServices.relationships.getRelationships();
 
-      expect(1, relationships.length);
+      expect(relationships.length, 1);
       expect(relationships, isInstanceOf<List<RelationshipDTO>>());
     });
   });
@@ -70,12 +70,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final relationship = await session.transportServices.relationships.getRelationship(relationshipId: createdRelationship.id);
 
-      expect(expiresAt, createdRelationship.template.expiresAt);
-      expect({}, createdRelationship.template.content.toJson());
+      expect(createdRelationship.template.expiresAt, expiresAt);
+      expect(createdRelationship.template.content.toJson(), {});
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
-      expect(expiresAt, relationship.template.expiresAt);
-      expect({}, relationship.template.content.toJson());
+      expect(relationship.template.expiresAt, expiresAt);
+      expect(relationship.template.content.toJson(), {});
       expect(relationship.id, createdRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
@@ -148,12 +148,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final relationship = await session.transportServices.relationships.getRelationshipByAddress(address: address);
 
-      expect(expiresAt, createdRelationship.template.expiresAt);
-      expect({}, createdRelationship.template.content.toJson());
+      expect(createdRelationship.template.expiresAt, expiresAt);
+      expect(createdRelationship.template.content.toJson(), {});
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
-      expect(expiresAt, relationship.template.expiresAt);
-      expect({}, relationship.template.content.toJson());
+      expect(relationship.template.expiresAt, expiresAt);
+      expect(relationship.template.content.toJson(), {});
       expect(relationship.id, createdRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
@@ -179,8 +179,8 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         content: {},
       );
 
-      expect(expiresAt, relationship.template.expiresAt);
-      expect({}, relationship.template.content.toJson());
+      expect(relationship.template.expiresAt, expiresAt);
+      expect(relationship.template.content.toJson(), {});
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
   });
@@ -286,17 +286,17 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final response = await session.transportServices.relationships.getAttributesForRelationship(relationshipId: relationship.id);
 
-      expect(expiresAt, createdRelationship.template.expiresAt);
-      expect({}, createdRelationship.template.content.toJson());
+      expect(createdRelationship.template.expiresAt, expiresAt);
+      expect(createdRelationship.template.content.toJson(), {});
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
-      expect(expiresAt, relationship.template.expiresAt);
-      expect({}, relationship.template.content.toJson());
+      expect(relationship.template.expiresAt, expiresAt);
+      expect(relationship.template.content.toJson(), {});
       expect(relationship.id, createdRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
 
       expect(response, isInstanceOf<List<LocalAttributeDTO>>());
-      expect(2, response.length);
+      expect(response.length, 2);
     });
   });
 }
