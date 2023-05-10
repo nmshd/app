@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('StreetAddress toJson', () {
+  group('StreetAddressAttributeValue toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = StreetAddress(
+      const identityAttributeValue = StreetAddressAttributeValue(
         recipient: 'aRecipient',
         street: 'aStreet',
         houseNumber: 'aHouseNumber',
@@ -20,7 +20,7 @@ void main() {
           '@type': 'StreetAddress',
           'recipient': 'aRecipient',
           'street': 'aStreet',
-          'houseNumber': 'aHouseNumber',
+          'houseNo': 'aHouseNumber',
           'zipCode': 'aZipCode',
           'city': 'aCity',
           'country': 'aCountry',
@@ -30,20 +30,20 @@ void main() {
     });
   });
 
-  group('StreetAddress fromJson', () {
+  group('StreetAddressAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {
         'recipient': 'aRecipient',
         'street': 'aStreet',
-        'houseNumber': 'aHouseNumber',
+        'houseNo': 'aHouseNumber',
         'zipCode': 'aZipCode',
         'city': 'aCity',
         'country': 'aCountry',
         'state': 'aState',
       };
       expect(
-        StreetAddress.fromJson(json),
-        equals(const StreetAddress(
+        StreetAddressAttributeValue.fromJson(json),
+        equals(const StreetAddressAttributeValue(
           recipient: 'aRecipient',
           street: 'aStreet',
           houseNumber: 'aHouseNumber',

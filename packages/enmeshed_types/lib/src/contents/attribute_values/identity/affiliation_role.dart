@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class AffiliationRole extends IdentityAttributeValue {
+class AffiliationRoleAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const AffiliationRole({
+  const AffiliationRoleAttributeValue({
     required this.value,
   });
 
-  factory AffiliationRole.fromJson(Map json) => AffiliationRole(
+  factory AffiliationRoleAttributeValue.fromJson(Map json) => AffiliationRoleAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class AffiliationRole extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'AffiliationRole(value: $value)';
+  String toString() => 'AffiliationRoleAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

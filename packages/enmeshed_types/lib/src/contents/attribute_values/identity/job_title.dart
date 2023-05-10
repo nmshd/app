@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class JobTitle extends IdentityAttributeValue {
+class JobTitleAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const JobTitle({
+  const JobTitleAttributeValue({
     required this.value,
   });
 
-  factory JobTitle.fromJson(Map json) => JobTitle(
+  factory JobTitleAttributeValue.fromJson(Map json) => JobTitleAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class JobTitle extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'JobTitle(value: $value)';
+  String toString() => 'JobTitleAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

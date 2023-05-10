@@ -9,7 +9,7 @@ void main() {
         'value': 'anAffiliationOrganization',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(affiliationOrganizationJson);
-      expect(identityAttributeValue, isA<AffiliationOrganization>());
+      expect(identityAttributeValue, isA<AffiliationOrganizationAttributeValue>());
     });
 
     test('parsed valid AffiliationRole', () {
@@ -18,7 +18,7 @@ void main() {
         'value': 'anAffiliationRole',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(affiliationRoleJson);
-      expect(identityAttributeValue, isA<AffiliationRole>());
+      expect(identityAttributeValue, isA<AffiliationRoleAttributeValue>());
     });
 
     test('parsed valid AffiliationUnit', () {
@@ -27,7 +27,7 @@ void main() {
         'value': 'anAffiliationUnit',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(affiliationUnitJson);
-      expect(identityAttributeValue, isA<AffiliationUnit>());
+      expect(identityAttributeValue, isA<AffiliationUnitAttributeValue>());
     });
 
     test('parsed valid BirthCity', () {
@@ -36,7 +36,7 @@ void main() {
         'value': 'aBirthCity',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(birthCityJson);
-      expect(identityAttributeValue, isA<BirthCity>());
+      expect(identityAttributeValue, isA<BirthCityAttributeValue>());
     });
 
     test('parsed valid BirthName', () {
@@ -45,7 +45,7 @@ void main() {
         'value': 'aBirthName',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(birthNameJson);
-      expect(identityAttributeValue, isA<BirthName>());
+      expect(identityAttributeValue, isA<BirthNameAttributeValue>());
     });
 
     test('parsed valid BirthState', () {
@@ -54,7 +54,7 @@ void main() {
         'value': 'aBirthState',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(birthStateJson);
-      expect(identityAttributeValue, isA<BirthState>());
+      expect(identityAttributeValue, isA<BirthStateAttributeValue>());
     });
 
     test('parsed valid City', () {
@@ -63,7 +63,7 @@ void main() {
         'value': 'aCity',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(cityJson);
-      expect(identityAttributeValue, isA<City>());
+      expect(identityAttributeValue, isA<CityAttributeValue>());
     });
 
     test('parsed valid DisplayName', () {
@@ -72,7 +72,7 @@ void main() {
         'value': 'aDisplayName',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(displayNameJson);
-      expect(identityAttributeValue, isA<DisplayName>());
+      expect(identityAttributeValue, isA<DisplayNameAttributeValue>());
     });
 
     test('parsed valid FileReference', () {
@@ -81,7 +81,7 @@ void main() {
         'value': 'aFileReference',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(fileReferenceJson);
-      expect(identityAttributeValue, isA<FileReference>());
+      expect(identityAttributeValue, isA<FileReferenceAttributeValue>());
     });
 
     test('parsed valid GivenName', () {
@@ -90,7 +90,7 @@ void main() {
         'value': 'aGivenName',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(givenNameJson);
-      expect(identityAttributeValue, isA<GivenName>());
+      expect(identityAttributeValue, isA<GivenNameAttributeValue>());
     });
 
     test('parsed valid HonorificPrefix', () {
@@ -99,7 +99,7 @@ void main() {
         'value': 'aHonorificPrefix',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(honorificPrefixJson);
-      expect(identityAttributeValue, isA<HonorificPrefix>());
+      expect(identityAttributeValue, isA<HonorificPrefixAttributeValue>());
     });
 
     test('parsed valid HonorificSuffix', () {
@@ -108,7 +108,7 @@ void main() {
         'value': 'aHonorificSuffix',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(honorificSuffixJson);
-      expect(identityAttributeValue, isA<HonorificSuffix>());
+      expect(identityAttributeValue, isA<HonorificSuffixAttributeValue>());
     });
 
     test('parsed valid HouseNumber', () {
@@ -117,7 +117,7 @@ void main() {
         'value': 'aHouseNumber',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(houseNumberJson);
-      expect(identityAttributeValue, isA<HouseNumber>());
+      expect(identityAttributeValue, isA<HouseNumberAttributeValue>());
     });
 
     test('parsed valid JobTitle', () {
@@ -126,7 +126,7 @@ void main() {
         'value': 'aJobTitle',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(jobTitleJson);
-      expect(identityAttributeValue, isA<JobTitle>());
+      expect(identityAttributeValue, isA<JobTitleAttributeValue>());
     });
 
     test('parsed valid MiddleName', () {
@@ -135,7 +135,7 @@ void main() {
         'value': 'aMiddleName',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(middleNameJson);
-      expect(identityAttributeValue, isA<MiddleName>());
+      expect(identityAttributeValue, isA<MiddleNameAttributeValue>());
     });
 
     test('parsed valid PhoneNumber', () {
@@ -144,7 +144,7 @@ void main() {
         'value': 'aPhoneNumber',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(phoneNumberJson);
-      expect(identityAttributeValue, isA<PhoneNumber>());
+      expect(identityAttributeValue, isA<PhoneNumberAttributeValue>());
     });
 
     test('parsed valid Pseudonym', () {
@@ -153,7 +153,7 @@ void main() {
         'value': 'aPseudonym',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(pseudonymJson);
-      expect(identityAttributeValue, isA<Pseudonym>());
+      expect(identityAttributeValue, isA<PseudonymAttributeValue>());
     });
 
     test('parsed valid State', () {
@@ -162,7 +162,7 @@ void main() {
         'value': 'aState',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(stateJson);
-      expect(identityAttributeValue, isA<State>());
+      expect(identityAttributeValue, isA<StateAttributeValue>());
     });
 
     test('parsed valid Street', () {
@@ -171,7 +171,7 @@ void main() {
         'value': 'aStreet',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(streetJson);
-      expect(identityAttributeValue, isA<Street>());
+      expect(identityAttributeValue, isA<StreetAttributeValue>());
     });
 
     test('parsed valid Surname', () {
@@ -180,7 +180,7 @@ void main() {
         'value': 'aSurname',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(surnameJson);
-      expect(identityAttributeValue, isA<Surname>());
+      expect(identityAttributeValue, isA<SurnameAttributeValue>());
     });
 
     test('parsed valid ZipCode', () {
@@ -189,7 +189,7 @@ void main() {
         'value': 'aZipCode',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(zipCodeJson);
-      expect(identityAttributeValue, isA<ZipCode>());
+      expect(identityAttributeValue, isA<ZipCodeAttributeValue>());
     });
 
     test('parsed valid Affiliation', () {
@@ -200,7 +200,7 @@ void main() {
         'unit': 'anUnit',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(affiliationJson);
-      expect(identityAttributeValue, isA<Affiliation>());
+      expect(identityAttributeValue, isA<AffiliationAttributeValue>());
     });
 
     test('parsed valid BirthCountry', () {
@@ -209,7 +209,7 @@ void main() {
         'value': 'DE',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(birthCountryJson);
-      expect(identityAttributeValue, isA<BirthCountry>());
+      expect(identityAttributeValue, isA<BirthCountryAttributeValue>());
     });
 
     test('parsed valid BirthDate', () {
@@ -220,7 +220,7 @@ void main() {
         'year': 1970,
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(birthDateJson);
-      expect(identityAttributeValue, isA<BirthDate>());
+      expect(identityAttributeValue, isA<BirthDateAttributeValue>());
     });
 
     test('parsed valid BirthDay', () {
@@ -229,7 +229,7 @@ void main() {
         'value': 01,
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(birthDayJson);
-      expect(identityAttributeValue, isA<BirthDay>());
+      expect(identityAttributeValue, isA<BirthDayAttributeValue>());
     });
 
     test('parsed valid BirthMonth', () {
@@ -238,7 +238,7 @@ void main() {
         'value': 01,
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(birthMonthJson);
-      expect(identityAttributeValue, isA<BirthMonth>());
+      expect(identityAttributeValue, isA<BirthMonthAttributeValue>());
     });
 
     test('parsed valid BirthPlace', () {
@@ -249,7 +249,7 @@ void main() {
         'state': 'aState',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(birthPlaceJson);
-      expect(identityAttributeValue, isA<BirthPlace>());
+      expect(identityAttributeValue, isA<BirthPlaceAttributeValue>());
     });
 
     test('parsed valid BirthYear', () {
@@ -258,7 +258,7 @@ void main() {
         'value': 01,
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(birthYearJson);
-      expect(identityAttributeValue, isA<BirthYear>());
+      expect(identityAttributeValue, isA<BirthYearAttributeValue>());
     });
 
     test('parsed valid Citizenship', () {
@@ -267,7 +267,7 @@ void main() {
         'value': 'DE',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(citizenshipJson);
-      expect(identityAttributeValue, isA<Citizenship>());
+      expect(identityAttributeValue, isA<CitizenshipAttributeValue>());
     });
 
     test('parsed valid CommunicationLanguage', () {
@@ -276,7 +276,7 @@ void main() {
         'value': 'de',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(communicationLanguageJson);
-      expect(identityAttributeValue, isA<CommunicationLanguage>());
+      expect(identityAttributeValue, isA<CommunicationLanguageAttributeValue>());
     });
 
     test('parsed valid Country', () {
@@ -285,7 +285,7 @@ void main() {
         'value': 'DE',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(countryJson);
-      expect(identityAttributeValue, isA<Country>());
+      expect(identityAttributeValue, isA<CountryAttributeValue>());
     });
 
     test('parsed valid DeliveryBoxAddress', () {
@@ -299,7 +299,7 @@ void main() {
         'country': 'aCountry',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(deliveryBoxAddressJson);
-      expect(identityAttributeValue, isA<DeliveryBoxAddress>());
+      expect(identityAttributeValue, isA<DeliveryBoxAddressAttributeValue>());
     });
 
     test('parsed valid EMailAddress', () {
@@ -308,7 +308,7 @@ void main() {
         'value': 'test@test.com',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(eMailAddressJson);
-      expect(identityAttributeValue, isA<EMailAddress>());
+      expect(identityAttributeValue, isA<EMailAddressAttributeValue>());
     });
 
     test('parsed valid FaxNumber', () {
@@ -317,7 +317,7 @@ void main() {
         'value': '0123456789',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(faxNumberJson);
-      expect(identityAttributeValue, isA<FaxNumber>());
+      expect(identityAttributeValue, isA<FaxNumberAttributeValue>());
     });
 
     test('parsed valid Nationality', () {
@@ -326,7 +326,7 @@ void main() {
         'value': 'DE',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(nationalityJson);
-      expect(identityAttributeValue, isA<Nationality>());
+      expect(identityAttributeValue, isA<NationalityAttributeValue>());
     });
 
     test('parsed valid PersonName', () {
@@ -336,7 +336,7 @@ void main() {
         'surname': 'aSurname',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(personNameJson);
-      expect(identityAttributeValue, isA<PersonName>());
+      expect(identityAttributeValue, isA<PersonNameAttributeValue>());
     });
 
     test('parsed valid PostOfficeBoxAddress', () {
@@ -349,7 +349,7 @@ void main() {
         'country': 'DE',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(postOfficeBoxAddressJson);
-      expect(identityAttributeValue, isA<PostOfficeBoxAddress>());
+      expect(identityAttributeValue, isA<PostOfficeBoxAddressAttributeValue>());
     });
 
     test('parsed valid Sex', () {
@@ -358,7 +358,7 @@ void main() {
         'value': 'male',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(sexJson);
-      expect(identityAttributeValue, isA<Sex>());
+      expect(identityAttributeValue, isA<SexAttributeValue>());
     });
 
     test('parsed valid StreetAddress', () {
@@ -366,14 +366,14 @@ void main() {
         '@type': 'StreetAddress',
         'recipient': 'aRecipient',
         'street': 'aStreet',
-        'houseNumber': 'aHouseNo',
+        'houseNo': 'aHouseNo',
         'zipCode': 'aZipCode',
         'city': 'aCity',
         'country': 'DE',
         'state': 'aState',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(streetAddressJson);
-      expect(identityAttributeValue, isA<StreetAddress>());
+      expect(identityAttributeValue, isA<StreetAddressAttributeValue>());
     });
 
     test('parsed valid Website', () {
@@ -382,7 +382,7 @@ void main() {
         'value': 'www.test.com',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(websiteJson);
-      expect(identityAttributeValue, isA<Website>());
+      expect(identityAttributeValue, isA<WebsiteAttributeValue>());
     });
   });
 

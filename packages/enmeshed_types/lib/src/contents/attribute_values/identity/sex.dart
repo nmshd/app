@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class Sex extends IdentityAttributeValue {
+class SexAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const Sex({
+  const SexAttributeValue({
     required this.value,
   });
 
-  factory Sex.fromJson(Map json) => Sex(
+  factory SexAttributeValue.fromJson(Map json) => SexAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class Sex extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'Sex(value: $value)';
+  String toString() => 'SexAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

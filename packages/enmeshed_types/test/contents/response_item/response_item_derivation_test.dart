@@ -21,7 +21,7 @@ void main() {
       final responseItemJson = {
         '@type': 'ReadAttributeAcceptResponseItem',
         'attributeId': 'anAttributeId',
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: City(value: 'aCity')).toJson(),
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
 
       final responseItemDerivation = ResponseItemDerivation.fromJson(responseItemJson);

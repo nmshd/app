@@ -11,85 +11,85 @@ abstract class IdentityAttributeValue extends Equatable {
 
     switch (type) {
       case 'AffiliationOrganization':
-        return AffiliationOrganization.fromJson(json);
+        return AffiliationOrganizationAttributeValue.fromJson(json);
       case 'AffiliationRole':
-        return AffiliationRole.fromJson(json);
+        return AffiliationRoleAttributeValue.fromJson(json);
       case 'AffiliationUnit':
-        return AffiliationUnit.fromJson(json);
+        return AffiliationUnitAttributeValue.fromJson(json);
       case 'BirthCity':
-        return BirthCity.fromJson(json);
+        return BirthCityAttributeValue.fromJson(json);
       case 'BirthName':
-        return BirthName.fromJson(json);
+        return BirthNameAttributeValue.fromJson(json);
       case 'BirthState':
-        return BirthState.fromJson(json);
+        return BirthStateAttributeValue.fromJson(json);
       case 'City':
-        return City.fromJson(json);
+        return CityAttributeValue.fromJson(json);
       case 'DisplayName':
-        return DisplayName.fromJson(json);
+        return DisplayNameAttributeValue.fromJson(json);
       case 'FileReference':
-        return FileReference.fromJson(json);
+        return FileReferenceAttributeValue.fromJson(json);
       case 'GivenName':
-        return GivenName.fromJson(json);
+        return GivenNameAttributeValue.fromJson(json);
       case 'HonorificPrefix':
-        return HonorificPrefix.fromJson(json);
+        return HonorificPrefixAttributeValue.fromJson(json);
       case 'HonorificSuffix':
-        return HonorificSuffix.fromJson(json);
+        return HonorificSuffixAttributeValue.fromJson(json);
       case 'HouseNumber':
-        return HouseNumber.fromJson(json);
+        return HouseNumberAttributeValue.fromJson(json);
       case 'JobTitle':
-        return JobTitle.fromJson(json);
+        return JobTitleAttributeValue.fromJson(json);
       case 'MiddleName':
-        return MiddleName.fromJson(json);
+        return MiddleNameAttributeValue.fromJson(json);
       case 'PhoneNumber':
-        return PhoneNumber.fromJson(json);
+        return PhoneNumberAttributeValue.fromJson(json);
       case 'Pseudonym':
-        return Pseudonym.fromJson(json);
+        return PseudonymAttributeValue.fromJson(json);
       case 'State':
-        return State.fromJson(json);
+        return StateAttributeValue.fromJson(json);
       case 'Street':
-        return Street.fromJson(json);
+        return StreetAttributeValue.fromJson(json);
       case 'Surname':
-        return Surname.fromJson(json);
+        return SurnameAttributeValue.fromJson(json);
       case 'ZipCode':
-        return ZipCode.fromJson(json);
+        return ZipCodeAttributeValue.fromJson(json);
       case 'Affiliation':
-        return Affiliation.fromJson(json);
+        return AffiliationAttributeValue.fromJson(json);
       case 'BirthCountry':
-        return BirthCountry.fromJson(json);
+        return BirthCountryAttributeValue.fromJson(json);
       case 'BirthDate':
-        return BirthDate.fromJson(json);
+        return BirthDateAttributeValue.fromJson(json);
       case 'BirthDay':
-        return BirthDay.fromJson(json);
+        return BirthDayAttributeValue.fromJson(json);
       case 'BirthMonth':
-        return BirthMonth.fromJson(json);
+        return BirthMonthAttributeValue.fromJson(json);
       case 'BirthPlace':
-        return BirthPlace.fromJson(json);
+        return BirthPlaceAttributeValue.fromJson(json);
       case 'BirthYear':
-        return BirthYear.fromJson(json);
+        return BirthYearAttributeValue.fromJson(json);
       case 'Citizenship':
-        return Citizenship.fromJson(json);
+        return CitizenshipAttributeValue.fromJson(json);
       case 'CommunicationLanguage':
-        return CommunicationLanguage.fromJson(json);
+        return CommunicationLanguageAttributeValue.fromJson(json);
       case 'Country':
-        return Country.fromJson(json);
+        return CountryAttributeValue.fromJson(json);
       case 'DeliveryBoxAddress':
-        return DeliveryBoxAddress.fromJson(json);
+        return DeliveryBoxAddressAttributeValue.fromJson(json);
       case 'EMailAddress':
-        return EMailAddress.fromJson(json);
+        return EMailAddressAttributeValue.fromJson(json);
       case 'FaxNumber':
-        return FaxNumber.fromJson(json);
+        return FaxNumberAttributeValue.fromJson(json);
       case 'Nationality':
-        return Nationality.fromJson(json);
+        return NationalityAttributeValue.fromJson(json);
       case 'PersonName':
-        return PersonName.fromJson(json);
+        return PersonNameAttributeValue.fromJson(json);
       case 'PostOfficeBoxAddress':
-        return PostOfficeBoxAddress.fromJson(json);
+        return PostOfficeBoxAddressAttributeValue.fromJson(json);
       case 'Sex':
-        return Sex.fromJson(json);
+        return SexAttributeValue.fromJson(json);
       case 'StreetAddress':
-        return StreetAddress.fromJson(json);
+        return StreetAddressAttributeValue.fromJson(json);
       case 'Website':
-        return Website.fromJson(json);
+        return WebsiteAttributeValue.fromJson(json);
       default:
         throw Exception('Unknown IdentityAttributeValue: $type');
     }

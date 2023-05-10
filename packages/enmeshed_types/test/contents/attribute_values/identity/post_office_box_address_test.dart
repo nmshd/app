@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('PostOfficeBoxAddress toJson', () {
+  group('PostOfficeBoxAddressAttributeValue toJson', () {
     test('is correctly converted', () {
-      const identityAttributeValue = PostOfficeBoxAddress(
+      const identityAttributeValue = PostOfficeBoxAddressAttributeValue(
         recipient: 'aRecipient',
         boxId: 'aBoxId',
         zipCode: 'aZipCode',
@@ -26,7 +26,7 @@ void main() {
     });
 
     test('is correctly converted with property "state"', () {
-      const identityAttributeValue = PostOfficeBoxAddress(
+      const identityAttributeValue = PostOfficeBoxAddressAttributeValue(
         recipient: 'aRecipient',
         boxId: 'aBoxId',
         zipCode: 'aZipCode',
@@ -50,7 +50,7 @@ void main() {
     });
   });
 
-  group('PostOfficeBoxAddress fromJson', () {
+  group('PostOfficeBoxAddressAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {
         'recipient': 'aRecipient',
@@ -60,8 +60,8 @@ void main() {
         'country': 'aCountry',
       };
       expect(
-        PostOfficeBoxAddress.fromJson(json),
-        equals(const PostOfficeBoxAddress(
+        PostOfficeBoxAddressAttributeValue.fromJson(json),
+        equals(const PostOfficeBoxAddressAttributeValue(
           recipient: 'aRecipient',
           boxId: 'aBoxId',
           zipCode: 'aZipCode',
@@ -81,8 +81,8 @@ void main() {
         'state': 'aState',
       };
       expect(
-        PostOfficeBoxAddress.fromJson(json),
-        equals(const PostOfficeBoxAddress(
+        PostOfficeBoxAddressAttributeValue.fromJson(json),
+        equals(const PostOfficeBoxAddressAttributeValue(
           recipient: 'aRecipient',
           boxId: 'aBoxId',
           zipCode: 'aZipCode',

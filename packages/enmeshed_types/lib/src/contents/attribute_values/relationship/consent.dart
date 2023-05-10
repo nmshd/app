@@ -1,18 +1,18 @@
 import '../../value_hints.dart';
 import 'relationship_attribute_value.dart';
 
-class Consent extends RelationshipAttributeValue {
+class ConsentAttributeValue extends RelationshipAttributeValue {
   final String consent;
   final ValueHints? valueHintsOverride;
   final String? link;
 
-  const Consent({
+  const ConsentAttributeValue({
     required this.consent,
     this.valueHintsOverride,
     this.link,
   });
 
-  factory Consent.fromJson(Map json) => Consent(
+  factory ConsentAttributeValue.fromJson(Map json) => ConsentAttributeValue(
         consent: json['consent'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,
         link: json['link'],
@@ -27,7 +27,7 @@ class Consent extends RelationshipAttributeValue {
       };
 
   @override
-  String toString() => 'Consent(consent: $consent, valueHintsOverride: $valueHintsOverride, link: $link)';
+  String toString() => 'ConsentAttributeValue(consent: $consent, valueHintsOverride: $valueHintsOverride, link: $link)';
 
   @override
   List<Object?> get props => [consent, valueHintsOverride, link];

@@ -1,17 +1,17 @@
 import '../../value_hints.dart';
 import 'proprietary_attribute_value.dart';
 
-class ProprietaryURL extends ProprietaryAttributeValue {
+class ProprietaryURLAttributeValue extends ProprietaryAttributeValue {
   final String value;
 
-  const ProprietaryURL({
+  const ProprietaryURLAttributeValue({
     required super.title,
     super.description,
     super.valueHintsOverride,
     required this.value,
   });
 
-  factory ProprietaryURL.fromJson(Map json) => ProprietaryURL(
+  factory ProprietaryURLAttributeValue.fromJson(Map json) => ProprietaryURLAttributeValue(
         title: json['title'],
         description: json['description'],
         valueHintsOverride: json['valueHintsOverride'] != null ? ValueHints.fromJson(json['valueHintsOverride']) : null,
@@ -26,7 +26,7 @@ class ProprietaryURL extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryURL(value: $value)';
+  String toString() => 'ProprietaryURLAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [super.props, value];

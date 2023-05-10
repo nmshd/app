@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class AffiliationOrganization extends IdentityAttributeValue {
+class AffiliationOrganizationAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const AffiliationOrganization({
+  const AffiliationOrganizationAttributeValue({
     required this.value,
   });
 
-  factory AffiliationOrganization.fromJson(Map json) => AffiliationOrganization(
+  factory AffiliationOrganizationAttributeValue.fromJson(Map json) => AffiliationOrganizationAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class AffiliationOrganization extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'AffiliationOrganization(value: $value)';
+  String toString() => 'AffiliationOrganizationAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

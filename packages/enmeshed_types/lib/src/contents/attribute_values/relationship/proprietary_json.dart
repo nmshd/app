@@ -1,17 +1,17 @@
 import 'relationship_attribute_value.dart';
 
-class ProprietaryJSON extends RelationshipAttributeValue {
+class ProprietaryJSONAttributeValue extends RelationshipAttributeValue {
   final String title;
   final String? description;
   final Map<String, dynamic> value;
 
-  const ProprietaryJSON({
+  const ProprietaryJSONAttributeValue({
     required this.title,
     this.description,
     required this.value,
   });
 
-  factory ProprietaryJSON.fromJson(Map json) => ProprietaryJSON(
+  factory ProprietaryJSONAttributeValue.fromJson(Map json) => ProprietaryJSONAttributeValue(
         title: json['title'],
         description: json['description'],
         value: Map<String, dynamic>.from(json['value']),
@@ -26,7 +26,7 @@ class ProprietaryJSON extends RelationshipAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryJSON(title: $title, description: $description, value: $value)';
+  String toString() => 'ProprietaryJSONAttributeValue(title: $title, description: $description, value: $value)';
 
   @override
   List<Object?> get props => [title, description, value];

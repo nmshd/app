@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class MiddleName extends IdentityAttributeValue {
+class MiddleNameAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const MiddleName({
+  const MiddleNameAttributeValue({
     required this.value,
   });
 
-  factory MiddleName.fromJson(Map json) => MiddleName(
+  factory MiddleNameAttributeValue.fromJson(Map json) => MiddleNameAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class MiddleName extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'MiddleName(value: $value)';
+  String toString() => 'MiddleNameAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

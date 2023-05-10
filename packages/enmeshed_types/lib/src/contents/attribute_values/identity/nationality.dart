@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class Nationality extends IdentityAttributeValue {
+class NationalityAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const Nationality({
+  const NationalityAttributeValue({
     required this.value,
   });
 
-  factory Nationality.fromJson(Map json) => Nationality(
+  factory NationalityAttributeValue.fromJson(Map json) => NationalityAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class Nationality extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'Nationality(value: $value)';
+  String toString() => 'NationalityAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

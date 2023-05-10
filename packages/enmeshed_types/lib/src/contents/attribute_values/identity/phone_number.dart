@@ -1,13 +1,13 @@
 import 'identity_attribute_value.dart';
 
-class PhoneNumber extends IdentityAttributeValue {
+class PhoneNumberAttributeValue extends IdentityAttributeValue {
   final String value;
 
-  const PhoneNumber({
+  const PhoneNumberAttributeValue({
     required this.value,
   });
 
-  factory PhoneNumber.fromJson(Map json) => PhoneNumber(
+  factory PhoneNumberAttributeValue.fromJson(Map json) => PhoneNumberAttributeValue(
         value: json['value'],
       );
 
@@ -18,7 +18,7 @@ class PhoneNumber extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'PhoneNumber(value: $value)';
+  String toString() => 'PhoneNumberAttributeValue(value: $value)';
 
   @override
   List<Object?> get props => [value];

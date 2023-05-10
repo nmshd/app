@@ -1,15 +1,15 @@
 import 'identity_attribute_value.dart';
 
-class StreetAddress extends IdentityAttributeValue {
+class StreetAddressAttributeValue extends IdentityAttributeValue {
   final String recipient;
   final String street;
   final String houseNumber;
   final String zipCode;
   final String city;
   final String country;
-  final String state;
+  final String? state;
 
-  const StreetAddress({
+  const StreetAddressAttributeValue({
     required this.recipient,
     required this.street,
     required this.houseNumber,
@@ -19,10 +19,10 @@ class StreetAddress extends IdentityAttributeValue {
     required this.state,
   });
 
-  factory StreetAddress.fromJson(Map json) => StreetAddress(
+  factory StreetAddressAttributeValue.fromJson(Map json) => StreetAddressAttributeValue(
         recipient: json['recipient'],
         street: json['street'],
-        houseNumber: json['houseNumber'],
+        houseNumber: json['houseNo'],
         zipCode: json['zipCode'],
         city: json['city'],
         country: json['country'],
@@ -34,16 +34,16 @@ class StreetAddress extends IdentityAttributeValue {
         '@type': 'StreetAddress',
         'recipient': recipient,
         'street': street,
-        'houseNumber': houseNumber,
+        'houseNo': houseNumber,
         'zipCode': zipCode,
         'city': city,
         'country': country,
-        'state': state,
+        if (state != null) 'state': state,
       };
 
   @override
   String toString() {
-    return 'StreetAddress(recipient: $recipient, street: $street, houseNumber: $houseNumber, zipCode: $zipCode, city: $city, country: $country, state: $state)';
+    return 'StreetAddressAttributeValue(recipient: $recipient, street: $street, houseNumber: $houseNumber, zipCode: $zipCode, city: $city, country: $country, state: $state)';
   }
 
   @override

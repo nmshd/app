@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:enmeshed_types/enmeshed_types.dart' hide State;
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -40,7 +40,7 @@ class _AccountSelectionScreenState extends State<AccountSelectionScreen> {
                   onTap: () async {
                     GetIt.I.get<EnmeshedRuntime>().selectAccount(item.id);
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (BuildContext context) => AccountScreen(item.id)),
+                      MaterialPageRoute(builder: (BuildContext context) => AccountScreen(initialAccount: item)),
                     );
                   },
                 );
