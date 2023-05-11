@@ -3,17 +3,11 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 class FilesystemAdapter {
-  Future<Directory> getDirectoryForStorage(String storageName) async {
-    switch (storageName) {
-      case 'data':
-      case 'app':
-        return await getApplicationDocumentsDirectory();
-      case 'temp':
-        return await getTemporaryDirectory();
-      default:
-        throw Exception('Unknown storage name: $storageName');
-    }
-  }
+  Future<Directory> getDirectoryForStorage(String storageName) async => switch (storageName) {
+        'data' || 'app' => await getApplicationDocumentsDirectory(),
+        'temp' => await getTemporaryDirectory(),
+        _ => throw Exception('Unknown storage name: $storageName'),
+      };
 
   Future<String> readFile(String path, String storageName) async {
     final directory = await getDirectoryForStorage(storageName);

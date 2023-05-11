@@ -141,221 +141,170 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       .toList();
 
   AcceptRequestItemParameters generateAcceptItem(RequestItemDerivation requestItem, String currentIdentityAddress) {
-    switch (requestItem.runtimeType) {
-      case ReadAttributeRequestItem:
-        return generateAcceptReadAttributeRequestItemParametersWithNewAttribute(
+    return switch (requestItem.runtimeType) {
+      CreateAttributeRequestItem ||
+      ShareAttributeRequestItem ||
+      ConsentRequestItem ||
+      AuthenticationRequestItem ||
+      RegisterAttributeListenerRequestItem =>
+        const AcceptRequestItemParameters(),
+      ReadAttributeRequestItem => generateAcceptReadAttributeRequestItemParametersWithNewAttribute(
           requestItem as ReadAttributeRequestItem,
           currentIdentityAddress,
-        );
-      case CreateAttributeRequestItem:
-        return const AcceptRequestItemParameters();
-
-      case ShareAttributeRequestItem:
-        return const AcceptRequestItemParameters();
-
-      case ProposeAttributeRequestItem:
-        return AcceptProposeAttributeRequestItemParametersWithNewAttribute(
+        ),
+      ProposeAttributeRequestItem => AcceptProposeAttributeRequestItemParametersWithNewAttribute(
           attribute: (requestItem as ProposeAttributeRequestItem).attribute,
-        );
-
-      case ConsentRequestItem:
-        return const AcceptRequestItemParameters();
-
-      case AuthenticationRequestItem:
-        return const AcceptRequestItemParameters();
-
-      case RegisterAttributeListenerRequestItem:
-        return const AcceptRequestItemParameters();
-
-      case SucceedAttributeRequestItem:
-        // not implemented in the runtime
-        throw UnimplementedError();
-
-      default:
-        throw UnimplementedError();
-    }
+        ),
+      // not implemented in the runtime
+      SucceedAttributeRequestItem => throw UnimplementedError(),
+      _ => throw UnimplementedError(),
+    };
   }
 
   AcceptRequestItemParameters generateAcceptReadAttributeRequestItemParametersWithNewAttribute(
     ReadAttributeRequestItem requestItem,
     String currentIdentityAddress,
   ) {
-    switch (requestItem.query.runtimeType) {
-      case IdentityAttributeQuery:
-        return AcceptReadAttributeRequestItemParametersWithNewAttribute(
+    return switch (requestItem.query.runtimeType) {
+      IdentityAttributeQuery => AcceptReadAttributeRequestItemParametersWithNewAttribute(
           newAttribute: generateIdentityAtrribute(requestItem.query as IdentityAttributeQuery, currentIdentityAddress),
-        );
-      case RelationshipAttributeQuery:
-        return AcceptReadAttributeRequestItemParametersWithNewAttribute(
+        ),
+      RelationshipAttributeQuery => AcceptReadAttributeRequestItemParametersWithNewAttribute(
           newAttribute: generateRelationshipAtrribute(requestItem.query as RelationshipAttributeQuery, currentIdentityAddress),
-        );
-      case ThirdPartyRelationshipAttributeQuery:
-        throw UnimplementedError();
-      default:
-        throw UnimplementedError();
-    }
+        ),
+      ThirdPartyRelationshipAttributeQuery => throw UnimplementedError(),
+      _ => throw UnimplementedError(),
+    };
   }
 
   IdentityAttribute generateIdentityAtrribute(IdentityAttributeQuery query, String currentIdentityAddress) {
     final type = query.valueType;
-    switch (type) {
-      case 'AffiliationOrganization':
-        return IdentityAttribute(
+    return switch (type) {
+      'AffiliationOrganization' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: AffiliationOrganizationAttributeValue(value: 'Test$type'),
-        );
-      case 'AffiliationRole':
-        return IdentityAttribute(
+        ),
+      'AffiliationRole' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: AffiliationRoleAttributeValue(value: 'Test$type'),
-        );
-      case 'AffiliationUnit':
-        return IdentityAttribute(
+        ),
+      'AffiliationUnit' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: AffiliationUnitAttributeValue(value: 'Test$type'),
-        );
-      case 'BirthCity':
-        return IdentityAttribute(
+        ),
+      'BirthCity' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: BirthCityAttributeValue(value: 'Test$type'),
-        );
-      case 'BirthName':
-        return IdentityAttribute(
+        ),
+      'BirthName' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: BirthNameAttributeValue(value: 'Test$type'),
-        );
-      case 'BirthState':
-        return IdentityAttribute(
+        ),
+      'BirthState' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: BirthStateAttributeValue(value: 'Test$type'),
-        );
-      case 'City':
-        return IdentityAttribute(
+        ),
+      'City' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: CityAttributeValue(value: 'Test$type'),
-        );
-      case 'DisplayName':
-        return IdentityAttribute(
+        ),
+      'DisplayName' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: DisplayNameAttributeValue(value: 'Test$type'),
-        );
-      case 'FileReference':
-        return IdentityAttribute(
+        ),
+      'FileReference' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: FileReferenceAttributeValue(value: 'Test${type}WithMinimunLengthOf30'),
-        );
-      case 'GivenName':
-        return IdentityAttribute(
+        ),
+      'GivenName' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: GivenNameAttributeValue(value: 'Test$type'),
-        );
-      case 'HonorificPrefix':
-        return IdentityAttribute(
+        ),
+      'HonorificPrefix' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: HonorificPrefixAttributeValue(value: 'Test$type'),
-        );
-      case 'HonorificSuffix':
-        return IdentityAttribute(
+        ),
+      'HonorificSuffix' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: HonorificSuffixAttributeValue(value: 'Test$type'),
-        );
-      case 'HouseNumber':
-        return IdentityAttribute(
+        ),
+      'HouseNumber' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: HouseNumberAttributeValue(value: 'Test$type'),
-        );
-      case 'JobTitle':
-        return IdentityAttribute(
+        ),
+      'JobTitle' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: JobTitleAttributeValue(value: 'Test$type'),
-        );
-      case 'MiddleName':
-        return IdentityAttribute(
+        ),
+      'MiddleName' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: MiddleNameAttributeValue(value: 'Test$type'),
-        );
-      case 'PhoneNumber':
-        return IdentityAttribute(
+        ),
+      'PhoneNumber' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: PhoneNumberAttributeValue(value: 'Test$type'),
-        );
-      case 'Pseudonym':
-        return IdentityAttribute(
+        ),
+      'Pseudonym' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: PseudonymAttributeValue(value: 'Test$type'),
-        );
-      case 'State':
-        return IdentityAttribute(
+        ),
+      'State' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: StateAttributeValue(value: 'Test$type'),
-        );
-      case 'Street':
-        return IdentityAttribute(
+        ),
+      'Street' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: StreetAttributeValue(value: 'Test$type'),
-        );
-      case 'Surname':
-        return IdentityAttribute(
+        ),
+      'Surname' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: SurnameAttributeValue(value: 'Test$type'),
-        );
-      case 'ZipCode':
-        return IdentityAttribute(
+        ),
+      'ZipCode' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: ZipCodeAttributeValue(value: 'Test$type'),
-        );
-      case 'Affiliation':
-        return IdentityAttribute(
+        ),
+      'Affiliation' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const AffiliationAttributeValue(role: 'TestRole', organization: 'TestOrganization', unit: 'TestUnit'),
-        );
-      case 'BirthCountry':
-        return IdentityAttribute(
+        ),
+      'BirthCountry' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const BirthCountryAttributeValue(value: 'DE'),
-        );
-      case 'BirthDate':
-        return IdentityAttribute(
+        ),
+      'BirthDate' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const BirthDateAttributeValue(day: 1, month: 1, year: 2000),
-        );
-      case 'BirthDay':
-        return IdentityAttribute(
+        ),
+      'BirthDay' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const BirthDayAttributeValue(value: 5),
-        );
-      case 'BirthMonth':
-        return IdentityAttribute(
+        ),
+      'BirthMonth' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const BirthMonthAttributeValue(value: 5),
-        );
-      case 'BirthPlace':
-        return IdentityAttribute(
+        ),
+      'BirthPlace' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const BirthPlaceAttributeValue(city: 'TestCity', country: 'DE'),
-        );
-      case 'BirthYear':
-        return IdentityAttribute(
+        ),
+      'BirthYear' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const BirthYearAttributeValue(value: 2000),
-        );
-      case 'Citizenship':
-        return IdentityAttribute(
+        ),
+      'Citizenship' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const CitizenshipAttributeValue(value: 'DE'),
-        );
-      case 'CommunicationLanguage':
-        return IdentityAttribute(
+        ),
+      'CommunicationLanguage' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const CommunicationLanguageAttributeValue(value: 'de'),
-        );
-      case 'Country':
-        return IdentityAttribute(
+        ),
+      'Country' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const CountryAttributeValue(value: 'DE'),
-        );
-      case 'DeliveryBoxAddress':
-        return IdentityAttribute(
+        ),
+      'DeliveryBoxAddress' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const DeliveryBoxAddressAttributeValue(
             recipient: 'recipient',
@@ -367,24 +316,20 @@ class IncomingRequestsFacadeView extends StatelessWidget {
             phoneNumber: 'phoneNumber',
             state: 'state',
           ),
-        );
-      case 'EMailAddress':
-        return IdentityAttribute(
+        ),
+      'EMailAddress' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const EMailAddressAttributeValue(value: 'test@test.com'),
-        );
-      case 'FaxNumber':
-        return IdentityAttribute(
+        ),
+      'FaxNumber' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const FaxNumberAttributeValue(value: '123456789'),
-        );
-      case 'Nationality':
-        return IdentityAttribute(
+        ),
+      'Nationality' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const NationalityAttributeValue(value: 'DE'),
-        );
-      case 'PersonName':
-        return IdentityAttribute(
+        ),
+      'PersonName' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const PersonNameAttributeValue(
             givenName: 'givenName',
@@ -393,9 +338,8 @@ class IncomingRequestsFacadeView extends StatelessWidget {
             honorificSuffix: 'honorificSuffix',
             middleName: 'middleName',
           ),
-        );
-      case 'PostOfficeBoxAddress':
-        return IdentityAttribute(
+        ),
+      'PostOfficeBoxAddress' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const PostOfficeBoxAddressAttributeValue(
             recipient: 'recipient',
@@ -405,14 +349,12 @@ class IncomingRequestsFacadeView extends StatelessWidget {
             country: 'DE',
             state: 'state',
           ),
-        );
-      case 'Sex':
-        return IdentityAttribute(
+        ),
+      'Sex' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const SexAttributeValue(value: 'male'),
-        );
-      case 'StreetAddress':
-        return IdentityAttribute(
+        ),
+      'StreetAddress' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const StreetAddressAttributeValue(
             recipient: 'recipient',
@@ -423,78 +365,67 @@ class IncomingRequestsFacadeView extends StatelessWidget {
             country: 'country',
             state: 'state',
           ),
-        );
-      case 'Website':
-        return IdentityAttribute(
+        ),
+      'Website' => IdentityAttribute(
           owner: currentIdentityAddress,
           value: const WebsiteAttributeValue(value: 'www.testwebsite.com'),
-        );
-      default:
-        throw UnimplementedError();
-    }
+        ),
+      _ => throw UnimplementedError(),
+    };
   }
 
   RelationshipAttribute generateRelationshipAtrribute(RelationshipAttributeQuery query, String currentIdentityAddress) {
     final type = query.attributeCreationHints.valueType;
-    switch (type) {
-      case 'Consent':
-        return RelationshipAttribute(
+    return switch (type) {
+      'Consent' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ConsentAttributeValue(consent: 'TestConsent'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryBoolean':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryBoolean' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryBooleanAttributeValue(title: 'atitle', value: true),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryCountry':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryCountry' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryCountryAttributeValue(title: 'atitle', value: 'DE'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryEMailAddress':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryEMailAddress' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryEMailAddressAttributeValue(title: 'atitle', value: 'test@test.com'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryFileReference':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryFileReference' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryFileReferenceAttributeValue(title: 'atitle', value: 'fileReference'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryFloat':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryFloat' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryFloatAttributeValue(title: 'atitle', value: 25.5),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryHEXColor':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryHEXColor' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryHEXColorAttributeValue(title: 'aTitle', value: '3d6dba'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryInteger':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryInteger' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryIntegerAttributeValue(title: 'atitle', value: 5),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryJSON':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryJSON' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryJSONAttributeValue(
             title: 'atitle',
@@ -508,38 +439,33 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           ),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryLanguage':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryLanguage' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryLanguageAttributeValue(title: 'atitle', value: 'de'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryPhoneNumber':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryPhoneNumber' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryPhoneNumberAttributeValue(title: 'atitle', value: '123456789'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryString':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryString' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryStringAttributeValue(title: 'atitle', value: 'propString'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      case 'ProprietaryURL':
-        return RelationshipAttribute(
+        ),
+      'ProprietaryURL' => RelationshipAttribute(
           owner: currentIdentityAddress,
           value: const ProprietaryURLAttributeValue(title: 'atitle', value: 'www.google.com'),
           key: 'key',
           confidentiality: RelationshipAttributeConfidentiality.public,
-        );
-      default:
-        throw UnimplementedError();
-    }
+        ),
+      _ => throw UnimplementedError(),
+    };
   }
 
   Future<LocalRequestDTO?> getDecidableRequest() async {

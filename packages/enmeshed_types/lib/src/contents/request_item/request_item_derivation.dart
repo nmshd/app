@@ -14,26 +14,17 @@ abstract class RequestItemDerivation extends RequestItem {
   factory RequestItemDerivation.fromJson(Map json) {
     final type = json['@type'];
 
-    switch (type) {
-      case 'ReadAttributeRequestItem':
-        return ReadAttributeRequestItem.fromJson(json);
-      case 'CreateAttributeRequestItem':
-        return CreateAttributeRequestItem.fromJson(json);
-      case 'ShareAttributeRequestItem':
-        return ShareAttributeRequestItem.fromJson(json);
-      case 'ProposeAttributeRequestItem':
-        return ProposeAttributeRequestItem.fromJson(json);
-      case 'ConsentRequestItem':
-        return ConsentRequestItem.fromJson(json);
-      case 'AuthenticationRequestItem':
-        return AuthenticationRequestItem.fromJson(json);
-      case 'RegisterAttributeListenerRequestItem':
-        return RegisterAttributeListenerRequestItem.fromJson(json);
-      case 'SucceedAttributeRequestItem':
-        return SucceedAttributeRequestItem.fromJson(json);
-      default:
-        throw Exception('Unknown type: $type');
-    }
+    return switch (type) {
+      'ReadAttributeRequestItem' => ReadAttributeRequestItem.fromJson(json),
+      'CreateAttributeRequestItem' => CreateAttributeRequestItem.fromJson(json),
+      'ShareAttributeRequestItem' => ShareAttributeRequestItem.fromJson(json),
+      'ProposeAttributeRequestItem' => ProposeAttributeRequestItem.fromJson(json),
+      'ConsentRequestItem' => ConsentRequestItem.fromJson(json),
+      'AuthenticationRequestItem' => AuthenticationRequestItem.fromJson(json),
+      'RegisterAttributeListenerRequestItem' => RegisterAttributeListenerRequestItem.fromJson(json),
+      'SucceedAttributeRequestItem' => SucceedAttributeRequestItem.fromJson(json),
+      _ => throw Exception('Unknown type: $type')
+    };
   }
 
   @override

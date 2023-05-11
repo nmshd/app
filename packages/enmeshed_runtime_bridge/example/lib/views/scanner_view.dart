@@ -67,12 +67,10 @@ class _ScannerViewState extends State<ScannerView> with SingleTickerProviderStat
             icon: ValueListenableBuilder(
               valueListenable: _cameraController.torchState,
               builder: (context, state, child) {
-                switch (state) {
-                  case TorchState.off:
-                    return const Icon(Icons.flash_off, color: Colors.grey);
-                  case TorchState.on:
-                    return const Icon(Icons.flash_on, color: Colors.yellow);
-                }
+                return switch (state) {
+                  TorchState.off => const Icon(Icons.flashlight_off, color: Colors.grey),
+                  TorchState.on => const Icon(Icons.flashlight_on, color: Colors.yellow),
+                };
               },
             ),
             iconSize: 32.0,
@@ -82,14 +80,7 @@ class _ScannerViewState extends State<ScannerView> with SingleTickerProviderStat
             color: Colors.white,
             icon: ValueListenableBuilder(
               valueListenable: _cameraController.cameraFacingState,
-              builder: (context, state, child) {
-                switch (state) {
-                  case CameraFacing.front:
-                    return const Icon(Icons.camera_front);
-                  case CameraFacing.back:
-                    return const Icon(Icons.camera_rear);
-                }
-              },
+              builder: (context, state, child) => Icon(state == CameraFacing.front ? Icons.camera_front : Icons.camera_rear),
             ),
             iconSize: 32.0,
             onPressed: () => _cameraController.switchCamera(),

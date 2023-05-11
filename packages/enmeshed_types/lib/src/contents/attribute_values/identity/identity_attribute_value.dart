@@ -9,90 +9,49 @@ abstract class IdentityAttributeValue extends Equatable {
   static IdentityAttributeValue fromJson(Map json) {
     final type = json['@type'];
 
-    switch (type) {
-      case 'AffiliationOrganization':
-        return AffiliationOrganizationAttributeValue.fromJson(json);
-      case 'AffiliationRole':
-        return AffiliationRoleAttributeValue.fromJson(json);
-      case 'AffiliationUnit':
-        return AffiliationUnitAttributeValue.fromJson(json);
-      case 'BirthCity':
-        return BirthCityAttributeValue.fromJson(json);
-      case 'BirthName':
-        return BirthNameAttributeValue.fromJson(json);
-      case 'BirthState':
-        return BirthStateAttributeValue.fromJson(json);
-      case 'City':
-        return CityAttributeValue.fromJson(json);
-      case 'DisplayName':
-        return DisplayNameAttributeValue.fromJson(json);
-      case 'FileReference':
-        return FileReferenceAttributeValue.fromJson(json);
-      case 'GivenName':
-        return GivenNameAttributeValue.fromJson(json);
-      case 'HonorificPrefix':
-        return HonorificPrefixAttributeValue.fromJson(json);
-      case 'HonorificSuffix':
-        return HonorificSuffixAttributeValue.fromJson(json);
-      case 'HouseNumber':
-        return HouseNumberAttributeValue.fromJson(json);
-      case 'JobTitle':
-        return JobTitleAttributeValue.fromJson(json);
-      case 'MiddleName':
-        return MiddleNameAttributeValue.fromJson(json);
-      case 'PhoneNumber':
-        return PhoneNumberAttributeValue.fromJson(json);
-      case 'Pseudonym':
-        return PseudonymAttributeValue.fromJson(json);
-      case 'State':
-        return StateAttributeValue.fromJson(json);
-      case 'Street':
-        return StreetAttributeValue.fromJson(json);
-      case 'Surname':
-        return SurnameAttributeValue.fromJson(json);
-      case 'ZipCode':
-        return ZipCodeAttributeValue.fromJson(json);
-      case 'Affiliation':
-        return AffiliationAttributeValue.fromJson(json);
-      case 'BirthCountry':
-        return BirthCountryAttributeValue.fromJson(json);
-      case 'BirthDate':
-        return BirthDateAttributeValue.fromJson(json);
-      case 'BirthDay':
-        return BirthDayAttributeValue.fromJson(json);
-      case 'BirthMonth':
-        return BirthMonthAttributeValue.fromJson(json);
-      case 'BirthPlace':
-        return BirthPlaceAttributeValue.fromJson(json);
-      case 'BirthYear':
-        return BirthYearAttributeValue.fromJson(json);
-      case 'Citizenship':
-        return CitizenshipAttributeValue.fromJson(json);
-      case 'CommunicationLanguage':
-        return CommunicationLanguageAttributeValue.fromJson(json);
-      case 'Country':
-        return CountryAttributeValue.fromJson(json);
-      case 'DeliveryBoxAddress':
-        return DeliveryBoxAddressAttributeValue.fromJson(json);
-      case 'EMailAddress':
-        return EMailAddressAttributeValue.fromJson(json);
-      case 'FaxNumber':
-        return FaxNumberAttributeValue.fromJson(json);
-      case 'Nationality':
-        return NationalityAttributeValue.fromJson(json);
-      case 'PersonName':
-        return PersonNameAttributeValue.fromJson(json);
-      case 'PostOfficeBoxAddress':
-        return PostOfficeBoxAddressAttributeValue.fromJson(json);
-      case 'Sex':
-        return SexAttributeValue.fromJson(json);
-      case 'StreetAddress':
-        return StreetAddressAttributeValue.fromJson(json);
-      case 'Website':
-        return WebsiteAttributeValue.fromJson(json);
-      default:
-        throw Exception('Unknown IdentityAttributeValue: $type');
-    }
+    return switch (type) {
+      'AffiliationOrganization' => AffiliationOrganizationAttributeValue.fromJson(json),
+      'AffiliationRole' => AffiliationRoleAttributeValue.fromJson(json),
+      'AffiliationUnit' => AffiliationUnitAttributeValue.fromJson(json),
+      'BirthCity' => BirthCityAttributeValue.fromJson(json),
+      'BirthName' => BirthNameAttributeValue.fromJson(json),
+      'BirthState' => BirthStateAttributeValue.fromJson(json),
+      'City' => CityAttributeValue.fromJson(json),
+      'DisplayName' => DisplayNameAttributeValue.fromJson(json),
+      'FileReference' => FileReferenceAttributeValue.fromJson(json),
+      'GivenName' => GivenNameAttributeValue.fromJson(json),
+      'HonorificPrefix' => HonorificPrefixAttributeValue.fromJson(json),
+      'HonorificSuffix' => HonorificSuffixAttributeValue.fromJson(json),
+      'HouseNumber' => HouseNumberAttributeValue.fromJson(json),
+      'JobTitle' => JobTitleAttributeValue.fromJson(json),
+      'MiddleName' => MiddleNameAttributeValue.fromJson(json),
+      'PhoneNumber' => PhoneNumberAttributeValue.fromJson(json),
+      'Pseudonym' => PseudonymAttributeValue.fromJson(json),
+      'State' => StateAttributeValue.fromJson(json),
+      'Street' => StreetAttributeValue.fromJson(json),
+      'Surname' => SurnameAttributeValue.fromJson(json),
+      'ZipCode' => ZipCodeAttributeValue.fromJson(json),
+      'Affiliation' => AffiliationAttributeValue.fromJson(json),
+      'BirthCountry' => BirthCountryAttributeValue.fromJson(json),
+      'BirthDate' => BirthDateAttributeValue.fromJson(json),
+      'BirthDay' => BirthDayAttributeValue.fromJson(json),
+      'BirthMonth' => BirthMonthAttributeValue.fromJson(json),
+      'BirthPlace' => BirthPlaceAttributeValue.fromJson(json),
+      'BirthYear' => BirthYearAttributeValue.fromJson(json),
+      'Citizenship' => CitizenshipAttributeValue.fromJson(json),
+      'CommunicationLanguage' => CommunicationLanguageAttributeValue.fromJson(json),
+      'Country' => CountryAttributeValue.fromJson(json),
+      'DeliveryBoxAddress' => DeliveryBoxAddressAttributeValue.fromJson(json),
+      'EMailAddress' => EMailAddressAttributeValue.fromJson(json),
+      'FaxNumber' => FaxNumberAttributeValue.fromJson(json),
+      'Nationality' => NationalityAttributeValue.fromJson(json),
+      'PersonName' => PersonNameAttributeValue.fromJson(json),
+      'PostOfficeBoxAddress' => PostOfficeBoxAddressAttributeValue.fromJson(json),
+      'Sex' => SexAttributeValue.fromJson(json),
+      'StreetAddress' => StreetAddressAttributeValue.fromJson(json),
+      'Website' => WebsiteAttributeValue.fromJson(json),
+      _ => throw Exception('Unknown IdentityAttributeValue: $type'),
+    };
   }
 
   @mustCallSuper

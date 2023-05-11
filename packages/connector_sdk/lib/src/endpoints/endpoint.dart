@@ -51,16 +51,7 @@ abstract class Endpoint {
   }
 
   ConnectorResponse<T> _makeResult<T>(Response<Map<String, dynamic>> httpResponse, T Function(dynamic) transformer, {int? expectedStatus}) {
-    if (expectedStatus == null) {
-      switch (httpResponse.requestOptions.method.toUpperCase()) {
-        case 'POST':
-          expectedStatus = 201;
-          break;
-        default:
-          expectedStatus = 200;
-          break;
-      }
-    }
+    expectedStatus ??= switch (httpResponse.requestOptions.method.toUpperCase()) { 'POST' => 201, _ => 200 };
 
     final payload = httpResponse.data;
     if (payload == null) {
@@ -97,18 +88,11 @@ abstract class Endpoint {
   Future<ConnectorResponse<List<int>>> downloadQrCode(String method, String url, {Map<String, dynamic>? request}) async {
     final Options config = Options(responseType: ResponseType.bytes, headers: {'accept': 'image/png'});
 
-    Response<List<int>> httpResponse;
-
-    switch (method) {
-      case 'GET':
-        httpResponse = await _dio.get<List<int>>(url, options: config, queryParameters: request);
-        break;
-      case 'POST':
-        httpResponse = await _dio.post<List<int>>(url, data: request, options: config);
-        break;
-      default:
-        throw Exception('Unsupported method');
-    }
+    final httpResponse = switch (method) {
+      'GET' => await _dio.get<List<int>>(url, options: config, queryParameters: request),
+      'POST' => await _dio.post<List<int>>(url, data: request, options: config),
+      _ => throw Exception('Unsupported method'),
+    };
 
     final payload = httpResponse.data;
     if (payload == null) {
