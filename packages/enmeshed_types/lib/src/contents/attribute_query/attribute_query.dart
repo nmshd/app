@@ -20,16 +20,12 @@ abstract class AttributeQuery extends Equatable {
   factory AttributeQuery.fromJson(Map json) {
     final type = json['@type'];
 
-    switch (type) {
-      case 'IdentityAttributeQuery':
-        return IdentityAttributeQuery.fromJson(json);
-      case 'ThirdPartyRelationshipAttributeQuery':
-        return ThirdPartyRelationshipAttributeQuery.fromJson(json);
-      case 'RelationshipAttributeQuery':
-        return RelationshipAttributeQuery.fromJson(json);
-      default:
-        throw Exception('Unknown type: $type');
-    }
+    return switch (type) {
+      'IdentityAttributeQuery' => IdentityAttributeQuery.fromJson(json),
+      'ThirdPartyRelationshipAttributeQuery' => ThirdPartyRelationshipAttributeQuery.fromJson(json),
+      'RelationshipAttributeQuery' => RelationshipAttributeQuery.fromJson(json),
+      _ => throw Exception('Unknown type: $type'),
+    };
   }
 
   @mustCallSuper

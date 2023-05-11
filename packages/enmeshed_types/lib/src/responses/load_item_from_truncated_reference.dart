@@ -33,18 +33,12 @@ class LoadItemFromTruncatedReferenceResponse extends Equatable {
     return DeviceSharedSecret.fromJson(_value);
   }
 
-  dynamic get valueAsObject {
-    switch (type) {
-      case LoadItemFromTruncatedReferenceResponseType.Token:
-        return tokenValue;
-      case LoadItemFromTruncatedReferenceResponseType.File:
-        return fileValue;
-      case LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate:
-        return relationshipTemplateValue;
-      case LoadItemFromTruncatedReferenceResponseType.DeviceOnboardingInfo:
-        return deviceOnboardingInfoValue;
-    }
-  }
+  dynamic get valueAsObject => switch (type) {
+        LoadItemFromTruncatedReferenceResponseType.Token => tokenValue,
+        LoadItemFromTruncatedReferenceResponseType.File => fileValue,
+        LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate => relationshipTemplateValue,
+        LoadItemFromTruncatedReferenceResponseType.DeviceOnboardingInfo => deviceOnboardingInfoValue,
+      };
 
   factory LoadItemFromTruncatedReferenceResponse.fromJson(Map json) => LoadItemFromTruncatedReferenceResponse(
         type: LoadItemFromTruncatedReferenceResponseType.values.byName(json['type']),
