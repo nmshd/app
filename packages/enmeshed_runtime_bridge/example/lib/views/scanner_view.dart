@@ -66,12 +66,9 @@ class _ScannerViewState extends State<ScannerView> with SingleTickerProviderStat
             color: Colors.white,
             icon: ValueListenableBuilder(
               valueListenable: _cameraController.torchState,
-              builder: (context, state, child) {
-                return switch (state) {
-                  TorchState.off => const Icon(Icons.flashlight_off, color: Colors.grey),
-                  TorchState.on => const Icon(Icons.flashlight_on, color: Colors.yellow),
-                };
-              },
+              builder: (context, state, child) => state == TorchState.off
+                  ? const Icon(Icons.flashlight_off, color: Colors.grey)
+                  : const Icon(Icons.flashlight_on, color: Colors.yellow),
             ),
             iconSize: 32.0,
             onPressed: () => _cameraController.toggleTorch(),
