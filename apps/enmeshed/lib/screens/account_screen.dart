@@ -88,18 +88,12 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  String get _title {
-    switch (_selectedIndex) {
-      case 0:
-        return AppLocalizations.of(context)!.overview;
-      case 1:
-        return AppLocalizations.of(context)!.contacts;
-      case 2:
-        return AppLocalizations.of(context)!.myData;
-      default:
-        return '';
-    }
-  }
+  String get _title => switch (_selectedIndex) {
+        0 => AppLocalizations.of(context)!.overview,
+        1 => AppLocalizations.of(context)!.contacts,
+        2 => AppLocalizations.of(context)!.myData,
+        _ => ''
+      };
 
   Future<void> _openAccountDialog() async => await showDialog(
         context: context,

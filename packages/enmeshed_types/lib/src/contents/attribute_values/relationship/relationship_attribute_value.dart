@@ -9,36 +9,22 @@ abstract class RelationshipAttributeValue extends Equatable {
   static RelationshipAttributeValue fromJson(Map json) {
     final type = json['@type'];
 
-    switch (type) {
-      case 'Consent':
-        return ConsentAttributeValue.fromJson(json);
-      case 'ProprietaryBoolean':
-        return ProprietaryBooleanAttributeValue.fromJson(json);
-      case 'ProprietaryCountry':
-        return ProprietaryCountryAttributeValue.fromJson(json);
-      case 'ProprietaryEMailAddress':
-        return ProprietaryEMailAddressAttributeValue.fromJson(json);
-      case 'ProprietaryFileReference':
-        return ProprietaryFileReferenceAttributeValue.fromJson(json);
-      case 'ProprietaryFloat':
-        return ProprietaryFloatAttributeValue.fromJson(json);
-      case 'ProprietaryHEXColor':
-        return ProprietaryHEXColorAttributeValue.fromJson(json);
-      case 'ProprietaryInteger':
-        return ProprietaryIntegerAttributeValue.fromJson(json);
-      case 'ProprietaryJSON':
-        return ProprietaryJSONAttributeValue.fromJson(json);
-      case 'ProprietaryLanguage':
-        return ProprietaryLanguageAttributeValue.fromJson(json);
-      case 'ProprietaryPhoneNumber':
-        return ProprietaryPhoneNumberAttributeValue.fromJson(json);
-      case 'ProprietaryString':
-        return ProprietaryStringAttributeValue.fromJson(json);
-      case 'ProprietaryURL':
-        return ProprietaryURLAttributeValue.fromJson(json);
-      default:
-        throw Exception('Unknown AbstractAttributeValue: $type');
-    }
+    return switch (type) {
+      'Consent' => ConsentAttributeValue.fromJson(json),
+      'ProprietaryBoolean' => ProprietaryBooleanAttributeValue.fromJson(json),
+      'ProprietaryCountry' => ProprietaryCountryAttributeValue.fromJson(json),
+      'ProprietaryEMailAddress' => ProprietaryEMailAddressAttributeValue.fromJson(json),
+      'ProprietaryFileReference' => ProprietaryFileReferenceAttributeValue.fromJson(json),
+      'ProprietaryFloat' => ProprietaryFloatAttributeValue.fromJson(json),
+      'ProprietaryHEXColor' => ProprietaryHEXColorAttributeValue.fromJson(json),
+      'ProprietaryInteger' => ProprietaryIntegerAttributeValue.fromJson(json),
+      'ProprietaryJSON' => ProprietaryJSONAttributeValue.fromJson(json),
+      'ProprietaryLanguage' => ProprietaryLanguageAttributeValue.fromJson(json),
+      'ProprietaryPhoneNumber' => ProprietaryPhoneNumberAttributeValue.fromJson(json),
+      'ProprietaryString' => ProprietaryStringAttributeValue.fromJson(json),
+      'ProprietaryURL' => ProprietaryURLAttributeValue.fromJson(json),
+      _ => throw Exception('Unknown AbstractAttributeValue: $type'),
+    };
   }
 
   @mustCallSuper

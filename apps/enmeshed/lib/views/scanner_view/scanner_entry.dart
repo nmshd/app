@@ -83,12 +83,10 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
             icon: ValueListenableBuilder(
               valueListenable: _cameraController.torchState,
               builder: (context, state, child) {
-                switch (state) {
-                  case TorchState.off:
-                    return const Icon(Icons.flashlight_off, color: Colors.grey);
-                  case TorchState.on:
-                    return const Icon(Icons.flashlight_on, color: Colors.yellow);
-                }
+                return switch (state) {
+                  TorchState.off => const Icon(Icons.flashlight_off, color: Colors.grey),
+                  TorchState.on => const Icon(Icons.flashlight_on, color: Colors.yellow),
+                };
               },
             ),
             iconSize: 32.0,
