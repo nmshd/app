@@ -17,25 +17,15 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid list of RelationshipDTOs', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
 
-      final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: {},
-      );
-
-      final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
-        reference: responseTemplate.data.truncatedReference,
-      );
-
+      final responseTemplate = await createConnectorTemplate(connectorClient, expiresAt);
+      final item = await loadItem(session, responseTemplate.data.truncatedReference);
       final template = item.relationshipTemplateValue;
 
       final relationshipsBeforeCreate = await session.transportServices.relationships.getRelationships();
 
       expect(0, relationshipsBeforeCreate.length);
 
-      final relationship = await session.transportServices.relationships.createRelationship(
-        templateId: template.id,
-        content: {'a': 'b'},
-      );
+      final relationship = await createRelationship(session, template.id, {'a': 'b'});
 
       expect(relationship.template.expiresAt, expiresAt);
       expect(relationship.template.content.toJson(), {});
@@ -52,21 +42,10 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid RelationshipDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
 
-      final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: {},
-      );
-
-      final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
-        reference: responseTemplate.data.truncatedReference,
-      );
-
+      final responseTemplate = await createConnectorTemplate(connectorClient, expiresAt);
+      final item = await loadItem(session, responseTemplate.data.truncatedReference);
       final template = item.relationshipTemplateValue;
-
-      final createdRelationship = await session.transportServices.relationships.createRelationship(
-        templateId: template.id,
-        content: {'a': 'b'},
-      );
+      final createdRelationship = await createRelationship(session, template.id, {'a': 'b'});
 
       final relationship = await session.transportServices.relationships.getRelationship(relationshipId: createdRelationship.id);
 
@@ -127,22 +106,10 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid RelationshipDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
 
-      final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: {},
-      );
-
-      final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
-        reference: responseTemplate.data.truncatedReference,
-      );
-
+      final responseTemplate = await createConnectorTemplate(connectorClient, expiresAt);
+      final item = await loadItem(session, responseTemplate.data.truncatedReference);
       final template = item.relationshipTemplateValue;
-
-      final createdRelationship = await session.transportServices.relationships.createRelationship(
-        templateId: template.id,
-        content: {'a': 'b'},
-      );
-
+      final createdRelationship = await createRelationship(session, template.id, {'a': 'b'});
       final relationships = await session.transportServices.relationships.getRelationships();
       final address = relationships.first.peerIdentity.address;
 
@@ -163,21 +130,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid RelationshipDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
 
-      final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: {},
-      );
-
-      final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
-        reference: responseTemplate.data.truncatedReference,
-      );
-
+      final responseTemplate = await createConnectorTemplate(connectorClient, expiresAt);
+      final item = await loadItem(session, responseTemplate.data.truncatedReference);
       final template = item.relationshipTemplateValue;
 
-      final relationship = await session.transportServices.relationships.createRelationship(
-        templateId: template.id,
-        content: {},
-      );
+      final relationship = await createRelationship(session, template.id, {'a': 'b'});
 
       expect(relationship.template.expiresAt, expiresAt);
       expect(relationship.template.content.toJson(), {});
@@ -189,7 +146,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid RelationshipDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
 
-      final sessionTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(expiresAt: expiresAt, content: {});
+      final sessionTemplate = await createSessionTemplate(session, expiresAt);
       expect(sessionTemplate, isInstanceOf<RelationshipTemplateDTO>());
 
       final connectorLoadTemplate = await connectorClient.relationshipTemplates.loadPeerRelationshipTemplateByTruncatedReference(
@@ -221,7 +178,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid RelationshipDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
 
-      final sessionTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(expiresAt: expiresAt, content: {});
+      final sessionTemplate = await createSessionTemplate(session, expiresAt);
       expect(sessionTemplate, isInstanceOf<RelationshipTemplateDTO>());
 
       final connectorLoadTemplate = await connectorClient.relationshipTemplates.loadPeerRelationshipTemplateByTruncatedReference(
@@ -253,22 +210,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid list of LocalAttributeDTOs', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
 
-      final connectorTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: {},
-      );
-      final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
-        reference: connectorTemplate.data.truncatedReference,
-      );
+      final connectorTemplate = await createConnectorTemplate(connectorClient, expiresAt);
+      final item = await loadItem(session, connectorTemplate.data.truncatedReference);
       final template = item.relationshipTemplateValue;
-
-      final createdRelationship = await session.transportServices.relationships.createRelationship(
-        templateId: template.id,
-        content: {'a': 'b'},
-      );
-
+      final createdRelationship = await createRelationship(session, template.id, {'a': 'b'});
       final relationship = await session.transportServices.relationships.getRelationship(relationshipId: createdRelationship.id);
-
       final attribute = await session.consumptionServices.attributes.createAttribute(
         content: const IdentityAttribute(owner: 'address', value: SurnameAttributeValue(value: 'aSurname')).toJson(),
       );
@@ -279,7 +225,6 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         peer: relationship.peer,
         requestReference: fakeRequestReference,
       );
-
       await session.consumptionServices.attributes.createAttribute(
         content: IdentityAttribute(owner: relationship.peer, value: const SurnameAttributeValue(value: 'aPeerSurname')).toJson(),
       );
