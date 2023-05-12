@@ -55,10 +55,9 @@ Future<RelationshipDTO> establishRelationshipAndSync(
 ]) async {
   expiresAt ??= DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
 
-  final sessionTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(expiresAt: expiresAt, content: {});
-
+  final createTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(expiresAt: expiresAt, content: {});
   final connectorLoadTemplateResult = await connectorClient.relationshipTemplates.loadPeerRelationshipTemplateByTruncatedReference(
-    sessionTemplate.truncatedReference,
+    createTemplateResult.value.truncatedReference,
   );
   assert(connectorLoadTemplateResult.hasData);
 
