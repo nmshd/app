@@ -15,12 +15,10 @@ abstract class TokenContent {
   factory TokenContent.fromJson(Map json) {
     final type = json['@type'];
 
-    switch (type) {
-      case 'TokenContentDeviceSharedSecret':
-        return TokenContentDeviceSharedSecret.fromJson(json);
-      default:
-        return ArbitraryTokenContent(json);
-    }
+    return switch (type) {
+      'TokenContentDeviceSharedSecret' => TokenContentDeviceSharedSecret.fromJson(json),
+      _ => ArbitraryTokenContent(json),
+    };
   }
 
   Map<String, dynamic> toJson();

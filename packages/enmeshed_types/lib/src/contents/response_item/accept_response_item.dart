@@ -8,22 +8,15 @@ class AcceptResponseItem extends ResponseItemDerivation {
 
     if (type == 'AcceptResponseItem') return const AcceptResponseItem();
 
-    switch (type) {
-      case 'CreateAttributeAcceptResponseItem':
-        return CreateAttributeAcceptResponseItem.fromJson(json);
-      case 'ShareAttributeAcceptResponseItem':
-        return ShareAttributeAcceptResponseItem.fromJson(json);
-      case 'ProposeAttributeAcceptResponseItem':
-        return ProposeAttributeAcceptResponseItem.fromJson(json);
-      case 'ReadAttributeAcceptResponseItem':
-        return ReadAttributeAcceptResponseItem.fromJson(json);
-      case 'RegisterAttributeListenerAcceptResponseItem':
-        return RegisterAttributeListenerAcceptResponseItem.fromJson(json);
-      case 'SucceedAttributeAcceptResponseItem':
-        return SucceedAttributeAcceptResponseItem.fromJson(json);
-      default:
-        throw Exception('Unknown type: $type');
-    }
+    return switch (type) {
+      'CreateAttributeAcceptResponseItem' => CreateAttributeAcceptResponseItem.fromJson(json),
+      'ShareAttributeAcceptResponseItem' => ShareAttributeAcceptResponseItem.fromJson(json),
+      'ProposeAttributeAcceptResponseItem' => ProposeAttributeAcceptResponseItem.fromJson(json),
+      'ReadAttributeAcceptResponseItem' => ReadAttributeAcceptResponseItem.fromJson(json),
+      'RegisterAttributeListenerAcceptResponseItem' => RegisterAttributeListenerAcceptResponseItem.fromJson(json),
+      'SucceedAttributeAcceptResponseItem' => SucceedAttributeAcceptResponseItem.fromJson(json),
+      _ => throw Exception('Unknown type: $type'),
+    };
   }
 
   @override

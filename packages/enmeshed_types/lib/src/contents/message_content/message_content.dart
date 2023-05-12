@@ -15,14 +15,11 @@ abstract class MessageContent extends Equatable {
   factory MessageContent.fromJson(Map json) {
     final type = json['@type'];
 
-    switch (type) {
-      case 'Mail':
-        return Mail.fromJson(json);
-      case 'ResponseWrapper':
-        return ResponseWrapper.fromJson(json);
-      default:
-        return ArbitraryMessageContent(json);
-    }
+    return switch (type) {
+      'Mail' => Mail.fromJson(json),
+      'ResponseWrapper' => ResponseWrapper.fromJson(json),
+      _ => ArbitraryMessageContent(json),
+    };
   }
 
   Map<String, dynamic> toJson();
