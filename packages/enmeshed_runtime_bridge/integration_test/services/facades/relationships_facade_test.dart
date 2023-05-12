@@ -73,7 +73,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('throws an exception on not existing relationship id', () async {
       const expectedErrorMessage = 'Exception: Error: {\n'
           '  "code": "error.runtime.recordNotFound",\n'
-          '  "message": "Ux not found. Make sure the ID exists and the record is not expired."\n'
+          '  "message": "Relationship not found. Make sure the ID exists and the record is not expired."\n'
           '}';
 
       try {

@@ -14,115 +14,105 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
   group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
     test('returns a valid RelationshipTemplateDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
 
-      final template = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final templateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
+      final template = templateResult.value;
 
-      expect(expiresAt, template.expiresAt);
-      expect(content, template.content.toJson());
-      expect(RelationshipTemplateDTO, template.runtimeType);
+      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template.expiresAt, expiresAt);
+      expect(template.content.toJson(), content);
     });
 
     test('returns a valid RelationshipTemplateDTO with all properties', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
       const maxNumberOfAllocations = 1;
 
-      final template = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final templateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
         maxNumberOfAllocations: maxNumberOfAllocations,
       );
+      final template = templateResult.value;
 
-      expect(expiresAt, template.expiresAt);
-      expect(content, template.content.toJson());
-      expect(maxNumberOfAllocations, template.maxNumberOfAllocations);
-      expect(RelationshipTemplateDTO, template.runtimeType);
+      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template.expiresAt, expiresAt);
+      expect(template.content.toJson(), content);
+      expect(template.maxNumberOfAllocations, maxNumberOfAllocations);
     });
   });
 
   group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByIdAndKey', () {
     test('returns a valid RelationshipTemplateDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
 
       final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final template = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByIdAndKey(
+      final templateResult = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByIdAndKey(
         relationshipTemplateId: responseTemplate.data.id,
         secretKey: responseTemplate.data.secretKey,
       );
+      final template = templateResult.value;
 
-      expect(expiresAt, template.expiresAt);
-      expect(content, template.content.toJson());
-      expect(responseTemplate.data.id, template.id);
-      expect(responseTemplate.data.secretKey, template.secretKey);
-      expect(RelationshipTemplateDTO, template.runtimeType);
+      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template.expiresAt, expiresAt);
+      expect(template.content.toJson(), content);
+      expect(template.id, responseTemplate.data.id);
+      expect(template.secretKey, responseTemplate.data.secretKey);
     });
   });
 
   group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByReference', () {
     test('returns a valid RelationshipTemplateDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
 
       final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final template = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
+      final templateResult = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
         reference: responseTemplate.data.truncatedReference,
       );
+      final template = templateResult.value;
 
-      expect(expiresAt, template.expiresAt);
-      expect(content, template.content.toJson());
-      expect(responseTemplate.data.truncatedReference, template.truncatedReference);
-      expect(RelationshipTemplateDTO, template.runtimeType);
+      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template.expiresAt, expiresAt);
+      expect(template.content.toJson(), content);
+      expect(template.truncatedReference, responseTemplate.data.truncatedReference);
     });
   });
 
   group('RelationshipTemplatesFacade: getRelationshipTemplates', () {
     test('returns the correct amount of own relationship templates', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
-
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       final currentTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
       await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
-        content: content,
+        content: {'aKey': 'aValue'},
         maxNumberOfAllocations: 1,
       );
 
       final allTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
-      expect(allTemplates.length, greaterThan(currentTemplates.length));
-      expect(List<RelationshipTemplateDTO>, allTemplates.runtimeType);
+      expect(allTemplates.value, isInstanceOf<List<RelationshipTemplateDTO>>());
+      expect(allTemplates.value.length, greaterThan(currentTemplates.value.length));
     });
 
     test('returns the correct amount of own relationship templates with all properties', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
 
       await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
@@ -131,7 +121,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
 
       await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: DateTime.now().add(const Duration(days: 100)).toRuntimeIsoString(),
+        expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
         content: content,
         maxNumberOfAllocations: 2,
       );
@@ -147,27 +137,19 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final templatesWithQueryMnoa = await session.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'maxNumberOfAllocations': QueryValue.string('1')},
       );
-      bool isAnyTemplateWithAnotherMnoa1 = false;
-      for (final template in templatesWithQueryMnoa) {
-        if (template.maxNumberOfAllocations != 1) {
-          isAnyTemplateWithAnotherMnoa1 = true;
-        }
-      }
 
-      expect(templatesWithQueryExpiresAt.length, 1);
-      expect(templatesWithNoResponse.length, 0);
-      expect(false, isAnyTemplateWithAnotherMnoa1);
-      expect(List<RelationshipTemplateDTO>, templatesWithQueryExpiresAt.runtimeType);
-      expect(List<RelationshipTemplateDTO>, templatesWithQueryMnoa.runtimeType);
+      expect(templatesWithQueryExpiresAt.value.length, 1);
+      expect(templatesWithNoResponse.value.length, 0);
+      expect(templatesWithQueryMnoa.value.where((e) => e.maxNumberOfAllocations != 1).length, 0);
+      expect(templatesWithQueryExpiresAt.value, isInstanceOf<List<RelationshipTemplateDTO>>());
+      expect(templatesWithQueryMnoa.value, isInstanceOf<List<RelationshipTemplateDTO>>());
     });
   });
 
   group('RelationshipTemplatesFacade: getRelationshipTemplate', () {
     test('returns a valid RelationshipTemplateDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
 
       final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
@@ -175,163 +157,132 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
 
       final template = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
-        relationshipTemplateId: createdTemplate.id,
+        relationshipTemplateId: createdTemplate.value.id,
       );
 
-      expect(expiresAt, template.expiresAt);
-      expect(content, template.content.toJson());
-      expect(RelationshipTemplateDTO, template.runtimeType);
+      expect(template.value, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template.value.expiresAt, expiresAt);
+      expect(template.value.content.toJson(), content);
     });
 
     test('throws an exception on empty template id', () async {
-      const expectedErrorMessage = 'Exception: Error: {\n'
-          '  "code": "error.runtime.validation.invalidPropertyValue",\n'
-          '  "message": "id must match pattern RLT[A-Za-z0-9]{17}"\n'
-          '}';
+      final result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
+        relationshipTemplateId: '',
+      );
 
-      try {
-        await session.transportServices.relationshipTemplates.getRelationshipTemplate(
-          relationshipTemplateId: '',
-        );
-      } catch (e) {
-        expect(e, isInstanceOf<Exception>());
-        expect(e.toString(), expectedErrorMessage);
-      }
+      expect(result.isSuccess, false);
+      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
     test('throws an exception if template id do not match the pattern', () async {
-      const expectedErrorMessage = 'Exception: Error: {\n'
-          '  "code": "error.runtime.validation.invalidPropertyValue",\n'
-          '  "message": "id must match pattern RLT[A-Za-z0-9]{17}"\n'
-          '}';
+      final result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
+        relationshipTemplateId: 'RTLX123456789',
+      );
 
-      try {
-        await session.transportServices.relationshipTemplates.getRelationshipTemplate(
-          relationshipTemplateId: 'RTLX123456789',
-        );
-      } catch (e) {
-        expect(e, isInstanceOf<Exception>());
-        expect(e.toString(), expectedErrorMessage);
-      }
+      expect(result.isSuccess, false);
+      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
     test('throws an exception on not existing template id', () async {
-      const expectedErrorMessage = 'Exception: Error: {\n'
-          '  "code": "error.runtime.recordNotFound",\n'
-          '  "message": "em not found. Make sure the ID exists and the record is not expired."\n'
-          '}';
+      final result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
+        relationshipTemplateId: 'RLTXZKg9TestveduKiGs',
+      );
 
-      try {
-        await session.transportServices.relationshipTemplates.getRelationshipTemplate(
-          relationshipTemplateId: 'RLTXZKg9TestveduKiGs',
-        );
-      } catch (e) {
-        expect(e, isInstanceOf<Exception>());
-        expect(e.toString(), expectedErrorMessage);
-      }
+      expect(result.isSuccess, false);
+      expect(result.error.code, 'error.runtime.recordNotFound');
     });
   });
 
   group('RelationshipTemplatesFacade: createQrCodeForOwnTemplate', () {
     test('returns a valid CreateQrCodeResponse', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
 
-      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
       final response = await session.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(
-        templateId: createdTemplate.id,
+        templateId: createdTemplateResult.value.id,
       );
 
-      expect(CreateQrCodeResponse, response.runtimeType);
+      expect(response.value, isInstanceOf<CreateQrCodeResponse>());
     });
   });
 
   group('RelationshipTemplatesFacade: createTokenQrCodeForOwnTemplate', () {
     test('returns a valid CreateQrCodeResponse', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
 
-      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
       final response = await session.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
-        templateId: createdTemplate.id,
+        templateId: createdTemplateResult.value.id,
       );
 
-      expect(CreateQrCodeResponse, response.runtimeType);
+      expect(response.value, isInstanceOf<CreateQrCodeResponse>());
     });
 
     test('returns a valid CreateQrCodeResponse with all properties', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
 
-      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
       final response = await session.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
-        templateId: createdTemplate.id,
+        templateId: createdTemplateResult.value.id,
         expiresAt: expiresAt,
       );
 
-      expect(CreateQrCodeResponse, response.runtimeType);
+      expect(response.value, isInstanceOf<CreateQrCodeResponse>());
     });
   });
 
   group('RelationshipTemplatesFacade: createTokenForOwnTemplate', () {
     test('returns a valid TokenDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      const content = {'aKey': 'aValue'};
 
       final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final token = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
-        templateId: createdTemplate.id,
+      final tokenResult = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+        templateId: createdTemplate.value.id,
       );
+      final token = tokenResult.value;
 
-      expect(expiresAt, token.expiresAt);
-      expect(TokenDTO, token.runtimeType);
+      expect(token.expiresAt, expiresAt);
+      expect(token, isInstanceOf<TokenDTO>());
     });
 
     test('returns a valid TokenDTO with all properties', () async {
-      final expiresAt = DateTime.now().add(const Duration(days: 365)).toRuntimeIsoString();
-      final content = const RelationshipTemplateContent(
-        onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-      ).toJson();
-
-      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
-        content: content,
+        content: {'a': 'b'},
       );
 
-      final token = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
-        templateId: createdTemplate.id,
+      final tokenResult = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+        templateId: createdTemplateResult.value.id,
         expiresAt: expiresAt,
         ephemeral: true,
       );
+      final token = tokenResult.value;
 
-      expect(expiresAt, token.expiresAt);
-      expect(createdTemplate.expiresAt, token.expiresAt);
-      expect(true, token.isEphemeral);
-      expect(TokenDTO, token.runtimeType);
+      expect(token, isInstanceOf<TokenDTO>());
+      expect(token.expiresAt, expiresAt);
+      expect(token.expiresAt, createdTemplateResult.value.expiresAt);
+      expect(token.isEphemeral, true);
     });
   });
 }

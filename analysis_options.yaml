@@ -7,6 +7,7 @@ linter:
     prefer_final_locals: true
     prefer_final_in_for_each: true
     prefer_final_fields: true
+    unnecessary_parenthesis: true
 
 analyzer:
   plugins:

@@ -59,7 +59,8 @@ class RelationshipTemplatesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final relationshipTemplates = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+              final relationshipTemplatesResult = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+              final relationshipTemplates = relationshipTemplatesResult.value;
               if (relationshipTemplates.isEmpty) return;
 
               final relationshipTemplate = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate(
@@ -72,7 +73,8 @@ class RelationshipTemplatesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final relationshipTemplates = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+              final relationshipTemplatesResult = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+              final relationshipTemplates = relationshipTemplatesResult.value;
               if (relationshipTemplates.isEmpty) return;
 
               final response = await runtime.currentSession.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(
@@ -85,7 +87,8 @@ class RelationshipTemplatesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final relationshipTemplates = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+              final relationshipTemplatesResult = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+              final relationshipTemplates = relationshipTemplatesResult.value;
               if (relationshipTemplates.isEmpty) return;
 
               final response = await runtime.currentSession.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
@@ -98,7 +101,8 @@ class RelationshipTemplatesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final relationshipTemplates = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+              final relationshipTemplatesResult = await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates();
+              final relationshipTemplates = relationshipTemplatesResult.value;
               if (relationshipTemplates.isEmpty) return;
 
               final token = await runtime.currentSession.transportServices.relationshipTemplates.createTokenForOwnTemplate(
