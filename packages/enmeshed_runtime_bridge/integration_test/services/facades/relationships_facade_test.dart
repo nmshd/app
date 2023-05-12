@@ -18,7 +18,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
 
       final relationshipsBeforeCreate = await session.transportServices.relationships.getRelationships();
-      expect(0, relationshipsBeforeCreate.length);
+      expect(relationshipsBeforeCreate.length, 0);
 
       final relationship = await establishRelationship(session, connectorClient, expiresAt);
 
