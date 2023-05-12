@@ -6,11 +6,6 @@ on:
       - main
 jobs:
   ios:
-    strategy:
-      matrix:
-        device:
-          - "iPhone 14 Simulator (16.2)" # the name of the simulator could be different depending on the macos version you are using
-      fail-fast: true
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,7 +16,7 @@ jobs:
         # the assignment of the UDID variable consists of retrieving the ID of the simulator
         # by extracting it from the command "xcrun xctrace list devices"
         run: |
-          UDID=$(xcrun xctrace list devices | grep -m 1 "^${{ matrix.device }}" | awk '{gsub(/[()]/,""); print $NF}')
+          UDID=$(xcrun xctrace list devices | grep -m 1 "^iPhone" | awk '{gsub(/[()]/,""); print $NF}')
           echo $UDID
           xcrun simctl boot "${UDID:?No Simulator with this name found}"
       - name: Setup Flutter SDK
@@ -36,11 +31,9 @@ jobs:
         run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{secrets.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{secrets.TESTCONNECTOR_APIKEY}}
   android:
     runs-on: macos-latest
-    strategy:
-      matrix:
-        api-level: [32]
-        target: [playstore]
-      fail-fast: true
+    env:
+      api-level: 32
+      target: playstore
     steps:
       - uses: actions/checkout@v3
       - name: Setup Gradle cache
@@ -52,7 +45,7 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-${{ matrix.api-level }}
+          key: avd-${{ env.api-level }}
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -71,8 +64,8 @@ jobs:
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          target: ${{ matrix.target }}
-          api-level: ${{ matrix.api-level }}
+          target: ${{ env.target }}
+          api-level: ${{ env.api-level }}
           arch: x86_64
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
@@ -82,8 +75,8 @@ jobs:
       - name: Start emulator and run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          target: ${{ matrix.target }}
-          api-level: ${{ matrix.api-level }}
+          target: ${{ env.target }}
+          api-level: ${{ env.api-level }}
           force-avd-creation: false
           avd-name: integration_test
           disable-spellchecker: true
