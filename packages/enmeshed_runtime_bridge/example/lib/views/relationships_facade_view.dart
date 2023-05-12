@@ -86,21 +86,6 @@ class RelationshipsFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              const relationshipId = '';
-              const changeId = '';
-              final content = <String, dynamic>{};
-              final relationship = await runtime.currentSession.transportServices.relationships.revokeRelationshipChange(
-                relationshipId: relationshipId,
-                changeId: changeId,
-                content: content,
-              );
-              print(relationship);
-            },
-            child: const Text('revokeRelationshipChange'),
-          ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () async {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
               if (relationships.isEmpty) return;
 

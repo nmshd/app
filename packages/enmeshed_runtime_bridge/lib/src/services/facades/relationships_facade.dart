@@ -129,29 +129,6 @@ class RelationshipsFacade {
     return relationship;
   }
 
-  Future<RelationshipDTO> revokeRelationshipChange({
-    required String relationshipId,
-    required String changeId,
-    required Map<String, dynamic> content,
-  }) async {
-    final result = await _evaluator.evaluateJavascript(
-      '''const result = await session.transportServices.relationships.revokeRelationshipChange(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
-      arguments: {
-        'request': {
-          'relationshipId': relationshipId,
-          'changeId': changeId,
-          'content': content,
-        },
-      },
-    );
-
-    final value = result.valueToMap();
-    final relationship = RelationshipDTO.fromJson(value);
-    return relationship;
-  }
-
   Future<List<LocalAttributeDTO>> getAttributesForRelationship({
     required String relationshipId,
     bool? hideTechnical,
