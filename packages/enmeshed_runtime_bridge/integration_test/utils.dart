@@ -8,45 +8,13 @@ extension ToRuntimeIsoString on DateTime {
   }
 }
 
-Future<ConnectorResponse<RelationshipTemplateDTO>> createConnectorTemplate(
-  ConnectorClient connectorClient,
-  String expiresAt, [
-  Map<String, dynamic> content = const {},
-]) async {
-  final template = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
-    expiresAt: expiresAt,
-    content: content,
-  );
-
-  return template;
-}
-
-// Future<RelationshipTemplateDTO> createSessionTemplate(
-//   Session session,
-//   String expiresAt, [
-//   Map<String, dynamic> content = const {},
-// ]) async {
-//   final template = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-//     expiresAt: expiresAt,
-//     content: content,
-//   );
-
-//   return template;
-// }
-
-// Future<LoadItemFromTruncatedReferenceResponse> loadItem(Session session, String truncatedReference) async {
-//   final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
-//     reference: truncatedReference,
-//   );
-
-//   return item;
-// }
-
 Future<RelationshipDTO> establishRelationship(
   Session session,
-  ConnectorClient connectorClient,
-  String expiresAt,
-) async {
+  ConnectorClient connectorClient, [
+  String? expiresAt,
+]) async {
+  expiresAt ??= DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+
   final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
     expiresAt: expiresAt,
     content: {},
@@ -66,20 +34,39 @@ Future<RelationshipDTO> establishRelationship(
   return relationship;
 }
 
-Future<SyncEverythingResponse> establishRelationshipAndSync(
+Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {
+  int retries = 0;
+
+  do {
+    final syncResult = await session.transportServices.accounts.syncEverything();
+    if (syncResult.relationships.isNotEmpty) return syncResult.relationships[0];
+
+    retries++;
+    await Future.delayed(Duration(seconds: 5 * retries));
+  } while (retries < 10);
+
+  throw Exception('Could not sync until having a relationship');
+}
+
+Future<RelationshipDTO> establishRelationshipAndSync(
   Session session,
-  ConnectorClient connectorClient,
-  String expiresAt,
-) async {
+  ConnectorClient connectorClient, [
+  String? expiresAt,
+]) async {
+  expiresAt ??= DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+
   final sessionTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(expiresAt: expiresAt, content: {});
 
-  final connectorLoadTemplate = await connectorClient.relationshipTemplates.loadPeerRelationshipTemplateByTruncatedReference(
+  final connectorLoadTemplateResult = await connectorClient.relationshipTemplates.loadPeerRelationshipTemplateByTruncatedReference(
     sessionTemplate.truncatedReference,
   );
+  assert(connectorLoadTemplateResult.hasData);
 
-  await connectorClient.relationships.createRelationship(templateId: connectorLoadTemplate.data.id, content: {'a': 'b'});
+  final createRelationshipResult = await connectorClient.relationships.createRelationship(
+    templateId: connectorLoadTemplateResult.data.id,
+    content: {'a': 'b'},
+  );
+  assert(createRelationshipResult.hasData);
 
-  final syncResult = await session.transportServices.accounts.syncEverything();
-
-  return syncResult;
+  return await syncUntilHasRelationship(session);
 }

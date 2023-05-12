@@ -14,22 +14,21 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipsFacade: getRelationships', () {
+    test('returns an empty list when no Relationships exists', () async {
+      final relationships = await session.transportServices.relationships.getRelationships();
+
+      expect(relationships, isInstanceOf<List<RelationshipDTO>>());
+      expect(relationships.length, 0);
+    });
+
     test('returns a valid list of RelationshipDTOs', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-
-      final relationshipsBeforeCreate = await session.transportServices.relationships.getRelationships();
-      expect(relationshipsBeforeCreate.length, 0);
-
-      final relationship = await establishRelationship(session, connectorClient, expiresAt);
-
-      expect(relationship.template.expiresAt, expiresAt);
-      expect(relationship.template.content.toJson(), {});
-      expect(relationship, isInstanceOf<RelationshipDTO>());
+      final establishedRelationship = await establishRelationship(session, connectorClient);
 
       final relationships = await session.transportServices.relationships.getRelationships();
 
       expect(relationships.length, 1);
       expect(relationships, isInstanceOf<List<RelationshipDTO>>());
+      expect(relationships.first.id, establishedRelationship.id);
     });
   });
 
@@ -145,18 +144,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
   group('RelationshipsFacade: acceptRelationshipChange', () {
     test('returns a valid RelationshipDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-
-      final syncResult = await establishRelationshipAndSync(session, connectorClient, expiresAt);
-      expect(syncResult, isInstanceOf<SyncEverythingResponse>());
-
-      final relationships = syncResult.relationships;
-      final relationshipId = relationships[0].id;
-      final relationshipChangeId = relationships[0].changes[0].id;
+      final establishedRelationship = await establishRelationshipAndSync(session, connectorClient);
 
       final response = await session.transportServices.relationships.acceptRelationshipChange(
-        relationshipId: relationshipId,
-        changeId: relationshipChangeId,
+        relationshipId: establishedRelationship.id,
+        changeId: establishedRelationship.changes[0].id,
         content: {'a': 'b'},
       );
 
@@ -166,18 +158,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
   group('RelationshipsFacade: rejectRelationshipChange', () {
     test('returns a valid RelationshipDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-
-      final syncResult = await establishRelationshipAndSync(session, connectorClient, expiresAt);
-      expect(syncResult, isInstanceOf<SyncEverythingResponse>());
-
-      final relationships = syncResult.relationships;
-      final relationshipId = relationships[0].id;
-      final relationshipChangeId = relationships[0].changes[0].id;
+      final establishedRelationship = await establishRelationshipAndSync(session, connectorClient);
 
       final response = await session.transportServices.relationships.rejectRelationshipChange(
-        relationshipId: relationshipId,
-        changeId: relationshipChangeId,
+        relationshipId: establishedRelationship.id,
+        changeId: establishedRelationship.changes[0].id,
         content: {'a': 'b'},
       );
 
