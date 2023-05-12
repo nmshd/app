@@ -1,0 +1,86 @@
+name: runtime bridge integration tests
+
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "List all simulators"
+        run: "xcrun xctrace list devices"
+      - name: "Start Simulator"
+        # the command "xcrun simctl boot" expects a device identifier
+        # the assignment of the UDID variable consists of retrieving the ID of the simulator
+        # by extracting it from the command "xcrun xctrace list devices"
+        run: |
+          UDID=$(xcrun xctrace list devices | grep -m 1 "^iPhone" | awk '{gsub(/[()]/,""); print $NF}')
+          echo $UDID
+          xcrun simctl boot "${UDID:?No Simulator with this name found}"
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Install Dependencies
+        run: |
+          dart pub global activate melos
+          melos bootstrap
+      - name: Run integration tests
+        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{secrets.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{secrets.TESTCONNECTOR_APIKEY}}
+  android:
+    runs-on: macos-latest
+    env:
+      api-level: 32
+      target: playstore
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Gradle cache
+        uses: gradle/gradle-build-action@v2
+      - name: Setup AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ env.api-level }}
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "oracle"
+          java-version: 17
+          cache: "gradle"
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Install Dependencies
+        run: |
+          dart pub global activate melos
+          melos bootstrap
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          target: ${{ env.target }}
+          api-level: ${{ env.api-level }}
+          arch: x86_64
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          profile: pixel
+          script: echo "Generated AVD snapshot for caching."
+      - name: Start emulator and run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          target: ${{ env.target }}
+          api-level: ${{ env.api-level }}
+          force-avd-creation: false
+          avd-name: integration_test
+          disable-spellchecker: true
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          arch: x86_64
+          profile: pixel
+          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{secrets.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{secrets.TESTCONNECTOR_APIKEY}}
