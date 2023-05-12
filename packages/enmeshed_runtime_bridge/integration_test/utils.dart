@@ -21,36 +21,65 @@ Future<ConnectorResponse<RelationshipTemplateDTO>> createConnectorTemplate(
   return template;
 }
 
-Future<RelationshipTemplateDTO> createSessionTemplate(
+// Future<RelationshipTemplateDTO> createSessionTemplate(
+//   Session session,
+//   String expiresAt, [
+//   Map<String, dynamic> content = const {},
+// ]) async {
+//   final template = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+//     expiresAt: expiresAt,
+//     content: content,
+//   );
+
+//   return template;
+// }
+
+// Future<LoadItemFromTruncatedReferenceResponse> loadItem(Session session, String truncatedReference) async {
+//   final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
+//     reference: truncatedReference,
+//   );
+
+//   return item;
+// }
+
+Future<RelationshipDTO> establishRelationship(
   Session session,
-  String expiresAt, [
-  Map<String, dynamic> content = const {},
-]) async {
-  final template = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+  ConnectorClient connectorClient,
+  String expiresAt,
+) async {
+  final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
     expiresAt: expiresAt,
-    content: content,
+    content: {},
   );
 
-  return template;
-}
-
-Future<LoadItemFromTruncatedReferenceResponse> loadItem(Session session, String truncatedReference) async {
   final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
-    reference: truncatedReference,
+    reference: responseTemplate.data.truncatedReference,
   );
 
-  return item;
-}
+  final template = item.relationshipTemplateValue;
 
-Future<RelationshipDTO> createRelationship(
-  Session session,
-  String templateId, [
-  Map<String, dynamic> content = const {},
-]) async {
   final relationship = await session.transportServices.relationships.createRelationship(
-    templateId: templateId,
-    content: content,
+    templateId: template.id,
+    content: {'a': 'b'},
   );
 
   return relationship;
+}
+
+Future<SyncEverythingResponse> establishRelationshipAndSync(
+  Session session,
+  ConnectorClient connectorClient,
+  String expiresAt,
+) async {
+  final sessionTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(expiresAt: expiresAt, content: {});
+
+  final connectorLoadTemplate = await connectorClient.relationshipTemplates.loadPeerRelationshipTemplateByTruncatedReference(
+    sessionTemplate.truncatedReference,
+  );
+
+  await connectorClient.relationships.createRelationship(templateId: connectorLoadTemplate.data.id, content: {'a': 'b'});
+
+  final syncResult = await session.transportServices.accounts.syncEverything();
+
+  return syncResult;
 }
