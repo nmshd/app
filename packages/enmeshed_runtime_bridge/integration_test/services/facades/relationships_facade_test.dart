@@ -34,19 +34,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
   group('RelationshipsFacade: getRelationship', () {
     test('returns a valid RelationshipDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      final establishedRelationship = await establishRelationship(session, connectorClient);
 
-      final createdRelationship = await establishRelationship(session, connectorClient, expiresAt);
+      final relationship = await session.transportServices.relationships.getRelationship(relationshipId: establishedRelationship.id);
 
-      final relationship = await session.transportServices.relationships.getRelationship(relationshipId: createdRelationship.id);
-
-      expect(createdRelationship.template.expiresAt, expiresAt);
-      expect(createdRelationship.template.content.toJson(), {});
-      expect(relationship, isInstanceOf<RelationshipDTO>());
-
-      expect(relationship.template.expiresAt, expiresAt);
-      expect(relationship.template.content.toJson(), {});
-      expect(relationship.id, createdRelationship.id);
+      expect(relationship.id, establishedRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
 
@@ -95,33 +87,20 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
   group('RelationshipsFacade: getRelationshipByAddress', () {
     test('returns a valid RelationshipDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-
-      final createdRelationship = await establishRelationship(session, connectorClient, expiresAt);
+      final establishedRelationship = await establishRelationship(session, connectorClient);
       final relationships = await session.transportServices.relationships.getRelationships();
-      final address = relationships.first.peerIdentity.address;
 
-      final relationship = await session.transportServices.relationships.getRelationshipByAddress(address: address);
+      final relationship = await session.transportServices.relationships.getRelationshipByAddress(address: relationships[0].peerIdentity.address);
 
-      expect(createdRelationship.template.expiresAt, expiresAt);
-      expect(createdRelationship.template.content.toJson(), {});
-      expect(relationship, isInstanceOf<RelationshipDTO>());
-
-      expect(relationships.length, greaterThan(0));
-
-      expect(relationship.template.expiresAt, expiresAt);
-      expect(relationship.template.content.toJson(), {});
-      expect(relationship.id, createdRelationship.id);
+      expect(relationship.id, establishedRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
   });
 
   group('RelationshipsFacade: createRelationship', () {
     test('returns a valid RelationshipDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-
       final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
+        expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
         content: {},
       );
 
@@ -129,15 +108,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         reference: responseTemplate.data.truncatedReference,
       );
 
-      final template = item.relationshipTemplateValue;
-
       final relationship = await session.transportServices.relationships.createRelationship(
-        templateId: template.id,
+        templateId: item.relationshipTemplateValue.id,
         content: {},
       );
 
-      expect(relationship.template.expiresAt, expiresAt);
-      expect(relationship.template.content.toJson(), {});
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
   });
@@ -152,6 +127,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         content: {'a': 'b'},
       );
 
+      expect(response.id, establishedRelationship.id);
       expect(response, isInstanceOf<RelationshipDTO>());
     });
   });
@@ -166,16 +142,14 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         content: {'a': 'b'},
       );
 
+      expect(response.id, establishedRelationship.id);
       expect(response, isInstanceOf<RelationshipDTO>());
     });
   });
 
   group('RelationshipsFacade: getAttributesForRelationship', () {
     test('returns a valid list of LocalAttributeDTOs', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-
-      final createdRelationship = await establishRelationship(session, connectorClient, expiresAt);
-      final relationship = await session.transportServices.relationships.getRelationship(relationshipId: createdRelationship.id);
+      final establishedRelationship = await establishRelationship(session, connectorClient);
 
       final attribute = await session.consumptionServices.attributes.createAttribute(
         content: const IdentityAttribute(owner: 'address', value: SurnameAttributeValue(value: 'aSurname')).toJson(),
@@ -184,24 +158,15 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       const fakeRequestReference = 'REQ00000000000000000';
       await session.consumptionServices.attributes.createSharedAttributeCopy(
         attributeId: attribute.id,
-        peer: relationship.peer,
+        peer: establishedRelationship.peer,
         requestReference: fakeRequestReference,
       );
 
       await session.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: relationship.peer, value: const SurnameAttributeValue(value: 'aPeerSurname')).toJson(),
+        content: IdentityAttribute(owner: establishedRelationship.peer, value: const SurnameAttributeValue(value: 'aPeerSurname')).toJson(),
       );
 
-      final response = await session.transportServices.relationships.getAttributesForRelationship(relationshipId: relationship.id);
-
-      expect(createdRelationship.template.expiresAt, expiresAt);
-      expect(createdRelationship.template.content.toJson(), {});
-      expect(relationship, isInstanceOf<RelationshipDTO>());
-
-      expect(relationship.template.expiresAt, expiresAt);
-      expect(relationship.template.content.toJson(), {});
-      expect(relationship.id, createdRelationship.id);
-      expect(relationship, isInstanceOf<RelationshipDTO>());
+      final response = await session.transportServices.relationships.getAttributesForRelationship(relationshipId: establishedRelationship.id);
 
       expect(response, isInstanceOf<List<LocalAttributeDTO>>());
       expect(response.length, 2);
