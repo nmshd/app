@@ -90,7 +90,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final establishedRelationship = await establishRelationship(session, connectorClient);
       final relationships = await session.transportServices.relationships.getRelationships();
 
-      final relationship = await session.transportServices.relationships.getRelationshipByAddress(address: relationships[0].peerIdentity.address);
+      final relationship = await session.transportServices.relationships.getRelationshipByAddress(address: relationships.first.peerIdentity.address);
 
       expect(relationship.id, establishedRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
@@ -123,7 +123,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final response = await session.transportServices.relationships.acceptRelationshipChange(
         relationshipId: establishedRelationship.id,
-        changeId: establishedRelationship.changes[0].id,
+        changeId: establishedRelationship.changes.first.id,
         content: {'a': 'b'},
       );
 
@@ -138,7 +138,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final response = await session.transportServices.relationships.rejectRelationshipChange(
         relationshipId: establishedRelationship.id,
-        changeId: establishedRelationship.changes[0].id,
+        changeId: establishedRelationship.changes.first.id,
         content: {'a': 'b'},
       );
 
