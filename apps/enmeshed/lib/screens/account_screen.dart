@@ -147,7 +147,7 @@ class _ContactsViewState extends State<ContactsView> {
     }
 
     final relationships = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.relationships.getRelationships();
-    setState(() => _relationships = relationships);
+    setState(() => _relationships = relationships.value);
   }
 }
 
