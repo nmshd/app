@@ -18,9 +18,9 @@ class MessagesFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final rel = await runtime.currentSession.transportServices.relationships.getRelationships();
-              if (rel.isEmpty) return;
+              if (rel.value.isEmpty) return;
 
-              final recipientAddress = rel[0].peer;
+              final recipientAddress = rel.value[0].peer;
               final message = await runtime.currentSession.transportServices.messages.sendMessage(
                 recipients: [recipientAddress],
                 content: Mail(

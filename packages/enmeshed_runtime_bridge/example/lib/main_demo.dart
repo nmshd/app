@@ -145,7 +145,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     }
 
     messages = await runtime.currentSession.transportServices.messages.getMessages();
-    relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
+    relationships = await runtime.currentSession.transportServices.relationships.getRelationships().then((value) => value.value);
     requests = [...await runtime.currentSession.consumptionServices.incomingRequests.getRequests()];
 
     setState(() {});
@@ -153,13 +153,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   Future<void> messageSendPressed() async {
     final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
-    if (relationships.isEmpty) return;
+    if (relationships.value.isEmpty) return;
 
     final child = SendMailView(
       onTriggerSend: (String subject, String body) async {
         await runtime.currentSession.transportServices.messages.sendMessage(
-          recipients: [relationships.first.peer],
-          content: Mail(body: body, subject: subject, to: [relationships.first.peer]).toJson(),
+          recipients: [relationships.value.first.peer],
+          content: Mail(body: body, subject: subject, to: [relationships.value.first.peer]).toJson(),
         );
 
         await reloadData(false);

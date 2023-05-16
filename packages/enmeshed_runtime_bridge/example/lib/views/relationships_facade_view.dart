@@ -17,7 +17,7 @@ class RelationshipsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
-              print(relationships.length);
+              print(relationships.value.length);
               print(relationships);
             },
             child: const Text('getRelationships'),
@@ -26,7 +26,7 @@ class RelationshipsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
-              final relationshipId = relationships.first.id;
+              final relationshipId = relationships.value.first.id;
               final relationship = await runtime.currentSession.transportServices.relationships.getRelationship(relationshipId: relationshipId);
               print(relationship);
             },
@@ -36,7 +36,7 @@ class RelationshipsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
-              final address = relationships.first.peerIdentity.address;
+              final address = relationships.value.first.peerIdentity.address;
               final relationship = await runtime.currentSession.transportServices.relationships.getRelationshipByAddress(address: address);
               print(relationship);
             },
@@ -87,10 +87,10 @@ class RelationshipsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
-              if (relationships.isEmpty) return;
+              if (relationships.value.isEmpty) return;
 
               final attributes = await runtime.currentSession.transportServices.relationships.getAttributesForRelationship(
-                relationshipId: relationships.first.id,
+                relationshipId: relationships.value.first.id,
               );
               print(attributes);
             },

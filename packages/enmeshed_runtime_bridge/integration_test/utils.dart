@@ -31,7 +31,7 @@ Future<RelationshipDTO> establishRelationship(
     content: {'a': 'b'},
   );
 
-  return relationship;
+  return relationship.value;
 }
 
 Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {
