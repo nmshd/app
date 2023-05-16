@@ -15,7 +15,9 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
   group('RelationshipsFacade: getRelationships', () {
     test('returns an empty list when no Relationships exists', () async {
-      final relationships = await session.transportServices.relationships.getRelationships();
+      final relationshipsResult = await session.transportServices.relationships.getRelationships();
+
+      final relationships = relationshipsResult.value;
 
       expect(relationships, isInstanceOf<List<RelationshipDTO>>());
       expect(relationships.length, 0);
@@ -24,7 +26,9 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid list of RelationshipDTOs', () async {
       final establishedRelationship = await establishRelationship(session, connectorClient);
 
-      final relationships = await session.transportServices.relationships.getRelationships();
+      final relationshipsResult = await session.transportServices.relationships.getRelationships();
+
+      final relationships = relationshipsResult.value;
 
       expect(relationships.length, 1);
       expect(relationships, isInstanceOf<List<RelationshipDTO>>());
@@ -36,52 +40,33 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid RelationshipDTO', () async {
       final establishedRelationship = await establishRelationship(session, connectorClient);
 
-      final relationship = await session.transportServices.relationships.getRelationship(relationshipId: establishedRelationship.id);
+      final relationshipResult = await session.transportServices.relationships.getRelationship(relationshipId: establishedRelationship.id);
+
+      final relationship = relationshipResult.value;
 
       expect(relationship.id, establishedRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
 
     test('throws an exception on empty relationship id', () async {
-      const expectedErrorMessage = 'Exception: Error: {\n'
-          '  "code": "error.runtime.validation.invalidPropertyValue",\n'
-          '  "message": "id must match pattern REL[A-Za-z0-9]{17}"\n'
-          '}';
+      final result = await session.transportServices.relationships.getRelationship(relationshipId: '');
 
-      try {
-        await session.transportServices.relationships.getRelationship(relationshipId: '');
-      } catch (e) {
-        expect(e, isInstanceOf<Exception>());
-        expect(e.toString(), expectedErrorMessage);
-      }
+      expect(result.isSuccess, false);
+      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
     test('throws an exception if relationship id does not match the pattern', () async {
-      const expectedErrorMessage = 'Exception: Error: {\n'
-          '  "code": "error.runtime.validation.invalidPropertyValue",\n'
-          '  "message": "id must match pattern REL[A-Za-z0-9]{17}"\n'
-          '}';
+      final result = await session.transportServices.relationships.getRelationship(relationshipId: 'id123456789');
 
-      try {
-        await session.transportServices.relationships.getRelationship(relationshipId: 'id123456789');
-      } catch (e) {
-        expect(e, isInstanceOf<Exception>());
-        expect(e.toString(), expectedErrorMessage);
-      }
+      expect(result.isSuccess, false);
+      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
     test('throws an exception on not existing relationship id', () async {
-      const expectedErrorMessage = 'Exception: Error: {\n'
-          '  "code": "error.runtime.recordNotFound",\n'
-          '  "message": "Relationship not found. Make sure the ID exists and the record is not expired."\n'
-          '}';
+      final result = await session.transportServices.relationships.getRelationship(relationshipId: 'RELteStILdJnqAA0PiE0');
 
-      try {
-        await session.transportServices.relationships.getRelationship(relationshipId: 'RELteStILdJnqAA0PiE0');
-      } catch (e) {
-        expect(e, isInstanceOf<Exception>());
-        expect(e.toString(), expectedErrorMessage);
-      }
+      expect(result.isSuccess, false);
+      expect(result.error.code, 'error.runtime.recordNotFound');
     });
   });
 
@@ -90,7 +75,11 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final establishedRelationship = await establishRelationship(session, connectorClient);
       final relationships = await session.transportServices.relationships.getRelationships();
 
-      final relationship = await session.transportServices.relationships.getRelationshipByAddress(address: relationships.first.peerIdentity.address);
+      final relationshipResult = await session.transportServices.relationships.getRelationshipByAddress(
+        address: relationships.value.first.peerIdentity.address,
+      );
+
+      final relationship = relationshipResult.value;
 
       expect(relationship.id, establishedRelationship.id);
       expect(relationship, isInstanceOf<RelationshipDTO>());
@@ -108,10 +97,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         reference: responseTemplate.data.truncatedReference,
       );
 
-      final relationship = await session.transportServices.relationships.createRelationship(
+      final relationshipResult = await session.transportServices.relationships.createRelationship(
         templateId: item.relationshipTemplateValue.id,
         content: {},
       );
+
+      final relationship = relationshipResult.value;
 
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
@@ -121,11 +112,13 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid RelationshipDTO', () async {
       final establishedRelationship = await establishRelationshipAndSync(session, connectorClient);
 
-      final response = await session.transportServices.relationships.acceptRelationshipChange(
+      final responseResult = await session.transportServices.relationships.acceptRelationshipChange(
         relationshipId: establishedRelationship.id,
         changeId: establishedRelationship.changes.first.id,
         content: {'a': 'b'},
       );
+
+      final response = responseResult.value;
 
       expect(response.id, establishedRelationship.id);
       expect(response, isInstanceOf<RelationshipDTO>());
@@ -136,11 +129,13 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     test('returns a valid RelationshipDTO', () async {
       final establishedRelationship = await establishRelationshipAndSync(session, connectorClient);
 
-      final response = await session.transportServices.relationships.rejectRelationshipChange(
+      final responseResult = await session.transportServices.relationships.rejectRelationshipChange(
         relationshipId: establishedRelationship.id,
         changeId: establishedRelationship.changes.first.id,
         content: {'a': 'b'},
       );
+
+      final response = responseResult.value;
 
       expect(response.id, establishedRelationship.id);
       expect(response, isInstanceOf<RelationshipDTO>());
@@ -166,7 +161,9 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         content: IdentityAttribute(owner: establishedRelationship.peer, value: const SurnameAttributeValue(value: 'aPeerSurname')).toJson(),
       );
 
-      final response = await session.transportServices.relationships.getAttributesForRelationship(relationshipId: establishedRelationship.id);
+      final responseResult = await session.transportServices.relationships.getAttributesForRelationship(relationshipId: establishedRelationship.id);
+
+      final response = responseResult.value;
 
       expect(response, isInstanceOf<List<LocalAttributeDTO>>());
       expect(response.length, 2);
