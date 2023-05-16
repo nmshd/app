@@ -34,9 +34,9 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
-              if (relationships.isEmpty) return;
+              if (relationships.value.isEmpty) return;
 
-              final peer = relationships.first.peerIdentity.address;
+              final peer = relationships.value.first.peerIdentity.address;
 
               const content = Request(
                 items: [

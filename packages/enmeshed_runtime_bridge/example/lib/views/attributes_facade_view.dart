@@ -51,7 +51,7 @@ class AttributesFacadeView extends StatelessWidget {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
 
               final attributeId = phAttribute.id;
-              final peer = relationships.first.peer;
+              final peer = relationships.value.first.peer;
               const requestReference = 'REQIDXXXXXXXXXXXXXXX';
               final attribute = await runtime.currentSession.consumptionServices.attributes.createSharedAttributeCopy(
                 attributeId: attributeId,
@@ -99,7 +99,7 @@ class AttributesFacadeView extends StatelessWidget {
             onPressed: () async {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
 
-              final peer = relationships.first.peer;
+              final peer = relationships.value.first.peer;
               final attributes = await runtime.currentSession.consumptionServices.attributes.getPeerAttributes(
                 peer: peer,
               );
@@ -112,7 +112,7 @@ class AttributesFacadeView extends StatelessWidget {
             onPressed: () async {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
 
-              final peer = relationships.first.peer;
+              final peer = relationships.value.first.peer;
               final attributes = await runtime.currentSession.consumptionServices.attributes.getSharedToPeerAttributes(
                 peer: peer,
               );
@@ -327,7 +327,7 @@ class AttributesFacadeView extends StatelessWidget {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
 
               final attributeId = createdAttribute.id;
-              final peer = relationships.last.peer;
+              final peer = relationships.value.last.peer;
               final request = await runtime.currentSession.consumptionServices.attributes.shareAttribute(
                 attributeId: attributeId,
                 peer: peer,
