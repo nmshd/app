@@ -13,7 +13,9 @@ class DownloadFileResponse extends Equatable {
 
   factory DownloadFileResponse.fromJson(Map json) {
     return DownloadFileResponse(
-      content: List<int>.from(json['content']),
+      content: json['content'].runtimeType == (List<int>)
+          ? List<int>.from(json['content'])
+          : json['content'].values.map<int>((value) => value.toInt() as int).toList(),
       filename: json['filename'],
       mimeType: json['mimetype'],
     );
