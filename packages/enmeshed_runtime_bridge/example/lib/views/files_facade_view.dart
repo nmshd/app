@@ -30,8 +30,8 @@ class FilesFacadeView extends StatelessWidget {
               final files = await runtime.currentSession.transportServices.files.getFiles();
 
               final file = await runtime.currentSession.transportServices.files.getOrLoadFileByIdAndKey(
-                fileId: files.first.id,
-                secretKey: files.first.secretKey,
+                fileId: files.value.first.id,
+                secretKey: files.value.first.secretKey,
               );
               print(file);
             },
@@ -43,7 +43,7 @@ class FilesFacadeView extends StatelessWidget {
               final files = await runtime.currentSession.transportServices.files.getFiles();
 
               final file = await runtime.currentSession.transportServices.files.getOrLoadFileByReference(
-                reference: files.first.truncatedReference,
+                reference: files.value.first.truncatedReference,
               );
               print(file);
             },
@@ -54,8 +54,8 @@ class FilesFacadeView extends StatelessWidget {
             onPressed: () async {
               final files = await runtime.currentSession.transportServices.files.getFiles();
 
-              final response = await runtime.currentSession.transportServices.files.downloadFile(fileId: files.first.id);
-              print(utf8.decode(response.content));
+              final response = await runtime.currentSession.transportServices.files.downloadFile(fileId: files.value.first.id);
+              print(utf8.decode(response.value.content));
             },
             child: const Text('downloadFile'),
           ),
@@ -64,7 +64,7 @@ class FilesFacadeView extends StatelessWidget {
             onPressed: () async {
               final files = await runtime.currentSession.transportServices.files.getFiles();
 
-              final file = await runtime.currentSession.transportServices.files.getFile(fileId: files.first.id);
+              final file = await runtime.currentSession.transportServices.files.getFile(fileId: files.value.first.id);
               print(file);
             },
             child: const Text('getFile'),
