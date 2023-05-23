@@ -36,6 +36,8 @@ flutter:
   assets:
     - assets/loki.js
     - assets/index.js
+    # Assets for testing
+    - integration_test/test_assets/testFile.txt
     # - assets/main.js
     # - natives/node_modules/@js-soft/ts-serval/lib-web/tsserval.js
     # - natives/node_modules/@nmshd/crypto/lib-web/nmshd.crypto.js
