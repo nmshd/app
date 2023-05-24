@@ -31,8 +31,6 @@ void run(EnmeshedRuntime runtime) {
 
     final file = fileResult.value;
     globalFile = file;
-    print(account.address);
-    print(account2.address);
 
     expect(file, isInstanceOf<FileDTO>());
     expect(file.filename, 'facades/test.txt');
