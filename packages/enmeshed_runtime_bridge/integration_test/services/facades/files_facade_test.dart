@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../utils.dart';
@@ -11,21 +12,19 @@ void run(EnmeshedRuntime runtime) {
   late FileDTO globalFile;
 
   setUpAll(() async {
-    EnmeshedRuntime.setAssetsFolder('assets');
-
     final account = await runtime.accountServices.createAccount(name: 'filesFacade Test');
     session = runtime.getSession(account.id);
     final account2 = await runtime.accountServices.createAccount(name: 'filesFacade Test 2');
     session2 = runtime.getSession(account2.id);
 
-    final data = await rootBundle.load('integration_test/test_assets/testFile.txt');
-    final bytes = data.buffer.asUint8List().toList();
+    final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+    final bytes = utf8.encode('a String');
 
     final fileResult = await session.transportServices.files.uploadOwnFile(
       content: bytes,
       filename: 'facades/test.txt',
       mimetype: 'plain',
-      expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
+      expiresAt: expiresAt,
       title: 'aTitle',
     );
 
@@ -35,39 +34,41 @@ void run(EnmeshedRuntime runtime) {
     expect(file, isInstanceOf<FileDTO>());
     expect(file.filename, 'facades/test.txt');
     expect(file.mimetype, 'plain');
+    expect(file.expiresAt, expiresAt);
     expect(file.title, 'aTitle');
   });
 
   group('FilesFacade: uploadOwnFile', () {
     test('returns a valid FileDTO', () async {
-      final data = await rootBundle.load('integration_test/test_assets/testFile.txt');
-      final bytes = data.buffer.asUint8List().toList();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      final bytes = utf8.encode('a String');
 
       final fileResult = await session.transportServices.files.uploadOwnFile(
         content: bytes,
         filename: 'facades/test.txt',
         mimetype: 'plain',
-        expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
+        expiresAt: expiresAt,
         title: 'aTitle',
       );
 
       final file = fileResult.value;
-      // globalFile = file;
 
       expect(file, isInstanceOf<FileDTO>());
       expect(file.filename, 'facades/test.txt');
       expect(file.mimetype, 'plain');
+      expect(file.expiresAt, expiresAt);
       expect(file.title, 'aTitle');
     });
+
     test('returns a valid FileDTO with all properties', () async {
-      final data = await rootBundle.load('integration_test/test_assets/testFile.txt');
-      final bytes = data.buffer.asUint8List().toList();
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      final bytes = utf8.encode('a String');
 
       final fileResult = await session.transportServices.files.uploadOwnFile(
         content: bytes,
         filename: 'facades/test.txt',
         mimetype: 'plain',
-        expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
+        expiresAt: expiresAt,
         title: 'aTitle',
         description: 'aDescription',
       );
@@ -77,6 +78,7 @@ void run(EnmeshedRuntime runtime) {
       expect(file, isInstanceOf<FileDTO>());
       expect(file.filename, 'facades/test.txt');
       expect(file.mimetype, 'plain');
+      expect(file.expiresAt, expiresAt);
       expect(file.title, 'aTitle');
       expect(file.description, 'aDescription');
     });
@@ -232,9 +234,11 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('returns a valid TokenDTO with all properties', () async {
+      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+
       final tokenResult = await session.transportServices.files.createTokenForFile(
         fileId: globalFile.id,
-        expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
+        expiresAt: expiresAt,
         ephemeral: true,
       );
       final token = tokenResult.value;
@@ -243,6 +247,7 @@ void run(EnmeshedRuntime runtime) {
       final response = responseResult.value;
 
       expect(token, isInstanceOf<TokenDTO>());
+      expect(token.expiresAt, expiresAt);
       expect(token.isEphemeral, true);
       expect(response, isInstanceOf<FileDTO>());
       expect(response.isOwn, false);
