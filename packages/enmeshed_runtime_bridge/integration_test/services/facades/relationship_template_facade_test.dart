@@ -23,7 +23,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final template = templateResult.value;
 
-      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
     });
@@ -40,7 +40,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final template = templateResult.value;
 
-      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
       expect(template.maxNumberOfAllocations, maxNumberOfAllocations);
@@ -63,7 +63,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final template = templateResult.value;
 
-      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
       expect(template.id, responseTemplate.data.id);
@@ -86,7 +86,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final template = templateResult.value;
 
-      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
       expect(template.truncatedReference, responseTemplate.data.truncatedReference);
@@ -106,7 +106,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final allTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
-      expect(allTemplates.value, isInstanceOf<List<RelationshipTemplateDTO>>());
+      expect(allTemplates.value, isA<List<RelationshipTemplateDTO>>());
       expect(allTemplates.value.length, greaterThan(currentTemplates.value.length));
     });
 
@@ -141,8 +141,8 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(templatesWithQueryExpiresAt.value.length, 1);
       expect(templatesWithNoResponse.value.length, 0);
       expect(templatesWithQueryMnoa.value.where((e) => e.maxNumberOfAllocations != 1).length, 0);
-      expect(templatesWithQueryExpiresAt.value, isInstanceOf<List<RelationshipTemplateDTO>>());
-      expect(templatesWithQueryMnoa.value, isInstanceOf<List<RelationshipTemplateDTO>>());
+      expect(templatesWithQueryExpiresAt.value, isA<List<RelationshipTemplateDTO>>());
+      expect(templatesWithQueryMnoa.value, isA<List<RelationshipTemplateDTO>>());
     });
   });
 
@@ -207,7 +207,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         templateId: createdTemplateResult.value.id,
       );
 
-      expect(response.value, isInstanceOf<CreateQrCodeResponse>());
+      expect(response.value, isA<CreateQrCodeResponse>());
     });
   });
 
@@ -225,7 +225,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         templateId: createdTemplateResult.value.id,
       );
 
-      expect(response.value, isInstanceOf<CreateQrCodeResponse>());
+      expect(response.value, isA<CreateQrCodeResponse>());
     });
 
     test('returns a valid CreateQrCodeResponse with all properties', () async {
@@ -242,7 +242,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         expiresAt: expiresAt,
       );
 
-      expect(response.value, isInstanceOf<CreateQrCodeResponse>());
+      expect(response.value, isA<CreateQrCodeResponse>());
     });
   });
 
@@ -262,7 +262,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final token = tokenResult.value;
 
       expect(token.expiresAt, expiresAt);
-      expect(token, isInstanceOf<TokenDTO>());
+      expect(token, isA<TokenDTO>());
     });
 
     test('returns a valid TokenDTO with all properties', () async {
@@ -279,7 +279,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final token = tokenResult.value;
 
-      expect(token, isInstanceOf<TokenDTO>());
+      expect(token, isA<TokenDTO>());
       expect(token.expiresAt, expiresAt);
       expect(token.expiresAt, createdTemplateResult.value.expiresAt);
       expect(token.isEphemeral, true);
