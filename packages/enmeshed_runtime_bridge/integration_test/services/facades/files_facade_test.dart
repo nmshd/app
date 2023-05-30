@@ -18,7 +18,7 @@ void run(EnmeshedRuntime runtime) {
     final account2 = await runtime.accountServices.createAccount(name: 'filesFacade Test 2');
     session2 = runtime.getSession(account2.id);
 
-    final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+    final expiresAt = getExpiryString();
     final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
 
     final fileResult = await session.transportServices.files.uploadOwnFile(
@@ -41,7 +41,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('FilesFacade: uploadOwnFile', () {
     test('returns a valid FileDTO', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      final expiresAt = getExpiryString();
       final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
 
       final fileResult = await session.transportServices.files.uploadOwnFile(
@@ -62,7 +62,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('returns a valid FileDTO with all properties', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      final expiresAt = getExpiryString();
       final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
 
       final fileResult = await session.transportServices.files.uploadOwnFile(
@@ -236,7 +236,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('returns a valid TokenDTO with all properties', () async {
-      final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
+      final expiresAt = getExpiryString();
 
       final tokenResult = await session.transportServices.files.createTokenForFile(
         fileId: globalFile.id,
@@ -282,7 +282,7 @@ void run(EnmeshedRuntime runtime) {
     test('returns a valid CreateQrCodeResponse with all properties', () async {
       final tokenResult = await session.transportServices.files.createTokenQrCodeForFile(
         fileId: globalFile.id,
-        expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
+        expiresAt: getExpiryString(),
       );
 
       final token = tokenResult.value;
