@@ -3,6 +3,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../matchers.dart';
 import '../../utils.dart';
 
 void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
@@ -160,7 +161,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         relationshipTemplateId: createdTemplate.value.id,
       );
 
-      expect(template.value, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template.value, isA<RelationshipTemplateDTO>());
       expect(template.value.expiresAt, expiresAt);
       expect(template.value.content.toJson(), content);
     });
@@ -170,8 +171,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         relationshipTemplateId: '',
       );
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception if template id do not match the pattern', () async {
@@ -179,8 +179,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         relationshipTemplateId: 'RTLX123456789',
       );
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing template id', () async {
@@ -188,8 +187,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         relationshipTemplateId: 'RLTXZKg9TestveduKiGs',
       );
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.recordNotFound');
+      expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 
