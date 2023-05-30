@@ -17,7 +17,7 @@ class DownloadFileResponse extends Equatable {
       final Map map => List<int>.from(map.values.map((e) => e.toInt())),
       _ => throw Exception('Invalid type for content: ${json['content'].runtimeType}'),
     };
-    
+
     return DownloadFileResponse(
       content: content,
       filename: json['filename'],
