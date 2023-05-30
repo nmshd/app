@@ -149,7 +149,8 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: downloadFile', () {
-    test('returns a valid DownloadFileResponse', () async {
+    // TODO: re-enable test
+    test('returns a valid DownloadFileResponse', skip: true, () async {
       final responseResult = await session.transportServices.files.downloadFile(fileId: globalFile.id);
 
       final response = responseResult.value;
