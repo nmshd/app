@@ -98,6 +98,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('run evaluation on the runtime'),
                 ),
                 const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    final accounts = await runtime.accountServices.getAccounts();
+                    if (accounts.isEmpty) return;
+
+                    await runtime.selectAccount(accounts.first.id);
+                  },
+                  child: const Text('set current session to account 0'),
+                ),
+                const SizedBox(height: 20),
                 if (isLoading) const CircularProgressIndicator(),
                 if (isLoading) const SizedBox(height: 10),
                 Text("Runtime ready: ${runtimeReady ? "✅" : "❌"}"),
