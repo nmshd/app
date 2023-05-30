@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
@@ -18,7 +19,7 @@ void run(EnmeshedRuntime runtime) {
     session2 = runtime.getSession(account2.id);
 
     final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-    final bytes = utf8.encode('a String');
+    final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
 
     final fileResult = await session.transportServices.files.uploadOwnFile(
       content: bytes,
@@ -41,7 +42,7 @@ void run(EnmeshedRuntime runtime) {
   group('FilesFacade: uploadOwnFile', () {
     test('returns a valid FileDTO', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-      final bytes = utf8.encode('a String');
+      final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
 
       final fileResult = await session.transportServices.files.uploadOwnFile(
         content: bytes,
@@ -62,7 +63,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('returns a valid FileDTO with all properties', () async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
-      final bytes = utf8.encode('a String');
+      final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
 
       final fileResult = await session.transportServices.files.uploadOwnFile(
         content: bytes,
