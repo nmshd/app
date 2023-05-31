@@ -87,7 +87,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   group('RelationshipsFacade: createRelationship', () {
     test('returns a valid RelationshipDTO', () async {
       final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
+        expiresAt: generateExpiryString(),
         content: {},
       );
 
