@@ -233,9 +233,9 @@ class _MyHomePageState extends State<MyHomePage> {
         onDetected: (String truncatedReference) async {
           final item = await runtime.currentSession.transportServices.accounts.loadItemFromTruncatedReference(reference: truncatedReference);
 
-          if (item.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
+          if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
 
-          final template = item.relationshipTemplateValue;
+          final template = item.value.relationshipTemplateValue;
           print(template);
 
           final relationship = await runtime.currentSession.transportServices.relationships.createRelationship(
