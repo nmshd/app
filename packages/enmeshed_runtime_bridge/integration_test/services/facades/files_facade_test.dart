@@ -5,6 +5,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../matchers.dart';
 import '../../utils.dart';
 
 void run(EnmeshedRuntime runtime) {
@@ -109,15 +110,13 @@ void run(EnmeshedRuntime runtime) {
     test('throws an exception if file id does not match the pattern', () async {
       final result = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: '', secretKey: globalFile.secretKey);
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception if secret key does not match the pattern', () async {
       final result = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: globalFile.id, secretKey: '');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
   });
 
@@ -134,8 +133,7 @@ void run(EnmeshedRuntime runtime) {
     test('throws an exception if reference does not match the pattern', () async {
       final result = await session.transportServices.files.getOrLoadFileByReference(reference: '');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing reference', () async {
@@ -143,8 +141,8 @@ void run(EnmeshedRuntime runtime) {
         reference: 'RklMTG93cDV2Yk5JaUh6QWZ5aGp8M3xKZ2h6dXFKa003TW1Id0hyb3k3akd3dmdleXFXVEdVd3h2QWUwWlRBeXXX',
       );
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.unknown');
+      // why unknown
+      expect(result, isFailing('error.runtime.unknown'));
     });
   });
 
@@ -161,15 +159,13 @@ void run(EnmeshedRuntime runtime) {
     test('throws an exception if file id does not match the pattern', () async {
       final result = await session.transportServices.files.downloadFile(fileId: '');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing file id', () async {
       final result = await session.transportServices.files.downloadFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.recordNotFound');
+      expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 
@@ -186,15 +182,13 @@ void run(EnmeshedRuntime runtime) {
     test('throws an exception if file id does not match the pattern', () async {
       final result = await session.transportServices.files.getFile(fileId: '');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing file id', () async {
       final result = await session.transportServices.files.getFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.recordNotFound');
+      expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 
@@ -210,15 +204,13 @@ void run(EnmeshedRuntime runtime) {
     test('throws an exception if file id does not match the pattern', () async {
       final result = await session.transportServices.files.createQrCodeForFile(fileId: '');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing file id', () async {
       final result = await session.transportServices.files.createQrCodeForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.recordNotFound');
+      expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 
@@ -258,15 +250,13 @@ void run(EnmeshedRuntime runtime) {
     test('throws an exception if file id does not match the pattern', () async {
       final result = await session.transportServices.files.createTokenForFile(fileId: '');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing file id', () async {
       final result = await session.transportServices.files.createTokenForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.recordNotFound');
+      expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 
@@ -293,15 +283,13 @@ void run(EnmeshedRuntime runtime) {
     test('throws an exception if file id does not match the pattern', () async {
       final result = await session.transportServices.files.createTokenQrCodeForFile(fileId: '');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing file id', () async {
       final result = await session.transportServices.files.createTokenQrCodeForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.recordNotFound');
+      expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 }
