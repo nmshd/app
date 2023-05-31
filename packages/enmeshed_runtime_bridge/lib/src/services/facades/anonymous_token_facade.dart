@@ -2,18 +2,19 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import 'abstract_evaluator.dart';
 import 'handle_call_async_js_result.dart';
+import 'result.dart';
 
 class AnonymousTokensFacade {
   final AbstractEvaluator _evaluator;
   AnonymousTokensFacade(this._evaluator);
 
-  Future<TokenDTO> loadPeerTokenByTruncatedReference(
+  Future<Result<TokenDTO>> loadPeerTokenByTruncatedReference(
     String tokenReference,
   ) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'reference': tokenReference,
@@ -22,15 +23,14 @@ class AnonymousTokensFacade {
     );
 
     final value = result.valueToMap();
-    final token = TokenDTO.fromJson(value);
-    return token;
+    return Result.fromJson(value, (x) => TokenDTO.fromJson(x));
   }
 
-  Future<TokenDTO> loadPeerTokenByIdAndKey(String id, String secretKey) async {
+  Future<Result<TokenDTO>> loadPeerTokenByIdAndKey(String id, String secretKey) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await runtime.anonymousServices.tokens.loadPeerTokenByIdAndKey(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': id,
@@ -40,7 +40,6 @@ class AnonymousTokensFacade {
     );
 
     final value = result.valueToMap();
-    final token = TokenDTO.fromJson(value);
-    return token;
+    return Result.fromJson(value, (x) => TokenDTO.fromJson(x));
   }
 }
