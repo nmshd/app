@@ -45,9 +45,9 @@ class MessagesFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final messages = await runtime.currentSession.transportServices.messages.getMessages();
-              if (messages.isEmpty) return;
+              if (messages.value.isEmpty) return;
 
-              final message = await runtime.currentSession.transportServices.messages.getMessage(messages[0].id);
+              final message = await runtime.currentSession.transportServices.messages.getMessage(messages.value.first.id);
               print(message);
             },
             child: const Text('getMessage'),
@@ -56,9 +56,9 @@ class MessagesFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final messages = await runtime.currentSession.transportServices.messages.getMessages();
-              if (messages.isEmpty) return;
+              if (messages.value.isEmpty) return;
 
-              final messagesWithAttachments = messages.where((element) => element.attachments.isNotEmpty);
+              final messagesWithAttachments = messages.value.where((element) => element.attachments.isNotEmpty);
               if (messagesWithAttachments.isEmpty) return;
 
               final messageWithAttachments = messagesWithAttachments.first;
@@ -74,9 +74,9 @@ class MessagesFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final messages = await runtime.currentSession.transportServices.messages.getMessages();
-              if (messages.isEmpty) return;
+              if (messages.value.isEmpty) return;
 
-              final messagesWithAttachments = messages.where((element) => element.attachments.isNotEmpty);
+              final messagesWithAttachments = messages.value.where((element) => element.attachments.isNotEmpty);
               if (messagesWithAttachments.isEmpty) return;
 
               final messageWithAttachments = messagesWithAttachments.first;

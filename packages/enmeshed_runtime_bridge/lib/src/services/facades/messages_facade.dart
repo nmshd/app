@@ -2,20 +2,21 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import 'abstract_evaluator.dart';
 import 'handle_call_async_js_result.dart';
+import 'result.dart';
 
 class MessagesFacade {
   final AbstractEvaluator _evaluator;
   MessagesFacade(this._evaluator);
 
-  Future<MessageDTO> sendMessage({
+  Future<Result<MessageDTO>> sendMessage({
     required List<String> recipients,
     required Map<String, dynamic> content,
     List<String>? attachments,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.transportServices.messages.sendMessage(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'recipients': recipients,
@@ -26,15 +27,14 @@ class MessagesFacade {
     );
 
     final value = result.valueToMap();
-    final message = MessageDTO.fromJson(value);
-    return message;
+    return Result.fromJson(value, (x) => MessageDTO.fromJson(x));
   }
 
-  Future<List<MessageDTO>> getMessages({Map<String, QueryValue>? query}) async {
+  Future<Result<List<MessageDTO>>> getMessages({Map<String, QueryValue>? query}) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.transportServices.messages.getMessages(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           if (query != null) 'query': query.toJson(),
@@ -42,16 +42,15 @@ class MessagesFacade {
       },
     );
 
-    final value = result.valueToList();
-    final messages = value.map((e) => MessageDTO.fromJson(e)).toList();
-    return messages;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => List<MessageDTO>.from(value.map((e) => MessageDTO.fromJson(e))));
   }
 
-  Future<MessageWithAttachmentsDTO> getMessage(String messageId) async {
+  Future<Result<MessageWithAttachmentsDTO>> getMessage(String messageId) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.transportServices.messages.getMessage(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': messageId,
@@ -60,18 +59,17 @@ class MessagesFacade {
     );
 
     final value = result.valueToMap();
-    final message = MessageWithAttachmentsDTO.fromJson(value);
-    return message;
+    return Result.fromJson(value, (x) => MessageWithAttachmentsDTO.fromJson(x));
   }
 
-  Future<DownloadFileResponse> downloadAttachment({
+  Future<Result<DownloadFileResponse>> downloadAttachment({
     required String messageId,
     required String attachmentId,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.transportServices.messages.downloadAttachment(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': messageId,
@@ -81,18 +79,17 @@ class MessagesFacade {
     );
 
     final value = result.valueToMap();
-    final response = DownloadFileResponse.fromJson(value);
-    return response;
+    return Result.fromJson(value, (x) => DownloadFileResponse.fromJson(x));
   }
 
-  Future<FileDTO> getAttachmentMetadata({
+  Future<Result<FileDTO>> getAttachmentMetadata({
     required String messageId,
     required String attachmentId,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.transportServices.messages.getAttachmentMetadata(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': messageId,
@@ -102,7 +99,6 @@ class MessagesFacade {
     );
 
     final value = result.valueToMap();
-    final file = FileDTO.fromJson(value);
-    return file;
+    return Result.fromJson(value, (x) => FileDTO.fromJson(x));
   }
 }

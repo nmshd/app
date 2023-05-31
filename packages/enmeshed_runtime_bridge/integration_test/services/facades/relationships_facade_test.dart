@@ -96,7 +96,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
 
       final relationshipResult = await session.transportServices.relationships.createRelationship(
-        templateId: item.relationshipTemplateValue.id,
+        templateId: item.value.relationshipTemplateValue.id,
         content: {},
       );
 
@@ -150,7 +150,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       const fakeRequestReference = 'REQ00000000000000000';
       await session.consumptionServices.attributes.createSharedAttributeCopy(
-        attributeId: attribute.id,
+        attributeId: attribute.value.id,
         peer: establishedRelationship.peer,
         requestReference: fakeRequestReference,
       );

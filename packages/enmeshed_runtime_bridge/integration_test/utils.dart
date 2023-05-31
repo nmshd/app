@@ -21,7 +21,7 @@ Future<RelationshipDTO> establishRelationship(Session session, ConnectorClient c
     reference: responseTemplate.data.truncatedReference,
   );
 
-  final template = item.relationshipTemplateValue;
+  final template = item.value.relationshipTemplateValue;
 
   final relationship = await session.transportServices.relationships.createRelationship(
     templateId: template.id,
@@ -36,7 +36,7 @@ Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {
 
   do {
     final syncResult = await session.transportServices.accounts.syncEverything();
-    if (syncResult.relationships.isNotEmpty) return syncResult.relationships[0];
+    if (syncResult.value.relationships.isNotEmpty) return syncResult.value.relationships.first;
 
     retries++;
     await Future.delayed(Duration(seconds: 5 * retries));

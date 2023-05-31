@@ -55,12 +55,12 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final requests = await runtime.currentSession.consumptionServices.outgoingRequests.getRequests();
-              if (requests.isEmpty) {
+              if (requests.value.isEmpty) {
                 print('There are no requests');
                 return;
               }
 
-              final request = await runtime.currentSession.consumptionServices.outgoingRequests.getRequest(requestId: requests.first.id);
+              final request = await runtime.currentSession.consumptionServices.outgoingRequests.getRequest(requestId: requests.value.first.id);
               print(request);
             },
             child: const Text('getRequest'),
@@ -69,7 +69,7 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final requests = await runtime.currentSession.consumptionServices.outgoingRequests.getRequests();
-              if (requests.isEmpty) {
+              if (requests.value.isEmpty) {
                 print('There are no requests');
                 return;
               }
@@ -84,12 +84,12 @@ class OutgoingRequestsFacadeView extends StatelessWidget {
                 'status': LocalRequestStatus.Draft.asQueryValue,
               });
 
-              if (requests.isEmpty) {
+              if (requests.value.isEmpty) {
                 print('There are no requests to discard');
                 return;
               }
 
-              await runtime.currentSession.consumptionServices.outgoingRequests.discard(requestId: requests.first.id);
+              await runtime.currentSession.consumptionServices.outgoingRequests.discard(requestId: requests.value.first.id);
             },
             child: const Text('discard'),
           ),

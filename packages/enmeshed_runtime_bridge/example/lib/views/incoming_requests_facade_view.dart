@@ -18,7 +18,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
-              final currentIdentityAddress = identityInfo.address;
+              final currentIdentityAddress = identityInfo.value.address;
 
               final requestToDecide = await getDecidableRequest();
               if (requestToDecide == null) return;
@@ -37,7 +37,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
-              final currentIdentityAddress = identityInfo.address;
+              final currentIdentityAddress = identityInfo.value.address;
 
               final requestToDecide = await getDecidableRequest();
               if (requestToDecide == null) return;
@@ -88,10 +88,10 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final requests = await runtime.currentSession.consumptionServices.incomingRequests.getRequests();
-              if (requests.isEmpty) return;
+              if (requests.value.isEmpty) return;
 
               final request = await runtime.currentSession.consumptionServices.incomingRequests.getRequest(
-                requestId: requests.first.id,
+                requestId: requests.value.first.id,
               );
               print(request);
             },
@@ -106,13 +106,13 @@ class IncomingRequestsFacadeView extends StatelessWidget {
                 'status': LocalRequestStatus.ManualDecisionRequired.asQueryValue,
               });
 
-              if (requests.isEmpty) {
+              if (requests.value.isEmpty) {
                 print('There are no open requests');
                 return;
               }
 
-              print('---${requests.length}---');
-              for (final request in requests) {
+              print('---${requests.value.length}---');
+              for (final request in requests.value) {
                 print(request);
                 print('---');
               }
@@ -472,8 +472,8 @@ class IncomingRequestsFacadeView extends StatelessWidget {
     final requests = await runtime.currentSession.consumptionServices.incomingRequests.getRequests(query: {
       'status': LocalRequestStatus.ManualDecisionRequired.asQueryValue,
     });
-    if (requests.isEmpty) return null;
+    if (requests.value.isEmpty) return null;
 
-    return requests.last;
+    return requests.value.last;
   }
 }
