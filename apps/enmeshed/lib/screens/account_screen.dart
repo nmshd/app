@@ -196,6 +196,6 @@ class _HomeViewState extends State<HomeView> {
     }
 
     final messages = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.messages.getMessages();
-    setState(() => _messages = messages);
+    setState(() => _messages = messages.value);
   }
 }
