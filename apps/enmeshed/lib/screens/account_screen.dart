@@ -146,8 +146,8 @@ class _ContactsViewState extends State<ContactsView> {
       await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.accounts.syncEverything();
     }
 
-    final relationships = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.relationships.getRelationships();
-    setState(() => _relationships = relationships.value);
+    final relationshipsResult = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.relationships.getRelationships();
+    setState(() => _relationships = relationshipsResult.value);
   }
 }
 
@@ -195,7 +195,7 @@ class _HomeViewState extends State<HomeView> {
       await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.accounts.syncEverything();
     }
 
-    final messages = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.messages.getMessages();
-    setState(() => _messages = messages.value);
+    final messagesResult = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.messages.getMessages();
+    setState(() => _messages = messagesResult.value);
   }
 }
