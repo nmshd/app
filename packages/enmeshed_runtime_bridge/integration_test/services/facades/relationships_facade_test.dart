@@ -3,6 +3,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../matchers.dart';
 import '../../utils.dart';
 
 void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
@@ -19,7 +20,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final relationships = relationshipsResult.value;
 
-      expect(relationships, isInstanceOf<List<RelationshipDTO>>());
+      expect(relationships, isA<List<RelationshipDTO>>());
       expect(relationships.length, 0);
     });
 
@@ -31,7 +32,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final relationships = relationshipsResult.value;
 
       expect(relationships.length, 1);
-      expect(relationships, isInstanceOf<List<RelationshipDTO>>());
+      expect(relationships, isA<List<RelationshipDTO>>());
       expect(relationships.first.id, establishedRelationship.id);
     });
   });
@@ -45,28 +46,25 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final relationship = relationshipResult.value;
 
       expect(relationship.id, establishedRelationship.id);
-      expect(relationship, isInstanceOf<RelationshipDTO>());
+      expect(relationship, isA<RelationshipDTO>());
     });
 
     test('throws an exception on empty relationship id', () async {
       final result = await session.transportServices.relationships.getRelationship(relationshipId: '');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception if relationship id does not match the pattern', () async {
       final result = await session.transportServices.relationships.getRelationship(relationshipId: 'id123456789');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing relationship id', () async {
       final result = await session.transportServices.relationships.getRelationship(relationshipId: 'RELteStILdJnqAA0PiE0');
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.recordNotFound');
+      expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 
@@ -82,7 +80,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final relationship = relationshipResult.value;
 
       expect(relationship.id, establishedRelationship.id);
-      expect(relationship, isInstanceOf<RelationshipDTO>());
+      expect(relationship, isA<RelationshipDTO>());
     });
   });
 
@@ -104,7 +102,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final relationship = relationshipResult.value;
 
-      expect(relationship, isInstanceOf<RelationshipDTO>());
+      expect(relationship, isA<RelationshipDTO>());
     });
   });
 
@@ -121,7 +119,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final response = responseResult.value;
 
       expect(response.id, establishedRelationship.id);
-      expect(response, isInstanceOf<RelationshipDTO>());
+      expect(response, isA<RelationshipDTO>());
     });
   });
 
@@ -138,7 +136,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final response = responseResult.value;
 
       expect(response.id, establishedRelationship.id);
-      expect(response, isInstanceOf<RelationshipDTO>());
+      expect(response, isA<RelationshipDTO>());
     });
   });
 
@@ -165,7 +163,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final response = responseResult.value;
 
-      expect(response, isInstanceOf<List<LocalAttributeDTO>>());
+      expect(response, isA<List<LocalAttributeDTO>>());
       expect(response.length, 2);
     });
   });

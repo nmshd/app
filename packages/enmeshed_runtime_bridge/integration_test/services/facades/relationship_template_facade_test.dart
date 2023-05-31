@@ -3,6 +3,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../matchers.dart';
 import '../../utils.dart';
 
 void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
@@ -23,7 +24,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final template = templateResult.value;
 
-      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
     });
@@ -40,7 +41,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final template = templateResult.value;
 
-      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
       expect(template.maxNumberOfAllocations, maxNumberOfAllocations);
@@ -63,7 +64,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final template = templateResult.value;
 
-      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
       expect(template.id, responseTemplate.data.id);
@@ -86,7 +87,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final template = templateResult.value;
 
-      expect(template, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
       expect(template.truncatedReference, responseTemplate.data.truncatedReference);
@@ -106,7 +107,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
       final allTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
-      expect(allTemplates.value, isInstanceOf<List<RelationshipTemplateDTO>>());
+      expect(allTemplates.value, isA<List<RelationshipTemplateDTO>>());
       expect(allTemplates.value.length, greaterThan(currentTemplates.value.length));
     });
 
@@ -141,8 +142,8 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(templatesWithQueryExpiresAt.value.length, 1);
       expect(templatesWithNoResponse.value.length, 0);
       expect(templatesWithQueryMnoa.value.where((e) => e.maxNumberOfAllocations != 1).length, 0);
-      expect(templatesWithQueryExpiresAt.value, isInstanceOf<List<RelationshipTemplateDTO>>());
-      expect(templatesWithQueryMnoa.value, isInstanceOf<List<RelationshipTemplateDTO>>());
+      expect(templatesWithQueryExpiresAt.value, isA<List<RelationshipTemplateDTO>>());
+      expect(templatesWithQueryMnoa.value, isA<List<RelationshipTemplateDTO>>());
     });
   });
 
@@ -160,7 +161,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         relationshipTemplateId: createdTemplate.value.id,
       );
 
-      expect(template.value, isInstanceOf<RelationshipTemplateDTO>());
+      expect(template.value, isA<RelationshipTemplateDTO>());
       expect(template.value.expiresAt, expiresAt);
       expect(template.value.content.toJson(), content);
     });
@@ -170,8 +171,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         relationshipTemplateId: '',
       );
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception if template id do not match the pattern', () async {
@@ -179,8 +179,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         relationshipTemplateId: 'RTLX123456789',
       );
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing template id', () async {
@@ -188,8 +187,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         relationshipTemplateId: 'RLTXZKg9TestveduKiGs',
       );
 
-      expect(result.isSuccess, false);
-      expect(result.error.code, 'error.runtime.recordNotFound');
+      expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 
@@ -207,7 +205,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         templateId: createdTemplateResult.value.id,
       );
 
-      expect(response.value, isInstanceOf<CreateQrCodeResponse>());
+      expect(response.value, isA<CreateQrCodeResponse>());
     });
   });
 
@@ -225,7 +223,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         templateId: createdTemplateResult.value.id,
       );
 
-      expect(response.value, isInstanceOf<CreateQrCodeResponse>());
+      expect(response.value, isA<CreateQrCodeResponse>());
     });
 
     test('returns a valid CreateQrCodeResponse with all properties', () async {
@@ -242,7 +240,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         expiresAt: expiresAt,
       );
 
-      expect(response.value, isInstanceOf<CreateQrCodeResponse>());
+      expect(response.value, isA<CreateQrCodeResponse>());
     });
   });
 
@@ -262,7 +260,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final token = tokenResult.value;
 
       expect(token.expiresAt, expiresAt);
-      expect(token, isInstanceOf<TokenDTO>());
+      expect(token, isA<TokenDTO>());
     });
 
     test('returns a valid TokenDTO with all properties', () async {
@@ -279,7 +277,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       );
       final token = tokenResult.value;
 
-      expect(token, isInstanceOf<TokenDTO>());
+      expect(token, isA<TokenDTO>());
       expect(token.expiresAt, expiresAt);
       expect(token.expiresAt, createdTemplateResult.value.expiresAt);
       expect(token.isEphemeral, true);
