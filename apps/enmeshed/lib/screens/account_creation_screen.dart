@@ -131,35 +131,34 @@ class AccountCreationScreen extends StatelessWidget {
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
-    try {
-      final token = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference(truncatedReference);
-
-      if (token.value.content is! TokenContentDeviceSharedSecret) {
-        resume();
-        if (context.mounted) {
-          Navigator.pop(context);
-          _showWrongTokenMessage(context);
-        }
-        return;
-      }
-
-      final account = await runtime.accountServices.onboardAccount((token.value.content as TokenContentDeviceSharedSecret).sharedSecret);
-      await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
-      if (context.mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (BuildContext context) => AccountScreen(initialAccount: account)),
-          (_) => false,
-        );
-      }
-    } catch (e) {
-      GetIt.I.get<Logger>().e(e);
+    final token = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference(truncatedReference);
+    if (token.isError) {
+      GetIt.I.get<Logger>().e(token.error.message);
       resume();
       if (context.mounted) {
         Navigator.pop(context);
         _showWrongTokenMessage(context);
       }
       return;
+    }
+
+    if (token.value.content is! TokenContentDeviceSharedSecret) {
+      resume();
+      if (context.mounted) {
+        Navigator.pop(context);
+        _showWrongTokenMessage(context);
+      }
+      return;
+    }
+
+    final account = await runtime.accountServices.onboardAccount((token.value.content as TokenContentDeviceSharedSecret).sharedSecret);
+    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+    if (context.mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => AccountScreen(initialAccount: account)),
+        (_) => false,
+      );
     }
   }
 
