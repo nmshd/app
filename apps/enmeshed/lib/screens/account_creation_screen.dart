@@ -134,7 +134,7 @@ class AccountCreationScreen extends StatelessWidget {
     try {
       final token = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference(truncatedReference);
 
-      if (token.content is! TokenContentDeviceSharedSecret) {
+      if (token.value.content is! TokenContentDeviceSharedSecret) {
         resume();
         if (context.mounted) {
           Navigator.pop(context);
@@ -143,7 +143,7 @@ class AccountCreationScreen extends StatelessWidget {
         return;
       }
 
-      final account = await runtime.accountServices.onboardAccount((token.content as TokenContentDeviceSharedSecret).sharedSecret);
+      final account = await runtime.accountServices.onboardAccount((token.value.content as TokenContentDeviceSharedSecret).sharedSecret);
       await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
       if (context.mounted) {
         Navigator.pushAndRemoveUntil(
