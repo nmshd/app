@@ -2,19 +2,20 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import 'abstract_evaluator.dart';
 import 'handle_call_async_js_result.dart';
+import 'result.dart';
 
 class OutgoingRequestsFacade {
   final AbstractEvaluator _evaluator;
   OutgoingRequestsFacade(this._evaluator);
 
-  Future<RequestValidationResultDTO> canCreate({
+  Future<Result<RequestValidationResultDTO>> canCreate({
     required Request content,
     String? peer,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.outgoingRequests.canCreate(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'content': content.toJson(),
@@ -24,18 +25,17 @@ class OutgoingRequestsFacade {
     );
 
     final value = result.valueToMap();
-    final validationResult = RequestValidationResultDTO.fromJson(value);
-    return validationResult;
+    return Result.fromJson(value, (x) => RequestValidationResultDTO.fromJson(x));
   }
 
-  Future<LocalRequestDTO> create({
+  Future<Result<LocalRequestDTO>> create({
     required Request content,
     required String peer,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.outgoingRequests.create(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'content': content.toJson(),
@@ -45,19 +45,18 @@ class OutgoingRequestsFacade {
     );
 
     final value = result.valueToMap();
-    final request = LocalRequestDTO.fromJson(value);
-    return request;
+    return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
   }
 
-  Future<LocalRequestDTO> createAndCompleteFromRelationshipTemplateResponse({
+  Future<Result<LocalRequestDTO>> createAndCompleteFromRelationshipTemplateResponse({
     required String templateId,
     required String responseSourceId,
     required Response response,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.outgoingRequests.createAndCompleteFromRelationshipTemplateResponse(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'templateId': templateId,
@@ -68,18 +67,17 @@ class OutgoingRequestsFacade {
     );
 
     final value = result.valueToMap();
-    final request = LocalRequestDTO.fromJson(value);
-    return request;
+    return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
   }
 
-  Future<LocalRequestDTO> sent({
+  Future<Result<LocalRequestDTO>> sent({
     required String requestId,
     required String messageId,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.outgoingRequests.sent(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'requestId': requestId,
@@ -89,18 +87,17 @@ class OutgoingRequestsFacade {
     );
 
     final value = result.valueToMap();
-    final request = LocalRequestDTO.fromJson(value);
-    return request;
+    return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
   }
 
-  Future<LocalRequestDTO> complete({
+  Future<Result<LocalRequestDTO>> complete({
     required Response receivedResponse,
     required String messageId,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.outgoingRequests.complete(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'receivedResponse': receivedResponse.toJson(),
@@ -110,17 +107,16 @@ class OutgoingRequestsFacade {
     );
 
     final value = result.valueToMap();
-    final request = LocalRequestDTO.fromJson(value);
-    return request;
+    return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
   }
 
-  Future<LocalRequestDTO> getRequest({
+  Future<Result<LocalRequestDTO>> getRequest({
     required String requestId,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.outgoingRequests.getRequest(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': requestId,
@@ -129,17 +125,16 @@ class OutgoingRequestsFacade {
     );
 
     final value = result.valueToMap();
-    final request = LocalRequestDTO.fromJson(value);
-    return request;
+    return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
   }
 
-  Future<List<LocalRequestDTO>> getRequests({
+  Future<Result<List<LocalRequestDTO>>> getRequests({
     Map<String, QueryValue>? query,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.outgoingRequests.getRequests(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           if (query != null) 'query': query.toJson(),
@@ -147,9 +142,8 @@ class OutgoingRequestsFacade {
       },
     );
 
-    final value = result.valueToList();
-    final requests = value.map((e) => LocalRequestDTO.fromJson(e)).toList();
-    return requests;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => List<LocalRequestDTO>.from(value.map((e) => LocalRequestDTO.fromJson(e))));
   }
 
   Future<void> discard({
@@ -157,8 +151,8 @@ class OutgoingRequestsFacade {
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.outgoingRequests.discard(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': requestId,
