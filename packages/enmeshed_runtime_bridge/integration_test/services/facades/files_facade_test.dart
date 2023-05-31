@@ -32,7 +32,7 @@ void run(EnmeshedRuntime runtime) {
     final file = fileResult.value;
     globalFile = file;
 
-    expect(file, isInstanceOf<FileDTO>());
+    expect(file, isA<FileDTO>());
     expect(file.filename, 'facades/test.txt');
     expect(file.mimetype, 'plain');
     expect(file.expiresAt, expiresAt);
@@ -54,7 +54,7 @@ void run(EnmeshedRuntime runtime) {
 
       final file = fileResult.value;
 
-      expect(file, isInstanceOf<FileDTO>());
+      expect(file, isA<FileDTO>());
       expect(file.filename, 'facades/test.txt');
       expect(file.mimetype, 'plain');
       expect(file.expiresAt, expiresAt);
@@ -76,7 +76,7 @@ void run(EnmeshedRuntime runtime) {
 
       final file = fileResult.value;
 
-      expect(file, isInstanceOf<FileDTO>());
+      expect(file, isA<FileDTO>());
       expect(file.filename, 'facades/test.txt');
       expect(file.mimetype, 'plain');
       expect(file.expiresAt, expiresAt);
@@ -91,7 +91,7 @@ void run(EnmeshedRuntime runtime) {
 
       final files = filesResult.value;
 
-      expect(files, isInstanceOf<List<FileDTO>>());
+      expect(files, isA<List<FileDTO>>());
       expect(files, isNotEmpty);
     });
   });
@@ -102,7 +102,7 @@ void run(EnmeshedRuntime runtime) {
 
       final file = fileResult.value;
 
-      expect(file, isInstanceOf<FileDTO>());
+      expect(file, isA<FileDTO>());
       expect(file.id, globalFile.id);
     });
 
@@ -127,7 +127,7 @@ void run(EnmeshedRuntime runtime) {
 
       final file = fileResult.value;
 
-      expect(file, isInstanceOf<FileDTO>());
+      expect(file, isA<FileDTO>());
       expect(file.id, globalFile.id);
     });
 
@@ -155,7 +155,7 @@ void run(EnmeshedRuntime runtime) {
 
       final response = responseResult.value;
 
-      expect(response, isInstanceOf<DownloadFileResponse>());
+      expect(response, isA<DownloadFileResponse>());
     });
 
     test('throws an exception if file id does not match the pattern', () async {
@@ -179,7 +179,7 @@ void run(EnmeshedRuntime runtime) {
 
       final file = fileResult.value;
 
-      expect(file, isInstanceOf<FileDTO>());
+      expect(file, isA<FileDTO>());
       expect(file.id, globalFile.id);
     });
 
@@ -204,7 +204,7 @@ void run(EnmeshedRuntime runtime) {
 
       final response = responseResult.value;
 
-      expect(response, isInstanceOf<CreateQrCodeResponse>());
+      expect(response, isA<CreateQrCodeResponse>());
     });
 
     test('throws an exception if file id does not match the pattern', () async {
@@ -230,8 +230,8 @@ void run(EnmeshedRuntime runtime) {
       final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: token.truncatedReference);
       final response = responseResult.value;
 
-      expect(token, isInstanceOf<TokenDTO>());
-      expect(response, isInstanceOf<FileDTO>());
+      expect(token, isA<TokenDTO>());
+      expect(response, isA<FileDTO>());
       expect(response.isOwn, false);
     });
 
@@ -248,10 +248,10 @@ void run(EnmeshedRuntime runtime) {
       final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: token.truncatedReference);
       final response = responseResult.value;
 
-      expect(token, isInstanceOf<TokenDTO>());
+      expect(token, isA<TokenDTO>());
       expect(token.expiresAt, expiresAt);
       expect(token.isEphemeral, true);
-      expect(response, isInstanceOf<FileDTO>());
+      expect(response, isA<FileDTO>());
       expect(response.isOwn, false);
     });
 
@@ -276,7 +276,7 @@ void run(EnmeshedRuntime runtime) {
 
       final token = tokenResult.value;
 
-      expect(token, isInstanceOf<CreateQrCodeResponse>());
+      expect(token, isA<CreateQrCodeResponse>());
     });
 
     test('returns a valid CreateQrCodeResponse with all properties', () async {
@@ -287,7 +287,7 @@ void run(EnmeshedRuntime runtime) {
 
       final token = tokenResult.value;
 
-      expect(token, isInstanceOf<CreateQrCodeResponse>());
+      expect(token, isA<CreateQrCodeResponse>());
     });
 
     test('throws an exception if file id does not match the pattern', () async {
