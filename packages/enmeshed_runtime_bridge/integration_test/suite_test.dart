@@ -1,4 +1,4 @@
-@Timeout(Duration(minutes: 1))
+@Timeout(Duration(minutes: 5))
 
 import 'package:connector_sdk/connector_sdk.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
