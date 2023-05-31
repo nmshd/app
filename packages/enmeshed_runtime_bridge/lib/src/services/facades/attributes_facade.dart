@@ -2,18 +2,19 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import 'abstract_evaluator.dart';
 import 'handle_call_async_js_result.dart';
+import 'result.dart';
 
 class AttributesFacade {
   final AbstractEvaluator _evaluator;
   AttributesFacade(this._evaluator);
 
-  Future<LocalAttributeDTO> createAttribute({
+  Future<Result<LocalAttributeDTO>> createAttribute({
     required Map<String, dynamic> content,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.createAttribute(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'content': content,
@@ -21,20 +22,19 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToMap();
-    final attribute = LocalAttributeDTO.fromJson(value);
-    return attribute;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
-  Future<LocalAttributeDTO> createSharedAttributeCopy({
+  Future<Result<LocalAttributeDTO>> createSharedAttributeCopy({
     required String attributeId,
     required String peer,
     required String requestReference,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.createSharedAttributeCopy(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'attributeId': attributeId,
@@ -44,9 +44,8 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToMap();
-    final attribute = LocalAttributeDTO.fromJson(value);
-    return attribute;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
   Future<void> deleteAttribute({
@@ -54,8 +53,8 @@ class AttributesFacade {
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.deleteAttribute(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': attributeId,
@@ -66,15 +65,15 @@ class AttributesFacade {
     result.throwOnError();
   }
 
-  Future<List<LocalAttributeDTO>> getPeerAttributes({
+  Future<Result<List<LocalAttributeDTO>>> getPeerAttributes({
     required String peer,
     bool? onlyValid,
     bool? hideTechnical,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.getPeerAttributes(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'peer': peer,
@@ -84,20 +83,19 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToList();
-    final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
-    return attributes;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<List<LocalAttributeDTO>> getSharedToPeerAttributes({
+  Future<Result<List<LocalAttributeDTO>>> getSharedToPeerAttributes({
     required String peer,
     bool? onlyValid,
     bool? hideTechnical,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.getSharedToPeerAttributes(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'peer': peer,
@@ -107,18 +105,17 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToList();
-    final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
-    return attributes;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<LocalAttributeDTO> getAttribute({
+  Future<Result<LocalAttributeDTO>> getAttribute({
     required String attributeId,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.getAttribute(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': attributeId,
@@ -126,39 +123,39 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToMap();
-    final attribute = LocalAttributeDTO.fromJson(value);
-    return attribute;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
-  Future<List<LocalAttributeDTO>> getAttributes({
+  Future<Result<List<LocalAttributeDTO>>> getAttributes({
+    Map<String, QueryValue>? query,
     bool? onlyValid,
     bool? hideTechnical,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.getAttributes(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
+          if (query != null) 'query': query.toJson(),
           if (onlyValid != null) 'onlyValid': onlyValid,
           if (hideTechnical != null) 'hideTechnical': hideTechnical,
         },
       },
     );
 
-    final value = result.valueToList();
-    final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
-    return attributes;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<List<LocalAttributeDTO>> executeIdentityAttributeQuery({
+  Future<Result<List<LocalAttributeDTO>>> executeIdentityAttributeQuery({
     required IdentityAttributeQuery query,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.executeIdentityAttributeQuery(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'query': query.toJson(),
@@ -166,18 +163,17 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToList();
-    final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
-    return attributes;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<LocalAttributeDTO> executeRelationshipAttributeQuery({
+  Future<Result<LocalAttributeDTO>> executeRelationshipAttributeQuery({
     required RelationshipAttributeQuery query,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.executeRelationshipAttributeQuery(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'query': query.toJson(),
@@ -185,18 +181,17 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToMap();
-    final attribute = LocalAttributeDTO.fromJson(value);
-    return attribute;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
-  Future<List<LocalAttributeDTO>> executeThirdPartyRelationshipAttributeQuery({
+  Future<Result<List<LocalAttributeDTO>>> executeThirdPartyRelationshipAttributeQuery({
     required ThirdPartyRelationshipAttributeQuery query,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.executeThirdPartyRelationshipAttributeQuery(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'query': query.toJson(),
@@ -204,19 +199,18 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToList();
-    final attributes = value.map((e) => LocalAttributeDTO.fromJson(e)).toList();
-    return attributes;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<LocalAttributeDTO> succeedAttribute({
+  Future<Result<LocalAttributeDTO>> succeedAttribute({
     required Map<String, dynamic> successorContent,
     required String succeeds,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.succeedAttribute(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'successorContent': successorContent,
@@ -225,19 +219,18 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToMap();
-    final attribute = LocalAttributeDTO.fromJson(value);
-    return attribute;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
-  Future<LocalAttributeDTO> updateAttribute({
+  Future<Result<LocalAttributeDTO>> updateAttribute({
     required String attributeId,
     required Map<String, dynamic> content,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.updateAttribute(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': attributeId,
@@ -246,12 +239,11 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToMap();
-    final attribute = LocalAttributeDTO.fromJson(value);
-    return attribute;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
-  Future<LocalRequestDTO> shareAttribute({
+  Future<Result<LocalRequestDTO>> shareAttribute({
     required String attributeId,
     required String peer,
     String? requestTitle,
@@ -262,8 +254,8 @@ class AttributesFacade {
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributes.shareAttribute(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'attributeId': attributeId,
@@ -277,8 +269,7 @@ class AttributesFacade {
       },
     );
 
-    final value = result.valueToMap();
-    final request = LocalRequestDTO.fromJson(value);
-    return request;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => LocalRequestDTO.fromJson(value));
   }
 }
