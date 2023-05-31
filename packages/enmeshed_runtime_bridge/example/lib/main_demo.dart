@@ -125,9 +125,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         onDetected: (String truncatedReference) async {
           final item = await runtime.currentSession.transportServices.accounts.loadItemFromTruncatedReference(reference: truncatedReference);
 
-          if (item.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
+          if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
 
-          final template = item.relationshipTemplateValue;
+          final template = item.value.relationshipTemplateValue;
           await runtime.currentSession.transportServices.relationships.createRelationship(
             templateId: template.id,
             content: {},
@@ -144,9 +144,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       await runtime.currentSession.transportServices.accounts.syncEverything();
     }
 
-    messages = await runtime.currentSession.transportServices.messages.getMessages();
+    messages = (await runtime.currentSession.transportServices.messages.getMessages()).value;
     relationships = await runtime.currentSession.transportServices.relationships.getRelationships().then((value) => value.value);
-    requests = [...await runtime.currentSession.consumptionServices.incomingRequests.getRequests()];
+    requests = [...(await runtime.currentSession.consumptionServices.incomingRequests.getRequests()).value];
 
     setState(() {});
   }
