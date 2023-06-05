@@ -36,7 +36,6 @@ Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {
 
   do {
     final syncResult = await session.transportServices.accounts.syncEverything();
-    if (syncResult.isError) throw Exception(syncResult.error);
     if (syncResult.value.relationships.isNotEmpty) return syncResult.value.relationships.first;
 
     retries++;
@@ -51,7 +50,6 @@ Future<MessageDTO> syncUntilHasMessage(Session session) async {
 
   do {
     final syncResult = await session.transportServices.accounts.syncEverything();
-    if (syncResult.isError) throw Exception(syncResult.error);
     if (syncResult.value.messages.isNotEmpty) return syncResult.value.messages.first;
 
     retries++;
@@ -168,7 +166,7 @@ Future<void> waitUntilIncomingRequestStatus(Session recipient, String requestId,
 
   do {
     final syncResult = await recipient.consumptionServices.incomingRequests.getRequest(requestId: requestId);
-    if (syncResult.isError) throw Exception(syncResult.error);
+    if (syncResult.isError && syncResult.error.code == 'error.runtime.recordNotFound') continue;
     if (syncResult.value.status == status) return;
 
     retries++;
