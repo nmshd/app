@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
@@ -168,6 +170,45 @@ class EnmeshedRuntime {
           'platformClientSecret': runtimeConfig.clientSecret,
         },
         'pushToken': null,
+      },
+    );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'getDeviceInfo',
+      callback: (_) async {
+        final deviceInfoPlugin = DeviceInfoPlugin();
+
+        if (Platform.isAndroid) {
+          final deviceInfo = await deviceInfoPlugin.androidInfo;
+
+          return {
+            'model': deviceInfo.model,
+            'platform': 'Android',
+            'uuid': deviceInfo.id,
+            'manufacturer': deviceInfo.manufacturer,
+            'isVirtual': !deviceInfo.isPhysicalDevice,
+            'languageCode': Platform.localeName,
+            'version': deviceInfo.version,
+            'pushService': 'fcm',
+          };
+        }
+
+        if (Platform.isIOS) {
+          final deviceInfo = await deviceInfoPlugin.iosInfo;
+
+          return {
+            'model': deviceInfo.model,
+            'platform': 'IOS',
+            'uuid': '',
+            'manufacturer': 'Apple',
+            'isVirtual': !deviceInfo.isPhysicalDevice,
+            'languageCode': Platform.localeName,
+            'version': deviceInfo.systemVersion,
+            'pushService': 'apns',
+          };
+        }
+
+        throw Exception('Unsupported platform');
       },
     );
   }

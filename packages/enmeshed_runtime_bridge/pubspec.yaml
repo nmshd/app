@@ -11,6 +11,7 @@ environment:
   flutter: ">=3.10.0"
 
 dependencies:
+  device_info_plus: ^9.0.2
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
