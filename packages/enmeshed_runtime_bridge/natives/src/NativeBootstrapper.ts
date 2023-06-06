@@ -1,6 +1,5 @@
 import { ILokiJsDatabaseFactory } from "@js-soft/docdb-access-loki";
 import {
-  INativeConfigAccess,
   INativeDeviceInfoAccess,
   INativeEventBus,
   INativeLoggerFactory,
@@ -19,7 +18,7 @@ import { NotificationAccess } from "./NotificationAccess";
 
 export class NativeBootstrapper implements RuntimeNativeBootstrapper {
   public readonly databaseFactory: ILokiJsDatabaseFactory;
-  public readonly configAccess: INativeConfigAccess;
+  public readonly configAccess: ConfigAccess;
   public readonly loggerFactory: INativeLoggerFactory;
   public readonly notificationAccess: INativeNotificationAccess;
   public readonly eventBus: INativeEventBus;
@@ -42,9 +41,9 @@ export class NativeBootstrapper implements RuntimeNativeBootstrapper {
 
   public constructor() {
     this.eventBus = new EventBus();
-    this.configAccess = new ConfigAccess();
     this.fileAccess = new FileAccess();
     this.loggerFactory = new LoggerFactory();
+    this.configAccess = new ConfigAccess(this.fileAccess, this.loggerFactory.getLogger(ConfigAccess), "config.json");
     this.databaseFactory = new DatabaseFactory(this.fileAccess);
     this.deviceInfoAccess = new DeviceInfoAccess();
     this.notificationAccess = new NotificationAccess(this.loggerFactory, this.configAccess);
@@ -57,12 +56,9 @@ export class NativeBootstrapper implements RuntimeNativeBootstrapper {
 
     await this.eventBus.init();
 
-    // await this.configAccess.initDefaultConfig();
-    // await this.configAccess.initRuntimeConfig();
-
-    await this.fileAccess.init();
-
-    await this.loggerFactory.init();
+    await this.configAccess.initDefaultConfig();
+    await this.configAccess.initRuntimeConfig();
+    await this.configAccess.save();
 
     await this.deviceInfoAccess.init();
     await this.notificationAccess.init();

@@ -156,6 +156,20 @@ class EnmeshedRuntime {
         _runtimeReadyCompleter.complete();
       },
     );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'getDefaultConfig',
+      callback: (_) => {
+        'transport': {
+          'baseUrl': runtimeConfig.baseUrl,
+          'logLevel': 'warn',
+          'datawalletEnabled': true,
+          'platformClientId': runtimeConfig.clientId,
+          'platformClientSecret': runtimeConfig.clientSecret,
+        },
+        'pushToken': null,
+      },
+    );
   }
 
   Future<void> loadLibs(InAppWebViewController controller) async {
