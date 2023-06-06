@@ -56,7 +56,7 @@ Future<MessageDTO> syncUntilHasMessage(Session session) async {
     await Future.delayed(Duration(seconds: 5 * retries));
   } while (retries < 10);
 
-  throw Exception('Could not sync until having a relationship');
+  throw Exception('Could not sync until having a message');
 }
 
 Future<RelationshipDTO> establishRelationshipAndSync(Session session, ConnectorClient connectorClient) async {
@@ -170,20 +170,18 @@ Future<void> waitUntilIncomingRequestStatus(Session recipient, String requestId,
     if (syncResult.value.status == status) return;
 
     retries++;
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: retries));
   } while (retries < 10);
 
-  throw Exception('Timeout on waiting until status is DecisionRequired');
+  throw Exception("Timeout on waiting for request with id '$requestId' moving to status '${status.name}'");
 }
 
 Future<void> exchangeAndAcceptRequestByMessage(Session sender, Session recipient, String recipientAddress, Request request) async {
   final createRequestResult = await sender.consumptionServices.outgoingRequests.create(content: request, peer: recipientAddress);
   assert(createRequestResult.isSuccess);
 
-  await Future.delayed(const Duration(seconds: 5));
   await sender.transportServices.messages.sendMessage(recipients: [recipientAddress], content: createRequestResult.value.content.toJson());
   await syncUntilHasMessage(recipient);
-  await Future.delayed(const Duration(seconds: 5));
   await waitUntilIncomingRequestStatus(recipient, createRequestResult.value.id, LocalRequestStatus.ManualDecisionRequired);
 
   final acceptedRequest = await recipient.consumptionServices.incomingRequests.accept(
