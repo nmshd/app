@@ -135,6 +135,20 @@ class EnmeshedRuntime {
     );
 
     controller.addJavaScriptHandler(
+      handlerName: 'existsFile',
+      callback: (args) async {
+        final path = args[0] as String;
+        final storage = args[1] as String;
+
+        try {
+          return await _filesystemAdapter.existsFile(path, storage);
+        } catch (e) {
+          return false;
+        }
+      },
+    );
+
+    controller.addJavaScriptHandler(
       handlerName: 'runtimeReady',
       callback: (_) {
         _isReady = true;
