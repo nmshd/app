@@ -18,7 +18,7 @@ export class DeviceInfoAccess implements INativeDeviceInfoAccess {
       isVirtual: false,
       languageCode: "",
       version: "",
-      pushService: PushServices.fcm,
+      pushService: PushServices.none,
       ...deviceInfo
     };
 

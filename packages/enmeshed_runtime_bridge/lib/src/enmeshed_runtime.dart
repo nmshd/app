@@ -199,7 +199,7 @@ class EnmeshedRuntime {
           return {
             'model': deviceInfo.model,
             'platform': 'IOS',
-            'uuid': '',
+            'uuid': deviceInfo.identifierForVendor ?? '',
             'manufacturer': 'Apple',
             'isVirtual': !deviceInfo.isPhysicalDevice,
             'languageCode': Platform.localeName,
