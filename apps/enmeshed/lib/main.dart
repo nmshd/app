@@ -27,7 +27,14 @@ void main() async {
   final logger = Logger(printer: SimplePrinter(colors: false));
   GetIt.I.registerSingleton(logger);
 
-  final runtime = EnmeshedRuntime(logger: logger);
+  final runtime = EnmeshedRuntime(
+    logger: logger,
+    runtimeConfig: (
+      baseUrl: 'https://bird.enmeshed.eu',
+      clientId: 'dev',
+      clientSecret: 'SY3nxukl6Xn8kGDk52EwBKXZMR9OR5',
+    ),
+  );
   GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
   await GetIt.I.allReady();
 

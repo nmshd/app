@@ -13,6 +13,8 @@ class EnmeshedRuntime {
   static String _assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
 
   bool _isReady = false;
+
+  final ({String baseUrl, String clientId, String clientSecret}) runtimeConfig;
   bool get isReady => _isReady;
 
   late final HeadlessInAppWebView _headlessWebView;
@@ -36,6 +38,7 @@ class EnmeshedRuntime {
   EnmeshedRuntime({
     Logger? logger,
     VoidCallback? runtimeReadyCallback,
+    required this.runtimeConfig,
   })  : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
         _runtimeReadyCallback = runtimeReadyCallback {
     _headlessWebView = HeadlessInAppWebView(

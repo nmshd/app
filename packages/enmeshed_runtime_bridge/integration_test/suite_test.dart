@@ -15,7 +15,13 @@ void main() async {
   dummy_app.main();
 
   EnmeshedRuntime.setAssetsFolder('assets');
-  final runtime = EnmeshedRuntime();
+  final runtime = EnmeshedRuntime(
+    runtimeConfig: (
+      baseUrl: 'https://bird.enmeshed.eu',
+      clientId: 'dev',
+      clientSecret: 'SY3nxukl6Xn8kGDk52EwBKXZMR9OR5',
+    ),
+  );
   await runtime.run();
 
   final connectorClient = ConnectorClient(const String.fromEnvironment('connector_baseURL'), const String.fromEnvironment('connector_apiKey'));

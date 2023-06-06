@@ -57,14 +57,20 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    runtime = EnmeshedRuntime(runtimeReadyCallback: () async {
-      await reloadData(false);
+    runtime = EnmeshedRuntime(
+      runtimeReadyCallback: () async {
+        await reloadData(false);
 
-      setState(() {
-        runtimeReady = true;
-      });
-    })
-      ..run();
+        setState(() {
+          runtimeReady = true;
+        });
+      },
+      runtimeConfig: (
+        baseUrl: 'https://bird.enmeshed.eu',
+        clientId: 'dev',
+        clientSecret: 'SY3nxukl6Xn8kGDk52EwBKXZMR9OR5',
+      ),
+    )..run();
 
     _tabController = TabController(length: 3, vsync: this)..addListener(() => setState(() {}));
   }
