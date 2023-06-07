@@ -39,11 +39,11 @@ jobs:
         run: |
           dart pub global activate melos
           melos bootstrap
-          - name: 'Authenticate to Google Cloud'
-          uses: 'google-github-actions/auth@v1'
-          with:
-            project_id: enmeshed
-            credentials_json: ${{secrets.ENMESHED_FIREBASE_SERVICEACCOUNT_JSON}}
+      - name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          project_id: enmeshed
+          credentials_json: ${{secrets.ENMESHED_FIREBASE_SERVICEACCOUNT_JSON}}
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
       - name: build android app
