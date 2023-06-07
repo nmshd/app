@@ -15,6 +15,7 @@ class ValueHintsValue extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
+        '@type': 'ValueHintsValue',
         'key': key,
         'displayName': displayName,
       };
