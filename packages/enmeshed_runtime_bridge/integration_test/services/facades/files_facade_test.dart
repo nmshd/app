@@ -39,7 +39,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: uploadOwnFile', () {
-    test('returns a valid FileDTO', () async {
+    testWidgets('returns a valid FileDTO', (_) async {
       final data = await rootBundle.load('integration_test/test_assets/testFile.txt');
       final bytes = data.buffer.asUint8List().toList();
 
@@ -59,7 +59,7 @@ void run(EnmeshedRuntime runtime) {
       expect(file.mimetype, 'plain');
       expect(file.title, 'aTitle');
     });
-    test('returns a valid FileDTO with all properties', () async {
+    testWidgets('returns a valid FileDTO with all properties', (_) async {
       final data = await rootBundle.load('integration_test/test_assets/testFile.txt');
       final bytes = data.buffer.asUint8List().toList();
 
@@ -83,7 +83,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: getFiles', () {
-    test('returns a valid list of FileDTOs', () async {
+    testWidgets('returns a valid list of FileDTOs', (_) async {
       final filesResult = await session.transportServices.files.getFiles();
 
       final files = filesResult.value;
@@ -94,7 +94,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: getOrLoadFileByIdAndKey', () {
-    test('returns a valid FileDTO', () async {
+    testWidgets('returns a valid FileDTO', (_) async {
       final fileResult = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: globalFile.id, secretKey: globalFile.secretKey);
 
       final file = fileResult.value;
@@ -103,14 +103,14 @@ void run(EnmeshedRuntime runtime) {
       expect(file.id, globalFile.id);
     });
 
-    test('throws an exception if file id does not match the pattern', () async {
+    testWidgets('throws an exception if file id does not match the pattern', (_) async {
       final result = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: '', secretKey: globalFile.secretKey);
 
       expect(result.isSuccess, false);
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception if secret key does not match the pattern', () async {
+    testWidgets('throws an exception if secret key does not match the pattern', (_) async {
       final result = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: globalFile.id, secretKey: '');
 
       expect(result.isSuccess, false);
@@ -119,7 +119,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: getOrLoadFileByReference', () {
-    test('returns a valid FileDTO', () async {
+    testWidgets('returns a valid FileDTO', (_) async {
       final fileResult = await session.transportServices.files.getOrLoadFileByReference(reference: globalFile.truncatedReference);
 
       final file = fileResult.value;
@@ -128,14 +128,14 @@ void run(EnmeshedRuntime runtime) {
       expect(file.id, globalFile.id);
     });
 
-    test('throws an exception if reference does not match the pattern', () async {
+    testWidgets('throws an exception if reference does not match the pattern', (_) async {
       final result = await session.transportServices.files.getOrLoadFileByReference(reference: '');
 
       expect(result.isSuccess, false);
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception on not existing reference', () async {
+    testWidgets('throws an exception on not existing reference', (_) async {
       final result = await session.transportServices.files.getOrLoadFileByReference(
         reference: 'RklMTG93cDV2Yk5JaUh6QWZ5aGp8M3xKZ2h6dXFKa003TW1Id0hyb3k3akd3dmdleXFXVEdVd3h2QWUwWlRBeXXX',
       );
@@ -146,7 +146,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: downloadFile', () {
-    test('returns a valid DownloadFileResponse', () async {
+    testWidgets('returns a valid DownloadFileResponse', (_) async {
       final responseResult = await session.transportServices.files.downloadFile(fileId: globalFile.id);
 
       final response = responseResult.value;
@@ -154,14 +154,14 @@ void run(EnmeshedRuntime runtime) {
       expect(response, isInstanceOf<DownloadFileResponse>());
     });
 
-    test('throws an exception if file id does not match the pattern', () async {
+    testWidgets('throws an exception if file id does not match the pattern', (_) async {
       final result = await session.transportServices.files.downloadFile(fileId: '');
 
       expect(result.isSuccess, false);
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception on not existing file id', () async {
+    testWidgets('throws an exception on not existing file id', (_) async {
       final result = await session.transportServices.files.downloadFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
       expect(result.isSuccess, false);
@@ -170,7 +170,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: getFile', () {
-    test('returns a valid FileDTO', () async {
+    testWidgets('returns a valid FileDTO', (_) async {
       final fileResult = await session.transportServices.files.getFile(fileId: globalFile.id);
 
       final file = fileResult.value;
@@ -179,14 +179,14 @@ void run(EnmeshedRuntime runtime) {
       expect(file.id, globalFile.id);
     });
 
-    test('throws an exception if file id does not match the pattern', () async {
+    testWidgets('throws an exception if file id does not match the pattern', (_) async {
       final result = await session.transportServices.files.getFile(fileId: '');
 
       expect(result.isSuccess, false);
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception on not existing file id', () async {
+    testWidgets('throws an exception on not existing file id', (_) async {
       final result = await session.transportServices.files.getFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
       expect(result.isSuccess, false);
@@ -195,7 +195,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: createQrCodeForFile', () {
-    test('returns a valid CreateQrCodeResponse', () async {
+    testWidgets('returns a valid CreateQrCodeResponse', (_) async {
       final responseResult = await session.transportServices.files.createQrCodeForFile(fileId: globalFile.id);
 
       final response = responseResult.value;
@@ -203,14 +203,14 @@ void run(EnmeshedRuntime runtime) {
       expect(response, isInstanceOf<CreateQrCodeResponse>());
     });
 
-    test('throws an exception if file id does not match the pattern', () async {
+    testWidgets('throws an exception if file id does not match the pattern', (_) async {
       final result = await session.transportServices.files.createQrCodeForFile(fileId: '');
 
       expect(result.isSuccess, false);
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception on not existing file id', () async {
+    testWidgets('throws an exception on not existing file id', (_) async {
       final result = await session.transportServices.files.createQrCodeForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
       expect(result.isSuccess, false);
@@ -219,7 +219,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: createTokenForFile', () {
-    test('returns a valid TokenDTO', () async {
+    testWidgets('returns a valid TokenDTO', (_) async {
       final tokenResult = await session.transportServices.files.createTokenForFile(fileId: globalFile.id);
       final token = tokenResult.value;
 
@@ -231,7 +231,7 @@ void run(EnmeshedRuntime runtime) {
       expect(response.isOwn, false);
     });
 
-    test('returns a valid TokenDTO with all properties', () async {
+    testWidgets('returns a valid TokenDTO with all properties', (_) async {
       final tokenResult = await session.transportServices.files.createTokenForFile(
         fileId: globalFile.id,
         expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
@@ -248,14 +248,14 @@ void run(EnmeshedRuntime runtime) {
       expect(response.isOwn, false);
     });
 
-    test('throws an exception if file id does not match the pattern', () async {
+    testWidgets('throws an exception if file id does not match the pattern', (_) async {
       final result = await session.transportServices.files.createTokenForFile(fileId: '');
 
       expect(result.isSuccess, false);
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception on not existing file id', () async {
+    testWidgets('throws an exception on not existing file id', (_) async {
       final result = await session.transportServices.files.createTokenForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
       expect(result.isSuccess, false);
@@ -264,7 +264,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: createTokenQrCodeForFile', () {
-    test('returns a valid CreateQrCodeResponse', () async {
+    testWidgets('returns a valid CreateQrCodeResponse', (_) async {
       final tokenResult = await session.transportServices.files.createTokenQrCodeForFile(fileId: globalFile.id);
 
       final token = tokenResult.value;
@@ -272,7 +272,7 @@ void run(EnmeshedRuntime runtime) {
       expect(token, isInstanceOf<CreateQrCodeResponse>());
     });
 
-    test('returns a valid CreateQrCodeResponse with all properties', () async {
+    testWidgets('returns a valid CreateQrCodeResponse with all properties', (_) async {
       final tokenResult = await session.transportServices.files.createTokenQrCodeForFile(
         fileId: globalFile.id,
         expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
@@ -283,14 +283,14 @@ void run(EnmeshedRuntime runtime) {
       expect(token, isInstanceOf<CreateQrCodeResponse>());
     });
 
-    test('throws an exception if file id does not match the pattern', () async {
+    testWidgets('throws an exception if file id does not match the pattern', (_) async {
       final result = await session.transportServices.files.createTokenQrCodeForFile(fileId: '');
 
       expect(result.isSuccess, false);
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception on not existing file id', () async {
+    testWidgets('throws an exception on not existing file id', (_) async {
       final result = await session.transportServices.files.createTokenQrCodeForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
       expect(result.isSuccess, false);

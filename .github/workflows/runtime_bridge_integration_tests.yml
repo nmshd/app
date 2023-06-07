@@ -31,17 +31,8 @@ jobs:
         run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{secrets.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{secrets.TESTCONNECTOR_APIKEY}}
   android:
     runs-on: macos-latest
-    env:
-      api-level: 32
-      target: playstore
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: "temurin"
-          java-version: 17
-          cache: "gradle"
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2
         with:
@@ -50,15 +41,54 @@ jobs:
         run: |
           dart pub global activate melos
           melos bootstrap
-      - name: Start emulator and run tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          target: ${{ env.target }}
-          api-level: ${{ env.api-level }}
-          force-avd-creation: false
-          avd-name: integration_test
-          disable-spellchecker: true
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          arch: x86_64
-          profile: pixel
-          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{secrets.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{secrets.TESTCONNECTOR_APIKEY}}
+          - name: 'Authenticate to Google Cloud'
+          uses: 'google-github-actions/auth@v1'
+          with:
+            project_id: enmeshed
+            credentials_json: ${{secrets.ENMESHED_FIREBASE_SERVICEACCOUNT_JSON}}
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+      - name: build android app
+        env:
+          DART_DEFINES: ${{secrets.DART_DEFINES}}
+        working-directory: packages/enmeshed_runtime_bridge/android
+        run: ./gradlew app:connectedAndroidTest -Pdart-defines=$DART_DEFINES -Ptarget=`pwd`/../integration_test/suite_test.dart
+      - name: execute tests on firebase
+        working-directory: packages/enmeshed_runtime_bridge
+        run: |
+          gcloud firebase test android run --type instrumentation \
+            --app build/app/outputs/apk/debug/app-debug.apk \
+            --device model=Pixel3 \
+            --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk\
+            --timeout 10m
+    # env:
+    #   api-level: 32
+    #   target: playstore
+    # steps:
+    #   - uses: actions/checkout@v3
+    #   - name: Setup Java
+    #     uses: actions/setup-java@v3
+    #     with:
+    #       distribution: "temurin"
+    #       java-version: 17
+    #       cache: "gradle"
+    #   - name: Setup Flutter SDK
+    #     uses: subosito/flutter-action@v2
+    #     with:
+    #       channel: stable
+    #   - name: Install Dependencies
+    #     run: |
+    #       dart pub global activate melos
+    #       melos bootstrap
+    #   - name: Start emulator and run tests
+    #     uses: reactivecircus/android-emulator-runner@v2
+    #     with:
+    #       target: ${{ env.target }}
+    #       api-level: ${{ env.api-level }}
+    #       force-avd-creation: false
+    #       avd-name: integration_test
+    #       disable-spellchecker: true
+    #       emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+    #       arch: x86_64
+    #       profile: pixel
+    #       script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{secrets.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{secrets.TESTCONNECTOR_APIKEY}}

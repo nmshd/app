@@ -14,7 +14,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipsFacade: getRelationships', () {
-    test('returns an empty list when no Relationships exists', () async {
+    testWidgets('returns an empty list when no Relationships exists', (_) async {
       final relationshipsResult = await session.transportServices.relationships.getRelationships();
 
       final relationships = relationshipsResult.value;
@@ -23,7 +23,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(relationships.length, 0);
     });
 
-    test('returns a valid list of RelationshipDTOs', () async {
+    testWidgets('returns a valid list of RelationshipDTOs', (_) async {
       final establishedRelationship = await establishRelationship(session, connectorClient);
 
       final relationshipsResult = await session.transportServices.relationships.getRelationships();
@@ -37,7 +37,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipsFacade: getRelationship', () {
-    test('returns a valid RelationshipDTO', () async {
+    testWidgets('returns a valid RelationshipDTO', (_) async {
       final establishedRelationship = await establishRelationship(session, connectorClient);
 
       final relationshipResult = await session.transportServices.relationships.getRelationship(relationshipId: establishedRelationship.id);
@@ -48,21 +48,21 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(relationship, isInstanceOf<RelationshipDTO>());
     });
 
-    test('throws an exception on empty relationship id', () async {
+    testWidgets('throws an exception on empty relationship id', (_) async {
       final result = await session.transportServices.relationships.getRelationship(relationshipId: '');
 
       expect(result.isSuccess, false);
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception if relationship id does not match the pattern', () async {
+    testWidgets('throws an exception if relationship id does not match the pattern', (_) async {
       final result = await session.transportServices.relationships.getRelationship(relationshipId: 'id123456789');
 
       expect(result.isSuccess, false);
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception on not existing relationship id', () async {
+    testWidgets('throws an exception on not existing relationship id', (_) async {
       final result = await session.transportServices.relationships.getRelationship(relationshipId: 'RELteStILdJnqAA0PiE0');
 
       expect(result.isSuccess, false);
@@ -71,7 +71,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipsFacade: getRelationshipByAddress', () {
-    test('returns a valid RelationshipDTO', () async {
+    testWidgets('returns a valid RelationshipDTO', (_) async {
       final establishedRelationship = await establishRelationship(session, connectorClient);
       final relationships = await session.transportServices.relationships.getRelationships();
 
@@ -87,7 +87,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipsFacade: createRelationship', () {
-    test('returns a valid RelationshipDTO', () async {
+    testWidgets('returns a valid RelationshipDTO', (_) async {
       final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
         content: {},
@@ -109,7 +109,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipsFacade: acceptRelationshipChange', () {
-    test('returns a valid RelationshipDTO', () async {
+    testWidgets('returns a valid RelationshipDTO', (_) async {
       final establishedRelationship = await establishRelationshipAndSync(session, connectorClient);
 
       final responseResult = await session.transportServices.relationships.acceptRelationshipChange(
@@ -126,7 +126,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipsFacade: rejectRelationshipChange', () {
-    test('returns a valid RelationshipDTO', () async {
+    testWidgets('returns a valid RelationshipDTO', (_) async {
       final establishedRelationship = await establishRelationshipAndSync(session, connectorClient);
 
       final responseResult = await session.transportServices.relationships.rejectRelationshipChange(
@@ -143,7 +143,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipsFacade: getAttributesForRelationship', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs', (_) async {
       final establishedRelationship = await establishRelationship(session, connectorClient);
 
       final attribute = await session.consumptionServices.attributes.createAttribute(

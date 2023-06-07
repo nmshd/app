@@ -13,7 +13,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
-    test('returns a valid RelationshipTemplateDTO', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
 
@@ -28,7 +28,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(template.content.toJson(), content);
     });
 
-    test('returns a valid RelationshipTemplateDTO with all properties', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO with all properties', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
       const maxNumberOfAllocations = 1;
@@ -48,7 +48,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByIdAndKey', () {
-    test('returns a valid RelationshipTemplateDTO', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
 
@@ -72,7 +72,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByReference', () {
-    test('returns a valid RelationshipTemplateDTO', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
 
@@ -94,7 +94,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: getRelationshipTemplates', () {
-    test('returns the correct amount of own relationship templates', () async {
+    testWidgets('returns the correct amount of own relationship templates', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       final currentTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
@@ -110,7 +110,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(allTemplates.value.length, greaterThan(currentTemplates.value.length));
     });
 
-    test('returns the correct amount of own relationship templates with all properties', () async {
+    testWidgets('returns the correct amount of own relationship templates with all properties', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
 
@@ -147,7 +147,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: getRelationshipTemplate', () {
-    test('returns a valid RelationshipTemplateDTO', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
 
@@ -165,7 +165,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(template.value.content.toJson(), content);
     });
 
-    test('throws an exception on empty template id', () async {
+    testWidgets('throws an exception on empty template id', (_) async {
       final result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
         relationshipTemplateId: '',
       );
@@ -174,7 +174,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception if template id do not match the pattern', () async {
+    testWidgets('throws an exception if template id do not match the pattern', (_) async {
       final result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
         relationshipTemplateId: 'RTLX123456789',
       );
@@ -183,7 +183,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(result.error.code, 'error.runtime.validation.invalidPropertyValue');
     });
 
-    test('throws an exception on not existing template id', () async {
+    testWidgets('throws an exception on not existing template id', (_) async {
       final result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
         relationshipTemplateId: 'RLTXZKg9TestveduKiGs',
       );
@@ -194,7 +194,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: createQrCodeForOwnTemplate', () {
-    test('returns a valid CreateQrCodeResponse', () async {
+    testWidgets('returns a valid CreateQrCodeResponse', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
 
@@ -212,7 +212,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: createTokenQrCodeForOwnTemplate', () {
-    test('returns a valid CreateQrCodeResponse', () async {
+    testWidgets('returns a valid CreateQrCodeResponse', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
 
@@ -228,7 +228,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(response.value, isInstanceOf<CreateQrCodeResponse>());
     });
 
-    test('returns a valid CreateQrCodeResponse with all properties', () async {
+    testWidgets('returns a valid CreateQrCodeResponse with all properties', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
 
@@ -247,7 +247,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: createTokenForOwnTemplate', () {
-    test('returns a valid TokenDTO', () async {
+    testWidgets('returns a valid TokenDTO', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       const content = {'aKey': 'aValue'};
 
@@ -265,7 +265,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(token, isInstanceOf<TokenDTO>());
     });
 
-    test('returns a valid TokenDTO with all properties', () async {
+    testWidgets('returns a valid TokenDTO with all properties', (_) async {
       final expiresAt = DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString();
       final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
