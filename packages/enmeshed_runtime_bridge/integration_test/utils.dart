@@ -198,7 +198,9 @@ Future<void> exchangeAndAcceptRequestByMessage(Session sender, Session recipient
   );
   assert(acceptedRequest.isSuccess);
 
+  //TODO: replace with eventbus "MessageSentEvent"
   await Future.delayed(const Duration(seconds: 5));
   await syncUntilHasMessage(sender);
+  //TODO: replace with eventbus "sender: LocalRequestStatus.Completed"
   await Future.delayed(const Duration(seconds: 5));
 }
