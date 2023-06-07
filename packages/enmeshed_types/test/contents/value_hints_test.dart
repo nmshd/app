@@ -8,7 +8,16 @@ void main() {
       final valueHintsJson = valueHints.toJson();
       expect(
         valueHintsJson,
-        equals({'editHelp': null, 'min': null, 'max': null, 'pattern': null, 'values': null, 'defaultValue': null, 'propertyHints': null}),
+        equals({
+          '@type': 'ValueHints',
+          'editHelp': null,
+          'min': null,
+          'max': null,
+          'pattern': null,
+          'values': null,
+          'defaultValue': null,
+          'propertyHints': null,
+        }),
       );
     });
 
@@ -17,7 +26,16 @@ void main() {
       final valueHintsJson = valueHints.toJson();
       expect(
         valueHintsJson,
-        equals({'editHelp': 'anEditHelp', 'min': null, 'max': null, 'pattern': null, 'values': null, 'defaultValue': null, 'propertyHints': null}),
+        equals({
+          '@type': 'ValueHints',
+          'editHelp': 'anEditHelp',
+          'min': null,
+          'max': null,
+          'pattern': null,
+          'values': null,
+          'defaultValue': null,
+          'propertyHints': null,
+        }),
       );
     });
 
@@ -26,7 +44,16 @@ void main() {
       final valueHintsJson = valueHints.toJson();
       expect(
         valueHintsJson,
-        equals({'editHelp': null, 'min': 0, 'max': null, 'pattern': null, 'values': null, 'defaultValue': null, 'propertyHints': null}),
+        equals({
+          '@type': 'ValueHints',
+          'editHelp': null,
+          'min': 0,
+          'max': null,
+          'pattern': null,
+          'values': null,
+          'defaultValue': null,
+          'propertyHints': null,
+        }),
       );
     });
 
@@ -35,7 +62,16 @@ void main() {
       final valueHintsJson = valueHints.toJson();
       expect(
         valueHintsJson,
-        equals({'editHelp': null, 'min': null, 'max': 10, 'pattern': null, 'values': null, 'defaultValue': null, 'propertyHints': null}),
+        equals({
+          '@type': 'ValueHints',
+          'editHelp': null,
+          'min': null,
+          'max': 10,
+          'pattern': null,
+          'values': null,
+          'defaultValue': null,
+          'propertyHints': null,
+        }),
       );
     });
 
@@ -44,7 +80,16 @@ void main() {
       final valueHintsJson = valueHints.toJson();
       expect(
         valueHintsJson,
-        equals({'editHelp': null, 'min': null, 'max': null, 'pattern': 'aPattern', 'values': null, 'defaultValue': null, 'propertyHints': null}),
+        equals({
+          '@type': 'ValueHints',
+          'editHelp': null,
+          'min': null,
+          'max': null,
+          'pattern': 'aPattern',
+          'values': null,
+          'defaultValue': null,
+          'propertyHints': null,
+        }),
       );
     });
 
@@ -54,6 +99,7 @@ void main() {
       expect(
         valueHintsJson,
         equals({
+          '@type': 'ValueHints',
           'editHelp': null,
           'min': null,
           'max': null,
@@ -70,7 +116,16 @@ void main() {
       final valueHintsJson = valueHints.toJson();
       expect(
         valueHintsJson,
-        equals({'editHelp': null, 'min': null, 'max': null, 'pattern': null, 'values': null, 'defaultValue': 'aDefaultValue', 'propertyHints': null}),
+        equals({
+          '@type': 'ValueHints',
+          'editHelp': null,
+          'min': null,
+          'max': null,
+          'pattern': null,
+          'values': null,
+          'defaultValue': 'aDefaultValue',
+          'propertyHints': null,
+        }),
       );
     });
 
@@ -80,6 +135,7 @@ void main() {
       expect(
         valueHintsJson,
         equals({
+          '@type': 'ValueHints',
           'editHelp': null,
           'min': null,
           'max': null,
@@ -105,6 +161,7 @@ void main() {
       expect(
         valueHintsJson,
         equals({
+          '@type': 'ValueHints',
           'editHelp': 'anEditHelp',
           'min': 0,
           'max': 10,
