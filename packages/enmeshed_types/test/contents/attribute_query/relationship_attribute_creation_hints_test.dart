@@ -13,6 +13,7 @@ void main() {
       expect(
         creationHintsJson,
         equals({
+          '@type': 'RelationshipAttributeCreationHints',
           'title': 'aCreationHint',
           'valueType': 'ProprietaryInteger',
           'confidentiality': 'public',
@@ -31,6 +32,7 @@ void main() {
       expect(
         creationHintsJson,
         equals({
+          '@type': 'RelationshipAttributeCreationHints',
           'title': 'aCreationHint',
           'valueType': 'ProprietaryInteger',
           'confidentiality': 'public',
@@ -50,6 +52,7 @@ void main() {
       expect(
         creationHintsJson,
         equals({
+          '@type': 'RelationshipAttributeCreationHints',
           'title': 'aCreationHint',
           'valueType': 'ProprietaryInteger',
           'confidentiality': 'public',
@@ -70,6 +73,7 @@ void main() {
       expect(
         creationHintsJson,
         equals({
+          '@type': 'RelationshipAttributeCreationHints',
           'title': 'aCreationHint',
           'valueType': 'ProprietaryInteger',
           'confidentiality': 'public',
