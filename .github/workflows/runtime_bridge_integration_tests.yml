@@ -49,12 +49,12 @@ jobs:
       # - uses: gradle/gradle-build-action@v2
       #   with:
       #     gradle-version: 7.4
-      # - name: Setup Java
-      #   uses: actions/setup-java@v3
-      #   with:
-      #     distribution: "oracle"
-      #     java-version: 17
-      #     cache: "gradle"
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "oracle"
+          java-version: 17
+          cache: "gradle"
 
       # - name: Build Gradle Wrapper
       #   working-directory: packages/enmeshed_runtime_bridge/android
