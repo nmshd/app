@@ -24,6 +24,7 @@ class RelationshipAttributeCreationHints extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
+        '@type': 'RelationshipAttributeCreationHints',
         'title': title,
         'valueType': valueType,
         if (description != null) 'description': description,
