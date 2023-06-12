@@ -34,3 +34,7 @@ scripts:
     description: |
       Run `dart_code_metrics` in all packages.
       - Note: you can also rely on your IDEs Dart Analysis / Issues window.
+
+  outdated:
+    run: melos exec --no-flutter -- "dart pub outdated" && melos exec --flutter -- "flutter pub outdated"
+    description: Run `dart pub outdated` in all packages
