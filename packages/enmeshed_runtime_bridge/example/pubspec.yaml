@@ -15,11 +15,11 @@ dependencies:
   flutter_inappwebview: ^5.7.2+3
   mobile_scanner: ^3.0.0
   modal_bottom_sheet: ^3.0.0-pre
-  permission_handler: ^10.2.0
+  permission_handler: ^10.3.0
   url_launcher: ^6.1.8
 
 dev_dependencies:
-  dart_code_metrics: ^5.6.0
+  dart_code_metrics: ^5.7.5
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
