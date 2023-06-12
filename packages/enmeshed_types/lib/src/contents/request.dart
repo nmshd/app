@@ -32,6 +32,7 @@ class Request extends Equatable {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
+      '@type': 'Request',
       if (id != null) 'id': id,
       if (expiresAt != null) 'expiresAt': expiresAt,
       'items': items.map((e) => e.toJson()).toList(),

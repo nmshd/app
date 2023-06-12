@@ -45,6 +45,7 @@ class ValueHints extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
+        '@type': 'ValueHints',
         'editHelp': editHelp,
         'min': min,
         'max': max,

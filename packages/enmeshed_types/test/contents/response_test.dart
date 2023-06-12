@@ -18,6 +18,7 @@ void main() {
       expect(
         responseJson,
         equals({
+          '@type': 'Response',
           'result': 'Accepted',
           'requestId': 'aRequestId',
           'items': [
@@ -40,6 +41,7 @@ void main() {
       expect(
         responseJson,
         equals({
+          '@type': 'Response',
           'result': 'Accepted',
           'requestId': 'aRequestId',
           'items': [const RejectResponseItem().toJson()],
@@ -57,6 +59,7 @@ void main() {
       expect(
         responseJson,
         equals({
+          '@type': 'Response',
           'result': 'Accepted',
           'requestId': 'aRequestId',
           'items': [const ErrorResponseItem(code: 'aCode', message: 'aMessage').toJson()],

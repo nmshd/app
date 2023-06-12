@@ -9,6 +9,7 @@ void main() {
       expect(
         requestJson,
         equals({
+          '@type': 'Request',
           'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
         }),
       );
@@ -20,6 +21,7 @@ void main() {
       expect(
         requestJson,
         equals({
+          '@type': 'Request',
           'id': 'aId',
           'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
         }),
@@ -35,6 +37,7 @@ void main() {
       expect(
         requestJson,
         equals({
+          '@type': 'Request',
           'expiresAt': '2053',
           'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
         }),
@@ -48,6 +51,7 @@ void main() {
       expect(
         requestJson,
         equals({
+          '@type': 'Request',
           'title': 'aTitle',
           'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
         }),
@@ -63,6 +67,7 @@ void main() {
       expect(
         requestJson,
         equals({
+          '@type': 'Request',
           'description': 'aDescription',
           'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
         }),
@@ -78,6 +83,7 @@ void main() {
       expect(
         requestJson,
         equals({
+          '@type': 'Request',
           'metadata': {},
           'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
         }),
@@ -97,6 +103,7 @@ void main() {
       expect(
         requestJson,
         equals({
+          '@type': 'Request',
           'id': 'aId',
           'expiresAt': '2053',
           'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
