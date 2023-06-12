@@ -79,7 +79,7 @@ class EnmeshedRuntime {
 
   Future<void> addJavaScriptHandlers(InAppWebViewController controller) async {
     controller.addJavaScriptHandler(
-      handlerName: 'publishEvent',
+      handlerName: 'handleRuntimeEvent',
       callback: (args) async {
         final payload = args[0];
         _logger.i('Event published: $payload');

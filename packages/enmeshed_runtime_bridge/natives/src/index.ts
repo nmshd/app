@@ -6,6 +6,10 @@ async function main() {
   await bootstrapper.init();
   const runtime = await AppRuntime.createAndStart(bootstrapper);
 
+  runtime.eventBus.subscribe("**", async (event) => {
+    await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);
+  });
+
   window.runtime = runtime;
 }
 
