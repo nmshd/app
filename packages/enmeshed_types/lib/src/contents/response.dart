@@ -24,6 +24,7 @@ class Response extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
+        '@type': 'Response',
         'result': result.name,
         'requestId': requestId,
         'items': items.map((e) => e.toJson()).toList(),

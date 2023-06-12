@@ -8,7 +8,7 @@ void main() {
       final valueHintsValueJson = valueHintsValue.toJson();
       expect(
         valueHintsValueJson,
-        equals({'key': 'aKey', 'displayName': 'aDisplayName'}),
+        equals({'@type': 'ValueHintsValue', 'key': 'aKey', 'displayName': 'aDisplayName'}),
       );
     });
   });

@@ -2,18 +2,19 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import 'abstract_evaluator.dart';
 import 'handle_call_async_js_result.dart';
+import 'result.dart';
 
 class AttributeListenersFacade {
   final AbstractEvaluator _evaluator;
   AttributeListenersFacade(this._evaluator);
 
-  Future<LocalAttributeListenerDTO> getAttributeListener({
+  Future<Result<LocalAttributeListenerDTO>> getAttributeListener({
     required String listenerId,
   }) async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributeListeners.getAttributeListener(request)
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
       arguments: {
         'request': {
           'id': listenerId,
@@ -22,19 +23,17 @@ class AttributeListenersFacade {
     );
 
     final value = result.valueToMap();
-    final listener = LocalAttributeListenerDTO.fromJson(value);
-    return listener;
+    return Result.fromJson(value, (x) => LocalAttributeListenerDTO.fromJson(x));
   }
 
-  Future<List<LocalAttributeListenerDTO>> getAttributeListeners() async {
+  Future<Result<List<LocalAttributeListenerDTO>>> getAttributeListeners() async {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.consumptionServices.attributeListeners.getAttributeListeners()
-      if (result.isError) throw new Error(result.error)
-      return result.value''',
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
     );
 
-    final value = result.valueToList();
-    final listeners = value.map((e) => LocalAttributeListenerDTO.fromJson(e)).toList();
-    return listeners;
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => List<LocalAttributeListenerDTO>.from(value.map((e) => LocalAttributeListenerDTO.fromJson(e))));
   }
 }

@@ -26,7 +26,7 @@ class AttributesFacadeView extends StatelessWidget {
                     '@type': 'DisplayName',
                     'value': 'ADisplayName',
                   },
-                  'owner': identityInfo.address,
+                  'owner': identityInfo.value.address,
                 },
               );
               print(attribute);
@@ -45,12 +45,12 @@ class AttributesFacadeView extends StatelessWidget {
                     '@type': 'DisplayName',
                     'value': 'ADisplayName',
                   },
-                  'owner': identityInfo.address,
+                  'owner': identityInfo.value.address,
                 },
               );
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
 
-              final attributeId = phAttribute.id;
+              final attributeId = phAttribute.value.id;
               final peer = relationships.value.first.peer;
               const requestReference = 'REQIDXXXXXXXXXXXXXXX';
               final attribute = await runtime.currentSession.consumptionServices.attributes.createSharedAttributeCopy(
@@ -66,7 +66,7 @@ class AttributesFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final attributes = await runtime.currentSession.consumptionServices.attributes.getAttributes();
-              if (attributes.isEmpty) {
+              if (attributes.value.isEmpty) {
                 final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
 
                 final attribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
@@ -76,21 +76,21 @@ class AttributesFacadeView extends StatelessWidget {
                       '@type': 'DisplayName',
                       'value': 'ADisplayName',
                     },
-                    'owner': identityInfo.address,
+                    'owner': identityInfo.value.address,
                   },
                 );
-                attributes.add(attribute);
+                attributes.value.add(attribute.value);
               }
 
-              print('attributes length before delete: ${attributes.length}');
-              final attributeId = attributes.first.id;
+              print('attributes length before delete: ${attributes.value.length}');
+              final attributeId = attributes.value.first.id;
               await runtime.currentSession.consumptionServices.attributes.deleteAttribute(
                 attributeId: attributeId,
               );
 
               final attributesAfterDelete = await runtime.currentSession.consumptionServices.attributes.getAttributes();
 
-              print('attributes length after delete: ${attributesAfterDelete.length}');
+              print('attributes length after delete: ${attributesAfterDelete.value.length}');
             },
             child: const Text('deleteAttribute'),
           ),
@@ -124,11 +124,11 @@ class AttributesFacadeView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final attributes = await runtime.currentSession.consumptionServices.attributes.getAttributes();
-              if (attributes.isEmpty) {
+              if (attributes.value.isEmpty) {
                 print('There are no attributes to get!');
                 return;
               }
-              final attributeId = attributes.first.id;
+              final attributeId = attributes.value.first.id;
               final attribute = await runtime.currentSession.consumptionServices.attributes.getAttribute(
                 attributeId: attributeId,
               );
@@ -156,7 +156,7 @@ class AttributesFacadeView extends StatelessWidget {
                     '@type': 'PhoneNumber',
                     'value': '012345678910',
                   },
-                  'owner': identityInfo.address,
+                  'owner': identityInfo.value.address,
                 },
               );
 
@@ -183,10 +183,10 @@ class AttributesFacadeView extends StatelessWidget {
                   },
                   'key': 'website',
                   'confidentiality': 'protected',
-                  'owner': identityInfo.address,
+                  'owner': identityInfo.value.address,
                 },
               );
-              final owner = identityInfo.address;
+              final owner = identityInfo.value.address;
               const attributeCreationHints = RelationshipAttributeCreationHints(
                 title: 'AnAttributeHint',
                 valueType: 'ProprietaryString',
@@ -226,7 +226,7 @@ class AttributesFacadeView extends StatelessWidget {
               final displayNameParams = {
                 '@type': 'IdentityAttribute',
                 'value': {'@type': 'DisplayName', 'value': 'ADisplayName'},
-                'owner': identityInfo.address,
+                'owner': identityInfo.value.address,
               };
 
               final successorDate = DateTime.now().toUtc();
@@ -235,12 +235,12 @@ class AttributesFacadeView extends StatelessWidget {
                 content: displayNameParams,
               );
               print(attribute);
-              final attributeId = attribute.id;
+              final attributeId = attribute.value.id;
 
               final successorContent = {
                 '@type': 'IdentityAttribute',
                 'value': {'@type': 'DisplayName', 'value': 'ANewDisplayName'},
-                'owner': identityInfo.address,
+                'owner': identityInfo.value.address,
                 'validFrom': successorDate.toString(),
               };
               final succeeds = attributeId;
@@ -270,7 +270,7 @@ class AttributesFacadeView extends StatelessWidget {
                     'country': 'DE',
                   },
                   'validTo': DateTime.now().toUtc().toString(),
-                  'owner': identityInfo.address,
+                  'owner': identityInfo.value.address,
                 },
               );
               final updatedAttribute = {
@@ -285,10 +285,10 @@ class AttributesFacadeView extends StatelessWidget {
                   'country': 'DE',
                 },
                 'validTo': DateTime.now().toUtc().toString(),
-                'owner': identityInfo.address,
+                'owner': identityInfo.value.address,
               };
 
-              final attributeId = createdAttribute.id;
+              final attributeId = createdAttribute.value.id;
               final content = updatedAttribute;
 
               final attributeBU = await runtime.currentSession.consumptionServices.attributes.getAttribute(
@@ -320,13 +320,13 @@ class AttributesFacadeView extends StatelessWidget {
                 content: {
                   '@type': 'IdentityAttribute',
                   'value': {'@type': 'PhoneNumber', 'value': '012345678910'},
-                  'owner': identityInfo.address,
+                  'owner': identityInfo.value.address,
                 },
               );
 
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
 
-              final attributeId = createdAttribute.id;
+              final attributeId = createdAttribute.value.id;
               final peer = relationships.value.last.peer;
               final request = await runtime.currentSession.consumptionServices.attributes.shareAttribute(
                 attributeId: attributeId,
