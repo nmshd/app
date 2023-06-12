@@ -65,7 +65,7 @@ jobs:
         working-directory: packages/enmeshed_runtime_bridge/android
         run: |
           # flutter build generates files in android/ for building the app
-          flutter build apk `pwd`/../integration_test/suite_test.dart
+          flutter build apk `pwd`/../integration_test/suite_test.dart --debug
           ./gradlew app:assembleAndroidTest
           ./gradlew app:assembleDebug -Ptarget=`pwd`/../integration_test/suite_test.dart -Pdart-defines=$DART_DEFINES
       - name: execute tests on firebase
@@ -75,7 +75,7 @@ jobs:
             --app build/app/outputs/apk/debug/app-debug.apk \
             --device model=Pixel3 \
             --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk\
-            --timeout 10m
+            --timeout 30m
     # env:
     #   api-level: 32
     #   target: playstore
