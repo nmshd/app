@@ -14,7 +14,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
-    test('returns a valid RelationshipTemplateDTO', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -29,7 +29,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(template.content.toJson(), content);
     });
 
-    test('returns a valid RelationshipTemplateDTO with all properties', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO with all properties', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
       const maxNumberOfAllocations = 1;
@@ -49,7 +49,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByIdAndKey', () {
-    test('returns a valid RelationshipTemplateDTO', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -73,7 +73,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByReference', () {
-    test('returns a valid RelationshipTemplateDTO', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -95,7 +95,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: getRelationshipTemplates', () {
-    test('returns the correct amount of own relationship templates', () async {
+    testWidgets('returns the correct amount of own relationship templates', (_) async {
       final expiresAt = generateExpiryString();
       final currentTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
@@ -111,7 +111,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(allTemplates.value.length, greaterThan(currentTemplates.value.length));
     });
 
-    test('returns the correct amount of own relationship templates with all properties', () async {
+    testWidgets('returns the correct amount of own relationship templates with all properties', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -148,7 +148,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: getRelationshipTemplate', () {
-    test('returns a valid RelationshipTemplateDTO', () async {
+    testWidgets('returns a valid RelationshipTemplateDTO', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -192,7 +192,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: createQrCodeForOwnTemplate', () {
-    test('returns a valid CreateQrCodeResponse', () async {
+    testWidgets('returns a valid CreateQrCodeResponse', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -210,7 +210,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: createTokenQrCodeForOwnTemplate', () {
-    test('returns a valid CreateQrCodeResponse', () async {
+    testWidgets('returns a valid CreateQrCodeResponse', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -226,7 +226,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(response.value, isA<CreateQrCodeResponse>());
     });
 
-    test('returns a valid CreateQrCodeResponse with all properties', () async {
+    testWidgets('returns a valid CreateQrCodeResponse with all properties', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -245,7 +245,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
   });
 
   group('RelationshipTemplatesFacade: createTokenForOwnTemplate', () {
-    test('returns a valid TokenDTO', () async {
+    testWidgets('returns a valid TokenDTO', (_) async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -263,7 +263,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       expect(token, isA<TokenDTO>());
     });
 
-    test('returns a valid TokenDTO with all properties', () async {
+    testWidgets('returns a valid TokenDTO with all properties', (_) async {
       final expiresAt = generateExpiryString();
       final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,

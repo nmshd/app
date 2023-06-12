@@ -43,7 +43,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: createAttribute', () {
-    test('returns a valid LocalAttributeDTO', () async {
+    testWidgets('returns a valid LocalAttributeDTO', (_) async {
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aCity')).toJson(),
       );
@@ -56,7 +56,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: createSharedAttributeCopy', () {
-    test('returns a valid LocalAttributeDTO', () async {
+    testWidgets('returns a valid LocalAttributeDTO', (_) async {
       final nationalityParams = IdentityAttribute(owner: account1.address, value: const NationalityAttributeValue(value: 'DE'));
 
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(content: nationalityParams.toJson());
@@ -77,7 +77,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: deleteAttribute', () {
-    test('deletes the attributes successfully', () async {
+    testWidgets('deletes the attributes successfully', (_) async {
       final attributesBeforeDeleteResult = await sender.consumptionServices.attributes.getAttributes();
       final attributesBeforeDelete = attributesBeforeDeleteResult.value;
 
@@ -92,7 +92,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: getPeerAttributes', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs', (_) async {
       final attribute = IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910'));
 
       await shareAndAcceptPeerAttribute(sender, recipient, account2.address, attribute);
@@ -107,7 +107,7 @@ void run(EnmeshedRuntime runtime) {
       expect(attributeContents, contains(attribute));
     });
 
-    test('returns just non technical peer attributes when hideTechnical=true', () async {
+    testWidgets('returns just non technical peer attributes when hideTechnical=true', (_) async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -128,7 +128,7 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributes.length, 0);
     });
 
-    test('returns also technical peer attributes when hideTechnical=false', () async {
+    testWidgets('returns also technical peer attributes when hideTechnical=false', (_) async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -149,7 +149,7 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributes.length, 1);
     });
 
-    test('returns just valid peer attributes when onlyValid=true', () async {
+    testWidgets('returns just valid peer attributes when onlyValid=true', (_) async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -170,7 +170,7 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributes.length, 0);
     });
 
-    test('returns also expired peer attributes when onlyValid=false', () async {
+    testWidgets('returns also expired peer attributes when onlyValid=false', (_) async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -191,7 +191,7 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributes.length, 1);
     });
 
-    test('returns a valid list of LocalAttributeDTOs with all properties', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs with all properties', (_) async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -216,7 +216,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: getSharedToPeerAttributes', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs', (_) async {
       final nationalityParams = IdentityAttribute(owner: account1.address, value: const NationalityAttributeValue(value: 'DE'));
       const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
 
@@ -233,7 +233,7 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedNationality.shareInfo?.peer, peer);
     });
 
-    test('returns just non technical shared to peer attributes when hideTechnical=true', () async {
+    testWidgets('returns just non technical shared to peer attributes when hideTechnical=true', (_) async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -260,7 +260,7 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('returns also technical shared to peer attributes when hideTechnical=false', () async {
+    testWidgets('returns also technical shared to peer attributes when hideTechnical=false', (_) async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -287,7 +287,7 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('returns just valid shared to peer attributes when onlyValid=true', () async {
+    testWidgets('returns just valid shared to peer attributes when onlyValid=true', (_) async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -314,7 +314,7 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('returns also expired shared to peer attributes when onlyValid=false', () async {
+    testWidgets('returns also expired shared to peer attributes when onlyValid=false', (_) async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -341,7 +341,7 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('returns a valid list of non technical LocalAttributeDTOs with all properties', () async {
+    testWidgets('returns a valid list of non technical LocalAttributeDTOs with all properties', (_) async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -372,7 +372,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: getAttribute', () {
-    test('returns a valid LocalAttributeDTO', () async {
+    testWidgets('returns a valid LocalAttributeDTO', (_) async {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes();
       final attributes = attributesResult.value;
 
@@ -384,13 +384,13 @@ void run(EnmeshedRuntime runtime) {
       expect(attribute.content, attributes.first.content);
     });
 
-    test('throws an exception if file id does not match the pattern', () async {
+    testWidgets('throws an exception if file id does not match the pattern', (_) async {
       final result = await sender.consumptionServices.attributes.getAttribute(attributeId: '');
 
       expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
-    test('throws an exception on not existing file id', () async {
+    testWidgets('throws an exception on not existing file id', (_) async {
       final result = await sender.consumptionServices.attributes.getAttribute(attributeId: 'ATTz9TeStNBIzsgGVvv8');
 
       expect(result, isFailing('error.runtime.recordNotFound'));
@@ -398,7 +398,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: getAttributes', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs', (_) async {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes();
       final attributes = attributesResult.value;
 
@@ -406,7 +406,7 @@ void run(EnmeshedRuntime runtime) {
       expect(attributes.length, 2);
     });
 
-    test('returns a valid list of queried LocalAttributeDTOs', () async {
+    testWidgets('returns a valid list of queried LocalAttributeDTOs', (_) async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -426,7 +426,7 @@ void run(EnmeshedRuntime runtime) {
       expect(attributes.length, 1);
     });
 
-    test('returns just non technical attributes when hideTechnical=true', () async {
+    testWidgets('returns just non technical attributes when hideTechnical=true', (_) async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -444,7 +444,7 @@ void run(EnmeshedRuntime runtime) {
       expect(attributes.length, 2);
     });
 
-    test('returns also technical attributes when hideTechnical=false', () async {
+    testWidgets('returns also technical attributes when hideTechnical=false', (_) async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -462,7 +462,7 @@ void run(EnmeshedRuntime runtime) {
       expect(attributes.length, 3);
     });
 
-    test('returns just valid attributes when onlyValid=true', () async {
+    testWidgets('returns just valid attributes when onlyValid=true', (_) async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -480,7 +480,7 @@ void run(EnmeshedRuntime runtime) {
       expect(attributes.length, 2);
     });
 
-    test('returns also expired attributes when onlyValid=false', () async {
+    testWidgets('returns also expired attributes when onlyValid=false', (_) async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -498,7 +498,7 @@ void run(EnmeshedRuntime runtime) {
       expect(attributes.length, 3);
     });
 
-    test('returns a valid list of LocalAttributeDTOs with all properties', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs with all properties', (_) async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -523,7 +523,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: executeIdentityAttributeQuery', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs', (_) async {
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910')).toJson(),
       );
@@ -541,7 +541,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: executeRelationshipAttributeQuery', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs', (_) async {
       final relationshipAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -572,7 +572,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: executeThirdPartyRelationshipAttributeQuery', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs', (_) async {
       await exchangeAndAcceptRequestByMessage(
         sender,
         recipient,
@@ -602,7 +602,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: succeedAttribute', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    testWidgets('returns a valid list of LocalAttributeDTOs', (_) async {
       final successorDate = DateTime.now();
 
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(
@@ -644,7 +644,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: updateAttribute', () {
-    test('returns a valid LocalAttributeDTO', () async {
+    testWidgets('returns a valid LocalAttributeDTO', (_) async {
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aCity')).toJson(),
       );
@@ -664,7 +664,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: shareAttribute', () {
-    test('returns a valid LocalRequestDTO', () async {
+    testWidgets('returns a valid LocalRequestDTO', (_) async {
       final recipientAddress = await recipient.transportServices.accounts.getIdentityInfo();
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
@@ -688,7 +688,7 @@ void run(EnmeshedRuntime runtime) {
       expect(shareAttribute.content, request.content);
     });
 
-    test('returns a valid LocalRequestDTO with all properties', () async {
+    testWidgets('returns a valid LocalRequestDTO with all properties', (_) async {
       final recipientAddress = await recipient.transportServices.accounts.getIdentityInfo();
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
