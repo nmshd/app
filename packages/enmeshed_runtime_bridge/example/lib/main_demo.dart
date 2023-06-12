@@ -133,10 +133,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void qrPressed() async {
-    await modal_bottom_sheet.showMaterialModalBottomSheet(
-      context: context,
-      builder: (_) => ScannerView(
-        onDetected: (String truncatedReference) async {
+    onDetected(String truncatedReference) async {
           final item = await runtime.currentSession.transportServices.accounts.loadItemFromTruncatedReference(reference: truncatedReference);
 
           if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
@@ -148,9 +145,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           );
 
           await reloadData(false);
-        },
-      ),
-    );
+    }
+
+    await modal_bottom_sheet.showMaterialModalBottomSheet(context: context, builder: (_) => ScannerView(onDetected: onDetected));
   }
 
   Future<void> reloadData(bool sync) async {
