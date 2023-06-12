@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:connector_sdk/connector_sdk.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
@@ -203,4 +206,16 @@ Future<void> exchangeAndAcceptRequestByMessage(Session sender, Session recipient
   await syncUntilHasMessage(sender);
   //TODO: wait for OutgoingRequestStatusChangedEvent on the sender eventbus with request status Completed
   await Future.delayed(const Duration(seconds: 5));
+}
+
+Future<FileDTO> uploadFile(Session session) async {
+  final response = await session.transportServices.files.uploadOwnFile(
+    content: Uint8List.fromList(utf8.encode('a String')).toList(),
+    filename: 'facades/test.txt',
+    mimetype: 'plain',
+    expiresAt: generateExpiryString(),
+    title: 'aTitle',
+  );
+
+  return response.value;
 }
