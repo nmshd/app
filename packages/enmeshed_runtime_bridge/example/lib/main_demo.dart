@@ -59,6 +59,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
     runtime = EnmeshedRuntime(
       runtimeReadyCallback: () async {
+        final accounts = await runtime.accountServices.getAccounts();
+        if (accounts.isNotEmpty) {
+          await runtime.selectAccount(accounts.first.id);
+        } else {
+          final account = await runtime.accountServices.createAccount(name: 'Demo Account');
+          await runtime.selectAccount(account.id);
+        }
+
         await reloadData(false);
 
         setState(() {
