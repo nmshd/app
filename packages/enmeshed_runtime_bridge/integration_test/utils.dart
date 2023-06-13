@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:connector_sdk/connector_sdk.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
@@ -17,7 +20,7 @@ Future<RelationshipDTO> establishRelationship(Session session, ConnectorClient c
     content: {},
   );
 
-  final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
+  final item = await session.transportServices.account.loadItemFromTruncatedReference(
     reference: responseTemplate.data.truncatedReference,
   );
 
@@ -35,7 +38,7 @@ Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {
   int retries = 0;
 
   do {
-    final syncResult = await session.transportServices.accounts.syncEverything();
+    final syncResult = await session.transportServices.account.syncEverything();
     if (syncResult.value.relationships.isNotEmpty) return syncResult.value.relationships.first;
 
     retries++;
@@ -49,7 +52,7 @@ Future<MessageDTO> syncUntilHasMessage(Session session) async {
   int retries = 0;
 
   do {
-    final syncResult = await session.transportServices.accounts.syncEverything();
+    final syncResult = await session.transportServices.account.syncEverything();
     if (syncResult.value.messages.isNotEmpty) return syncResult.value.messages.first;
 
     retries++;
@@ -80,7 +83,7 @@ Future<RelationshipDTO> establishRelationshipAndSync(Session session, ConnectorC
 }
 
 Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session session2) async {
-  final session2Address = (await session2.transportServices.accounts.getIdentityInfo()).value.address;
+  final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
   List<RelationshipDTO> relationships =
       (await session1.transportServices.relationships.getRelationships(query: {'peer': QueryValue.string(session2Address)})).value;
 
@@ -203,4 +206,16 @@ Future<void> exchangeAndAcceptRequestByMessage(Session sender, Session recipient
   await syncUntilHasMessage(sender);
   //TODO: wait for OutgoingRequestStatusChangedEvent on the sender eventbus with request status Completed
   await Future.delayed(const Duration(seconds: 5));
+}
+
+Future<FileDTO> uploadFile(Session session) async {
+  final response = await session.transportServices.files.uploadOwnFile(
+    content: Uint8List.fromList(utf8.encode('a String')).toList(),
+    filename: 'facades/test.txt',
+    mimetype: 'plain',
+    expiresAt: generateExpiryString(),
+    title: 'aTitle',
+  );
+
+  return response.value;
 }

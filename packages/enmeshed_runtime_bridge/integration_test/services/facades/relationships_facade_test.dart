@@ -91,7 +91,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
         content: {},
       );
 
-      final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
+      final item = await session.transportServices.account.loadItemFromTruncatedReference(
         reference: responseTemplate.data.truncatedReference,
       );
 

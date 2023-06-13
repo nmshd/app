@@ -13,13 +13,13 @@ class TransportServices {
   final FilesFacade _files;
   FilesFacade get files => _files;
 
-  final AccountFacade _accounts;
-  AccountFacade get accounts => _accounts;
+  final AccountFacade _account;
+  AccountFacade get account => _account;
 
   TransportServices(AbstractEvaluator evaluator)
       : _messages = MessagesFacade(evaluator),
         _relationships = RelationshipsFacade(evaluator),
         _relationshipTemplates = RelationshipTemplatesFacade(evaluator),
         _files = FilesFacade(evaluator),
-        _accounts = AccountFacade(evaluator);
+        _account = AccountFacade(evaluator);
 }
