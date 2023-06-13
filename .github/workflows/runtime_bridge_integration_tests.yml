@@ -1,7 +1,9 @@
 name: runtime bridge integration tests
 
 on:
-  push:
+  pull_request:
+    branches:
+      - main
 jobs:
   ios:
     runs-on: macos-latest
