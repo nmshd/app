@@ -15,7 +15,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AccountFacade: getIdentityInfo', () {
-    test('returns a valid GetIdentityInfoResponse', () async {
+    testWidgets('returns a valid GetIdentityInfoResponse', (_) async {
       final identityInfoResult = await session.transportServices.account.getIdentityInfo();
       final identityInfo = identityInfoResult.value;
 
@@ -28,7 +28,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AccountFacade: getDeviceInfo', () {
-    test('returns a valid DeviceDTO', () async {
+    testWidgets('returns a valid DeviceDTO', (_) async {
       final deviceInfoResult = await session.transportServices.account.getDeviceInfo();
 
       expect(deviceInfoResult, isSuccessful<DeviceDTO>());
@@ -36,12 +36,12 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AccountFacade: syncDatawallet', () {
-    Future<SyncInfoResponse> getSyncInfo() async {
+    Future<SyncInfoResponse> getSyncInfo(_) async {
       final sync = await session.transportServices.account.getSyncInfo();
       return sync.value;
     }
 
-    test('runs an automatic datawallet sync', () async {
+    testWidgets('runs an automatic datawallet sync', (_) async {
       await session.transportServices.account.syncDatawallet();
       final oldSyncTime = await getSyncInfo();
 
@@ -51,7 +51,7 @@ void run(EnmeshedRuntime runtime) {
       expect(oldSyncTime, isNot(newSyncTime));
     });
 
-    test('runs not an automatic datawallet sync', () async {
+    testWidgets('runs not an automatic datawallet sync', (_) async {
       await session.transportServices.account.disableAutoSync();
 
       await session.transportServices.account.syncDatawallet();
@@ -67,13 +67,13 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AccountFacade: syncEverything', () {
-    test('returns a valid SyncEverythingResponse', () async {
+    testWidgets('returns a valid SyncEverythingResponse', (_) async {
       final syncResult = await session.transportServices.account.syncEverything();
 
       expect(syncResult, isSuccessful<SyncEverythingResponse>());
     });
 
-    test('returns the same future when calling syncEverything twice without awaiting', () async {
+    testWidgets('returns the same future when calling syncEverything twice without awaiting', (_) async {
       final syncResults = await Future.wait([
         session.transportServices.account.syncEverything(),
         session.transportServices.account.syncEverything(),
@@ -87,7 +87,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AccountFacade: getSyncInfo', () {
-    test('returns a valid SyncInfoResponse', () async {
+    testWidgets('returns a valid SyncInfoResponse', (_) async {
       final syncResult = await session.transportServices.account.getSyncInfo();
 
       expect(syncResult, isSuccessful<SyncInfoResponse>());
@@ -105,13 +105,13 @@ void run(EnmeshedRuntime runtime) {
         fileTokenReference = (await session.transportServices.files.createTokenForFile(fileId: file.id)).value.truncatedReference;
       });
 
-      test('loads the File with the truncated reference', () async {
+      testWidgets('loads the File with the truncated reference', (_) async {
         final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: fileReference);
 
         expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.File);
       });
 
-      test('loads the File with the truncated Token reference', () async {
+      testWidgets('loads the File with the truncated Token reference', (_) async {
         final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: fileTokenReference);
 
         expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.File);
@@ -133,13 +133,13 @@ void run(EnmeshedRuntime runtime) {
                 .truncatedReference;
       });
 
-      test('loads the RelationshipTemplate with the truncated reference', () async {
+      testWidgets('loads the RelationshipTemplate with the truncated reference', (_) async {
         final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: relationshipTemplateReference);
 
         expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate);
       });
 
-      test('loads the RelationshipTemplate with the truncated Token reference', () async {
+      testWidgets('loads the RelationshipTemplate with the truncated Token reference', (_) async {
         final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: relationshipTemplateTokenReference);
 
         expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate);
