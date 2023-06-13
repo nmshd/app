@@ -665,7 +665,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: shareAttribute', () {
     testWidgets('returns a valid LocalRequestDTO', (_) async {
-      final recipientAddress = await recipient.transportServices.accounts.getIdentityInfo();
+      final recipientAddress = await recipient.transportServices.account.getIdentityInfo();
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910')).toJson(),
@@ -689,7 +689,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     testWidgets('returns a valid LocalRequestDTO with all properties', (_) async {
-      final recipientAddress = await recipient.transportServices.accounts.getIdentityInfo();
+      final recipientAddress = await recipient.transportServices.account.getIdentityInfo();
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910')).toJson(),

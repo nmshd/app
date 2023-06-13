@@ -36,7 +36,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AccountFacade: syncDatawallet', () {
-    Future<SyncInfoResponse> getSyncInfo(_) async {
+    Future<SyncInfoResponse> getSyncInfo() async {
       final sync = await session.transportServices.account.getSyncInfo();
       return sync.value;
     }
