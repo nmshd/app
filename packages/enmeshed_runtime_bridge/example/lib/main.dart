@@ -231,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (_) => ScannerView(
         onDetected: (String truncatedReference) async {
-          final item = await runtime.currentSession.transportServices.accounts.loadItemFromTruncatedReference(reference: truncatedReference);
+          final item = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference(reference: truncatedReference);
 
           if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
 
