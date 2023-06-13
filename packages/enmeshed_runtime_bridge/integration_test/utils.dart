@@ -20,7 +20,7 @@ Future<RelationshipDTO> establishRelationship(Session session, ConnectorClient c
     content: {},
   );
 
-  final item = await session.transportServices.accounts.loadItemFromTruncatedReference(
+  final item = await session.transportServices.account.loadItemFromTruncatedReference(
     reference: responseTemplate.data.truncatedReference,
   );
 
@@ -38,7 +38,7 @@ Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {
   int retries = 0;
 
   do {
-    final syncResult = await session.transportServices.accounts.syncEverything();
+    final syncResult = await session.transportServices.account.syncEverything();
     if (syncResult.value.relationships.isNotEmpty) return syncResult.value.relationships.first;
 
     retries++;
@@ -52,7 +52,7 @@ Future<MessageDTO> syncUntilHasMessage(Session session) async {
   int retries = 0;
 
   do {
-    final syncResult = await session.transportServices.accounts.syncEverything();
+    final syncResult = await session.transportServices.account.syncEverything();
     if (syncResult.value.messages.isNotEmpty) return syncResult.value.messages.first;
 
     retries++;
@@ -83,7 +83,7 @@ Future<RelationshipDTO> establishRelationshipAndSync(Session session, ConnectorC
 }
 
 Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session session2) async {
-  final session2Address = (await session2.transportServices.accounts.getIdentityInfo()).value.address;
+  final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
   List<RelationshipDTO> relationships =
       (await session1.transportServices.relationships.getRelationships(query: {'peer': QueryValue.string(session2Address)})).value;
 

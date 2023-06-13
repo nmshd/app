@@ -16,7 +16,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('AccountFacade: getIdentityInfo', () {
     test('returns a valid GetIdentityInfoResponse', () async {
-      final identityInfoResult = await session.transportServices.accounts.getIdentityInfo();
+      final identityInfoResult = await session.transportServices.account.getIdentityInfo();
       final identityInfo = identityInfoResult.value;
 
       expect(identityInfoResult, isSuccessful<GetIdentityInfoResponse>());
@@ -29,7 +29,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('AccountFacade: getDeviceInfo', () {
     test('returns a valid DeviceDTO', () async {
-      final deviceInfoResult = await session.transportServices.accounts.getDeviceInfo();
+      final deviceInfoResult = await session.transportServices.account.getDeviceInfo();
 
       expect(deviceInfoResult, isSuccessful<DeviceDTO>());
     });
@@ -37,12 +37,12 @@ void run(EnmeshedRuntime runtime) {
 
   group('AccountFacade: syncDatawallet', () {
     Future<SyncInfoResponse> getSyncInfo() async {
-      final sync = await session.transportServices.accounts.getSyncInfo();
+      final sync = await session.transportServices.account.getSyncInfo();
       return sync.value;
     }
 
     test('runs an automatic datawallet sync', () async {
-      await session.transportServices.accounts.syncDatawallet();
+      await session.transportServices.account.syncDatawallet();
       final oldSyncTime = await getSyncInfo();
 
       await uploadFile(session);
@@ -52,15 +52,15 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('runs not an automatic datawallet sync', () async {
-      await session.transportServices.accounts.disableAutoSync();
+      await session.transportServices.account.disableAutoSync();
 
-      await session.transportServices.accounts.syncDatawallet();
+      await session.transportServices.account.syncDatawallet();
       final oldSyncTime = await getSyncInfo();
 
       await uploadFile(session);
       expect(await getSyncInfo(), oldSyncTime);
 
-      await session.transportServices.accounts.enableAutoSync();
+      await session.transportServices.account.enableAutoSync();
 
       expect(await getSyncInfo(), isNot(oldSyncTime));
     });
@@ -68,15 +68,15 @@ void run(EnmeshedRuntime runtime) {
 
   group('AccountFacade: syncEverything', () {
     test('returns a valid SyncEverythingResponse', () async {
-      final syncResult = await session.transportServices.accounts.syncEverything();
+      final syncResult = await session.transportServices.account.syncEverything();
 
       expect(syncResult, isSuccessful<SyncEverythingResponse>());
     });
 
     test('returns the same future when calling syncEverything twice without awaiting', () async {
       final syncResults = await Future.wait([
-        session.transportServices.accounts.syncEverything(),
-        session.transportServices.accounts.syncEverything(),
+        session.transportServices.account.syncEverything(),
+        session.transportServices.account.syncEverything(),
       ]);
 
       final sync1 = syncResults[0].value;
@@ -88,7 +88,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('AccountFacade: getSyncInfo', () {
     test('returns a valid SyncInfoResponse', () async {
-      final syncResult = await session.transportServices.accounts.getSyncInfo();
+      final syncResult = await session.transportServices.account.getSyncInfo();
 
       expect(syncResult, isSuccessful<SyncInfoResponse>());
     });
@@ -106,13 +106,13 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('loads the File with the truncated reference', () async {
-        final result = await session.transportServices.accounts.loadItemFromTruncatedReference(reference: fileReference);
+        final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: fileReference);
 
         expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.File);
       });
 
       test('loads the File with the truncated Token reference', () async {
-        final result = await session.transportServices.accounts.loadItemFromTruncatedReference(reference: fileTokenReference);
+        final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: fileTokenReference);
 
         expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.File);
       });
@@ -134,13 +134,13 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('loads the RelationshipTemplate with the truncated reference', () async {
-        final result = await session.transportServices.accounts.loadItemFromTruncatedReference(reference: relationshipTemplateReference);
+        final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: relationshipTemplateReference);
 
         expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate);
       });
 
       test('loads the RelationshipTemplate with the truncated Token reference', () async {
-        final result = await session.transportServices.accounts.loadItemFromTruncatedReference(reference: relationshipTemplateTokenReference);
+        final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: relationshipTemplateTokenReference);
 
         expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate);
       });

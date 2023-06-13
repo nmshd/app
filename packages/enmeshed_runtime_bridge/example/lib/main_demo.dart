@@ -123,7 +123,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       context: context,
       builder: (_) => ScannerView(
         onDetected: (String truncatedReference) async {
-          final item = await runtime.currentSession.transportServices.accounts.loadItemFromTruncatedReference(reference: truncatedReference);
+          final item = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference(reference: truncatedReference);
 
           if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
 
@@ -141,7 +141,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   Future<void> reloadData(bool sync) async {
     if (sync) {
-      await runtime.currentSession.transportServices.accounts.syncEverything();
+      await runtime.currentSession.transportServices.account.syncEverything();
     }
 
     messages = (await runtime.currentSession.transportServices.messages.getMessages()).value;
