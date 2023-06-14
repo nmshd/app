@@ -134,17 +134,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   void qrPressed() async {
     onDetected(String truncatedReference) async {
-          final item = await runtime.currentSession.transportServices.accounts.loadItemFromTruncatedReference(reference: truncatedReference);
+      final item = await runtime.currentSession.transportServices.accounts.loadItemFromTruncatedReference(reference: truncatedReference);
 
-          if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
+      if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
 
-          final template = item.value.relationshipTemplateValue;
-          await runtime.currentSession.transportServices.relationships.createRelationship(
-            templateId: template.id,
-            content: {},
-          );
+      final template = item.value.relationshipTemplateValue;
+      await runtime.currentSession.transportServices.relationships.createRelationship(
+        templateId: template.id,
+        content: {},
+      );
 
-          await reloadData(false);
+      await reloadData(false);
     }
 
     await modal_bottom_sheet.showMaterialModalBottomSheet(context: context, builder: (_) => ScannerView(onDetected: onDetected));
