@@ -15,10 +15,6 @@ export class EventBus implements INativeEventBus {
         })
     );
 
-    // this.eventBus.subscribe("**", async (event) => {
-    //   await window.flutter_inappwebview.callHandler("publishEvent", event);
-    // });
-
     return Promise.resolve(Result.ok(undefined));
   }
 
