@@ -45,4 +45,11 @@ class FilesystemAdapter {
     final files = await Directory('${directory.path}/$path').list().toList();
     return files.map((e) => e.path).toList();
   }
+
+  Future<bool> existsFile(String path, String storageName) async {
+    final directory = await getDirectoryForStorage(storageName);
+
+    final file = File('${directory.path}/$path');
+    return await file.exists();
+  }
 }

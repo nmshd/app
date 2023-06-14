@@ -1,60 +1,77 @@
 import { ILogger } from "@js-soft/logging-abstractions";
-import { INativeConfigAccess, INativeFileAccess, NativeErrorCodes } from "@js-soft/native-abstractions";
+import { INativeConfigAccess, NativeErrorCodes } from "@js-soft/native-abstractions";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
+import stringifySafe from "json-stringify-safe";
+import _ from "lodash";
+import { FileAccess } from "./FileAccess";
 
 export class ConfigAccess implements INativeConfigAccess {
-  private config: any = {
-    name: "Enmeshed",
-    applicationId: "eu.enmeshed.app",
-    type: "webapp",
-    transport: {
-      baseUrl: "https://bird.enmeshed.eu",
-      logLevel: "warn",
-      datawalletEnabled: true,
-      platformClientId: "dev",
-      platformClientSecret: "SY3nxukl6Xn8kGDk52EwBKXZMR9OR5"
-    },
-    pushToken: null
-  };
+  public constructor(private fileAccess: FileAccess, private logger: ILogger, private runtimeConfigPath: string) {}
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  public async initDefaultConfig(_path: string): Promise<Result<void>> {
-    return Result.fail(new ApplicationError(NativeErrorCodes.NOT_IMPLEMENTED_ERROR, "Not implemented"));
+  private config: any = {};
+
+  public async initDefaultConfig(): Promise<Result<void>> {
+    const result: any = await window.flutter_inappwebview.callHandler("getDefaultConfig");
+    this.config = _.defaultsDeep(this.config, result);
+
+    this.logger.info(stringifySafe(result));
+
+    return Result.ok(undefined);
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  public async initRuntimeConfig(
-    _path: string,
-    _logger: ILogger,
-    _fileAccess: INativeFileAccess
-  ): Promise<Result<void>> {
-    return Result.fail(new ApplicationError(NativeErrorCodes.NOT_IMPLEMENTED_ERROR, "Not implemented"));
+  public async initRuntimeConfig(): Promise<Result<void>> {
+    const runtimeConfigExistsResult = await this.fileAccess.existsFile(this.runtimeConfigPath);
+    if (runtimeConfigExistsResult.isError) {
+      return Result.fail(
+        new ApplicationError(NativeErrorCodes.CONFIG_INIT, "Unable to check if runtime config exists!")
+      );
+    }
+
+    if (!runtimeConfigExistsResult.value) {
+      this.logger.info("No runtime config found!");
+      return Result.ok(undefined);
+    }
+
+    const runtimeConfigResult = await this.fileAccess.readFileAsText(this.runtimeConfigPath);
+    if (runtimeConfigResult.isError) {
+      return Result.fail(new ApplicationError(NativeErrorCodes.CONFIG_INIT, "Unable to read runtime config file!"));
+    } else if (!runtimeConfigResult.value) {
+      return Result.fail(new ApplicationError(NativeErrorCodes.CONFIG_INIT, "Unable to read runtime config file!"));
+    }
+
+    try {
+      const runtimeConfig = JSON.parse(runtimeConfigResult.value);
+      this.config = _.defaultsDeep(this.config, runtimeConfig);
+    } catch (err) {
+      return Result.fail(new ApplicationError(NativeErrorCodes.CONFIG_INIT, "Unable to parse runtime config data!"));
+    }
+
+    return Result.ok(undefined);
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   public async save(): Promise<Result<void>> {
+    const configAsString = stringifySafe(this.config);
+    const result = await this.fileAccess.writeFile(this.runtimeConfigPath, configAsString);
+    if (result.isError) {
+      return Result.fail(new ApplicationError("CONFIG_SAVE", "Unable to save runtime config!"));
+    }
+
     return Result.ok(undefined);
   }
 
   public get(key: string): Result<any> {
-    if (typeof key !== "string") {
-      return Result.fail(new ApplicationError(NativeErrorCodes.CONFIG_NOT_FOUND, "Provided key is not a string."));
-    }
-
     return Result.ok(this.config[key]);
   }
 
   public set(key: string, value: any): Result<void> {
     this.config[key] = value;
+    this.save();
     return Result.ok(undefined);
   }
 
   public remove(key: string): Result<void> {
-    if (typeof key !== "string") {
-      return Result.fail(new ApplicationError(NativeErrorCodes.CONFIG_NOT_FOUND, "Provided key is not a string."));
-    }
-
     delete this.config[key];
+    this.save();
     return Result.ok(undefined);
   }
 }

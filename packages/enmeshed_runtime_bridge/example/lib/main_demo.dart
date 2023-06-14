@@ -57,14 +57,28 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    runtime = EnmeshedRuntime(runtimeReadyCallback: () async {
-      await reloadData(false);
+    runtime = EnmeshedRuntime(
+      runtimeReadyCallback: () async {
+        final accounts = await runtime.accountServices.getAccounts();
+        if (accounts.isNotEmpty) {
+          await runtime.selectAccount(accounts.first.id);
+        } else {
+          final account = await runtime.accountServices.createAccount(name: 'Demo Account');
+          await runtime.selectAccount(account.id);
+        }
 
-      setState(() {
-        runtimeReady = true;
-      });
-    })
-      ..run();
+        await reloadData(false);
+
+        setState(() {
+          runtimeReady = true;
+        });
+      },
+      runtimeConfig: (
+        baseUrl: 'https://bird.enmeshed.eu',
+        clientId: 'dev',
+        clientSecret: 'SY3nxukl6Xn8kGDk52EwBKXZMR9OR5',
+      ),
+    )..run();
 
     _tabController = TabController(length: 3, vsync: this)..addListener(() => setState(() {}));
   }
@@ -119,24 +133,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void qrPressed() async {
-    await modal_bottom_sheet.showMaterialModalBottomSheet(
-      context: context,
-      builder: (_) => ScannerView(
-        onDetected: (String truncatedReference) async {
-          final item = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference(reference: truncatedReference);
+    onDetected(String truncatedReference) async {
+      final item = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference(reference: truncatedReference);
 
-          if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
+      if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;
 
-          final template = item.value.relationshipTemplateValue;
-          await runtime.currentSession.transportServices.relationships.createRelationship(
-            templateId: template.id,
-            content: {},
-          );
+      final template = item.value.relationshipTemplateValue;
+      await runtime.currentSession.transportServices.relationships.createRelationship(
+        templateId: template.id,
+        content: {},
+      );
 
-          await reloadData(false);
-        },
-      ),
-    );
+      await reloadData(false);
+    }
+
+    await modal_bottom_sheet.showMaterialModalBottomSheet(context: context, builder: (_) => ScannerView(onDetected: onDetected));
   }
 
   Future<void> reloadData(bool sync) async {

@@ -51,14 +51,20 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    runtime = EnmeshedRuntime(runtimeReadyCallback: () {
-      print('Runtime ready');
-      setState(() {
-        runtimeReady = true;
-        isLoading = false;
-      });
-    })
-      ..run();
+    runtime = EnmeshedRuntime(
+      runtimeReadyCallback: () {
+        print('Runtime ready');
+        setState(() {
+          runtimeReady = true;
+          isLoading = false;
+        });
+      },
+      runtimeConfig: (
+        baseUrl: 'https://bird.enmeshed.eu',
+        clientId: 'dev',
+        clientSecret: 'SY3nxukl6Xn8kGDk52EwBKXZMR9OR5',
+      ),
+    )..run();
   }
 
   @override

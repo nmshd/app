@@ -47,6 +47,5 @@ class RelationshipDTO extends Equatable {
   }
 
   @override
-  // TODO: correctly compare Relationships
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, template, status, peer, peerIdentity, changes];
 }

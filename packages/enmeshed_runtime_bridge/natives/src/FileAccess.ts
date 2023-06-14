@@ -1,27 +1,7 @@
-import {
-  INativeDirectory,
-  INativeFile,
-  INativeFileAccess,
-  INativeFileMetadata,
-  NativeFileStorage
-} from "@js-soft/native-abstractions";
+import { NativeFileStorage } from "@js-soft/native-abstractions";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
 
-export class FileAccess implements INativeFileAccess {
-  public constructor() {}
-
-  // eslint-disable-next-line @typescript-eslint/require-await
-  public async init(): Promise<Result<void, ApplicationError>> {
-    return Result.ok(undefined);
-  }
-
-  public infoFile(
-    path: string,
-    storage?: NativeFileStorage | undefined
-  ): Promise<Result<INativeFileMetadata, ApplicationError>> {
-    throw new Error("Method not implemented.");
-  }
-
+export class FileAccess {
   public async readFileAsText(
     path: string,
     storage?: NativeFileStorage | undefined
@@ -34,13 +14,6 @@ export class FileAccess implements INativeFileAccess {
     }
 
     return Result.ok(result.content);
-  }
-
-  public readFileAsBinary(
-    path: string,
-    storage?: NativeFileStorage | undefined
-  ): Promise<Result<Uint8Array, ApplicationError>> {
-    throw new Error("Method not implemented.");
   }
 
   public async writeFile(
@@ -81,47 +54,13 @@ export class FileAccess implements INativeFileAccess {
     return Result.ok(undefined);
   }
 
-  public existsFile(path: string, storage?: NativeFileStorage | undefined): Promise<Result<boolean, ApplicationError>> {
-    throw new Error("Method not implemented.");
-  }
+  public async existsFile(path: string, storage?: NativeFileStorage): Promise<Result<boolean>> {
+    const result: boolean = await window.flutter_inappwebview.callHandler(
+      "existsFile",
+      path,
+      storage ?? NativeFileStorage.Data
+    );
 
-  public infoDirectory(
-    path: string,
-    storage?: NativeFileStorage | undefined
-  ): Promise<Result<INativeDirectory, ApplicationError>> {
-    throw new Error("Method not implemented.");
-  }
-
-  public createDirectory(
-    path: string,
-    storage?: NativeFileStorage | undefined
-  ): Promise<Result<void, ApplicationError>> {
-    throw new Error("Method not implemented.");
-  }
-
-  public deleteDirectory(
-    path: string,
-    storage?: NativeFileStorage | undefined
-  ): Promise<Result<void, ApplicationError>> {
-    throw new Error("Method not implemented.");
-  }
-
-  public existsDirectory(
-    path: string,
-    storage?: NativeFileStorage | undefined
-  ): Promise<Result<boolean, ApplicationError>> {
-    throw new Error("Method not implemented.");
-  }
-
-  public select(): Promise<Result<INativeFile, ApplicationError>> {
-    throw new Error("Method not implemented.");
-  }
-
-  public openFile(path: string, storage?: NativeFileStorage | undefined): Promise<Result<void, ApplicationError>> {
-    throw new Error("Method not implemented.");
-  }
-
-  public openFileContent(content: Uint8Array, metadata: INativeFileMetadata): Promise<Result<void, ApplicationError>> {
-    throw new Error("Method not implemented.");
+    return Result.ok(result);
   }
 }

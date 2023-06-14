@@ -1,10 +1,15 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
+import 'event_bus.dart';
+import 'events/events.dart';
 import 'filesystem_adapter.dart';
 import 'services/services.dart';
 import 'webview_constants.dart' as webview_constants;
@@ -13,6 +18,8 @@ class EnmeshedRuntime {
   static String _assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
 
   bool _isReady = false;
+
+  final ({String baseUrl, String clientId, String clientSecret}) runtimeConfig;
   bool get isReady => _isReady;
 
   late final HeadlessInAppWebView _headlessWebView;
@@ -33,11 +40,16 @@ class EnmeshedRuntime {
   final Logger _logger;
   final _runtimeReadyCompleter = Completer();
 
+  final EventBus eventBus;
+
   EnmeshedRuntime({
     Logger? logger,
     VoidCallback? runtimeReadyCallback,
+    required this.runtimeConfig,
+    EventBus? eventBus,
   })  : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
-        _runtimeReadyCallback = runtimeReadyCallback {
+        _runtimeReadyCallback = runtimeReadyCallback,
+        eventBus = eventBus ?? EventBus() {
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
@@ -74,10 +86,37 @@ class EnmeshedRuntime {
 
   Future<void> addJavaScriptHandlers(InAppWebViewController controller) async {
     controller.addJavaScriptHandler(
-      handlerName: 'publishEvent',
+      handlerName: 'handleRuntimeEvent',
       callback: (args) async {
         final payload = args[0];
-        _logger.i('Event published: $payload');
+
+        final eventTargetAddress = payload['eventTargetAddress'] as String;
+        final data = payload['data'] as Map<String, dynamic>;
+
+        final namespace = payload['namespace'];
+        if (namespace is! String) {
+          _logger.i('Unknown event namespace: ${payload['namespace']}');
+          return;
+        }
+
+        final event = switch (namespace) {
+          'transport.messageSent' => MessageSentEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
+          'consumption.incomingRequestStatusChanged' => IncomingRequestStatusChangedEvent(
+              eventTargetAddress: eventTargetAddress,
+              request: LocalRequestDTO.fromJson(data['request']),
+              oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
+              newStatus: LocalRequestStatus.values.byName(data['newStatus']),
+            ),
+          'consumption.outgoingRequestStatusChanged' => OutgoingRequestStatusChangedEvent(
+              eventTargetAddress: eventTargetAddress,
+              request: LocalRequestDTO.fromJson(data['request']),
+              oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
+              newStatus: LocalRequestStatus.values.byName(data['newStatus']),
+            ),
+          _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: data),
+        };
+
+        eventBus.publish(event);
       },
     );
 
@@ -132,11 +171,78 @@ class EnmeshedRuntime {
     );
 
     controller.addJavaScriptHandler(
+      handlerName: 'existsFile',
+      callback: (args) async {
+        final path = args[0] as String;
+        final storage = args[1] as String;
+
+        try {
+          return await _filesystemAdapter.existsFile(path, storage);
+        } catch (e) {
+          return false;
+        }
+      },
+    );
+
+    controller.addJavaScriptHandler(
       handlerName: 'runtimeReady',
       callback: (_) {
         _isReady = true;
         _runtimeReadyCallback?.call();
         _runtimeReadyCompleter.complete();
+      },
+    );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'getDefaultConfig',
+      callback: (_) => {
+        'transport': {
+          'baseUrl': runtimeConfig.baseUrl,
+          'logLevel': 'warn',
+          'datawalletEnabled': true,
+          'platformClientId': runtimeConfig.clientId,
+          'platformClientSecret': runtimeConfig.clientSecret,
+        },
+        'pushToken': null,
+      },
+    );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'getDeviceInfo',
+      callback: (_) async {
+        final deviceInfoPlugin = DeviceInfoPlugin();
+
+        if (Platform.isAndroid) {
+          final deviceInfo = await deviceInfoPlugin.androidInfo;
+
+          return {
+            'model': deviceInfo.model,
+            'platform': 'Android',
+            'uuid': deviceInfo.id,
+            'manufacturer': deviceInfo.manufacturer,
+            'isVirtual': !deviceInfo.isPhysicalDevice,
+            'languageCode': Platform.localeName,
+            'version': deviceInfo.version,
+            'pushService': 'fcm',
+          };
+        }
+
+        if (Platform.isIOS) {
+          final deviceInfo = await deviceInfoPlugin.iosInfo;
+
+          return {
+            'model': deviceInfo.model,
+            'platform': 'IOS',
+            'uuid': deviceInfo.identifierForVendor ?? '',
+            'manufacturer': 'Apple',
+            'isVirtual': !deviceInfo.isPhysicalDevice,
+            'languageCode': Platform.localeName,
+            'version': deviceInfo.systemVersion,
+            'pushService': 'apns',
+          };
+        }
+
+        throw Exception('Unsupported platform');
       },
     );
   }

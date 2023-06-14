@@ -1,8 +1,9 @@
-import { INativeDatabaseFactory, INativeFileAccess } from "@js-soft/native-abstractions";
+import { INativeDatabaseFactory } from "@js-soft/native-abstractions";
 import loki from "lokijs";
+import { FileAccess } from "./FileAccess";
 
 export class DatabaseFactory implements INativeDatabaseFactory {
-  public constructor(private fileAccess: INativeFileAccess) {}
+  public constructor(private fileAccess: FileAccess) {}
 
   public create(
     name: string,
@@ -19,7 +20,7 @@ export class DatabaseFactory implements INativeDatabaseFactory {
 }
 
 export class NativeDBPersitenceAdapter implements LokiPersistenceAdapter {
-  public constructor(private readonly fileAccess: INativeFileAccess) {}
+  public constructor(private readonly fileAccess: FileAccess) {}
 
   public loadDatabase(dbname: string, callback: (value: any) => void): void {
     this.fileAccess.readFileAsText(dbname).then((res) => {
