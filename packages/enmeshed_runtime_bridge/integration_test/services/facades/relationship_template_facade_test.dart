@@ -1,4 +1,3 @@
-import 'package:connector_sdk/connector_sdk.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,11 +5,16 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../matchers.dart';
 import '../../utils.dart';
 
-void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
-  late Session session;
+void run(EnmeshedRuntime runtime) {
+  late Session session1;
+  late Session session2;
+
   setUpAll(() async {
-    final account = await runtime.accountServices.createAccount(name: 'relationshipTemplateFacade Test');
-    session = runtime.getSession(account.id);
+    final account1 = await runtime.accountServices.createAccount(name: 'relationshipTemplateFacade Test 1');
+    session1 = runtime.getSession(account1.id);
+
+    final account2 = await runtime.accountServices.createAccount(name: 'relationshipTemplateFacade Test 2');
+    session2 = runtime.getSession(account2.id);
   });
 
   group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
@@ -18,7 +22,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
-      final templateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
@@ -34,7 +38,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       const content = {'aKey': 'aValue'};
       const maxNumberOfAllocations = 1;
 
-      final templateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
         maxNumberOfAllocations: maxNumberOfAllocations,
@@ -53,22 +57,22 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
-      final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
+      final responseTemplate = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final templateResult = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByIdAndKey(
-        relationshipTemplateId: responseTemplate.data.id,
-        secretKey: responseTemplate.data.secretKey,
+      final templateResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByIdAndKey(
+        relationshipTemplateId: responseTemplate.value.id,
+        secretKey: responseTemplate.value.secretKey,
       );
       final template = templateResult.value;
 
       expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
-      expect(template.id, responseTemplate.data.id);
-      expect(template.secretKey, responseTemplate.data.secretKey);
+      expect(template.id, responseTemplate.value.id);
+      expect(template.secretKey, responseTemplate.value.secretKey);
     });
   });
 
@@ -77,35 +81,35 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
-      final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
+      final responseTemplate = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final templateResult = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
-        reference: responseTemplate.data.truncatedReference,
+      final templateResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
+        reference: responseTemplate.value.truncatedReference,
       );
       final template = templateResult.value;
 
       expect(template, isA<RelationshipTemplateDTO>());
       expect(template.expiresAt, expiresAt);
       expect(template.content.toJson(), content);
-      expect(template.truncatedReference, responseTemplate.data.truncatedReference);
+      expect(template.truncatedReference, responseTemplate.value.truncatedReference);
     });
   });
 
   group('RelationshipTemplatesFacade: getRelationshipTemplates', () {
     test('returns the correct amount of own relationship templates', () async {
       final expiresAt = generateExpiryString();
-      final currentTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
+      final currentTemplates = await session1.transportServices.relationshipTemplates.getRelationshipTemplates();
 
-      await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: {'aKey': 'aValue'},
         maxNumberOfAllocations: 1,
       );
 
-      final allTemplates = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
+      final allTemplates = await session1.transportServices.relationshipTemplates.getRelationshipTemplates();
 
       expect(allTemplates.value, isA<List<RelationshipTemplateDTO>>());
       expect(allTemplates.value.length, greaterThan(currentTemplates.value.length));
@@ -115,27 +119,27 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
-      await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
         maxNumberOfAllocations: 1,
       );
 
-      await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: generateExpiryString(),
         content: content,
         maxNumberOfAllocations: 2,
       );
 
-      final templatesWithQueryExpiresAt = await session.transportServices.relationshipTemplates.getRelationshipTemplates(
+      final templatesWithQueryExpiresAt = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'expiresAt': QueryValue.string(expiresAt)},
       );
 
-      final templatesWithNoResponse = await session.transportServices.relationshipTemplates.getRelationshipTemplates(
+      final templatesWithNoResponse = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'expiresAt': QueryValue.string('2023')},
       );
 
-      final templatesWithQueryMnoa = await session.transportServices.relationshipTemplates.getRelationshipTemplates(
+      final templatesWithQueryMnoa = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'maxNumberOfAllocations': QueryValue.string('1')},
       );
 
@@ -152,12 +156,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
-      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplate = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final template = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
+      final template = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(
         relationshipTemplateId: createdTemplate.value.id,
       );
 
@@ -167,7 +171,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     });
 
     test('throws an exception on empty template id', () async {
-      final result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
+      final result = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(
         relationshipTemplateId: '',
       );
 
@@ -175,7 +179,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     });
 
     test('throws an exception if template id do not match the pattern', () async {
-      final result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
+      final result = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(
         relationshipTemplateId: 'RTLX123456789',
       );
 
@@ -183,7 +187,7 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
     });
 
     test('throws an exception on not existing template id', () async {
-      final result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(
+      final result = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(
         relationshipTemplateId: 'RLTXZKg9TestveduKiGs',
       );
 
@@ -196,12 +200,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
-      final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final response = await session.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(
+      final response = await session1.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(
         templateId: createdTemplateResult.value.id,
       );
 
@@ -214,12 +218,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
-      final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final response = await session.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
+      final response = await session1.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
         templateId: createdTemplateResult.value.id,
       );
 
@@ -230,12 +234,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
-      final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final response = await session.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
+      final response = await session1.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
         templateId: createdTemplateResult.value.id,
         expiresAt: expiresAt,
       );
@@ -249,12 +253,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
-      final createdTemplate = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplate = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: content,
       );
 
-      final tokenResult = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+      final tokenResult = await session1.transportServices.relationshipTemplates.createTokenForOwnTemplate(
         templateId: createdTemplate.value.id,
       );
       final token = tokenResult.value;
@@ -265,12 +269,12 @@ void run(EnmeshedRuntime runtime, ConnectorClient connectorClient) {
 
     test('returns a valid TokenDTO with all properties', () async {
       final expiresAt = generateExpiryString();
-      final createdTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+      final createdTemplateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
         content: {'a': 'b'},
       );
 
-      final tokenResult = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+      final tokenResult = await session1.transportServices.relationshipTemplates.createTokenForOwnTemplate(
         templateId: createdTemplateResult.value.id,
         expiresAt: expiresAt,
         ephemeral: true,

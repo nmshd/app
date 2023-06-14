@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:connector_sdk/connector_sdk.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 
@@ -16,24 +15,29 @@ extension ToRuntimeIsoString on DateTime {
   }
 }
 
-Future<RelationshipDTO> establishRelationship(Session session, ConnectorClient connectorClient) async {
-  final responseTemplate = await connectorClient.relationshipTemplates.createOwnRelationshipTemplate(
+Future<RelationshipDTO> establishRelationship(Session session1, Session session2) async {
+  final createTemplateResult = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
     expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
     content: {},
   );
 
-  final item = await session.transportServices.account.loadItemFromTruncatedReference(
-    reference: responseTemplate.data.truncatedReference,
+  final item = await session1.transportServices.account.loadItemFromTruncatedReference(
+    reference: createTemplateResult.value.truncatedReference,
   );
 
   final template = item.value.relationshipTemplateValue;
 
-  final relationship = await session.transportServices.relationships.createRelationship(
+  final relationship = await session1.transportServices.relationships.createRelationship(
     templateId: template.id,
     content: {'a': 'b'},
   );
 
   return relationship.value;
+}
+
+Future<RelationshipDTO> establishRelationshipAndSync(Session session1, Session session2) async {
+  await establishRelationship(session1, session2);
+  return await syncUntilHasRelationship(session1);
 }
 
 Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {
@@ -62,26 +66,6 @@ Future<MessageDTO> syncUntilHasMessage(Session session) async {
   } while (retries < 10);
 
   throw Exception('Could not sync until having a message');
-}
-
-Future<RelationshipDTO> establishRelationshipAndSync(Session session, ConnectorClient connectorClient) async {
-  final createTemplateResult = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-    expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
-    content: {},
-  );
-
-  final connectorLoadTemplateResult = await connectorClient.relationshipTemplates.loadPeerRelationshipTemplateByTruncatedReference(
-    createTemplateResult.value.truncatedReference,
-  );
-  assert(connectorLoadTemplateResult.hasData);
-
-  final createRelationshipResult = await connectorClient.relationships.createRelationship(
-    templateId: connectorLoadTemplateResult.data.id,
-    content: {'a': 'b'},
-  );
-  assert(createRelationshipResult.hasData);
-
-  return await syncUntilHasRelationship(session);
 }
 
 Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session session2) async {
