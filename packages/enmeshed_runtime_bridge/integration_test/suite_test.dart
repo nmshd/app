@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'dummy_app.dart' as dummy_app;
+import 'mock_event_bus.dart';
 import 'services/facades/attributes_facade_test.dart' as attributes_facade_test;
 import 'services/facades/files_facade_test.dart' as files_facade_test;
 import 'services/facades/relationship_template_facade_test.dart' as relationship_template_facade_test;
@@ -16,12 +17,17 @@ void main() async {
   dummy_app.main();
 
   EnmeshedRuntime.setAssetsFolder('assets');
+  final eventBus = MockEventBus();
+  // reset event bus before each test to get rid of old events
+  setUp(() => eventBus.reset());
+
   final runtime = EnmeshedRuntime(
     runtimeConfig: (
       baseUrl: 'https://bird.enmeshed.eu',
       clientId: 'dev',
       clientSecret: 'SY3nxukl6Xn8kGDk52EwBKXZMR9OR5',
     ),
+    eventBus: eventBus,
   );
   await runtime.run();
 
