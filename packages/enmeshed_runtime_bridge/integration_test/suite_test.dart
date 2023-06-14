@@ -25,6 +25,7 @@ void main() async {
       clientId: 'dev',
       clientSecret: 'SY3nxukl6Xn8kGDk52EwBKXZMR9OR5',
     ),
+    logger: Logger(printer: SimplePrinter(colors: false), level: Level.warning),
     eventBus: eventBus,
   );
   await runtime.run();
