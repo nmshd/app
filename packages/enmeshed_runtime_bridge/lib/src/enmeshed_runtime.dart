@@ -3,10 +3,13 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
+import 'event_bus.dart';
+import 'events/events.dart';
 import 'filesystem_adapter.dart';
 import 'services/services.dart';
 import 'webview_constants.dart' as webview_constants;
@@ -37,12 +40,16 @@ class EnmeshedRuntime {
   final Logger _logger;
   final _runtimeReadyCompleter = Completer();
 
+  final EventBus eventBus;
+
   EnmeshedRuntime({
     Logger? logger,
     VoidCallback? runtimeReadyCallback,
     required this.runtimeConfig,
+    EventBus? eventBus,
   })  : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
-        _runtimeReadyCallback = runtimeReadyCallback {
+        _runtimeReadyCallback = runtimeReadyCallback,
+        eventBus = eventBus ?? EventBus() {
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
@@ -82,7 +89,34 @@ class EnmeshedRuntime {
       handlerName: 'handleRuntimeEvent',
       callback: (args) async {
         final payload = args[0];
-        _logger.i('Event published: $payload');
+
+        final eventTargetAddress = payload['eventTargetAddress'] as String;
+        final data = payload['data'] as Map<String, dynamic>;
+
+        final namespace = payload['namespace'];
+        if (namespace is! String) {
+          _logger.i('Unknown event namespace: ${payload['namespace']}');
+          return;
+        }
+
+        final event = switch (namespace) {
+          'transport.messageSent' => MessageSentEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
+          'consumption.incomingRequestStatusChanged' => IncomingRequestStatusChangedEvent(
+              eventTargetAddress: eventTargetAddress,
+              request: LocalRequestDTO.fromJson(data['request']),
+              oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
+              newStatus: LocalRequestStatus.values.byName(data['newStatus']),
+            ),
+          'consumption.outgoingRequestStatusChanged' => OutgoingRequestStatusChangedEvent(
+              eventTargetAddress: eventTargetAddress,
+              request: LocalRequestDTO.fromJson(data['request']),
+              oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
+              newStatus: LocalRequestStatus.values.byName(data['newStatus']),
+            ),
+          _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: data),
+        };
+
+        eventBus.publish(event);
       },
     );
 
