@@ -2,6 +2,8 @@ import 'package:connector_sdk/connector_sdk.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 
+import 'mock_event_bus.dart';
+
 const _expiresAtDuration = Duration(hours: 1);
 String generateExpiryString() => DateTime.now().add(_expiresAtDuration).toRuntimeIsoString();
 
@@ -161,28 +163,24 @@ Future<LocalAttributeDTO> establishSharedAttributeCopy(Session sender, String se
   return sharedAttribute;
 }
 
-Future<void> waitUntilIncomingRequestStatus(Session recipient, String requestId, LocalRequestStatus status) async {
-  int retries = 0;
-
-  do {
-    final syncResult = await recipient.consumptionServices.incomingRequests.getRequest(requestId: requestId);
-    if (syncResult.isError && syncResult.error.code == 'error.runtime.recordNotFound') continue;
-    if (syncResult.value.status == status) return;
-
-    retries++;
-    await Future.delayed(Duration(seconds: retries));
-  } while (retries < 10);
-
-  throw Exception("Timeout on waiting for request with id '$requestId' moving to status '${status.name}'");
-}
-
-Future<void> exchangeAndAcceptRequestByMessage(Session sender, Session recipient, String recipientAddress, Request request) async {
+Future<void> exchangeAndAcceptRequestByMessage(
+  Session sender,
+  Session recipient,
+  String senderAddress,
+  String recipientAddress,
+  Request request,
+  MockEventBus eventBus,
+) async {
   final createRequestResult = await sender.consumptionServices.outgoingRequests.create(content: request, peer: recipientAddress);
   assert(createRequestResult.isSuccess);
 
   await sender.transportServices.messages.sendMessage(recipients: [recipientAddress], content: createRequestResult.value.content.toJson());
   await syncUntilHasMessage(recipient);
-  await waitUntilIncomingRequestStatus(recipient, createRequestResult.value.id, LocalRequestStatus.ManualDecisionRequired);
+
+  await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
+    eventTargetAddress: recipientAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.ManualDecisionRequired,
+  );
 
   final acceptedRequest = await recipient.consumptionServices.incomingRequests.accept(
     params: DecideRequestParameters(requestId: createRequestResult.value.id, items: [
@@ -198,9 +196,11 @@ Future<void> exchangeAndAcceptRequestByMessage(Session sender, Session recipient
   );
   assert(acceptedRequest.isSuccess);
 
-  //TODO: wait for MessageSentEvent on the recipients eventbus
-  await Future.delayed(const Duration(seconds: 5));
+  await eventBus.waitForEvent<MessageSentEvent>(eventTargetAddress: recipientAddress);
+
   await syncUntilHasMessage(sender);
-  //TODO: wait for OutgoingRequestStatusChangedEvent on the sender eventbus with request status Completed
-  await Future.delayed(const Duration(seconds: 5));
+  await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
+    eventTargetAddress: senderAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
+  );
 }

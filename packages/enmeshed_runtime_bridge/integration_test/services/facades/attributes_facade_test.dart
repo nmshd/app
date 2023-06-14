@@ -3,6 +3,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../matchers.dart';
+import '../../mock_event_bus.dart';
 import '../../utils.dart';
 
 void run(EnmeshedRuntime runtime) {
@@ -576,6 +577,7 @@ void run(EnmeshedRuntime runtime) {
       await exchangeAndAcceptRequestByMessage(
         sender,
         recipient,
+        account1.address,
         account2.address,
         Request(items: [
           CreateAttributeRequestItem(
@@ -589,6 +591,7 @@ void run(EnmeshedRuntime runtime) {
             ),
           ),
         ]),
+        runtime.eventBus as MockEventBus,
       );
 
       final receivedAttributeResult = await recipient.consumptionServices.attributes.executeThirdPartyRelationshipAttributeQuery(
