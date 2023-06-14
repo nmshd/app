@@ -28,7 +28,7 @@ jobs:
           dart pub global activate melos
           melos bootstrap
       - name: Run integration tests
-        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{secrets.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{secrets.TESTCONNECTOR_APIKEY}}
+        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart
   android:
     runs-on: macos-latest
     env:
@@ -61,4 +61,4 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           arch: x86_64
           profile: pixel
-          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=connector_baseURL=${{secrets.TESTCONNECTOR_BASEURL}} --dart-define=connector_apiKey=${{secrets.TESTCONNECTOR_APIKEY}}
+          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart
