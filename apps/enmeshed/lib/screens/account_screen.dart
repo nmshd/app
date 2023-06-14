@@ -143,7 +143,7 @@ class _ContactsViewState extends State<ContactsView> {
 
   Future<void> _reload([bool syncBefore = false]) async {
     if (syncBefore) {
-      await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.accounts.syncEverything();
+      await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.account.syncEverything();
     }
 
     final relationshipsResult = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.relationships.getRelationships();
@@ -192,7 +192,7 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> _reload([bool syncBefore = false]) async {
     if (syncBefore) {
-      await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.accounts.syncEverything();
+      await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.account.syncEverything();
     }
 
     final messagesResult = await GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.messages.getMessages();

@@ -16,7 +16,7 @@ class AccountFacadeView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
               print(identityInfo);
             },
             child: const Text('getIdentityInfo'),
@@ -24,7 +24,7 @@ class AccountFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final deviceInfo = await runtime.currentSession.transportServices.accounts.getDeviceInfo();
+              final deviceInfo = await runtime.currentSession.transportServices.account.getDeviceInfo();
               print(deviceInfo);
             },
             child: const Text('getDeviceInfo'),
@@ -32,14 +32,14 @@ class AccountFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              await runtime.currentSession.transportServices.accounts.syncDatawallet();
+              await runtime.currentSession.transportServices.account.syncDatawallet();
             },
             child: const Text('syncDatawallet'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final syncEverythingResponse = await runtime.currentSession.transportServices.accounts.syncEverything();
+              final syncEverythingResponse = await runtime.currentSession.transportServices.account.syncEverything();
               print(syncEverythingResponse);
             },
             child: const Text('syncEverything'),
@@ -47,7 +47,7 @@ class AccountFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final syncInfo = await runtime.currentSession.transportServices.accounts.getSyncInfo();
+              final syncInfo = await runtime.currentSession.transportServices.account.getSyncInfo();
               print(syncInfo);
             },
             child: const Text('getSyncInfo'),
@@ -55,14 +55,14 @@ class AccountFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              await runtime.currentSession.transportServices.accounts.enableAutoSync();
+              await runtime.currentSession.transportServices.account.enableAutoSync();
             },
             child: const Text('enableAutoSync'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              await runtime.currentSession.transportServices.accounts.disableAutoSync();
+              await runtime.currentSession.transportServices.account.disableAutoSync();
             },
             child: const Text('disableAutoSync'),
           ),

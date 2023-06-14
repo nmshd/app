@@ -17,7 +17,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
               final currentIdentityAddress = identityInfo.value.address;
 
               final requestToDecide = await getDecidableRequest();
@@ -36,7 +36,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
               final currentIdentityAddress = identityInfo.value.address;
 
               final requestToDecide = await getDecidableRequest();
@@ -100,7 +100,7 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              await runtime.currentSession.transportServices.accounts.syncEverything();
+              await runtime.currentSession.transportServices.account.syncEverything();
 
               final requests = await runtime.currentSession.consumptionServices.incomingRequests.getRequests(query: {
                 'status': LocalRequestStatus.ManualDecisionRequired.asQueryValue,

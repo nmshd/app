@@ -22,3 +22,23 @@ class _ResultFailingMatcher extends Matcher {
 }
 
 Matcher isFailing(String code) => _ResultFailingMatcher(code);
+
+class _ResultSuccessfulMatcher<T> extends Matcher {
+  const _ResultSuccessfulMatcher();
+
+  @override
+  Description describe(Description description) => description.add('result is successful');
+
+  @override
+  bool matches(item, Map matchState) => item is Result && item.isSuccess && item.value is T;
+
+  @override
+  Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
+    if (item is! Result) return mismatchDescription.add('is not a Result');
+    if (item.isError) return mismatchDescription.add('is not successful');
+
+    return mismatchDescription.add('has value of type ${item.value.runtimeType}, but expected ${T.toString()}');
+  }
+}
+
+Matcher isSuccessful<T>() => _ResultSuccessfulMatcher<T>();

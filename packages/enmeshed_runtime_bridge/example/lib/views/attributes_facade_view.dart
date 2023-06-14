@@ -17,7 +17,7 @@ class AttributesFacadeView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
 
               final attribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
                 content: {
@@ -36,7 +36,7 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
 
               final phAttribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
                 content: {
@@ -67,7 +67,7 @@ class AttributesFacadeView extends StatelessWidget {
             onPressed: () async {
               final attributes = await runtime.currentSession.consumptionServices.attributes.getAttributes();
               if (attributes.value.isEmpty) {
-                final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+                final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
 
                 final attribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
                   content: {
@@ -147,7 +147,7 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
 
               await runtime.currentSession.consumptionServices.attributes.createAttribute(
                 content: {
@@ -171,7 +171,7 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
 
               await runtime.currentSession.consumptionServices.attributes.createAttribute(
                 content: {
@@ -221,7 +221,7 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
 
               final displayNameParams = {
                 '@type': 'IdentityAttribute',
@@ -255,7 +255,7 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
 
               final createdAttribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
                 content: {
@@ -314,7 +314,7 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.accounts.getIdentityInfo();
+              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
 
               final createdAttribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
                 content: {
