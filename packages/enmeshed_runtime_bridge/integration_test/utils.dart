@@ -15,19 +15,19 @@ extension ToRuntimeIsoString on DateTime {
   }
 }
 
-Future<RelationshipDTO> establishRelationship(Session session1, Session session2) async {
-  final createTemplateResult = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+Future<RelationshipDTO> establishRelationship({required Session requestor, required Session templator}) async {
+  final createTemplateResult = await templator.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
     expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
     content: {},
   );
 
-  final item = await session1.transportServices.account.loadItemFromTruncatedReference(
+  final item = await requestor.transportServices.account.loadItemFromTruncatedReference(
     reference: createTemplateResult.value.truncatedReference,
   );
 
   final template = item.value.relationshipTemplateValue;
 
-  final relationship = await session1.transportServices.relationships.createRelationship(
+  final relationship = await requestor.transportServices.relationships.createRelationship(
     templateId: template.id,
     content: {'a': 'b'},
   );
@@ -35,9 +35,9 @@ Future<RelationshipDTO> establishRelationship(Session session1, Session session2
   return relationship.value;
 }
 
-Future<RelationshipDTO> establishRelationshipAndSync(Session session1, Session session2) async {
-  await establishRelationship(session1, session2);
-  return await syncUntilHasRelationship(session1);
+Future<RelationshipDTO> establishRelationshipAndSync({required Session requestor, required Session templator}) async {
+  await establishRelationship(requestor: requestor, templator: templator);
+  return await syncUntilHasRelationship(templator);
 }
 
 Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {

@@ -1,6 +1,7 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:logger/logger.dart';
 
 import 'dummy_app.dart' as dummy_app;
 import 'mock_event_bus.dart';

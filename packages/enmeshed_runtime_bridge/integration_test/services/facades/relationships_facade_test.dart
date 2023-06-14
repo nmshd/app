@@ -28,7 +28,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('returns a valid list of RelationshipDTOs', () async {
-      final establishedRelationship = await establishRelationship(session1, session2);
+      final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
 
       final relationshipsResult = await session1.transportServices.relationships.getRelationships();
 
@@ -42,7 +42,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('RelationshipsFacade: getRelationship', () {
     test('returns a valid RelationshipDTO', () async {
-      final establishedRelationship = await establishRelationship(session1, session2);
+      final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
 
       final relationshipResult = await session1.transportServices.relationships.getRelationship(relationshipId: establishedRelationship.id);
 
@@ -73,7 +73,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('RelationshipsFacade: getRelationshipByAddress', () {
     test('returns a valid RelationshipDTO', () async {
-      final establishedRelationship = await establishRelationship(session1, session2);
+      final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
       final relationships = await session1.transportServices.relationships.getRelationships();
 
       final relationshipResult = await session1.transportServices.relationships.getRelationshipByAddress(
@@ -111,9 +111,9 @@ void run(EnmeshedRuntime runtime) {
 
   group('RelationshipsFacade: acceptRelationshipChange', () {
     test('returns a valid RelationshipDTO', () async {
-      final establishedRelationship = await establishRelationshipAndSync(session1, session2);
+      final establishedRelationship = await establishRelationshipAndSync(requestor: session1, templator: session2);
 
-      final responseResult = await session1.transportServices.relationships.acceptRelationshipChange(
+      final responseResult = await session2.transportServices.relationships.acceptRelationshipChange(
         relationshipId: establishedRelationship.id,
         changeId: establishedRelationship.changes.first.id,
         content: {'a': 'b'},
@@ -128,9 +128,9 @@ void run(EnmeshedRuntime runtime) {
 
   group('RelationshipsFacade: rejectRelationshipChange', () {
     test('returns a valid RelationshipDTO', () async {
-      final establishedRelationship = await establishRelationshipAndSync(session1, session2);
+      final establishedRelationship = await establishRelationshipAndSync(requestor: session1, templator: session2);
 
-      final responseResult = await session1.transportServices.relationships.rejectRelationshipChange(
+      final responseResult = await session2.transportServices.relationships.rejectRelationshipChange(
         relationshipId: establishedRelationship.id,
         changeId: establishedRelationship.changes.first.id,
         content: {'a': 'b'},
@@ -145,7 +145,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('RelationshipsFacade: getAttributesForRelationship', () {
     test('returns a valid list of LocalAttributeDTOs', () async {
-      final establishedRelationship = await establishRelationship(session1, session2);
+      final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
 
       final attribute = await session1.consumptionServices.attributes.createAttribute(
         content: const IdentityAttribute(owner: 'address', value: SurnameAttributeValue(value: 'aSurname')).toJson(),
