@@ -1,15 +1,15 @@
 abstract class Event {
-  final String namespace;
   final String eventTargetAddress;
 
-  const Event({required this.eventTargetAddress, required this.namespace});
+  const Event({required this.eventTargetAddress});
 }
 
 class ArbitraryEvent extends Event {
+  final String namespace;
   final Map<String, dynamic> data;
 
   const ArbitraryEvent({
-    required super.namespace,
+    required this.namespace,
     required super.eventTargetAddress,
     required this.data,
   });

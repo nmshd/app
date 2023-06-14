@@ -7,7 +7,6 @@ class MessageSentEvent extends Event {
 
   const MessageSentEvent({
     required this.data,
-    required super.namespace,
     required super.eventTargetAddress,
   });
 }

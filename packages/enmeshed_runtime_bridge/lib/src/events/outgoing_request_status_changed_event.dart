@@ -11,7 +11,6 @@ class OutgoingRequestStatusChangedEvent extends Event {
     required this.request,
     required this.oldStatus,
     required this.newStatus,
-    required super.namespace,
     required super.eventTargetAddress,
   });
 }
