@@ -11,12 +11,15 @@ void run(EnmeshedRuntime runtime) {
   late Session sender;
   late LocalAccountDTO account2;
   late Session recipient;
+  late MockEventBus eventBus;
 
   setUpAll(() async {
     account1 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 1');
     sender = runtime.getSession(account1.id);
     account2 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 2');
     recipient = runtime.getSession(account2.id);
+
+    eventBus = runtime.eventBus as MockEventBus;
 
     await ensureActiveRelationship(sender, recipient);
   });
@@ -44,20 +47,20 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: createAttribute', () {
-    test('returns a valid LocalAttributeDTO', () async {
+    test('should create an attribute', () async {
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aCity')).toJson(),
       );
       final attribute = attributeResult.value;
 
-      expect(attribute, isA<LocalAttributeDTO>());
+      expect(attributeResult, isSuccessful<LocalAttributeDTO>());
       expect(attribute.content.toJson()['@type'], 'IdentityAttribute');
       expect(attribute.content.toJson()['value']['value'], 'aCity');
     });
   });
 
   group('AttributesFacade: createSharedAttributeCopy', () {
-    test('returns a valid LocalAttributeDTO', () async {
+    test('should allow to create a shared copy', () async {
       final nationalityParams = IdentityAttribute(owner: account1.address, value: const NationalityAttributeValue(value: 'DE'));
 
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(content: nationalityParams.toJson());
@@ -70,15 +73,15 @@ void run(EnmeshedRuntime runtime) {
       );
       final sharedNationality = sharedNationalityResult.value;
 
-      expect(sharedNationalityResult.isSuccess, true);
-      expect(sharedNationality, isA<LocalAttributeDTO>());
+      expect(sharedNationalityResult, isSuccessful<LocalAttributeDTO>());
+      expect(sharedNationality.content, nationalityParams);
       expect(sharedNationality.content.toJson()['value'], nationalityParams.value.toJson());
       expect(sharedNationality.shareInfo?.peer, 'id1A35CharacterLongAddressXXXXXXXXX');
     });
   });
 
   group('AttributesFacade: deleteAttribute', () {
-    test('deletes the attributes successfully', () async {
+    test('should delete the attributes successfully', () async {
       final attributesBeforeDeleteResult = await sender.consumptionServices.attributes.getAttributes();
       final attributesBeforeDelete = attributesBeforeDeleteResult.value;
 
@@ -93,7 +96,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: getPeerAttributes', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    test('should return a valid list of peer attributes', () async {
       final attribute = IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910'));
 
       await shareAndAcceptPeerAttribute(sender, recipient, account2.address, attribute);
@@ -103,12 +106,12 @@ void run(EnmeshedRuntime runtime) {
 
       final attributeContents = recipientAttributes.map((e) => e.content);
 
-      expect(recipientAttributes, isA<List<LocalAttributeDTO>>());
+      expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(recipientAttributes.length, 1);
       expect(attributeContents, contains(attribute));
     });
 
-    test('returns just non technical peer attributes when hideTechnical=true', () async {
+    test('should return just non technical peer attributes when hideTechnical=true', () async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -125,11 +128,11 @@ void run(EnmeshedRuntime runtime) {
       );
       final recipientAttributes = recipientAttributesResult.value;
 
-      expect(recipientAttributes, isA<List<LocalAttributeDTO>>());
+      expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(recipientAttributes.length, 0);
     });
 
-    test('returns also technical peer attributes when hideTechnical=false', () async {
+    test('should return also technical peer attributes when hideTechnical=false', () async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -146,11 +149,11 @@ void run(EnmeshedRuntime runtime) {
       );
       final recipientAttributes = recipientAttributesResult.value;
 
-      expect(recipientAttributes, isA<List<LocalAttributeDTO>>());
+      expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(recipientAttributes.length, 1);
     });
 
-    test('returns just valid peer attributes when onlyValid=true', () async {
+    test('should return just valid peer attributes when onlyValid=true', () async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -167,11 +170,11 @@ void run(EnmeshedRuntime runtime) {
       );
       final recipientAttributes = recipientAttributesResult.value;
 
-      expect(recipientAttributes, isA<List<LocalAttributeDTO>>());
+      expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(recipientAttributes.length, 0);
     });
 
-    test('returns also expired peer attributes when onlyValid=false', () async {
+    test('should return also expired peer attributes when onlyValid=false', () async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -188,11 +191,11 @@ void run(EnmeshedRuntime runtime) {
       );
       final recipientAttributes = recipientAttributesResult.value;
 
-      expect(recipientAttributes, isA<List<LocalAttributeDTO>>());
+      expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(recipientAttributes.length, 1);
     });
 
-    test('returns a valid list of LocalAttributeDTOs with all properties', () async {
+    test('should return a valid list of LocalAttributeDTOs with all properties', () async {
       final attribute = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
@@ -211,13 +214,13 @@ void run(EnmeshedRuntime runtime) {
       );
       final recipientAttributes = recipientAttributesResult.value;
 
-      expect(recipientAttributes, isA<List<LocalAttributeDTO>>());
+      expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(recipientAttributes.length, 0);
     });
   });
 
   group('AttributesFacade: getSharedToPeerAttributes', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    test('should return a valid list of shared to peer attributes', () async {
       final nationalityParams = IdentityAttribute(owner: account1.address, value: const NationalityAttributeValue(value: 'DE'));
       const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
 
@@ -226,15 +229,14 @@ void run(EnmeshedRuntime runtime) {
       final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(peer: peer);
       final sharedToPeerAttributes = sharedToPeerAttributeResult.value;
 
-      expect(sharedToPeerAttributes, isA<List<LocalAttributeDTO>>());
+      expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributes.length, 1);
 
-      expect(sharedNationality, isA<LocalAttributeDTO>());
       expect(sharedNationality.content.toJson()['value'], nationalityParams.value.toJson());
       expect(sharedNationality.shareInfo?.peer, peer);
     });
 
-    test('returns just non technical shared to peer attributes when hideTechnical=true', () async {
+    test('should return just non technical shared to peer attributes when hideTechnical=true', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -253,15 +255,14 @@ void run(EnmeshedRuntime runtime) {
       );
       final sharedToPeerAttributes = sharedToPeerAttributeResult.value;
 
-      expect(sharedToPeerAttributes, isA<List<LocalAttributeDTO>>());
+      expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributes.length, 0);
 
-      expect(sharedproprietaryBoolean, isA<LocalAttributeDTO>());
       expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
       expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('returns also technical shared to peer attributes when hideTechnical=false', () async {
+    test('should return also technical shared to peer attributes when hideTechnical=false', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -280,15 +281,14 @@ void run(EnmeshedRuntime runtime) {
       );
       final sharedToPeerAttributes = sharedToPeerAttributeResult.value;
 
-      expect(sharedToPeerAttributes, isA<List<LocalAttributeDTO>>());
+      expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributes.length, 1);
 
-      expect(sharedproprietaryBoolean, isA<LocalAttributeDTO>());
       expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
       expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('returns just valid shared to peer attributes when onlyValid=true', () async {
+    test('should return just valid shared to peer attributes when onlyValid=true', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -307,15 +307,14 @@ void run(EnmeshedRuntime runtime) {
       );
       final sharedToPeerAttributes = sharedToPeerAttributeResult.value;
 
-      expect(sharedToPeerAttributes, isA<List<LocalAttributeDTO>>());
+      expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributes.length, 0);
 
-      expect(sharedproprietaryBoolean, isA<LocalAttributeDTO>());
       expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
       expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('returns also expired shared to peer attributes when onlyValid=false', () async {
+    test('should return also expired shared to peer attributes when onlyValid=false', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -334,15 +333,14 @@ void run(EnmeshedRuntime runtime) {
       );
       final sharedToPeerAttributes = sharedToPeerAttributeResult.value;
 
-      expect(sharedToPeerAttributes, isA<List<LocalAttributeDTO>>());
+      expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributes.length, 1);
 
-      expect(sharedproprietaryBoolean, isA<LocalAttributeDTO>());
       expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
       expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('returns a valid list of non technical LocalAttributeDTOs with all properties', () async {
+    test('should return a valid list of non technical LocalAttributeDTOs with all properties', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
         owner: account1.address,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
@@ -363,24 +361,23 @@ void run(EnmeshedRuntime runtime) {
       );
       final sharedToPeerAttributes = sharedToPeerAttributeResult.value;
 
-      expect(sharedToPeerAttributes, isA<List<LocalAttributeDTO>>());
+      expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributes.length, 0);
 
-      expect(sharedproprietaryBoolean, isA<LocalAttributeDTO>());
       expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
       expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
   });
 
   group('AttributesFacade: getAttribute', () {
-    test('returns a valid LocalAttributeDTO', () async {
+    test('should return a valid LocalAttributeDTO', () async {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes();
       final attributes = attributesResult.value;
 
       final attributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: attributes.first.id);
       final attribute = attributeResult.value;
 
-      expect(attribute, isA<LocalAttributeDTO>());
+      expect(attributeResult, isSuccessful<LocalAttributeDTO>());
       expect(attribute.id, attributes.first.id);
       expect(attribute.content, attributes.first.content);
     });
@@ -399,15 +396,15 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: getAttributes', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    test('should return a valid list of LocalAttributeDTOs', () async {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes();
       final attributes = attributesResult.value;
 
-      expect(attributes, isA<List<LocalAttributeDTO>>());
+      expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(attributes.length, 2);
     });
 
-    test('returns a valid list of queried LocalAttributeDTOs', () async {
+    test('should return a valid list of queried LocalAttributeDTOs', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -423,11 +420,11 @@ void run(EnmeshedRuntime runtime) {
       );
       final attributes = attributesResult.value;
 
-      expect(attributes, isA<List<LocalAttributeDTO>>());
+      expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(attributes.length, 1);
     });
 
-    test('returns just non technical attributes when hideTechnical=true', () async {
+    test('should return just non technical attributes when hideTechnical=true', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -441,11 +438,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(hideTechnical: true);
       final attributes = attributesResult.value;
 
-      expect(attributes, isA<List<LocalAttributeDTO>>());
+      expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(attributes.length, 2);
     });
 
-    test('returns also technical attributes when hideTechnical=false', () async {
+    test('should return also technical attributes when hideTechnical=false', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -459,11 +456,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(hideTechnical: false);
       final attributes = attributesResult.value;
 
-      expect(attributes, isA<List<LocalAttributeDTO>>());
+      expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(attributes.length, 3);
     });
 
-    test('returns just valid attributes when onlyValid=true', () async {
+    test('should return just valid attributes when onlyValid=true', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -477,11 +474,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: true);
       final attributes = attributesResult.value;
 
-      expect(attributes, isA<List<LocalAttributeDTO>>());
+      expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(attributes.length, 2);
     });
 
-    test('returns also expired attributes when onlyValid=false', () async {
+    test('should return also expired attributes when onlyValid=false', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -495,11 +492,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: false);
       final attributes = attributesResult.value;
 
-      expect(attributes, isA<List<LocalAttributeDTO>>());
+      expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(attributes.length, 3);
     });
 
-    test('returns a valid list of LocalAttributeDTOs with all properties', () async {
+    test('should return a valid list of LocalAttributeDTOs with all properties', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -518,31 +515,47 @@ void run(EnmeshedRuntime runtime) {
       );
       final attributes = attributesResult.value;
 
-      expect(attributes, isA<List<LocalAttributeDTO>>());
+      expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(attributes.length, 1);
     });
   });
 
   group('AttributesFacade: executeIdentityAttributeQuery', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    test('should allow to execute an identityAttributeQuery', () async {
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910')).toJson(),
       );
       final identityAttribute = identityAttributeResult.value;
 
-      final attributesResult = await sender.consumptionServices.attributes.executeIdentityAttributeQuery(
+      final relationshipAttributeResult = await sender.consumptionServices.attributes.createAttribute(
+        content: RelationshipAttribute(
+          owner: account1.address,
+          value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aProprietaryStringValue'),
+          key: 'phone',
+          confidentiality: RelationshipAttributeConfidentiality.protected,
+        ).toJson(),
+      );
+      final relationshipAttribute = relationshipAttributeResult.value;
+
+      final receivedAttributesResult = await sender.consumptionServices.attributes.executeIdentityAttributeQuery(
         query: const IdentityAttributeQuery(valueType: 'PhoneNumber'),
       );
-      final attributes = attributesResult.value;
+      final receivedAttributes = receivedAttributesResult.value;
 
-      expect(attributes, isA<List<LocalAttributeDTO>>());
-      expect(attributes.length, 1);
-      expect(attributes.first.id, identityAttribute.id);
+      final attributeIds = receivedAttributes.map((v) => v.id);
+
+      expect(identityAttributeResult, isSuccessful<LocalAttributeDTO>());
+      expect(relationshipAttributeResult, isSuccessful<LocalAttributeDTO>());
+      expect(receivedAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
+      expect(receivedAttributes.length, 1);
+      expect(attributeIds, isNot(contains(relationshipAttribute.id)));
+      expect(attributeIds, contains(identityAttribute.id));
+      expect(receivedAttributes.first, identityAttribute);
     });
   });
 
   group('AttributesFacade: executeRelationshipAttributeQuery', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    test('should allow to execute a relationshipAttributeQuery', () async {
       final relationshipAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
           owner: account1.address,
@@ -567,13 +580,14 @@ void run(EnmeshedRuntime runtime) {
 
       final attributes = attributesResult.value;
 
-      expect(attributes, isA<LocalAttributeDTO>());
+      expect(relationshipAttributeResult, isSuccessful<LocalAttributeDTO>());
+      expect(attributesResult, isSuccessful<LocalAttributeDTO>());
       expect(attributes.id, relationshipAttribute.id);
     });
   });
 
   group('AttributesFacade: executeThirdPartyRelationshipAttributeQuery', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    test('should allow to execute a thirdPartyRelationshipAttributeQuery', () async {
       await exchangeAndAcceptRequestByMessage(
         sender,
         recipient,
@@ -591,7 +605,7 @@ void run(EnmeshedRuntime runtime) {
             ),
           ),
         ]),
-        runtime.eventBus as MockEventBus,
+        eventBus,
       );
 
       final receivedAttributeResult = await recipient.consumptionServices.attributes.executeThirdPartyRelationshipAttributeQuery(
@@ -599,26 +613,30 @@ void run(EnmeshedRuntime runtime) {
       );
       final receivedAttribute = receivedAttributeResult.value;
 
-      expect(receivedAttribute, isA<List<LocalAttributeDTO>>());
+      expect(receivedAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(receivedAttribute.length, 1);
     });
   });
 
   group('AttributesFacade: succeedAttribute', () {
-    test('returns a valid list of LocalAttributeDTOs', () async {
+    test('should allow to succeed an attribute', () async {
       final successorDate = DateTime.now();
 
+      final displayNameParams = IdentityAttribute(owner: account1.address, value: const DisplayNameAttributeValue(value: 'aDisplayName'));
+
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: account1.address, value: const DisplayNameAttributeValue(value: 'aDisplayName')).toJson(),
+        content: displayNameParams.toJson(),
       );
       final attribute = attributeResult.value;
 
+      final createSuccessorParams = IdentityAttribute(
+        owner: account1.address,
+        value: const DisplayNameAttributeValue(value: 'aNewDisplayName'),
+        validFrom: successorDate.toRuntimeIsoString(),
+      );
+
       final successorResult = await sender.consumptionServices.attributes.succeedAttribute(
-        successorContent: IdentityAttribute(
-          owner: account1.address,
-          value: const DisplayNameAttributeValue(value: 'aNewDisplayName'),
-          validFrom: successorDate.toRuntimeIsoString(),
-        ).toJson(),
+        successorContent: createSuccessorParams.toJson(),
         succeeds: attribute.id,
       );
       final successor = successorResult.value;
@@ -638,6 +656,7 @@ void run(EnmeshedRuntime runtime) {
       final allAttributesIds = allAttributes.map((e) => e.id);
       final currentAttributesIds = currentAttributes.map((e) => e.id);
 
+      expect(successorResult, isSuccessful<LocalAttributeDTO>());
       expect(succeededAttribute.content.validTo, successorDate.subtract(const Duration(milliseconds: 1)).toRuntimeIsoString());
       expect(succeessorAttribute.content.validFrom, successorDate.toRuntimeIsoString());
       expect(allAttributesIds, contains(succeededAttribute.id));
@@ -647,61 +666,108 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: updateAttribute', () {
-    test('returns a valid LocalAttributeDTO', () async {
-      final attributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aCity')).toJson(),
+    test('should updated an attribute', () async {
+      final addressResult = await sender.consumptionServices.attributes.createAttribute(
+        content: IdentityAttribute(
+          owner: account1.address,
+          value: const StreetAddressAttributeValue(
+            recipient: 'aRecipient',
+            street: 'aStreet',
+            houseNumber: 'aHouseNumber',
+            zipCode: 'aZipCode',
+            city: 'aCity',
+            country: 'DE',
+            state: 'aState',
+          ),
+        ).toJson(),
       );
-      final attribute = attributeResult.value;
+      final address = addressResult.value;
 
-      final updatedCityAttribute = IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aNewCity'));
-
-      final updatedAttributeResult = await sender.consumptionServices.attributes.updateAttribute(
-        attributeId: attribute.id,
-        content: updatedCityAttribute.toJson(),
+      final updatedParams = IdentityAttribute(
+        owner: account1.address,
+        value: const StreetAddressAttributeValue(
+          recipient: 'aNewRecipient',
+          street: 'aNewStreet',
+          houseNumber: 'aNewHouseNumber',
+          zipCode: 'aNewZipCode',
+          city: 'aNewCity',
+          country: 'DE',
+          state: 'aNewState',
+        ),
       );
-      final updatedAttribute = updatedAttributeResult.value;
 
-      expect(updatedAttribute, isA<LocalAttributeDTO>());
-      expect(updatedAttribute.content, updatedCityAttribute);
+      final newAddressResult = await sender.consumptionServices.attributes.updateAttribute(
+        attributeId: address.id,
+        content: updatedParams.toJson(),
+      );
+      final newAddress = newAddressResult.value;
+
+      expect(newAddressResult, isSuccessful<LocalAttributeDTO>());
+      expect(newAddress.content, updatedParams);
     });
   });
 
   group('AttributesFacade: shareAttribute', () {
-    test('returns a valid LocalRequestDTO', () async {
-      final recipientAddress = await recipient.transportServices.account.getIdentityInfo();
+    test('should allow to share an attribute', () async {
+      final recipientAddress = account2.address;
+      final attribute = IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910'));
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910')).toJson(),
+        content: attribute.toJson(),
       );
       final identityAttribute = identityAttributeResult.value;
 
       final shareAttributeResult = await sender.consumptionServices.attributes.shareAttribute(
         attributeId: identityAttribute.id,
-        peer: recipientAddress.value.address,
+        peer: recipientAddress,
       );
       final shareAttribute = shareAttributeResult.value;
 
+      await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
+        eventTargetAddress: account1.address,
+        predicate: (e) => e.newStatus == LocalRequestStatus.Open,
+      );
+
       await syncUntilHasMessage(recipient);
 
-      final request = (await recipient.consumptionServices.incomingRequests.getRequests()).value.last;
+      final event = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: recipientAddress);
 
-      expect(shareAttribute, isA<LocalRequestDTO>());
-      expect(shareAttribute.id, request.id);
-      expect(shareAttribute.peer, account2.address);
-      expect(shareAttribute.content, request.content);
+      final acceptRequestResult = await recipient.consumptionServices.incomingRequests.accept(
+        params: DecideRequestParameters(
+          requestId: shareAttribute.id,
+          items: [AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute)],
+        ),
+      );
+
+      await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
+        eventTargetAddress: recipientAddress,
+        predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
+      );
+
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address);
+      final recipientAttributes = recipientAttributesResult.value;
+
+      final attributeContents = recipientAttributes.map((v) => v.content);
+
+      expect(identityAttributeResult, isSuccessful<LocalAttributeDTO>());
+      expect(shareAttributeResult, isSuccessful<LocalRequestDTO>());
+      expect(event.request.id, shareAttribute.id);
+      expect(acceptRequestResult, isSuccessful<LocalRequestDTO>());
+      expect(attributeContents, contains(identityAttribute.content));
     });
 
-    test('returns a valid LocalRequestDTO with all properties', () async {
-      final recipientAddress = await recipient.transportServices.account.getIdentityInfo();
+    test('should allow to share an attribute with all properties', () async {
+      final recipientAddress = account2.address;
+      final attribute = IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910'));
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910')).toJson(),
+        content: attribute.toJson(),
       );
       final identityAttribute = identityAttributeResult.value;
 
       final shareAttributeResult = await sender.consumptionServices.attributes.shareAttribute(
         attributeId: identityAttribute.id,
-        peer: recipientAddress.value.address,
+        peer: recipientAddress,
         requestTitle: 'aRequestTitle',
         requestDescription: 'aRequestDescription',
         requestMetadata: {'a': 'b'},
@@ -710,14 +776,42 @@ void run(EnmeshedRuntime runtime) {
       );
       final shareAttribute = shareAttributeResult.value;
 
+      await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
+        eventTargetAddress: account1.address,
+        predicate: (e) => e.newStatus == LocalRequestStatus.Open,
+      );
+
       await syncUntilHasMessage(recipient);
 
-      final request = (await recipient.consumptionServices.incomingRequests.getRequests()).value.last;
+      final event = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: recipientAddress);
 
-      expect(shareAttribute, isA<LocalRequestDTO>());
-      expect(shareAttribute.id, request.id);
-      expect(shareAttribute.peer, account2.address);
-      expect(shareAttribute.content, request.content);
+      final acceptRequestResult = await recipient.consumptionServices.incomingRequests.accept(
+        params: DecideRequestParameters(
+          requestId: shareAttribute.id,
+          items: [AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute)],
+        ),
+      );
+
+      await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
+        eventTargetAddress: recipientAddress,
+        predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
+      );
+
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address);
+      final recipientAttributes = recipientAttributesResult.value;
+
+      final attributeContents = recipientAttributes.map((v) => v.content);
+
+      expect(identityAttributeResult, isSuccessful<LocalAttributeDTO>());
+      expect(shareAttributeResult, isSuccessful<LocalRequestDTO>());
+      expect(event.request.id, shareAttribute.id);
+      expect(acceptRequestResult, isSuccessful<LocalRequestDTO>());
+      expect(attributeContents, contains(identityAttribute.content));
+      expect(event.request.content.title, 'aRequestTitle');
+      expect(event.request.content.description, 'aRequestDescription');
+      expect(event.request.content.metadata, {'a': 'b'});
+      expect(event.request.content.items.first.title, 'aRequestItemTitle');
+      expect(event.request.content.items.first.description, 'aRequestItemDescription');
     });
   });
 }
