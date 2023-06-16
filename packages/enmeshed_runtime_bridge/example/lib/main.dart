@@ -60,9 +60,9 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       },
       runtimeConfig: (
-        baseUrl: 'https://bird.enmeshed.eu',
-        clientId: 'dev',
-        clientSecret: 'SY3nxukl6Xn8kGDk52EwBKXZMR9OR5',
+        baseUrl: const String.fromEnvironment('app_baseUrl'),
+        clientId: const String.fromEnvironment('app_clientId'),
+        clientSecret: const String.fromEnvironment('app_clientSecret'),
       ),
     )..run();
   }
