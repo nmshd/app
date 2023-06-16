@@ -62,7 +62,10 @@ class _AccountScreenState extends State<AccountScreen> {
         actions: [
           IconButton(
             onPressed: _openAccountDialog,
-            icon: Padding(padding: const EdgeInsets.all(2.0), child: CircleAvatar(child: Text(_account.name.substring(0, 2)))),
+            icon: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: CircleAvatar(child: Text(_account.name.substring(0, _account.name.length > 2 ? 2 : _account.name.length))),
+            ),
           ),
         ],
       ),

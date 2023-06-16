@@ -77,7 +77,7 @@ class _AccountDialogState extends State<AccountDialog> {
               const Divider(),
               for (final account in _accounts!)
                 ListTile(
-                  leading: CircleAvatar(child: Text(account.name.substring(0, 2))),
+                  leading: CircleAvatar(child: Text(account.name.substring(0, account.name.length > 2 ? 2 : account.name.length))),
                   title: Text(account.name),
                   selected: _selectedAccount.id == account.id,
                   onTap: () async {

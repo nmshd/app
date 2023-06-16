@@ -14,12 +14,14 @@ import 'filesystem_adapter.dart';
 import 'services/services.dart';
 import 'webview_constants.dart' as webview_constants;
 
+typedef RuntimeConfig = ({String baseUrl, String clientId, String clientSecret});
+
 class EnmeshedRuntime {
   static String _assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
 
   bool _isReady = false;
 
-  final ({String baseUrl, String clientId, String clientSecret}) runtimeConfig;
+  final RuntimeConfig runtimeConfig;
   bool get isReady => _isReady;
 
   late final HeadlessInAppWebView _headlessWebView;
@@ -50,6 +52,10 @@ class EnmeshedRuntime {
   })  : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
         _runtimeReadyCallback = runtimeReadyCallback,
         eventBus = eventBus ?? EventBus() {
+    if (runtimeConfig.baseUrl.isEmpty) throw Exception('Missing runtimeConfig value: baseUrl');
+    if (runtimeConfig.clientId.isEmpty) throw Exception('Missing runtimeConfig value: clientId');
+    if (runtimeConfig.clientSecret.isEmpty) throw Exception('Missing runtimeConfig value: clientSecret');
+
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {

@@ -14,8 +14,6 @@ export class ConfigAccess implements INativeConfigAccess {
     const result: any = await window.flutter_inappwebview.callHandler("getDefaultConfig");
     this.config = _.defaultsDeep(this.config, result);
 
-    this.logger.info(stringifySafe(result));
-
     return Result.ok(undefined);
   }
 
