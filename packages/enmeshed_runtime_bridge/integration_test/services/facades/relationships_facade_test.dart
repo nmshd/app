@@ -20,21 +20,19 @@ void run(EnmeshedRuntime runtime) {
   group('RelationshipsFacade: getRelationships', () {
     test('should return an empty list when no relationships exists', () async {
       final relationshipsResult = await session1.transportServices.relationships.getRelationships();
-      final relationships = relationshipsResult.value;
 
       expect(relationshipsResult, isSuccessful<List<RelationshipDTO>>());
-      expect(relationships.length, 0);
+      expect(relationshipsResult.value.length, 0);
     });
 
     test('should return a valid list of relationships', () async {
       final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
 
       final relationshipsResult = await session1.transportServices.relationships.getRelationships();
-      final relationships = relationshipsResult.value;
 
       expect(relationshipsResult, isSuccessful<List<RelationshipDTO>>());
-      expect(relationships.length, 1);
-      expect(relationships.first.id, establishedRelationship.id);
+      expect(relationshipsResult.value.length, 1);
+      expect(relationshipsResult.value.first.id, establishedRelationship.id);
     });
   });
 
@@ -43,10 +41,9 @@ void run(EnmeshedRuntime runtime) {
       final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
 
       final relationshipResult = await session1.transportServices.relationships.getRelationship(relationshipId: establishedRelationship.id);
-      final relationship = relationshipResult.value;
 
       expect(relationshipResult, isSuccessful<RelationshipDTO>());
-      expect(relationship.id, establishedRelationship.id);
+      expect(relationshipResult.value.id, establishedRelationship.id);
     });
 
     test('throws an exception on empty relationship id', () async {
@@ -76,10 +73,9 @@ void run(EnmeshedRuntime runtime) {
       final relationshipResult = await session1.transportServices.relationships.getRelationshipByAddress(
         address: relationships.value.first.peerIdentity.address,
       );
-      final relationship = relationshipResult.value;
 
       expect(relationshipResult, isSuccessful<RelationshipDTO>());
-      expect(relationship.id, establishedRelationship.id);
+      expect(relationshipResult.value.id, establishedRelationship.id);
     });
   });
 
@@ -112,10 +108,9 @@ void run(EnmeshedRuntime runtime) {
         changeId: establishedRelationship.changes.first.id,
         content: {'a': 'b'},
       );
-      final response = responseResult.value;
 
       expect(responseResult, isSuccessful<RelationshipDTO>());
-      expect(response.id, establishedRelationship.id);
+      expect(responseResult.value.id, establishedRelationship.id);
     });
   });
 
@@ -128,10 +123,9 @@ void run(EnmeshedRuntime runtime) {
         changeId: establishedRelationship.changes.first.id,
         content: {'a': 'b'},
       );
-      final response = responseResult.value;
 
       expect(responseResult, isSuccessful<RelationshipDTO>());
-      expect(response.id, establishedRelationship.id);
+      expect(responseResult.value.id, establishedRelationship.id);
     });
   });
 
@@ -155,10 +149,9 @@ void run(EnmeshedRuntime runtime) {
       );
 
       final responseResult = await session1.transportServices.relationships.getAttributesForRelationship(relationshipId: establishedRelationship.id);
-      final response = responseResult.value;
 
       expect(responseResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(response.length, 2);
+      expect(responseResult.value.length, 2);
     });
   });
 }

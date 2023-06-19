@@ -17,13 +17,12 @@ void run(EnmeshedRuntime runtime) {
   group('AccountFacade: getIdentityInfo', () {
     test('should return identity information', () async {
       final identityInfoResult = await session.transportServices.account.getIdentityInfo();
-      final identityInfo = identityInfoResult.value;
 
       expect(identityInfoResult, isSuccessful<GetIdentityInfoResponse>());
-      expect(identityInfo.address.length, lessThanOrEqualTo(36));
-      expect(identityInfo.address.length, greaterThanOrEqualTo(35));
-      expect(identityInfo.address, contains('id1'));
-      expect(identityInfo.publicKey.length, equals(82));
+      expect(identityInfoResult.value.address.length, lessThanOrEqualTo(36));
+      expect(identityInfoResult.value.address.length, greaterThanOrEqualTo(35));
+      expect(identityInfoResult.value.address, contains('id1'));
+      expect(identityInfoResult.value.publicKey.length, equals(82));
     });
   });
 

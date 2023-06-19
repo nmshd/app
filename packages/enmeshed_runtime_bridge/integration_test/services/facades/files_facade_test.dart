@@ -30,14 +30,14 @@ void run(EnmeshedRuntime runtime) {
       title: 'aTitle',
     );
 
-    final file = fileResult.value;
-    globalFile = file;
+    expect(fileResult, isSuccessful<FileDTO>());
 
-    expect(file, isA<FileDTO>());
-    expect(file.filename, 'facades/test.txt');
-    expect(file.mimetype, 'plain');
-    expect(file.expiresAt, expiresAt);
-    expect(file.title, 'aTitle');
+    globalFile = fileResult.value;
+
+    expect(fileResult.value.filename, 'facades/test.txt');
+    expect(fileResult.value.mimetype, 'plain');
+    expect(fileResult.value.expiresAt, expiresAt);
+    expect(fileResult.value.title, 'aTitle');
   });
 
   group('FilesFacade: uploadOwnFile', () {
@@ -52,13 +52,12 @@ void run(EnmeshedRuntime runtime) {
         expiresAt: expiresAt,
         title: 'aTitle',
       );
-      final file = fileResult.value;
 
       expect(fileResult, isSuccessful<FileDTO>());
-      expect(file.filename, 'facades/test.txt');
-      expect(file.mimetype, 'plain');
-      expect(file.expiresAt, expiresAt);
-      expect(file.title, 'aTitle');
+      expect(fileResult.value.filename, 'facades/test.txt');
+      expect(fileResult.value.mimetype, 'plain');
+      expect(fileResult.value.expiresAt, expiresAt);
+      expect(fileResult.value.title, 'aTitle');
     });
 
     test('should upload own file with all properties', () async {
@@ -73,14 +72,13 @@ void run(EnmeshedRuntime runtime) {
         title: 'aTitle',
         description: 'aDescription',
       );
-      final file = fileResult.value;
 
       expect(fileResult, isSuccessful<FileDTO>());
-      expect(file.filename, 'facades/test.txt');
-      expect(file.mimetype, 'plain');
-      expect(file.expiresAt, expiresAt);
-      expect(file.title, 'aTitle');
-      expect(file.description, 'aDescription');
+      expect(fileResult.value.filename, 'facades/test.txt');
+      expect(fileResult.value.mimetype, 'plain');
+      expect(fileResult.value.expiresAt, expiresAt);
+      expect(fileResult.value.title, 'aTitle');
+      expect(fileResult.value.description, 'aDescription');
     });
   });
 
@@ -97,10 +95,9 @@ void run(EnmeshedRuntime runtime) {
   group('FilesFacade: getOrLoadFileByIdAndKey', () {
     test('should be able to load files by entering id and key', () async {
       final fileResult = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: globalFile.id, secretKey: globalFile.secretKey);
-      final file = fileResult.value;
 
       expect(fileResult, isSuccessful<FileDTO>());
-      expect(file.id, globalFile.id);
+      expect(fileResult.value.id, globalFile.id);
     });
 
     test('throws an exception if file id does not match the pattern', () async {
@@ -119,10 +116,9 @@ void run(EnmeshedRuntime runtime) {
   group('FilesFacade: getOrLoadFileByReference', () {
     test('should be able to load files by entering reference', () async {
       final fileResult = await session.transportServices.files.getOrLoadFileByReference(reference: globalFile.truncatedReference);
-      final file = fileResult.value;
 
       expect(fileResult, isSuccessful<FileDTO>());
-      expect(file.id, globalFile.id);
+      expect(fileResult.value.id, globalFile.id);
     });
 
     test('throws an exception if reference does not match the pattern', () async {
@@ -146,10 +142,8 @@ void run(EnmeshedRuntime runtime) {
     test('should allow to download a file', skip: true, () async {
       final responseResult = await session.transportServices.files.downloadFile(fileId: globalFile.id);
 
-      final response = responseResult.value;
-
       expect(responseResult, isSuccessful<DownloadFileResponse>());
-      expect(utf8.decode(response.content), 'a String');
+      expect(utf8.decode(responseResult.value.content), 'a String');
     });
 
     test('throws an exception if file id does not match the pattern', () async {
@@ -168,10 +162,9 @@ void run(EnmeshedRuntime runtime) {
   group('FilesFacade: getFile', () {
     test('should return a valid file', () async {
       final fileResult = await session.transportServices.files.getFile(fileId: globalFile.id);
-      final file = fileResult.value;
 
       expect(fileResult, isSuccessful<FileDTO>());
-      expect(file.id, globalFile.id);
+      expect(fileResult.value.id, globalFile.id);
     });
 
     test('throws an exception if file id does not match the pattern', () async {
@@ -210,14 +203,13 @@ void run(EnmeshedRuntime runtime) {
   group('FilesFacade: createTokenForFile', () {
     test('should return a valid TokenDTO', () async {
       final tokenResult = await session.transportServices.files.createTokenForFile(fileId: globalFile.id);
-      final token = tokenResult.value;
-
-      final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: token.truncatedReference);
-      final response = responseResult.value;
 
       expect(tokenResult, isSuccessful<TokenDTO>());
+
+      final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: tokenResult.value.truncatedReference);
+
       expect(responseResult, isSuccessful<FileDTO>());
-      expect(response.isOwn, false);
+      expect(responseResult.value.isOwn, false);
     });
 
     test('should return a valid TokenDTO with all properties', () async {
@@ -228,14 +220,14 @@ void run(EnmeshedRuntime runtime) {
         expiresAt: expiresAt,
         ephemeral: true,
       );
-      final token = tokenResult.value;
-
-      final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: token.truncatedReference);
-      final response = responseResult.value;
 
       expect(tokenResult, isSuccessful<TokenDTO>());
-      expect(token.expiresAt, expiresAt);
-      expect(token.isEphemeral, true);
+
+      final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: tokenResult.value.truncatedReference);
+      final response = responseResult.value;
+
+      expect(tokenResult.value.expiresAt, expiresAt);
+      expect(tokenResult.value.isEphemeral, true);
       expect(responseResult, isSuccessful<FileDTO>());
       expect(response.isOwn, false);
     });

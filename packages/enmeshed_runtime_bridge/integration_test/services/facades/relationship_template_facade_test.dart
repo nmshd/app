@@ -26,11 +26,10 @@ void run(EnmeshedRuntime runtime) {
         expiresAt: expiresAt,
         content: content,
       );
-      final template = templateResult.value;
 
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
-      expect(template.expiresAt, expiresAt);
-      expect(template.content.toJson(), content);
+      expect(templateResult.value.expiresAt, expiresAt);
+      expect(templateResult.value.content.toJson(), content);
     });
 
     test('should create a template with all properties', () async {
@@ -43,12 +42,11 @@ void run(EnmeshedRuntime runtime) {
         content: content,
         maxNumberOfAllocations: maxNumberOfAllocations,
       );
-      final template = templateResult.value;
 
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
-      expect(template.expiresAt, expiresAt);
-      expect(template.content.toJson(), content);
-      expect(template.maxNumberOfAllocations, maxNumberOfAllocations);
+      expect(templateResult.value.expiresAt, expiresAt);
+      expect(templateResult.value.content.toJson(), content);
+      expect(templateResult.value.maxNumberOfAllocations, maxNumberOfAllocations);
     });
   });
 
@@ -66,14 +64,12 @@ void run(EnmeshedRuntime runtime) {
         relationshipTemplateId: responseTemplate.value.id,
         secretKey: responseTemplate.value.secretKey,
       );
-      final template = templateResult.value;
 
-      expect(responseTemplate, isSuccessful<RelationshipTemplateDTO>());
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
-      expect(template.expiresAt, expiresAt);
-      expect(template.content.toJson(), content);
-      expect(template.id, responseTemplate.value.id);
-      expect(template.secretKey, responseTemplate.value.secretKey);
+      expect(templateResult.value.expiresAt, expiresAt);
+      expect(templateResult.value.content.toJson(), content);
+      expect(templateResult.value.id, responseTemplate.value.id);
+      expect(templateResult.value.secretKey, responseTemplate.value.secretKey);
     });
   });
 
@@ -90,12 +86,11 @@ void run(EnmeshedRuntime runtime) {
       final templateResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
         reference: responseTemplate.value.truncatedReference,
       );
-      final template = templateResult.value;
 
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
-      expect(template.expiresAt, expiresAt);
-      expect(template.content.toJson(), content);
-      expect(template.truncatedReference, responseTemplate.value.truncatedReference);
+      expect(templateResult.value.expiresAt, expiresAt);
+      expect(templateResult.value.content.toJson(), content);
+      expect(templateResult.value.truncatedReference, responseTemplate.value.truncatedReference);
     });
   });
 
@@ -103,6 +98,8 @@ void run(EnmeshedRuntime runtime) {
     test('should return the correct amount of own relationship templates', () async {
       final expiresAt = generateExpiryString();
       final currentTemplates = await session1.transportServices.relationshipTemplates.getRelationshipTemplates();
+
+      expect(currentTemplates, isSuccessful<List<RelationshipTemplateDTO>>());
 
       await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: expiresAt,
@@ -136,16 +133,18 @@ void run(EnmeshedRuntime runtime) {
         query: {'expiresAt': QueryValue.string(expiresAt)},
       );
 
+      expect(templatesWithQueryExpiresAt, isSuccessful<List<RelationshipTemplateDTO>>());
+
       final templatesWithNoResponse = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'expiresAt': QueryValue.string('2023')},
       );
+
+      expect(templatesWithNoResponse, isSuccessful<List<RelationshipTemplateDTO>>());
 
       final templatesWithQueryMnoa = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'maxNumberOfAllocations': QueryValue.string('1')},
       );
 
-      expect(templatesWithQueryExpiresAt, isSuccessful<List<RelationshipTemplateDTO>>());
-      expect(templatesWithNoResponse, isSuccessful<List<RelationshipTemplateDTO>>());
       expect(templatesWithQueryMnoa, isSuccessful<List<RelationshipTemplateDTO>>());
       expect(templatesWithQueryExpiresAt.value.length, 1);
       expect(templatesWithNoResponse.value.length, 0);
@@ -263,10 +262,9 @@ void run(EnmeshedRuntime runtime) {
       final tokenResult = await session1.transportServices.relationshipTemplates.createTokenForOwnTemplate(
         templateId: createdTemplate.value.id,
       );
-      final token = tokenResult.value;
 
       expect(tokenResult, isSuccessful<TokenDTO>());
-      expect(token.expiresAt, expiresAt);
+      expect(tokenResult.value.expiresAt, expiresAt);
     });
 
     test('should return a valid TokenDTO with all properties', () async {
@@ -281,12 +279,11 @@ void run(EnmeshedRuntime runtime) {
         expiresAt: expiresAt,
         ephemeral: true,
       );
-      final token = tokenResult.value;
 
       expect(tokenResult, isSuccessful<TokenDTO>());
-      expect(token.expiresAt, expiresAt);
-      expect(token.expiresAt, createdTemplateResult.value.expiresAt);
-      expect(token.isEphemeral, true);
+      expect(tokenResult.value.expiresAt, expiresAt);
+      expect(tokenResult.value.expiresAt, createdTemplateResult.value.expiresAt);
+      expect(tokenResult.value.isEphemeral, true);
     });
   });
 }
