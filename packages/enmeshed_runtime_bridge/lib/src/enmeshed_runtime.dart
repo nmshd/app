@@ -8,6 +8,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
+import 'data_view_expander.dart';
 import 'event_bus.dart';
 import 'events/events.dart';
 import 'filesystem_adapter.dart';
@@ -324,7 +325,11 @@ class Session {
   final ConsumptionServices _consumptionServices;
   ConsumptionServices get consumptionServices => _consumptionServices;
 
+  final DataViewExpander _expander;
+  DataViewExpander get expander => _expander;
+
   Session(AbstractEvaluator evaluator)
       : _transportServices = TransportServices(evaluator),
-        _consumptionServices = ConsumptionServices(evaluator);
+        _consumptionServices = ConsumptionServices(evaluator),
+        _expander = DataViewExpander(evaluator);
 }
