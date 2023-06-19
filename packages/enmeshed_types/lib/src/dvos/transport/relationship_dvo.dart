@@ -1,8 +1,8 @@
-import 'package:enmeshed_types/src/dvos/dvos.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../dtos/relationship_change.dart';
 import '../consumption/local_attribute_dvo.dart';
+import '../data_view_object.dart';
 
 part 'relationship_dvo.g.dart';
 

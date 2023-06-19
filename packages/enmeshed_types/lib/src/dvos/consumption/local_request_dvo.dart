@@ -1,7 +1,7 @@
-import 'package:enmeshed_types/src/dvos/data_view_object.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../common/common.dart';
+import '../data_view_object.dart';
 
 part 'local_request_dvo.g.dart';
 
