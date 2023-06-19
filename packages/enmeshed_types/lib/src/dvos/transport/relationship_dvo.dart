@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../dtos/relationship_change.dart';
+import '../common/common.dart';
 import '../consumption/local_attribute_dvo.dart';
 import '../data_view_object.dart';
 
