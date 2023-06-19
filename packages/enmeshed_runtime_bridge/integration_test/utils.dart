@@ -203,3 +203,11 @@ Future<FileDTO> uploadFile(Session session) async {
 
   return response.value;
 }
+
+Future<RelationshipDTO> getRelationship(Session session) async {
+  final response = await session.transportServices.relationships.getRelationships();
+  assert(response.isSuccess);
+  assert(response.value.length == 1);
+
+  return response.value.first;
+}
