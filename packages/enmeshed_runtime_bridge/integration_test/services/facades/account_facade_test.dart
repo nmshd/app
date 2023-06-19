@@ -15,7 +15,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AccountFacade: getIdentityInfo', () {
-    test('should return identity informations', () async {
+    test('should return identity information', () async {
       final identityInfoResult = await session.transportServices.account.getIdentityInfo();
       final identityInfo = identityInfoResult.value;
 
@@ -28,7 +28,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AccountFacade: getDeviceInfo', () {
-    test('should return device informations', () async {
+    test('should return device information', () async {
       final deviceInfoResult = await session.transportServices.account.getDeviceInfo();
 
       expect(deviceInfoResult, isSuccessful<DeviceDTO>());
