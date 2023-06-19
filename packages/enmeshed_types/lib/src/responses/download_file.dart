@@ -12,14 +12,8 @@ class DownloadFileResponse extends Equatable {
   });
 
   factory DownloadFileResponse.fromJson(Map json) {
-    final content = switch (json['content']) {
-      final List list => List<int>.from(list.map((e) => e.toInt())),
-      final Map map => List<int>.from(map.values.map((e) => e.toInt())),
-      _ => throw Exception('Invalid type for content: ${json['content'].runtimeType}'),
-    };
-
     return DownloadFileResponse(
-      content: content,
+      content: List<int>.from(json['content'].map((e) => e.toInt())),
       filename: json['filename'],
       mimeType: json['mimetype'],
     );

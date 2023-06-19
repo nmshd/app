@@ -154,6 +154,7 @@ void run(EnmeshedRuntime runtime) {
       final response = responseResult.value;
 
       expect(response, isA<DownloadFileResponse>());
+      expect(utf8.decode(response.content), 'a String');
     });
 
     test('throws an exception if file id does not match the pattern', () async {

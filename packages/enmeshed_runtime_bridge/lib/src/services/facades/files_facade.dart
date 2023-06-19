@@ -68,7 +68,7 @@ class FilesFacade {
     final result = await _evaluator.evaluateJavascript(
       '''const result = await session.transportServices.files.downloadFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
+      return { value: { ...result.value, content: Array.from(result.value.content) } }''',
       arguments: {
         'request': {
           'id': fileId,
