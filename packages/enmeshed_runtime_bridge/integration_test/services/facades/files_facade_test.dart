@@ -41,7 +41,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: uploadOwnFile', () {
-    test('returns a valid FileDTO', () async {
+    test('should upload own file', () async {
       final expiresAt = generateExpiryString();
       final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
 
@@ -52,17 +52,16 @@ void run(EnmeshedRuntime runtime) {
         expiresAt: expiresAt,
         title: 'aTitle',
       );
-
       final file = fileResult.value;
 
-      expect(file, isA<FileDTO>());
+      expect(fileResult, isSuccessful<FileDTO>());
       expect(file.filename, 'facades/test.txt');
       expect(file.mimetype, 'plain');
       expect(file.expiresAt, expiresAt);
       expect(file.title, 'aTitle');
     });
 
-    test('returns a valid FileDTO with all properties', () async {
+    test('should upload own file with all properties', () async {
       final expiresAt = generateExpiryString();
       final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
 
@@ -74,10 +73,9 @@ void run(EnmeshedRuntime runtime) {
         title: 'aTitle',
         description: 'aDescription',
       );
-
       final file = fileResult.value;
 
-      expect(file, isA<FileDTO>());
+      expect(fileResult, isSuccessful<FileDTO>());
       expect(file.filename, 'facades/test.txt');
       expect(file.mimetype, 'plain');
       expect(file.expiresAt, expiresAt);
@@ -87,23 +85,21 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: getFiles', () {
-    test('returns a valid list of FileDTOs', () async {
+    test('should give access to uploaded files', () async {
       final filesResult = await session.transportServices.files.getFiles();
-
       final files = filesResult.value;
 
-      expect(files, isA<List<FileDTO>>());
+      expect(filesResult, isSuccessful<List<FileDTO>>());
       expect(files, isNotEmpty);
     });
   });
 
   group('FilesFacade: getOrLoadFileByIdAndKey', () {
-    test('returns a valid FileDTO', () async {
+    test('should be able to load files by entering id and key', () async {
       final fileResult = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: globalFile.id, secretKey: globalFile.secretKey);
-
       final file = fileResult.value;
 
-      expect(file, isA<FileDTO>());
+      expect(fileResult, isSuccessful<FileDTO>());
       expect(file.id, globalFile.id);
     });
 
@@ -121,12 +117,11 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: getOrLoadFileByReference', () {
-    test('returns a valid FileDTO', () async {
+    test('should be able to load files by entering reference', () async {
       final fileResult = await session.transportServices.files.getOrLoadFileByReference(reference: globalFile.truncatedReference);
-
       final file = fileResult.value;
 
-      expect(file, isA<FileDTO>());
+      expect(fileResult, isSuccessful<FileDTO>());
       expect(file.id, globalFile.id);
     });
 
@@ -141,19 +136,17 @@ void run(EnmeshedRuntime runtime) {
         reference: 'RklMTG93cDV2Yk5JaUh6QWZ5aGp8M3xKZ2h6dXFKa003TW1Id0hyb3k3akd3dmdleXFXVEdVd3h2QWUwWlRBeXXX',
       );
 
-      // why unknown
+      // TODO: why unknown
       expect(result, isFailing('error.runtime.unknown'));
     });
   });
 
   group('FilesFacade: downloadFile', () {
     // TODO: re-enable test
-    test('returns a valid DownloadFileResponse', skip: true, () async {
+    test('should allow to download a file', skip: true, () async {
       final responseResult = await session.transportServices.files.downloadFile(fileId: globalFile.id);
 
-      final response = responseResult.value;
-
-      expect(response, isA<DownloadFileResponse>());
+      expect(responseResult, isSuccessful<DownloadFileResponse>());
     });
 
     test('throws an exception if file id does not match the pattern', () async {
@@ -170,12 +163,11 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: getFile', () {
-    test('returns a valid FileDTO', () async {
+    test('should return a valid file', () async {
       final fileResult = await session.transportServices.files.getFile(fileId: globalFile.id);
-
       final file = fileResult.value;
 
-      expect(file, isA<FileDTO>());
+      expect(fileResult, isSuccessful<FileDTO>());
       expect(file.id, globalFile.id);
     });
 
@@ -193,12 +185,10 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: createQrCodeForFile', () {
-    test('returns a valid CreateQrCodeResponse', () async {
+    test('should return a valid CreateQrCodeResponse', () async {
       final responseResult = await session.transportServices.files.createQrCodeForFile(fileId: globalFile.id);
 
-      final response = responseResult.value;
-
-      expect(response, isA<CreateQrCodeResponse>());
+      expect(responseResult, isSuccessful<CreateQrCodeResponse>());
     });
 
     test('throws an exception if file id does not match the pattern', () async {
@@ -215,19 +205,19 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: createTokenForFile', () {
-    test('returns a valid TokenDTO', () async {
+    test('should return a valid TokenDTO', () async {
       final tokenResult = await session.transportServices.files.createTokenForFile(fileId: globalFile.id);
       final token = tokenResult.value;
 
       final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: token.truncatedReference);
       final response = responseResult.value;
 
-      expect(token, isA<TokenDTO>());
-      expect(response, isA<FileDTO>());
+      expect(tokenResult, isSuccessful<TokenDTO>());
+      expect(responseResult, isSuccessful<FileDTO>());
       expect(response.isOwn, false);
     });
 
-    test('returns a valid TokenDTO with all properties', () async {
+    test('should return a valid TokenDTO with all properties', () async {
       final expiresAt = generateExpiryString();
 
       final tokenResult = await session.transportServices.files.createTokenForFile(
@@ -240,10 +230,10 @@ void run(EnmeshedRuntime runtime) {
       final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: token.truncatedReference);
       final response = responseResult.value;
 
-      expect(token, isA<TokenDTO>());
+      expect(tokenResult, isSuccessful<TokenDTO>());
       expect(token.expiresAt, expiresAt);
       expect(token.isEphemeral, true);
-      expect(response, isA<FileDTO>());
+      expect(responseResult, isSuccessful<FileDTO>());
       expect(response.isOwn, false);
     });
 
@@ -261,23 +251,19 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('FilesFacade: createTokenQrCodeForFile', () {
-    test('returns a valid CreateQrCodeResponse', () async {
+    test('should return a valid CreateQrCodeResponse', () async {
       final tokenResult = await session.transportServices.files.createTokenQrCodeForFile(fileId: globalFile.id);
 
-      final token = tokenResult.value;
-
-      expect(token, isA<CreateQrCodeResponse>());
+      expect(tokenResult, isSuccessful<CreateQrCodeResponse>());
     });
 
-    test('returns a valid CreateQrCodeResponse with all properties', () async {
+    test('should return a valid CreateQrCodeResponse with all properties', () async {
       final tokenResult = await session.transportServices.files.createTokenQrCodeForFile(
         fileId: globalFile.id,
         expiresAt: generateExpiryString(),
       );
 
-      final token = tokenResult.value;
-
-      expect(token, isA<CreateQrCodeResponse>());
+      expect(tokenResult, isSuccessful<CreateQrCodeResponse>());
     });
 
     test('throws an exception if file id does not match the pattern', () async {
