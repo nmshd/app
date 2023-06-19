@@ -1,8 +1,14 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'dvo_warning.g.dart';
+
+@JsonSerializable()
 class DVOWarning {
   String code;
   String? message;
 
   DVOWarning({required this.code, this.message});
 
-  factory DVOWarning.fromJson(Map json) => DVOWarning(code: json['code'], message: json['message']);
+  factory DVOWarning.fromJson(Map<String, dynamic> json) => _$DVOWarningFromJson(json);
+  Map<String, dynamic> toJson() => _$DVOWarningToJson(this);
 }
