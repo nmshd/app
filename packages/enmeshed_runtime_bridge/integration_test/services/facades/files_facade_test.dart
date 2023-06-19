@@ -146,7 +146,10 @@ void run(EnmeshedRuntime runtime) {
     test('should allow to download a file', skip: true, () async {
       final responseResult = await session.transportServices.files.downloadFile(fileId: globalFile.id);
 
+      final response = responseResult.value;
+
       expect(responseResult, isSuccessful<DownloadFileResponse>());
+      expect(utf8.decode(response.content), 'a String');
     });
 
     test('throws an exception if file id does not match the pattern', () async {
