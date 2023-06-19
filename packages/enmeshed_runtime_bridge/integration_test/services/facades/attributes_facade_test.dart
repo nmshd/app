@@ -26,11 +26,11 @@ void run(EnmeshedRuntime runtime) {
 
   setUp(() async {
     await sender.consumptionServices.attributes.createAttribute(
-      content: IdentityAttribute(owner: account1.address, value: const SurnameAttributeValue(value: 'aSurname')).toJson(),
+      content: IdentityAttribute(owner: account1.address!, value: const SurnameAttributeValue(value: 'aSurname')).toJson(),
     );
 
     await sender.consumptionServices.attributes.createAttribute(
-      content: IdentityAttribute(owner: account1.address, value: const GivenNameAttributeValue(value: 'aGivenName')).toJson(),
+      content: IdentityAttribute(owner: account1.address!, value: const GivenNameAttributeValue(value: 'aGivenName')).toJson(),
     );
   });
 
@@ -49,7 +49,7 @@ void run(EnmeshedRuntime runtime) {
   group('AttributesFacade: createAttribute', () {
     test('should create an attribute', () async {
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aCity')).toJson(),
+        content: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')).toJson(),
       );
       final attribute = attributeResult.value;
 
@@ -61,7 +61,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: createSharedAttributeCopy', () {
     test('should allow to create a shared copy', () async {
-      final nationalityParams = IdentityAttribute(owner: account1.address, value: const NationalityAttributeValue(value: 'DE'));
+      final nationalityParams = IdentityAttribute(owner: account1.address!, value: const NationalityAttributeValue(value: 'DE'));
 
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(content: nationalityParams.toJson());
       final attribute = attributeResult.value;
@@ -97,11 +97,11 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: getPeerAttributes', () {
     test('should return a valid list of peer attributes', () async {
-      final attribute = IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910'));
+      final attribute = IdentityAttribute(owner: account1.address!, value: const PhoneNumberAttributeValue(value: '012345678910'));
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address, attribute);
+      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
 
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address);
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address!);
       final recipientAttributes = recipientAttributesResult.value;
 
       final attributeContents = recipientAttributes.map((e) => e.content);
@@ -113,17 +113,17 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return just non technical peer attributes when hideTechnical=true', () async {
       final attribute = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
         isTechnical: true,
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address, attribute);
+      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
 
       final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
-        peer: account1.address,
+        peer: account1.address!,
         hideTechnical: true,
       );
       final recipientAttributes = recipientAttributesResult.value;
@@ -134,17 +134,17 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return also technical peer attributes when hideTechnical=false', () async {
       final attribute = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
         isTechnical: true,
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address, attribute);
+      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
 
       final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
-        peer: account1.address,
+        peer: account1.address!,
         hideTechnical: false,
       );
       final recipientAttributes = recipientAttributesResult.value;
@@ -155,17 +155,17 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return just valid peer attributes when onlyValid=true', () async {
       final attribute = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
         validTo: DateTime.now().toRuntimeIsoString(),
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address, attribute);
+      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
 
       final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
-        peer: account1.address,
+        peer: account1.address!,
         onlyValid: true,
       );
       final recipientAttributes = recipientAttributesResult.value;
@@ -176,17 +176,17 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return also expired peer attributes when onlyValid=false', () async {
       final attribute = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
         validTo: DateTime.now().toRuntimeIsoString(),
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address, attribute);
+      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
 
       final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
-        peer: account1.address,
+        peer: account1.address!,
         onlyValid: false,
       );
       final recipientAttributes = recipientAttributesResult.value;
@@ -197,7 +197,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return a valid list of LocalAttributeDTOs with all properties', () async {
       final attribute = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
@@ -205,10 +205,10 @@ void run(EnmeshedRuntime runtime) {
         isTechnical: true,
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address, attribute);
+      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
 
       final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
-        peer: account1.address,
+        peer: account1.address!,
         onlyValid: true,
         hideTechnical: true,
       );
@@ -221,10 +221,10 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: getSharedToPeerAttributes', () {
     test('should return a valid list of shared to peer attributes', () async {
-      final nationalityParams = IdentityAttribute(owner: account1.address, value: const NationalityAttributeValue(value: 'DE'));
+      final nationalityParams = IdentityAttribute(owner: account1.address!, value: const NationalityAttributeValue(value: 'DE'));
       const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
 
-      final sharedNationality = await establishSharedAttributeCopy(sender, account1.address, peer, nationalityParams);
+      final sharedNationality = await establishSharedAttributeCopy(sender, account1.address!, peer, nationalityParams);
 
       final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(peer: peer);
       final sharedToPeerAttributes = sharedToPeerAttributeResult.value;
@@ -238,7 +238,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return just non technical shared to peer attributes when hideTechnical=true', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
@@ -247,7 +247,7 @@ void run(EnmeshedRuntime runtime) {
 
       const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
 
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address, peer, proprietaryBooleanParams);
+      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
 
       final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
         peer: peer,
@@ -264,7 +264,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return also technical shared to peer attributes when hideTechnical=false', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
@@ -273,7 +273,7 @@ void run(EnmeshedRuntime runtime) {
 
       const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
 
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address, peer, proprietaryBooleanParams);
+      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
 
       final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
         peer: peer,
@@ -290,7 +290,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return just valid shared to peer attributes when onlyValid=true', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
@@ -299,7 +299,7 @@ void run(EnmeshedRuntime runtime) {
 
       const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
 
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address, peer, proprietaryBooleanParams);
+      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
 
       final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
         peer: peer,
@@ -316,7 +316,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return also expired shared to peer attributes when onlyValid=false', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
@@ -325,7 +325,7 @@ void run(EnmeshedRuntime runtime) {
 
       const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
 
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address, peer, proprietaryBooleanParams);
+      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
 
       final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
         peer: peer,
@@ -342,7 +342,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return a valid list of non technical LocalAttributeDTOs with all properties', () async {
       final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
@@ -352,7 +352,7 @@ void run(EnmeshedRuntime runtime) {
 
       const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
 
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address, peer, proprietaryBooleanParams);
+      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
 
       final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
         peer: peer,
@@ -407,7 +407,7 @@ void run(EnmeshedRuntime runtime) {
     test('should return a valid list of queried LocalAttributeDTOs', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
-          owner: account1.address,
+          owner: account1.address!,
           value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
           key: 'aKey',
           confidentiality: RelationshipAttributeConfidentiality.public,
@@ -427,7 +427,7 @@ void run(EnmeshedRuntime runtime) {
     test('should return just non technical attributes when hideTechnical=true', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
-          owner: account1.address,
+          owner: account1.address!,
           value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
           key: 'aKey',
           confidentiality: RelationshipAttributeConfidentiality.public,
@@ -445,7 +445,7 @@ void run(EnmeshedRuntime runtime) {
     test('should return also technical attributes when hideTechnical=false', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
-          owner: account1.address,
+          owner: account1.address!,
           value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
           key: 'aKey',
           confidentiality: RelationshipAttributeConfidentiality.public,
@@ -463,7 +463,7 @@ void run(EnmeshedRuntime runtime) {
     test('should return just valid attributes when onlyValid=true', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
-          owner: account1.address,
+          owner: account1.address!,
           value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
           key: 'aKey',
           confidentiality: RelationshipAttributeConfidentiality.public,
@@ -481,7 +481,7 @@ void run(EnmeshedRuntime runtime) {
     test('should return also expired attributes when onlyValid=false', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
-          owner: account1.address,
+          owner: account1.address!,
           value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
           key: 'aKey',
           confidentiality: RelationshipAttributeConfidentiality.public,
@@ -499,7 +499,7 @@ void run(EnmeshedRuntime runtime) {
     test('should return a valid list of LocalAttributeDTOs with all properties', () async {
       await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
-          owner: account1.address,
+          owner: account1.address!,
           value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
           key: 'aKey',
           confidentiality: RelationshipAttributeConfidentiality.public,
@@ -523,13 +523,13 @@ void run(EnmeshedRuntime runtime) {
   group('AttributesFacade: executeIdentityAttributeQuery', () {
     test('should allow to execute an identityAttributeQuery', () async {
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910')).toJson(),
+        content: IdentityAttribute(owner: account1.address!, value: const PhoneNumberAttributeValue(value: '012345678910')).toJson(),
       );
       final identityAttribute = identityAttributeResult.value;
 
       final relationshipAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
-          owner: account1.address,
+          owner: account1.address!,
           value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aProprietaryStringValue'),
           key: 'phone',
           confidentiality: RelationshipAttributeConfidentiality.protected,
@@ -558,7 +558,7 @@ void run(EnmeshedRuntime runtime) {
     test('should allow to execute a relationshipAttributeQuery', () async {
       final relationshipAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: RelationshipAttribute(
-          owner: account1.address,
+          owner: account1.address!,
           value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
           key: 'aKey',
           confidentiality: RelationshipAttributeConfidentiality.public,
@@ -569,7 +569,7 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.executeRelationshipAttributeQuery(
         query: RelationshipAttributeQuery(
           key: 'aKey',
-          owner: account1.address,
+          owner: account1.address!,
           attributeCreationHints: const RelationshipAttributeCreationHints(
             title: 'aTitle',
             valueType: 'ProprietaryBoolean',
@@ -591,13 +591,13 @@ void run(EnmeshedRuntime runtime) {
       await exchangeAndAcceptRequestByMessage(
         sender,
         recipient,
-        account1.address,
-        account2.address,
+        account1.address!,
+        account2.address!,
         Request(items: [
           CreateAttributeRequestItem(
             mustBeAccepted: true,
             attribute: RelationshipAttribute(
-              owner: account1.address,
+              owner: account1.address!,
               value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aProprietaryStringValue'),
               key: 'website',
               confidentiality: RelationshipAttributeConfidentiality.public,
@@ -609,7 +609,7 @@ void run(EnmeshedRuntime runtime) {
       );
 
       final receivedAttributeResult = await recipient.consumptionServices.attributes.executeThirdPartyRelationshipAttributeQuery(
-        query: ThirdPartyRelationshipAttributeQuery(key: 'website', owner: account1.address, thirdParty: [account1.address]),
+        query: ThirdPartyRelationshipAttributeQuery(key: 'website', owner: account1.address!, thirdParty: [account1.address!]),
       );
       final receivedAttribute = receivedAttributeResult.value;
 
@@ -622,7 +622,7 @@ void run(EnmeshedRuntime runtime) {
     test('should allow to succeed an attribute', () async {
       final successorDate = DateTime.now();
 
-      final displayNameParams = IdentityAttribute(owner: account1.address, value: const DisplayNameAttributeValue(value: 'aDisplayName'));
+      final displayNameParams = IdentityAttribute(owner: account1.address!, value: const DisplayNameAttributeValue(value: 'aDisplayName'));
 
       final attributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: displayNameParams.toJson(),
@@ -630,7 +630,7 @@ void run(EnmeshedRuntime runtime) {
       final attribute = attributeResult.value;
 
       final createSuccessorParams = IdentityAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const DisplayNameAttributeValue(value: 'aNewDisplayName'),
         validFrom: successorDate.toRuntimeIsoString(),
       );
@@ -669,7 +669,7 @@ void run(EnmeshedRuntime runtime) {
     test('should updated an attribute', () async {
       final addressResult = await sender.consumptionServices.attributes.createAttribute(
         content: IdentityAttribute(
-          owner: account1.address,
+          owner: account1.address!,
           value: const StreetAddressAttributeValue(
             recipient: 'aRecipient',
             street: 'aStreet',
@@ -684,7 +684,7 @@ void run(EnmeshedRuntime runtime) {
       final address = addressResult.value;
 
       final updatedParams = IdentityAttribute(
-        owner: account1.address,
+        owner: account1.address!,
         value: const StreetAddressAttributeValue(
           recipient: 'aNewRecipient',
           street: 'aNewStreet',
@@ -709,8 +709,8 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: shareAttribute', () {
     test('should allow to share an attribute', () async {
-      final recipientAddress = account2.address;
-      final attribute = IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910'));
+      final recipientAddress = account2.address!;
+      final attribute = IdentityAttribute(owner: account1.address!, value: const PhoneNumberAttributeValue(value: '012345678910'));
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: attribute.toJson(),
@@ -724,7 +724,7 @@ void run(EnmeshedRuntime runtime) {
       final shareAttribute = shareAttributeResult.value;
 
       await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
-        eventTargetAddress: account1.address,
+        eventTargetAddress: account1.address!,
         predicate: (e) => e.newStatus == LocalRequestStatus.Open,
       );
 
@@ -744,7 +744,7 @@ void run(EnmeshedRuntime runtime) {
         predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
       );
 
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address);
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address!);
       final recipientAttributes = recipientAttributesResult.value;
 
       final attributeContents = recipientAttributes.map((v) => v.content);
@@ -757,8 +757,8 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should allow to share an attribute with all properties', () async {
-      final recipientAddress = account2.address;
-      final attribute = IdentityAttribute(owner: account1.address, value: const PhoneNumberAttributeValue(value: '012345678910'));
+      final recipientAddress = account2.address!;
+      final attribute = IdentityAttribute(owner: account1.address!, value: const PhoneNumberAttributeValue(value: '012345678910'));
 
       final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
         content: attribute.toJson(),
@@ -777,7 +777,7 @@ void run(EnmeshedRuntime runtime) {
       final shareAttribute = shareAttributeResult.value;
 
       await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
-        eventTargetAddress: account1.address,
+        eventTargetAddress: account1.address!,
         predicate: (e) => e.newStatus == LocalRequestStatus.Open,
       );
 
@@ -797,7 +797,7 @@ void run(EnmeshedRuntime runtime) {
         predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
       );
 
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address);
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address!);
       final recipientAttributes = recipientAttributesResult.value;
 
       final attributeContents = recipientAttributes.map((v) => v.content);

@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class LocalAccountDTO extends Equatable {
   final String id;
-  final String address;
+  final String? address;
   final String name;
   final String realm;
   final String directory;
@@ -11,7 +11,7 @@ class LocalAccountDTO extends Equatable {
 
   const LocalAccountDTO({
     required this.id,
-    required this.address,
+    this.address,
     required this.name,
     required this.realm,
     required this.directory,
