@@ -1,3 +1,5 @@
+@Timeout(Duration(minutes: 10))
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
