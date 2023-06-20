@@ -1,4 +1,4 @@
-export 'decidable_request_template_dvos.dart';
+export 'decidable_request_item_dvos.dart';
 export 'local_attribute_dvo.dart';
 export 'local_attribute_listener_dvo.dart';
 export 'local_request_dvo.dart';
