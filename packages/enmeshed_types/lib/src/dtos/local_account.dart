@@ -36,6 +36,18 @@ class LocalAccountDTO extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      if (address != null) 'address': address,
+      'name': name,
+      'realm': realm,
+      'directory': directory,
+      'order': order,
+      if (lastAccessedAt != null) 'lastAccessedAt': lastAccessedAt,
+    };
+  }
+
   @override
   List<Object?> get props => [id, address, name, realm, directory, order];
 }
