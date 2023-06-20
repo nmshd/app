@@ -13,17 +13,12 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
       image: json['image'] as String?,
       type: json['type'] as String,
       date: json['date'] as String?,
-      error: json['error'] == null
-          ? null
-          : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null
-          ? null
-          : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       filename: json['filename'] as String,
       filesize: json['filesize'] as int,
       createdAt: json['createdAt'] as String,
-      createdBy:
-          IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
+      createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
       createdByDevice: json['createdByDevice'] as String,
       expiresAt: json['expiresAt'] as String,
       mimetype: json['mimetype'] as String,

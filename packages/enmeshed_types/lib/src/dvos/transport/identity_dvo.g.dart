@@ -13,25 +13,17 @@ IdentityDVO _$IdentityDVOFromJson(Map<String, dynamic> json) => IdentityDVO(
       image: json['image'] as String?,
       type: json['type'] as String,
       date: json['date'] as String?,
-      error: json['error'] == null
-          ? null
-          : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null
-          ? null
-          : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       publicKey: json['publicKey'] as String?,
       realm: json['realm'] as String,
       initials: json['initials'] as String,
       isSelf: json['isSelf'] as bool,
       hasRelationship: json['hasRelationship'] as bool,
-      relationship: json['relationship'] == null
-          ? null
-          : RelationshipDVO.fromJson(
-              json['relationship'] as Map<String, dynamic>),
+      relationship: json['relationship'] == null ? null : RelationshipDVO.fromJson(json['relationship'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$IdentityDVOToJson(IdentityDVO instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$IdentityDVOToJson(IdentityDVO instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,

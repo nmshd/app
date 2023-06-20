@@ -11,8 +11,7 @@ DVOWarning _$DVOWarningFromJson(Map<String, dynamic> json) => DVOWarning(
       message: json['message'] as String?,
     );
 
-Map<String, dynamic> _$DVOWarningToJson(DVOWarning instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$DVOWarningToJson(DVOWarning instance) => <String, dynamic>{
       'code': instance.code,
       'message': instance.message,
     };

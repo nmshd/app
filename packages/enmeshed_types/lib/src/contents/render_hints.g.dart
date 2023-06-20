@@ -7,20 +7,16 @@ part of 'render_hints.dart';
 // **************************************************************************
 
 RenderHints _$RenderHintsFromJson(Map<String, dynamic> json) => RenderHints(
-      technicalType:
-          $enumDecode(_$RenderHintsTechnicalTypeEnumMap, json['technicalType']),
+      technicalType: $enumDecode(_$RenderHintsTechnicalTypeEnumMap, json['technicalType']),
       editType: $enumDecode(_$RenderHintsEditTypeEnumMap, json['editType']),
-      dataType:
-          $enumDecodeNullable(_$RenderHintsDataTypeEnumMap, json['dataType']),
+      dataType: $enumDecodeNullable(_$RenderHintsDataTypeEnumMap, json['dataType']),
       propertyHints: (json['propertyHints'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, RenderHints.fromJson(e as Map<String, dynamic>)),
       ),
     );
 
-Map<String, dynamic> _$RenderHintsToJson(RenderHints instance) =>
-    <String, dynamic>{
-      'technicalType':
-          _$RenderHintsTechnicalTypeEnumMap[instance.technicalType]!,
+Map<String, dynamic> _$RenderHintsToJson(RenderHints instance) => <String, dynamic>{
+      'technicalType': _$RenderHintsTechnicalTypeEnumMap[instance.technicalType]!,
       'editType': _$RenderHintsEditTypeEnumMap[instance.editType]!,
       'dataType': _$RenderHintsDataTypeEnumMap[instance.dataType],
       'propertyHints': instance.propertyHints,

@@ -13,22 +13,13 @@ MessageDVO _$MessageDVOFromJson(Map<String, dynamic> json) => MessageDVO(
       image: json['image'] as String?,
       type: json['type'] as String,
       date: json['date'] as String?,
-      error: json['error'] == null
-          ? null
-          : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null
-          ? null
-          : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       createdByDevice: json['createdByDevice'] as String,
       createdAt: json['createdAt'] as String,
-      createdBy:
-          IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
-      recipients: (json['recipients'] as List<dynamic>)
-          .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      attachments: (json['attachments'] as List<dynamic>)
-          .map((e) => FileDVO.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
+      recipients: (json['recipients'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      attachments: (json['attachments'] as List<dynamic>).map((e) => FileDVO.fromJson(e as Map<String, dynamic>)).toList(),
       isOwn: json['isOwn'] as bool,
       recipientCount: json['recipientCount'] as int,
       attachmentCount: json['attachmentCount'] as int,
@@ -38,8 +29,7 @@ MessageDVO _$MessageDVOFromJson(Map<String, dynamic> json) => MessageDVO(
       content: json['content'] as Map<String, dynamic>,
     );
 
-Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
@@ -75,27 +65,19 @@ RecipientDVO _$RecipientDVOFromJson(Map<String, dynamic> json) => RecipientDVO(
       image: json['image'] as String?,
       type: json['type'] as String,
       date: json['date'] as String?,
-      error: json['error'] == null
-          ? null
-          : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null
-          ? null
-          : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       publicKey: json['publicKey'] as String?,
       realm: json['realm'] as String,
       initials: json['initials'] as String,
       isSelf: json['isSelf'] as bool,
       hasRelationship: json['hasRelationship'] as bool,
-      relationship: json['relationship'] == null
-          ? null
-          : RelationshipDVO.fromJson(
-              json['relationship'] as Map<String, dynamic>),
+      relationship: json['relationship'] == null ? null : RelationshipDVO.fromJson(json['relationship'] as Map<String, dynamic>),
       receivedAt: json['receivedAt'] as String?,
       receivedByDevice: json['receivedByDevice'] as String?,
     );
 
-Map<String, dynamic> _$RecipientDVOToJson(RecipientDVO instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$RecipientDVOToJson(RecipientDVO instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,

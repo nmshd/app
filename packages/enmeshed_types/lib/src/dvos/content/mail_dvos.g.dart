@@ -6,30 +6,20 @@ part of 'mail_dvos.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) =>
-    RequestMessageDVO(
+RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) => RequestMessageDVO(
       id: json['id'] as String,
       name: json['name'] as String?,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
       date: json['date'] as String?,
-      error: json['error'] == null
-          ? null
-          : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null
-          ? null
-          : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       createdByDevice: json['createdByDevice'] as String,
       createdAt: json['createdAt'] as String,
-      createdBy:
-          IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
-      recipients: (json['recipients'] as List<dynamic>)
-          .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      attachments: (json['attachments'] as List<dynamic>)
-          .map((e) => FileDVO.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
+      recipients: (json['recipients'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      attachments: (json['attachments'] as List<dynamic>).map((e) => FileDVO.fromJson(e as Map<String, dynamic>)).toList(),
       isOwn: json['isOwn'] as bool,
       recipientCount: json['recipientCount'] as int,
       attachmentCount: json['attachmentCount'] as int,
@@ -37,12 +27,10 @@ RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) =>
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
       content: json['content'] as Map<String, dynamic>,
-      request:
-          LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
+      request: LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
@@ -79,22 +67,13 @@ MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
       image: json['image'] as String?,
       type: json['type'] as String,
       date: json['date'] as String?,
-      error: json['error'] == null
-          ? null
-          : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null
-          ? null
-          : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       createdByDevice: json['createdByDevice'] as String,
       createdAt: json['createdAt'] as String,
-      createdBy:
-          IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
-      recipients: (json['recipients'] as List<dynamic>)
-          .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      attachments: (json['attachments'] as List<dynamic>)
-          .map((e) => FileDVO.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
+      recipients: (json['recipients'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      attachments: (json['attachments'] as List<dynamic>).map((e) => FileDVO.fromJson(e as Map<String, dynamic>)).toList(),
       isOwn: json['isOwn'] as bool,
       recipientCount: json['recipientCount'] as int,
       attachmentCount: json['attachmentCount'] as int,
@@ -102,12 +81,8 @@ MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
       content: json['content'] as Map<String, dynamic>,
-      to: (json['to'] as List<dynamic>)
-          .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      cc: (json['cc'] as List<dynamic>)
-          .map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      to: (json['to'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      cc: (json['cc'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
       subject: json['subject'] as String,
       body: json['body'] as String,
       toCount: json['toCount'] as int,

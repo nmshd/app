@@ -13,16 +13,11 @@ RequestDVO _$RequestDVOFromJson(Map<String, dynamic> json) => RequestDVO(
       image: json['image'] as String?,
       type: json['type'] as String,
       date: json['date'] as String?,
-      error: json['error'] == null
-          ? null
-          : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null
-          ? null
-          : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RequestDVOToJson(RequestDVO instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$RequestDVOToJson(RequestDVO instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
