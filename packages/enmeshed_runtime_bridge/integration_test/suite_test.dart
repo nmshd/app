@@ -13,6 +13,7 @@ import 'services/facades/files_facade_test.dart' as files_facade_test;
 import 'services/facades/messages_facade_test.dart' as messages_facade_test;
 import 'services/facades/relationship_template_facade_test.dart' as relationship_template_facade_test;
 import 'services/facades/relationships_facade_test.dart' as relationships_facade_test;
+import 'services/facades/requests_facade_test.dart' as requests_facade_test;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -40,4 +41,5 @@ void main() async {
   attributes_facade_test.run(runtime);
   account_facade_test.run(runtime);
   messages_facade_test.run(runtime);
+  requests_facade_test.run(runtime);
 }
