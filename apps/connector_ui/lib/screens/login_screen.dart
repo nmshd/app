@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final identityInfoResult = await client.account.getIdentityInfo().catchError((e) {
       final error = ConnectorError(id: 'id', docs: 'docs', time: 'time', code: 'network error', message: e.toString());
-      return ConnectorResponse.fromError<types.GetIdentityInfoResponse>(error);
+      return ConnectorResponse<types.GetIdentityInfoResponse>.fromError(error);
     });
 
     if (identityInfoResult.hasError) {
