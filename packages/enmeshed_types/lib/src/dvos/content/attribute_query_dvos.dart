@@ -33,7 +33,7 @@ sealed class AttributeQueryDVO extends DataViewObject {
   Map<String, dynamic> toJson();
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class IdentityAttributeQueryDVO extends AttributeQueryDVO {
   final String valueType;
   final List<String>? tags;
@@ -64,7 +64,7 @@ class IdentityAttributeQueryDVO extends AttributeQueryDVO {
   Map<String, dynamic> toJson() => _$IdentityAttributeQueryDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RelationshipAttributeQueryDVO extends AttributeQueryDVO {
   final String valueType;
   final String key;
@@ -99,7 +99,7 @@ class RelationshipAttributeQueryDVO extends AttributeQueryDVO {
   Map<String, dynamic> toJson() => _$RelationshipAttributeQueryDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ThirdPartyRelationshipAttributeQueryDVO extends AttributeQueryDVO {
   final String key;
   final IdentityDVO owner;

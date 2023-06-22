@@ -15,12 +15,22 @@ RenderHints _$RenderHintsFromJson(Map<String, dynamic> json) => RenderHints(
       ),
     );
 
-Map<String, dynamic> _$RenderHintsToJson(RenderHints instance) => <String, dynamic>{
-      'technicalType': _$RenderHintsTechnicalTypeEnumMap[instance.technicalType]!,
-      'editType': _$RenderHintsEditTypeEnumMap[instance.editType]!,
-      'dataType': _$RenderHintsDataTypeEnumMap[instance.dataType],
-      'propertyHints': instance.propertyHints,
-    };
+Map<String, dynamic> _$RenderHintsToJson(RenderHints instance) {
+  final val = <String, dynamic>{
+    'technicalType': _$RenderHintsTechnicalTypeEnumMap[instance.technicalType]!,
+    'editType': _$RenderHintsEditTypeEnumMap[instance.editType]!,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('dataType', _$RenderHintsDataTypeEnumMap[instance.dataType]);
+  writeNotNull('propertyHints', instance.propertyHints);
+  return val;
+}
 
 const _$RenderHintsTechnicalTypeEnumMap = {
   RenderHintsTechnicalType.Boolean: 'Boolean',

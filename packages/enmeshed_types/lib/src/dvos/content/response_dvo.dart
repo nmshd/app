@@ -7,7 +7,7 @@ import 'response_item_dvos.dart';
 
 part 'response_dvo.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ResponseDVO extends DataViewObject {
   final List<ResponseItemDVO> items;
   final ResponseResult result;

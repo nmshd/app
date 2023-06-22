@@ -6,7 +6,7 @@ import 'identity_dvo.dart';
 
 part 'file_dvo.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class FileDVO extends DataViewObject {
   String filename;
   int filesize;

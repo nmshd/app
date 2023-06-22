@@ -19,15 +19,25 @@ LocalAttributeListenerDVO _$LocalAttributeListenerDVOFromJson(Map<String, dynami
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$LocalAttributeListenerDVOToJson(LocalAttributeListenerDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'query': instance.query,
-      'peer': instance.peer,
-    };
+Map<String, dynamic> _$LocalAttributeListenerDVOToJson(LocalAttributeListenerDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['query'] = instance.query;
+  val['peer'] = instance.peer;
+  return val;
+}

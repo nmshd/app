@@ -7,7 +7,7 @@ part 'local_attribute_dvo.g.dart';
 
 // TODO implement this library
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class LocalAttributeDVO extends DataViewObject {
   LocalAttributeDVO({required super.id, required super.type});
 

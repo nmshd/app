@@ -9,7 +9,7 @@ part 'relationship_dvo.g.dart';
 
 enum RelationshipDirection { Incoming, Outgoing }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RelationshipDVO extends DataViewObject {
   String status;
   RelationshipDirection direction;
@@ -49,7 +49,7 @@ class RelationshipDVO extends DataViewObject {
   Map<String, dynamic> toJson() => _$RelationshipDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RelationshipTheme {
   String? image;
   String? headerImage;
@@ -67,7 +67,7 @@ class RelationshipTheme {
   Map<String, dynamic> toJson() => _$RelationshipThemeToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RelationshipChangeDVO extends DataViewObject {
   RelationshipChangeRequestDVO request;
   RelationshipChangeResponseDVO? response;
@@ -99,7 +99,7 @@ class RelationshipChangeDVO extends DataViewObject {
   Map<String, dynamic> toJson() => _$RelationshipChangeDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RelationshipChangeRequestDVO extends DataViewObject {
   String createdBy;
   String createdByDevice;
@@ -125,7 +125,7 @@ class RelationshipChangeRequestDVO extends DataViewObject {
   Map<String, dynamic> toJson() => _$RelationshipChangeRequestDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RelationshipChangeResponseDVO extends DataViewObject {
   String createdBy;
   String createdByDevice;

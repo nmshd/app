@@ -30,29 +30,39 @@ RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) => Requ
       request: LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'createdByDevice': instance.createdByDevice,
-      'createdAt': instance.createdAt,
-      'createdBy': instance.createdBy,
-      'recipients': instance.recipients,
-      'attachments': instance.attachments,
-      'isOwn': instance.isOwn,
-      'recipientCount': instance.recipientCount,
-      'attachmentCount': instance.attachmentCount,
-      'status': _$MessageStatusEnumMap[instance.status]!,
-      'statusText': instance.statusText,
-      'peer': instance.peer,
-      'content': instance.content,
-      'request': instance.request,
-    };
+Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['createdByDevice'] = instance.createdByDevice;
+  val['createdAt'] = instance.createdAt;
+  val['createdBy'] = instance.createdBy;
+  val['recipients'] = instance.recipients;
+  val['attachments'] = instance.attachments;
+  val['isOwn'] = instance.isOwn;
+  val['recipientCount'] = instance.recipientCount;
+  val['attachmentCount'] = instance.attachmentCount;
+  val['status'] = _$MessageStatusEnumMap[instance.status]!;
+  val['statusText'] = instance.statusText;
+  val['peer'] = instance.peer;
+  val['content'] = instance.content;
+  val['request'] = instance.request;
+  return val;
+}
 
 const _$MessageStatusEnumMap = {
   MessageStatus.Received: 'Received',
@@ -89,31 +99,41 @@ MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
       ccCount: json['ccCount'] as int,
     );
 
-Map<String, dynamic> _$MailDVOToJson(MailDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'createdByDevice': instance.createdByDevice,
-      'createdAt': instance.createdAt,
-      'createdBy': instance.createdBy,
-      'recipients': instance.recipients,
-      'attachments': instance.attachments,
-      'isOwn': instance.isOwn,
-      'recipientCount': instance.recipientCount,
-      'attachmentCount': instance.attachmentCount,
-      'status': _$MessageStatusEnumMap[instance.status]!,
-      'statusText': instance.statusText,
-      'peer': instance.peer,
-      'content': instance.content,
-      'to': instance.to,
-      'cc': instance.cc,
-      'subject': instance.subject,
-      'body': instance.body,
-      'toCount': instance.toCount,
-      'ccCount': instance.ccCount,
-    };
+Map<String, dynamic> _$MailDVOToJson(MailDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['createdByDevice'] = instance.createdByDevice;
+  val['createdAt'] = instance.createdAt;
+  val['createdBy'] = instance.createdBy;
+  val['recipients'] = instance.recipients;
+  val['attachments'] = instance.attachments;
+  val['isOwn'] = instance.isOwn;
+  val['recipientCount'] = instance.recipientCount;
+  val['attachmentCount'] = instance.attachmentCount;
+  val['status'] = _$MessageStatusEnumMap[instance.status]!;
+  val['statusText'] = instance.statusText;
+  val['peer'] = instance.peer;
+  val['content'] = instance.content;
+  val['to'] = instance.to;
+  val['cc'] = instance.cc;
+  val['subject'] = instance.subject;
+  val['body'] = instance.body;
+  val['toCount'] = instance.toCount;
+  val['ccCount'] = instance.ccCount;
+  return val;
+}

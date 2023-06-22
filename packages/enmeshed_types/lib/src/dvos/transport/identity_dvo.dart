@@ -6,7 +6,7 @@ import 'relationship_dvo.dart';
 
 part 'identity_dvo.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class IdentityDVO extends DataViewObject {
   String? publicKey;
   String realm;

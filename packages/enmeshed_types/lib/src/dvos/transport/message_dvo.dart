@@ -10,7 +10,7 @@ part 'message_dvo.g.dart';
 
 enum MessageStatus { Received, Delivering, Delivered }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class MessageDVO extends DataViewObject {
   String createdByDevice;
   String createdAt;
@@ -52,7 +52,7 @@ class MessageDVO extends DataViewObject {
   Map<String, dynamic> toJson() => _$MessageDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RecipientDVO extends IdentityDVO {
   String? receivedAt;
   String? receivedByDevice;

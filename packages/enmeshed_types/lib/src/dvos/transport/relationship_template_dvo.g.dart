@@ -21,16 +21,26 @@ RelationshipTemplateDVO _$RelationshipTemplateDVOFromJson(Map<String, dynamic> j
       content: json['content'],
     );
 
-Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO instance) => <String, dynamic>{
-      'type': instance.type,
-      'isOwn': instance.isOwn,
-      'createdBy': instance.createdBy,
-      'createdByDevice': instance.createdByDevice,
-      'createdAt': instance.createdAt,
-      'expiresAt': instance.expiresAt,
-      'maxNumberOfAllocations': instance.maxNumberOfAllocations,
-      'onNewRelationship': instance.onNewRelationship,
-      'onExistingRelationship': instance.onExistingRelationship,
-      'request': instance.request,
-      'content': instance.content,
-    };
+Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO instance) {
+  final val = <String, dynamic>{
+    'type': instance.type,
+    'isOwn': instance.isOwn,
+    'createdBy': instance.createdBy,
+    'createdByDevice': instance.createdByDevice,
+    'createdAt': instance.createdAt,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('expiresAt', instance.expiresAt);
+  writeNotNull('maxNumberOfAllocations', instance.maxNumberOfAllocations);
+  writeNotNull('onNewRelationship', instance.onNewRelationship);
+  writeNotNull('onExistingRelationship', instance.onExistingRelationship);
+  writeNotNull('request', instance.request);
+  writeNotNull('content', instance.content);
+  return val;
+}

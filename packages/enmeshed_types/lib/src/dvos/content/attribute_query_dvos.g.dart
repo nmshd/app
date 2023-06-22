@@ -24,23 +24,33 @@ IdentityAttributeQueryDVO _$IdentityAttributeQueryDVOFromJson(Map<String, dynami
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$IdentityAttributeQueryDVOToJson(IdentityAttributeQueryDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'validFrom': instance.validFrom,
-      'validTo': instance.validTo,
-      'valueType': instance.valueType,
-      'tags': instance.tags,
-      'isProcessed': instance.isProcessed,
-      'renderHints': instance.renderHints,
-      'valueHints': instance.valueHints,
-    };
+Map<String, dynamic> _$IdentityAttributeQueryDVOToJson(IdentityAttributeQueryDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  writeNotNull('validFrom', instance.validFrom);
+  writeNotNull('validTo', instance.validTo);
+  val['valueType'] = instance.valueType;
+  writeNotNull('tags', instance.tags);
+  val['isProcessed'] = instance.isProcessed;
+  val['renderHints'] = instance.renderHints;
+  val['valueHints'] = instance.valueHints;
+  return val;
+}
 
 RelationshipAttributeQueryDVO _$RelationshipAttributeQueryDVOFromJson(Map<String, dynamic> json) => RelationshipAttributeQueryDVO(
       id: json['id'] as String,
@@ -62,25 +72,35 @@ RelationshipAttributeQueryDVO _$RelationshipAttributeQueryDVOFromJson(Map<String
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RelationshipAttributeQueryDVOToJson(RelationshipAttributeQueryDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'validFrom': instance.validFrom,
-      'validTo': instance.validTo,
-      'valueType': instance.valueType,
-      'key': instance.key,
-      'owner': instance.owner,
-      'attributeCreationHints': instance.attributeCreationHints,
-      'isProcessed': instance.isProcessed,
-      'renderHints': instance.renderHints,
-      'valueHints': instance.valueHints,
-    };
+Map<String, dynamic> _$RelationshipAttributeQueryDVOToJson(RelationshipAttributeQueryDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  writeNotNull('validFrom', instance.validFrom);
+  writeNotNull('validTo', instance.validTo);
+  val['valueType'] = instance.valueType;
+  val['key'] = instance.key;
+  val['owner'] = instance.owner;
+  val['attributeCreationHints'] = instance.attributeCreationHints;
+  val['isProcessed'] = instance.isProcessed;
+  val['renderHints'] = instance.renderHints;
+  val['valueHints'] = instance.valueHints;
+  return val;
+}
 
 ThirdPartyRelationshipAttributeQueryDVO _$ThirdPartyRelationshipAttributeQueryDVOFromJson(Map<String, dynamic> json) =>
     ThirdPartyRelationshipAttributeQueryDVO(
@@ -100,19 +120,29 @@ ThirdPartyRelationshipAttributeQueryDVO _$ThirdPartyRelationshipAttributeQueryDV
       isProcessed: json['isProcessed'] as bool,
     );
 
-Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryDVOToJson(ThirdPartyRelationshipAttributeQueryDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'validFrom': instance.validFrom,
-      'validTo': instance.validTo,
-      'key': instance.key,
-      'owner': instance.owner,
-      'thirdParty': instance.thirdParty,
-      'isProcessed': instance.isProcessed,
-    };
+Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryDVOToJson(ThirdPartyRelationshipAttributeQueryDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  writeNotNull('validFrom', instance.validFrom);
+  writeNotNull('validTo', instance.validTo);
+  val['key'] = instance.key;
+  val['owner'] = instance.owner;
+  val['thirdParty'] = instance.thirdParty;
+  val['isProcessed'] = instance.isProcessed;
+  return val;
+}

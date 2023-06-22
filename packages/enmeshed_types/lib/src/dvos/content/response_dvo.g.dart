@@ -19,18 +19,28 @@ ResponseDVO _$ResponseDVOFromJson(Map<String, dynamic> json) => ResponseDVO(
       result: $enumDecode(_$ResponseResultEnumMap, json['result']),
     );
 
-Map<String, dynamic> _$ResponseDVOToJson(ResponseDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'items': instance.items,
-      'result': _$ResponseResultEnumMap[instance.result]!,
-    };
+Map<String, dynamic> _$ResponseDVOToJson(ResponseDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['items'] = instance.items;
+  val['result'] = _$ResponseResultEnumMap[instance.result]!;
+  return val;
+}
 
 const _$ResponseResultEnumMap = {
   ResponseResult.Accepted: 'Accepted',

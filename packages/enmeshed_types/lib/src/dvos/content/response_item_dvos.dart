@@ -26,7 +26,7 @@ sealed class ResponseItemDVO extends DataViewObject {
   Map<String, dynamic> toJson();
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ResponseItemGroupDVO extends ResponseItemDVO {
   final List<ResponseItemDVODerivation> items;
 
@@ -64,7 +64,7 @@ sealed class ResponseItemDVODerivation extends ResponseItemDVO {
   Map<String, dynamic> toJson();
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RejectResponseItemDVO extends ResponseItemDVODerivation {
   final String? code;
   final String? message;
@@ -87,7 +87,7 @@ class RejectResponseItemDVO extends ResponseItemDVODerivation {
   Map<String, dynamic> toJson() => _$RejectResponseItemDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ErrorResponseItemDVO extends ResponseItemDVODerivation {
   final String code;
   final String message;
@@ -110,7 +110,7 @@ class ErrorResponseItemDVO extends ResponseItemDVODerivation {
   Map<String, dynamic> toJson() => _$ErrorResponseItemDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class AcceptResponseItemDVO extends ResponseItemDVODerivation {
   AcceptResponseItemDVO({
     required super.id,
@@ -136,7 +136,7 @@ class AcceptResponseItemDVO extends ResponseItemDVODerivation {
   Map<String, dynamic> toJson() => _$AcceptResponseItemDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ReadAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
   final LocalAttributeDVO attribute;
@@ -159,7 +159,7 @@ class ReadAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   Map<String, dynamic> toJson() => _$ReadAttributeAcceptResponseItemDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ProposeAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
   final LocalAttributeDVO attribute;
@@ -182,7 +182,7 @@ class ProposeAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   Map<String, dynamic> toJson() => _$ProposeAttributeAcceptResponseItemDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class CreateAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
   final LocalAttributeDVO attribute;
@@ -205,7 +205,7 @@ class CreateAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   Map<String, dynamic> toJson() => _$CreateAttributeAcceptResponseItemDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ShareAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
   final LocalAttributeDVO attribute;
@@ -228,7 +228,7 @@ class ShareAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   Map<String, dynamic> toJson() => _$ShareAttributeAcceptResponseItemDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RegisterAttributeListenerAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String listenerId;
   final LocalAttributeListenerDVO listener;

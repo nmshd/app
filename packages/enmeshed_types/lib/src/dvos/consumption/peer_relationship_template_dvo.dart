@@ -8,7 +8,7 @@ import 'local_request_dvo.dart';
 
 part 'peer_relationship_template_dvo.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class PeerRelationshipTemplateDVO extends DataViewObject {
   bool isOwn;
   IdentityDVO createdBy;

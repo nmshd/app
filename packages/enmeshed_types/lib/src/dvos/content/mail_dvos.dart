@@ -6,7 +6,7 @@ import '../transport/transport.dart';
 
 part 'mail_dvos.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RequestMessageDVO extends MessageDVO {
   final LocalRequestDVO request;
 
@@ -39,7 +39,7 @@ class RequestMessageDVO extends MessageDVO {
   Map<String, dynamic> toJson() => _$RequestMessageDVOToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class MailDVO extends MessageDVO {
   final List<RecipientDVO> to;
   final List<RecipientDVO> cc;

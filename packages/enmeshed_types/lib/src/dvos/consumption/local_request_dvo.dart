@@ -5,7 +5,7 @@ import '../data_view_object.dart';
 
 part 'local_request_dvo.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class LocalRequestDVO extends DataViewObject {
   // TODO: Add fields
 

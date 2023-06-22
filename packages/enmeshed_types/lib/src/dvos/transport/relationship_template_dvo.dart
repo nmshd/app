@@ -6,7 +6,7 @@ import 'identity_dvo.dart';
 
 part 'relationship_template_dvo.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RelationshipTemplateDVO {
   String type;
   bool isOwn;

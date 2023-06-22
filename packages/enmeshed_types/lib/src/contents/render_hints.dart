@@ -43,7 +43,7 @@ enum RenderHintsDataType {
   Year,
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class RenderHints {
   final RenderHintsTechnicalType technicalType;
   final RenderHintsEditType editType;

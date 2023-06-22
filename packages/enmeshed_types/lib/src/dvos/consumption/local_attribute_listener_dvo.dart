@@ -7,7 +7,7 @@ import '../transport/transport.dart';
 
 part 'local_attribute_listener_dvo.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class LocalAttributeListenerDVO extends DataViewObject {
   final AttributeQueryDVO query;
   final IdentityDVO peer;

@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'dvo_warning.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class DVOWarning {
   String code;
   String? message;

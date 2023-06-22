@@ -29,28 +29,38 @@ MessageDVO _$MessageDVOFromJson(Map<String, dynamic> json) => MessageDVO(
       content: json['content'] as Map<String, dynamic>,
     );
 
-Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'createdByDevice': instance.createdByDevice,
-      'createdAt': instance.createdAt,
-      'createdBy': instance.createdBy,
-      'recipients': instance.recipients,
-      'attachments': instance.attachments,
-      'isOwn': instance.isOwn,
-      'recipientCount': instance.recipientCount,
-      'attachmentCount': instance.attachmentCount,
-      'status': _$MessageStatusEnumMap[instance.status]!,
-      'statusText': instance.statusText,
-      'peer': instance.peer,
-      'content': instance.content,
-    };
+Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['createdByDevice'] = instance.createdByDevice;
+  val['createdAt'] = instance.createdAt;
+  val['createdBy'] = instance.createdBy;
+  val['recipients'] = instance.recipients;
+  val['attachments'] = instance.attachments;
+  val['isOwn'] = instance.isOwn;
+  val['recipientCount'] = instance.recipientCount;
+  val['attachmentCount'] = instance.attachmentCount;
+  val['status'] = _$MessageStatusEnumMap[instance.status]!;
+  val['statusText'] = instance.statusText;
+  val['peer'] = instance.peer;
+  val['content'] = instance.content;
+  return val;
+}
 
 const _$MessageStatusEnumMap = {
   MessageStatus.Received: 'Received',
@@ -77,21 +87,31 @@ RecipientDVO _$RecipientDVOFromJson(Map<String, dynamic> json) => RecipientDVO(
       receivedByDevice: json['receivedByDevice'] as String?,
     );
 
-Map<String, dynamic> _$RecipientDVOToJson(RecipientDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'publicKey': instance.publicKey,
-      'realm': instance.realm,
-      'initials': instance.initials,
-      'isSelf': instance.isSelf,
-      'hasRelationship': instance.hasRelationship,
-      'relationship': instance.relationship,
-      'receivedAt': instance.receivedAt,
-      'receivedByDevice': instance.receivedByDevice,
-    };
+Map<String, dynamic> _$RecipientDVOToJson(RecipientDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  writeNotNull('publicKey', instance.publicKey);
+  val['realm'] = instance.realm;
+  val['initials'] = instance.initials;
+  val['isSelf'] = instance.isSelf;
+  val['hasRelationship'] = instance.hasRelationship;
+  writeNotNull('relationship', instance.relationship);
+  writeNotNull('receivedAt', instance.receivedAt);
+  writeNotNull('receivedByDevice', instance.receivedByDevice);
+  return val;
+}

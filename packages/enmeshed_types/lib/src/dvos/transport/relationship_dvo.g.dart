@@ -30,27 +30,37 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
       templateId: json['templateId'] as String,
     );
 
-Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'status': instance.status,
-      'direction': _$RelationshipDirectionEnumMap[instance.direction]!,
-      'statusText': instance.statusText,
-      'isPinned': instance.isPinned,
-      'theme': instance.theme,
-      'changes': instance.changes,
-      'changeCount': instance.changeCount,
-      'items': instance.items,
-      'attributeMap': instance.attributeMap,
-      'nameMap': instance.nameMap,
-      'templateId': instance.templateId,
-    };
+Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['status'] = instance.status;
+  val['direction'] = _$RelationshipDirectionEnumMap[instance.direction]!;
+  val['statusText'] = instance.statusText;
+  val['isPinned'] = instance.isPinned;
+  writeNotNull('theme', instance.theme);
+  val['changes'] = instance.changes;
+  val['changeCount'] = instance.changeCount;
+  val['items'] = instance.items;
+  val['attributeMap'] = instance.attributeMap;
+  val['nameMap'] = instance.nameMap;
+  val['templateId'] = instance.templateId;
+  return val;
+}
 
 const _$RelationshipDirectionEnumMap = {
   RelationshipDirection.Incoming: 'Incoming',
@@ -64,12 +74,21 @@ RelationshipTheme _$RelationshipThemeFromJson(Map<String, dynamic> json) => Rela
       foregroundColor: json['foregroundColor'] as String?,
     );
 
-Map<String, dynamic> _$RelationshipThemeToJson(RelationshipTheme instance) => <String, dynamic>{
-      'image': instance.image,
-      'headerImage': instance.headerImage,
-      'backgroundColor': instance.backgroundColor,
-      'foregroundColor': instance.foregroundColor,
-    };
+Map<String, dynamic> _$RelationshipThemeToJson(RelationshipTheme instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('image', instance.image);
+  writeNotNull('headerImage', instance.headerImage);
+  writeNotNull('backgroundColor', instance.backgroundColor);
+  writeNotNull('foregroundColor', instance.foregroundColor);
+  return val;
+}
 
 RelationshipChangeDVO _$RelationshipChangeDVOFromJson(Map<String, dynamic> json) => RelationshipChangeDVO(
       id: json['id'] as String,
@@ -89,23 +108,33 @@ RelationshipChangeDVO _$RelationshipChangeDVOFromJson(Map<String, dynamic> json)
       isOwn: json['isOwn'] as bool,
     );
 
-Map<String, dynamic> _$RelationshipChangeDVOToJson(RelationshipChangeDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'request': instance.request,
-      'response': instance.response,
-      'status': _$RelationshipChangeStatusEnumMap[instance.status]!,
-      'statusText': instance.statusText,
-      'changeType': _$RelationshipChangeTypeEnumMap[instance.changeType]!,
-      'changeTypeText': instance.changeTypeText,
-      'isOwn': instance.isOwn,
-    };
+Map<String, dynamic> _$RelationshipChangeDVOToJson(RelationshipChangeDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['request'] = instance.request;
+  writeNotNull('response', instance.response);
+  val['status'] = _$RelationshipChangeStatusEnumMap[instance.status]!;
+  val['statusText'] = instance.statusText;
+  val['changeType'] = _$RelationshipChangeTypeEnumMap[instance.changeType]!;
+  val['changeTypeText'] = instance.changeTypeText;
+  val['isOwn'] = instance.isOwn;
+  return val;
+}
 
 const _$RelationshipChangeStatusEnumMap = {
   RelationshipChangeStatus.Pending: 'Pending',
@@ -135,20 +164,30 @@ RelationshipChangeRequestDVO _$RelationshipChangeRequestDVOFromJson(Map<String, 
       content: json['content'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$RelationshipChangeRequestDVOToJson(RelationshipChangeRequestDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'createdBy': instance.createdBy,
-      'createdByDevice': instance.createdByDevice,
-      'createdAt': instance.createdAt,
-      'content': instance.content,
-    };
+Map<String, dynamic> _$RelationshipChangeRequestDVOToJson(RelationshipChangeRequestDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['createdBy'] = instance.createdBy;
+  val['createdByDevice'] = instance.createdByDevice;
+  val['createdAt'] = instance.createdAt;
+  writeNotNull('content', instance.content);
+  return val;
+}
 
 RelationshipChangeResponseDVO _$RelationshipChangeResponseDVOFromJson(Map<String, dynamic> json) => RelationshipChangeResponseDVO(
       id: json['id'] as String,
@@ -165,17 +204,27 @@ RelationshipChangeResponseDVO _$RelationshipChangeResponseDVOFromJson(Map<String
       content: json['content'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$RelationshipChangeResponseDVOToJson(RelationshipChangeResponseDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'createdBy': instance.createdBy,
-      'createdByDevice': instance.createdByDevice,
-      'createdAt': instance.createdAt,
-      'content': instance.content,
-    };
+Map<String, dynamic> _$RelationshipChangeResponseDVOToJson(RelationshipChangeResponseDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['createdBy'] = instance.createdBy;
+  val['createdByDevice'] = instance.createdByDevice;
+  val['createdAt'] = instance.createdAt;
+  writeNotNull('content', instance.content);
+  return val;
+}

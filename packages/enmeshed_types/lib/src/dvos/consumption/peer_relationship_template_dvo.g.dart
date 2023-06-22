@@ -28,23 +28,33 @@ PeerRelationshipTemplateDVO _$PeerRelationshipTemplateDVOFromJson(Map<String, dy
       content: json['content'] as Map<String, dynamic>,
     );
 
-Map<String, dynamic> _$PeerRelationshipTemplateDVOToJson(PeerRelationshipTemplateDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'isOwn': instance.isOwn,
-      'createdBy': instance.createdBy,
-      'createdByDevice': instance.createdByDevice,
-      'createdAt': instance.createdAt,
-      'expiresAt': instance.expiresAt,
-      'maxNumberOfAllocations': instance.maxNumberOfAllocations,
-      'onNewRelationship': instance.onNewRelationship,
-      'onExistingRelationship': instance.onExistingRelationship,
-      'request': instance.request,
-      'content': instance.content,
-    };
+Map<String, dynamic> _$PeerRelationshipTemplateDVOToJson(PeerRelationshipTemplateDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['isOwn'] = instance.isOwn;
+  val['createdBy'] = instance.createdBy;
+  val['createdByDevice'] = instance.createdByDevice;
+  val['createdAt'] = instance.createdAt;
+  writeNotNull('expiresAt', instance.expiresAt);
+  writeNotNull('maxNumberOfAllocations', instance.maxNumberOfAllocations);
+  writeNotNull('onNewRelationship', instance.onNewRelationship);
+  writeNotNull('onExistingRelationship', instance.onExistingRelationship);
+  writeNotNull('request', instance.request);
+  val['content'] = instance.content;
+  return val;
+}

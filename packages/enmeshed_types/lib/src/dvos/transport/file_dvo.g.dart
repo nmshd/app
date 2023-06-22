@@ -27,23 +27,33 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
       secretKey: json['secretKey'] as String,
     );
 
-Map<String, dynamic> _$FileDVOToJson(FileDVO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'image': instance.image,
-      'type': instance.type,
-      'date': instance.date,
-      'error': instance.error,
-      'warning': instance.warning,
-      'filename': instance.filename,
-      'filesize': instance.filesize,
-      'createdAt': instance.createdAt,
-      'createdBy': instance.createdBy,
-      'createdByDevice': instance.createdByDevice,
-      'expiresAt': instance.expiresAt,
-      'mimetype': instance.mimetype,
-      'isOwn': instance.isOwn,
-      'title': instance.title,
-      'secretKey': instance.secretKey,
-    };
+Map<String, dynamic> _$FileDVOToJson(FileDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['filename'] = instance.filename;
+  val['filesize'] = instance.filesize;
+  val['createdAt'] = instance.createdAt;
+  val['createdBy'] = instance.createdBy;
+  val['createdByDevice'] = instance.createdByDevice;
+  val['expiresAt'] = instance.expiresAt;
+  val['mimetype'] = instance.mimetype;
+  val['isOwn'] = instance.isOwn;
+  val['title'] = instance.title;
+  val['secretKey'] = instance.secretKey;
+  return val;
+}
