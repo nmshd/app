@@ -4,8 +4,6 @@ import 'abstract_evaluator.dart';
 import 'handle_call_async_js_result.dart';
 import 'result.dart';
 
-/// This facade lacks the functions createAndCompleteFromRelationshipTemplateResponse, sent and complete
-/// because they are only usable in the automation of the actual JavaScript Enmeshed Runtime and shall not be used here.
 class OutgoingRequestsFacade {
   final AbstractEvaluator _evaluator;
   OutgoingRequestsFacade(this._evaluator);
