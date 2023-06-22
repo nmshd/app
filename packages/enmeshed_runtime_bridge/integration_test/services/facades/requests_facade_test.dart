@@ -18,6 +18,7 @@ void run(EnmeshedRuntime runtime) {
 
       late LocalRequestDTO sLocalRequest;
       late LocalRequestDTO rLocalRequest;
+
       setUpAll(() async {
         account1 = await runtime.accountServices.createAccount(name: 'requestFacade Test 1');
         sender = runtime.getSession(account1.id);
@@ -26,6 +27,7 @@ void run(EnmeshedRuntime runtime) {
 
         await ensureActiveRelationship(sender, recipient);
       });
+
       test('sender: create an outgoing Request in status Draft', () async {
         final result = await sender.consumptionServices.outgoingRequests.create(
           content: const Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -141,6 +143,7 @@ void run(EnmeshedRuntime runtime) {
 
         await ensureActiveRelationship(sender, recipient);
       });
+
       test('sender: create an outgoing Request in status Draft', () async {
         final result = await sender.consumptionServices.outgoingRequests.create(
           content: const Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
@@ -241,12 +244,14 @@ void run(EnmeshedRuntime runtime) {
 
       late RelationshipTemplateDTO sRelationshipTemplate;
       late LocalRequestDTO rLocalRequest;
+
       setUpAll(() async {
         account1 = await runtime.accountServices.createAccount(name: 'requestFacade Test 1');
         sender = runtime.getSession(account1.id);
         account2 = await runtime.accountServices.createAccount(name: 'requestFacade Test 2');
         recipient = runtime.getSession(account2.id);
       });
+
       test('sender: create a Relationship Template with the Request', () async {
         final result = await sender.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
           expiresAt: generateExpiryString(),
@@ -340,6 +345,7 @@ void run(EnmeshedRuntime runtime) {
         account2 = await runtime.accountServices.createAccount(name: 'requestFacade Test 2');
         recipient = runtime.getSession(account2.id);
       });
+
       test('sender: create a Relationship Template with the Request', () async {
         final result = await sender.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
           expiresAt: generateExpiryString(),
