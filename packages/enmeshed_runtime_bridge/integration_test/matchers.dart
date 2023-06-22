@@ -35,7 +35,7 @@ class _ResultSuccessfulMatcher<T> extends Matcher {
   @override
   Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
     if (item is! Result) return mismatchDescription.add('is not a Result');
-    if (item.isError) return mismatchDescription.add('is not successful');
+    if (item.isError) return mismatchDescription.add("failed with code '${item.error.code}' and message '${item.error.message}'");
 
     return mismatchDescription.add('has value of type ${item.value.runtimeType}, but expected ${T.toString()}');
   }
