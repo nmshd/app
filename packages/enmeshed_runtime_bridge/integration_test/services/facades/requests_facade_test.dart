@@ -7,21 +7,17 @@ import '../../mock_event_bus.dart';
 import '../../utils.dart';
 
 void run(EnmeshedRuntime runtime) {
-  late LocalAccountDTO account1;
-  late Session sender;
-  late LocalAccountDTO account2;
-  late Session recipient;
-  late MockEventBus eventBus;
-
-  setUpAll(() async {
-    eventBus = runtime.eventBus as MockEventBus;
-  });
+  final eventBus = runtime.eventBus as MockEventBus;
 
   group('Requests Complete flow with Messages:', () {
-    late LocalRequestDTO sLocalRequest;
-    late LocalRequestDTO rLocalRequest;
-
     group('Accept Request', () {
+      late LocalAccountDTO account1;
+      late Session sender;
+      late LocalAccountDTO account2;
+      late Session recipient;
+
+      late LocalRequestDTO sLocalRequest;
+      late LocalRequestDTO rLocalRequest;
       setUpAll(() async {
         account1 = await runtime.accountServices.createAccount(name: 'requestFacade Test 1');
         sender = runtime.getSession(account1.id);
@@ -129,6 +125,14 @@ void run(EnmeshedRuntime runtime) {
     });
 
     group('Reject Request', () {
+      late LocalAccountDTO account1;
+      late Session sender;
+      late LocalAccountDTO account2;
+      late Session recipient;
+
+      late LocalRequestDTO sLocalRequest;
+      late LocalRequestDTO rLocalRequest;
+
       setUpAll(() async {
         account1 = await runtime.accountServices.createAccount(name: 'requestFacade Test 1');
         sender = runtime.getSession(account1.id);
@@ -229,10 +233,14 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('Requests Complete flow with Relationship Template:', () {
-    late RelationshipTemplateDTO sRelationshipTemplate;
-    late LocalRequestDTO rLocalRequest;
-
     group('Accept Request', () {
+      late LocalAccountDTO account1;
+      late Session sender;
+      late LocalAccountDTO account2;
+      late Session recipient;
+
+      late RelationshipTemplateDTO sRelationshipTemplate;
+      late LocalRequestDTO rLocalRequest;
       setUpAll(() async {
         account1 = await runtime.accountServices.createAccount(name: 'requestFacade Test 1');
         sender = runtime.getSession(account1.id);
@@ -318,6 +326,14 @@ void run(EnmeshedRuntime runtime) {
     });
 
     group('Reject Request', () {
+      late LocalAccountDTO account1;
+      late Session sender;
+      late LocalAccountDTO account2;
+      late Session recipient;
+
+      late RelationshipTemplateDTO sRelationshipTemplate;
+      late LocalRequestDTO rLocalRequest;
+
       setUpAll(() async {
         account1 = await runtime.accountServices.createAccount(name: 'requestFacade Test 1');
         sender = runtime.getSession(account1.id);
