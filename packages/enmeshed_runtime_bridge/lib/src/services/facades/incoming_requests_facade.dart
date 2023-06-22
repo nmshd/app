@@ -4,6 +4,8 @@ import 'abstract_evaluator.dart';
 import 'handle_call_async_js_result.dart';
 import 'result.dart';
 
+/// This facade lacks the functions received, requireManualDecision, complete and checkPrerequisites
+/// because they are only usable in the automation of the actual JavaScript Enmeshed Runtime and shall not be used here.
 class IncomingRequestsFacade {
   final AbstractEvaluator _evaluator;
   IncomingRequestsFacade(this._evaluator);
