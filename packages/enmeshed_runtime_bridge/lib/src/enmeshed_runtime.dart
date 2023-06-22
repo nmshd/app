@@ -107,6 +107,14 @@ class EnmeshedRuntime {
 
         final event = switch (namespace) {
           'transport.messageSent' => MessageSentEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
+          'consumption.outgoingRequestCreated' => OutgoingRequestCreatedEvent(
+              eventTargetAddress: eventTargetAddress,
+              data: LocalRequestDTO.fromJson(data),
+            ),
+          'consumption.incomingRequestReceived' => IncomingRequestReceivedEvent(
+              eventTargetAddress: eventTargetAddress,
+              data: LocalRequestDTO.fromJson(data),
+            ),
           'consumption.incomingRequestStatusChanged' => IncomingRequestStatusChangedEvent(
               eventTargetAddress: eventTargetAddress,
               request: LocalRequestDTO.fromJson(data['request']),
