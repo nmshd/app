@@ -68,6 +68,20 @@ Future<MessageDTO> syncUntilHasMessage(Session session) async {
   throw Exception('Could not sync until having a message');
 }
 
+Future<List<MessageDTO>> syncUntilHasMessages(Session session) async {
+  int retries = 0;
+
+  do {
+    final syncResult = await session.transportServices.account.syncEverything();
+    if (syncResult.value.messages.isNotEmpty) return syncResult.value.messages;
+
+    retries++;
+    await Future.delayed(Duration(seconds: 5 * retries));
+  } while (retries < 10);
+
+  throw Exception('Could not sync until having a message');
+}
+
 Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session session2) async {
   final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
   List<RelationshipDTO> relationships =
@@ -202,4 +216,12 @@ Future<FileDTO> uploadFile(Session session) async {
   );
 
   return response.value;
+}
+
+Future<RelationshipDTO> getRelationship(Session session) async {
+  final response = await session.transportServices.relationships.getRelationships();
+  assert(response.isSuccess);
+  assert(response.value.length == 1);
+
+  return response.value.first;
 }

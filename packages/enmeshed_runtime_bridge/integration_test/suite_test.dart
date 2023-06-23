@@ -1,3 +1,5 @@
+@Timeout(Duration(minutes: 10))
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -8,8 +10,10 @@ import 'mock_event_bus.dart';
 import 'services/facades/account_facade_test.dart' as account_facade_test;
 import 'services/facades/attributes_facade_test.dart' as attributes_facade_test;
 import 'services/facades/files_facade_test.dart' as files_facade_test;
+import 'services/facades/messages_facade_test.dart' as messages_facade_test;
 import 'services/facades/relationship_template_facade_test.dart' as relationship_template_facade_test;
 import 'services/facades/relationships_facade_test.dart' as relationships_facade_test;
+import 'services/facades/requests_facade_test.dart' as requests_facade_test;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -36,4 +40,6 @@ void main() async {
   files_facade_test.run(runtime);
   attributes_facade_test.run(runtime);
   account_facade_test.run(runtime);
+  messages_facade_test.run(runtime);
+  requests_facade_test.run(runtime);
 }

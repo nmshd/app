@@ -4,6 +4,8 @@
 
 Framework for building apps using the Enmeshed Runtime with Dart and Flutter.
 
+This project is tested with BrowserStack.
+
 ## Packages
 
 | Package                                                     | Description                                                 |
