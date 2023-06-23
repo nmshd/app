@@ -8,7 +8,7 @@ part of 'peer_relationship_template_dvo.dart';
 
 PeerRelationshipTemplateDVO _$PeerRelationshipTemplateDVOFromJson(Map<String, dynamic> json) => PeerRelationshipTemplateDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -31,6 +31,7 @@ PeerRelationshipTemplateDVO _$PeerRelationshipTemplateDVOFromJson(Map<String, dy
 Map<String, dynamic> _$PeerRelationshipTemplateDVOToJson(PeerRelationshipTemplateDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -39,7 +40,6 @@ Map<String, dynamic> _$PeerRelationshipTemplateDVOToJson(PeerRelationshipTemplat
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;

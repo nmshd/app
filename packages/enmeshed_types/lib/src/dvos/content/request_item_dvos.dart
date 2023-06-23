@@ -16,7 +16,7 @@ sealed class RequestItemDVO extends DataViewObject {
 
   RequestItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -46,7 +46,7 @@ class RequestItemGroupDVO extends RequestItemDVO {
     required this.items,
     this.title,
     this.response,
-  }) : super(id: 'n/a', type: 'RequestItemGroupDVO');
+  }) : super(id: 'n/a', name: 'n/a', type: 'RequestItemGroupDVO');
 
   factory RequestItemGroupDVO.fromJson(Map json) => _$RequestItemGroupDVOFromJson(Map<String, dynamic>.from(json));
   @override
@@ -56,7 +56,7 @@ class RequestItemGroupDVO extends RequestItemDVO {
 sealed class RequestItemDVODerivation extends RequestItemDVO {
   RequestItemDVODerivation({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -88,7 +88,7 @@ class ReadAttributeRequestItemDVO extends RequestItemDVODerivation {
 
   ReadAttributeRequestItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -111,7 +111,7 @@ class ProposeAttributeRequestItemDVO extends RequestItemDVODerivation {
 
   ProposeAttributeRequestItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -135,7 +135,7 @@ class CreateAttributeRequestItemDVO extends RequestItemDVODerivation {
 
   CreateAttributeRequestItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -159,7 +159,7 @@ class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
 
   ShareAttributeRequestItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -180,7 +180,7 @@ class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
 class AuthenticationRequestItemDVO extends RequestItemDVODerivation {
   AuthenticationRequestItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -202,7 +202,7 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
 
   ConsentRequestItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -225,7 +225,7 @@ class RegisterAttributeListenerRequestItemDVO extends RequestItemDVODerivation {
 
   RegisterAttributeListenerRequestItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,

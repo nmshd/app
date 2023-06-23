@@ -27,7 +27,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
 
   LocalAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -63,7 +63,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
 sealed class IdentityAttributeDVO extends LocalAttributeDVO {
   IdentityAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -99,7 +99,7 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
 
   RepositoryAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -133,7 +133,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
 
   SharedToPeerAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -168,7 +168,7 @@ class PeerAttributeDVO extends LocalAttributeDVO {
 
   PeerAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -204,7 +204,7 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
 
   RelationshipAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -244,7 +244,7 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
 class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
   OwnRelationshipAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -278,7 +278,7 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
 class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
   PeerRelationshipAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,

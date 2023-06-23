@@ -10,7 +10,7 @@ part 'response_item_dvos.g.dart';
 sealed class ResponseItemDVO extends DataViewObject {
   ResponseItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -32,7 +32,7 @@ class ResponseItemGroupDVO extends ResponseItemDVO {
 
   ResponseItemGroupDVO({
     required this.items,
-  }) : super(id: 'n/a', type: 'ResponseItemGroupDVO');
+  }) : super(id: 'n/a', name: 'n/a', type: 'ResponseItemGroupDVO');
 
   factory ResponseItemGroupDVO.fromJson(Map json) => _$ResponseItemGroupDVOFromJson(Map<String, dynamic>.from(json));
   @override
@@ -44,7 +44,7 @@ sealed class ResponseItemDVODerivation extends ResponseItemDVO {
 
   ResponseItemDVODerivation({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -71,7 +71,7 @@ class RejectResponseItemDVO extends ResponseItemDVODerivation {
 
   RejectResponseItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -94,7 +94,7 @@ class ErrorResponseItemDVO extends ResponseItemDVODerivation {
 
   ErrorResponseItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -114,7 +114,7 @@ class ErrorResponseItemDVO extends ResponseItemDVODerivation {
 class AcceptResponseItemDVO extends ResponseItemDVODerivation {
   AcceptResponseItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -143,7 +143,7 @@ class ReadAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
 
   ReadAttributeAcceptResponseItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -166,7 +166,7 @@ class ProposeAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
 
   ProposeAttributeAcceptResponseItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -190,7 +190,7 @@ class CreateAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
 
   CreateAttributeAcceptResponseItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -213,7 +213,7 @@ class ShareAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
 
   ShareAttributeAcceptResponseItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -236,7 +236,7 @@ class RegisterAttributeListenerAcceptResponseItemDVO extends AcceptResponseItemD
 
   RegisterAttributeListenerAcceptResponseItemDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,

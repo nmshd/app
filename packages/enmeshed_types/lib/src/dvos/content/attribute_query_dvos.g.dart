@@ -8,7 +8,7 @@ part of 'attribute_query_dvos.dart';
 
 IdentityAttributeQueryDVO _$IdentityAttributeQueryDVOFromJson(Map<String, dynamic> json) => IdentityAttributeQueryDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -27,6 +27,7 @@ IdentityAttributeQueryDVO _$IdentityAttributeQueryDVOFromJson(Map<String, dynami
 Map<String, dynamic> _$IdentityAttributeQueryDVOToJson(IdentityAttributeQueryDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -35,7 +36,6 @@ Map<String, dynamic> _$IdentityAttributeQueryDVOToJson(IdentityAttributeQueryDVO
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -54,7 +54,7 @@ Map<String, dynamic> _$IdentityAttributeQueryDVOToJson(IdentityAttributeQueryDVO
 
 RelationshipAttributeQueryDVO _$RelationshipAttributeQueryDVOFromJson(Map<String, dynamic> json) => RelationshipAttributeQueryDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -75,6 +75,7 @@ RelationshipAttributeQueryDVO _$RelationshipAttributeQueryDVOFromJson(Map<String
 Map<String, dynamic> _$RelationshipAttributeQueryDVOToJson(RelationshipAttributeQueryDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -83,7 +84,6 @@ Map<String, dynamic> _$RelationshipAttributeQueryDVOToJson(RelationshipAttribute
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -105,7 +105,7 @@ Map<String, dynamic> _$RelationshipAttributeQueryDVOToJson(RelationshipAttribute
 ThirdPartyRelationshipAttributeQueryDVO _$ThirdPartyRelationshipAttributeQueryDVOFromJson(Map<String, dynamic> json) =>
     ThirdPartyRelationshipAttributeQueryDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -123,6 +123,7 @@ ThirdPartyRelationshipAttributeQueryDVO _$ThirdPartyRelationshipAttributeQueryDV
 Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryDVOToJson(ThirdPartyRelationshipAttributeQueryDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -131,7 +132,6 @@ Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryDVOToJson(ThirdPartyR
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;

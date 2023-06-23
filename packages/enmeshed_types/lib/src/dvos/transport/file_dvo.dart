@@ -21,7 +21,7 @@ class FileDVO extends DataViewObject {
 
   FileDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,

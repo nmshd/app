@@ -2,7 +2,7 @@ import 'common/common.dart';
 
 class DataViewObject {
   String id;
-  String? name;
+  String name;
   String? description;
   String? image;
   String type;
@@ -12,7 +12,7 @@ class DataViewObject {
 
   DataViewObject({
     required this.id,
-    this.name,
+    required this.name,
     this.description,
     this.image,
     required this.type,

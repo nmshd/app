@@ -15,7 +15,7 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
 
   ProcessedAttributeQueryDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -39,7 +39,7 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
 class ProcessedIdentityAttributeQueryDVO extends ProcessedAttributeQueryDVO {
   ProcessedIdentityAttributeQueryDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -66,7 +66,7 @@ class ProcessedRelationshipAttributeQueryDVO extends ProcessedAttributeQueryDVO 
 
   ProcessedRelationshipAttributeQueryDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,
@@ -99,7 +99,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
 
   ProcessedThirdPartyRelationshipAttributeQueryDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     super.date,

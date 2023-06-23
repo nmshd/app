@@ -10,7 +10,7 @@ ResponseItemGroupDVO _$ResponseItemGroupDVOFromJson(Map<String, dynamic> json) =
       items: (json['items'] as List<dynamic>).map((e) => ResponseItemDVODerivation.fromJson(e as Map<String, dynamic>)).toList(),
     )
       ..id = json['id'] as String
-      ..name = json['name'] as String?
+      ..name = json['name'] as String
       ..description = json['description'] as String?
       ..image = json['image'] as String?
       ..type = json['type'] as String
@@ -21,6 +21,7 @@ ResponseItemGroupDVO _$ResponseItemGroupDVOFromJson(Map<String, dynamic> json) =
 Map<String, dynamic> _$ResponseItemGroupDVOToJson(ResponseItemGroupDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -29,7 +30,6 @@ Map<String, dynamic> _$ResponseItemGroupDVOToJson(ResponseItemGroupDVO instance)
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -42,7 +42,7 @@ Map<String, dynamic> _$ResponseItemGroupDVOToJson(ResponseItemGroupDVO instance)
 
 RejectResponseItemDVO _$RejectResponseItemDVOFromJson(Map<String, dynamic> json) => RejectResponseItemDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -56,6 +56,7 @@ RejectResponseItemDVO _$RejectResponseItemDVOFromJson(Map<String, dynamic> json)
 Map<String, dynamic> _$RejectResponseItemDVOToJson(RejectResponseItemDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -64,7 +65,6 @@ Map<String, dynamic> _$RejectResponseItemDVOToJson(RejectResponseItemDVO instanc
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -78,7 +78,7 @@ Map<String, dynamic> _$RejectResponseItemDVOToJson(RejectResponseItemDVO instanc
 
 ErrorResponseItemDVO _$ErrorResponseItemDVOFromJson(Map<String, dynamic> json) => ErrorResponseItemDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -92,6 +92,7 @@ ErrorResponseItemDVO _$ErrorResponseItemDVOFromJson(Map<String, dynamic> json) =
 Map<String, dynamic> _$ErrorResponseItemDVOToJson(ErrorResponseItemDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -100,7 +101,6 @@ Map<String, dynamic> _$ErrorResponseItemDVOToJson(ErrorResponseItemDVO instance)
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -114,7 +114,7 @@ Map<String, dynamic> _$ErrorResponseItemDVOToJson(ErrorResponseItemDVO instance)
 
 AcceptResponseItemDVO _$AcceptResponseItemDVOFromJson(Map<String, dynamic> json) => AcceptResponseItemDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -126,6 +126,7 @@ AcceptResponseItemDVO _$AcceptResponseItemDVOFromJson(Map<String, dynamic> json)
 Map<String, dynamic> _$AcceptResponseItemDVOToJson(AcceptResponseItemDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -134,7 +135,6 @@ Map<String, dynamic> _$AcceptResponseItemDVOToJson(AcceptResponseItemDVO instanc
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -146,7 +146,7 @@ Map<String, dynamic> _$AcceptResponseItemDVOToJson(AcceptResponseItemDVO instanc
 
 ReadAttributeAcceptResponseItemDVO _$ReadAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => ReadAttributeAcceptResponseItemDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -160,6 +160,7 @@ ReadAttributeAcceptResponseItemDVO _$ReadAttributeAcceptResponseItemDVOFromJson(
 Map<String, dynamic> _$ReadAttributeAcceptResponseItemDVOToJson(ReadAttributeAcceptResponseItemDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -168,7 +169,6 @@ Map<String, dynamic> _$ReadAttributeAcceptResponseItemDVOToJson(ReadAttributeAcc
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -183,7 +183,7 @@ Map<String, dynamic> _$ReadAttributeAcceptResponseItemDVOToJson(ReadAttributeAcc
 ProposeAttributeAcceptResponseItemDVO _$ProposeAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     ProposeAttributeAcceptResponseItemDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -197,6 +197,7 @@ ProposeAttributeAcceptResponseItemDVO _$ProposeAttributeAcceptResponseItemDVOFro
 Map<String, dynamic> _$ProposeAttributeAcceptResponseItemDVOToJson(ProposeAttributeAcceptResponseItemDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -205,7 +206,6 @@ Map<String, dynamic> _$ProposeAttributeAcceptResponseItemDVOToJson(ProposeAttrib
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -220,7 +220,7 @@ Map<String, dynamic> _$ProposeAttributeAcceptResponseItemDVOToJson(ProposeAttrib
 CreateAttributeAcceptResponseItemDVO _$CreateAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     CreateAttributeAcceptResponseItemDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -234,6 +234,7 @@ CreateAttributeAcceptResponseItemDVO _$CreateAttributeAcceptResponseItemDVOFromJ
 Map<String, dynamic> _$CreateAttributeAcceptResponseItemDVOToJson(CreateAttributeAcceptResponseItemDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -242,7 +243,6 @@ Map<String, dynamic> _$CreateAttributeAcceptResponseItemDVOToJson(CreateAttribut
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -256,7 +256,7 @@ Map<String, dynamic> _$CreateAttributeAcceptResponseItemDVOToJson(CreateAttribut
 
 ShareAttributeAcceptResponseItemDVO _$ShareAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => ShareAttributeAcceptResponseItemDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -270,6 +270,7 @@ ShareAttributeAcceptResponseItemDVO _$ShareAttributeAcceptResponseItemDVOFromJso
 Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeAcceptResponseItemDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -278,7 +279,6 @@ Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeA
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -293,7 +293,7 @@ Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeA
 RegisterAttributeListenerAcceptResponseItemDVO _$RegisterAttributeListenerAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     RegisterAttributeListenerAcceptResponseItemDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -307,6 +307,7 @@ RegisterAttributeListenerAcceptResponseItemDVO _$RegisterAttributeListenerAccept
 Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(RegisterAttributeListenerAcceptResponseItemDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -315,7 +316,6 @@ Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(Regi
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;

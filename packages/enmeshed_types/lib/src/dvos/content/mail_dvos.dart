@@ -12,7 +12,7 @@ class RequestMessageDVO extends MessageDVO {
 
   RequestMessageDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -50,7 +50,7 @@ class MailDVO extends MessageDVO {
 
   MailDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,

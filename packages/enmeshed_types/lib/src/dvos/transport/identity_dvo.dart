@@ -17,7 +17,7 @@ class IdentityDVO extends DataViewObject {
 
   IdentityDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,

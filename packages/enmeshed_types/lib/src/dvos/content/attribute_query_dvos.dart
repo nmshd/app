@@ -13,7 +13,7 @@ sealed class AttributeQueryDVO extends DataViewObject {
 
   AttributeQueryDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -43,7 +43,7 @@ class IdentityAttributeQueryDVO extends AttributeQueryDVO {
 
   IdentityAttributeQueryDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -76,7 +76,7 @@ class RelationshipAttributeQueryDVO extends AttributeQueryDVO {
 
   RelationshipAttributeQueryDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -108,7 +108,7 @@ class ThirdPartyRelationshipAttributeQueryDVO extends AttributeQueryDVO {
 
   ThirdPartyRelationshipAttributeQueryDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,

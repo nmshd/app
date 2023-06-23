@@ -8,7 +8,7 @@ part of 'relationship_dvo.dart';
 
 RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => RelationshipDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -33,6 +33,7 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
 Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -41,7 +42,6 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -92,7 +92,7 @@ Map<String, dynamic> _$RelationshipThemeToJson(RelationshipTheme instance) {
 
 RelationshipChangeDVO _$RelationshipChangeDVOFromJson(Map<String, dynamic> json) => RelationshipChangeDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -111,6 +111,7 @@ RelationshipChangeDVO _$RelationshipChangeDVOFromJson(Map<String, dynamic> json)
 Map<String, dynamic> _$RelationshipChangeDVOToJson(RelationshipChangeDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -119,7 +120,6 @@ Map<String, dynamic> _$RelationshipChangeDVOToJson(RelationshipChangeDVO instanc
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -151,7 +151,7 @@ const _$RelationshipChangeTypeEnumMap = {
 
 RelationshipChangeRequestDVO _$RelationshipChangeRequestDVOFromJson(Map<String, dynamic> json) => RelationshipChangeRequestDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -167,6 +167,7 @@ RelationshipChangeRequestDVO _$RelationshipChangeRequestDVOFromJson(Map<String, 
 Map<String, dynamic> _$RelationshipChangeRequestDVOToJson(RelationshipChangeRequestDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -175,7 +176,6 @@ Map<String, dynamic> _$RelationshipChangeRequestDVOToJson(RelationshipChangeRequ
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -191,7 +191,7 @@ Map<String, dynamic> _$RelationshipChangeRequestDVOToJson(RelationshipChangeRequ
 
 RelationshipChangeResponseDVO _$RelationshipChangeResponseDVOFromJson(Map<String, dynamic> json) => RelationshipChangeResponseDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -207,6 +207,7 @@ RelationshipChangeResponseDVO _$RelationshipChangeResponseDVOFromJson(Map<String
 Map<String, dynamic> _$RelationshipChangeResponseDVOToJson(RelationshipChangeResponseDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -215,7 +216,6 @@ Map<String, dynamic> _$RelationshipChangeResponseDVOToJson(RelationshipChangeRes
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;

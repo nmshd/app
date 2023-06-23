@@ -8,7 +8,7 @@ part of 'local_attribute_dvo.dart';
 
 RepositoryAttributeDVO _$RepositoryAttributeDVOFromJson(Map<String, dynamic> json) => RepositoryAttributeDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       date: json['date'] as String?,
@@ -32,6 +32,7 @@ RepositoryAttributeDVO _$RepositoryAttributeDVOFromJson(Map<String, dynamic> jso
 Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -40,7 +41,6 @@ Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO insta
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -65,7 +65,7 @@ Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO insta
 
 SharedToPeerAttributeDVO _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic> json) => SharedToPeerAttributeDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       date: json['date'] as String?,
@@ -91,6 +91,7 @@ SharedToPeerAttributeDVO _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic>
 Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -99,7 +100,6 @@ Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO i
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -126,7 +126,7 @@ Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO i
 
 PeerAttributeDVO _$PeerAttributeDVOFromJson(Map<String, dynamic> json) => PeerAttributeDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       date: json['date'] as String?,
@@ -151,6 +151,7 @@ PeerAttributeDVO _$PeerAttributeDVOFromJson(Map<String, dynamic> json) => PeerAt
 Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -159,7 +160,6 @@ Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -185,7 +185,7 @@ Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
 
 OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dynamic> json) => OwnRelationshipAttributeDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       date: json['date'] as String?,
@@ -213,6 +213,7 @@ OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dy
 Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttributeDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -221,7 +222,6 @@ Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttribut
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -250,7 +250,7 @@ Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttribut
 
 PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, dynamic> json) => PeerRelationshipAttributeDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       date: json['date'] as String?,
@@ -278,6 +278,7 @@ PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, 
 Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttributeDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -286,7 +287,6 @@ Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttrib
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;

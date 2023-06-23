@@ -10,7 +10,7 @@ part 'attribute_dvos.g.dart';
 sealed class DraftAttributeDVO extends DataViewObject {
   DraftAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -43,7 +43,7 @@ class DraftIdentityAttributeDVO extends DraftAttributeDVO {
 
   DraftIdentityAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -86,7 +86,7 @@ class DraftRelationshipAttributeDVO extends DraftAttributeDVO {
 
   DraftRelationshipAttributeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,

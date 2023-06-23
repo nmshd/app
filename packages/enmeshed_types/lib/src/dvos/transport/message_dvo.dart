@@ -27,7 +27,7 @@ class MessageDVO extends DataViewObject {
 
   MessageDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -59,7 +59,7 @@ class RecipientDVO extends IdentityDVO {
 
   RecipientDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,

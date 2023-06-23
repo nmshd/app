@@ -8,7 +8,7 @@ part of 'response_dvo.dart';
 
 ResponseDVO _$ResponseDVOFromJson(Map<String, dynamic> json) => ResponseDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -22,6 +22,7 @@ ResponseDVO _$ResponseDVOFromJson(Map<String, dynamic> json) => ResponseDVO(
 Map<String, dynamic> _$ResponseDVOToJson(ResponseDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -30,7 +31,6 @@ Map<String, dynamic> _$ResponseDVOToJson(ResponseDVO instance) {
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;

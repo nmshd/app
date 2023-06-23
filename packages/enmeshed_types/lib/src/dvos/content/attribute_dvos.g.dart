@@ -8,7 +8,7 @@ part of 'attribute_dvos.dart';
 
 DraftIdentityAttributeDVO _$DraftIdentityAttributeDVOFromJson(Map<String, dynamic> json) => DraftIdentityAttributeDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -31,6 +31,7 @@ DraftIdentityAttributeDVO _$DraftIdentityAttributeDVOFromJson(Map<String, dynami
 Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(DraftIdentityAttributeDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -39,7 +40,6 @@ Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(DraftIdentityAttributeDVO
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -62,7 +62,7 @@ Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(DraftIdentityAttributeDVO
 
 DraftRelationshipAttributeDVO _$DraftRelationshipAttributeDVOFromJson(Map<String, dynamic> json) => DraftRelationshipAttributeDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -87,6 +87,7 @@ DraftRelationshipAttributeDVO _$DraftRelationshipAttributeDVOFromJson(Map<String
 Map<String, dynamic> _$DraftRelationshipAttributeDVOToJson(DraftRelationshipAttributeDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -95,7 +96,6 @@ Map<String, dynamic> _$DraftRelationshipAttributeDVOToJson(DraftRelationshipAttr
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;

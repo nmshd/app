@@ -25,7 +25,7 @@ class RelationshipDVO extends DataViewObject {
 
   RelationshipDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -79,7 +79,7 @@ class RelationshipChangeDVO extends DataViewObject {
 
   RelationshipChangeDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -108,7 +108,7 @@ class RelationshipChangeRequestDVO extends DataViewObject {
 
   RelationshipChangeRequestDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,
@@ -134,7 +134,7 @@ class RelationshipChangeResponseDVO extends DataViewObject {
 
   RelationshipChangeResponseDVO({
     required super.id,
-    super.name,
+    required super.name,
     super.description,
     super.image,
     required super.type,

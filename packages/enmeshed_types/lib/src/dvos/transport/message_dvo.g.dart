@@ -8,7 +8,7 @@ part of 'message_dvo.dart';
 
 MessageDVO _$MessageDVOFromJson(Map<String, dynamic> json) => MessageDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -32,6 +32,7 @@ MessageDVO _$MessageDVOFromJson(Map<String, dynamic> json) => MessageDVO(
 Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -40,7 +41,6 @@ Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) {
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
@@ -70,7 +70,7 @@ const _$MessageStatusEnumMap = {
 
 RecipientDVO _$RecipientDVOFromJson(Map<String, dynamic> json) => RecipientDVO(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
       type: json['type'] as String,
@@ -90,6 +90,7 @@ RecipientDVO _$RecipientDVOFromJson(Map<String, dynamic> json) => RecipientDVO(
 Map<String, dynamic> _$RecipientDVOToJson(RecipientDVO instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -98,7 +99,6 @@ Map<String, dynamic> _$RecipientDVOToJson(RecipientDVO instance) {
     }
   }
 
-  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
