@@ -1,14 +1,19 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../common/common.dart';
+import '../consumption/consumption.dart';
 import '../data_view_object.dart';
 import 'attribute_dvos.dart';
 import 'attribute_query_dvos.dart';
 import 'response_item_dvos.dart';
 
+part '../consumption/decidable_request_item_dvos.dart';
 part 'request_item_dvos.g.dart';
 
 sealed class RequestItemDVO extends DataViewObject {
+  final bool mustBeAccepted;
+  final bool isDecidable;
+
   RequestItemDVO({
     required super.id,
     super.name,
@@ -18,6 +23,8 @@ sealed class RequestItemDVO extends DataViewObject {
     super.date,
     super.error,
     super.warning,
+    required this.mustBeAccepted,
+    required this.isDecidable,
   });
 
   factory RequestItemDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
@@ -31,15 +38,13 @@ sealed class RequestItemDVO extends DataViewObject {
 class RequestItemGroupDVO extends RequestItemDVO {
   final List<RequestItemDVODerivation> items;
   final String? title;
-  final bool isDecidable;
-  final bool mustBeAccepted;
   final ResponseItemGroupDVO? response;
 
   RequestItemGroupDVO({
+    required super.isDecidable,
+    required super.mustBeAccepted,
     required this.items,
     this.title,
-    required this.isDecidable,
-    required this.mustBeAccepted,
     this.response,
   }) : super(id: 'n/a', type: 'RequestItemGroupDVO');
 
@@ -58,6 +63,8 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
     super.date,
     super.error,
     super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
   });
 
   factory RequestItemDVODerivation.fromJson(Map<String, dynamic> json) => switch (json['type']) {
@@ -87,6 +94,8 @@ class ReadAttributeRequestItemDVO extends RequestItemDVODerivation {
     super.date,
     super.error,
     super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
     required this.query,
   }) : super(type: 'ReadAttributeRequestItemDVO');
 
@@ -108,6 +117,8 @@ class ProposeAttributeRequestItemDVO extends RequestItemDVODerivation {
     super.date,
     super.error,
     super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
     required this.query,
     required this.attribute,
   }) : super(type: 'ProposeAttributeRequestItemDVO');
@@ -130,6 +141,8 @@ class CreateAttributeRequestItemDVO extends RequestItemDVODerivation {
     super.date,
     super.error,
     super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
     required this.attribute,
     this.sourceAttributeId,
   }) : super(type: 'CreateAttributeRequestItemDVO');
@@ -152,6 +165,8 @@ class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
     super.date,
     super.error,
     super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
     required this.attribute,
     required this.sourceAttributeId,
   }) : super(type: 'ShareAttributeRequestItemDVO');
@@ -171,6 +186,8 @@ class AuthenticationRequestItemDVO extends RequestItemDVODerivation {
     super.date,
     super.error,
     super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
   }) : super(type: 'AuthenticationRequestItemDVO');
 
   factory AuthenticationRequestItemDVO.fromJson(Map<String, dynamic> json) => _$AuthenticationRequestItemDVOFromJson(json);
@@ -191,6 +208,8 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
     super.date,
     super.error,
     super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
     required this.consent,
     this.link,
   }) : super(type: 'ConsentRequestItemDVO');
@@ -212,6 +231,8 @@ class RegisterAttributeListenerRequestItemDVO extends RequestItemDVODerivation {
     super.date,
     super.error,
     super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
     required this.query,
   }) : super(type: 'RegisterAttributeListenerRequestItemDVO');
 
