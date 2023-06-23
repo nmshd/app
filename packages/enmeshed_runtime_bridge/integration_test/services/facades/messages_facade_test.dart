@@ -61,7 +61,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(result, isSuccessful<MessageDTO>());
 
-      final event = await eventBus.waitForEvent<MessageSentEvent>(eventTargetAddress: account1.address);
+      final event = await eventBus.waitForEvent<MessageSentEvent>(eventTargetAddress: account1.address!);
 
       expect(event.data.id, result.value.id);
 

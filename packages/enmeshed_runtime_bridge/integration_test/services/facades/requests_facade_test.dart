@@ -38,7 +38,7 @@ void run(EnmeshedRuntime runtime) {
 
         sLocalRequest = (await sender.consumptionServices.outgoingRequests.getRequest(requestId: result.value.id)).value;
 
-        final triggeredEvent = await eventBus.waitForEvent<OutgoingRequestCreatedEvent>(eventTargetAddress: account1.address);
+        final triggeredEvent = await eventBus.waitForEvent<OutgoingRequestCreatedEvent>(eventTargetAddress: account1.address!);
 
         expect(triggeredEvent.data.id, sLocalRequest.id);
 
@@ -57,7 +57,7 @@ void run(EnmeshedRuntime runtime) {
         expect(result, isSuccessful<MessageDTO>());
 
         await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
-          eventTargetAddress: account1.address,
+          eventTargetAddress: account1.address!,
           predicate: (e) => e.newStatus == LocalRequestStatus.Open && e.request.id == sLocalRequest.id,
         );
       });
@@ -67,7 +67,7 @@ void run(EnmeshedRuntime runtime) {
 
         expect(result.length, 1);
 
-        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address);
+        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address!);
 
         expect(triggeredEvent.data.id, sLocalRequest.id);
 
@@ -82,7 +82,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.canAccept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
@@ -97,12 +97,12 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.accept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
 
-        final triggeredIncomingEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address);
+        final triggeredIncomingEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address!);
 
         expect(result, isSuccessful<LocalRequestDTO>());
 
@@ -154,7 +154,7 @@ void run(EnmeshedRuntime runtime) {
 
         sLocalRequest = (await sender.consumptionServices.outgoingRequests.getRequest(requestId: result.value.id)).value;
 
-        final triggeredEvent = await eventBus.waitForEvent<OutgoingRequestCreatedEvent>(eventTargetAddress: account1.address);
+        final triggeredEvent = await eventBus.waitForEvent<OutgoingRequestCreatedEvent>(eventTargetAddress: account1.address!);
 
         expect(triggeredEvent.data.id, sLocalRequest.id);
 
@@ -173,7 +173,7 @@ void run(EnmeshedRuntime runtime) {
         expect(result, isSuccessful<MessageDTO>());
 
         await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
-          eventTargetAddress: account1.address,
+          eventTargetAddress: account1.address!,
           predicate: (e) => e.newStatus == LocalRequestStatus.Open && e.request.id == sLocalRequest.id,
         );
       });
@@ -183,7 +183,7 @@ void run(EnmeshedRuntime runtime) {
 
         expect(result.length, 1);
 
-        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address);
+        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address!);
 
         expect(triggeredEvent.data.id, sLocalRequest.id);
 
@@ -210,7 +210,7 @@ void run(EnmeshedRuntime runtime) {
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [const RejectRequestItemParameters()]),
         );
 
-        final triggeredIncomingEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address);
+        final triggeredIncomingEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address!);
 
         expect(result, isSuccessful<LocalRequestDTO>());
 
@@ -271,7 +271,7 @@ void run(EnmeshedRuntime runtime) {
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());
 
-        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address);
+        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address!);
 
         final rLocalRequests = await recipient.consumptionServices.incomingRequests.getRequests();
 
@@ -288,7 +288,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.canAccept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
@@ -303,12 +303,12 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.accept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
 
-        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address);
+        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address!);
 
         expect(result, isSuccessful<LocalRequestDTO>());
 
@@ -365,7 +365,7 @@ void run(EnmeshedRuntime runtime) {
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());
 
-        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address);
+        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address!);
 
         final rLocalRequests = await recipient.consumptionServices.incomingRequests.getRequests();
 
@@ -394,7 +394,7 @@ void run(EnmeshedRuntime runtime) {
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [const RejectRequestItemParameters()]),
         );
 
-        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address);
+        final triggeredEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address!);
 
         expect(result, isSuccessful<LocalRequestDTO>());
 
