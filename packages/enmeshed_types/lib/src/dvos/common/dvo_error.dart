@@ -9,6 +9,6 @@ class DVOError {
 
   DVOError({required this.code, this.message});
 
-  factory DVOError.fromJson(Map<String, dynamic> json) => _$DVOErrorFromJson(json);
+  factory DVOError.fromJson(Map json) => _$DVOErrorFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$DVOErrorToJson(this);
 }

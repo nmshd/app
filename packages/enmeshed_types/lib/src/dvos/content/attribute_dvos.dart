@@ -19,7 +19,7 @@ sealed class DraftAttributeDVO extends DataViewObject {
     super.warning,
   });
 
-  factory DraftAttributeDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory DraftAttributeDVO.fromJson(Map json) => switch (json['type']) {
         'DraftIdentityAttributeDVO' => DraftIdentityAttributeDVO.fromJson(json),
         'DraftRelationshipAttributeDVO' => DraftRelationshipAttributeDVO.fromJson(json),
         _ => throw Exception("Invalid type '${json['type']}'"),
@@ -63,7 +63,7 @@ class DraftIdentityAttributeDVO extends DraftAttributeDVO {
     required this.tags,
   });
 
-  factory DraftIdentityAttributeDVO.fromJson(Map<String, dynamic> json) => _$DraftIdentityAttributeDVOFromJson(json);
+  factory DraftIdentityAttributeDVO.fromJson(Map json) => _$DraftIdentityAttributeDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DraftIdentityAttributeDVOToJson(this);
 }
@@ -108,7 +108,7 @@ class DraftRelationshipAttributeDVO extends DraftAttributeDVO {
     required this.confidentiality,
   });
 
-  factory DraftRelationshipAttributeDVO.fromJson(Map<String, dynamic> json) => _$DraftRelationshipAttributeDVOFromJson(json);
+  factory DraftRelationshipAttributeDVO.fromJson(Map json) => _$DraftRelationshipAttributeDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DraftRelationshipAttributeDVOToJson(this);
 }

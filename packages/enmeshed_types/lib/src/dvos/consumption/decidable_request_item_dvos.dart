@@ -14,7 +14,7 @@ sealed class DecidableRequestItemDVO extends RequestItemDVO {
     required super.isDecidable,
   });
 
-  factory DecidableRequestItemDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory DecidableRequestItemDVO.fromJson(Map json) => switch (json['type']) {
         'DecidableRequestItemGroupDVO' => DecidableRequestItemGroupDVO.fromJson(json),
         _ => DecidableRequestItemDVODerivation.fromJson(json),
       };
@@ -30,7 +30,7 @@ class DecidableRequestItemGroupDVO extends DecidableRequestItemDVO {
     required this.items,
   }) : super(id: 'n/a', type: 'DecidableRequestItemGroupDVO');
 
-  factory DecidableRequestItemGroupDVO.fromJson(Map<String, dynamic> json) => _$DecidableRequestItemGroupDVOFromJson(json);
+  factory DecidableRequestItemGroupDVO.fromJson(Map json) => _$DecidableRequestItemGroupDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableRequestItemGroupDVOToJson(this);
 }
@@ -49,7 +49,7 @@ sealed class DecidableRequestItemDVODerivation extends DecidableRequestItemDVO {
     required super.isDecidable,
   });
 
-  factory DecidableRequestItemDVODerivation.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory DecidableRequestItemDVODerivation.fromJson(Map json) => switch (json['type']) {
         'DecidableReadAttributeRequestItemDVO' => DecidableReadAttributeRequestItemDVO.fromJson(json),
         'DecidableProposeAttributeRequestItemDVO' => DecidableProposeAttributeRequestItemDVO.fromJson(json),
         'DecidableCreateAttributeRequestItemDVO' => DecidableCreateAttributeRequestItemDVO.fromJson(json),
@@ -80,7 +80,7 @@ class DecidableReadAttributeRequestItemDVO extends DecidableRequestItemDVODeriva
     required this.query,
   }) : super(type: 'DecidableReadAttributeRequestItemDVO', isDecidable: true);
 
-  factory DecidableReadAttributeRequestItemDVO.fromJson(Map<String, dynamic> json) => _$DecidableReadAttributeRequestItemDVOFromJson(json);
+  factory DecidableReadAttributeRequestItemDVO.fromJson(Map json) => _$DecidableReadAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableReadAttributeRequestItemDVOToJson(this);
 }
@@ -103,7 +103,8 @@ class DecidableProposeAttributeRequestItemDVO extends DecidableRequestItemDVODer
     required this.attribute,
   }) : super(type: 'DecidableProposeAttributeRequestItemDVO', isDecidable: true);
 
-  factory DecidableProposeAttributeRequestItemDVO.fromJson(Map<String, dynamic> json) => _$DecidableProposeAttributeRequestItemDVOFromJson(json);
+  factory DecidableProposeAttributeRequestItemDVO.fromJson(Map json) =>
+      _$DecidableProposeAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableProposeAttributeRequestItemDVOToJson(this);
 }
@@ -124,7 +125,8 @@ class DecidableCreateAttributeRequestItemDVO extends DecidableRequestItemDVODeri
     required this.attribute,
   }) : super(type: 'DecidableCreateAttributeRequestItemDVO', isDecidable: true);
 
-  factory DecidableCreateAttributeRequestItemDVO.fromJson(Map<String, dynamic> json) => _$DecidableCreateAttributeRequestItemDVOFromJson(json);
+  factory DecidableCreateAttributeRequestItemDVO.fromJson(Map json) =>
+      _$DecidableCreateAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableCreateAttributeRequestItemDVOToJson(this);
 }
@@ -147,7 +149,8 @@ class DecidableShareAttributeRequestItemDVO extends DecidableRequestItemDVODeriv
     required this.attribute,
   }) : super(type: 'DecidableShareAttributeRequestItemDVO', isDecidable: true);
 
-  factory DecidableShareAttributeRequestItemDVO.fromJson(Map<String, dynamic> json) => _$DecidableShareAttributeRequestItemDVOFromJson(json);
+  factory DecidableShareAttributeRequestItemDVO.fromJson(Map json) =>
+      _$DecidableShareAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableShareAttributeRequestItemDVOToJson(this);
 }
@@ -165,7 +168,8 @@ class DecidableAuthenticationRequestItemDVO extends DecidableRequestItemDVODeriv
     required super.mustBeAccepted,
   }) : super(type: 'DecidableAuthenticationRequestItemDVO', isDecidable: true);
 
-  factory DecidableAuthenticationRequestItemDVO.fromJson(Map<String, dynamic> json) => _$DecidableAuthenticationRequestItemDVOFromJson(json);
+  factory DecidableAuthenticationRequestItemDVO.fromJson(Map json) =>
+      _$DecidableAuthenticationRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableAuthenticationRequestItemDVOToJson(this);
 }
@@ -188,7 +192,7 @@ class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
     this.link,
   }) : super(type: 'DecidableConsentRequestItemDVO', isDecidable: true);
 
-  factory DecidableConsentRequestItemDVO.fromJson(Map<String, dynamic> json) => _$DecidableConsentRequestItemDVOFromJson(json);
+  factory DecidableConsentRequestItemDVO.fromJson(Map json) => _$DecidableConsentRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableConsentRequestItemDVOToJson(this);
 }
@@ -209,8 +213,8 @@ class DecidableRegisterAttributeListenerRequestItemDVO extends DecidableRequestI
     required this.query,
   }) : super(type: 'DecidableRegisterAttributeListenerRequestItemDVO', isDecidable: true);
 
-  factory DecidableRegisterAttributeListenerRequestItemDVO.fromJson(Map<String, dynamic> json) =>
-      _$DecidableRegisterAttributeListenerRequestItemDVOFromJson(json);
+  factory DecidableRegisterAttributeListenerRequestItemDVO.fromJson(Map json) =>
+      _$DecidableRegisterAttributeListenerRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableRegisterAttributeListenerRequestItemDVOToJson(this);
 }

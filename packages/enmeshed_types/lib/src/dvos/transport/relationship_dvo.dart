@@ -45,7 +45,7 @@ class RelationshipDVO extends DataViewObject {
     required this.templateId,
   });
 
-  factory RelationshipDVO.fromJson(Map<String, dynamic> json) => _$RelationshipDVOFromJson(json);
+  factory RelationshipDVO.fromJson(Map json) => _$RelationshipDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipDVOToJson(this);
 }
 
@@ -63,7 +63,7 @@ class RelationshipTheme {
     this.foregroundColor,
   });
 
-  factory RelationshipTheme.fromJson(Map<String, dynamic> json) => _$RelationshipThemeFromJson(json);
+  factory RelationshipTheme.fromJson(Map json) => _$RelationshipThemeFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipThemeToJson(this);
 }
 
@@ -95,7 +95,7 @@ class RelationshipChangeDVO extends DataViewObject {
     required this.isOwn,
   });
 
-  factory RelationshipChangeDVO.fromJson(Map<String, dynamic> json) => _$RelationshipChangeDVOFromJson(json);
+  factory RelationshipChangeDVO.fromJson(Map json) => _$RelationshipChangeDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipChangeDVOToJson(this);
 }
 
@@ -121,7 +121,7 @@ class RelationshipChangeRequestDVO extends DataViewObject {
     this.content,
   });
 
-  factory RelationshipChangeRequestDVO.fromJson(Map<String, dynamic> json) => _$RelationshipChangeRequestDVOFromJson(json);
+  factory RelationshipChangeRequestDVO.fromJson(Map json) => _$RelationshipChangeRequestDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipChangeRequestDVOToJson(this);
 }
 
@@ -147,6 +147,6 @@ class RelationshipChangeResponseDVO extends DataViewObject {
     this.content,
   });
 
-  factory RelationshipChangeResponseDVO.fromJson(Map<String, dynamic> json) => _$RelationshipChangeResponseDVOFromJson(json);
+  factory RelationshipChangeResponseDVO.fromJson(Map json) => _$RelationshipChangeResponseDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipChangeResponseDVOToJson(this);
 }

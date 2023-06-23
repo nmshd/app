@@ -42,6 +42,6 @@ class PeerRelationshipTemplateDVO extends DataViewObject {
     required this.content,
   });
 
-  factory PeerRelationshipTemplateDVO.fromJson(Map<String, dynamic> json) => _$PeerRelationshipTemplateDVOFromJson(json);
+  factory PeerRelationshipTemplateDVO.fromJson(Map json) => _$PeerRelationshipTemplateDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$PeerRelationshipTemplateDVOToJson(this);
 }

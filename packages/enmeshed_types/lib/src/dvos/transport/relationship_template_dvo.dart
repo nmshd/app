@@ -34,6 +34,6 @@ class RelationshipTemplateDVO {
     required this.content,
   });
 
-  factory RelationshipTemplateDVO.fromJson(Map<String, dynamic> json) => _$RelationshipTemplateDVOFromJson(json);
+  factory RelationshipTemplateDVO.fromJson(Map json) => _$RelationshipTemplateDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipTemplateDVOToJson(this);
 }

@@ -24,7 +24,7 @@ sealed class AttributeQueryDVO extends DataViewObject {
     this.validTo,
   });
 
-  factory AttributeQueryDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory AttributeQueryDVO.fromJson(Map json) => switch (json['type']) {
         'IdentityAttributeQueryDVO' => IdentityAttributeQueryDVO.fromJson(json),
         'RelationshipAttributeQueryDVO' => RelationshipAttributeQueryDVO.fromJson(json),
         'ThirdPartyRelationshipAttributeQueryDVO' => ThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
@@ -59,7 +59,7 @@ class IdentityAttributeQueryDVO extends AttributeQueryDVO {
     required this.valueHints,
   });
 
-  factory IdentityAttributeQueryDVO.fromJson(Map<String, dynamic> json) => _$IdentityAttributeQueryDVOFromJson(json);
+  factory IdentityAttributeQueryDVO.fromJson(Map json) => _$IdentityAttributeQueryDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$IdentityAttributeQueryDVOToJson(this);
 }
@@ -94,7 +94,7 @@ class RelationshipAttributeQueryDVO extends AttributeQueryDVO {
     required this.valueHints,
   });
 
-  factory RelationshipAttributeQueryDVO.fromJson(Map<String, dynamic> json) => _$RelationshipAttributeQueryDVOFromJson(json);
+  factory RelationshipAttributeQueryDVO.fromJson(Map json) => _$RelationshipAttributeQueryDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RelationshipAttributeQueryDVOToJson(this);
 }
@@ -123,7 +123,8 @@ class ThirdPartyRelationshipAttributeQueryDVO extends AttributeQueryDVO {
     required this.isProcessed,
   });
 
-  factory ThirdPartyRelationshipAttributeQueryDVO.fromJson(Map<String, dynamic> json) => _$ThirdPartyRelationshipAttributeQueryDVOFromJson(json);
+  factory ThirdPartyRelationshipAttributeQueryDVO.fromJson(Map json) =>
+      _$ThirdPartyRelationshipAttributeQueryDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ThirdPartyRelationshipAttributeQueryDVOToJson(this);
 }

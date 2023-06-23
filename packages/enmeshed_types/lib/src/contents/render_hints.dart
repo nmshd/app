@@ -57,6 +57,6 @@ class RenderHints {
     this.propertyHints,
   });
 
-  factory RenderHints.fromJson(Map<String, dynamic> json) => _$RenderHintsFromJson(json);
+  factory RenderHints.fromJson(Map json) => _$RenderHintsFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RenderHintsToJson(this);
 }

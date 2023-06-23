@@ -20,6 +20,6 @@ class LocalRequestDVO extends DataViewObject {
     super.warning,
   });
 
-  factory LocalRequestDVO.fromJson(Map<String, dynamic> json) => _$LocalRequestDVOFromJson(json);
+  factory LocalRequestDVO.fromJson(Map json) => _$LocalRequestDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$LocalRequestDVOToJson(this);
 }

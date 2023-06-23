@@ -19,7 +19,7 @@ sealed class ResponseItemDVO extends DataViewObject {
     super.warning,
   });
 
-  factory ResponseItemDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory ResponseItemDVO.fromJson(Map json) => switch (json['type']) {
         'ResponseItemGroupDVO' => ResponseItemGroupDVO.fromJson(json),
         _ => ResponseItemDVODerivation.fromJson(json),
       };
@@ -34,7 +34,7 @@ class ResponseItemGroupDVO extends ResponseItemDVO {
     required this.items,
   }) : super(id: 'n/a', type: 'ResponseItemGroupDVO');
 
-  factory ResponseItemGroupDVO.fromJson(Map<String, dynamic> json) => _$ResponseItemGroupDVOFromJson(json);
+  factory ResponseItemGroupDVO.fromJson(Map json) => _$ResponseItemGroupDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ResponseItemGroupDVOToJson(this);
 }
@@ -54,7 +54,7 @@ sealed class ResponseItemDVODerivation extends ResponseItemDVO {
     required this.result,
   });
 
-  factory ResponseItemDVODerivation.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory ResponseItemDVODerivation.fromJson(Map json) => switch (json['type']) {
         'RejectResponseItemDVO' => RejectResponseItemDVO.fromJson(json),
         'ErrorResponseItemDVO' => ErrorResponseItemDVO.fromJson(json),
         _ => throw Exception("Invalid type '${json['type']}'"),
@@ -82,7 +82,7 @@ class RejectResponseItemDVO extends ResponseItemDVODerivation {
     this.message,
   }) : super(result: ResponseItemResult.Rejected);
 
-  factory RejectResponseItemDVO.fromJson(Map<String, dynamic> json) => _$RejectResponseItemDVOFromJson(json);
+  factory RejectResponseItemDVO.fromJson(Map json) => _$RejectResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RejectResponseItemDVOToJson(this);
 }
@@ -105,7 +105,7 @@ class ErrorResponseItemDVO extends ResponseItemDVODerivation {
     required this.message,
   }) : super(result: ResponseItemResult.Error);
 
-  factory ErrorResponseItemDVO.fromJson(Map<String, dynamic> json) => _$ErrorResponseItemDVOFromJson(json);
+  factory ErrorResponseItemDVO.fromJson(Map json) => _$ErrorResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ErrorResponseItemDVOToJson(this);
 }
@@ -123,8 +123,8 @@ class AcceptResponseItemDVO extends ResponseItemDVODerivation {
     super.warning,
   }) : super(result: ResponseItemResult.Accepted);
 
-  factory AcceptResponseItemDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
-        'AcceptResponseItemDVO' => _$AcceptResponseItemDVOFromJson(json),
+  factory AcceptResponseItemDVO.fromJson(Map json) => switch (json['type']) {
+        'AcceptResponseItemDVO' => _$AcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json)),
         'ReadAttributeAcceptResponseItemDVO' => ReadAttributeAcceptResponseItemDVO.fromJson(json),
         'ProposeAttributeAcceptResponseItemDVO' => ProposeAttributeAcceptResponseItemDVO.fromJson(json),
         'CreateAttributeAcceptResponseItemDVO' => CreateAttributeAcceptResponseItemDVO.fromJson(json),
@@ -154,7 +154,7 @@ class ReadAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
     required this.attribute,
   });
 
-  factory ReadAttributeAcceptResponseItemDVO.fromJson(Map<String, dynamic> json) => _$ReadAttributeAcceptResponseItemDVOFromJson(json);
+  factory ReadAttributeAcceptResponseItemDVO.fromJson(Map json) => _$ReadAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ReadAttributeAcceptResponseItemDVOToJson(this);
 }
@@ -177,7 +177,8 @@ class ProposeAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
     required this.attribute,
   });
 
-  factory ProposeAttributeAcceptResponseItemDVO.fromJson(Map<String, dynamic> json) => _$ProposeAttributeAcceptResponseItemDVOFromJson(json);
+  factory ProposeAttributeAcceptResponseItemDVO.fromJson(Map json) =>
+      _$ProposeAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ProposeAttributeAcceptResponseItemDVOToJson(this);
 }
@@ -200,7 +201,7 @@ class CreateAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
     required this.attribute,
   });
 
-  factory CreateAttributeAcceptResponseItemDVO.fromJson(Map<String, dynamic> json) => _$CreateAttributeAcceptResponseItemDVOFromJson(json);
+  factory CreateAttributeAcceptResponseItemDVO.fromJson(Map json) => _$CreateAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$CreateAttributeAcceptResponseItemDVOToJson(this);
 }
@@ -223,7 +224,7 @@ class ShareAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
     required this.attribute,
   });
 
-  factory ShareAttributeAcceptResponseItemDVO.fromJson(Map<String, dynamic> json) => _$ShareAttributeAcceptResponseItemDVOFromJson(json);
+  factory ShareAttributeAcceptResponseItemDVO.fromJson(Map json) => _$ShareAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ShareAttributeAcceptResponseItemDVOToJson(this);
 }
@@ -246,8 +247,8 @@ class RegisterAttributeListenerAcceptResponseItemDVO extends AcceptResponseItemD
     required this.listener,
   });
 
-  factory RegisterAttributeListenerAcceptResponseItemDVO.fromJson(Map<String, dynamic> json) =>
-      _$RegisterAttributeListenerAcceptResponseItemDVOFromJson(json);
+  factory RegisterAttributeListenerAcceptResponseItemDVO.fromJson(Map json) =>
+      _$RegisterAttributeListenerAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RegisterAttributeListenerAcceptResponseItemDVOToJson(this);
 }

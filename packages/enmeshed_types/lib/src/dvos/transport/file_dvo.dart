@@ -40,6 +40,6 @@ class FileDVO extends DataViewObject {
     required this.secretKey,
   });
 
-  factory FileDVO.fromJson(Map<String, dynamic> json) => _$FileDVOFromJson(json);
+  factory FileDVO.fromJson(Map json) => _$FileDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$FileDVOToJson(this);
 }

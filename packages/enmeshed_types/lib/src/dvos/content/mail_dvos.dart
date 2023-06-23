@@ -34,7 +34,7 @@ class RequestMessageDVO extends MessageDVO {
     required this.request,
   });
 
-  factory RequestMessageDVO.fromJson(Map<String, dynamic> json) => _$RequestMessageDVOFromJson(json);
+  factory RequestMessageDVO.fromJson(Map json) => _$RequestMessageDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RequestMessageDVOToJson(this);
 }
@@ -77,7 +77,7 @@ class MailDVO extends MessageDVO {
     required this.ccCount,
   });
 
-  factory MailDVO.fromJson(Map<String, dynamic> json) => _$MailDVOFromJson(json);
+  factory MailDVO.fromJson(Map json) => _$MailDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$MailDVOToJson(this);
 }

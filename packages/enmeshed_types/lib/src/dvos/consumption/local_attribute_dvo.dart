@@ -49,7 +49,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
     this.succeededBy,
   });
 
-  factory LocalAttributeDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory LocalAttributeDVO.fromJson(Map json) => switch (json['type']) {
         'RepositoryAttributeDVO' => RepositoryAttributeDVO.fromJson(json),
         'SharedToPeerAttributeDVO' => SharedToPeerAttributeDVO.fromJson(json),
         'PeerAttributeDVO' => PeerAttributeDVO.fromJson(json),
@@ -84,7 +84,7 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
     super.succeededBy,
   }) : super(isOwn: true);
 
-  factory IdentityAttributeDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory IdentityAttributeDVO.fromJson(Map json) => switch (json['type']) {
         'RepositoryAttributeDVO' => RepositoryAttributeDVO.fromJson(json),
         'SharedToPeerAttributeDVO' => SharedToPeerAttributeDVO.fromJson(json),
         _ => throw Exception("Invalid type '${json['type']}'"),
@@ -120,7 +120,7 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
     required this.sharedWith,
   }) : super(type: 'RepositoryAttributeDVO');
 
-  factory RepositoryAttributeDVO.fromJson(Map<String, dynamic> json) => _$RepositoryAttributeDVOFromJson(json);
+  factory RepositoryAttributeDVO.fromJson(Map json) => _$RepositoryAttributeDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RepositoryAttributeDVOToJson(this);
 }
@@ -156,7 +156,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
     required this.sourceAttribute,
   }) : super(type: 'SharedToPeerAttributeDVO');
 
-  factory SharedToPeerAttributeDVO.fromJson(Map<String, dynamic> json) => _$SharedToPeerAttributeDVOFromJson(json);
+  factory SharedToPeerAttributeDVO.fromJson(Map json) => _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$SharedToPeerAttributeDVOToJson(this);
 }
@@ -190,7 +190,7 @@ class PeerAttributeDVO extends LocalAttributeDVO {
     required this.requestReference,
   }) : super(type: 'PeerAttributeDVO', isOwn: false);
 
-  factory PeerAttributeDVO.fromJson(Map<String, dynamic> json) => _$PeerAttributeDVOFromJson(json);
+  factory PeerAttributeDVO.fromJson(Map json) => _$PeerAttributeDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$PeerAttributeDVOToJson(this);
 }
@@ -231,7 +231,7 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
     required this.isTechnical,
   });
 
-  factory RelationshipAttributeDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory RelationshipAttributeDVO.fromJson(Map json) => switch (json['type']) {
         'OwnRelationshipAttributeDVO' => OwnRelationshipAttributeDVO.fromJson(json),
         'PeerRelationshipAttributeDVO' => PeerRelationshipAttributeDVO.fromJson(json),
         _ => throw Exception("Invalid type '${json['type']}'"),
@@ -269,7 +269,7 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
     required super.isTechnical,
   }) : super(type: 'OwnRelationshipAttributeDVO', isOwn: true);
 
-  factory OwnRelationshipAttributeDVO.fromJson(Map<String, dynamic> json) => _$OwnRelationshipAttributeDVOFromJson(json);
+  factory OwnRelationshipAttributeDVO.fromJson(Map json) => _$OwnRelationshipAttributeDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$OwnRelationshipAttributeDVOToJson(this);
 }
@@ -303,7 +303,7 @@ class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
     required super.isTechnical,
   }) : super(type: 'PeerRelationshipAttributeDVO', isOwn: false);
 
-  factory PeerRelationshipAttributeDVO.fromJson(Map<String, dynamic> json) => _$PeerRelationshipAttributeDVOFromJson(json);
+  factory PeerRelationshipAttributeDVO.fromJson(Map json) => _$PeerRelationshipAttributeDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$PeerRelationshipAttributeDVOToJson(this);
 }

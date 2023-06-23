@@ -25,6 +25,6 @@ class LocalAttributeListenerDVO extends DataViewObject {
     required this.peer,
   });
 
-  factory LocalAttributeListenerDVO.fromJson(Map<String, dynamic> json) => _$LocalAttributeListenerDVOFromJson(json);
+  factory LocalAttributeListenerDVO.fromJson(Map json) => _$LocalAttributeListenerDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$LocalAttributeListenerDVOToJson(this);
 }

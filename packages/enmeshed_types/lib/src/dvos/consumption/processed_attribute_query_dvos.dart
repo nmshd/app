@@ -26,7 +26,7 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
     this.validTo,
   });
 
-  factory ProcessedAttributeQueryDVO.fromJson(Map<String, dynamic> json) => switch (json['type']) {
+  factory ProcessedAttributeQueryDVO.fromJson(Map json) => switch (json['type']) {
         'ProcessedIdentityAttributeQueryDVO' => ProcessedIdentityAttributeQueryDVO.fromJson(json),
         'ProcessedRelationshipAttributeQueryDVO' => ProcessedRelationshipAttributeQueryDVO.fromJson(json),
         'ProcessedThirdPartyRelationshipAttributeQueryDVO' => ProcessedThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
@@ -50,7 +50,7 @@ class ProcessedIdentityAttributeQueryDVO extends ProcessedAttributeQueryDVO {
     super.validTo,
   });
 
-  factory ProcessedIdentityAttributeQueryDVO.fromJson(Map<String, dynamic> json) => _$ProcessedIdentityAttributeQueryDVOFromJson(json);
+  factory ProcessedIdentityAttributeQueryDVO.fromJson(Map json) => _$ProcessedIdentityAttributeQueryDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ProcessedIdentityAttributeQueryDVOToJson(this);
 }
@@ -82,7 +82,8 @@ class ProcessedRelationshipAttributeQueryDVO extends ProcessedAttributeQueryDVO 
     required this.valueHints,
   }) : super(type: 'ProcessedRelationshipAttributeQueryDVO');
 
-  factory ProcessedRelationshipAttributeQueryDVO.fromJson(Map<String, dynamic> json) => _$ProcessedRelationshipAttributeQueryDVOFromJson(json);
+  factory ProcessedRelationshipAttributeQueryDVO.fromJson(Map json) =>
+      _$ProcessedRelationshipAttributeQueryDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ProcessedRelationshipAttributeQueryDVOToJson(this);
 }
@@ -114,8 +115,8 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
     required this.valueHints,
   }) : super(type: 'ProcessedThirdPartyRelationshipAttributeQueryDVO');
 
-  factory ProcessedThirdPartyRelationshipAttributeQueryDVO.fromJson(Map<String, dynamic> json) =>
-      _$ProcessedThirdPartyRelationshipAttributeQueryDVOFromJson(json);
+  factory ProcessedThirdPartyRelationshipAttributeQueryDVO.fromJson(Map json) =>
+      _$ProcessedThirdPartyRelationshipAttributeQueryDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ProcessedThirdPartyRelationshipAttributeQueryDVOToJson(this);
 }

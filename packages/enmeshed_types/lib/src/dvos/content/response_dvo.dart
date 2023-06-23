@@ -25,6 +25,6 @@ class ResponseDVO extends DataViewObject {
     required this.result,
   });
 
-  factory ResponseDVO.fromJson(Map<String, dynamic> json) => _$ResponseDVOFromJson(json);
+  factory ResponseDVO.fromJson(Map json) => _$ResponseDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$ResponseDVOToJson(this);
 }

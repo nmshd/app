@@ -32,6 +32,6 @@ class IdentityDVO extends DataViewObject {
     this.relationship,
   });
 
-  factory IdentityDVO.fromJson(Map<String, dynamic> json) => _$IdentityDVOFromJson(json);
+  factory IdentityDVO.fromJson(Map json) => _$IdentityDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$IdentityDVOToJson(this);
 }

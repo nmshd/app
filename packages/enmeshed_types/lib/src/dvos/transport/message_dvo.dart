@@ -48,7 +48,7 @@ class MessageDVO extends DataViewObject {
     required this.content,
   });
 
-  factory MessageDVO.fromJson(Map<String, dynamic> json) => _$MessageDVOFromJson(json);
+  factory MessageDVO.fromJson(Map json) => _$MessageDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$MessageDVOToJson(this);
 }
 
@@ -76,7 +76,7 @@ class RecipientDVO extends IdentityDVO {
     this.receivedByDevice,
   });
 
-  factory RecipientDVO.fromJson(Map<String, dynamic> json) => _$RecipientDVOFromJson(json);
+  factory RecipientDVO.fromJson(Map json) => _$RecipientDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RecipientDVOToJson(this);
 }
