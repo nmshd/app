@@ -4,6 +4,8 @@ import 'abstract_evaluator.dart';
 import 'handle_call_async_js_result.dart';
 import 'result.dart';
 
+/// This facade lacks the functions createAndCompleteFromRelationshipTemplateResponse, sent and complete
+/// because they are only usable in the automation of the actual JavaScript Enmeshed Runtime and shall not be used here.
 class OutgoingRequestsFacade {
   final AbstractEvaluator _evaluator;
   OutgoingRequestsFacade(this._evaluator);
@@ -40,68 +42,6 @@ class OutgoingRequestsFacade {
         'request': {
           'content': content.toJson(),
           'peer': peer,
-        },
-      },
-    );
-
-    final value = result.valueToMap();
-    return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
-  }
-
-  Future<Result<LocalRequestDTO>> createAndCompleteFromRelationshipTemplateResponse({
-    required String templateId,
-    required String responseSourceId,
-    required Response response,
-  }) async {
-    final result = await _evaluator.evaluateJavascript(
-      '''const result = await session.consumptionServices.outgoingRequests.createAndCompleteFromRelationshipTemplateResponse(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'templateId': templateId,
-          'responseSourceId': responseSourceId,
-          'response': response.toJson(),
-        },
-      },
-    );
-
-    final value = result.valueToMap();
-    return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
-  }
-
-  Future<Result<LocalRequestDTO>> sent({
-    required String requestId,
-    required String messageId,
-  }) async {
-    final result = await _evaluator.evaluateJavascript(
-      '''const result = await session.consumptionServices.outgoingRequests.sent(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'requestId': requestId,
-          'messageId': messageId,
-        },
-      },
-    );
-
-    final value = result.valueToMap();
-    return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
-  }
-
-  Future<Result<LocalRequestDTO>> complete({
-    required Response receivedResponse,
-    required String messageId,
-  }) async {
-    final result = await _evaluator.evaluateJavascript(
-      '''const result = await session.consumptionServices.outgoingRequests.complete(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'receivedResponse': receivedResponse.toJson(),
-          'messageId': messageId,
         },
       },
     );
