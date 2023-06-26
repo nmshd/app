@@ -296,7 +296,36 @@ class EnmeshedRuntime {
       throw Exception('result is null');
     }
 
-    return resultOrNull;
+    final result = resultOrNull;
+    if (result.value is Map<String, dynamic> || result.value is List<Map<String, dynamic>>) return result;
+
+    if (result.value is Map) result.value = _transformValue(result.value as Map);
+    if (result.value is List) result.value = _transformList(result.value as List);
+
+    return result;
+  }
+
+  Map<String, dynamic> _transformValue(Map value) {
+    final transformedValue = Map<String, dynamic>.from(value);
+    for (final entry in transformedValue.entries) {
+      if (entry.value is Map) {
+        transformedValue[entry.key] = _transformValue(entry.value as Map);
+      } else if (entry.value is List) {
+        transformedValue[entry.key] = _transformList(entry.value as List);
+      }
+    }
+
+    return transformedValue;
+  }
+
+  List<dynamic> _transformList(List value) {
+    return value
+        .map((e) => switch (e) {
+              final Map m => _transformValue(m),
+              final List l => _transformList(l),
+              _ => e,
+            })
+        .toList();
   }
 }
 
