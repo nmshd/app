@@ -4,7 +4,10 @@ import 'package:enmeshed_runtime_bridge/src/services/services.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../setup.dart';
 import '../utils.dart';
+
+void main() async => run(await setup());
 
 void run(EnmeshedRuntime runtime) {
   group('MessageDVO', () {

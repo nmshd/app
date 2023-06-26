@@ -3,7 +3,10 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../matchers.dart';
+import '../../setup.dart';
 import '../../utils.dart';
+
+void main() async => run(await setup());
 
 void run(EnmeshedRuntime runtime) {
   late Session session1;

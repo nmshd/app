@@ -4,7 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../matchers.dart';
 import '../../mock_event_bus.dart';
+import '../../setup.dart';
 import '../../utils.dart';
+
+void main() async => run(await setup());
 
 void run(EnmeshedRuntime runtime) {
   late LocalAccountDTO account1;
