@@ -7,7 +7,14 @@ part of 'relationship_template_dvo.dart';
 // **************************************************************************
 
 RelationshipTemplateDVO _$RelationshipTemplateDVOFromJson(Map<String, dynamic> json) => RelationshipTemplateDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
       type: json['type'] as String,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       isOwn: json['isOwn'] as bool,
       createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
       createdByDevice: json['createdByDevice'] as String,
@@ -18,16 +25,13 @@ RelationshipTemplateDVO _$RelationshipTemplateDVOFromJson(Map<String, dynamic> j
       onExistingRelationship:
           json['onExistingRelationship'] == null ? null : RequestDVO.fromJson(json['onExistingRelationship'] as Map<String, dynamic>),
       request: json['request'] == null ? null : LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
-      content: json['content'],
+      content: json['content'] as Map<String, dynamic>,
     );
 
 Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO instance) {
   final val = <String, dynamic>{
-    'type': instance.type,
-    'isOwn': instance.isOwn,
-    'createdBy': instance.createdBy,
-    'createdByDevice': instance.createdByDevice,
-    'createdAt': instance.createdAt,
+    'id': instance.id,
+    'name': instance.name,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -36,11 +40,21 @@ Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO ins
     }
   }
 
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error);
+  writeNotNull('warning', instance.warning);
+  val['isOwn'] = instance.isOwn;
+  val['createdBy'] = instance.createdBy;
+  val['createdByDevice'] = instance.createdByDevice;
+  val['createdAt'] = instance.createdAt;
   writeNotNull('expiresAt', instance.expiresAt);
   writeNotNull('maxNumberOfAllocations', instance.maxNumberOfAllocations);
   writeNotNull('onNewRelationship', instance.onNewRelationship);
   writeNotNull('onExistingRelationship', instance.onExistingRelationship);
   writeNotNull('request', instance.request);
-  writeNotNull('content', instance.content);
+  val['content'] = instance.content;
   return val;
 }

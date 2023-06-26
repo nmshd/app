@@ -11,12 +11,16 @@ ProcessedIdentityAttributeQueryDVO _$ProcessedIdentityAttributeQueryDVOFromJson(
       name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
-      type: json['type'] as String,
       date: json['date'] as String?,
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       validFrom: json['validFrom'] as String?,
       validTo: json['validTo'] as String?,
+      results: (json['results'] as List<dynamic>).map((e) => IdentityAttributeDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      valueType: json['valueType'] as String,
+      renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
+      valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ProcessedIdentityAttributeQueryDVOToJson(ProcessedIdentityAttributeQueryDVO instance) {
@@ -39,6 +43,11 @@ Map<String, dynamic> _$ProcessedIdentityAttributeQueryDVOToJson(ProcessedIdentit
   writeNotNull('warning', instance.warning);
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
+  val['results'] = instance.results;
+  writeNotNull('tags', instance.tags);
+  val['valueType'] = instance.valueType;
+  val['renderHints'] = instance.renderHints;
+  val['valueHints'] = instance.valueHints;
   return val;
 }
 
@@ -59,7 +68,7 @@ ProcessedRelationshipAttributeQueryDVO _$ProcessedRelationshipAttributeQueryDVOF
       attributeCreationHints: RelationshipAttributeCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$ProcessedRelationshipAttributeQueryDVOToJson(ProcessedRelationshipAttributeQueryDVO instance) {
   final val = <String, dynamic>{
@@ -104,10 +113,11 @@ ProcessedThirdPartyRelationshipAttributeQueryDVO _$ProcessedThirdPartyRelationsh
       results: (json['results'] as List<dynamic>).map((e) => RelationshipAttributeDVO.fromJson(e as Map<String, dynamic>)).toList(),
       key: json['key'] as String,
       owner: IdentityDVO.fromJson(json['owner'] as Map<String, dynamic>),
-      attributeCreationHints: RelationshipAttributeCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
-      renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
-      valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+      thirdParty: (json['thirdParty'] as List<dynamic>).map((e) => IdentityDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      valueType: json['valueType'] as String,
+      renderHints: json['renderHints'] == null ? null : RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
+      valueHints: json['valueHints'] == null ? null : ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$ProcessedThirdPartyRelationshipAttributeQueryDVOToJson(ProcessedThirdPartyRelationshipAttributeQueryDVO instance) {
   final val = <String, dynamic>{
@@ -132,8 +142,9 @@ Map<String, dynamic> _$ProcessedThirdPartyRelationshipAttributeQueryDVOToJson(Pr
   val['results'] = instance.results;
   val['key'] = instance.key;
   val['owner'] = instance.owner;
-  val['attributeCreationHints'] = instance.attributeCreationHints;
-  val['renderHints'] = instance.renderHints;
-  val['valueHints'] = instance.valueHints;
+  val['thirdParty'] = instance.thirdParty;
+  val['valueType'] = instance.valueType;
+  writeNotNull('renderHints', instance.renderHints);
+  writeNotNull('valueHints', instance.valueHints);
   return val;
 }

@@ -11,7 +11,6 @@ PeerRelationshipTemplateDVO _$PeerRelationshipTemplateDVOFromJson(Map<String, dy
       name: json['name'] as String,
       description: json['description'] as String?,
       image: json['image'] as String?,
-      type: json['type'] as String,
       date: json['date'] as String?,
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),

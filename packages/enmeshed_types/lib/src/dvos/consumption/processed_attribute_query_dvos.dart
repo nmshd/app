@@ -37,18 +37,28 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
 
 @JsonSerializable(includeIfNull: false)
 class ProcessedIdentityAttributeQueryDVO extends ProcessedAttributeQueryDVO {
+  final List<IdentityAttributeDVO> results;
+  final List<String>? tags;
+  final String valueType;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
+
   ProcessedIdentityAttributeQueryDVO({
     required super.id,
     required super.name,
     super.description,
     super.image,
-    required super.type,
     super.date,
     super.error,
     super.warning,
     super.validFrom,
     super.validTo,
-  });
+    required this.results,
+    required this.tags,
+    required this.valueType,
+    required this.renderHints,
+    required this.valueHints,
+  }) : super(type: 'ProcessedIdentityAttributeQueryDVO');
 
   factory ProcessedIdentityAttributeQueryDVO.fromJson(Map json) => _$ProcessedIdentityAttributeQueryDVOFromJson(Map<String, dynamic>.from(json));
   @override
@@ -93,9 +103,10 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
   final List<RelationshipAttributeDVO> results;
   final String key;
   final IdentityDVO owner;
-  final RelationshipAttributeCreationHints attributeCreationHints;
-  final RenderHints renderHints;
-  final ValueHints valueHints;
+  final List<IdentityDVO> thirdParty;
+  final String valueType;
+  final RenderHints? renderHints;
+  final ValueHints? valueHints;
 
   ProcessedThirdPartyRelationshipAttributeQueryDVO({
     required super.id,
@@ -110,9 +121,10 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
     required this.results,
     required this.key,
     required this.owner,
-    required this.attributeCreationHints,
-    required this.renderHints,
-    required this.valueHints,
+    required this.thirdParty,
+    required this.valueType,
+    this.renderHints,
+    this.valueHints,
   }) : super(type: 'ProcessedThirdPartyRelationshipAttributeQueryDVO');
 
   factory ProcessedThirdPartyRelationshipAttributeQueryDVO.fromJson(Map json) =>

@@ -12,15 +12,7 @@ RequestItemGroupDVO _$RequestItemGroupDVOFromJson(Map<String, dynamic> json) => 
       items: (json['items'] as List<dynamic>).map((e) => RequestItemDVODerivation.fromJson(e as Map<String, dynamic>)).toList(),
       title: json['title'] as String?,
       response: json['response'] == null ? null : ResponseItemGroupDVO.fromJson(json['response'] as Map<String, dynamic>),
-    )
-      ..id = json['id'] as String
-      ..name = json['name'] as String
-      ..description = json['description'] as String?
-      ..image = json['image'] as String?
-      ..type = json['type'] as String
-      ..date = json['date'] as String?
-      ..error = json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>)
-      ..warning = json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>);
+    );
 
 Map<String, dynamic> _$RequestItemGroupDVOToJson(RequestItemGroupDVO instance) {
   final val = <String, dynamic>{
@@ -59,7 +51,7 @@ ReadAttributeRequestItemDVO _$ReadAttributeRequestItemDVOFromJson(Map<String, dy
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(ReadAttributeRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -97,7 +89,7 @@ ProposeAttributeRequestItemDVO _$ProposeAttributeRequestItemDVOFromJson(Map<Stri
       isDecidable: json['isDecidable'] as bool,
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$ProposeAttributeRequestItemDVOToJson(ProposeAttributeRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -136,7 +128,7 @@ CreateAttributeRequestItemDVO _$CreateAttributeRequestItemDVOFromJson(Map<String
       isDecidable: json['isDecidable'] as bool,
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
       sourceAttributeId: json['sourceAttributeId'] as String?,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(CreateAttributeRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -175,7 +167,7 @@ ShareAttributeRequestItemDVO _$ShareAttributeRequestItemDVOFromJson(Map<String, 
       isDecidable: json['isDecidable'] as bool,
       attribute: DraftIdentityAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
       sourceAttributeId: json['sourceAttributeId'] as String,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -212,7 +204,7 @@ AuthenticationRequestItemDVO _$AuthenticationRequestItemDVOFromJson(Map<String, 
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -249,7 +241,7 @@ ConsentRequestItemDVO _$ConsentRequestItemDVOFromJson(Map<String, dynamic> json)
       isDecidable: json['isDecidable'] as bool,
       consent: json['consent'] as String,
       link: json['link'] as String?,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -288,7 +280,7 @@ RegisterAttributeListenerRequestItemDVO _$RegisterAttributeListenerRequestItemDV
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$RegisterAttributeListenerRequestItemDVOToJson(RegisterAttributeListenerRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -318,15 +310,7 @@ DecidableRequestItemGroupDVO _$DecidableRequestItemGroupDVOFromJson(Map<String, 
       isDecidable: json['isDecidable'] as bool,
       mustBeAccepted: json['mustBeAccepted'] as bool,
       items: (json['items'] as List<dynamic>).map((e) => DecidableRequestItemDVODerivation.fromJson(e as Map<String, dynamic>)).toList(),
-    )
-      ..id = json['id'] as String
-      ..name = json['name'] as String
-      ..description = json['description'] as String?
-      ..image = json['image'] as String?
-      ..type = json['type'] as String
-      ..date = json['date'] as String?
-      ..error = json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>)
-      ..warning = json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>);
+    );
 
 Map<String, dynamic> _$DecidableRequestItemGroupDVOToJson(DecidableRequestItemGroupDVO instance) {
   final val = <String, dynamic>{
@@ -363,7 +347,7 @@ DecidableReadAttributeRequestItemDVO _$DecidableReadAttributeRequestItemDVOFromJ
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
       query: ProcessedAttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$DecidableReadAttributeRequestItemDVOToJson(DecidableReadAttributeRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -400,7 +384,7 @@ DecidableProposeAttributeRequestItemDVO _$DecidableProposeAttributeRequestItemDV
       mustBeAccepted: json['mustBeAccepted'] as bool,
       query: ProcessedAttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$DecidableProposeAttributeRequestItemDVOToJson(DecidableProposeAttributeRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -437,7 +421,7 @@ DecidableCreateAttributeRequestItemDVO _$DecidableCreateAttributeRequestItemDVOF
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$DecidableCreateAttributeRequestItemDVOToJson(DecidableCreateAttributeRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -474,7 +458,7 @@ DecidableShareAttributeRequestItemDVO _$DecidableShareAttributeRequestItemDVOFro
       mustBeAccepted: json['mustBeAccepted'] as bool,
       sourceAttributeId: json['sourceAttributeId'] as String,
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$DecidableShareAttributeRequestItemDVOToJson(DecidableShareAttributeRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -510,7 +494,7 @@ DecidableAuthenticationRequestItemDVO _$DecidableAuthenticationRequestItemDVOFro
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$DecidableAuthenticationRequestItemDVOToJson(DecidableAuthenticationRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -545,7 +529,7 @@ DecidableConsentRequestItemDVO _$DecidableConsentRequestItemDVOFromJson(Map<Stri
       mustBeAccepted: json['mustBeAccepted'] as bool,
       consent: json['consent'] as String,
       link: json['link'] as String?,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequestItemDVO instance) {
   final val = <String, dynamic>{
@@ -582,7 +566,7 @@ DecidableRegisterAttributeListenerRequestItemDVO _$DecidableRegisterAttributeLis
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$DecidableRegisterAttributeListenerRequestItemDVOToJson(DecidableRegisterAttributeListenerRequestItemDVO instance) {
   final val = <String, dynamic>{

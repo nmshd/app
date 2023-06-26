@@ -27,7 +27,7 @@ RepositoryAttributeDVO _$RepositoryAttributeDVOFromJson(Map<String, dynamic> jso
       succeeds: json['succeeds'] as String?,
       succeededBy: json['succeededBy'] as String?,
       sharedWith: (json['sharedWith'] as List<dynamic>).map((e) => SharedToPeerAttributeDVO.fromJson(e as Map<String, dynamic>)).toList(),
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO instance) {
   final val = <String, dynamic>{
@@ -86,7 +86,7 @@ SharedToPeerAttributeDVO _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic>
       peer: json['peer'] as String,
       requestReference: json['requestReference'] as String,
       sourceAttribute: json['sourceAttribute'] as String,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO instance) {
   final val = <String, dynamic>{
@@ -146,7 +146,7 @@ PeerAttributeDVO _$PeerAttributeDVOFromJson(Map<String, dynamic> json) => PeerAt
       succeededBy: json['succeededBy'] as String?,
       peer: json['peer'] as String,
       requestReference: json['requestReference'] as String,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
   final val = <String, dynamic>{
@@ -208,7 +208,7 @@ OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dy
       requestReference: json['requestReference'] as String,
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttributeDVO instance) {
   final val = <String, dynamic>{
@@ -273,7 +273,7 @@ PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, 
       requestReference: json['requestReference'] as String,
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
-    )..type = json['type'] as String;
+    );
 
 Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttributeDVO instance) {
   final val = <String, dynamic>{
