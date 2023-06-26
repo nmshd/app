@@ -54,7 +54,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('TokensFacade: loadPeerTokenByIdAndKey', () {
-    test('should load a token', () async {
+    test('should load a Token', () async {
       final expiry = generateExpiryString();
 
       final token = await session1.transportServices.tokens.createOwnToken(
@@ -99,7 +99,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('TokensFacade: loadPeerTokenByReference', () {
-    test('should load a token', () async {
+    test('should load a Token', () async {
       final expiry = generateExpiryString();
 
       final token = await session1.transportServices.tokens.createOwnToken(
@@ -142,7 +142,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('TokensFacade: getTokens', () {
-    test('should return all tokens', () async {
+    test('should return all Tokens', () async {
       final token1 = await session1.transportServices.tokens.createOwnToken(
         content: {'test': 'test'},
         expiresAt: generateExpiryString(),
@@ -157,7 +157,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('TokensFacade: getToken', () {
-    test('should return a token', () async {
+    test('should return a Token', () async {
       final token = await session1.transportServices.tokens.createOwnToken(
         content: {'test': 'test'},
         expiresAt: generateExpiryString(),
