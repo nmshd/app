@@ -68,18 +68,22 @@ Future<MessageDTO> syncUntilHasMessage(Session session) async {
   throw Exception('Could not sync until having a message');
 }
 
-Future<List<MessageDTO>> syncUntilHasMessages(Session session) async {
+Future<List<MessageDTO>> syncUntilHasMessages(Session session, {required int expectedNumberOfMessages}) async {
+  final messages = <MessageDTO>[];
+
   int retries = 0;
 
   do {
     final syncResult = await session.transportServices.account.syncEverything();
-    if (syncResult.value.messages.isNotEmpty) return syncResult.value.messages;
+    messages.addAll(syncResult.value.messages);
+
+    if (messages.length >= expectedNumberOfMessages) return messages;
 
     retries++;
     await Future.delayed(Duration(seconds: 5 * retries));
   } while (retries < 10);
 
-  throw Exception('Could not sync until having a message');
+  throw Exception('Could not sync until having $expectedNumberOfMessages messages');
 }
 
 Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session session2) async {
