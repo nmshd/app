@@ -21,8 +21,8 @@ MessageDVO _$MessageDVOFromJson(Map<String, dynamic> json) => MessageDVO(
       recipients: (json['recipients'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
       attachments: (json['attachments'] as List<dynamic>).map((e) => FileDVO.fromJson(e as Map<String, dynamic>)).toList(),
       isOwn: json['isOwn'] as bool,
-      recipientCount: json['recipientCount'] as int,
-      attachmentCount: json['attachmentCount'] as int,
+      recipientCount: const IntegerConverter().fromJson(json['recipientCount']),
+      attachmentCount: const IntegerConverter().fromJson(json['attachmentCount']),
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
@@ -53,8 +53,8 @@ Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) {
   val['recipients'] = instance.recipients;
   val['attachments'] = instance.attachments;
   val['isOwn'] = instance.isOwn;
-  val['recipientCount'] = instance.recipientCount;
-  val['attachmentCount'] = instance.attachmentCount;
+  writeNotNull('recipientCount', const IntegerConverter().toJson(instance.recipientCount));
+  writeNotNull('attachmentCount', const IntegerConverter().toJson(instance.attachmentCount));
   val['status'] = _$MessageStatusEnumMap[instance.status]!;
   val['statusText'] = instance.statusText;
   val['peer'] = instance.peer;

@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../common/common.dart';
 import '../content/mail_dvos.dart';
 import '../data_view_object.dart';
+import '../integer_converter.dart';
 import 'file_dvo.dart';
 import 'identity_dvo.dart';
 import 'relationship_dvo.dart';
@@ -19,7 +20,9 @@ class MessageDVO extends DataViewObject {
   final List<RecipientDVO> recipients;
   final List<FileDVO> attachments;
   final bool isOwn;
+  @IntegerConverter()
   final int recipientCount;
+  @IntegerConverter()
   final int attachmentCount;
   final MessageStatus status;
   final String statusText;

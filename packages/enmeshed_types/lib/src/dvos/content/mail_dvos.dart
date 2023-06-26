@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../common/common.dart';
 import '../consumption/local_request_dvo.dart';
+import '../integer_converter.dart';
 import '../transport/transport.dart';
 
 part 'mail_dvos.g.dart';
@@ -45,7 +46,9 @@ class MailDVO extends MessageDVO {
   final List<RecipientDVO> cc;
   final String subject;
   final String body;
+  @IntegerConverter()
   final int toCount;
+  @IntegerConverter()
   final int ccCount;
 
   const MailDVO({

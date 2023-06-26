@@ -4,6 +4,7 @@ import '../../dtos/relationship_change.dart';
 import '../common/common.dart';
 import '../consumption/local_attribute_dvo.dart';
 import '../data_view_object.dart';
+import '../integer_converter.dart';
 
 part 'relationship_dvo.g.dart';
 
@@ -17,6 +18,7 @@ class RelationshipDVO extends DataViewObject {
   final bool isPinned;
   final RelationshipTheme? theme;
   final List<RelationshipChangeDVO> changes;
+  @IntegerConverter()
   final int changeCount;
   final List<LocalAttributeDVO> items;
   final Map<String, List<LocalAttributeDVO>> attributeMap;

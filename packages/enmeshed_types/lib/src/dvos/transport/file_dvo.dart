@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../common/common.dart';
 import '../data_view_object.dart';
+import '../integer_converter.dart';
 import 'identity_dvo.dart';
 
 part 'file_dvo.g.dart';
@@ -9,6 +10,7 @@ part 'file_dvo.g.dart';
 @JsonSerializable(includeIfNull: false)
 class FileDVO extends DataViewObject {
   final String filename;
+  @IntegerConverter()
   final int filesize;
   final String createdAt;
   final IdentityDVO createdBy;
