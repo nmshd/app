@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:logger/logger.dart';
 
+import 'data_view_expander_test/data_view_expander_test.dart' as data_view_expander_test;
 import 'dummy_app.dart' as dummy_app;
 import 'mock_event_bus.dart';
 import 'services/facades/account_facade_test.dart' as account_facade_test;
@@ -42,4 +43,5 @@ void main() async {
   account_facade_test.run(runtime);
   messages_facade_test.run(runtime);
   requests_facade_test.run(runtime);
+  data_view_expander_test.run(runtime);
 }
