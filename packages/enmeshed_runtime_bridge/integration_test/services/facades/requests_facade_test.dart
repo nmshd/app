@@ -66,7 +66,7 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('recipient: sync the Message with the Request', () async {
-        final result = await syncUntilHasMessage(recipient);
+        await syncUntilHasMessage(recipient);
 
         final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address!);
 
