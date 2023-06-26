@@ -21,7 +21,7 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
       isPinned: json['isPinned'] as bool,
       theme: json['theme'] == null ? null : RelationshipTheme.fromJson(json['theme'] as Map<String, dynamic>),
       changes: (json['changes'] as List<dynamic>).map((e) => RelationshipChangeDVO.fromJson(e as Map<String, dynamic>)).toList(),
-      changeCount: json['changeCount'] as int,
+      changeCount: const IntegerConverter().fromJson(json['changeCount']),
       items: (json['items'] as List<dynamic>).map((e) => LocalAttributeDVO.fromJson(e as Map<String, dynamic>)).toList(),
       attributeMap: (json['attributeMap'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, (e as List<dynamic>).map((e) => LocalAttributeDVO.fromJson(e as Map<String, dynamic>)).toList()),
@@ -54,7 +54,7 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
   val['isPinned'] = instance.isPinned;
   writeNotNull('theme', instance.theme);
   val['changes'] = instance.changes;
-  val['changeCount'] = instance.changeCount;
+  writeNotNull('changeCount', const IntegerConverter().toJson(instance.changeCount));
   val['items'] = instance.items;
   val['attributeMap'] = instance.attributeMap;
   val['nameMap'] = instance.nameMap;

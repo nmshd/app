@@ -8,14 +8,14 @@ part 'identity_dvo.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class IdentityDVO extends DataViewObject {
-  String? publicKey;
-  String realm;
-  String initials;
-  bool isSelf;
-  bool hasRelationship;
-  RelationshipDVO? relationship;
+  final String? publicKey;
+  final String realm;
+  final String initials;
+  final bool isSelf;
+  final bool hasRelationship;
+  final RelationshipDVO? relationship;
 
-  IdentityDVO({
+  const IdentityDVO({
     required super.id,
     required super.name,
     super.description,

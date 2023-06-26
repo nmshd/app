@@ -14,7 +14,7 @@ sealed class RequestItemDVO extends DataViewObject {
   final bool mustBeAccepted;
   final bool isDecidable;
 
-  RequestItemDVO({
+  const RequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -40,7 +40,7 @@ class RequestItemGroupDVO extends RequestItemDVO {
   final String? title;
   final ResponseItemGroupDVO? response;
 
-  RequestItemGroupDVO({
+  const RequestItemGroupDVO({
     required super.isDecidable,
     required super.mustBeAccepted,
     required this.items,
@@ -54,7 +54,7 @@ class RequestItemGroupDVO extends RequestItemDVO {
 }
 
 sealed class RequestItemDVODerivation extends RequestItemDVO {
-  RequestItemDVODerivation({
+  const RequestItemDVODerivation({
     required super.id,
     required super.name,
     super.description,
@@ -86,7 +86,7 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
 class ReadAttributeRequestItemDVO extends RequestItemDVODerivation {
   final AttributeQueryDVO query;
 
-  ReadAttributeRequestItemDVO({
+  const ReadAttributeRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -109,7 +109,7 @@ class ProposeAttributeRequestItemDVO extends RequestItemDVODerivation {
   final AttributeQueryDVO query;
   final DraftAttributeDVO attribute;
 
-  ProposeAttributeRequestItemDVO({
+  const ProposeAttributeRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -133,7 +133,7 @@ class CreateAttributeRequestItemDVO extends RequestItemDVODerivation {
   final DraftAttributeDVO attribute;
   final String? sourceAttributeId;
 
-  CreateAttributeRequestItemDVO({
+  const CreateAttributeRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -157,7 +157,7 @@ class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
   final DraftIdentityAttributeDVO attribute;
   final String sourceAttributeId;
 
-  ShareAttributeRequestItemDVO({
+  const ShareAttributeRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -178,7 +178,7 @@ class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
 
 @JsonSerializable(includeIfNull: false)
 class AuthenticationRequestItemDVO extends RequestItemDVODerivation {
-  AuthenticationRequestItemDVO({
+  const AuthenticationRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -200,7 +200,7 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
   final String consent;
   final String? link;
 
-  ConsentRequestItemDVO({
+  const ConsentRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -223,7 +223,7 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
 class RegisterAttributeListenerRequestItemDVO extends RequestItemDVODerivation {
   final AttributeQueryDVO query;
 
-  RegisterAttributeListenerRequestItemDVO({
+  const RegisterAttributeListenerRequestItemDVO({
     required super.id,
     required super.name,
     super.description,

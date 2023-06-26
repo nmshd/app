@@ -4,6 +4,7 @@ import '../../dtos/relationship_change.dart';
 import '../common/common.dart';
 import '../consumption/local_attribute_dvo.dart';
 import '../data_view_object.dart';
+import '../integer_converter.dart';
 
 part 'relationship_dvo.g.dart';
 
@@ -11,19 +12,20 @@ enum RelationshipDirection { Incoming, Outgoing }
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipDVO extends DataViewObject {
-  String status;
-  RelationshipDirection direction;
-  String statusText;
-  bool isPinned;
-  RelationshipTheme? theme;
-  List<RelationshipChangeDVO> changes;
-  int changeCount;
-  List<LocalAttributeDVO> items;
-  Map<String, List<LocalAttributeDVO>> attributeMap;
-  Map<String, String> nameMap;
-  String templateId;
+  final String status;
+  final RelationshipDirection direction;
+  final String statusText;
+  final bool isPinned;
+  final RelationshipTheme? theme;
+  final List<RelationshipChangeDVO> changes;
+  @IntegerConverter()
+  final int changeCount;
+  final List<LocalAttributeDVO> items;
+  final Map<String, List<LocalAttributeDVO>> attributeMap;
+  final Map<String, String> nameMap;
+  final String templateId;
 
-  RelationshipDVO({
+  const RelationshipDVO({
     required super.id,
     required super.name,
     super.description,
@@ -69,15 +71,15 @@ class RelationshipTheme {
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipChangeDVO extends DataViewObject {
-  RelationshipChangeRequestDVO request;
-  RelationshipChangeResponseDVO? response;
-  RelationshipChangeStatus status;
-  String statusText;
-  RelationshipChangeType changeType;
-  String changeTypeText;
-  bool isOwn;
+  final RelationshipChangeRequestDVO request;
+  final RelationshipChangeResponseDVO? response;
+  final RelationshipChangeStatus status;
+  final String statusText;
+  final RelationshipChangeType changeType;
+  final String changeTypeText;
+  final bool isOwn;
 
-  RelationshipChangeDVO({
+  const RelationshipChangeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -101,12 +103,12 @@ class RelationshipChangeDVO extends DataViewObject {
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipChangeRequestDVO extends DataViewObject {
-  String createdBy;
-  String createdByDevice;
-  String createdAt;
-  Map<String, dynamic>? content;
+  final String createdBy;
+  final String createdByDevice;
+  final String createdAt;
+  final Map<String, dynamic>? content;
 
-  RelationshipChangeRequestDVO({
+  const RelationshipChangeRequestDVO({
     required super.id,
     required super.name,
     super.description,
@@ -127,12 +129,12 @@ class RelationshipChangeRequestDVO extends DataViewObject {
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipChangeResponseDVO extends DataViewObject {
-  String createdBy;
-  String createdByDevice;
-  String createdAt;
-  Map<String, dynamic>? content;
+  final String createdBy;
+  final String createdByDevice;
+  final String createdAt;
+  final Map<String, dynamic>? content;
 
-  RelationshipChangeResponseDVO({
+  const RelationshipChangeResponseDVO({
     required super.id,
     required super.name,
     super.description,

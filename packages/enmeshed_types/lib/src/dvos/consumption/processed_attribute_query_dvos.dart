@@ -13,7 +13,7 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
   final String? validTo;
   final bool isProcessed = true;
 
-  ProcessedAttributeQueryDVO({
+  const ProcessedAttributeQueryDVO({
     required super.id,
     required super.name,
     super.description,
@@ -43,7 +43,7 @@ class ProcessedIdentityAttributeQueryDVO extends ProcessedAttributeQueryDVO {
   final RenderHints renderHints;
   final ValueHints valueHints;
 
-  ProcessedIdentityAttributeQueryDVO({
+  const ProcessedIdentityAttributeQueryDVO({
     required super.id,
     required super.name,
     super.description,
@@ -74,7 +74,7 @@ class ProcessedRelationshipAttributeQueryDVO extends ProcessedAttributeQueryDVO 
   final RenderHints renderHints;
   final ValueHints valueHints;
 
-  ProcessedRelationshipAttributeQueryDVO({
+  const ProcessedRelationshipAttributeQueryDVO({
     required super.id,
     required super.name,
     super.description,
@@ -108,7 +108,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
   final RenderHints? renderHints;
   final ValueHints? valueHints;
 
-  ProcessedThirdPartyRelationshipAttributeQueryDVO({
+  const ProcessedThirdPartyRelationshipAttributeQueryDVO({
     required super.id,
     required super.name,
     super.description,

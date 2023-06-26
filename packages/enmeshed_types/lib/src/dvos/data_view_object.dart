@@ -20,7 +20,7 @@ class DataViewObject {
   @JsonKey(includeToJson: true)
   final DVOWarning? warning;
 
-  DataViewObject({
+  const DataViewObject({
     required this.id,
     required this.name,
     this.description,

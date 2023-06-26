@@ -8,7 +8,7 @@ import '../consumption/consumption.dart';
 part 'response_item_dvos.g.dart';
 
 sealed class ResponseItemDVO extends DataViewObject {
-  ResponseItemDVO({
+  const ResponseItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -30,7 +30,7 @@ sealed class ResponseItemDVO extends DataViewObject {
 class ResponseItemGroupDVO extends ResponseItemDVO {
   final List<ResponseItemDVODerivation> items;
 
-  ResponseItemGroupDVO({
+  const ResponseItemGroupDVO({
     required this.items,
   }) : super(id: 'n/a', name: 'n/a', type: 'ResponseItemGroupDVO');
 
@@ -42,7 +42,7 @@ class ResponseItemGroupDVO extends ResponseItemDVO {
 sealed class ResponseItemDVODerivation extends ResponseItemDVO {
   final ResponseItemResult result;
 
-  ResponseItemDVODerivation({
+  const ResponseItemDVODerivation({
     required super.id,
     required super.name,
     super.description,
@@ -69,7 +69,7 @@ class RejectResponseItemDVO extends ResponseItemDVODerivation {
   final String? code;
   final String? message;
 
-  RejectResponseItemDVO({
+  const RejectResponseItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -92,7 +92,7 @@ class ErrorResponseItemDVO extends ResponseItemDVODerivation {
   final String code;
   final String message;
 
-  ErrorResponseItemDVO({
+  const ErrorResponseItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -112,7 +112,7 @@ class ErrorResponseItemDVO extends ResponseItemDVODerivation {
 
 @JsonSerializable(includeIfNull: false)
 class AcceptResponseItemDVO extends ResponseItemDVODerivation {
-  AcceptResponseItemDVO({
+  const AcceptResponseItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -141,7 +141,7 @@ class ReadAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
   final LocalAttributeDVO attribute;
 
-  ReadAttributeAcceptResponseItemDVO({
+  const ReadAttributeAcceptResponseItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -164,7 +164,7 @@ class ProposeAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
   final LocalAttributeDVO attribute;
 
-  ProposeAttributeAcceptResponseItemDVO({
+  const ProposeAttributeAcceptResponseItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -188,7 +188,7 @@ class CreateAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
   final LocalAttributeDVO attribute;
 
-  CreateAttributeAcceptResponseItemDVO({
+  const CreateAttributeAcceptResponseItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -211,7 +211,7 @@ class ShareAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
   final LocalAttributeDVO attribute;
 
-  ShareAttributeAcceptResponseItemDVO({
+  const ShareAttributeAcceptResponseItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -234,7 +234,7 @@ class RegisterAttributeListenerAcceptResponseItemDVO extends AcceptResponseItemD
   final String listenerId;
   final LocalAttributeListenerDVO listener;
 
-  RegisterAttributeListenerAcceptResponseItemDVO({
+  const RegisterAttributeListenerAcceptResponseItemDVO({
     required super.id,
     required super.name,
     super.description,

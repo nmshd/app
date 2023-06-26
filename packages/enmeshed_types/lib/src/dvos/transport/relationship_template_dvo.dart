@@ -10,18 +10,18 @@ part 'relationship_template_dvo.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipTemplateDVO extends DataViewObject {
-  bool isOwn;
-  IdentityDVO createdBy;
-  String createdByDevice;
-  String createdAt;
-  String? expiresAt;
-  int? maxNumberOfAllocations;
-  RequestDVO? onNewRelationship;
-  RequestDVO? onExistingRelationship;
-  LocalRequestDVO? request;
-  Map<String, dynamic> content;
+  final bool isOwn;
+  final IdentityDVO createdBy;
+  final String createdByDevice;
+  final String createdAt;
+  final String? expiresAt;
+  final int? maxNumberOfAllocations;
+  final RequestDVO? onNewRelationship;
+  final RequestDVO? onExistingRelationship;
+  final LocalRequestDVO? request;
+  final Map<String, dynamic> content;
 
-  RelationshipTemplateDVO({
+  const RelationshipTemplateDVO({
     required super.id,
     required super.name,
     super.description,

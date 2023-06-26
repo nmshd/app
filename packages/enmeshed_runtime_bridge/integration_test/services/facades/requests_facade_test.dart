@@ -4,7 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../matchers.dart';
 import '../../mock_event_bus.dart';
+import '../../setup.dart';
 import '../../utils.dart';
+
+void main() async => run(await setup());
 
 void run(EnmeshedRuntime runtime) {
   final eventBus = runtime.eventBus as MockEventBus;
@@ -63,9 +66,7 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('recipient: sync the Message with the Request', () async {
-        final result = await syncUntilHasMessages(recipient);
-
-        expect(result.length, 1);
+        await syncUntilHasMessage(recipient);
 
         final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address!);
 
@@ -117,12 +118,11 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('sender: sync Message with ResponseWrapper', () async {
-        final result = await syncUntilHasMessages(sender);
+        final result = await syncUntilHasMessage(sender);
 
-        expect(result.length, 1);
-        expect(result.first.content.toJson()['@type'], 'ResponseWrapper');
-        expect((result.first.content as ResponseWrapper).response.toJson()['@type'], 'Response');
-        expect((result.first.content as ResponseWrapper).response.result, ResponseResult.Accepted);
+        expect(result.content.toJson()['@type'], 'ResponseWrapper');
+        expect((result.content as ResponseWrapper).response.toJson()['@type'], 'Response');
+        expect((result.content as ResponseWrapper).response.result, ResponseResult.Accepted);
       });
     });
 
@@ -179,9 +179,7 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('recipient: sync the Message with the Request', () async {
-        final result = await syncUntilHasMessages(recipient);
-
-        expect(result.length, 1);
+        await syncUntilHasMessage(recipient);
 
         final triggeredEvent = await eventBus.waitForEvent<IncomingRequestReceivedEvent>(eventTargetAddress: account2.address!);
 
@@ -225,12 +223,11 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('sender: sync Message with ResponseWrapper', () async {
-        final result = await syncUntilHasMessages(sender);
+        final result = await syncUntilHasMessage(sender);
 
-        expect(result.length, 1);
-        expect(result.first.content.toJson()['@type'], 'ResponseWrapper');
-        expect((result.first.content as ResponseWrapper).response.toJson()['@type'], 'Response');
-        expect((result.first.content as ResponseWrapper).response.result, ResponseResult.Rejected);
+        expect(result.content.toJson()['@type'], 'ResponseWrapper');
+        expect((result.content as ResponseWrapper).response.toJson()['@type'], 'Response');
+        expect((result.content as ResponseWrapper).response.result, ResponseResult.Rejected);
       });
     });
   });

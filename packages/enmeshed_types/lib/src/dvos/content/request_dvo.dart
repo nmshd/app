@@ -13,7 +13,7 @@ class RequestDVO extends DataViewObject {
   final List<RequestItemDVO> items;
   final ResponseDVO? response;
 
-  RequestDVO({
+  const RequestDVO({
     required super.id,
     required super.name,
     super.description,

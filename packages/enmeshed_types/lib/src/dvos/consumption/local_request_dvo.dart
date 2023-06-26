@@ -25,7 +25,7 @@ class LocalRequestDVO extends DataViewObject {
   final bool isDecidable;
   final List<RequestItemDVO> items;
 
-  LocalRequestDVO({
+  const LocalRequestDVO({
     required super.id,
     required super.name,
     super.description,
@@ -61,7 +61,7 @@ class LocalRequestSourceDVO {
   final LocalRequestSourceDVOType type;
   final String reference;
 
-  LocalRequestSourceDVO({
+  const LocalRequestSourceDVO({
     required this.type,
     required this.reference,
   });
@@ -76,7 +76,7 @@ class LocalResponseDVO extends DataViewObject {
   final ResponseDVO content;
   final LocalResponseSourceDVO? source;
 
-  LocalResponseDVO({
+  const LocalResponseDVO({
     required super.id,
     required super.name,
     super.description,
@@ -101,7 +101,7 @@ class LocalResponseSourceDVO {
   final LocalResponseSourceDVOType type;
   final String reference;
 
-  LocalResponseSourceDVO({
+  const LocalResponseSourceDVO({
     required this.type,
     required this.reference,
   });

@@ -16,7 +16,7 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       filename: json['filename'] as String,
-      filesize: json['filesize'] as int,
+      filesize: const IntegerConverter().fromJson(json['filesize']),
       createdAt: json['createdAt'] as String,
       createdBy: IdentityDVO.fromJson(json['createdBy'] as Map<String, dynamic>),
       createdByDevice: json['createdByDevice'] as String,
@@ -46,7 +46,7 @@ Map<String, dynamic> _$FileDVOToJson(FileDVO instance) {
   writeNotNull('error', instance.error);
   writeNotNull('warning', instance.warning);
   val['filename'] = instance.filename;
-  val['filesize'] = instance.filesize;
+  writeNotNull('filesize', const IntegerConverter().toJson(instance.filesize));
   val['createdAt'] = instance.createdAt;
   val['createdBy'] = instance.createdBy;
   val['createdByDevice'] = instance.createdByDevice;

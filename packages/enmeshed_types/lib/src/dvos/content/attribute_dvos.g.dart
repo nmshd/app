@@ -15,7 +15,7 @@ DraftIdentityAttributeDVO _$DraftIdentityAttributeDVOFromJson(Map<String, dynami
       date: json['date'] as String?,
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-      content: json['content'],
+      content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: IdentityDVO.fromJson(json['owner'] as Map<String, dynamic>),
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
@@ -46,7 +46,7 @@ Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(DraftIdentityAttributeDVO
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error);
   writeNotNull('warning', instance.warning);
-  writeNotNull('content', instance.content);
+  val['content'] = instance.content;
   val['owner'] = instance.owner;
   val['renderHints'] = instance.renderHints;
   val['valueHints'] = instance.valueHints;
@@ -69,7 +69,7 @@ DraftRelationshipAttributeDVO _$DraftRelationshipAttributeDVOFromJson(Map<String
       date: json['date'] as String?,
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-      content: json['content'],
+      content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: IdentityDVO.fromJson(json['owner'] as Map<String, dynamic>),
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
@@ -102,7 +102,7 @@ Map<String, dynamic> _$DraftRelationshipAttributeDVOToJson(DraftRelationshipAttr
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error);
   writeNotNull('warning', instance.warning);
-  writeNotNull('content', instance.content);
+  val['content'] = instance.content;
   val['owner'] = instance.owner;
   val['renderHints'] = instance.renderHints;
   val['valueHints'] = instance.valueHints;
