@@ -12,7 +12,7 @@ class ResponseDVO extends DataViewObject {
   final List<ResponseItemDVO> items;
   final ResponseResult result;
 
-  ResponseDVO({
+  const ResponseDVO({
     required super.id,
     required super.name,
     super.description,

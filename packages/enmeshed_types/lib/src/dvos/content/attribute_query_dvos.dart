@@ -11,7 +11,7 @@ sealed class AttributeQueryDVO extends DataViewObject {
   final String? validFrom;
   final String? validTo;
 
-  AttributeQueryDVO({
+  const AttributeQueryDVO({
     required super.id,
     required super.name,
     super.description,
@@ -41,7 +41,7 @@ class IdentityAttributeQueryDVO extends AttributeQueryDVO {
   final RenderHints renderHints;
   final ValueHints valueHints;
 
-  IdentityAttributeQueryDVO({
+  const IdentityAttributeQueryDVO({
     required super.id,
     required super.name,
     super.description,
@@ -74,7 +74,7 @@ class RelationshipAttributeQueryDVO extends AttributeQueryDVO {
   final RenderHints renderHints;
   final ValueHints valueHints;
 
-  RelationshipAttributeQueryDVO({
+  const RelationshipAttributeQueryDVO({
     required super.id,
     required super.name,
     super.description,
@@ -106,7 +106,7 @@ class ThirdPartyRelationshipAttributeQueryDVO extends AttributeQueryDVO {
   final List<IdentityDVO> thirdParty;
   final bool isProcessed;
 
-  ThirdPartyRelationshipAttributeQueryDVO({
+  const ThirdPartyRelationshipAttributeQueryDVO({
     required super.id,
     required super.name,
     super.description,

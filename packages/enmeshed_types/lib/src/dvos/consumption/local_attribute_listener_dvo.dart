@@ -12,7 +12,7 @@ class LocalAttributeListenerDVO extends DataViewObject {
   final AttributeQueryDVO query;
   final IdentityDVO peer;
 
-  LocalAttributeListenerDVO({
+  const LocalAttributeListenerDVO({
     required super.id,
     required super.name,
     super.description,

@@ -10,7 +10,7 @@ part 'mail_dvos.g.dart';
 class RequestMessageDVO extends MessageDVO {
   final LocalRequestDVO request;
 
-  RequestMessageDVO({
+  const RequestMessageDVO({
     required super.id,
     required super.name,
     super.description,
@@ -48,7 +48,7 @@ class MailDVO extends MessageDVO {
   final int toCount;
   final int ccCount;
 
-  MailDVO({
+  const MailDVO({
     required super.id,
     required super.name,
     super.description,

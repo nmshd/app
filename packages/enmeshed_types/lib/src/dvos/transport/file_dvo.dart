@@ -8,18 +8,18 @@ part 'file_dvo.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class FileDVO extends DataViewObject {
-  String filename;
-  int filesize;
-  String createdAt;
-  IdentityDVO createdBy;
-  String createdByDevice;
-  String expiresAt;
-  String mimetype;
-  bool isOwn;
-  String title;
-  String secretKey;
+  final String filename;
+  final int filesize;
+  final String createdAt;
+  final IdentityDVO createdBy;
+  final String createdByDevice;
+  final String expiresAt;
+  final String mimetype;
+  final bool isOwn;
+  final String title;
+  final String secretKey;
 
-  FileDVO({
+  const FileDVO({
     required super.id,
     required super.name,
     super.description,

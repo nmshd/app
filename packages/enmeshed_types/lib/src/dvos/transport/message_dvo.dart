@@ -13,20 +13,20 @@ enum MessageStatus { Received, Delivering, Delivered }
 
 @JsonSerializable(includeIfNull: false)
 class MessageDVO extends DataViewObject {
-  String createdByDevice;
-  String createdAt;
-  IdentityDVO createdBy;
-  List<RecipientDVO> recipients;
-  List<FileDVO> attachments;
-  bool isOwn;
-  int recipientCount;
-  int attachmentCount;
-  MessageStatus status;
-  String statusText;
-  IdentityDVO peer;
-  Map<String, dynamic> content;
+  final String createdByDevice;
+  final String createdAt;
+  final IdentityDVO createdBy;
+  final List<RecipientDVO> recipients;
+  final List<FileDVO> attachments;
+  final bool isOwn;
+  final int recipientCount;
+  final int attachmentCount;
+  final MessageStatus status;
+  final String statusText;
+  final IdentityDVO peer;
+  final Map<String, dynamic> content;
 
-  MessageDVO({
+  const MessageDVO({
     required super.id,
     required super.name,
     super.description,
@@ -60,10 +60,10 @@ class MessageDVO extends DataViewObject {
 
 @JsonSerializable(includeIfNull: false)
 class RecipientDVO extends IdentityDVO {
-  String? receivedAt;
-  String? receivedByDevice;
+  final String? receivedAt;
+  final String? receivedByDevice;
 
-  RecipientDVO({
+  const RecipientDVO({
     required super.id,
     required super.name,
     super.description,

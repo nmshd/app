@@ -25,7 +25,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
   final String? succeeds;
   final String? succeededBy;
 
-  LocalAttributeDVO({
+  const LocalAttributeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -61,7 +61,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
 }
 
 sealed class IdentityAttributeDVO extends LocalAttributeDVO {
-  IdentityAttributeDVO({
+  const IdentityAttributeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -97,7 +97,7 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
 class RepositoryAttributeDVO extends IdentityAttributeDVO {
   final List<SharedToPeerAttributeDVO> sharedWith;
 
-  RepositoryAttributeDVO({
+  const RepositoryAttributeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -131,7 +131,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
   final String requestReference;
   final String sourceAttribute;
 
-  SharedToPeerAttributeDVO({
+  const SharedToPeerAttributeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -166,7 +166,7 @@ class PeerAttributeDVO extends LocalAttributeDVO {
   final String peer;
   final String requestReference;
 
-  PeerAttributeDVO({
+  const PeerAttributeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -202,7 +202,7 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
   final String confidentiality;
   final bool isTechnical;
 
-  RelationshipAttributeDVO({
+  const RelationshipAttributeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -242,7 +242,7 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
 
 @JsonSerializable(includeIfNull: false)
 class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
-  OwnRelationshipAttributeDVO({
+  const OwnRelationshipAttributeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -276,7 +276,7 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
 
 @JsonSerializable(includeIfNull: false)
 class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
-  PeerRelationshipAttributeDVO({
+  const PeerRelationshipAttributeDVO({
     required super.id,
     required super.name,
     super.description,

@@ -9,7 +9,7 @@ part 'peer_relationship_template_dvo.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class PeerRelationshipTemplateDVO extends RelationshipTemplateDVO {
-  PeerRelationshipTemplateDVO({
+  const PeerRelationshipTemplateDVO({
     required super.id,
     required super.name,
     super.description,

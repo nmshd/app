@@ -8,7 +8,7 @@ import '../transport/transport.dart';
 part 'attribute_dvos.g.dart';
 
 sealed class DraftAttributeDVO extends DataViewObject {
-  DraftAttributeDVO({
+  const DraftAttributeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -29,19 +29,19 @@ sealed class DraftAttributeDVO extends DataViewObject {
 
 @JsonSerializable(includeIfNull: false)
 class DraftIdentityAttributeDVO extends DraftAttributeDVO {
-  dynamic content;
-  IdentityDVO owner;
-  RenderHints renderHints;
-  ValueHints valueHints;
-  String valueType;
-  bool isOwn;
-  bool isDraft;
-  String? succeeds;
-  String? succeededBy;
-  dynamic value;
-  List<String> tags;
+  final AbstractAttribute content;
+  final IdentityDVO owner;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
+  final String valueType;
+  final bool isOwn;
+  final bool isDraft;
+  final String? succeeds;
+  final String? succeededBy;
+  final dynamic value;
+  final List<String> tags;
 
-  DraftIdentityAttributeDVO({
+  const DraftIdentityAttributeDVO({
     required super.id,
     required super.name,
     super.description,
@@ -70,21 +70,21 @@ class DraftIdentityAttributeDVO extends DraftAttributeDVO {
 
 @JsonSerializable(includeIfNull: false)
 class DraftRelationshipAttributeDVO extends DraftAttributeDVO {
-  dynamic content;
-  IdentityDVO owner;
-  RenderHints renderHints;
-  ValueHints valueHints;
-  String valueType;
-  bool isOwn;
-  bool isDraft;
-  String? succeeds;
-  String? succeededBy;
-  dynamic value;
-  String key;
-  bool isTechnical;
-  String confidentiality;
+  final AbstractAttribute content;
+  final IdentityDVO owner;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
+  final String valueType;
+  final bool isOwn;
+  final bool isDraft;
+  final String? succeeds;
+  final String? succeededBy;
+  final dynamic value;
+  final String key;
+  final bool isTechnical;
+  final String confidentiality;
 
-  DraftRelationshipAttributeDVO({
+  const DraftRelationshipAttributeDVO({
     required super.id,
     required super.name,
     super.description,

@@ -1,7 +1,7 @@
 part of '../content/request_item_dvos.dart';
 
 sealed class DecidableRequestItemDVO extends RequestItemDVO {
-  DecidableRequestItemDVO({
+  const DecidableRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -24,7 +24,7 @@ sealed class DecidableRequestItemDVO extends RequestItemDVO {
 class DecidableRequestItemGroupDVO extends DecidableRequestItemDVO {
   final List<DecidableRequestItemDVODerivation> items;
 
-  DecidableRequestItemGroupDVO({
+  const DecidableRequestItemGroupDVO({
     required super.isDecidable,
     required super.mustBeAccepted,
     required this.items,
@@ -36,7 +36,7 @@ class DecidableRequestItemGroupDVO extends DecidableRequestItemDVO {
 }
 
 sealed class DecidableRequestItemDVODerivation extends DecidableRequestItemDVO {
-  DecidableRequestItemDVODerivation({
+  const DecidableRequestItemDVODerivation({
     required super.id,
     required super.name,
     super.description,
@@ -68,7 +68,7 @@ sealed class DecidableRequestItemDVODerivation extends DecidableRequestItemDVO {
 class DecidableReadAttributeRequestItemDVO extends DecidableRequestItemDVODerivation {
   final ProcessedAttributeQueryDVO query;
 
-  DecidableReadAttributeRequestItemDVO({
+  const DecidableReadAttributeRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -90,7 +90,7 @@ class DecidableProposeAttributeRequestItemDVO extends DecidableRequestItemDVODer
   final ProcessedAttributeQueryDVO query;
   final DraftAttributeDVO attribute;
 
-  DecidableProposeAttributeRequestItemDVO({
+  const DecidableProposeAttributeRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -113,7 +113,7 @@ class DecidableProposeAttributeRequestItemDVO extends DecidableRequestItemDVODer
 class DecidableCreateAttributeRequestItemDVO extends DecidableRequestItemDVODerivation {
   final DraftAttributeDVO attribute;
 
-  DecidableCreateAttributeRequestItemDVO({
+  const DecidableCreateAttributeRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -136,7 +136,7 @@ class DecidableShareAttributeRequestItemDVO extends DecidableRequestItemDVODeriv
   final String sourceAttributeId;
   final DraftAttributeDVO attribute;
 
-  DecidableShareAttributeRequestItemDVO({
+  const DecidableShareAttributeRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -157,7 +157,7 @@ class DecidableShareAttributeRequestItemDVO extends DecidableRequestItemDVODeriv
 
 @JsonSerializable(includeIfNull: false)
 class DecidableAuthenticationRequestItemDVO extends DecidableRequestItemDVODerivation {
-  DecidableAuthenticationRequestItemDVO({
+  const DecidableAuthenticationRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -179,7 +179,7 @@ class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
   final String consent;
   final String? link;
 
-  DecidableConsentRequestItemDVO({
+  const DecidableConsentRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
@@ -201,7 +201,7 @@ class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
 class DecidableRegisterAttributeListenerRequestItemDVO extends DecidableRequestItemDVODerivation {
   final AttributeQueryDVO query;
 
-  DecidableRegisterAttributeListenerRequestItemDVO({
+  const DecidableRegisterAttributeListenerRequestItemDVO({
     required super.id,
     required super.name,
     super.description,
