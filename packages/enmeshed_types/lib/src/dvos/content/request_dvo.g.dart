@@ -15,6 +15,9 @@ RequestDVO _$RequestDVOFromJson(Map<String, dynamic> json) => RequestDVO(
       date: json['date'] as String?,
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      expiresAt: json['expiresAt'] as String?,
+      items: (json['items'] as List<dynamic>).map((e) => RequestItemDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      response: json['response'] == null ? null : ResponseDVO.fromJson(json['response'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RequestDVOToJson(RequestDVO instance) {
@@ -35,5 +38,8 @@ Map<String, dynamic> _$RequestDVOToJson(RequestDVO instance) {
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error);
   writeNotNull('warning', instance.warning);
+  writeNotNull('expiresAt', instance.expiresAt);
+  val['items'] = instance.items;
+  writeNotNull('response', instance.response);
   return val;
 }
