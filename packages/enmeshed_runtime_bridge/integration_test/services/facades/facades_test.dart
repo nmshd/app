@@ -8,6 +8,7 @@ import 'messages_facade_test.dart' as messages_facade_test;
 import 'relationship_template_facade_test.dart' as relationship_template_facade_test;
 import 'relationships_facade_test.dart' as relationships_facade_test;
 import 'requests_facade_test.dart' as requests_facade_test;
+import 'tokens_facade_test.dart' as tokens_facade_test;
 
 void main() async => run(await setup());
 
@@ -19,4 +20,5 @@ void run(EnmeshedRuntime runtime) async {
   account_facade_test.run(runtime);
   messages_facade_test.run(runtime);
   requests_facade_test.run(runtime);
+  tokens_facade_test.run(runtime);
 }
