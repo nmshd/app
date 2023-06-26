@@ -22,11 +22,11 @@ class ConnectorResponse<T> {
 
   ConnectorResponse._(this._data, this._error);
 
-  static ConnectorResponse<T> success<T>(T data) {
+  factory ConnectorResponse.success(T data) {
     return ConnectorResponse._(data, null);
   }
 
-  static ConnectorResponse<T> fromError<T>(ConnectorError error) {
+  factory ConnectorResponse.fromError(ConnectorError error) {
     return ConnectorResponse._(
       null,
       error,

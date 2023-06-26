@@ -8,6 +8,7 @@ export 'relationship_attribute.dart';
 export 'relationship_change_request_content/relationship_change_request_content.dart';
 export 'relationship_change_response_content.dart';
 export 'relationship_template_content.dart';
+export 'render_hints.dart';
 export 'request.dart';
 export 'request_item/request_item.dart';
 export 'response.dart';

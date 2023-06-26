@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class LocalAccountDTO extends Equatable {
   final String id;
-  final String address;
+  final String? address;
   final String name;
   final String realm;
   final String directory;
@@ -11,7 +11,7 @@ class LocalAccountDTO extends Equatable {
 
   const LocalAccountDTO({
     required this.id,
-    required this.address,
+    this.address,
     required this.name,
     required this.realm,
     required this.directory,
@@ -34,6 +34,18 @@ class LocalAccountDTO extends Equatable {
       order: json['order'].toInt(),
       lastAccessedAt: json['lastAccessedAt'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      if (address != null) 'address': address,
+      'name': name,
+      'realm': realm,
+      'directory': directory,
+      'order': order,
+      if (lastAccessedAt != null) 'lastAccessedAt': lastAccessedAt,
+    };
   }
 
   @override
