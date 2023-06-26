@@ -2,6 +2,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 
 import '../../setup.dart';
 import 'account_facade_test.dart' as account_facade_test;
+import 'anonymous_tokens_facade_test.dart' as anonymous_tokens_facade_test;
 import 'attributes_facade_test.dart' as attributes_facade_test;
 import 'files_facade_test.dart' as files_facade_test;
 import 'messages_facade_test.dart' as messages_facade_test;
@@ -21,4 +22,5 @@ void run(EnmeshedRuntime runtime) async {
   messages_facade_test.run(runtime);
   requests_facade_test.run(runtime);
   tokens_facade_test.run(runtime);
+  anonymous_tokens_facade_test.run(runtime);
 }
