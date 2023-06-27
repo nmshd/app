@@ -231,25 +231,25 @@ Future<RelationshipDTO> getRelationship(Session session) async {
 }
 
 class FakeUIBridge implements UIBridge {
-  final requestAccountSelectionCalls = List<(List<LocalAccountDTO>, String?, String?)>.empty();
+  final requestAccountSelectionCalls = List<(List<LocalAccountDTO>, String?, String?)>.empty(growable: true);
   bool get requestAccountSelectionCalled => requestAccountSelectionCalls.isNotEmpty;
 
-  final showDeviceOnboardingCalls = List<DeviceSharedSecret>.empty();
+  final showDeviceOnboardingCalls = List<DeviceSharedSecret>.empty(growable: true);
   bool get showDeviceOnboardingCalled => showDeviceOnboardingCalls.isNotEmpty;
 
-  final showErrorCalls = List<(UIBridgeError, LocalAccountDTO?)>.empty();
+  final showErrorCalls = List<(UIBridgeError, LocalAccountDTO?)>.empty(growable: true);
   bool get showErrorCalled => showErrorCalls.isNotEmpty;
 
-  final showFileCalls = List<(LocalAccountDTO, FileDVO)>.empty();
+  final showFileCalls = List<(LocalAccountDTO, FileDVO)>.empty(growable: true);
   bool get showFileCalled => showFileCalls.isNotEmpty;
 
-  final showMessageCalls = List<(LocalAccountDTO, IdentityDVO, MessageDVO)>.empty();
+  final showMessageCalls = List<(LocalAccountDTO, IdentityDVO, MessageDVO)>.empty(growable: true);
   bool get showMessageCalled => showMessageCalls.isNotEmpty;
 
-  final showRelationshipCalls = List<(LocalAccountDTO, IdentityDVO)>.empty();
+  final showRelationshipCalls = List<(LocalAccountDTO, IdentityDVO)>.empty(growable: true);
   bool get showRelationshipCalled => showRelationshipCalls.isNotEmpty;
 
-  final showRequestCalls = List<(LocalAccountDTO, LocalRequestDVO)>.empty();
+  final showRequestCalls = List<(LocalAccountDTO, LocalRequestDVO)>.empty(growable: true);
   bool get showRequestCalled => showRequestCalls.isNotEmpty;
 
   void reset() {
