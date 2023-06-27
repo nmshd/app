@@ -44,7 +44,16 @@ export class UIBridge implements IUIBridge {
     error: UserfriendlyApplicationError,
     account?: LocalAccountDTO | undefined
   ): Promise<Result<void>> {
-    await window.flutter_inappwebview.callHandler("uibridge_showError", error, account);
+    await window.flutter_inappwebview.callHandler(
+      "uibridge_showError",
+      {
+        code: error.code,
+        message: error.message,
+        userfriendlyMessage: error.userfriendlyMessage,
+        data: error.data
+      },
+      account
+    );
     return Result.ok(undefined);
   }
 
