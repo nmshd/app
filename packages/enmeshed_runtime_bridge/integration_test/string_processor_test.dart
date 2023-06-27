@@ -11,9 +11,15 @@ void run(EnmeshedRuntime enmeshedRuntime) {
   group('[StringProcessor]', () {
     final uiBridge = FakeUIBridge();
 
-    // the UI Bridge is called in the StringProcessor, so we need to register it
-    setUpAll(() async => enmeshedRuntime.registerUIBridge(uiBridge));
-    setUp(() => uiBridge.reset());
+    bool isRegistered = false;
+    setUp(() async {
+      // We use setUp instead of setUpAll to ensure that the UI bridge isn't injected for other tests. See [setUpAll]s description for more information.
+      if (!isRegistered) {
+        await enmeshedRuntime.registerUIBridge(uiBridge);
+        isRegistered = true;
+      }
+      uiBridge.reset();
+    });
 
     group('processURL', () {
       test('should handle an invalid URL', () async {
