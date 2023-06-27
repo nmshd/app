@@ -77,18 +77,18 @@ const _$LocalRequestStatusEnumMap = {
 };
 
 LocalRequestSourceDVO _$LocalRequestSourceDVOFromJson(Map<String, dynamic> json) => LocalRequestSourceDVO(
-      type: $enumDecode(_$LocalRequestSourceDVOTypeEnumMap, json['type']),
+      type: $enumDecode(_$LocalRequestSourceTypeEnumMap, json['type']),
       reference: json['reference'] as String,
     );
 
 Map<String, dynamic> _$LocalRequestSourceDVOToJson(LocalRequestSourceDVO instance) => <String, dynamic>{
-      'type': _$LocalRequestSourceDVOTypeEnumMap[instance.type]!,
+      'type': _$LocalRequestSourceTypeEnumMap[instance.type]!,
       'reference': instance.reference,
     };
 
-const _$LocalRequestSourceDVOTypeEnumMap = {
-  LocalRequestSourceDVOType.Message: 'Message',
-  LocalRequestSourceDVOType.RelationshipChange: 'RelationshipChange',
+const _$LocalRequestSourceTypeEnumMap = {
+  LocalRequestSourceType.Message: 'Message',
+  LocalRequestSourceType.RelationshipTemplate: 'RelationshipTemplate',
 };
 
 LocalResponseDVO _$LocalResponseDVOFromJson(Map<String, dynamic> json) => LocalResponseDVO(
@@ -130,16 +130,16 @@ Map<String, dynamic> _$LocalResponseDVOToJson(LocalResponseDVO instance) {
 }
 
 LocalResponseSourceDVO _$LocalResponseSourceDVOFromJson(Map<String, dynamic> json) => LocalResponseSourceDVO(
-      type: $enumDecode(_$LocalResponseSourceDVOTypeEnumMap, json['type']),
+      type: $enumDecode(_$LocalResponseSourceTypeEnumMap, json['type']),
       reference: json['reference'] as String,
     );
 
 Map<String, dynamic> _$LocalResponseSourceDVOToJson(LocalResponseSourceDVO instance) => <String, dynamic>{
-      'type': _$LocalResponseSourceDVOTypeEnumMap[instance.type]!,
+      'type': _$LocalResponseSourceTypeEnumMap[instance.type]!,
       'reference': instance.reference,
     };
 
-const _$LocalResponseSourceDVOTypeEnumMap = {
-  LocalResponseSourceDVOType.Message: 'Message',
-  LocalResponseSourceDVOType.RelationshipChange: 'RelationshipChange',
+const _$LocalResponseSourceTypeEnumMap = {
+  LocalResponseSourceType.Message: 'Message',
+  LocalResponseSourceType.RelationshipChange: 'RelationshipChange',
 };
