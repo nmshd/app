@@ -69,23 +69,23 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+      bottomNavigationBar: NavigationBar(
+        destinations: <NavigationDestination>[
+          NavigationDestination(
             icon: const Icon(Icons.home_outlined),
             label: AppLocalizations.of(context)!.overview,
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: const Icon(Icons.people_alt_outlined),
             label: AppLocalizations.of(context)!.contacts,
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: const Icon(Icons.edit_document),
             label: AppLocalizations.of(context)!.myData,
           ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: (index) => setState(() => _selectedIndex = index),
+        onDestinationSelected: (int index) => setState(() => _selectedIndex = index),
+        selectedIndex: _selectedIndex,
       ),
       body: Builder(builder: _widgetOptions[_selectedIndex]),
     );
