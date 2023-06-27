@@ -379,8 +379,11 @@ class EnmeshedRuntime {
       throw Exception('Runtime not ready');
     }
 
+    final isFirstRegistration = _uiBridge == null;
+
     _uiBridge = uiBridge;
-    await evaluateJavascript('window.registerUIBridge()');
+
+    if (isFirstRegistration) await evaluateJavascript('window.registerUIBridge()');
   }
 
   Future<void> loadLibs(InAppWebViewController controller) async {
