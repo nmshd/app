@@ -357,7 +357,7 @@ class EnmeshedRuntime {
             userfriendlyMessage: error['userfriendlyMessage'] as String?,
             data: error['data'] as Map<String, dynamic>?,
           ),
-          args.length > 1 ? LocalAccountDTO.fromJson(args[1]) : null,
+          args[1] != null ? LocalAccountDTO.fromJson(args[1]) : null,
         );
       },
     );
@@ -383,7 +383,7 @@ class EnmeshedRuntime {
 
   /// Register the [UIBridge] to communicate with the native UI.
   /// This must be called after the runtime is ready.
-  void registerUIBridge(UIBridge uiBridge) async {
+  Future<void> registerUIBridge(UIBridge uiBridge) async {
     if (!_isReady) {
       throw Exception('Runtime not ready');
     }
