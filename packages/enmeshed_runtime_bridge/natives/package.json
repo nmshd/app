@@ -6,7 +6,8 @@
   "scripts": {
     "build": "esbuild src/index.ts --bundle --minify --keep-names --target=chrome60,firefox60,safari11,edge18 --outdir=../assets",
     "build:watch": "npm run build -- --watch",
-    "lint:prettier": "prettier --check ."
+    "lint:prettier": "prettier --check .",
+    "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
     "@js-soft/logging-abstractions": "^1.0.0",

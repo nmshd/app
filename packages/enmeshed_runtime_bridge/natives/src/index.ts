@@ -1,5 +1,12 @@
 import { AppRuntime } from "@nmshd/app-runtime";
 import { NativeBootstrapper } from "./NativeBootstrapper";
+import { UIBridge } from "./uiBridge";
+
+function registerUIBridge() {
+  window.runtime.registerUIBridge(new UIBridge());
+}
+
+window.registerUIBridge = registerUIBridge;
 
 async function main() {
   const bootstrapper = new NativeBootstrapper();
