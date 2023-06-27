@@ -13,6 +13,7 @@ import 'event_bus.dart';
 import 'events/events.dart';
 import 'filesystem_adapter.dart';
 import 'services/services.dart';
+import 'string_processor.dart';
 import 'ui_bridge.dart';
 import 'webview_constants.dart' as webview_constants;
 
@@ -37,6 +38,13 @@ class EnmeshedRuntime {
 
   late final AnonymousServices _anonymousServices;
   AnonymousServices get anonymousServices => _anonymousServices;
+
+  late final StringProcessor _stringProcessor;
+  StringProcessor get stringProcessor {
+    assert(_isReady, 'Runtime not ready');
+
+    return _stringProcessor;
+  }
 
   late final Session _currentSession;
   Session get currentSession => _currentSession;
@@ -77,6 +85,7 @@ class EnmeshedRuntime {
     final anonymousEvaluator = Evaluator.anonymous(this);
     _accountServices = AccountServices(anonymousEvaluator);
     _anonymousServices = AnonymousServices(anonymousEvaluator);
+    _stringProcessor = StringProcessor(anonymousEvaluator);
 
     _currentSession = Session(Evaluator.currentSession(this));
   }

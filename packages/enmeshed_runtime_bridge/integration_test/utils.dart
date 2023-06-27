@@ -229,3 +229,62 @@ Future<RelationshipDTO> getRelationship(Session session) async {
 
   return response.value.first;
 }
+
+class FakeUIBridge implements UIBridge {
+  final requestAccountSelectionCalls = List<(List<LocalAccountDTO>, String?, String?)>.empty(growable: true);
+  bool get requestAccountSelectionCalled => requestAccountSelectionCalls.isNotEmpty;
+
+  final showDeviceOnboardingCalls = List<DeviceSharedSecret>.empty(growable: true);
+  bool get showDeviceOnboardingCalled => showDeviceOnboardingCalls.isNotEmpty;
+
+  final showErrorCalls = List<(UIBridgeError, LocalAccountDTO?)>.empty(growable: true);
+  bool get showErrorCalled => showErrorCalls.isNotEmpty;
+
+  final showFileCalls = List<(LocalAccountDTO, FileDVO)>.empty(growable: true);
+  bool get showFileCalled => showFileCalls.isNotEmpty;
+
+  final showMessageCalls = List<(LocalAccountDTO, IdentityDVO, MessageDVO)>.empty(growable: true);
+  bool get showMessageCalled => showMessageCalls.isNotEmpty;
+
+  final showRelationshipCalls = List<(LocalAccountDTO, IdentityDVO)>.empty(growable: true);
+  bool get showRelationshipCalled => showRelationshipCalls.isNotEmpty;
+
+  final showRequestCalls = List<(LocalAccountDTO, LocalRequestDVO)>.empty(growable: true);
+  bool get showRequestCalled => showRequestCalls.isNotEmpty;
+
+  void reset() {
+    requestAccountSelectionCalls.clear();
+    showDeviceOnboardingCalls.clear();
+    showErrorCalls.clear();
+    showFileCalls.clear();
+    showMessageCalls.clear();
+    showRelationshipCalls.clear();
+    showRequestCalls.clear();
+  }
+
+  @override
+  Future<LocalAccountDTO?> requestAccountSelection(List<LocalAccountDTO> possibleAccounts, [String? title, String? description]) async {
+    requestAccountSelectionCalls.add((possibleAccounts, title, description));
+
+    return null;
+  }
+
+  @override
+  Future<void> showDeviceOnboarding(DeviceSharedSecret deviceOnboardingInfo) async => showDeviceOnboardingCalls.add(deviceOnboardingInfo);
+
+  @override
+  Future<void> showError(UIBridgeError error, [LocalAccountDTO? account]) async => showErrorCalls.add((error, account));
+
+  @override
+  Future<void> showFile(LocalAccountDTO account, FileDVO file) async => showFileCalls.add((account, file));
+
+  @override
+  Future<void> showMessage(LocalAccountDTO account, IdentityDVO relationship, MessageDVO message) async =>
+      showMessageCalls.add((account, relationship, message));
+
+  @override
+  Future<void> showRelationship(LocalAccountDTO account, IdentityDVO relationship) async => showRelationshipCalls.add((account, relationship));
+
+  @override
+  Future<void> showRequest(LocalAccountDTO account, LocalRequestDVO request) async => showRequestCalls.add((account, request));
+}
