@@ -5,6 +5,7 @@ declare global {
   interface Window {
     runtime: AppRuntime;
     flutter_inappwebview: FlutterInAppWebView;
+    registerUIBridge: () => void;
   }
 }
 

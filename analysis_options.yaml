@@ -8,11 +8,3 @@ linter:
     prefer_final_in_for_each: true
     prefer_final_fields: true
     unnecessary_parenthesis: true
-
-analyzer:
-  plugins:
-    - dart_code_metrics
-
-dart_code_metrics:
-  rules:
-    - prefer-trailing-comma: true

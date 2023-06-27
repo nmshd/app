@@ -13,6 +13,7 @@ import 'event_bus.dart';
 import 'events/events.dart';
 import 'filesystem_adapter.dart';
 import 'services/services.dart';
+import 'ui_bridge.dart';
 import 'webview_constants.dart' as webview_constants;
 
 typedef RuntimeConfig = ({String baseUrl, String clientId, String clientSecret});
@@ -44,6 +45,8 @@ class EnmeshedRuntime {
   final _runtimeReadyCompleter = Completer();
 
   final EventBus eventBus;
+
+  UIBridge? _uiBridge;
 
   EnmeshedRuntime({
     Logger? logger,
@@ -260,6 +263,127 @@ class EnmeshedRuntime {
         throw Exception('Unsupported platform');
       },
     );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'uibridge_showMessage',
+      callback: (args) async {
+        if (_uiBridge == null) {
+          _logger.e('UIBridge not registered, but event received');
+          return;
+        }
+
+        final messageJson = args[2] as Map<String, dynamic>;
+        final message = switch (messageJson['type']) {
+          'MessageDVO' => MessageDVO.fromJson(messageJson),
+          'MailDVO' => MailDVO.fromJson(messageJson),
+          'RequestMessageDVO' => RequestMessageDVO.fromJson(messageJson),
+          _ => throw Exception('Unknown message type: ${messageJson['type']}'),
+        };
+
+        await _uiBridge!.showMessage(LocalAccountDTO.fromJson(args[0]), IdentityDVO.fromJson(args[1]), message);
+      },
+    );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'uibridge_showRelationship',
+      callback: (args) async {
+        if (_uiBridge == null) {
+          _logger.e('UIBridge not registered, but event received');
+          return;
+        }
+
+        await _uiBridge!.showRelationship(LocalAccountDTO.fromJson(args[0]), IdentityDVO.fromJson(args[1]));
+      },
+    );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'uibridge_showFile',
+      callback: (args) async {
+        if (_uiBridge == null) {
+          _logger.e('UIBridge not registered, but event received');
+          return;
+        }
+
+        await _uiBridge!.showFile(LocalAccountDTO.fromJson(args[0]), FileDVO.fromJson(args[1]));
+      },
+    );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'uibridge_showDeviceOnboarding',
+      callback: (args) async {
+        if (_uiBridge == null) {
+          _logger.e('UIBridge not registered, but event received');
+          return;
+        }
+
+        await _uiBridge!.showDeviceOnboarding(DeviceSharedSecret.fromJson(args[0]));
+      },
+    );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'uibridge_showRequest',
+      callback: (args) async {
+        if (_uiBridge == null) {
+          _logger.e('UIBridge not registered, but event received');
+          return;
+        }
+
+        await _uiBridge!.showRequest(LocalAccountDTO.fromJson(args[0]), LocalRequestDVO.fromJson(args[1]));
+      },
+    );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'uibridge_showError',
+      callback: (args) async {
+        if (_uiBridge == null) {
+          _logger.e('UIBridge not registered, but event received');
+          return;
+        }
+
+        final error = args[0] as Map<String, dynamic>;
+        await _uiBridge!.showError(
+          (
+            code: error['code'] as String,
+            message: error['message'] as String,
+            userfriendlyMessage: error['userfriendlyMessage'] as String?,
+            data: error['data'] as Map<String, dynamic>?,
+          ),
+          args.length > 1 ? LocalAccountDTO.fromJson(args[1]) : null,
+        );
+      },
+    );
+
+    controller.addJavaScriptHandler(
+      handlerName: 'uibridge_requestAccountSelection',
+      callback: (args) async {
+        if (_uiBridge == null) {
+          _logger.e('UIBridge not registered, but event received');
+          return null;
+        }
+
+        final dto = await _uiBridge!.requestAccountSelection(
+          args[0].map((e) => LocalAccountDTO.fromJson(e)).toList(),
+          args.length > 1 ? args[1] : null,
+          args.length > 2 ? args[2] : null,
+        );
+
+        return dto?.toJson();
+      },
+    );
+  }
+
+  /// Register the [UIBridge] to communicate with the native UI.
+  /// This must be called after the runtime is ready.
+  void registerUIBridge(UIBridge uiBridge) async {
+    if (!_isReady) {
+      throw Exception('Runtime not ready');
+    }
+
+    final isFirstRegistration = _uiBridge == null;
+
+    _uiBridge = uiBridge;
+
+    if (isFirstRegistration) await evaluateJavascript('window.registerUIBridge()');
   }
 
   Future<void> loadLibs(InAppWebViewController controller) async {
