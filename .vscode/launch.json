@@ -2,36 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Enmeshed App",
+      "name": "Launch current dart file",
       "request": "launch",
       "type": "dart",
-      "cwd": "apps/enmeshed",
-      "program": "lib/main.dart",
-      "toolArgs": ["--dart-define-from-file=../../config.json"]
-    },
-    {
-      "name": "Runtime Bridge Tests",
-      "request": "launch",
-      "type": "dart",
-      "cwd": "packages/enmeshed_runtime_bridge",
-      "program": "integration_test/suite_test.dart",
-      "toolArgs": ["--dart-define-from-file=../../config.json"]
-    },
-    {
-      "name": "Runtime Bridge Example App",
-      "request": "launch",
-      "type": "dart",
-      "cwd": "packages/enmeshed_runtime_bridge/example",
-      "program": "lib/main.dart",
-      "toolArgs": ["--dart-define-from-file=../../../config.json"]
-    },
-    {
-      "name": "Runtime Bridge Example Demo App",
-      "request": "launch",
-      "type": "dart",
-      "cwd": "packages/enmeshed_runtime_bridge/example",
-      "program": "lib/main_demo.dart",
-      "toolArgs": ["--dart-define-from-file=../../../config.json"]
+      "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"]
     }
   ]
 }
