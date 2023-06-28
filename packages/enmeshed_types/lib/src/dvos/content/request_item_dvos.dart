@@ -27,10 +27,13 @@ sealed class RequestItemDVO extends DataViewObject {
     required this.isDecidable,
   });
 
-  factory RequestItemDVO.fromJson(Map json) => switch (json['type']) {
-        'RequestItemGroupDVO' => RequestItemGroupDVO.fromJson(json),
-        _ => RequestItemDVODerivation.fromJson(json),
-      };
+  factory RequestItemDVO.fromJson(Map json) {
+    final type = json['type'];
+    if (type == 'RequestItemGroupDVO') return RequestItemGroupDVO.fromJson(json);
+    if (type is String && type.startsWith('Decidable')) return DecidableRequestItemDVO.fromJson(json);
+    return RequestItemDVODerivation.fromJson(json);
+  }
+
   Map<String, dynamic> toJson();
 }
 

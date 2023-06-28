@@ -57,7 +57,7 @@ sealed class ResponseItemDVODerivation extends ResponseItemDVO {
   factory ResponseItemDVODerivation.fromJson(Map json) => switch (json['type']) {
         'RejectResponseItemDVO' => RejectResponseItemDVO.fromJson(json),
         'ErrorResponseItemDVO' => ErrorResponseItemDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
+        _ => AcceptResponseItemDVO.fromJson(json),
       };
 
   @override
