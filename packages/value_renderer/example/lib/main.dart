@@ -42,10 +42,15 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.all(20),
           child: Column(
             children: <Widget>[
-              WidgetStore(technicalType: RenderHintsTechnicalType.String),
-              WidgetStore(technicalType: RenderHintsTechnicalType.Boolean),
-              WidgetStore(technicalType: RenderHintsTechnicalType.Integer),
-              WidgetStore(editType: RenderHintsEditType.SelectLike),
+              ValueRenderer(technicalType: RenderHintsTechnicalType.String),
+              ValueRenderer(technicalType: RenderHintsTechnicalType.Integer),
+              ValueRenderer(technicalType: RenderHintsTechnicalType.Boolean),
+              ValueRenderer(
+                technicalType: RenderHintsTechnicalType.Boolean,
+                editType: RenderHintsEditType.SelectLike,
+              ),
+              ValueRenderer(editType: RenderHintsEditType.SelectLike),
+              ValueRenderer(technicalType: RenderHintsTechnicalType.String, dataType: RenderHintsDataType.DateTime),
             ],
           ),
         ),
