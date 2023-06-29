@@ -12,9 +12,12 @@ window.registerUIBridge = function () {
 };
 
 window.setPushToken = async function (token: string) {
+  const alreadySetToken = window.runtime.nativeEnvironment.configAccess.get("pushToken");
+  if (alreadySetToken.value === token) return;
+
   window.runtime.nativeEnvironment.configAccess.set("pushToken", token);
   window.runtime.nativeEnvironment.eventBus.publish(new RemoteNotificationRegistrationEvent(token));
-  window.runtime.nativeEnvironment.configAccess.save();
+  await window.runtime.nativeEnvironment.configAccess.save();
 };
 
 window.triggerRemoteNotificationEvent = async function (notification: INativePushNotification) {
