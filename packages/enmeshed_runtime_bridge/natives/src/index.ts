@@ -1,12 +1,28 @@
+import {
+  INativePushNotification,
+  RemoteNotificationEvent,
+  RemoteNotificationRegistrationEvent
+} from "@js-soft/native-abstractions";
 import { AppRuntime } from "@nmshd/app-runtime";
 import { NativeBootstrapper } from "./NativeBootstrapper";
 import { UIBridge } from "./uiBridge";
 
-function registerUIBridge() {
+window.registerUIBridge = function () {
   window.runtime.registerUIBridge(new UIBridge());
-}
+};
 
-window.registerUIBridge = registerUIBridge;
+window.setPushToken = async function (token: string) {
+  const alreadySetToken = window.runtime.nativeEnvironment.configAccess.get("pushToken");
+  if (alreadySetToken.value === token) return;
+
+  window.runtime.nativeEnvironment.configAccess.set("pushToken", token);
+  window.runtime.nativeEnvironment.eventBus.publish(new RemoteNotificationRegistrationEvent(token));
+  await window.runtime.nativeEnvironment.configAccess.save();
+};
+
+window.triggerRemoteNotificationEvent = async function (notification: INativePushNotification) {
+  window.runtime.nativeEnvironment.eventBus.publish(new RemoteNotificationEvent(notification));
+};
 
 async function main() {
   const bootstrapper = new NativeBootstrapper();
