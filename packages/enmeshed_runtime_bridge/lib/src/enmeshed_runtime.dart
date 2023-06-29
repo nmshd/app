@@ -462,6 +462,8 @@ class EnmeshedRuntime {
   }
 
   Future<void> setPushToken(String token) async {
+    assert(_isReady, 'Runtime not ready');
+
     final result = await evaluateJavascript('await window.setPushToken(token)', arguments: {'token': token});
     result.throwOnError();
   }
@@ -472,6 +474,8 @@ class EnmeshedRuntime {
     bool? foreground,
     String? limitedProcessingTime,
   }) async {
+    assert(_isReady, 'Runtime not ready');
+
     final result = await evaluateJavascript('await window.triggerRemoteNotificationEvent(notification)', arguments: {
       'notification': {
         'content': content,
