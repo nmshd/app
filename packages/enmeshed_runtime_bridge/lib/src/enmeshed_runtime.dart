@@ -460,6 +460,28 @@ class EnmeshedRuntime {
             })
         .toList();
   }
+
+  Future<void> setPushToken(String token) async {
+    final result = await evaluateJavascript('await window.setPushToken(token)', arguments: {'token': token});
+    result.throwOnError();
+  }
+
+  Future<void> triggerRemoteNotificationEvent({
+    required Map<String, dynamic> content,
+    String? id,
+    bool? foreground,
+    String? limitedProcessingTime,
+  }) async {
+    final result = await evaluateJavascript('await window.triggerRemoteNotificationEvent(notification)', arguments: {
+      'notification': {
+        'content': content,
+        'id': id,
+        'foreground': foreground,
+        'limitedProcessingTime': limitedProcessingTime,
+      }
+    });
+    result.throwOnError();
+  }
 }
 
 class Evaluator extends AbstractEvaluator {
