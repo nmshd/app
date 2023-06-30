@@ -51,11 +51,21 @@ class _MyHomePageState extends State<MyHomePage> {
               ValueRenderer(technicalType: RenderHintsTechnicalType.Boolean),
               ValueRenderer(
                 technicalType: RenderHintsTechnicalType.Boolean,
+                editType: RenderHintsEditType.ButtonLike,
                 valueHintsValue: true,
               ),
               ValueRenderer(
                 technicalType: RenderHintsTechnicalType.Boolean,
                 editType: RenderHintsEditType.SelectLike,
+              ),
+              ValueRenderer(
+                technicalType: RenderHintsTechnicalType.Boolean,
+                editType: RenderHintsEditType.SliderLike,
+              ),
+              ValueRenderer(
+                technicalType: RenderHintsTechnicalType.Boolean,
+                editType: RenderHintsEditType.SliderLike,
+                valueHintsValue: true,
               ),
               ValueRenderer(editType: RenderHintsEditType.SelectLike),
               ValueRenderer(technicalType: RenderHintsTechnicalType.String, dataType: RenderHintsDataType.DateTime),
