@@ -44,7 +44,15 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ValueRenderer(technicalType: RenderHintsTechnicalType.String),
               ValueRenderer(technicalType: RenderHintsTechnicalType.Integer),
+              ValueRenderer(
+                technicalType: RenderHintsTechnicalType.Integer,
+                editType: RenderHintsEditType.SliderLike,
+              ),
               ValueRenderer(technicalType: RenderHintsTechnicalType.Boolean),
+              ValueRenderer(
+                technicalType: RenderHintsTechnicalType.Boolean,
+                valueHintsValue: true,
+              ),
               ValueRenderer(
                 technicalType: RenderHintsTechnicalType.Boolean,
                 editType: RenderHintsEditType.SelectLike,

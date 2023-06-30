@@ -5,11 +5,12 @@ import 'package:value_renderer/src/widgets/renderers/number.dart';
 import 'package:value_renderer/src/widgets/renderers/string.dart';
 
 class ValueRenderer extends StatelessWidget {
-  const ValueRenderer({super.key, this.technicalType, this.editType, this.dataType});
+  const ValueRenderer({super.key, this.technicalType, this.editType, this.dataType, this.valueHintsValue});
 
   final RenderHintsTechnicalType? technicalType;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
+  final bool? valueHintsValue;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class ValueRenderer extends StatelessWidget {
       return BooleanRenderer(
         editType: editType,
         dataType: dataType,
+        valueHintsValue: valueHintsValue,
       );
     }
     if (technicalType == RenderHintsTechnicalType.Integer || technicalType == RenderHintsTechnicalType.Float) {
