@@ -31,9 +31,10 @@ class ValueRenderer extends StatelessWidget {
       return NumberRenderer(
         editType: editType,
         dataType: dataType,
+        valueHintsValue: valueHintsValue,
       );
     } else {
-      return const BooleanRenderer();
+      return const StringRenderer();
     }
   }
 }

@@ -40,36 +40,68 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const Center(
         child: Padding(
           padding: EdgeInsets.all(20),
-          child: Column(
-            children: <Widget>[
-              ValueRenderer(technicalType: RenderHintsTechnicalType.String),
-              ValueRenderer(technicalType: RenderHintsTechnicalType.Integer),
-              ValueRenderer(
-                technicalType: RenderHintsTechnicalType.Integer,
-                editType: RenderHintsEditType.SliderLike,
-              ),
-              ValueRenderer(technicalType: RenderHintsTechnicalType.Boolean),
-              ValueRenderer(
-                technicalType: RenderHintsTechnicalType.Boolean,
-                editType: RenderHintsEditType.ButtonLike,
-                valueHintsValue: true,
-              ),
-              ValueRenderer(
-                technicalType: RenderHintsTechnicalType.Boolean,
-                editType: RenderHintsEditType.SelectLike,
-              ),
-              ValueRenderer(
-                technicalType: RenderHintsTechnicalType.Boolean,
-                editType: RenderHintsEditType.SliderLike,
-              ),
-              ValueRenderer(
-                technicalType: RenderHintsTechnicalType.Boolean,
-                editType: RenderHintsEditType.SliderLike,
-                valueHintsValue: true,
-              ),
-              ValueRenderer(editType: RenderHintsEditType.SelectLike),
-              ValueRenderer(technicalType: RenderHintsTechnicalType.String, dataType: RenderHintsDataType.DateTime),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Text('String'),
+                ValueRenderer(technicalType: RenderHintsTechnicalType.String),
+                ValueRenderer(technicalType: RenderHintsTechnicalType.String, dataType: RenderHintsDataType.DateTime),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.String,
+                  editType: RenderHintsEditType.ButtonLike,
+                ),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.String,
+                  editType: RenderHintsEditType.SelectLike,
+                ),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.String,
+                  editType: RenderHintsEditType.SliderLike,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text('Number'),
+                ValueRenderer(technicalType: RenderHintsTechnicalType.Integer),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.Integer,
+                  editType: RenderHintsEditType.SelectLike,
+                ),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.Integer,
+                  editType: RenderHintsEditType.ButtonLike,
+                ),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.Integer,
+                  editType: RenderHintsEditType.SliderLike,
+                  valueHintsValue: true,
+                ),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.Integer,
+                  editType: RenderHintsEditType.SliderLike,
+                ),
+                Text('Boolean'),
+                ValueRenderer(technicalType: RenderHintsTechnicalType.Boolean),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.Boolean,
+                  editType: RenderHintsEditType.ButtonLike,
+                  valueHintsValue: true,
+                ),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.Boolean,
+                  editType: RenderHintsEditType.SelectLike,
+                ),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.Boolean,
+                  editType: RenderHintsEditType.SliderLike,
+                ),
+                ValueRenderer(
+                  technicalType: RenderHintsTechnicalType.Boolean,
+                  editType: RenderHintsEditType.SliderLike,
+                  valueHintsValue: true,
+                ),
+              ],
+            ),
           ),
         ),
       ),
