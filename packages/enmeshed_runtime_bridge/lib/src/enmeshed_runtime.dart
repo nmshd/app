@@ -110,11 +110,16 @@ class EnmeshedRuntime {
         final payload = args[0];
 
         final eventTargetAddress = payload['eventTargetAddress'] as String;
-        final data = payload['data'] as Map<String, dynamic>;
 
         final namespace = payload['namespace'];
         if (namespace is! String) {
           _logger.i('Unknown event namespace: ${payload['namespace']}');
+          return;
+        }
+
+        final data = payload['data'] as Map<String, dynamic>?;
+        if (data == null) {
+          _logger.i('Event is missing data, currently only data events are supported.');
           return;
         }
 
