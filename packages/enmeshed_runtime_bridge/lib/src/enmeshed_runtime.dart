@@ -119,7 +119,7 @@ class EnmeshedRuntime {
 
         final data = payload['data'] as Map<String, dynamic>?;
         if (data == null) {
-          _logger.i('Event is missing data, currently only data events are supported.');
+          _logger.d("The Event with namespace '$namespace' is missing data, currently only data events are supported.");
           return;
         }
 
