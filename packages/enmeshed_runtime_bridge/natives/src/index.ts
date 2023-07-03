@@ -1,4 +1,5 @@
 import {
+  AppReadyEvent,
   INativePushNotification,
   RemoteNotificationEvent,
   RemoteNotificationRegistrationEvent
@@ -22,6 +23,10 @@ window.setPushToken = async function (token: string) {
 
 window.triggerRemoteNotificationEvent = async function (notification: INativePushNotification) {
   window.runtime.nativeEnvironment.eventBus.publish(new RemoteNotificationEvent(notification));
+};
+
+window.triggerAppReadyEvent = async function () {
+  window.runtime.nativeEnvironment.eventBus.publish(new AppReadyEvent());
 };
 
 async function main() {

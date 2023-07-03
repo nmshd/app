@@ -9,6 +9,7 @@ declare global {
     registerUIBridge: () => void;
     setPushToken: (token: string) => Promise<void>;
     triggerRemoteNotificationEvent: (notification: INativePushNotification) => Promise<void>;
+    triggerAppReadyEvent: () => Promise<void>;
   }
 }
 

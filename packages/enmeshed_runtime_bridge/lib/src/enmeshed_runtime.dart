@@ -486,6 +486,13 @@ class EnmeshedRuntime {
     });
     result.throwOnError();
   }
+
+  Future<void> triggerAppReadyEvent() async {
+    assert(_isReady, 'Runtime not ready');
+
+    final result = await evaluateJavascript('await window.triggerAppReadyEvent()');
+    result.throwOnError();
+  }
 }
 
 class Evaluator extends AbstractEvaluator {
