@@ -70,7 +70,7 @@ class EnmeshedRuntime {
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
         _jsToUIBridge.controller = controller;
-        await addJavaScriptHandlers(controller);
+        await _addJavaScriptHandlers(controller);
         _logger.i('WebView created');
       },
       onConsoleMessage: (_, consoleMessage) {
@@ -102,7 +102,7 @@ class EnmeshedRuntime {
     result.throwOnError();
   }
 
-  Future<void> addJavaScriptHandlers(InAppWebViewController controller) async {
+  Future<void> _addJavaScriptHandlers(InAppWebViewController controller) async {
     controller.addJavaScriptHandler(
       handlerName: 'handleRuntimeEvent',
       callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger),
