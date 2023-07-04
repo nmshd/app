@@ -12,7 +12,7 @@ class AccountServices {
     realm = 'id1',
     required String name,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.createAccount(realm, name)',
       arguments: {
         'realm': realm,
@@ -26,7 +26,7 @@ class AccountServices {
   }
 
   Future<LocalAccountDTO> onboardAccount(DeviceSharedSecret onboardingInfo) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.onboardAccount(onboardingInfo)',
       arguments: {'onboardingInfo': onboardingInfo.toJson()},
     );
@@ -37,7 +37,7 @@ class AccountServices {
   }
 
   Future<List<LocalAccountDTO>> getAccounts() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.getAccounts()',
     );
 
@@ -47,7 +47,7 @@ class AccountServices {
   }
 
   Future<void> clearAccounts() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.clearAccounts()',
     );
 
@@ -58,7 +58,7 @@ class AccountServices {
     required String localAccountId,
     required String newAccountName,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.renameAccount(localAccountId, newAccountName)',
       arguments: {
         'localAccountId': localAccountId,

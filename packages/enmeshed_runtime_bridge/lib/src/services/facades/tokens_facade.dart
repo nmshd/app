@@ -13,7 +13,7 @@ class TokensFacade {
     required String expiresAt,
     required bool ephemeral,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.createOwnToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -35,7 +35,7 @@ class TokensFacade {
     required String secretKey,
     required bool ephemeral,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.loadPeerToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -56,7 +56,7 @@ class TokensFacade {
     required String reference,
     required bool ephemeral,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.loadPeerToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -73,7 +73,7 @@ class TokensFacade {
   }
 
   Future<Result<List<TokenDTO>>> getTokens({Map<String, QueryValue>? query}) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.getTokens(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -89,7 +89,7 @@ class TokensFacade {
   }
 
   Future<Result<TokenDTO>> getToken(String id) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.getToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -105,7 +105,7 @@ class TokensFacade {
   }
 
   Future<Result<CreateQrCodeResponse>> getQRCodeForToken(String id) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.getQRCodeForToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',

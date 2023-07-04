@@ -5,7 +5,8 @@
       "name": "Launch current dart file",
       "request": "launch",
       "type": "dart",
-      "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"]
+      "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"],
+      "templateFor": ""
     }
   ]
 }

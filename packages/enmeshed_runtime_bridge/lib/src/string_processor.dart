@@ -10,7 +10,7 @@ class StringProcessor {
   StringProcessor(this._evaluator);
 
   Future<Result<void>> processURL({required String url, LocalAccountDTO? account}) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await runtime.stringProcessor.processURL(url, account ?? undefined)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: {} }''',
@@ -24,7 +24,7 @@ class StringProcessor {
   }
 
   Future<Result<void>> processTruncatedReference({required String truncatedReference, LocalAccountDTO? account}) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await runtime.stringProcessor.processTruncatedReference(truncatedReference, account ?? undefined)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: {} }''',

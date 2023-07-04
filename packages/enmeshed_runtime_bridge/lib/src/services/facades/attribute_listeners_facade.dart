@@ -11,7 +11,7 @@ class AttributeListenersFacade {
   Future<Result<LocalAttributeListenerDTO>> getAttributeListener({
     required String listenerId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributeListeners.getAttributeListener(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -27,7 +27,7 @@ class AttributeListenersFacade {
   }
 
   Future<Result<List<LocalAttributeListenerDTO>>> getAttributeListeners() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributeListeners.getAttributeListeners()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',

@@ -9,7 +9,7 @@ class FilesFacade {
   FilesFacade(this._evaluator);
 
   Future<Result<List<FileDTO>>> getFiles({Map<String, QueryValue>? query}) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.getFiles(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -28,7 +28,7 @@ class FilesFacade {
     required String fileId,
     required String secretKey,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.getOrLoadFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -47,7 +47,7 @@ class FilesFacade {
   Future<Result<FileDTO>> getOrLoadFileByReference({
     required String reference,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.getOrLoadFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -65,7 +65,7 @@ class FilesFacade {
   Future<Result<DownloadFileResponse>> downloadFile({
     required String fileId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.downloadFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: { ...result.value, content: Array.from(result.value.content) } }''',
@@ -83,7 +83,7 @@ class FilesFacade {
   Future<Result<FileDTO>> getFile({
     required String fileId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.getFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -106,7 +106,7 @@ class FilesFacade {
     required String title,
     String? description,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''request.content = new Uint8Array(request.content)
       const result = await session.transportServices.files.uploadOwnFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -130,7 +130,7 @@ class FilesFacade {
   Future<Result<CreateQrCodeResponse>> createQrCodeForFile({
     required String fileId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.createQrCodeForFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -150,7 +150,7 @@ class FilesFacade {
     String? expiresAt,
     bool? ephemeral,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.createTokenForFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -171,7 +171,7 @@ class FilesFacade {
     required String fileId,
     String? expiresAt,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.createTokenQrCodeForFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
