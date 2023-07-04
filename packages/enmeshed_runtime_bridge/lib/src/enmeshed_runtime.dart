@@ -1,17 +1,14 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:ui';
 
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
 import 'data_view_expander.dart';
 import 'event_bus.dart';
-import 'events/events.dart';
 import 'filesystem_adapter.dart';
+import 'javascript_handlers.dart';
 import 'services/services.dart';
 import 'string_processor.dart';
 import 'ui_bridge.dart';
@@ -23,13 +20,14 @@ class EnmeshedRuntime {
   static String _assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
 
   bool _isReady = false;
+  bool get isReady => _isReady;
 
   final RuntimeConfig runtimeConfig;
-  bool get isReady => _isReady;
 
   late final HeadlessInAppWebView _headlessWebView;
 
   final _filesystemAdapter = FilesystemAdapter();
+  final _jsToUIBridge = JsToUIBridge();
 
   final VoidCallback? _runtimeReadyCallback;
 
@@ -71,6 +69,7 @@ class EnmeshedRuntime {
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
+        _jsToUIBridge.controller = controller;
         await addJavaScriptHandlers(controller);
         _logger.i('WebView created');
       },
@@ -106,115 +105,10 @@ class EnmeshedRuntime {
   Future<void> addJavaScriptHandlers(InAppWebViewController controller) async {
     controller.addJavaScriptHandler(
       handlerName: 'handleRuntimeEvent',
-      callback: (args) async {
-        final payload = args[0];
-
-        final eventTargetAddress = payload['eventTargetAddress'] as String;
-
-        final namespace = payload['namespace'];
-        if (namespace is! String) {
-          _logger.i('Unknown event namespace: ${payload['namespace']}');
-          return;
-        }
-
-        final data = payload['data'] as Map<String, dynamic>?;
-        if (data == null) {
-          _logger.d("The Event with namespace '$namespace' is missing data, currently only data events are supported.");
-          return;
-        }
-
-        final event = switch (namespace) {
-          'transport.messageSent' => MessageSentEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
-          'consumption.outgoingRequestCreated' => OutgoingRequestCreatedEvent(
-              eventTargetAddress: eventTargetAddress,
-              data: LocalRequestDTO.fromJson(data),
-            ),
-          'consumption.incomingRequestReceived' => IncomingRequestReceivedEvent(
-              eventTargetAddress: eventTargetAddress,
-              data: LocalRequestDTO.fromJson(data),
-            ),
-          'consumption.incomingRequestStatusChanged' => IncomingRequestStatusChangedEvent(
-              eventTargetAddress: eventTargetAddress,
-              request: LocalRequestDTO.fromJson(data['request']),
-              oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
-              newStatus: LocalRequestStatus.values.byName(data['newStatus']),
-            ),
-          'consumption.outgoingRequestStatusChanged' => OutgoingRequestStatusChangedEvent(
-              eventTargetAddress: eventTargetAddress,
-              request: LocalRequestDTO.fromJson(data['request']),
-              oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
-              newStatus: LocalRequestStatus.values.byName(data['newStatus']),
-            ),
-          _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: data),
-        };
-
-        eventBus.publish(event);
-      },
+      callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger),
     );
 
-    controller.addJavaScriptHandler(
-      handlerName: 'readFile',
-      callback: (args) async {
-        final path = args[0] as String;
-        final storage = args[1] as String;
-
-        try {
-          final fileContent = await _filesystemAdapter.readFile(path, storage);
-          return {'ok': true, 'content': fileContent};
-        } catch (e) {
-          _logger.i('Error reading file: $e');
-          return {'ok': false, 'content': e.toString()};
-        }
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'writeFile',
-      callback: (args) async {
-        final path = args[0] as String;
-        final storage = args[1] as String;
-        final data = args[2] as String;
-        final append = args[3] as bool;
-
-        try {
-          await _filesystemAdapter.writeFile(path, storage, data, append);
-          return {'ok': true};
-        } catch (e) {
-          _logger.i('Error writing file: $e');
-          return {'ok': false, 'content': e.toString()};
-        }
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'deleteFile',
-      callback: (args) async {
-        final path = args[0] as String;
-        final storage = args[1] as String;
-
-        try {
-          await _filesystemAdapter.deleteFile(path, storage);
-          return {'ok': true};
-        } catch (e) {
-          _logger.i('Error deleting file: $e');
-          return {'ok': false, 'content': e.toString()};
-        }
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'existsFile',
-      callback: (args) async {
-        final path = args[0] as String;
-        final storage = args[1] as String;
-
-        try {
-          return await _filesystemAdapter.existsFile(path, storage);
-        } catch (e) {
-          return false;
-        }
-      },
-    );
+    controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
 
     controller.addJavaScriptHandler(
       handlerName: 'runtimeReady',
@@ -239,151 +133,7 @@ class EnmeshedRuntime {
       },
     );
 
-    controller.addJavaScriptHandler(
-      handlerName: 'getDeviceInfo',
-      callback: (_) async {
-        final deviceInfoPlugin = DeviceInfoPlugin();
-
-        if (Platform.isAndroid) {
-          final deviceInfo = await deviceInfoPlugin.androidInfo;
-
-          return {
-            'model': deviceInfo.model,
-            'platform': 'Android',
-            'uuid': deviceInfo.id,
-            'manufacturer': deviceInfo.manufacturer,
-            'isVirtual': !deviceInfo.isPhysicalDevice,
-            'languageCode': Platform.localeName,
-            'version': deviceInfo.version,
-            'pushService': 'fcm',
-          };
-        }
-
-        if (Platform.isIOS) {
-          final deviceInfo = await deviceInfoPlugin.iosInfo;
-
-          return {
-            'model': deviceInfo.model,
-            'platform': 'IOS',
-            'uuid': deviceInfo.identifierForVendor ?? '',
-            'manufacturer': 'Apple',
-            'isVirtual': !deviceInfo.isPhysicalDevice,
-            'languageCode': Platform.localeName,
-            'version': deviceInfo.systemVersion,
-            'pushService': 'apns',
-          };
-        }
-
-        throw Exception('Unsupported platform');
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'uibridge_showMessage',
-      callback: (args) async {
-        if (_uiBridge == null) {
-          _logger.e('UIBridge not registered, but event received');
-          return;
-        }
-
-        final messageJson = args[2] as Map<String, dynamic>;
-        final message = switch (messageJson['type']) {
-          'MessageDVO' => MessageDVO.fromJson(messageJson),
-          'MailDVO' => MailDVO.fromJson(messageJson),
-          'RequestMessageDVO' => RequestMessageDVO.fromJson(messageJson),
-          _ => throw Exception('Unknown message type: ${messageJson['type']}'),
-        };
-
-        await _uiBridge!.showMessage(LocalAccountDTO.fromJson(args[0]), IdentityDVO.fromJson(args[1]), message);
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'uibridge_showRelationship',
-      callback: (args) async {
-        if (_uiBridge == null) {
-          _logger.e('UIBridge not registered, but event received');
-          return;
-        }
-
-        await _uiBridge!.showRelationship(LocalAccountDTO.fromJson(args[0]), IdentityDVO.fromJson(args[1]));
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'uibridge_showFile',
-      callback: (args) async {
-        if (_uiBridge == null) {
-          _logger.e('UIBridge not registered, but event received');
-          return;
-        }
-
-        await _uiBridge!.showFile(LocalAccountDTO.fromJson(args[0]), FileDVO.fromJson(args[1]));
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'uibridge_showDeviceOnboarding',
-      callback: (args) async {
-        if (_uiBridge == null) {
-          _logger.e('UIBridge not registered, but event received');
-          return;
-        }
-
-        await _uiBridge!.showDeviceOnboarding(DeviceSharedSecret.fromJson(args[0]));
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'uibridge_showRequest',
-      callback: (args) async {
-        if (_uiBridge == null) {
-          _logger.e('UIBridge not registered, but event received');
-          return;
-        }
-
-        await _uiBridge!.showRequest(LocalAccountDTO.fromJson(args[0]), LocalRequestDVO.fromJson(args[1]));
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'uibridge_showError',
-      callback: (args) async {
-        if (_uiBridge == null) {
-          _logger.e('UIBridge not registered, but event received');
-          return;
-        }
-
-        final error = args[0] as Map<String, dynamic>;
-        await _uiBridge!.showError(
-          (
-            code: error['code'] as String,
-            message: error['message'] as String,
-            userfriendlyMessage: error['userfriendlyMessage'] as String?,
-            data: error['data'] as Map<String, dynamic>?,
-          ),
-          args[1] != null ? LocalAccountDTO.fromJson(args[1]) : null,
-        );
-      },
-    );
-
-    controller.addJavaScriptHandler(
-      handlerName: 'uibridge_requestAccountSelection',
-      callback: (args) async {
-        if (_uiBridge == null) {
-          _logger.e('UIBridge not registered, but event received');
-          return null;
-        }
-
-        final dto = await _uiBridge!.requestAccountSelection(
-          args[0].map((e) => LocalAccountDTO.fromJson(e)).toList(),
-          args.length > 1 ? args[1] : null,
-          args.length > 2 ? args[2] : null,
-        );
-
-        return dto?.toJson();
-      },
-    );
+    controller.addDeviceInfoJavascriptHandler();
   }
 
   /// Register the [UIBridge] to communicate with the native UI.
@@ -396,6 +146,7 @@ class EnmeshedRuntime {
     final isFirstRegistration = _uiBridge == null;
 
     _uiBridge = uiBridge;
+    _jsToUIBridge.register(uiBridge);
 
     if (isFirstRegistration) await evaluateJavascript('window.registerUIBridge()');
   }
