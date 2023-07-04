@@ -77,7 +77,7 @@ class EnmeshedRuntime {
         _logger.i('js runtime: ${consoleMessage.message}');
       },
       onLoadStop: (controller, _) async {
-        await loadLibs(controller);
+        await _loadLibs(controller);
       },
     );
 
@@ -151,7 +151,7 @@ class EnmeshedRuntime {
     if (isFirstRegistration) await _evaluateJavaScript('window.registerUIBridge()');
   }
 
-  Future<void> loadLibs(InAppWebViewController controller) async {
+  Future<void> _loadLibs(InAppWebViewController controller) async {
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$_assetsFolder/loki.js');
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$_assetsFolder/index.js');
   }
