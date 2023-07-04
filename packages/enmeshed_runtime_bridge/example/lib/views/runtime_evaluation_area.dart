@@ -16,7 +16,7 @@ class _RuntimeEvaluationAreaState extends State<RuntimeEvaluationArea> {
 
   Future<void> evaluateCodeFromTextField() async {
     final content = textEditingController.text;
-    final result = await widget.runtime.evaluateJavascript(content);
+    final result = await widget.runtime.evaluateJavaScript(content);
     setState(() {
       evaluationResult = result.toString();
     });

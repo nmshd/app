@@ -95,7 +95,7 @@ class EnmeshedRuntime {
   Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
 
   Future<void> selectAccount(String accountReference) async {
-    final result = await evaluateJavascript('await runtime.selectAccount(accountReference, password)', arguments: {
+    final result = await evaluateJavaScript('await runtime.selectAccount(accountReference, password)', arguments: {
       'accountReference': accountReference,
       'password': '',
     });
@@ -133,7 +133,7 @@ class EnmeshedRuntime {
       },
     );
 
-    controller.addDeviceInfoJavascriptHandler();
+    controller.addDeviceInfoJavaScriptHandler();
   }
 
   /// Register the [UIBridge] to communicate with the native UI.
@@ -148,7 +148,7 @@ class EnmeshedRuntime {
     _uiBridge = uiBridge;
     _jsToUIBridge.register(uiBridge);
 
-    if (isFirstRegistration) await evaluateJavascript('window.registerUIBridge()');
+    if (isFirstRegistration) await evaluateJavaScript('window.registerUIBridge()');
   }
 
   Future<void> loadLibs(InAppWebViewController controller) async {
@@ -168,7 +168,7 @@ class EnmeshedRuntime {
     await _headlessWebView.dispose();
   }
 
-  Future<CallAsyncJavaScriptResult> evaluateJavascript(
+  Future<CallAsyncJavaScriptResult> evaluateJavaScript(
     String source, {
     Map<String, dynamic> arguments = const <String, dynamic>{},
   }) async {
@@ -220,7 +220,7 @@ class EnmeshedRuntime {
   Future<void> setPushToken(String token) async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await evaluateJavascript('await window.setPushToken(token)', arguments: {'token': token});
+    final result = await evaluateJavaScript('await window.setPushToken(token)', arguments: {'token': token});
     result.throwOnError();
   }
 
@@ -232,7 +232,7 @@ class EnmeshedRuntime {
   }) async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await evaluateJavascript('await window.triggerRemoteNotificationEvent(notification)', arguments: {
+    final result = await evaluateJavaScript('await window.triggerRemoteNotificationEvent(notification)', arguments: {
       'notification': {
         'content': content,
         'id': id,
@@ -246,7 +246,7 @@ class EnmeshedRuntime {
   Future<void> triggerAppReadyEvent() async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await evaluateJavascript('await window.triggerAppReadyEvent()');
+    final result = await evaluateJavaScript('await window.triggerAppReadyEvent()');
     result.throwOnError();
   }
 }
@@ -269,11 +269,11 @@ class Evaluator extends AbstractEvaluator {
   Evaluator.anonymous(EnmeshedRuntime runtime) : this._(runtime, isAnonymous: true);
 
   @override
-  Future<CallAsyncJavaScriptResult> evaluateJavascript(
+  Future<CallAsyncJavaScriptResult> evaluateJavaScript(
     String source, {
     Map<String, dynamic> arguments = const <String, dynamic>{},
   }) async {
-    return _runtime.evaluateJavascript('$sessionStorage$source', arguments: arguments);
+    return _runtime.evaluateJavaScript('$sessionStorage$source', arguments: arguments);
   }
 }
 

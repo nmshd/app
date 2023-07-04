@@ -14,7 +14,7 @@ class OutgoingRequestsFacade {
     required Request content,
     String? peer,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.canCreate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -34,7 +34,7 @@ class OutgoingRequestsFacade {
     required Request content,
     required String peer,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.create(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -53,7 +53,7 @@ class OutgoingRequestsFacade {
   Future<Result<LocalRequestDTO>> getRequest({
     required String requestId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.getRequest(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -71,7 +71,7 @@ class OutgoingRequestsFacade {
   Future<Result<List<LocalRequestDTO>>> getRequests({
     Map<String, QueryValue>? query,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.getRequests(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -89,7 +89,7 @@ class OutgoingRequestsFacade {
   Future<void> discard({
     required String requestId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.discard(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',

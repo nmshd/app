@@ -56,7 +56,7 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
 }
 
 extension DeviceInfo on InAppWebViewController {
-  void addDeviceInfoJavascriptHandler() => addJavaScriptHandler(handlerName: 'getDeviceInfo', callback: _getDeviceInfo);
+  void addDeviceInfoJavaScriptHandler() => addJavaScriptHandler(handlerName: 'getDeviceInfo', callback: _getDeviceInfo);
 }
 
 Future<Map<String, dynamic>> _getDeviceInfo(List<dynamic> args) async {

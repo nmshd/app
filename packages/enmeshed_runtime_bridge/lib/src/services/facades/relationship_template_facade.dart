@@ -13,7 +13,7 @@ class RelationshipTemplatesFacade {
     required Map<String, dynamic> content,
     int? maxNumberOfAllocations,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -34,7 +34,7 @@ class RelationshipTemplatesFacade {
     required String relationshipTemplateId,
     required String secretKey,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -53,7 +53,7 @@ class RelationshipTemplatesFacade {
   Future<Result<RelationshipTemplateDTO>> loadPeerRelationshipTemplateByReference({
     required String reference,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -69,7 +69,7 @@ class RelationshipTemplatesFacade {
   }
 
   Future<Result<List<RelationshipTemplateDTO>>> getRelationshipTemplates({Map<String, QueryValue>? query}) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.getRelationshipTemplates(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -87,7 +87,7 @@ class RelationshipTemplatesFacade {
   Future<Result<RelationshipTemplateDTO>> getRelationshipTemplate({
     required String relationshipTemplateId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -105,7 +105,7 @@ class RelationshipTemplatesFacade {
   Future<Result<CreateQrCodeResponse>> createQrCodeForOwnTemplate({
     required String templateId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -124,7 +124,7 @@ class RelationshipTemplatesFacade {
     required String templateId,
     String? expiresAt,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -145,7 +145,7 @@ class RelationshipTemplatesFacade {
     String? expiresAt,
     bool? ephemeral,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
