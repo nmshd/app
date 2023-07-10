@@ -1,9 +1,19 @@
+import 'dart:convert';
+
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:value_renderer/value_renderer.dart';
 
 void main() {
   runApp(const MyApp());
+}
+
+Future<Map<String, dynamic>> loadJsonData() async {
+  String jsonData = await rootBundle.loadString('assets/address.json');
+  Map<String, dynamic> data = jsonDecode(jsonData);
+
+  return data;
 }
 
 class MyApp extends StatelessWidget {
@@ -16,183 +26,68 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Value Renderer'),
+      home: FutureBuilder<Map<String, dynamic>>(
+        future: loadJsonData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return MyHomePage(title: 'Value Renderer', data: snapshot.data!);
+          } else if (snapshot.hasError) {
+            return const Text('Error loading JSON data');
+          } else {
+            return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key, required this.title, required this.data});
 
   final String title;
+  final Map<String, dynamic> data;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Value Renderer'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Container(
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(228, 255, 255, 255),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.0, 2.0),
-                        blurRadius: 6.0,
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Column(children: <Widget>[
-                      Text(
-                        'String',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.blue,
-                        thickness: 1.0,
-                      ),
-                      ValueRenderer(technicalType: RenderHintsTechnicalType.String),
-                      ValueRenderer(technicalType: RenderHintsTechnicalType.String, dataType: RenderHintsDataType.DateTime),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.String,
-                        editType: RenderHintsEditType.ButtonLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.String,
-                        editType: RenderHintsEditType.SelectLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.String,
-                        editType: RenderHintsEditType.SliderLike,
-                      ),
-                    ]),
-                  )),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(228, 255, 255, 255),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 2.0),
-                      blurRadius: 6.0,
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Number',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.blue,
-                        thickness: 1.0,
-                      ),
-                      ValueRenderer(technicalType: RenderHintsTechnicalType.Integer),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Integer,
-                        editType: RenderHintsEditType.SelectLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Integer,
-                        editType: RenderHintsEditType.ButtonLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Integer,
-                        editType: RenderHintsEditType.SliderLike,
-                        valueHintsValue: true,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Integer,
-                        editType: RenderHintsEditType.SliderLike,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(228, 255, 255, 255),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 2.0),
-                      blurRadius: 6.0,
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Boolean',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.blue,
-                        thickness: 1.0,
-                      ),
-                      ValueRenderer(technicalType: RenderHintsTechnicalType.Boolean),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Boolean,
-                        editType: RenderHintsEditType.ButtonLike,
-                        valueHintsValue: true,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Boolean,
-                        editType: RenderHintsEditType.SelectLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Boolean,
-                        editType: RenderHintsEditType.SliderLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Boolean,
-                        editType: RenderHintsEditType.SliderLike,
-                        valueHintsValue: true,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+      body: Column(
+        children: [
+          Text(data["value"]["@type"]),
+          Expanded(
+            child: ListView.builder(
+              itemCount: data["renderHints"]["propertyHints"].length,
+              itemBuilder: (context, index) {
+                String key = data["renderHints"]["propertyHints"].keys.elementAt(index);
+                dynamic techType = data["renderHints"]["propertyHints"][key]["technicalType"];
+                dynamic dataType = data["renderHints"]["propertyHints"][key]["dataType"];
+                dynamic editType = data["renderHints"]["propertyHints"][key]["editType"];
+
+                return ListTile(
+                  title: Text('$key: $techType, $editType, $dataType'),
+                  subtitle: showInput(techType, editType),
+                );
+              },
+            ),
           ),
-        ),
+        ],
       ),
+    );
+  }
+}
+
+showInput(techType, editType) {
+  if (editType == 'SelectLike') {
+    return const ValueRenderer(
+      technicalType: RenderHintsTechnicalType.String,
+      editType: RenderHintsEditType.SelectLike,
+    );
+  } else if (techType == 'String') {
+    return const ValueRenderer(
+      technicalType: RenderHintsTechnicalType.String,
     );
   }
 }
