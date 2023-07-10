@@ -99,6 +99,9 @@ class JsToUIBridge {
   late final InAppWebViewController _controller;
   set controller(InAppWebViewController controller) => _controller = controller;
 
+  bool _isRegistered = false;
+  bool get isRegistered => _isRegistered;
+
   JsToUIBridge();
 
   void register(UIBridge uiBridge) {
@@ -174,6 +177,8 @@ class JsToUIBridge {
         return dto?.toJson();
       },
     );
+
+    _isRegistered = true;
   }
 }
 
