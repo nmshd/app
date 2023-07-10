@@ -37,11 +37,3 @@ flutter:
   assets:
     - assets/loki.js
     - assets/index.js
-    # - assets/main.js
-    # - natives/node_modules/@js-soft/ts-serval/lib-web/tsserval.js
-    # - natives/node_modules/@nmshd/crypto/lib-web/nmshd.crypto.js
-    # - natives/node_modules/@nmshd/transport/lib-web/nmshd.transport.js
-    # - natives/node_modules/@nmshd/content/lib-web/nmshd.content.js
-    # - natives/node_modules/@nmshd/consumption/lib-web/nmshd.consumption.js
-    # - natives/node_modules/@nmshd/runtime/lib-web/nmshd.runtime.js
-    # - natives/node_modules/@nmshd/app-runtime/lib-web/nmshd.app-runtime.js
