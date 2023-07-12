@@ -15,6 +15,12 @@ class _MyHomePageState extends State<InputExamples> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Padding(
+          padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
+          child: Text('Input Examples'),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

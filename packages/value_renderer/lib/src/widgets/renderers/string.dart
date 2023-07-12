@@ -7,8 +7,9 @@ import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
 import 'package:value_renderer/src/widgets/inputs/text_input.dart';
 
 class StringRenderer extends StatelessWidget {
-  const StringRenderer({super.key, this.editType, this.dataType});
+  const StringRenderer({super.key, this.fieldName, this.editType, this.dataType});
 
+  final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
 
@@ -26,6 +27,6 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike) {
       return const SegmentedButtonInput();
     }
-    return const TextInput();
+    return TextInput(fieldName: fieldName);
   }
 }

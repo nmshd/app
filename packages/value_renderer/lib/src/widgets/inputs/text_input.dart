@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TextInput extends StatefulWidget {
-  const TextInput({super.key});
+  const TextInput({super.key, this.fieldName = 'Text Fieldz'});
+
+  final String? fieldName;
 
   @override
   State<TextInput> createState() => TextInputState();
@@ -10,8 +12,8 @@ class TextInput extends StatefulWidget {
 class TextInputState extends State<TextInput> {
   @override
   Widget build(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(labelText: 'Text Field'),
+    return TextField(
+      decoration: InputDecoration(labelText: widget.fieldName),
     );
   }
 }

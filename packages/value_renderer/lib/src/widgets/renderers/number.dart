@@ -7,8 +7,9 @@ import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
 import 'package:value_renderer/src/widgets/inputs/slider_input.dart';
 
 class NumberRenderer extends StatelessWidget {
-  const NumberRenderer({super.key, this.editType, this.dataType, this.valueHintsValue});
+  const NumberRenderer({super.key, this.fieldName, this.editType, this.dataType, this.valueHintsValue});
 
+  final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final bool? valueHintsValue;
