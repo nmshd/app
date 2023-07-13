@@ -49,14 +49,3 @@ void main() {
     });
   });
 }
-
-class MockAttributeQuery extends AttributeQuery {
-  const MockAttributeQuery({
-    super.validFrom,
-    super.validTo,
-  });
-
-  // dummy impl, we dont have to check this
-  @override
-  Map<String, dynamic> toJson() => {};
-}
