@@ -4,11 +4,7 @@ part of 'attribute_query.dart';
 class IQLQuery extends AttributeQuery {
   final String queryString;
 
-  const IQLQuery({
-    super.validFrom,
-    super.validTo,
-    required this.queryString,
-  });
+  const IQLQuery({required this.queryString});
 
   factory IQLQuery.fromJson(Map json) => _$IQLQueryFromJson(Map<String, dynamic>.from(json));
   @override

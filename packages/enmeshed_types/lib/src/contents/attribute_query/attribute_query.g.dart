@@ -14,7 +14,9 @@ IdentityAttributeQuery _$IdentityAttributeQueryFromJson(Map<String, dynamic> jso
     );
 
 Map<String, dynamic> _$IdentityAttributeQueryToJson(IdentityAttributeQuery instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'valueType': instance.valueType,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -22,33 +24,19 @@ Map<String, dynamic> _$IdentityAttributeQueryToJson(IdentityAttributeQuery insta
     }
   }
 
+  writeNotNull('tags', instance.tags);
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
-  val['valueType'] = instance.valueType;
-  writeNotNull('tags', instance.tags);
   return val;
 }
 
 IQLQuery _$IQLQueryFromJson(Map<String, dynamic> json) => IQLQuery(
-      validFrom: json['validFrom'] as String?,
-      validTo: json['validTo'] as String?,
       queryString: json['queryString'] as String,
     );
 
-Map<String, dynamic> _$IQLQueryToJson(IQLQuery instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('validFrom', instance.validFrom);
-  writeNotNull('validTo', instance.validTo);
-  val['queryString'] = instance.queryString;
-  return val;
-}
+Map<String, dynamic> _$IQLQueryToJson(IQLQuery instance) => <String, dynamic>{
+      'queryString': instance.queryString,
+    };
 
 RelationshipAttributeCreationHints _$RelationshipAttributeCreationHintsFromJson(Map<String, dynamic> json) => RelationshipAttributeCreationHints(
       title: json['title'] as String,
@@ -85,7 +73,11 @@ RelationshipAttributeQuery _$RelationshipAttributeQueryFromJson(Map<String, dyna
     );
 
 Map<String, dynamic> _$RelationshipAttributeQueryToJson(RelationshipAttributeQuery instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'key': instance.key,
+    'owner': instance.owner,
+    'attributeCreationHints': instance.attributeCreationHints.toJson(),
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -95,9 +87,6 @@ Map<String, dynamic> _$RelationshipAttributeQueryToJson(RelationshipAttributeQue
 
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
-  val['key'] = instance.key;
-  val['owner'] = instance.owner;
-  val['attributeCreationHints'] = instance.attributeCreationHints.toJson();
   return val;
 }
 
@@ -111,7 +100,11 @@ ThirdPartyRelationshipAttributeQuery _$ThirdPartyRelationshipAttributeQueryFromJ
     );
 
 Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryToJson(ThirdPartyRelationshipAttributeQuery instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'key': instance.key,
+    'owner': instance.owner,
+    'thirdParty': instance.thirdParty,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -121,8 +114,5 @@ Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryToJson(ThirdPartyRela
 
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
-  val['key'] = instance.key;
-  val['owner'] = instance.owner;
-  val['thirdParty'] = instance.thirdParty;
   return val;
 }

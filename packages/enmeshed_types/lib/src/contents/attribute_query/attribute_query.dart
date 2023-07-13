@@ -12,13 +12,7 @@ part 'relationship_attribute_query.dart';
 part 'third_party_relationship_attribute_query.dart';
 
 abstract class AttributeQuery extends Equatable {
-  final String? validFrom;
-  final String? validTo;
-
-  const AttributeQuery({
-    this.validFrom,
-    this.validTo,
-  });
+  const AttributeQuery();
 
   factory AttributeQuery.fromJson(Map json) {
     final type = json['@type'];
@@ -36,5 +30,5 @@ abstract class AttributeQuery extends Equatable {
 
   @mustCallSuper
   @override
-  List<Object?> get props => [validFrom, validTo];
+  List<Object?> get props => [];
 }

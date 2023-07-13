@@ -5,13 +5,15 @@ class RelationshipAttributeQuery extends AttributeQuery {
   final String key;
   final String owner;
   final RelationshipAttributeCreationHints attributeCreationHints;
+  final String? validFrom;
+  final String? validTo;
 
   const RelationshipAttributeQuery({
     required this.key,
     required this.owner,
     required this.attributeCreationHints,
-    super.validFrom,
-    super.validTo,
+    this.validFrom,
+    this.validTo,
   });
 
   factory RelationshipAttributeQuery.fromJson(Map json) => _$RelationshipAttributeQueryFromJson(Map<String, dynamic>.from(json));
