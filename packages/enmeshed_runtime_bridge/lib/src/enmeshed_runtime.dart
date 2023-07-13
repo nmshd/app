@@ -52,8 +52,6 @@ class EnmeshedRuntime {
 
   final EventBus eventBus;
 
-  UIBridge? _uiBridge;
-
   EnmeshedRuntime({
     Logger? logger,
     VoidCallback? runtimeReadyCallback,
@@ -134,6 +132,7 @@ class EnmeshedRuntime {
     );
 
     controller.addDeviceInfoJavaScriptHandler();
+    controller.addLocalNotificationsJavaScriptHandlers();
   }
 
   /// Register the [UIBridge] to communicate with the native UI.
@@ -143,9 +142,8 @@ class EnmeshedRuntime {
       throw Exception('Runtime not ready');
     }
 
-    final isFirstRegistration = _uiBridge == null;
+    final isFirstRegistration = !_jsToUIBridge.isRegistered;
 
-    _uiBridge = uiBridge;
     _jsToUIBridge.register(uiBridge);
 
     if (isFirstRegistration) await _evaluateJavaScript('window.registerUIBridge()');

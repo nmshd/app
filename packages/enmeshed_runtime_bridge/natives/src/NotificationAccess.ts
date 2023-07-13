@@ -7,8 +7,6 @@ import {
 import { Result } from "@js-soft/ts-utils";
 
 export class NotificationAccess implements INativeNotificationAccess {
-  // Store scheduled notifications in memory => resets after restart
-  private readonly notifications: number[] = [];
   private logger: ILogger;
 
   public constructor(private readonly loggerFactory: ILoggerFactory, private readonly config: INativeConfigAccess) {}
@@ -18,22 +16,17 @@ export class NotificationAccess implements INativeNotificationAccess {
     return Promise.resolve(Result.ok(undefined));
   }
 
-  public schedule(title: string, body: string, options?: INativeNotificationScheduleOptions): Promise<Result<number>> {
+  public async schedule(
+    title: string,
+    body: string,
+    options?: INativeNotificationScheduleOptions
+  ): Promise<Result<number>> {
     if (options?.textInput) this.logger.warn("Notification text input actions not supported on this platform");
 
     const id = options?.id ? options.id : Math.round(Math.random() * 1000);
+    await window.flutter_inappwebview.callHandler("notifications_schedule", title, body, id);
 
-    // PushNotification.localNotification({
-    //   channelId: 'your-channel-id', // (required) channelId, if the channel doesn't exist, notification will not trigger.
-    //   actions: [], // (Android only) See the doc for notification actions to know more
-    //   id,
-    //   title,
-    //   message: body,
-    // });
-
-    this.notifications.push(id);
-
-    return Promise.resolve(Result.ok(id));
+    return Result.ok(id);
   }
 
   public async update(
@@ -46,17 +39,18 @@ export class NotificationAccess implements INativeNotificationAccess {
     return Result.ok(undefined);
   }
 
-  public clear(id: number): Promise<Result<void>> {
-    // PushNotification.cancelLocalNotification(id.toString());
+  public async clear(id: number): Promise<Result<void>> {
+    await window.flutter_inappwebview.callHandler("notifications_clear", id);
+    return Result.ok(undefined);
+  }
+
+  public async clearAll(): Promise<Result<void>> {
+    await window.flutter_inappwebview.callHandler("notifications_clearAll");
     return Promise.resolve(Result.ok(undefined));
   }
 
-  public clearAll(): Promise<Result<void>> {
-    this.notifications.forEach((id) => this.clear(id));
-    return Promise.resolve(Result.ok(undefined));
-  }
-
-  public getAll(): Promise<Result<number[]>> {
-    return Promise.resolve(Result.ok(this.notifications));
+  public async getAll(): Promise<Result<number[]>> {
+    const notificationIds: number[] = await window.flutter_inappwebview.callHandler("notifications_getAll");
+    return Result.ok(notificationIds);
   }
 }

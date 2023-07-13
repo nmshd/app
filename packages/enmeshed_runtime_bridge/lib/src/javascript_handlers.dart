@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
 
 import 'event_bus.dart';
@@ -99,6 +100,9 @@ class JsToUIBridge {
   late final InAppWebViewController _controller;
   set controller(InAppWebViewController controller) => _controller = controller;
 
+  bool _isRegistered = false;
+  bool get isRegistered => _isRegistered;
+
   JsToUIBridge();
 
   void register(UIBridge uiBridge) {
@@ -174,6 +178,8 @@ class JsToUIBridge {
         return dto?.toJson();
       },
     );
+
+    _isRegistered = true;
   }
 }
 
@@ -237,6 +243,47 @@ extension Filesystem on InAppWebViewController {
         } catch (e) {
           return false;
         }
+      },
+    );
+  }
+}
+
+extension LocalNotifications on InAppWebViewController {
+  void addLocalNotificationsJavaScriptHandlers() {
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_schedule',
+      callback: (args) async {
+        final title = args[0] as String;
+        final body = args[1] as String;
+        final id = args[2] as int;
+
+        await flutterLocalNotificationsPlugin.show(id, title, body, null);
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_clear',
+      callback: (args) async {
+        final id = args[0] as int;
+
+        await flutterLocalNotificationsPlugin.cancel(id);
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_clearAll',
+      callback: (args) async {
+        await flutterLocalNotificationsPlugin.cancelAll();
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_getAll',
+      callback: (args) async {
+        final notifications = await flutterLocalNotificationsPlugin.getActiveNotifications();
+        return notifications.map((e) => e.id).toList();
       },
     );
   }
