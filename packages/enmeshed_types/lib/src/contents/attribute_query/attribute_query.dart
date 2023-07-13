@@ -1,9 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 import '../value_hints.dart';
 
+part 'attribute_query.g.dart';
 part 'identity_attribute_query.dart';
+part 'iql_query.dart';
 part 'relationship_attribute_creation_hints.dart';
 part 'relationship_attribute_query.dart';
 part 'third_party_relationship_attribute_query.dart';
@@ -24,15 +27,12 @@ abstract class AttributeQuery extends Equatable {
       'IdentityAttributeQuery' => IdentityAttributeQuery.fromJson(json),
       'ThirdPartyRelationshipAttributeQuery' => ThirdPartyRelationshipAttributeQuery.fromJson(json),
       'RelationshipAttributeQuery' => RelationshipAttributeQuery.fromJson(json),
+      'IQLQuery' => IQLQuery.fromJson(json),
       _ => throw Exception('Unknown type: $type'),
     };
   }
 
-  @mustCallSuper
-  Map<String, dynamic> toJson() => {
-        if (validFrom != null) 'validFrom': validFrom,
-        if (validTo != null) 'validTo': validTo,
-      };
+  Map<String, dynamic> toJson();
 
   @mustCallSuper
   @override

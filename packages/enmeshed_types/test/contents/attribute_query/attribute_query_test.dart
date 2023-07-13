@@ -72,9 +72,8 @@ class MockAttributeQuery extends AttributeQuery {
   });
 
   @override
-  Map<String, dynamic> toJson() {
-    return {
-      ...super.toJson(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'validFrom': super.validFrom,
+        'validTo': super.validTo,
+      };
 }

@@ -1,5 +1,6 @@
 part of 'attribute_query.dart';
 
+@JsonSerializable(includeIfNull: false)
 class RelationshipAttributeQuery extends AttributeQuery {
   final String key;
   final String owner;
@@ -13,25 +14,9 @@ class RelationshipAttributeQuery extends AttributeQuery {
     super.validTo,
   });
 
-  factory RelationshipAttributeQuery.fromJson(Map json) => RelationshipAttributeQuery(
-        key: json['key'],
-        owner: json['owner'],
-        attributeCreationHints: RelationshipAttributeCreationHints.fromJson(json['attributeCreationHints']),
-        validFrom: json['validFrom'],
-        validTo: json['validTo'],
-      );
-
+  factory RelationshipAttributeQuery.fromJson(Map json) => _$RelationshipAttributeQueryFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-        '@type': 'RelationshipAttributeQuery',
-        'key': key,
-        'owner': owner,
-        'attributeCreationHints': attributeCreationHints.toJson(),
-      };
-
-  @override
-  String toString() => 'RelationshipAttributeQuery(key: $key, owner: $owner, attributeCreationHints: $attributeCreationHints)';
+  Map<String, dynamic> toJson() => {'@type': 'RelationshipAttributeQuery', ..._$RelationshipAttributeQueryToJson(this)};
 
   @override
   List<Object?> get props => [

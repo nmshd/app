@@ -30,6 +30,7 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
         'ProcessedIdentityAttributeQueryDVO' => ProcessedIdentityAttributeQueryDVO.fromJson(json),
         'ProcessedRelationshipAttributeQueryDVO' => ProcessedRelationshipAttributeQueryDVO.fromJson(json),
         'ProcessedThirdPartyRelationshipAttributeQueryDVO' => ProcessedThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
+        'ProcessedIQLQueryDVO' => ProcessedIQLQueryDVO.fromJson(json),
         _ => throw Exception("Invalid type '${json['type']}'"),
       };
   Map<String, dynamic> toJson();
@@ -131,4 +132,32 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
       _$ProcessedThirdPartyRelationshipAttributeQueryDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ProcessedThirdPartyRelationshipAttributeQueryDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class ProcessedIQLQueryDVO extends ProcessedAttributeQueryDVO {
+  final List<RepositoryAttributeDVO> results;
+  final String valueType;
+  final RenderHints? renderHints;
+  final ValueHints? valueHints;
+
+  const ProcessedIQLQueryDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    super.validFrom,
+    super.validTo,
+    required this.results,
+    required this.valueType,
+    this.renderHints,
+    this.valueHints,
+  }) : super(type: 'ProcessedIQLQueryDVO');
+
+  factory ProcessedIQLQueryDVO.fromJson(Map json) => _$ProcessedIQLQueryDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$ProcessedIQLQueryDVOToJson(this);
 }
