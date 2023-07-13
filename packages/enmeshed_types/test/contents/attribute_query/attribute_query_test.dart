@@ -48,21 +48,6 @@ void main() {
       expect(() => AttributeQuery.fromJson(invalidJson), throwsA(isA<Exception>()));
     });
   });
-
-  group('AttributeQuery toJson', () {
-    test('is correctly converted', () {
-      const mockAttributeQuery = MockAttributeQuery();
-
-      expect(mockAttributeQuery.toJson(), equals(<String, dynamic>{}));
-    });
-    test('is correctly converted with properties "validFrom" and "validTo"', () {
-      const mockAttributeQuery = MockAttributeQuery(validFrom: '1970', validTo: '1980');
-
-      final attributeQueryJson = {'validFrom': '1970', 'validTo': '1980'};
-
-      expect(mockAttributeQuery.toJson(), equals(attributeQueryJson));
-    });
-  });
 }
 
 class MockAttributeQuery extends AttributeQuery {
@@ -71,9 +56,7 @@ class MockAttributeQuery extends AttributeQuery {
     super.validTo,
   });
 
+  // dummy impl, we dont have to check this
   @override
-  Map<String, dynamic> toJson() => {
-        'validFrom': super.validFrom,
-        'validTo': super.validTo,
-      };
+  Map<String, dynamic> toJson() => {};
 }

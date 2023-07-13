@@ -10,13 +10,6 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -29,12 +22,6 @@ void main() {
         equals({
           '@type': 'ValueHints',
           'editHelp': 'anEditHelp',
-          'min': null,
-          'max': null,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -46,13 +33,7 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
           'min': 0,
-          'max': null,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -64,13 +45,7 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
           'max': 10,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -82,13 +57,7 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
           'pattern': 'aPattern',
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -100,13 +69,7 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
-          'pattern': null,
           'values': [const ValueHintsValue(key: 'aKey', displayName: 'aDisplayName').toJson()],
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -118,13 +81,7 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
-          'pattern': null,
-          'values': null,
           'defaultValue': 'aDefaultValue',
-          'propertyHints': null,
         }),
       );
     });
@@ -136,12 +93,6 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
           'propertyHints': {'aKey': const ValueHints().toJson()},
         }),
       );

@@ -56,7 +56,7 @@ void main() {
           'title': 'aCreationHint',
           'valueType': 'ProprietaryInteger',
           'confidentiality': 'public',
-          'valueHints': const ValueHints(),
+          'valueHints': const ValueHints().toJson(),
         }),
       );
     });
@@ -78,7 +78,7 @@ void main() {
           'valueType': 'ProprietaryInteger',
           'confidentiality': 'public',
           'description': 'aCreationHint',
-          'valueHints': const ValueHints(),
+          'valueHints': const ValueHints().toJson(),
         }),
       );
     });
