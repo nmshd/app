@@ -6,7 +6,11 @@ import _ from "lodash";
 import { FileAccess } from "./FileAccess";
 
 export class ConfigAccess implements INativeConfigAccess {
-  public constructor(private fileAccess: FileAccess, private logger: ILogger, private runtimeConfigPath: string) {}
+  public constructor(
+    private fileAccess: FileAccess,
+    private logger: ILogger,
+    private runtimeConfigPath: string
+  ) {}
 
   private config: any = {};
 
