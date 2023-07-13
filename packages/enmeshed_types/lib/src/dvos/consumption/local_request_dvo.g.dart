@@ -47,22 +47,22 @@ Map<String, dynamic> _$LocalRequestDVOToJson(LocalRequestDVO instance) {
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['isOwn'] = instance.isOwn;
   val['createdAt'] = instance.createdAt;
-  val['content'] = instance.content;
+  val['content'] = instance.content.toJson();
   val['status'] = _$LocalRequestStatusEnumMap[instance.status]!;
   val['statusText'] = instance.statusText;
   val['directionText'] = instance.directionText;
   val['sourceTypeText'] = instance.sourceTypeText;
-  val['createdBy'] = instance.createdBy;
-  val['peer'] = instance.peer;
-  writeNotNull('response', instance.response);
-  writeNotNull('source', instance.source);
-  val['decider'] = instance.decider;
+  val['createdBy'] = instance.createdBy.toJson();
+  val['peer'] = instance.peer.toJson();
+  writeNotNull('response', instance.response?.toJson());
+  writeNotNull('source', instance.source?.toJson());
+  val['decider'] = instance.decider.toJson();
   val['isDecidable'] = instance.isDecidable;
-  val['items'] = instance.items;
+  val['items'] = instance.items.map((e) => e.toJson()).toList();
   return val;
 }
 
@@ -121,11 +121,11 @@ Map<String, dynamic> _$LocalResponseDVOToJson(LocalResponseDVO instance) {
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['createdAt'] = instance.createdAt;
-  val['content'] = instance.content;
-  writeNotNull('source', instance.source);
+  val['content'] = instance.content.toJson();
+  writeNotNull('source', instance.source?.toJson());
   return val;
 }
 

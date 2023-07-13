@@ -36,10 +36,10 @@ Map<String, dynamic> _$RequestDVOToJson(RequestDVO instance) {
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('expiresAt', instance.expiresAt);
-  val['items'] = instance.items;
-  writeNotNull('response', instance.response);
+  val['items'] = instance.items.map((e) => e.toJson()).toList();
+  writeNotNull('response', instance.response?.toJson());
   return val;
 }

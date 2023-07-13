@@ -50,6 +50,32 @@ Map<String, dynamic> _$IQLQueryToJson(IQLQuery instance) {
   return val;
 }
 
+RelationshipAttributeCreationHints _$RelationshipAttributeCreationHintsFromJson(Map<String, dynamic> json) => RelationshipAttributeCreationHints(
+      title: json['title'] as String,
+      valueType: json['valueType'] as String,
+      description: json['description'] as String?,
+      valueHints: json['valueHints'] == null ? null : ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
+      confidentiality: json['confidentiality'] as String,
+    );
+
+Map<String, dynamic> _$RelationshipAttributeCreationHintsToJson(RelationshipAttributeCreationHints instance) {
+  final val = <String, dynamic>{
+    'title': instance.title,
+    'valueType': instance.valueType,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('valueHints', instance.valueHints?.toJson());
+  val['confidentiality'] = instance.confidentiality;
+  return val;
+}
+
 RelationshipAttributeQuery _$RelationshipAttributeQueryFromJson(Map<String, dynamic> json) => RelationshipAttributeQuery(
       key: json['key'] as String,
       owner: json['owner'] as String,
@@ -71,7 +97,7 @@ Map<String, dynamic> _$RelationshipAttributeQueryToJson(RelationshipAttributeQue
   writeNotNull('validTo', instance.validTo);
   val['key'] = instance.key;
   val['owner'] = instance.owner;
-  val['attributeCreationHints'] = instance.attributeCreationHints;
+  val['attributeCreationHints'] = instance.attributeCreationHints.toJson();
   return val;
 }
 
