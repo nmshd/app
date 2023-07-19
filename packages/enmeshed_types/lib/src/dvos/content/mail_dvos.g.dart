@@ -26,7 +26,7 @@ RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) => Requ
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-      content: json['content'] as Map<String, dynamic>,
+      content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
       request: LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
     );
 
@@ -46,21 +46,21 @@ Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) {
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['createdByDevice'] = instance.createdByDevice;
   val['createdAt'] = instance.createdAt;
-  val['createdBy'] = instance.createdBy;
-  val['recipients'] = instance.recipients;
-  val['attachments'] = instance.attachments;
+  val['createdBy'] = instance.createdBy.toJson();
+  val['recipients'] = instance.recipients.map((e) => e.toJson()).toList();
+  val['attachments'] = instance.attachments.map((e) => e.toJson()).toList();
   val['isOwn'] = instance.isOwn;
   writeNotNull('recipientCount', const IntegerConverter().toJson(instance.recipientCount));
   writeNotNull('attachmentCount', const IntegerConverter().toJson(instance.attachmentCount));
   val['status'] = _$MessageStatusEnumMap[instance.status]!;
   val['statusText'] = instance.statusText;
-  val['peer'] = instance.peer;
-  val['content'] = instance.content;
-  val['request'] = instance.request;
+  val['peer'] = instance.peer.toJson();
+  val['content'] = instance.content.toJson();
+  val['request'] = instance.request.toJson();
   return val;
 }
 
@@ -90,7 +90,7 @@ MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-      content: json['content'] as Map<String, dynamic>,
+      content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
       to: (json['to'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
       cc: (json['cc'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
       subject: json['subject'] as String,
@@ -115,22 +115,22 @@ Map<String, dynamic> _$MailDVOToJson(MailDVO instance) {
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['createdByDevice'] = instance.createdByDevice;
   val['createdAt'] = instance.createdAt;
-  val['createdBy'] = instance.createdBy;
-  val['recipients'] = instance.recipients;
-  val['attachments'] = instance.attachments;
+  val['createdBy'] = instance.createdBy.toJson();
+  val['recipients'] = instance.recipients.map((e) => e.toJson()).toList();
+  val['attachments'] = instance.attachments.map((e) => e.toJson()).toList();
   val['isOwn'] = instance.isOwn;
   writeNotNull('recipientCount', const IntegerConverter().toJson(instance.recipientCount));
   writeNotNull('attachmentCount', const IntegerConverter().toJson(instance.attachmentCount));
   val['status'] = _$MessageStatusEnumMap[instance.status]!;
   val['statusText'] = instance.statusText;
-  val['peer'] = instance.peer;
-  val['content'] = instance.content;
-  val['to'] = instance.to;
-  val['cc'] = instance.cc;
+  val['peer'] = instance.peer.toJson();
+  val['content'] = instance.content.toJson();
+  val['to'] = instance.to.map((e) => e.toJson()).toList();
+  val['cc'] = instance.cc.map((e) => e.toJson()).toList();
   val['subject'] = instance.subject;
   val['body'] = instance.body;
   writeNotNull('toCount', const IntegerConverter().toJson(instance.toCount));

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
 import '../content/content.dart';
@@ -19,7 +20,7 @@ class RelationshipTemplateDVO extends DataViewObject {
   final RequestDVO? onNewRelationship;
   final RequestDVO? onExistingRelationship;
   final LocalRequestDVO? request;
-  final Map<String, dynamic> content;
+  final RelationshipTemplateContent content;
 
   const RelationshipTemplateDVO({
     required super.id,
