@@ -25,7 +25,7 @@ RelationshipTemplateDVO _$RelationshipTemplateDVOFromJson(Map<String, dynamic> j
       onExistingRelationship:
           json['onExistingRelationship'] == null ? null : RequestDVO.fromJson(json['onExistingRelationship'] as Map<String, dynamic>),
       request: json['request'] == null ? null : LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
-      content: json['content'] as Map<String, dynamic>,
+      content: RelationshipTemplateContent.fromJson(json['content'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO instance) {
@@ -44,17 +44,17 @@ Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO ins
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['isOwn'] = instance.isOwn;
-  val['createdBy'] = instance.createdBy;
+  val['createdBy'] = instance.createdBy.toJson();
   val['createdByDevice'] = instance.createdByDevice;
   val['createdAt'] = instance.createdAt;
   writeNotNull('expiresAt', instance.expiresAt);
   writeNotNull('maxNumberOfAllocations', instance.maxNumberOfAllocations);
-  writeNotNull('onNewRelationship', instance.onNewRelationship);
-  writeNotNull('onExistingRelationship', instance.onExistingRelationship);
-  writeNotNull('request', instance.request);
-  val['content'] = instance.content;
+  writeNotNull('onNewRelationship', instance.onNewRelationship?.toJson());
+  writeNotNull('onExistingRelationship', instance.onExistingRelationship?.toJson());
+  writeNotNull('request', instance.request?.toJson());
+  val['content'] = instance.content.toJson();
   return val;
 }

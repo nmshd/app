@@ -28,7 +28,7 @@ Map<String, dynamic> _$RenderHintsToJson(RenderHints instance) {
   }
 
   writeNotNull('dataType', _$RenderHintsDataTypeEnumMap[instance.dataType]);
-  writeNotNull('propertyHints', instance.propertyHints);
+  writeNotNull('propertyHints', instance.propertyHints?.map((k, e) => MapEntry(k, e.toJson())));
   return val;
 }
 

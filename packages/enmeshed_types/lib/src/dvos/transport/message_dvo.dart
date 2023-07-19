@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../content/mail_dvos.dart';
 import '../data_view_object.dart';
@@ -27,7 +28,7 @@ class MessageDVO extends DataViewObject {
   final MessageStatus status;
   final String statusText;
   final IdentityDVO peer;
-  final Map<String, dynamic> content;
+  final MessageContent content;
 
   const MessageDVO({
     required super.id,
