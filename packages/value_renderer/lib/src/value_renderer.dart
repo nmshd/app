@@ -7,6 +7,8 @@ import 'package:value_renderer/src/widgets/renderers/string.dart';
 class ValueRenderer extends StatelessWidget {
   const ValueRenderer({
     super.key,
+    this.initialValue = '',
+    this.values,
     this.fieldName,
     this.technicalType,
     this.editType,
@@ -14,6 +16,8 @@ class ValueRenderer extends StatelessWidget {
     this.valueHintsValue,
   });
 
+  final String? initialValue;
+  final List<dynamic>? values;
   final String? fieldName;
   final RenderHintsTechnicalType? technicalType;
   final RenderHintsEditType? editType;
@@ -24,6 +28,8 @@ class ValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     if (technicalType == RenderHintsTechnicalType.String) {
       return StringRenderer(
+        initialValue: initialValue ?? '',
+        values: values,
         fieldName: fieldName,
         editType: editType,
         dataType: dataType,
@@ -45,7 +51,9 @@ class ValueRenderer extends StatelessWidget {
         valueHintsValue: valueHintsValue,
       );
     } else {
-      return const StringRenderer();
+      return const StringRenderer(
+        initialValue: '',
+      );
     }
   }
 }

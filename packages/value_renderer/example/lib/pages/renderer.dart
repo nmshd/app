@@ -33,10 +33,14 @@ class Renderer extends StatelessWidget {
                 dynamic techType = data["renderHints"]["propertyHints"][key]["technicalType"];
                 dynamic dataType = data["renderHints"]["propertyHints"][key]["dataType"];
                 dynamic editType = data["renderHints"]["propertyHints"][key]["editType"];
+                dynamic initialValue = data["value"][key];
+                dynamic maxLength = data["valueHints"]["propertyHints"][key]["max"];
+                dynamic minLength = data["valueHints"]["propertyHints"][key]["min"];
+                dynamic values = data["valueHints"]["propertyHints"][key]["values"];
 
                 return ListTile(
-                  // title: Text('$key: $techType, $editType, $dataType'),
-                  subtitle: showInput(key, techType, editType),
+                  title: Text('$key: $techType, $editType, $dataType | $initialValue, $maxLength, $minLength'),
+                  subtitle: showInput(key, initialValue, values, techType, editType),
                 );
               },
             ),
@@ -47,14 +51,18 @@ class Renderer extends StatelessWidget {
   }
 }
 
-showInput(key, techType, editType) {
+showInput(key, initialValue, values, techType, editType) {
   if (editType == 'SelectLike') {
-    return const ValueRenderer(
+    return ValueRenderer(
+      initialValue: initialValue,
+      values: values,
+      fieldName: key,
       technicalType: RenderHintsTechnicalType.String,
       editType: RenderHintsEditType.SelectLike,
     );
   } else if (techType == 'String') {
     return ValueRenderer(
+      initialValue: initialValue,
       fieldName: key,
       technicalType: RenderHintsTechnicalType.String,
     );

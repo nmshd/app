@@ -52,13 +52,14 @@ class _MyHomePageState extends State<InputExamples> {
                         color: Colors.blue,
                         thickness: 1.0,
                       ),
-                      ValueRenderer(technicalType: RenderHintsTechnicalType.String),
+                      ValueRenderer(technicalType: RenderHintsTechnicalType.String, fieldName: 'Text Field'),
                       ValueRenderer(technicalType: RenderHintsTechnicalType.String, dataType: RenderHintsDataType.DateTime),
                       ValueRenderer(
                         technicalType: RenderHintsTechnicalType.String,
                         editType: RenderHintsEditType.ButtonLike,
                       ),
                       ValueRenderer(
+                        fieldName: 'Select an Option:',
                         technicalType: RenderHintsTechnicalType.String,
                         editType: RenderHintsEditType.SelectLike,
                       ),

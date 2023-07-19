@@ -7,8 +7,10 @@ import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
 import 'package:value_renderer/src/widgets/inputs/text_input.dart';
 
 class StringRenderer extends StatelessWidget {
-  const StringRenderer({super.key, this.fieldName, this.editType, this.dataType});
+  const StringRenderer({super.key, this.fieldName, this.values, this.editType, this.dataType, required this.initialValue});
 
+  final String initialValue;
+  final List<dynamic>? values;
   final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
@@ -19,7 +21,11 @@ class StringRenderer extends StatelessWidget {
       return const DatepickerButton();
     }
     if (editType == RenderHintsEditType.SelectLike) {
-      return const DropdownSelectButton();
+      return DropdownSelectButton(
+        fieldName: fieldName!,
+        initialValue: initialValue,
+        values: values,
+      );
     }
     if (editType == RenderHintsEditType.ButtonLike) {
       return const RadioButton();
@@ -27,6 +33,9 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike) {
       return const SegmentedButtonInput();
     }
-    return TextInput(fieldName: fieldName);
+    return TextInput(
+      fieldName: fieldName,
+      initialValue: initialValue,
+    );
   }
 }
