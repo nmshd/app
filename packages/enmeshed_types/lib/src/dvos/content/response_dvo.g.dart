@@ -35,9 +35,9 @@ Map<String, dynamic> _$ResponseDVOToJson(ResponseDVO instance) {
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
-  val['items'] = instance.items;
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['items'] = instance.items.map((e) => e.toJson()).toList();
   val['result'] = _$ResponseResultEnumMap[instance.result]!;
   return val;
 }

@@ -39,13 +39,13 @@ Map<String, dynamic> _$IdentityDVOToJson(IdentityDVO instance) {
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('publicKey', instance.publicKey);
   val['realm'] = instance.realm;
   val['initials'] = instance.initials;
   val['isSelf'] = instance.isSelf;
   val['hasRelationship'] = instance.hasRelationship;
-  writeNotNull('relationship', instance.relationship);
+  writeNotNull('relationship', instance.relationship?.toJson());
   return val;
 }

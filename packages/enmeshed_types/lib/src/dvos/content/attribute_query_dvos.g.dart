@@ -40,15 +40,15 @@ Map<String, dynamic> _$IdentityAttributeQueryDVOToJson(IdentityAttributeQueryDVO
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
   val['valueType'] = instance.valueType;
   writeNotNull('tags', instance.tags);
   val['isProcessed'] = instance.isProcessed;
-  val['renderHints'] = instance.renderHints;
-  val['valueHints'] = instance.valueHints;
+  val['renderHints'] = instance.renderHints.toJson();
+  val['valueHints'] = instance.valueHints.toJson();
   return val;
 }
 
@@ -88,17 +88,17 @@ Map<String, dynamic> _$RelationshipAttributeQueryDVOToJson(RelationshipAttribute
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
   val['valueType'] = instance.valueType;
   val['key'] = instance.key;
-  val['owner'] = instance.owner;
-  val['attributeCreationHints'] = instance.attributeCreationHints;
+  val['owner'] = instance.owner.toJson();
+  val['attributeCreationHints'] = instance.attributeCreationHints.toJson();
   val['isProcessed'] = instance.isProcessed;
-  val['renderHints'] = instance.renderHints;
-  val['valueHints'] = instance.valueHints;
+  val['renderHints'] = instance.renderHints.toJson();
+  val['valueHints'] = instance.valueHints.toJson();
   return val;
 }
 
@@ -136,13 +136,13 @@ Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryDVOToJson(ThirdPartyR
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
   val['key'] = instance.key;
-  val['owner'] = instance.owner;
-  val['thirdParty'] = instance.thirdParty;
+  val['owner'] = instance.owner.toJson();
+  val['thirdParty'] = instance.thirdParty.map((e) => e.toJson()).toList();
   val['isProcessed'] = instance.isProcessed;
   return val;
 }

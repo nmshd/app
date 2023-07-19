@@ -26,9 +26,9 @@ Map<String, dynamic> _$ResponseItemGroupDVOToJson(ResponseItemGroupDVO instance)
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
-  val['items'] = instance.items;
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['items'] = instance.items.map((e) => e.toJson()).toList();
   return val;
 }
 
@@ -61,8 +61,8 @@ Map<String, dynamic> _$RejectResponseItemDVOToJson(RejectResponseItemDVO instanc
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('code', instance.code);
   writeNotNull('message', instance.message);
   return val;
@@ -97,8 +97,8 @@ Map<String, dynamic> _$ErrorResponseItemDVOToJson(ErrorResponseItemDVO instance)
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['code'] = instance.code;
   val['message'] = instance.message;
   return val;
@@ -131,8 +131,8 @@ Map<String, dynamic> _$AcceptResponseItemDVOToJson(AcceptResponseItemDVO instanc
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   return val;
 }
 
@@ -165,10 +165,10 @@ Map<String, dynamic> _$ReadAttributeAcceptResponseItemDVOToJson(ReadAttributeAcc
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute;
+  val['attribute'] = instance.attribute.toJson();
   return val;
 }
 
@@ -202,10 +202,10 @@ Map<String, dynamic> _$ProposeAttributeAcceptResponseItemDVOToJson(ProposeAttrib
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute;
+  val['attribute'] = instance.attribute.toJson();
   return val;
 }
 
@@ -239,10 +239,10 @@ Map<String, dynamic> _$CreateAttributeAcceptResponseItemDVOToJson(CreateAttribut
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute;
+  val['attribute'] = instance.attribute.toJson();
   return val;
 }
 
@@ -275,10 +275,10 @@ Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeA
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute;
+  val['attribute'] = instance.attribute.toJson();
   return val;
 }
 
@@ -312,9 +312,9 @@ Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(Regi
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['listenerId'] = instance.listenerId;
-  val['listener'] = instance.listener;
+  val['listener'] = instance.listener.toJson();
   return val;
 }

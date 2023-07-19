@@ -43,12 +43,12 @@ Map<String, dynamic> _$FileDVOToJson(FileDVO instance) {
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['filename'] = instance.filename;
   writeNotNull('filesize', const IntegerConverter().toJson(instance.filesize));
   val['createdAt'] = instance.createdAt;
-  val['createdBy'] = instance.createdBy;
+  val['createdBy'] = instance.createdBy.toJson();
   val['createdByDevice'] = instance.createdByDevice;
   val['expiresAt'] = instance.expiresAt;
   val['mimetype'] = instance.mimetype;
