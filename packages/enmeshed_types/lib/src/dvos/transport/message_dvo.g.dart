@@ -26,7 +26,7 @@ MessageDVO _$MessageDVOFromJson(Map<String, dynamic> json) => MessageDVO(
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-      content: json['content'] as Map<String, dynamic>,
+      content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) {
@@ -58,7 +58,7 @@ Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) {
   val['status'] = _$MessageStatusEnumMap[instance.status]!;
   val['statusText'] = instance.statusText;
   val['peer'] = instance.peer.toJson();
-  val['content'] = instance.content;
+  val['content'] = instance.content.toJson();
   return val;
 }
 

@@ -25,7 +25,7 @@ RelationshipTemplateDVO _$RelationshipTemplateDVOFromJson(Map<String, dynamic> j
       onExistingRelationship:
           json['onExistingRelationship'] == null ? null : RequestDVO.fromJson(json['onExistingRelationship'] as Map<String, dynamic>),
       request: json['request'] == null ? null : LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
-      content: json['content'] as Map<String, dynamic>,
+      content: RelationshipTemplateContent.fromJson(json['content'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO instance) {
@@ -55,6 +55,6 @@ Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO ins
   writeNotNull('onNewRelationship', instance.onNewRelationship?.toJson());
   writeNotNull('onExistingRelationship', instance.onExistingRelationship?.toJson());
   writeNotNull('request', instance.request?.toJson());
-  val['content'] = instance.content;
+  val['content'] = instance.content.toJson();
   return val;
 }

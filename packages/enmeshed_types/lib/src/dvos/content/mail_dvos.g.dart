@@ -26,7 +26,7 @@ RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) => Requ
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-      content: json['content'] as Map<String, dynamic>,
+      content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
       request: LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
     );
 
@@ -59,7 +59,7 @@ Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) {
   val['status'] = _$MessageStatusEnumMap[instance.status]!;
   val['statusText'] = instance.statusText;
   val['peer'] = instance.peer.toJson();
-  val['content'] = instance.content;
+  val['content'] = instance.content.toJson();
   val['request'] = instance.request.toJson();
   return val;
 }
@@ -90,7 +90,7 @@ MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-      content: json['content'] as Map<String, dynamic>,
+      content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
       to: (json['to'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
       cc: (json['cc'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
       subject: json['subject'] as String,
@@ -128,7 +128,7 @@ Map<String, dynamic> _$MailDVOToJson(MailDVO instance) {
   val['status'] = _$MessageStatusEnumMap[instance.status]!;
   val['statusText'] = instance.statusText;
   val['peer'] = instance.peer.toJson();
-  val['content'] = instance.content;
+  val['content'] = instance.content.toJson();
   val['to'] = instance.to.map((e) => e.toJson()).toList();
   val['cc'] = instance.cc.map((e) => e.toJson()).toList();
   val['subject'] = instance.subject;
