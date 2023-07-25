@@ -37,6 +37,8 @@ class ValueRenderer extends StatelessWidget {
     }
     if (technicalType == RenderHintsTechnicalType.Boolean) {
       return BooleanRenderer(
+        initialValue: initialValue ?? '',
+        values: values,
         fieldName: fieldName,
         editType: editType,
         dataType: dataType,
@@ -45,6 +47,8 @@ class ValueRenderer extends StatelessWidget {
     }
     if (technicalType == RenderHintsTechnicalType.Integer || technicalType == RenderHintsTechnicalType.Float) {
       return NumberRenderer(
+        initialValue: initialValue ?? '',
+        values: values,
         fieldName: fieldName,
         editType: editType,
         dataType: dataType,

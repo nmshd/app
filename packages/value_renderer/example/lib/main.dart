@@ -1,7 +1,8 @@
 import 'dart:convert';
 
+import 'package:example/pages/address_renderer.dart';
+import 'package:example/pages/decidable_renderer.dart';
 import 'package:example/pages/input_examples.dart';
-import 'package:example/pages/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -11,8 +12,15 @@ main() {
   runApp(const ValueRendererExample());
 }
 
-Future<Map<String, dynamic>> loadJsonData() async {
+Future<Map<String, dynamic>> loadAddressJson() async {
   String jsonData = await rootBundle.loadString('assets/address.json');
+  Map<String, dynamic> data = jsonDecode(jsonData);
+
+  return data;
+}
+
+Future<Map<String, dynamic>> loadDecidableJson() async {
+  String jsonData = await rootBundle.loadString('assets/decidable.json');
   Map<String, dynamic> data = jsonDecode(jsonData);
 
   return data;
@@ -28,18 +36,7 @@ class ValueRendererExample extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: FutureBuilder<Map<String, dynamic>>(
-        future: loadJsonData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return HomeScreen(data: snapshot.data!);
-          } else if (snapshot.hasError) {
-            return const Text('Error loading JSON data');
-          } else {
-            return const CircularProgressIndicator();
-          }
-        },
-      ),
+      home: const HomeScreen(),
       supportedLocales: const [
         Locale('en', ''),
       ],
@@ -50,9 +47,7 @@ class ValueRendererExample extends StatelessWidget {
 /// Displays various demos that are selected from a list of
 /// options in a drawer.
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.data});
-
-  final Map<String, dynamic> data;
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -101,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
               key: _scaffoldKey,
               body: Stack(
                 children: [
-                  _selectedMenuItem!.pageBuilder(context, widget.data),
+                  _selectedMenuItem!.pageBuilder(context),
                   _buildDrawerButton(),
                 ],
               ),
@@ -168,16 +163,43 @@ final _menu = <_MenuGroup>[
     _MenuItem(
       icon: Icons.description,
       title: 'Input Examples',
-      pageBuilder: (context, data) {
+      pageBuilder: (context) {
         return const InputExamples();
       },
     ),
     _MenuItem(
       icon: Icons.description,
-      title: 'Renderer',
-      pageBuilder: (context, data) {
-        return Renderer(
-          data: data,
+      title: 'Address Renderer',
+      pageBuilder: (context) {
+        return FutureBuilder<Map<String, dynamic>>(
+          future: loadAddressJson(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return AddressRenderer(data: snapshot.data!);
+            } else if (snapshot.hasError) {
+              return const Text('Error loading JSON data');
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        );
+      },
+    ),
+    _MenuItem(
+      icon: Icons.description,
+      title: 'Decidable Renderer',
+      pageBuilder: (context) {
+        return FutureBuilder<Map<String, dynamic>>(
+          future: loadDecidableJson(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return DecidableRenderer(data: snapshot.data!);
+            } else if (snapshot.hasError) {
+              return const Text('Error loading JSON data');
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         );
       },
     ),
@@ -203,7 +225,7 @@ class _MenuItem {
 
   final IconData icon;
   final String title;
-  final Widget Function(BuildContext context, Map<String, dynamic> data) pageBuilder;
+  final Widget Function(BuildContext context) pageBuilder;
 }
 
 class _DrawerHeader extends StatelessWidget {

@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:value_renderer/value_renderer.dart';
 
-class Renderer extends StatelessWidget {
-  const Renderer({super.key, required this.data});
+class AddressRenderer extends StatelessWidget {
+  const AddressRenderer({super.key, required this.data});
 
   final Map<String, dynamic> data;
 

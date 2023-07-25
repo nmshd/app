@@ -7,12 +7,15 @@ import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
 import 'package:value_renderer/src/widgets/inputs/switch_button.dart';
 
 class BooleanRenderer extends StatelessWidget {
-  const BooleanRenderer({super.key, this.fieldName, this.editType, this.dataType, this.valueHintsValue});
+  const BooleanRenderer(
+      {super.key, this.fieldName = 'Boolean Field', this.editType, this.dataType, this.valueHintsValue, this.initialValue = '', this.values});
 
   final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final bool? valueHintsValue;
+  final String initialValue;
+  final List<dynamic>? values;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,10 @@ class BooleanRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike) {
       return const SwitchButton();
     }
-    return const RadioButton();
+    return RadioButton(
+      fieldName: fieldName!,
+      values: values!,
+      initialValue: initialValue,
+    );
   }
 }

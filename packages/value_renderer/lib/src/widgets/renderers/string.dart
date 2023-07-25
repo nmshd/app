@@ -28,7 +28,11 @@ class StringRenderer extends StatelessWidget {
       );
     }
     if (editType == RenderHintsEditType.ButtonLike) {
-      return const RadioButton();
+      return RadioButton(
+        fieldName: fieldName!,
+        values: values!,
+        initialValue: initialValue,
+      );
     }
     if (editType == RenderHintsEditType.SliderLike) {
       return const SegmentedButtonInput();

@@ -7,12 +7,14 @@ import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
 import 'package:value_renderer/src/widgets/inputs/slider_input.dart';
 
 class NumberRenderer extends StatelessWidget {
-  const NumberRenderer({super.key, this.fieldName, this.editType, this.dataType, this.valueHintsValue});
+  const NumberRenderer({super.key, this.fieldName, this.values, this.editType, this.dataType, required this.initialValue, this.valueHintsValue});
 
   final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final bool? valueHintsValue;
+  final String initialValue;
+  final List<dynamic>? values;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,11 @@ class NumberRenderer extends StatelessWidget {
       return const DropdownSelectButton();
     }
     if (editType == RenderHintsEditType.ButtonLike) {
-      return const RadioButton();
+      return RadioButton(
+        fieldName: fieldName!,
+        values: values!,
+        initialValue: initialValue,
+      );
     }
     if (editType == RenderHintsEditType.SliderLike && valueHintsValue == true) {
       return const SegmentedButtonInput();
