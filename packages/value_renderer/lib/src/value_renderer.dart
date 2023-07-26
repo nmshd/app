@@ -1,63 +1,72 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:value_renderer/src/widgets/renderers/boolean.dart';
+import 'package:value_renderer/src/widgets/renderers/complex.dart';
 import 'package:value_renderer/src/widgets/renderers/number.dart';
 import 'package:value_renderer/src/widgets/renderers/string.dart';
+import 'package:value_renderer/value_renderer.dart';
 
 class ValueRenderer extends StatelessWidget {
   const ValueRenderer({
     super.key,
-    this.initialValue = '',
-    this.values,
+    this.initialValue,
     this.fieldName,
-    this.technicalType,
-    this.editType,
-    this.dataType,
-    this.valueHintsValue,
+    required this.renderHints,
+    required this.valueHints,
   });
 
-  final String? initialValue;
-  final List<dynamic>? values;
+  final Map<String, dynamic>? initialValue;
+  final Map<String, dynamic> renderHints;
+  final Map<String, dynamic> valueHints;
   final String? fieldName;
-  final RenderHintsTechnicalType? technicalType;
-  final RenderHintsEditType? editType;
-  final RenderHintsDataType? dataType;
-  final bool? valueHintsValue;
 
   @override
   Widget build(BuildContext context) {
-    if (technicalType == RenderHintsTechnicalType.String) {
-      return StringRenderer(
-        initialValue: initialValue ?? '',
-        values: values,
+    final RenderHintsTechnicalType technicalType = parseTechnicalType(renderHints['technicalType']);
+    final RenderHintsEditType editType = parseEditType(renderHints['editType']);
+    final RenderHintsDataType dataType = parseDataType(renderHints['dataType'] ?? '');
+    final List<dynamic>? values = valueHints['values'] ?? [];
+
+    if (technicalType == RenderHintsTechnicalType.Integer ||
+        technicalType == RenderHintsTechnicalType.Float ||
+        initialValue?['@type'] == 'BirthDate') {
+      return NumberRenderer(
+        initialValue: initialValue,
         fieldName: fieldName,
         editType: editType,
         dataType: dataType,
+        values: values,
+      );
+    }
+
+    if (editType == RenderHintsEditType.Complex) {
+      return ComplexRenderer(
+        initialValue: initialValue ?? {},
+        fieldName: fieldName,
+        editType: editType,
+        renderHints: renderHints,
+        valueHints: valueHints,
+      );
+    }
+    if (technicalType == RenderHintsTechnicalType.String) {
+      return StringRenderer(
+        initialValue: initialValue?['value'] ?? '',
+        fieldName: fieldName,
+        editType: editType,
+        dataType: dataType,
+        values: values,
       );
     }
     if (technicalType == RenderHintsTechnicalType.Boolean) {
       return BooleanRenderer(
-        initialValue: initialValue ?? '',
-        values: values,
+        initialValue: initialValue?['value'] ?? '',
         fieldName: fieldName,
         editType: editType,
         dataType: dataType,
-        valueHintsValue: valueHintsValue,
-      );
-    }
-    if (technicalType == RenderHintsTechnicalType.Integer || technicalType == RenderHintsTechnicalType.Float) {
-      return NumberRenderer(
-        initialValue: initialValue ?? '',
         values: values,
-        fieldName: fieldName,
-        editType: editType,
-        dataType: dataType,
-        valueHintsValue: valueHintsValue,
       );
     } else {
-      return const StringRenderer(
-        initialValue: '',
-      );
+      return const Text('No value provided');
     }
   }
 }

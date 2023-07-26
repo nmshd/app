@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DropdownSelectButton extends StatefulWidget {
   const DropdownSelectButton({super.key, this.fieldName = 'Select an Option: ', this.initialValue = '', this.values});
 
-  final String initialValue;
+  final dynamic initialValue;
   final List<dynamic>? values;
   final String fieldName;
 

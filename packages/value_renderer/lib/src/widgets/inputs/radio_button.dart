@@ -5,7 +5,7 @@ class RadioButton extends StatefulWidget {
 
   final String fieldName;
   final List<dynamic> values;
-  final String initialValue;
+  final dynamic initialValue;
 
   @override
   State<RadioButton> createState() => _RadioButtonState();
@@ -23,8 +23,18 @@ class _RadioButtonState extends State<RadioButton> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(widget.fieldName),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          widget.fieldName,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16.0,
+          ),
+        ),
         ...widget.values.map((option) => RadioListTile<String>(
               title: Text(option['key']!),
               value: option['key']!,

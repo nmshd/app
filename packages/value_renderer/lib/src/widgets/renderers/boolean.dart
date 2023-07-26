@@ -8,7 +8,7 @@ import 'package:value_renderer/src/widgets/inputs/switch_button.dart';
 
 class BooleanRenderer extends StatelessWidget {
   const BooleanRenderer(
-      {super.key, this.fieldName = 'Boolean Field', this.editType, this.dataType, this.valueHintsValue, this.initialValue = '', this.values});
+      {super.key, this.fieldName = 'Boolean Field', this.editType, this.dataType, this.valueHintsValue, required this.initialValue, this.values});
 
   final String? fieldName;
   final RenderHintsEditType? editType;

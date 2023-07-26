@@ -1,6 +1,4 @@
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:value_renderer/value_renderer.dart';
 
 class InputExamples extends StatefulWidget {
   const InputExamples({
@@ -52,21 +50,21 @@ class _MyHomePageState extends State<InputExamples> {
                         color: Colors.blue,
                         thickness: 1.0,
                       ),
-                      ValueRenderer(technicalType: RenderHintsTechnicalType.String, fieldName: 'Text Field'),
-                      ValueRenderer(technicalType: RenderHintsTechnicalType.String, dataType: RenderHintsDataType.DateTime),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.String,
-                        editType: RenderHintsEditType.ButtonLike,
-                      ),
-                      ValueRenderer(
-                        fieldName: 'Select an Option:',
-                        technicalType: RenderHintsTechnicalType.String,
-                        editType: RenderHintsEditType.SelectLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.String,
-                        editType: RenderHintsEditType.SliderLike,
-                      ),
+                      // ValueRenderer(technicalType: RenderHintsTechnicalType.String, fieldName: 'Text Field'),
+                      // ValueRenderer(technicalType: RenderHintsTechnicalType.String, dataType: RenderHintsDataType.DateTime),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.String,
+                      //   editType: RenderHintsEditType.ButtonLike,
+                      // ),
+                      // ValueRenderer(
+                      //   fieldName: 'Select an Option:',
+                      //   technicalType: RenderHintsTechnicalType.String,
+                      //   editType: RenderHintsEditType.SelectLike,
+                      // ),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.String,
+                      //   editType: RenderHintsEditType.SliderLike,
+                      // ),
                     ]),
                   )),
               const SizedBox(
@@ -99,24 +97,24 @@ class _MyHomePageState extends State<InputExamples> {
                         color: Colors.blue,
                         thickness: 1.0,
                       ),
-                      ValueRenderer(technicalType: RenderHintsTechnicalType.Integer),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Integer,
-                        editType: RenderHintsEditType.SelectLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Integer,
-                        editType: RenderHintsEditType.ButtonLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Integer,
-                        editType: RenderHintsEditType.SliderLike,
-                        valueHintsValue: true,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Integer,
-                        editType: RenderHintsEditType.SliderLike,
-                      ),
+                      // ValueRenderer(technicalType: RenderHintsTechnicalType.Integer),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.Integer,
+                      //   editType: RenderHintsEditType.SelectLike,
+                      // ),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.Integer,
+                      //   editType: RenderHintsEditType.ButtonLike,
+                      // ),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.Integer,
+                      //   editType: RenderHintsEditType.SliderLike,
+                      //   valueHintsValue: true,
+                      // ),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.Integer,
+                      //   editType: RenderHintsEditType.SliderLike,
+                      // ),
                     ],
                   ),
                 ),
@@ -151,25 +149,25 @@ class _MyHomePageState extends State<InputExamples> {
                         color: Colors.blue,
                         thickness: 1.0,
                       ),
-                      ValueRenderer(technicalType: RenderHintsTechnicalType.Boolean),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Boolean,
-                        editType: RenderHintsEditType.ButtonLike,
-                        valueHintsValue: true,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Boolean,
-                        editType: RenderHintsEditType.SelectLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Boolean,
-                        editType: RenderHintsEditType.SliderLike,
-                      ),
-                      ValueRenderer(
-                        technicalType: RenderHintsTechnicalType.Boolean,
-                        editType: RenderHintsEditType.SliderLike,
-                        valueHintsValue: true,
-                      ),
+                      // ValueRenderer(technicalType: RenderHintsTechnicalType.Boolean),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.Boolean,
+                      //   editType: RenderHintsEditType.ButtonLike,
+                      //   valueHintsValue: true,
+                      // ),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.Boolean,
+                      //   editType: RenderHintsEditType.SelectLike,
+                      // ),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.Boolean,
+                      //   editType: RenderHintsEditType.SliderLike,
+                      // ),
+                      // ValueRenderer(
+                      //   technicalType: RenderHintsTechnicalType.Boolean,
+                      //   editType: RenderHintsEditType.SliderLike,
+                      //   valueHintsValue: true,
+                      // ),
                     ],
                   ),
                 ),

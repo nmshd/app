@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:example/pages/address_renderer.dart';
-import 'package:example/pages/decidable_renderer.dart';
-import 'package:example/pages/input_examples.dart';
+import 'package:example/pages/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -13,7 +11,7 @@ main() {
 }
 
 Future<Map<String, dynamic>> loadAddressJson() async {
-  String jsonData = await rootBundle.loadString('assets/address.json');
+  String jsonData = await rootBundle.loadString('assets/example.json');
   Map<String, dynamic> data = jsonDecode(jsonData);
 
   return data;
@@ -160,31 +158,13 @@ class _HomeScreenState extends State<HomeScreen> {
 // Demo options that are shown in the `HomeScreen` drawer.
 final _menu = <_MenuGroup>[
   _MenuGroup(title: 'Value Renderer Examples', items: [
-    _MenuItem(
-      icon: Icons.description,
-      title: 'Input Examples',
-      pageBuilder: (context) {
-        return const InputExamples();
-      },
-    ),
-    _MenuItem(
-      icon: Icons.description,
-      title: 'Address Renderer',
-      pageBuilder: (context) {
-        return FutureBuilder<Map<String, dynamic>>(
-          future: loadAddressJson(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return AddressRenderer(data: snapshot.data!);
-            } else if (snapshot.hasError) {
-              return const Text('Error loading JSON data');
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
-        );
-      },
-    ),
+    // _MenuItem(
+    //   icon: Icons.description,
+    //   title: 'Input Examples',
+    //   pageBuilder: (context) {
+    //     return const InputExamples();
+    //   },
+    // ),
     _MenuItem(
       icon: Icons.description,
       title: 'Decidable Renderer',
@@ -193,7 +173,7 @@ final _menu = <_MenuGroup>[
           future: loadDecidableJson(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return DecidableRenderer(data: snapshot.data!);
+              return Renderer(data: snapshot.data!);
             } else if (snapshot.hasError) {
               return const Text('Error loading JSON data');
             } else {

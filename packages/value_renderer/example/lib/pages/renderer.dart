@@ -1,9 +1,8 @@
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:value_renderer/value_renderer.dart';
 
-class DecidableRenderer extends StatelessWidget {
-  const DecidableRenderer({super.key, required this.data});
+class Renderer extends StatelessWidget {
+  const Renderer({super.key, required this.data});
 
   final Map<String, dynamic> data;
   @override
@@ -30,7 +29,6 @@ class DecidableRenderer extends StatelessWidget {
             child: ListView.builder(
               itemCount: data["items"].length,
               itemBuilder: (context, index) {
-                // String key = data["renderHints"]["propertyHints"].keys.elementAt(index);
                 String? title = items[index]['title'];
                 bool? isDecidable = items[index]['isDecidable'];
                 bool? mustBeAccepted = items[index]['mustBeAccepted'];
@@ -40,7 +38,13 @@ class DecidableRenderer extends StatelessWidget {
                 return Column(
                   children: [
                     ListTile(
-                      title: Text(title ?? ''),
+                      title: Text(
+                        title ?? '',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18.0,
+                        ),
+                      ),
                     ),
                     ListView.builder(
                       shrinkWrap: true,
@@ -48,19 +52,16 @@ class DecidableRenderer extends StatelessWidget {
                       itemCount: nestedItems?.length ?? 0,
                       itemBuilder: (context, nestedIndex) {
                         String? fieldName = nestedItems?[nestedIndex]['attribute']['value']['@type'];
-                        String? initialValue = nestedItems?[nestedIndex]['attribute']['value']['value'];
-                        dynamic values = nestedItems?[nestedIndex]['attribute']['valueHints']['values'];
-                        RenderHintsEditType? editType = parseEditType(nestedItems?[nestedIndex]['attribute']['renderHints']['editType']);
-                        RenderHintsTechnicalType? technicalType =
-                            parseTechnicalType(nestedItems?[nestedIndex]['attribute']['renderHints']['technicalType']);
+                        Map<String, dynamic>? initialValue = nestedItems?[nestedIndex]['attribute']['value'];
+                        Map<String, dynamic>? valueHints = nestedItems?[nestedIndex]['attribute']['valueHints'];
+                        Map<String, dynamic>? renderHints = nestedItems?[nestedIndex]['attribute']['renderHints'];
 
                         return ListTile(
                             title: ValueRenderer(
                           fieldName: fieldName,
-                          editType: editType,
-                          technicalType: technicalType,
                           initialValue: initialValue,
-                          values: values,
+                          renderHints: renderHints ?? {},
+                          valueHints: valueHints ?? {},
                         ));
                       },
                     ),
