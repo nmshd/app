@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:example/pages/input_examples.dart';
 import 'package:example/pages/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -10,7 +11,7 @@ main() {
   runApp(const ValueRendererExample());
 }
 
-Future<Map<String, dynamic>> loadAddressJson() async {
+Future<Map<String, dynamic>> loadExampleJson() async {
   String jsonData = await rootBundle.loadString('assets/example.json');
   Map<String, dynamic> data = jsonDecode(jsonData);
 
@@ -30,7 +31,7 @@ class ValueRendererExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Rich Text Editor Demo App',
+      title: 'Value Renderer',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -158,16 +159,27 @@ class _HomeScreenState extends State<HomeScreen> {
 // Demo options that are shown in the `HomeScreen` drawer.
 final _menu = <_MenuGroup>[
   _MenuGroup(title: 'Value Renderer Examples', items: [
-    // _MenuItem(
-    //   icon: Icons.description,
-    //   title: 'Input Examples',
-    //   pageBuilder: (context) {
-    //     return const InputExamples();
-    //   },
-    // ),
     _MenuItem(
       icon: Icons.description,
-      title: 'Decidable Renderer',
+      title: 'Input Examples',
+      pageBuilder: (context) {
+        return FutureBuilder<Map<String, dynamic>>(
+          future: loadExampleJson(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return InputExamples(data: snapshot.data!);
+            } else if (snapshot.hasError) {
+              return const Text('Error loading JSON data');
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        );
+      },
+    ),
+    _MenuItem(
+      icon: Icons.description,
+      title: 'Renderer',
       pageBuilder: (context) {
         return FutureBuilder<Map<String, dynamic>>(
           future: loadDecidableJson(),

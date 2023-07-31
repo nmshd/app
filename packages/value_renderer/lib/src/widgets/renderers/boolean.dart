@@ -7,34 +7,47 @@ import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
 import 'package:value_renderer/src/widgets/inputs/switch_button.dart';
 
 class BooleanRenderer extends StatelessWidget {
-  const BooleanRenderer(
-      {super.key, this.fieldName = 'Boolean Field', this.editType, this.dataType, this.valueHintsValue, required this.initialValue, this.values});
+  const BooleanRenderer({super.key, this.fieldName = '', this.editType, this.dataType, this.initialValue, this.values});
 
   final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
-  final bool? valueHintsValue;
-  final String initialValue;
+  final Map<String, dynamic>? initialValue;
   final List<dynamic>? values;
 
   @override
   Widget build(BuildContext context) {
-    if (editType == RenderHintsEditType.ButtonLike && valueHintsValue == true) {
-      return const CheckboxButton();
+    if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
+      return CheckboxButton(
+        fieldName: fieldName!,
+        values: values ?? [],
+        initialValue: initialValue,
+      );
     }
-    if (editType == RenderHintsEditType.SliderLike && valueHintsValue == true) {
-      return const SegmentedButtonInput();
+    if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
+      return SegmentedButtonInput(
+        fieldName: fieldName!,
+        values: values ?? [],
+        initialValue: initialValue?['value'].toString(),
+      );
     }
     if (editType == RenderHintsEditType.SelectLike) {
-      return const DropdownSelectButton();
+      return DropdownSelectButton(
+        fieldName: fieldName!,
+        initialValue: initialValue?['value'].toString(),
+        values: values,
+      );
     }
     if (editType == RenderHintsEditType.SliderLike) {
-      return const SwitchButton();
+      return SwitchButton(
+        fieldName: fieldName!,
+        initialValue: initialValue?['value'],
+      );
     }
     return RadioButton(
       fieldName: fieldName!,
-      values: values!,
-      initialValue: initialValue,
+      values: values ?? [],
+      initialValue: initialValue?['value'],
     );
   }
 }

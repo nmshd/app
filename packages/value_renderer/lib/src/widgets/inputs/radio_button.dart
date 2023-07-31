@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class RadioButton extends StatefulWidget {
-  const RadioButton({super.key, required this.values, required this.fieldName, required this.initialValue});
+  RadioButton({super.key, required this.values, required this.fieldName, required this.initialValue});
 
   final String fieldName;
-  final List<dynamic> values;
+  late List<dynamic> values;
   final dynamic initialValue;
 
   @override
@@ -12,12 +13,18 @@ class RadioButton extends StatefulWidget {
 }
 
 class _RadioButtonState extends State<RadioButton> {
-  late String selectedOption;
+  late dynamic selectedOption;
 
   @override
   void initState() {
     super.initState();
-    selectedOption = widget.initialValue;
+    selectedOption = widget.initialValue.toString();
+    if (widget.values.isEmpty) {
+      widget.values = [
+        {'key': 'true'},
+        {'key': 'false'}
+      ];
+    }
   }
 
   @override
@@ -35,11 +42,11 @@ class _RadioButtonState extends State<RadioButton> {
             fontSize: 16.0,
           ),
         ),
-        ...widget.values.map((option) => RadioListTile<String>(
-              title: Text(option['key']!),
+        ...widget.values.map((option) => RadioListTile<dynamic>(
+              title: Text(option['key'].toString()),
               value: option['key']!,
               groupValue: selectedOption,
-              onChanged: (String? value) {
+              onChanged: (dynamic value) {
                 setState(() {
                   selectedOption = value!;
                 });

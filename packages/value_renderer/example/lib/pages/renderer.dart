@@ -13,7 +13,7 @@ class Renderer extends StatelessWidget {
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
-          child: Text('Decidable Renderer'),
+          child: Text('Renderer'),
         ),
       ),
       body: Column(
@@ -21,18 +21,11 @@ class Renderer extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          // Text(data["value"]["@type"]),
-          // const SizedBox(
-          //   height: 12,
-          // ),
           Expanded(
             child: ListView.builder(
               itemCount: data["items"].length,
               itemBuilder: (context, index) {
                 String? title = items[index]['title'];
-                bool? isDecidable = items[index]['isDecidable'];
-                bool? mustBeAccepted = items[index]['mustBeAccepted'];
-
                 List<dynamic>? nestedItems = items[index]['items'];
 
                 return Column(

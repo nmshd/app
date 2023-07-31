@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:value_renderer/value_renderer.dart';
 
-class InputExamples extends StatefulWidget {
-  const InputExamples({
-    super.key,
-  });
+class InputExamples extends StatelessWidget {
+  const InputExamples({super.key, required this.data});
 
-  @override
-  State<InputExamples> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<InputExamples> {
+  final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
+    List<dynamic> items = data['items'];
+
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
@@ -19,162 +16,78 @@ class _MyHomePageState extends State<InputExamples> {
           child: Text('Input Examples'),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Container(
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(228, 255, 255, 255),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.0, 2.0),
-                        blurRadius: 6.0,
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Column(children: <Widget>[
-                      Text(
-                        'String',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.blue,
-                        thickness: 1.0,
-                      ),
-                      // ValueRenderer(technicalType: RenderHintsTechnicalType.String, fieldName: 'Text Field'),
-                      // ValueRenderer(technicalType: RenderHintsTechnicalType.String, dataType: RenderHintsDataType.DateTime),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.String,
-                      //   editType: RenderHintsEditType.ButtonLike,
-                      // ),
-                      // ValueRenderer(
-                      //   fieldName: 'Select an Option:',
-                      //   technicalType: RenderHintsTechnicalType.String,
-                      //   editType: RenderHintsEditType.SelectLike,
-                      // ),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.String,
-                      //   editType: RenderHintsEditType.SliderLike,
-                      // ),
-                    ]),
-                  )),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(228, 255, 255, 255),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 2.0),
-                      blurRadius: 6.0,
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Number',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.blue,
-                        thickness: 1.0,
-                      ),
-                      // ValueRenderer(technicalType: RenderHintsTechnicalType.Integer),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.Integer,
-                      //   editType: RenderHintsEditType.SelectLike,
-                      // ),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.Integer,
-                      //   editType: RenderHintsEditType.ButtonLike,
-                      // ),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.Integer,
-                      //   editType: RenderHintsEditType.SliderLike,
-                      //   valueHintsValue: true,
-                      // ),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.Integer,
-                      //   editType: RenderHintsEditType.SliderLike,
-                      // ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(228, 255, 255, 255),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 2.0),
-                      blurRadius: 6.0,
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Boolean',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.blue,
-                        thickness: 1.0,
-                      ),
-                      // ValueRenderer(technicalType: RenderHintsTechnicalType.Boolean),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.Boolean,
-                      //   editType: RenderHintsEditType.ButtonLike,
-                      //   valueHintsValue: true,
-                      // ),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.Boolean,
-                      //   editType: RenderHintsEditType.SelectLike,
-                      // ),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.Boolean,
-                      //   editType: RenderHintsEditType.SliderLike,
-                      // ),
-                      // ValueRenderer(
-                      //   technicalType: RenderHintsTechnicalType.Boolean,
-                      //   editType: RenderHintsEditType.SliderLike,
-                      //   valueHintsValue: true,
-                      // ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 12,
           ),
-        ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: data["items"].length,
+              itemBuilder: (context, index) {
+                String? title = items[index]['title'];
+                List<dynamic>? nestedItems = items[index]['items'];
+
+                return Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      Container(
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(228, 255, 255, 255),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 2.0),
+                                blurRadius: 6.0,
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(children: <Widget>[
+                              ListTile(
+                                title: Text(
+                                  title ?? '',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18.0,
+                                  ),
+                                ),
+                              ),
+                              const Divider(
+                                color: Colors.blue,
+                                thickness: 1.0,
+                              ),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: nestedItems?.length ?? 0,
+                                itemBuilder: (context, nestedIndex) {
+                                  String? fieldName = nestedItems?[nestedIndex]['attribute']['value']['@type'];
+                                  Map<String, dynamic>? initialValue = nestedItems?[nestedIndex]['attribute']['value'];
+                                  Map<String, dynamic>? valueHints = nestedItems?[nestedIndex]['attribute']['valueHints'];
+                                  Map<String, dynamic>? renderHints = nestedItems?[nestedIndex]['attribute']['renderHints'];
+
+                                  return ListTile(
+                                      title: ValueRenderer(
+                                    fieldName: fieldName,
+                                    initialValue: initialValue,
+                                    renderHints: renderHints ?? {},
+                                    valueHints: valueHints ?? {},
+                                  ));
+                                },
+                              ),
+                            ]),
+                          )),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

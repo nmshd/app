@@ -7,23 +7,26 @@ import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
 import 'package:value_renderer/src/widgets/inputs/text_input.dart';
 
 class StringRenderer extends StatelessWidget {
-  const StringRenderer({super.key, this.fieldName, this.values, this.editType, this.dataType, required this.initialValue});
+  const StringRenderer({super.key, this.fieldName, this.values, this.editType, this.dataType, required this.initialValue, required this.valueHints});
 
-  final String initialValue;
+  final Map<String, dynamic> initialValue;
   final List<dynamic>? values;
   final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
+  final Map<String, dynamic> valueHints;
 
   @override
   Widget build(BuildContext context) {
+    final int max = valueHints['max'] ?? 100;
+
     if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
       return const DatepickerButton();
     }
     if (editType == RenderHintsEditType.SelectLike) {
       return DropdownSelectButton(
         fieldName: fieldName!,
-        initialValue: initialValue,
+        initialValue: initialValue['value'],
         values: values,
       );
     }
@@ -31,15 +34,20 @@ class StringRenderer extends StatelessWidget {
       return RadioButton(
         fieldName: fieldName!,
         values: values!,
-        initialValue: initialValue,
+        initialValue: initialValue['value'],
       );
     }
     if (editType == RenderHintsEditType.SliderLike) {
-      return const SegmentedButtonInput();
+      return SegmentedButtonInput(
+        fieldName: fieldName!,
+        values: values ?? [],
+        initialValue: initialValue['value'],
+      );
     }
     return TextInput(
       fieldName: fieldName,
-      initialValue: initialValue,
+      initialValue: initialValue['value'] ?? '',
+      max: max,
     );
   }
 }

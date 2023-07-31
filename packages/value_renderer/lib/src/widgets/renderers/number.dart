@@ -15,6 +15,7 @@ class NumberRenderer extends StatelessWidget {
     this.editType,
     this.dataType,
     required this.initialValue,
+    required this.valueHints,
   });
 
   final String? fieldName;
@@ -22,9 +23,13 @@ class NumberRenderer extends StatelessWidget {
   final RenderHintsDataType? dataType;
   final Map<String, dynamic>? initialValue;
   final List<dynamic>? values;
+  final Map<String, dynamic> valueHints;
 
   @override
   Widget build(BuildContext context) {
+    final double min = valueHints['min']?.toDouble() ?? 1;
+    final double max = valueHints['max']?.toDouble() ?? 100;
+
     if (dataType == RenderHintsDataType.DateTime ||
         dataType == RenderHintsDataType.Date ||
         dataType == RenderHintsDataType.Time ||
@@ -34,26 +39,48 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialValue,
       );
     }
-    if (editType == RenderHintsEditType.SelectLike) {
+    if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectButton(
         fieldName: fieldName!,
-        initialValue: initialValue?['value'],
+        initialValue: initialValue?['value'].toString(),
         values: values,
       );
     }
-    if (editType == RenderHintsEditType.ButtonLike) {
+    // Replacing "Rating"
+    if (editType == RenderHintsEditType.SelectLike) {
+      return SliderInput(
+        fieldName: fieldName!,
+        initialValue: initialValue?['value'].toDouble(),
+        min: 1,
+        max: 5,
+      );
+    }
+    if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioButton(
         fieldName: fieldName!,
         values: values!,
         initialValue: initialValue?['value'],
       );
     }
-    if (editType == RenderHintsEditType.SliderLike && !initialValue?['value'].isEmpty) {
-      return const SegmentedButtonInput();
+    if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
+      return SegmentedButtonInput(
+        fieldName: fieldName!,
+        values: values ?? [],
+        initialValue: initialValue?['value'],
+      );
     }
     if (editType == RenderHintsEditType.SliderLike) {
-      return const SliderInput();
+      return SliderInput(
+        fieldName: fieldName,
+        initialValue: initialValue?['value'].toDouble(),
+        min: min,
+        max: max,
+      );
     }
-    return const NumberInput();
+    return NumberInput(
+      initialValue: initialValue?['value'].toString(),
+      fieldName: fieldName,
+      max: max,
+    );
   }
 }

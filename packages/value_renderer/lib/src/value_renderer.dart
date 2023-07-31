@@ -36,6 +36,7 @@ class ValueRenderer extends StatelessWidget {
         editType: editType,
         dataType: dataType,
         values: values,
+        valueHints: valueHints,
       );
     }
 
@@ -50,16 +51,17 @@ class ValueRenderer extends StatelessWidget {
     }
     if (technicalType == RenderHintsTechnicalType.String) {
       return StringRenderer(
-        initialValue: initialValue?['value'] ?? '',
+        initialValue: initialValue ?? {},
         fieldName: fieldName,
         editType: editType,
         dataType: dataType,
         values: values,
+        valueHints: valueHints,
       );
     }
     if (technicalType == RenderHintsTechnicalType.Boolean) {
       return BooleanRenderer(
-        initialValue: initialValue?['value'] ?? '',
+        initialValue: initialValue,
         fieldName: fieldName,
         editType: editType,
         dataType: dataType,

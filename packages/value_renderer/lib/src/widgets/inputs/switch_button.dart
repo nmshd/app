@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
 
 class SwitchButton extends StatefulWidget {
-  const SwitchButton({super.key});
+  const SwitchButton({super.key, required this.fieldName, this.initialValue});
+
+  final String fieldName;
+  final dynamic initialValue;
 
   @override
   State<SwitchButton> createState() => _SwitchButtonState();
 }
 
 class _SwitchButtonState extends State<SwitchButton> {
-  bool light = true;
+  late bool light;
+
+  @override
+  void initState() {
+    super.initState();
+    light = widget.initialValue ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Switch(
-      // This bool value toggles the switch.
-      value: light,
-      activeColor: Colors.blue,
-      onChanged: (bool value) {
-        // This is called when the user toggles the switch.
-        setState(() {
-          light = value;
-        });
-      },
+    return Row(
+      children: [
+        Text(widget.fieldName),
+        Switch(
+          value: light,
+          activeColor: Colors.blue,
+          onChanged: (bool value) {
+            setState(() {
+              light = value;
+            });
+          },
+        ),
+      ],
     );
   }
 }
