@@ -268,7 +268,6 @@ class _DrawerButton extends StatelessWidget {
               }
               return Colors.transparent;
             }),
-            // splashFactory: NoSplash.splashFactory,
             foregroundColor: MaterialStateColor.resolveWith((states) => isSelected ? Colors.white : const Color(0xFFBBBBBB)),
             elevation: MaterialStateProperty.resolveWith((states) => 0),
             padding: MaterialStateProperty.resolveWith((states) => const EdgeInsets.all(16))),
