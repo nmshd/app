@@ -4,7 +4,7 @@ class SwitchButton extends StatefulWidget {
   const SwitchButton({super.key, required this.fieldName, this.initialValue});
 
   final String fieldName;
-  final dynamic initialValue;
+  final bool? initialValue;
 
   @override
   State<SwitchButton> createState() => _SwitchButtonState();

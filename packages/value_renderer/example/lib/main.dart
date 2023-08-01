@@ -5,8 +5,6 @@ import 'package:example/pages/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-/// Demo of a basic text editor, as well as various widgets that
-/// are available in this package.
 main() {
   runApp(const ValueRendererExample());
 }
@@ -43,8 +41,6 @@ class ValueRendererExample extends StatelessWidget {
   }
 }
 
-/// Displays various demos that are selected from a list of
-/// options in a drawer.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -156,7 +152,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// Demo options that are shown in the `HomeScreen` drawer.
 final _menu = <_MenuGroup>[
   _MenuGroup(title: 'Value Renderer Examples', items: [
     _MenuItem(
@@ -268,11 +263,9 @@ class _DrawerButton extends StatelessWidget {
               if (isSelected) {
                 return const Color(0xFFBBBBBB);
               }
-
               if (states.contains(MaterialState.hovered)) {
                 return Colors.grey.withOpacity(0.1);
               }
-
               return Colors.transparent;
             }),
             // splashFactory: NoSplash.splashFactory,
