@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:example/pages/input_examples.dart';
 import 'package:example/pages/renderer.dart';
 import 'package:flutter/material.dart';
@@ -9,18 +10,18 @@ main() {
   runApp(const ValueRendererExample());
 }
 
-Future<Map<String, dynamic>> loadExampleJson() async {
-  final String jsonData = await rootBundle.loadString('assets/example.json');
-  final Map<String, dynamic> data = jsonDecode(jsonData);
+Future<RequestDVO> loadExampleJson() async {
+  final jsonData = await rootBundle.loadString('assets/example.json');
+  final data = jsonDecode(jsonData);
 
-  return data;
+  return RequestDVO.fromJson(data);
 }
 
-Future<Map<String, dynamic>> loadDecidableJson() async {
-  final String jsonData = await rootBundle.loadString('assets/decidable.json');
-  final Map<String, dynamic> data = jsonDecode(jsonData);
+Future<RequestDVO> loadDecidableJson() async {
+  final jsonData = await rootBundle.loadString('assets/decidable.json');
+  final data = jsonDecode(jsonData);
 
-  return data;
+  return RequestDVO.fromJson(data);
 }
 
 class ValueRendererExample extends StatelessWidget {
@@ -158,7 +159,7 @@ final _menu = <_MenuGroup>[
       icon: Icons.description,
       title: 'Input Examples',
       pageBuilder: (context) {
-        return FutureBuilder<Map<String, dynamic>>(
+        return FutureBuilder<RequestDVO>(
           future: loadExampleJson(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

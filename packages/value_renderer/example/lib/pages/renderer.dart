@@ -1,13 +1,15 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 class Renderer extends StatelessWidget {
+  final RequestDVO data;
+
   const Renderer({super.key, required this.data});
 
-  final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
-    final List<dynamic> items = data['items'];
+    final items = data.items;
 
     return Scaffold(
       appBar: AppBar(
@@ -23,9 +25,9 @@ class Renderer extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: data['items'].length,
+              itemCount: items.length,
               itemBuilder: (context, index) {
-                final String? title = items[index]['title'];
+                final String? title = items[index].items;
                 final List<dynamic>? nestedItems = items[index]['items'];
 
                 return Column(

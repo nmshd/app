@@ -23,7 +23,7 @@ class ValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final RenderHintsTechnicalType technicalType = RenderHintsTechnicalType.values.byName(renderHints['technicalType']);
     final RenderHintsEditType editType = RenderHintsEditType.values.byName(renderHints['editType']);
-    final RenderHintsDataType dataType = RenderHintsDataType.values.byName(renderHints['dataType'] ?? '');
+    final dynamic dataType = renderHints['dataType'] != null ? RenderHintsDataType.values.byName(renderHints['dataType']) : '';
     final List<dynamic>? values = valueHints['values'] ?? [];
 
     if (technicalType == RenderHintsTechnicalType.Integer ||

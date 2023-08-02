@@ -1,13 +1,15 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 class InputExamples extends StatelessWidget {
+  final RequestDVO data;
+
   const InputExamples({super.key, required this.data});
 
-  final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
-    final List<dynamic> items = data['items'];
+    final items = data.items;
 
     return Scaffold(
       appBar: AppBar(
@@ -23,10 +25,11 @@ class InputExamples extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: data['items'].length,
+              itemCount: items.length,
               itemBuilder: (context, index) {
-                final String? title = items[index]['title'];
-                final List<dynamic>? nestedItems = items[index]['items'];
+                final item = items[index];
+                final title = item is RequestItemGroupDVO ? item.title : null;
+                final nestedItems = item is RequestItemGroupDVO ? item.items : null;
 
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -67,6 +70,7 @@ class InputExamples extends StatelessWidget {
                                 itemBuilder: (context, nestedIndex) {
                                   final String? fieldName = nestedItems?[nestedIndex]['attribute']['value']['@type'];
                                   final Map<String, dynamic>? initialValue = nestedItems?[nestedIndex]['attribute']['value'];
+                                  final Map<String, dynamic>? valueHints = nestedItems?[nestedIndex]['attribute']['valueHints'];
                                   final Map<String, dynamic>? valueHints = nestedItems?[nestedIndex]['attribute']['valueHints'];
                                   final Map<String, dynamic>? renderHints = nestedItems?[nestedIndex]['attribute']['renderHints'];
 
