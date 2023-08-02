@@ -15,16 +15,16 @@ class ValueRenderer extends StatelessWidget {
   });
 
   final Map<String, dynamic>? initialValue;
-  final Map<String, dynamic> renderHints;
-  final Map<String, dynamic> valueHints;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
   final String? fieldName;
 
   @override
   Widget build(BuildContext context) {
-    final RenderHintsTechnicalType technicalType = RenderHintsTechnicalType.values.byName(renderHints['technicalType']);
-    final RenderHintsEditType editType = RenderHintsEditType.values.byName(renderHints['editType']);
-    final dynamic dataType = renderHints['dataType'] != null ? RenderHintsDataType.values.byName(renderHints['dataType']) : '';
-    final List<dynamic>? values = valueHints['values'] ?? [];
+    final technicalType = renderHints.technicalType;
+    final editType = renderHints.editType;
+    final dataType = renderHints.dataType;
+    final values = valueHints.values;
 
     if (technicalType == RenderHintsTechnicalType.Integer ||
         technicalType == RenderHintsTechnicalType.Float ||

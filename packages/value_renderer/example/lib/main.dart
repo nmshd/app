@@ -10,18 +10,18 @@ main() {
   runApp(const ValueRendererExample());
 }
 
-Future<RequestDVO> loadExampleJson() async {
+Future<LocalRequestDVO> loadExampleJson() async {
   final jsonData = await rootBundle.loadString('assets/example.json');
   final data = jsonDecode(jsonData);
 
-  return RequestDVO.fromJson(data);
+  return LocalRequestDVO.fromJson(data);
 }
 
-Future<RequestDVO> loadDecidableJson() async {
+Future<LocalRequestDVO> loadDecidableJson() async {
   final jsonData = await rootBundle.loadString('assets/decidable.json');
   final data = jsonDecode(jsonData);
 
-  return RequestDVO.fromJson(data);
+  return LocalRequestDVO.fromJson(data);
 }
 
 class ValueRendererExample extends StatelessWidget {
@@ -159,7 +159,7 @@ final _menu = <_MenuGroup>[
       icon: Icons.description,
       title: 'Input Examples',
       pageBuilder: (context) {
-        return FutureBuilder<RequestDVO>(
+        return FutureBuilder<LocalRequestDVO>(
           future: loadExampleJson(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -177,7 +177,7 @@ final _menu = <_MenuGroup>[
       icon: Icons.description,
       title: 'Renderer',
       pageBuilder: (context) {
-        return FutureBuilder<Map<String, dynamic>>(
+        return FutureBuilder<LocalRequestDVO>(
           future: loadDecidableJson(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

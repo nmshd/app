@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:value_renderer/src/value_renderer.dart';
 
 class ComplexRenderer extends StatelessWidget {
-  const ComplexRenderer(
-      {super.key, this.fieldName, this.editType, this.dataType, required this.initialValue, required this.valueHints, required this.renderHints});
+  const ComplexRenderer({
+    super.key,
+    this.fieldName,
+    this.editType,
+    this.dataType,
+    required this.initialValue,
+    required this.valueHints,
+    required this.renderHints,
+  });
 
   final Map<String, dynamic>? initialValue;
   final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
-  final Map<String, dynamic> renderHints;
-  final Map<String, dynamic> valueHints;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +41,20 @@ class ComplexRenderer extends StatelessWidget {
         SizedBox(
           height: 500,
           child: ListView.builder(
-            itemCount: renderHints['propertyHints'].length,
+            itemCount: renderHints.propertyHints?.values.length,
             itemBuilder: (context, index) {
-              final String key = renderHints['propertyHints'].keys.elementAt(index);
-              final dynamic itemInitialValue = {'@type': key, 'value': initialValue?[key]};
-              final dynamic itemRenderHints = renderHints['propertyHints'][key];
-              final dynamic itemValueHints = valueHints['propertyHints'][key];
+              final String key = renderHints.propertyHints!.keys.elementAt(index);
+              final itemInitialValue = {'@type': key, 'value': initialValue?[key]};
+              final itemRenderHints = renderHints.propertyHints![key];
+              final itemValueHints = valueHints.propertyHints![key];
 
               return ListTile(
-                title: ValueRenderer(fieldName: key, initialValue: itemInitialValue, renderHints: itemRenderHints, valueHints: itemValueHints),
+                title: ValueRenderer(
+                  fieldName: key,
+                  initialValue: itemInitialValue,
+                  renderHints: itemRenderHints!,
+                  valueHints: itemValueHints!,
+                ),
               );
             },
           ),
