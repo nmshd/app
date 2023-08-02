@@ -4,7 +4,6 @@ import 'package:value_renderer/src/widgets/renderers/boolean.dart';
 import 'package:value_renderer/src/widgets/renderers/complex.dart';
 import 'package:value_renderer/src/widgets/renderers/number.dart';
 import 'package:value_renderer/src/widgets/renderers/string.dart';
-import 'package:value_renderer/value_renderer.dart';
 
 class ValueRenderer extends StatelessWidget {
   const ValueRenderer({
@@ -22,9 +21,9 @@ class ValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RenderHintsTechnicalType technicalType = parseTechnicalType(renderHints['technicalType']);
-    final RenderHintsEditType editType = parseEditType(renderHints['editType']);
-    final RenderHintsDataType dataType = parseDataType(renderHints['dataType'] ?? '');
+    final RenderHintsTechnicalType technicalType = RenderHintsTechnicalType.values.byName(renderHints['technicalType']);
+    final RenderHintsEditType editType = RenderHintsEditType.values.byName(renderHints['editType']);
+    final RenderHintsDataType dataType = RenderHintsDataType.values.byName(renderHints['dataType'] ?? '');
     final List<dynamic>? values = valueHints['values'] ?? [];
 
     if (technicalType == RenderHintsTechnicalType.Integer ||
