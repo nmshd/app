@@ -7,7 +7,7 @@ class InputExamples extends StatelessWidget {
   final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
-    List<dynamic> items = data['items'];
+    final List<dynamic> items = data['items'];
 
     return Scaffold(
       appBar: AppBar(
@@ -23,10 +23,10 @@ class InputExamples extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: data["items"].length,
+              itemCount: data['items'].length,
               itemBuilder: (context, index) {
-                String? title = items[index]['title'];
-                List<dynamic>? nestedItems = items[index]['items'];
+                final String? title = items[index]['title'];
+                final List<dynamic>? nestedItems = items[index]['items'];
 
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -65,10 +65,10 @@ class InputExamples extends StatelessWidget {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: nestedItems?.length ?? 0,
                                 itemBuilder: (context, nestedIndex) {
-                                  String? fieldName = nestedItems?[nestedIndex]['attribute']['value']['@type'];
-                                  Map<String, dynamic>? initialValue = nestedItems?[nestedIndex]['attribute']['value'];
-                                  Map<String, dynamic>? valueHints = nestedItems?[nestedIndex]['attribute']['valueHints'];
-                                  Map<String, dynamic>? renderHints = nestedItems?[nestedIndex]['attribute']['renderHints'];
+                                  final String? fieldName = nestedItems?[nestedIndex]['attribute']['value']['@type'];
+                                  final Map<String, dynamic>? initialValue = nestedItems?[nestedIndex]['attribute']['value'];
+                                  final Map<String, dynamic>? valueHints = nestedItems?[nestedIndex]['attribute']['valueHints'];
+                                  final Map<String, dynamic>? renderHints = nestedItems?[nestedIndex]['attribute']['renderHints'];
 
                                   return ListTile(
                                     title: ValueRenderer(

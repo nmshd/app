@@ -10,15 +10,15 @@ main() {
 }
 
 Future<Map<String, dynamic>> loadExampleJson() async {
-  String jsonData = await rootBundle.loadString('assets/example.json');
-  Map<String, dynamic> data = jsonDecode(jsonData);
+  final String jsonData = await rootBundle.loadString('assets/example.json');
+  final Map<String, dynamic> data = jsonDecode(jsonData);
 
   return data;
 }
 
 Future<Map<String, dynamic>> loadDecidableJson() async {
-  String jsonData = await rootBundle.loadString('assets/decidable.json');
-  Map<String, dynamic> data = jsonDecode(jsonData);
+  final String jsonData = await rootBundle.loadString('assets/decidable.json');
+  final Map<String, dynamic> data = jsonDecode(jsonData);
 
   return data;
 }
