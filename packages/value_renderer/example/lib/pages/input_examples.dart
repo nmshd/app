@@ -71,12 +71,13 @@ class InputExamples extends StatelessWidget {
                                   Map<String, dynamic>? renderHints = nestedItems?[nestedIndex]['attribute']['renderHints'];
 
                                   return ListTile(
-                                      title: ValueRenderer(
-                                    fieldName: fieldName,
-                                    initialValue: initialValue,
-                                    renderHints: renderHints ?? {},
-                                    valueHints: valueHints ?? {},
-                                  ));
+                                    title: ValueRenderer(
+                                      fieldName: fieldName,
+                                      initialValue: initialValue,
+                                      renderHints: renderHints ?? {},
+                                      valueHints: valueHints ?? {},
+                                    ),
+                                  );
                                 },
                               ),
                             ]),
