@@ -77,11 +77,11 @@ void main() {
 
     test('parsed valid FileReference', () {
       final fileReferenceJson = {
-        '@type': 'FileReference',
+        '@type': 'IdentityFileReference',
         'value': 'aFileReference',
       };
       final identityAttributeValue = IdentityAttributeValue.fromJson(fileReferenceJson);
-      expect(identityAttributeValue, isA<FileReferenceAttributeValue>());
+      expect(identityAttributeValue, isA<IdentityFileReferenceAttributeValue>());
     });
 
     test('parsed valid GivenName', () {

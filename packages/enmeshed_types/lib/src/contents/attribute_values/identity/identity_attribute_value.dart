@@ -18,7 +18,7 @@ abstract class IdentityAttributeValue extends Equatable {
       'BirthState' => BirthStateAttributeValue.fromJson(json),
       'City' => CityAttributeValue.fromJson(json),
       'DisplayName' => DisplayNameAttributeValue.fromJson(json),
-      'FileReference' => FileReferenceAttributeValue.fromJson(json),
+      'IdentityFileReference' => IdentityFileReferenceAttributeValue.fromJson(json),
       'GivenName' => GivenNameAttributeValue.fromJson(json),
       'HonorificPrefix' => HonorificPrefixAttributeValue.fromJson(json),
       'HonorificSuffix' => HonorificSuffixAttributeValue.fromJson(json),
