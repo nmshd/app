@@ -1,9 +1,8 @@
 part of 'request_item.dart';
 
 class SucceedAttributeRequestItem extends RequestItemDerivation {
-  final String succeededId;
-  final AbstractAttribute succeededAttribute;
-  final AbstractAttribute newAttribute;
+  final String succeededAttributeId;
+  final AbstractAttribute attribute;
 
   const SucceedAttributeRequestItem({
     super.title,
@@ -11,9 +10,8 @@ class SucceedAttributeRequestItem extends RequestItemDerivation {
     super.metadata,
     required super.mustBeAccepted,
     super.requireManualDecision,
-    required this.succeededId,
-    required this.succeededAttribute,
-    required this.newAttribute,
+    required this.succeededAttributeId,
+    required this.attribute,
   });
 
   factory SucceedAttributeRequestItem.fromJson(Map json) {
@@ -23,9 +21,8 @@ class SucceedAttributeRequestItem extends RequestItemDerivation {
       metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
       mustBeAccepted: json['mustBeAccepted'],
       requireManualDecision: json['requireManualDecision'],
-      succeededId: json['succeededId'],
-      succeededAttribute: AbstractAttribute.fromJson(json['succeededAttribute']),
-      newAttribute: AbstractAttribute.fromJson(json['newAttribute']),
+      succeededAttributeId: json['succeededAttributeId'],
+      attribute: AbstractAttribute.fromJson(json['attribute']),
     );
   }
 
@@ -33,14 +30,10 @@ class SucceedAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         '@type': 'SucceedAttributeRequestItem',
-        'succeededId': succeededId,
-        'succeededAttribute': succeededAttribute.toJson(),
-        'newAttribute': newAttribute.toJson(),
+        'succeededAttributeId': succeededAttributeId,
+        'attribute': attribute.toJson(),
       };
 
   @override
-  String toString() => 'SucceedAttributeRequestItem(succeededId: $succeededId, succeededAttribute: $succeededAttribute, newAttribute: $newAttribute)';
-
-  @override
-  List<Object?> get props => [super.props, succeededId, succeededAttribute, newAttribute];
+  List<Object?> get props => [super.props, succeededAttributeId, attribute];
 }
