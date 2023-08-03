@@ -23,6 +23,7 @@ abstract class RelationshipAttributeValue extends Equatable {
       'ProprietaryPhoneNumber' => ProprietaryPhoneNumberAttributeValue.fromJson(json),
       'ProprietaryString' => ProprietaryStringAttributeValue.fromJson(json),
       'ProprietaryURL' => ProprietaryURLAttributeValue.fromJson(json),
+      'ProprietaryXML' => ProprietaryXMLAttributeValue.fromJson(json),
       _ => throw Exception('Unknown AbstractAttributeValue: $type'),
     };
   }

@@ -50,6 +50,7 @@ abstract class IdentityAttributeValue extends Equatable {
       'Sex' => SexAttributeValue.fromJson(json),
       'StreetAddress' => StreetAddressAttributeValue.fromJson(json),
       'Website' => WebsiteAttributeValue.fromJson(json),
+      'SchematizedXML' => SchematizedXMLAttributeValue.fromJson(json),
       _ => throw Exception('Unknown IdentityAttributeValue: $type'),
     };
   }

@@ -31,6 +31,7 @@ export 'person_name.dart';
 export 'phone_number.dart';
 export 'post_office_box_address.dart';
 export 'pseudonym.dart';
+export 'schematized_xml.dart';
 export 'sex.dart';
 export 'state.dart';
 export 'street.dart';

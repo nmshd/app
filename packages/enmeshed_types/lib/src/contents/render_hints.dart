@@ -41,6 +41,7 @@ enum RenderHintsDataType {
   Day,
   Month,
   Year,
+  XML
 }
 
 @JsonSerializable(includeIfNull: false)
