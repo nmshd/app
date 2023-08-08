@@ -1,10 +1,11 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 class SegmentedButtonInput extends StatefulWidget {
   const SegmentedButtonInput({super.key, required this.fieldName, required this.values, this.initialValue});
 
   final String fieldName;
-  final List<dynamic> values;
+  final List<ValueHintsValue> values;
   final dynamic initialValue;
 
   @override
@@ -30,18 +31,12 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
           height: 18,
         ),
         SegmentedButton<dynamic>(
-          segments: [
-            ButtonSegment<dynamic>(
-              value: widget.initialValue,
-              label: Text(widget.initialValue.toString()),
-            ),
-            ...widget.values.map((dynamic value) {
-              return ButtonSegment<dynamic>(
-                value: value['key'],
-                label: Text(value['key'].toString()),
-              );
-            })
-          ],
+          segments: widget.values.map((dynamic value) {
+            return ButtonSegment<dynamic>(
+              value: value.key,
+              label: Text(value.key.toString()),
+            );
+          }).toList(),
           selected: {selectedSegment},
           onSelectionChanged: (Set<dynamic> newSelection) {
             setState(() {

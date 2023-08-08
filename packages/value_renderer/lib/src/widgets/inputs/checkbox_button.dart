@@ -1,10 +1,11 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 class CheckboxButton extends StatefulWidget {
   const CheckboxButton({super.key, required this.fieldName, this.initialValue, required this.values});
 
   final String fieldName;
-  final List<dynamic> values;
+  final List<ValueHintsValue> values;
   final dynamic initialValue;
 
   @override
@@ -17,7 +18,7 @@ class _CheckboxButtonState extends State<CheckboxButton> {
   @override
   void initState() {
     super.initState();
-    isCheckedMap = {for (var item in widget.values) item['key']: widget.initialValue?[item['key']] ?? false};
+    isCheckedMap = {for (var item in widget.values) item.key: widget.initialValue?[item.key] ?? false};
   }
 
   @override
@@ -30,9 +31,9 @@ class _CheckboxButtonState extends State<CheckboxButton> {
           shrinkWrap: true,
           itemCount: widget.values.length,
           itemBuilder: (context, index) {
-            final valueKey = widget.values[index]['key'];
+            final valueKey = widget.values[index].key;
             return CheckboxListTile(
-              title: Text(widget.values[index]['key'].toString()),
+              title: Text(widget.values[index].key.toString()),
               value: isCheckedMap[valueKey],
               onChanged: (bool? value) {
                 setState(() {

@@ -42,7 +42,7 @@ class NumberRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectButton(
         fieldName: fieldName!,
-        initialValue: initialValue?['value'].toString(),
+        initialValue: initialValue?['value'],
         values: values,
       );
     }
