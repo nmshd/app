@@ -1,27 +1,9 @@
-import 'dart:convert';
-
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:example/pages/input_examples.dart';
 import 'package:example/pages/renderer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 main() {
   runApp(const ValueRendererExample());
-}
-
-Future<LocalRequestDVO> loadExampleJson() async {
-  final jsonData = await rootBundle.loadString('assets/example.json');
-  final data = jsonDecode(jsonData);
-
-  return LocalRequestDVO.fromJson(data);
-}
-
-Future<LocalRequestDVO> loadDecidableJson() async {
-  final jsonData = await rootBundle.loadString('assets/decidable.json');
-  final data = jsonDecode(jsonData);
-
-  return LocalRequestDVO.fromJson(data);
 }
 
 class ValueRendererExample extends StatelessWidget {
@@ -159,36 +141,14 @@ final _menu = <_MenuGroup>[
       icon: Icons.description,
       title: 'Input Examples',
       pageBuilder: (context) {
-        return FutureBuilder<LocalRequestDVO>(
-          future: loadExampleJson(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return InputExamples(data: snapshot.data!);
-            } else if (snapshot.hasError) {
-              return const Text('Error loading JSON data');
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
-        );
+        return const InputExamples();
       },
     ),
     _MenuItem(
       icon: Icons.description,
       title: 'Renderer',
       pageBuilder: (context) {
-        return FutureBuilder<LocalRequestDVO>(
-          future: loadDecidableJson(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Renderer(data: snapshot.data!);
-            } else if (snapshot.hasError) {
-              return const Text('Error loading JSON data');
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
-        );
+        return const Renderer();
       },
     ),
   ])

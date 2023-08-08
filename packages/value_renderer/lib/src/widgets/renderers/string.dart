@@ -10,15 +10,15 @@ class StringRenderer extends StatelessWidget {
   const StringRenderer({super.key, this.fieldName, this.values, this.editType, this.dataType, required this.initialValue, required this.valueHints});
 
   final Map<String, dynamic> initialValue;
-  final List<dynamic>? values;
+  final List<ValueHintsValue>? values;
   final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
-  final Map<String, dynamic> valueHints;
+  final ValueHints valueHints;
 
   @override
   Widget build(BuildContext context) {
-    final int max = valueHints['max'] ?? 100;
+    final int max = valueHints.max ?? 100;
 
     if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
       return const DatepickerButton();

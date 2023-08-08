@@ -13,7 +13,7 @@ class BooleanRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final Map<String, dynamic>? initialValue;
-  final List<dynamic>? values;
+  final List<ValueHintsValue>? values;
 
   @override
   Widget build(BuildContext context) {

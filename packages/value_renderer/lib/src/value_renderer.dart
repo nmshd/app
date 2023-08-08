@@ -9,7 +9,6 @@ class ValueRenderer extends StatelessWidget {
   const ValueRenderer({
     super.key,
     this.initialValue,
-    this.fieldName,
     required this.renderHints,
     required this.valueHints,
   });
@@ -17,14 +16,14 @@ class ValueRenderer extends StatelessWidget {
   final Map<String, dynamic>? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
-  final String? fieldName;
 
   @override
   Widget build(BuildContext context) {
     final technicalType = renderHints.technicalType;
     final editType = renderHints.editType;
     final dataType = renderHints.dataType;
-    final values = valueHints.values;
+    final fieldName = initialValue?['@type'] ?? '';
+    final values = valueHints.values ?? [];
 
     if (technicalType == RenderHintsTechnicalType.Integer ||
         technicalType == RenderHintsTechnicalType.Float ||
@@ -54,8 +53,8 @@ class ValueRenderer extends StatelessWidget {
         fieldName: fieldName,
         editType: editType,
         dataType: dataType,
-        values: values,
         valueHints: valueHints,
+        values: values,
       );
     }
     if (technicalType == RenderHintsTechnicalType.Boolean) {

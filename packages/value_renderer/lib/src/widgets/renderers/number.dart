@@ -22,13 +22,13 @@ class NumberRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final Map<String, dynamic>? initialValue;
-  final List<dynamic>? values;
-  final Map<String, dynamic> valueHints;
+  final List<ValueHintsValue>? values;
+  final ValueHints valueHints;
 
   @override
   Widget build(BuildContext context) {
-    final double min = valueHints['min']?.toDouble() ?? 1;
-    final double max = valueHints['max']?.toDouble() ?? 100;
+    final double min = valueHints.min?.toDouble() ?? 1;
+    final double max = valueHints.max?.toDouble() ?? 100;
 
     if (dataType == RenderHintsDataType.DateTime ||
         dataType == RenderHintsDataType.Date ||

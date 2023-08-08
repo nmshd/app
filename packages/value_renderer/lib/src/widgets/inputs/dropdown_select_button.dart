@@ -1,10 +1,11 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 class DropdownSelectButton extends StatefulWidget {
   const DropdownSelectButton({super.key, this.fieldName = 'Select an Option: ', this.initialValue, this.values});
 
   final dynamic initialValue;
-  final List<dynamic>? values;
+  final List<ValueHintsValue>? values;
   final String fieldName;
 
   @override
@@ -36,19 +37,13 @@ class _DropdownSelectButtonState extends State<DropdownSelectButton> {
               selectedOption = newValue!;
             });
           },
-          items: [
-            DropdownMenuItem<dynamic>(
-              value: widget.initialValue,
-              child: Text(widget.initialValue),
-            ),
-            ...widget.values?.map<DropdownMenuItem<dynamic>>((dynamic value) {
-                  return DropdownMenuItem<dynamic>(
-                    value: value['key'],
-                    child: Text(value['key'].toString()),
-                  );
-                }) ??
-                []
-          ],
+          items: widget.values?.map<DropdownMenuItem<dynamic>>((dynamic value) {
+                return DropdownMenuItem<dynamic>(
+                  value: value.key,
+                  child: Text(value.key.toString()),
+                );
+              }).toList() ??
+              [],
         ),
       ],
     );

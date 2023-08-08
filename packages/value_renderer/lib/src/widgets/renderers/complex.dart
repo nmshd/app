@@ -50,7 +50,6 @@ class ComplexRenderer extends StatelessWidget {
 
               return ListTile(
                 title: ValueRenderer(
-                  fieldName: key,
                   initialValue: itemInitialValue,
                   renderHints: itemRenderHints!,
                   valueHints: itemValueHints!,

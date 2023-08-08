@@ -1,3 +1,4 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -5,7 +6,7 @@ class RadioButton extends StatefulWidget {
   RadioButton({super.key, required this.values, required this.fieldName, required this.initialValue});
 
   final String fieldName;
-  late List<dynamic> values;
+  late List<ValueHintsValue>? values;
   final dynamic initialValue;
 
   @override
@@ -19,10 +20,10 @@ class _RadioButtonState extends State<RadioButton> {
   void initState() {
     super.initState();
     selectedOption = widget.initialValue.toString();
-    if (widget.values.isEmpty) {
+    if (widget.values!.isEmpty) {
       widget.values = [
-        {'key': 'true'},
-        {'key': 'false'}
+        const ValueHintsValue(key: true, displayName: ''),
+        const ValueHintsValue(key: false, displayName: ''),
       ];
     }
   }
@@ -42,9 +43,9 @@ class _RadioButtonState extends State<RadioButton> {
             fontSize: 16.0,
           ),
         ),
-        ...widget.values.map((option) => RadioListTile<dynamic>(
-              title: Text(option['key'].toString()),
-              value: option['key']!,
+        ...widget.values!.map((option) => RadioListTile<dynamic>(
+              title: Text(option.key.toString()),
+              value: option.key!,
               groupValue: selectedOption,
               onChanged: (dynamic value) {
                 setState(() {
