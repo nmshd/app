@@ -22,8 +22,8 @@ class _RadioButtonState extends State<RadioButton> {
     selectedOption = widget.initialValue.toString();
     if (widget.values!.isEmpty) {
       widget.values = [
-        const ValueHintsValue(key: true, displayName: ''),
-        const ValueHintsValue(key: false, displayName: ''),
+        const ValueHintsValue(key: 'true', displayName: ''),
+        const ValueHintsValue(key: 'false', displayName: ''),
       ];
     }
   }
@@ -45,7 +45,7 @@ class _RadioButtonState extends State<RadioButton> {
         ),
         ...widget.values!.map((option) => RadioListTile<dynamic>(
               title: Text(option.key.toString()),
-              value: option.key!,
+              value: option.key!.toString(),
               groupValue: selectedOption,
               onChanged: (dynamic value) {
                 setState(() {

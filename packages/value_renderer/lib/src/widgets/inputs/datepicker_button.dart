@@ -19,7 +19,6 @@ class _DatepickerButtonState extends State<DatepickerButton> {
   @override
   void initState() {
     super.initState();
-    // ignore: prefer_is_not_empty
     if (widget.initialValue != null && widget.initialValue!.isNotEmpty) {
       _selectedDate = DateTime(widget.initialValue!['year'], widget.initialValue!['month'], widget.initialValue!['day']);
     }

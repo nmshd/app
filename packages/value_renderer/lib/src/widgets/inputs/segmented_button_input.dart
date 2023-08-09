@@ -18,7 +18,7 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
   @override
   void initState() {
     super.initState();
-    selectedSegment = widget.initialValue;
+    selectedSegment = widget.initialValue.toString();
   }
 
   @override
@@ -33,7 +33,7 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
         SegmentedButton<dynamic>(
           segments: widget.values.map((dynamic value) {
             return ButtonSegment<dynamic>(
-              value: value.key,
+              value: value.key.toString(),
               label: Text(value.key.toString()),
             );
           }).toList(),
