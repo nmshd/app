@@ -29,22 +29,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   _MenuItem? _selectedMenuItem;
 
   @override
   void initState() {
     super.initState();
-
-    _selectedMenuItem = _menu[0].items[0];
+    _selectedMenuItem = _menu[0];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(_selectedMenuItem!.title)),
-      key: _scaffoldKey,
+      key: GlobalKey<ScaffoldState>(),
       drawer: _buildDrawer(),
       body: _selectedMenuItem!.pageBuilder(context),
     );
@@ -60,24 +57,21 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (final group in _menu) ...[
-                  if (group.title != null) _DrawerHeader(title: group.title),
-                  for (final item in group.items) ...[
-                    _DrawerButton(
-                      icon: item.icon,
-                      title: item.title,
-                      isSelected: item == _selectedMenuItem,
-                      onPressed: () {
-                        setState(() {
-                          _selectedMenuItem = item;
-                        });
+                for (final item in _menu) ...[
+                  _DrawerButton(
+                    icon: item.icon,
+                    title: item.title,
+                    isSelected: item == _selectedMenuItem,
+                    onPressed: () {
+                      setState(() {
+                        _selectedMenuItem = item;
+                      });
 
-                        if (mounted) Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                  const SizedBox(height: 24),
+                      if (mounted) Navigator.of(context).pop();
+                    },
+                  ),
                 ],
+                const SizedBox(height: 24),
               ],
             ),
           ),
@@ -87,72 +81,41 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-final _menu = <_MenuGroup>[
-  _MenuGroup(title: 'Value Renderer Examples', items: [
-    _MenuItem(
-      icon: Icons.description,
-      title: 'Input Examples',
-      pageBuilder: (context) {
-        return const InputExamples();
-      },
-    ),
-    _MenuItem(
-      icon: Icons.description,
-      title: 'Renderer',
-      pageBuilder: (context) {
-        return const Renderer();
-      },
-    ),
-  ])
+final _menu = [
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Input Examples',
+    pageBuilder: (context) {
+      return const InputExamples();
+    },
+  ),
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Renderer',
+    pageBuilder: (context) {
+      return const Renderer();
+    },
+  ),
 ];
 
-class _MenuGroup {
-  const _MenuGroup({
-    this.title,
-    required this.items,
-  });
-
-  final String? title;
-  final List<_MenuItem> items;
-}
-
 class _MenuItem {
+  final IconData icon;
+  final String title;
+  final Widget Function(BuildContext context) pageBuilder;
+
   const _MenuItem({
     required this.icon,
     required this.title,
     required this.pageBuilder,
   });
-
-  final IconData icon;
-  final String title;
-  final Widget Function(BuildContext context) pageBuilder;
-}
-
-class _DrawerHeader extends StatelessWidget {
-  const _DrawerHeader({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
-
-  final String? title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, bottom: 4),
-      child: Text(
-        title!,
-        style: const TextStyle(
-          color: Color(0xFF444444),
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
 }
 
 class _DrawerButton extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final bool isSelected;
+  final VoidCallback onPressed;
+
   const _DrawerButton({
     Key? key,
     required this.icon,
@@ -160,11 +123,6 @@ class _DrawerButton extends StatelessWidget {
     this.isSelected = false,
     required this.onPressed,
   }) : super(key: key);
-
-  final IconData icon;
-  final String title;
-  final bool isSelected;
-  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
