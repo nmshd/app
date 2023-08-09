@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-final formatter = DateFormat.yMd();
-
 class DatepickerButton extends StatefulWidget {
   final String? fieldName;
   final Map<String, dynamic>? initialValue;
@@ -26,11 +24,21 @@ class _DatepickerButtonState extends State<DatepickerButton> {
 
   void _presentDatePicker() async {
     final now = DateTime.now();
-    final firstDate = DateTime(now.year - 1, now.month, now.day);
-    final pickedDate = await showDatePicker(context: context, initialDate: now, firstDate: firstDate, lastDate: now);
+    final firstDate = DateTime(1900, now.month, now.day);
+    final lastDate = DateTime(2200, now.month, now.day);
+    final pickedDate = await showDatePicker(context: context, initialDate: now, firstDate: firstDate, lastDate: lastDate);
+    if (pickedDate == null) return;
 
+    if (mounted) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    }
+  }
+
+  void _clearDatePicker() {
     setState(() {
-      _selectedDate = pickedDate;
+      _selectedDate = null;
     });
   }
 
@@ -46,8 +54,9 @@ class _DatepickerButtonState extends State<DatepickerButton> {
         const SizedBox(
           width: 12,
         ),
-        Text(_selectedDate != null ? formatter.format(_selectedDate!) : 'No date selected'),
-        IconButton(onPressed: _presentDatePicker, icon: const Icon(Icons.calendar_month))
+        Text(_selectedDate != null ? DateFormat.yMd().format(_selectedDate!) : 'No date selected'),
+        IconButton(onPressed: _presentDatePicker, icon: const Icon(Icons.calendar_month)),
+        IconButton(onPressed: _clearDatePicker, icon: const Icon(Icons.clear))
       ],
     );
   }
