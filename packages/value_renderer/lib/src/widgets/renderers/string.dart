@@ -20,6 +20,7 @@ class StringRenderer extends StatelessWidget {
     if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
       return const DatepickerButton();
     }
+
     if (editType == RenderHintsEditType.SelectLike) {
       return DropdownSelectButton(
         fieldName: fieldName!,
@@ -27,6 +28,7 @@ class StringRenderer extends StatelessWidget {
         values: values,
       );
     }
+
     if (editType == RenderHintsEditType.ButtonLike) {
       return RadioButton(
         fieldName: fieldName!,
@@ -34,6 +36,7 @@ class StringRenderer extends StatelessWidget {
         initialValue: initialValue['value'],
       );
     }
+
     if (editType == RenderHintsEditType.SliderLike) {
       return SegmentedButtonInput(
         fieldName: fieldName!,
@@ -41,6 +44,7 @@ class StringRenderer extends StatelessWidget {
         initialValue: initialValue['value'],
       );
     }
+
     return TextInput(
       fieldName: fieldName,
       initialValue: initialValue['value'] ?? '',

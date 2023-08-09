@@ -45,6 +45,7 @@ class ValueRenderer extends StatelessWidget {
         valueHints: valueHints,
       );
     }
+
     if (technicalType == RenderHintsTechnicalType.String) {
       return StringRenderer(
         initialValue: initialValue ?? {},
@@ -55,6 +56,7 @@ class ValueRenderer extends StatelessWidget {
         values: values,
       );
     }
+
     if (technicalType == RenderHintsTechnicalType.Boolean) {
       return BooleanRenderer(
         initialValue: initialValue,

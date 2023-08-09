@@ -35,6 +35,7 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialValue,
       );
     }
+
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectButton(
         fieldName: fieldName!,
@@ -42,6 +43,7 @@ class NumberRenderer extends StatelessWidget {
         values: values,
       );
     }
+
     // Replacing "Rating"
     if (editType == RenderHintsEditType.SelectLike) {
       return SliderInput(
@@ -51,6 +53,7 @@ class NumberRenderer extends StatelessWidget {
         max: 5,
       );
     }
+
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioButton(
         fieldName: fieldName!,
@@ -58,6 +61,7 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialValue?['value'],
       );
     }
+
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         fieldName: fieldName!,
@@ -65,6 +69,7 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialValue?['value'],
       );
     }
+
     if (editType == RenderHintsEditType.SliderLike) {
       return SliderInput(
         fieldName: fieldName,
@@ -73,6 +78,7 @@ class NumberRenderer extends StatelessWidget {
         max: max,
       );
     }
+
     return NumberInput(
       initialValue: initialValue?['value'].toString(),
       fieldName: fieldName,

@@ -21,6 +21,7 @@ class BooleanRenderer extends StatelessWidget {
         initialValue: initialValue,
       );
     }
+
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         fieldName: fieldName!,
@@ -28,6 +29,7 @@ class BooleanRenderer extends StatelessWidget {
         initialValue: initialValue?['value'].toString(),
       );
     }
+
     if (editType == RenderHintsEditType.SelectLike) {
       return DropdownSelectButton(
         fieldName: fieldName!,
@@ -35,12 +37,14 @@ class BooleanRenderer extends StatelessWidget {
         values: values,
       );
     }
+
     if (editType == RenderHintsEditType.SliderLike) {
       return SwitchButton(
         fieldName: fieldName!,
         initialValue: initialValue?['value'],
       );
     }
+
     return RadioButton(
       fieldName: fieldName!,
       values: values ?? [],
