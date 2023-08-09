@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 final formatter = DateFormat.yMd();
 
 class DatepickerButton extends StatefulWidget {
-  const DatepickerButton({super.key, this.fieldName, this.initialValue});
-
   final String? fieldName;
   final Map<String, dynamic>? initialValue;
+
+  const DatepickerButton({super.key, this.fieldName, this.initialValue});
 
   @override
   State<DatepickerButton> createState() => _DatepickerButtonState();

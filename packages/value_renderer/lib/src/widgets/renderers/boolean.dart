@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import '../inputs/inputs.dart';
 
 class BooleanRenderer extends StatelessWidget {
-  const BooleanRenderer({super.key, this.fieldName = '', this.editType, this.dataType, this.initialValue, this.values});
-
   final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final Map<String, dynamic>? initialValue;
   final List<ValueHintsValue>? values;
+
+  const BooleanRenderer({super.key, this.fieldName = '', this.editType, this.dataType, this.initialValue, this.values});
 
   @override
   Widget build(BuildContext context) {

@@ -2,11 +2,11 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 class SegmentedButtonInput extends StatefulWidget {
-  const SegmentedButtonInput({super.key, required this.fieldName, required this.values, this.initialValue});
-
   final String fieldName;
   final List<ValueHintsValue> values;
   final dynamic initialValue;
+
+  const SegmentedButtonInput({super.key, required this.fieldName, required this.values, this.initialValue});
 
   @override
   State<SegmentedButtonInput> createState() => _SegmentedButtonInputState();

@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import './widgets/renderers/renderers.dart';
 
 class ValueRenderer extends StatelessWidget {
+  final Map<String, dynamic>? initialValue;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
+
   const ValueRenderer({
     super.key,
     this.initialValue,
     required this.renderHints,
     required this.valueHints,
   });
-
-  final Map<String, dynamic>? initialValue;
-  final RenderHints renderHints;
-  final ValueHints valueHints;
 
   @override
   Widget build(BuildContext context) {

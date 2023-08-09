@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 import '../inputs/inputs.dart';
 
 class NumberRenderer extends StatelessWidget {
+  final String? fieldName;
+  final RenderHintsEditType? editType;
+  final RenderHintsDataType? dataType;
+  final Map<String, dynamic>? initialValue;
+  final List<ValueHintsValue>? values;
+  final ValueHints valueHints;
+
   const NumberRenderer({
     super.key,
     this.fieldName,
@@ -13,13 +20,6 @@ class NumberRenderer extends StatelessWidget {
     required this.initialValue,
     required this.valueHints,
   });
-
-  final String? fieldName;
-  final RenderHintsEditType? editType;
-  final RenderHintsDataType? dataType;
-  final Map<String, dynamic>? initialValue;
-  final List<ValueHintsValue>? values;
-  final ValueHints valueHints;
 
   @override
   Widget build(BuildContext context) {

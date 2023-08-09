@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:value_renderer/src/value_renderer.dart';
 
 class ComplexRenderer extends StatelessWidget {
+  final Map<String, dynamic>? initialValue;
+  final String? fieldName;
+  final RenderHintsEditType? editType;
+  final RenderHintsDataType? dataType;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
+
   const ComplexRenderer({
     super.key,
     this.fieldName,
@@ -12,13 +19,6 @@ class ComplexRenderer extends StatelessWidget {
     required this.valueHints,
     required this.renderHints,
   });
-
-  final Map<String, dynamic>? initialValue;
-  final String? fieldName;
-  final RenderHintsEditType? editType;
-  final RenderHintsDataType? dataType;
-  final RenderHints renderHints;
-  final ValueHints valueHints;
 
   @override
   Widget build(BuildContext context) {

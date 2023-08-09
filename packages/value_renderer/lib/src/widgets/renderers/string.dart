@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import '../inputs/inputs.dart';
 
 class StringRenderer extends StatelessWidget {
-  const StringRenderer({super.key, this.fieldName, this.values, this.editType, this.dataType, required this.initialValue, required this.valueHints});
-
   final Map<String, dynamic> initialValue;
   final List<ValueHintsValue>? values;
   final String? fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final ValueHints valueHints;
+
+  const StringRenderer({super.key, this.fieldName, this.values, this.editType, this.dataType, required this.initialValue, required this.valueHints});
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class NumberInput extends StatefulWidget {
-  const NumberInput({super.key, this.fieldName = 'Number Field', required this.initialValue, required this.max});
-
   final String? initialValue;
   final String? fieldName;
   final double max;
+
+  const NumberInput({super.key, this.fieldName = 'Number Field', required this.initialValue, required this.max});
 
   @override
   State<NumberInput> createState() => NumberInputState();

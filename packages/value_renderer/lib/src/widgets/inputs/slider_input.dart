@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SliderInput extends StatefulWidget {
-  const SliderInput({super.key, this.initialValue, this.fieldName = '', required this.min, required this.max});
-
   final double? initialValue;
   final String? fieldName;
   final double min;
   final double max;
+
+  const SliderInput({super.key, this.initialValue, this.fieldName = '', required this.min, required this.max});
 
   @override
   State<SliderInput> createState() => _SliderInputState();
