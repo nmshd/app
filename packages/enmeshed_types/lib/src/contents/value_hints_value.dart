@@ -5,6 +5,7 @@ part 'value_hints_value.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class ValueHintsValue extends Equatable {
+  /// Can be a [String], [num], or [bool].
   final dynamic key;
   final String displayName;
 

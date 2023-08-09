@@ -12,6 +12,8 @@ class ValueHints extends Equatable {
   final int? max;
   final String? pattern;
   final List<ValueHintsValue>? values;
+
+  /// Can be a [String], [num], or [bool].
   final dynamic defaultValue;
   final Map<String, ValueHints>? propertyHints;
 
