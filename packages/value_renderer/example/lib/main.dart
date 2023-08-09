@@ -17,9 +17,6 @@ class ValueRendererExample extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomeScreen(),
-      supportedLocales: const [
-        Locale('en', ''),
-      ],
     );
   }
 }
@@ -43,91 +40,46 @@ class _HomeScreenState extends State<HomeScreen> {
     _selectedMenuItem = _menu[0].items[0];
   }
 
-  void _toggleDrawer() {
-    if (_scaffoldKey.currentState!.isDrawerOpen) {
-      Navigator.of(context).pop();
-    } else {
-      _scaffoldKey.currentState!.openDrawer();
-    }
-  }
-
-  void _closeDrawer() {
-    if (_scaffoldKey.currentState!.isDrawerOpen) {
-      Navigator.of(context).pop();
-    }
-  }
-
-  void _selectMenuItem(_MenuItem item) {
-    setState(() {
-      _selectedMenuItem = item;
-      _closeDrawer();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FocusScope(
-      child: Overlay(
-        initialEntries: [
-          OverlayEntry(builder: (context) {
-            return Scaffold(
-              key: _scaffoldKey,
-              body: Stack(
-                children: [
-                  _selectedMenuItem!.pageBuilder(context),
-                  _buildDrawerButton(),
-                ],
-              ),
-              drawer: _buildDrawer(),
-            );
-          })
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDrawerButton() {
-    return SafeArea(
-      child: Material(
-        color: Colors.transparent,
-        child: SizedBox(
-          height: 56,
-          width: 56,
-          child: IconButton(
-            icon: const Icon(Icons.menu),
-            color: Theme.of(context).colorScheme.onSurface,
-            splashRadius: 24,
-            onPressed: _toggleDrawer,
-          ),
-        ),
-      ),
+    return Scaffold(
+      appBar: AppBar(title: Text(_selectedMenuItem!.title)),
+      key: _scaffoldKey,
+      drawer: _buildDrawer(),
+      body: _selectedMenuItem!.pageBuilder(context),
     );
   }
 
   Widget _buildDrawer() {
     return Drawer(
-      child: SingleChildScrollView(
-        primary: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              for (final group in _menu) ...[
-                if (group.title != null) _DrawerHeader(title: group.title),
-                for (final item in group.items) ...[
-                  _DrawerButton(
-                    icon: item.icon,
-                    title: item.title,
-                    isSelected: item == _selectedMenuItem,
-                    onPressed: () {
-                      _selectMenuItem(item);
-                    },
-                  ),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          primary: false,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final group in _menu) ...[
+                  if (group.title != null) _DrawerHeader(title: group.title),
+                  for (final item in group.items) ...[
+                    _DrawerButton(
+                      icon: item.icon,
+                      title: item.title,
+                      isSelected: item == _selectedMenuItem,
+                      onPressed: () {
+                        setState(() {
+                          _selectedMenuItem = item;
+                        });
+
+                        if (mounted) Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                  const SizedBox(height: 24),
                 ],
-                const SizedBox(height: 24),
               ],
-            ],
+            ),
           ),
         ),
       ),
