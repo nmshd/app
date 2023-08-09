@@ -1,9 +1,7 @@
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
+import '../attribute_value.dart';
 import 'relationship.dart';
 
-abstract class RelationshipAttributeValue extends Equatable {
+abstract class RelationshipAttributeValue extends AttributeValue {
   const RelationshipAttributeValue();
 
   factory RelationshipAttributeValue.fromJson(Map json) {
@@ -27,11 +25,4 @@ abstract class RelationshipAttributeValue extends Equatable {
       _ => throw Exception('Unknown AbstractAttributeValue: $type'),
     };
   }
-
-  @mustCallSuper
-  Map<String, dynamic> toJson();
-
-  @mustCallSuper
-  @override
-  List<Object?> get props;
 }

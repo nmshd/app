@@ -1,9 +1,7 @@
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
+import '../attribute_value.dart';
 import 'identity.dart';
 
-abstract class IdentityAttributeValue extends Equatable {
+abstract class IdentityAttributeValue extends AttributeValue {
   const IdentityAttributeValue();
 
   factory IdentityAttributeValue.fromJson(Map json) {
@@ -54,11 +52,4 @@ abstract class IdentityAttributeValue extends Equatable {
       _ => throw Exception('Unknown IdentityAttributeValue: $type'),
     };
   }
-
-  @mustCallSuper
-  Map<String, dynamic> toJson();
-
-  @mustCallSuper
-  @override
-  List<Object?> get props;
 }
