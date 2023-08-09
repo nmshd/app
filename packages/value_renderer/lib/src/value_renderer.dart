@@ -1,9 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:value_renderer/src/widgets/renderers/boolean.dart';
-import 'package:value_renderer/src/widgets/renderers/complex.dart';
-import 'package:value_renderer/src/widgets/renderers/number.dart';
-import 'package:value_renderer/src/widgets/renderers/string.dart';
+
+import './widgets/renderers/renderers.dart';
 
 class ValueRenderer extends StatelessWidget {
   const ValueRenderer({

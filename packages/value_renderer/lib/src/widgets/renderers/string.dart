@@ -1,10 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:value_renderer/src/widgets/inputs/datepicker_button.dart';
-import 'package:value_renderer/src/widgets/inputs/dropdown_select_button.dart';
-import 'package:value_renderer/src/widgets/inputs/radio_button.dart';
-import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
-import 'package:value_renderer/src/widgets/inputs/text_input.dart';
+
+import '../inputs/inputs.dart';
 
 class StringRenderer extends StatelessWidget {
   const StringRenderer({super.key, this.fieldName, this.values, this.editType, this.dataType, required this.initialValue, required this.valueHints});

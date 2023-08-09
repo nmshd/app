@@ -1,10 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:value_renderer/src/widgets/inputs/checkbox_button.dart';
-import 'package:value_renderer/src/widgets/inputs/dropdown_select_button.dart';
-import 'package:value_renderer/src/widgets/inputs/radio_button.dart';
-import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
-import 'package:value_renderer/src/widgets/inputs/switch_button.dart';
+
+import '../inputs/inputs.dart';
 
 class BooleanRenderer extends StatelessWidget {
   const BooleanRenderer({super.key, this.fieldName = '', this.editType, this.dataType, this.initialValue, this.values});

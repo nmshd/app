@@ -1,11 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:value_renderer/src/widgets/inputs/datepicker_button.dart';
-import 'package:value_renderer/src/widgets/inputs/dropdown_select_button.dart';
-import 'package:value_renderer/src/widgets/inputs/number_input.dart';
-import 'package:value_renderer/src/widgets/inputs/radio_button.dart';
-import 'package:value_renderer/src/widgets/inputs/segmented_button_input.dart';
-import 'package:value_renderer/src/widgets/inputs/slider_input.dart';
+
+import '../inputs/inputs.dart';
 
 class NumberRenderer extends StatelessWidget {
   const NumberRenderer({
