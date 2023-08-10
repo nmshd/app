@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class RadioButton extends StatefulWidget {
   final String fieldName;
-  late List<ValueHintsValue>? values;
+  final List<ValueHintsValue>? values;
   final dynamic initialValue;
 
-  RadioButton({super.key, required this.values, required this.fieldName, required this.initialValue});
+  const RadioButton({super.key, required this.values, required this.fieldName, required this.initialValue});
 
   @override
   State<RadioButton> createState() => _RadioButtonState();
@@ -20,12 +20,6 @@ class _RadioButtonState extends State<RadioButton> {
   void initState() {
     super.initState();
     selectedOption = widget.initialValue.toString();
-    if (widget.values!.isEmpty) {
-      widget.values = [
-        const ValueHintsValue(key: 'true', displayName: ''),
-        const ValueHintsValue(key: 'false', displayName: ''),
-      ];
-    }
   }
 
   @override

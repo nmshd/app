@@ -15,10 +15,10 @@ class BooleanRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
-      return CheckboxButton(
+      return RadioButton(
         fieldName: fieldName!,
         values: values ?? [],
-        initialValue: initialValue,
+        initialValue: initialValue?['value'].toString(),
       );
     }
 
@@ -45,7 +45,7 @@ class BooleanRenderer extends StatelessWidget {
       );
     }
 
-    return RadioButton(
+    return CheckboxButton(
       fieldName: fieldName!,
       values: values ?? [],
       initialValue: initialValue?['value'],

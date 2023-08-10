@@ -13,37 +13,24 @@ class CheckboxButton extends StatefulWidget {
 }
 
 class _CheckboxButtonState extends State<CheckboxButton> {
-  late Map<dynamic, bool> isCheckedMap;
+  late bool isChecked;
 
   @override
   void initState() {
     super.initState();
-    isCheckedMap = {for (var item in widget.values) item.key: widget.initialValue?[item.key] ?? false};
+    isChecked = widget.initialValue;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(widget.fieldName),
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: widget.values.length,
-          itemBuilder: (context, index) {
-            final valueKey = widget.values[index].key;
-            return CheckboxListTile(
-              title: Text(widget.values[index].key.toString()),
-              value: isCheckedMap[valueKey],
-              onChanged: (bool? value) {
-                setState(() {
-                  isCheckedMap[valueKey] = value ?? false;
-                });
-              },
-            );
-          },
-        ),
-      ],
+    return CheckboxListTile(
+      title: Text(widget.fieldName),
+      value: isChecked,
+      onChanged: (bool? value) {
+        setState(() {
+          isChecked = value ?? false;
+        });
+      },
     );
   }
 }

@@ -209,16 +209,14 @@ class InputExamples extends StatelessWidget {
                           valueHints: const ValueHints(
                             max: 100,
                             values: [
-                              ValueHintsValue(key: 'Option1', displayName: ''),
-                              ValueHintsValue(key: 'Option2', displayName: ''),
-                              ValueHintsValue(key: 'Option3', displayName: ''),
+                              ValueHintsValue(key: 'Option 1', displayName: ''),
+                              ValueHintsValue(key: 'Option 2', displayName: ''),
+                              ValueHintsValue(key: 'Option 3', displayName: ''),
                             ],
                           ),
                           initialValue: const {
                             '@type': 'Boolean / ButtonLike / ValueHint.Values',
-                            'Option1': true,
-                            'Option2': false,
-                            'Option3': true,
+                            'value': 'Option 1',
                           },
                         ),
                         ValueRenderer(
