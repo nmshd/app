@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/local_request_dvo.dart';
 import '../integer_converter.dart';

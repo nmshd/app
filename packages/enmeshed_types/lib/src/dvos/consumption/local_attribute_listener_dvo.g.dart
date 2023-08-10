@@ -35,9 +35,9 @@ Map<String, dynamic> _$LocalAttributeListenerDVOToJson(LocalAttributeListenerDVO
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
-  val['query'] = instance.query;
-  val['peer'] = instance.peer;
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['query'] = instance.query.toJson();
+  val['peer'] = instance.peer.toJson();
   return val;
 }

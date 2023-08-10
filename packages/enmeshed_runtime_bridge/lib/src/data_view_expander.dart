@@ -17,7 +17,7 @@ class DataViewExpander {
   ) async {
     assert(message is MessageDTO || message is MessageWithAttachmentsDTO, 'message must be a MessageDTO or MessageWithAttachmentsDTO');
 
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandMessageDTO(message)',
       arguments: {'message': message.toJson()},
     );
@@ -28,7 +28,7 @@ class DataViewExpander {
 
   /// Returns a list containing [MessageDVO]s, [MailDVO]s and [RequestMessageDVO]s.
   Future<List<MessageDVO>> expandMessageDTOs(List<MessageDTO> messages) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandMessageDTOs(messages)',
       arguments: {'messages': messages.map((e) => e.toJson()).toList()},
     );
@@ -39,7 +39,7 @@ class DataViewExpander {
 
   /// Returns a [PeerRelationshipTemplateDVO] or [RelationshipTemplateDVO].
   Future<RelationshipTemplateDVO> expandRelationshipTemplateDTO(RelationshipTemplateDTO template) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRelationshipTemplateDTO(template)',
       arguments: {'template': template.toJson()},
     );
@@ -51,7 +51,7 @@ class DataViewExpander {
   // expandRelationshipTemplateDTOs(templates: RelationshipTemplateDTO[]): Promise<(PeerRelationshipTemplateDVO | RelationshipTemplateDVO)[]>;
   /// Will return a List containing [PeerRelationshipTemplateDVO]s and [RelationshipTemplateDVO]s.
   Future<List<RelationshipTemplateDVO>> expandRelationshipTemplateDTOs(List<RelationshipTemplateDTO> templates) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRelationshipTemplateDTOs(templates)',
       arguments: {'templates': templates.map((e) => e.toJson()).toList()},
     );
@@ -61,7 +61,7 @@ class DataViewExpander {
   }
 
   Future<RequestDVO> expandRequest(Request request) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRequest(request)',
       arguments: {'request': request.toJson()},
     );
@@ -71,7 +71,7 @@ class DataViewExpander {
   }
 
   Future<List<RequestDVO>> expandRequests(List<Request> requests) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRequests(requests)',
       arguments: {'requests': requests.map((e) => e.toJson()).toList()},
     );
@@ -81,7 +81,7 @@ class DataViewExpander {
   }
 
   Future<RequestItemDVO> expandRequestItem(RequestItem requestItem) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRequestItem(requestItem)',
       arguments: {'requestItem': requestItem.toJson()},
     );
@@ -94,7 +94,7 @@ class DataViewExpander {
   // expandRequestGroupOrItem(requestGroupOrItem: RequestItemGroupJSON | RequestItemJSON, localRequestDTO?: LocalRequestDTO, responseGroupOrItemDVO?: ResponseItemDVO | ResponseItemGroupDVO): Promise<RequestItemGroupDVO | RequestItemDVO>;
 
   Future<ResponseItemDVO> expandResponseItem(ResponseItem responseItem) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandResponseItem(responseItem)',
       arguments: {'responseItem': responseItem.toJson()},
     );
@@ -104,7 +104,7 @@ class DataViewExpander {
   }
 
   Future<LocalAttributeListenerDVO> expandLocalAttributeListenerDTO(LocalAttributeListenerDTO attributeListener) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandLocalAttributeListenerDTO(attributeListener)',
       arguments: {'attributeListener': attributeListener.toJson()},
     );
@@ -117,7 +117,7 @@ class DataViewExpander {
   // expandResponseGroupOrItem(responseGroupOrItem: ResponseItemGroupJSON | ResponseItemJSON): Promise<ResponseItemGroupDVO | ResponseItemDVO>;
 
   Future<LocalRequestDVO> expandLocalRequestDTO(LocalRequestDTO request) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandLocalRequestDTO(request)',
       arguments: {'request': request.toJson()},
     );
@@ -127,7 +127,7 @@ class DataViewExpander {
   }
 
   Future<List<LocalRequestDVO>> expandLocalRequestDTOs(List<LocalRequestDTO> localRequests) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandLocalRequestDTOs(localRequests)',
       arguments: {'localRequests': localRequests.map((e) => e.toJson()).toList()},
     );
@@ -137,7 +137,7 @@ class DataViewExpander {
   }
 
   Future<ResponseDVO> expandResponse(Response response, LocalRequestDTO request) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandResponse(response, request)',
       arguments: {'response': response.toJson(), 'request': request.toJson()},
     );
@@ -147,7 +147,7 @@ class DataViewExpander {
   }
 
   Future<LocalResponseDVO> expandLocalResponseDTO(LocalResponseDTO response, LocalRequestDTO request) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandLocalResponseDTO(response, request)',
       arguments: {'response': response.toJson(), 'request': request.toJson()},
     );
@@ -157,7 +157,7 @@ class DataViewExpander {
   }
 
   Future<LocalAttributeDVO> expandLocalAttributeDTO(LocalAttributeDTO attribute) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandLocalAttributeDTO(attribute)',
       arguments: {'attribute': attribute.toJson()},
     );
@@ -167,7 +167,7 @@ class DataViewExpander {
   }
 
   Future<List<LocalAttributeDVO>> expandLocalAttributeDTOs(List<LocalAttributeDTO> attributes) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandLocalAttributeDTOs(attributes)',
       arguments: {'attributes': attributes.map((e) => e.toJson()).toList()},
     );
@@ -177,7 +177,7 @@ class DataViewExpander {
   }
 
   Future<AttributeQueryDVO> expandAttributeQuery(AttributeQuery query) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandAttributeQuery(query)',
       arguments: {'query': query.toJson()},
     );
@@ -187,7 +187,7 @@ class DataViewExpander {
   }
 
   Future<IdentityAttributeQueryDVO> expandIdentityAttributeQuery(IdentityAttributeQuery query) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandIdentityAttributeQuery(query)',
       arguments: {'query': query.toJson()},
     );
@@ -197,7 +197,7 @@ class DataViewExpander {
   }
 
   Future<RelationshipAttributeQueryDVO> expandRelationshipAttributeQuery(RelationshipAttributeQuery query) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRelationshipAttributeQuery(query)',
       arguments: {'query': query.toJson()},
     );
@@ -207,7 +207,7 @@ class DataViewExpander {
   }
 
   Future<ThirdPartyRelationshipAttributeQueryDVO> expandThirdPartyRelationshipAttributeQuery(ThirdPartyRelationshipAttributeQuery query) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandThirdPartyRelationshipAttributeQuery(query)',
       arguments: {'query': query.toJson()},
     );
@@ -217,7 +217,7 @@ class DataViewExpander {
   }
 
   Future<ProcessedAttributeQueryDVO> processAttributeQuery(AttributeQuery attributeQuery) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.processAttributeQuery(attributeQuery)',
       arguments: {'attributeQuery': attributeQuery.toJson()},
     );
@@ -227,7 +227,7 @@ class DataViewExpander {
   }
 
   Future<ProcessedIdentityAttributeQueryDVO> processIdentityAttributeQuery(IdentityAttributeQuery query) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.processIdentityAttributeQuery(query)',
       arguments: {'query': query.toJson()},
     );
@@ -237,7 +237,7 @@ class DataViewExpander {
   }
 
   Future<ProcessedRelationshipAttributeQueryDVO> processRelationshipAttributeQuery(RelationshipAttributeQuery query) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.processRelationshipAttributeQuery(query)',
       arguments: {'query': query.toJson()},
     );
@@ -249,7 +249,7 @@ class DataViewExpander {
   Future<ProcessedThirdPartyRelationshipAttributeQueryDVO> processThirdPartyRelationshipAttributeQuery(
     ThirdPartyRelationshipAttributeQuery query,
   ) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.processThirdPartyRelationshipAttributeQuery(query)',
       arguments: {'query': query.toJson()},
     );
@@ -259,7 +259,7 @@ class DataViewExpander {
   }
 
   Future<DraftIdentityAttributeDVO> expandAttribute(AbstractAttribute attribute) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandAttribute(attribute)',
       arguments: {'attribute': attribute.toJson()},
     );
@@ -269,7 +269,7 @@ class DataViewExpander {
   }
 
   Future<List<DraftIdentityAttributeDVO>> expandAttributes(List<AbstractAttribute> attributes) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandAttributes(attributes)',
       arguments: {'attributes': attributes.map((e) => e.toJson()).toList()},
     );
@@ -279,7 +279,7 @@ class DataViewExpander {
   }
 
   Future<IdentityDVO> expandSelf() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandSelf()',
     );
 
@@ -288,7 +288,7 @@ class DataViewExpander {
   }
 
   Future<IdentityDVO> expandUnknown(String address) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandUnknown(address)',
       arguments: {'address': address},
     );
@@ -298,7 +298,7 @@ class DataViewExpander {
   }
 
   Future<IdentityDVO> expandAddress(String address) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandAddress(address)',
       arguments: {'address': address},
     );
@@ -308,7 +308,7 @@ class DataViewExpander {
   }
 
   Future<List<IdentityDVO>> expandAddresses(List<String> addresses) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandAddresses(addresses)',
       arguments: {'addresses': addresses},
     );
@@ -318,7 +318,7 @@ class DataViewExpander {
   }
 
   Future<RecipientDVO> expandRecipientDTO(RecipientDTO recipient) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRecipientDTO(recipient)',
       arguments: {'recipient': recipient.toJson()},
     );
@@ -328,7 +328,7 @@ class DataViewExpander {
   }
 
   Future<List<RecipientDVO>> expandRecipientDTOs(List<RecipientDTO> recipients) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRecipientDTOs(recipients)',
       arguments: {'recipients': recipients.map((e) => e.toJson()).toList()},
     );
@@ -338,7 +338,7 @@ class DataViewExpander {
   }
 
   Future<RelationshipChangeDVO> expandRelationshipChangeDTO(RelationshipDTO relationship, RelationshipChangeDTO change) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRelationshipChangeDTO(relationship, change)',
       arguments: {'relationship': relationship.toJson(), 'change': change.toJson()},
     );
@@ -348,7 +348,7 @@ class DataViewExpander {
   }
 
   Future<List<RelationshipChangeDVO>> expandRelationshipChangeDTOs(RelationshipDTO relationship) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRelationshipChangeDTOs(relationship)',
       arguments: {'relationship': relationship.toJson()},
     );
@@ -358,7 +358,7 @@ class DataViewExpander {
   }
 
   Future<IdentityDVO> expandRelationshipDTO(RelationshipDTO relationship) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRelationshipDTO(relationship)',
       arguments: {'relationship': relationship.toJson()},
     );
@@ -368,7 +368,7 @@ class DataViewExpander {
   }
 
   Future<IdentityDVO> expandIdentityForAddress(String address) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandIdentityForAddress(address)',
       arguments: {'address': address},
     );
@@ -378,7 +378,7 @@ class DataViewExpander {
   }
 
   Future<IdentityDVO> expandIdentityDTO(IdentityDTO identity) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandIdentityDTO(identity)',
       arguments: {'identity': identity.toJson()},
     );
@@ -388,7 +388,7 @@ class DataViewExpander {
   }
 
   Future<List<IdentityDVO>> expandRelationshipDTOs(List<RelationshipDTO> relationships) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRelationshipDTOs(relationships)',
       arguments: {'relationships': relationships.map((e) => e.toJson()).toList()},
     );
@@ -398,7 +398,7 @@ class DataViewExpander {
   }
 
   Future<FileDVO> expandFileId(String id) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandFileId(id)',
       arguments: {'id': id},
     );
@@ -408,7 +408,7 @@ class DataViewExpander {
   }
 
   Future<List<FileDVO>> expandFileIds(List<String> ids) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandFileIds(ids)',
       arguments: {'ids': ids},
     );
@@ -418,7 +418,7 @@ class DataViewExpander {
   }
 
   Future<FileDVO> expandFileDTO(FileDTO file) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandFileDTO(file)',
       arguments: {'file': file.toJson()},
     );
@@ -428,7 +428,7 @@ class DataViewExpander {
   }
 
   Future<List<FileDVO>> expandFileDTOs(List<FileDTO> files) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandFileDTOs(files)',
       arguments: {'files': files.map((e) => e.toJson()).toList()},
     );

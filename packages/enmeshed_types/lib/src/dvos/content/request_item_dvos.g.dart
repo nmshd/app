@@ -30,13 +30,13 @@ Map<String, dynamic> _$RequestItemGroupDVOToJson(RequestItemGroupDVO instance) {
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
-  val['items'] = instance.items;
+  val['items'] = instance.items.map((e) => e.toJson()).toList();
   writeNotNull('title', instance.title);
-  writeNotNull('response', instance.response);
+  writeNotNull('response', instance.response?.toJson());
   return val;
 }
 
@@ -69,11 +69,11 @@ Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(ReadAttributeRequestIte
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
-  val['query'] = instance.query;
+  val['query'] = instance.query.toJson();
   return val;
 }
 
@@ -107,12 +107,12 @@ Map<String, dynamic> _$ProposeAttributeRequestItemDVOToJson(ProposeAttributeRequ
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
-  val['query'] = instance.query;
-  val['attribute'] = instance.attribute;
+  val['query'] = instance.query.toJson();
+  val['attribute'] = instance.attribute.toJson();
   return val;
 }
 
@@ -146,11 +146,11 @@ Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(CreateAttributeReques
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
-  val['attribute'] = instance.attribute;
+  val['attribute'] = instance.attribute.toJson();
   writeNotNull('sourceAttributeId', instance.sourceAttributeId);
   return val;
 }
@@ -185,11 +185,11 @@ Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestI
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
-  val['attribute'] = instance.attribute;
+  val['attribute'] = instance.attribute.toJson();
   val['sourceAttributeId'] = instance.sourceAttributeId;
   return val;
 }
@@ -222,8 +222,8 @@ Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestI
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   return val;
@@ -259,8 +259,8 @@ Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instanc
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   val['consent'] = instance.consent;
@@ -298,11 +298,11 @@ Map<String, dynamic> _$RegisterAttributeListenerRequestItemDVOToJson(RegisterAtt
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
-  val['query'] = instance.query;
+  val['query'] = instance.query.toJson();
   return val;
 }
 
@@ -328,11 +328,11 @@ Map<String, dynamic> _$DecidableRequestItemGroupDVOToJson(DecidableRequestItemGr
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
-  val['items'] = instance.items;
+  val['items'] = instance.items.map((e) => e.toJson()).toList();
   return val;
 }
 
@@ -365,10 +365,10 @@ Map<String, dynamic> _$DecidableReadAttributeRequestItemDVOToJson(DecidableReadA
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
-  val['query'] = instance.query;
+  val['query'] = instance.query.toJson();
   return val;
 }
 
@@ -402,11 +402,11 @@ Map<String, dynamic> _$DecidableProposeAttributeRequestItemDVOToJson(DecidablePr
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
-  val['query'] = instance.query;
-  val['attribute'] = instance.attribute;
+  val['query'] = instance.query.toJson();
+  val['attribute'] = instance.attribute.toJson();
   return val;
 }
 
@@ -439,10 +439,10 @@ Map<String, dynamic> _$DecidableCreateAttributeRequestItemDVOToJson(DecidableCre
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
-  val['attribute'] = instance.attribute;
+  val['attribute'] = instance.attribute.toJson();
   return val;
 }
 
@@ -476,11 +476,11 @@ Map<String, dynamic> _$DecidableShareAttributeRequestItemDVOToJson(DecidableShar
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['sourceAttributeId'] = instance.sourceAttributeId;
-  val['attribute'] = instance.attribute;
+  val['attribute'] = instance.attribute.toJson();
   return val;
 }
 
@@ -512,8 +512,8 @@ Map<String, dynamic> _$DecidableAuthenticationRequestItemDVOToJson(DecidableAuth
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   return val;
 }
@@ -547,8 +547,8 @@ Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequ
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['consent'] = instance.consent;
   writeNotNull('link', instance.link);
@@ -584,9 +584,9 @@ Map<String, dynamic> _$DecidableRegisterAttributeListenerRequestItemDVOToJson(De
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
-  val['query'] = instance.query;
+  val['query'] = instance.query.toJson();
   return val;
 }

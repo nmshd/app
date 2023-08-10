@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../dtos/local_request.dart';
+import '../../dtos/local_request_source.dart';
+import '../../dtos/local_response_source.dart';
 import '../common/common.dart';
 import '../content/content.dart';
 import '../data_view_object.dart';
@@ -54,11 +56,9 @@ class LocalRequestDVO extends DataViewObject {
   Map<String, dynamic> toJson() => _$LocalRequestDVOToJson(this);
 }
 
-enum LocalRequestSourceDVOType { Message, RelationshipChange }
-
 @JsonSerializable(includeIfNull: false)
 class LocalRequestSourceDVO {
-  final LocalRequestSourceDVOType type;
+  final LocalRequestSourceType type;
   final String reference;
 
   const LocalRequestSourceDVO({
@@ -94,11 +94,9 @@ class LocalResponseDVO extends DataViewObject {
   Map<String, dynamic> toJson() => _$LocalResponseDVOToJson(this);
 }
 
-enum LocalResponseSourceDVOType { Message, RelationshipChange }
-
 @JsonSerializable(includeIfNull: false)
 class LocalResponseSourceDVO {
-  final LocalResponseSourceDVOType type;
+  final LocalResponseSourceType type;
   final String reference;
 
   const LocalResponseSourceDVO({

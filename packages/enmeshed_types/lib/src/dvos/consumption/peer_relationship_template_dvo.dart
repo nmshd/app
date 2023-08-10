@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../content/content.dart';
 import '../transport/transport.dart';

@@ -98,11 +98,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: const Text('(re-)load runtime'),
                 ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: showBottomSheet,
-                  child: const Text('run evaluation on the runtime'),
-                ),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
@@ -214,19 +209,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-    );
-  }
-
-  Future<void> showBottomSheet() async {
-    if (!runtime.isReady) return;
-
-    await modal_bottom_sheet.showMaterialModalBottomSheet(
-      context: context,
-      builder: (context) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: RuntimeEvaluationArea(runtime: runtime),
-      ),
-      expand: true,
     );
   }
 

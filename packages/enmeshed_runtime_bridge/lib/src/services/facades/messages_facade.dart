@@ -13,7 +13,7 @@ class MessagesFacade {
     required Map<String, dynamic> content,
     List<String>? attachments,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.messages.sendMessage(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -31,7 +31,7 @@ class MessagesFacade {
   }
 
   Future<Result<List<MessageDTO>>> getMessages({Map<String, QueryValue>? query}) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.messages.getMessages(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -47,7 +47,7 @@ class MessagesFacade {
   }
 
   Future<Result<MessageWithAttachmentsDTO>> getMessage(String messageId) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.messages.getMessage(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -66,7 +66,7 @@ class MessagesFacade {
     required String messageId,
     required String attachmentId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.messages.downloadAttachment(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: { ...result.value, content: Array.from(result.value.content) } }''',
@@ -86,7 +86,7 @@ class MessagesFacade {
     required String messageId,
     required String attachmentId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.messages.getAttachmentMetadata(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',

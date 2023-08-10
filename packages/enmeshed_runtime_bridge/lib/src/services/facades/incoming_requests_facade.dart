@@ -13,7 +13,7 @@ class IncomingRequestsFacade {
   Future<Result<RequestValidationResultDTO>> canAccept({
     required DecideRequestParameters params,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.incomingRequests.canAccept(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -29,7 +29,7 @@ class IncomingRequestsFacade {
   Future<Result<LocalRequestDTO>> accept({
     required DecideRequestParameters params,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.incomingRequests.accept(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -45,7 +45,7 @@ class IncomingRequestsFacade {
   Future<Result<RequestValidationResultDTO>> canReject({
     required DecideRequestParameters params,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.incomingRequests.canReject(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -61,7 +61,7 @@ class IncomingRequestsFacade {
   Future<Result<LocalRequestDTO>> reject({
     required DecideRequestParameters params,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.incomingRequests.reject(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -77,7 +77,7 @@ class IncomingRequestsFacade {
   Future<Result<LocalRequestDTO>> getRequest({
     required String requestId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.incomingRequests.getRequest(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -93,7 +93,7 @@ class IncomingRequestsFacade {
   }
 
   Future<Result<List<LocalRequestDTO>>> getRequests({Map<String, QueryValue>? query}) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.incomingRequests.getRequests(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',

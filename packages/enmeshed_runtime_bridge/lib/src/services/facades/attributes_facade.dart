@@ -11,7 +11,7 @@ class AttributesFacade {
   Future<Result<LocalAttributeDTO>> createAttribute({
     required Map<String, dynamic> content,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.createAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -31,7 +31,7 @@ class AttributesFacade {
     required String peer,
     required String requestReference,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.createSharedAttributeCopy(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -51,7 +51,7 @@ class AttributesFacade {
   Future<void> deleteAttribute({
     required String attributeId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.deleteAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -70,7 +70,7 @@ class AttributesFacade {
     bool? onlyValid,
     bool? hideTechnical,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.getPeerAttributes(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -92,7 +92,7 @@ class AttributesFacade {
     bool? onlyValid,
     bool? hideTechnical,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.getSharedToPeerAttributes(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -112,7 +112,7 @@ class AttributesFacade {
   Future<Result<LocalAttributeDTO>> getAttribute({
     required String attributeId,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.getAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -132,7 +132,7 @@ class AttributesFacade {
     bool? onlyValid,
     bool? hideTechnical,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.getAttributes(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -152,7 +152,7 @@ class AttributesFacade {
   Future<Result<List<LocalAttributeDTO>>> executeIdentityAttributeQuery({
     required IdentityAttributeQuery query,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.executeIdentityAttributeQuery(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -170,7 +170,7 @@ class AttributesFacade {
   Future<Result<LocalAttributeDTO>> executeRelationshipAttributeQuery({
     required RelationshipAttributeQuery query,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.executeRelationshipAttributeQuery(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -188,7 +188,7 @@ class AttributesFacade {
   Future<Result<List<LocalAttributeDTO>>> executeThirdPartyRelationshipAttributeQuery({
     required ThirdPartyRelationshipAttributeQuery query,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.executeThirdPartyRelationshipAttributeQuery(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -207,7 +207,7 @@ class AttributesFacade {
     required Map<String, dynamic> successorContent,
     required String succeeds,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.succeedAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -227,7 +227,7 @@ class AttributesFacade {
     required String attributeId,
     required Map<String, dynamic> content,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.updateAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -252,7 +252,7 @@ class AttributesFacade {
     String? requestItemTitle,
     String? requestItemDescription,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.shareAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',

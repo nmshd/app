@@ -8,5 +8,4 @@ export 'messages_facade_view.dart';
 export 'outgoing_requests_facade_view.dart';
 export 'relationship_templates_facade_view.dart';
 export 'relationships_facade_view.dart';
-export 'runtime_evaluation_area.dart';
 export 'scanner_view.dart';

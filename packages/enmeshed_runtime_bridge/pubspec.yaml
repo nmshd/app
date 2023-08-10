@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_inappwebview: ^5.7.2+3
+  flutter_local_notifications: ^15.0.0
   logger: ^1.4.0
   meta: any
   path_provider: ^2.0.13
@@ -37,11 +38,3 @@ flutter:
   assets:
     - assets/loki.js
     - assets/index.js
-    # - assets/main.js
-    # - natives/node_modules/@js-soft/ts-serval/lib-web/tsserval.js
-    # - natives/node_modules/@nmshd/crypto/lib-web/nmshd.crypto.js
-    # - natives/node_modules/@nmshd/transport/lib-web/nmshd.transport.js
-    # - natives/node_modules/@nmshd/content/lib-web/nmshd.content.js
-    # - natives/node_modules/@nmshd/consumption/lib-web/nmshd.consumption.js
-    # - natives/node_modules/@nmshd/runtime/lib-web/nmshd.runtime.js
-    # - natives/node_modules/@nmshd/app-runtime/lib-web/nmshd.app-runtime.js

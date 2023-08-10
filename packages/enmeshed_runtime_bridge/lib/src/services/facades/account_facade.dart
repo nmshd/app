@@ -9,7 +9,7 @@ class AccountFacade {
   AccountFacade(this._evaluator);
 
   Future<Result<GetIdentityInfoResponse>> getIdentityInfo() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.getIdentityInfo()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -20,7 +20,7 @@ class AccountFacade {
   }
 
   Future<Result<DeviceDTO>> getDeviceInfo() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.getDeviceInfo()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -35,7 +35,7 @@ class AccountFacade {
     required String installationId,
     required String platform,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.registerPushNotificationToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -52,7 +52,7 @@ class AccountFacade {
   }
 
   Future<void> syncDatawallet() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.syncDatawallet({})
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -62,7 +62,7 @@ class AccountFacade {
   }
 
   Future<Result<SyncEverythingResponse>> syncEverything() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.syncEverything({})
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -73,7 +73,7 @@ class AccountFacade {
   }
 
   Future<Result<SyncInfoResponse>> getSyncInfo() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.getSyncInfo()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -84,7 +84,7 @@ class AccountFacade {
   }
 
   Future<void> enableAutoSync() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.enableAutoSync()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -94,7 +94,7 @@ class AccountFacade {
   }
 
   Future<void> disableAutoSync() async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.disableAutoSync()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
@@ -106,7 +106,7 @@ class AccountFacade {
   Future<Result<LoadItemFromTruncatedReferenceResponse>> loadItemFromTruncatedReference({
     required String reference,
   }) async {
-    final result = await _evaluator.evaluateJavascript(
+    final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.loadItemFromTruncatedReference(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',

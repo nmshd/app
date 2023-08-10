@@ -39,15 +39,15 @@ Map<String, dynamic> _$ProcessedIdentityAttributeQueryDVOToJson(ProcessedIdentit
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
-  val['results'] = instance.results;
+  val['results'] = instance.results.map((e) => e.toJson()).toList();
   writeNotNull('tags', instance.tags);
   val['valueType'] = instance.valueType;
-  val['renderHints'] = instance.renderHints;
-  val['valueHints'] = instance.valueHints;
+  val['renderHints'] = instance.renderHints.toJson();
+  val['valueHints'] = instance.valueHints.toJson();
   return val;
 }
 
@@ -86,16 +86,16 @@ Map<String, dynamic> _$ProcessedRelationshipAttributeQueryDVOToJson(ProcessedRel
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
-  val['results'] = instance.results;
+  val['results'] = instance.results.map((e) => e.toJson()).toList();
   val['key'] = instance.key;
-  val['owner'] = instance.owner;
-  val['attributeCreationHints'] = instance.attributeCreationHints;
-  val['renderHints'] = instance.renderHints;
-  val['valueHints'] = instance.valueHints;
+  val['owner'] = instance.owner.toJson();
+  val['attributeCreationHints'] = instance.attributeCreationHints.toJson();
+  val['renderHints'] = instance.renderHints.toJson();
+  val['valueHints'] = instance.valueHints.toJson();
   return val;
 }
 
@@ -135,16 +135,16 @@ Map<String, dynamic> _$ProcessedThirdPartyRelationshipAttributeQueryDVOToJson(Pr
   writeNotNull('image', instance.image);
   val['type'] = instance.type;
   writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error);
-  writeNotNull('warning', instance.warning);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
-  val['results'] = instance.results;
+  val['results'] = instance.results.map((e) => e.toJson()).toList();
   val['key'] = instance.key;
-  val['owner'] = instance.owner;
-  val['thirdParty'] = instance.thirdParty;
+  val['owner'] = instance.owner.toJson();
+  val['thirdParty'] = instance.thirdParty.map((e) => e.toJson()).toList();
   val['valueType'] = instance.valueType;
-  writeNotNull('renderHints', instance.renderHints);
-  writeNotNull('valueHints', instance.valueHints);
+  writeNotNull('renderHints', instance.renderHints?.toJson());
+  writeNotNull('valueHints', instance.valueHints?.toJson());
   return val;
 }
