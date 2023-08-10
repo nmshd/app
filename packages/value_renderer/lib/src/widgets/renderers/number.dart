@@ -62,6 +62,25 @@ class NumberRenderer extends StatelessWidget {
       );
     }
 
+    // Replacing "StepInput"
+    if (editType == RenderHintsEditType.ButtonLike) {
+      return NumberInput(
+        fieldName: fieldName!,
+        values: values!,
+        initialValue: initialValue?['value'],
+        max: max,
+      );
+    }
+
+    if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
+      return NumberInput(
+        fieldName: fieldName!,
+        values: values!,
+        initialValue: initialValue?['value'],
+        max: max,
+      );
+    }
+
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         fieldName: fieldName!,

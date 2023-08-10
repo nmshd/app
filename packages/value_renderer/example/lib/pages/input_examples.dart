@@ -82,7 +82,7 @@ class InputExamples extends StatelessWidget {
                               ValueHintsValue(key: 'Option 3', displayName: ''),
                             ],
                           ),
-                          initialValue: const {'@type': 'String / SelectLike', 'value': 'Option 1'},
+                          initialValue: const {'@type': 'String / SelectLike / ValueHints.Values', 'value': 'Option 1'},
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -223,7 +223,7 @@ class InputExamples extends StatelessWidget {
                               ValueHintsValue(key: 'Option 2', displayName: ''),
                             ],
                           ),
-                          initialValue: const {'@type': 'Boolean / SelectLike', 'value': 'Option 1'},
+                          initialValue: const {'@type': 'Boolean / SelectLike / ValueHints.Values', 'value': 'Option 1'},
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -332,15 +332,15 @@ class InputExamples extends StatelessWidget {
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
-                            editType: RenderHintsEditType.ButtonLike,
+                            editType: RenderHintsEditType.InputLike,
                             technicalType: RenderHintsTechnicalType.Integer,
                           ),
                           valueHints: const ValueHints(
                             max: 100,
                             propertyHints: {},
-                            values: [],
+                            values: [ValueHintsValue(key: 'Some Validation', displayName: '')],
                           ),
-                          initialValue: const {'@type': 'Integer / ButtonLike / ValueHints.Values', 'value': ''},
+                          initialValue: const {'@type': 'Integer / InputLike / ValueHints.Values', 'value': ''},
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -432,7 +432,19 @@ class InputExamples extends StatelessWidget {
                               ValueHintsValue(key: 2, displayName: ''),
                             ],
                           ),
-                          initialValue: const {'@type': 'Integer / ButtonLike', 'value': 1},
+                          initialValue: const {'@type': 'Integer / ButtonLike / ValueHints.Values', 'value': 1},
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.ButtonLike,
+                            technicalType: RenderHintsTechnicalType.Integer,
+                          ),
+                          valueHints: const ValueHints(
+                            max: 100,
+                            propertyHints: {},
+                            values: [],
+                          ),
+                          initialValue: const {'@type': 'Integer / ButtonLike ', 'value': ''},
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
