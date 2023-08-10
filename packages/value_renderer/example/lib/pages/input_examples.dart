@@ -57,6 +57,19 @@ class InputExamples extends StatelessWidget {
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
+                            editType: RenderHintsEditType.InputLike,
+                            technicalType: RenderHintsTechnicalType.String,
+                          ),
+                          valueHints: const ValueHints(
+                            max: 100,
+                            values: [
+                              ValueHintsValue(key: 'Some Validation', displayName: ''),
+                            ],
+                          ),
+                          initialValue: const {'@type': 'String / InputLike / ValueHints.Values', 'value': ''},
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
                             technicalType: RenderHintsTechnicalType.String,
                           ),
@@ -129,7 +142,18 @@ class InputExamples extends StatelessWidget {
                               ValueHintsValue(key: 'Option 2', displayName: ''),
                             ],
                           ),
-                          initialValue: const {'@type': 'String / ButtonLike', 'value': 'Option 1'},
+                          initialValue: const {'@type': 'String / ButtonLike / ValueHints.Values', 'value': 'Option 1'},
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.ButtonLike,
+                            technicalType: RenderHintsTechnicalType.String,
+                          ),
+                          valueHints: const ValueHints(
+                            max: 100,
+                            values: [],
+                          ),
+                          initialValue: const {'@type': 'String / ButtonLike', 'value': ''},
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -145,7 +169,7 @@ class InputExamples extends StatelessWidget {
                               ValueHintsValue(key: 'Option 3', displayName: ''),
                             ],
                           ),
-                          initialValue: const {'@type': 'String / SliderLike / ValueHint.Values', 'value': 'Option 1'},
+                          initialValue: const {'@type': 'String / SliderLike / ValueHints.Values', 'value': 'Option 1'},
                         ),
                       ],
                     ),
@@ -215,7 +239,7 @@ class InputExamples extends StatelessWidget {
                             ],
                           ),
                           initialValue: const {
-                            '@type': 'Boolean / ButtonLike / ValueHint.Values',
+                            '@type': 'Boolean / ButtonLike / ValueHints.Values',
                             'value': 'Option 1',
                           },
                         ),
@@ -254,7 +278,7 @@ class InputExamples extends StatelessWidget {
                               ValueHintsValue(key: true, displayName: ''),
                             ],
                           ),
-                          initialValue: const {'@type': 'Boolean / SliderLike / ValueHint.Values', 'value': false},
+                          initialValue: const {'@type': 'Boolean / SliderLike / ValueHints.Values', 'value': false},
                         ),
                       ],
                     ),
@@ -425,7 +449,7 @@ class InputExamples extends StatelessWidget {
                               ValueHintsValue(key: 3, displayName: ''),
                             ],
                           ),
-                          initialValue: const {'@type': 'Integer / SliderLike / ValueHint.Values', 'value': 1},
+                          initialValue: const {'@type': 'Integer / SliderLike / ValueHints.Values', 'value': 1},
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(

@@ -29,8 +29,17 @@ class StringRenderer extends StatelessWidget {
       );
     }
 
-    if (editType == RenderHintsEditType.ButtonLike) {
+    if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioButton(
+        fieldName: fieldName!,
+        values: values!,
+        initialValue: initialValue['value'],
+      );
+    }
+
+    // Replacing "StepInput"
+    if (editType == RenderHintsEditType.ButtonLike) {
+      return TextInput(
         fieldName: fieldName!,
         values: values!,
         initialValue: initialValue['value'],
@@ -42,6 +51,15 @@ class StringRenderer extends StatelessWidget {
         fieldName: fieldName!,
         values: values ?? [],
         initialValue: initialValue['value'],
+      );
+    }
+
+    if (editType == RenderHintsEditType.InputLike) {
+      return TextInput(
+        fieldName: fieldName!,
+        values: values ?? [],
+        initialValue: initialValue['value'],
+        max: max,
       );
     }
 

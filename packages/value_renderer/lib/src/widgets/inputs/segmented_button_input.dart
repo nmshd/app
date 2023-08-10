@@ -26,9 +26,12 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.fieldName),
         const SizedBox(
           height: 18,
+        ),
+        Text(widget.fieldName),
+        const SizedBox(
+          height: 12,
         ),
         SegmentedButton<dynamic>(
           segments: widget.values.map((dynamic value) {

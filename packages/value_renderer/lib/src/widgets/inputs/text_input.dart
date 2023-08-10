@@ -1,11 +1,13 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 class TextInput extends StatefulWidget {
   final String? initialValue;
   final String? fieldName;
   final int? max;
+  final List<ValueHintsValue>? values;
 
-  const TextInput({super.key, this.fieldName = 'Text Field', required this.initialValue, this.max});
+  const TextInput({super.key, this.fieldName = 'Text Field', required this.initialValue, this.max, this.values});
 
   @override
   State<TextInput> createState() => TextInputState();
