@@ -23,9 +23,7 @@ class ValueRenderer extends StatelessWidget {
     final fieldName = initialValue?['@type'] ?? '';
     final values = valueHints.values ?? [];
 
-    if (technicalType == RenderHintsTechnicalType.Integer ||
-        technicalType == RenderHintsTechnicalType.Float ||
-        initialValue?['@type'] == 'BirthDate') {
+    if (technicalType == RenderHintsTechnicalType.Integer || technicalType == RenderHintsTechnicalType.Float) {
       return NumberRenderer(
         initialValue: initialValue,
         fieldName: fieldName,

@@ -25,39 +25,53 @@ class ComplexRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 12,
-        ),
-        Text(
-          initialValue?['@type'] ?? '',
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 16.0,
-          ),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        SizedBox(
-          height: 500,
-          child: ListView.builder(
-            itemCount: renderHints.propertyHints?.values.length,
-            itemBuilder: (context, index) {
-              final String key = renderHints.propertyHints!.keys.elementAt(index);
-              final itemInitialValue = {'@type': key, 'value': initialValue?[key]};
-              final itemRenderHints = renderHints.propertyHints![key];
-              final itemValueHints = valueHints.propertyHints![key];
+        initialValue?['@type'] == 'BirthDate'
+            ? Column(
+                children: [
+                  ValueRenderer(
+                    initialValue: initialValue,
+                    renderHints: renderHints.propertyHints!['day']!,
+                    valueHints: valueHints,
+                  )
+                ],
+              )
+            : Column(
+                children: [
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    initialValue?['@type'] ?? '',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  SizedBox(
+                    height: 500,
+                    child: ListView.builder(
+                      itemCount: renderHints.propertyHints?.values.length,
+                      itemBuilder: (context, index) {
+                        final String key = renderHints.propertyHints!.keys.elementAt(index);
+                        final itemInitialValue = {'@type': key, 'value': initialValue?[key]};
+                        final itemRenderHints = renderHints.propertyHints![key];
+                        final itemValueHints = valueHints.propertyHints![key];
 
-              return ListTile(
-                title: ValueRenderer(
-                  initialValue: itemInitialValue,
-                  renderHints: itemRenderHints!,
-                  valueHints: itemValueHints!,
-                ),
-              );
-            },
-          ),
-        ),
+                        return ListTile(
+                          title: ValueRenderer(
+                            initialValue: itemInitialValue,
+                            renderHints: itemRenderHints!,
+                            valueHints: itemValueHints!,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
       ],
     );
   }

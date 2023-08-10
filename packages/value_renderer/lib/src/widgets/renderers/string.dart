@@ -54,7 +54,7 @@ class StringRenderer extends StatelessWidget {
       );
     }
 
-    if (editType == RenderHintsEditType.InputLike) {
+    if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return TextInput(
         fieldName: fieldName!,
         values: values ?? [],

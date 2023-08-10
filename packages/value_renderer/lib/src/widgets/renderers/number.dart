@@ -29,7 +29,7 @@ class NumberRenderer extends StatelessWidget {
     if (dataType == RenderHintsDataType.DateTime ||
         dataType == RenderHintsDataType.Date ||
         dataType == RenderHintsDataType.Time ||
-        initialValue?['@type'] == 'BirthDate') {
+        dataType == RenderHintsDataType.Day) {
       return DatepickerButton(
         fieldName: fieldName,
         initialValue: initialValue,
