@@ -18,11 +18,11 @@ class StringRenderer extends StatelessWidget {
     final int max = valueHints.max ?? 100;
 
     if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
-      return const DatepickerButton();
+      return const DatepickerInput();
     }
 
     if (editType == RenderHintsEditType.SelectLike) {
-      return DropdownSelectButton(
+      return DropdownSelectInput(
         fieldName: fieldName!,
         initialValue: initialValue?['value'],
         values: values,
@@ -30,7 +30,7 @@ class StringRenderer extends StatelessWidget {
     }
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
-      return RadioButton(
+      return RadioInput(
         fieldName: fieldName!,
         values: values!,
         initialValue: initialValue?['value'],

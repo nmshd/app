@@ -1,19 +1,19 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-class DropdownSelectButton extends StatefulWidget {
+class DropdownSelectInput extends StatefulWidget {
   final dynamic initialValue;
   final List<ValueHintsValue>? values;
   final String fieldName;
 
   //TODO: Localize hardcoded text when possible
-  const DropdownSelectButton({super.key, this.fieldName = 'Select an Option: ', this.initialValue, this.values});
+  const DropdownSelectInput({super.key, this.fieldName = 'Select an Option: ', this.initialValue, this.values});
 
   @override
-  State<DropdownSelectButton> createState() => _DropdownSelectButtonState();
+  State<DropdownSelectInput> createState() => _DropdownSelectInputState();
 }
 
-class _DropdownSelectButtonState extends State<DropdownSelectButton> {
+class _DropdownSelectInputState extends State<DropdownSelectInput> {
   late dynamic selectedOption;
 
   @override

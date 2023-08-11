@@ -15,7 +15,7 @@ class BooleanRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
-      return RadioButton(
+      return RadioInput(
         fieldName: fieldName!,
         values: values ?? [],
         initialValue: initialValue?['value'].toString(),
@@ -31,7 +31,7 @@ class BooleanRenderer extends StatelessWidget {
     }
 
     if (editType == RenderHintsEditType.SelectLike) {
-      return DropdownSelectButton(
+      return DropdownSelectInput(
         fieldName: fieldName!,
         initialValue: initialValue?['value'].toString(),
         values: values,
@@ -39,7 +39,7 @@ class BooleanRenderer extends StatelessWidget {
     }
 
     if (editType == RenderHintsEditType.SliderLike) {
-      return SwitchButton(
+      return SwitchInput(
         fieldName: fieldName!,
         initialValue: initialValue?['value'],
       );

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class SwitchButton extends StatefulWidget {
+class SwitchInput extends StatefulWidget {
   final String fieldName;
   final bool? initialValue;
 
-  const SwitchButton({super.key, required this.fieldName, this.initialValue});
+  const SwitchInput({super.key, required this.fieldName, this.initialValue});
 
   @override
-  State<SwitchButton> createState() => _SwitchButtonState();
+  State<SwitchInput> createState() => _SwitchInputState();
 }
 
-class _SwitchButtonState extends State<SwitchButton> {
+class _SwitchInputState extends State<SwitchInput> {
   late bool enabled;
 
   @override

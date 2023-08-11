@@ -1,18 +1,18 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-class CheckboxButton extends StatefulWidget {
+class CheckboxInput extends StatefulWidget {
   final String fieldName;
   final List<ValueHintsValue> values;
   final dynamic initialValue;
 
-  const CheckboxButton({super.key, required this.fieldName, this.initialValue, required this.values});
+  const CheckboxInput({super.key, required this.fieldName, this.initialValue, required this.values});
 
   @override
-  State<CheckboxButton> createState() => _CheckboxButtonState();
+  State<CheckboxInput> createState() => _CheckboxInputState();
 }
 
-class _CheckboxButtonState extends State<CheckboxButton> {
+class _CheckboxInputState extends State<CheckboxInput> {
   late bool isChecked;
 
   @override

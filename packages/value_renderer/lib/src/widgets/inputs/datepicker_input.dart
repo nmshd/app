@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class DatepickerButton extends StatefulWidget {
+class DatepickerInput extends StatefulWidget {
   final String? fieldName;
   final Map<String, dynamic>? initialValue;
 
-  const DatepickerButton({super.key, this.fieldName, this.initialValue});
+  const DatepickerInput({super.key, this.fieldName, this.initialValue});
 
   @override
-  State<DatepickerButton> createState() => _DatepickerButtonState();
+  State<DatepickerInput> createState() => _DatepickerInputState();
 }
 
-class _DatepickerButtonState extends State<DatepickerButton> {
+class _DatepickerInputState extends State<DatepickerInput> {
   DateTime? _selectedDate;
 
   @override

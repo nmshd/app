@@ -30,14 +30,14 @@ class NumberRenderer extends StatelessWidget {
         dataType == RenderHintsDataType.Date ||
         dataType == RenderHintsDataType.Time ||
         dataType == RenderHintsDataType.Day) {
-      return DatepickerButton(
+      return DatepickerInput(
         fieldName: fieldName,
         initialValue: initialValue,
       );
     }
 
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
-      return DropdownSelectButton(
+      return DropdownSelectInput(
         fieldName: fieldName!,
         initialValue: initialValue?['value'],
         values: values,
@@ -55,7 +55,7 @@ class NumberRenderer extends StatelessWidget {
     }
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
-      return RadioButton(
+      return RadioInput(
         fieldName: fieldName!,
         values: values!,
         initialValue: initialValue?['value'],

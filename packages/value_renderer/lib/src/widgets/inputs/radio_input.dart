@@ -1,18 +1,18 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-class RadioButton extends StatefulWidget {
+class RadioInput extends StatefulWidget {
   final String fieldName;
   final List<ValueHintsValue>? values;
   final dynamic initialValue;
 
-  const RadioButton({super.key, required this.values, required this.fieldName, required this.initialValue});
+  const RadioInput({super.key, required this.values, required this.fieldName, required this.initialValue});
 
   @override
-  State<RadioButton> createState() => _RadioButtonState();
+  State<RadioInput> createState() => _RadioInputState();
 }
 
-class _RadioButtonState extends State<RadioButton> {
+class _RadioInputState extends State<RadioInput> {
   late dynamic selectedOption;
 
   @override
