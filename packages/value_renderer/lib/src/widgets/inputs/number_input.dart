@@ -14,11 +14,25 @@ class NumberInput extends StatefulWidget {
 }
 
 class NumberInputState extends State<NumberInput> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialValue.toString());
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       maxLength: widget.max.toInt(),
-      controller: TextEditingController()..text = widget.initialValue.toString(),
+      controller: _controller,
       decoration: InputDecoration(labelText: widget.fieldName),
       keyboardType: TextInputType.number,
     );
