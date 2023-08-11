@@ -76,6 +76,7 @@ void main() {
         equals(const ProprietaryEMailAddressAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'test@test.com')),
       );
     });
+
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'test@test.com'};
       expect(

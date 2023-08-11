@@ -75,6 +75,7 @@ void main() {
         equals(const ProprietaryBooleanAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: true)),
       );
     });
+
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': true};
       expect(

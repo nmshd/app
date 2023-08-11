@@ -21,11 +21,15 @@ class TransportServices {
   final TokensFacade _tokens;
   TokensFacade get tokens => _tokens;
 
+  final DevicesFacade _devices;
+  DevicesFacade get devices => _devices;
+
   TransportServices(AbstractEvaluator evaluator)
       : _messages = MessagesFacade(evaluator),
         _relationships = RelationshipsFacade(evaluator),
         _relationshipTemplates = RelationshipTemplatesFacade(evaluator),
         _files = FilesFacade(evaluator),
         _account = AccountFacade(evaluator),
-        _tokens = TokensFacade(evaluator);
+        _tokens = TokensFacade(evaluator),
+        _devices = DevicesFacade(evaluator);
 }

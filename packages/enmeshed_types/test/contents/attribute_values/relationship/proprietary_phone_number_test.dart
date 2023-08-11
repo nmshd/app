@@ -76,6 +76,7 @@ void main() {
         equals(const ProprietaryPhoneNumberAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aPhoneNumber')),
       );
     });
+
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aPhoneNumber'};
       expect(
