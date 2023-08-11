@@ -86,7 +86,7 @@ class DevicesFacade {
     return Result.fromJson(json, (value) => TokenDTO.fromJson(value));
   }
 
-  Future<Result<DeviceDTO>> updateDevice({required String id, String? name, String? description}) async {
+  Future<Result<DeviceDTO>> updateDevice(String id, {String? name, String? description}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.devices.updateDevice(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
