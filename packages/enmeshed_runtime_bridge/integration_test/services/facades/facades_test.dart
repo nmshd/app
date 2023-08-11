@@ -4,6 +4,7 @@ import '../../setup.dart';
 import 'account_facade_test.dart' as account_facade_test;
 import 'anonymous_tokens_facade_test.dart' as anonymous_tokens_facade_test;
 import 'attributes_facade_test.dart' as attributes_facade_test;
+import 'devices_facade_test.dart' as devices_facade_test;
 import 'files_facade_test.dart' as files_facade_test;
 import 'messages_facade_test.dart' as messages_facade_test;
 import 'relationship_template_facade_test.dart' as relationship_template_facade_test;
@@ -23,4 +24,5 @@ void run(EnmeshedRuntime runtime) async {
   requests_facade_test.run(runtime);
   tokens_facade_test.run(runtime);
   anonymous_tokens_facade_test.run(runtime);
+  devices_facade_test.run(runtime);
 }

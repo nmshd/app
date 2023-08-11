@@ -132,6 +132,7 @@ void main() {
     test('is correctly converted with property "propertyHints"', () {
       const valueHints = ValueHints(propertyHints: {'aKey': ValueHints()});
       final valueHintsJson = valueHints.toJson();
+
       expect(
         valueHintsJson,
         equals({

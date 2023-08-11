@@ -66,6 +66,7 @@ void main() {
         equals(const ConsentAttributeValue(consent: 'aConsent', link: 'www.test.com')),
       );
     });
+
     test('is correctly converted with properties "link" and "valueHintsOverride"', () {
       final json = {'consent': 'aConsent', 'valueHintsOverride': const ValueHints().toJson(), 'link': 'www.test.com'};
       expect(
