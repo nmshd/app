@@ -75,6 +75,7 @@ void main() {
         equals(const ProprietaryURLAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'www.test.com')),
       );
     });
+
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'www.test.com'};
       expect(

@@ -75,6 +75,7 @@ void main() {
         equals(const ProprietaryHEXColorAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aHEXColor')),
       );
     });
+
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aHEXColor'};
       expect(

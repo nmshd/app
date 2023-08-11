@@ -82,6 +82,7 @@ void main() {
         equals(const ProprietaryFileReferenceAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aFileReference')),
       );
     });
+
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aFileReference'};
       expect(

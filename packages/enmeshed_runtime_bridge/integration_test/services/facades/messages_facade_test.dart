@@ -49,6 +49,7 @@ void run(EnmeshedRuntime runtime) {
       final relationship = await getRelationship(session1);
       session2Address = relationship.peer;
     });
+
     test('send a Message from session1 to session2', () async {
       final result = await session1.transportServices.messages.sendMessage(
         recipients: [session2Address],
@@ -219,9 +220,11 @@ void run(EnmeshedRuntime runtime) {
       final messagesToRecipient1 = await session1.transportServices.messages.getMessages(query: {
         'recipients.relationshipId': QueryValue.string(relationshipToRecipient1.value.id),
       });
+
       final messagesToRecipient2 = await session1.transportServices.messages.getMessages(query: {
         'recipients.relationshipId': QueryValue.string(relationshipToRecipient2.value.id),
       });
+
       final messagesToRecipient1Or2 = await session1.transportServices.messages.getMessages(query: {
         'recipients.relationshipId': QueryValue.stringList([relationshipToRecipient1.value.id, relationshipToRecipient2.value.id]),
       });

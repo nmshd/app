@@ -55,6 +55,7 @@ void main() {
 
       expect(mockAttributeQuery.toJson(), equals(<String, dynamic>{}));
     });
+
     test('is correctly converted with properties "validFrom" and "validTo"', () {
       const mockAttributeQuery = MockAttributeQuery(validFrom: '1970', validTo: '1980');
 
