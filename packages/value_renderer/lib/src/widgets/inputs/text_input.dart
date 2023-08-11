@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 
 class TextInput extends StatefulWidget {
   final String? initialValue;
-  final String? fieldName;
+  final String fieldName;
   final int? max;
   final List<ValueHintsValue>? values;
 
-  //TODO: Localize hardcoded text when possible
-  const TextInput({super.key, this.fieldName = 'Text Field', required this.initialValue, this.max, this.values});
+  const TextInput({super.key, required this.fieldName, required this.initialValue, this.max, this.values});
 
   @override
   State<TextInput> createState() => TextInputState();

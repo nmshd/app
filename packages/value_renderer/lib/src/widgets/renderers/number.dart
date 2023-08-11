@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../inputs/inputs.dart';
 
 class NumberRenderer extends StatelessWidget {
-  final String? fieldName;
+  final String fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final Map<String, dynamic>? initialValue;
@@ -13,7 +13,7 @@ class NumberRenderer extends StatelessWidget {
 
   const NumberRenderer({
     super.key,
-    this.fieldName,
+    required this.fieldName,
     this.values,
     this.editType,
     this.dataType,
@@ -38,7 +38,7 @@ class NumberRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         initialValue: initialValue?['value'],
         values: values,
       );
@@ -47,7 +47,7 @@ class NumberRenderer extends StatelessWidget {
     // Replacing "Rating"
     if (editType == RenderHintsEditType.SelectLike) {
       return SliderInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         initialValue: initialValue?['value'].toDouble(),
         min: 1,
         max: 5,
@@ -56,7 +56,7 @@ class NumberRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values!,
         initialValue: initialValue?['value'],
       );
@@ -65,7 +65,7 @@ class NumberRenderer extends StatelessWidget {
     // Replacing "StepInput"
     if (editType == RenderHintsEditType.ButtonLike) {
       return NumberInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values!,
         initialValue: initialValue?['value'],
         max: max,
@@ -74,7 +74,7 @@ class NumberRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return NumberInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values!,
         initialValue: initialValue?['value'],
         max: max,
@@ -83,7 +83,7 @@ class NumberRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values ?? [],
         initialValue: initialValue?['value'],
       );

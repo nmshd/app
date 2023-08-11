@@ -36,7 +36,7 @@ class ValueRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.Complex) {
       return ComplexRenderer(
-        initialValue: initialValue ?? {},
+        initialValue: initialValue,
         fieldName: fieldName,
         editType: editType,
         renderHints: renderHints,
@@ -46,7 +46,7 @@ class ValueRenderer extends StatelessWidget {
 
     if (technicalType == RenderHintsTechnicalType.String) {
       return StringRenderer(
-        initialValue: initialValue ?? {},
+        initialValue: initialValue,
         fieldName: fieldName,
         editType: editType,
         dataType: dataType,

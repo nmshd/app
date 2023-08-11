@@ -6,24 +6,28 @@ import '../inputs/inputs.dart';
 class StringRenderer extends StatelessWidget {
   final Map<String, dynamic>? initialValue;
   final List<ValueHintsValue>? values;
-  final String? fieldName;
+  final String fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final ValueHints valueHints;
 
-  const StringRenderer({super.key, this.fieldName, this.values, this.editType, this.dataType, required this.initialValue, required this.valueHints});
+  const StringRenderer(
+      {super.key, required this.fieldName, this.values, this.editType, this.dataType, required this.initialValue, required this.valueHints});
 
   @override
   Widget build(BuildContext context) {
     final int max = valueHints.max ?? 100;
 
     if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
-      return const DatepickerInput();
+      return DatepickerInput(
+        fieldName: fieldName,
+        initialValue: initialValue,
+      );
     }
 
     if (editType == RenderHintsEditType.SelectLike) {
       return DropdownSelectInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         initialValue: initialValue?['value'],
         values: values,
       );
@@ -31,7 +35,7 @@ class StringRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values!,
         initialValue: initialValue?['value'],
       );
@@ -40,7 +44,7 @@ class StringRenderer extends StatelessWidget {
     // Replacing "StepInput"
     if (editType == RenderHintsEditType.ButtonLike) {
       return TextInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values!,
         initialValue: initialValue?['value'],
       );
@@ -48,7 +52,7 @@ class StringRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SliderLike) {
       return SegmentedButtonInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values ?? [],
         initialValue: initialValue?['value'],
       );
@@ -56,7 +60,7 @@ class StringRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return TextInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values ?? [],
         initialValue: initialValue?['value'],
         max: max,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../inputs/inputs.dart';
 
 class BooleanRenderer extends StatelessWidget {
-  final String? fieldName;
+  final String fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final Map<String, dynamic>? initialValue;
@@ -16,7 +16,7 @@ class BooleanRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values ?? [],
         initialValue: initialValue?['value'].toString(),
       );
@@ -24,7 +24,7 @@ class BooleanRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         values: values ?? [],
         initialValue: initialValue?['value'].toString(),
       );
@@ -32,7 +32,7 @@ class BooleanRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SelectLike) {
       return DropdownSelectInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         initialValue: initialValue?['value'].toString(),
         values: values,
       );
@@ -40,13 +40,13 @@ class BooleanRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SliderLike) {
       return SwitchInput(
-        fieldName: fieldName!,
+        fieldName: fieldName,
         initialValue: initialValue?['value'],
       );
     }
 
     return CheckboxInput(
-      fieldName: fieldName!,
+      fieldName: fieldName,
       values: values ?? [],
       initialValue: initialValue?['value'],
     );

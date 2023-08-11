@@ -4,7 +4,7 @@ import 'package:value_renderer/src/value_renderer.dart';
 
 class ComplexRenderer extends StatelessWidget {
   final Map<String, dynamic>? initialValue;
-  final String? fieldName;
+  final String fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
   final RenderHints renderHints;
@@ -12,7 +12,7 @@ class ComplexRenderer extends StatelessWidget {
 
   const ComplexRenderer({
     super.key,
-    this.fieldName,
+    required this.fieldName,
     this.editType,
     this.dataType,
     required this.initialValue,

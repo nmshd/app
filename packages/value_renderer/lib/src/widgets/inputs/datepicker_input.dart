@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DatepickerInput extends StatefulWidget {
-  final String? fieldName;
+  final String fieldName;
   final Map<String, dynamic>? initialValue;
 
-  const DatepickerInput({super.key, this.fieldName, this.initialValue});
+  const DatepickerInput({super.key, required this.fieldName, this.initialValue});
 
   @override
   State<DatepickerInput> createState() => _DatepickerInputState();
@@ -48,9 +48,8 @@ class _DatepickerInputState extends State<DatepickerInput> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        //TODO: Localize hardcoded text when possible
         Text(
-          widget.fieldName ?? 'Date',
+          widget.fieldName,
         ),
         const SizedBox(
           width: 12,

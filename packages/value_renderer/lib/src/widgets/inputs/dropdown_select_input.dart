@@ -6,8 +6,7 @@ class DropdownSelectInput extends StatefulWidget {
   final List<ValueHintsValue>? values;
   final String fieldName;
 
-  //TODO: Localize hardcoded text when possible
-  const DropdownSelectInput({super.key, this.fieldName = 'Select an Option: ', this.initialValue, this.values});
+  const DropdownSelectInput({super.key, required this.fieldName, this.initialValue, this.values});
 
   @override
   State<DropdownSelectInput> createState() => _DropdownSelectInputState();
