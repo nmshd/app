@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../inputs/inputs.dart';
 
 class StringRenderer extends StatelessWidget {
-  final Map<String, dynamic> initialValue;
+  final Map<String, dynamic>? initialValue;
   final List<ValueHintsValue>? values;
   final String? fieldName;
   final RenderHintsEditType? editType;
@@ -24,7 +24,7 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SelectLike) {
       return DropdownSelectButton(
         fieldName: fieldName!,
-        initialValue: initialValue['value'],
+        initialValue: initialValue?['value'],
         values: values,
       );
     }
@@ -33,7 +33,7 @@ class StringRenderer extends StatelessWidget {
       return RadioButton(
         fieldName: fieldName!,
         values: values!,
-        initialValue: initialValue['value'],
+        initialValue: initialValue?['value'],
       );
     }
 
@@ -42,7 +42,7 @@ class StringRenderer extends StatelessWidget {
       return TextInput(
         fieldName: fieldName!,
         values: values!,
-        initialValue: initialValue['value'],
+        initialValue: initialValue?['value'],
       );
     }
 
@@ -50,7 +50,7 @@ class StringRenderer extends StatelessWidget {
       return SegmentedButtonInput(
         fieldName: fieldName!,
         values: values ?? [],
-        initialValue: initialValue['value'],
+        initialValue: initialValue?['value'],
       );
     }
 
@@ -58,14 +58,14 @@ class StringRenderer extends StatelessWidget {
       return TextInput(
         fieldName: fieldName!,
         values: values ?? [],
-        initialValue: initialValue['value'],
+        initialValue: initialValue?['value'],
         max: max,
       );
     }
 
     return TextInput(
       fieldName: fieldName,
-      initialValue: initialValue['value'] ?? '',
+      initialValue: initialValue?['value'] ?? '',
       max: max,
     );
   }

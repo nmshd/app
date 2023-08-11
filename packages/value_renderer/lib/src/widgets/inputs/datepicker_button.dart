@@ -48,15 +48,17 @@ class _DatepickerButtonState extends State<DatepickerButton> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        //TODO: Localize hardcoded text when possible
         Text(
           widget.fieldName ?? 'Date',
         ),
         const SizedBox(
           width: 12,
         ),
+        //TODO: Localize hardcoded text when possible
         Text(_selectedDate != null ? DateFormat.yMd().format(_selectedDate!) : 'No date selected'),
-        IconButton(onPressed: _presentDatePicker, icon: const Icon(Icons.calendar_month)),
-        IconButton(onPressed: _clearDatePicker, icon: const Icon(Icons.clear))
+        IconButton(icon: const Icon(Icons.calendar_month), onPressed: _presentDatePicker),
+        IconButton(icon: const Icon(Icons.clear), onPressed: _clearDatePicker)
       ],
     );
   }

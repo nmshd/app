@@ -1,7 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class RadioButton extends StatefulWidget {
   final String fieldName;
   final List<ValueHintsValue>? values;
@@ -27,9 +26,7 @@ class _RadioButtonState extends State<RadioButton> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         Text(
           widget.fieldName,
           style: const TextStyle(

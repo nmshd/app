@@ -25,7 +25,7 @@ class ComplexRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        initialValue?['@type'] == 'BirthDate'
+        fieldName == 'BirthDate'
             ? Column(
                 children: [
                   ValueRenderer(

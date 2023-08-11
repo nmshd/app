@@ -45,7 +45,7 @@ class BooleanRenderer extends StatelessWidget {
       );
     }
 
-    return CheckboxButton(
+    return CheckboxInput(
       fieldName: fieldName!,
       values: values ?? [],
       initialValue: initialValue?['value'],

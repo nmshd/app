@@ -11,12 +11,12 @@ class SwitchButton extends StatefulWidget {
 }
 
 class _SwitchButtonState extends State<SwitchButton> {
-  late bool light;
+  late bool enabled;
 
   @override
   void initState() {
     super.initState();
-    light = widget.initialValue ?? false;
+    enabled = widget.initialValue ?? false;
   }
 
   @override
@@ -25,11 +25,11 @@ class _SwitchButtonState extends State<SwitchButton> {
       children: [
         Text(widget.fieldName),
         Switch(
-          value: light,
+          value: enabled,
           activeColor: Colors.blue,
           onChanged: (bool value) {
             setState(() {
-              light = value;
+              enabled = value;
             });
           },
         ),

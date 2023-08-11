@@ -7,6 +7,7 @@ class TextInput extends StatefulWidget {
   final int? max;
   final List<ValueHintsValue>? values;
 
+  //TODO: Localize hardcoded text when possible
   const TextInput({super.key, this.fieldName = 'Text Field', required this.initialValue, this.max, this.values});
 
   @override

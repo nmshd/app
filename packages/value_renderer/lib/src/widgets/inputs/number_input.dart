@@ -7,6 +7,7 @@ class NumberInput extends StatefulWidget {
   final double max;
   final List<ValueHintsValue>? values;
 
+  //TODO: Localize hardcoded text when possible
   const NumberInput({super.key, this.fieldName = 'Number Field', required this.initialValue, required this.max, this.values});
 
   @override

@@ -6,6 +6,7 @@ class DropdownSelectButton extends StatefulWidget {
   final List<ValueHintsValue>? values;
   final String fieldName;
 
+  //TODO: Localize hardcoded text when possible
   const DropdownSelectButton({super.key, this.fieldName = 'Select an Option: ', this.initialValue, this.values});
 
   @override

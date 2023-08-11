@@ -18,7 +18,7 @@ class _SliderInputState extends State<SliderInput> {
   @override
   void initState() {
     super.initState();
-    currentSliderValue = widget.initialValue ?? 1;
+    currentSliderValue = widget.initialValue ?? widget.min;
   }
 
   @override
