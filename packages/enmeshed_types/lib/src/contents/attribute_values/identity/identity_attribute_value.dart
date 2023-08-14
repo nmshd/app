@@ -1,9 +1,7 @@
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
+import '../attribute_value.dart';
 import 'identity.dart';
 
-abstract class IdentityAttributeValue extends Equatable {
+abstract class IdentityAttributeValue extends AttributeValue {
   const IdentityAttributeValue();
 
   factory IdentityAttributeValue.fromJson(Map json) {
@@ -18,7 +16,7 @@ abstract class IdentityAttributeValue extends Equatable {
       'BirthState' => BirthStateAttributeValue.fromJson(json),
       'City' => CityAttributeValue.fromJson(json),
       'DisplayName' => DisplayNameAttributeValue.fromJson(json),
-      'FileReference' => FileReferenceAttributeValue.fromJson(json),
+      'IdentityFileReference' => IdentityFileReferenceAttributeValue.fromJson(json),
       'GivenName' => GivenNameAttributeValue.fromJson(json),
       'HonorificPrefix' => HonorificPrefixAttributeValue.fromJson(json),
       'HonorificSuffix' => HonorificSuffixAttributeValue.fromJson(json),
@@ -50,14 +48,8 @@ abstract class IdentityAttributeValue extends Equatable {
       'Sex' => SexAttributeValue.fromJson(json),
       'StreetAddress' => StreetAddressAttributeValue.fromJson(json),
       'Website' => WebsiteAttributeValue.fromJson(json),
+      'SchematizedXML' => SchematizedXMLAttributeValue.fromJson(json),
       _ => throw Exception('Unknown IdentityAttributeValue: $type'),
     };
   }
-
-  @mustCallSuper
-  Map<String, dynamic> toJson();
-
-  @mustCallSuper
-  @override
-  List<Object?> get props;
 }

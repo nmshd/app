@@ -203,6 +203,24 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
+  Future<Result<List<LocalAttributeDTO>>> executeIQLQuery({
+    required IQLQuery query,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.executeIQLQuery(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'query': query.toJson(),
+        },
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
+  }
+
   Future<Result<LocalAttributeDTO>> succeedAttribute({
     required Map<String, dynamic> successorContent,
     required String succeeds,

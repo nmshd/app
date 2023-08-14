@@ -38,7 +38,7 @@ class DraftIdentityAttributeDVO extends DraftAttributeDVO {
   final bool isDraft;
   final String? succeeds;
   final String? succeededBy;
-  final dynamic value;
+  final AttributeValue value;
   final List<String> tags;
 
   const DraftIdentityAttributeDVO({
@@ -79,7 +79,7 @@ class DraftRelationshipAttributeDVO extends DraftAttributeDVO {
   final bool isDraft;
   final String? succeeds;
   final String? succeededBy;
-  final dynamic value;
+  final AttributeValue value;
   final String key;
   final bool isTechnical;
   final String confidentiality;

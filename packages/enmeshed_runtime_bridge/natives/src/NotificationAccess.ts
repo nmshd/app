@@ -9,7 +9,10 @@ import { Result } from "@js-soft/ts-utils";
 export class NotificationAccess implements INativeNotificationAccess {
   private logger: ILogger;
 
-  public constructor(private readonly loggerFactory: ILoggerFactory, private readonly config: INativeConfigAccess) {}
+  public constructor(
+    private readonly loggerFactory: ILoggerFactory,
+    private readonly config: INativeConfigAccess
+  ) {}
 
   public init(): Promise<Result<void>> {
     this.logger = this.loggerFactory.getLogger("NotificationAccess");

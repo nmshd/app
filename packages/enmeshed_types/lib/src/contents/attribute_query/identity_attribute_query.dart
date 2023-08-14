@@ -1,37 +1,22 @@
 part of 'attribute_query.dart';
 
+@JsonSerializable(includeIfNull: false)
 class IdentityAttributeQuery extends AttributeQuery {
   final String valueType;
   final List<String>? tags;
+  final String? validFrom;
+  final String? validTo;
 
   const IdentityAttributeQuery({
     required this.valueType,
     this.tags,
-    super.validFrom,
-    super.validTo,
+    this.validFrom,
+    this.validTo,
   });
 
-  factory IdentityAttributeQuery.fromJson(Map json) {
-    return IdentityAttributeQuery(
-      valueType: json['valueType'],
-      tags: json['tags'] != null ? List<String>.from(json['tags']) : null,
-      validFrom: json['validFrom'],
-      validTo: json['validTo'],
-    );
-  }
-
+  factory IdentityAttributeQuery.fromJson(Map json) => _$IdentityAttributeQueryFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() {
-    return {
-      ...super.toJson(),
-      '@type': 'IdentityAttributeQuery',
-      'valueType': valueType,
-      if (tags != null) 'tags': tags,
-    };
-  }
-
-  @override
-  String toString() => 'IdentityAttributeQuery(valueType: $valueType, tags: $tags)';
+  Map<String, dynamic> toJson() => {'@type': 'IdentityAttributeQuery', ..._$IdentityAttributeQueryToJson(this)};
 
   @override
   List<Object?> get props => [

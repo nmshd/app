@@ -216,6 +216,16 @@ class DataViewExpander {
     return ThirdPartyRelationshipAttributeQueryDVO.fromJson(value);
   }
 
+  Future<IQLQueryDVO> expandIQLQuery(IQLQuery query) async {
+    final result = await _evaluator.evaluateJavaScript(
+      'return await session.expander.expandIQLQuery(query)',
+      arguments: {'query': query.toJson()},
+    );
+
+    final value = result.valueToMap();
+    return IQLQueryDVO.fromJson(value);
+  }
+
   Future<ProcessedAttributeQueryDVO> processAttributeQuery(AttributeQuery attributeQuery) async {
     final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.processAttributeQuery(attributeQuery)',

@@ -1,13 +1,19 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'contents.dart';
 
+part 'value_hints.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class ValueHints extends Equatable {
   final String? editHelp;
   final int? min;
   final int? max;
   final String? pattern;
   final List<ValueHintsValue>? values;
+
+  /// Can be a [String], [num], or [bool].
   final dynamic defaultValue;
   final Map<String, ValueHints>? propertyHints;
 
@@ -21,42 +27,8 @@ class ValueHints extends Equatable {
     this.propertyHints,
   });
 
-  factory ValueHints.fromJson(Map json) {
-    return ValueHints(
-      editHelp: json['editHelp'],
-      min: json['min']?.toInt(),
-      max: json['max']?.toInt(),
-      pattern: json['pattern'],
-      values: json['values'] != null
-          ? List<ValueHintsValue>.from(json['values'].map(
-              (x) => ValueHintsValue.fromJson(x),
-            ))
-          : null,
-      defaultValue: json['defaultValue'],
-      propertyHints: json['propertyHints'] != null
-          ? Map<String, ValueHints>.from(json['propertyHints'].map(
-              (key, value) => MapEntry(
-                key,
-                ValueHints.fromJson(value),
-              ),
-            ))
-          : null,
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        '@type': 'ValueHints',
-        'editHelp': editHelp,
-        'min': min,
-        'max': max,
-        'pattern': pattern,
-        'values': values?.map((x) => x.toJson()).toList(),
-        'defaultValue': defaultValue,
-        'propertyHints': propertyHints?.map((key, value) => MapEntry(
-              key,
-              value.toJson(),
-            )),
-      };
+  factory ValueHints.fromJson(Map json) => _$ValueHintsFromJson(Map<String, dynamic>.from(json));
+  Map<String, dynamic> toJson() => {'@type': 'ValueHints', ..._$ValueHintsToJson(this)};
 
   @override
   String toString() {

@@ -11,7 +11,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
   final String owner;
 
   final List<String> tags;
-  final dynamic value;
+  final AttributeValue value;
   final String valueType;
 
   final RenderHints renderHints;

@@ -28,6 +28,7 @@ sealed class AttributeQueryDVO extends DataViewObject {
         'IdentityAttributeQueryDVO' => IdentityAttributeQueryDVO.fromJson(json),
         'RelationshipAttributeQueryDVO' => RelationshipAttributeQueryDVO.fromJson(json),
         'ThirdPartyRelationshipAttributeQueryDVO' => ThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
+        'IQLQueryDVO' => IQLQueryDVO.fromJson(json),
         _ => throw Exception("Invalid type '${json['type']}'"),
       };
   Map<String, dynamic> toJson();
@@ -127,4 +128,29 @@ class ThirdPartyRelationshipAttributeQueryDVO extends AttributeQueryDVO {
       _$ThirdPartyRelationshipAttributeQueryDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ThirdPartyRelationshipAttributeQueryDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class IQLQueryDVO extends AttributeQueryDVO {
+  final String queryString;
+  final bool isProcessed;
+
+  const IQLQueryDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    required super.type,
+    super.date,
+    super.error,
+    super.warning,
+    super.validFrom,
+    super.validTo,
+    required this.queryString,
+    required this.isProcessed,
+  });
+
+  factory IQLQueryDVO.fromJson(Map json) => _$IQLQueryDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$IQLQueryDVOToJson(this);
 }

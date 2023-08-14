@@ -1,5 +1,6 @@
 part of 'attribute_query.dart';
 
+@JsonSerializable(includeIfNull: false)
 class RelationshipAttributeCreationHints extends Equatable {
   final String title;
   final String valueType;
@@ -15,27 +16,8 @@ class RelationshipAttributeCreationHints extends Equatable {
     required this.confidentiality,
   });
 
-  factory RelationshipAttributeCreationHints.fromJson(Map json) => RelationshipAttributeCreationHints(
-        title: json['title'],
-        valueType: json['valueType'],
-        description: json['description'],
-        valueHints: json['valueHints'] != null ? ValueHints.fromJson(json['valueHints']) : null,
-        confidentiality: json['confidentiality'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        '@type': 'RelationshipAttributeCreationHints',
-        'title': title,
-        'valueType': valueType,
-        if (description != null) 'description': description,
-        if (valueHints != null) 'valueHints': valueHints,
-        'confidentiality': confidentiality,
-      };
-
-  @override
-  String toString() {
-    return 'RelationshipAttributeCreationHints(title: $title, valueType: $valueType, description: $description, valueHints: $valueHints, confidentiality: $confidentiality)';
-  }
+  factory RelationshipAttributeCreationHints.fromJson(Map json) => _$RelationshipAttributeCreationHintsFromJson(Map<String, dynamic>.from(json));
+  Map<String, dynamic> toJson() => {'@type': 'RelationshipAttributeCreationHints', ..._$RelationshipAttributeCreationHintsToJson(this)};
 
   @override
   List<Object?> get props => [

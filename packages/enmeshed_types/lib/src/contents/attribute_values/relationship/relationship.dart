@@ -12,3 +12,4 @@ export 'proprietary_language.dart';
 export 'proprietary_phone_number.dart';
 export 'proprietary_string.dart';
 export 'proprietary_url.dart';
+export 'proprietary_xml.dart';
