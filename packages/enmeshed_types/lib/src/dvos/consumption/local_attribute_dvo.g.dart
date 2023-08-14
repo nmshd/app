@@ -17,7 +17,7 @@ RepositoryAttributeDVO _$RepositoryAttributeDVOFromJson(Map<String, dynamic> jso
       content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: json['owner'] as String,
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
-      value: json['value'],
+      value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
@@ -50,7 +50,7 @@ Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO insta
   val['content'] = instance.content.toJson();
   val['owner'] = instance.owner;
   val['tags'] = instance.tags;
-  writeNotNull('value', instance.value);
+  val['value'] = instance.value.toJson();
   val['valueType'] = instance.valueType;
   val['renderHints'] = instance.renderHints.toJson();
   val['valueHints'] = instance.valueHints.toJson();
@@ -74,7 +74,7 @@ SharedToPeerAttributeDVO _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic>
       content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: json['owner'] as String,
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
-      value: json['value'],
+      value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
@@ -109,7 +109,7 @@ Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO i
   val['content'] = instance.content.toJson();
   val['owner'] = instance.owner;
   val['tags'] = instance.tags;
-  writeNotNull('value', instance.value);
+  val['value'] = instance.value.toJson();
   val['valueType'] = instance.valueType;
   val['renderHints'] = instance.renderHints.toJson();
   val['valueHints'] = instance.valueHints.toJson();
@@ -135,7 +135,7 @@ PeerAttributeDVO _$PeerAttributeDVOFromJson(Map<String, dynamic> json) => PeerAt
       content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: json['owner'] as String,
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
-      value: json['value'],
+      value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
@@ -169,7 +169,7 @@ Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
   val['content'] = instance.content.toJson();
   val['owner'] = instance.owner;
   val['tags'] = instance.tags;
-  writeNotNull('value', instance.value);
+  val['value'] = instance.value.toJson();
   val['valueType'] = instance.valueType;
   val['renderHints'] = instance.renderHints.toJson();
   val['valueHints'] = instance.valueHints.toJson();
@@ -194,7 +194,7 @@ OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dy
       content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: json['owner'] as String,
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
-      value: json['value'],
+      value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
@@ -231,7 +231,7 @@ Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttribut
   val['content'] = instance.content.toJson();
   val['owner'] = instance.owner;
   val['tags'] = instance.tags;
-  writeNotNull('value', instance.value);
+  val['value'] = instance.value.toJson();
   val['valueType'] = instance.valueType;
   val['renderHints'] = instance.renderHints.toJson();
   val['valueHints'] = instance.valueHints.toJson();
@@ -259,7 +259,7 @@ PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, 
       content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: json['owner'] as String,
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
-      value: json['value'],
+      value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
@@ -296,7 +296,7 @@ Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttrib
   val['content'] = instance.content.toJson();
   val['owner'] = instance.owner;
   val['tags'] = instance.tags;
-  writeNotNull('value', instance.value);
+  val['value'] = instance.value.toJson();
   val['valueType'] = instance.valueType;
   val['renderHints'] = instance.renderHints.toJson();
   val['valueHints'] = instance.valueHints.toJson();

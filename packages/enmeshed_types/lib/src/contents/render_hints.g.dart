@@ -71,4 +71,5 @@ const _$RenderHintsDataTypeEnumMap = {
   RenderHintsDataType.Day: 'Day',
   RenderHintsDataType.Month: 'Month',
   RenderHintsDataType.Year: 'Year',
+  RenderHintsDataType.XML: 'XML',
 };
