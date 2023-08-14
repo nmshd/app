@@ -23,8 +23,8 @@ class NumberRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double min = valueHints.min?.toDouble() ?? 1;
-    final double max = valueHints.max?.toDouble() ?? 100;
+    final min = valueHints.min;
+    final max = valueHints.max;
 
     if (dataType == RenderHintsDataType.DateTime ||
         dataType == RenderHintsDataType.Date ||
@@ -99,7 +99,7 @@ class NumberRenderer extends StatelessWidget {
     }
 
     return NumberInput(
-      initialValue: initialValue?['value'].toString(),
+      initialValue: initialValue?['value'],
       fieldName: fieldName,
       max: max,
     );

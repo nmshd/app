@@ -24,8 +24,8 @@ class _DatepickerInputState extends State<DatepickerInput> {
 
   void _presentDatePicker() async {
     final now = DateTime.now();
-    final firstDate = DateTime(1900, now.month, now.day);
-    final lastDate = DateTime(2200, now.month, now.day);
+    final firstDate = DateTime.fromMillisecondsSinceEpoch(0);
+    final lastDate = DateTime(3000, now.month, now.day);
     final pickedDate = await showDatePicker(context: context, initialDate: now, firstDate: firstDate, lastDate: lastDate);
     if (pickedDate == null) return;
 

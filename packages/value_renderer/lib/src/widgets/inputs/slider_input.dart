@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class SliderInput extends StatefulWidget {
   final double? initialValue;
   final String fieldName;
-  final double min;
-  final double max;
+  final num? min;
+  final num? max;
 
-  const SliderInput({super.key, this.initialValue, required this.fieldName, required this.min, required this.max});
+  const SliderInput({super.key, this.initialValue, required this.fieldName, this.min, this.max});
 
   @override
   State<SliderInput> createState() => _SliderInputState();
@@ -18,7 +18,7 @@ class _SliderInputState extends State<SliderInput> {
   @override
   void initState() {
     super.initState();
-    currentSliderValue = widget.initialValue ?? widget.min;
+    currentSliderValue = widget.initialValue ?? widget.min!.toDouble();
   }
 
   @override
@@ -32,8 +32,8 @@ class _SliderInputState extends State<SliderInput> {
         Text(widget.fieldName),
         Slider(
           value: currentSliderValue,
-          min: widget.min,
-          max: widget.max,
+          min: widget.min!.toDouble(),
+          max: widget.max!.toDouble(),
           divisions: 4,
           label: currentSliderValue.round().toString(),
           onChanged: (double value) {

@@ -320,16 +320,15 @@ class InputExamples extends StatelessWidget {
                           thickness: 1.0,
                         ),
                         ValueRenderer(
-                          renderHints: RenderHints(
-                            editType: RenderHintsEditType.InputLike,
-                            technicalType: RenderHintsTechnicalType.Integer,
-                          ),
-                          valueHints: const ValueHints(
-                            max: 100,
-                            propertyHints: {},
-                          ),
-                          initialValue: const {'@type': 'Integer / InputLike', 'value': ''},
-                        ),
+                            renderHints: RenderHints(
+                              editType: RenderHintsEditType.InputLike,
+                              technicalType: RenderHintsTechnicalType.Integer,
+                            ),
+                            valueHints: const ValueHints(
+                              max: 100,
+                              propertyHints: {},
+                            ),
+                            initialValue: const {'@type': 'Integer / InputLike'}),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
@@ -340,7 +339,7 @@ class InputExamples extends StatelessWidget {
                             propertyHints: {},
                             values: [ValueHintsValue(key: 'Some Validation', displayName: '')],
                           ),
-                          initialValue: const {'@type': 'Integer / InputLike / ValueHints.Values', 'value': ''},
+                          initialValue: const {'@type': 'Integer / InputLike / ValueHints.Values'},
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -444,7 +443,7 @@ class InputExamples extends StatelessWidget {
                             propertyHints: {},
                             values: [],
                           ),
-                          initialValue: const {'@type': 'Integer / ButtonLike ', 'value': ''},
+                          initialValue: const {'@type': 'Integer / ButtonLike'},
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(

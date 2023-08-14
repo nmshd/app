@@ -16,7 +16,7 @@ class StringRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int max = valueHints.max ?? 100;
+    final max = valueHints.max;
 
     if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
       return DatepickerInput(

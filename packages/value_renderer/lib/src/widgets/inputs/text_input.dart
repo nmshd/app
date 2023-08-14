@@ -32,7 +32,7 @@ class TextInputState extends State<TextInput> {
   Widget build(BuildContext context) {
     return TextField(
       maxLength: widget.max,
-      controller: TextEditingController()..text = widget.initialValue!,
+      controller: _controller,
       decoration: InputDecoration(labelText: widget.fieldName),
     );
   }
