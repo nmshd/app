@@ -24,7 +24,7 @@ DraftIdentityAttributeDVO _$DraftIdentityAttributeDVOFromJson(Map<String, dynami
       isDraft: json['isDraft'] as bool,
       succeeds: json['succeeds'] as String?,
       succeededBy: json['succeededBy'] as String?,
-      value: json['value'],
+      value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
@@ -55,7 +55,7 @@ Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(DraftIdentityAttributeDVO
   val['isDraft'] = instance.isDraft;
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
-  writeNotNull('value', instance.value);
+  val['value'] = instance.value.toJson();
   val['tags'] = instance.tags;
   return val;
 }
@@ -78,7 +78,7 @@ DraftRelationshipAttributeDVO _$DraftRelationshipAttributeDVOFromJson(Map<String
       isDraft: json['isDraft'] as bool,
       succeeds: json['succeeds'] as String?,
       succeededBy: json['succeededBy'] as String?,
-      value: json['value'],
+      value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       key: json['key'] as String,
       isTechnical: json['isTechnical'] as bool,
       confidentiality: json['confidentiality'] as String,
@@ -111,7 +111,7 @@ Map<String, dynamic> _$DraftRelationshipAttributeDVOToJson(DraftRelationshipAttr
   val['isDraft'] = instance.isDraft;
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
-  writeNotNull('value', instance.value);
+  val['value'] = instance.value.toJson();
   val['key'] = instance.key;
   val['isTechnical'] = instance.isTechnical;
   val['confidentiality'] = instance.confidentiality;

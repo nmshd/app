@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'value_hints.dart';
+
 part 'value_hints_value.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class ValueHintsValue extends Equatable {
-  /// Can be a [String], [num], or [bool].
-  final dynamic key;
+  final ValueHintsDefaultValue key;
   final String displayName;
 
   const ValueHintsValue({
