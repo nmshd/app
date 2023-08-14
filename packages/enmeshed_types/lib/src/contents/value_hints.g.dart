@@ -12,7 +12,7 @@ ValueHints _$ValueHintsFromJson(Map<String, dynamic> json) => ValueHints(
       max: json['max'] as int?,
       pattern: json['pattern'] as String?,
       values: (json['values'] as List<dynamic>?)?.map((e) => ValueHintsValue.fromJson(e as Map<String, dynamic>)).toList(),
-      defaultValue: json['defaultValue'],
+      defaultValue: json['defaultValue'] == null ? null : ValueHintsDefaultValue.fromJson(json['defaultValue']),
       propertyHints: (json['propertyHints'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, ValueHints.fromJson(e as Map<String, dynamic>)),
       ),
@@ -32,7 +32,7 @@ Map<String, dynamic> _$ValueHintsToJson(ValueHints instance) {
   writeNotNull('max', instance.max);
   writeNotNull('pattern', instance.pattern);
   writeNotNull('values', instance.values?.map((e) => e.toJson()).toList());
-  writeNotNull('defaultValue', instance.defaultValue);
+  writeNotNull('defaultValue', instance.defaultValue?.toJson());
   writeNotNull('propertyHints', instance.propertyHints?.map((k, e) => MapEntry(k, e.toJson())));
   return val;
 }
