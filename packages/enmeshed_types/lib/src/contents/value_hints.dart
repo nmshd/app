@@ -42,9 +42,9 @@ sealed class ValueHintsDefaultValue {
   const ValueHintsDefaultValue();
 
   factory ValueHintsDefaultValue.fromJson(dynamic json) => switch (json) {
-        String => ValueHintsDefaultValueString(json),
-        num => ValueHintsDefaultValueNum(json),
-        bool => ValueHintsDefaultValueBool(json),
+        String() => ValueHintsDefaultValueString(json),
+        num() => ValueHintsDefaultValueNum(json),
+        bool() => ValueHintsDefaultValueBool(json),
         _ => throw Exception('Invalid type for ValueHintsDefaultValue: ${json.runtimeType}'),
       };
 
@@ -58,6 +58,13 @@ class ValueHintsDefaultValueString implements ValueHintsDefaultValue {
 
   @override
   String toJson() => value;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || runtimeType == other.runtimeType && value == (other as ValueHintsDefaultValueString).value;
+
+  @override
+  int get hashCode => runtimeType.hashCode ^ value.hashCode;
 }
 
 class ValueHintsDefaultValueNum implements ValueHintsDefaultValue {
@@ -67,6 +74,12 @@ class ValueHintsDefaultValueNum implements ValueHintsDefaultValue {
 
   @override
   num toJson() => value;
+
+  @override
+  bool operator ==(Object other) => identical(this, other) || runtimeType == other.runtimeType && value == (other as ValueHintsDefaultValueNum).value;
+
+  @override
+  int get hashCode => runtimeType.hashCode ^ value.hashCode;
 }
 
 class ValueHintsDefaultValueBool implements ValueHintsDefaultValue {
@@ -76,4 +89,11 @@ class ValueHintsDefaultValueBool implements ValueHintsDefaultValue {
 
   @override
   bool toJson() => value;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || runtimeType == other.runtimeType && value == (other as ValueHintsDefaultValueBool).value;
+
+  @override
+  int get hashCode => runtimeType.hashCode ^ value.hashCode;
 }
