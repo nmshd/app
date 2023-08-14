@@ -15,14 +15,14 @@ import 'tokens_facade_test.dart' as tokens_facade_test;
 void main() async => run(await setup());
 
 void run(EnmeshedRuntime runtime) async {
+  account_facade_test.run(runtime);
+  anonymous_tokens_facade_test.run(runtime);
+  attributes_facade_test.run(runtime);
+  devices_facade_test.run(runtime);
+  files_facade_test.run(runtime);
+  messages_facade_test.run(runtime);
   relationship_template_facade_test.run(runtime);
   relationships_facade_test.run(runtime);
-  files_facade_test.run(runtime);
-  attributes_facade_test.run(runtime);
-  account_facade_test.run(runtime);
-  messages_facade_test.run(runtime);
   requests_facade_test.run(runtime);
   tokens_facade_test.run(runtime);
-  anonymous_tokens_facade_test.run(runtime);
-  devices_facade_test.run(runtime);
 }
