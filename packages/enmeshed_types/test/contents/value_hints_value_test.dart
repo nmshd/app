@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('ValueHintsValue toJson', () {
     test('is correctly converted', () {
-      const valueHintsValue = ValueHintsValue(key: ValueHintsDefaultValueString('aDefaultValue'), displayName: 'aDisplayName');
+      const valueHintsValue = ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName');
       final valueHintsValueJson = valueHintsValue.toJson();
       expect(
         valueHintsValueJson,
@@ -16,9 +16,11 @@ void main() {
   group('ValueHintsValue fromJson', () {
     test('is correctly converted', () {
       final json = {'key': 'aKey', 'displayName': 'aDisplayName'};
+      final valueHints = ValueHintsValue.fromJson(json);
+
       expect(
-        ValueHintsValue.fromJson(json),
-        equals(const ValueHintsValue(key: ValueHintsDefaultValueString('aDefaultValue'), displayName: 'aDisplayName')),
+        valueHints,
+        equals(const ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')),
       );
     });
   });

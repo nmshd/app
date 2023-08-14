@@ -162,8 +162,10 @@ void main() {
         'defaultValue': null,
         'propertyHints': null,
       };
-      expect(ValueHints.fromJson(json),
-          equals(const ValueHints(values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')])));
+      expect(
+        ValueHints.fromJson(json),
+        equals(const ValueHints(values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')])),
+      );
     });
 
     test('is correctly converted with property "defaultValue"', () {
