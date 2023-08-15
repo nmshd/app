@@ -6,6 +6,7 @@ import '../../contents/contents.dart';
 part 'authentication_request_item.dart';
 part 'consent_request_item.dart';
 part 'create_attribute_request_item.dart';
+part 'free_text_request_item.dart';
 part 'propose_attribute_request_item.dart';
 part 'read_attribute_request_item.dart';
 part 'register_attribute_listener_request_item.dart';
