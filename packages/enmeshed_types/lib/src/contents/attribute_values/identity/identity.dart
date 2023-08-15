@@ -34,6 +34,7 @@ export 'pseudonym.dart';
 export 'schematized_xml.dart';
 export 'sex.dart';
 export 'state.dart';
+export 'statement.dart';
 export 'street.dart';
 export 'street_address.dart';
 export 'surname.dart';

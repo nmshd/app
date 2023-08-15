@@ -6,6 +6,7 @@ import '../contents.dart';
 part 'accept_response_item.dart';
 part 'create_attribute_accept_response_item.dart';
 part 'error_response_item.dart';
+part 'free_text_accept_response_item.dart';
 part 'propose_attribute_accept_response_item.dart';
 part 'read_attribute_accept_response_item.dart';
 part 'register_attribute_listener_accept_response_item.dart';

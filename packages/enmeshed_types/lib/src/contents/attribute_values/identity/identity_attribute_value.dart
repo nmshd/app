@@ -49,6 +49,7 @@ abstract class IdentityAttributeValue extends AttributeValue {
       'StreetAddress' => StreetAddressAttributeValue.fromJson(json),
       'Website' => WebsiteAttributeValue.fromJson(json),
       'SchematizedXML' => SchematizedXMLAttributeValue.fromJson(json),
+      'Statement' => StatementAttributeValue.fromJson(json),
       _ => throw Exception('Unknown IdentityAttributeValue: $type'),
     };
   }
