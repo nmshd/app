@@ -9,3 +9,13 @@ class IntegerConverter implements JsonConverter<int, dynamic> {
   @override
   dynamic toJson(int object) => object;
 }
+
+class OptionalIntegerConverter implements JsonConverter<int?, dynamic> {
+  const OptionalIntegerConverter();
+
+  @override
+  int? fromJson(dynamic json) => json?.toInt();
+
+  @override
+  dynamic toJson(int? object) => object;
+}
