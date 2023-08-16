@@ -2,8 +2,7 @@ import 'facades/abstract_evaluator.dart';
 import 'facades/anonymous.dart';
 
 class AnonymousServices {
-  final AnonymousTokensFacade _tokens;
-  AnonymousTokensFacade get tokens => _tokens;
+  final AnonymousTokensFacade tokens;
 
-  AnonymousServices(AbstractEvaluator evaluator) : _tokens = AnonymousTokensFacade(evaluator);
+  AnonymousServices(AbstractEvaluator evaluator) : tokens = AnonymousTokensFacade(evaluator);
 }
