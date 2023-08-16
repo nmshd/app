@@ -19,7 +19,7 @@ PeerRelationshipTemplateDVO _$PeerRelationshipTemplateDVOFromJson(Map<String, dy
       createdByDevice: json['createdByDevice'] as String,
       createdAt: json['createdAt'] as String,
       expiresAt: json['expiresAt'] as String?,
-      maxNumberOfAllocations: json['maxNumberOfAllocations'] as int?,
+      maxNumberOfAllocations: const OptionalIntegerConverter().fromJson(json['maxNumberOfAllocations']),
       onNewRelationship: json['onNewRelationship'] == null ? null : RequestDVO.fromJson(json['onNewRelationship'] as Map<String, dynamic>),
       onExistingRelationship:
           json['onExistingRelationship'] == null ? null : RequestDVO.fromJson(json['onExistingRelationship'] as Map<String, dynamic>),
@@ -50,7 +50,7 @@ Map<String, dynamic> _$PeerRelationshipTemplateDVOToJson(PeerRelationshipTemplat
   val['createdByDevice'] = instance.createdByDevice;
   val['createdAt'] = instance.createdAt;
   writeNotNull('expiresAt', instance.expiresAt);
-  writeNotNull('maxNumberOfAllocations', instance.maxNumberOfAllocations);
+  writeNotNull('maxNumberOfAllocations', const OptionalIntegerConverter().toJson(instance.maxNumberOfAllocations));
   writeNotNull('onNewRelationship', instance.onNewRelationship?.toJson());
   writeNotNull('onExistingRelationship', instance.onExistingRelationship?.toJson());
   writeNotNull('request', instance.request?.toJson());

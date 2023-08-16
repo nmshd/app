@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../dvos/integer_converter.dart';
 import 'contents.dart';
 
 part 'value_hints.g.dart';
@@ -8,7 +9,9 @@ part 'value_hints.g.dart';
 @JsonSerializable(includeIfNull: false)
 class ValueHints extends Equatable {
   final String? editHelp;
+  @OptionalIntegerConverter()
   final int? min;
+  @OptionalIntegerConverter()
   final int? max;
   final String? pattern;
   final List<ValueHintsValue>? values;
