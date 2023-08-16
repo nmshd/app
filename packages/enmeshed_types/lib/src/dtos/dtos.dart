@@ -20,4 +20,5 @@ export 'relationship_change_request.dart';
 export 'relationship_change_response.dart';
 export 'relationship_template.dart';
 export 'request_validation_result.dart';
+export 'setting.dart';
 export 'token.dart';
