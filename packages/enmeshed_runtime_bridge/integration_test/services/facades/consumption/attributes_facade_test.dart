@@ -2,10 +2,10 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../matchers.dart';
-import '../../mock_event_bus.dart';
-import '../../setup.dart';
-import '../../utils.dart';
+import '../../../matchers.dart';
+import '../../../mock_event_bus.dart';
+import '../../../setup.dart';
+import '../../../utils.dart';
 
 void main() async => run(await setup());
 
