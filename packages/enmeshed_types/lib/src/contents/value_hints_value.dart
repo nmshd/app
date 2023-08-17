@@ -1,7 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import 'value_hints.dart';
+
+part 'value_hints_value.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class ValueHintsValue extends Equatable {
-  final dynamic key;
+  final ValueHintsDefaultValue key;
   final String displayName;
 
   const ValueHintsValue({
@@ -9,16 +15,8 @@ class ValueHintsValue extends Equatable {
     required this.displayName,
   });
 
-  factory ValueHintsValue.fromJson(Map json) => ValueHintsValue(
-        key: json['key'],
-        displayName: json['displayName'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        '@type': 'ValueHintsValue',
-        'key': key,
-        'displayName': displayName,
-      };
+  factory ValueHintsValue.fromJson(Map json) => _$ValueHintsValueFromJson(Map<String, dynamic>.from(json));
+  Map<String, dynamic> toJson() => {'@type': 'ValueHintsValue', ..._$ValueHintsValueToJson(this)};
 
   @override
   String toString() => 'ValueHintsValue(key: $key, displayName: $displayName)';

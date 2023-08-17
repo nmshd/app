@@ -10,13 +10,6 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -29,12 +22,6 @@ void main() {
         equals({
           '@type': 'ValueHints',
           'editHelp': 'anEditHelp',
-          'min': null,
-          'max': null,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -46,13 +33,7 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
           'min': 0,
-          'max': null,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -64,13 +45,7 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
           'max': 10,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
@@ -82,49 +57,31 @@ void main() {
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
           'pattern': 'aPattern',
-          'values': null,
-          'defaultValue': null,
-          'propertyHints': null,
         }),
       );
     });
 
     test('is correctly converted with property "values"', () {
-      const valueHints = ValueHints(values: [ValueHintsValue(key: 'aKey', displayName: 'aDisplayName')]);
+      const valueHints = ValueHints(values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')]);
       final valueHintsJson = valueHints.toJson();
       expect(
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
-          'pattern': null,
-          'values': [const ValueHintsValue(key: 'aKey', displayName: 'aDisplayName').toJson()],
-          'defaultValue': null,
-          'propertyHints': null,
+          'values': [const ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName').toJson()],
         }),
       );
     });
 
     test('is correctly converted with property "defaultValue"', () {
-      const valueHints = ValueHints(defaultValue: 'aDefaultValue');
+      const valueHints = ValueHints(defaultValue: ValueHintsDefaultValueString('aDefaultValue'));
       final valueHintsJson = valueHints.toJson();
       expect(
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
-          'pattern': null,
-          'values': null,
           'defaultValue': 'aDefaultValue',
-          'propertyHints': null,
         }),
       );
     });
@@ -132,16 +89,11 @@ void main() {
     test('is correctly converted with property "propertyHints"', () {
       const valueHints = ValueHints(propertyHints: {'aKey': ValueHints()});
       final valueHintsJson = valueHints.toJson();
+
       expect(
         valueHintsJson,
         equals({
           '@type': 'ValueHints',
-          'editHelp': null,
-          'min': null,
-          'max': null,
-          'pattern': null,
-          'values': null,
-          'defaultValue': null,
           'propertyHints': {'aKey': const ValueHints().toJson()},
         }),
       );
@@ -153,8 +105,8 @@ void main() {
         min: 0,
         max: 10,
         pattern: 'aPattern',
-        values: [ValueHintsValue(key: 'aKey', displayName: 'aDisplayName')],
-        defaultValue: 'aDefaultValue',
+        values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')],
+        defaultValue: ValueHintsDefaultValueString('aDefaultValue'),
         propertyHints: {'aKey': ValueHints()},
       );
       final valueHintsJson = valueHints.toJson();
@@ -166,7 +118,7 @@ void main() {
           'min': 0,
           'max': 10,
           'pattern': 'aPattern',
-          'values': [const ValueHintsValue(key: 'aKey', displayName: 'aDisplayName').toJson()],
+          'values': [const ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName').toJson()],
           'defaultValue': 'aDefaultValue',
           'propertyHints': {'aKey': const ValueHints().toJson()},
         }),
@@ -206,11 +158,14 @@ void main() {
         'min': null,
         'max': null,
         'pattern': null,
-        'values': [const ValueHintsValue(key: 'aKey', displayName: 'aDisplayName').toJson()],
+        'values': [const ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName').toJson()],
         'defaultValue': null,
         'propertyHints': null,
       };
-      expect(ValueHints.fromJson(json), equals(const ValueHints(values: [ValueHintsValue(key: 'aKey', displayName: 'aDisplayName')])));
+      expect(
+        ValueHints.fromJson(json),
+        equals(const ValueHints(values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')])),
+      );
     });
 
     test('is correctly converted with property "defaultValue"', () {
@@ -223,7 +178,7 @@ void main() {
         'defaultValue': 'aDefaultValue',
         'propertyHints': null,
       };
-      expect(ValueHints.fromJson(json), equals(const ValueHints(defaultValue: 'aDefaultValue')));
+      expect(ValueHints.fromJson(json), equals(const ValueHints(defaultValue: ValueHintsDefaultValueString('aDefaultValue'))));
     });
 
     test('is correctly converted with property "propertyHints"', () {
@@ -245,7 +200,7 @@ void main() {
         'min': 0,
         'max': 10,
         'pattern': 'aPattern',
-        'values': [const ValueHintsValue(key: 'aKey', displayName: 'aDisplayName').toJson()],
+        'values': [const ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName').toJson()],
         'defaultValue': 'aDefaultValue',
         'propertyHints': {'aKey': const ValueHints().toJson()},
       };
@@ -256,8 +211,8 @@ void main() {
           min: 0,
           max: 10,
           pattern: 'aPattern',
-          values: [ValueHintsValue(key: 'aKey', displayName: 'aDisplayName')],
-          defaultValue: 'aDefaultValue',
+          values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')],
+          defaultValue: ValueHintsDefaultValueString('aDefaultValue'),
           propertyHints: {'aKey': ValueHints()},
         )),
       );

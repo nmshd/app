@@ -107,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _loginEnabled = true;
         _loginProcessing = false;
       });
+
       return;
     }
 

@@ -85,9 +85,8 @@ void main() {
       final requestItemJson = {
         '@type': 'SucceedAttributeRequestItem',
         'mustBeAccepted': true,
-        'succeededId': 'aSucceededId',
-        'succeededAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
-        'newAttribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'newCity')).toJson(),
+        'succeededAttributeId': 'aSucceededId',
+        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
 
       final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);

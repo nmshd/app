@@ -5,6 +5,7 @@ import '../common/common.dart';
 import '../consumption/consumption.dart';
 import '../content/content.dart';
 import '../data_view_object.dart';
+import '../integer_converter.dart';
 import 'identity_dvo.dart';
 
 part 'relationship_template_dvo.g.dart';
@@ -16,6 +17,7 @@ class RelationshipTemplateDVO extends DataViewObject {
   final String createdByDevice;
   final String createdAt;
   final String? expiresAt;
+  @OptionalIntegerConverter()
   final int? maxNumberOfAllocations;
   final RequestDVO? onNewRelationship;
   final RequestDVO? onExistingRelationship;

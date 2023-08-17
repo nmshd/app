@@ -16,19 +16,19 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_inappwebview: ^5.7.2+3
-  flutter_local_notifications: ^15.0.0
+  flutter_local_notifications: ^15.0.0+1
   logger: ^1.4.0
   meta: any
   path_provider: ^2.0.13
 
 dev_dependencies:
   connector_sdk: 1.0.0
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.2
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-  test: ^1.24.1
+  test: any
 
 platforms:
   android:

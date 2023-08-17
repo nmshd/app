@@ -6,6 +6,7 @@ void main() {
     test('is correctly converted', () {
       const response = LoadItemFromTruncatedReferenceResponse(type: LoadItemFromTruncatedReferenceResponseType.File, value: {'aKey': 'aValue'});
       final responseJson = response.toJson();
+
       expect(
         responseJson,
         equals({
@@ -22,6 +23,7 @@ void main() {
         'type': 'File',
         'value': {'aKey': 'aValue'},
       };
+
       expect(
         LoadItemFromTruncatedReferenceResponse.fromJson(json),
         equals(const LoadItemFromTruncatedReferenceResponse(type: LoadItemFromTruncatedReferenceResponseType.File, value: {'aKey': 'aValue'})),

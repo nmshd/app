@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../content/content.dart';
+import '../integer_converter.dart';
 import '../transport/transport.dart';
 import 'local_request_dvo.dart';
 

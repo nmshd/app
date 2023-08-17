@@ -6,7 +6,14 @@
       "request": "launch",
       "type": "dart",
       "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"],
-      "templateFor": ""
+      "templateFor": "packages/enmeshed_runtime_bridge"
+    },
+    {
+      "name": "Launch current dart file",
+      "request": "launch",
+      "type": "dart",
+      "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"],
+      "templateFor": "apps/enmeshed"
     }
   ]
 }

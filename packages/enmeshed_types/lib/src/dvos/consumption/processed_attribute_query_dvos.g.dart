@@ -148,3 +148,46 @@ Map<String, dynamic> _$ProcessedThirdPartyRelationshipAttributeQueryDVOToJson(Pr
   writeNotNull('valueHints', instance.valueHints?.toJson());
   return val;
 }
+
+ProcessedIQLQueryDVO _$ProcessedIQLQueryDVOFromJson(Map<String, dynamic> json) => ProcessedIQLQueryDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      validFrom: json['validFrom'] as String?,
+      validTo: json['validTo'] as String?,
+      results: (json['results'] as List<dynamic>).map((e) => RepositoryAttributeDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      valueType: json['valueType'] as String,
+      renderHints: json['renderHints'] == null ? null : RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
+      valueHints: json['valueHints'] == null ? null : ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ProcessedIQLQueryDVOToJson(ProcessedIQLQueryDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  writeNotNull('validFrom', instance.validFrom);
+  writeNotNull('validTo', instance.validTo);
+  val['results'] = instance.results.map((e) => e.toJson()).toList();
+  val['valueType'] = instance.valueType;
+  writeNotNull('renderHints', instance.renderHints?.toJson());
+  writeNotNull('valueHints', instance.valueHints?.toJson());
+  return val;
+}

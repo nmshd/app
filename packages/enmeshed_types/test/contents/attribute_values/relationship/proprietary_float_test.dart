@@ -75,6 +75,7 @@ void main() {
         equals(const ProprietaryFloatAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 10.5)),
       );
     });
+
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 10.5};
       expect(

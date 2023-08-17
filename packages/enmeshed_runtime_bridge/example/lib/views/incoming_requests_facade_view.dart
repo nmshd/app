@@ -212,9 +212,9 @@ class IncomingRequestsFacadeView extends StatelessWidget {
           owner: currentIdentityAddress,
           value: DisplayNameAttributeValue(value: 'Test$type'),
         ),
-      'FileReference' => IdentityAttribute(
+      'IdentityFileReference' => IdentityAttribute(
           owner: currentIdentityAddress,
-          value: FileReferenceAttributeValue(value: 'Test${type}WithMinimunLengthOf30'),
+          value: IdentityFileReferenceAttributeValue(value: 'Test${type}WithMinimunLengthOf30'),
         ),
       'GivenName' => IdentityAttribute(
           owner: currentIdentityAddress,

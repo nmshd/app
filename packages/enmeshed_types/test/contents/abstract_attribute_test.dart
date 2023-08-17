@@ -42,6 +42,7 @@ void main() {
 
       expect(mockAbstractAttribute.toJson(), equals(abstractAttributeJson));
     });
+
     test('is correctly converted with properties "validFrom" and "validTo"', () {
       const mockAbstractAttribute = MockAbstractAttribute(owner: 'anOwner', validFrom: '1970', validTo: '1980');
 

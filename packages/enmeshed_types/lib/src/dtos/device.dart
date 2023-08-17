@@ -12,6 +12,7 @@ class DeviceDTO extends Equatable {
   final String? lastLoginAt;
   final String type;
   final String username;
+  final bool isCurrentDevice;
 
   const DeviceDTO({
     required this.id,
@@ -25,6 +26,7 @@ class DeviceDTO extends Equatable {
     this.lastLoginAt,
     required this.type,
     required this.username,
+    required this.isCurrentDevice,
   });
 
   factory DeviceDTO.fromJson(Map json) => DeviceDTO(
@@ -39,6 +41,7 @@ class DeviceDTO extends Equatable {
         lastLoginAt: json['lastLoginAt'],
         type: json['type'],
         username: json['username'],
+        isCurrentDevice: json['isCurrentDevice'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,6 +56,7 @@ class DeviceDTO extends Equatable {
         if (lastLoginAt != null) 'lastLoginAt': lastLoginAt,
         'type': type,
         'username': username,
+        'isCurrentDevice': isCurrentDevice,
       };
 
   @override
@@ -73,5 +77,6 @@ class DeviceDTO extends Equatable {
         lastLoginAt,
         type,
         username,
+        isCurrentDevice,
       ];
 }

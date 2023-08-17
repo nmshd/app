@@ -75,6 +75,7 @@ void main() {
         equals(const ProprietaryStringAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aString')),
       );
     });
+
     test('is correctly converted with properties "description" and "valueHintsOverride"', () {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aString'};
       expect(
