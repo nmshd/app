@@ -9,7 +9,7 @@ class StringProcessor {
 
   StringProcessor(this._evaluator);
 
-  Future<Result<void>> processURL({required String url, LocalAccountDTO? account}) async {
+  Future<Result<bool>> processURL({required String url, LocalAccountDTO? account}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await runtime.stringProcessor.processURL(url, account ?? undefined)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -20,10 +20,10 @@ class StringProcessor {
       },
     );
 
-    return Result.fromJson(result.valueToMap(), (_) {});
+    return Result.fromJson(result.valueToMap(), (_) => true);
   }
 
-  Future<Result<void>> processTruncatedReference({required String truncatedReference, LocalAccountDTO? account}) async {
+  Future<Result<bool>> processTruncatedReference({required String truncatedReference, LocalAccountDTO? account}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await runtime.stringProcessor.processTruncatedReference(truncatedReference, account ?? undefined)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -34,6 +34,6 @@ class StringProcessor {
       },
     );
 
-    return Result.fromJson(result.valueToMap(), (_) {});
+    return Result.fromJson(result.valueToMap(), (_) => true);
   }
 }

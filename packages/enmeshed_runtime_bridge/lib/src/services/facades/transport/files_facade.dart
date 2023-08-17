@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-import 'abstract_evaluator.dart';
-import 'handle_call_async_js_result.dart';
-import 'result.dart';
+import '../abstract_evaluator.dart';
+import '../handle_call_async_js_result.dart';
+import '../result.dart';
 
 class FilesFacade {
   final AbstractEvaluator _evaluator;
