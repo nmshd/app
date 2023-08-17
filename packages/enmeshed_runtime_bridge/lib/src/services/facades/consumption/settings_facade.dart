@@ -24,10 +24,10 @@ class SettingsFacade {
         'request': {
           'key': key,
           'value': value,
-          'reference': reference,
-          'scope': scope?.toString().split('.').last,
-          'succeedsAt': succeedsAt,
-          'succeedsItem': succeedsItem,
+          if (reference != null) 'reference': reference,
+          if (scope != null) 'scope': scope.toString().split('.').last,
+          if (succeedsAt != null) 'succeedsAt': succeedsAt,
+          if (succeedsItem != null) 'succeedsItem': succeedsItem,
         },
       },
     );
@@ -65,9 +65,7 @@ class SettingsFacade {
     return Result.fromJson(result.valueToMap(), (x) => SettingDTO.fromJson(x));
   }
 
-  Future<Result<List<SettingDTO>>> getSettings({
-    Map<String, QueryValue>? query,
-  }) async {
+  Future<Result<List<SettingDTO>>> getSettings({Map<String, QueryValue>? query}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.settings.getSettings(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -85,7 +83,7 @@ class SettingsFacade {
     );
   }
 
-  Future<Result<void>> deleteSetting(String id) async {
+  Future<Result<bool>> deleteSetting(String id) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.settings.deleteSetting(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -97,7 +95,8 @@ class SettingsFacade {
       },
     );
 
-    return Result.fromJson(result.valueToMap(), (x) {});
+    final value = result.valueToMap();
+    return Result.fromJson(value, (_) => true);
   }
 
   Future<Result<SettingDTO>> updateSetting(String id, Map<String, dynamic> value) async {
