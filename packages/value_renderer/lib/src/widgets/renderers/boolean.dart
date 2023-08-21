@@ -7,48 +7,70 @@ class BooleanRenderer extends StatelessWidget {
   final String fieldName;
   final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
-  final Map<String, dynamic>? initialValue;
+  final AttributeValue? initialValue;
   final List<ValueHintsValue>? values;
 
-  const BooleanRenderer({super.key, this.fieldName = '', this.editType, this.dataType, this.initialValue, this.values});
+  const BooleanRenderer({
+    super.key,
+    required this.fieldName,
+    this.editType,
+    this.dataType,
+    this.initialValue,
+    this.values,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final ValueHintsDefaultValue valueHintsDefaultValue;
+
+    // TODO: handle this properly
+    final json = initialValue?.toJson();
+    if (json == null || json['value'] == null) {
+      throw Exception('trying to render an initial value with no value field as a Bool value');
+    }
+
+    final initialBoolValue = initialValue?.toJson()['value'];
+    if (initialBoolValue is bool) {
+      valueHintsDefaultValue = ValueHintsDefaultValueBool(initialBoolValue);
+    } else {
+      valueHintsDefaultValue = ValueHintsDefaultValueString(initialBoolValue);
+    }
+
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
         fieldName: fieldName,
-        values: values ?? [],
-        initialValue: initialValue?['value'].toString(),
+        values: values!,
+        initialValue: valueHintsDefaultValue,
       );
     }
 
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         fieldName: fieldName,
-        values: values ?? [],
-        initialValue: initialValue?['value'].toString(),
+        values: values!,
+        initialValue: valueHintsDefaultValue,
       );
     }
 
-    if (editType == RenderHintsEditType.SelectLike) {
+    if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
         fieldName: fieldName,
-        initialValue: initialValue?['value'].toString(),
-        values: values,
+        initialValue: valueHintsDefaultValue,
+        values: values!,
       );
     }
 
     if (editType == RenderHintsEditType.SliderLike) {
       return SwitchInput(
         fieldName: fieldName,
-        initialValue: initialValue?['value'],
+        initialValue: initialBoolValue,
       );
     }
 
     return CheckboxInput(
       fieldName: fieldName,
-      values: values ?? [],
-      initialValue: initialValue?['value'],
+      initialValue: initialBoolValue,
+      values: values,
     );
   }
 }

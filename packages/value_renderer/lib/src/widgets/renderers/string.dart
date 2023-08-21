@@ -4,15 +4,22 @@ import 'package:flutter/material.dart';
 import '../inputs/inputs.dart';
 
 class StringRenderer extends StatelessWidget {
-  final Map<String, dynamic>? initialValue;
-  final List<ValueHintsValue>? values;
-  final String fieldName;
-  final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
+  final RenderHintsEditType? editType;
+  final String fieldName;
+  final AttributeValue? initialValue;
   final ValueHints valueHints;
+  final List<ValueHintsValue>? values;
 
-  const StringRenderer(
-      {super.key, required this.fieldName, this.values, this.editType, this.dataType, required this.initialValue, required this.valueHints});
+  const StringRenderer({
+    super.key,
+    required this.fieldName,
+    this.values,
+    this.editType,
+    this.dataType,
+    required this.initialValue,
+    required this.valueHints,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +32,28 @@ class StringRenderer extends StatelessWidget {
       );
     }
 
-    if (editType == RenderHintsEditType.SelectLike) {
+    // TODO: handle this properly
+    final json = initialValue?.toJson();
+    if (json == null || json['value'] == null || json['value'] is! String) {
+      throw Exception('trying to render an initial value with no value field as a String value');
+    }
+
+    final String initialStringValue = initialValue?.toJson()['value'];
+    final valueHintsDefaultValue = ValueHintsDefaultValueString(initialStringValue);
+
+    if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
         fieldName: fieldName,
-        initialValue: initialValue?['value'],
-        values: values,
+        initialValue: valueHintsDefaultValue,
+        values: values!,
       );
     }
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
         fieldName: fieldName,
+        initialValue: valueHintsDefaultValue,
         values: values!,
-        initialValue: initialValue?['value'],
       );
     }
 
@@ -45,31 +61,31 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.ButtonLike) {
       return TextInput(
         fieldName: fieldName,
-        values: values!,
-        initialValue: initialValue?['value'],
+        initialValue: initialStringValue,
+        values: values,
       );
     }
 
-    if (editType == RenderHintsEditType.SliderLike) {
+    if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         fieldName: fieldName,
-        values: values ?? [],
-        initialValue: initialValue?['value'],
+        initialValue: valueHintsDefaultValue,
+        values: values!,
       );
     }
 
     if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return TextInput(
         fieldName: fieldName,
-        values: values ?? [],
-        initialValue: initialValue?['value'],
+        initialValue: initialStringValue,
+        values: values!,
         max: max,
       );
     }
 
     return TextInput(
       fieldName: fieldName,
-      initialValue: initialValue?['value'] ?? '',
+      initialValue: initialStringValue,
       max: max,
     );
   }

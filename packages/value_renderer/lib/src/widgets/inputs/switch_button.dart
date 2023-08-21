@@ -4,7 +4,11 @@ class SwitchInput extends StatefulWidget {
   final String fieldName;
   final bool? initialValue;
 
-  const SwitchInput({super.key, required this.fieldName, this.initialValue});
+  const SwitchInput({
+    super.key,
+    required this.fieldName,
+    this.initialValue,
+  });
 
   @override
   State<SwitchInput> createState() => _SwitchInputState();

@@ -29,10 +29,8 @@ class Renderer extends StatelessWidget {
                 valueHints: const ValueHints(
                   max: 100,
                 ),
-                initialValue: const {
-                  '@type': 'DisplayName',
-                  'value': 'Gymnasium Hugendubel',
-                },
+                initialValue: const DisplayNameAttributeValue(value: 'Gymnasium Hugendubel'),
+                fieldName: 'DisplayName',
               ),
             ],
           ),
@@ -57,7 +55,8 @@ class Renderer extends StatelessWidget {
                 valueHints: const ValueHints(
                   max: 100,
                 ),
-                initialValue: const {'@type': 'GivenName', 'value': 'Barbara'},
+                initialValue: const GivenNameAttributeValue(value: 'Barbara'),
+                fieldName: 'GivenName',
               ),
               ValueRenderer(
                 renderHints: RenderHints(
@@ -67,20 +66,22 @@ class Renderer extends StatelessWidget {
                 valueHints: const ValueHints(
                   max: 100,
                 ),
-                initialValue: const {'@type': 'Surname', 'value': 'Elsner'},
+                initialValue: const SurnameAttributeValue(value: 'Elsner'),
+                fieldName: 'Surname',
               ),
               ValueRenderer(
                 renderHints: RenderHints(editType: RenderHintsEditType.SelectLike, technicalType: RenderHintsTechnicalType.String),
                 valueHints: const ValueHints(
                   values: [
-                    ValueHintsValue(key: 'AF', displayName: 'i18n://attributes.values.countries.AF'),
-                    ValueHintsValue(key: 'AL', displayName: 'i18n://attributes.values.countries.AL'),
-                    ValueHintsValue(key: 'DE', displayName: 'i18n://attributes.values.countries.DE'),
+                    ValueHintsValue(key: ValueHintsDefaultValueString('AF'), displayName: 'i18n://attributes.values.countries.AF'),
+                    ValueHintsValue(key: ValueHintsDefaultValueString('AL'), displayName: 'i18n://attributes.values.countries.AL'),
+                    ValueHintsValue(key: ValueHintsDefaultValueString('DE'), displayName: 'i18n://attributes.values.countries.DE'),
                   ],
                   max: 2,
                   min: 2,
                 ),
-                initialValue: const {'@type': 'Nationality', 'value': 'DE'},
+                initialValue: const NationalityAttributeValue(value: 'DE'),
+                fieldName: 'Nationality',
               ),
               ValueRenderer(
                 renderHints: RenderHints(
@@ -93,20 +94,21 @@ class Renderer extends StatelessWidget {
                   min: 2,
                   values: [
                     ValueHintsValue(
+                      key: ValueHintsDefaultValueString('aa'),
                       displayName: 'i18n://attributes.values.languages.aa',
-                      key: 'aa',
                     ),
                     ValueHintsValue(
+                      key: ValueHintsDefaultValueString('ab'),
                       displayName: 'i18n://attributes.values.languages.ab',
-                      key: 'ab',
                     ),
                     ValueHintsValue(
+                      key: ValueHintsDefaultValueString('de'),
                       displayName: 'i18n://attributes.values.languages.de',
-                      key: 'de',
                     ),
                   ],
                 ),
-                initialValue: const {'@type': 'CommunicationLanguage', 'value': 'de'},
+                initialValue: const CommunicationLanguageAttributeValue(value: 'de'),
+                fieldName: 'CommunicationLanguage',
               ),
             ],
           ),
@@ -152,12 +154,8 @@ class Renderer extends StatelessWidget {
                 ),
               },
             ),
-            initialValue: const {
-              '@type': 'BirthDate',
-              'day': 12,
-              'month': 8,
-              'year': 2022,
-            },
+            initialValue: const BirthDateAttributeValue(day: 12, month: 8, year: 2022),
+            fieldName: 'BirthDate',
           ),
         ),
         Padding(
@@ -173,10 +171,8 @@ class Renderer extends StatelessWidget {
               min: 3,
               pattern: r'^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$',
             ),
-            initialValue: const {
-              '@type': 'EMailAddress',
-              'value': 'barbara.elsner222@privat.de',
-            },
+            initialValue: const EMailAddressAttributeValue(value: 'barbara.elsner222@privat.de'),
+            fieldName: 'EMailAddress',
           ),
         ),
         Padding(
@@ -189,12 +185,13 @@ class Renderer extends StatelessWidget {
             valueHints: const ValueHints(
               max: 100,
               values: [
-                ValueHintsValue(key: 'intersex', displayName: 'i18n://attributes.values.sex.intersex'),
-                ValueHintsValue(key: 'female', displayName: 'i18n://attributes.values.sex.female'),
-                ValueHintsValue(key: 'male', displayName: 'i18n://attributes.values.sex.male'),
+                ValueHintsValue(key: ValueHintsDefaultValueString('intersex'), displayName: 'i18n://attributes.values.sex.intersex'),
+                ValueHintsValue(key: ValueHintsDefaultValueString('female'), displayName: 'i18n://attributes.values.sex.female'),
+                ValueHintsValue(key: ValueHintsDefaultValueString('male'), displayName: 'i18n://attributes.values.sex.male'),
               ],
             ),
-            initialValue: const {'@type': 'Sex', 'value': 'female'},
+            initialValue: const SexAttributeValue(value: 'female'),
+            fieldName: 'Sex',
           ),
         ),
         Padding(
@@ -237,7 +234,7 @@ class Renderer extends StatelessWidget {
             ),
             valueHints: const ValueHints(
               propertyHints: {
-                'recipient': ValueHints(),
+                'recipient': ValueHints(max: 100),
                 'street': ValueHints(max: 100),
                 'houseNo': ValueHints(max: 100),
                 'zipCode': ValueHints(max: 100),
@@ -246,23 +243,23 @@ class Renderer extends StatelessWidget {
                   max: 2,
                   min: 2,
                   values: [
-                    ValueHintsValue(key: 'AF', displayName: 'i18n://attributes.values.countries.AF'),
-                    ValueHintsValue(key: 'AL', displayName: 'i18n://attributes.values.countries.AL'),
-                    ValueHintsValue(key: 'DE', displayName: 'i18n://attributes.values.countries.DE'),
+                    ValueHintsValue(key: ValueHintsDefaultValueString('AF'), displayName: 'i18n://attributes.values.countries.AF'),
+                    ValueHintsValue(key: ValueHintsDefaultValueString('AL'), displayName: 'i18n://attributes.values.countries.AL'),
+                    ValueHintsValue(key: ValueHintsDefaultValueString('DE'), displayName: 'i18n://attributes.values.countries.DE'),
                   ],
                 ),
                 'state': ValueHints(max: 100),
               },
             ),
-            initialValue: const {
-              '@type': 'StreetAddress',
-              'city': 'Aachen',
-              'country': 'DE',
-              'houseNo': '3',
-              'recipient': 'Familie Elsner',
-              'street': 'Mittelstraße',
-              'zipCode': '52062',
-            },
+            initialValue: const StreetAddressAttributeValue(
+              city: 'Aachen',
+              country: 'DE',
+              houseNumber: '3',
+              recipient: 'Familie Elsner',
+              street: 'Mittelstraße',
+              zipCode: '52062',
+            ),
+            fieldName: 'StreetAddress',
           ),
         ),
       ]),

@@ -2,18 +2,23 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 class DropdownSelectInput extends StatefulWidget {
-  final dynamic initialValue;
-  final List<ValueHintsValue>? values;
   final String fieldName;
+  final ValueHintsDefaultValue initialValue;
+  final List<ValueHintsValue> values;
 
-  const DropdownSelectInput({super.key, required this.fieldName, this.initialValue, this.values});
+  const DropdownSelectInput({
+    super.key,
+    required this.fieldName,
+    required this.initialValue,
+    required this.values,
+  });
 
   @override
   State<DropdownSelectInput> createState() => _DropdownSelectInputState();
 }
 
 class _DropdownSelectInputState extends State<DropdownSelectInput> {
-  late dynamic selectedOption;
+  late ValueHintsDefaultValue selectedOption;
 
   @override
   void initState() {
@@ -37,13 +42,12 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
               selectedOption = newValue!;
             });
           },
-          items: widget.values?.map<DropdownMenuItem<dynamic>>((dynamic value) {
-                return DropdownMenuItem<dynamic>(
-                  value: value.key,
-                  child: Text(value.key.toString()),
-                );
-              }).toList() ??
-              [],
+          items: widget.values.map<DropdownMenuItem<ValueHintsDefaultValue>>((ValueHintsValue value) {
+            return DropdownMenuItem<ValueHintsDefaultValue>(
+              value: value.key,
+              child: Text(value.displayName),
+            );
+          }).toList(),
         ),
       ],
     );

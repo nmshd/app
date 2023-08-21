@@ -3,22 +3,27 @@ import 'package:flutter/material.dart';
 
 class RadioInput extends StatefulWidget {
   final String fieldName;
-  final List<ValueHintsValue>? values;
-  final dynamic initialValue;
+  final ValueHintsDefaultValue initialValue;
+  final List<ValueHintsValue> values;
 
-  const RadioInput({super.key, required this.values, required this.fieldName, required this.initialValue});
+  const RadioInput({
+    super.key,
+    required this.fieldName,
+    required this.initialValue,
+    required this.values,
+  });
 
   @override
   State<RadioInput> createState() => _RadioInputState();
 }
 
 class _RadioInputState extends State<RadioInput> {
-  late dynamic selectedOption;
+  late ValueHintsDefaultValue selectedOption;
 
   @override
   void initState() {
     super.initState();
-    selectedOption = widget.initialValue.toString();
+    selectedOption = widget.initialValue;
   }
 
   @override
@@ -34,13 +39,15 @@ class _RadioInputState extends State<RadioInput> {
             fontSize: 16.0,
           ),
         ),
-        ...widget.values!.map((option) => RadioListTile<dynamic>(
-              title: Text(option.key.toString()),
-              value: option.key!.toString(),
+        ...widget.values.map((option) => RadioListTile<ValueHintsDefaultValue>(
+              title: Text(option.displayName),
+              value: option.key,
               groupValue: selectedOption,
-              onChanged: (dynamic value) {
+              onChanged: (ValueHintsDefaultValue? value) {
+                if (value == null) return;
+
                 setState(() {
-                  selectedOption = value!;
+                  selectedOption = value;
                 });
               },
             )),

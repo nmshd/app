@@ -1,12 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:value_renderer/src/value_renderer.dart';
+import 'package:value_renderer/src/widgets/inputs/datepicker_input.dart';
 
 class ComplexRenderer extends StatelessWidget {
-  final Map<String, dynamic>? initialValue;
-  final String fieldName;
-  final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
+  final RenderHintsEditType? editType;
+  final String fieldName;
+  final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
 
@@ -22,56 +23,49 @@ class ComplexRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        fieldName == 'BirthDate'
-            ? Column(
-                children: [
-                  ValueRenderer(
-                    initialValue: initialValue,
-                    renderHints: renderHints.propertyHints!['day']!,
-                    valueHints: valueHints,
-                  )
-                ],
-              )
-            : Column(
-                children: [
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    initialValue?['@type'] ?? '',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  SizedBox(
-                    height: 500,
-                    child: ListView.builder(
-                      itemCount: renderHints.propertyHints?.values.length,
-                      itemBuilder: (context, index) {
-                        final String key = renderHints.propertyHints!.keys.elementAt(index);
-                        final itemInitialValue = {'@type': key, 'value': initialValue?[key]};
-                        final itemRenderHints = renderHints.propertyHints![key];
-                        final itemValueHints = valueHints.propertyHints![key];
+    if (initialValue is BirthDateAttributeValue) {
+      return DatepickerInput(
+        initialValue: initialValue,
+        fieldName: fieldName,
+      );
+    }
 
-                        return ListTile(
-                          title: ValueRenderer(
-                            initialValue: itemInitialValue,
-                            renderHints: itemRenderHints!,
-                            valueHints: itemValueHints!,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+    return Column(
+      children: [
+        const SizedBox(
+          height: 12,
+        ),
+        Text(
+          fieldName,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16.0,
+          ),
+        ),
+        const SizedBox(
+          height: 12,
+        ),
+        SizedBox(
+          height: 500,
+          child: ListView.builder(
+            itemCount: renderHints.propertyHints?.values.length,
+            itemBuilder: (context, index) {
+              final String key = renderHints.propertyHints!.keys.elementAt(index);
+              final AttributeValue itemInitialValue = AttributeValue.fromJson({'@type': key, 'value': initialValue?.toJson()[key]});
+              final itemRenderHints = renderHints.propertyHints![key];
+              final itemValueHints = valueHints.propertyHints![key];
+
+              return ListTile(
+                title: ValueRenderer(
+                  initialValue: itemInitialValue,
+                  renderHints: itemRenderHints!,
+                  valueHints: itemValueHints!,
+                  fieldName: key,
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }

@@ -3,22 +3,28 @@ import 'package:flutter/material.dart';
 
 class SegmentedButtonInput extends StatefulWidget {
   final String fieldName;
+  final ValueHintsDefaultValue initialValue;
   final List<ValueHintsValue> values;
-  final dynamic initialValue;
 
-  const SegmentedButtonInput({super.key, required this.fieldName, required this.values, this.initialValue});
+  const SegmentedButtonInput({
+    super.key,
+    required this.fieldName,
+    required this.initialValue,
+    required this.values,
+  });
 
   @override
   State<SegmentedButtonInput> createState() => _SegmentedButtonInputState();
 }
 
 class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
-  dynamic selectedSegment;
+  late ValueHintsDefaultValue selectedSegment;
 
   @override
   void initState() {
     super.initState();
-    selectedSegment = widget.initialValue.toString();
+
+    selectedSegment = widget.initialValue;
   }
 
   @override
@@ -33,15 +39,15 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
         const SizedBox(
           height: 12,
         ),
-        SegmentedButton<dynamic>(
-          segments: widget.values.map((dynamic value) {
-            return ButtonSegment<dynamic>(
-              value: value.key.toString(),
-              label: Text(value.key.toString()),
+        SegmentedButton<ValueHintsDefaultValue>(
+          segments: widget.values.map((ValueHintsValue value) {
+            return ButtonSegment<ValueHintsDefaultValue>(
+              value: value.key,
+              label: Text(value.displayName),
             );
           }).toList(),
           selected: {selectedSegment},
-          onSelectionChanged: (Set<dynamic> newSelection) {
+          onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
             setState(() {
               selectedSegment = newSelection.first;
             });

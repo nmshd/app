@@ -2,13 +2,20 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 class NumberInput extends StatefulWidget {
-  final num? initialValue;
   final String fieldName;
+  final num? initialValue;
   final int? min;
   final int? max;
   final List<ValueHintsValue>? values;
 
-  const NumberInput({super.key, this.initialValue, required this.fieldName, this.min, this.max, this.values});
+  const NumberInput({
+    super.key,
+    this.initialValue,
+    required this.fieldName,
+    this.min,
+    this.max,
+    this.values,
+  });
 
   @override
   State<NumberInput> createState() => NumberInputState();

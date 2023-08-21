@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import '../inputs/inputs.dart';
 
 class NumberRenderer extends StatelessWidget {
-  final String fieldName;
-  final RenderHintsEditType? editType;
   final RenderHintsDataType? dataType;
-  final Map<String, dynamic>? initialValue;
-  final List<ValueHintsValue>? values;
+  final RenderHintsEditType? editType;
+  final String fieldName;
+  final AttributeValue? initialValue;
   final ValueHints valueHints;
+  final List<ValueHintsValue>? values;
 
   const NumberRenderer({
     super.key,
@@ -36,11 +36,20 @@ class NumberRenderer extends StatelessWidget {
       );
     }
 
+    // TODO: handle this properly
+    final json = initialValue?.toJson();
+    if (json == null || json['value'] == null || json['value'] is! num) {
+      throw Exception('trying to render an initial value with no value field as a Number value');
+    }
+
+    final num initialNumberValue = initialValue?.toJson()['value'];
+    final valueHintsDefaultValue = ValueHintsDefaultValueNum(initialNumberValue);
+
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
         fieldName: fieldName,
-        initialValue: initialValue?['value'],
-        values: values,
+        initialValue: valueHintsDefaultValue,
+        values: values!,
       );
     }
 
@@ -48,7 +57,7 @@ class NumberRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SelectLike) {
       return SliderInput(
         fieldName: fieldName,
-        initialValue: initialValue?['value'].toDouble(),
+        initialValue: initialNumberValue,
         min: 1,
         max: 5,
       );
@@ -58,7 +67,7 @@ class NumberRenderer extends StatelessWidget {
       return RadioInput(
         fieldName: fieldName,
         values: values!,
-        initialValue: initialValue?['value'],
+        initialValue: valueHintsDefaultValue,
       );
     }
 
@@ -67,7 +76,7 @@ class NumberRenderer extends StatelessWidget {
       return NumberInput(
         fieldName: fieldName,
         values: values!,
-        initialValue: initialValue?['value'],
+        initialValue: initialNumberValue,
         max: max,
       );
     }
@@ -76,7 +85,7 @@ class NumberRenderer extends StatelessWidget {
       return NumberInput(
         fieldName: fieldName,
         values: values!,
-        initialValue: initialValue?['value'],
+        initialValue: initialNumberValue,
         max: max,
       );
     }
@@ -85,22 +94,22 @@ class NumberRenderer extends StatelessWidget {
       return SegmentedButtonInput(
         fieldName: fieldName,
         values: values ?? [],
-        initialValue: initialValue?['value'],
+        initialValue: valueHintsDefaultValue,
       );
     }
 
     if (editType == RenderHintsEditType.SliderLike) {
       return SliderInput(
         fieldName: fieldName,
-        initialValue: initialValue?['value'].toDouble(),
+        initialValue: initialNumberValue,
         min: min,
         max: max,
       );
     }
 
     return NumberInput(
-      initialValue: initialValue?['value'],
       fieldName: fieldName,
+      initialValue: initialNumberValue,
       max: max,
     );
   }

@@ -1,11 +1,16 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DatepickerInput extends StatefulWidget {
   final String fieldName;
-  final Map<String, dynamic>? initialValue;
+  final AttributeValue? initialValue;
 
-  const DatepickerInput({super.key, required this.fieldName, this.initialValue});
+  const DatepickerInput({
+    super.key,
+    required this.fieldName,
+    this.initialValue,
+  });
 
   @override
   State<DatepickerInput> createState() => _DatepickerInputState();
@@ -17,9 +22,20 @@ class _DatepickerInputState extends State<DatepickerInput> {
   @override
   void initState() {
     super.initState();
-    if (widget.initialValue != null && widget.initialValue!.isNotEmpty) {
-      _selectedDate = DateTime(widget.initialValue!['year'], widget.initialValue!['month'], widget.initialValue!['day']);
-    }
+
+    _selectedDate = switch (widget.initialValue) {
+      null => null,
+      final BirthDateAttributeValue value => DateTime(value.year, value.month, value.day),
+      // ....
+      final AttributeValue value => logCannotHandle(value),
+    };
+  }
+
+  logCannotHandle(AttributeValue attributeValue) {
+    // TODO add a proper logger
+    // ignore: avoid_print
+    print('Cannot assign defult value of ${attributeValue.runtimeType} in the DatePicker.');
+    return null;
   }
 
   void _presentDatePicker() async {

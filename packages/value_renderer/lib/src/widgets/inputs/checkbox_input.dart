@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 
 class CheckboxInput extends StatefulWidget {
   final String fieldName;
-  final List<ValueHintsValue> values;
-  final dynamic initialValue;
+  final bool initialValue;
+  final List<ValueHintsValue>? values;
 
-  const CheckboxInput({super.key, required this.fieldName, this.initialValue, required this.values});
+  const CheckboxInput({
+    super.key,
+    required this.fieldName,
+    required this.initialValue,
+    this.values,
+  });
 
   @override
   State<CheckboxInput> createState() => _CheckboxInputState();

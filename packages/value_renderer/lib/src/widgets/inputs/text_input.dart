@@ -2,12 +2,18 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 class TextInput extends StatefulWidget {
-  final String? initialValue;
   final String fieldName;
+  final String? initialValue;
   final int? max;
   final List<ValueHintsValue>? values;
 
-  const TextInput({super.key, required this.fieldName, required this.initialValue, this.max, this.values});
+  const TextInput({
+    super.key,
+    required this.fieldName,
+    required this.initialValue,
+    this.max,
+    this.values,
+  });
 
   @override
   State<TextInput> createState() => TextInputState();
@@ -19,7 +25,7 @@ class TextInputState extends State<TextInput> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialValue.toString());
+    _controller = TextEditingController(text: widget.initialValue);
   }
 
   @override

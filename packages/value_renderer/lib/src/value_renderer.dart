@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import './widgets/renderers/renderers.dart';
 
 class ValueRenderer extends StatelessWidget {
-  final Map<String, dynamic>? initialValue;
+  final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
+  final String fieldName;
 
   const ValueRenderer({
     super.key,
     this.initialValue,
+    required this.fieldName,
     required this.renderHints,
     required this.valueHints,
   });
@@ -20,15 +22,14 @@ class ValueRenderer extends StatelessWidget {
     final technicalType = renderHints.technicalType;
     final editType = renderHints.editType;
     final dataType = renderHints.dataType;
-    final fieldName = initialValue?['@type'] ?? '';
-    final values = valueHints.values ?? [];
+    final values = valueHints.values;
 
     if (technicalType == RenderHintsTechnicalType.Integer || technicalType == RenderHintsTechnicalType.Float) {
       return NumberRenderer(
-        initialValue: initialValue,
-        fieldName: fieldName,
         editType: editType,
         dataType: dataType,
+        fieldName: fieldName,
+        initialValue: initialValue,
         values: values,
         valueHints: valueHints,
       );
@@ -36,9 +37,9 @@ class ValueRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.Complex) {
       return ComplexRenderer(
-        initialValue: initialValue,
-        fieldName: fieldName,
         editType: editType,
+        fieldName: fieldName,
+        initialValue: initialValue,
         renderHints: renderHints,
         valueHints: valueHints,
       );
@@ -46,10 +47,10 @@ class ValueRenderer extends StatelessWidget {
 
     if (technicalType == RenderHintsTechnicalType.String) {
       return StringRenderer(
-        initialValue: initialValue,
-        fieldName: fieldName,
-        editType: editType,
         dataType: dataType,
+        editType: editType,
+        fieldName: fieldName,
+        initialValue: initialValue,
         valueHints: valueHints,
         values: values,
       );
@@ -57,10 +58,10 @@ class ValueRenderer extends StatelessWidget {
 
     if (technicalType == RenderHintsTechnicalType.Boolean) {
       return BooleanRenderer(
+        dataType: dataType,
+        editType: editType,
         initialValue: initialValue,
         fieldName: fieldName,
-        editType: editType,
-        dataType: dataType,
         values: values,
       );
     } else {
