@@ -1,5 +1,4 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:logger/logger.dart';
@@ -21,6 +20,7 @@ Future<EnmeshedRuntime> setup() async {
       baseUrl: const String.fromEnvironment('app_baseUrl'),
       clientId: const String.fromEnvironment('app_clientId'),
       clientSecret: const String.fromEnvironment('app_clientSecret'),
+      applicationId: 'eu.enmeshed.test',
     ),
     logger: Logger(printer: SimplePrinter(colors: false), level: Level.warning),
     eventBus: eventBus,

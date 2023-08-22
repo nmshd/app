@@ -14,7 +14,12 @@ import 'string_processor.dart';
 import 'ui_bridge.dart';
 import 'webview_constants.dart' as webview_constants;
 
-typedef RuntimeConfig = ({String baseUrl, String clientId, String clientSecret});
+typedef RuntimeConfig = ({
+  String baseUrl,
+  String clientId,
+  String clientSecret,
+  String applicationId,
+});
 
 class EnmeshedRuntime {
   static String _assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
@@ -63,6 +68,7 @@ class EnmeshedRuntime {
     if (runtimeConfig.baseUrl.isEmpty) throw Exception('Missing runtimeConfig value: baseUrl');
     if (runtimeConfig.clientId.isEmpty) throw Exception('Missing runtimeConfig value: clientId');
     if (runtimeConfig.clientSecret.isEmpty) throw Exception('Missing runtimeConfig value: clientSecret');
+    if (runtimeConfig.applicationId.isEmpty) throw Exception('Missing runtimeConfig value: applicationId');
 
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
@@ -120,6 +126,7 @@ class EnmeshedRuntime {
     controller.addJavaScriptHandler(
       handlerName: 'getDefaultConfig',
       callback: (_) => {
+        'applicationId': runtimeConfig.applicationId,
         'transport': {
           'baseUrl': runtimeConfig.baseUrl,
           'logLevel': 'warn',
