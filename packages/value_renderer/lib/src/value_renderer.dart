@@ -64,8 +64,8 @@ class ValueRenderer extends StatelessWidget {
         fieldName: fieldName,
         values: values,
       );
-    } else {
-      return const Text('No value provided');
     }
+
+    throw Exception('Cannot render combination of technical type $technicalType and edit type $editType');
   }
 }
