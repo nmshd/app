@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../translated_text.dart';
+
 class SliderInput extends StatefulWidget {
   final String fieldName;
   final num? initialValue;
@@ -35,7 +37,7 @@ class _SliderInputState extends State<SliderInput> {
         const SizedBox(
           height: 18,
         ),
-        Text(widget.fieldName),
+        TranslatedText(widget.fieldName),
         Slider(
           value: currentSliderValue,
           min: widget.min!.toDouble(),

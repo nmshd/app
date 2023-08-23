@@ -2,6 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../translated_text.dart';
+
 class DatepickerInput extends StatefulWidget {
   final String fieldName;
   final AttributeValue? initialValue;
@@ -64,7 +66,7 @@ class _DatepickerInputState extends State<DatepickerInput> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
+        TranslatedText(
           widget.fieldName,
         ),
         const SizedBox(

@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:value_renderer/src/widgets/translated_text.dart';
 
 import '../../value_renderer.dart';
 import '../inputs/inputs.dart';
@@ -36,7 +37,7 @@ class ComplexRenderer extends StatelessWidget {
         const SizedBox(
           height: 12,
         ),
-        Text(
+        TranslatedText(
           fieldName,
           style: const TextStyle(
             fontWeight: FontWeight.w500,

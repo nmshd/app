@@ -24,7 +24,7 @@ class TranslatedText extends Text {
   Widget build(BuildContext context) {
     assert(data != null, 'A non-null String must be provided to a TranslatedText widget.');
 
-    final text = data!.startsWith('i18n://') ? FlutterI18n.translate(context, data!.substring(7)) : data!;
+    final text = data!.startsWith('i18n://') ? FlutterI18n.translate(context, data!.substring(7)) : FlutterI18n.translate(context, data!);
 
     return Text(
       text,

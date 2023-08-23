@@ -1,6 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../translated_text.dart';
+
 class CheckboxInput extends StatefulWidget {
   final String fieldName;
   final bool initialValue;
@@ -29,7 +31,7 @@ class _CheckboxInputState extends State<CheckboxInput> {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-      title: Text(widget.fieldName),
+      title: TranslatedText(widget.fieldName),
       value: isChecked,
       onChanged: (bool? value) {
         setState(() {

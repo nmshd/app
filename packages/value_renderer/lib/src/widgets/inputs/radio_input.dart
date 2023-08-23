@@ -34,7 +34,7 @@ class _RadioInputState extends State<RadioInput> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(height: 20),
-        Text(
+        TranslatedText(
           widget.fieldName,
           style: const TextStyle(
             fontWeight: FontWeight.w500,

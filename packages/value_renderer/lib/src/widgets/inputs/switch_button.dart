@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../translated_text.dart';
+
 class SwitchInput extends StatefulWidget {
   final String fieldName;
   final bool? initialValue;
@@ -27,7 +29,7 @@ class _SwitchInputState extends State<SwitchInput> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(widget.fieldName),
+        TranslatedText(widget.fieldName),
         Switch(
           value: enabled,
           activeColor: Colors.blue,

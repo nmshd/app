@@ -1,6 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../translated_text.dart';
+
 class SegmentedButtonInput extends StatefulWidget {
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
@@ -35,7 +37,7 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
         const SizedBox(
           height: 18,
         ),
-        Text(widget.fieldName),
+        TranslatedText(widget.fieldName),
         const SizedBox(
           height: 12,
         ),
