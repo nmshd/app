@@ -45,28 +45,40 @@ class ComplexRenderer extends StatelessWidget {
         const SizedBox(
           height: 12,
         ),
-        SizedBox(
-          height: 500,
-          child: ListView.builder(
-            itemCount: renderHints.propertyHints?.values.length,
-            itemBuilder: (context, index) {
-              final String key = renderHints.propertyHints!.keys.elementAt(index);
-              final AttributeValue itemInitialValue = AttributeValue.fromJson({'@type': key, 'value': initialValue?.toJson()[key]});
-              final itemRenderHints = renderHints.propertyHints![key];
-              final itemValueHints = valueHints.propertyHints![key];
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: renderHints.propertyHints?.values.length,
+          itemBuilder: (context, index) {
+            final key = renderHints.propertyHints!.keys.elementAt(index);
+            final itemInitialDynamicValue = initialValue?.toJson()[key];
+            final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
+            final itemRenderHints = renderHints.propertyHints![key];
+            final itemValueHints = valueHints.propertyHints![key];
 
-              return ListTile(
-                title: ValueRenderer(
-                  initialValue: itemInitialValue,
-                  renderHints: itemRenderHints!,
-                  valueHints: itemValueHints!,
-                  fieldName: key,
-                ),
-              );
-            },
-          ),
+            return ListTile(
+              title: ValueRenderer(
+                initialValue: itemInitialValue,
+                renderHints: itemRenderHints!,
+                valueHints: itemValueHints!,
+                fieldName: key,
+              ),
+            );
+          },
         ),
       ],
     );
   }
+}
+
+class _ComplexAttributeValueChild extends AttributeValue {
+  final dynamic value;
+
+  const _ComplexAttributeValueChild(this.value);
+
+  @override
+  Map<String, dynamic> toJson() => {'value': value};
+
+  @override
+  List<Object?> get props => [value];
 }

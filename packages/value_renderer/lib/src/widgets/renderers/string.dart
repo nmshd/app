@@ -32,14 +32,13 @@ class StringRenderer extends StatelessWidget {
       );
     }
 
-    // TODO: handle this properly
     final json = initialValue?.toJson();
-    if (json == null || json['value'] == null || json['value'] is! String) {
-      throw Exception('trying to render an initial value with no value field as a String value');
+    if (json != null && json['value'] != null && json['value'] is! String) {
+      throw Exception('trying to render an initial value with a non-String value');
     }
 
-    final String initialStringValue = initialValue?.toJson()['value'];
-    final valueHintsDefaultValue = ValueHintsDefaultValueString(initialStringValue);
+    final String? initialStringValue = initialValue?.toJson()['value'];
+    final valueHintsDefaultValue = initialStringValue == null ? null : ValueHintsDefaultValueString(initialStringValue);
 
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
