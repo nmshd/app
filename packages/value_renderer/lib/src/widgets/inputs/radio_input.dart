@@ -5,7 +5,7 @@ import '../translated_text.dart';
 
 class RadioInput extends StatefulWidget {
   final String fieldName;
-  final ValueHintsDefaultValue initialValue;
+  final ValueHintsDefaultValue? initialValue;
   final List<ValueHintsValue> values;
 
   const RadioInput({
@@ -20,7 +20,7 @@ class RadioInput extends StatefulWidget {
 }
 
 class _RadioInputState extends State<RadioInput> {
-  late ValueHintsDefaultValue selectedOption;
+  late ValueHintsDefaultValue? selectedOption;
 
   @override
   void initState() {

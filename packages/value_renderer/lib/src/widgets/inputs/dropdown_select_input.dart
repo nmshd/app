@@ -4,7 +4,7 @@ import 'package:value_renderer/src/widgets/translated_text.dart';
 
 class DropdownSelectInput extends StatefulWidget {
   final String fieldName;
-  final ValueHintsDefaultValue initialValue;
+  final ValueHintsDefaultValue? initialValue;
   final List<ValueHintsValue> values;
 
   const DropdownSelectInput({
@@ -19,7 +19,7 @@ class DropdownSelectInput extends StatefulWidget {
 }
 
 class _DropdownSelectInputState extends State<DropdownSelectInput> {
-  late ValueHintsDefaultValue selectedOption;
+  late ValueHintsDefaultValue? selectedOption;
 
   @override
   void initState() {

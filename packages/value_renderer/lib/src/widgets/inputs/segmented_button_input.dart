@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SegmentedButtonInput extends StatefulWidget {
   final String fieldName;
-  final ValueHintsDefaultValue initialValue;
+  final ValueHintsDefaultValue? initialValue;
   final List<ValueHintsValue> values;
 
   const SegmentedButtonInput({
@@ -18,7 +18,7 @@ class SegmentedButtonInput extends StatefulWidget {
 }
 
 class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
-  late ValueHintsDefaultValue selectedSegment;
+  late ValueHintsDefaultValue? selectedSegment;
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
               label: Text(value.displayName),
             );
           }).toList(),
-          selected: {selectedSegment},
+          selected: selectedSegment == null ? {} : {selectedSegment!},
           onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
             setState(() {
               selectedSegment = newSelection.first;
