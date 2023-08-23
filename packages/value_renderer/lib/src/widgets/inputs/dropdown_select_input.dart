@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:value_renderer/src/widgets/translated_text.dart';
 
 class DropdownSelectInput extends StatefulWidget {
   final String fieldName;
@@ -45,7 +46,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           items: widget.values.map<DropdownMenuItem<ValueHintsDefaultValue>>((ValueHintsValue value) {
             return DropdownMenuItem<ValueHintsDefaultValue>(
               value: value.key,
-              child: Text(value.displayName),
+              child: TranslatedText(value.displayName),
             );
           }).toList(),
         ),

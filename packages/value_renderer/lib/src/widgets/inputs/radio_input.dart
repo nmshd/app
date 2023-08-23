@@ -1,6 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../translated_text.dart';
+
 class RadioInput extends StatefulWidget {
   final String fieldName;
   final ValueHintsDefaultValue initialValue;
@@ -40,7 +42,7 @@ class _RadioInputState extends State<RadioInput> {
           ),
         ),
         ...widget.values.map((option) => RadioListTile<ValueHintsDefaultValue>(
-              title: Text(option.displayName),
+              title: TranslatedText(option.displayName),
               value: option.key,
               groupValue: selectedOption,
               onChanged: (ValueHintsDefaultValue? value) {
