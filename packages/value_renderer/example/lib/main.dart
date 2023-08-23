@@ -1,6 +1,6 @@
-import 'package:example/pages/input_examples.dart';
-import 'package:example/pages/renderer.dart';
 import 'package:flutter/material.dart';
+import 'package:value_renderer_example/pages/input_examples.dart';
+import 'package:value_renderer_example/pages/renderer.dart';
 
 main() {
   runApp(const ValueRendererExample());
