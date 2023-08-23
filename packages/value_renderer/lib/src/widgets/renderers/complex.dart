@@ -1,7 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:value_renderer/src/value_renderer.dart';
-import 'package:value_renderer/src/widgets/inputs/datepicker_input.dart';
+
+import '../../value_renderer.dart';
+import '../inputs/inputs.dart';
 
 class ComplexRenderer extends StatelessWidget {
   final RenderHintsDataType? dataType;

@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:value_renderer/src/widgets/translated_text.dart';
+
+import '../translated_text.dart';
 
 class DropdownSelectInput extends StatefulWidget {
   final String fieldName;

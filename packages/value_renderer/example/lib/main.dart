@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:value_renderer_example/pages/input_examples.dart';
-import 'package:value_renderer_example/pages/renderer.dart';
+
+import 'pages/input_examples.dart';
+import 'pages/renderer.dart';
 
 main() {
   runApp(const ValueRendererExample());
