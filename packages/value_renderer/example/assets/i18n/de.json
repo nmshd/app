@@ -1,0 +1,20 @@
+{
+  "inputExamples": "Eingabe Beispiele",
+  "sharedAttributes": "Gemeinsame Attribute",
+  "requestedAttributes": "Angeforderte Attribute",
+  "attributes": {
+    "values": {
+      "countries": {
+        "DE": "Deutschland"
+      },
+      "languages": {
+        "de": "Deutsch"
+      },
+      "sex": {
+        "intersex": "Intersexuell",
+        "male": "Männlich",
+        "female": "Weiblich"
+      }
+    }
+  }
+}

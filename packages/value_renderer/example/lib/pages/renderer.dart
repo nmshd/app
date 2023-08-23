@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 class Renderer extends StatelessWidget {
@@ -14,9 +15,9 @@ class Renderer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Shared Attributes',
-                style: TextStyle(
+              Text(
+                FlutterI18n.translate(context, 'sharedAttributes'),
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 18.0,
                 ),
@@ -40,9 +41,9 @@ class Renderer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Requested Attributes',
-                style: TextStyle(
+              Text(
+                FlutterI18n.translate(context, 'requestedAttributes'),
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 18.0,
                 ),

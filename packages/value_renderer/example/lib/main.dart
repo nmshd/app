@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:value_renderer_example/pages/input_examples.dart';
 import 'package:value_renderer_example/pages/renderer.dart';
 
@@ -13,6 +15,17 @@ class ValueRendererExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Value Renderer',
+      localizationsDelegates: [
+        FlutterI18nDelegate(
+          translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
+        ),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('de'),
+      ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
