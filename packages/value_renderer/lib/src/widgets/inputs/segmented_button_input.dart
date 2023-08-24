@@ -25,7 +25,6 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
   @override
   void initState() {
     super.initState();
-
     selectedSegment = widget.initialValue;
   }
 
@@ -34,13 +33,9 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 18,
-        ),
+        const SizedBox(height: 18),
         TranslatedText(widget.fieldName),
-        const SizedBox(
-          height: 12,
-        ),
+        const SizedBox(height: 12),
         SegmentedButton<ValueHintsDefaultValue>(
           segments: widget.values.map((ValueHintsValue value) {
             return ButtonSegment<ValueHintsDefaultValue>(

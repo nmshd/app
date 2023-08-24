@@ -27,9 +27,7 @@ class ValueRendererExample extends StatelessWidget {
         Locale('en'),
         Locale('de'),
       ],
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const HomeScreen(),
     );
   }
@@ -71,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (final item in _menu) ...[
+                for (final item in _menu)
                   _DrawerButton(
                     icon: item.icon,
                     title: item.title,
@@ -84,7 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (mounted) Navigator.of(context).pop();
                     },
                   ),
-                ],
                 const SizedBox(height: 24),
               ],
             ),
@@ -99,16 +96,12 @@ final _menu = [
   _MenuItem(
     icon: Icons.description,
     title: 'Input Examples',
-    pageBuilder: (context) {
-      return const InputExamples();
-    },
+    pageBuilder: (context) => const InputExamples(),
   ),
   _MenuItem(
     icon: Icons.description,
     title: 'Renderer',
-    pageBuilder: (context) {
-      return const Renderer();
-    },
+    pageBuilder: (context) => const Renderer(),
   ),
 ];
 
@@ -145,12 +138,10 @@ class _DrawerButton extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
             backgroundColor: MaterialStateColor.resolveWith((states) {
-              if (isSelected) {
-                return const Color(0xFFBBBBBB);
-              }
-              if (states.contains(MaterialState.hovered)) {
-                return Colors.grey.withOpacity(0.1);
-              }
+              if (isSelected) return const Color(0xFFBBBBBB);
+
+              if (states.contains(MaterialState.hovered)) return Colors.grey.withOpacity(0.1);
+
               return Colors.transparent;
             }),
             foregroundColor: MaterialStateColor.resolveWith((states) => isSelected ? Colors.white : const Color(0xFFBBBBBB)),
@@ -160,13 +151,9 @@ class _DrawerButton extends StatelessWidget {
         child: Row(
           children: [
             const SizedBox(width: 8),
-            Icon(
-              icon,
-            ),
+            Icon(icon),
             const SizedBox(width: 16),
-            Expanded(
-              child: Text(title),
-            ),
+            Expanded(child: Text(title)),
           ],
         ),
       ),

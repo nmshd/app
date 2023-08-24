@@ -34,9 +34,7 @@ class _SliderInputState extends State<SliderInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 18,
-        ),
+        const SizedBox(height: 18),
         TranslatedText(widget.fieldName),
         Slider(
           value: currentSliderValue,

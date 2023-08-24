@@ -34,7 +34,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+          padding: const EdgeInsets.only(right: 20),
           child: TranslatedText(widget.fieldName),
         ),
         DropdownButton<dynamic>(
