@@ -36,7 +36,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
           child: TranslatedText(widget.fieldName),
-        ), // Label
+        ),
         DropdownButton<dynamic>(
           value: selectedOption,
           onChanged: (dynamic newValue) {

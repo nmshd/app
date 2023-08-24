@@ -56,8 +56,10 @@ class StringRenderer extends StatelessWidget {
       );
     }
 
-    // Replacing "StepInput"
     if (editType == RenderHintsEditType.ButtonLike) {
+      // Replacing UI5's StepInput
+      // (https://sapui5.hana.ondemand.com/#/entity/sap.ui.webc.main.StepInput/sample/sap.ui.webc.main.sample.StepInput)
+      // with a normal TextInput for now, for simplicity
       return TextInput(
         fieldName: fieldName,
         initialValue: initialStringValue,

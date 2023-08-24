@@ -53,8 +53,10 @@ class NumberRenderer extends StatelessWidget {
       );
     }
 
-    // Replacing "Rating"
     if (editType == RenderHintsEditType.SelectLike) {
+      // Replacing UI5's Rating Indicator
+      // (https://sapui5.hana.ondemand.com/#/entity/sap.m.RatingIndicator/sample/sap.m.sample.RatingIndicator)
+      // with a SliderInput for now, for simplicity
       return SliderInput(
         fieldName: fieldName,
         initialValue: initialNumberValue,
@@ -71,8 +73,10 @@ class NumberRenderer extends StatelessWidget {
       );
     }
 
-    // Replacing "StepInput"
     if (editType == RenderHintsEditType.ButtonLike) {
+      // Replacing UI5's StepInput
+      // (https://sapui5.hana.ondemand.com/#/entity/sap.ui.webc.main.StepInput/sample/sap.ui.webc.main.sample.StepInput)
+      // with a normal NumberInput for now, for simplicity
       return NumberInput(
         fieldName: fieldName,
         values: values!,
