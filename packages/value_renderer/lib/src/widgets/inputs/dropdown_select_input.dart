@@ -41,7 +41,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           value: selectedOption,
           onChanged: (ValueHintsDefaultValue? newValue) {
             setState(() {
-              selectedOption = newValue!;
+              selectedOption = newValue;
             });
           },
           items: widget.values.map<DropdownMenuItem<ValueHintsDefaultValue>>((ValueHintsValue value) {

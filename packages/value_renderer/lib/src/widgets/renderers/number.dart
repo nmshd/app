@@ -36,7 +36,6 @@ class NumberRenderer extends StatelessWidget {
       );
     }
 
-    // TODO: handle this properly
     final json = initialValue?.toJson();
     if (json != null && json['value'] != null && json['value'] is! num) {
       throw Exception('trying to render an initial value with no value field as a Number value');
@@ -79,7 +78,7 @@ class NumberRenderer extends StatelessWidget {
       // with a normal NumberInput for now, for simplicity
       return NumberInput(
         fieldName: fieldName,
-        values: values!,
+        values: values,
         initialValue: initialNumberValue,
         max: max,
       );
@@ -97,7 +96,7 @@ class NumberRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         fieldName: fieldName,
-        values: values ?? [],
+        values: values!,
         initialValue: valueHintsDefaultValue,
       );
     }
