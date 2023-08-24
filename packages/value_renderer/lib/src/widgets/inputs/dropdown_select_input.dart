@@ -37,9 +37,9 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           padding: const EdgeInsets.only(right: 20),
           child: TranslatedText(widget.fieldName),
         ),
-        DropdownButton<dynamic>(
+        DropdownButton<ValueHintsDefaultValue>(
           value: selectedOption,
-          onChanged: (dynamic newValue) {
+          onChanged: (ValueHintsDefaultValue? newValue) {
             setState(() {
               selectedOption = newValue!;
             });
