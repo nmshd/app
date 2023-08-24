@@ -37,7 +37,8 @@ class TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
-    final translatedText = FlutterI18n.translate(context, widget.fieldName);
+    final fieldName = widget.fieldName;
+    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
     return TextField(
       maxLength: widget.max,
