@@ -15,12 +15,12 @@ class ComplexRenderer extends StatelessWidget {
 
   const ComplexRenderer({
     super.key,
-    required this.fieldName,
-    this.editType,
     this.dataType,
+    this.editType,
+    required this.fieldName,
     required this.initialValue,
-    required this.valueHints,
     required this.renderHints,
+    required this.valueHints,
   });
 
   @override

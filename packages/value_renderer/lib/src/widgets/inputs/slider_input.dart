@@ -5,15 +5,15 @@ import '../translated_text.dart';
 class SliderInput extends StatefulWidget {
   final String fieldName;
   final num? initialValue;
-  final num? min;
   final num? max;
+  final num? min;
 
   const SliderInput({
     super.key,
-    this.initialValue,
     required this.fieldName,
-    this.min,
+    this.initialValue,
     this.max,
+    this.min,
   });
 
   @override

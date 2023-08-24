@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import './widgets/renderers/renderers.dart';
 
 class ValueRenderer extends StatelessWidget {
+  final String fieldName;
   final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
-  final String fieldName;
 
   const ValueRenderer({
     super.key,
-    this.initialValue,
     required this.fieldName,
+    this.initialValue,
     required this.renderHints,
     required this.valueHints,
   });

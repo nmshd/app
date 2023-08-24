@@ -5,16 +5,16 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 class NumberInput extends StatefulWidget {
   final String fieldName;
   final num? initialValue;
-  final int? min;
   final int? max;
+  final int? min;
   final List<ValueHintsValue>? values;
 
   const NumberInput({
     super.key,
-    this.initialValue,
     required this.fieldName,
-    this.min,
+    this.initialValue,
     this.max,
+    this.min,
     this.values,
   });
 

@@ -13,12 +13,12 @@ class StringRenderer extends StatelessWidget {
 
   const StringRenderer({
     super.key,
-    required this.fieldName,
-    this.values,
-    this.editType,
     this.dataType,
+    this.editType,
+    required this.fieldName,
     required this.initialValue,
     required this.valueHints,
+    this.values,
   });
 
   @override
