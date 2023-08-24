@@ -151,7 +151,6 @@ class InputExamples extends StatelessWidget {
                           ),
                           valueHints: const ValueHints(
                             max: 100,
-                            values: [],
                           ),
                           fieldName: 'String / ButtonLike',
                           initialValue: const FullyDynamicAttributeValue(''),
@@ -221,12 +220,12 @@ class InputExamples extends StatelessWidget {
                             max: 2,
                             min: 2,
                             values: [
-                              ValueHintsValue(key: ValueHintsDefaultValueString('Option 1'), displayName: 'Option 1'),
-                              ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
+                              ValueHintsValue(key: ValueHintsDefaultValueBool(true), displayName: 'true'),
+                              ValueHintsValue(key: ValueHintsDefaultValueBool(false), displayName: 'false'),
                             ],
                           ),
                           fieldName: 'Boolean / SelectLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue('Option 1'),
+                          initialValue: const FullyDynamicAttributeValue(true),
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -236,13 +235,12 @@ class InputExamples extends StatelessWidget {
                           valueHints: const ValueHints(
                             max: 100,
                             values: [
-                              ValueHintsValue(key: ValueHintsDefaultValueString('Option 1'), displayName: 'Option 1'),
-                              ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
-                              ValueHintsValue(key: ValueHintsDefaultValueString('Option 3'), displayName: 'Option 3'),
+                              ValueHintsValue(key: ValueHintsDefaultValueBool(true), displayName: 'true'),
+                              ValueHintsValue(key: ValueHintsDefaultValueBool(false), displayName: 'false'),
                             ],
                           ),
                           fieldName: 'Boolean / ButtonLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue('Option 1'),
+                          initialValue: const FullyDynamicAttributeValue(true),
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -251,7 +249,6 @@ class InputExamples extends StatelessWidget {
                           ),
                           valueHints: const ValueHints(
                             max: 100,
-                            values: [],
                           ),
                           fieldName: 'Boolean / ButtonLike',
                           initialValue: const FullyDynamicAttributeValue(false),
@@ -263,7 +260,6 @@ class InputExamples extends StatelessWidget {
                           ),
                           valueHints: const ValueHints(
                             propertyHints: {},
-                            values: [],
                           ),
                           fieldName: 'Boolean / SliderSlike',
                           initialValue: const FullyDynamicAttributeValue(false),
@@ -373,7 +369,6 @@ class InputExamples extends StatelessWidget {
                             max: 5,
                             min: 1,
                             propertyHints: {},
-                            values: [],
                           ),
                           fieldName: 'Integer / SelectLike',
                           initialValue: const FullyDynamicAttributeValue(5),
@@ -447,7 +442,6 @@ class InputExamples extends StatelessWidget {
                           valueHints: const ValueHints(
                             max: 100,
                             propertyHints: {},
-                            values: [],
                           ),
                           fieldName: 'Integer / ButtonLike',
                           initialValue: const FullyDynamicAttributeValue(0),
@@ -479,7 +473,6 @@ class InputExamples extends StatelessWidget {
                             max: 100,
                             min: 0,
                             propertyHints: {},
-                            values: [],
                           ),
                           fieldName: 'Integer / SliderLike',
                           initialValue: const FullyDynamicAttributeValue(75),

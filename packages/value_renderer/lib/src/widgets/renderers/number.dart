@@ -38,7 +38,7 @@ class NumberRenderer extends StatelessWidget {
 
     // TODO: handle this properly
     final json = initialValue?.toJson();
-    if (json == null || json['value'] == null || json['value'] is! num) {
+    if (json != null && json['value'] != null && json['value'] is! num) {
       throw Exception('trying to render an initial value with no value field as a Number value');
     }
 
