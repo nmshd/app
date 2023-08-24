@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class NumberInput extends StatefulWidget {
   final String fieldName;
@@ -38,9 +39,11 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
+    final translatedText = FlutterI18n.translate(context, widget.fieldName);
+
     return TextField(
       controller: _controller,
-      decoration: InputDecoration(labelText: widget.fieldName),
+      decoration: InputDecoration(labelText: translatedText),
       keyboardType: TextInputType.number,
     );
   }

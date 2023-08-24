@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class TextInput extends StatefulWidget {
   final String fieldName;
@@ -36,10 +37,12 @@ class TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
+    final translatedText = FlutterI18n.translate(context, widget.fieldName);
+
     return TextField(
       maxLength: widget.max,
       controller: _controller,
-      decoration: InputDecoration(labelText: widget.fieldName),
+      decoration: InputDecoration(labelText: translatedText),
     );
   }
 }
