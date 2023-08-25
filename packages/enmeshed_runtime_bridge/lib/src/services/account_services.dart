@@ -46,6 +46,17 @@ class AccountServices {
     return accounts;
   }
 
+  Future<LocalAccountDTO> getAccount(String id) async {
+    final result = await _evaluator.evaluateJavaScript(
+      'return await runtime.accountServices.getAccount(id)',
+      arguments: {'id': id},
+    );
+
+    final value = result.valueToMap();
+    final account = LocalAccountDTO.fromJson(value);
+    return account;
+  }
+
   Future<void> clearAccounts() async {
     final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.clearAccounts()',
