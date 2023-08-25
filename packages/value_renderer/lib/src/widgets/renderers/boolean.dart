@@ -23,7 +23,7 @@ class BooleanRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final json = initialValue?.toJson();
     if (json != null && json['value'] != null && json['value'] is! bool) {
-      throw Exception('trying to render an initial value with no value field as a Bool value');
+      throw Exception('trying to render an initial value with a non-boolean value');
     }
 
     final initialBoolValue = initialValue?.toJson()['value'];
