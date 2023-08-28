@@ -48,9 +48,7 @@ class TextInputState extends State<TextInput> {
           maxLength: widget.max,
           controller: _controller,
           decoration: InputDecoration(labelText: translatedText),
-          onChanged: (value) {
-            validateInput();
-          },
+          onChanged: (value) => validateInput(),
         ),
         if (errorMessage != null)
           Padding(
