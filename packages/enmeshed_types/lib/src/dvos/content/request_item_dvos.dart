@@ -30,7 +30,6 @@ sealed class RequestItemDVO extends DataViewObject {
   factory RequestItemDVO.fromJson(Map json) {
     final type = json['type'];
     if (type == 'RequestItemGroupDVO') return RequestItemGroupDVO.fromJson(json);
-    if (type is String && type.startsWith('Decidable')) return DecidableRequestItemDVO.fromJson(json);
     return RequestItemDVODerivation.fromJson(json);
   }
 
@@ -70,16 +69,20 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
     required super.isDecidable,
   });
 
-  factory RequestItemDVODerivation.fromJson(Map json) => switch (json['type']) {
-        'ReadAttributeRequestItemDVO' => ReadAttributeRequestItemDVO.fromJson(json),
-        'ProposeAttributeRequestItemDVO' => ProposeAttributeRequestItemDVO.fromJson(json),
-        'CreateAttributeRequestItemDVO' => CreateAttributeRequestItemDVO.fromJson(json),
-        'ShareAttributeRequestItemDVO' => ShareAttributeRequestItemDVO.fromJson(json),
-        'AuthenticationRequestItemDVO' => AuthenticationRequestItemDVO.fromJson(json),
-        'ConsentRequestItemDVO' => ConsentRequestItemDVO.fromJson(json),
-        'RegisterAttributeListenerRequestItemDVO' => RegisterAttributeListenerRequestItemDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
-      };
+  factory RequestItemDVODerivation.fromJson(Map json) {
+    if (json['type'].startsWith('Decidable')) return DecidableRequestItemDVODerivation.fromJson(json);
+
+    return switch (json['type']) {
+      'ReadAttributeRequestItemDVO' => ReadAttributeRequestItemDVO.fromJson(json),
+      'ProposeAttributeRequestItemDVO' => ProposeAttributeRequestItemDVO.fromJson(json),
+      'CreateAttributeRequestItemDVO' => CreateAttributeRequestItemDVO.fromJson(json),
+      'ShareAttributeRequestItemDVO' => ShareAttributeRequestItemDVO.fromJson(json),
+      'AuthenticationRequestItemDVO' => AuthenticationRequestItemDVO.fromJson(json),
+      'ConsentRequestItemDVO' => ConsentRequestItemDVO.fromJson(json),
+      'RegisterAttributeListenerRequestItemDVO' => RegisterAttributeListenerRequestItemDVO.fromJson(json),
+      _ => throw Exception("Invalid type '${json['type']}'"),
+    };
+  }
 
   @override
   Map<String, dynamic> toJson();

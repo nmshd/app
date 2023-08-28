@@ -306,36 +306,6 @@ Map<String, dynamic> _$RegisterAttributeListenerRequestItemDVOToJson(RegisterAtt
   return val;
 }
 
-DecidableRequestItemGroupDVO _$DecidableRequestItemGroupDVOFromJson(Map<String, dynamic> json) => DecidableRequestItemGroupDVO(
-      isDecidable: json['isDecidable'] as bool,
-      mustBeAccepted: json['mustBeAccepted'] as bool,
-      items: (json['items'] as List<dynamic>).map((e) => DecidableRequestItemDVODerivation.fromJson(e as Map<String, dynamic>)).toList(),
-    );
-
-Map<String, dynamic> _$DecidableRequestItemGroupDVOToJson(DecidableRequestItemGroupDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  val['isDecidable'] = instance.isDecidable;
-  val['items'] = instance.items.map((e) => e.toJson()).toList();
-  return val;
-}
-
 DecidableReadAttributeRequestItemDVO _$DecidableReadAttributeRequestItemDVOFromJson(Map<String, dynamic> json) =>
     DecidableReadAttributeRequestItemDVO(
       id: json['id'] as String,
