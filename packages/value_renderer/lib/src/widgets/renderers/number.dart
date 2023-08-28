@@ -105,8 +105,8 @@ class NumberRenderer extends StatelessWidget {
       return SliderInput(
         fieldName: fieldName,
         initialValue: initialNumberValue,
-        min: min,
-        max: max,
+        min: min!,
+        max: max!,
       );
     }
 
