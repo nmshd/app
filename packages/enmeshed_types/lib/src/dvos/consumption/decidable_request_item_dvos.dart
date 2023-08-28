@@ -1,41 +1,6 @@
 part of '../content/request_item_dvos.dart';
 
-sealed class DecidableRequestItemDVO extends RequestItemDVO {
-  const DecidableRequestItemDVO({
-    required super.id,
-    required super.name,
-    super.description,
-    super.image,
-    required super.type,
-    super.date,
-    super.error,
-    super.warning,
-    required super.mustBeAccepted,
-    required super.isDecidable,
-  });
-
-  factory DecidableRequestItemDVO.fromJson(Map json) => switch (json['type']) {
-        'DecidableRequestItemGroupDVO' => DecidableRequestItemGroupDVO.fromJson(json),
-        _ => DecidableRequestItemDVODerivation.fromJson(json),
-      };
-}
-
-@JsonSerializable(includeIfNull: false)
-class DecidableRequestItemGroupDVO extends DecidableRequestItemDVO {
-  final List<DecidableRequestItemDVODerivation> items;
-
-  const DecidableRequestItemGroupDVO({
-    required super.isDecidable,
-    required super.mustBeAccepted,
-    required this.items,
-  }) : super(id: 'n/a', name: 'n/a', type: 'DecidableRequestItemGroupDVO');
-
-  factory DecidableRequestItemGroupDVO.fromJson(Map json) => _$DecidableRequestItemGroupDVOFromJson(Map<String, dynamic>.from(json));
-  @override
-  Map<String, dynamic> toJson() => _$DecidableRequestItemGroupDVOToJson(this);
-}
-
-sealed class DecidableRequestItemDVODerivation extends DecidableRequestItemDVO {
+sealed class DecidableRequestItemDVODerivation extends RequestItemDVODerivation {
   const DecidableRequestItemDVODerivation({
     required super.id,
     required super.name,
