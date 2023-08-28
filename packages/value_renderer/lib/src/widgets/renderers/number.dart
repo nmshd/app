@@ -102,7 +102,7 @@ class NumberRenderer extends StatelessWidget {
     }
 
     if (editType == RenderHintsEditType.SliderLike) {
-      if (min == null || max == null) throw Exception('trying to render without a min/max value');
+      if (min == null || max == null) throw Exception('trying to render a SliderInput without a min/max value');
 
       return SliderInput(
         fieldName: fieldName,
