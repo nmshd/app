@@ -63,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         baseUrl: const String.fromEnvironment('app_baseUrl'),
         clientId: const String.fromEnvironment('app_clientId'),
         clientSecret: const String.fromEnvironment('app_clientSecret'),
+        applicationId: 'eu.enmeshed.example',
       ),
     )..run();
   }
