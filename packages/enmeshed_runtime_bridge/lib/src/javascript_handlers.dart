@@ -24,7 +24,13 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
 
   final data = payload['data'] as Map<String, dynamic>?;
   if (data == null) {
-    logger.d("The Event with namespace '$namespace' is missing data, currently only data events are supported.");
+    final event = switch (namespace) {
+      'app.datawalletSynchronized' => DatawalletSynchronizedEvent(eventTargetAddress: eventTargetAddress),
+      _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: {}),
+    };
+
+    eventBus.publish(event);
+
     return;
   }
 
@@ -49,6 +55,11 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
         request: LocalRequestDTO.fromJson(data['request']),
         oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
         newStatus: LocalRequestStatus.values.byName(data['newStatus']),
+      ),
+    'app.externalEventReceived' => ExternalEventReceivedEvent(
+        eventTargetAddress: eventTargetAddress,
+        messages: List<MessageDTO>.from((data['messages'] as List<dynamic>).map((e) => MessageDTO.fromJson(e))),
+        relationships: List<RelationshipDTO>.from((data['relationships'] as List<dynamic>).map((e) => RelationshipDTO.fromJson(e))),
       ),
     _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: data),
   };
