@@ -26,6 +26,9 @@ class _SliderInputState extends State<SliderInput> {
   @override
   void initState() {
     super.initState();
+    if (widget.min == null || widget.max == null) {
+      throw Exception('trying to render without a min/max value');
+    }
     currentSliderValue = widget.initialValue?.toDouble() ?? widget.min!.toDouble();
   }
 
