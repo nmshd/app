@@ -22,6 +22,7 @@ class TextInput extends StatefulWidget {
 
 class TextInputState extends State<TextInput> {
   late TextEditingController _controller;
+  String? errorMessage;
 
   @override
   void initState() {
@@ -40,10 +41,39 @@ class TextInputState extends State<TextInput> {
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
-    return TextField(
-      maxLength: widget.max,
-      controller: _controller,
-      decoration: InputDecoration(labelText: translatedText),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextField(
+          maxLength: widget.max,
+          controller: _controller,
+          decoration: InputDecoration(labelText: translatedText),
+          onChanged: (value) {
+            validateInput();
+          },
+        ),
+        if (errorMessage != null)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 0, 12),
+            child: Text(errorMessage!, style: const TextStyle(color: Colors.red)),
+          ),
+      ],
     );
+  }
+
+  void validateInput() {
+    setState(() {
+      if (_controller.text.isEmpty) {
+        errorMessage = 'This field cannot be empty';
+      } else if (!validation(_controller.text)) {
+        errorMessage = 'Invalid input';
+      } else {
+        errorMessage = null;
+      }
+    });
+  }
+
+  bool validation(String input) {
+    return input.length > 5;
   }
 }
