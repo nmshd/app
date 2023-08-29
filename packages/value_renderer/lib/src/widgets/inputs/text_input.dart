@@ -48,9 +48,7 @@ class TextInputState extends State<TextInput> {
           maxLength: widget.max,
           controller: _controller,
           decoration: InputDecoration(labelText: translatedText),
-          onChanged: (value) {
-            validateInput();
-          },
+          onChanged: (value) => validateInput(),
         ),
         if (errorMessage != null)
           Padding(
@@ -64,16 +62,27 @@ class TextInputState extends State<TextInput> {
   void validateInput() {
     setState(() {
       if (_controller.text.isEmpty) {
-        errorMessage = 'This field cannot be empty';
-      } else if (!validation(_controller.text)) {
-        errorMessage = 'Invalid input';
+        errorMessage = 'This field cannot be empty.';
+      } else if (!validateLength(_controller.text)) {
+        errorMessage = 'This field must be longer than 3 characters.';
+      } else if (!validateEquality(_controller.text)) {
+        errorMessage = 'Invalid Input';
       } else {
         errorMessage = null;
       }
     });
   }
 
-  bool validation(String input) {
+  bool validateLength(String input) {
     return input.length > 5;
+  }
+
+  bool validateEquality(String input) {
+    int result = 1;
+    if (widget.values != null) {
+      result = widget.values!.indexWhere((element) => element.key == ValueHintsDefaultValueString(_controller.text));
+    }
+
+    return result == -1 ? false : true;
   }
 }

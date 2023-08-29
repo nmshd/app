@@ -64,11 +64,12 @@ class InputExamples extends StatelessWidget {
                           valueHints: const ValueHints(
                             max: 100,
                             values: [
-                              ValueHintsValue(key: ValueHintsDefaultValueString('Some Validation'), displayName: ''),
+                              ValueHintsValue(key: ValueHintsDefaultValueString('Some Value'), displayName: 'Some Value'),
+                              ValueHintsValue(key: ValueHintsDefaultValueString('Some Other Value'), displayName: 'Some Other Value'),
                             ],
                           ),
                           fieldName: 'String / InputLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(''),
+                          initialValue: const FullyDynamicAttributeValue('Some Value'),
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -339,7 +340,10 @@ class InputExamples extends StatelessWidget {
                           valueHints: const ValueHints(
                             max: 100,
                             propertyHints: {},
-                            values: [ValueHintsValue(key: ValueHintsDefaultValueNum(1), displayName: '')],
+                            values: [
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(1), displayName: '1'),
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(2), displayName: '2')
+                            ],
                           ),
                           fieldName: 'Integer / InputLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(1),
