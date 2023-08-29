@@ -80,7 +80,7 @@ class TextInputState extends State<TextInput> {
   bool validateEquality(String input) {
     int result = 1;
     if (widget.values != null) {
-      result = widget.values!.indexWhere((element) => element.key == ValueHintsDefaultValueString(_controller.text));
+      result = widget.values!.indexWhere((element) => element.key == ValueHintsDefaultValueString(input));
     }
 
     return result == -1 ? false : true;

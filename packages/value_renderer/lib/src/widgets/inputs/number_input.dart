@@ -64,16 +64,21 @@ class NumberInputState extends State<NumberInput> {
   void validateInput() {
     setState(() {
       if (_controller.text.isEmpty) {
-        errorMessage = 'This field cannot be empty';
-      } else if (!validation(_controller.text)) {
-        errorMessage = 'Invalid input';
+        errorMessage = 'This field cannot be empty.';
+      } else if (!validateEquality(_controller.text)) {
+        errorMessage = 'Invalid Input';
       } else {
         errorMessage = null;
       }
     });
   }
 
-  bool validation(String input) {
-    return input.length > 3;
+  bool validateEquality(String input) {
+    int result = 1;
+    if (widget.values != null) {
+      result = widget.values!.indexWhere((element) => element.key == ValueHintsDefaultValueNum(int.parse(input)));
+    }
+
+    return result == -1 ? false : true;
   }
 }
