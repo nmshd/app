@@ -1,0 +1,39 @@
+{
+  "DisplayName": "Anzeigename",
+  "GivenName": "Vorname",
+  "Surname": "Nachname",
+  "Nationality": "Staatsangehörigkeit",
+  "CommunicationLanguage": "Kommunikationssprache",
+  "BirthDate": "Geburtsdatum",
+  "EMailAddress": "E-Mail-Adresse",
+  "Sex": "Sex",
+  "StreetAddress": "Straßenadresse",
+  "recipient": "Empfänger",
+  "street": "Straße",
+  "houseNo": "Hausnummer",
+  "zipCode": "Postleitzahl",
+  "city": "Stadt",
+  "country": "Land",
+  "state": "Zustand",
+  "sharedAttributes": "Gemeinsame Attribute",
+  "requestedAttributes": "Angeforderte Attribute",
+  "attributes": {
+    "values": {
+      "countries": {
+        "DE": "Deutschland",
+        "AF": "Afghanistan",
+        "AL": "Albanien"
+      },
+      "languages": {
+        "de": "Deutsch",
+        "aa": "Afar",
+        "ab": "Abchasisch"
+      },
+      "sex": {
+        "intersex": "Intersexuell",
+        "male": "Männlich",
+        "female": "Weiblich"
+      }
+    }
+  }
+}

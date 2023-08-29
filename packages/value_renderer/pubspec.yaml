@@ -1,0 +1,20 @@
+name: value_renderer
+description: A new Flutter package project.
+version: 1.0.0
+homepage:
+
+environment:
+  sdk: ">=3.0.5 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  enmeshed_types: 1.0.0
+  flutter:
+    sdk: flutter
+  flutter_i18n: ^0.34.0
+  intl: any
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter

@@ -16,7 +16,7 @@ class StreetAddressAttributeValue extends IdentityAttributeValue {
     required this.zipCode,
     required this.city,
     required this.country,
-    required this.state,
+    this.state,
   });
 
   factory StreetAddressAttributeValue.fromJson(Map json) => StreetAddressAttributeValue(
