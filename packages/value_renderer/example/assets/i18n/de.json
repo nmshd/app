@@ -35,5 +35,8 @@
         "female": "Weiblich"
       }
     }
-  }
+  },
+  "emptyFieldError": "Dieses Feld kann nicht leer sein.",
+  "fieldLengthError": "Dieses Feld muss länger als 3 Zeichen sein.",
+  "invalidInputError": "Ungültige Eingabe"
 }

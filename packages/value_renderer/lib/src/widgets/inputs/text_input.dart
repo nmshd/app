@@ -62,11 +62,11 @@ class TextInputState extends State<TextInput> {
   void validateInput() {
     setState(() {
       if (_controller.text.isEmpty) {
-        errorMessage = 'This field cannot be empty.';
+        errorMessage = FlutterI18n.translate(context, 'emptyFieldError');
       } else if (!validateLength(_controller.text)) {
-        errorMessage = 'This field must be longer than 3 characters.';
+        errorMessage = FlutterI18n.translate(context, 'fieldLengthError');
       } else if (!validateEquality(_controller.text)) {
-        errorMessage = 'Invalid Input';
+        errorMessage = FlutterI18n.translate(context, 'invalidInputError');
       } else {
         errorMessage = null;
       }
