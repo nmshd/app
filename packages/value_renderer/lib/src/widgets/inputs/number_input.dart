@@ -66,7 +66,7 @@ class NumberInputState extends State<NumberInput> {
       if (_controller.text.isEmpty) {
         errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
       } else if (!validateEquality(_controller.text)) {
-        errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
+        errorMessage = FlutterI18n.translate(context, 'invalidInputError');
       } else {
         errorMessage = null;
       }
@@ -74,11 +74,7 @@ class NumberInputState extends State<NumberInput> {
   }
 
   bool validateEquality(String input) {
-    int result = 1;
-    if (widget.values != null) {
-      result = widget.values!.indexWhere((element) => element.key == ValueHintsDefaultValueNum(int.parse(input)));
-    }
-
-    return result == -1 ? false : true;
+    if (widget.values == null) return true;
+    return widget.values!.map((e) => e.key).contains(ValueHintsDefaultValueNum(int.parse(input)));
   }
 }
