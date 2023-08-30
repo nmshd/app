@@ -65,16 +65,34 @@ class NumberInputState extends State<NumberInput> {
     setState(() {
       if (_controller.text.isEmpty) {
         errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
-      } else if (!validateEquality(_controller.text)) {
-        errorMessage = FlutterI18n.translate(context, 'invalidInputError');
       } else {
-        errorMessage = null;
+        final numInput = int.parse(_controller.text);
+
+        if (!validateMaxValue(numInput)) {
+          errorMessage = '${FlutterI18n.translate(context, 'errors.value_renderer.maxValue')}${widget.max}';
+        } else if (!validateMinValue(numInput)) {
+          errorMessage = '${FlutterI18n.translate(context, 'errors.value_renderer.minValue')}${widget.min}';
+        } else if (!validateEquality(numInput)) {
+          errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
+        } else {
+          errorMessage = null;
+        }
       }
     });
   }
 
-  bool validateEquality(String input) {
+  bool validateMaxValue(int input) {
+    if (widget.max == null) return true;
+    return input <= widget.max!.toInt();
+  }
+
+  bool validateMinValue(int input) {
+    if (widget.min == null) return true;
+    return input >= widget.min!.toInt();
+  }
+
+  bool validateEquality(int input) {
     if (widget.values == null) return true;
-    return widget.values!.map((e) => e.key).contains(ValueHintsDefaultValueNum(int.parse(input)));
+    return widget.values!.map((e) => e.key).contains(ValueHintsDefaultValueNum(input));
   }
 }

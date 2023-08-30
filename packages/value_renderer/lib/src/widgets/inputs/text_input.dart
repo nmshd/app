@@ -63,18 +63,12 @@ class TextInputState extends State<TextInput> {
     setState(() {
       if (_controller.text.isEmpty) {
         errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
-      } else if (!validateLength(_controller.text)) {
-        errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.fieldLength');
       } else if (!validateEquality(_controller.text)) {
         errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
       } else {
         errorMessage = null;
       }
     });
-  }
-
-  bool validateLength(String input) {
-    return input.length > 5;
   }
 
   bool validateEquality(String input) {

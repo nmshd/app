@@ -89,6 +89,7 @@ class NumberRenderer extends StatelessWidget {
         fieldName: fieldName,
         values: values!,
         initialValue: initialNumberValue,
+        min: min,
         max: max,
       );
     }

@@ -39,7 +39,8 @@
   "errors": {
     "value_renderer": {
       "emptyField": "This field cannot be empty",
-      "fieldLength": "This field must be longer than 3 characters",
+      "maxValue": "Maximum value exceeded: ",
+      "minValue": "Minimum value not met: ",
       "invalidInput": "Invalid Input"
     }
   }

@@ -338,6 +338,7 @@ class InputExamples extends StatelessWidget {
                             technicalType: RenderHintsTechnicalType.Integer,
                           ),
                           valueHints: const ValueHints(
+                            min: 1,
                             max: 100,
                             propertyHints: {},
                             values: [
