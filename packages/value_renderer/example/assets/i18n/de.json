@@ -39,8 +39,8 @@
   "errors": {
     "value_renderer": {
       "emptyField": "Dieses Feld kann nicht leer sein",
-      "maxValue": "Maximalwert überschritten: ",
-      "minValue": "Mindestwert nicht erreicht: ",
+      "maxValue": "Der Wert muss kleiner oder gleich {value} sein",
+      "minValue": "Der Wert muss größer oder gleich {value} sein",
       "invalidInput": "Ungültige Eingabe"
     }
   }

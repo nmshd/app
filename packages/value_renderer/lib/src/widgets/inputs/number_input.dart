@@ -63,9 +63,9 @@ class NumberInputState extends State<NumberInput> {
       final numInput = int.parse(input);
 
       if (!validateMaxValue(numInput)) {
-        return '${FlutterI18n.translate(context, 'errors.value_renderer.maxValue')}${widget.max}';
+        return FlutterI18n.translate(context, 'errors.value_renderer.maxValue', translationParams: {'value': widget.max!.toString()});
       } else if (!validateMinValue(numInput)) {
-        return '${FlutterI18n.translate(context, 'errors.value_renderer.minValue')}${widget.min}';
+        return FlutterI18n.translate(context, 'errors.value_renderer.minValue', translationParams: {'value': widget.min!.toString()});
       } else if (!validateEquality(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
       } else {
