@@ -40,45 +40,38 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey();
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextField(
-          controller: _controller,
-          decoration: InputDecoration(labelText: translatedText),
-          keyboardType: TextInputType.number,
-          onChanged: (value) => validateInput(),
-        ),
-        if (errorMessage != null)
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 6, 0, 12),
-            child: Text(errorMessage!, style: const TextStyle(color: Colors.red)),
-          ),
-      ],
+    return Form(
+      key: formKey,
+      child: TextFormField(
+        controller: _controller,
+        decoration: InputDecoration(labelText: translatedText),
+        keyboardType: TextInputType.number,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (value) => validateInput(value),
+      ),
     );
   }
 
-  void validateInput() {
-    setState(() {
-      if (_controller.text.isEmpty) {
-        errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
-      } else {
-        final numInput = int.parse(_controller.text);
+  String? validateInput(input) {
+    if (input.isEmpty) {
+      return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
+    } else {
+      final numInput = int.parse(input);
 
-        if (!validateMaxValue(numInput)) {
-          errorMessage = '${FlutterI18n.translate(context, 'errors.value_renderer.maxValue')}${widget.max}';
-        } else if (!validateMinValue(numInput)) {
-          errorMessage = '${FlutterI18n.translate(context, 'errors.value_renderer.minValue')}${widget.min}';
-        } else if (!validateEquality(numInput)) {
-          errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
-        } else {
-          errorMessage = null;
-        }
+      if (!validateMaxValue(numInput)) {
+        return '${FlutterI18n.translate(context, 'errors.value_renderer.maxValue')}${widget.max}';
+      } else if (!validateMinValue(numInput)) {
+        return '${FlutterI18n.translate(context, 'errors.value_renderer.minValue')}${widget.min}';
+      } else if (!validateEquality(numInput)) {
+        return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
+      } else {
+        return null;
       }
-    });
+    }
   }
 
   bool validateMaxValue(int input) {
