@@ -36,7 +36,11 @@
       }
     }
   },
-  "emptyFieldError": "This field cannot be empty.",
-  "fieldLengthError": "This field must be longer than 3 characters.",
-  "invalidInputError": "Invalid Input"
+  "errors": {
+    "value_renderer": {
+      "emptyField": "This field cannot be empty",
+      "fieldLength": "This field must be longer than 3 characters",
+      "invalidInput": "Invalid Input"
+    }
+  }
 }

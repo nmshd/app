@@ -64,9 +64,9 @@ class NumberInputState extends State<NumberInput> {
   void validateInput() {
     setState(() {
       if (_controller.text.isEmpty) {
-        errorMessage = FlutterI18n.translate(context, 'emptyFieldError');
+        errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
       } else if (!validateEquality(_controller.text)) {
-        errorMessage = FlutterI18n.translate(context, 'invalidInputError');
+        errorMessage = FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
       } else {
         errorMessage = null;
       }

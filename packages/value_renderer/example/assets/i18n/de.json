@@ -36,7 +36,11 @@
       }
     }
   },
-  "emptyFieldError": "Dieses Feld kann nicht leer sein.",
-  "fieldLengthError": "Dieses Feld muss länger als 3 Zeichen sein.",
-  "invalidInputError": "Ungültige Eingabe"
+  "errors": {
+    "value_renderer": {
+      "emptyField": "Dieses Feld kann nicht leer sein",
+      "fieldLength": "Dieses Feld muss länger als 3 Zeichen sein",
+      "invalidInput": "Ungültige Eingabe"
+    }
+  }
 }
