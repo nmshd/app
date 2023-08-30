@@ -41,7 +41,8 @@
       "emptyField": "Dieses Feld kann nicht leer sein",
       "maxValue": "Der Wert muss kleiner oder gleich {value} sein",
       "minValue": "Der Wert muss größer oder gleich {value} sein",
-      "invalidInput": "Ungültige Eingabe"
+      "invalidInput": "Ungültige Eingabe",
+      "invalidFormat": "Ungültiges Format"
     }
   }
 }

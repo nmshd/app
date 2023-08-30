@@ -6,6 +6,7 @@ class TextInput extends StatefulWidget {
   final String fieldName;
   final String? initialValue;
   final int? max;
+  final String? pattern;
   final List<ValueHintsValue>? values;
 
   const TextInput({
@@ -13,6 +14,7 @@ class TextInput extends StatefulWidget {
     required this.fieldName,
     required this.initialValue,
     this.max,
+    this.pattern,
     this.values,
   });
 
@@ -58,12 +60,22 @@ class TextInputState extends State<TextInput> {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
     } else if (!validateEquality(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
+    } else if (!validateFormat(input)) {
+      return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
     }
     return null;
   }
 
   bool validateEquality(String input) {
     if (widget.values == null) return true;
+
     return widget.values!.map((e) => e.key).contains(ValueHintsDefaultValueString(input));
+  }
+
+  bool validateFormat(String input) {
+    if (widget.pattern == null) return true;
+
+    final valuePattern = RegExp(widget.pattern!);
+    return valuePattern.hasMatch(input);
   }
 }

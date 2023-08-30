@@ -86,6 +86,7 @@ class NumberInputState extends State<NumberInput> {
 
   bool validateEquality(int input) {
     if (widget.values == null) return true;
+
     return widget.values!.map((e) => e.key).contains(ValueHintsDefaultValueNum(input));
   }
 }
