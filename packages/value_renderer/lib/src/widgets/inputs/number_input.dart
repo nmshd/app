@@ -26,7 +26,6 @@ class NumberInput extends StatefulWidget {
 
 class NumberInputState extends State<NumberInput> {
   late TextEditingController _controller;
-  String? errorMessage;
 
   @override
   void initState() {
