@@ -25,6 +25,7 @@ class NumberRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final min = valueHints.min;
     final max = valueHints.max;
+    final pattern = valueHints.pattern;
 
     if (dataType == RenderHintsDataType.DateTime ||
         dataType == RenderHintsDataType.Date ||
@@ -89,7 +90,9 @@ class NumberRenderer extends StatelessWidget {
         fieldName: fieldName,
         values: values!,
         initialValue: initialNumberValue,
+        min: min,
         max: max,
+        pattern: pattern,
       );
     }
 
@@ -116,6 +119,7 @@ class NumberRenderer extends StatelessWidget {
       fieldName: fieldName,
       initialValue: initialNumberValue,
       max: max,
+      pattern: pattern,
     );
   }
 }

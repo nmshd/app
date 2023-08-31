@@ -35,5 +35,14 @@
         "female": "Weiblich"
       }
     }
+  },
+  "errors": {
+    "value_renderer": {
+      "emptyField": "Dieses Feld kann nicht leer sein",
+      "maxValue": "Der Wert muss kleiner oder gleich {value} sein",
+      "minValue": "Der Wert muss größer oder gleich {value} sein",
+      "invalidInput": "Ungültige Eingabe",
+      "invalidFormat": "Ungültiges Format"
+    }
   }
 }

@@ -170,7 +170,7 @@ class Renderer extends StatelessWidget {
             valueHints: const ValueHints(
               max: 100,
               min: 3,
-              pattern: r'^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$',
+              pattern: r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$',
             ),
             initialValue: const EMailAddressAttributeValue(value: 'barbara.elsner222@privat.de'),
             fieldName: 'EMailAddress',

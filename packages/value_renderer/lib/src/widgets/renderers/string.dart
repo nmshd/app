@@ -24,6 +24,7 @@ class StringRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final max = valueHints.max;
+    final pattern = valueHints.pattern;
 
     if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
       return DatepickerInput(
@@ -79,14 +80,16 @@ class StringRenderer extends StatelessWidget {
       return TextInput(
         fieldName: fieldName,
         initialValue: initialStringValue,
-        values: values!,
         max: max,
+        pattern: pattern,
+        values: values!,
       );
     }
 
     return TextInput(
       fieldName: fieldName,
       initialValue: initialStringValue,
+      pattern: pattern,
       max: max,
     );
   }
