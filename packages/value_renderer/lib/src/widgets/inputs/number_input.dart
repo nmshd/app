@@ -5,8 +5,9 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 class NumberInput extends StatefulWidget {
   final String fieldName;
   final num? initialValue;
-  final int? max;
-  final int? min;
+  final num? max;
+  final num? min;
+  final String? pattern;
   final List<ValueHintsValue>? values;
 
   const NumberInput({
@@ -15,6 +16,7 @@ class NumberInput extends StatefulWidget {
     this.initialValue,
     this.max,
     this.min,
+    this.pattern,
     this.values,
   });
 
@@ -60,12 +62,14 @@ class NumberInputState extends State<NumberInput> {
     if (input.isEmpty) {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
     } else {
-      final numInput = int.parse(input);
+      final numInput = num.parse(input);
 
       if (!validateMaxValue(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.maxValue', translationParams: {'value': widget.max!.toString()});
       } else if (!validateMinValue(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.minValue', translationParams: {'value': widget.min!.toString()});
+      } else if (!validateFormat(input)) {
+        return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
       } else if (!validateEquality(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
       } else {
@@ -74,19 +78,28 @@ class NumberInputState extends State<NumberInput> {
     }
   }
 
-  bool validateMaxValue(int input) {
+  bool validateMaxValue(num input) {
     if (widget.max == null) return true;
-    return input <= widget.max!.toInt();
+
+    return input <= widget.max!;
   }
 
-  bool validateMinValue(int input) {
+  bool validateMinValue(num input) {
     if (widget.min == null) return true;
-    return input >= widget.min!.toInt();
+
+    return input >= widget.min!;
   }
 
-  bool validateEquality(int input) {
+  bool validateEquality(num input) {
     if (widget.values == null) return true;
 
     return widget.values!.map((e) => e.key).contains(ValueHintsDefaultValueNum(input));
+  }
+
+  bool validateFormat(String input) {
+    if (widget.pattern == null) return true;
+
+    final valuePattern = RegExp(widget.pattern!);
+    return valuePattern.hasMatch(input);
   }
 }
