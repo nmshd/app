@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 
 import './widgets/renderers/renderers.dart';
 
+class ValueRendererController extends ValueNotifier<dynamic> {
+  ValueRendererController() : super(null);
+}
+
 class ValueRenderer extends StatelessWidget {
   final String fieldName;
   final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
+
+  final ValueRendererController? controller;
 
   const ValueRenderer({
     super.key,
@@ -15,6 +21,7 @@ class ValueRenderer extends StatelessWidget {
     this.initialValue,
     required this.renderHints,
     required this.valueHints,
+    this.controller,
   });
 
   @override
@@ -47,6 +54,7 @@ class ValueRenderer extends StatelessWidget {
 
     if (technicalType == RenderHintsTechnicalType.String) {
       return StringRenderer(
+        controller: controller,
         dataType: dataType,
         editType: editType,
         fieldName: fieldName,

@@ -2,14 +2,17 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../value_renderer.dart';
 import '../translated_text.dart';
 
 class DatepickerInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final AttributeValue? initialValue;
 
   const DatepickerInput({
     super.key,
+    this.controller,
     required this.fieldName,
     this.initialValue,
   });

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../value_renderer.dart';
 import '../translated_text.dart';
 
 class SwitchInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final bool? initialValue;
 
   const SwitchInput({
     super.key,
+    this.controller,
     required this.fieldName,
     this.initialValue,
   });

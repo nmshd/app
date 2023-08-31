@@ -1,9 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../value_renderer.dart';
 import '../inputs/inputs.dart';
 
 class NumberRenderer extends StatelessWidget {
+  final ValueRendererController? controller;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -13,6 +15,7 @@ class NumberRenderer extends StatelessWidget {
 
   const NumberRenderer({
     super.key,
+    this.controller,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -47,6 +50,7 @@ class NumberRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         values: values!,
@@ -58,6 +62,7 @@ class NumberRenderer extends StatelessWidget {
       // (https://sapui5.hana.ondemand.com/#/entity/sap.m.RatingIndicator/sample/sap.m.sample.RatingIndicator)
       // with a SliderInput for now, for simplicity
       return SliderInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: initialNumberValue,
         min: 1,
@@ -67,6 +72,7 @@ class NumberRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
+        controller: controller,
         fieldName: fieldName,
         values: values!,
         initialValue: valueHintsDefaultValue,
@@ -78,6 +84,7 @@ class NumberRenderer extends StatelessWidget {
       // (https://sapui5.hana.ondemand.com/#/entity/sap.ui.webc.main.StepInput/sample/sap.ui.webc.main.sample.StepInput)
       // with a normal NumberInput for now, for simplicity
       return NumberInput(
+        controller: controller,
         fieldName: fieldName,
         values: values,
         initialValue: initialNumberValue,
@@ -87,6 +94,7 @@ class NumberRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return NumberInput(
+        controller: controller,
         fieldName: fieldName,
         values: values!,
         initialValue: initialNumberValue,
@@ -98,6 +106,7 @@ class NumberRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
+        controller: controller,
         fieldName: fieldName,
         values: values!,
         initialValue: valueHintsDefaultValue,
@@ -108,6 +117,7 @@ class NumberRenderer extends StatelessWidget {
       if (min == null || max == null) throw Exception('trying to render a SliderInput without a min/max value');
 
       return SliderInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: initialNumberValue,
         min: min,
@@ -116,6 +126,7 @@ class NumberRenderer extends StatelessWidget {
     }
 
     return NumberInput(
+      controller: controller,
       fieldName: fieldName,
       initialValue: initialNumberValue,
       max: max,

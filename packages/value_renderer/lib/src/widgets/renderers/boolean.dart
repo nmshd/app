@@ -1,9 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../value_renderer.dart';
 import '../inputs/inputs.dart';
 
 class BooleanRenderer extends StatelessWidget {
+  final ValueRendererController? controller;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -12,6 +14,7 @@ class BooleanRenderer extends StatelessWidget {
 
   const BooleanRenderer({
     super.key,
+    this.controller,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -31,6 +34,7 @@ class BooleanRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
+        controller: controller,
         fieldName: fieldName,
         values: values!,
         initialValue: valueHintsDefaultValue,
@@ -39,6 +43,7 @@ class BooleanRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
+        controller: controller,
         fieldName: fieldName,
         values: values!,
         initialValue: valueHintsDefaultValue,
@@ -47,6 +52,7 @@ class BooleanRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         values: values!,
@@ -55,12 +61,14 @@ class BooleanRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SliderLike) {
       return SwitchInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: initialBoolValue,
       );
     }
 
     return CheckboxInput(
+      controller: controller,
       fieldName: fieldName,
       initialValue: initialBoolValue,
       values: values,

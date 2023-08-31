@@ -1,15 +1,18 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../value_renderer.dart';
 import '../translated_text.dart';
 
 class RadioInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
   final List<ValueHintsValue> values;
 
   const RadioInput({
     super.key,
+    this.controller,
     required this.fieldName,
     required this.initialValue,
     required this.values,

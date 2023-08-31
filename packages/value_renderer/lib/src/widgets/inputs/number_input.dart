@@ -2,7 +2,10 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+import '../../value_renderer.dart';
+
 class NumberInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final num? initialValue;
   final num? max;
@@ -12,6 +15,7 @@ class NumberInput extends StatefulWidget {
 
   const NumberInput({
     super.key,
+    this.controller,
     required this.fieldName,
     this.initialValue,
     this.max,

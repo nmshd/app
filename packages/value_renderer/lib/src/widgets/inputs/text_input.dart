@@ -2,7 +2,10 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+import '../../value_renderer.dart';
+
 class TextInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final String? initialValue;
   final int? max;
@@ -11,6 +14,7 @@ class TextInput extends StatefulWidget {
 
   const TextInput({
     super.key,
+    this.controller,
     required this.fieldName,
     required this.initialValue,
     this.max,
@@ -29,6 +33,7 @@ class TextInputState extends State<TextInput> {
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.initialValue);
+    _controller.addListener(() => widget.controller?.value = _controller.text);
   }
 
   @override

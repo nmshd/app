@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../value_renderer.dart';
 import '../translated_text.dart';
 
 class SliderInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final num? initialValue;
   final num max;
@@ -10,6 +12,7 @@ class SliderInput extends StatefulWidget {
 
   const SliderInput({
     super.key,
+    this.controller,
     required this.fieldName,
     this.initialValue,
     required this.max,
