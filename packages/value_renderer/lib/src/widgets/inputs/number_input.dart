@@ -35,6 +35,7 @@ class NumberInputState extends State<NumberInput> {
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.initialValue?.toString());
+    _controller.addListener(() => widget.controller?.value = _controller.text);
   }
 
   @override

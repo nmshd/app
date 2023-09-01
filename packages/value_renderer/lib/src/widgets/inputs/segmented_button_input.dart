@@ -48,6 +48,8 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
           }).toList(),
           selected: selectedSegment == null ? {} : {selectedSegment!},
           onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
+            widget.controller?.value = newSelection.first;
+
             setState(() {
               selectedSegment = newSelection.first;
             });

@@ -33,6 +33,7 @@ class ValueRenderer extends StatelessWidget {
 
     if (technicalType == RenderHintsTechnicalType.Integer || technicalType == RenderHintsTechnicalType.Float) {
       return NumberRenderer(
+        controller: controller,
         editType: editType,
         dataType: dataType,
         fieldName: fieldName,

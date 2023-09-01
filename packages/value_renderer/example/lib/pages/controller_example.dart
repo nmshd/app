@@ -11,31 +11,39 @@ class ControllerExample extends StatefulWidget {
 
 class _ControllerExampleState extends State<ControllerExample> {
   ValueRendererController textInputController = ValueRendererController();
+  ValueRendererController numberInputController = ValueRendererController();
   ValueRendererController radioInputController = ValueRendererController();
   ValueRendererController checkboxInputController = ValueRendererController();
   ValueRendererController dropdownInputController = ValueRendererController();
+  ValueRendererController segmentedButtonInputController = ValueRendererController();
 
   dynamic textInputValue;
+  dynamic numberInputValue;
   ValueHintsDefaultValueString? radioInputValue;
   bool? checkboxInputValue;
   ValueHintsDefaultValueString? dropdownInputValue;
+  ValueHintsDefaultValueString? segmentedButtonInputValue;
 
   @override
   void initState() {
     super.initState();
 
     textInputController.addListener(() => setState(() => textInputValue = textInputController.value));
+    numberInputController.addListener(() => setState(() => numberInputValue = numberInputController.value));
     radioInputController.addListener(() => setState(() => radioInputValue = radioInputController.value));
     checkboxInputController.addListener(() => setState(() => checkboxInputValue = checkboxInputController.value));
     dropdownInputController.addListener(() => setState(() => dropdownInputValue = dropdownInputController.value));
+    segmentedButtonInputController.addListener(() => setState(() => segmentedButtonInputValue = segmentedButtonInputController.value));
   }
 
   @override
   void dispose() {
     textInputController.dispose();
+    numberInputController.dispose();
     radioInputController.dispose();
     checkboxInputController.dispose();
     dropdownInputController.dispose();
+    segmentedButtonInputController.dispose();
 
     super.dispose();
   }
@@ -58,6 +66,21 @@ class _ControllerExampleState extends State<ControllerExample> {
                 controller: textInputController,
               ),
               Text(textInputValue.toString()),
+            ],
+          ),
+          Column(
+            children: [
+              ValueRenderer(
+                fieldName: 'Number Input',
+                renderHints: RenderHints(
+                  editType: RenderHintsEditType.InputLike,
+                  technicalType: RenderHintsTechnicalType.Integer,
+                ),
+                valueHints: const ValueHints(),
+                initialValue: const FullyDynamicAttributeValue(1),
+                controller: numberInputController,
+              ),
+              Text(numberInputValue.toString()),
             ],
           ),
           Column(
@@ -117,6 +140,29 @@ class _ControllerExampleState extends State<ControllerExample> {
                 controller: dropdownInputController,
               ),
               Text(dropdownInputValue?.value ?? ''),
+            ],
+          ),
+          Column(
+            children: [
+              ValueRenderer(
+                fieldName: 'Segmented Button Input',
+                renderHints: RenderHints(
+                  editType: RenderHintsEditType.SliderLike,
+                  technicalType: RenderHintsTechnicalType.String,
+                ),
+                valueHints: const ValueHints(
+                  max: 2,
+                  min: 2,
+                  values: [
+                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 1'), displayName: 'Option 1'),
+                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
+                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 3'), displayName: 'Option 3'),
+                  ],
+                ),
+                initialValue: const FullyDynamicAttributeValue('Option 1'),
+                controller: segmentedButtonInputController,
+              ),
+              Text(segmentedButtonInputValue?.value ?? ''),
             ],
           ),
         ],
