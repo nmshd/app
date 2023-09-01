@@ -37,6 +37,8 @@ class _SwitchInputState extends State<SwitchInput> {
           value: enabled,
           activeColor: Colors.blue,
           onChanged: (bool value) {
+            widget.controller?.value = value;
+
             setState(() {
               enabled = value;
             });

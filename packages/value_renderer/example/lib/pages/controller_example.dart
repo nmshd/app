@@ -16,6 +16,8 @@ class _ControllerExampleState extends State<ControllerExample> {
   ValueRendererController checkboxInputController = ValueRendererController();
   ValueRendererController dropdownInputController = ValueRendererController();
   ValueRendererController segmentedButtonInputController = ValueRendererController();
+  ValueRendererController sliderInputController = ValueRendererController();
+  ValueRendererController switchInputController = ValueRendererController();
 
   dynamic textInputValue;
   dynamic numberInputValue;
@@ -23,6 +25,8 @@ class _ControllerExampleState extends State<ControllerExample> {
   bool? checkboxInputValue;
   ValueHintsDefaultValueString? dropdownInputValue;
   ValueHintsDefaultValueString? segmentedButtonInputValue;
+  double? sliderInputValue;
+  bool? switchInputValue;
 
   @override
   void initState() {
@@ -34,6 +38,8 @@ class _ControllerExampleState extends State<ControllerExample> {
     checkboxInputController.addListener(() => setState(() => checkboxInputValue = checkboxInputController.value));
     dropdownInputController.addListener(() => setState(() => dropdownInputValue = dropdownInputController.value));
     segmentedButtonInputController.addListener(() => setState(() => segmentedButtonInputValue = segmentedButtonInputController.value));
+    sliderInputController.addListener(() => setState(() => sliderInputValue = sliderInputController.value));
+    switchInputController.addListener(() => setState(() => switchInputValue = switchInputController.value));
   }
 
   @override
@@ -44,128 +50,168 @@ class _ControllerExampleState extends State<ControllerExample> {
     checkboxInputController.dispose();
     dropdownInputController.dispose();
     segmentedButtonInputController.dispose();
+    sliderInputController.dispose();
+    switchInputController.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Column(
-        children: [
-          Column(
-            children: [
-              ValueRenderer(
-                fieldName: 'Text Input',
-                renderHints: RenderHints(
-                  technicalType: RenderHintsTechnicalType.String,
-                  editType: RenderHintsEditType.InputLike,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            Column(
+              children: [
+                ValueRenderer(
+                  fieldName: 'Text Input',
+                  renderHints: RenderHints(
+                    technicalType: RenderHintsTechnicalType.String,
+                    editType: RenderHintsEditType.InputLike,
+                  ),
+                  valueHints: const ValueHints(),
+                  controller: textInputController,
                 ),
-                valueHints: const ValueHints(),
-                controller: textInputController,
-              ),
-              Text(textInputValue.toString()),
-            ],
-          ),
-          Column(
-            children: [
-              ValueRenderer(
-                fieldName: 'Number Input',
-                renderHints: RenderHints(
-                  editType: RenderHintsEditType.InputLike,
-                  technicalType: RenderHintsTechnicalType.Integer,
+                Text(textInputValue.toString()),
+              ],
+            ),
+            Column(
+              children: [
+                ValueRenderer(
+                  fieldName: 'Number Input',
+                  renderHints: RenderHints(
+                    editType: RenderHintsEditType.InputLike,
+                    technicalType: RenderHintsTechnicalType.Integer,
+                  ),
+                  valueHints: const ValueHints(),
+                  initialValue: const FullyDynamicAttributeValue(1),
+                  controller: numberInputController,
                 ),
-                valueHints: const ValueHints(),
-                initialValue: const FullyDynamicAttributeValue(1),
-                controller: numberInputController,
-              ),
-              Text(numberInputValue.toString()),
-            ],
-          ),
-          Column(
-            children: [
-              ValueRenderer(
-                fieldName: 'Radio Input',
-                renderHints: RenderHints(
-                  technicalType: RenderHintsTechnicalType.String,
-                  editType: RenderHintsEditType.ButtonLike,
+                Text(numberInputValue.toString()),
+              ],
+            ),
+            Column(
+              children: [
+                ValueRenderer(
+                  fieldName: 'Radio Input',
+                  renderHints: RenderHints(
+                    technicalType: RenderHintsTechnicalType.String,
+                    editType: RenderHintsEditType.ButtonLike,
+                  ),
+                  valueHints: const ValueHints(
+                    values: [
+                      ValueHintsValue(key: ValueHintsDefaultValueString('Option 1'), displayName: 'Option 1'),
+                      ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
+                    ],
+                  ),
+                  controller: radioInputController,
                 ),
-                valueHints: const ValueHints(
-                  values: [
-                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 1'), displayName: 'Option 1'),
-                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
-                  ],
+                Text(radioInputValue?.value ?? ''),
+              ],
+            ),
+            Column(
+              children: [
+                ValueRenderer(
+                  fieldName: 'Checkbox Input',
+                  renderHints: RenderHints(
+                    editType: RenderHintsEditType.ButtonLike,
+                    technicalType: RenderHintsTechnicalType.Boolean,
+                  ),
+                  valueHints: const ValueHints(
+                    max: 100,
+                  ),
+                  initialValue: const FullyDynamicAttributeValue(false),
+                  controller: checkboxInputController,
                 ),
-                controller: radioInputController,
-              ),
-              Text(radioInputValue?.value ?? ''),
-            ],
-          ),
-          Column(
-            children: [
-              ValueRenderer(
-                fieldName: 'Checkbox Input',
-                renderHints: RenderHints(
-                  editType: RenderHintsEditType.ButtonLike,
-                  technicalType: RenderHintsTechnicalType.Boolean,
+                Text(checkboxInputValue.toString()),
+              ],
+            ),
+            Column(
+              children: [
+                ValueRenderer(
+                  fieldName: 'Dropdown Input',
+                  renderHints: RenderHints(
+                    editType: RenderHintsEditType.SelectLike,
+                    technicalType: RenderHintsTechnicalType.String,
+                  ),
+                  valueHints: const ValueHints(
+                    max: 2,
+                    min: 2,
+                    values: [
+                      ValueHintsValue(key: ValueHintsDefaultValueString('Option 1'), displayName: 'Option 1'),
+                      ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
+                      ValueHintsValue(key: ValueHintsDefaultValueString('Option 3'), displayName: 'Option 3'),
+                    ],
+                  ),
+                  initialValue: const FullyDynamicAttributeValue('Option 1'),
+                  controller: dropdownInputController,
                 ),
-                valueHints: const ValueHints(
-                  max: 100,
+                Text(dropdownInputValue?.value ?? ''),
+              ],
+            ),
+            Column(
+              children: [
+                ValueRenderer(
+                  fieldName: 'Segmented Button Input',
+                  renderHints: RenderHints(
+                    editType: RenderHintsEditType.SliderLike,
+                    technicalType: RenderHintsTechnicalType.String,
+                  ),
+                  valueHints: const ValueHints(
+                    max: 2,
+                    min: 2,
+                    values: [
+                      ValueHintsValue(key: ValueHintsDefaultValueString('Option 1'), displayName: 'Option 1'),
+                      ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
+                      ValueHintsValue(key: ValueHintsDefaultValueString('Option 3'), displayName: 'Option 3'),
+                    ],
+                  ),
+                  initialValue: const FullyDynamicAttributeValue('Option 1'),
+                  controller: segmentedButtonInputController,
                 ),
-                initialValue: const FullyDynamicAttributeValue(false),
-                controller: checkboxInputController,
-              ),
-              Text(checkboxInputValue.toString()),
-            ],
-          ),
-          Column(
-            children: [
-              ValueRenderer(
-                fieldName: 'Dropdown Input',
-                renderHints: RenderHints(
-                  editType: RenderHintsEditType.SelectLike,
-                  technicalType: RenderHintsTechnicalType.String,
+                Text(segmentedButtonInputValue?.value ?? ''),
+              ],
+            ),
+            Column(
+              children: [
+                ValueRenderer(
+                  fieldName: 'Slider Input',
+                  renderHints: RenderHints(
+                    editType: RenderHintsEditType.SliderLike,
+                    technicalType: RenderHintsTechnicalType.Integer,
+                  ),
+                  valueHints: const ValueHints(
+                    max: 100,
+                    min: 0,
+                    propertyHints: {},
+                  ),
+                  initialValue: const FullyDynamicAttributeValue(75),
+                  controller: sliderInputController,
                 ),
-                valueHints: const ValueHints(
-                  max: 2,
-                  min: 2,
-                  values: [
-                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 1'), displayName: 'Option 1'),
-                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
-                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 3'), displayName: 'Option 3'),
-                  ],
+                Text(sliderInputValue.toString()),
+              ],
+            ),
+            Column(
+              children: [
+                ValueRenderer(
+                  fieldName: 'Switch Input',
+                  renderHints: RenderHints(
+                    editType: RenderHintsEditType.SliderLike,
+                    technicalType: RenderHintsTechnicalType.Boolean,
+                  ),
+                  valueHints: const ValueHints(
+                    propertyHints: {},
+                  ),
+                  initialValue: const FullyDynamicAttributeValue(false),
+                  controller: switchInputController,
                 ),
-                initialValue: const FullyDynamicAttributeValue('Option 1'),
-                controller: dropdownInputController,
-              ),
-              Text(dropdownInputValue?.value ?? ''),
-            ],
-          ),
-          Column(
-            children: [
-              ValueRenderer(
-                fieldName: 'Segmented Button Input',
-                renderHints: RenderHints(
-                  editType: RenderHintsEditType.SliderLike,
-                  technicalType: RenderHintsTechnicalType.String,
-                ),
-                valueHints: const ValueHints(
-                  max: 2,
-                  min: 2,
-                  values: [
-                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 1'), displayName: 'Option 1'),
-                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
-                    ValueHintsValue(key: ValueHintsDefaultValueString('Option 3'), displayName: 'Option 3'),
-                  ],
-                ),
-                initialValue: const FullyDynamicAttributeValue('Option 1'),
-                controller: segmentedButtonInputController,
-              ),
-              Text(segmentedButtonInputValue?.value ?? ''),
-            ],
-          ),
-        ],
+                Text(switchInputValue.toString()),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
