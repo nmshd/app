@@ -37,6 +37,8 @@ class _CheckboxInputState extends State<CheckboxInput> {
       title: TranslatedText(widget.fieldName),
       value: isChecked,
       onChanged: (bool? value) {
+        widget.controller?.value = value;
+
         setState(() {
           isChecked = value ?? false;
         });

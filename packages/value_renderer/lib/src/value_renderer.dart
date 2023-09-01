@@ -66,6 +66,7 @@ class ValueRenderer extends StatelessWidget {
 
     if (technicalType == RenderHintsTechnicalType.Boolean) {
       return BooleanRenderer(
+        controller: controller,
         dataType: dataType,
         editType: editType,
         initialValue: initialValue,

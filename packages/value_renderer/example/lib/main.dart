@@ -106,7 +106,7 @@ final _menu = [
   ),
   _MenuItem(
     icon: Icons.description,
-    title: 'Controller Exaple',
+    title: 'Controller Example',
     pageBuilder: (context) => const ControllerExample(),
   ),
 ];

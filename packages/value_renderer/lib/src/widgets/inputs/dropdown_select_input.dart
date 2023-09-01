@@ -43,6 +43,8 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
         DropdownButton<ValueHintsDefaultValue>(
           value: selectedOption,
           onChanged: (ValueHintsDefaultValue? newValue) {
+            widget.controller?.value = newValue;
+
             setState(() {
               selectedOption = newValue;
             });

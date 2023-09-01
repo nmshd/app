@@ -51,6 +51,8 @@ class _RadioInputState extends State<RadioInput> {
               onChanged: (ValueHintsDefaultValue? value) {
                 if (value == null) return;
 
+                widget.controller?.value = value;
+
                 setState(() {
                   selectedOption = value;
                 });
