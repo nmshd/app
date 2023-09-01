@@ -10,9 +10,6 @@ class InputExamples extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(
-            height: 12,
-          ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -41,10 +38,7 @@ class InputExamples extends StatelessWidget {
                             fontSize: 18.0,
                           ),
                         ),
-                        const Divider(
-                          color: Colors.blue,
-                          thickness: 1.0,
-                        ),
+                        const Divider(color: Colors.blue, thickness: 1.0),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
@@ -208,10 +202,7 @@ class InputExamples extends StatelessWidget {
                             fontSize: 18.0,
                           ),
                         ),
-                        const Divider(
-                          color: Colors.blue,
-                          thickness: 1.0,
-                        ),
+                        const Divider(color: Colors.blue, thickness: 1.0),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
@@ -316,10 +307,7 @@ class InputExamples extends StatelessWidget {
                             fontSize: 18.0,
                           ),
                         ),
-                        const Divider(
-                          color: Colors.blue,
-                          thickness: 1.0,
-                        ),
+                        const Divider(color: Colors.blue, thickness: 1.0),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,

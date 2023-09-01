@@ -36,14 +36,7 @@ class _RadioInputState extends State<RadioInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const SizedBox(height: 20),
-        TranslatedText(
-          widget.fieldName,
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 16.0,
-          ),
-        ),
+        TranslatedText(widget.fieldName),
         ...widget.values.map((option) => RadioListTile<ValueHintsDefaultValue>(
               title: TranslatedText(option.displayName),
               value: option.key,
