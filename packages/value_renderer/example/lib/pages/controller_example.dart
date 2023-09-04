@@ -20,6 +20,7 @@ class _ControllerExampleState extends State<ControllerExample> {
   ValueRendererController segmentedButtonInputController = ValueRendererController();
   ValueRendererController sliderInputController = ValueRendererController();
   ValueRendererController switchInputController = ValueRendererController();
+  ValueRendererController datepickerInputController = ValueRendererController();
 
   dynamic textInputValue;
   dynamic numberInputValue;
@@ -29,6 +30,7 @@ class _ControllerExampleState extends State<ControllerExample> {
   ValueHintsDefaultValueString? segmentedButtonInputValue;
   double? sliderInputValue;
   bool? switchInputValue;
+  dynamic datepickerInputValue;
 
   @override
   void initState() {
@@ -42,6 +44,7 @@ class _ControllerExampleState extends State<ControllerExample> {
     segmentedButtonInputController.addListener(() => setState(() => segmentedButtonInputValue = segmentedButtonInputController.value));
     sliderInputController.addListener(() => setState(() => sliderInputValue = sliderInputController.value));
     switchInputController.addListener(() => setState(() => switchInputValue = switchInputController.value));
+    datepickerInputController.addListener(() => setState(() => datepickerInputValue = datepickerInputController.value));
   }
 
   @override
@@ -54,6 +57,7 @@ class _ControllerExampleState extends State<ControllerExample> {
     segmentedButtonInputController.dispose();
     sliderInputController.dispose();
     switchInputController.dispose();
+    datepickerInputController.dispose();
 
     super.dispose();
   }
@@ -235,6 +239,58 @@ class _ControllerExampleState extends State<ControllerExample> {
                               controller: switchInputController,
                             ),
                             ControllerDataText(controllerData: switchInputValue.toString()),
+                            const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            ValueRenderer(
+                              fieldName: 'BirthDate',
+                              renderHints: RenderHints(
+                                editType: RenderHintsEditType.Complex,
+                                propertyHints: {
+                                  'day': RenderHints(
+                                    dataType: RenderHintsDataType.Day,
+                                    editType: RenderHintsEditType.SelectLike,
+                                    technicalType: RenderHintsTechnicalType.Integer,
+                                  ),
+                                  'month': RenderHints(
+                                    dataType: RenderHintsDataType.Month,
+                                    editType: RenderHintsEditType.SelectLike,
+                                    technicalType: RenderHintsTechnicalType.Integer,
+                                  ),
+                                  'year': RenderHints(
+                                    dataType: RenderHintsDataType.Year,
+                                    editType: RenderHintsEditType.SelectLike,
+                                    technicalType: RenderHintsTechnicalType.Integer,
+                                  ),
+                                },
+                                technicalType: RenderHintsTechnicalType.Object,
+                              ),
+                              valueHints: const ValueHints(
+                                propertyHints: {
+                                  'day': ValueHints(
+                                    max: 31,
+                                    min: 1,
+                                    propertyHints: {},
+                                  ),
+                                  'month': ValueHints(
+                                    editHelp: 'i18n://yourBirthMonth',
+                                    max: 12,
+                                    min: 1,
+                                    propertyHints: {},
+                                  ),
+                                  'year': ValueHints(
+                                    max: 9999,
+                                    min: 1,
+                                    propertyHints: {},
+                                  ),
+                                },
+                              ),
+                              initialValue: const BirthDateAttributeValue(day: 12, month: 8, year: 2022),
+                              controller: datepickerInputController,
+                            ),
+                            ControllerDataText(controllerData: datepickerInputValue.toString()),
                           ],
                         ),
                       ],

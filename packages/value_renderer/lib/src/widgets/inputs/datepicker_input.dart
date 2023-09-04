@@ -51,6 +51,8 @@ class _DatepickerInputState extends State<DatepickerInput> {
     if (pickedDate == null) return;
 
     if (mounted) {
+      widget.controller?.value = pickedDate;
+
       setState(() {
         _selectedDate = pickedDate;
       });
@@ -58,6 +60,8 @@ class _DatepickerInputState extends State<DatepickerInput> {
   }
 
   void _clearDatePicker() {
+    widget.controller?.value = null;
+
     setState(() {
       _selectedDate = null;
     });

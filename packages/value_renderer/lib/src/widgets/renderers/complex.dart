@@ -6,6 +6,7 @@ import '../../value_renderer.dart';
 import '../inputs/inputs.dart';
 
 class ComplexRenderer extends StatelessWidget {
+  final ValueRendererController? controller;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -15,6 +16,7 @@ class ComplexRenderer extends StatelessWidget {
 
   const ComplexRenderer({
     super.key,
+    this.controller,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -27,6 +29,7 @@ class ComplexRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     if (initialValue is BirthDateAttributeValue) {
       return DatepickerInput(
+        controller: controller,
         initialValue: initialValue,
         fieldName: fieldName,
       );

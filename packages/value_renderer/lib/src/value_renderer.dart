@@ -45,6 +45,7 @@ class ValueRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.Complex) {
       return ComplexRenderer(
+        controller: controller,
         editType: editType,
         fieldName: fieldName,
         initialValue: initialValue,
