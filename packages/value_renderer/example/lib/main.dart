@@ -18,9 +18,7 @@ class ValueRendererExample extends StatelessWidget {
     return MaterialApp(
       title: 'Value Renderer',
       localizationsDelegates: [
-        FlutterI18nDelegate(
-          translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
-        ),
+        FlutterI18nDelegate(translationLoader: FileTranslationLoader(basePath: 'assets/i18n')),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
@@ -28,7 +26,8 @@ class ValueRendererExample extends StatelessWidget {
         Locale('en'),
         Locale('de'),
       ],
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+      debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
     );
   }
@@ -51,9 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: SafeArea(
         child: Drawer(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+            child: ListView(
               children: [
                 for (final item in _menu)
                   _DrawerButton(
