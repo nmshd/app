@@ -42,7 +42,8 @@
       "maxValue": "Value must be less than or equal to {value}",
       "minValue": "Value must be greater than or equal to {value}",
       "invalidInput": "Invalid Input",
-      "invalidFormat": "Invalid Format"
+      "invalidFormat": "Invalid Format",
+      "noDateSelected" : "No date selected"
     }
   }
 }

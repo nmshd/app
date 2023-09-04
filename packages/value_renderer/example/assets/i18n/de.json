@@ -42,7 +42,8 @@
       "maxValue": "Der Wert muss kleiner oder gleich {value} sein",
       "minValue": "Der Wert muss größer oder gleich {value} sein",
       "invalidInput": "Ungültige Eingabe",
-      "invalidFormat": "Ungültiges Format"
+      "invalidFormat": "Ungültiges Format",
+      "noDateSelected" : "Kein Datum ausgewählt"
     }
   }
 }

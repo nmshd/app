@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intl/intl.dart';
 
 import '../../value_renderer.dart';
@@ -79,8 +80,8 @@ class _DatepickerInputState extends State<DatepickerInput> {
         const SizedBox(
           width: 12,
         ),
-        //TODO: Localize hardcoded text when possible
-        Text(_selectedDate != null ? DateFormat.yMd().format(_selectedDate!) : 'No date selected'),
+        Text(
+            _selectedDate != null ? DateFormat.yMd().format(_selectedDate!) : FlutterI18n.translate(context, 'errors.value_renderer.noDateSelected')),
         IconButton(icon: const Icon(Icons.calendar_month), onPressed: _presentDatePicker),
         IconButton(icon: const Icon(Icons.clear), onPressed: _clearDatePicker)
       ],
