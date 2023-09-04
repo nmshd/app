@@ -84,7 +84,7 @@ Future<Map<String, dynamic>> _getDeviceInfo(List<dynamic> args) async {
       'manufacturer': deviceInfo.manufacturer,
       'isVirtual': !deviceInfo.isPhysicalDevice,
       'languageCode': Platform.localeName,
-      'version': deviceInfo.version,
+      'version': deviceInfo.version.release,
       'pushService': 'fcm',
     };
   }
