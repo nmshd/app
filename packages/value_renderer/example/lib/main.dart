@@ -42,29 +42,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  _MenuItem? _selectedMenuItem;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedMenuItem = _menu[0];
-  }
+  _MenuItem _selectedMenuItem = _menu[0];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_selectedMenuItem!.title)),
-      key: GlobalKey<ScaffoldState>(),
-      drawer: _buildDrawer(),
-      body: _selectedMenuItem!.pageBuilder(context),
-    );
-  }
-
-  Widget _buildDrawer() {
-    return Drawer(
-      child: SafeArea(
-        child: SingleChildScrollView(
-          primary: false,
+      appBar: AppBar(title: Text(_selectedMenuItem.title)),
+      drawer: SafeArea(
+        child: Drawer(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
             child: Column(
@@ -89,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      body: _selectedMenuItem.pageBuilder(context),
     );
   }
 }
