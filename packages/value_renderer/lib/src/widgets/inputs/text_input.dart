@@ -44,12 +44,10 @@ class TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey();
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
     return Form(
-      key: formKey,
       child: TextFormField(
         maxLength: widget.max,
         controller: _controller,

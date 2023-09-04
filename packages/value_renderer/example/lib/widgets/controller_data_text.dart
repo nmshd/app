@@ -11,7 +11,7 @@ class ControllerDataText extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
       child: Row(
         children: [
-          const Text('Controller: ', style: TextStyle(fontWeight: FontWeight.w600)),
+          const Text('Controller: ', style: TextStyle(fontWeight: FontWeight.w500)),
           Text(controllerData),
         ],
       ),

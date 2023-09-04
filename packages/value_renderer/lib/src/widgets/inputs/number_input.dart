@@ -46,12 +46,10 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey();
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
     return Form(
-      key: formKey,
       child: TextFormField(
         controller: _controller,
         decoration: InputDecoration(labelText: translatedText),
