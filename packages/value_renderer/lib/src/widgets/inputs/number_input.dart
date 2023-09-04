@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
@@ -54,6 +55,9 @@ class NumberInputState extends State<NumberInput> {
         controller: _controller,
         decoration: InputDecoration(labelText: translatedText),
         keyboardType: TextInputType.number,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*')),
+        ],
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => validateInput(value),
       ),
