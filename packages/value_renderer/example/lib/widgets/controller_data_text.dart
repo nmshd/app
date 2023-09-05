@@ -12,7 +12,7 @@ class ControllerDataText extends StatelessWidget {
       child: Row(
         children: [
           const Text('Controller: ', style: TextStyle(fontWeight: FontWeight.w500)),
-          Text(controllerData),
+          Flexible(child: Text(controllerData)),
         ],
       ),
     );
