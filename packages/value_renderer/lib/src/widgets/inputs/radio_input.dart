@@ -28,7 +28,12 @@ class _RadioInputState extends State<RadioInput> {
   @override
   void initState() {
     super.initState();
-    selectedOption = widget.initialValue;
+
+    final initialValue = widget.initialValue;
+
+    selectedOption = initialValue;
+
+    if (widget.controller != null) widget.controller!.value = initialValue;
   }
 
   @override
@@ -44,7 +49,7 @@ class _RadioInputState extends State<RadioInput> {
               onChanged: (ValueHintsDefaultValue? value) {
                 if (value == null) return;
 
-                widget.controller?.value = value;
+                if (widget.controller != null) widget.controller!.value = value;
 
                 setState(() {
                   selectedOption = value;

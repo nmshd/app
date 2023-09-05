@@ -32,8 +32,14 @@ class TextInputState extends State<TextInput> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialValue);
-    _controller.addListener(() => widget.controller?.value = _controller.text);
+
+    final initialValue = widget.initialValue;
+    _controller = TextEditingController(text: initialValue);
+
+    if (widget.controller != null) {
+      _controller.addListener(() => widget.controller!.value = _controller.text);
+      if (initialValue != null) widget.controller!.value = initialValue;
+    }
   }
 
   @override

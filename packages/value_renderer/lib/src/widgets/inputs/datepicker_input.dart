@@ -35,6 +35,8 @@ class _DatepickerInputState extends State<DatepickerInput> {
       // ....
       final AttributeValue value => logCannotHandle(value),
     };
+
+    if (widget.controller != null) widget.controller!.value = _selectedDate;
   }
 
   logCannotHandle(AttributeValue attributeValue) {
@@ -52,7 +54,7 @@ class _DatepickerInputState extends State<DatepickerInput> {
     if (pickedDate == null) return;
 
     if (mounted) {
-      widget.controller?.value = pickedDate;
+      if (widget.controller != null) widget.controller?.value = pickedDate;
 
       setState(() {
         _selectedDate = pickedDate;

@@ -28,7 +28,12 @@ class _CheckboxInputState extends State<CheckboxInput> {
   @override
   void initState() {
     super.initState();
-    isChecked = widget.initialValue;
+
+    final initialValue = widget.initialValue;
+
+    isChecked = initialValue;
+
+    if (widget.controller != null) widget.controller!.value = initialValue;
   }
 
   @override
@@ -37,7 +42,7 @@ class _CheckboxInputState extends State<CheckboxInput> {
       title: TranslatedText(widget.fieldName),
       value: isChecked,
       onChanged: (bool? value) {
-        widget.controller?.value = value;
+        if (widget.controller != null) widget.controller!.value = value;
 
         setState(() {
           isChecked = value ?? false;
