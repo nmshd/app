@@ -43,6 +43,7 @@ class _SliderInputState extends State<SliderInput> {
           value: currentSliderValue,
           min: widget.min.toDouble(),
           max: widget.max.toDouble(),
+          //TODO: Define a value for number of divisions
           divisions: 4,
           label: currentSliderValue.round().toString(),
           onChanged: (double value) {

@@ -21,6 +21,7 @@ class _ControllerExampleState extends State<ControllerExample> {
   ValueRendererController sliderInputController = ValueRendererController();
   ValueRendererController switchInputController = ValueRendererController();
   ValueRendererController datepickerInputController = ValueRendererController();
+  ValueRendererController complexInputController = ValueRendererController();
 
   dynamic textInputValue;
   dynamic numberInputValue;
@@ -31,6 +32,7 @@ class _ControllerExampleState extends State<ControllerExample> {
   double? sliderInputValue;
   bool? switchInputValue;
   dynamic datepickerInputValue;
+  Map<String, dynamic>? complexInputValue;
 
   @override
   void initState() {
@@ -45,6 +47,7 @@ class _ControllerExampleState extends State<ControllerExample> {
     sliderInputController.addListener(() => setState(() => sliderInputValue = sliderInputController.value));
     switchInputController.addListener(() => setState(() => switchInputValue = switchInputController.value));
     datepickerInputController.addListener(() => setState(() => datepickerInputValue = datepickerInputController.value));
+    complexInputController.addListener(() => setState(() => datepickerInputValue = datepickerInputController.value));
   }
 
   @override
@@ -58,6 +61,7 @@ class _ControllerExampleState extends State<ControllerExample> {
     sliderInputController.dispose();
     switchInputController.dispose();
     datepickerInputController.dispose();
+    complexInputController.dispose();
 
     super.dispose();
   }
@@ -291,8 +295,86 @@ class _ControllerExampleState extends State<ControllerExample> {
                               controller: datepickerInputController,
                             ),
                             ControllerDataText(controllerData: datepickerInputValue.toString()),
+                            const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: ValueRenderer(
+                                fieldName: 'StreetAddress',
+                                renderHints: RenderHints(
+                                  editType: RenderHintsEditType.Complex,
+                                  propertyHints: {
+                                    'recipient': RenderHints(
+                                      editType: RenderHintsEditType.InputLike,
+                                      technicalType: RenderHintsTechnicalType.String,
+                                    ),
+                                    'street': RenderHints(
+                                      editType: RenderHintsEditType.InputLike,
+                                      technicalType: RenderHintsTechnicalType.String,
+                                    ),
+                                    'houseNo': RenderHints(
+                                      editType: RenderHintsEditType.InputLike,
+                                      technicalType: RenderHintsTechnicalType.String,
+                                    ),
+                                    'zipCode': RenderHints(
+                                      editType: RenderHintsEditType.InputLike,
+                                      technicalType: RenderHintsTechnicalType.String,
+                                    ),
+                                    'city': RenderHints(
+                                      editType: RenderHintsEditType.InputLike,
+                                      technicalType: RenderHintsTechnicalType.String,
+                                    ),
+                                    'country': RenderHints(
+                                      dataType: RenderHintsDataType.Country,
+                                      editType: RenderHintsEditType.SelectLike,
+                                      technicalType: RenderHintsTechnicalType.String,
+                                    ),
+                                    'state': RenderHints(
+                                      editType: RenderHintsEditType.InputLike,
+                                      technicalType: RenderHintsTechnicalType.String,
+                                    ),
+                                  },
+                                  technicalType: RenderHintsTechnicalType.Object,
+                                ),
+                                valueHints: const ValueHints(
+                                  propertyHints: {
+                                    'recipient': ValueHints(max: 100),
+                                    'street': ValueHints(max: 100),
+                                    'houseNo': ValueHints(max: 100),
+                                    'zipCode': ValueHints(max: 100),
+                                    'city': ValueHints(max: 100),
+                                    'country': ValueHints(
+                                      max: 2,
+                                      min: 2,
+                                      values: [
+                                        ValueHintsValue(
+                                            key: ValueHintsDefaultValueString('AF'), displayName: 'i18n://attributes.values.countries.AF'),
+                                        ValueHintsValue(
+                                            key: ValueHintsDefaultValueString('AL'), displayName: 'i18n://attributes.values.countries.AL'),
+                                        ValueHintsValue(
+                                            key: ValueHintsDefaultValueString('DE'), displayName: 'i18n://attributes.values.countries.DE'),
+                                      ],
+                                    ),
+                                    'state': ValueHints(max: 100),
+                                  },
+                                ),
+                                initialValue: const StreetAddressAttributeValue(
+                                  city: 'Aachen',
+                                  country: 'DE',
+                                  houseNumber: '3',
+                                  recipient: 'Familie Elsner',
+                                  street: 'Mittelstraße',
+                                  zipCode: '52062',
+                                ),
+                                controller: complexInputController,
+                              ),
+                            ),
+                            ControllerDataText(controllerData: complexInputValue.toString()),
+                          ],
+                        )
                       ],
                     ),
                   ),
