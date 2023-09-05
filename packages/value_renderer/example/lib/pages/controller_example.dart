@@ -38,16 +38,65 @@ class _ControllerExampleState extends State<ControllerExample> {
   void initState() {
     super.initState();
 
-    textInputController.addListener(() => setState(() => textInputValue = textInputController.value));
-    numberInputController.addListener(() => setState(() => numberInputValue = numberInputController.value));
-    radioInputController.addListener(() => setState(() => radioInputValue = radioInputController.value));
-    checkboxInputController.addListener(() => setState(() => checkboxInputValue = checkboxInputController.value));
-    dropdownInputController.addListener(() => setState(() => dropdownInputValue = dropdownInputController.value));
-    segmentedButtonInputController.addListener(() => setState(() => segmentedButtonInputValue = segmentedButtonInputController.value));
-    sliderInputController.addListener(() => setState(() => sliderInputValue = sliderInputController.value));
-    switchInputController.addListener(() => setState(() => switchInputValue = switchInputController.value));
-    datepickerInputController.addListener(() => setState(() => datepickerInputValue = datepickerInputController.value));
-    complexInputController.addListener(() => setState(() => complexInputValue = complexInputController.value));
+    textInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => textInputValue = textInputController.value);
+      });
+    });
+
+    numberInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => numberInputValue = numberInputController.value);
+      });
+    });
+
+    radioInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => radioInputValue = radioInputController.value);
+      });
+    });
+
+    checkboxInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => checkboxInputValue = checkboxInputController.value);
+      });
+    });
+
+    dropdownInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => dropdownInputValue = dropdownInputController.value);
+      });
+    });
+
+    segmentedButtonInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => segmentedButtonInputValue = segmentedButtonInputController.value);
+      });
+    });
+
+    sliderInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => sliderInputValue = sliderInputController.value);
+      });
+    });
+
+    switchInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => switchInputValue = switchInputController.value);
+      });
+    });
+
+    datepickerInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => datepickerInputValue = datepickerInputController.value);
+      });
+    });
+
+    complexInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => complexInputValue = complexInputController.value);
+      });
+    });
   }
 
   @override
