@@ -47,7 +47,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 
         controller.addListener(() {
           value[key] = controller.value;
-          widget.controller!.value = value;
+          widget.controller!.value = Map<String, dynamic>.from(value);
         });
       }
     }
