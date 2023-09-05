@@ -47,7 +47,7 @@ class _ControllerExampleState extends State<ControllerExample> {
     sliderInputController.addListener(() => setState(() => sliderInputValue = sliderInputController.value));
     switchInputController.addListener(() => setState(() => switchInputValue = switchInputController.value));
     datepickerInputController.addListener(() => setState(() => datepickerInputValue = datepickerInputController.value));
-    complexInputController.addListener(() => setState(() => datepickerInputValue = datepickerInputController.value));
+    complexInputController.addListener(() => setState(() => complexInputValue = complexInputController.value));
   }
 
   @override
@@ -372,7 +372,15 @@ class _ControllerExampleState extends State<ControllerExample> {
                                 controller: complexInputController,
                               ),
                             ),
-                            ControllerDataText(controllerData: complexInputValue.toString()),
+                            ControllerDataText(
+                              controllerData: complexInputValue?.entries
+                                      .map(
+                                        (entry) =>
+                                            '${entry.key}: ${entry.value is ValueHintsDefaultValue ? (entry.value as ValueHintsDefaultValue).toJson() : entry.value}',
+                                      )
+                                      .join('\n') ??
+                                  'null',
+                            ),
                           ],
                         )
                       ],
