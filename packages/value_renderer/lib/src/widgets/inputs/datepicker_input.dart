@@ -83,7 +83,13 @@ class _DatepickerInputState extends State<DatepickerInput> {
           width: 12,
         ),
         Text(
-            _selectedDate != null ? DateFormat.yMd().format(_selectedDate!) : FlutterI18n.translate(context, 'errors.value_renderer.noDateSelected')),
+          _selectedDate != null
+              ? DateFormat.yMd().format(_selectedDate!)
+              : FlutterI18n.translate(
+                  context,
+                  'errors.value_renderer.noDateSelected',
+                ),
+        ),
         IconButton(icon: const Icon(Icons.calendar_month), onPressed: _presentDatePicker),
         IconButton(icon: const Icon(Icons.clear), onPressed: _clearDatePicker)
       ],
