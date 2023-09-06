@@ -1,15 +1,19 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intl/intl.dart';
 
+import '../../value_renderer.dart';
 import '../translated_text.dart';
 
 class DatepickerInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final AttributeValue? initialValue;
 
   const DatepickerInput({
     super.key,
+    this.controller,
     required this.fieldName,
     this.initialValue,
   });
@@ -31,6 +35,8 @@ class _DatepickerInputState extends State<DatepickerInput> {
       // ....
       final AttributeValue value => logCannotHandle(value),
     };
+
+    widget.controller?.value = _selectedDate;
   }
 
   logCannotHandle(AttributeValue attributeValue) {
@@ -47,6 +53,8 @@ class _DatepickerInputState extends State<DatepickerInput> {
     final pickedDate = await showDatePicker(context: context, initialDate: now, firstDate: firstDate, lastDate: lastDate);
     if (pickedDate == null) return;
 
+    widget.controller?.value = pickedDate;
+
     if (mounted) {
       setState(() {
         _selectedDate = pickedDate;
@@ -55,6 +63,8 @@ class _DatepickerInputState extends State<DatepickerInput> {
   }
 
   void _clearDatePicker() {
+    widget.controller?.value = null;
+
     setState(() {
       _selectedDate = null;
     });
@@ -72,8 +82,14 @@ class _DatepickerInputState extends State<DatepickerInput> {
         const SizedBox(
           width: 12,
         ),
-        //TODO: Localize hardcoded text when possible
-        Text(_selectedDate != null ? DateFormat.yMd().format(_selectedDate!) : 'No date selected'),
+        Text(
+          _selectedDate != null
+              ? DateFormat.yMd().format(_selectedDate!)
+              : FlutterI18n.translate(
+                  context,
+                  'errors.value_renderer.noDateSelected',
+                ),
+        ),
         IconButton(icon: const Icon(Icons.calendar_month), onPressed: _presentDatePicker),
         IconButton(icon: const Icon(Icons.clear), onPressed: _clearDatePicker)
       ],

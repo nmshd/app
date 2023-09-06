@@ -1,8 +1,12 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+import '../../value_renderer.dart';
+
 class NumberInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final num? initialValue;
   final num? max;
@@ -12,6 +16,7 @@ class NumberInput extends StatefulWidget {
 
   const NumberInput({
     super.key,
+    this.controller,
     required this.fieldName,
     this.initialValue,
     this.max,
@@ -30,27 +35,36 @@ class NumberInputState extends State<NumberInput> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialValue?.toString());
+
+    final initialValue = widget.initialValue?.toString();
+    _controller = TextEditingController(text: initialValue);
+
+    if (widget.controller != null) {
+      _controller.addListener(() => widget.controller!.value = _controller.text);
+      if (initialValue != null) widget.controller!.value = initialValue;
+    }
   }
 
   @override
   void dispose() {
     _controller.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey();
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
     return Form(
-      key: formKey,
       child: TextFormField(
         controller: _controller,
         decoration: InputDecoration(labelText: translatedText),
         keyboardType: TextInputType.number,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*')),
+        ],
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => validateInput(value),
       ),

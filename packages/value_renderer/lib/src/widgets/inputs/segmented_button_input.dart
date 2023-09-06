@@ -1,15 +1,18 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../value_renderer.dart';
 import '../translated_text.dart';
 
 class SegmentedButtonInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
   final List<ValueHintsValue> values;
 
   const SegmentedButtonInput({
     super.key,
+    this.controller,
     required this.fieldName,
     required this.initialValue,
     required this.values,
@@ -25,7 +28,10 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
   @override
   void initState() {
     super.initState();
+
     selectedSegment = widget.initialValue;
+
+    widget.controller?.value = widget.initialValue;
   }
 
   @override
@@ -45,6 +51,8 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
           }).toList(),
           selected: selectedSegment == null ? {} : {selectedSegment!},
           onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
+            widget.controller?.value = newSelection.first;
+
             setState(() {
               selectedSegment = newSelection.first;
             });

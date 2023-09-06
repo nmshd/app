@@ -1,9 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../value_renderer.dart';
 import '../inputs/inputs.dart';
 
 class StringRenderer extends StatelessWidget {
+  final ValueRendererController? controller;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -13,6 +15,7 @@ class StringRenderer extends StatelessWidget {
 
   const StringRenderer({
     super.key,
+    this.controller,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -28,6 +31,7 @@ class StringRenderer extends StatelessWidget {
 
     if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
       return DatepickerInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: initialValue,
       );
@@ -43,6 +47,7 @@ class StringRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         values: values!,
@@ -51,6 +56,7 @@ class StringRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         values: values!,
@@ -62,6 +68,7 @@ class StringRenderer extends StatelessWidget {
       // (https://sapui5.hana.ondemand.com/#/entity/sap.ui.webc.main.StepInput/sample/sap.ui.webc.main.sample.StepInput)
       // with a normal TextInput for now, for simplicity
       return TextInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: initialStringValue,
         values: values,
@@ -70,6 +77,7 @@ class StringRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         values: values!,
@@ -78,6 +86,7 @@ class StringRenderer extends StatelessWidget {
 
     if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return TextInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: initialStringValue,
         max: max,
@@ -87,6 +96,7 @@ class StringRenderer extends StatelessWidget {
     }
 
     return TextInput(
+      controller: controller,
       fieldName: fieldName,
       initialValue: initialStringValue,
       pattern: pattern,

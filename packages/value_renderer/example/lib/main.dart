@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'pages/controller_example.dart';
 import 'pages/input_examples.dart';
 import 'pages/renderer.dart';
 
@@ -17,9 +18,7 @@ class ValueRendererExample extends StatelessWidget {
     return MaterialApp(
       title: 'Value Renderer',
       localizationsDelegates: [
-        FlutterI18nDelegate(
-          translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
-        ),
+        FlutterI18nDelegate(translationLoader: FileTranslationLoader(basePath: 'assets/i18n')),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
@@ -27,7 +26,8 @@ class ValueRendererExample extends StatelessWidget {
         Locale('en'),
         Locale('de'),
       ],
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+      debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
     );
   }
@@ -41,33 +41,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  _MenuItem? _selectedMenuItem;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedMenuItem = _menu[0];
-  }
+  _MenuItem _selectedMenuItem = _menu[0];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_selectedMenuItem!.title)),
-      key: GlobalKey<ScaffoldState>(),
-      drawer: _buildDrawer(),
-      body: _selectedMenuItem!.pageBuilder(context),
-    );
-  }
-
-  Widget _buildDrawer() {
-    return Drawer(
-      child: SafeArea(
-        child: SingleChildScrollView(
-          primary: false,
+      appBar: AppBar(title: Text(_selectedMenuItem.title)),
+      drawer: SafeArea(
+        child: Drawer(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+            child: ListView(
               children: [
                 for (final item in _menu)
                   _DrawerButton(
@@ -88,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      body: _selectedMenuItem.pageBuilder(context),
     );
   }
 }
@@ -102,6 +87,11 @@ final _menu = [
     icon: Icons.description,
     title: 'Renderer',
     pageBuilder: (context) => const Renderer(),
+  ),
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Controller Example',
+    pageBuilder: (context) => const ControllerExample(),
   ),
 ];
 

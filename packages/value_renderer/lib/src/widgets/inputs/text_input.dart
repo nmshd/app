@@ -2,7 +2,10 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+import '../../value_renderer.dart';
+
 class TextInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final String? initialValue;
   final int? max;
@@ -11,6 +14,7 @@ class TextInput extends StatefulWidget {
 
   const TextInput({
     super.key,
+    this.controller,
     required this.fieldName,
     required this.initialValue,
     this.max,
@@ -28,7 +32,14 @@ class TextInputState extends State<TextInput> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialValue);
+
+    final initialValue = widget.initialValue;
+    _controller = TextEditingController(text: initialValue);
+
+    if (widget.controller != null) {
+      _controller.addListener(() => widget.controller!.value = _controller.text);
+      if (initialValue != null) widget.controller!.value = initialValue;
+    }
   }
 
   @override
@@ -39,12 +50,10 @@ class TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey();
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
     return Form(
-      key: formKey,
       child: TextFormField(
         maxLength: widget.max,
         controller: _controller,

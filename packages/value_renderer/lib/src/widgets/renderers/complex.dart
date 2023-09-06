@@ -1,11 +1,12 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:value_renderer/src/widgets/translated_text.dart';
 
 import '../../value_renderer.dart';
 import '../inputs/inputs.dart';
+import '../translated_text.dart';
 
-class ComplexRenderer extends StatelessWidget {
+class ComplexRenderer extends StatefulWidget {
+  final ValueRendererController? controller;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -15,6 +16,7 @@ class ComplexRenderer extends StatelessWidget {
 
   const ComplexRenderer({
     super.key,
+    this.controller,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -24,11 +26,51 @@ class ComplexRenderer extends StatelessWidget {
   });
 
   @override
+  State<ComplexRenderer> createState() => _ComplexRendererState();
+}
+
+class _ComplexRendererState extends State<ComplexRenderer> {
+  Map<String, dynamic> value = {};
+
+  Map<String, ValueRendererController>? controllers;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.controller != null) {
+      controllers = <String, ValueRendererController>{};
+
+      for (final key in widget.renderHints.propertyHints!.keys) {
+        final controller = ValueRendererController();
+        controllers![key] = controller;
+
+        controller.addListener(() {
+          value[key] = controller.value;
+          widget.controller!.value = Map<String, dynamic>.from(value);
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    if (controllers != null) {
+      for (final controller in controllers!.values) {
+        controller.dispose();
+      }
+    }
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (initialValue is BirthDateAttributeValue) {
+    if (widget.initialValue is BirthDateAttributeValue) {
       return DatepickerInput(
-        initialValue: initialValue,
-        fieldName: fieldName,
+        controller: widget.controller,
+        initialValue: widget.initialValue,
+        fieldName: widget.fieldName,
       );
     }
 
@@ -38,7 +80,7 @@ class ComplexRenderer extends StatelessWidget {
           height: 12,
         ),
         TranslatedText(
-          fieldName,
+          widget.fieldName,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16.0,
@@ -50,13 +92,13 @@ class ComplexRenderer extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: renderHints.propertyHints?.values.length,
+          itemCount: widget.renderHints.propertyHints?.values.length,
           itemBuilder: (context, index) {
-            final key = renderHints.propertyHints!.keys.elementAt(index);
-            final itemInitialDynamicValue = initialValue?.toJson()[key];
+            final key = widget.renderHints.propertyHints!.keys.elementAt(index);
+            final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
             final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
-            final itemRenderHints = renderHints.propertyHints![key];
-            final itemValueHints = valueHints.propertyHints![key];
+            final itemRenderHints = widget.renderHints.propertyHints![key];
+            final itemValueHints = widget.valueHints.propertyHints![key];
 
             return ListTile(
               title: ValueRenderer(
@@ -64,6 +106,7 @@ class ComplexRenderer extends StatelessWidget {
                 renderHints: itemRenderHints!,
                 valueHints: itemValueHints!,
                 fieldName: key,
+                controller: controllers?[key],
               ),
             );
           },

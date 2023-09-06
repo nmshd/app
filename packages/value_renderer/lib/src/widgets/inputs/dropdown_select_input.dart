@@ -1,15 +1,18 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../value_renderer.dart';
 import '../translated_text.dart';
 
 class DropdownSelectInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
   final List<ValueHintsValue> values;
 
   const DropdownSelectInput({
     super.key,
+    this.controller,
     required this.fieldName,
     required this.initialValue,
     required this.values,
@@ -25,7 +28,10 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
   @override
   void initState() {
     super.initState();
+
     selectedOption = widget.initialValue;
+
+    widget.controller?.value = widget.initialValue;
   }
 
   @override
@@ -40,6 +46,8 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
         DropdownButton<ValueHintsDefaultValue>(
           value: selectedOption,
           onChanged: (ValueHintsDefaultValue? newValue) {
+            widget.controller?.value = newValue;
+
             setState(() {
               selectedOption = newValue;
             });

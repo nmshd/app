@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../value_renderer.dart';
 import '../translated_text.dart';
 
 class SliderInput extends StatefulWidget {
+  final ValueRendererController? controller;
   final String fieldName;
   final num? initialValue;
   final num max;
@@ -10,6 +12,7 @@ class SliderInput extends StatefulWidget {
 
   const SliderInput({
     super.key,
+    this.controller,
     required this.fieldName,
     this.initialValue,
     required this.max,
@@ -26,7 +29,10 @@ class _SliderInputState extends State<SliderInput> {
   @override
   void initState() {
     super.initState();
+
     currentSliderValue = widget.initialValue?.toDouble() ?? widget.min.toDouble();
+
+    widget.controller?.value = currentSliderValue;
   }
 
   @override
@@ -40,9 +46,12 @@ class _SliderInputState extends State<SliderInput> {
           value: currentSliderValue,
           min: widget.min.toDouble(),
           max: widget.max.toDouble(),
+          //TODO: Define a value for number of divisions
           divisions: 4,
           label: currentSliderValue.round().toString(),
           onChanged: (double value) {
+            widget.controller?.value = value;
+
             setState(() {
               currentSliderValue = value;
             });
