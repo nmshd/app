@@ -29,11 +29,9 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
   void initState() {
     super.initState();
 
-    final initialValue = widget.initialValue;
+    selectedOption = widget.initialValue;
 
-    selectedOption = initialValue;
-
-    if (widget.controller != null) widget.controller!.value = initialValue;
+    widget.controller?.value = widget.initialValue;
   }
 
   @override
@@ -48,7 +46,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
         DropdownButton<ValueHintsDefaultValue>(
           value: selectedOption,
           onChanged: (ValueHintsDefaultValue? newValue) {
-            if (widget.controller != null) widget.controller!.value = newValue;
+            widget.controller?.value = newValue;
 
             setState(() {
               selectedOption = newValue;

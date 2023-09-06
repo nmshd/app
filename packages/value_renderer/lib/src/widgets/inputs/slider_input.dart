@@ -32,7 +32,7 @@ class _SliderInputState extends State<SliderInput> {
 
     currentSliderValue = widget.initialValue?.toDouble() ?? widget.min.toDouble();
 
-    if (widget.controller != null) widget.controller!.value = currentSliderValue;
+    widget.controller?.value = currentSliderValue;
   }
 
   @override
@@ -50,7 +50,7 @@ class _SliderInputState extends State<SliderInput> {
           divisions: 4,
           label: currentSliderValue.round().toString(),
           onChanged: (double value) {
-            if (widget.controller != null) widget.controller!.value = value;
+            widget.controller?.value = value;
 
             setState(() {
               currentSliderValue = value;

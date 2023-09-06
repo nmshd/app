@@ -27,7 +27,7 @@ class _SwitchInputState extends State<SwitchInput> {
     super.initState();
     enabled = widget.initialValue ?? false;
 
-    if (widget.controller != null) widget.controller!.value = widget.initialValue;
+    widget.controller?.value = widget.initialValue;
   }
 
   @override
@@ -39,7 +39,7 @@ class _SwitchInputState extends State<SwitchInput> {
           value: enabled,
           activeColor: Colors.blue,
           onChanged: (bool value) {
-            if (widget.controller != null) widget.controller!.value = value;
+            widget.controller?.value = value;
 
             setState(() {
               enabled = value;

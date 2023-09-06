@@ -54,7 +54,7 @@ class _DatepickerInputState extends State<DatepickerInput> {
     if (pickedDate == null) return;
 
     if (mounted) {
-      if (widget.controller != null) widget.controller?.value = pickedDate;
+      widget.controller?.value = pickedDate;
 
       setState(() {
         _selectedDate = pickedDate;
