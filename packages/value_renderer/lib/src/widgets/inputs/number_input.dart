@@ -12,6 +12,7 @@ class NumberInput extends StatefulWidget {
   final num? max;
   final num? min;
   final String? pattern;
+  final RenderHintsTechnicalType? technicalType;
   final List<ValueHintsValue>? values;
 
   const NumberInput({
@@ -22,6 +23,7 @@ class NumberInput extends StatefulWidget {
     this.max,
     this.min,
     this.pattern,
+    this.technicalType,
     this.values,
   });
 
@@ -63,7 +65,9 @@ class NumberInputState extends State<NumberInput> {
         decoration: InputDecoration(labelText: translatedText),
         keyboardType: TextInputType.number,
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*')),
+          widget.technicalType == RenderHintsTechnicalType.Float
+              ? FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
+              : FilteringTextInputFormatter.digitsOnly,
         ],
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => validateInput(value),

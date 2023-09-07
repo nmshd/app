@@ -316,7 +316,7 @@ class InputExamples extends StatelessWidget {
                           valueHints: const ValueHints(
                             max: 100,
                             propertyHints: {},
-                            pattern: r'^\d+(\.\d{1,2})?$',
+                            pattern: r'^\d+$',
                           ),
                           fieldName: 'Integer / InputLike',
                           initialValue: const FullyDynamicAttributeValue(1),

@@ -37,6 +37,7 @@ class NumberRenderer extends StatelessWidget {
         dataType == RenderHintsDataType.Time ||
         dataType == RenderHintsDataType.Day) {
       return DatepickerInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: initialValue,
       );
@@ -92,6 +93,7 @@ class NumberRenderer extends StatelessWidget {
         values: values,
         initialValue: initialNumberValue,
         max: max,
+        technicalType: technicalType,
       );
     }
 
@@ -104,6 +106,7 @@ class NumberRenderer extends StatelessWidget {
         min: min,
         max: max,
         pattern: pattern,
+        technicalType: technicalType,
       );
     }
 
@@ -135,6 +138,7 @@ class NumberRenderer extends StatelessWidget {
       initialValue: initialNumberValue,
       max: max,
       pattern: pattern,
+      technicalType: technicalType,
     );
   }
 }
