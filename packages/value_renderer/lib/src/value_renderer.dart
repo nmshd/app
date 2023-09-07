@@ -38,6 +38,7 @@ class ValueRenderer extends StatelessWidget {
         dataType: dataType,
         fieldName: fieldName,
         initialValue: initialValue,
+        technicalType: technicalType,
         values: values,
         valueHints: valueHints,
       );

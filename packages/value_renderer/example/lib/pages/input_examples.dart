@@ -301,7 +301,7 @@ class InputExamples extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const Text(
-                          'Number',
+                          'Integer',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 18.0,
@@ -470,6 +470,161 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'Integer / SliderLike',
                           initialValue: const FullyDynamicAttributeValue(75),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(228, 255, 255, 255),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0.0, 2.0),
+                        blurRadius: 6.0,
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(
+                          'Double',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        const Divider(
+                          color: Colors.blue,
+                          thickness: 1.0,
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.InputLike,
+                            technicalType: RenderHintsTechnicalType.Float,
+                          ),
+                          valueHints: const ValueHints(
+                            max: 100,
+                            propertyHints: {},
+                            pattern: r'^\d+(\.\d{1,2})?$',
+                          ),
+                          fieldName: 'Double / InputLike',
+                          initialValue: const FullyDynamicAttributeValue(1.5),
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.InputLike,
+                            technicalType: RenderHintsTechnicalType.Float,
+                          ),
+                          valueHints: const ValueHints(
+                            min: 1,
+                            max: 100,
+                            propertyHints: {},
+                            values: [
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(1.2), displayName: '1.2'),
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(2.2), displayName: '2.2')
+                            ],
+                          ),
+                          fieldName: 'Double / InputLike / ValueHints.Values',
+                          initialValue: const FullyDynamicAttributeValue(1.2),
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.SelectLike,
+                            technicalType: RenderHintsTechnicalType.Float,
+                          ),
+                          valueHints: const ValueHints(
+                            propertyHints: {},
+                            values: [
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(1.2), displayName: '1.2'),
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(2.2), displayName: '2.2'),
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(3.2), displayName: '3.2')
+                            ],
+                          ),
+                          fieldName: 'Double / SelectLike / ValueHints.Values',
+                          initialValue: const FullyDynamicAttributeValue(1.2),
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.SelectLike,
+                            technicalType: RenderHintsTechnicalType.Float,
+                          ),
+                          valueHints: const ValueHints(
+                            max: 5,
+                            min: 1,
+                            propertyHints: {},
+                          ),
+                          fieldName: 'Double / SelectLike',
+                          initialValue: const FullyDynamicAttributeValue(1.5),
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.ButtonLike,
+                            technicalType: RenderHintsTechnicalType.Float,
+                          ),
+                          valueHints: const ValueHints(
+                            max: 100,
+                            propertyHints: {},
+                            values: [
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(1.5), displayName: '1.5'),
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(2.5), displayName: '2.5'),
+                            ],
+                          ),
+                          fieldName: 'Double / ButtonLike / ValueHints.Values',
+                          initialValue: const FullyDynamicAttributeValue(1.5),
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.ButtonLike,
+                            technicalType: RenderHintsTechnicalType.Float,
+                          ),
+                          valueHints: const ValueHints(
+                            max: 100,
+                            propertyHints: {},
+                          ),
+                          fieldName: 'Double / ButtonLike',
+                          initialValue: const FullyDynamicAttributeValue(1.5),
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.SliderLike,
+                            technicalType: RenderHintsTechnicalType.Float,
+                          ),
+                          valueHints: const ValueHints(
+                            propertyHints: {},
+                            values: [
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(1.5), displayName: '1.5'),
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(2.5), displayName: '2.5'),
+                              ValueHintsValue(key: ValueHintsDefaultValueNum(3.5), displayName: '3.5'),
+                            ],
+                          ),
+                          fieldName: 'Double / SliderLike / ValueHints.Values',
+                          initialValue: const FullyDynamicAttributeValue(1.5),
+                        ),
+                        ValueRenderer(
+                          renderHints: RenderHints(
+                            editType: RenderHintsEditType.SliderLike,
+                            technicalType: RenderHintsTechnicalType.Float,
+                          ),
+                          valueHints: const ValueHints(
+                            max: 10,
+                            min: 0,
+                            propertyHints: {},
+                          ),
+                          fieldName: 'Double / SliderLike',
+                          initialValue: const FullyDynamicAttributeValue(7.5),
                         ),
                       ],
                     ),
