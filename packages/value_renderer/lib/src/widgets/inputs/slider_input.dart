@@ -1,3 +1,4 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import '../../value_renderer.dart';
@@ -9,6 +10,7 @@ class SliderInput extends StatefulWidget {
   final num? initialValue;
   final num max;
   final num min;
+  final RenderHintsTechnicalType? technicalType;
 
   const SliderInput({
     super.key,
@@ -17,6 +19,7 @@ class SliderInput extends StatefulWidget {
     this.initialValue,
     required this.max,
     required this.min,
+    this.technicalType,
   });
 
   @override
@@ -24,13 +27,13 @@ class SliderInput extends StatefulWidget {
 }
 
 class _SliderInputState extends State<SliderInput> {
-  late double currentSliderValue;
+  late num currentSliderValue;
 
   @override
   void initState() {
     super.initState();
 
-    currentSliderValue = widget.initialValue?.toDouble() ?? widget.min.toDouble();
+    currentSliderValue = widget.initialValue ?? widget.min;
 
     widget.controller?.value = currentSliderValue;
   }
@@ -43,13 +46,13 @@ class _SliderInputState extends State<SliderInput> {
         const SizedBox(height: 18),
         TranslatedText(widget.fieldName),
         Slider(
-          value: currentSliderValue,
+          value: currentSliderValue.toDouble(),
           min: widget.min.toDouble(),
           max: widget.max.toDouble(),
-          //TODO: Define a value for number of divisions
-          divisions: 4,
-          label: currentSliderValue.round().toString(),
-          onChanged: (double value) {
+          divisions: widget.technicalType == RenderHintsTechnicalType.Float ? widget.max.toInt() * 10 : widget.max.toInt() - widget.min.toInt(),
+          label:
+              widget.technicalType == RenderHintsTechnicalType.Float ? currentSliderValue.toStringAsFixed(2) : currentSliderValue.round().toString(),
+          onChanged: (num value) {
             widget.controller?.value = value;
 
             setState(() {
