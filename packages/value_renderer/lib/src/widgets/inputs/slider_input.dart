@@ -2,7 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import '../../value_renderer.dart';
-import '../translated_text.dart';
+import '../utils/controller_type_resolver.dart';
+import '../utils/translated_text.dart';
 
 class SliderInput extends StatefulWidget {
   final ValueRendererController? controller;
@@ -35,7 +36,7 @@ class _SliderInputState extends State<SliderInput> {
 
     currentSliderValue = widget.initialValue ?? widget.min;
 
-    widget.controller?.value = currentSliderValue;
+    widget.controller?.value = ControllerTypeResolver.resolveType(value: currentSliderValue, type: widget.technicalType!);
   }
 
   @override
@@ -53,7 +54,7 @@ class _SliderInputState extends State<SliderInput> {
           label:
               widget.technicalType == RenderHintsTechnicalType.Float ? currentSliderValue.toStringAsFixed(2) : currentSliderValue.round().toString(),
           onChanged: (num value) {
-            widget.controller?.value = value;
+            widget.controller?.value = ControllerTypeResolver.resolveType(value: currentSliderValue, type: widget.technicalType!);
 
             setState(() {
               currentSliderValue = value;

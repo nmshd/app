@@ -19,6 +19,7 @@ class _ControllerExampleState extends State<ControllerExample> {
   ValueRendererController dropdownInputController = ValueRendererController();
   ValueRendererController segmentedButtonInputController = ValueRendererController();
   ValueRendererController sliderInputController = ValueRendererController();
+  ValueRendererController doubleSliderInputController = ValueRendererController();
   ValueRendererController switchInputController = ValueRendererController();
   ValueRendererController datepickerInputController = ValueRendererController();
   ValueRendererController complexInputController = ValueRendererController();
@@ -29,7 +30,8 @@ class _ControllerExampleState extends State<ControllerExample> {
   bool? checkboxInputValue;
   ValueHintsDefaultValueString? dropdownInputValue;
   ValueHintsDefaultValueString? segmentedButtonInputValue;
-  double? sliderInputValue;
+  int? sliderInputValue;
+  double? doubleSliderInputValue;
   bool? switchInputValue;
   dynamic datepickerInputValue;
   Map<String, dynamic>? complexInputValue;
@@ -77,6 +79,12 @@ class _ControllerExampleState extends State<ControllerExample> {
     sliderInputController.addListener(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         setState(() => sliderInputValue = sliderInputController.value);
+      });
+    });
+
+    doubleSliderInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => doubleSliderInputValue = doubleSliderInputController.value);
       });
     });
 
@@ -262,7 +270,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                         Column(
                           children: [
                             ValueRenderer(
-                              fieldName: 'Slider Input',
+                              fieldName: 'Integer Slider Input',
                               renderHints: RenderHints(
                                 editType: RenderHintsEditType.SliderLike,
                                 technicalType: RenderHintsTechnicalType.Integer,
@@ -276,6 +284,26 @@ class _ControllerExampleState extends State<ControllerExample> {
                               controller: sliderInputController,
                             ),
                             ControllerDataText(controllerData: sliderInputValue.toString()),
+                            const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            ValueRenderer(
+                              fieldName: 'Double Slider Input',
+                              renderHints: RenderHints(
+                                editType: RenderHintsEditType.SliderLike,
+                                technicalType: RenderHintsTechnicalType.Float,
+                              ),
+                              valueHints: const ValueHints(
+                                max: 100,
+                                min: 0,
+                                propertyHints: {},
+                              ),
+                              initialValue: const FullyDynamicAttributeValue(7.5),
+                              controller: doubleSliderInputController,
+                            ),
+                            ControllerDataText(controllerData: doubleSliderInputValue.toString()),
                             const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../value_renderer.dart';
-import '../translated_text.dart';
+import '../utils/translated_text.dart';
 
 class SwitchInput extends StatefulWidget {
   final ValueRendererController? controller;
