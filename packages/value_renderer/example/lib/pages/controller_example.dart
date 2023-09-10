@@ -14,6 +14,7 @@ class ControllerExample extends StatefulWidget {
 class _ControllerExampleState extends State<ControllerExample> {
   ValueRendererController textInputController = ValueRendererController();
   ValueRendererController numberInputController = ValueRendererController();
+  ValueRendererController doubleNumberInputController = ValueRendererController();
   ValueRendererController radioInputController = ValueRendererController();
   ValueRendererController checkboxInputController = ValueRendererController();
   ValueRendererController dropdownInputController = ValueRendererController();
@@ -25,7 +26,8 @@ class _ControllerExampleState extends State<ControllerExample> {
   ValueRendererController complexInputController = ValueRendererController();
 
   dynamic textInputValue;
-  dynamic numberInputValue;
+  ValueHintsDefaultValueNum? numberInputValue;
+  ValueHintsDefaultValueNum? doubleNumberInputValue;
   ValueHintsDefaultValueString? radioInputValue;
   bool? checkboxInputValue;
   ValueHintsDefaultValueString? dropdownInputValue;
@@ -49,6 +51,12 @@ class _ControllerExampleState extends State<ControllerExample> {
     numberInputController.addListener(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         setState(() => numberInputValue = numberInputController.value);
+      });
+    });
+
+    doubleNumberInputController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => doubleNumberInputValue = doubleNumberInputController.value);
       });
     });
 
@@ -176,7 +184,23 @@ class _ControllerExampleState extends State<ControllerExample> {
                               initialValue: const FullyDynamicAttributeValue(1),
                               controller: numberInputController,
                             ),
-                            ControllerDataText(controllerData: numberInputValue.toString()),
+                            ControllerDataText(controllerData: numberInputValue?.value.toString() ?? 'null'),
+                            const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            ValueRenderer(
+                              fieldName: 'Double Number Input',
+                              renderHints: RenderHints(
+                                editType: RenderHintsEditType.InputLike,
+                                technicalType: RenderHintsTechnicalType.Float,
+                              ),
+                              valueHints: const ValueHints(),
+                              initialValue: const FullyDynamicAttributeValue(1.5),
+                              controller: doubleNumberInputController,
+                            ),
+                            ControllerDataText(controllerData: doubleNumberInputValue?.value.toString() ?? 'null'),
                             const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),

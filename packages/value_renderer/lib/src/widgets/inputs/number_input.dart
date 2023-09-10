@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
+import '../utils/utils.dart';
 
 class NumberInput extends StatefulWidget {
   final ValueRendererController? controller;
@@ -42,8 +43,15 @@ class NumberInputState extends State<NumberInput> {
     _controller = TextEditingController(text: initialValue);
 
     if (widget.controller != null) {
-      _controller.addListener(() => widget.controller!.value = _controller.text);
-      if (initialValue != null) widget.controller!.value = initialValue;
+      _controller.addListener(
+        () => widget.controller!.value =
+            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType!),
+      );
+
+      if (initialValue != null) {
+        widget.controller!.value =
+            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType!);
+      }
     }
   }
 
