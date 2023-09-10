@@ -2,12 +2,13 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import '../../value_renderer.dart';
-import '../utils/translated_text.dart';
+import '../utils/utils.dart';
 
 class DropdownSelectInput extends StatefulWidget {
   final ValueRendererController? controller;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
+  final RenderHintsTechnicalType? technicalType;
   final List<ValueHintsValue> values;
 
   const DropdownSelectInput({
@@ -15,6 +16,7 @@ class DropdownSelectInput extends StatefulWidget {
     this.controller,
     required this.fieldName,
     required this.initialValue,
+    this.technicalType,
     required this.values,
   });
 
@@ -31,7 +33,10 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
     selectedOption = widget.initialValue;
 
-    widget.controller?.value = widget.initialValue;
+    widget.controller?.value = ControllerTypeResolver.resolveType(
+      inputValue: widget.initialValue,
+      type: widget.technicalType!,
+    );
   }
 
   @override
@@ -46,7 +51,10 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
         DropdownButton<ValueHintsDefaultValue>(
           value: selectedOption,
           onChanged: (ValueHintsDefaultValue? newValue) {
-            widget.controller?.value = newValue;
+            widget.controller?.value = ControllerTypeResolver.resolveType(
+              inputValue: newValue,
+              type: widget.technicalType!,
+            );
 
             setState(() {
               selectedOption = newValue;

@@ -36,7 +36,10 @@ class _SliderInputState extends State<SliderInput> {
 
     currentSliderValue = widget.initialValue ?? widget.min;
 
-    widget.controller?.value = ControllerTypeResolver.resolveType(value: currentSliderValue, type: widget.technicalType!);
+    widget.controller?.value = ControllerTypeResolver.resolveType(
+      inputValue: ValueHintsDefaultValueNum(currentSliderValue),
+      type: widget.technicalType!,
+    );
   }
 
   @override
@@ -54,7 +57,10 @@ class _SliderInputState extends State<SliderInput> {
           label:
               widget.technicalType == RenderHintsTechnicalType.Float ? currentSliderValue.toStringAsFixed(2) : currentSliderValue.round().toString(),
           onChanged: (num value) {
-            widget.controller?.value = ControllerTypeResolver.resolveType(value: currentSliderValue, type: widget.technicalType!);
+            widget.controller?.value = ControllerTypeResolver.resolveType(
+              inputValue: ValueHintsDefaultValueNum(value),
+              type: widget.technicalType!,
+            );
 
             setState(() {
               currentSliderValue = value;

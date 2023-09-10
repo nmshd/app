@@ -2,19 +2,21 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import '../../value_renderer.dart';
-import '../utils/translated_text.dart';
+import '../utils/utils.dart';
 
 class RadioInput extends StatefulWidget {
   final ValueRendererController? controller;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
   final List<ValueHintsValue> values;
+  final RenderHintsTechnicalType? technicalType;
 
   const RadioInput({
     super.key,
     this.controller,
     required this.fieldName,
     required this.initialValue,
+    this.technicalType,
     required this.values,
   });
 
@@ -31,7 +33,10 @@ class _RadioInputState extends State<RadioInput> {
 
     selectedOption = widget.initialValue;
 
-    widget.controller?.value = widget.initialValue;
+    widget.controller?.value = ControllerTypeResolver.resolveType(
+      inputValue: selectedOption,
+      type: widget.technicalType!,
+    );
   }
 
   @override
@@ -47,8 +52,10 @@ class _RadioInputState extends State<RadioInput> {
               onChanged: (ValueHintsDefaultValue? value) {
                 if (value == null) return;
 
-                widget.controller?.value = value;
-
+                widget.controller?.value = ControllerTypeResolver.resolveType(
+                  inputValue: value,
+                  type: widget.technicalType!,
+                );
                 setState(() {
                   selectedOption = value;
                 });

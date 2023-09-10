@@ -30,8 +30,8 @@ class _ControllerExampleState extends State<ControllerExample> {
   bool? checkboxInputValue;
   ValueHintsDefaultValueString? dropdownInputValue;
   ValueHintsDefaultValueString? segmentedButtonInputValue;
-  int? sliderInputValue;
-  double? doubleSliderInputValue;
+  ValueHintsDefaultValueNum? sliderInputValue;
+  ValueHintsDefaultValueNum? doubleSliderInputValue;
   bool? switchInputValue;
   dynamic datepickerInputValue;
   Map<String, dynamic>? complexInputValue;
@@ -263,7 +263,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                               initialValue: const FullyDynamicAttributeValue('Option 1'),
                               controller: segmentedButtonInputController,
                             ),
-                            ControllerDataText(controllerData: segmentedButtonInputValue?.value ?? ''),
+                            ControllerDataText(controllerData: segmentedButtonInputValue?.value ?? 'null'),
                             const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),
@@ -283,7 +283,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                               initialValue: const FullyDynamicAttributeValue(75),
                               controller: sliderInputController,
                             ),
-                            ControllerDataText(controllerData: sliderInputValue.toString()),
+                            ControllerDataText(controllerData: sliderInputValue?.value.toString() ?? 'null'),
                             const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),
@@ -303,7 +303,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                               initialValue: const FullyDynamicAttributeValue(7.5),
                               controller: doubleSliderInputController,
                             ),
-                            ControllerDataText(controllerData: doubleSliderInputValue.toString()),
+                            ControllerDataText(controllerData: doubleSliderInputValue?.value.toString() ?? 'null'),
                             const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),

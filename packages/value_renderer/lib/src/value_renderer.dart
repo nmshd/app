@@ -62,6 +62,7 @@ class ValueRenderer extends StatelessWidget {
         editType: editType,
         fieldName: fieldName,
         initialValue: initialValue,
+        technicalType: technicalType,
         valueHints: valueHints,
         values: values,
       );
@@ -73,6 +74,7 @@ class ValueRenderer extends StatelessWidget {
         dataType: dataType,
         editType: editType,
         initialValue: initialValue,
+        technicalType: technicalType,
         fieldName: fieldName,
         values: values,
       );

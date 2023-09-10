@@ -56,6 +56,7 @@ class NumberRenderer extends StatelessWidget {
         controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        technicalType: technicalType,
         values: values!,
       );
     }
@@ -78,6 +79,7 @@ class NumberRenderer extends StatelessWidget {
       return RadioInput(
         controller: controller,
         fieldName: fieldName,
+        technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
       );
@@ -114,6 +116,7 @@ class NumberRenderer extends StatelessWidget {
       return SegmentedButtonInput(
         controller: controller,
         fieldName: fieldName,
+        technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
       );
