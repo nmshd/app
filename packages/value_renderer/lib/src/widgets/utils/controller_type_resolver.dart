@@ -4,7 +4,7 @@ class ControllerTypeResolver {
   static ValueHintsDefaultValue resolveType({required dynamic inputValue, required RenderHintsTechnicalType type}) {
     switch (type) {
       case RenderHintsTechnicalType.Boolean:
-        return ValueHintsDefaultValueBool(inputValue.value.toBool());
+        return ValueHintsDefaultValueBool(inputValue.value);
       case RenderHintsTechnicalType.Float:
         return ValueHintsDefaultValueNum(inputValue.value.toDouble());
       case RenderHintsTechnicalType.Integer:
