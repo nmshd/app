@@ -142,7 +142,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueString('Option 3'), displayName: 'Option 3'),
                                 ],
                               ),
-                              fieldName: 'String / SelectLike / ValueHints.Values',
+                              fieldName: 'Dropdown Input',
                               initialValue: const FullyDynamicAttributeValue('Option 1'),
                               controller: controllers.stringDropdownInputController,
                             ),
@@ -164,7 +164,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueString('Option 2'), displayName: 'Option 2'),
                                 ],
                               ),
-                              fieldName: 'String / ButtonLike / ValueHints.Values',
+                              fieldName: 'Radio Input',
                               initialValue: const FullyDynamicAttributeValue('Option 1'),
                               controller: controllers.stringRadioInputController,
                             ),
@@ -188,7 +188,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueString('Option 3'), displayName: 'Option 3'),
                                 ],
                               ),
-                              fieldName: 'String / SliderLike / ValueHints.Values',
+                              fieldName: 'Segmented Button Input',
                               initialValue: const FullyDynamicAttributeValue('Option 1'),
                               controller: controllers.stringSegmentedInputController,
                             ),
@@ -233,6 +233,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                         ),
                         const Divider(color: Colors.blue, thickness: 1.0),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ValueRenderer(
                               renderHints: RenderHints(
@@ -247,7 +248,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueBool(false), displayName: 'false'),
                                 ],
                               ),
-                              fieldName: 'Boolean Dropdown',
+                              fieldName: 'Dropdown Input',
                               initialValue: const FullyDynamicAttributeValue(true),
                               controller: controllers.booleanDropdownInputController,
                             ),
@@ -269,7 +270,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueBool(false), displayName: 'false'),
                                 ],
                               ),
-                              fieldName: 'Boolean / ButtonLike / ValueHints.Values',
+                              fieldName: 'Radio Input',
                               initialValue: const FullyDynamicAttributeValue(true),
                               controller: controllers.booleanRadioInputController,
                             ),
@@ -287,7 +288,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                               valueHints: const ValueHints(
                                 max: 100,
                               ),
-                              fieldName: 'Checkbox',
+                              fieldName: 'Checkbox Input',
                               initialValue: const FullyDynamicAttributeValue(false),
                               controller: controllers.checkboxInputController,
                             ),
@@ -305,7 +306,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                               valueHints: const ValueHints(
                                 propertyHints: {},
                               ),
-                              fieldName: 'Boolean / SliderSlike',
+                              fieldName: 'Switch Input',
                               initialValue: const FullyDynamicAttributeValue(false),
                               controller: controllers.switchInputController,
                             ),
@@ -314,6 +315,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                           ],
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ValueRenderer(
                               renderHints: RenderHints(
@@ -328,7 +330,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueBool(true), displayName: 'true'),
                                 ],
                               ),
-                              fieldName: 'Boolean / SliderLike / ValueHints.Values',
+                              fieldName: 'Segmented Button Input',
                               initialValue: const FullyDynamicAttributeValue(false),
                               controller: controllers.booleanSegmentedInputController,
                             ),
@@ -393,6 +395,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                           ],
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ValueRenderer(
                               renderHints: RenderHints(
@@ -407,7 +410,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueNum(3), displayName: '3'),
                                 ],
                               ),
-                              fieldName: 'Integer / SelectLike / ValueHints.Values',
+                              fieldName: 'Dropdown Input',
                               initialValue: const FullyDynamicAttributeValue(1),
                               controller: controllers.integerDropdownInputController,
                             ),
@@ -482,7 +485,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueNum(2), displayName: '2'),
                                 ],
                               ),
-                              fieldName: 'Integer / ButtonLike / ValueHints.Values',
+                              fieldName: 'Radio Input',
                               initialValue: const FullyDynamicAttributeValue(1),
                               controller: controllers.integerRadioInputController,
                             ),
@@ -491,6 +494,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                           ],
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ValueRenderer(
                               renderHints: RenderHints(
@@ -507,7 +511,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueNum(3), displayName: '3'),
                                 ],
                               ),
-                              fieldName: 'Integer / SliderLike / ValueHints.Values',
+                              fieldName: 'Segmented Button Input',
                               initialValue: const FullyDynamicAttributeValue(1),
                               controller: controllers.integerSegmentedInputController,
                             ),
@@ -527,7 +531,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                 min: 0,
                                 propertyHints: {},
                               ),
-                              fieldName: 'Integer / SliderLike',
+                              fieldName: 'Slider Input',
                               initialValue: const FullyDynamicAttributeValue(75),
                               controller: controllers.integerSliderInputController,
                             ),
@@ -586,7 +590,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                 propertyHints: {},
                                 pattern: r'^\d+(\.\d{1,2})?$',
                               ),
-                              fieldName: 'Double / InputLike',
+                              fieldName: 'Number Input',
                               initialValue: const FullyDynamicAttributeValue(1.5),
                               controller: controllers.doubleInputController,
                             ),
@@ -595,6 +599,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                           ],
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ValueRenderer(
                               renderHints: RenderHints(
@@ -609,7 +614,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueNum(3.2), displayName: '3.2')
                                 ],
                               ),
-                              fieldName: 'Double / SelectLike / ValueHints.Values',
+                              fieldName: 'Dropdown Input',
                               initialValue: const FullyDynamicAttributeValue(1.2),
                               controller: controllers.doubleDropdownInputController,
                             ),
@@ -632,7 +637,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueNum(2.5), displayName: '2.5'),
                                 ],
                               ),
-                              fieldName: 'Double / ButtonLike / ValueHints.Values',
+                              fieldName: 'Radio Input',
                               initialValue: const FullyDynamicAttributeValue(1.5),
                               controller: controllers.doubleRadioInputController,
                             ),
@@ -641,6 +646,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                           ],
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ValueRenderer(
                               renderHints: RenderHints(
@@ -655,7 +661,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                   ValueHintsValue(key: ValueHintsDefaultValueNum(3.5), displayName: '3.5'),
                                 ],
                               ),
-                              fieldName: 'Double / SliderLike / ValueHints.Values',
+                              fieldName: 'Segmented Button Input ',
                               initialValue: const FullyDynamicAttributeValue(1.5),
                               controller: controllers.doubleSegmentedInputController,
                             ),
@@ -675,7 +681,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                 min: 0,
                                 propertyHints: {},
                               ),
-                              fieldName: 'Double / SliderLike',
+                              fieldName: 'Slider Input',
                               initialValue: const FullyDynamicAttributeValue(7.5),
                               controller: controllers.doubleSliderInputController,
                             ),
