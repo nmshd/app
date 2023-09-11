@@ -13,7 +13,7 @@ class NumberInput extends StatefulWidget {
   final num? max;
   final num? min;
   final String? pattern;
-  final RenderHintsTechnicalType? technicalType;
+  final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue>? values;
 
   const NumberInput({
@@ -24,7 +24,7 @@ class NumberInput extends StatefulWidget {
     this.max,
     this.min,
     this.pattern,
-    this.technicalType,
+    required this.technicalType,
     this.values,
   });
 
@@ -45,12 +45,12 @@ class NumberInputState extends State<NumberInput> {
     if (widget.controller != null) {
       _controller.addListener(
         () => widget.controller!.value =
-            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType!),
+            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType),
       );
 
       if (initialValue != null) {
         widget.controller!.value =
-            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType!);
+            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType);
       }
     }
   }

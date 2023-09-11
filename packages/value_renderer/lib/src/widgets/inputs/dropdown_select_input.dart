@@ -8,7 +8,7 @@ class DropdownSelectInput extends StatefulWidget {
   final ValueRendererController? controller;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
-  final RenderHintsTechnicalType? technicalType;
+  final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue> values;
 
   const DropdownSelectInput({
@@ -16,7 +16,7 @@ class DropdownSelectInput extends StatefulWidget {
     this.controller,
     required this.fieldName,
     required this.initialValue,
-    this.technicalType,
+    required this.technicalType,
     required this.values,
   });
 
@@ -35,7 +35,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
     widget.controller?.value = ControllerTypeResolver.resolveType(
       inputValue: widget.initialValue,
-      type: widget.technicalType!,
+      type: widget.technicalType,
     );
   }
 
@@ -53,7 +53,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(
               inputValue: newValue,
-              type: widget.technicalType!,
+              type: widget.technicalType,
             );
 
             setState(() {

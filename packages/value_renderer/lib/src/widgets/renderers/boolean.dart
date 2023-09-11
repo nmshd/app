@@ -10,7 +10,7 @@ class BooleanRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
-  final RenderHintsTechnicalType? technicalType;
+  final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue>? values;
 
   const BooleanRenderer({
@@ -20,7 +20,7 @@ class BooleanRenderer extends StatelessWidget {
     this.editType,
     required this.fieldName,
     this.initialValue,
-    this.technicalType,
+    required this.technicalType,
     this.values,
   });
 

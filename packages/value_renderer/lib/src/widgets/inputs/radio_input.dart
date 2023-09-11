@@ -9,14 +9,14 @@ class RadioInput extends StatefulWidget {
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
   final List<ValueHintsValue> values;
-  final RenderHintsTechnicalType? technicalType;
+  final RenderHintsTechnicalType technicalType;
 
   const RadioInput({
     super.key,
     this.controller,
     required this.fieldName,
     required this.initialValue,
-    this.technicalType,
+    required this.technicalType,
     required this.values,
   });
 
@@ -34,8 +34,8 @@ class _RadioInputState extends State<RadioInput> {
     selectedOption = widget.initialValue;
 
     widget.controller?.value = ControllerTypeResolver.resolveType(
-      inputValue: selectedOption,
-      type: widget.technicalType!,
+      inputValue: widget.initialValue,
+      type: widget.technicalType,
     );
   }
 
@@ -54,7 +54,7 @@ class _RadioInputState extends State<RadioInput> {
 
                 widget.controller?.value = ControllerTypeResolver.resolveType(
                   inputValue: value,
-                  type: widget.technicalType!,
+                  type: widget.technicalType,
                 );
                 setState(() {
                   selectedOption = value;

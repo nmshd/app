@@ -8,7 +8,7 @@ class SegmentedButtonInput extends StatefulWidget {
   final ValueRendererController? controller;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
-  final RenderHintsTechnicalType? technicalType;
+  final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue> values;
 
   const SegmentedButtonInput({
@@ -16,7 +16,7 @@ class SegmentedButtonInput extends StatefulWidget {
     this.controller,
     required this.fieldName,
     required this.initialValue,
-    this.technicalType,
+    required this.technicalType,
     required this.values,
   });
 
@@ -35,7 +35,7 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
 
     widget.controller?.value = ControllerTypeResolver.resolveType(
       inputValue: widget.initialValue,
-      type: widget.technicalType!,
+      type: widget.technicalType,
     );
   }
 
@@ -58,7 +58,7 @@ class _SegmentedButtonInputState extends State<SegmentedButtonInput> {
           onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
             widget.controller?.value = ControllerTypeResolver.resolveType(
               inputValue: newSelection.first,
-              type: widget.technicalType!,
+              type: widget.technicalType,
             );
 
             setState(() {

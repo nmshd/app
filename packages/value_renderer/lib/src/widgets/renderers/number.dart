@@ -10,7 +10,7 @@ class NumberRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
-  final RenderHintsTechnicalType? technicalType;
+  final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
 
@@ -21,7 +21,7 @@ class NumberRenderer extends StatelessWidget {
     this.editType,
     required this.fieldName,
     required this.initialValue,
-    this.technicalType,
+    required this.technicalType,
     required this.valueHints,
     this.values,
   });
