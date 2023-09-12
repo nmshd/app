@@ -12,7 +12,6 @@ class ControllerExample extends StatefulWidget {
 }
 
 class _ControllerExampleState extends State<ControllerExample> {
-  // ValueRendererController textInputController = ValueRendererController();
   late final Controllers controllers;
 
   String? textInputValue;
