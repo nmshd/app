@@ -4,7 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intl/intl.dart';
 
 import '../../value_renderer.dart';
-import '../translated_text.dart';
+import '../utils/translated_text.dart';
 
 class DatepickerInput extends StatefulWidget {
   final ValueRendererController? controller;

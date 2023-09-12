@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
+import '../utils/utils.dart';
 
 class NumberInput extends StatefulWidget {
   final ValueRendererController? controller;
@@ -12,6 +13,7 @@ class NumberInput extends StatefulWidget {
   final num? max;
   final num? min;
   final String? pattern;
+  final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue>? values;
 
   const NumberInput({
@@ -22,6 +24,7 @@ class NumberInput extends StatefulWidget {
     this.max,
     this.min,
     this.pattern,
+    required this.technicalType,
     this.values,
   });
 
@@ -40,8 +43,15 @@ class NumberInputState extends State<NumberInput> {
     _controller = TextEditingController(text: initialValue);
 
     if (widget.controller != null) {
-      _controller.addListener(() => widget.controller!.value = _controller.text);
-      if (initialValue != null) widget.controller!.value = initialValue;
+      _controller.addListener(
+        () => widget.controller!.value =
+            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType),
+      );
+
+      if (initialValue != null) {
+        widget.controller!.value =
+            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType);
+      }
     }
   }
 
@@ -63,7 +73,9 @@ class NumberInputState extends State<NumberInput> {
         decoration: InputDecoration(labelText: translatedText),
         keyboardType: TextInputType.number,
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*')),
+          widget.technicalType == RenderHintsTechnicalType.Float
+              ? FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
+              : FilteringTextInputFormatter.digitsOnly,
         ],
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => validateInput(value),

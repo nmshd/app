@@ -10,6 +10,7 @@ class NumberRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
+  final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
 
@@ -20,6 +21,7 @@ class NumberRenderer extends StatelessWidget {
     this.editType,
     required this.fieldName,
     required this.initialValue,
+    required this.technicalType,
     required this.valueHints,
     this.values,
   });
@@ -35,6 +37,7 @@ class NumberRenderer extends StatelessWidget {
         dataType == RenderHintsDataType.Time ||
         dataType == RenderHintsDataType.Day) {
       return DatepickerInput(
+        controller: controller,
         fieldName: fieldName,
         initialValue: initialValue,
       );
@@ -53,6 +56,7 @@ class NumberRenderer extends StatelessWidget {
         controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        technicalType: technicalType,
         values: values!,
       );
     }
@@ -67,6 +71,7 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialNumberValue,
         min: 1,
         max: 5,
+        technicalType: technicalType,
       );
     }
 
@@ -74,6 +79,7 @@ class NumberRenderer extends StatelessWidget {
       return RadioInput(
         controller: controller,
         fieldName: fieldName,
+        technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
       );
@@ -89,6 +95,7 @@ class NumberRenderer extends StatelessWidget {
         values: values,
         initialValue: initialNumberValue,
         max: max,
+        technicalType: technicalType,
       );
     }
 
@@ -101,6 +108,7 @@ class NumberRenderer extends StatelessWidget {
         min: min,
         max: max,
         pattern: pattern,
+        technicalType: technicalType,
       );
     }
 
@@ -108,6 +116,7 @@ class NumberRenderer extends StatelessWidget {
       return SegmentedButtonInput(
         controller: controller,
         fieldName: fieldName,
+        technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
       );
@@ -122,6 +131,7 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialNumberValue,
         min: min,
         max: max,
+        technicalType: technicalType,
       );
     }
 
@@ -131,6 +141,7 @@ class NumberRenderer extends StatelessWidget {
       initialValue: initialNumberValue,
       max: max,
       pattern: pattern,
+      technicalType: technicalType,
     );
   }
 }

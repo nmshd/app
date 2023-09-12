@@ -10,6 +10,7 @@ class BooleanRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
+  final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue>? values;
 
   const BooleanRenderer({
@@ -19,6 +20,7 @@ class BooleanRenderer extends StatelessWidget {
     this.editType,
     required this.fieldName,
     this.initialValue,
+    required this.technicalType,
     this.values,
   });
 
@@ -36,6 +38,7 @@ class BooleanRenderer extends StatelessWidget {
       return RadioInput(
         controller: controller,
         fieldName: fieldName,
+        technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
       );
@@ -45,6 +48,7 @@ class BooleanRenderer extends StatelessWidget {
       return SegmentedButtonInput(
         controller: controller,
         fieldName: fieldName,
+        technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
       );
@@ -55,6 +59,7 @@ class BooleanRenderer extends StatelessWidget {
         controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        technicalType: technicalType,
         values: values!,
       );
     }

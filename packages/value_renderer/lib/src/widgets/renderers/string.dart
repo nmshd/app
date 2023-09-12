@@ -10,6 +10,7 @@ class StringRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
+  final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
 
@@ -20,6 +21,7 @@ class StringRenderer extends StatelessWidget {
     this.editType,
     required this.fieldName,
     required this.initialValue,
+    required this.technicalType,
     required this.valueHints,
     this.values,
   });
@@ -50,6 +52,7 @@ class StringRenderer extends StatelessWidget {
         controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        technicalType: technicalType,
         values: values!,
       );
     }
@@ -59,6 +62,7 @@ class StringRenderer extends StatelessWidget {
         controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        technicalType: technicalType,
         values: values!,
       );
     }
@@ -80,6 +84,7 @@ class StringRenderer extends StatelessWidget {
         controller: controller,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        technicalType: technicalType,
         values: values!,
       );
     }
