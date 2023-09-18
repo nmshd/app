@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:value_renderer/src/widgets/inputs/date_package/date_form_field.dart';
 
 import '../../value_renderer.dart';
-import '../inputs/inputs.dart';
 import '../utils/translated_text.dart';
 
 class ComplexRenderer extends StatefulWidget {
@@ -67,13 +67,18 @@ class _ComplexRendererState extends State<ComplexRenderer> {
   @override
   Widget build(BuildContext context) {
     if (widget.initialValue is BirthDateAttributeValue) {
-      return DatepickerInput(
+      // return DatepickerInput(
+      //   controller: widget.controller,
+      //   initialValue: widget.initialValue,
+      //   fieldName: widget.fieldName,
+      // );
+      return DateTimeFormField(
         controller: widget.controller,
-        initialValue: widget.initialValue,
+        initialValueAttribute: widget.initialValue,
         fieldName: widget.fieldName,
       );
     }
-
+    //
     return Column(
       children: [
         const SizedBox(
