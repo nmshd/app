@@ -48,7 +48,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           padding: const EdgeInsets.only(right: 20),
           child: TranslatedText(widget.fieldName),
         ),
-        DropdownButton<ValueHintsDefaultValue>(
+        DropdownButtonFormField<ValueHintsDefaultValue>(
           value: selectedOption,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(
