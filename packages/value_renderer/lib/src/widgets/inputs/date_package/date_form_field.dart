@@ -17,6 +17,7 @@ import './date_field.dart';
 class DateTimeFormField extends FormField<DateTime> {
   DateTimeFormField({
     Key? key,
+    this.initialDateAttribute,
     ValueRendererController? controller,
     FormFieldSetter<DateTime>? onSaved,
     FormFieldValidator<DateTime>? validator,
@@ -38,23 +39,11 @@ class DateTimeFormField extends FormField<DateTime> {
   }) : super(
           key: key,
           onSaved: onSaved,
-          // initialValue: initialDateAttribute,
+          initialValue: _getInitialDateAttribute(initialValueAttribute),
           validator: validator,
           autovalidateMode: autovalidateMode,
           enabled: enabled,
           builder: (FormFieldState<DateTime> field) {
-            final DateTime? initialDateAttribute = () {
-              switch (initialValueAttribute) {
-                case null:
-                  return null;
-                case final BirthDateAttributeValue value:
-                  return DateTime(value.year, value.month, value.day);
-                default:
-                  logCannotHandle(initialValueAttribute);
-                  return null;
-              }
-            }();
-
             // Theme defaults are applied inside the _InputDropdown widget
             final InputDecoration decorationWithThemeDefaults = decoration ?? const InputDecoration();
 
@@ -72,7 +61,7 @@ class DateTimeFormField extends FormField<DateTime> {
               controller: controller,
               firstDate: firstDate,
               fieldName: fieldName,
-              initialDate: initialDateAttribute,
+              initialDate: _getInitialDateAttribute(initialValueAttribute),
               lastDate: lastDate,
               decoration: effectiveDecoration,
               initialDatePickerMode: initialDatePickerMode,
@@ -86,6 +75,21 @@ class DateTimeFormField extends FormField<DateTime> {
             );
           },
         );
+
+  final DateTime? initialDateAttribute;
+
+  static DateTime? _getInitialDateAttribute(AttributeValue? initialValueAttribute) {
+    switch (initialValueAttribute) {
+      case null:
+        return null;
+      case final BirthDateAttributeValue value:
+        return DateTime(value.year, value.month, value.day);
+      default:
+        logCannotHandle(initialValueAttribute);
+        return null;
+    }
+  }
+
   static void logCannotHandle(AttributeValue attributeValue) {
     // TODO add a proper logger
     // ignore: avoid_print
