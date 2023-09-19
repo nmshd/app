@@ -49,6 +49,8 @@ class DateTimeFormField extends FormField<DateTime> {
 
             final InputDecoration effectiveDecoration = decorationWithThemeDefaults.copyWith(errorText: field.errorText);
 
+            controller?.value = field.value;
+
             void onChangedHandler(DateTime value) {
               if (onDateSelected != null) {
                 onDateSelected(value);
@@ -58,7 +60,6 @@ class DateTimeFormField extends FormField<DateTime> {
             }
 
             return fieldCreator(
-              controller: controller,
               firstDate: firstDate,
               fieldName: fieldName,
               initialDate: _getInitialDateAttribute(initialValueAttribute),
