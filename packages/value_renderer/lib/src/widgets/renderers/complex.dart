@@ -76,6 +76,13 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,
         fieldName: widget.fieldName,
+        decoration: InputDecoration(
+          hintStyle: const TextStyle(color: Colors.black45),
+          errorStyle: const TextStyle(color: Colors.redAccent),
+          suffixIcon: const Icon(Icons.event_note),
+          //TODO: Translate fieldName
+          labelText: widget.fieldName,
+        ),
       );
     }
     //
