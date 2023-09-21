@@ -1,4 +1,3 @@
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import '/value_renderer.dart';
@@ -13,7 +12,6 @@ class CheckboxInput extends FormField<bool> {
     bool initialValue = false,
     FormFieldSetter<bool>? onSaved,
     FormFieldValidator<bool>? validator,
-    List<ValueHintsValue>? values,
   }) : super(
           onSaved: onSaved,
           validator: validator,
