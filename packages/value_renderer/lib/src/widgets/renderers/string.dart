@@ -31,14 +31,6 @@ class StringRenderer extends StatelessWidget {
     final max = valueHints.max;
     final pattern = valueHints.pattern;
 
-    if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
-      return DatepickerInput(
-        controller: controller,
-        fieldName: fieldName,
-        initialValue: initialValue,
-      );
-    }
-
     final json = initialValue?.toJson();
     if (json != null && json['value'] != null && json['value'] is! String) {
       throw Exception('trying to render an initial value with a non-String value');

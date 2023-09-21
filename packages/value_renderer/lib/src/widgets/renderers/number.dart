@@ -32,17 +32,6 @@ class NumberRenderer extends StatelessWidget {
     final max = valueHints.max;
     final pattern = valueHints.pattern;
 
-    if (dataType == RenderHintsDataType.DateTime ||
-        dataType == RenderHintsDataType.Date ||
-        dataType == RenderHintsDataType.Time ||
-        dataType == RenderHintsDataType.Day) {
-      return DatepickerInput(
-        controller: controller,
-        fieldName: fieldName,
-        initialValue: initialValue,
-      );
-    }
-
     final json = initialValue?.toJson();
     if (json != null && json['value'] != null && json['value'] is! num) {
       throw Exception('trying to render an initial value with a non-Number value');
