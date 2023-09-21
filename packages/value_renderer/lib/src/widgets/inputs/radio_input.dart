@@ -20,6 +20,7 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
           validator: validator,
           initialValue: initialValue,
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
+            controller?.value = field.value;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
