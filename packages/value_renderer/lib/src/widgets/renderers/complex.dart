@@ -79,7 +79,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         decoration: InputDecoration(
           hintStyle: const TextStyle(color: Colors.black45),
           errorStyle: const TextStyle(color: Colors.redAccent),
-          suffixIcon: const Icon(Icons.event_note),
+          suffixIcon: const Icon(Icons.calendar_month),
           //TODO: Translate fieldName
           labelText: widget.fieldName,
         ),
