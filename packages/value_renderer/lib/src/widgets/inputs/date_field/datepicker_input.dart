@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 final DateTime defaultFirstDate = DateTime(1900);
@@ -131,13 +130,6 @@ class _InputDropdownState extends State<_InputDropdown> {
           onFocusChange: (bool newFocus) => setState(() {
             focused = newFocus;
           }),
-          onKey: (_, RawKeyEvent key) {
-            if (key.isKeyPressed(LogicalKeyboardKey.space)) {
-              widget.onPressed?.call();
-              return KeyEventResult.handled;
-            }
-            return KeyEventResult.ignored;
-          },
           child: InputDecorator(
             isHovering: focused,
             decoration: effectiveDecoration.applyDefaults(
