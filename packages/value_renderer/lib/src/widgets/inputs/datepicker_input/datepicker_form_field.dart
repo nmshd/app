@@ -1,7 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:value_renderer/src/widgets/inputs/date_field/datepicker_input.dart';
+import 'package:value_renderer/src/widgets/inputs/datepicker_input/datepicker_input.dart';
 
 import '/value_renderer.dart';
 

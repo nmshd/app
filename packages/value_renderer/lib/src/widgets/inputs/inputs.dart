@@ -1,5 +1,5 @@
 export 'checkbox_input.dart';
-export 'date_field/datepicker_form_field.dart';
+export 'datepicker_input/datepicker_form_field.dart';
 export 'dropdown_select_input.dart';
 export 'number_input.dart';
 export 'radio_input.dart';
