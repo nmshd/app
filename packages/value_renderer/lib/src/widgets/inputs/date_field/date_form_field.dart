@@ -1,14 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:value_renderer/src/widgets/inputs/date_field/date_field.dart';
 
 import '/value_renderer.dart';
-import './date_field.dart';
 
-class DateTimeFormField extends FormField<DateTime> {
-  DateTimeFormField({
+class DatepickerFormField extends FormField<DateTime> {
+  DatepickerFormField({
     Key? key,
-    this.initialDateAttribute,
     ValueRendererController? controller,
     FormFieldSetter<DateTime>? onSaved,
     FormFieldValidator<DateTime>? validator,
@@ -23,7 +22,6 @@ class DateTimeFormField extends FormField<DateTime> {
     required String fieldName,
     ValueChanged<DateTime>? onDateSelected,
     InputDecoration? decoration,
-    DateTimeFieldCreator fieldCreator = DateTimeField.new,
   }) : super(
           key: key,
           onSaved: onSaved,
@@ -46,7 +44,7 @@ class DateTimeFormField extends FormField<DateTime> {
               controller?.value = value;
             }
 
-            return fieldCreator(
+            return DatepickerInput(
               firstDate: firstDate,
               fieldName: fieldName,
               initialDate: getInitialDateAttribute(initialValueAttribute),
@@ -60,8 +58,6 @@ class DateTimeFormField extends FormField<DateTime> {
             );
           },
         );
-
-  final DateTime? initialDateAttribute;
 
   static DateTime? getInitialDateAttribute(AttributeValue? initialValueAttribute) {
     switch (initialValueAttribute) {

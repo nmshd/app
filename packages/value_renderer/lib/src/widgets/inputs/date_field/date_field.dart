@@ -2,28 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-import '/value_renderer.dart';
-
 final DateTime defaultFirstDate = DateTime(1900);
 final DateTime defaultLastDate = DateTime(2100);
 
-typedef DateTimeFieldCreator = DateTimeField Function({
-  Key? key,
-  ValueRendererController? controller,
-  required String fieldName,
-  required ValueChanged<DateTime>? onDateSelected,
-  required DateTime? selectedDate,
-  DateFormat? dateFormat,
-  TextStyle? dateTextStyle,
-  InputDecoration? decoration,
-  bool? enabled,
-  DateTime? firstDate,
-  DateTime? initialDate,
-  DateTime? lastDate,
-});
-
-class DateTimeField extends StatelessWidget {
-  DateTimeField({
+class DatepickerInput extends StatelessWidget {
+  DatepickerInput({
     Key? key,
     required this.onDateSelected,
     required this.selectedDate,
@@ -34,7 +17,6 @@ class DateTimeField extends StatelessWidget {
     DateTime? firstDate,
     DateTime? lastDate,
     DateFormat? dateFormat,
-    this.controller,
     required this.fieldName,
   })  : dateFormat = DateFormat.yMMMMd(),
         firstDate = firstDate ?? defaultFirstDate,
@@ -42,7 +24,6 @@ class DateTimeField extends StatelessWidget {
         super(key: key);
 
   final ValueChanged<DateTime>? onDateSelected;
-  final ValueRendererController? controller;
   final String fieldName;
   final DateTime? selectedDate;
   final DateTime firstDate;

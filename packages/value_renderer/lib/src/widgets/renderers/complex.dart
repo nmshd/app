@@ -67,7 +67,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
   @override
   Widget build(BuildContext context) {
     if (widget.initialValue is BirthDateAttributeValue) {
-      return DateTimeFormField(
+      return DatepickerFormField(
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,
         fieldName: widget.fieldName,
