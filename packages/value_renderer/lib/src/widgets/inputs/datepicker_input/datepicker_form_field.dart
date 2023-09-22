@@ -1,34 +1,34 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:value_renderer/src/widgets/inputs/datepicker_input/datepicker_input.dart';
 
 import '/value_renderer.dart';
+import './datepicker_input.dart';
 
 class DatepickerFormField extends FormField<DateTime> {
   DatepickerFormField({
     Key? key,
-    ValueRendererController? controller,
-    FormFieldSetter<DateTime>? onSaved,
-    FormFieldValidator<DateTime>? validator,
-    AttributeValue? initialValueAttribute,
     AutovalidateMode? autovalidateMode,
-    bool enabled = true,
+    ValueRendererController? controller,
     TextStyle? dateTextStyle,
     DateFormat? dateFormat,
-    DateTime? firstDate,
-    DateTime? lastDate,
-    DateTime? initialDate,
-    required String fieldName,
-    ValueChanged<DateTime>? onDateSelected,
     InputDecoration? decoration,
+    bool enabled = true,
+    required String fieldName,
+    DateTime? firstDate,
+    DateTime? initialDate,
+    AttributeValue? initialValueAttribute,
+    DateTime? lastDate,
+    ValueChanged<DateTime>? onDateSelected,
+    FormFieldSetter<DateTime>? onSaved,
+    FormFieldValidator<DateTime>? validator,
   }) : super(
           key: key,
-          onSaved: onSaved,
-          initialValue: getInitialDateAttribute(initialValueAttribute),
-          validator: validator,
           autovalidateMode: autovalidateMode,
           enabled: enabled,
+          initialValue: getInitialDateAttribute(initialValueAttribute),
+          onSaved: onSaved,
+          validator: validator,
           builder: (FormFieldState<DateTime> field) {
             final InputDecoration decorationWithThemeDefaults = decoration ?? const InputDecoration();
 
@@ -45,16 +45,16 @@ class DatepickerFormField extends FormField<DateTime> {
             }
 
             return DatepickerInput(
+              dateFormat: dateFormat,
+              dateTextStyle: dateTextStyle,
+              decoration: effectiveDecoration,
+              enabled: enabled,
               firstDate: firstDate,
               fieldName: fieldName,
               initialDate: getInitialDateAttribute(initialValueAttribute),
               lastDate: lastDate,
-              decoration: effectiveDecoration,
-              dateFormat: dateFormat,
               onDateSelected: onChangedHandler,
               selectedDate: field.value,
-              enabled: enabled,
-              dateTextStyle: dateTextStyle,
             );
           },
         );

@@ -16,9 +16,9 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
     required List<ValueHintsValue> values,
   }) : super(
           key: key,
+          initialValue: initialValue,
           onSaved: onSaved,
           validator: validator,
-          initialValue: initialValue,
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
             controller?.value = field.value;
             return Column(

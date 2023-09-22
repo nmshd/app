@@ -7,31 +7,31 @@ final DateTime defaultLastDate = DateTime(2100);
 class DatepickerInput extends StatelessWidget {
   DatepickerInput({
     Key? key,
-    required this.onDateSelected,
-    required this.selectedDate,
+    DateFormat? dateFormat,
+    this.dateTextStyle,
     this.decoration,
     this.enabled = true,
-    this.dateTextStyle,
-    this.initialDate,
-    DateTime? firstDate,
-    DateTime? lastDate,
-    DateFormat? dateFormat,
     required this.fieldName,
+    DateTime? firstDate,
+    this.initialDate,
+    DateTime? lastDate,
+    required this.onDateSelected,
+    required this.selectedDate,
   })  : dateFormat = DateFormat.yMMMMd(),
         firstDate = firstDate ?? defaultFirstDate,
         lastDate = lastDate ?? defaultLastDate,
         super(key: key);
 
-  final ValueChanged<DateTime>? onDateSelected;
+  final DateFormat dateFormat;
+  final TextStyle? dateTextStyle;
+  final InputDecoration? decoration;
+  final bool? enabled;
   final String fieldName;
-  final DateTime? selectedDate;
+  final DateTime? initialDate;
   final DateTime firstDate;
   final DateTime lastDate;
-  final DateTime? initialDate;
-  final InputDecoration? decoration;
-  final DateFormat dateFormat;
-  final bool? enabled;
-  final TextStyle? dateTextStyle;
+  final ValueChanged<DateTime>? onDateSelected;
+  final DateTime? selectedDate;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime initialDateTime;
@@ -95,18 +95,18 @@ class DatepickerInput extends StatelessWidget {
 class _InputDropdown extends StatefulWidget {
   const _InputDropdown({
     Key? key,
-    required this.text,
     this.decoration,
-    this.textStyle,
-    this.onPressed,
+    required this.text,
     required this.isEmpty,
+    this.onPressed,
+    this.textStyle,
   }) : super(key: key);
 
-  final String? text;
   final InputDecoration? decoration;
-  final TextStyle? textStyle;
-  final VoidCallback? onPressed;
   final bool isEmpty;
+  final VoidCallback? onPressed;
+  final String? text;
+  final TextStyle? textStyle;
 
   @override
   State<_InputDropdown> createState() => _InputDropdownState();
@@ -132,10 +132,10 @@ class _InputDropdownState extends State<_InputDropdown> {
           }),
           child: InputDecorator(
             isHovering: focused,
+            isEmpty: widget.isEmpty,
             decoration: effectiveDecoration.applyDefaults(
               Theme.of(context).inputDecorationTheme,
             ),
-            isEmpty: widget.isEmpty,
             child: widget.text == null ? Text('', style: widget.textStyle) : Text(widget.text!, style: widget.textStyle),
           ),
         ),

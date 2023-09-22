@@ -13,9 +13,9 @@ class CheckboxInput extends FormField<bool> {
     FormFieldSetter<bool>? onSaved,
     FormFieldValidator<bool>? validator,
   }) : super(
+          initialValue: initialValue,
           onSaved: onSaved,
           validator: validator,
-          initialValue: initialValue,
           builder: (FormFieldState<bool> field) {
             controller?.value = field.value;
             return CheckboxListTile(

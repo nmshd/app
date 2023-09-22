@@ -13,9 +13,9 @@ class SwitchInput extends FormField<bool> {
     FormFieldValidator<bool>? validator,
   }) : super(
           key: key,
+          initialValue: initialValue,
           onSaved: onSaved,
           validator: validator,
-          initialValue: initialValue,
           builder: (FormFieldState<bool> field) {
             controller?.value = field.value;
 
