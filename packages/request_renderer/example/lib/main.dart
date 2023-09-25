@@ -164,7 +164,45 @@ class MainApp extends StatelessWidget {
       ),
     );
 
-    final request = RequestDVO(
+    final readAttributeRequestItem = RequestDVO(
+      id: '',
+      name: '',
+      type: 'ProposeAttributeRequestItemDVO',
+      items: [readAttributeRequestItemDVO],
+    );
+
+    final proposeAttributeRequestItem = RequestDVO(
+      id: '',
+      name: '',
+      type: 'ProposeAttributeRequestItemDVO',
+      items: [proposeAttributeRequestItemDVO],
+    );
+
+    final createAttributeRequestItem = RequestDVO(
+      id: '',
+      name: '',
+      type: 'ProposeAttributeRequestItemDVO',
+      items: [createAttributeRequestItemDVO],
+    );
+    final shareAttributeRequestItem = RequestDVO(
+      id: '',
+      name: '',
+      type: 'ProposeAttributeRequestItemDVO',
+      items: [shareAttributeRequestItemDVO],
+    );
+    const authenticationRequestItem = RequestDVO(
+      id: '',
+      name: '',
+      type: 'ProposeAttributeRequestItemDVO',
+      items: [authenticationRequestItemDVO],
+    );
+    const consentRequestItem = RequestDVO(
+      id: '',
+      name: '',
+      type: 'ProposeAttributeRequestItemDVO',
+      items: [consentRequestItemDVO],
+    );
+    final registerAttributeListenerRequestItem = RequestDVO(
       id: '',
       name: '',
       type: 'ProposeAttributeRequestItemDVO',
@@ -174,7 +212,20 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: RequestRenderer(request: request),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
+              children: [
+                RequestRenderer(request: readAttributeRequestItem),
+                RequestRenderer(request: proposeAttributeRequestItem),
+                RequestRenderer(request: createAttributeRequestItem),
+                RequestRenderer(request: shareAttributeRequestItem),
+                const RequestRenderer(request: authenticationRequestItem),
+                const RequestRenderer(request: consentRequestItem),
+                RequestRenderer(request: registerAttributeListenerRequestItem),
+              ],
+            ),
+          ),
         ),
       ),
     );
