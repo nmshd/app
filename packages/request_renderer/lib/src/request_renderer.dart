@@ -5,7 +5,9 @@ class RequestRendererController extends ValueNotifier<dynamic> {
 }
 
 class RequestRenderer extends StatelessWidget {
-  const RequestRenderer({super.key});
+  final RequestRendererController? controller;
+
+  const RequestRenderer({super.key, this.controller});
 
   @override
   Widget build(BuildContext context) {
