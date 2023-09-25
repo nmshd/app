@@ -1,6 +1,6 @@
 # Value Renderer
 
-Providing a value renderer for Redering Enmeshed values in Flutter.
+A utility package extending text to auto translate `i18n://` prefixed strings using `flutter_i18n`.
 
 ## Documentation
 
