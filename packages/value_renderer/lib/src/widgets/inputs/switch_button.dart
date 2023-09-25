@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:translated_text/translated_text.dart';
 
-import '/value_renderer.dart';
-import '../utils/translated_text.dart';
+import '../../value_renderer.dart';
 
 class SwitchInput extends FormField<bool> {
   SwitchInput({
