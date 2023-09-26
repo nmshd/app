@@ -69,6 +69,7 @@ class StringRenderer extends StatelessWidget {
       // with a normal TextInput for now, for simplicity
       return TextInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: initialStringValue,
         values: values,
@@ -89,6 +90,7 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return TextInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: initialStringValue,
         max: max,
@@ -99,6 +101,7 @@ class StringRenderer extends StatelessWidget {
 
     return TextInput(
       controller: controller,
+      decoration: decoration,
       fieldName: fieldName,
       initialValue: initialStringValue,
       pattern: pattern,

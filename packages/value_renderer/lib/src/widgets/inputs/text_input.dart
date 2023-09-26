@@ -6,6 +6,7 @@ import '../../value_renderer.dart';
 
 class TextInput extends StatefulWidget {
   final ValueRendererController? controller;
+  final InputDecoration? decoration;
   final String fieldName;
   final String? initialValue;
   final int? max;
@@ -15,6 +16,7 @@ class TextInput extends StatefulWidget {
   const TextInput({
     super.key,
     this.controller,
+    this.decoration,
     required this.fieldName,
     required this.initialValue,
     this.max,
@@ -53,11 +55,15 @@ class TextInputState extends State<TextInput> {
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
+    InputDecoration decoration = InputDecoration(labelText: translatedText);
+    if (widget.decoration != null) {
+      decoration = widget.decoration!.copyWith(labelText: translatedText);
+    }
     return Form(
       child: TextFormField(
         maxLength: widget.max,
         controller: _controller,
-        decoration: InputDecoration(labelText: translatedText),
+        decoration: decoration,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => validateInput(value),
       ),

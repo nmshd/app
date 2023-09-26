@@ -84,6 +84,7 @@ class NumberRenderer extends StatelessWidget {
       // with a normal NumberInput for now, for simplicity
       return NumberInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         values: values,
         initialValue: initialNumberValue,
@@ -95,6 +96,7 @@ class NumberRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return NumberInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         values: values!,
         initialValue: initialNumberValue,
@@ -131,6 +133,7 @@ class NumberRenderer extends StatelessWidget {
 
     return NumberInput(
       controller: controller,
+      decoration: decoration,
       fieldName: fieldName,
       initialValue: initialNumberValue,
       max: max,

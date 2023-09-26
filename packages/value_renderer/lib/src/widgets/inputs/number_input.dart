@@ -8,6 +8,7 @@ import '../utils/utils.dart';
 
 class NumberInput extends StatefulWidget {
   final ValueRendererController? controller;
+  final InputDecoration? decoration;
   final String fieldName;
   final num? initialValue;
   final num? max;
@@ -19,6 +20,7 @@ class NumberInput extends StatefulWidget {
   const NumberInput({
     super.key,
     this.controller,
+    this.decoration,
     required this.fieldName,
     this.initialValue,
     this.max,
@@ -67,10 +69,15 @@ class NumberInputState extends State<NumberInput> {
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
+    InputDecoration decoration = InputDecoration(labelText: translatedText);
+    if (widget.decoration != null) {
+      decoration = widget.decoration!.copyWith(labelText: translatedText);
+    }
+
     return Form(
       child: TextFormField(
         controller: _controller,
-        decoration: InputDecoration(labelText: translatedText),
+        decoration: decoration,
         keyboardType: TextInputType.number,
         inputFormatters: [
           widget.technicalType == RenderHintsTechnicalType.Float
