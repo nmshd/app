@@ -32,8 +32,6 @@ class _ItemGroupExampleState extends State<ItemGroupExample> {
   Future<void> loadJsonData() async {
     final jsonData = await rootBundle.loadString('assets/request_example_group.json');
 
-    setState(() {
-      jsonExample = jsonDecode(jsonData);
-    });
+    setState(() => jsonExample = jsonDecode(jsonData));
   }
 }

@@ -1,10 +1,29 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../../../request_renderer.dart';
+
 class FreeTextRequestItemRenderer extends StatelessWidget {
-  const FreeTextRequestItemRenderer({super.key});
+  final RequestItemDVO item;
+  final RequestRendererController? controller;
+
+  const FreeTextRequestItemRenderer({super.key, required this.item, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text.rich(TextSpan(
+          text: 'Name: ',
+          children: [TextSpan(text: item.name)],
+        )),
+        Text.rich(TextSpan(
+          text: 'Description: ',
+          children: [TextSpan(text: item.description)],
+        )),
+      ],
+    );
   }
 }

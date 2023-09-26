@@ -4,12 +4,30 @@ import 'package:flutter/widgets.dart';
 import '../../../../../request_renderer.dart';
 
 class ReadAttributeRequestItemRenderer extends StatelessWidget {
-  final RequestItemDVO item;
+  final ReadAttributeRequestItemDVO item;
   final RequestRendererController? controller;
+
   const ReadAttributeRequestItemRenderer({super.key, required this.item, this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return Text(item.name);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text.rich(TextSpan(
+          text: 'Name: ',
+          children: [TextSpan(text: item.name)],
+        )),
+        Text.rich(TextSpan(
+          text: 'Description: ',
+          children: [TextSpan(text: item.description)],
+        )),
+        Text.rich(TextSpan(
+          text: 'Date: ',
+          children: [TextSpan(text: item.date)],
+        )),
+      ],
+    );
   }
 }

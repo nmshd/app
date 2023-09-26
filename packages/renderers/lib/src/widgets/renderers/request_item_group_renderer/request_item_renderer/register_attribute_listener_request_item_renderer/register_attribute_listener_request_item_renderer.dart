@@ -1,10 +1,33 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../../../request_renderer.dart';
+
 class RegisterAttributeListenerRequestItemRenderer extends StatelessWidget {
-  const RegisterAttributeListenerRequestItemRenderer({super.key});
+  final RegisterAttributeListenerRequestItemDVO item;
+  final RequestRendererController? controller;
+
+  const RegisterAttributeListenerRequestItemRenderer({super.key, required this.item, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return const Text('RegisterAttributeListenerRequestItemRenderer');
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text.rich(TextSpan(
+          text: 'Name: ',
+          children: [TextSpan(text: item.name)],
+        )),
+        Text.rich(TextSpan(
+          text: 'Description: ',
+          children: [TextSpan(text: item.description)],
+        )),
+        Text.rich(TextSpan(
+          text: 'Date: ',
+          children: [TextSpan(text: item.date)],
+        )),
+      ],
+    );
   }
 }

@@ -16,12 +16,14 @@ class RequestRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final requestItems = request!.content.items;
+    final requestItems = request!.items;
+    print(requestItems);
 
     for (final item in requestItems) {
       if (item.type == 'RequestItemGroupDVO') {
-        return RequestItemGroupRenderer(item: item);
+        return RequestItemGroupRenderer(requestItemGroup: item as RequestItemGroupDVO);
       }
+
       return RequestItemRenderer(item: item, controller: controller);
     }
 
