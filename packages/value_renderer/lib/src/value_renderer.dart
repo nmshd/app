@@ -8,6 +8,7 @@ class ValueRendererController extends ValueNotifier<dynamic> {
 }
 
 class ValueRenderer extends StatelessWidget {
+  final InputDecoration? decoration;
   final String fieldName;
   final AttributeValue? initialValue;
   final RenderHints renderHints;
@@ -17,6 +18,7 @@ class ValueRenderer extends StatelessWidget {
 
   const ValueRenderer({
     super.key,
+    this.decoration,
     required this.fieldName,
     this.initialValue,
     required this.renderHints,

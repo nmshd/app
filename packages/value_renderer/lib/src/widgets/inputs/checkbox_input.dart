@@ -12,6 +12,7 @@ class CheckboxInput extends FormField<bool> {
     bool initialValue = false,
     FormFieldSetter<bool>? onSaved,
     FormFieldValidator<bool>? validator,
+    InputDecoration? decoration,
   }) : super(
           initialValue: initialValue,
           onSaved: onSaved,

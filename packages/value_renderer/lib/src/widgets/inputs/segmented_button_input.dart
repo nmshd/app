@@ -9,6 +9,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
   SegmentedButtonInput({
     Key? key,
     ValueRendererController? controller,
+    InputDecoration? decoration,
     required String fieldName,
     ValueHintsDefaultValue? initialValue,
     FormFieldSetter<ValueHintsDefaultValue?>? onSaved,

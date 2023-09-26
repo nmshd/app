@@ -6,6 +6,7 @@ import '../inputs/inputs.dart';
 
 class BooleanRenderer extends StatelessWidget {
   final ValueRendererController? controller;
+  final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -16,6 +17,7 @@ class BooleanRenderer extends StatelessWidget {
   const BooleanRenderer({
     super.key,
     this.controller,
+    this.decoration,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -37,6 +39,7 @@ class BooleanRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         technicalType: technicalType,
         values: values!,
@@ -47,6 +50,7 @@ class BooleanRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         technicalType: technicalType,
         values: values!,
@@ -57,6 +61,7 @@ class BooleanRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         technicalType: technicalType,
@@ -67,6 +72,7 @@ class BooleanRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike) {
       return SwitchInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: initialBoolValue,
       );
@@ -74,6 +80,7 @@ class BooleanRenderer extends StatelessWidget {
 
     return CheckboxInput(
       controller: controller,
+      decoration: decoration,
       fieldName: fieldName,
       initialValue: initialBoolValue,
     );

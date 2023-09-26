@@ -7,6 +7,7 @@ import '../utils/utils.dart';
 
 class DropdownSelectInput extends StatefulWidget {
   final ValueRendererController? controller;
+  final InputDecoration? decoration;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
   final RenderHintsTechnicalType technicalType;
@@ -15,6 +16,7 @@ class DropdownSelectInput extends StatefulWidget {
   const DropdownSelectInput({
     super.key,
     this.controller,
+    this.decoration,
     required this.fieldName,
     required this.initialValue,
     required this.technicalType,
@@ -50,6 +52,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           child: TranslatedText(widget.fieldName),
         ),
         DropdownButtonFormField<ValueHintsDefaultValue>(
+          decoration: widget.decoration,
           value: selectedOption,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(

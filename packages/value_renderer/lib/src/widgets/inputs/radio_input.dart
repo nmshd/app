@@ -9,6 +9,7 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
   RadioInput({
     Key? key,
     ValueRendererController? controller,
+    InputDecoration? decoration,
     required String fieldName,
     ValueHintsDefaultValue? initialValue,
     FormFieldSetter<ValueHintsDefaultValue?>? onSaved,

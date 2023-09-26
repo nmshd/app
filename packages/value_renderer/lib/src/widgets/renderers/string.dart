@@ -6,6 +6,7 @@ import '../inputs/inputs.dart';
 
 class StringRenderer extends StatelessWidget {
   final ValueRendererController? controller;
+  final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -17,6 +18,7 @@ class StringRenderer extends StatelessWidget {
   const StringRenderer({
     super.key,
     this.controller,
+    this.decoration,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -42,6 +44,7 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         technicalType: technicalType,
@@ -52,6 +55,7 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         technicalType: technicalType,
@@ -74,6 +78,7 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         technicalType: technicalType,
