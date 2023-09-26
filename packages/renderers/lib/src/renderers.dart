@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-class RequestItemGroupRenderer extends StatelessWidget {
-  const RequestItemGroupRenderer({super.key});
+class Renderers extends StatelessWidget {
+  const Renderers({super.key});
 
   @override
   Widget build(BuildContext context) {
