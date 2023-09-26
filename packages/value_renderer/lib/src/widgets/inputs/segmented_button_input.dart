@@ -30,22 +30,25 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
                   padding: const EdgeInsets.fromLTRB(0, 18, 0, 12),
                   child: TranslatedText(fieldName),
                 ),
-                SegmentedButton<ValueHintsDefaultValue>(
-                  selected: field.value == null ? {} : {field.value!},
-                  segments: values.map((ValueHintsValue value) {
-                    return ButtonSegment<ValueHintsDefaultValue>(
-                      value: value.key,
-                      label: TranslatedText(value.displayName),
-                    );
-                  }).toList(),
-                  onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
-                    controller?.value = ControllerTypeResolver.resolveType(
-                      inputValue: newSelection.first,
-                      type: technicalType,
-                    );
+                InputDecorator(
+                  decoration: decoration ?? const InputDecoration(border: InputBorder.none),
+                  child: SegmentedButton<ValueHintsDefaultValue>(
+                    selected: field.value == null ? {} : {field.value!},
+                    segments: values.map((ValueHintsValue value) {
+                      return ButtonSegment<ValueHintsDefaultValue>(
+                        value: value.key,
+                        label: TranslatedText(value.displayName),
+                      );
+                    }).toList(),
+                    onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
+                      controller?.value = ControllerTypeResolver.resolveType(
+                        inputValue: newSelection.first,
+                        type: technicalType,
+                      );
 
-                    field.didChange(newSelection.first);
-                  },
+                      field.didChange(newSelection.first);
+                    },
+                  ),
                 ),
               ],
             );

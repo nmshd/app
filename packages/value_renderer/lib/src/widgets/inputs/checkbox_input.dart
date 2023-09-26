@@ -19,11 +19,14 @@ class CheckboxInput extends FormField<bool> {
           validator: validator,
           builder: (FormFieldState<bool> field) {
             controller?.value = field.value;
-            return CheckboxListTile(
-              title: TranslatedText(fieldName),
-              value: field.value,
-              onChanged: field.didChange,
-              controlAffinity: ListTileControlAffinity.leading,
+            return InputDecorator(
+              decoration: decoration ?? const InputDecoration(border: InputBorder.none),
+              child: CheckboxListTile(
+                title: TranslatedText(fieldName),
+                value: field.value,
+                onChanged: field.didChange,
+                controlAffinity: ListTileControlAffinity.leading,
+              ),
             );
           },
         );

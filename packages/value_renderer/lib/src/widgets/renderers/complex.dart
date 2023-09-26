@@ -7,6 +7,7 @@ import '../inputs/inputs.dart';
 
 class ComplexRenderer extends StatefulWidget {
   final ValueRendererController? controller;
+  final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -17,6 +18,7 @@ class ComplexRenderer extends StatefulWidget {
   const ComplexRenderer({
     super.key,
     this.controller,
+    this.decoration,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -71,13 +73,14 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,
         fieldName: widget.fieldName,
-        decoration: InputDecoration(
-          hintStyle: const TextStyle(color: Colors.black45),
-          errorStyle: const TextStyle(color: Colors.redAccent),
-          suffixIcon: const Icon(Icons.calendar_month),
-          //TODO: Translate fieldName
-          labelText: widget.fieldName,
-        ),
+        decoration: widget.decoration ??
+            InputDecoration(
+              hintStyle: const TextStyle(color: Colors.black45),
+              errorStyle: const TextStyle(color: Colors.redAccent),
+              suffixIcon: const Icon(Icons.calendar_month),
+              //TODO: Translate fieldName
+              labelText: widget.fieldName,
+            ),
       );
     }
     //

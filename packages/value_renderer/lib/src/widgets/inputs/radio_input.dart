@@ -28,19 +28,22 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
               children: <Widget>[
                 TranslatedText(fieldName),
                 ...values.map(
-                  (option) => RadioListTile<ValueHintsDefaultValue>(
-                    title: TranslatedText(option.displayName),
-                    value: option.key,
-                    groupValue: field.value,
-                    onChanged: (ValueHintsDefaultValue? value) {
-                      if (value == null) return;
+                  (option) => InputDecorator(
+                    decoration: decoration ?? const InputDecoration(border: InputBorder.none),
+                    child: RadioListTile<ValueHintsDefaultValue>(
+                      title: TranslatedText(option.displayName),
+                      value: option.key,
+                      groupValue: field.value,
+                      onChanged: (ValueHintsDefaultValue? value) {
+                        if (value == null) return;
 
-                      controller?.value = ControllerTypeResolver.resolveType(
-                        inputValue: value,
-                        type: technicalType,
-                      );
-                      field.didChange(value);
-                    },
+                        controller?.value = ControllerTypeResolver.resolveType(
+                          inputValue: value,
+                          type: technicalType,
+                        );
+                        field.didChange(value);
+                      },
+                    ),
                   ),
                 ),
               ],
