@@ -7,7 +7,6 @@ class SwitchInput extends FormField<bool> {
   SwitchInput({
     Key? key,
     ValueRendererController? controller,
-    InputDecoration? decoration,
     required String fieldName,
     bool? initialValue,
     FormFieldSetter<bool>? onSaved,

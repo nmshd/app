@@ -72,7 +72,6 @@ class BooleanRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike) {
       return SwitchInput(
         controller: controller,
-        decoration: decoration,
         fieldName: fieldName,
         initialValue: initialBoolValue,
       );
