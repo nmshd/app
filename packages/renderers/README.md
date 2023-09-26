@@ -1,6 +1,6 @@
-# Request Renderer
+# Renderers
 
-Providing a request renderer for Rendering Enmeshed requests in Flutter.
+Providing renderers for different enmeshed types.
 
 ## Documentation
 
