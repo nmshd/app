@@ -70,9 +70,7 @@ class NumberInputState extends State<NumberInput> {
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
     InputDecoration decoration = InputDecoration(labelText: translatedText);
-    if (widget.decoration != null) {
-      decoration = widget.decoration!.copyWith(labelText: translatedText);
-    }
+    if (widget.decoration != null) decoration = widget.decoration!.copyWith(labelText: translatedText);
 
     return Form(
       child: TextFormField(
