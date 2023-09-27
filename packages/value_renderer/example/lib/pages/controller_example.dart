@@ -306,7 +306,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                                 propertyHints: {},
                               ),
                               fieldName: 'Switch Input',
-                              initialValue: const FullyDynamicAttributeValue(false),
+                              initialValue: const FullyDynamicAttributeValue(true),
                               controller: controllers.switchInputController,
                             ),
                             ControllerDataText(controllerData: switchInputValue?.toString() ?? 'null'),

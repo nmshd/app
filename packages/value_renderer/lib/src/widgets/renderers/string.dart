@@ -6,6 +6,7 @@ import '../inputs/inputs.dart';
 
 class StringRenderer extends StatelessWidget {
   final ValueRendererController? controller;
+  final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -17,6 +18,7 @@ class StringRenderer extends StatelessWidget {
   const StringRenderer({
     super.key,
     this.controller,
+    this.decoration,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -31,14 +33,6 @@ class StringRenderer extends StatelessWidget {
     final max = valueHints.max;
     final pattern = valueHints.pattern;
 
-    if (dataType == RenderHintsDataType.DateTime || dataType == RenderHintsDataType.Date || dataType == RenderHintsDataType.Time) {
-      return DatepickerInput(
-        controller: controller,
-        fieldName: fieldName,
-        initialValue: initialValue,
-      );
-    }
-
     final json = initialValue?.toJson();
     if (json != null && json['value'] != null && json['value'] is! String) {
       throw Exception('trying to render an initial value with a non-String value');
@@ -50,6 +44,7 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         technicalType: technicalType,
@@ -60,6 +55,7 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         technicalType: technicalType,
@@ -73,6 +69,7 @@ class StringRenderer extends StatelessWidget {
       // with a normal TextInput for now, for simplicity
       return TextInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: initialStringValue,
         values: values,
@@ -82,6 +79,7 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         technicalType: technicalType,
@@ -92,6 +90,7 @@ class StringRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return TextInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: initialStringValue,
         max: max,
@@ -102,6 +101,7 @@ class StringRenderer extends StatelessWidget {
 
     return TextInput(
       controller: controller,
+      decoration: decoration,
       fieldName: fieldName,
       initialValue: initialStringValue,
       pattern: pattern,

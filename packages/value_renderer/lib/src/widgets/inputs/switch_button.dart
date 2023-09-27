@@ -3,50 +3,35 @@ import 'package:translated_text/translated_text.dart';
 
 import '../../value_renderer.dart';
 
-class SwitchInput extends StatefulWidget {
-  final ValueRendererController? controller;
-  final String fieldName;
-  final bool? initialValue;
+class SwitchInput extends FormField<bool> {
+  SwitchInput({
+    Key? key,
+    ValueRendererController? controller,
+    required String fieldName,
+    bool? initialValue,
+    FormFieldSetter<bool>? onSaved,
+    FormFieldValidator<bool>? validator,
+  }) : super(
+          key: key,
+          initialValue: initialValue,
+          onSaved: onSaved,
+          validator: validator,
+          builder: (FormFieldState<bool> field) {
+            controller?.value = field.value;
 
-  const SwitchInput({
-    super.key,
-    this.controller,
-    required this.fieldName,
-    this.initialValue,
-  });
-
-  @override
-  State<SwitchInput> createState() => _SwitchInputState();
-}
-
-class _SwitchInputState extends State<SwitchInput> {
-  late bool enabled;
-
-  @override
-  void initState() {
-    super.initState();
-    enabled = widget.initialValue ?? false;
-
-    widget.controller?.value = widget.initialValue;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TranslatedText(widget.fieldName),
-        Switch(
-          value: enabled,
-          activeColor: Colors.blue,
-          onChanged: (bool value) {
-            widget.controller?.value = value;
-
-            setState(() {
-              enabled = value;
-            });
+            return Row(
+              children: [
+                TranslatedText(fieldName),
+                Switch(
+                  value: field.value ?? false,
+                  activeColor: Colors.blue,
+                  onChanged: (bool value) {
+                    controller?.value = value;
+                    field.didChange(value);
+                  },
+                ),
+              ],
+            );
           },
-        ),
-      ],
-    );
-  }
+        );
 }

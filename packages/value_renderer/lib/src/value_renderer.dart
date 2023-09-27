@@ -8,6 +8,7 @@ class ValueRendererController extends ValueNotifier<dynamic> {
 }
 
 class ValueRenderer extends StatelessWidget {
+  final InputDecoration? decoration;
   final String fieldName;
   final AttributeValue? initialValue;
   final RenderHints renderHints;
@@ -17,6 +18,7 @@ class ValueRenderer extends StatelessWidget {
 
   const ValueRenderer({
     super.key,
+    this.decoration,
     required this.fieldName,
     this.initialValue,
     required this.renderHints,
@@ -34,6 +36,7 @@ class ValueRenderer extends StatelessWidget {
     if (technicalType == RenderHintsTechnicalType.Integer || technicalType == RenderHintsTechnicalType.Float) {
       return NumberRenderer(
         controller: controller,
+        decoration: decoration,
         editType: editType,
         dataType: dataType,
         fieldName: fieldName,
@@ -47,6 +50,7 @@ class ValueRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.Complex) {
       return ComplexRenderer(
         controller: controller,
+        decoration: decoration,
         editType: editType,
         fieldName: fieldName,
         initialValue: initialValue,
@@ -59,6 +63,7 @@ class ValueRenderer extends StatelessWidget {
       return StringRenderer(
         controller: controller,
         dataType: dataType,
+        decoration: decoration,
         editType: editType,
         fieldName: fieldName,
         initialValue: initialValue,
@@ -72,6 +77,7 @@ class ValueRenderer extends StatelessWidget {
       return BooleanRenderer(
         controller: controller,
         dataType: dataType,
+        decoration: decoration,
         editType: editType,
         initialValue: initialValue,
         technicalType: technicalType,

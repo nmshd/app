@@ -1,51 +1,33 @@
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../../value_renderer.dart';
 
-class CheckboxInput extends StatefulWidget {
-  final ValueRendererController? controller;
-  final String fieldName;
-  final bool initialValue;
-  final List<ValueHintsValue>? values;
-
-  const CheckboxInput({
+class CheckboxInput extends FormField<bool> {
+  CheckboxInput({
     super.key,
-    this.controller,
-    required this.fieldName,
-    required this.initialValue,
-    this.values,
-  });
-
-  @override
-  State<CheckboxInput> createState() => _CheckboxInputState();
-}
-
-class _CheckboxInputState extends State<CheckboxInput> {
-  late bool isChecked;
-
-  @override
-  void initState() {
-    super.initState();
-
-    isChecked = widget.initialValue;
-
-    widget.controller?.value = widget.initialValue;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CheckboxListTile(
-      title: TranslatedText(widget.fieldName),
-      value: isChecked,
-      onChanged: (bool? value) {
-        widget.controller?.value = value;
-
-        setState(() {
-          isChecked = value ?? false;
-        });
-      },
-    );
-  }
+    bool autovalidate = false,
+    ValueRendererController? controller,
+    required String fieldName,
+    bool initialValue = false,
+    FormFieldSetter<bool>? onSaved,
+    FormFieldValidator<bool>? validator,
+    InputDecoration? decoration,
+  }) : super(
+          initialValue: initialValue,
+          onSaved: onSaved,
+          validator: validator,
+          builder: (FormFieldState<bool> field) {
+            controller?.value = field.value;
+            return InputDecorator(
+              decoration: decoration ?? const InputDecoration(border: InputBorder.none),
+              child: CheckboxListTile(
+                title: TranslatedText(fieldName),
+                value: field.value,
+                onChanged: field.didChange,
+                controlAffinity: ListTileControlAffinity.leading,
+              ),
+            );
+          },
+        );
 }
