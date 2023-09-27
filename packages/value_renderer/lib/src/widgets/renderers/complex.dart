@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../../value_renderer.dart';
@@ -68,19 +69,18 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 
   @override
   Widget build(BuildContext context) {
+    final fieldName = widget.fieldName;
+    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+
+    InputDecoration decoration = InputDecoration(labelText: translatedText);
+    if (widget.decoration != null) decoration = widget.decoration!.copyWith(labelText: translatedText);
+
     if (widget.initialValue is BirthDateAttributeValue) {
       return DatepickerFormField(
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,
         fieldName: widget.fieldName,
-        decoration: widget.decoration ??
-            InputDecoration(
-              hintStyle: const TextStyle(color: Colors.black45),
-              errorStyle: const TextStyle(color: Colors.redAccent),
-              suffixIcon: const Icon(Icons.calendar_month),
-              //TODO: Translate fieldName
-              labelText: widget.fieldName,
-            ),
+        decoration: decoration,
       );
     }
     //
