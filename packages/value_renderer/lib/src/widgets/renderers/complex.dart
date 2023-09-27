@@ -83,7 +83,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         decoration: decoration,
       );
     }
-    //
+
     return Column(
       children: [
         const SizedBox(
