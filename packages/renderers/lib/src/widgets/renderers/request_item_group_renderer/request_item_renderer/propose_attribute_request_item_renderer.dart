@@ -1,13 +1,14 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../../request_renderer.dart';
+import '../../../../request_renderer.dart';
+import 'utils/query_renderer.dart';
 
-class ShareAttributeRequestItemRenderer extends StatelessWidget {
-  final ShareAttributeRequestItemDVO item;
+class ProposeAttributeRequestItemRenderer extends StatelessWidget {
+  final ProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
 
-  const ShareAttributeRequestItemRenderer({super.key, required this.item, required this.controller});
+  const ProposeAttributeRequestItemRenderer({super.key, required this.item, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +28,12 @@ class ShareAttributeRequestItemRenderer extends StatelessWidget {
           text: 'Date: ',
           children: [TextSpan(text: item.date)],
         )),
-        Text.rich(TextSpan(
-          text: 'SourceAttributeId: ',
-          children: [TextSpan(text: item.sourceAttributeId)],
-        )),
+        Row(
+          children: [
+            const Text('Query: '),
+            QueryRenderer.render(query: item.query),
+          ],
+        )
       ],
     );
   }

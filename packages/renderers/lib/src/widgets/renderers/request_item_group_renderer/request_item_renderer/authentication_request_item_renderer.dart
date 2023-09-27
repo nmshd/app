@@ -1,13 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../../request_renderer.dart';
+import '../../../../request_renderer.dart';
 
-class FreeTextRequestItemRenderer extends StatelessWidget {
-  final RequestItemDVO item;
+class AuthenticationRequestItemRenderer extends StatelessWidget {
+  final AuthenticationRequestItemDVO item;
   final RequestRendererController? controller;
 
-  const FreeTextRequestItemRenderer({super.key, required this.item, required this.controller});
+  const AuthenticationRequestItemRenderer({super.key, required this.item, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +22,10 @@ class FreeTextRequestItemRenderer extends StatelessWidget {
         Text.rich(TextSpan(
           text: 'Description: ',
           children: [TextSpan(text: item.description)],
+        )),
+        Text.rich(TextSpan(
+          text: 'Date: ',
+          children: [TextSpan(text: item.date)],
         )),
       ],
     );

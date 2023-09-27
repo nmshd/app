@@ -1,13 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../../request_renderer.dart';
+import '../../../../request_renderer.dart';
 
-class AuthenticationRequestItemRenderer extends StatelessWidget {
-  final AuthenticationRequestItemDVO item;
+class ShareAttributeRequestItemRenderer extends StatelessWidget {
+  final ShareAttributeRequestItemDVO item;
   final RequestRendererController? controller;
 
-  const AuthenticationRequestItemRenderer({super.key, required this.item, required this.controller});
+  const ShareAttributeRequestItemRenderer({super.key, required this.item, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,10 @@ class AuthenticationRequestItemRenderer extends StatelessWidget {
         Text.rich(TextSpan(
           text: 'Date: ',
           children: [TextSpan(text: item.date)],
+        )),
+        Text.rich(TextSpan(
+          text: 'SourceAttributeId: ',
+          children: [TextSpan(text: item.sourceAttributeId)],
         )),
       ],
     );

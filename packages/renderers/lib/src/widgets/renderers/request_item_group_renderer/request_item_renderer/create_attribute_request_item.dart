@@ -1,7 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../../request_renderer.dart';
+import '../../../../request_renderer.dart';
 
 class CreateAttributeRequestItemRenderer extends StatelessWidget {
   final CreateAttributeRequestItemDVO item;

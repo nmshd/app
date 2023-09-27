@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../../request_renderer.dart';
-import '../utils/query_renderer.dart';
+import '../../../../request_renderer.dart';
+import 'utils/query_renderer.dart';
 
 class RegisterAttributeListenerRequestItemRenderer extends StatelessWidget {
   final RegisterAttributeListenerRequestItemDVO item;

@@ -1,13 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../../request_renderer.dart';
+import '../../../../request_renderer.dart';
 
-class ConsentRequestItemRenderer extends StatelessWidget {
-  final ConsentRequestItemDVO item;
+class FreeTextRequestItemRenderer extends StatelessWidget {
+  final RequestItemDVO item;
   final RequestRendererController? controller;
 
-  const ConsentRequestItemRenderer({super.key, required this.item, required this.controller});
+  const FreeTextRequestItemRenderer({super.key, required this.item, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +22,6 @@ class ConsentRequestItemRenderer extends StatelessWidget {
         Text.rich(TextSpan(
           text: 'Description: ',
           children: [TextSpan(text: item.description)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Date: ',
-          children: [TextSpan(text: item.date)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Consent: ',
-          children: [TextSpan(text: item.consent)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Link: ',
-          children: [TextSpan(text: item.link)],
         )),
       ],
     );
