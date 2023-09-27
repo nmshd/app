@@ -2,6 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../../../request_renderer.dart';
+import '../utils/query_type_resolver.dart';
 
 class ReadAttributeRequestItemRenderer extends StatelessWidget {
   final ReadAttributeRequestItemDVO item;
@@ -11,23 +12,25 @@ class ReadAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final attributeQuery = QueryTypeResolver.resolveType(query: item.query);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text.rich(TextSpan(
-          text: 'Name: ',
-          children: [TextSpan(text: item.name)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Description: ',
-          children: [TextSpan(text: item.description)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Date: ',
-          children: [TextSpan(text: item.date)],
-        )),
+        Text(attributeQuery.type),
       ],
     );
+  }
+}
+
+class IdentityAttributeQueryRenderer extends StatelessWidget {
+  final IdentityAttributeQueryDVO query;
+
+  const IdentityAttributeQueryRenderer({super.key, required this.query});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(query.type);
   }
 }

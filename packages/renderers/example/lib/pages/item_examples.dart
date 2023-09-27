@@ -18,7 +18,7 @@ class ItemExamples extends StatelessWidget {
       query: IdentityAttributeQueryDVO(
         id: 'id',
         name: 'name',
-        type: 'ProposeAttributeRequestItemDVO',
+        type: 'IdentityAttributeQueryDVO',
         valueType: 'valueType',
         isProcessed: false,
         renderHints: RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
@@ -31,14 +31,21 @@ class ItemExamples extends StatelessWidget {
       name: 'name',
       mustBeAccepted: false,
       isDecidable: false,
-      query: IdentityAttributeQueryDVO(
+      query: RelationshipAttributeQueryDVO(
         id: 'id',
         name: 'name',
-        type: 'ProposeAttributeRequestItemDVO',
+        type: 'RelationshipAttributeQueryDVO',
         valueType: 'valueType',
         isProcessed: false,
         renderHints: RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
         valueHints: const ValueHints(),
+        key: 'key',
+        owner: identityDvo,
+        attributeCreationHints: const RelationshipAttributeCreationHints(
+          title: 'title',
+          valueType: 'valueType',
+          confidentiality: 'confidentiality',
+        ),
       ),
       attribute: DraftIdentityAttributeDVO(
         id: 'id',
@@ -147,19 +154,19 @@ class ItemExamples extends StatelessWidget {
       consent: 'consent',
     );
 
-    final registerAttributeListenerRequestItemDVO = RegisterAttributeListenerRequestItemDVO(
+    const registerAttributeListenerRequestItemDVO = RegisterAttributeListenerRequestItemDVO(
       id: 'id',
       name: 'name',
       mustBeAccepted: false,
       isDecidable: false,
-      query: IdentityAttributeQueryDVO(
+      query: ThirdPartyRelationshipAttributeQueryDVO(
         id: 'id',
         name: 'name',
-        type: 'ProposeAttributeRequestItemDVO',
-        valueType: 'valueType',
+        type: 'ThirdPartyRelationshipAttributeQueryDVO',
         isProcessed: false,
-        renderHints: RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
-        valueHints: const ValueHints(),
+        key: 'key',
+        owner: identityDvo,
+        thirdParty: [],
       ),
     );
 
@@ -301,7 +308,7 @@ class ItemExamples extends StatelessWidget {
       items: [consentRequestItemDVO],
     );
 
-    final registerAttributeListenerRequestItem = LocalRequestDVO(
+    const registerAttributeListenerRequestItem = LocalRequestDVO(
       id: 'id',
       name: 'name',
       type: 'ProposeAttributeRequestItemDVO',

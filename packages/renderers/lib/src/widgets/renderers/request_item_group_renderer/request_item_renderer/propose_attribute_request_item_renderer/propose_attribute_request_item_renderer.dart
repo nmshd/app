@@ -2,6 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../../../request_renderer.dart';
+import '../utils/query_type_resolver.dart';
 
 class ProposeAttributeRequestItemRenderer extends StatelessWidget {
   final ProposeAttributeRequestItemDVO item;
@@ -11,6 +12,8 @@ class ProposeAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final attributeQuery = QueryTypeResolver.resolveType(query: item.query);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -26,6 +29,10 @@ class ProposeAttributeRequestItemRenderer extends StatelessWidget {
         Text.rich(TextSpan(
           text: 'Date: ',
           children: [TextSpan(text: item.date)],
+        )),
+        Text.rich(TextSpan(
+          text: 'Query: ',
+          children: [TextSpan(text: attributeQuery.type)],
         )),
       ],
     );
