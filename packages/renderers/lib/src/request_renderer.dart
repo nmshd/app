@@ -20,8 +20,8 @@ class RequestRenderer extends StatelessWidget {
     print(requestItems);
 
     for (final item in requestItems) {
-      if (item.type == 'RequestItemGroupDVO') {
-        return RequestItemGroupRenderer(requestItemGroup: item as RequestItemGroupDVO);
+      if (item is RequestItemGroupDVO) {
+        return RequestItemGroupRenderer(requestItemGroup: item);
       }
 
       return RequestItemRenderer(item: item, controller: controller);

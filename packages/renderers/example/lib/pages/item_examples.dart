@@ -331,23 +331,19 @@ class ItemExamples extends StatelessWidget {
       items: [registerAttributeListenerRequestItemDVO],
     );
 
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: [
-                RequestRenderer(request: readAttributeRequestItem),
-                RequestRenderer(request: proposeAttributeRequestItem),
-                RequestRenderer(request: createAttributeRequestItem),
-                RequestRenderer(request: shareAttributeRequestItem),
-                const RequestRenderer(request: authenticationRequestItem),
-                const RequestRenderer(request: consentRequestItem),
-                RequestRenderer(request: registerAttributeListenerRequestItem),
-              ],
-            ),
-          ),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: [
+            RequestRenderer(request: readAttributeRequestItem),
+            RequestRenderer(request: proposeAttributeRequestItem),
+            RequestRenderer(request: createAttributeRequestItem),
+            RequestRenderer(request: shareAttributeRequestItem),
+            const RequestRenderer(request: authenticationRequestItem),
+            const RequestRenderer(request: consentRequestItem),
+            const RequestRenderer(request: registerAttributeListenerRequestItem),
+          ],
         ),
       ),
     );
