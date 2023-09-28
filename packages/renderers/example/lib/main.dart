@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pages/item_examples.dart';
+import 'pages/item_examples2.dart';
 import 'pages/item_group_example.dart';
 
 main() {
@@ -70,6 +71,11 @@ final _menu = [
     icon: Icons.description,
     title: 'Item Examples',
     pageBuilder: (context) => const ItemExamples(),
+  ),
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Item Examples2',
+    pageBuilder: (context) => const ItemExamples2(),
   ),
   _MenuItem(
     icon: Icons.description,

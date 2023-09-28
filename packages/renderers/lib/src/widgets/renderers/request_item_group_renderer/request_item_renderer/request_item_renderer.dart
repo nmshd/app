@@ -12,6 +12,7 @@ class RequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(item.runtimeType);
     if (item.type.startsWith('Decidable')) return const Text('Decidable');
 
     return switch (item) {

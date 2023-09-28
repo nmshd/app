@@ -19,14 +19,18 @@ class RequestRenderer extends StatelessWidget {
     final requestItems = request!.items;
     print(requestItems);
 
-    for (final item in requestItems) {
+    final items = requestItems.map((item) {
       if (item is RequestItemGroupDVO) {
+        print('it is a RequestItemGroupDVO');
         return RequestItemGroupRenderer(requestItemGroup: item);
       }
 
+      print('it is a RequestItemDVO');
       return RequestItemRenderer(item: item, controller: controller);
-    }
 
-    throw Exception('Cannot render with empty request');
+      // throw Exception('Cannot render with empty request');
+    }).toList();
+
+    return Column(children: items);
   }
 }
