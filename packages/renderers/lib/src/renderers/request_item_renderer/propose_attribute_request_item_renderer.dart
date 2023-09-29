@@ -25,10 +25,10 @@ class ProposeAttributeRequestItemRenderer extends StatelessWidget {
           text: 'Description: ',
           children: [TextSpan(text: item.description)],
         )),
-        Text.rich(TextSpan(
-          text: 'Date: ',
-          children: [TextSpan(text: item.date)],
-        )),
+        // Text.rich(TextSpan(
+        //   text: 'Date: ',
+        //   children: [TextSpan(text: DateTime.parse(item.date!).toString())],
+        // )),
         Row(
           children: [
             const Text('Query: '),

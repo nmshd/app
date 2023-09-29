@@ -31,6 +31,6 @@ class RequestRenderer extends StatelessWidget {
       // throw Exception('Cannot render with empty request');
     }).toList();
 
-    return Column(children: items);
+    return SingleChildScrollView(child: Column(children: items));
   }
 }
