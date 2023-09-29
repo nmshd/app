@@ -1,14 +1,15 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../request_renderer.dart';
+import '../../request_renderer.dart';
 import 'utils/query_renderer.dart';
 
 class ProposeAttributeRequestItemRenderer extends StatelessWidget {
+  final LocalRequestDVO request;
   final ProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
 
-  const ProposeAttributeRequestItemRenderer({super.key, required this.item, required this.controller});
+  const ProposeAttributeRequestItemRenderer({super.key, required this.request, required this.item, required this.controller});
 
   @override
   Widget build(BuildContext context) {

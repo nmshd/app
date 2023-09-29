@@ -847,7 +847,7 @@
         "title": "",
         "type": "CreateAttributeRequestItemDVO",
         "id": "",
-        "name": "",
+        "name": "Name 7",
         "description": "i18n://dvo.requestItem.CreateRelationshipAttributeRequestItem.name 7",
         "isDecidable": false,
         "response": {
