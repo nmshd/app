@@ -7,6 +7,7 @@ import '../inputs/inputs.dart';
 class NumberRenderer extends StatelessWidget {
   final ValueRendererController? controller;
   final RenderHintsDataType? dataType;
+  final InputDecoration? decoration;
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
@@ -17,6 +18,7 @@ class NumberRenderer extends StatelessWidget {
   const NumberRenderer({
     super.key,
     this.controller,
+    this.decoration,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -32,17 +34,6 @@ class NumberRenderer extends StatelessWidget {
     final max = valueHints.max;
     final pattern = valueHints.pattern;
 
-    if (dataType == RenderHintsDataType.DateTime ||
-        dataType == RenderHintsDataType.Date ||
-        dataType == RenderHintsDataType.Time ||
-        dataType == RenderHintsDataType.Day) {
-      return DatepickerInput(
-        controller: controller,
-        fieldName: fieldName,
-        initialValue: initialValue,
-      );
-    }
-
     final json = initialValue?.toJson();
     if (json != null && json['value'] != null && json['value'] is! num) {
       throw Exception('trying to render an initial value with a non-Number value');
@@ -54,6 +45,7 @@ class NumberRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         technicalType: technicalType,
@@ -78,6 +70,7 @@ class NumberRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         technicalType: technicalType,
         values: values!,
@@ -91,6 +84,7 @@ class NumberRenderer extends StatelessWidget {
       // with a normal NumberInput for now, for simplicity
       return NumberInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         values: values,
         initialValue: initialNumberValue,
@@ -102,6 +96,7 @@ class NumberRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
       return NumberInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         values: values!,
         initialValue: initialNumberValue,
@@ -115,6 +110,7 @@ class NumberRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike && (values != null && values!.isNotEmpty)) {
       return SegmentedButtonInput(
         controller: controller,
+        decoration: decoration,
         fieldName: fieldName,
         technicalType: technicalType,
         values: values!,
@@ -137,6 +133,7 @@ class NumberRenderer extends StatelessWidget {
 
     return NumberInput(
       controller: controller,
+      decoration: decoration,
       fieldName: fieldName,
       initialValue: initialNumberValue,
       max: max,

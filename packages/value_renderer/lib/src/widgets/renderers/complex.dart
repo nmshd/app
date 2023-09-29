@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../../value_renderer.dart';
@@ -7,6 +8,7 @@ import '../inputs/inputs.dart';
 
 class ComplexRenderer extends StatefulWidget {
   final ValueRendererController? controller;
+  final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
   final String fieldName;
@@ -17,6 +19,7 @@ class ComplexRenderer extends StatefulWidget {
   const ComplexRenderer({
     super.key,
     this.controller,
+    this.decoration,
     this.dataType,
     this.editType,
     required this.fieldName,
@@ -66,11 +69,18 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 
   @override
   Widget build(BuildContext context) {
+    final fieldName = widget.fieldName;
+    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+
+    InputDecoration decoration = InputDecoration(labelText: translatedText);
+    if (widget.decoration != null) decoration = widget.decoration!.copyWith(labelText: translatedText);
+
     if (widget.initialValue is BirthDateAttributeValue) {
-      return DatepickerInput(
+      return DatepickerFormField(
         controller: widget.controller,
-        initialValue: widget.initialValue,
+        initialValueAttribute: widget.initialValue,
         fieldName: widget.fieldName,
+        decoration: decoration,
       );
     }
 

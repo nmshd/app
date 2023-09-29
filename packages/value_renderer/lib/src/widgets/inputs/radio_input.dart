@@ -2,67 +2,52 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
 
-import '../../value_renderer.dart';
+import '/value_renderer.dart';
 import '../utils/utils.dart';
 
-class RadioInput extends StatefulWidget {
-  final ValueRendererController? controller;
-  final String fieldName;
-  final ValueHintsDefaultValue? initialValue;
-  final List<ValueHintsValue> values;
-  final RenderHintsTechnicalType technicalType;
+class RadioInput extends FormField<ValueHintsDefaultValue?> {
+  RadioInput({
+    Key? key,
+    ValueRendererController? controller,
+    InputDecoration? decoration,
+    required String fieldName,
+    ValueHintsDefaultValue? initialValue,
+    FormFieldSetter<ValueHintsDefaultValue?>? onSaved,
+    required RenderHintsTechnicalType technicalType,
+    FormFieldValidator<ValueHintsDefaultValue?>? validator,
+    required List<ValueHintsValue> values,
+  }) : super(
+          key: key,
+          initialValue: initialValue,
+          onSaved: onSaved,
+          validator: validator,
+          builder: (FormFieldState<ValueHintsDefaultValue?> field) {
+            controller?.value = field.value;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TranslatedText(fieldName),
+                ...values.map(
+                  (option) => InputDecorator(
+                    decoration: decoration ?? const InputDecoration(border: InputBorder.none),
+                    child: RadioListTile<ValueHintsDefaultValue>(
+                      title: TranslatedText(option.displayName),
+                      value: option.key,
+                      groupValue: field.value,
+                      onChanged: (ValueHintsDefaultValue? value) {
+                        if (value == null) return;
 
-  const RadioInput({
-    super.key,
-    this.controller,
-    required this.fieldName,
-    required this.initialValue,
-    required this.technicalType,
-    required this.values,
-  });
-
-  @override
-  State<RadioInput> createState() => _RadioInputState();
-}
-
-class _RadioInputState extends State<RadioInput> {
-  late ValueHintsDefaultValue? selectedOption;
-
-  @override
-  void initState() {
-    super.initState();
-
-    selectedOption = widget.initialValue;
-
-    widget.controller?.value = ControllerTypeResolver.resolveType(
-      inputValue: widget.initialValue,
-      type: widget.technicalType,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TranslatedText(widget.fieldName),
-        ...widget.values.map((option) => RadioListTile<ValueHintsDefaultValue>(
-              title: TranslatedText(option.displayName),
-              value: option.key,
-              groupValue: selectedOption,
-              onChanged: (ValueHintsDefaultValue? value) {
-                if (value == null) return;
-
-                widget.controller?.value = ControllerTypeResolver.resolveType(
-                  inputValue: value,
-                  type: widget.technicalType,
-                );
-                setState(() {
-                  selectedOption = value;
-                });
-              },
-            )),
-      ],
-    );
-  }
+                        controller?.value = ControllerTypeResolver.resolveType(
+                          inputValue: value,
+                          type: technicalType,
+                        );
+                        field.didChange(value);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
 }
