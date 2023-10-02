@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'pages/item_examples.dart';
 import 'pages/item_examples2.dart';
 import 'pages/item_group_example.dart';
+import 'pages/relationship_attribute_example.dart';
 
 main() {
   runApp(const RequestRendererExample());
@@ -81,6 +82,11 @@ final _menu = [
     icon: Icons.description,
     title: 'Item Group Example',
     pageBuilder: (context) => const ItemGroupExample(),
+  ),
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Consent Attribute Example',
+    pageBuilder: (context) => const RelationshipAttributeExample(),
   ),
 ];
 
