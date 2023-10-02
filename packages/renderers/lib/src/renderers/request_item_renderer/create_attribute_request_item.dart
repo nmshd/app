@@ -136,7 +136,10 @@ class _ProprietaryBooleanAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(value.value.toString());
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [Text(value.title), Text(value.value.toString())],
+    );
   }
 }
 
@@ -147,7 +150,10 @@ class _ProprietaryFloatAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(value.value.toString());
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [Text(value.title), Text(value.value.toString())],
+    );
   }
 }
 
@@ -158,7 +164,10 @@ class _ProprietaryIntegerAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(value.value.toString());
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [Text(value.title), Text(value.value.toString())],
+    );
   }
 }
 
@@ -169,7 +178,10 @@ class _ProprietaryJSONAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(value.value.toString());
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [Text(value.title), Text(value.value.toString())],
+    );
   }
 }
 
@@ -180,7 +192,10 @@ class _ProprietaryXMLAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(value.value);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [Text(value.title), Text(value.value)],
+    );
   }
 }
 
@@ -192,14 +207,22 @@ class _ProprietaryAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (attribute.value) {
-      final ProprietaryCountryAttributeValue value => Text(value.value),
-      final ProprietaryEMailAddressAttributeValue value => Text(value.value),
-      final ProprietaryFileReferenceAttributeValue value => Text(value.value),
-      final ProprietaryHEXColorAttributeValue value => Text(value.value),
-      final ProprietaryLanguageAttributeValue value => Text(value.value),
-      final ProprietaryPhoneNumberAttributeValue value => Text(value.value),
-      final ProprietaryStringAttributeValue value => Text(value.value),
-      final ProprietaryURLAttributeValue value => Text(value.value),
+      final ProprietaryCountryAttributeValue value =>
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
+      final ProprietaryEMailAddressAttributeValue value =>
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
+      final ProprietaryFileReferenceAttributeValue value =>
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
+      final ProprietaryHEXColorAttributeValue value =>
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
+      final ProprietaryLanguageAttributeValue value =>
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
+      final ProprietaryPhoneNumberAttributeValue value =>
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
+      final ProprietaryStringAttributeValue value =>
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
+      final ProprietaryURLAttributeValue value =>
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
       _ => throw Exception('Unknown AbstractAttributeValue:'),
     };
   }
