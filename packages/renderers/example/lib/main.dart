@@ -1,3 +1,4 @@
+import 'package:example_renderers/pages/proprietary_attribute_value_example.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/item_examples.dart';
@@ -87,6 +88,11 @@ final _menu = [
     icon: Icons.description,
     title: 'Consent Attribute Example',
     pageBuilder: (context) => const RelationshipAttributeExample(),
+  ),
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Proprietary Attribute Value Example',
+    pageBuilder: (context) => const ProprietaryAttributeValueExample(),
   ),
 ];
 
