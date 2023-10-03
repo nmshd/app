@@ -17,12 +17,8 @@ class ReadAttributeRequestItemRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Row(
-          children: [
-            const Text('Query: '),
-            QueryRenderer.render(query: item.query),
-          ],
-        )
+        const Text('Query: '),
+        QueryRenderer.render(query: item.query),
       ],
     );
   }

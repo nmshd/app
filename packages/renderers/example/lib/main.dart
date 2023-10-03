@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n_delegate.dart';
+import 'package:flutter_i18n/loaders/file_translation_loader.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'pages/identity_attribute_example.dart';
 import 'pages/item_examples.dart';
 import 'pages/item_examples2.dart';
 import 'pages/item_group_example.dart';
+import 'pages/read_attribute_request_item_example.dart';
 import 'pages/relationship_attribute_example.dart';
 
 main() {
@@ -17,6 +21,15 @@ class RequestRendererExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Request Renderer',
+      localizationsDelegates: [
+        FlutterI18nDelegate(translationLoader: FileTranslationLoader(basePath: 'assets/i18n')),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('de'),
+      ],
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
       debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
@@ -93,6 +106,11 @@ final _menu = [
     icon: Icons.description,
     title: 'Identity Attribute Example',
     pageBuilder: (context) => const IdentityAttributeExample(),
+  ),
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Read Attribute Request Item Example',
+    pageBuilder: (context) => const ReadAttributeRequestItemExample(),
   ),
 ];
 

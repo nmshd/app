@@ -13,6 +13,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.18.1
+  value_renderer: 1.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

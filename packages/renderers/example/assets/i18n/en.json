@@ -1,0 +1,49 @@
+{
+  "DisplayName": "Display Name",
+  "GivenName": "Given Name",
+  "Surname": "Surname",
+  "Nationality": "Nationality",
+  "CommunicationLanguage": "Communication Language",
+  "BirthDate": "Birth Date",
+  "EMailAddress": "E-Mail Address",
+  "Sex": "Sex",
+  "StreetAddress": "Street Address",
+  "recipient": "Recipient",
+  "street": "Street",
+  "houseNo": "House Number",
+  "zipCode": "Zip Code",
+  "city": "City",
+  "country": "Country",
+  "state": "State",
+  "sharedAttributes": "Shared Attributes",
+  "requestedAttributes": "Requested Attributes",
+  "attributes": {
+    "values": {
+      "countries": {
+        "DE": "Germany",
+        "AF": "Afghanistan",
+        "AL": "Albania"
+      },
+      "languages": {
+        "de": "German",
+        "aa": "Afar",
+        "ab": "Abkhazian"
+      },
+      "sex": {
+        "intersex": "Intersex",
+        "male": "Male",
+        "female": "Female"
+      }
+    }
+  },
+  "errors": {
+    "value_renderer": {
+      "emptyField": "This field cannot be empty",
+      "maxValue": "Value must be less than or equal to {value}",
+      "minValue": "Value must be greater than or equal to {value}",
+      "invalidInput": "Invalid Input",
+      "invalidFormat": "Invalid Format",
+      "noDateSelected" : "No date selected"
+    }
+  }
+}

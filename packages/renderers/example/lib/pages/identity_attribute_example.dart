@@ -79,6 +79,8 @@ class IdentityAttributeExample extends StatelessWidget {
     const sexAttributeValue = SexAttributeValue(value: 'Male');
     const websiteAttributeValue = WebsiteAttributeValue(value: 'https://example.com');
 
+    
+
     createIdentityItem({required IdentityAttributeValue value}) => CreateAttributeRequestItemDVO(
           id: '1',
           name: 'Create 1',

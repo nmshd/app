@@ -10,6 +10,10 @@ dependencies:
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
+  flutter_i18n: ^0.34.0
+  flutter_localizations:
+    sdk: flutter
+  intl: any
   renderers: 1.0.0
 
 dev_dependencies:
@@ -19,5 +23,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - assets/
+    - assets/i18n/
