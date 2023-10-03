@@ -16,8 +16,6 @@ class ItemExamples2 extends StatefulWidget {
 class _ItemExamples2State extends State<ItemExamples2> {
   Map<String, dynamic>? jsonExample;
 
-  
-
   @override
   void initState() {
     loadJsonData();

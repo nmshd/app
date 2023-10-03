@@ -17,18 +17,13 @@ class RequestRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final requestItems = request.items;
-    print(requestItems);
 
     final items = requestItems.map((item) {
       if (item is RequestItemGroupDVO) {
-        print('it is a RequestItemGroupDVO');
         return RequestItemGroupRenderer(request: request, requestItemGroup: item);
       }
 
-      print('it is a RequestItemDVO');
       return RequestItemRenderer(request: request, item: item, controller: controller);
-
-      // throw Exception('Cannot render with empty request');
     }).toList();
 
     return SingleChildScrollView(child: Column(children: items));
