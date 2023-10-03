@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'pages/identity_attribute_example.dart';
 import 'pages/item_examples.dart';
 import 'pages/item_examples2.dart';
 import 'pages/item_group_example.dart';
@@ -87,6 +88,11 @@ final _menu = [
     icon: Icons.description,
     title: 'Relationship Attribute Example',
     pageBuilder: (context) => const RelationshipAttributeExample(),
+  ),
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Identity Attribute Example',
+    pageBuilder: (context) => const IdentityAttributeExample(),
   ),
 ];
 
