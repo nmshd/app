@@ -11,16 +11,16 @@ class DraftRelationshipAttributeRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (attribute.content) {
       final IdentityAttribute attribute => IdentityAttributeRenderer(attribute: attribute),
-      final RelationshipAttribute attribute => _RelationshipAttributeRenderer(attribute: attribute),
+      final RelationshipAttribute attribute => RelationshipAttributeRenderer(attribute: attribute),
       _ => throw Exception('Unknown AbstractAttribute: ${attribute.content.runtimeType}')
     };
   }
 }
 
-class _RelationshipAttributeRenderer extends StatelessWidget {
+class RelationshipAttributeRenderer extends StatelessWidget {
   final RelationshipAttribute attribute;
 
-  const _RelationshipAttributeRenderer({required this.attribute});
+  const RelationshipAttributeRenderer({super.key, required this.attribute});
   @override
   Widget build(BuildContext context) {
     return switch (attribute.value) {
@@ -30,17 +30,7 @@ class _RelationshipAttributeRenderer extends StatelessWidget {
       final ProprietaryIntegerAttributeValue value => _ProprietaryIntegerAttributeValueRenderer(value: value),
       final ProprietaryJSONAttributeValue value => _ProprietaryJSONAttributeValueRenderer(value: value),
       final ProprietaryXMLAttributeValue value => _ProprietaryXMLAttributeValueRenderer(value: value),
-      _ => switch (attribute.value.runtimeType) {
-          ProprietaryCountryAttributeValue => _ProprietaryAttributeValueRenderer(attribute: attribute),
-          ProprietaryEMailAddressAttributeValue => _ProprietaryAttributeValueRenderer(attribute: attribute),
-          ProprietaryFileReferenceAttributeValue => _ProprietaryAttributeValueRenderer(attribute: attribute),
-          ProprietaryHEXColorAttributeValue => _ProprietaryAttributeValueRenderer(attribute: attribute),
-          ProprietaryLanguageAttributeValue => _ProprietaryAttributeValueRenderer(attribute: attribute),
-          ProprietaryPhoneNumberAttributeValue => _ProprietaryAttributeValueRenderer(attribute: attribute),
-          ProprietaryStringAttributeValue => _ProprietaryAttributeValueRenderer(attribute: attribute),
-          ProprietaryURLAttributeValue => _ProprietaryAttributeValueRenderer(attribute: attribute),
-          _ => throw Exception('Unknown AbstractAttributeValue: ${attribute.value.runtimeType}'),
-        },
+      _ => _ProprietaryAttributeValueRenderer(attribute: attribute),
     };
   }
 }
@@ -150,7 +140,7 @@ class _ProprietaryAttributeValueRenderer extends StatelessWidget {
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
       final ProprietaryURLAttributeValue value =>
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
-      _ => throw Exception('Unknown AbstractAttributeValue:'),
+      _ => throw Exception('Unknown AbstractAttributeValue: ${attribute.value.runtimeType}'),
     };
   }
 }
