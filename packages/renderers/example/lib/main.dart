@@ -1,4 +1,3 @@
-import 'package:example_renderers/pages/identity_attribute_example_two.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/identity_attribute_example.dart';
@@ -94,11 +93,6 @@ final _menu = [
     icon: Icons.description,
     title: 'Identity Attribute Example',
     pageBuilder: (context) => const IdentityAttributeExample(),
-  ),
-  _MenuItem(
-    icon: Icons.description,
-    title: 'Identity Attribute Example Two',
-    pageBuilder: (context) => const IdentityAttributeExampleTwo(),
   ),
 ];
 

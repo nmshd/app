@@ -48,7 +48,9 @@ class _AffiliationAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text('Affiliation'),
         Text(value.role),
         Text(value.organization),
         Text(value.unit),
@@ -65,7 +67,9 @@ class _BirthDateAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text('BirthDate'),
         Text(value.day.toString()),
         Text(value.month.toString()),
         Text(value.year.toString()),
@@ -82,7 +86,9 @@ class _BirthPlaceAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text('BirthPlace'),
         Text(value.city),
         Text(value.country),
         if (value.state != null) Text(value.state!),
@@ -99,7 +105,9 @@ class _DeliveryBoxAddressAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text('DeliveryBoxAddress'),
         Text(value.recipient),
         Text(value.deliveryBoxId),
         Text(value.userId),
@@ -121,7 +129,9 @@ class _PersonNameAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text('PersonName'),
         Text(value.givenName),
         if (value.middleName != null) Text(value.middleName!),
         Text(value.surname),
@@ -140,7 +150,9 @@ class _PostOfficeBoxAddressAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text('PostOfficeBoxAddress'),
         Text(value.recipient),
         Text(value.boxId),
         Text(value.zipCode),
@@ -160,7 +172,9 @@ class _StreetAddressAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text('StreetAddress'),
         Text(value.recipient),
         Text(value.street),
         Text(value.houseNumber),
@@ -181,7 +195,9 @@ class _SchematizedXMLAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text('SchematizedXML'),
         Text(value.value),
         if (value.schemaURL != null) Text(value.schemaURL!),
       ],
@@ -198,7 +214,9 @@ class _StatementAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text('Statement'),
         Text(value.json.toString()),
       ],
     );
