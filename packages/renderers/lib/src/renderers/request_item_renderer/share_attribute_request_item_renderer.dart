@@ -17,18 +17,6 @@ class ShareAttributeRequestItemRenderer extends StatelessWidget {
       children: [
         Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
         Text.rich(TextSpan(
-          text: 'Name: ',
-          children: [TextSpan(text: item.name)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Description: ',
-          children: [TextSpan(text: item.description)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Date: ',
-          children: [TextSpan(text: item.date)],
-        )),
-        Text.rich(TextSpan(
           text: 'SourceAttributeId: ',
           children: [TextSpan(text: item.sourceAttributeId)],
         )),

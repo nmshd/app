@@ -17,20 +17,14 @@ class ReadAttributeRequestItemRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const Text('Query: '),
-        QueryRenderer.render(query: item.query),
+        switch (item.query) {
+          final IdentityAttributeQueryDVO query => IdentityAttributeQueryRenderer(query: query),
+          final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
+          final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
+          _ => throw Exception("Invalid type '${item.query.type}'"),
+        },
+        const SizedBox(height: 30),
       ],
     );
-  }
-}
-
-class IdentityAttributeQueryRenderer extends StatelessWidget {
-  final IdentityAttributeQueryDVO query;
-
-  const IdentityAttributeQueryRenderer({super.key, required this.query});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(query.type);
   }
 }

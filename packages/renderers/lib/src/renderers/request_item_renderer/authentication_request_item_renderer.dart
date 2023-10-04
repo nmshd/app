@@ -16,18 +16,7 @@ class AuthenticationRequestItemRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text.rich(TextSpan(
-          text: 'Name: ',
-          children: [TextSpan(text: item.name)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Description: ',
-          children: [TextSpan(text: item.description)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Date: ',
-          children: [TextSpan(text: item.date)],
-        )),
+        const SizedBox(height: 30),
       ],
     );
   }

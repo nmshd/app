@@ -16,14 +16,7 @@ class FreeTextRequestItemRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text.rich(TextSpan(
-          text: 'Name: ',
-          children: [TextSpan(text: item.name)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Description: ',
-          children: [TextSpan(text: item.description)],
-        )),
+        const SizedBox(height: 30),
       ],
     );
   }

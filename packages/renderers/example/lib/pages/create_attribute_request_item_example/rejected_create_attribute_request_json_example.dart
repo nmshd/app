@@ -6,14 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:renderers/renderers.dart';
 
-class ItemExamples2 extends StatefulWidget {
-  const ItemExamples2({super.key});
+class RejectedCreateAttributeRequestJsonExample extends StatefulWidget {
+  const RejectedCreateAttributeRequestJsonExample({super.key});
 
   @override
-  State<ItemExamples2> createState() => _ItemExamples2State();
+  State<RejectedCreateAttributeRequestJsonExample> createState() => _RejectedCreateAttributeRequestJsonExampleState();
 }
 
-class _ItemExamples2State extends State<ItemExamples2> {
+class _RejectedCreateAttributeRequestJsonExampleState extends State<RejectedCreateAttributeRequestJsonExample> {
   Map<String, dynamic>? jsonExample;
 
   @override
@@ -27,7 +27,10 @@ class _ItemExamples2State extends State<ItemExamples2> {
     if (jsonExample == null) return const CircularProgressIndicator();
     final localRequestDVO = LocalRequestDVO.fromJson(jsonExample!);
 
-    return RequestRenderer(request: localRequestDVO);
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: RequestRenderer(request: localRequestDVO),
+    );
   }
 
   Future<void> loadJsonData() async {

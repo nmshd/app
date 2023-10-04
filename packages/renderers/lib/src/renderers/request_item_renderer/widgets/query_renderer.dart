@@ -27,7 +27,7 @@ class IdentityAttributeQueryRenderer extends StatelessWidget {
         Text(query.valueType),
         if (query.tags != null) Text(query.tags!.toString()),
         Text(query.isProcessed.toString()),
-        ValueRenderer(fieldName: query.name, renderHints: query.renderHints, valueHints: query.valueHints),
+        ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints),
       ],
     );
   }
@@ -43,11 +43,24 @@ class RelationshipAttributeQueryRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(query.type),
-        Text(query.valueType),
-        Text(query.name),
         Text(query.id),
-        // renderHints, valueHints ...
+        Text(query.name),
+        if (query.description != null) Text(query.description!),
+        if (query.image != null) Text(query.image!),
+        Text(query.type),
+        if (query.date != null) Text(query.date!),
+        if (query.error != null) Text(query.error!.code),
+        if (query.error != null && query.error!.message != null) Text(query.error!.message!),
+        if (query.warning != null) Text(query.warning!.code),
+        if (query.warning != null && query.warning!.message != null) Text(query.warning!.message!),
+        if (query.validFrom != null) Text(query.validFrom!),
+        if (query.validTo != null) Text(query.validTo!),
+        Text(query.valueType),
+        Text(query.key),
+        Text(query.owner.name),
+        Text(query.isProcessed.toString()),
+        Text(query.attributeCreationHints.title),
+        ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints),
       ],
     );
   }
@@ -69,16 +82,5 @@ class ThirdPartyAttributeQueryRenderer extends StatelessWidget {
         // owner, thirdParty ...
       ],
     );
-  }
-}
-
-class QueryRenderer {
-  static Widget render({required AttributeQueryDVO query}) {
-    return switch (query) {
-      final IdentityAttributeQueryDVO query => IdentityAttributeQueryRenderer(query: query),
-      final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
-      final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
-      _ => throw Exception("Invalid type '${query.type}'"),
-    };
   }
 }

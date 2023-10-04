@@ -175,12 +175,20 @@ class ItemExamples extends StatelessWidget {
       name: 'name',
       type: 'ProposeAttributeRequestItemDVO',
       isOwn: false,
-      createdAt: 'createdAt',
+      createdAt: '2023-09-27T11:41:36.933Z',
       content: RequestDVO(
         id: '',
         name: '',
         type: 'ProposeAttributeRequestItemDVO',
-        items: [readAttributeRequestItemDVO],
+        items: [
+          readAttributeRequestItemDVO,
+          proposeAttributeRequestItemDVO,
+          authenticationRequestItemDVO,
+          createAttributeRequestItemDVO,
+          shareAttributeRequestItemDVO,
+          consentRequestItemDVO,
+          registerAttributeListenerRequestItemDVO,
+        ],
       ),
       status: LocalRequestStatus.Completed,
       statusText: 'statusText',
@@ -190,165 +198,20 @@ class ItemExamples extends StatelessWidget {
       peer: identityDvo,
       decider: identityDvo,
       isDecidable: false,
-      items: [readAttributeRequestItemDVO],
+      items: [
+        readAttributeRequestItemDVO,
+        proposeAttributeRequestItemDVO,
+        authenticationRequestItemDVO,
+        createAttributeRequestItemDVO,
+        shareAttributeRequestItemDVO,
+        consentRequestItemDVO,
+        registerAttributeListenerRequestItemDVO,
+      ],
     );
 
-    final proposeAttributeRequestItem = LocalRequestDVO(
-      id: 'id',
-      name: 'name',
-      type: 'ProposeAttributeRequestItemDVO',
-      isOwn: false,
-      createdAt: 'createdAt',
-      content: RequestDVO(
-        id: '',
-        name: '',
-        type: 'ProposeAttributeRequestItemDVO',
-        items: [proposeAttributeRequestItemDVO],
-      ),
-      status: LocalRequestStatus.Completed,
-      statusText: 'statusText',
-      directionText: 'directionText',
-      sourceTypeText: 'sourceTypeText',
-      createdBy: identityDvo,
-      peer: identityDvo,
-      decider: identityDvo,
-      isDecidable: false,
-      items: [proposeAttributeRequestItemDVO],
-    );
-
-    final createAttributeRequestItem = LocalRequestDVO(
-      id: 'id',
-      name: 'name',
-      type: 'ProposeAttributeRequestItemDVO',
-      isOwn: false,
-      createdAt: 'createdAt',
-      content: RequestDVO(
-        id: '',
-        name: '',
-        type: 'ProposeAttributeRequestItemDVO',
-        items: [createAttributeRequestItemDVO],
-      ),
-      status: LocalRequestStatus.Completed,
-      statusText: 'statusText',
-      directionText: 'directionText',
-      sourceTypeText: 'sourceTypeText',
-      createdBy: identityDvo,
-      peer: identityDvo,
-      decider: identityDvo,
-      isDecidable: false,
-      items: [createAttributeRequestItemDVO],
-    );
-
-    final shareAttributeRequestItem = LocalRequestDVO(
-      id: 'id',
-      name: 'name',
-      type: 'ProposeAttributeRequestItemDVO',
-      isOwn: false,
-      createdAt: 'createdAt',
-      content: RequestDVO(
-        id: '',
-        name: '',
-        type: 'ProposeAttributeRequestItemDVO',
-        items: [shareAttributeRequestItemDVO],
-      ),
-      status: LocalRequestStatus.Completed,
-      statusText: 'statusText',
-      directionText: 'directionText',
-      sourceTypeText: 'sourceTypeText',
-      createdBy: identityDvo,
-      peer: identityDvo,
-      decider: identityDvo,
-      isDecidable: false,
-      items: [shareAttributeRequestItemDVO],
-    );
-
-    const authenticationRequestItem = LocalRequestDVO(
-      id: 'id',
-      name: 'name',
-      type: 'ProposeAttributeRequestItemDVO',
-      isOwn: false,
-      createdAt: 'createdAt',
-      content: RequestDVO(
-        id: '',
-        name: '',
-        type: 'ProposeAttributeRequestItemDVO',
-        items: [authenticationRequestItemDVO],
-      ),
-      status: LocalRequestStatus.Completed,
-      statusText: 'statusText',
-      directionText: 'directionText',
-      sourceTypeText: 'sourceTypeText',
-      createdBy: identityDvo,
-      peer: identityDvo,
-      decider: identityDvo,
-      isDecidable: false,
-      items: [authenticationRequestItemDVO],
-    );
-
-    const consentRequestItem = LocalRequestDVO(
-      id: 'id',
-      name: 'name',
-      type: 'ProposeAttributeRequestItemDVO',
-      isOwn: false,
-      createdAt: 'createdAt',
-      content: RequestDVO(
-        id: '',
-        name: '',
-        type: 'ProposeAttributeRequestItemDVO',
-        items: [consentRequestItemDVO],
-      ),
-      status: LocalRequestStatus.Completed,
-      statusText: 'statusText',
-      directionText: 'directionText',
-      sourceTypeText: 'sourceTypeText',
-      createdBy: identityDvo,
-      peer: identityDvo,
-      decider: identityDvo,
-      isDecidable: false,
-      items: [consentRequestItemDVO],
-    );
-
-    const registerAttributeListenerRequestItem = LocalRequestDVO(
-      id: 'id',
-      name: 'name',
-      type: 'ProposeAttributeRequestItemDVO',
-      isOwn: false,
-      createdAt: 'createdAt',
-      content: RequestDVO(
-        id: '',
-        name: '',
-        type: 'ProposeAttributeRequestItemDVO',
-        items: [registerAttributeListenerRequestItemDVO],
-      ),
-      status: LocalRequestStatus.Completed,
-      statusText: 'statusText',
-      directionText: 'directionText',
-      sourceTypeText: 'sourceTypeText',
-      createdBy: identityDvo,
-      peer: identityDvo,
-      decider: identityDvo,
-      isDecidable: false,
-      items: [registerAttributeListenerRequestItemDVO],
-    );
-
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RequestRenderer(request: readAttributeRequestItem),
-              RequestRenderer(request: proposeAttributeRequestItem),
-              RequestRenderer(request: createAttributeRequestItem),
-              RequestRenderer(request: shareAttributeRequestItem),
-              const RequestRenderer(request: authenticationRequestItem),
-              const RequestRenderer(request: consentRequestItem),
-              const RequestRenderer(request: registerAttributeListenerRequestItem),
-            ],
-          ),
-        ),
-      ),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: RequestRenderer(request: readAttributeRequestItem),
     );
   }
 }

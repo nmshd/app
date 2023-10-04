@@ -17,7 +17,7 @@ class ReadAttributeRequestItemExample extends StatelessWidget {
       hasRelationship: true,
     );
 
-    final readAttributeRequestItemDVO = ReadAttributeRequestItemDVO(
+    final readIdentityAttributeRequestItemDVO = ReadAttributeRequestItemDVO(
       id: '1',
       name: 'Read 1',
       mustBeAccepted: true,
@@ -33,6 +33,45 @@ class ReadAttributeRequestItemExample extends StatelessWidget {
       ),
     );
 
+    final readRelationshipAttributeRequestItemDVO = ReadAttributeRequestItemDVO(
+      id: '1',
+      name: 'Read 1',
+      mustBeAccepted: true,
+      isDecidable: true,
+      query: RelationshipAttributeQueryDVO(
+        id: 'id',
+        name: 'name',
+        type: 'DraftRelationshipAttributeDVO',
+        valueType: 'ProprietaryLanguage',
+        isProcessed: false,
+        renderHints: RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
+        valueHints: const ValueHints(),
+        key: 'a key',
+        owner: identityDvo,
+        attributeCreationHints: const RelationshipAttributeCreationHints(
+          title: 'creation hints title',
+          valueType: 'creation hints valueType',
+          confidentiality: 'public',
+        ),
+      ),
+    );
+
+    const readThirdPartyAttributeRequestItemDVO = ReadAttributeRequestItemDVO(
+      id: '1',
+      name: 'Read 1',
+      mustBeAccepted: true,
+      isDecidable: true,
+      query: ThirdPartyRelationshipAttributeQueryDVO(
+        id: 'id',
+        name: 'name',
+        type: 'ThirdPartyRelationshipAttribute',
+        thirdParty: [identityDvo],
+        isProcessed: false,
+        key: 'a key',
+        owner: identityDvo,
+      ),
+    );
+
     final localRequest = LocalRequestDVO(
       id: 'a id',
       name: 'a name',
@@ -43,7 +82,7 @@ class ReadAttributeRequestItemExample extends StatelessWidget {
         id: 'REQyB8AzanfTmT3afh8e',
         name: 'Request REQyB8AzanfTmT3afh8e',
         type: 'RequestDVO',
-        items: [readAttributeRequestItemDVO],
+        items: [readIdentityAttributeRequestItemDVO, readRelationshipAttributeRequestItemDVO, readThirdPartyAttributeRequestItemDVO],
       ),
       status: LocalRequestStatus.ManualDecisionRequired,
       statusText: 'a statusText',
@@ -53,7 +92,7 @@ class ReadAttributeRequestItemExample extends StatelessWidget {
       peer: identityDvo,
       decider: identityDvo,
       isDecidable: false,
-      items: [readAttributeRequestItemDVO],
+      items: [readIdentityAttributeRequestItemDVO, readRelationshipAttributeRequestItemDVO, readThirdPartyAttributeRequestItemDVO],
     );
 
     return Padding(

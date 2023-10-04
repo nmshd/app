@@ -3,12 +3,12 @@ import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_i18n/loaders/file_translation_loader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'pages/identity_attribute_example.dart';
+import 'pages/create_attribute_request_item_example/identity_attribute_example.dart';
+import 'pages/create_attribute_request_item_example/rejected_create_attribute_request_json_example.dart';
+import 'pages/create_attribute_request_item_example/relationship_attribute_example.dart';
 import 'pages/item_examples.dart';
-import 'pages/item_examples2.dart';
 import 'pages/item_group_example.dart';
 import 'pages/read_attribute_request_item_example.dart';
-import 'pages/relationship_attribute_example.dart';
 
 main() {
   runApp(const RequestRendererExample());
@@ -89,23 +89,23 @@ final _menu = [
   ),
   _MenuItem(
     icon: Icons.description,
-    title: 'Item Examples2',
-    pageBuilder: (context) => const ItemExamples2(),
-  ),
-  _MenuItem(
-    icon: Icons.description,
     title: 'Item Group Example',
     pageBuilder: (context) => const ItemGroupExample(),
   ),
   _MenuItem(
     icon: Icons.description,
-    title: 'Relationship Attribute Example',
+    title: 'Create Relationship Attribute Example',
     pageBuilder: (context) => const RelationshipAttributeExample(),
   ),
   _MenuItem(
     icon: Icons.description,
-    title: 'Identity Attribute Example',
+    title: 'Create Identity Attribute Example',
     pageBuilder: (context) => const IdentityAttributeExample(),
+  ),
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Create JSON Example',
+    pageBuilder: (context) => const RejectedCreateAttributeRequestJsonExample(),
   ),
   _MenuItem(
     icon: Icons.description,

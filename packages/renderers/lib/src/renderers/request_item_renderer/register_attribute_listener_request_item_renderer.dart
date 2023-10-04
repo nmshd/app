@@ -17,24 +17,14 @@ class RegisterAttributeListenerRequestItemRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text.rich(TextSpan(
-          text: 'Name: ',
-          children: [TextSpan(text: item.name)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Description: ',
-          children: [TextSpan(text: item.description)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Date: ',
-          children: [TextSpan(text: item.date)],
-        )),
-        Row(
-          children: [
-            const Text('Query: '),
-            QueryRenderer.render(query: item.query),
-          ],
-        )
+        const Text('Query: '),
+        switch (item.query) {
+          final IdentityAttributeQueryDVO query => IdentityAttributeQueryRenderer(query: query),
+          final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
+          final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
+          _ => throw Exception("Invalid type '${item.query.type}'"),
+        },
+        const SizedBox(height: 30),
       ],
     );
   }

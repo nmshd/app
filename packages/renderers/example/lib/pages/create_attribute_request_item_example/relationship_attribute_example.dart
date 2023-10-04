@@ -141,6 +141,9 @@ class RelationshipAttributeExample extends StatelessWidget {
       ],
     );
 
-    return RequestRenderer(request: localRequest);
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: RequestRenderer(request: localRequest),
+    );
   }
 }
