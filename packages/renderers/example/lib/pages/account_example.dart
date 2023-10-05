@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import 'home_screen.dart';
-import 'messages_screen.dart';
+import 'requests_screen.dart';
 
 class AccountExample extends StatefulWidget {
   final ReloadController reloadController;
@@ -43,7 +43,7 @@ class _AccountExampleState extends State<AccountExample> {
                 itemBuilder: (context, index) {
                   return TextButton(
                       child: Text(_relationships![index].name.toUpperCase()),
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => MessagesScreen(accountId: widget.accountId))));
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RequestsScreen(accountId: widget.accountId))));
                 },
                 separatorBuilder: (context, index) {
                   return Container(
