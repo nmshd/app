@@ -7,13 +7,19 @@ environment:
   sdk: ">=3.1.2 <4.0.0"
 
 dependencies:
+  enmeshed_runtime_bridge: 1.0.0
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
   flutter_i18n: ^0.34.0
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.3.3
+  get_it: ^7.6.4
   intl: any
+  logger: ^1.4.0
+  mobile_scanner: ^3.4.1
+  push: ^1.0.0
   renderers: 1.0.0
 
 dev_dependencies:
