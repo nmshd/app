@@ -1,10 +1,8 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../onboarding_screen.dart';
 import 'create_new_identity.dart';
 
 class AccountDialog extends StatefulWidget {
@@ -38,37 +36,6 @@ class _AccountDialogState extends State<AccountDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                const Align(alignment: Alignment.topLeft, child: CloseButton()),
-                SizedBox(
-                  height: 35,
-                  child: Image.asset(
-                    MediaQuery.of(context).platformBrightness == Brightness.light
-                        ? 'assets/enmeshed_logo_light_cut.png'
-                        : 'assets/enmeshed_logo_dark_cut.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                if (kDebugMode)
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      onPressed: () async {
-                        await GetIt.I.get<EnmeshedRuntime>().accountServices.clearAccounts();
-                        if (context.mounted) {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (_) => const OnboardingScreen()),
-                            (_) => false,
-                          );
-                        }
-                      },
-                      icon: const Icon(Icons.delete_forever),
-                    ),
-                  ),
-              ],
-            ),
             if (_accounts == null) const Center(child: CircularProgressIndicator()),
             if (_accounts != null) ...[
               const Divider(),

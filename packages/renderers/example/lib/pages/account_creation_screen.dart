@@ -2,12 +2,12 @@ import 'dart:math' as math;
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:example_renderers/pages/account_screen.dart';
-import 'package:example_renderers/pages/scanner_view/scanner_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
+import 'home_screen.dart';
+import 'scanner_view/scanner_view.dart';
 import 'widgets/widgets.dart';
 
 class AccountCreationScreen extends StatelessWidget {
@@ -33,14 +33,10 @@ class AccountCreationScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text('onboarding_existingIdentity'),
-                      const SizedBox(height: 20),
-                      const Text('onboarding_chooseOption'),
-                      const SizedBox(height: 50),
                       OutlinedButton(
                         onPressed: () => _onboardingPressed(context),
                         child: const Text(
-                          'onboarding_migrateIdentity',
+                          'Verknüpfe ein vorhandenes Konto',
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -48,7 +44,7 @@ class AccountCreationScreen extends StatelessWidget {
                       OutlinedButton(
                         onPressed: () => _createNewIdentityPressed(context),
                         child: const Text(
-                          'onboarding_createIdentity',
+                          'Neues Konto anlegen',
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -72,7 +68,7 @@ class AccountCreationScreen extends StatelessWidget {
             if (context.mounted) {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (BuildContext context) => AccountScreen(initialAccount: account)),
+                MaterialPageRoute(builder: (BuildContext context) => HomeScreen(initialAccount: account)),
                 (_) => false,
               );
             }
@@ -142,7 +138,7 @@ class AccountCreationScreen extends StatelessWidget {
     if (context.mounted) {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (BuildContext context) => AccountScreen(initialAccount: account)),
+        MaterialPageRoute(builder: (BuildContext context) => HomeScreen(initialAccount: account)),
         (_) => false,
       );
     }

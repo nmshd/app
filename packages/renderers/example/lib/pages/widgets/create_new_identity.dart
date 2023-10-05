@@ -50,7 +50,6 @@ class _CreateNewIdentityState extends State<CreateNewIdentity> {
                 enabled: !_loading,
                 focusNode: _focusNode,
                 controller: _controller,
-                decoration: const InputDecoration(hintText: 'Profil 1'),
                 onSubmitted: _loading ? null : (_) => _confirmEnabled ? _confirm() : _focusNode.requestFocus(),
               ),
               const SizedBox(height: 10),
