@@ -13,6 +13,13 @@
       "request": "launch",
       "type": "dart",
       "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"],
+      "templateFor": "packages/renderers"
+    },
+    {
+      "name": "Launch current dart file",
+      "request": "launch",
+      "type": "dart",
+      "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"],
       "templateFor": "apps/enmeshed"
     }
   ]
