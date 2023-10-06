@@ -19,20 +19,10 @@ class OnboardingScreen extends StatelessWidget {
             width: smallerSide,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: smallerSide / 8),
-              child: Stack(
-                fit: StackFit.expand,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Positioned(
-                    top: size.height / 14,
-                    left: 0,
-                    right: 0,
-                    child: Image.asset(
-                      MediaQuery.of(context).platformBrightness == Brightness.light
-                          ? 'assets/enmeshed_logo_light.png'
-                          : 'assets/enmeshed_logo_dark.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
                   const Positioned.fill(
                     child: Align(
                       alignment: Alignment.center,
@@ -40,31 +30,21 @@ class OnboardingScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'onboarding_welcome',
-                            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
+                          Text('Welcome', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                           SizedBox(height: 10),
-                          Text(
-                            'onboarding_description',
-                            style: TextStyle(fontSize: 20),
-                          ),
+                          Text('onboarding_description', style: TextStyle(fontSize: 20)),
                           SizedBox(height: 30),
                           Text('onboarding_identityNeeded'),
                         ],
                       ),
                     ),
                   ),
-                  Positioned(
-                    bottom: 10,
-                    left: 0,
-                    right: 0,
-                    child: OutlinedButton(
-                      child: const Text('next'),
-                      onPressed: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (BuildContext context) => const AccountCreationScreen()),
-                      ),
+                  const SizedBox(height: 42),
+                  OutlinedButton(
+                    child: const Text('next'),
+                    onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => const AccountCreationScreen()),
                     ),
                   ),
                 ],

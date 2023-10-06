@@ -17,7 +17,6 @@ class ProposeAttributeRequestItemRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(item.type, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const Text('Query: '),
         switch (item.query) {
           final IdentityAttributeQueryDVO query => IdentityAttributeQueryRenderer(query: query),
           final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
