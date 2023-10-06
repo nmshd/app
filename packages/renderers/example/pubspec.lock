@@ -41,21 +41,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.2"
-  enmeshed_types:
-    dependency: "direct overridden"
-    description:
-      path: "../../enmeshed_types"
-      relative: true
-    source: path
-    version: "1.0.0"
-  equatable:
-    dependency: transitive
-    description:
-      name: equatable
-      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -82,14 +67,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  json_annotation:
-    dependency: transitive
-    description:
-      name: json_annotation
-      sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.8.1"
   lints:
     dependency: transitive
     description:
@@ -130,13 +107,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
-  renderers:
-    dependency: "direct overridden"
-    description:
-      path: ".."
-      relative: true
-    source: path
-    version: "0.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
