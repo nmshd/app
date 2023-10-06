@@ -31,8 +31,6 @@ void main() async {
 
   final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
 
-  logger.d(accounts.length);
-
   if (accounts.isEmpty) {
     FlutterNativeSplash.remove();
     runApp(const RequestRendererExample(homeWidget: OnboardingScreen()));

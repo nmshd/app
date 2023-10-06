@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:translated_text/translated_text.dart';
 
 import 'renderers/request_item_group_renderer.dart';
 import 'renderers/request_item_renderer/request_item_renderer.dart';
@@ -28,41 +29,27 @@ class RequestRenderer extends StatelessWidget {
     }).toList();
 
     return SingleChildScrollView(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text.rich(TextSpan(
-          text: 'Titel: ',
-          children: [TextSpan(text: request.name)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Description: ',
-          children: [TextSpan(text: request.description)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Request ID: ',
-          children: [TextSpan(text: request.id)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Status: ',
-          children: [TextSpan(text: request.statusText)],
-        )),
-        Text.rich(TextSpan(
-          text: 'Created by: ',
-          children: [TextSpan(text: request.createdBy.name)],
-        )),
-        Text.rich(
-          TextSpan(
-            text: 'Created at: ',
-            children: [TextSpan(text: DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(request.createdAt)))],
-          ),
-        ),
-        const Divider(),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: items,
-        ),
-      ],
-    ));
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Title:', style: TextStyle(fontWeight: FontWeight.bold)),
+          TranslatedText(request.name),
+          if (request.description != null) ...[
+            const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
+            TranslatedText(request.description!)
+          ],
+          const Text('Request ID:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(request.id),
+          const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
+          TranslatedText(request.statusText),
+          const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(request.createdBy.name),
+          const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(request.createdAt))),
+          const Divider(),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: items),
+        ],
+      ),
+    );
   }
 }

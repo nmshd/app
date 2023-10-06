@@ -1,49 +1,119 @@
 {
-  "DisplayName": "Anzeigename",
-  "GivenName": "Vorname",
-  "Surname": "Nachname",
-  "Nationality": "Staatsangehörigkeit",
-  "CommunicationLanguage": "Kommunikationssprache",
-  "BirthDate": "Geburtsdatum",
-  "EMailAddress": "E-Mail-Adresse",
-  "Sex": "Sex",
-  "StreetAddress": "Straßenadresse",
-  "recipient": "Empfänger",
-  "street": "Straße",
-  "houseNo": "Hausnummer",
-  "zipCode": "Postleitzahl",
-  "city": "Stadt",
-  "country": "Land",
-  "state": "Zustand",
-  "sharedAttributes": "Gemeinsame Attribute",
-  "requestedAttributes": "Angeforderte Attribute",
-  "attributes": {
-    "values": {
-      "countries": {
-        "DE": "Deutschland",
-        "AF": "Afghanistan",
-        "AL": "Albanien"
-      },
-      "languages": {
-        "de": "Deutsch",
-        "aa": "Afar",
-        "ab": "Abchasisch"
-      },
-      "sex": {
-        "intersex": "Intersexuell",
-        "male": "Männlich",
-        "female": "Weiblich"
-      }
-    }
-  },
-  "errors": {
-    "value_renderer": {
-      "emptyField": "Dieses Feld kann nicht leer sein",
-      "maxValue": "Der Wert muss kleiner oder gleich {value} sein",
-      "minValue": "Der Wert muss größer oder gleich {value} sein",
-      "invalidInput": "Ungültige Eingabe",
-      "invalidFormat": "Ungültiges Format",
-      "noDateSelected" : "Kein Datum ausgewählt"
-    }
+  "dvo":{
+     "localRequest":{
+        "status":{
+           "ManualDecisionRequired":"Entscheidung muss getroffen werden",
+           "Completed":"Abgeschlossen",
+           "DecisionRequired":"Auf App warten",
+           "Draft":"Entwurf",
+           "Open":"Auf Antwort warten"
+        },
+        "outgoing":{
+           "name":"Ausgehende Kontaktanfrage"
+        },
+        "incoming":{
+           "name":"Eingehende Kontaktanfrage"
+        },
+        "unknown":{
+           "outgoing":{
+              "Draft":{
+                 "name":"Ausgehende Anfrage oder Vorlage",
+                 "description":"Dies ist eine von dir erstellte Anfrage"
+              }
+           }
+        },
+        "Message":{
+           "outgoing":{
+              "Draft":{
+                 "name":"Zu entscheiden: Entwurf einer ausgehenden Anfrage",
+                 "description":"Dies ist eine ausgehende Anfrage die von der App für ein Gegenüber erzeugt worden ist. Du kannst entscheiden, ob du diese Anfrage abschicken möchtest."
+              },
+              "Open":{
+                 "name":"Offene ausgehende Anfrage",
+                 "description":"Dies ist eine Antwort des Gegenübers auf eine ausgehende Anfrage, die von dir an ein Gegenüber kommuniziert wurde. Das Gegenüber hat die Anfrage beantwortet und die App muss diese Antwort noch prozessieren. Bitte warte noch kurz."
+              },
+              "Completed":{
+                 "name":"Abgeschlossene ausgehende Anfrage",
+                 "description":"Dies war eine Antwort auf eine ausgehende Anfrage, die von dir an ein Gegenüber kommuniziert wurde. Das Gegenüber hat die Anfrage beantwortet, sie wurde entsprechend prozessiert und ist abgeschlossen."
+              },
+              "Expired":{
+                 "name":"Abgelaufene ausgehende Anfrage",
+                 "description":"Dies war eine ausgehende Anfrage die für ein Gegenüber erzeugt worden ist. Die Anfrage ist abgelaufen, ohne dass es eine Antwort vom Gegenüber gab."
+              }
+           },
+           "incoming":{
+              "Open":{
+                 "name":"Offene eingehende Anfrage",
+                 "description":"Dies ist eine eingehende Anfrage eines Gegenübers. Die App muss diese Anfrage noch prozessieren. Bitte warte noch kurz."
+              },
+              "DecisionRequired":{
+                 "name":"Offene eingehende Anfrage",
+                 "description":"Dies ist eine eingehende Anfrage eines Gegenübers. Die App muss diese Anfrage noch prozessieren. Bitte warte noch kurz."
+              },
+              "ManualDecisionRequired":{
+                 "name":"Zu entscheiden: Eingehende Anfrage",
+                 "description":"Dies ist eine eingehende Anfrage eines Gegenübers. Du kannst entscheiden, welche Antwort du auf diese Anfrage geben möchtest."
+              },
+              "Decided":{
+                 "name":"Entschiedene eingehende Anfrage",
+                 "description":"Dies ist eine eingehende Anfrage eines Gegenübers. Du hast dich schon entschieden, die Antwort muss aber noch von der App an das Gegenüber mitgeteilt werden. Bitte warte noch kurz."
+              },
+              "Completed":{
+                 "name":"Abgeschlossene eingehende Anfrage",
+                 "description":"Dies war eine eingehende Anfrage eines Gegenübers. Du hast dich entschieden und die Antwort wurde an das Gegenüber kommuniziert."
+              },
+              "Expired":{
+                 "name":"Abgelaufene eingehende Anfrage",
+                 "description":"Dies war eine eingehende Anfrage eines Gegenübers. Noch bevor du dich entscheiden konntest, ist die Anfrage abgelaufen und konnte nicht mehr beantwortet werden. Es wurden daher keine Daten an das Gegenüber geteilt."
+              }
+           }
+        },
+        "RelationshipTemplate": {
+          "outgoing": {
+            "Draft": {
+              "name": "Zu entscheiden: Entwurf einer Kontaktanfrage",
+              "description": "Dies ist eine ausgehende Kontaktanfrage die von der App für ein Gegenüber erzeugt worden ist. Du kannst entscheiden, ob du diese Kontaktanfrage abschicken möchtest."
+            },
+            "Open": {
+              "name": "Offene ausgehende Kontaktanfrage",
+              "description": "Dies ist eine Antwort des Gegenübers auf eine ausgehende Kontaktanfrage, die von dir an ein Gegenüber kommuniziert wurde. Das Gegenüber hat die Anfrage akzeptiert und die App muss diese Antwort noch prozessieren. Bitte warte noch kurz."
+            },
+            "Completed": {
+              "name": "Abgeschlossene ausgehende Kontaktanfrage",
+              "description": "Dies ist eine Antwort auf eine ausgehende Kontaktanfrage, die von dir an ein Gegenüber kommuniziert wurde. Das Gegenüber hat die Anfrage akzeptiert, sie wurde entsprechend prozessiert und ist abgeschlossen."
+            },
+            "Expired": {
+              "name": "Abgelaufene ausgehende Kontaktanfrage",
+              "description": "Dies ist eine ausgehende Kontaktanfrage die für ein Gegenüber erzeugt worden ist. Die Anfrage ist abgelaufen, ohne dass es eine Antwort vom Gegenüber gab. Dies kann auch bedeuten, dass das Gegenüber die Anfrage nicht akzeptiert hat."
+            }
+          },
+          "incoming": {
+            "Open": {
+              "name": "Offene eingehende Kontaktanfrage",
+              "description": "Dies ist eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines nmshd:// Links in die App. Die App muss diese Anfrage noch prozessieren. Bitte warte noch kurz."
+            },
+            "DecisionRequired": {
+              "name": "Offene eingehende Kontaktanfrage",
+              "description": "Dies ist eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines nmshd:// Links in die App. Die App muss diese Anfrage noch prozessieren. Bitte warte noch kurz."
+            },
+            "ManualDecisionRequired": {
+              "name": "Zu entscheiden: Eingescannte Kontaktmöglichkeit",
+              "description": "Dies ist eine eingehende Kontaktanfrage bzw. eingescannte Kontaktmöglichkeit eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines nmshd:// Links in die App. Du kannst nun entscheiden, ob du mit dem Gegenüber Kontakt aufnehmen möchtest, welche Daten du von dir teilen möchtest bzw. welche Einverständniserklärungen du abgibst."
+            },
+            "Decided": {
+              "name": "Entschiedene eingehende Kontaktanfrage",
+              "description": "Dies war eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines nmshd:// Links in die App. Sie wurde von dir beantwortet, doch die Antwort wurde noch nicht an das Gegenüber geteilt. Bitte warte noch kurz."
+            },
+            "Completed": {
+              "name": "Abgeschlossene eingehende Kontaktanfrage",
+              "description": "Dies war eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines nmshd:// Links in die App. Sie wurde von dir beantwortet. Falls du die Kontaktanfrage akzeptiert hast, wurden die Daten an das Gegenüber geteilt. Falls nicht, wurden keine Daten an das Gegenüber kommuniziert."
+            },
+            "Expired": {
+              "name": "Abgelaufene eingehende Kontaktanfrage",
+              "description": "Dies war eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines nmshd:// Links in die App. Noch bevor du dich entscheiden konntest, ist die Anfrage abgelaufen und konnte nicht mehr beantwortet werden. Es wurden daher keine Daten an das Gegenüber geteilt."
+            }
+          }
+        }
+     }
   }
 }
