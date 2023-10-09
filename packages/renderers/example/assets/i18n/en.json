@@ -1,119 +1,289 @@
 {
-  "dvo":{
-     "localRequest":{
-        "status":{
-           "ManualDecisionRequired":"Entscheidung muss getroffen werden",
-           "Completed":"Abgeschlossen",
-           "DecisionRequired":"Auf App warten",
-           "Draft":"Entwurf",
-           "Open":"Auf Antwort warten"
-        },
-        "outgoing":{
-           "name":"Ausgehende Kontaktanfrage"
-        },
-        "incoming":{
-           "name":"Eingehende Kontaktanfrage"
-        },
-        "unknown":{
-           "outgoing":{
-              "Draft":{
-                 "name":"Ausgehende Anfrage oder Vorlage",
-                 "description":"Dies ist eine von dir erstellte Anfrage"
-              }
-           }
-        },
-        "Message":{
-           "outgoing":{
-              "Draft":{
-                 "name":"To Decide: Draft Outgoing Request",
-                 "description":"This is an outgoing Request which the App created for you. You can decide if the request should be sent."
-              },
-              "Open":{
-                 "name":"Open Outgoing Request",
-                 "description":"This is an outgoing Request which the peer still needs to decide on."
-              },
-              "Completed":{
-                 "name":"Completed Outgoing Request",
-                 "description":"This was an outgoing Request which you sent to a peer and the peer decided on it."
-              },
-              "Expired":{
-                 "name":"Expired Outgoing Request",
-                 "description":"This was an outgoing Request which you sent to a peer, but the request expired before the peer could decide on it."
-              }
-           },
-           "incoming":{
-              "Open":{
-                 "name":"Open Incoming Request",
-                 "description":"This is an incoming Request which the App needs to automatically process."
-              },
-              "DecisionRequired":{
-                 "name":"Open Incoming Request",
-                 "description":"This is an incoming Request which the App needs to automatically process."
-              },
-              "ManualDecisionRequired":{
-                 "name":"To Decide: Incoming Request",
-                 "description":"This is an incoming Request which you need to decide on."
-              },
-              "Decided":{
-                 "name":"Decided Incoming Request",
-                 "description":"This is an incoming Request that was decided, but the decision has not yet been sent."
-              },
-              "Completed":{
-                 "name":"Completed Incoming Request",
-                 "description":"This was an incoming Request which you received by a peer and you have already decided on it."
-              },
-              "Expired":{
-                 "name":"Expired Incoming Request",
-                 "description":"This was an incoming Request which you received by a peer and was expired before you decided on it."
-              }
-           }
-        },
-        "RelationshipTemplate": {
-          "outgoing": {
-            "Draft": {
-              "name": "To Decide: Draft Outgoing Contact Request",
-              "description": "This is an outgoing Contact Request based on a Relationship Template which the App created for a peer. You can decide if the request should be sent."
-            },
-            "Open": {
-              "name": "Open Outgoing Contact Request",
-              "description": "This is a Response to an outgoing Contact Request based on a Relationship Template which you communicated to a peer. The peer accepted the Contact Request and the App still needs to process it. Please be patient and check again soon."
-            },
-            "Completed": {
-              "name": "Completed Outgoing Contact Request",
-              "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. The peer accepted your request."
-            },
-            "Expired": {
-              "name": "Expired Outgoing Contact Request",
-              "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. Your request expired before the peer decided on it. This could also mean that the peer rejected the request."
+   "dvo": {
+      "mails": {
+         "mailSubjectFallback": "Message"
+      },
+      "relationship": {
+         "Active": "Active contact",
+         "Incoming": "Incoming contact request",
+         "Outgoing": "Outgoing contact request",
+         "Rejected": "Rejected contact request",
+         "Revoked": "Withdrawn contact request"
+      },
+      "localRequest": {
+         "outgoing": {
+            "name": "Outgoing Request or Template"
+         },
+         "unknown": {
+            "outgoing": {
+               "Draft": {
+                  "name": "Outgoing Request or Template",
+                  "description": "This is a request created by you, sent to the contact."
+               }
             }
-          },
-          "incoming": {
-            "Open": {
-              "name": "Open Incoming Contact Request",
-              "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon."
+         },
+         "incoming": {
+            "name": "Incoming Request"
+         },
+         "status": {
+            "Completed": "Completed",
+            "ManualDecisionRequired": "Decision Required",
+            "DecisionRequired": "Waiting for Automation",
+            "Draft": "Draft",
+            "Open": "Waiting for Response"
+         },
+         "RelationshipTemplate": {
+            "outgoing": {
+               "Draft": {
+                  "name": "To Decide: Draft Outgoing Contact Request",
+                  "description": "This is an outgoing Contact Request based on a Relationship Template which the App created for a peer. You can decide if the request should be sent."
+               },
+               "Open": {
+                  "name": "Open Outgoing Contact Request",
+                  "description": "This is a Response to an outgoing Contact Request based on a Relationship Template which you communicated to a peer. The peer accepted the Contact Request and the App still needs to process it. Please be patient and check again soon."
+               },
+               "Completed": {
+                  "name": "Completed Outgoing Contact Request",
+                  "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. The peer accepted your request."
+               },
+               "Expired": {
+                  "name": "Expired Outgoing Contact Request",
+                  "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. Your request expired before the peer decided on it. This could also mean that the peer rejected the request."
+               }
             },
-            "DecisionRequired": {
-              "name": "Open Incoming Contact Request",
-              "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon."
+            "incoming": {
+               "Open": {
+                  "name": "Open Incoming Contact Request",
+                  "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon."
+               },
+               "DecisionRequired": {
+                  "name": "Open Incoming Contact Request",
+                  "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon."
+               },
+               "ManualDecisionRequired": {
+                  "name": "To Decide: Scanned Contact Opportunity",
+                  "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You can decide if you want to communicate with the peer, which data you want to share and which consents you would like to give."
+               },
+               "Decided": {
+                  "name": "Decided Incoming Contact Request",
+                  "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. It was decided by you, but the decision has not yet been sent to the peer by your App. Please be patient and check again soon."
+               },
+               "Completed": {
+                  "name": "Completed Incoming Contact Request",
+                  "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You decided on it. If you accepted the Contact Request, the App sent the response to the peer. If you declined the Contact Request, it was completed without communicating any data to the peer."
+               },
+               "Expired": {
+                  "name": "Expired Incoming Contact Request",
+                  "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. Before a decision was made by you, the request has been expired and could no longer be processed. It has thus been completed without communicating any data to the peer."
+               }
             },
-            "ManualDecisionRequired": {
-              "name": "To Decide: Scanned Contact Opportunity",
-              "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You can decide if you want to communicate with the peer, which data you want to share and which consents you would like to give."
-            },
-            "Decided": {
-              "name": "Decided Incoming Contact Request",
-              "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. It was decided by you, but the decision has not yet been sent to the peer by your App. Please be patient and check again soon."
-            },
-            "Completed": {
-              "name": "Completed Incoming Contact Request",
-              "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You decided on it. If you accepted the Contact Request, the App sent the response to the peer. If you declined the Contact Request, it was completed without communicating any data to the peer."
-            },
-            "Expired": {
-              "name": "Expired Incoming Contact Request",
-              "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. Before a decision was made by you, the request has been expired and could no longer be processed. It has thus been completed without communicating any data to the peer."
+            "Message": {
+               "outgoing": {
+                  "Draft": {
+                     "name": "To Decide: Draft Outgoing Request",
+                     "description": "This is an outgoing Request which the App created for you. You can decide if the request should be sent."
+                  },
+                  "Open": {
+                     "name": "Open Outgoing Request",
+                     "description": "This is an outgoing Request which the peer still needs to decide on."
+                  },
+                  "Completed": {
+                     "name": "Completed Outgoing Request",
+                     "description": "This was an outgoing Request which you sent to a peer and the peer decided on it."
+                  },
+                  "Expired": {
+                     "name": "Expired Outgoing Request",
+                     "description": "This was an outgoing Request which you sent to a peer, but the request expired before the peer could decide on it."
+                  }
+               },
+               "incoming": {
+                  "Open": {
+                     "name": "Open Incoming Request",
+                     "description": "This is an incoming Request which the App needs to automatically process."
+                  },
+                  "DecisionRequired": {
+                     "name": "Open Incoming Request",
+                     "description": "This is an incoming Request which the App needs to automatically process."
+                  },
+                  "ManualDecisionRequired": {
+                     "name": "To Decide: Incoming Request",
+                     "description": "This is an incoming Request which you need to decide on."
+                  },
+                  "Decided": {
+                     "name": "Decided Incoming Request",
+                     "description": "This is an incoming Request that was decided, but the decision has not yet been sent."
+                  },
+                  "Completed": {
+                     "name": "Completed Incoming Request",
+                     "description": "This was an incoming Request which you received by a peer and you have already decided on it."
+                  },
+                  "Expired": {
+                     "name": "Expired Incoming Request",
+                     "description": "This was an incoming Request which you received by a peer and was expired before you decided on it."
+                  }
+               }
             }
-          }
-        }
-     }
-  }
+         },
+         "Message": {
+            "outgoing": {
+               "Draft": {
+                  "name": "To Decide: Draft Outgoing Request",
+                  "description": "This is an outgoing Request which the App created for you. You can decide if the request should be sent."
+               },
+               "Open": {
+                  "name": "Open Outgoing Request",
+                  "description": "This is an outgoing Request which the peer still needs to decide on."
+               },
+               "Completed": {
+                  "name": "Completed Outgoing Request",
+                  "description": "This was an outgoing Request which you sent to a peer and the peer decided on it."
+               },
+               "Expired": {
+                  "name": "Expired Outgoing Request",
+                  "description": "This was an outgoing Request which you sent to a peer, but the request expired before the peer could decide on it."
+               }
+            },
+            "incoming": {
+               "Open": {
+                  "name": "Open Incoming Request",
+                  "description": "This is an incoming Request which the App needs to automatically process."
+               },
+               "DecisionRequired": {
+                  "name": "Open Incoming Request",
+                  "description": "This is an incoming Request which the App needs to automatically process."
+               },
+               "ManualDecisionRequired": {
+                  "name": "To Decide: Incoming Request",
+                  "description": "This is an incoming Request which you need to decide on."
+               },
+               "Decided": {
+                  "name": "Decided Incoming Request",
+                  "description": "This is an incoming Request that was decided, but the decision has not yet been sent."
+               },
+               "Completed": {
+                  "name": "Completed Incoming Request",
+                  "description": "This was an incoming Request which you received by a peer and you have already decided on it."
+               },
+               "Expired": {
+                  "name": "Expired Incoming Request",
+                  "description": "This was an incoming Request which you received by a peer and was expired before you decided on it."
+               }
+            }
+         }
+      },
+      "identity": {
+         "self": {
+            "name": "Me",
+            "description": "Myself"
+         }
+      },
+      "message": {
+         "name": "Technical message"
+      },
+      "settings": {
+         "language": "Language"
+      },
+      "attribute": {
+         "name": {
+            "EnmeshedAddress": "Enmeshed Address",
+            "DisplayName": "Display Name",
+            "ProprietaryFileReference": "File",
+            "IdentityFileReference": "File",
+            "SchematizedXML": "Schematized XML",
+            "BirthName": "Birth Name",
+            "GivenName": "Given Name",
+            "HonorificPrefix": "Honorific Prefix",
+            "HonorificSuffix": "Honorific Suffix",
+            "MiddleName": "Middle Name",
+            "PersonName": "Person Name",
+            "Pseudonym": "Pseudonym",
+            "Surname": "Surname",
+            "City": "City",
+            "Country": "Country",
+            "DeliveryBoxAddress": "Delivery Box Address",
+            "HouseNumber": "House Number",
+            "PostOfficeBoxAddress": "Post Office Box Address",
+            "Street": "Street",
+            "State": "State",
+            "StreetAddress": "Address",
+            "ZipCode": "Zip Code",
+            "Affiliation": "Affiliation",
+            "AffiliationUnit": "Unit",
+            "AffiliationRole": "Role",
+            "AffiliationOrganization": "Organization",
+            "BirthCity": "City of Birth",
+            "BirthCountry": "Country of Birth",
+            "BirthDate": "Birth Date",
+            "BirthDay": "Day of Birth",
+            "BirthMonth": "Month of Birth",
+            "BirthPlace": "Birth Place",
+            "BirthState": "State of Birth",
+            "BirthYear": "Year of Birth",
+            "CommunicationLanguage": "Communication Language",
+            "EMailAddress": "E-Mail Address",
+            "FaxNumber": "Fax Number",
+            "PhoneNumber": "Phone Number",
+            "Website": "Website",
+            "Citizenship": "Citizenship",
+            "JobTitle": "Job Title",
+            "Nationality": "Nationality",
+            "Sex": "Sex",
+            "Consent": "Consent",
+            "ProprietaryString": "Proprietary String",
+            "ProprietaryBoolean": "Proprietary Boolean",
+            "ThirdPartyRelationshipAttributeQuery": "Third Party Relationship Attribute Query",
+            "RelationshipAttributeQuery": "Relationship Attribute Query"
+         },
+         "description": {
+            "EnmeshedAddress": "The enmeshed address is the primary identifier of digital identities within the enmeshed ecosystem.",
+            "DisplayName": "The Display Name is the usual textual representation of the natural or legal person. It is usually combined out of titles, names or legal statuses.",
+            "ProprietaryFileReference": "A generic file which could be shared and requested across identities.",
+            "IdentityFileReference": "A generic file which could be shared and requested across identities.",
+            "SchematizedXML": "An XML payload which is based on a certain schema.",
+            "BirthName": "The Birth Name is the surname of the person at birth. Some countries allow changing the surname, thus the Birth Name is used as the identification. The Birth Name is innate depending on your surname at birth.",
+            "GivenName": "The Given Name, also called first name or forename, is the name given to a person at birth which differentiates it from other family, tribe or community members.",
+            "HonorificPrefix": "A honorific title which is usually mentioned before the name, like 'Sir'.",
+            "HonorificSuffix": "A honorific title which is usually mentioned after the name, like 'M.Sc.'.",
+            "MiddleName": "",
+            "PersonName": "A combined name of a person. Consists of the given, middle and surnames, and the honorific suffix and prefix.",
+            "Pseudonym": "A pseudonym or alias is an officially registered alternative name.",
+            "Surname": "The Surname, also called family name or last name, is the portion of the personal name that indicates the family, tribe or community.",
+            "City": "A town or city within a state and country",
+            "Country": "A country",
+            "DeliveryBoxAddress": "An address pointing to a delivery box for automated parcel stations.",
+            "HouseNumber": "A house number of a street",
+            "PostOfficeBoxAddress": "An address pointing to a specific post box in a post office.",
+            "Street": "A street name of a city",
+            "State": "A state within a country",
+            "StreetAddress": "An address pointing to recipient on a street and house number.",
+            "ZipCode": "The zip code of the city or post box",
+            "Affiliation": "An affiliation or membership to an organization, in a specific role and unit.",
+            "AffiliationUnit": "The team or organizational unit of the identity for this affiliation.",
+            "AffiliationRole": "The role of the identity within this affiliation.",
+            "AffiliationOrganization": "The overarching organization of this affiliation.",
+            "BirthCity": "The city of birth",
+            "BirthCountry": "The country of birth",
+            "BirthDate": "The date of birth, a combined value of day, month and year of birth.",
+            "BirthDay": "The day of birth",
+            "BirthMonth": "The month of birth",
+            "BirthPlace": "The place of birth, a combined value of city, state and country of birth.",
+            "BirthState": "The state of birth",
+            "BirthYear": "The year of birth",
+            "CommunicationLanguage": "The Communication Language is an officially recognized language with which the person can communicate.",
+            "EMailAddress": "An E-Mail Address which can be used to send E-Mails.",
+            "FaxNumber": "A phone number for submitting data over audio communication like fax or pagers.",
+            "PhoneNumber": "A phone number for voice communication.",
+            "Website": "A website which provides more information of this identity on the Internet.",
+            "Citizenship": "The Citizenship defines which country currently recognizes you as a citizen. Thus, the Citizenship usually refers to the Country you have a passport from.",
+            "JobTitle": "The current job or role, usually stated under the name.",
+            "Nationality": "The Nationality is the citizenship of a person at birth. One cannot change the Nationality because it's innate. Thus, the Nationality refers usually to the country where you are born.",
+            "Sex": "The Sex is the biological, medical, or public gender of a natural person. So far, there are only three possible values for the Sex: 1) Intersex, 2) Female, or 3) Male.",
+            "Consent": "A consent is an agreement of some sort between two parties. This agreement could, for example, be privacy policies or end-user license agreements (EULA).",
+            "ProprietaryString": "A proprietary string used as any kind of text storage.",
+            "ProprietaryBoolean": "A proprietary boolean used as a true or false flag.",
+            "ThirdPartyRelationshipAttributeQuery": "Third Party Relationship Attribute Query",
+            "RelationshipAttributeQuery": "Relationship Attribute Query"
+         }
+      }
+   }
 }
