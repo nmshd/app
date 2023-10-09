@@ -32,7 +32,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late LocalAccountDTO _account;
-  List<_MenuItem> _menu = [];
+  List<_MenuGroup> menu = [];
   late _MenuItem _selectedMenuItem;
   final _reloadController = ReloadController();
 
@@ -42,48 +42,54 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _account = widget.initialAccount;
 
-    _menu = [
-      _MenuItem(
-        icon: Icons.description,
-        title: 'Item Examples',
-        pageBuilder: (context) => const ItemExamples(),
+    menu = <_MenuGroup>[
+      _MenuGroup(
+        items: [
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Item Examples',
+            pageBuilder: (context) => const ItemExamples(),
+          ),
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Item Group Example',
+            pageBuilder: (context) => const ItemGroupExample(),
+          ),
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Read Attribute Request Item Example',
+            pageBuilder: (context) => const ReadAttributeRequestItemExample(),
+          ),
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Account Example',
+            pageBuilder: (context) => AccountExample(
+              accountId: _account.id,
+              reloadController: _reloadController,
+            ),
+          ),
+        ],
       ),
-      _MenuItem(
-        icon: Icons.description,
-        title: 'Item Group Example',
-        pageBuilder: (context) => const ItemGroupExample(),
-      ),
-      _MenuItem(
-        icon: Icons.description,
-        title: 'Create Relationship Attribute Example',
-        pageBuilder: (context) => const RelationshipAttributeExample(),
-      ),
-      _MenuItem(
-        icon: Icons.description,
-        title: 'Create Identity Attribute Example',
-        pageBuilder: (context) => const IdentityAttributeExample(),
-      ),
-      _MenuItem(
-        icon: Icons.description,
-        title: 'Rejected Create Attribute Request JSON Example',
-        pageBuilder: (context) => const RejectedCreateAttributeRequestJsonExample(),
-      ),
-      _MenuItem(
-        icon: Icons.description,
-        title: 'Read Attribute Request Item Example',
-        pageBuilder: (context) => const ReadAttributeRequestItemExample(),
-      ),
-      _MenuItem(
-        icon: Icons.description,
-        title: 'Account Example',
-        pageBuilder: (context) => AccountExample(
-          accountId: _account.id,
-          reloadController: _reloadController,
+      _MenuGroup(title: 'Create Attribute', items: [
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Create Relationship Attribute Example',
+          pageBuilder: (context) => const RelationshipAttributeExample(),
         ),
-      ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Create Identity Attribute Example',
+          pageBuilder: (context) => const IdentityAttributeExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Rejected Create Attribute Request JSON Example',
+          pageBuilder: (context) => const RejectedCreateAttributeRequestJsonExample(),
+        ),
+      ])
     ];
 
-    _selectedMenuItem = _menu[0];
+    _selectedMenuItem = menu[0].items[0];
   }
 
   @override
@@ -112,20 +118,23 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
           child: ListView(
             children: [
-              for (final item in _menu)
-                _DrawerButton(
-                  icon: item.icon,
-                  title: item.title,
-                  isSelected: item == _selectedMenuItem,
-                  onPressed: () {
-                    setState(() {
-                      _selectedMenuItem = item;
-                    });
+              for (final group in menu) ...[
+                if (group.title != null) _DrawerHeader(title: group.title),
+                for (final item in group.items)
+                  _DrawerButton(
+                    icon: item.icon,
+                    title: item.title,
+                    isSelected: item == _selectedMenuItem,
+                    onPressed: () {
+                      setState(() {
+                        _selectedMenuItem = item;
+                      });
 
-                    if (mounted) Navigator.of(context).pop();
-                  },
-                ),
-              const SizedBox(height: 24),
+                      if (mounted) Navigator.of(context).pop();
+                    },
+                  ),
+                const SizedBox(height: 24),
+              ],
             ],
           ),
         ),
@@ -146,6 +155,13 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 }
 
+class _MenuGroup {
+  const _MenuGroup({this.title, required this.items});
+
+  final String? title;
+  final List<_MenuItem> items;
+}
+
 class _MenuItem {
   final IconData icon;
   final String title;
@@ -156,6 +172,20 @@ class _MenuItem {
     required this.title,
     required this.pageBuilder,
   });
+}
+
+class _DrawerHeader extends StatelessWidget {
+  const _DrawerHeader({Key? key, required this.title}) : super(key: key);
+
+  final String? title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, bottom: 4),
+      child: Text(title!, style: const TextStyle(color: Color(0xFF444444), fontSize: 10, fontWeight: FontWeight.bold)),
+    );
+  }
 }
 
 class _DrawerButton extends StatelessWidget {
