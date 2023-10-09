@@ -32,9 +32,7 @@ class OnboardingScreen extends StatelessWidget {
                         children: [
                           Text('Welcome', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                           SizedBox(height: 10),
-                          Text('onboarding_description', style: TextStyle(fontSize: 20)),
-                          SizedBox(height: 30),
-                          Text('onboarding_identityNeeded'),
+                          Text('Onboarding needed'),
                         ],
                       ),
                     ),

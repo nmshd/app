@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       _MenuItem(
         icon: Icons.description,
-        title: 'Create JSON Example',
+        title: 'Rejected Create Attribute Request Example',
         pageBuilder: (context) => const RejectedCreateAttributeRequestJsonExample(),
       ),
       _MenuItem(

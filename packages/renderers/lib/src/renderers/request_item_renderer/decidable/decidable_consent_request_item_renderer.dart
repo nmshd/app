@@ -4,11 +4,10 @@ import 'package:flutter/widgets.dart';
 import '../../../../renderers.dart';
 
 class DecidableConsentRequestItemRenderer extends StatelessWidget {
-  final LocalRequestDVO request;
   final DecidableConsentRequestItemDVO item;
   final RequestRendererController? controller;
 
-  const DecidableConsentRequestItemRenderer({super.key, required this.request, required this.item, this.controller});
+  const DecidableConsentRequestItemRenderer({super.key, required this.item, this.controller});
 
   @override
   Widget build(BuildContext context) {

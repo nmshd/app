@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
+import 'package:translated_text/translated_text.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 class IdentityAttributeQueryRenderer extends StatelessWidget {
@@ -12,11 +13,9 @@ class IdentityAttributeQueryRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(query.id),
-        Text(query.name),
-        if (query.description != null) Text(query.description!),
+        TranslatedText(query.name),
+        if (query.description != null) TranslatedText(query.description!),
         if (query.image != null) Text(query.image!),
-        Text(query.type),
         if (query.date != null) Text(query.date!),
         if (query.error != null) Text(query.error!.code),
         if (query.error != null && query.error!.message != null) Text(query.error!.message!),
@@ -24,9 +23,7 @@ class IdentityAttributeQueryRenderer extends StatelessWidget {
         if (query.warning != null && query.warning!.message != null) Text(query.warning!.message!),
         if (query.validFrom != null) Text(query.validFrom!),
         if (query.validTo != null) Text(query.validTo!),
-        Text(query.valueType),
         if (query.tags != null) Text(query.tags!.toString()),
-        Text(query.isProcessed.toString()),
         ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints),
       ],
     );
@@ -43,11 +40,9 @@ class RelationshipAttributeQueryRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(query.id),
         Text(query.name),
         if (query.description != null) Text(query.description!),
         if (query.image != null) Text(query.image!),
-        Text(query.type),
         if (query.date != null) Text(query.date!),
         if (query.error != null) Text(query.error!.code),
         if (query.error != null && query.error!.message != null) Text(query.error!.message!),
@@ -55,10 +50,6 @@ class RelationshipAttributeQueryRenderer extends StatelessWidget {
         if (query.warning != null && query.warning!.message != null) Text(query.warning!.message!),
         if (query.validFrom != null) Text(query.validFrom!),
         if (query.validTo != null) Text(query.validTo!),
-        Text(query.valueType),
-        Text(query.key),
-        Text(query.owner.name),
-        Text(query.isProcessed.toString()),
         Text(query.attributeCreationHints.title),
         ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints),
       ],
@@ -76,9 +67,7 @@ class ThirdPartyAttributeQueryRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(query.type),
         Text(query.name),
-        Text(query.id),
         // owner, thirdParty ...
       ],
     );

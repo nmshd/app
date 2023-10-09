@@ -35,18 +35,12 @@ class AccountCreationScreen extends StatelessWidget {
                     children: [
                       OutlinedButton(
                         onPressed: () => _onboardingPressed(context),
-                        child: const Text(
-                          'Verknüpfe ein vorhandenes Konto',
-                          textAlign: TextAlign.center,
-                        ),
+                        child: const Text('Connect existing account', textAlign: TextAlign.center),
                       ),
                       const SizedBox(height: 10),
                       OutlinedButton(
                         onPressed: () => _createNewIdentityPressed(context),
-                        child: const Text(
-                          'Neues Konto anlegen',
-                          textAlign: TextAlign.center,
-                        ),
+                        child: const Text('Create new account', textAlign: TextAlign.center),
                       ),
                     ],
                   ),
