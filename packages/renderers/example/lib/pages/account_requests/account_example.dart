@@ -1,9 +1,9 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:example_renderers/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import 'home_screen.dart';
 import 'requests_screen.dart';
 
 class AccountExample extends StatefulWidget {

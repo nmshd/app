@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import 'home_screen.dart';
-import 'scanner_view/scanner_view.dart';
-import 'widgets/widgets.dart';
+import '../home_screen.dart';
+import '../scanner_view/scanner_view.dart';
+import '../widgets/create_new_identity.dart';
 
 class AccountCreationScreen extends StatelessWidget {
   const AccountCreationScreen({super.key});

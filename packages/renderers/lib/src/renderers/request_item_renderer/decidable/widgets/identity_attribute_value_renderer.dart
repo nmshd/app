@@ -312,8 +312,7 @@ class _StringIdentityAttributeRendererState extends State<_StringIdentityAttribu
               ],
             ),
             IconButton(
-              onPressed: () =>
-                  _addOrSelectStringIdentityAttribute(widget.results.first.name, 'Der Nachname bzw. Familienname einer natürlichen Person.'),
+              onPressed: () {},
               icon: const Icon(Icons.edit, color: Colors.blue),
             ),
           ],
@@ -362,48 +361,5 @@ class _StringIdentityAttributeRendererState extends State<_StringIdentityAttribu
         ),
       _ => throw Exception('Unknown AbstractAttributeValue: ${widget.value.runtimeType}'),
     };
-  }
-
-  void _addOrSelectStringIdentityAttribute(String title, String description) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (_) => _AddOrSelectStringIdentityAttributeRenderer(title: title, description: description),
-    );
-  }
-}
-
-class _AddOrSelectStringIdentityAttributeRenderer extends StatefulWidget {
-  final String title;
-  final String description;
-
-  const _AddOrSelectStringIdentityAttributeRenderer({required this.title, required this.description});
-
-  @override
-  State<_AddOrSelectStringIdentityAttributeRenderer> createState() => _AddOrSelectStringIdentityAttributeRendererState();
-}
-
-class _AddOrSelectStringIdentityAttributeRendererState extends State<_AddOrSelectStringIdentityAttributeRenderer> {
-  @override
-  Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.sizeOf(context).height;
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: screenHeight - 100),
-      child: Padding(
-        padding: EdgeInsets.only(top: 8, left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TranslatedText(widget.title),
-            const SizedBox(height: 24),
-            TranslatedText(widget.description),
-            const SizedBox(height: 24),
-            TextButton.icon(onPressed: () {}, icon: const Icon(Icons.add_circle_outline), label: const Text('Neue Informationen erfassen')),
-            const Divider(),
-          ],
-        ),
-      ),
-    );
   }
 }
