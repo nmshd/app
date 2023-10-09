@@ -560,7 +560,7 @@ packages:
     source: hosted
     version: "0.14.0"
   translated_text:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       path: "../../translated_text"
       relative: true

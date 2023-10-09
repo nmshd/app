@@ -21,6 +21,7 @@ dependencies:
   mobile_scanner: ^3.4.1
   push: ^1.0.0
   renderers: 1.0.0
+  translated_text: 1.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

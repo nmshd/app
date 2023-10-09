@@ -17,7 +17,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatelessWidget {
       children: [
         Text('(${item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
         switch (item.query) {
-          final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query),
+          final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query, controller: controller),
           final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(query: query),
           final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyAttributeQueryRenderer(query: query),
           _ => throw Exception("Invalid type '${item.query.type}'"),
