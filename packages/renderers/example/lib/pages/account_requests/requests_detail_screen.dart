@@ -117,7 +117,11 @@ class __AddEditItemState extends State<_AddEditItem> {
     return Padding(
       padding: const EdgeInsets.all(18),
       child: Column(
-        children: [Text(widget.requestController.toString()), const SizedBox(height: 300)],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(widget.requestController.toString()),
+        ],
       ),
     );
   }

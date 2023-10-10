@@ -18,13 +18,12 @@ class RequestRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('onEdit: $onEdit');
     List<StatelessWidget> requestItems = [];
     List<StatelessWidget> responseItems = [];
 
     requestItems = request.items.map((item) {
       if (item is RequestItemGroupDVO) {
-        return RequestItemGroupRenderer(requestItemGroup: item, controller: controller);
+        return RequestItemGroupRenderer(requestItemGroup: item, controller: controller, onEdit: onEdit);
       }
 
       return RequestItemRenderer(item: item, controller: controller, onEdit: onEdit);

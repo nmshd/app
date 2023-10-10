@@ -311,7 +311,6 @@ class _StringIdentityAttributeRendererState extends State<_StringIdentityAttribu
               children: [
                 TranslatedText(widget.results.first.name, style: const TextStyle(fontWeight: FontWeight.bold)),
                 Text(value.value),
-                //Text(widget.onEdit.toString()),
               ],
             ),
             IconButton(

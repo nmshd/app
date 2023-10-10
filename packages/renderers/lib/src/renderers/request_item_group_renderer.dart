@@ -7,15 +7,16 @@ import 'request_item_renderer/request_item_renderer.dart';
 class RequestItemGroupRenderer extends StatelessWidget {
   final RequestItemGroupDVO requestItemGroup;
   final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const RequestItemGroupRenderer({super.key, required this.requestItemGroup, this.controller});
+  const RequestItemGroupRenderer({super.key, required this.requestItemGroup, this.controller, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final item in requestItemGroup.items) RequestItemRenderer(item: item, controller: controller),
+        for (final item in requestItemGroup.items) RequestItemRenderer(item: item, controller: controller, onEdit: onEdit),
       ],
     );
   }
