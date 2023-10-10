@@ -45,13 +45,6 @@ void main() {
       final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);
       expect(acceptResponseItem, isA<RegisterAttributeListenerAcceptResponseItem>());
     });
-
-    test('parsed valid SucceedAttributeAcceptResponseItem', () {
-      final responseItemJson = {'@type': 'SucceedAttributeAcceptResponseItem', 'attributeId': 'anAttributeId'};
-
-      final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);
-      expect(acceptResponseItem, isA<SucceedAttributeAcceptResponseItem>());
-    });
   });
 
   group('AcceptResponseItem fromJson', () {

@@ -7,6 +7,7 @@ import '../value_hints.dart';
 part 'attribute_query.g.dart';
 part 'identity_attribute_query.dart';
 part 'iql_query.dart';
+part 'iql_query_creation_hints.dart';
 part 'relationship_attribute_creation_hints.dart';
 part 'relationship_attribute_query.dart';
 part 'third_party_relationship_attribute_query.dart';

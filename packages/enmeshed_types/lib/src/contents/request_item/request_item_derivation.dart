@@ -22,7 +22,6 @@ abstract class RequestItemDerivation extends RequestItem {
       'ConsentRequestItem' => ConsentRequestItem.fromJson(json),
       'AuthenticationRequestItem' => AuthenticationRequestItem.fromJson(json),
       'RegisterAttributeListenerRequestItem' => RegisterAttributeListenerRequestItem.fromJson(json),
-      'SucceedAttributeRequestItem' => SucceedAttributeRequestItem.fromJson(json),
       'FreeTextRequestItem' => FreeTextRequestItem.fromJson(json),
       _ => throw Exception('Unknown type: $type')
     };

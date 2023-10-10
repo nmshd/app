@@ -134,6 +134,11 @@ class ThirdPartyRelationshipAttributeQueryDVO extends AttributeQueryDVO {
 class IQLQueryDVO extends AttributeQueryDVO {
   final String queryString;
   final bool isProcessed;
+  final String? valueType;
+  final IQLQueryCreationHints? attributeCreationHints;
+  final RenderHints? renderHints;
+  final ValueHints? valueHints;
+  final List<String>? tags;
 
   const IQLQueryDVO({
     required super.id,
@@ -148,6 +153,11 @@ class IQLQueryDVO extends AttributeQueryDVO {
     super.validTo,
     required this.queryString,
     required this.isProcessed,
+    this.valueType,
+    this.attributeCreationHints,
+    this.renderHints,
+    this.valueHints,
+    this.tags,
   });
 
   factory IQLQueryDVO.fromJson(Map json) => _$IQLQueryDVOFromJson(Map<String, dynamic>.from(json));

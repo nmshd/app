@@ -140,6 +140,7 @@ class ProcessedIQLQueryDVO extends ProcessedAttributeQueryDVO {
   final String valueType;
   final RenderHints? renderHints;
   final ValueHints? valueHints;
+  final List<String>? tags;
 
   const ProcessedIQLQueryDVO({
     required super.id,
@@ -155,6 +156,7 @@ class ProcessedIQLQueryDVO extends ProcessedAttributeQueryDVO {
     required this.valueType,
     this.renderHints,
     this.valueHints,
+    this.tags,
   }) : super(type: 'ProcessedIQLQueryDVO');
 
   factory ProcessedIQLQueryDVO.fromJson(Map json) => _$ProcessedIQLQueryDVOFromJson(Map<String, dynamic>.from(json));
