@@ -11,19 +11,19 @@ environment:
   flutter: ">=3.10.0"
 
 dependencies:
-  device_info_plus: ^9.0.2
+  device_info_plus: ^10.0.0
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
   flutter_inappwebview: ^5.8.0
-  flutter_local_notifications: ^15.0.0+1
-  logger: ^1.4.0
+  flutter_local_notifications: ^16.1.0
+  logger: ^2.0.2+1
   meta: any
-  path_provider: ^2.0.13
+  path_provider: ^2.1.1
 
 dev_dependencies:
   connector_sdk: 1.0.0
-  flutter_lints: ^2.0.2
+  flutter_lints: ^2.0.3
   flutter_test:
     sdk: flutter
   integration_test:
