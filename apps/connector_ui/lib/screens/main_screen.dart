@@ -101,65 +101,7 @@ class _MainScreenState extends State<MainScreen> {
       return showDialog<void>(
         context: context,
         barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Connector Info'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Row(
-                    children: [
-                      const Text(
-                        'Connector BaseURL: ',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      Text(client.baseUrl),
-                      IconButton(
-                        icon: const Icon(Icons.copy),
-                        onPressed: () => Clipboard.setData(ClipboardData(text: client.baseUrl)),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        'Connector Address: ',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      Text(identityInfo.address),
-                      IconButton(
-                        icon: const Icon(Icons.copy),
-                        onPressed: () => Clipboard.setData(ClipboardData(text: identityInfo.address)),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        'Connector Public Key: ',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      Text(identityInfo.publicKey),
-                      IconButton(
-                        icon: const Icon(Icons.copy),
-                        onPressed: () => Clipboard.setData(ClipboardData(text: identityInfo.publicKey)),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Close'),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ],
-          );
-        },
+        builder: (BuildContext context) => _InfoDialog(client, identityInfo),
       );
     }
   }
@@ -218,5 +160,63 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     return relationship.peer;
+  }
+}
+
+class _InfoDialog extends StatelessWidget {
+  final ConnectorClient client;
+  final GetIdentityInfoResponse identityInfo;
+
+  const _InfoDialog(this.client, this.identityInfo);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Connector Info'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              const Text('Connector BaseURL: ', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Spacer(),
+              Text(client.baseUrl),
+              IconButton(
+                icon: const Icon(Icons.copy),
+                onPressed: () => Clipboard.setData(ClipboardData(text: client.baseUrl)),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Text('Connector Address: ', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Spacer(),
+              Text(identityInfo.address),
+              IconButton(
+                icon: const Icon(Icons.copy),
+                onPressed: () => Clipboard.setData(ClipboardData(text: identityInfo.address)),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Text('Connector Public Key: ', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Spacer(),
+              Expanded(child: Text(identityInfo.publicKey, overflow: TextOverflow.ellipsis)),
+              IconButton(
+                icon: const Icon(Icons.copy),
+                onPressed: () => Clipboard.setData(ClipboardData(text: identityInfo.publicKey)),
+              ),
+            ],
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('Close'),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ],
+    );
   }
 }
