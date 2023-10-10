@@ -33,6 +33,7 @@ class ItemExamples extends StatelessWidget {
       name: 'name',
       mustBeAccepted: false,
       isDecidable: false,
+      proposedValueOverruled: true,
       query: RelationshipAttributeQueryDVO(
         id: 'id',
         name: 'name',
