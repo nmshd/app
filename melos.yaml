@@ -28,5 +28,5 @@ scripts:
     description: Run `integration tests` in all packages that have the folder `integration_test``
 
   outdated:
-    run: melos exec --no-flutter -- "dart pub outdated" && melos exec --flutter -- "flutter pub outdated"
+    run: melos exec -c 1 --no-flutter -- "dart pub outdated" && melos exec -c 1 --flutter -- "flutter pub outdated"
     description: Run `dart pub outdated` in all packages

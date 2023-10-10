@@ -118,6 +118,7 @@ class ReadAttributeRequestItemDVO extends RequestItemDVODerivation {
 class ProposeAttributeRequestItemDVO extends RequestItemDVODerivation {
   final AttributeQueryDVO query;
   final DraftAttributeDVO attribute;
+  final bool proposedValueOverruled;
 
   const ProposeAttributeRequestItemDVO({
     required super.id,
@@ -132,6 +133,7 @@ class ProposeAttributeRequestItemDVO extends RequestItemDVODerivation {
     super.response,
     required this.query,
     required this.attribute,
+    required this.proposedValueOverruled,
   }) : super(type: 'ProposeAttributeRequestItemDVO');
 
   factory ProposeAttributeRequestItemDVO.fromJson(Map json) => _$ProposeAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));

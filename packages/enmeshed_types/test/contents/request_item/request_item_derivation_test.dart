@@ -80,18 +80,6 @@ void main() {
       final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
       expect(requestItemGroup, isA<RegisterAttributeListenerRequestItem>());
     });
-
-    test('parsed valid SucceedAttributeRequestItem', () {
-      final requestItemJson = {
-        '@type': 'SucceedAttributeRequestItem',
-        'mustBeAccepted': true,
-        'succeededAttributeId': 'aSucceededId',
-        'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
-      };
-
-      final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
-      expect(requestItemGroup, isA<SucceedAttributeRequestItem>());
-    });
   });
 
   group('RequestItemDerivation fromJson', () {

@@ -14,7 +14,6 @@ part 'reject_response_item.dart';
 part 'response_item_derivation.dart';
 part 'response_item_group.dart';
 part 'share_attribute_accept_response_item.dart';
-part 'succeed_attribute_accept_response_item.dart';
 
 enum ResponseItemResult { Accepted, Rejected, Error }
 

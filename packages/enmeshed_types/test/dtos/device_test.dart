@@ -6,6 +6,7 @@ void main() {
     test('is correctly converted', () {
       const dto = DeviceDTO(
         id: 'anId',
+        isAdmin: true,
         name: 'aName',
         createdAt: '2023',
         createdByDevice: 'aCreatorDeviceId',
@@ -18,6 +19,7 @@ void main() {
         dtoJson,
         equals({
           'id': 'anId',
+          'isAdmin': true,
           'name': 'aName',
           'createdAt': '2023',
           'createdByDevice': 'aCreatorDeviceId',
@@ -31,6 +33,7 @@ void main() {
     test('is correctly converted with property "publicKey"', () {
       const dto = DeviceDTO(
         id: 'anId',
+        isAdmin: true,
         publicKey: 'aPublicKey',
         name: 'aName',
         createdAt: '2023',
@@ -44,6 +47,7 @@ void main() {
         dtoJson,
         equals({
           'id': 'anId',
+          'isAdmin': true,
           'publicKey': 'aPublicKey',
           'name': 'aName',
           'createdAt': '2023',
@@ -58,6 +62,7 @@ void main() {
     test('is correctly converted with property "certificate"', () {
       const dto = DeviceDTO(
         id: 'anId',
+        isAdmin: true,
         certificate: 'aCertificate',
         name: 'aName',
         createdAt: '2023',
@@ -71,6 +76,7 @@ void main() {
         dtoJson,
         equals({
           'id': 'anId',
+          'isAdmin': true,
           'certificate': 'aCertificate',
           'name': 'aName',
           'createdAt': '2023',
@@ -85,6 +91,7 @@ void main() {
     test('is correctly converted with property "description"', () {
       const dto = DeviceDTO(
         id: 'anId',
+        isAdmin: true,
         name: 'aName',
         description: 'aDescription',
         createdAt: '2023',
@@ -98,6 +105,7 @@ void main() {
         dtoJson,
         equals({
           'id': 'anId',
+          'isAdmin': true,
           'name': 'aName',
           'description': 'aDescription',
           'createdAt': '2023',
@@ -112,6 +120,7 @@ void main() {
     test('is correctly converted with property "operatingSystem"', () {
       const dto = DeviceDTO(
         id: 'anId',
+        isAdmin: true,
         name: 'aName',
         createdAt: '2023',
         createdByDevice: 'aCreatorDeviceId',
@@ -125,6 +134,7 @@ void main() {
         dtoJson,
         equals({
           'id': 'anId',
+          'isAdmin': true,
           'name': 'aName',
           'createdAt': '2023',
           'createdByDevice': 'aCreatorDeviceId',
@@ -139,6 +149,7 @@ void main() {
     test('is correctly converted with property "lastLoginAt"', () {
       const dto = DeviceDTO(
         id: 'anId',
+        isAdmin: true,
         name: 'aName',
         createdAt: '2023',
         createdByDevice: 'aCreatorDeviceId',
@@ -152,6 +163,7 @@ void main() {
         dtoJson,
         equals({
           'id': 'anId',
+          'isAdmin': true,
           'name': 'aName',
           'createdAt': '2023',
           'createdByDevice': 'aCreatorDeviceId',
@@ -166,6 +178,7 @@ void main() {
     test('is correctly converted with properties "publicKey", "certificate", "description", "operatingSystem" and "lastLoginAt"', () {
       const dto = DeviceDTO(
         id: 'anId',
+        isAdmin: true,
         publicKey: 'aPublicKey',
         certificate: 'aCertificate',
         name: 'aName',
@@ -183,6 +196,7 @@ void main() {
         dtoJson,
         equals({
           'id': 'anId',
+          'isAdmin': true,
           'publicKey': 'aPublicKey',
           'certificate': 'aCertificate',
           'name': 'aName',
@@ -203,6 +217,7 @@ void main() {
     test('is correctly converted', () {
       final json = {
         'id': 'anId',
+        'isAdmin': true,
         'name': 'aName',
         'createdAt': '2023',
         'createdByDevice': 'aCreatorDeviceId',
@@ -214,6 +229,7 @@ void main() {
         DeviceDTO.fromJson(json),
         equals(const DeviceDTO(
           id: 'anId',
+          isAdmin: true,
           name: 'aName',
           createdAt: '2023',
           createdByDevice: 'aCreatorDeviceId',
@@ -227,6 +243,7 @@ void main() {
     test('is correctly converted with property "publicKey"', () {
       final json = {
         'id': 'anId',
+        'isAdmin': true,
         'publicKey': 'aPublicKey',
         'name': 'aName',
         'createdAt': '2023',
@@ -239,6 +256,7 @@ void main() {
         DeviceDTO.fromJson(json),
         equals(const DeviceDTO(
           id: 'anId',
+          isAdmin: true,
           publicKey: 'aPublicKey',
           name: 'aName',
           createdAt: '2023',
@@ -253,6 +271,7 @@ void main() {
     test('is correctly converted with property "certificate"', () {
       final json = {
         'id': 'anId',
+        'isAdmin': true,
         'certificate': 'aCertificate',
         'name': 'aName',
         'createdAt': '2023',
@@ -265,6 +284,7 @@ void main() {
         DeviceDTO.fromJson(json),
         equals(const DeviceDTO(
           id: 'anId',
+          isAdmin: true,
           certificate: 'aCertificate',
           name: 'aName',
           createdAt: '2023',
@@ -279,6 +299,7 @@ void main() {
     test('is correctly converted with property "description"', () {
       final json = {
         'id': 'anId',
+        'isAdmin': true,
         'name': 'aName',
         'description': 'aDescription',
         'createdAt': '2023',
@@ -291,6 +312,7 @@ void main() {
         DeviceDTO.fromJson(json),
         equals(const DeviceDTO(
           id: 'anId',
+          isAdmin: true,
           name: 'aName',
           description: 'aDescription',
           createdAt: '2023',
@@ -305,6 +327,7 @@ void main() {
     test('is correctly converted with property "operatingSystem"', () {
       final json = {
         'id': 'anId',
+        'isAdmin': true,
         'name': 'aName',
         'createdAt': '2023',
         'createdByDevice': 'aCreatorDeviceId',
@@ -317,6 +340,7 @@ void main() {
         DeviceDTO.fromJson(json),
         equals(const DeviceDTO(
           id: 'anId',
+          isAdmin: true,
           name: 'aName',
           createdAt: '2023',
           createdByDevice: 'aCreatorDeviceId',
@@ -331,6 +355,7 @@ void main() {
     test('is correctly converted with property "lastLoginAt"', () {
       final json = {
         'id': 'anId',
+        'isAdmin': true,
         'name': 'aName',
         'createdAt': '2023',
         'createdByDevice': 'aCreatorDeviceId',
@@ -343,6 +368,7 @@ void main() {
         DeviceDTO.fromJson(json),
         equals(const DeviceDTO(
           id: 'anId',
+          isAdmin: true,
           name: 'aName',
           createdAt: '2023',
           createdByDevice: 'aCreatorDeviceId',
@@ -357,6 +383,7 @@ void main() {
     test('is correctly converted with properties "publicKey", "certificate", "description", "operatingSystem" and "lastLoginAt"', () {
       final json = {
         'id': 'anId',
+        'isAdmin': true,
         'publicKey': 'aPublicKey',
         'certificate': 'aCertificate',
         'name': 'aName',
@@ -373,6 +400,7 @@ void main() {
         DeviceDTO.fromJson(json),
         equals(const DeviceDTO(
           id: 'anId',
+          isAdmin: true,
           publicKey: 'aPublicKey',
           certificate: 'aCertificate',
           name: 'aName',
