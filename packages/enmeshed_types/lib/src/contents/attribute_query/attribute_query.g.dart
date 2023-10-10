@@ -32,11 +32,44 @@ Map<String, dynamic> _$IdentityAttributeQueryToJson(IdentityAttributeQuery insta
 
 IQLQuery _$IQLQueryFromJson(Map<String, dynamic> json) => IQLQuery(
       queryString: json['queryString'] as String,
+      attributeCreationHints:
+          json['attributeCreationHints'] == null ? null : IQLQueryCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$IQLQueryToJson(IQLQuery instance) => <String, dynamic>{
-      'queryString': instance.queryString,
-    };
+Map<String, dynamic> _$IQLQueryToJson(IQLQuery instance) {
+  final val = <String, dynamic>{
+    'queryString': instance.queryString,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('attributeCreationHints', instance.attributeCreationHints?.toJson());
+  return val;
+}
+
+IQLQueryCreationHints _$IQLQueryCreationHintsFromJson(Map<String, dynamic> json) => IQLQueryCreationHints(
+      valueType: json['valueType'] as String,
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    );
+
+Map<String, dynamic> _$IQLQueryCreationHintsToJson(IQLQueryCreationHints instance) {
+  final val = <String, dynamic>{
+    'valueType': instance.valueType,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('tags', instance.tags);
+  return val;
+}
 
 RelationshipAttributeCreationHints _$RelationshipAttributeCreationHintsFromJson(Map<String, dynamic> json) => RelationshipAttributeCreationHints(
       title: json['title'] as String,

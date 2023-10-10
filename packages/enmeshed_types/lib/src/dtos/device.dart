@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class DeviceDTO extends Equatable {
   final String id;
+  final bool isAdmin;
   final String? publicKey;
   final String? certificate;
   final String name;
@@ -16,6 +17,7 @@ class DeviceDTO extends Equatable {
 
   const DeviceDTO({
     required this.id,
+    required this.isAdmin,
     this.publicKey,
     this.certificate,
     required this.name,
@@ -31,6 +33,7 @@ class DeviceDTO extends Equatable {
 
   factory DeviceDTO.fromJson(Map json) => DeviceDTO(
         id: json['id'],
+        isAdmin: json['isAdmin'],
         publicKey: json['publicKey'],
         certificate: json['certificate'],
         name: json['name'],
@@ -46,6 +49,7 @@ class DeviceDTO extends Equatable {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'isAdmin': isAdmin,
         if (publicKey != null) 'publicKey': publicKey,
         if (certificate != null) 'certificate': certificate,
         'name': name,

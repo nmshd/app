@@ -155,8 +155,6 @@ class IncomingRequestsFacadeView extends StatelessWidget {
       ProposeAttributeRequestItem => AcceptProposeAttributeRequestItemParametersWithNewAttribute(
           attribute: (requestItem as ProposeAttributeRequestItem).attribute,
         ),
-      // not implemented in the runtime
-      SucceedAttributeRequestItem => throw UnimplementedError(),
       _ => throw UnimplementedError(),
     };
   }

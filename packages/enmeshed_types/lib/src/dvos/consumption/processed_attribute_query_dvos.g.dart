@@ -163,6 +163,7 @@ ProcessedIQLQueryDVO _$ProcessedIQLQueryDVOFromJson(Map<String, dynamic> json) =
       valueType: json['valueType'] as String,
       renderHints: json['renderHints'] == null ? null : RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: json['valueHints'] == null ? null : ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$ProcessedIQLQueryDVOToJson(ProcessedIQLQueryDVO instance) {
@@ -189,5 +190,6 @@ Map<String, dynamic> _$ProcessedIQLQueryDVOToJson(ProcessedIQLQueryDVO instance)
   val['valueType'] = instance.valueType;
   writeNotNull('renderHints', instance.renderHints?.toJson());
   writeNotNull('valueHints', instance.valueHints?.toJson());
+  writeNotNull('tags', instance.tags);
   return val;
 }

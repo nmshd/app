@@ -160,6 +160,12 @@ IQLQueryDVO _$IQLQueryDVOFromJson(Map<String, dynamic> json) => IQLQueryDVO(
       validTo: json['validTo'] as String?,
       queryString: json['queryString'] as String,
       isProcessed: json['isProcessed'] as bool,
+      valueType: json['valueType'] as String?,
+      attributeCreationHints:
+          json['attributeCreationHints'] == null ? null : IQLQueryCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
+      renderHints: json['renderHints'] == null ? null : RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
+      valueHints: json['valueHints'] == null ? null : ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$IQLQueryDVOToJson(IQLQueryDVO instance) {
@@ -184,5 +190,10 @@ Map<String, dynamic> _$IQLQueryDVOToJson(IQLQueryDVO instance) {
   writeNotNull('validTo', instance.validTo);
   val['queryString'] = instance.queryString;
   val['isProcessed'] = instance.isProcessed;
+  writeNotNull('valueType', instance.valueType);
+  writeNotNull('attributeCreationHints', instance.attributeCreationHints?.toJson());
+  writeNotNull('renderHints', instance.renderHints?.toJson());
+  writeNotNull('valueHints', instance.valueHints?.toJson());
+  writeNotNull('tags', instance.tags);
   return val;
 }
