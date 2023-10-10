@@ -13,11 +13,6 @@ class IdentityAttributeQueryRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TranslatedText(query.name),
-        if (query.error != null) Text(query.error!.code),
-        if (query.error != null && query.error!.message != null) Text(query.error!.message!),
-        if (query.warning != null) Text(query.warning!.code),
-        if (query.warning != null && query.warning!.message != null) Text(query.warning!.message!),
-        if (query.tags != null) Text(query.tags!.toString()),
         const SizedBox(height: 8),
         Text(query.valueType)
         //ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints),
@@ -37,10 +32,6 @@ class RelationshipAttributeQueryRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(query.name),
-        if (query.error != null) Text(query.error!.code),
-        if (query.error != null && query.error!.message != null) Text(query.error!.message!),
-        if (query.warning != null) Text(query.warning!.code),
-        if (query.warning != null && query.warning!.message != null) Text(query.warning!.message!),
         Text(query.attributeCreationHints.title),
         const SizedBox(height: 8),
         Text(query.valueType)
