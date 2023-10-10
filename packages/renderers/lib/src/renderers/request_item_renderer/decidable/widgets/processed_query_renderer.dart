@@ -11,7 +11,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
   final RequestRendererController? controller;
 
-  const ProcessedIdentityAttributeQueryRenderer({super.key, required this.query, required this.controller});
+  const ProcessedIdentityAttributeQueryRenderer({super.key, required this.query, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +37,6 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
       children: [
         TranslatedText(query.name),
         Text(query.type),
-        if (query.error != null) Text(query.error!.code),
-        if (query.error != null && query.error!.message != null) Text(query.error!.message!),
-        if (query.warning != null) Text(query.warning!.code),
-        if (query.warning != null && query.warning!.message != null) Text(query.warning!.message!),
         // Text(query.valueType),
         Text(query.owner.name),
         Text(query.attributeCreationHints.title),

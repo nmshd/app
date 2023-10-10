@@ -15,6 +15,24 @@ class RequestsDetailScreen extends StatefulWidget {
 }
 
 class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
+  RequestRendererController controller = RequestRendererController();
+
+  dynamic requestController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    requestController = controller.value;
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +63,12 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
               Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
               const Divider(),
-              RequestRenderer(request: widget.localRequestDVO),
+              Column(
+                children: [
+                  RequestRenderer(request: widget.localRequestDVO, controller: controller),
+                  Text('controller: ${requestController ?? 'null'}'),
+                ],
+              ),
               if (widget.localRequestDVO.isDecidable)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

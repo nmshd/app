@@ -4,23 +4,35 @@ import 'package:flutter/widgets.dart';
 import '../../../../renderers.dart';
 import 'widgets/processed_query_renderer.dart';
 
-class DecidableReadAttributeRequestItemRenderer extends StatelessWidget {
+class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableReadAttributeRequestItemDVO item;
   final RequestRendererController? controller;
 
   const DecidableReadAttributeRequestItemRenderer({super.key, required this.item, this.controller});
 
   @override
+  State<DecidableReadAttributeRequestItemRenderer> createState() => _DecidableReadAttributeRequestItemRendererState();
+}
+
+class _DecidableReadAttributeRequestItemRendererState extends State<DecidableReadAttributeRequestItemRenderer> {
+  @override
+  void initState() {
+    super.initState();
+
+    widget.controller?.value = widget.item.query.type;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('(${item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
-        switch (item.query) {
-          final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query, controller: controller),
+        Text('(${widget.item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
+        switch (widget.item.query) {
+          final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query),
           //final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
           //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
-          _ => throw Exception("Invalid type '${item.query.type}'"),
+          _ => throw Exception("Invalid type '${widget.item.query.type}'"),
         },
         const SizedBox(height: 30),
       ],

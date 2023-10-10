@@ -22,7 +22,7 @@ class RequestRenderer extends StatelessWidget {
 
     requestItems = request.items.map((item) {
       if (item is RequestItemGroupDVO) {
-        return RequestItemGroupRenderer(requestItemGroup: item);
+        return RequestItemGroupRenderer(requestItemGroup: item, controller: controller);
       }
 
       return RequestItemRenderer(item: item, controller: controller);
