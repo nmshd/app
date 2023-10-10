@@ -18,7 +18,20 @@ jobs:
         run: |
           UDID=$(xcrun xctrace list devices | grep -m 1 "^iPhone" | awk '{gsub(/[()]/,""); print $NF}')
           echo $UDID
-          xcrun simctl boot "${UDID:?No Simulator with this name found}"
+
+          if xcrun simctl boot "$UDID" 2>errorFile.txt; then
+              echo "device booted"
+          else
+              if grep -q "Unable to boot device in current state: Booted" errorFile.txt; then
+                  echo "device already booted"
+                  rm errorFile.txt
+              else
+                  echo "device not booted"
+                  cat errorFile.txt
+                  rm errorFile.txt
+                  exit 1
+              fi
+          fi
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2
         with:
