@@ -6,7 +6,7 @@ on:
       - main
 jobs:
   ios:
-    runs-on: macos-latest
+    runs-on: imhotep
     steps:
       - uses: actions/checkout@v3
       - name: "List all simulators"
@@ -29,6 +29,7 @@ jobs:
           melos bootstrap
       - name: Run integration tests
         run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=${{secrets.CNS_NMSHD_TEST_BASEURL}} --dart-define=app_clientId=${{secrets.CNS_NMSHD_TEST_CLIENTID}} --dart-define=app_clientSecret=${{secrets.CNS_NMSHD_TEST_CLIENTSECRET}}
+
   android:
     runs-on: macos-latest
     env:
