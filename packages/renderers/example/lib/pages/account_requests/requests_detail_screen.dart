@@ -23,7 +23,11 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   void initState() {
     super.initState();
 
-    requestController = controller.value;
+    controller.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => requestController = controller.value);
+      });
+    });
   }
 
   @override
