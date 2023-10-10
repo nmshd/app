@@ -21,6 +21,7 @@ class DecidableShareAttributeRequestItemRenderer extends StatelessWidget {
           final DraftIdentityAttributeDVO dvo => DraftIdentityAttributeRenderer(attribute: dvo),
           final DraftRelationshipAttributeDVO dvo => DraftRelationshipAttributeRenderer(attribute: dvo),
         },
+        Text(item.attribute.name),
         const SizedBox(height: 30),
       ],
     );
