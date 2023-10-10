@@ -17,7 +17,7 @@ class RequestsDetailScreen extends StatefulWidget {
 class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   RequestRendererController controller = RequestRendererController();
 
-  dynamic requestController;
+  ProcessedAttributeQueryDVO? requestController;
 
   @override
   void initState() {
@@ -98,12 +98,12 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 
   void _addEditItem() {
     print('onEdit tapped from Example');
-    showModalBottomSheet(context: context, isScrollControlled: true, builder: (context) => _AddEditItem(requestController: requestController));
+    showModalBottomSheet(context: context, isScrollControlled: true, builder: (context) => _AddEditItem(requestController: requestController!));
   }
 }
 
 class _AddEditItem extends StatefulWidget {
-  final dynamic requestController;
+  final ProcessedAttributeQueryDVO requestController;
 
   const _AddEditItem({required this.requestController});
 
@@ -120,7 +120,7 @@ class __AddEditItemState extends State<_AddEditItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(widget.requestController.toString()),
+          TranslatedText(widget.requestController.name),
         ],
       ),
     );
