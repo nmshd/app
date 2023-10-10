@@ -7,8 +7,9 @@ import 'widgets/processed_query_renderer.dart';
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableReadAttributeRequestItemDVO item;
   final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const DecidableReadAttributeRequestItemRenderer({super.key, required this.item, this.controller});
+  const DecidableReadAttributeRequestItemRenderer({super.key, required this.item, this.controller, this. onEdit});
 
   @override
   State<DecidableReadAttributeRequestItemRenderer> createState() => _DecidableReadAttributeRequestItemRendererState();
@@ -19,7 +20,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   void initState() {
     super.initState();
 
-    widget.controller?.value = widget.item.query.type;
+    widget.controller?.value = widget.item.query;
   }
 
   @override
@@ -29,7 +30,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       children: [
         Text('(${widget.item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
         switch (widget.item.query) {
-          final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query),
+          final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query, onEdit: widget.onEdit),
           //final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
           //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
           _ => throw Exception("Invalid type '${widget.item.query.type}'"),

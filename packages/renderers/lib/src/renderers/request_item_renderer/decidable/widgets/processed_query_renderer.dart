@@ -10,15 +10,21 @@ import 'relationship_attribute_value_renderer.dart';
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
   final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const ProcessedIdentityAttributeQueryRenderer({super.key, required this.query, this.controller});
+  const ProcessedIdentityAttributeQueryRenderer({super.key, required this.query, this.controller, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
     return query.results.isEmpty
         ? ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints)
         : switch (query.results.first.value) {
-            final IdentityAttributeValue value => IdentityAttributeValueRenderer(results: query.results, value: value, controller: controller),
+            final IdentityAttributeValue value => IdentityAttributeValueRenderer(
+                results: query.results,
+                value: value,
+                controller: controller,
+                onEdit: onEdit,
+              ),
             final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(results: query.results, value: value),
             _ => throw Exception('Unknown AttributeValue: ${query.results.first.valueType}'),
           };

@@ -8,14 +8,15 @@ import 'request_item_renderers.dart';
 class RequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
   final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const RequestItemRenderer({super.key, required this.item, this.controller});
+  const RequestItemRenderer({super.key, required this.item, this.controller, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
     if (item.type.startsWith('Decidable')) {
       return switch (item) {
-        final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo),
+        final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit),
         final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(controller: controller, item: dvo),
         final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo),
         final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo),

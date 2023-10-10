@@ -12,11 +12,13 @@ class RequestRendererController extends ValueNotifier<dynamic> {
 class RequestRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final LocalRequestDVO request;
+  final VoidCallback? onEdit;
 
-  const RequestRenderer({super.key, this.controller, required this.request});
+  const RequestRenderer({super.key, this.controller, required this.request, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
+    print('onEdit: $onEdit');
     List<StatelessWidget> requestItems = [];
     List<StatelessWidget> responseItems = [];
 
@@ -25,7 +27,7 @@ class RequestRenderer extends StatelessWidget {
         return RequestItemGroupRenderer(requestItemGroup: item, controller: controller);
       }
 
-      return RequestItemRenderer(item: item, controller: controller);
+      return RequestItemRenderer(item: item, controller: controller, onEdit: onEdit);
     }).toList();
 
     if (request.response != null) {

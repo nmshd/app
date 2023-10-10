@@ -69,7 +69,8 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               const Divider(),
               Column(
                 children: [
-                  RequestRenderer(request: widget.localRequestDVO, controller: controller),
+                  RequestRenderer(request: widget.localRequestDVO, controller: controller, onEdit: () => _addEditItem()),
+                  TextButton(onPressed: () => _addEditItem(), child: const Text('Test')),
                   Text('controller: ${requestController ?? 'null'}'),
                 ],
               ),
@@ -91,6 +92,32 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _addEditItem() {
+    print('onEdit tapped from Example');
+    showModalBottomSheet(context: context, isScrollControlled: true, builder: (context) => _AddEditItem(requestController: requestController));
+  }
+}
+
+class _AddEditItem extends StatefulWidget {
+  final dynamic requestController;
+
+  const _AddEditItem({required this.requestController});
+
+  @override
+  State<_AddEditItem> createState() => __AddEditItemState();
+}
+
+class __AddEditItemState extends State<_AddEditItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        children: [Text(widget.requestController.toString()), const SizedBox(height: 300)],
       ),
     );
   }

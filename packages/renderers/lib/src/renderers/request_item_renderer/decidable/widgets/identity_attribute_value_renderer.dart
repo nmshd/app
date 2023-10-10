@@ -8,8 +8,9 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final List<IdentityAttributeDVO> results;
   final IdentityAttributeValue value;
   final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const IdentityAttributeValueRenderer({super.key, required this.value, required this.results, required this.controller});
+  const IdentityAttributeValueRenderer({super.key, required this.value, required this.results, required this.controller, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       final StreetAddressAttributeValue value => _StreetAddressAttributeValueRenderer(value: value),
       final SchematizedXMLAttributeValue value => _SchematizedXMLAttributeValueRenderer(value: value),
       final StatementAttributeValue value => _StatementAttributeValueRenderer(value: value),
-      _ => _StringIdentityAttributeRenderer(value: value, results: results, controller: controller),
+      _ => _StringIdentityAttributeRenderer(value: value, results: results, controller: controller, onEdit: onEdit),
     };
   }
 }
@@ -215,8 +216,9 @@ class _StringIdentityAttributeRenderer extends StatefulWidget {
   final List<IdentityAttributeDVO> results;
   final IdentityAttributeValue value;
   final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _StringIdentityAttributeRenderer({required this.results, required this.value, required this.controller});
+  const _StringIdentityAttributeRenderer({required this.results, required this.value, required this.controller, this.onEdit});
 
   @override
   State<_StringIdentityAttributeRenderer> createState() => _StringIdentityAttributeRendererState();
@@ -309,10 +311,14 @@ class _StringIdentityAttributeRendererState extends State<_StringIdentityAttribu
               children: [
                 TranslatedText(widget.results.first.name, style: const TextStyle(fontWeight: FontWeight.bold)),
                 Text(value.value),
+                //Text(widget.onEdit.toString()),
               ],
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                print('onTap from Renderer');
+                widget.onEdit!();
+              },
               icon: const Icon(Icons.edit, color: Colors.blue),
             ),
           ],
