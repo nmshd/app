@@ -41,56 +41,54 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Message Detail Screen')),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Title:', style: TextStyle(fontWeight: FontWeight.bold)),
-              TranslatedText(widget.localRequestDVO.name),
-              const SizedBox(height: 8),
-              if (widget.localRequestDVO.description != null) ...[
-                const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
-                TranslatedText(widget.localRequestDVO.description!),
-                const SizedBox(height: 8),
-              ],
-              const Text('Request ID:', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(widget.localRequestDVO.id),
-              const SizedBox(height: 8),
-              const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
-              TranslatedText(widget.localRequestDVO.statusText),
-              const SizedBox(height: 8),
-              const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(widget.localRequestDVO.createdBy.name),
-              const SizedBox(height: 8),
-              const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
-              const Divider(),
-              Column(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RequestRenderer(request: widget.localRequestDVO, controller: controller, onEdit: () => _addEditItem()),
-                  TextButton(onPressed: () => _addEditItem(), child: const Text('Test')),
-                  Text('controller: ${requestController ?? 'null'}'),
+                  const Text('Title:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TranslatedText(widget.localRequestDVO.name),
+                  const SizedBox(height: 8),
+                  if (widget.localRequestDVO.description != null) ...[
+                    const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TranslatedText(widget.localRequestDVO.description!),
+                    const SizedBox(height: 8),
+                  ],
+                  const Text('Request ID:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(widget.localRequestDVO.id),
+                  const SizedBox(height: 8),
+                  const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TranslatedText(widget.localRequestDVO.statusText),
+                  const SizedBox(height: 8),
+                  const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(widget.localRequestDVO.createdBy.name),
+                  const SizedBox(height: 8),
+                  const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
+                  const Divider(),
                 ],
               ),
-              if (widget.localRequestDVO.isDecidable)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('cancel'),
-                    ),
-                    FilledButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(minimumSize: const Size(100.0, 36.0)),
-                      child: const Text('save'),
-                    ),
-                  ],
-                ),
-            ],
-          ),
+            ),
+            RequestRenderer(request: widget.localRequestDVO, controller: controller, onEdit: () => _addEditItem()),
+            if (widget.localRequestDVO.isDecidable)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('cancel'),
+                  ),
+                  FilledButton(
+                    onPressed: () {},
+                    style: OutlinedButton.styleFrom(minimumSize: const Size(100.0, 36.0)),
+                    child: const Text('save'),
+                  ),
+                ],
+              ),
+          ],
         ),
       ),
     );

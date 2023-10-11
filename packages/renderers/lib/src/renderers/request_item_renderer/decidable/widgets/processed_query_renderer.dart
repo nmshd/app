@@ -1,9 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
-import 'package:value_renderer/value_renderer.dart';
 
 import '../../../../request_renderer.dart';
+import '../../../widgets/value_renderer_list_tile.dart';
 import 'identity_attribute_value_renderer.dart';
 import 'relationship_attribute_value_renderer.dart';
 
@@ -17,7 +17,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return query.results.isEmpty
-        ? ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints)
+        ? ValueRendererListTile(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints)
         : switch (query.results.first.value) {
             final IdentityAttributeValue value => IdentityAttributeValueRenderer(
                 results: query.results,

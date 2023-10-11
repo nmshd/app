@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:translated_text/translated_text.dart';
 
 import '../../../../../renderers.dart';
+import '../../../widgets/custom_list_tile.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final List<IdentityAttributeDVO> results;
@@ -304,24 +304,26 @@ class _StringIdentityAttributeRendererState extends State<_StringIdentityAttribu
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [const Text('Street'), Text(value.value)],
         ),
-      final SurnameAttributeValue value => Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                TranslatedText(widget.results.first.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text(value.value),
-              ],
-            ),
-            IconButton(
-              onPressed: () {
-                print('onTap from Renderer');
-                widget.onEdit!();
-              },
-              icon: const Icon(Icons.edit, color: Colors.blue),
-            ),
-          ],
-        ),
+      final SurnameAttributeValue value => CustomListTile(title: widget.results.first.name, subTitle: value.value),
+      // final SurnameAttributeValue value => CustomListTile(
+      //     title: widget.results.first.name,
+      //     subTitle: value.value,
+      //     onPressed: () => widget.onEdit!(),
+      //     trailing: IconButton(
+      //       onPressed: () => widget.onEdit!(),
+      //       icon: const Icon(Icons.edit, color: Colors.blue),
+      //     ),
+      //   ),
+
+      // ListTile(
+      //     title: TranslatedText(widget.results.first.name, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+      //     subtitle: Text(value.value, style: const TextStyle(fontSize: 16)),
+      //     trailing: IconButton(
+      //       onPressed: () => widget.onEdit!(),
+      //       icon: const Icon(Icons.edit, color: Colors.blue),
+      //     ),
+      //   ),
+
       final ZipCodeAttributeValue value => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [const Text('ZipCode'), Text(value.value)],
