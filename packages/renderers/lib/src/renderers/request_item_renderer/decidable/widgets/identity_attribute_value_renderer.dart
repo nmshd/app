@@ -2,6 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../renderers.dart';
+import '../../../widgets/complex_attribute_list_tile.dart';
 import '../../../widgets/custom_list_tile.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
@@ -20,10 +21,16 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       final BirthPlaceAttributeValue value => _BirthPlaceAttributeValueRenderer(value: value),
       final DeliveryBoxAddressAttributeValue value => _DeliveryBoxAddressAttributeValueRenderer(value: value),
       final PersonNameAttributeValue value => _PersonNameAttributeValueRenderer(value: value),
-      final PostOfficeBoxAddressAttributeValue value => _PostOfficeBoxAddressAttributeValueRenderer(value: value),
+      final PostOfficeBoxAddressAttributeValue value => _PostOfficeBoxAddressAttributeValueRenderer(
+          value: value,
+          results: results,
+          controller: controller,
+          onEdit: onEdit,
+        ),
       final StreetAddressAttributeValue value => _StreetAddressAttributeValueRenderer(value: value),
-      final SchematizedXMLAttributeValue value => _SchematizedXMLAttributeValueRenderer(value: value),
-      final StatementAttributeValue value => _StatementAttributeValueRenderer(value: value),
+      final SchematizedXMLAttributeValue value =>
+        _SchematizedXMLAttributeValueRenderer(value: value, results: results, controller: controller, onEdit: onEdit),
+      final StatementAttributeValue value => _StatementAttributeValueRenderer(value: value, results: results, controller: controller, onEdit: onEdit),
       _ => _StringIdentityAttributeRenderer(value: value, results: results, controller: controller, onEdit: onEdit),
     };
   }
@@ -132,23 +139,23 @@ class _PersonNameAttributeValueRenderer extends StatelessWidget {
 }
 
 class _PostOfficeBoxAddressAttributeValueRenderer extends StatelessWidget {
+  final List<IdentityAttributeDVO> results;
   final PostOfficeBoxAddressAttributeValue value;
+  final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _PostOfficeBoxAddressAttributeValueRenderer({required this.value});
+  const _PostOfficeBoxAddressAttributeValueRenderer({required this.value, required this.results, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('PostOfficeBoxAddress'),
-        Text(value.recipient),
-        Text(value.boxId),
-        Text(value.zipCode),
-        Text(value.city),
-        Text(value.country),
-        if (value.state != null) Text(value.state!),
-      ],
+    return ComplexAttributeListTile(
+      titles: value.state != null
+          ? ['Empfänger', 'Postfach', 'Postleitzahl', 'Stadt', 'Land', 'Bundesland']
+          : ['Empfänger', 'Postfach', 'Postleitzahl', 'Stadt', 'Land'],
+      subTitles: value.state != null
+          ? [value.recipient, value.boxId, value.zipCode, value.city, value.country, value.state!]
+          : [value.recipient, value.boxId, value.zipCode, value.city, value.country],
+      trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
@@ -177,9 +184,12 @@ class _StreetAddressAttributeValueRenderer extends StatelessWidget {
 }
 
 class _SchematizedXMLAttributeValueRenderer extends StatelessWidget {
+  final List<IdentityAttributeDVO> results;
   final SchematizedXMLAttributeValue value;
+  final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _SchematizedXMLAttributeValueRenderer({required this.value});
+  const _SchematizedXMLAttributeValueRenderer({required this.value, required this.results, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -196,23 +206,24 @@ class _SchematizedXMLAttributeValueRenderer extends StatelessWidget {
 
 // TODO properly implement this asap when the class is implemented
 class _StatementAttributeValueRenderer extends StatelessWidget {
+  final List<IdentityAttributeDVO> results;
   final StatementAttributeValue value;
+  final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _StatementAttributeValueRenderer({required this.value});
+  const _StatementAttributeValueRenderer({required this.value, required this.results, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Statement'),
-        Text(value.json.toString()),
-      ],
+    return CustomListTile(
+      title: results.first.name,
+      subTitle: value.json.toString(),
+      trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
 
-class _StringIdentityAttributeRenderer extends StatefulWidget {
+class _StringIdentityAttributeRenderer extends StatelessWidget {
   final List<IdentityAttributeDVO> results;
   final IdentityAttributeValue value;
   final RequestRendererController? controller;
@@ -221,152 +232,169 @@ class _StringIdentityAttributeRenderer extends StatefulWidget {
   const _StringIdentityAttributeRenderer({required this.results, required this.value, required this.controller, this.onEdit});
 
   @override
-  State<_StringIdentityAttributeRenderer> createState() => _StringIdentityAttributeRendererState();
-}
-
-class _StringIdentityAttributeRendererState extends State<_StringIdentityAttributeRenderer> {
-  @override
   Widget build(BuildContext context) {
-    return switch (widget.value) {
-      final AffiliationOrganizationAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('AffiliationOrganization'), Text(value.value)],
+    return switch (value) {
+      final AffiliationOrganizationAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final AffiliationRoleAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('AffiliationRole'), Text(value.value)],
+      final AffiliationRoleAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final AffiliationUnitAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('AffiliationUnit'), Text(value.value)],
+      final AffiliationUnitAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final BirthCityAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('BirthCity'), Text(value.value)],
+      final BirthCityAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final BirthNameAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('BirthName'), Text(value.value)],
+      final BirthNameAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final BirthStateAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('BirthState'), Text(value.value)],
+      final BirthStateAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final CityAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('City'), Text(value.value)],
+      final CityAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final DisplayNameAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('DisplayName'), Text(value.value)],
+      final DisplayNameAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final IdentityFileReferenceAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('IdentityFileReference'), Text(value.value)],
+      final IdentityFileReferenceAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final GivenNameAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('GivenName'), Text(value.value)],
+      final GivenNameAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final HonorificPrefixAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('HonorificPrefix'), Text(value.value)],
+      final HonorificPrefixAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final HonorificSuffixAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('HonorificSuffix'), Text(value.value)],
+      final HonorificSuffixAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final HouseNumberAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('HouseNumber'), Text(value.value)],
+      final HouseNumberAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final JobTitleAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('JobTitle'), Text(value.value)],
+      final JobTitleAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final MiddleNameAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('MiddleName'), Text(value.value)],
+      final MiddleNameAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final PhoneNumberAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('PhoneNumber'), Text(value.value)],
+      final PhoneNumberAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final PseudonymAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Pseudonym'), Text(value.value)],
+      final PseudonymAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final StateAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('State'), Text(value.value)],
+      final StateAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final StreetAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Street'), Text(value.value)],
+      final StreetAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final SurnameAttributeValue value => CustomListTile(title: widget.results.first.name, subTitle: value.value),
-      // final SurnameAttributeValue value => CustomListTile(
-      //     title: widget.results.first.name,
-      //     subTitle: value.value,
-      //     onPressed: () => widget.onEdit!(),
-      //     trailing: IconButton(
-      //       onPressed: () => widget.onEdit!(),
-      //       icon: const Icon(Icons.edit, color: Colors.blue),
-      //     ),
-      //   ),
-
-      // ListTile(
-      //     title: TranslatedText(widget.results.first.name, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
-      //     subtitle: Text(value.value, style: const TextStyle(fontSize: 16)),
-      //     trailing: IconButton(
-      //       onPressed: () => widget.onEdit!(),
-      //       icon: const Icon(Icons.edit, color: Colors.blue),
-      //     ),
-      //   ),
-
-      final ZipCodeAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('ZipCode'), Text(value.value)],
+      final SurnameAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final BirthDayAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('BirthDay'), Text(value.value.toString())]),
-      final BirthMonthAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('BirthMonth'), Text(value.value.toString())]),
-      final BirthYearAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('BirthYear'), Text(value.value.toString())]),
-      final CitizenshipAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Citizenship'), Text(value.value)],
+      final ZipCodeAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final CommunicationLanguageAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('CommunicationLanguage'), Text(value.value)],
+      final BirthDayAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value.toString(),
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final CountryAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Country'), Text(value.value)],
+      final BirthMonthAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value.toString(),
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final EMailAddressAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('EMailAddress'), Text(value.value)],
+      final BirthYearAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value.toString(),
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final FaxNumberAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('FaxNumber'), Text(value.value)],
+      final CitizenshipAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final NationalityAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Nationality'), Text(value.value)],
+      final CommunicationLanguageAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final SexAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Sex'), Text(value.value)],
+      final CountryAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      final WebsiteAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Website'), Text(value.value)],
+      final EMailAddressAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
         ),
-      _ => throw Exception('Unknown AbstractAttributeValue: ${widget.value.runtimeType}'),
+      final FaxNumberAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
+        ),
+      final NationalityAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
+        ),
+      final SexAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
+        ),
+      final WebsiteAttributeValue value => CustomListTile(
+          title: results.first.name,
+          subTitle: value.value,
+          trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
+        ),
+      _ => throw Exception('Unknown AbstractAttributeValue: ${value.runtimeType}'),
     };
   }
 }

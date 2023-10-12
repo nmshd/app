@@ -28,7 +28,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('(${widget.item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
+        //Text('(${widget.item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
         switch (widget.item.query) {
           final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query, onEdit: widget.onEdit),
           //final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
