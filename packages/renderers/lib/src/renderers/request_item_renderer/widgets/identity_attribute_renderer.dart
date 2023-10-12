@@ -51,7 +51,7 @@ class _AffiliationAttributeValueRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Affiliation'),
+        Text(value.toJson()['@type']),
         Text(value.role),
         Text(value.organization),
         Text(value.unit),
@@ -70,7 +70,7 @@ class _BirthDateAttributeValueRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('BirthDate'),
+        Text(value.toJson()['@type']),
         Text(value.day.toString()),
         Text(value.month.toString()),
         Text(value.year.toString()),
@@ -89,7 +89,7 @@ class _BirthPlaceAttributeValueRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('BirthPlace'),
+        Text(value.toJson()['@type']),
         Text(value.city),
         Text(value.country),
         if (value.state != null) Text(value.state!),
@@ -108,7 +108,7 @@ class _DeliveryBoxAddressAttributeValueRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('DeliveryBoxAddress'),
+        Text(value.toJson()['@type']),
         Text(value.recipient),
         Text(value.deliveryBoxId),
         Text(value.userId),
@@ -132,7 +132,7 @@ class _PersonNameAttributeValueRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('PersonName'),
+        Text(value.toJson()['@type']),
         Text(value.givenName),
         if (value.middleName != null) Text(value.middleName!),
         Text(value.surname),
@@ -153,7 +153,7 @@ class _PostOfficeBoxAddressAttributeValueRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('PostOfficeBoxAddress'),
+        Text(value.toJson()['@type']),
         Text(value.recipient),
         Text(value.boxId),
         Text(value.zipCode),
@@ -175,7 +175,7 @@ class _StreetAddressAttributeValueRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('StreetAddress'),
+        Text(value.toJson()['@type']),
         Text(value.recipient),
         Text(value.street),
         Text(value.houseNumber),
@@ -198,7 +198,7 @@ class _SchematizedXMLAttributeValueRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('SchematizedXML'),
+        Text(value.toJson()['@type']),
         Text(value.value),
         if (value.schemaURL != null) Text(value.schemaURL!),
       ],
@@ -217,7 +217,7 @@ class _StatementAttributeValueRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Statement'),
+        Text(value.toJson()['@type']),
         Text(value.json.toString()),
       ],
     );
@@ -232,38 +232,38 @@ class _StringIdentityAttributeRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (attribute.value) {
-      final AffiliationOrganizationAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final AffiliationRoleAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final AffiliationUnitAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final BirthCityAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final BirthNameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final BirthStateAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final CityAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final DisplayNameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final IdentityFileReferenceAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final GivenNameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final HonorificPrefixAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final HonorificSuffixAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final HouseNumberAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final JobTitleAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final MiddleNameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final PhoneNumberAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final PseudonymAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final StateAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final StreetAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final SurnameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final ZipCodeAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final BirthDayAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value.toString()),
-      final BirthMonthAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value.toString()),
-      final BirthYearAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value.toString()),
-      final CitizenshipAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final CommunicationLanguageAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final CountryAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final EMailAddressAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final FaxNumberAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final NationalityAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final SexAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
-      final WebsiteAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final AffiliationOrganizationAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final AffiliationRoleAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final AffiliationUnitAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final BirthCityAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final BirthNameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final BirthStateAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final CityAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final DisplayNameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final IdentityFileReferenceAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final GivenNameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final HonorificPrefixAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final HonorificSuffixAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final HouseNumberAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final JobTitleAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final MiddleNameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final PhoneNumberAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final PseudonymAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final StateAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final StreetAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final SurnameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final ZipCodeAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final BirthDayAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value.toString()),
+      final BirthMonthAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value.toString()),
+      final BirthYearAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value.toString()),
+      final CitizenshipAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final CommunicationLanguageAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final CountryAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final EMailAddressAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final FaxNumberAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final NationalityAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final SexAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final WebsiteAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
       _ => throw Exception('Unknown AbstractAttributeValue: ${attribute.value.runtimeType}'),
     };
   }
