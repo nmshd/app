@@ -125,7 +125,6 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'BirthDate',
                           initialValue: const BirthDateAttributeValue(day: 12, month: 8, year: 2022),
-                          decoration: const InputDecoration(suffixIcon: Icon(Icons.calendar_month)),
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -415,7 +414,6 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'BirthDate',
                           initialValue: const BirthDateAttributeValue(day: 12, month: 8, year: 2022),
-                          decoration: const InputDecoration(suffixIcon: Icon(Icons.calendar_month)),
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(

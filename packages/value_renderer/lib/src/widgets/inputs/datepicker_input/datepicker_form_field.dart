@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '/value_renderer.dart';
 import './datepicker_input.dart';
+import '../styles/input_decoration.dart';
 
 class DatepickerFormField extends FormField<DateTime> {
   DatepickerFormField({
@@ -30,10 +31,6 @@ class DatepickerFormField extends FormField<DateTime> {
           onSaved: onSaved,
           validator: validator,
           builder: (FormFieldState<DateTime> field) {
-            final InputDecoration decorationWithThemeDefaults = decoration ?? const InputDecoration();
-
-            final InputDecoration effectiveDecoration = decorationWithThemeDefaults.copyWith(errorText: field.errorText);
-
             controller?.value = field.value;
 
             void onChangedHandler(DateTime value) {
@@ -47,7 +44,6 @@ class DatepickerFormField extends FormField<DateTime> {
             return DatepickerInput(
               dateFormat: dateFormat,
               dateTextStyle: dateTextStyle,
-              decoration: effectiveDecoration,
               enabled: enabled,
               firstDate: firstDate,
               fieldName: fieldName,
@@ -55,6 +51,9 @@ class DatepickerFormField extends FormField<DateTime> {
               lastDate: lastDate,
               onDateSelected: onChangedHandler,
               selectedDate: field.value,
+              decoration: decoration != null
+                  ? decoration.copyWith(labelText: fieldName, errorText: field.errorText)
+                  : inputDecoration.copyWith(labelText: fieldName, errorText: field.errorText, suffixIcon: const Icon(Icons.calendar_today)),
             );
           },
         );
