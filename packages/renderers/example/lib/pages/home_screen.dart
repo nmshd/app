@@ -34,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
   late LocalAccountDTO _account;
   List<_MenuGroup> menu = [];
   late _MenuItem _selectedMenuItem;
-  final _reloadController = ReloadController();
 
   @override
   void initState() {

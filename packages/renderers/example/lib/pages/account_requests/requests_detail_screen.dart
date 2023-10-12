@@ -68,7 +68,6 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                   const SizedBox(height: 8),
                   const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
-                  const Divider(),
                 ],
               ),
             ),

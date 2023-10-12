@@ -47,7 +47,6 @@ class _RequestsScreenState extends State<RequestsScreen> {
     if (_localRequests == null) return const Center(child: CircularProgressIndicator());
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Messages Screen')),
       body: RefreshIndicator(
         onRefresh: () => _reloadRequests(syncBefore: true),
         child: (_localRequests!.isEmpty)
