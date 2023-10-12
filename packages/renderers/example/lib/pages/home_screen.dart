@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Renderer Example'),
+        title: Text(_selectedMenuItem.title),
         actions: [
           IconButton(
             onPressed: _openAccountDialog,
