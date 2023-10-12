@@ -16,7 +16,8 @@ class RequestItemRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     if (item.type.startsWith('Decidable')) {
       return switch (item) {
-        final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit),
+        final DecidableReadAttributeRequestItemDVO dvo =>
+          DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit),
         final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(controller: controller, item: dvo),
         final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo),
         final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo),

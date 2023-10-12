@@ -20,7 +20,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         ? ValueRendererListTile(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints)
         : switch (query.results.first.value) {
             final IdentityAttributeValue value => IdentityAttributeValueRenderer(
-                results: query.results,
+                query: query,
                 value: value,
                 controller: controller,
                 onEdit: onEdit,

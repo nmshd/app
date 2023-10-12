@@ -6,12 +6,12 @@ import '../../../widgets/complex_attribute_list_tile.dart';
 import '../../../widgets/custom_list_tile.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
-  final List<IdentityAttributeDVO> results;
+  final ProcessedIdentityAttributeQueryDVO query;
   final IdentityAttributeValue value;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
 
-  const IdentityAttributeValueRenderer({super.key, required this.value, required this.results, required this.controller, this.onEdit});
+  const IdentityAttributeValueRenderer({super.key, required this.value, required this.query, required this.controller, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +23,15 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       final PersonNameAttributeValue value => _PersonNameAttributeValueRenderer(value: value),
       final PostOfficeBoxAddressAttributeValue value => _PostOfficeBoxAddressAttributeValueRenderer(
           value: value,
-          results: results,
+          query: query,
           controller: controller,
           onEdit: onEdit,
         ),
       final StreetAddressAttributeValue value => _StreetAddressAttributeValueRenderer(value: value),
       final SchematizedXMLAttributeValue value =>
-        _SchematizedXMLAttributeValueRenderer(value: value, results: results, controller: controller, onEdit: onEdit),
-      final StatementAttributeValue value => _StatementAttributeValueRenderer(value: value, results: results, controller: controller, onEdit: onEdit),
-      _ => _StringIdentityAttributeRenderer(value: value, results: results, controller: controller, onEdit: onEdit),
+        _SchematizedXMLAttributeValueRenderer(value: value, query: query, controller: controller, onEdit: onEdit),
+      final StatementAttributeValue value => _StatementAttributeValueRenderer(value: value, query: query, controller: controller, onEdit: onEdit),
+      _ => _StringIdentityAttributeRenderer(value: value, results: query.results, controller: controller, onEdit: onEdit),
     };
   }
 }
@@ -139,16 +139,17 @@ class _PersonNameAttributeValueRenderer extends StatelessWidget {
 }
 
 class _PostOfficeBoxAddressAttributeValueRenderer extends StatelessWidget {
-  final List<IdentityAttributeDVO> results;
+  final ProcessedIdentityAttributeQueryDVO query;
   final PostOfficeBoxAddressAttributeValue value;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
 
-  const _PostOfficeBoxAddressAttributeValueRenderer({required this.value, required this.results, required this.controller, required this.onEdit});
+  const _PostOfficeBoxAddressAttributeValueRenderer({required this.value, required this.query, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
+      title: query.valueType,
       titles: value.state != null
           ? ['Empfänger', 'Postfach', 'Postleitzahl', 'Stadt', 'Land', 'Bundesland']
           : ['Empfänger', 'Postfach', 'Postleitzahl', 'Stadt', 'Land'],
@@ -184,12 +185,12 @@ class _StreetAddressAttributeValueRenderer extends StatelessWidget {
 }
 
 class _SchematizedXMLAttributeValueRenderer extends StatelessWidget {
-  final List<IdentityAttributeDVO> results;
+  final ProcessedIdentityAttributeQueryDVO query;
   final SchematizedXMLAttributeValue value;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
 
-  const _SchematizedXMLAttributeValueRenderer({required this.value, required this.results, required this.controller, required this.onEdit});
+  const _SchematizedXMLAttributeValueRenderer({required this.value, required this.query, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -206,17 +207,17 @@ class _SchematizedXMLAttributeValueRenderer extends StatelessWidget {
 
 // TODO properly implement this asap when the class is implemented
 class _StatementAttributeValueRenderer extends StatelessWidget {
-  final List<IdentityAttributeDVO> results;
+  final ProcessedIdentityAttributeQueryDVO query;
   final StatementAttributeValue value;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
 
-  const _StatementAttributeValueRenderer({required this.value, required this.results, required this.controller, required this.onEdit});
+  const _StatementAttributeValueRenderer({required this.value, required this.query, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
     return CustomListTile(
-      title: results.first.name,
+      title: query.results.first.name,
       subTitle: value.json.toString(),
       trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );

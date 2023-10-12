@@ -75,7 +75,7 @@ class AccountCreationScreen extends StatelessWidget {
   void onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
     pause();
 
-    GetIt.I.get<Logger>().v('Scanned code: $content');
+    GetIt.I.get<Logger>().t('Scanned code: $content');
 
     if (!content.startsWith('nmshd://')) {
       resume();

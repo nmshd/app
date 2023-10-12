@@ -95,7 +95,6 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   }
 
   void _addEditItem() {
-    print('onEdit tapped from Example');
     showModalBottomSheet(context: context, isScrollControlled: true, builder: (context) => _AddEditItem(requestController: requestController!));
   }
 }
