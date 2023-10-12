@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../widgets/custom_list_tile.dart';
 import 'relationship_attribute_renderer.dart';
 
 class DraftIdentityAttributeRenderer extends StatelessWidget {
@@ -231,128 +232,38 @@ class _StringIdentityAttributeRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (attribute.value) {
-      final AffiliationOrganizationAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('AffiliationOrganization'), Text(value.value)],
-        ),
-      final AffiliationRoleAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('AffiliationRole'), Text(value.value)],
-        ),
-      final AffiliationUnitAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('AffiliationUnit'), Text(value.value)],
-        ),
-      final BirthCityAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('BirthCity'), Text(value.value)],
-        ),
-      final BirthNameAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('BirthName'), Text(value.value)],
-        ),
-      final BirthStateAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('BirthState'), Text(value.value)],
-        ),
-      final CityAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('City'), Text(value.value)],
-        ),
-      final DisplayNameAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('DisplayName'), Text(value.value)],
-        ),
-      final IdentityFileReferenceAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('IdentityFileReference'), Text(value.value)],
-        ),
-      final GivenNameAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('GivenName'), Text(value.value)],
-        ),
-      final HonorificPrefixAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('HonorificPrefix'), Text(value.value)],
-        ),
-      final HonorificSuffixAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('HonorificSuffix'), Text(value.value)],
-        ),
-      final HouseNumberAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('HouseNumber'), Text(value.value)],
-        ),
-      final JobTitleAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('JobTitle'), Text(value.value)],
-        ),
-      final MiddleNameAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('MiddleName'), Text(value.value)],
-        ),
-      final PhoneNumberAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('PhoneNumber'), Text(value.value)],
-        ),
-      final PseudonymAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Pseudonym'), Text(value.value)],
-        ),
-      final StateAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('State'), Text(value.value)],
-        ),
-      final StreetAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Street'), Text(value.value)],
-        ),
-      final SurnameAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Surname'), Text(value.value)],
-        ),
-      final ZipCodeAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('ZipCode'), Text(value.value)],
-        ),
-      final BirthDayAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('BirthDay'), Text(value.value.toString())]),
-      final BirthMonthAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('BirthMonth'), Text(value.value.toString())]),
-      final BirthYearAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('BirthYear'), Text(value.value.toString())]),
-      final CitizenshipAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Citizenship'), Text(value.value)],
-        ),
-      final CommunicationLanguageAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('CommunicationLanguage'), Text(value.value)],
-        ),
-      final CountryAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Country'), Text(value.value)],
-        ),
-      final EMailAddressAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('EMailAddress'), Text(value.value)],
-        ),
-      final FaxNumberAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('FaxNumber'), Text(value.value)],
-        ),
-      final NationalityAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Nationality'), Text(value.value)],
-        ),
-      final SexAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Sex'), Text(value.value)],
-        ),
-      final WebsiteAttributeValue value => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Website'), Text(value.value)],
-        ),
+      final AffiliationOrganizationAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final AffiliationRoleAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final AffiliationUnitAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final BirthCityAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final BirthNameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final BirthStateAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final CityAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final DisplayNameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final IdentityFileReferenceAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final GivenNameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final HonorificPrefixAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final HonorificSuffixAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final HouseNumberAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final JobTitleAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final MiddleNameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final PhoneNumberAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final PseudonymAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final StateAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final StreetAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final SurnameAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final ZipCodeAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final BirthDayAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value.toString()),
+      final BirthMonthAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value.toString()),
+      final BirthYearAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value.toString()),
+      final CitizenshipAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final CommunicationLanguageAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final CountryAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final EMailAddressAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final FaxNumberAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final NationalityAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final SexAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
+      final WebsiteAttributeValue value => CustomListTile(title: attribute.value.toString(), subTitle: value.value),
       _ => throw Exception('Unknown AbstractAttributeValue: ${attribute.value.runtimeType}'),
     };
   }

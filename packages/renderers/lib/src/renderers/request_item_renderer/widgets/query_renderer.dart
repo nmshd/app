@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
-import 'package:translated_text/translated_text.dart';
+
+import '../../widgets/custom_list_tile.dart';
 
 class IdentityAttributeQueryRenderer extends StatelessWidget {
   final IdentityAttributeQueryDVO query;
@@ -9,15 +10,7 @@ class IdentityAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TranslatedText(query.name),
-        const SizedBox(height: 8),
-        Text(query.valueType)
-        //ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints),
-      ],
-    );
+    return CustomListTile(title: '', subTitle: query.name);
   }
 }
 
@@ -28,16 +21,7 @@ class RelationshipAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(query.name),
-        Text(query.attributeCreationHints.title),
-        const SizedBox(height: 8),
-        Text(query.valueType)
-        //ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints),
-      ],
-    );
+    return CustomListTile(title: '', subTitle: query.name);
   }
 }
 
@@ -48,12 +32,6 @@ class ThirdPartyAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(query.name),
-        // owner, thirdParty ...
-      ],
-    );
+    return CustomListTile(title: '', subTitle: query.name);
   }
 }

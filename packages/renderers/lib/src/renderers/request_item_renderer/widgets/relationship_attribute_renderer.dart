@@ -2,6 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:renderers/src/renderers/request_item_renderer/widgets/identity_attribute_renderer.dart';
 
+import '../../widgets/custom_list_tile.dart';
+
 class DraftRelationshipAttributeRenderer extends StatelessWidget {
   final DraftRelationshipAttributeDVO attribute;
 
@@ -42,7 +44,7 @@ class _ConsentAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(value.consent);
+    return CustomListTile(title: '', subTitle: value.consent);
   }
 }
 
@@ -53,10 +55,7 @@ class _ProprietaryBooleanAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [Text(value.title), Text(value.value.toString())],
-    );
+    return CustomListTile(title: value.title, subTitle: value.value.toString());
   }
 }
 
@@ -67,10 +66,7 @@ class _ProprietaryFloatAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [Text(value.title), Text(value.value.toString())],
-    );
+    return CustomListTile(title: value.title, subTitle: value.value.toString());
   }
 }
 
@@ -81,10 +77,7 @@ class _ProprietaryIntegerAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [Text(value.title), Text(value.value.toString())],
-    );
+    return CustomListTile(title: value.title, subTitle: value.value.toString());
   }
 }
 
@@ -95,10 +88,7 @@ class _ProprietaryJSONAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [Text(value.title), Text(value.value.toString())],
-    );
+    return CustomListTile(title: value.title, subTitle: value.value.toString());
   }
 }
 
@@ -109,10 +99,7 @@ class _ProprietaryXMLAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [Text(value.title), Text(value.value)],
-    );
+    return CustomListTile(title: value.title, subTitle: value.value);
   }
 }
 
@@ -124,22 +111,14 @@ class _ProprietaryAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (attribute.value) {
-      final ProprietaryCountryAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
-      final ProprietaryEMailAddressAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
-      final ProprietaryFileReferenceAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
-      final ProprietaryHEXColorAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
-      final ProprietaryLanguageAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
-      final ProprietaryPhoneNumberAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
-      final ProprietaryStringAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
-      final ProprietaryURLAttributeValue value =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value.title), Text(value.value)]),
+      final ProprietaryCountryAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
+      final ProprietaryEMailAddressAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
+      final ProprietaryFileReferenceAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
+      final ProprietaryHEXColorAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
+      final ProprietaryLanguageAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
+      final ProprietaryPhoneNumberAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
+      final ProprietaryStringAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
+      final ProprietaryURLAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
       _ => throw Exception('Unknown AbstractAttributeValue: ${attribute.value.runtimeType}'),
     };
   }

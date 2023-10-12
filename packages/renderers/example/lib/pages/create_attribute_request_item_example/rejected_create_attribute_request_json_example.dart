@@ -28,35 +28,40 @@ class _RejectedCreateAttributeRequestJsonExampleState extends State<RejectedCrea
     if (jsonExample == null) return const CircularProgressIndicator();
     final localRequestDVO = LocalRequestDVO.fromJson(jsonExample!);
 
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Title:', style: TextStyle(fontWeight: FontWeight.bold)),
-            TranslatedText(localRequestDVO.name),
-            const SizedBox(height: 8),
-            if (localRequestDVO.description != null) ...[
-              const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
-              TranslatedText(localRequestDVO.description!),
-              const SizedBox(height: 8),
-            ],
-            const Text('Request ID:', style: TextStyle(fontWeight: FontWeight.bold)),
-            Text(localRequestDVO.id),
-            const SizedBox(height: 8),
-            const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
-            TranslatedText(localRequestDVO.statusText),
-            const SizedBox(height: 8),
-            const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
-            Text(localRequestDVO.createdBy.name),
-            const SizedBox(height: 8),
-            const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
-            Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequestDVO.createdAt))),
-            const Divider(),
-            RequestRenderer(request: localRequestDVO),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Title:', style: TextStyle(fontWeight: FontWeight.bold)),
+                TranslatedText(localRequestDVO.name),
+                const SizedBox(height: 8),
+                if (localRequestDVO.description != null) ...[
+                  const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TranslatedText(localRequestDVO.description!),
+                  const SizedBox(height: 8),
+                ],
+                const Text('Request ID:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(localRequestDVO.id),
+                const SizedBox(height: 8),
+                const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
+                TranslatedText(localRequestDVO.status.name),
+                const SizedBox(height: 8),
+                const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(localRequestDVO.createdBy.name),
+                const SizedBox(height: 8),
+                const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequestDVO.createdAt))),
+                const Divider(),
+              ],
+            ),
+          ),
+          RequestRenderer(request: localRequestDVO),
+        ],
       ),
     );
   }

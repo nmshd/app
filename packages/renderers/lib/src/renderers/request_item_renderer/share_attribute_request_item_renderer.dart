@@ -12,15 +12,6 @@ class ShareAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('(${item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
-        if (item.description != null) Text(item.description!),
-        DraftIdentityAttributeRenderer(attribute: item.attribute),
-        if (item.date != null) Text(item.date!),
-        const SizedBox(height: 30),
-      ],
-    );
+    return DraftIdentityAttributeRenderer(attribute: item.attribute);
   }
 }

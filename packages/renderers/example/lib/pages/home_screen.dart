@@ -1,7 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import 'account_requests/account_example.dart';
+import 'account_requests/requests_screen.dart';
 import 'create_attribute_request_item_example/identity_attribute_example.dart';
 import 'create_attribute_request_item_example/rejected_create_attribute_request_json_example.dart';
 import 'create_attribute_request_item_example/relationship_attribute_example.dart';
@@ -63,9 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
           _MenuItem(
             icon: Icons.description,
             title: 'Account Example',
-            pageBuilder: (context) => AccountExample(
+            pageBuilder: (context) => RequestsScreen(
               accountId: _account.id,
-              reloadController: _reloadController,
+              //reloadController: _reloadController,
             ),
           ),
         ],
