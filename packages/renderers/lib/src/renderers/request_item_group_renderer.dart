@@ -16,6 +16,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (requestItemGroup.title != null) Text(requestItemGroup.title!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         for (final item in requestItemGroup.items) RequestItemRenderer(item: item, controller: controller, onEdit: onEdit),
       ],
     );
