@@ -75,7 +75,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
     InputDecoration decoration = InputDecoration(labelText: translatedText);
     if (widget.decoration != null) decoration = widget.decoration!.copyWith(labelText: translatedText);
 
-    if (widget.initialValue is BirthDateAttributeValue) {
+    if (widget.initialValue is BirthDateAttributeValue || fieldName == 'BirthDate') {
       return DatepickerFormField(
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,
