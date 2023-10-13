@@ -49,7 +49,6 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'String / InputLike',
                           initialValue: const FullyDynamicAttributeValue(''),
-                          decoration: const InputDecoration(contentPadding: EdgeInsets.only(bottom: 2)),
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -82,7 +81,6 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'String / SelectLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue('Option 1'),
-                          decoration: const InputDecoration(contentPadding: EdgeInsets.only(bottom: 2)),
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(
@@ -140,7 +138,6 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'String / ButtonLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue('Option 1'),
-                          decoration: const InputDecoration(contentPadding: EdgeInsets.only(top: 5), border: InputBorder.none),
                         ),
                         ValueRenderer(
                           renderHints: RenderHints(

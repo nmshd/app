@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '/value_renderer.dart';
@@ -22,16 +23,17 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
           onSaved: onSaved,
           validator: validator,
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
+            final BuildContext context = field.context;
+            final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
             controller?.value = field.value;
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 18, 0, 12),
-                  child: TranslatedText(fieldName),
-                ),
                 InputDecorator(
-                  decoration: decoration ?? const InputDecoration(border: InputBorder.none),
+                  decoration: decoration != null
+                      ? decoration.copyWith(labelText: translatedText)
+                      : InputDecoration(border: InputBorder.none, labelText: translatedText),
                   child: SegmentedButton<ValueHintsDefaultValue>(
                     selected: field.value == null ? {} : {field.value!},
                     segments: values.map((ValueHintsValue value) {
@@ -41,11 +43,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
                       );
                     }).toList(),
                     onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
-                      controller?.value = ControllerTypeResolver.resolveType(
-                        inputValue: newSelection.first,
-                        type: technicalType,
-                      );
-
+                      controller?.value = ControllerTypeResolver.resolveType(inputValue: newSelection.first, type: technicalType);
                       field.didChange(newSelection.first);
                     },
                   ),
