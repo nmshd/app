@@ -13,15 +13,9 @@ class CreateAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        switch (item.attribute) {
-          final DraftIdentityAttributeDVO dvo => DraftIdentityAttributeRenderer(attribute: dvo),
-          final DraftRelationshipAttributeDVO dvo => DraftRelationshipAttributeRenderer(attribute: dvo),
-        },
-        const SizedBox(height: 30),
-      ],
-    );
+    return switch (item.attribute) {
+      final DraftIdentityAttributeDVO dvo => DraftIdentityAttributeRenderer(attribute: dvo),
+      final DraftRelationshipAttributeDVO dvo => DraftRelationshipAttributeRenderer(attribute: dvo),
+    };
   }
 }

@@ -12,18 +12,11 @@ class ReadAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('(${item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
-        switch (item.query) {
-          final IdentityAttributeQueryDVO query => IdentityAttributeQueryRenderer(query: query),
-          final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
-          final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
-          _ => throw Exception("Invalid type '${item.query.type}'"),
-        },
-        const SizedBox(height: 30),
-      ],
-    );
+    return switch (item.query) {
+      final IdentityAttributeQueryDVO query => IdentityAttributeQueryRenderer(query: query),
+      final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
+      final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
+      _ => throw Exception("Invalid type '${item.query.type}'"),
+    };
   }
 }

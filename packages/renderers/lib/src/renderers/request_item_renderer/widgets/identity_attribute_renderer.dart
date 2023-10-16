@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../widgets/complex_attribute_list_tile.dart';
 import '../../widgets/custom_list_tile.dart';
 import 'relationship_attribute_renderer.dart';
 
@@ -48,14 +49,14 @@ class _AffiliationAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value.toJson()['@type']),
-        Text(value.role),
-        Text(value.organization),
-        Text(value.unit),
-      ],
+    return ComplexAttributeListTile(
+      title: value.toJson()['@type'],
+      titles: const ['Rolle', 'Organization', 'Unit'],
+      subTitles: [value.role, value.organization, value.unit],
+      trailing: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.info),
+      ),
     );
   }
 }
@@ -67,14 +68,14 @@ class _BirthDateAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value.toJson()['@type']),
-        Text(value.day.toString()),
-        Text(value.month.toString()),
-        Text(value.year.toString()),
-      ],
+    return ComplexAttributeListTile(
+      title: value.toJson()['@type'],
+      titles: const ['Day', 'Month', 'Year'],
+      subTitles: [value.day.toString(), value.month.toString(), value.year.toString()],
+      trailing: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.info),
+      ),
     );
   }
 }
@@ -86,14 +87,14 @@ class _BirthPlaceAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value.toJson()['@type']),
-        Text(value.city),
-        Text(value.country),
-        if (value.state != null) Text(value.state!),
-      ],
+    return ComplexAttributeListTile(
+      title: value.toJson()['@type'],
+      titles: const ['City', 'Organization', 'Unit'],
+      subTitles: [value.city, value.country, value.state],
+      trailing: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.info),
+      ),
     );
   }
 }
@@ -105,19 +106,22 @@ class _DeliveryBoxAddressAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value.toJson()['@type']),
-        Text(value.recipient),
-        Text(value.deliveryBoxId),
-        Text(value.userId),
-        Text(value.zipCode),
-        Text(value.city),
-        Text(value.country),
-        if (value.phoneNumber != null) Text(value.phoneNumber!),
-        if (value.state != null) Text(value.state!),
+    return ComplexAttributeListTile(
+      title: value.toJson()['@type'],
+      titles: const ['Recipient', 'DeliveryBoxId', 'ZipCode', 'City', 'Country', 'PhoneNumber', 'State'],
+      subTitles: [
+        value.recipient,
+        value.deliveryBoxId,
+        value.zipCode,
+        value.city,
+        value.country,
+        value.phoneNumber,
+        value.state,
       ],
+      trailing: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.info),
+      ),
     );
   }
 }
@@ -129,16 +133,20 @@ class _PersonNameAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value.toJson()['@type']),
-        Text(value.givenName),
-        if (value.middleName != null) Text(value.middleName!),
-        Text(value.surname),
-        if (value.honorificSuffix != null) Text(value.honorificSuffix!),
-        if (value.honorificPrefix != null) Text(value.honorificPrefix!),
+    return ComplexAttributeListTile(
+      title: value.toJson()['@type'],
+      titles: const ['givenName', 'middleName', 'surname', 'honorificSuffix', 'honorificPrefix'],
+      subTitles: [
+        value.givenName,
+        value.middleName,
+        value.surname,
+        value.honorificSuffix,
+        value.honorificPrefix,
       ],
+      trailing: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.info),
+      ),
     );
   }
 }
@@ -150,17 +158,21 @@ class _PostOfficeBoxAddressAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value.toJson()['@type']),
-        Text(value.recipient),
-        Text(value.boxId),
-        Text(value.zipCode),
-        Text(value.city),
-        Text(value.country),
-        if (value.state != null) Text(value.state!),
+    return ComplexAttributeListTile(
+      title: value.toJson()['@type'],
+      titles: const ['recipient', 'boxId', 'zipCode', 'city', 'country', 'state'],
+      subTitles: [
+        value.recipient,
+        value.boxId,
+        value.zipCode,
+        value.city,
+        value.country,
+        value.state,
       ],
+      trailing: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.info),
+      ),
     );
   }
 }
@@ -172,18 +184,22 @@ class _StreetAddressAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value.toJson()['@type']),
-        Text(value.recipient),
-        Text(value.street),
-        Text(value.houseNumber),
-        Text(value.zipCode),
-        Text(value.city),
-        Text(value.country),
-        if (value.state != null) Text(value.state!),
+    return ComplexAttributeListTile(
+      title: value.toJson()['@type'],
+      titles: const ['recipient', 'street', 'houseNumber', 'zipCode', 'city', 'country', 'state'],
+      subTitles: [
+        value.recipient,
+        value.street,
+        value.houseNumber,
+        value.zipCode,
+        value.city,
+        value.country,
+        value.state,
       ],
+      trailing: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.info),
+      ),
     );
   }
 }
@@ -195,18 +211,18 @@ class _SchematizedXMLAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value.toJson()['@type']),
-        Text(value.value),
-        if (value.schemaURL != null) Text(value.schemaURL!),
-      ],
+    return CustomListTile(
+      title: value.toJson()['@type'],
+      subTitle: value.value,
+      description: value.schemaURL != null ? Text(value.schemaURL!) : null,
+      trailing: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.info),
+      ),
     );
   }
 }
 
-// TODO properly implement this asap when the class is implemented
 class _StatementAttributeValueRenderer extends StatelessWidget {
   final StatementAttributeValue value;
 
@@ -214,12 +230,13 @@ class _StatementAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value.toJson()['@type']),
-        Text(value.json.toString()),
-      ],
+    return CustomListTile(
+      title: value.toJson()['@type'],
+      subTitle: value.json.toString(),
+      trailing: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.info),
+      ),
     );
   }
 }
@@ -232,38 +249,262 @@ class _StringIdentityAttributeRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (attribute.value) {
-      final AffiliationOrganizationAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final AffiliationRoleAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final AffiliationUnitAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final BirthCityAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final BirthNameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final BirthStateAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final CityAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final DisplayNameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final IdentityFileReferenceAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final GivenNameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final HonorificPrefixAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final HonorificSuffixAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final HouseNumberAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final JobTitleAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final MiddleNameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final PhoneNumberAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final PseudonymAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final StateAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final StreetAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final SurnameAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final ZipCodeAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final BirthDayAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value.toString()),
-      final BirthMonthAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value.toString()),
-      final BirthYearAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value.toString()),
-      final CitizenshipAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final CommunicationLanguageAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final CountryAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final EMailAddressAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final FaxNumberAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final NationalityAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final SexAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
-      final WebsiteAttributeValue value => CustomListTile(title: attribute.value.toJson()['@type'], subTitle: value.value),
+      final AffiliationOrganizationAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final AffiliationRoleAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final AffiliationUnitAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final BirthCityAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final BirthNameAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final BirthStateAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final CityAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final DisplayNameAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final IdentityFileReferenceAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final GivenNameAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final HonorificPrefixAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final HonorificSuffixAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final HouseNumberAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final JobTitleAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final MiddleNameAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final PhoneNumberAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final PseudonymAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final StateAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final StreetAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final SurnameAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final ZipCodeAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final BirthDayAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value.toString(),
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final BirthMonthAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value.toString(),
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final BirthYearAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value.toString(),
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final CitizenshipAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final CommunicationLanguageAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final CountryAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final EMailAddressAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final FaxNumberAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final NationalityAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final SexAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
+      final WebsiteAttributeValue value => CustomListTile(
+          title: attribute.value.toJson()['@type'],
+          subTitle: value.value,
+          trailing: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.info),
+          ),
+        ),
       _ => throw Exception('Unknown AbstractAttributeValue: ${attribute.value.runtimeType}'),
     };
   }

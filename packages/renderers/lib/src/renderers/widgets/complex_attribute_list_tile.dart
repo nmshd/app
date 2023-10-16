@@ -4,14 +4,29 @@ import 'package:translated_text/translated_text.dart';
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
   final List<String> titles;
-  final List<String> subTitles;
+  final List<String?> subTitles;
   final Widget? trailing;
-  final VoidCallback? onPressed;
 
-  const ComplexAttributeListTile({super.key, required this.title, required this.titles, required this.subTitles, this.trailing, this.onPressed});
+  const ComplexAttributeListTile({
+    super.key,
+    required this.title,
+    required this.titles,
+    required this.subTitles,
+    this.trailing,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final listOfTitles = [];
+    final listOfSubTitles = [];
+
+    for (int i = 0; i < subTitles.length; i++) {
+      if (subTitles[i] != null) {
+        listOfTitles.add(titles[i]);
+        listOfSubTitles.add(subTitles[i]!);
+      }
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,21 +46,21 @@ class ComplexAttributeListTile extends StatelessWidget {
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: titles.length,
+                itemCount: listOfTitles.length,
                 itemBuilder: (context, index) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TranslatedText('${titles[index]}:', style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+                      TranslatedText('${listOfTitles[index]}:', style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
                       const SizedBox(height: 2),
-                      Text(subTitles[index], style: const TextStyle(fontSize: 16)),
+                      Text(listOfSubTitles[index], style: const TextStyle(fontSize: 16)),
                       const SizedBox(height: 8),
                     ],
                   );
                 },
               ),
             ),
-            SizedBox(width: 96, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info))),
+            SizedBox(width: 96, child: trailing),
           ],
         ),
         const SizedBox(height: 12),

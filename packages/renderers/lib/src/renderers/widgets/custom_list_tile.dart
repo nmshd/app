@@ -4,10 +4,16 @@ import 'package:translated_text/translated_text.dart';
 class CustomListTile extends StatelessWidget {
   final String title;
   final String subTitle;
+  final Widget? description;
   final Widget? trailing;
-  final VoidCallback? onPressed;
 
-  const CustomListTile({super.key, required this.title, required this.subTitle, this.trailing, this.onPressed});
+  const CustomListTile({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    this.description,
+    this.trailing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +29,13 @@ class CustomListTile extends StatelessWidget {
                   children: [
                     TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
                     const SizedBox(height: 2),
-                    Text(subTitle, style: const TextStyle(fontSize: 16)),
+                    TranslatedText(subTitle, style: const TextStyle(fontSize: 16)),
+                    if (description != null) description!
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 96, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)))
+            SizedBox(width: 96, child: trailing)
           ],
         ),
         const Divider(height: 0),
