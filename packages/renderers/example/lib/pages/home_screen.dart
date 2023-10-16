@@ -1,4 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:example_renderers/pages/decidable_examples/decidable_authentication_request_item_example.dart';
+import 'package:example_renderers/pages/decidable_examples/decidable_share_attribute_request_item_example.dart';
 import 'package:flutter/material.dart';
 
 import 'account_requests/requests_screen.dart';
@@ -85,7 +87,22 @@ class _HomeScreenState extends State<HomeScreen> {
           title: 'Rejected Create Attribute Request JSON Example',
           pageBuilder: (context) => const RejectedCreateAttributeRequestJsonExample(),
         ),
-      ])
+      ]),
+      _MenuGroup(
+        title: 'Decidables',
+        items: [
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Decidable Share Attribute Request Item JSON Examples',
+            pageBuilder: (context) => const DecidableShareAttributeRequestItemExample(),
+          ),
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Decidable Authentication Request Item JSON Examples',
+            pageBuilder: (context) => const DecidableAuthenticationRequestItemExample(),
+          ),
+        ],
+      ),
     ];
 
     _selectedMenuItem = menu[0].items[0];

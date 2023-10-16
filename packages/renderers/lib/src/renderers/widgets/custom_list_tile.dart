@@ -5,9 +5,8 @@ class CustomListTile extends StatelessWidget {
   final String title;
   final String subTitle;
   final Widget? trailing;
-  final VoidCallback? onPressed;
 
-  const CustomListTile({super.key, required this.title, required this.subTitle, this.trailing, this.onPressed});
+  const CustomListTile({super.key, required this.title, required this.subTitle, this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class CustomListTile extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 96, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)))
+            SizedBox(width: 96, child: trailing)
           ],
         ),
         const Divider(height: 0),
