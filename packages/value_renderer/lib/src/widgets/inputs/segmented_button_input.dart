@@ -30,10 +30,9 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(padding: const EdgeInsets.only(left: 16), child: Text(translatedText)),
                 InputDecorator(
-                  decoration: decoration != null
-                      ? decoration.copyWith(labelText: translatedText)
-                      : InputDecoration(border: InputBorder.none, labelText: translatedText),
+                  decoration: decoration ?? const InputDecoration(border: InputBorder.none),
                   child: SegmentedButton<ValueHintsDefaultValue>(
                     selected: field.value == null ? {} : {field.value!},
                     segments: values.map((ValueHintsValue value) {
