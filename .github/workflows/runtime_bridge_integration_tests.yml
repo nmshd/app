@@ -4,9 +4,14 @@ on:
   pull_request:
     branches:
       - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   ios:
-    runs-on: macos-latest
+    runs-on: imhotep
     steps:
       - uses: actions/checkout@v3
       - name: "List all simulators"
@@ -18,7 +23,20 @@ jobs:
         run: |
           UDID=$(xcrun xctrace list devices | grep -m 1 "^iPhone" | awk '{gsub(/[()]/,""); print $NF}')
           echo $UDID
-          xcrun simctl boot "${UDID:?No Simulator with this name found}"
+
+          if xcrun simctl boot "$UDID" 2>errorFile.txt; then
+              echo "device booted"
+          else
+              if grep -q "Unable to boot device in current state: Booted" errorFile.txt; then
+                  echo "device already booted"
+                  rm errorFile.txt
+              else
+                  echo "device not booted"
+                  cat errorFile.txt
+                  rm errorFile.txt
+                  exit 1
+              fi
+          fi
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2
         with:
@@ -29,6 +47,7 @@ jobs:
           melos bootstrap
       - name: Run integration tests
         run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=${{secrets.CNS_NMSHD_TEST_BASEURL}} --dart-define=app_clientId=${{secrets.CNS_NMSHD_TEST_CLIENTID}} --dart-define=app_clientSecret=${{secrets.CNS_NMSHD_TEST_CLIENTSECRET}}
+
   android:
     runs-on: macos-latest
     env:
