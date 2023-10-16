@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -39,6 +42,8 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log(jsonEncode(widget.localRequestDVO.toJson()));
+
     return Scaffold(
       appBar: AppBar(title: const Text('Message Detail Screen')),
       body: SingleChildScrollView(

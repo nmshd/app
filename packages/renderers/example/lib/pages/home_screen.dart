@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:example_renderers/pages/requests_example.dart/requests_example.dart';
 import 'package:flutter/material.dart';
 
 import 'account_requests/requests_screen.dart';
@@ -66,6 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
               accountId: _account.id,
               //reloadController: _reloadController,
             ),
+          ),
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Request Items JSON Example',
+            pageBuilder: (context) => const RequestsExample(),
           ),
         ],
       ),
