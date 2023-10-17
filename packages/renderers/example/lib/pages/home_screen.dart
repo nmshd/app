@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
           pageBuilder: (context) => const RejectedCreateAttributeRequestJsonExample(),
         ),
       ]),
-      _MenuGroup(title: 'Dedicdable Read Attriubute', items: [
+      _MenuGroup(title: 'Decidable Read Attribute', items: [
         _MenuItem(
           icon: Icons.description,
           title: 'Decidable Read Identity Attribute with results Example',
