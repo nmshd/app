@@ -23,8 +23,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
           onSaved: onSaved,
           validator: validator,
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
-            final BuildContext context = field.context;
-            final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+            final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(field.context, fieldName.substring(7)) : fieldName;
             controller?.value = field.value;
 
             return Column(
