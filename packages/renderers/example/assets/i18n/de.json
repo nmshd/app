@@ -193,111 +193,253 @@
       },
       "message": {
          "name": "Technische Nachricht"
+      },
+      "settings": {
+         "language": "Sprache"
+      },
+      "attribute": {
+         "name": {
+            "EnmeshedAddress": "Enmeshed Adresse",
+            "DisplayName": "Anzeigename",
+            "ProprietaryFileReference": "Datei",
+            "IdentityFileReference": "Datei",
+            "SchematizedXML": "Schematische XML",
+            "BirthName": "Geburtsname",
+            "GivenName": "Vorname",
+            "HonorificPrefix": "Titel vor dem Namen",
+            "HonorificSuffix": "Titel hinter dem Namen",
+            "MiddleName": "Weitere Vornamen",
+            "PersonName": "Vollständiger Name",
+            "Pseudonym": "Pseudonym",
+            "Surname": "Nachname",
+            "City": "Stadt",
+            "Country": "Staat",
+            "DeliveryBoxAddress": "Packstationsadresse",
+            "HouseNumber": "Hausnummer",
+            "PostOfficeBoxAddress": "Postfachadresse",
+            "Street": "Straße",
+            "State": "Bundesland",
+            "StreetAddress": "Adresse",
+            "ZipCode": "Postleitzahl",
+            "Affiliation": "Zugehörigkeit",
+            "AffiliationUnit": "Abteilung",
+            "AffiliationRole": "Rolle",
+            "AffiliationOrganization": "Organisation",
+            "BirthCity": "Geburtsstadt",
+            "BirthCountry": "Geburtsstaat",
+            "BirthDate": "Geburtsdatum",
+            "BirthDay": "Tag der Geburt",
+            "BirthMonth": "Geburtsmonat",
+            "BirthPlace": "Geburtsort",
+            "BirthState": "Geburtsland",
+            "BirthYear": "Geburtsjahr",
+            "CommunicationLanguage": "Kommunikationssprache",
+            "EMailAddress": "E-Mail Adresse",
+            "FaxNumber": "Faxnummer",
+            "PhoneNumber": "Telefonnummer",
+            "Website": "Website",
+            "Citizenship": "Staatsangehörigkeit",
+            "JobTitle": "Beruf",
+            "Nationality": "Staatsangehörigkeit bei Geburt",
+            "Sex": "Biologisches Geschlecht",
+            "Consent": "Einverständnis",
+            "ProprietaryString": "Text",
+            "ProprietaryBoolean": "Wahrheitswert",
+            "ThirdPartyRelationshipAttributeQuery": "Attributsabfrage einer dritten Partei",
+            "RelationshipAttributeQuery": "Attributsabfrage einer Beziehung"
+         },
+         "description": {
+            "EnmeshedAddress": "Die enmeshed Adresse ist die primäre Identifikationsnummer einer digitalen Identität im enmeshed Ökosystem.",
+            "DisplayName": "Der Anzeigename ist der primäre Name der diese natürliche oder juristische Person darstellt. Normalerweise ist es eine Kombination von Namen, Titeln oder Status.",
+            "ProprietaryFileReference": "Eine Datei die zwischen verschiedenen Identitäten ausgetauscht werden kann.",
+            "IdentityFileReference": "Eine Datei die zwischen verschiedenen Identitäten ausgetauscht werden kann.",
+            "SchematizedXML": "XML Inhalt der über ein bestimmtes Schema verfügt.",
+            "BirthName": "Der Geburtsname ist der Nachname bzw. Familienname einer natürlichen Person zur Geburt.",
+            "GivenName": "Der Vorname ist der bei Geburt gewählte Name einer natürlichen Person, welche die Person zu anderen Familien- bzw. Stammesmitgliedern abhebt.",
+            "HonorificPrefix": "Ein Titel der vor dem Namen einer natürlichen Person genannt wird, z.B. 'Dr.' oder 'Sir'.",
+            "HonorificSuffix": "Ein Titel der nach dem Namen einer natürlichen Person genannt wird, z.B. 'M.Sc.'.",
+            "MiddleName": "Zusätzliche Vornamen die mitunter als 'Mittelnamen' geführt werden.",
+            "PersonName": "Eine Kombination der Namensinformation einer natürlichen Person. Er besteht aus Vorname, zusätzlichen Vornamen, dem Nachname und den Titeln.",
+            "Pseudonym": "Ein Pseudonym, Alias oder Künstlername, der als alternativer Name einer natürlichen Person offiziell registriert ist.",
+            "Surname": "Der Nachname bzw. Familienname einer natürlichen Person.",
+            "City": "Ein Ort bzw. eine Stadt innerhalb eines (Bundes-)Landes.",
+            "Country": "Ein Staat bzw. Land dieser Welt anhand des Standards ISO 3166-1 (alpha 2).",
+            "DeliveryBoxAddress": "Eine Anschrift, die auf eine Packstation verweist.",
+            "HouseNumber": "Eine Hausnummer (inkl. Zusatz), die ein Gebäude einer Straße oder eines Gebietes kennzeichnet.",
+            "PostOfficeBoxAddress": "Eine Anschrift, die auf ein Postfach verweist.",
+            "Street": "Ein Straßenname innerhalb einer Stadt.",
+            "State": "Ein Bundesland innerhalb eines Staates.",
+            "StreetAddress": "Eine Anschrift, die auf eine Straße mit Hausnummer verweist.",
+            "ZipCode": "Die Postleitzahl einer Stadt bzw. eines Postfachs.",
+            "Affiliation": "Eine Zugehörigkeit oder Mitgliedschaft zu einer Organisation, mit einer entsprechenden Rolle und Abteilung.",
+            "AffiliationUnit": "Die Abteilung, Gruppe oder Mannschaft innerhalb der übergeordneten Organisation.",
+            "AffiliationRole": "Die Rolle, die diese Identität innerhalb der Abteilung und Organisation einnimmt.",
+            "AffiliationOrganization": "Die Organisation, zu der diese Identität eine Zugehörigkeit bzw. Mitgliedschaft besitzt.",
+            "BirthCity": "Der Ort bzw. die Stadt der Geburt.",
+            "BirthCountry": "Der Staat bzw. das Land der Geburt.",
+            "BirthDate": "Das Geburtsdatum ist ein kombinierter Wert des Geburtstags (Tag im Monat), des Geburtsmonats und des Geburtsjahres.",
+            "BirthDay": "Der Tag im Monat, der Geburt.",
+            "BirthMonth": "Der Monat im Jahr der Geburt.",
+            "BirthPlace": "Der Geburtsort ist ein kombinierter Wert der Geburtsstadt, des Geburtslandes und des Geburtsstaates.",
+            "BirthState": "Das Bundesland (innerhalb des Geburtsstaates) der Geburt.",
+            "BirthYear": "Das Jahr der Geburt.",
+            "CommunicationLanguage": "Die Kommunikationssprache ist die primäre Sprache mit der man kommunizieren möchte.",
+            "EMailAddress": "Eine E-Mail Adresse um E-Mails zu empfangen.",
+            "FaxNumber": "Eine Faxnummer um Daten über einen Audiokanal zu empfangen.",
+            "PhoneNumber": "Eine Telefonnummer um Anrufe entgegenzunehmen.",
+            "Website": "Eine Website im Internet, über die mehr Informationen abgerufen werden können.",
+            "Citizenship": "Die Staatsangehörigkeit ist ein Staat oder teilweise mehrere Staaten, die diese Person als Staatsbürger*in versteht und somit ein Rechtsverhältnis existiert. Sie ist primär die legale bzw. juristische Definition einer Person zu einem Staat. Es ist normalerweise der ausstellende Staat eines Reisepasses. Die Staatsangehörigkeit kann im Laufe des Lebens geändert werden.",
+            "JobTitle": "Der derzeitige Beruf oder Rolle, die meist unter dem Namen einer Visitenkarte steht.",
+            "Nationality": "Die Staatsangehörigkeit bei Geburt (teilweise auch Nationalität genannt) ist abhängig von der Geburt und verändert sich grundsätzlich nicht.",
+            "Sex": "Das biologische Geschlecht ist das medizinische bzw. legale Geschlecht einer natürlichen Person. Derzeit gibt es nur drei verfügbare Werte: 1) divers, 2) weiblich und 3) männlich.",
+            "Consent": "Ein Einverständnis ist eine gegenseitige Zustimmung zwischen zwei oder mehreren Parteien. Diese Zustimmung können z.B. Allgemeine Geschäftsbedingungen oder Datenschutzbedingungen sein.",
+            "ProprietaryString": "Ein proprietärer Text, dessen Inhalt meist zwischen verschiedenen Parteien ausgetauscht wird, aber innerhalb des Ökosystems nicht normiert ist.",
+            "ProprietaryBoolean": "Ein Wahrheitswert der WAHR oder FALSCH sein kann.",
+            "ThirdPartyRelationshipAttributeQuery": "Attributsabfrage einer dritten Partei",
+            "RelationshipAttributeQuery": "Attributsabfrage einer Beziehung"
+         }
       }
    },
-   "settings": {
-      "language": "Sprache"
-   },
-   "attribute": {
-      "name": {
-         "EnmeshedAddress": "Enmeshed Adresse",
-         "DisplayName": "Anzeigename",
-         "ProprietaryFileReference": "Datei",
-         "IdentityFileReference": "Datei",
-         "SchematizedXML": "Schematische XML",
-         "BirthName": "Geburtsname",
-         "GivenName": "Vorname",
-         "HonorificPrefix": "Titel vor dem Namen",
-         "HonorificSuffix": "Titel hinter dem Namen",
-         "MiddleName": "Weitere Vornamen",
-         "PersonName": "Vollständiger Name",
-         "Pseudonym": "Pseudonym",
-         "Surname": "Nachname",
-         "City": "Stadt",
-         "Country": "Staat",
-         "DeliveryBoxAddress": "Packstationsadresse",
-         "HouseNumber": "Hausnummer",
-         "PostOfficeBoxAddress": "Postfachadresse",
-         "Street": "Straße",
-         "State": "Bundesland",
-         "StreetAddress": "Adresse",
-         "ZipCode": "Postleitzahl",
-         "Affiliation": "Zugehörigkeit",
-         "AffiliationUnit": "Abteilung",
-         "AffiliationRole": "Rolle",
-         "AffiliationOrganization": "Organisation",
-         "BirthCity": "Geburtsstadt",
-         "BirthCountry": "Geburtsstaat",
-         "BirthDate": "Geburtsdatum",
-         "BirthDay": "Tag der Geburt",
-         "BirthMonth": "Geburtsmonat",
-         "BirthPlace": "Geburtsort",
-         "BirthState": "Geburtsland",
-         "BirthYear": "Geburtsjahr",
-         "CommunicationLanguage": "Kommunikationssprache",
-         "EMailAddress": "E-Mail Adresse",
-         "FaxNumber": "Faxnummer",
-         "PhoneNumber": "Telefonnummer",
-         "Website": "Website",
-         "Citizenship": "Staatsangehörigkeit",
-         "JobTitle": "Beruf",
-         "Nationality": "Staatsangehörigkeit bei Geburt",
-         "Sex": "Biologisches Geschlecht",
-         "Consent": "Einverständnis",
-         "ProprietaryString": "Text",
-         "ProprietaryBoolean": "Wahrheitswert",
-         "ThirdPartyRelationshipAttributeQuery": "Attributsabfrage einer dritten Partei",
-         "RelationshipAttributeQuery": "Attributsabfrage einer Beziehung"
+   "attributes": {
+      "action": {
+         "shareAttribute": "Attribut teilen"
       },
-      "description": {
-         "EnmeshedAddress": "Die enmeshed Adresse ist die primäre Identifikationsnummer einer digitalen Identität im enmeshed Ökosystem.",
-         "DisplayName": "Der Anzeigename ist der primäre Name der diese natürliche oder juristische Person darstellt. Normalerweise ist es eine Kombination von Namen, Titeln oder Status.",
-         "ProprietaryFileReference": "Eine Datei die zwischen verschiedenen Identitäten ausgetauscht werden kann.",
-         "IdentityFileReference": "Eine Datei die zwischen verschiedenen Identitäten ausgetauscht werden kann.",
-         "SchematizedXML": "XML Inhalt der über ein bestimmtes Schema verfügt.",
-         "BirthName": "Der Geburtsname ist der Nachname bzw. Familienname einer natürlichen Person zur Geburt.",
-         "GivenName": "Der Vorname ist der bei Geburt gewählte Name einer natürlichen Person, welche die Person zu anderen Familien- bzw. Stammesmitgliedern abhebt.",
-         "HonorificPrefix": "Ein Titel der vor dem Namen einer natürlichen Person genannt wird, z.B. 'Dr.' oder 'Sir'.",
-         "HonorificSuffix": "Ein Titel der nach dem Namen einer natürlichen Person genannt wird, z.B. 'M.Sc.'.",
-         "MiddleName": "Zusätzliche Vornamen die mitunter als 'Mittelnamen' geführt werden.",
-         "PersonName": "Eine Kombination der Namensinformation einer natürlichen Person. Er besteht aus Vorname, zusätzlichen Vornamen, dem Nachname und den Titeln.",
-         "Pseudonym": "Ein Pseudonym, Alias oder Künstlername, der als alternativer Name einer natürlichen Person offiziell registriert ist.",
-         "Surname": "Der Nachname bzw. Familienname einer natürlichen Person.",
-         "City": "Ein Ort bzw. eine Stadt innerhalb eines (Bundes-)Landes.",
-         "Country": "Ein Staat bzw. Land dieser Welt anhand des Standards ISO 3166-1 (alpha 2).",
-         "DeliveryBoxAddress": "Eine Anschrift, die auf eine Packstation verweist.",
-         "HouseNumber": "Eine Hausnummer (inkl. Zusatz), die ein Gebäude einer Straße oder eines Gebietes kennzeichnet.",
-         "PostOfficeBoxAddress": "Eine Anschrift, die auf ein Postfach verweist.",
-         "Street": "Ein Straßenname innerhalb einer Stadt.",
-         "State": "Ein Bundesland innerhalb eines Staates.",
-         "StreetAddress": "Eine Anschrift, die auf eine Straße mit Hausnummer verweist.",
-         "ZipCode": "Die Postleitzahl einer Stadt bzw. eines Postfachs.",
-         "Affiliation": "Eine Zugehörigkeit oder Mitgliedschaft zu einer Organisation, mit einer entsprechenden Rolle und Abteilung.",
-         "AffiliationUnit": "Die Abteilung, Gruppe oder Mannschaft innerhalb der übergeordneten Organisation.",
-         "AffiliationRole": "Die Rolle, die diese Identität innerhalb der Abteilung und Organisation einnimmt.",
-         "AffiliationOrganization": "Die Organisation, zu der diese Identität eine Zugehörigkeit bzw. Mitgliedschaft besitzt.",
-         "BirthCity": "Der Ort bzw. die Stadt der Geburt.",
-         "BirthCountry": "Der Staat bzw. das Land der Geburt.",
-         "BirthDate": "Das Geburtsdatum ist ein kombinierter Wert des Geburtstags (Tag im Monat), des Geburtsmonats und des Geburtsjahres.",
-         "BirthDay": "Der Tag im Monat, der Geburt.",
-         "BirthMonth": "Der Monat im Jahr der Geburt.",
-         "BirthPlace": "Der Geburtsort ist ein kombinierter Wert der Geburtsstadt, des Geburtslandes und des Geburtsstaates.",
-         "BirthState": "Das Bundesland (innerhalb des Geburtsstaates) der Geburt.",
-         "BirthYear": "Das Jahr der Geburt.",
-         "CommunicationLanguage": "Die Kommunikationssprache ist die primäre Sprache mit der man kommunizieren möchte.",
-         "EMailAddress": "Eine E-Mail Adresse um E-Mails zu empfangen.",
-         "FaxNumber": "Eine Faxnummer um Daten über einen Audiokanal zu empfangen.",
-         "PhoneNumber": "Eine Telefonnummer um Anrufe entgegenzunehmen.",
-         "Website": "Eine Website im Internet, über die mehr Informationen abgerufen werden können.",
-         "Citizenship": "Die Staatsangehörigkeit ist ein Staat oder teilweise mehrere Staaten, die diese Person als Staatsbürger*in versteht und somit ein Rechtsverhältnis existiert. Sie ist primär die legale bzw. juristische Definition einer Person zu einem Staat. Es ist normalerweise der ausstellende Staat eines Reisepasses. Die Staatsangehörigkeit kann im Laufe des Lebens geändert werden.",
-         "JobTitle": "Der derzeitige Beruf oder Rolle, die meist unter dem Namen einer Visitenkarte steht.",
-         "Nationality": "Die Staatsangehörigkeit bei Geburt (teilweise auch Nationalität genannt) ist abhängig von der Geburt und verändert sich grundsätzlich nicht.",
-         "Sex": "Das biologische Geschlecht ist das medizinische bzw. legale Geschlecht einer natürlichen Person. Derzeit gibt es nur drei verfügbare Werte: 1) divers, 2) weiblich und 3) männlich.",
-         "Consent": "Ein Einverständnis ist eine gegenseitige Zustimmung zwischen zwei oder mehreren Parteien. Diese Zustimmung können z.B. Allgemeine Geschäftsbedingungen oder Datenschutzbedingungen sein.",
-         "ProprietaryString": "Ein proprietärer Text, dessen Inhalt meist zwischen verschiedenen Parteien ausgetauscht wird, aber innerhalb des Ökosystems nicht normiert ist.",
-         "ProprietaryBoolean": "Ein Wahrheitswert der WAHR oder FALSCH sein kann.",
-         "ThirdPartyRelationshipAttributeQuery": "Attributsabfrage einer dritten Partei",
-         "RelationshipAttributeQuery": "Attributsabfrage einer Beziehung"
+      "share": {
+         "title": "Teilen eines Attributs"
+      },
+      "description": "Beschreibung",
+      "values": {
+         "StreetAddress": {
+            "_title": "Adresse",
+            "recipient": {
+               "label": "Empfänger"
+            },
+            "street": {
+               "label": "Straße"
+            },
+            "houseNo": {
+               "label": "Hausnummer"
+            },
+            "zipCode": {
+               "label": "Postleitzahl"
+            },
+            "city": {
+               "label": "Stadt"
+            },
+            "country": {
+               "label": "Land"
+            },
+            "state": {
+               "label": "Bundesland"
+            }
+         },
+         "DeliveryBoxAddress": {
+            "_title": "Packstationsadresse",
+            "recipient": {
+               "label": "Empfänger"
+            },
+            "userId": {
+               "label": "Nummer"
+            },
+            "deliveryBoxId": {
+               "label": "Packstationsnummer"
+            },
+            "zipCode": {
+               "label": "Postleitzahl"
+            },
+            "city": {
+               "label": "Stadt"
+            },
+            "country": {
+               "label": "Land"
+            },
+            "state": {
+               "label": "Bundesland"
+            },
+            "phoneNumber": {
+               "label": "Telefonnummer"
+            }
+         },
+         "PostOfficeBoxAddress": {
+            "_title": "Postfach",
+            "recipient": {
+               "label": "Empfänger"
+            },
+            "boxId": {
+               "label": "Postfach"
+            },
+            "zipCode": {
+               "label": "Postleitzahl"
+            },
+            "city": {
+               "label": "Stadt"
+            },
+            "country": {
+               "label": "Land"
+            },
+            "state": {
+               "label": "Bundesland"
+            }
+         },
+         "BirthPlace": {
+            "_title": "Geburtsort",
+            "city": {
+               "label": "Stadt"
+            },
+            "country": {
+               "label": "Land"
+            },
+            "state": {
+               "label": "Bundesland"
+            }
+         },
+         "BirthDate": {
+            "_title": "Geburtstag",
+            "day": {
+               "label": "Tag"
+            },
+            "month": {
+               "label": "Monat"
+            },
+            "year": {
+               "label": "Jahr"
+            }
+         },
+         "PersonName": {
+            "_title": "Vollständiger Name",
+            "givenName": {
+               "label": "Vorname"
+            },
+            "middleName": {
+               "label": "Weitere Vornamen"
+            },
+            "surname": {
+               "label": "Nachname"
+            },
+            "honorificPrefix": {
+               "label": "Titel vor dem Namen"
+            },
+            "honorificSuffix": {
+               "label": "Titel hinter dem Namen"
+            }
+         },
+         "Affiliation": {
+            "_title": "Zugehörigkeit",
+            "role": {
+               "label": "Rolle"
+            },
+            "organization": {
+               "label": "Organisation"
+            },
+            "unit": {
+               "label": "Abteilung"
+            }
+         },
+         "sex": {
+            "male": "Männlich",
+            "female": "Weiblich",
+            "intersex": "Divers"
+         }
       }
    }
 }

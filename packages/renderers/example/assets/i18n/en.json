@@ -285,5 +285,147 @@
             "RelationshipAttributeQuery": "Relationship Attribute Query"
          }
       }
+   },
+   "attributes": {
+      "action": {
+         "shareAttribute": "Share Attribute"
+      },
+      "share": {
+         "title": "Share Attribute"
+      },
+      "description": "Description",
+      "values": {
+         "StreetAddress": {
+            "_title": "Street Address",
+            "recipient": {
+               "label": "Recipient"
+            },
+            "street": {
+               "label": "Street"
+            },
+            "houseNo": {
+               "label": "House Number"
+            },
+            "zipCode": {
+               "label": "Zip Code"
+            },
+            "city": {
+               "label": "City"
+            },
+            "country": {
+               "label": "Country"
+            },
+            "state": {
+               "label": "State"
+            }
+         },
+         "DeliveryBoxAddress": {
+            "_title": "Delivery Box Address",
+            "recipient": {
+               "label": "Recipient"
+            },
+            "userId": {
+               "label": "User Identification"
+            },
+            "deliveryBoxId": {
+               "label": "Delivery Box Number"
+            },
+            "zipCode": {
+               "label": "Zip Code"
+            },
+            "city": {
+               "label": "City"
+            },
+            "country": {
+               "label": "Country"
+            },
+            "state": {
+               "label": "State"
+            },
+            "phoneNumber": {
+               "label": "Phone Number"
+            }
+         },
+         "PostOfficeBoxAddress": {
+            "_title": "Post Office Box Address",
+            "recipient": {
+               "label": "Recipient"
+            },
+            "boxId": {
+               "label": "Post Office Box Number"
+            },
+            "zipCode": {
+               "label": "Zip Code"
+            },
+            "city": {
+               "label": "City"
+            },
+            "country": {
+               "label": "Country"
+            },
+            "state": {
+               "label": "State"
+            }
+         },
+         "BirthPlace": {
+            "_title": "Birth Place",
+            "city": {
+               "label": "City"
+            },
+            "country": {
+               "label": "Country"
+            },
+            "state": {
+               "label": "State"
+            }
+         },
+         "BirthDate": {
+            "_title": "Birth Date",
+            "day": {
+               "label": "Day"
+            },
+            "month": {
+               "label": "Month"
+            },
+            "year": {
+               "label": "Year"
+            }
+         },
+         "PersonName": {
+            "_title": "Person Name",
+            "givenName": {
+               "label": "Given Name"
+            },
+            "middleName": {
+               "label": "Middle Name"
+            },
+            "surname": {
+               "label": "Surname"
+            },
+            "honorificPrefix": {
+               "label": "Honorific Prefix"
+            },
+            "honorificSuffix": {
+               "label": "Honorific Suffix"
+            }
+         },
+         "Affiliation": {
+            "_title": "Affiliation",
+            "role": {
+               "label": "Role"
+            },
+            "organization": {
+               "label": "Organization"
+            },
+            "unit": {
+               "label": "Unit"
+            }
+         },
+         "sex": {
+            "male": "Male",
+            "female": "Female",
+            "intersex": "Intersex"
+         }
+      }
    }
 }
