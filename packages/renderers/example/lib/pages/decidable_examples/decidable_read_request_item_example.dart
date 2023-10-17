@@ -583,24 +583,24 @@ class DecidableReadRequestItemExample extends StatelessWidget {
     );
 
     final givenNameRenderHints = RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike);
-    const givenNameAttributeValue = IdentityFileReferenceAttributeValue(value: 'RkIMQ3KÖLJDSOLJFMNLDKSAJFKLMKLCASDJ');
+    const givenNameAttributeValue = GivenNameAttributeValue(value: 'Max');
     final givenNameRequestItem = DecidableReadAttributeRequestItemDVO(
       id: '',
       name: 'i18n://dvo.requestItem.DecidableReadAttributeRequestItem.name',
       mustBeAccepted: true,
       query: ProcessedIdentityAttributeQueryDVO(
         id: '',
-        name: 'i18n://dvo.attribute.name.IdentityFileReference',
+        name: 'i18n://dvo.attribute.name.GivenName',
         results: [
           RepositoryAttributeDVO(
             id: 'ATTfXgC9wku9mXrTv9T9',
-            name: 'i18n://dvo.attribute.name.IdentityFileReference',
-            description: 'i18n://dvo.attribute.description.IdentityFileReference',
+            name: 'i18n://dvo.attribute.name.GivenName',
+            description: 'i18n://dvo.attribute.description.GivenName',
             content: const IdentityAttribute(owner: 'id13ggHCcrFrWYk92br5qhy6NQGDz1W2fRAd', value: givenNameAttributeValue),
             owner: 'id13ggHCcrFrWYk92br5qhy6NQGDz1W2fRAd',
             tags: [],
             value: givenNameAttributeValue,
-            valueType: 'IdentityFileReference',
+            valueType: 'GivenName',
             renderHints: givenNameRenderHints,
             valueHints: const ValueHints(),
             isDraft: false,
@@ -610,7 +610,7 @@ class DecidableReadRequestItemExample extends StatelessWidget {
           ),
         ],
         tags: [],
-        valueType: 'IdentityFileReference',
+        valueType: 'GivenName',
         renderHints: givenNameRenderHints,
         valueHints: const ValueHints(),
       ),
@@ -685,7 +685,7 @@ class DecidableReadRequestItemExample extends StatelessWidget {
     );
 
     final houseNumberRenderHints = RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike);
-    const houseNumberAttributeValue = HouseNumberAttributeValue(value: 'a HouseNumber');
+    const houseNumberAttributeValue = HouseNumberAttributeValue(value: '42');
     final houseNumberRequestItem = DecidableReadAttributeRequestItemDVO(
       id: '',
       name: 'i18n://dvo.requestItem.DecidableReadAttributeRequestItem.name',
@@ -1138,7 +1138,7 @@ class DecidableReadRequestItemExample extends StatelessWidget {
         results: [
           RepositoryAttributeDVO(
             id: 'ATTfXgC9wku9mXrTv9T9',
-            name: 'xf',
+            name: 'i18n://dvo.attribute.name.CommunicationLanguage',
             description: 'i18n://dvo.attribute.description.CommunicationLanguage',
             content: const IdentityAttribute(owner: 'id13ggHCcrFrWYk92br5qhy6NQGDz1W2fRAd', value: communicationLanguageAttributeValue),
             owner: 'id13ggHCcrFrWYk92br5qhy6NQGDz1W2fRAd',
@@ -1229,7 +1229,7 @@ class DecidableReadRequestItemExample extends StatelessWidget {
     );
 
     final faxNumberRenderHints = RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike);
-    const faxNumberAttributeValue = FaxNumberAttributeValue(value: 'max@mustermann.de');
+    const faxNumberAttributeValue = FaxNumberAttributeValue(value: '06526486151684');
     final faxNumberRequestItem = DecidableReadAttributeRequestItemDVO(
       id: '',
       name: 'i18n://dvo.requestItem.DecidableReadAttributeRequestItem.name',
@@ -1297,24 +1297,24 @@ class DecidableReadRequestItemExample extends StatelessWidget {
     );
 
     final sexRenderHints = RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike);
-    const sexAttributeValue = NationalityAttributeValue(value: 'Male');
+    const sexAttributeValue = SexAttributeValue(value: 'Male');
     final sexRequestItem = DecidableReadAttributeRequestItemDVO(
       id: '',
       name: 'i18n://dvo.requestItem.DecidableReadAttributeRequestItem.name',
       mustBeAccepted: true,
       query: ProcessedIdentityAttributeQueryDVO(
         id: '',
-        name: 'i18n://dvo.attribute.name.Nationality',
+        name: 'i18n://dvo.attribute.name.Sex',
         results: [
           RepositoryAttributeDVO(
             id: 'ATTfXgC9wku9mXrTv9T9',
-            name: 'i18n://dvo.attribute.name.Nationality',
-            description: 'i18n://dvo.attribute.description.Nationality',
+            name: 'i18n://dvo.attribute.name.Sex',
+            description: 'i18n://dvo.attribute.description.Sex',
             content: const IdentityAttribute(owner: 'id13ggHCcrFrWYk92br5qhy6NQGDz1W2fRAd', value: sexAttributeValue),
             owner: 'id13ggHCcrFrWYk92br5qhy6NQGDz1W2fRAd',
             tags: [],
             value: sexAttributeValue,
-            valueType: 'Nationality',
+            valueType: 'Sex',
             renderHints: sexRenderHints,
             valueHints: const ValueHints(),
             isDraft: false,
@@ -1324,7 +1324,7 @@ class DecidableReadRequestItemExample extends StatelessWidget {
           ),
         ],
         tags: [],
-        valueType: 'Nationality',
+        valueType: 'Sex',
         renderHints: sexRenderHints,
         valueHints: const ValueHints(),
       ),
