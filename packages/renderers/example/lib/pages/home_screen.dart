@@ -1,5 +1,4 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:example_renderers/pages/requests_example.dart/requests_example.dart';
 import 'package:flutter/material.dart';
 
 import 'account_requests/requests_screen.dart';
@@ -9,6 +8,7 @@ import 'create_attribute_request_item_example/relationship_attribute_example.dar
 import 'item_examples.dart';
 import 'item_group_example.dart';
 import 'read_attribute_request_item_example.dart';
+import 'requests_example.dart';
 import 'widgets/widgets.dart';
 
 class ReloadController {
@@ -45,6 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
     menu = <_MenuGroup>[
       _MenuGroup(
         items: [
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Request Items JSON Example',
+            pageBuilder: (context) => const RequestsExample(),
+          ),
           _MenuItem(
             icon: Icons.description,
             title: 'Item Examples',
