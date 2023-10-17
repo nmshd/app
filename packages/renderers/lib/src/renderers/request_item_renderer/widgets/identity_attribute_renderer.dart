@@ -51,7 +51,11 @@ class _AffiliationAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
       title: value.toJson()['@type'],
-      titles: const ['Rolle', 'Organization', 'Unit'],
+      titles: const [
+        'i18n://attributes.values.Affiliation.role.label',
+        'i18n://attributes.values.Affiliation.organization.label',
+        'i18n://attributes.values.Affiliation.unit.label',
+      ],
       subTitles: [value.role, value.organization, value.unit],
       trailing: const IconButton(onPressed: null, icon: Icon(Icons.info)),
     );
@@ -67,7 +71,11 @@ class _BirthDateAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
       title: value.toJson()['@type'],
-      titles: const ['Day', 'Month', 'Year'],
+      titles: const [
+        'i18n://attributes.values.BirthDate.day.label',
+        'i18n://attributes.values.BirthDate.month.label',
+        'i18n://attributes.values.BirthDate.year.label',
+      ],
       subTitles: [value.day.toString(), value.month.toString(), value.year.toString()],
       trailing: const IconButton(onPressed: null, icon: Icon(Icons.info)),
     );
@@ -83,7 +91,11 @@ class _BirthPlaceAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
       title: value.toJson()['@type'],
-      titles: const ['City', 'Organization', 'Unit'],
+      titles: const [
+        'i18n://attributes.values.BirthPlace.city.label',
+        'i18n://attributes.values.BirthPlace.country.label',
+        'i18n://attributes.values.BirthPlace.state.label',
+      ],
       subTitles: [value.city, value.country, value.state],
       trailing: const IconButton(onPressed: null, icon: Icon(Icons.info)),
     );
@@ -99,9 +111,19 @@ class _DeliveryBoxAddressAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
       title: value.toJson()['@type'],
-      titles: const ['Recipient', 'DeliveryBoxId', 'ZipCode', 'City', 'Country', 'PhoneNumber', 'State'],
+      titles: const [
+        'i18n://attributes.values.DeliveryBoxAddress.recipient.label',
+        'i18n://attributes.values.DeliveryBoxAddress.userId.label',
+        'i18n://attributes.values.DeliveryBoxAddress.deliveryBoxId.label',
+        'i18n://attributes.values.DeliveryBoxAddress.zipCode.label',
+        'i18n://attributes.values.DeliveryBoxAddress.city.label',
+        'i18n://attributes.values.DeliveryBoxAddress.country.label',
+        'i18n://attributes.values.DeliveryBoxAddress.phoneNumber.label',
+        'i18n://attributes.values.DeliveryBoxAddress.state.label',
+      ],
       subTitles: [
         value.recipient,
+        value.userId,
         value.deliveryBoxId,
         value.zipCode,
         value.city,
@@ -123,7 +145,13 @@ class _PersonNameAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
       title: value.toJson()['@type'],
-      titles: const ['givenName', 'middleName', 'surname', 'honorificSuffix', 'honorificPrefix'],
+      titles: const [
+        'i18n://attributes.values.PersonName.givenName.label',
+        'i18n://attributes.values.PersonName.middleName.label',
+        'i18n://attributes.values.PersonName.surname.label',
+        'i18n://attributes.values.PersonName.honorificSuffix.label',
+        'i18n://attributes.values.PersonName.honorificPrefix.label',
+      ],
       subTitles: [
         value.givenName,
         value.middleName,
@@ -145,7 +173,14 @@ class _PostOfficeBoxAddressAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
       title: value.toJson()['@type'],
-      titles: const ['recipient', 'boxId', 'zipCode', 'city', 'country', 'state'],
+      titles: const [
+        'i18n://attributes.values.PostOfficeBoxAddress.recipient.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.boxId.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.zipCode.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.city.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.country.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.state.label',
+      ],
       subTitles: [
         value.recipient,
         value.boxId,
@@ -168,7 +203,15 @@ class _StreetAddressAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
       title: value.toJson()['@type'],
-      titles: const ['recipient', 'street', 'houseNumber', 'zipCode', 'city', 'country', 'state'],
+      titles: const [
+        'i18n://attributes.values.StreetAddress.recipient.label',
+        'i18n://attributes.values.StreetAddress.street.label',
+        'i18n://attributes.values.StreetAddress.houseNo.label',
+        'i18n://attributes.values.StreetAddress.zipCode.label',
+        'i18n://attributes.values.StreetAddress.city.label',
+        'i18n://attributes.values.StreetAddress.country.label',
+        'i18n://attributes.values.StreetAddress.state.label',
+      ],
       subTitles: [
         value.recipient,
         value.street,
@@ -193,7 +236,6 @@ class _SchematizedXMLAttributeValueRenderer extends StatelessWidget {
     return CustomListTile(
       title: value.toJson()['@type'],
       subTitle: value.value,
-      description: value.schemaURL != null ? Text(value.schemaURL!) : null,
       trailing: const IconButton(onPressed: null, icon: Icon(Icons.info)),
     );
   }

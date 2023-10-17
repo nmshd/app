@@ -17,6 +17,8 @@ class ComplexAttributeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const titlesTextStyle = TextStyle(fontSize: 12, color: Color(0xFF42474E));
+
     final listOfTitles = [];
     final listOfSubTitles = [];
 
@@ -51,7 +53,12 @@ class ComplexAttributeListTile extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TranslatedText('${listOfTitles[index]}:', style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+                      Row(
+                        children: [
+                          TranslatedText('${listOfTitles[index]}', style: titlesTextStyle),
+                          const Text(':', style: titlesTextStyle),
+                        ],
+                      ),
                       const SizedBox(height: 2),
                       Text(listOfSubTitles[index], style: const TextStyle(fontSize: 16)),
                       const SizedBox(height: 8),
