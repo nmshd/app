@@ -16,20 +16,34 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (value) {
-      final AffiliationAttributeValue value => _AffiliationAttributeValueRenderer(value: value),
-      final BirthDateAttributeValue value => _BirthDateAttributeValueRenderer(value: value),
-      final BirthPlaceAttributeValue value => _BirthPlaceAttributeValueRenderer(value: value),
-      final DeliveryBoxAddressAttributeValue value => _DeliveryBoxAddressAttributeValueRenderer(value: value),
-      final PersonNameAttributeValue value => _PersonNameAttributeValueRenderer(value: value),
+      final AffiliationAttributeValue value => _AffiliationAttributeValueRenderer(value: value, query: query, controller: controller, onEdit: onEdit),
+      final BirthDateAttributeValue value => _BirthDateAttributeValueRenderer(value: value, query: query, controller: controller, onEdit: onEdit),
+      final BirthPlaceAttributeValue value => _BirthPlaceAttributeValueRenderer(value: value, query: query, controller: controller, onEdit: onEdit),
+      final DeliveryBoxAddressAttributeValue value => _DeliveryBoxAddressAttributeValueRenderer(
+          value: value,
+          query: query,
+          controller: controller,
+          onEdit: onEdit,
+        ),
+      final PersonNameAttributeValue value => _PersonNameAttributeValueRenderer(value: value, query: query, controller: controller, onEdit: onEdit),
       final PostOfficeBoxAddressAttributeValue value => _PostOfficeBoxAddressAttributeValueRenderer(
           value: value,
           query: query,
           controller: controller,
           onEdit: onEdit,
         ),
-      final StreetAddressAttributeValue value => _StreetAddressAttributeValueRenderer(value: value),
-      final SchematizedXMLAttributeValue value =>
-        _SchematizedXMLAttributeValueRenderer(value: value, query: query, controller: controller, onEdit: onEdit),
+      final StreetAddressAttributeValue value => _StreetAddressAttributeValueRenderer(
+          value: value,
+          query: query,
+          controller: controller,
+          onEdit: onEdit,
+        ),
+      final SchematizedXMLAttributeValue value => _SchematizedXMLAttributeValueRenderer(
+          value: value,
+          query: query,
+          controller: controller,
+          onEdit: onEdit,
+        ),
       final StatementAttributeValue value => _StatementAttributeValueRenderer(value: value, query: query, controller: controller, onEdit: onEdit),
       _ => _StringIdentityAttributeRenderer(value: value, results: query.results, controller: controller, onEdit: onEdit),
     };
@@ -37,103 +51,123 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
 }
 
 class _AffiliationAttributeValueRenderer extends StatelessWidget {
+  final ProcessedIdentityAttributeQueryDVO query;
   final AffiliationAttributeValue value;
+  final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _AffiliationAttributeValueRenderer({required this.value});
+  const _AffiliationAttributeValueRenderer({required this.value, required this.query, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Affiliation'),
-        Text(value.role),
-        Text(value.organization),
-        Text(value.unit),
+    return ComplexAttributeListTile(
+      title: query.valueType,
+      titles: const [
+        'i18n://attributes.values.Affiliation.role.label',
+        'i18n://attributes.values.Affiliation.organization.label',
+        'i18n://attributes.values.Affiliation.unit.label',
       ],
+      subTitles: [value.role, value.organization, value.unit],
+      trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
 
 class _BirthDateAttributeValueRenderer extends StatelessWidget {
+  final ProcessedIdentityAttributeQueryDVO query;
   final BirthDateAttributeValue value;
+  final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _BirthDateAttributeValueRenderer({required this.value});
+  const _BirthDateAttributeValueRenderer({required this.value, required this.query, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('BirthDate'),
-        Text(value.day.toString()),
-        Text(value.month.toString()),
-        Text(value.year.toString()),
+    return ComplexAttributeListTile(
+      title: query.valueType,
+      titles: const [
+        'i18n://attributes.values.BirthDate.day.label',
+        'i18n://attributes.values.BirthDate.month.label',
+        'i18n://attributes.values.BirthDate.year.label',
       ],
+      subTitles: [value.day.toString(), value.month.toString(), value.year.toString()],
+      trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
 
 class _BirthPlaceAttributeValueRenderer extends StatelessWidget {
+  final ProcessedIdentityAttributeQueryDVO query;
   final BirthPlaceAttributeValue value;
+  final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _BirthPlaceAttributeValueRenderer({required this.value});
+  const _BirthPlaceAttributeValueRenderer({required this.value, required this.query, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('BirthPlace'),
-        Text(value.city),
-        Text(value.country),
-        if (value.state != null) Text(value.state!),
+    return ComplexAttributeListTile(
+      title: query.valueType,
+      titles: const [
+        'i18n://attributes.values.BirthPlace.city.label',
+        'i18n://attributes.values.BirthPlace.country.label',
+        'i18n://attributes.values.BirthPlace.state.label',
       ],
+      subTitles: [value.city, value.country, value.state],
+      trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
 
 class _DeliveryBoxAddressAttributeValueRenderer extends StatelessWidget {
+  final ProcessedIdentityAttributeQueryDVO query;
   final DeliveryBoxAddressAttributeValue value;
+  final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _DeliveryBoxAddressAttributeValueRenderer({required this.value});
+  const _DeliveryBoxAddressAttributeValueRenderer({required this.value, required this.query, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('DeliveryBoxAddress'),
-        Text(value.recipient),
-        Text(value.deliveryBoxId),
-        Text(value.userId),
-        Text(value.zipCode),
-        Text(value.city),
-        Text(value.country),
-        if (value.phoneNumber != null) Text(value.phoneNumber!),
-        if (value.state != null) Text(value.state!),
+    return ComplexAttributeListTile(
+      title: query.valueType,
+      titles: const [
+        'i18n://attributes.values.DeliveryBoxAddress.recipient.label',
+        'i18n://attributes.values.DeliveryBoxAddress.userId.label',
+        'i18n://attributes.values.DeliveryBoxAddress.deliveryBoxId.label',
+        'i18n://attributes.values.DeliveryBoxAddress.zipCode.label',
+        'i18n://attributes.values.DeliveryBoxAddress.city.label',
+        'i18n://attributes.values.DeliveryBoxAddress.country.label',
+        'i18n://attributes.values.DeliveryBoxAddress.phoneNumber.label',
+        'i18n://attributes.values.DeliveryBoxAddress.state.label',
       ],
+      subTitles: [value.recipient, value.deliveryBoxId, value.userId, value.zipCode, value.city, value.country, value.phoneNumber, value.state],
+      trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
 
 class _PersonNameAttributeValueRenderer extends StatelessWidget {
+  final ProcessedIdentityAttributeQueryDVO query;
   final PersonNameAttributeValue value;
+  final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _PersonNameAttributeValueRenderer({required this.value});
+  const _PersonNameAttributeValueRenderer({required this.value, required this.query, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('PersonName'),
-        Text(value.givenName),
-        if (value.middleName != null) Text(value.middleName!),
-        Text(value.surname),
-        if (value.honorificSuffix != null) Text(value.honorificSuffix!),
-        if (value.honorificPrefix != null) Text(value.honorificPrefix!),
+    return ComplexAttributeListTile(
+      title: query.valueType,
+      titles: const [
+        'i18n://attributes.values.PersonName.givenName.label',
+        'i18n://attributes.values.PersonName.middleName.label',
+        'i18n://attributes.values.PersonName.surname.label',
+        'i18n://attributes.values.PersonName.honorificSuffix.label',
+        'i18n://attributes.values.PersonName.honorificPrefix.label',
       ],
+      subTitles: [value.givenName, value.middleName, value.surname, value.honorificSuffix, value.honorificPrefix],
+      trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
@@ -150,36 +184,43 @@ class _PostOfficeBoxAddressAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
       title: query.valueType,
-      titles: value.state != null
-          ? ['Empfänger', 'Postfach', 'Postleitzahl', 'Stadt', 'Land', 'Bundesland']
-          : ['Empfänger', 'Postfach', 'Postleitzahl', 'Stadt', 'Land'],
-      subTitles: value.state != null
-          ? [value.recipient, value.boxId, value.zipCode, value.city, value.country, value.state!]
-          : [value.recipient, value.boxId, value.zipCode, value.city, value.country],
+      titles: const [
+        'i18n://attributes.values.PostOfficeBoxAddress.recipient.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.boxId.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.zipCode.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.city.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.country.label',
+        'i18n://attributes.values.PostOfficeBoxAddress.state.label',
+      ],
+      subTitles: [value.recipient, value.boxId, value.zipCode, value.city, value.country, value.state],
       trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
 
 class _StreetAddressAttributeValueRenderer extends StatelessWidget {
+  final ProcessedIdentityAttributeQueryDVO query;
   final StreetAddressAttributeValue value;
+  final RequestRendererController? controller;
+  final VoidCallback? onEdit;
 
-  const _StreetAddressAttributeValueRenderer({required this.value});
+  const _StreetAddressAttributeValueRenderer({required this.value, required this.query, required this.controller, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('StreetAddress'),
-        Text(value.recipient),
-        Text(value.street),
-        Text(value.houseNumber),
-        Text(value.zipCode),
-        Text(value.city),
-        Text(value.country),
-        if (value.state != null) Text(value.state!),
+    return ComplexAttributeListTile(
+      title: query.valueType,
+      titles: const [
+        'i18n://attributes.values.StreetAddress.recipient.label',
+        'i18n://attributes.values.StreetAddress.street.label',
+        'i18n://attributes.values.StreetAddress.houseNo.label',
+        'i18n://attributes.values.StreetAddress.zipCode.label',
+        'i18n://attributes.values.StreetAddress.city.label',
+        'i18n://attributes.values.StreetAddress.country.label',
+        'i18n://attributes.values.StreetAddress.state.label',
       ],
+      subTitles: [value.recipient, value.street, value.houseNumber, value.zipCode, value.city, value.country, value.state],
+      trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
@@ -194,13 +235,10 @@ class _SchematizedXMLAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('SchematizedXML'),
-        Text(value.value),
-        if (value.schemaURL != null) Text(value.schemaURL!),
-      ],
+    return CustomListTile(
+      title: query.results.first.name,
+      subTitle: value.value,
+      trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }
