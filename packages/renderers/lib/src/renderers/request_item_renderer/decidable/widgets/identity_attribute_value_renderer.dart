@@ -61,7 +61,7 @@ class _AffiliationAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
-      title: query.valueType,
+      title: 'i18n://attributes.values.Affiliation._title',
       titles: const [
         'i18n://attributes.values.Affiliation.role.label',
         'i18n://attributes.values.Affiliation.organization.label',
@@ -84,7 +84,7 @@ class _BirthDateAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
-      title: query.valueType,
+      title: 'i18n://attributes.values.BirthDate._title',
       titles: const [
         'i18n://attributes.values.BirthDate.day.label',
         'i18n://attributes.values.BirthDate.month.label',
@@ -107,7 +107,7 @@ class _BirthPlaceAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
-      title: query.valueType,
+      title: 'i18n://attributes.values.BirthPlace._title',
       titles: const [
         'i18n://attributes.values.BirthPlace.city.label',
         'i18n://attributes.values.BirthPlace.country.label',
@@ -130,7 +130,7 @@ class _DeliveryBoxAddressAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
-      title: query.valueType,
+      title: 'i18n://attributes.values.DeliveryBoxAddress._title',
       titles: const [
         'i18n://attributes.values.DeliveryBoxAddress.recipient.label',
         'i18n://attributes.values.DeliveryBoxAddress.userId.label',
@@ -158,7 +158,7 @@ class _PersonNameAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
-      title: query.valueType,
+      title: 'i18n://attributes.values.PersonName._title',
       titles: const [
         'i18n://attributes.values.PersonName.givenName.label',
         'i18n://attributes.values.PersonName.middleName.label',
@@ -183,7 +183,7 @@ class _PostOfficeBoxAddressAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
-      title: query.valueType,
+      title: 'i18n://attributes.values.PostOfficeBoxAddress._title',
       titles: const [
         'i18n://attributes.values.PostOfficeBoxAddress.recipient.label',
         'i18n://attributes.values.PostOfficeBoxAddress.boxId.label',
@@ -209,7 +209,7 @@ class _StreetAddressAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ComplexAttributeListTile(
-      title: query.valueType,
+      title: 'i18n://attributes.values.StreetAddress._title',
       titles: const [
         'i18n://attributes.values.StreetAddress.recipient.label',
         'i18n://attributes.values.StreetAddress.street.label',
