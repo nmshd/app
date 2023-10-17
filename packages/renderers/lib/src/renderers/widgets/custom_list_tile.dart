@@ -23,7 +23,7 @@ class CustomListTile extends StatelessWidget {
                   children: [
                     TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
                     const SizedBox(height: 2),
-                    Text(subTitle, style: const TextStyle(fontSize: 16)),
+                    TranslatedText(subTitle, style: const TextStyle(fontSize: 16)),
                   ],
                 ),
               ),
