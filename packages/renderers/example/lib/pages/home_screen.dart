@@ -73,11 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
               //reloadController: _reloadController,
             ),
           ),
-          _MenuItem(
-            icon: Icons.description,
-            title: 'Request Items JSON Example',
-            pageBuilder: (context) => const RequestsExample(),
-          ),
         ],
       ),
       _MenuGroup(title: 'Create Attribute', items: [
