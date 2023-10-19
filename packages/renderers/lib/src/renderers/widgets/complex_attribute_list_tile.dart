@@ -3,26 +3,16 @@ import 'package:translated_text/translated_text.dart';
 
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
-  final List<String> titles;
-  final List<String?> subTitles;
+  final List<String> labels;
+  final List<String> values;
   final Widget? trailing;
   final VoidCallback? onPressed;
 
-  const ComplexAttributeListTile({super.key, required this.title, required this.titles, required this.subTitles, this.trailing, this.onPressed});
+  const ComplexAttributeListTile({super.key, required this.title, required this.labels, required this.values, this.trailing, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     const titlesTextStyle = TextStyle(fontSize: 12, color: Color(0xFF42474E));
-
-    final listOfTitles = [];
-    final listOfSubTitles = [];
-    for (int i = 0; i < subTitles.length; i++) {
-      if (subTitles[i] != null) {
-        listOfTitles.add(titles[i]);
-        listOfSubTitles.add(subTitles[i]!);
-      }
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -42,19 +32,19 @@ class ComplexAttributeListTile extends StatelessWidget {
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: listOfTitles.length,
+                itemCount: labels.length,
                 itemBuilder: (context, index) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          TranslatedText('${listOfTitles[index]}', style: titlesTextStyle),
+                          TranslatedText(labels[index], style: titlesTextStyle),
                           const Text(':', style: titlesTextStyle),
                         ],
                       ),
                       const SizedBox(height: 2),
-                      Text(listOfSubTitles[index], style: const TextStyle(fontSize: 16)),
+                      Text(values[index], style: const TextStyle(fontSize: 16)),
                       const SizedBox(height: 8),
                     ],
                   );
