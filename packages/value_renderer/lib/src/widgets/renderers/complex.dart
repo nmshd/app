@@ -129,7 +129,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 class _ComplexAttributeValueChild extends AttributeValue {
   final dynamic value;
 
-  const _ComplexAttributeValueChild(this.value);
+  const _ComplexAttributeValueChild(this.value) : super('Dummy');
 
   @override
   Map<String, dynamic> toJson() => {'value': value};

@@ -8,7 +8,7 @@ void main() {
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
-        equals({'title': 'aTitle'}),
+        equals({'@type': 'MockProprietaryAttributeValue', 'title': 'aTitle'}),
       );
     });
 
@@ -17,7 +17,7 @@ void main() {
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
-        equals({'title': 'aTitle', 'description': 'aDescription'}),
+        equals({'@type': 'MockProprietaryAttributeValue', 'title': 'aTitle', 'description': 'aDescription'}),
       );
     });
 
@@ -26,7 +26,7 @@ void main() {
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
-        equals({'title': 'aTitle', 'valueHintsOverride': const ValueHints().toJson()}),
+        equals({'@type': 'MockProprietaryAttributeValue', 'title': 'aTitle', 'valueHintsOverride': const ValueHints().toJson()}),
       );
     });
 
@@ -40,6 +40,7 @@ void main() {
       expect(
         relationshipJson,
         equals({
+          '@type': 'MockProprietaryAttributeValue',
           'title': 'aTitle',
           'description': 'aDescription',
           'valueHintsOverride': const ValueHints().toJson(),
@@ -55,9 +56,4 @@ class MockProprietaryAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
   }) : super('MockProprietaryAttributeValue');
-
-  @override
-  Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-      };
 }
