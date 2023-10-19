@@ -54,7 +54,7 @@ class MockProprietaryAttributeValue extends ProprietaryAttributeValue {
     required super.title,
     super.description,
     super.valueHintsOverride,
-  });
+  }) : super('MockProprietaryAttributeValue');
 
   @override
   Map<String, dynamic> toJson() => {
