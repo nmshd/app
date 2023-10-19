@@ -9,7 +9,7 @@ class ProprietaryFloatAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryFloat');
 
   factory ProprietaryFloatAttributeValue.fromJson(Map json) => ProprietaryFloatAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryFloatAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryFloat',
         'value': value,
       };
 

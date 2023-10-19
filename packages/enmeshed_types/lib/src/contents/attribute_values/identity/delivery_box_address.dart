@@ -19,7 +19,7 @@ class DeliveryBoxAddressAttributeValue extends IdentityAttributeValue {
     required this.country,
     this.phoneNumber,
     this.state,
-  });
+  }) : super('DeliveryBoxAddress');
 
   factory DeliveryBoxAddressAttributeValue.fromJson(Map json) => DeliveryBoxAddressAttributeValue(
         recipient: json['recipient'],
@@ -34,7 +34,7 @@ class DeliveryBoxAddressAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'DeliveryBoxAddress',
+        '@type': super.atType,
         'recipient': recipient,
         'deliveryBoxId': deliveryBoxId,
         'userId': userId,

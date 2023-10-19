@@ -5,7 +5,7 @@ class SurnameAttributeValue extends IdentityAttributeValue {
 
   const SurnameAttributeValue({
     required this.value,
-  });
+  }) : super('Surname');
 
   factory SurnameAttributeValue.fromJson(Map json) => SurnameAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class SurnameAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'Surname',
+        '@type': super.atType,
         'value': value,
       };
 

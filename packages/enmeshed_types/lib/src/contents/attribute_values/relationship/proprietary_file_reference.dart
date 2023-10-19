@@ -9,7 +9,7 @@ class ProprietaryFileReferenceAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryFileReference');
 
   factory ProprietaryFileReferenceAttributeValue.fromJson(Map json) => ProprietaryFileReferenceAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryFileReferenceAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryFileReference',
         'value': value,
       };
 
