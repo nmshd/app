@@ -6,7 +6,8 @@ abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
   final String? description;
   final ValueHints? valueHintsOverride;
 
-  const ProprietaryAttributeValue({
+  const ProprietaryAttributeValue(
+    super.atType, {
     required this.title,
     this.description,
     this.valueHintsOverride,
@@ -14,6 +15,7 @@ abstract class ProprietaryAttributeValue extends RelationshipAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
+        '@type': super.atType,
         'title': title,
         if (description != null) 'description': description,
         if (valueHintsOverride != null) 'valueHintsOverride': valueHintsOverride?.toJson(),

@@ -9,7 +9,7 @@ class ProprietaryBooleanAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryBoolean');
 
   factory ProprietaryBooleanAttributeValue.fromJson(Map json) => ProprietaryBooleanAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryBooleanAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryBoolean',
         'value': value,
       };
 

@@ -9,7 +9,7 @@ class ProprietaryHEXColorAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryHEXColor');
 
   factory ProprietaryHEXColorAttributeValue.fromJson(Map json) => ProprietaryHEXColorAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryHEXColorAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryHEXColor',
         'value': value,
       };
 
