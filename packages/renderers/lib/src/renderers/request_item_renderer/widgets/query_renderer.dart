@@ -10,7 +10,7 @@ class IdentityAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: '', subTitle: query.name);
+    return CustomListTile(title: '', value: query.name);
   }
 }
 
@@ -21,7 +21,7 @@ class RelationshipAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: '', subTitle: query.name);
+    return CustomListTile(title: '', value: query.name);
   }
 }
 
@@ -32,6 +32,6 @@ class ThirdPartyAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: '', subTitle: query.name);
+    return CustomListTile(title: '', value: query.name);
   }
 }

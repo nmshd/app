@@ -12,7 +12,7 @@ class ConsentRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: item.name, subTitle: item.consent);
+    return CustomListTile(title: item.name, value: item.consent);
     //Text.rich(TextSpan(text: 'Link: ', children: [TextSpan(text: item.link)])),
   }
 }
