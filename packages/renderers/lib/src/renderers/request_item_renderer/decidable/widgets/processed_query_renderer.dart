@@ -1,13 +1,14 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
+import 'package:value_renderer/value_renderer.dart';
 
 import '../../../../request_renderer.dart';
 import '../../../widgets/value_renderer_list_tile.dart';
 import 'identity_attribute_value_renderer.dart';
 import 'relationship_attribute_value_renderer.dart';
 
-class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
+class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
   final ProcessedIdentityAttributeQueryDVO query;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
@@ -15,18 +16,42 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   const ProcessedIdentityAttributeQueryRenderer({super.key, required this.query, this.controller, this.onEdit});
 
   @override
+  State<ProcessedIdentityAttributeQueryRenderer> createState() => _ProcessedIdentityAttributeQueryRendererState();
+}
+
+class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdentityAttributeQueryRenderer> {
+  final ValueRendererController _valueController = ValueRendererController();
+  dynamic value;
+
+  @override
+  void initState() {
+    _valueController.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // setState(() => widget.controller.value.items = _valueController.value);
+        setState(() => print(_valueController.value));
+      });
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return query.results.isEmpty
-        ? ValueRendererListTile(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints)
-        : switch (query.results.first.value) {
+    return widget.query.results.isEmpty
+        ? ValueRendererListTile(
+            fieldName: widget.query.valueType,
+            renderHints: widget.query.renderHints,
+            valueHints: widget.query.valueHints,
+            controller: _valueController,
+          )
+        : switch (widget.query.results.first.value) {
             final IdentityAttributeValue value => IdentityAttributeValueRenderer(
-                query: query,
+                query: widget.query,
                 value: value,
-                controller: controller,
-                onEdit: onEdit,
+                controller: widget.controller,
+                onEdit: widget.onEdit,
               ),
-            final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(results: query.results, value: value),
-            _ => throw Exception('Unknown AttributeValue: ${query.results.first.valueType}'),
+            final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(results: widget.query.results, value: value),
+            _ => throw Exception('Unknown AttributeValue: ${widget.query.results.first.valueType}'),
           };
   }
 }
