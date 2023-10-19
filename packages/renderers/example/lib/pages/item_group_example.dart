@@ -17,10 +17,27 @@ class ItemGroupExample extends StatefulWidget {
 class _ItemGroupExampleState extends State<ItemGroupExample> {
   Map<String, dynamic>? jsonExample;
 
+  RequestRendererController controller = RequestRendererController();
+
+  DecideRequestParameters? requestController;
+
   @override
   void initState() {
     loadJsonData();
     super.initState();
+
+    controller.addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => requestController = controller.value);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -51,7 +68,12 @@ class _ItemGroupExampleState extends State<ItemGroupExample> {
           const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
           Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequestDVO.createdAt))),
           const Divider(),
-          RequestRenderer(request: localRequestDVO),
+          RequestRenderer(request: localRequestDVO, controller: controller),
+          FilledButton(
+            onPressed: () {},
+            style: OutlinedButton.styleFrom(minimumSize: const Size(100.0, 36.0)),
+            child: const Text('save'),
+          ),
         ],
       ),
     );

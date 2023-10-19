@@ -17,7 +17,7 @@ class RequestsDetailScreen extends StatefulWidget {
 class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   RequestRendererController controller = RequestRendererController();
 
-  ProcessedAttributeQueryDVO? requestController;
+  DecideRequestParameters? requestController;
 
   @override
   void initState() {
@@ -99,7 +99,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 }
 
 class _AddEditItem extends StatefulWidget {
-  final ProcessedAttributeQueryDVO requestController;
+  final DecideRequestParameters requestController;
 
   const _AddEditItem({required this.requestController});
 
@@ -116,7 +116,7 @@ class __AddEditItemState extends State<_AddEditItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          TranslatedText(widget.requestController.name),
+          TranslatedText(widget.requestController.toString()),
         ],
       ),
     );

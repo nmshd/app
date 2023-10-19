@@ -17,13 +17,6 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
 
 class _DecidableReadAttributeRequestItemRendererState extends State<DecidableReadAttributeRequestItemRenderer> {
   @override
-  void initState() {
-    super.initState();
-
-    widget.controller?.value = widget.item.query;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query, onEdit: widget.onEdit),
