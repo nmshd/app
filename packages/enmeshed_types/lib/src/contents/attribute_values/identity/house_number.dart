@@ -5,7 +5,7 @@ class HouseNumberAttributeValue extends IdentityAttributeValue {
 
   const HouseNumberAttributeValue({
     required this.value,
-  });
+  }) : super('HouseNumber');
 
   factory HouseNumberAttributeValue.fromJson(Map json) => HouseNumberAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class HouseNumberAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'HouseNumber',
+        '@type': super.atType,
         'value': value,
       };
 

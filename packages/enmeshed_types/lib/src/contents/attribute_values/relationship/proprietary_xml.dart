@@ -11,7 +11,7 @@ class ProprietaryXMLAttributeValue extends ProprietaryAttributeValue {
     super.valueHintsOverride,
     required this.value,
     this.schemaURL,
-  });
+  }) : super('ProprietaryXML');
 
   factory ProprietaryXMLAttributeValue.fromJson(Map json) => ProprietaryXMLAttributeValue(
         title: json['title'],
@@ -24,7 +24,6 @@ class ProprietaryXMLAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryXML',
         'value': value,
         'schemaURL': schemaURL,
       };

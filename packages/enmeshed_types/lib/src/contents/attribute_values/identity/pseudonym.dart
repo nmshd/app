@@ -5,7 +5,7 @@ class PseudonymAttributeValue extends IdentityAttributeValue {
 
   const PseudonymAttributeValue({
     required this.value,
-  });
+  }) : super('Pseudonym');
 
   factory PseudonymAttributeValue.fromJson(Map json) => PseudonymAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class PseudonymAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'Pseudonym',
+        '@type': super.atType,
         'value': value,
       };
 

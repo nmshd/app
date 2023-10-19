@@ -5,7 +5,7 @@ class CommunicationLanguageAttributeValue extends IdentityAttributeValue {
 
   const CommunicationLanguageAttributeValue({
     required this.value,
-  });
+  }) : super('CommunicationLanguage');
 
   factory CommunicationLanguageAttributeValue.fromJson(Map json) => CommunicationLanguageAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class CommunicationLanguageAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'CommunicationLanguage',
+        '@type': super.atType,
         'value': value,
       };
 

@@ -5,7 +5,7 @@ class IdentityFileReferenceAttributeValue extends IdentityAttributeValue {
 
   const IdentityFileReferenceAttributeValue({
     required this.value,
-  });
+  }) : super('IdentityFileReference');
 
   factory IdentityFileReferenceAttributeValue.fromJson(Map json) => IdentityFileReferenceAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class IdentityFileReferenceAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'IdentityFileReference',
+        '@type': super.atType,
         'value': value,
       };
 

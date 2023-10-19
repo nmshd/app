@@ -9,7 +9,7 @@ class ProprietaryLanguageAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryLanguage');
 
   factory ProprietaryLanguageAttributeValue.fromJson(Map json) => ProprietaryLanguageAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryLanguageAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryLanguage',
         'value': value,
       };
 

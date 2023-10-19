@@ -9,7 +9,7 @@ class ProprietaryURLAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryURL');
 
   factory ProprietaryURLAttributeValue.fromJson(Map json) => ProprietaryURLAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryURLAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryURL',
         'value': value,
       };
 

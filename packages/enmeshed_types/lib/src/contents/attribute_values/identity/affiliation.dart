@@ -9,7 +9,7 @@ class AffiliationAttributeValue extends IdentityAttributeValue {
     required this.role,
     required this.organization,
     required this.unit,
-  });
+  }) : super('Affiliation');
 
   factory AffiliationAttributeValue.fromJson(Map json) => AffiliationAttributeValue(
         role: json['role'],
@@ -18,12 +18,7 @@ class AffiliationAttributeValue extends IdentityAttributeValue {
       );
 
   @override
-  Map<String, dynamic> toJson() => {
-        '@type': 'Affiliation',
-        'role': role,
-        'organization': organization,
-        'unit': unit,
-      };
+  Map<String, dynamic> toJson() => {'@type': super.atType, 'role': role, 'organization': organization, 'unit': unit};
 
   @override
   String toString() => 'AffiliationAttributeValue(role: $role, organization: $organization, unit: $unit)';

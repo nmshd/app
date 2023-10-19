@@ -2,7 +2,7 @@ import '../attribute_value.dart';
 import 'identity.dart';
 
 abstract class IdentityAttributeValue extends AttributeValue {
-  const IdentityAttributeValue();
+  const IdentityAttributeValue(super.atType);
 
   factory IdentityAttributeValue.fromJson(Map json) {
     final type = json['@type'];

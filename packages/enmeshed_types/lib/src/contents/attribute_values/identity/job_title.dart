@@ -5,7 +5,7 @@ class JobTitleAttributeValue extends IdentityAttributeValue {
 
   const JobTitleAttributeValue({
     required this.value,
-  });
+  }) : super('JobTitle');
 
   factory JobTitleAttributeValue.fromJson(Map json) => JobTitleAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class JobTitleAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'JobTitle',
+        '@type': super.atType,
         'value': value,
       };
 

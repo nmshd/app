@@ -13,7 +13,7 @@ class PersonNameAttributeValue extends IdentityAttributeValue {
     required this.surname,
     this.honorificSuffix,
     this.honorificPrefix,
-  });
+  }) : super('PersonName');
 
   factory PersonNameAttributeValue.fromJson(Map json) => PersonNameAttributeValue(
         givenName: json['givenName'],
@@ -25,7 +25,7 @@ class PersonNameAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'PersonName',
+        '@type': super.atType,
         'givenName': givenName,
         if (middleName != null) 'middleName': middleName,
         'surname': surname,

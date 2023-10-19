@@ -5,7 +5,7 @@ class DisplayNameAttributeValue extends IdentityAttributeValue {
 
   const DisplayNameAttributeValue({
     required this.value,
-  });
+  }) : super('DisplayName');
 
   factory DisplayNameAttributeValue.fromJson(Map json) => DisplayNameAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class DisplayNameAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'DisplayName',
+        '@type': super.atType,
         'value': value,
       };
 
