@@ -17,9 +17,9 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final attributeValueMap = value.toJson();
 
-    String title = 'i18n://dvo.attribute.name.${attributeValueMap['@type']}';
+    String title = 'i18n://dvo.attribute.name.${value.atType}';
     if (attributeValueMap.length > 2) {
-      title = 'i18n://attributes.values.${attributeValueMap['@type']}._title';
+      title = 'i18n://attributes.values.${value.atType}._title';
     }
 
     if (attributeValueMap.length == 2) {
@@ -31,7 +31,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       );
     }
 
-    final typeValue = attributeValueMap['@type'];
+    final typeValue = value.atType;
     final List<String> labels = [];
     final List<String> values = [];
 
