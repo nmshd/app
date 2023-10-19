@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 class ComplexAttributeListTile extends StatelessWidget {
@@ -8,7 +9,14 @@ class ComplexAttributeListTile extends StatelessWidget {
   final Widget? trailing;
   final VoidCallback? onPressed;
 
-  const ComplexAttributeListTile({super.key, required this.title, required this.labels, required this.values, this.trailing, this.onPressed});
+  const ComplexAttributeListTile({
+    super.key,
+    required this.title,
+    required this.labels,
+    required this.values,
+    this.trailing,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +42,13 @@ class ComplexAttributeListTile extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: labels.length,
                 itemBuilder: (context, index) {
+                  final label = labels[index];
+                  final translatedLabel = label.startsWith('i18n://') ? FlutterI18n.translate(context, label.substring(7)) : label;
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          TranslatedText(labels[index], style: titlesTextStyle),
-                          const Text(':', style: titlesTextStyle),
-                        ],
-                      ),
+                      Text('$translatedLabel:', style: titlesTextStyle),
                       const SizedBox(height: 2),
                       Text(values[index], style: const TextStyle(fontSize: 16)),
                       const SizedBox(height: 8),
