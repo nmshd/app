@@ -647,7 +647,7 @@ class InputExamples extends StatelessWidget {
 class FullyDynamicAttributeValue extends AttributeValue {
   final dynamic value;
 
-  const FullyDynamicAttributeValue(this.value);
+  const FullyDynamicAttributeValue(this.value) : super('FullyDynamic');
 
   @override
   Map<String, dynamic> toJson() => {'value': value};

@@ -5,7 +5,7 @@ class HonorificPrefixAttributeValue extends IdentityAttributeValue {
 
   const HonorificPrefixAttributeValue({
     required this.value,
-  });
+  }) : super('HonorificPrefix');
 
   factory HonorificPrefixAttributeValue.fromJson(Map json) => HonorificPrefixAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class HonorificPrefixAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'HonorificPrefix',
+        '@type': super.atType,
         'value': value,
       };
 

@@ -5,7 +5,7 @@ class ZipCodeAttributeValue extends IdentityAttributeValue {
 
   const ZipCodeAttributeValue({
     required this.value,
-  });
+  }) : super('ZipCode');
 
   factory ZipCodeAttributeValue.fromJson(Map json) => ZipCodeAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class ZipCodeAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'ZipCode',
+        '@type': super.atType,
         'value': value,
       };
 
