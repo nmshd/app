@@ -9,7 +9,7 @@ class BirthPlaceAttributeValue extends IdentityAttributeValue {
     required this.city,
     required this.country,
     this.state,
-  });
+  }) : super('BirthPlace');
 
   factory BirthPlaceAttributeValue.fromJson(Map json) => BirthPlaceAttributeValue(
         city: json['city'],
@@ -19,7 +19,7 @@ class BirthPlaceAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'BirthPlace',
+        '@type': super.atType,
         'city': city,
         'country': country,
         if (state != null) 'state': state,

@@ -5,17 +5,14 @@ class AffiliationOrganizationAttributeValue extends IdentityAttributeValue {
 
   const AffiliationOrganizationAttributeValue({
     required this.value,
-  });
+  }) : super('AffiliationOrganization');
 
   factory AffiliationOrganizationAttributeValue.fromJson(Map json) => AffiliationOrganizationAttributeValue(
         value: json['value'],
       );
 
   @override
-  Map<String, dynamic> toJson() => {
-        '@type': 'AffiliationOrganization',
-        'value': value,
-      };
+  Map<String, dynamic> toJson() => {'@type': super.atType, 'value': value};
 
   @override
   String toString() => 'AffiliationOrganizationAttributeValue(value: $value)';

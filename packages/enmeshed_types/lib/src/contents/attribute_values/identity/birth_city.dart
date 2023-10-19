@@ -5,7 +5,7 @@ class BirthCityAttributeValue extends IdentityAttributeValue {
 
   const BirthCityAttributeValue({
     required this.value,
-  });
+  }) : super('BirthCity');
 
   factory BirthCityAttributeValue.fromJson(Map json) => BirthCityAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class BirthCityAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'BirthCity',
+        '@type': super.atType,
         'value': value,
       };
 

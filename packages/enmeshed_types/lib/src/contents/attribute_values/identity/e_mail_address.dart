@@ -5,7 +5,7 @@ class EMailAddressAttributeValue extends IdentityAttributeValue {
 
   const EMailAddressAttributeValue({
     required this.value,
-  });
+  }) : super('EMailAddress');
 
   factory EMailAddressAttributeValue.fromJson(Map json) => EMailAddressAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class EMailAddressAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'EMailAddress',
+        '@type': super.atType,
         'value': value,
       };
 

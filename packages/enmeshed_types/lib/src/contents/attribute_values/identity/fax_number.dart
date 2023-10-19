@@ -5,7 +5,7 @@ class FaxNumberAttributeValue extends IdentityAttributeValue {
 
   const FaxNumberAttributeValue({
     required this.value,
-  });
+  }) : super('FaxNumber');
 
   factory FaxNumberAttributeValue.fromJson(Map json) => FaxNumberAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class FaxNumberAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'FaxNumber',
+        '@type': super.atType,
         'value': value,
       };
 

@@ -17,7 +17,7 @@ class StreetAddressAttributeValue extends IdentityAttributeValue {
     required this.city,
     required this.country,
     this.state,
-  });
+  }) : super('StreetAddress');
 
   factory StreetAddressAttributeValue.fromJson(Map json) => StreetAddressAttributeValue(
         recipient: json['recipient'],
@@ -31,7 +31,7 @@ class StreetAddressAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'StreetAddress',
+        '@type': super.atType,
         'recipient': recipient,
         'street': street,
         'houseNo': houseNumber,
