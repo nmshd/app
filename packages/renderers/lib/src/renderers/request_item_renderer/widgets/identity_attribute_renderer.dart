@@ -27,21 +27,29 @@ class IdentityAttributeRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return switch (attribute.value) {
-      final AffiliationAttributeValue value => _AffiliationAttributeValueRenderer(value: value),
-      final BirthDateAttributeValue value => _BirthDateAttributeValueRenderer(value: value),
-      final BirthPlaceAttributeValue value => _BirthPlaceAttributeValueRenderer(value: value),
-      final DeliveryBoxAddressAttributeValue value => _DeliveryBoxAddressAttributeValueRenderer(value: value),
-      final PersonNameAttributeValue value => _PersonNameAttributeValueRenderer(value: value),
-      final PostOfficeBoxAddressAttributeValue value => _PostOfficeBoxAddressAttributeValueRenderer(value: value),
-      final StreetAddressAttributeValue value => _StreetAddressAttributeValueRenderer(value: value),
-      final SchematizedXMLAttributeValue value => _SchematizedXMLAttributeValueRenderer(value: value),
-      final StatementAttributeValue value => _StatementAttributeValueRenderer(value: value),
-      _ => _StringIdentityAttributeRenderer(attribute: attribute),
-    };
+    final attributeValueMap = attribute.value.toJson();
+
+    if (attributeValueMap.length == 2) {
+      return CustomListTile(
+        title: 'i18n://dvo.attribute.name.${attribute.value.atType}',
+        value: attributeValueMap['value'].toString(),
+        //trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
+      );
+    }
+
+    final List<({String label, String value})> fields = attributeValueMap.entries
+        .where((e) => e.key != '@type')
+        .map((e) => (label: 'i18n://attributes.values.${attribute.value.atType}.${e.key}.label', value: e.value.toString()))
+        .toList();
+
+    return ComplexAttributeListTile(
+      title: 'i18n://attributes.values.${attribute.value.atType}._title',
+      fields: fields,
+      //trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
+    );
   }
 }
-
+/*
 class _AffiliationAttributeValueRenderer extends StatelessWidget {
   final AffiliationAttributeValue value;
 
@@ -427,4 +435,4 @@ class _StringIdentityAttributeRenderer extends StatelessWidget {
       _ => throw Exception('Unknown AbstractAttributeValue: ${attribute.value.runtimeType}'),
     };
   }
-}
+}*/

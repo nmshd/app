@@ -12,12 +12,15 @@ class RegisterAttributeListenerRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)),
-        const Divider(height: 0),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)),
+          const Divider(height: 0),
+        ],
+      ),
     );
   }
 }

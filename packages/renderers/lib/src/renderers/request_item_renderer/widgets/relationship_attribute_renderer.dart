@@ -2,6 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:renderers/src/renderers/request_item_renderer/widgets/identity_attribute_renderer.dart';
 
+import '../../widgets/complex_attribute_list_tile.dart';
 import '../../widgets/custom_list_tile.dart';
 
 class DraftRelationshipAttributeRenderer extends StatelessWidget {
@@ -25,18 +26,29 @@ class RelationshipAttributeRenderer extends StatelessWidget {
   const RelationshipAttributeRenderer({super.key, required this.attribute});
   @override
   Widget build(BuildContext context) {
-    return switch (attribute.value) {
-      final ConsentAttributeValue value => _ConsentAttributeValueRenderer(value: value),
-      final ProprietaryBooleanAttributeValue value => _ProprietaryBooleanAttributeValueRenderer(value: value),
-      final ProprietaryFloatAttributeValue value => _ProprietaryFloatAttributeValueRenderer(value: value),
-      final ProprietaryIntegerAttributeValue value => _ProprietaryIntegerAttributeValueRenderer(value: value),
-      final ProprietaryJSONAttributeValue value => _ProprietaryJSONAttributeValueRenderer(value: value),
-      final ProprietaryXMLAttributeValue value => _ProprietaryXMLAttributeValueRenderer(value: value),
-      _ => _ProprietaryAttributeValueRenderer(attribute: attribute),
-    };
+    final attributeValueMap = attribute.value.toJson();
+
+    if (attributeValueMap.length == 2) {
+      return CustomListTile(
+        title: 'i18n://dvo.attribute.name.${attribute.value.atType}',
+        value: attributeValueMap['value'].toString(),
+        //trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
+      );
+    }
+
+    final List<({String label, String value})> fields = attributeValueMap.entries
+        .where((e) => e.key != '@type')
+        .map((e) => (label: 'i18n://dvo.attribute.name.${attribute.value.atType}', value: e.value.toString()))
+        .toList();
+
+    return ComplexAttributeListTile(
+      title: 'i18n://dvo.attribute.name.${attribute.value.atType}',
+      fields: fields,
+      //trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
+    );
   }
 }
-
+/*
 class _ConsentAttributeValueRenderer extends StatelessWidget {
   final ConsentAttributeValue value;
 
@@ -122,4 +134,4 @@ class _ProprietaryAttributeValueRenderer extends StatelessWidget {
       _ => throw Exception('Unknown AbstractAttributeValue: ${attribute.value.runtimeType}'),
     };
   }
-}
+}*/

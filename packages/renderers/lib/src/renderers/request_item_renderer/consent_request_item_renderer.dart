@@ -14,7 +14,7 @@ class ConsentRequestItemRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomListTile(
       title: '',
-      subTitle: item.consent,
+      value: item.consent,
       description: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
