@@ -9,7 +9,7 @@ class ProprietaryPhoneNumberAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryPhoneNumber');
 
   factory ProprietaryPhoneNumberAttributeValue.fromJson(Map json) => ProprietaryPhoneNumberAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryPhoneNumberAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryPhoneNumber',
         'value': value,
       };
 

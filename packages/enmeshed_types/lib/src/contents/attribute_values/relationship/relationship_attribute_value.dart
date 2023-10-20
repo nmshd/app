@@ -2,7 +2,7 @@ import '../attribute_value.dart';
 import 'relationship.dart';
 
 abstract class RelationshipAttributeValue extends AttributeValue {
-  const RelationshipAttributeValue();
+  const RelationshipAttributeValue(super.atType);
 
   factory RelationshipAttributeValue.fromJson(Map json) {
     final type = json['@type'];

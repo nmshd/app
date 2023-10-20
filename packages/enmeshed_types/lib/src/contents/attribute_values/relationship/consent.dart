@@ -10,7 +10,7 @@ class ConsentAttributeValue extends RelationshipAttributeValue {
     required this.consent,
     this.valueHintsOverride,
     this.link,
-  });
+  }) : super('Consent');
 
   factory ConsentAttributeValue.fromJson(Map json) => ConsentAttributeValue(
         consent: json['consent'],
@@ -20,7 +20,7 @@ class ConsentAttributeValue extends RelationshipAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'Consent',
+        '@type': super.atType,
         'consent': consent,
         if (valueHintsOverride != null) 'valueHintsOverride': valueHintsOverride?.toJson(),
         if (link != null) 'link': link,

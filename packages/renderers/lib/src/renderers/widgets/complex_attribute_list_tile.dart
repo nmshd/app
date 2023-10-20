@@ -1,34 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
-  final List<String> titles;
-  final List<String?> subTitles;
+  final List<({String label, String value})> fields;
   final Widget? trailing;
 
   const ComplexAttributeListTile({
     super.key,
     required this.title,
-    required this.titles,
-    required this.subTitles,
+    required this.fields,
     this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
     const titlesTextStyle = TextStyle(fontSize: 12, color: Color(0xFF42474E));
-
-    final listOfTitles = [];
-    final listOfSubTitles = [];
-
-    for (int i = 0; i < subTitles.length; i++) {
-      if (subTitles[i] != null) {
-        listOfTitles.add(titles[i]);
-        listOfSubTitles.add(subTitles[i]!);
-      }
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -48,19 +36,19 @@ class ComplexAttributeListTile extends StatelessWidget {
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: listOfTitles.length,
+                itemCount: fields.length,
                 itemBuilder: (context, index) {
+                  final field = fields[index];
+
+                  final label = field.label;
+                  final translatedLabel = label.startsWith('i18n://') ? FlutterI18n.translate(context, label.substring(7)) : label;
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          TranslatedText('${listOfTitles[index]}', style: titlesTextStyle),
-                          const Text(':', style: titlesTextStyle),
-                        ],
-                      ),
+                      Text('$translatedLabel:', style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      Text(listOfSubTitles[index], style: const TextStyle(fontSize: 16)),
+                      Text(field.value, style: const TextStyle(fontSize: 16)),
                       const SizedBox(height: 8),
                     ],
                   );

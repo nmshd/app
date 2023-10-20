@@ -5,7 +5,7 @@ import 'identity_attribute_value.dart';
 class StatementAttributeValue extends IdentityAttributeValue {
   final Map json;
 
-  const StatementAttributeValue({required this.json});
+  const StatementAttributeValue({required this.json}) : super('Statement');
 
   factory StatementAttributeValue.fromJson(Map json) => StatementAttributeValue(json: json);
 

@@ -9,7 +9,7 @@ class ProprietaryIntegerAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryInteger');
 
   factory ProprietaryIntegerAttributeValue.fromJson(Map json) => ProprietaryIntegerAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryIntegerAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryInteger',
         'value': value,
       };
 

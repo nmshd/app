@@ -39,6 +39,7 @@ class InputExamples extends StatelessWidget {
                           ),
                         ),
                         const Divider(color: Colors.blue, thickness: 1.0),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
@@ -49,8 +50,8 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'String / InputLike',
                           initialValue: const FullyDynamicAttributeValue(''),
-                          decoration: const InputDecoration(contentPadding: EdgeInsets.only(bottom: 2)),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
@@ -66,6 +67,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'String / InputLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue('Some Value'),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
@@ -82,8 +84,8 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'String / SelectLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue('Option 1'),
-                          decoration: const InputDecoration(contentPadding: EdgeInsets.only(bottom: 2)),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.Complex,
@@ -125,8 +127,8 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'BirthDate',
                           initialValue: const BirthDateAttributeValue(day: 12, month: 8, year: 2022),
-                          decoration: const InputDecoration(suffixIcon: Icon(Icons.calendar_month)),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
@@ -141,8 +143,8 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'String / ButtonLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue('Option 1'),
-                          decoration: const InputDecoration(contentPadding: EdgeInsets.only(top: 5), border: InputBorder.none),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
@@ -154,6 +156,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'String / ButtonLike',
                           initialValue: const FullyDynamicAttributeValue(''),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
@@ -207,6 +210,7 @@ class InputExamples extends StatelessWidget {
                           ),
                         ),
                         const Divider(color: Colors.blue, thickness: 1.0),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
@@ -223,6 +227,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Boolean / SelectLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(true),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
@@ -238,6 +243,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Boolean / ButtonLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(true),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
@@ -249,6 +255,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Boolean / ButtonLike',
                           initialValue: const FullyDynamicAttributeValue(false),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
@@ -260,6 +267,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Boolean / SliderSlike',
                           initialValue: const FullyDynamicAttributeValue(false),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
@@ -312,6 +320,7 @@ class InputExamples extends StatelessWidget {
                           ),
                         ),
                         const Divider(color: Colors.blue, thickness: 1.0),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
@@ -325,6 +334,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Integer / InputLike',
                           initialValue: const FullyDynamicAttributeValue(1),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
@@ -342,6 +352,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Integer / InputLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(1),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
@@ -358,6 +369,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Integer / SelectLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(1),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
@@ -371,6 +383,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Integer / SelectLike',
                           initialValue: const FullyDynamicAttributeValue(5),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.Complex,
@@ -415,8 +428,8 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'BirthDate',
                           initialValue: const BirthDateAttributeValue(day: 12, month: 8, year: 2022),
-                          decoration: const InputDecoration(suffixIcon: Icon(Icons.calendar_month)),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
@@ -433,6 +446,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Integer / ButtonLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(1),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
@@ -445,6 +459,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Integer / ButtonLike',
                           initialValue: const FullyDynamicAttributeValue(0),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
@@ -463,6 +478,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Integer / SliderLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(1),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
@@ -515,6 +531,7 @@ class InputExamples extends StatelessWidget {
                           color: Colors.blue,
                           thickness: 1.0,
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
@@ -528,6 +545,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Double / InputLike',
                           initialValue: const FullyDynamicAttributeValue(1.5),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
@@ -545,6 +563,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Double / InputLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(1.2),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
@@ -561,6 +580,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Double / SelectLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(1.2),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
@@ -574,6 +594,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Double / SelectLike',
                           initialValue: const FullyDynamicAttributeValue(1.5),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
@@ -590,6 +611,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Double / ButtonLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(1.5),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
@@ -602,6 +624,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Double / ButtonLike',
                           initialValue: const FullyDynamicAttributeValue(1.5),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
@@ -618,6 +641,7 @@ class InputExamples extends StatelessWidget {
                           fieldName: 'Double / SliderLike / ValueHints.Values',
                           initialValue: const FullyDynamicAttributeValue(1.5),
                         ),
+                        const SizedBox(height: 12),
                         ValueRenderer(
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
@@ -647,7 +671,7 @@ class InputExamples extends StatelessWidget {
 class FullyDynamicAttributeValue extends AttributeValue {
   final dynamic value;
 
-  const FullyDynamicAttributeValue(this.value);
+  const FullyDynamicAttributeValue(this.value) : super('FullyDynamic');
 
   @override
   Map<String, dynamic> toJson() => {'value': value};

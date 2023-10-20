@@ -5,7 +5,7 @@ class PhoneNumberAttributeValue extends IdentityAttributeValue {
 
   const PhoneNumberAttributeValue({
     required this.value,
-  });
+  }) : super('PhoneNumber');
 
   factory PhoneNumberAttributeValue.fromJson(Map json) => PhoneNumberAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class PhoneNumberAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'PhoneNumber',
+        '@type': super.atType,
         'value': value,
       };
 

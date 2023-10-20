@@ -15,7 +15,7 @@ class PostOfficeBoxAddressAttributeValue extends IdentityAttributeValue {
     required this.city,
     required this.country,
     this.state,
-  });
+  }) : super('PostOfficeBoxAddress');
 
   factory PostOfficeBoxAddressAttributeValue.fromJson(Map json) => PostOfficeBoxAddressAttributeValue(
         recipient: json['recipient'],
@@ -28,7 +28,7 @@ class PostOfficeBoxAddressAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'PostOfficeBoxAddress',
+        '@type': super.atType,
         'recipient': recipient,
         'boxId': boxId,
         'zipCode': zipCode,

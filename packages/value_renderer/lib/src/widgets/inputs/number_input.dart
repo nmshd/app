@@ -5,6 +5,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
 import '../utils/utils.dart';
+import 'styles/input_decoration.dart';
 
 class NumberInput extends StatefulWidget {
   final ValueRendererController? controller;
@@ -69,21 +70,19 @@ class NumberInputState extends State<NumberInput> {
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
-    InputDecoration decoration = InputDecoration(labelText: translatedText);
-    if (widget.decoration != null) decoration = widget.decoration!.copyWith(labelText: translatedText);
-
     return Form(
       child: TextFormField(
         controller: _controller,
-        decoration: decoration,
         keyboardType: TextInputType.number,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (value) => validateInput(value),
         inputFormatters: [
           widget.technicalType == RenderHintsTechnicalType.Float
               ? FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
               : FilteringTextInputFormatter.digitsOnly,
         ],
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: (value) => validateInput(value),
+        decoration:
+            widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
       ),
     );
   }
