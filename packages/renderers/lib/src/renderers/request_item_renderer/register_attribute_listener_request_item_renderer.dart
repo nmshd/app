@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:translated_text/translated_text.dart';
 
 import '../../request_renderer.dart';
-import 'widgets/query_renderer.dart';
 
 class RegisterAttributeListenerRequestItemRenderer extends StatelessWidget {
   final RegisterAttributeListenerRequestItemDVO item;
@@ -12,11 +12,12 @@ class RegisterAttributeListenerRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return switch (item.query) {
-      final IdentityAttributeQueryDVO query => IdentityAttributeQueryRenderer(query: query),
-      final RelationshipAttributeQueryDVO query => RelationshipAttributeQueryRenderer(query: query),
-      final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
-      _ => throw Exception("Invalid type '${item.query.type}'"),
-    };
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)),
+        const Divider(height: 0),
+      ],
+    );
   }
 }

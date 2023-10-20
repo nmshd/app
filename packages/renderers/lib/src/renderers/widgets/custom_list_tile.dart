@@ -29,13 +29,13 @@ class CustomListTile extends StatelessWidget {
                   children: [
                     TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
                     const SizedBox(height: 2),
-                    TranslatedText(subTitle, style: const TextStyle(fontSize: 16)),
+                    Text(subTitle, style: const TextStyle(fontSize: 16)),
                     if (description != null) description!
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 96, child: trailing)
+            if (trailing != null) SizedBox(width: 96, child: trailing)
           ],
         ),
         const Divider(height: 0),
