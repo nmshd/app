@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
-  final List<String> titles;
-  final List<String> subTitles;
+  final List<({String label, String value})> fields;
   final Widget? trailing;
   final VoidCallback? onPressed;
 
-  const ComplexAttributeListTile({super.key, required this.title, required this.titles, required this.subTitles, this.trailing, this.onPressed});
+  const ComplexAttributeListTile({
+    super.key,
+    required this.title,
+    required this.fields,
+    this.trailing,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
+    const titlesTextStyle = TextStyle(fontSize: 12, color: Color(0xFF42474E));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,14 +38,19 @@ class ComplexAttributeListTile extends StatelessWidget {
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: titles.length,
+                itemCount: fields.length,
                 itemBuilder: (context, index) {
+                  final field = fields[index];
+
+                  final label = field.label;
+                  final translatedLabel = label.startsWith('i18n://') ? FlutterI18n.translate(context, label.substring(7)) : label;
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TranslatedText('${titles[index]}:', style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+                      Text('$translatedLabel:', style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      Text(subTitles[index], style: const TextStyle(fontSize: 16)),
+                      Text(field.value, style: const TextStyle(fontSize: 16)),
                       const SizedBox(height: 8),
                     ],
                   );

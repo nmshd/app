@@ -44,7 +44,7 @@ class _ConsentAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: '', subTitle: value.consent);
+    return CustomListTile(title: '', value: value.consent);
   }
 }
 
@@ -55,7 +55,7 @@ class _ProprietaryBooleanAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: value.title, subTitle: value.value.toString());
+    return CustomListTile(title: value.title, value: value.value.toString());
   }
 }
 
@@ -66,7 +66,7 @@ class _ProprietaryFloatAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: value.title, subTitle: value.value.toString());
+    return CustomListTile(title: value.title, value: value.value.toString());
   }
 }
 
@@ -77,7 +77,7 @@ class _ProprietaryIntegerAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: value.title, subTitle: value.value.toString());
+    return CustomListTile(title: value.title, value: value.value.toString());
   }
 }
 
@@ -88,7 +88,7 @@ class _ProprietaryJSONAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: value.title, subTitle: value.value.toString());
+    return CustomListTile(title: value.title, value: value.value.toString());
   }
 }
 
@@ -99,7 +99,7 @@ class _ProprietaryXMLAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: value.title, subTitle: value.value);
+    return CustomListTile(title: value.title, value: value.value);
   }
 }
 
@@ -111,14 +111,14 @@ class _ProprietaryAttributeValueRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (attribute.value) {
-      final ProprietaryCountryAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
-      final ProprietaryEMailAddressAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
-      final ProprietaryFileReferenceAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
-      final ProprietaryHEXColorAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
-      final ProprietaryLanguageAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
-      final ProprietaryPhoneNumberAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
-      final ProprietaryStringAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
-      final ProprietaryURLAttributeValue value => CustomListTile(title: value.title, subTitle: value.value),
+      final ProprietaryCountryAttributeValue value => CustomListTile(title: value.title, value: value.value),
+      final ProprietaryEMailAddressAttributeValue value => CustomListTile(title: value.title, value: value.value),
+      final ProprietaryFileReferenceAttributeValue value => CustomListTile(title: value.title, value: value.value),
+      final ProprietaryHEXColorAttributeValue value => CustomListTile(title: value.title, value: value.value),
+      final ProprietaryLanguageAttributeValue value => CustomListTile(title: value.title, value: value.value),
+      final ProprietaryPhoneNumberAttributeValue value => CustomListTile(title: value.title, value: value.value),
+      final ProprietaryStringAttributeValue value => CustomListTile(title: value.title, value: value.value),
+      final ProprietaryURLAttributeValue value => CustomListTile(title: value.title, value: value.value),
       _ => throw Exception('Unknown AbstractAttributeValue: ${attribute.value.runtimeType}'),
     };
   }
