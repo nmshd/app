@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 
@@ -20,6 +23,7 @@ class _ItemGroupExampleState extends State<ItemGroupExample> {
   RequestRendererController controller = RequestRendererController();
 
   DecideRequestParameters? requestController;
+  RequestValidationResultDTO? _validationResult;
 
   @override
   void initState() {
@@ -27,8 +31,13 @@ class _ItemGroupExampleState extends State<ItemGroupExample> {
     super.initState();
 
     controller.addListener(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        setState(() => requestController = controller.value);
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (controller.value == null) return;
+
+        final result = await GetIt.I.get<EnmeshedRuntime>().currentSession.consumptionServices.incomingRequests.canAccept(params: controller.value!);
+        if (result.isError) return GetIt.I.get<Logger>().e(result.error);
+
+        setState(() => _validationResult = result.value);
       });
     });
   }
@@ -68,7 +77,7 @@ class _ItemGroupExampleState extends State<ItemGroupExample> {
           const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
           Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequestDVO.createdAt))),
           const Divider(),
-          RequestRenderer(request: localRequestDVO, controller: controller),
+          RequestRenderer(request: localRequestDVO, controller: controller, validationResult: _validationResult),
           FilledButton(
             onPressed: () {},
             style: OutlinedButton.styleFrom(minimumSize: const Size(100.0, 36.0)),
