@@ -4,16 +4,14 @@ import 'package:translated_text/translated_text.dart';
 
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
-  final List<String> labels;
-  final List<String> values;
+  final List<({String label, String value})> fields;
   final Widget? trailing;
   final VoidCallback? onPressed;
 
   const ComplexAttributeListTile({
     super.key,
     required this.title,
-    required this.labels,
-    required this.values,
+    required this.fields,
     this.trailing,
     this.onPressed,
   });
@@ -40,9 +38,11 @@ class ComplexAttributeListTile extends StatelessWidget {
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: labels.length,
+                itemCount: fields.length,
                 itemBuilder: (context, index) {
-                  final label = labels[index];
+                  final field = fields[index];
+
+                  final label = field.label;
                   final translatedLabel = label.startsWith('i18n://') ? FlutterI18n.translate(context, label.substring(7)) : label;
 
                   return Column(
@@ -50,7 +50,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                     children: [
                       Text('$translatedLabel:', style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      Text(values[index], style: const TextStyle(fontSize: 16)),
+                      Text(field.value, style: const TextStyle(fontSize: 16)),
                       const SizedBox(height: 8),
                     ],
                   );

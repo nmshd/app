@@ -17,35 +17,22 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final attributeValueMap = value.toJson();
 
-    String title = 'i18n://dvo.attribute.name.${value.atType}';
-    if (attributeValueMap.length > 2) {
-      title = 'i18n://attributes.values.${value.atType}._title';
-    }
-
     if (attributeValueMap.length == 2) {
-      final value = attributeValueMap.entries.firstWhere((e) => e.key != '@type').value.toString();
       return CustomListTile(
-        title: title,
-        value: value,
+        title: 'i18n://dvo.attribute.name.${value.atType}',
+        value: attributeValueMap['value'],
         trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
       );
     }
 
-    final typeValue = value.atType;
-    final List<String> labels = [];
-    final List<String> values = [];
-
-    attributeValueMap.forEach((key, value) {
-      if (key != '@type') {
-        labels.add('i18n://attributes.values.$typeValue.$key.label');
-        values.add(value.toString());
-      }
-    });
+    final List<({String label, String value})> fields = attributeValueMap.entries
+        .where((e) => e.key != '@type')
+        .map((e) => (label: 'i18n://attributes.values.${value.atType}.${e.key}.label', value: e.value.toString()))
+        .toList();
 
     return ComplexAttributeListTile(
-      title: title,
-      labels: labels,
-      values: values,
+      title: 'i18n://attributes.values.${value.atType}._title',
+      fields: fields,
       trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
