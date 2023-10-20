@@ -17,7 +17,12 @@ class RequestItemGroupRenderer extends StatelessWidget {
       title: Text(requestItemGroup.title ?? ''),
       //TODO: add description
       children: [
-        for (final item in requestItemGroup.items) RequestItemRenderer(item: item, controller: controller, onEdit: onEdit),
+        for (final item in requestItemGroup.items)
+          RequestItemRenderer(
+            item: item,
+            controller: controller,
+            onEdit: onEdit,
+          ),
       ],
     );
   }

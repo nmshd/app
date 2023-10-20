@@ -48,8 +48,8 @@ class DecidableConsentRequestItemExample extends StatelessWidget {
       items: [decidableConsentRequestItem],
     );
 
-    return const Padding(
-      padding: EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.all(16),
       child: RequestRenderer(request: localRequest),
     );
   }

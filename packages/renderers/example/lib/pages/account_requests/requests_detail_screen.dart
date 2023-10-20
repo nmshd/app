@@ -1,6 +1,9 @@
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 
@@ -18,14 +21,20 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   RequestRendererController controller = RequestRendererController();
 
   DecideRequestParameters? requestController;
+  RequestValidationResultDTO? _validationResult;
 
   @override
   void initState() {
     super.initState();
 
     controller.addListener(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        setState(() => requestController = controller.value);
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (controller.value == null) return;
+
+        final result = await GetIt.I.get<EnmeshedRuntime>().currentSession.consumptionServices.incomingRequests.canAccept(params: controller.value!);
+        if (result.isError) return GetIt.I.get<Logger>().e(result.error);
+
+        setState(() => _validationResult = result.value);
       });
     });
   }
@@ -71,7 +80,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                 ],
               ),
             ),
-            RequestRenderer(request: widget.localRequestDVO, controller: controller, onEdit: () => _addEditItem()),
+            RequestRenderer(request: widget.localRequestDVO, controller: controller, validationResult: _validationResult),
             if (widget.localRequestDVO.isDecidable)
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
