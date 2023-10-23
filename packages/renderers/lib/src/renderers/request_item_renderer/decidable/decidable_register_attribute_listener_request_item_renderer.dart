@@ -12,12 +12,6 @@ class DecidableRegisterAttributeListenerRequestItemRenderer extends StatelessWid
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)),
-        const Divider(height: 0),
-      ],
-    );
+    return TranslatedText(item.query.name, style: const TextStyle(fontSize: 16));
   }
 }

@@ -12,6 +12,6 @@ class DecidableAuthenticationRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: '', value: item.name);
+    return CustomListTile(title: '', description: item.name);
   }
 }

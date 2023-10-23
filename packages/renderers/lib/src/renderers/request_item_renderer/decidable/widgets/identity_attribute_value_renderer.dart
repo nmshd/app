@@ -20,7 +20,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     if (attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
-        value: attributeValueMap['value'].toString(),
+        description: attributeValueMap['value'].toString(),
         trailing: IconButton(onPressed: () => onEdit!(), icon: const Icon(Icons.edit, color: Colors.blue)),
       );
     }

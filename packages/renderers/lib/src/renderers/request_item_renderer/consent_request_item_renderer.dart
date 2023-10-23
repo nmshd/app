@@ -17,7 +17,7 @@ class ConsentRequestItemRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomListTile(
       title: item.consent,
-      value: item.description,
+      description: item.description,
       trailing: item.link != null
           ? IconButton(
               onPressed: () async {

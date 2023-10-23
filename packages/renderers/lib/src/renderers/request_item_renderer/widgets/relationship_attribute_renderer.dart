@@ -32,14 +32,14 @@ class RelationshipAttributeRenderer extends StatelessWidget {
     if (attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${attribute.value.atType}',
-        value: attributeValueMap['value'].toString(),
+        description: attributeValueMap['value'].toString(),
       );
     }
 
     if (attributeValueMap.length == 3) {
       return CustomListTile(
         title: attributeValueMap['title'],
-        value: attributeValueMap['value'].toString(),
+        description: attributeValueMap['value'].toString(),
       );
     }
 
