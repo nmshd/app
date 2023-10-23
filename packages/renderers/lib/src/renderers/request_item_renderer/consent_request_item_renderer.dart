@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../request_renderer.dart';
 import '../widgets/custom_list_tile.dart';
@@ -13,15 +16,24 @@ class ConsentRequestItemRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomListTile(
-      title: '',
-      value: item.consent,
-      description: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          if (item.link != null) Text(item.link!),
-          if (item.description != null) Text(item.description!),
-        ],
-      ),
+      title: item.consent,
+      value: item.description,
+      trailing: item.link != null
+          ? IconButton(
+              onPressed: () async {
+                final url = Uri.parse(item.link!);
+                if (!await canLaunchUrl(url)) {
+                  log('Could not launch $url');
+                  return;
+                }
+                try {
+                  await launchUrl(url);
+                } catch (e) {
+                  log(e.toString());
+                }
+              },
+              icon: const Icon(Icons.open_in_new))
+          : null,
     );
   }
 }

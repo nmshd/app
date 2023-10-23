@@ -15,6 +15,7 @@ dependencies:
     sdk: flutter
   intl: ^0.18.1
   translated_text: 1.0.0
+  url_launcher: ^6.1.14
   value_renderer: 1.0.0
 
 dev_dependencies:
