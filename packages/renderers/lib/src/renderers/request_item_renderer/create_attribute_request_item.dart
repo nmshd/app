@@ -1,9 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:renderers/src/renderers/request_item_renderer/widgets/identity_attribute_renderer.dart';
 
 import '../../request_renderer.dart';
-import 'widgets/relationship_attribute_renderer.dart';
+import 'widgets/draft_attribute_renderer.dart';
 
 class CreateAttributeRequestItemRenderer extends StatelessWidget {
   final CreateAttributeRequestItemDVO item;
@@ -14,8 +13,8 @@ class CreateAttributeRequestItemRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (item.attribute) {
-      final DraftIdentityAttributeDVO dvo => DraftIdentityAttributeRenderer(attribute: dvo),
-      final DraftRelationshipAttributeDVO dvo => DraftRelationshipAttributeRenderer(attribute: dvo),
+      final DraftIdentityAttributeDVO dvo => DraftAttributeRenderer(draftAttribute: dvo),
+      final DraftRelationshipAttributeDVO dvo => DraftAttributeRenderer(draftAttribute: dvo),
     };
   }
 }

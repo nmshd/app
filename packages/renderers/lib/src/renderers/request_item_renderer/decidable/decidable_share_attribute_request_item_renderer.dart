@@ -2,8 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../../renderers.dart';
-import '../widgets/identity_attribute_renderer.dart';
-import '../widgets/relationship_attribute_renderer.dart';
+import '../widgets/draft_attribute_renderer.dart';
 
 class DecidableShareAttributeRequestItemRenderer extends StatelessWidget {
   final DecidableShareAttributeRequestItemDVO item;
@@ -17,8 +16,8 @@ class DecidableShareAttributeRequestItemRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         switch (item.attribute) {
-          final DraftIdentityAttributeDVO dvo => DraftIdentityAttributeRenderer(attribute: dvo),
-          final DraftRelationshipAttributeDVO dvo => DraftRelationshipAttributeRenderer(attribute: dvo),
+          final DraftIdentityAttributeDVO dvo => DraftAttributeRenderer(draftAttribute: dvo),
+          final DraftRelationshipAttributeDVO dvo => DraftAttributeRenderer(draftAttribute: dvo),
         },
         Text(item.attribute.name),
         const SizedBox(height: 30),

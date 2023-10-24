@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../request_renderer.dart';
-import 'widgets/identity_attribute_renderer.dart';
+import 'widgets/draft_attribute_renderer.dart';
 
 class ShareAttributeRequestItemRenderer extends StatelessWidget {
   final ShareAttributeRequestItemDVO item;
@@ -12,6 +12,6 @@ class ShareAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DraftIdentityAttributeRenderer(attribute: item.attribute);
+    return DraftAttributeRenderer(draftAttribute: item.attribute);
   }
 }
