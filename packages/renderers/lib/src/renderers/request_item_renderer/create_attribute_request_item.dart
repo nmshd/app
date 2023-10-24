@@ -12,9 +12,6 @@ class CreateAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return switch (item.attribute) {
-      final DraftIdentityAttributeDVO dvo => DraftAttributeRenderer(draftAttribute: dvo),
-      final DraftRelationshipAttributeDVO dvo => DraftAttributeRenderer(draftAttribute: dvo),
-    };
+    return DraftAttributeRenderer(draftAttribute: item.attribute);
   }
 }

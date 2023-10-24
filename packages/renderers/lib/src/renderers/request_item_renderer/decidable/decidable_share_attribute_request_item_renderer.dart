@@ -15,10 +15,7 @@ class DecidableShareAttributeRequestItemRenderer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        switch (item.attribute) {
-          final DraftIdentityAttributeDVO dvo => DraftAttributeRenderer(draftAttribute: dvo),
-          final DraftRelationshipAttributeDVO dvo => DraftAttributeRenderer(draftAttribute: dvo),
-        },
+        DraftAttributeRenderer(draftAttribute: item.attribute),
         Text(item.attribute.name),
         const SizedBox(height: 30),
       ],
