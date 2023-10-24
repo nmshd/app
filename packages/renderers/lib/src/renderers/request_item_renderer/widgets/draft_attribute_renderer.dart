@@ -70,7 +70,7 @@ class AttributeRenderer extends StatelessWidget {
       );
     }
 
-    if (attributeValueMap.length == 3) {
+    if (attributeValueMap['title'] != null && attributeValueMap.length == 3) {
       return CustomListTile(
         title: attributeValueMap['title'],
         description: attributeValueMap['value'].toString(),
