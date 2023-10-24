@@ -6,14 +6,12 @@ class ComplexAttributeListTile extends StatelessWidget {
   final String title;
   final List<({String label, String value})> fields;
   final Widget? trailing;
-  final VoidCallback? onPressed;
 
   const ComplexAttributeListTile({
     super.key,
     required this.title,
     required this.fields,
     this.trailing,
-    this.onPressed,
   });
 
   @override
@@ -57,7 +55,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(width: 96, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info))),
+            if (trailing != null) SizedBox(width: 96, child: trailing),
           ],
         ),
         const SizedBox(height: 12),

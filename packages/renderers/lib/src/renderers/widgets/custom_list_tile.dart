@@ -3,35 +3,36 @@ import 'package:translated_text/translated_text.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
-  final String value;
+  final String? description;
   final Widget? trailing;
-  final VoidCallback? onPressed;
 
-  const CustomListTile({super.key, required this.title, required this.value, this.trailing, this.onPressed});
+  const CustomListTile({
+    super.key,
+    required this.title,
+    this.description,
+    this.trailing,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
-                    const SizedBox(height: 2),
-                    Text(value, style: const TextStyle(fontSize: 16)),
-                  ],
-                ),
-              ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+                if (description != null) ...[
+                  const SizedBox(height: 2),
+                  Text(description!, style: const TextStyle(fontSize: 16)),
+                ]
+              ],
             ),
-            SizedBox(width: 96, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)))
-          ],
+          ),
         ),
-        const Divider(height: 0),
+        if (trailing != null) SizedBox(width: 96, child: trailing)
       ],
     );
   }

@@ -7,19 +7,20 @@ import 'package:intl/intl.dart';
 import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 
-class RejectedCreateAttributeRequestJsonExample extends StatefulWidget {
-  const RejectedCreateAttributeRequestJsonExample({super.key});
+class RequestsExample extends StatefulWidget {
+  const RequestsExample({super.key});
 
   @override
-  State<RejectedCreateAttributeRequestJsonExample> createState() => _RejectedCreateAttributeRequestJsonExampleState();
+  State<RequestsExample> createState() => _RequestsExampleState();
 }
 
-class _RejectedCreateAttributeRequestJsonExampleState extends State<RejectedCreateAttributeRequestJsonExample> {
+class _RequestsExampleState extends State<RequestsExample> {
   Map<String, dynamic>? jsonExample;
 
   @override
   void initState() {
-    loadJsonData();
+    _loadJsonData();
+
     super.initState();
   }
 
@@ -30,10 +31,9 @@ class _RejectedCreateAttributeRequestJsonExampleState extends State<RejectedCrea
 
     return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 8.0, left: 16.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -49,7 +49,7 @@ class _RejectedCreateAttributeRequestJsonExampleState extends State<RejectedCrea
                 Text(localRequestDVO.id),
                 const SizedBox(height: 8),
                 const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
-                TranslatedText(localRequestDVO.status.name),
+                TranslatedText(localRequestDVO.statusText),
                 const SizedBox(height: 8),
                 const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
                 Text(localRequestDVO.createdBy.name),
@@ -66,8 +66,8 @@ class _RejectedCreateAttributeRequestJsonExampleState extends State<RejectedCrea
     );
   }
 
-  Future<void> loadJsonData() async {
-    final jsonData = await rootBundle.loadString('assets/RejectedCreateAttributeRequest.json');
+  Future<void> _loadJsonData() async {
+    final jsonData = await rootBundle.loadString('assets/RejectedRequestItems.json');
 
     setState(() => jsonExample = jsonDecode(jsonData));
   }

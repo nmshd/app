@@ -9,6 +9,7 @@ import 'decidable_examples/decidable_read_request_item_example.dart';
 import 'item_examples.dart';
 import 'item_group_example.dart';
 import 'read_attribute_request_item_example.dart';
+import 'requests_example.dart';
 import 'widgets/widgets.dart';
 
 class ReloadController {
@@ -45,6 +46,11 @@ class _HomeScreenState extends State<HomeScreen> {
     menu = <_MenuGroup>[
       _MenuGroup(
         items: [
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Request Items JSON Example',
+            pageBuilder: (context) => const RequestsExample(),
+          ),
           _MenuItem(
             icon: Icons.description,
             title: 'Item Examples',

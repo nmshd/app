@@ -1,8 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import '../../request_renderer.dart';
-import '../widgets/custom_list_tile.dart';
 
 class FreeTextRequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
@@ -12,6 +11,9 @@ class FreeTextRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: '', value: item.name);
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
+      child: Text(item.name, style: const TextStyle(fontSize: 16)),
+    );
   }
 }
