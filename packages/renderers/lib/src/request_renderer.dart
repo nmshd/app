@@ -9,7 +9,7 @@ class RequestRendererController extends ValueNotifier<DecideRequestParameters?> 
   RequestRendererController() : super(null);
 }
 
-typedef RequestItemIndex = ({
+typedef RequestItemIndex = void Function({
   int rootIndex,
   int? groupIndex,
 });

@@ -24,6 +24,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 
   DecideRequestParameters? requestController;
   RequestValidationResultDTO? _validationResult;
+  RequestValidationResultDTO? _validationResult;
 
   @override
   void initState() {
