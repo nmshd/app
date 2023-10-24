@@ -55,7 +55,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(width: 96, child: trailing),
+            if (trailing != null) SizedBox(width: 96, child: trailing),
           ],
         ),
         const SizedBox(height: 12),

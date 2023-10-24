@@ -12,6 +12,9 @@ class DecidableRegisterAttributeListenerRequestItemRenderer extends StatelessWid
 
   @override
   Widget build(BuildContext context) {
-    return TranslatedText(item.query.name, style: const TextStyle(fontSize: 16));
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
+      child: TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)),
+    );
   }
 }
