@@ -1,7 +1,7 @@
-import 'dart:developer';
-
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../request_renderer.dart';
@@ -23,13 +23,13 @@ class ConsentRequestItemRenderer extends StatelessWidget {
               onPressed: () async {
                 final url = Uri.parse(item.link!);
                 if (!await canLaunchUrl(url)) {
-                  log('Could not launch $url');
+                  GetIt.I.get<Logger>().e('Could not launch $url');
                   return;
                 }
                 try {
                   await launchUrl(url);
                 } catch (e) {
-                  log(e.toString());
+                  GetIt.I.get<Logger>().e(e);
                 }
               },
               icon: const Icon(Icons.open_in_new))
