@@ -9,8 +9,17 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
+  final int itemIndex;
+  final int? groupIndex;
 
-  const RequestItemRenderer({super.key, required this.item, this.controller, this.onEdit});
+  const RequestItemRenderer({
+    super.key,
+    required this.item,
+    this.controller,
+    this.onEdit,
+    required this.itemIndex,
+    this.groupIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +27,8 @@ class RequestItemRenderer extends StatelessWidget {
       return switch (item) {
         final DecidableReadAttributeRequestItemDVO dvo =>
           DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit),
-        final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(controller: controller, item: dvo),
+        final DecidableProposeAttributeRequestItemDVO dvo =>
+          DecidableProposeAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
         final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo),
         final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo),
         final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo),

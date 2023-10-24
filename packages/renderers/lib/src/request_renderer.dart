@@ -15,21 +15,19 @@ typedef RequestItemIndex = ({
 });
 
 class RequestRenderer extends StatefulWidget {
-  late RequestRendererController _controller;
+  final RequestRendererController? controller;
   final LocalRequestDVO request;
   final VoidCallback? onEdit;
   final RequestValidationResultDTO? validationResult;
   //same structure as items
 
-  RequestRenderer({
+  const RequestRenderer({
     super.key,
-    RequestRendererController? controller,
     required this.request,
     this.onEdit,
     this.validationResult,
-  }) {
-    _controller = controller ?? RequestRendererController();
-  }
+    this.controller,
+  });
 
   @override
   State<RequestRenderer> createState() => _RequestRendererState();
@@ -40,8 +38,11 @@ class _RequestRendererState extends State<RequestRenderer> {
   void initState() {
     super.initState();
 
-    final items = composeItems(widget.request);
-    widget._controller.value = DecideRequestParameters(requestId: widget.request.id, items: items);
+    final items = composeInitialItems(widget.request);
+    widget.controller!.value = DecideRequestParameters(
+      requestId: widget.request.id,
+      items: items,
+    );
   }
 
   @override
@@ -49,12 +50,15 @@ class _RequestRendererState extends State<RequestRenderer> {
     List<StatelessWidget> requestItems = [];
     List<StatelessWidget> responseItems = [];
 
-    requestItems = widget.request.items.map((item) {
+    requestItems = widget.request.items.asMap().entries.map((entry) {
+      final index = entry.key;
+      final item = entry.value;
+
       if (item is RequestItemGroupDVO) {
-        return RequestItemGroupRenderer(requestItemGroup: item, controller: widget._controller, onEdit: widget.onEdit);
+        return RequestItemGroupRenderer(requestItemGroup: item, groupIndex: index, controller: widget.controller, onEdit: widget.onEdit);
       }
 
-      return RequestItemRenderer(item: item, controller: widget._controller, onEdit: widget.onEdit);
+      return RequestItemRenderer(item: item, itemIndex: index, controller: widget.controller, onEdit: widget.onEdit);
     }).toList();
 
     if (widget.request.response != null) {
@@ -70,7 +74,7 @@ class _RequestRendererState extends State<RequestRenderer> {
     );
   }
 
-  List<DecideRequestParametersItem> composeItems(LocalRequestDVO request) {
+  List<DecideRequestParametersItem> composeInitialItems(LocalRequestDVO request) {
     return request.items.map((e) {
       if (e is RequestItemGroupDVO) {
         return DecideRequestItemGroupParameters(items: e.items.map((e) => const RejectRequestItemParameters()).toList());

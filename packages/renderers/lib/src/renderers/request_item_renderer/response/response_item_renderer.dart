@@ -2,8 +2,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../request_item_group_renderer.dart';
-import '../request_item_renderer.dart';
 import 'response.dart';
 
 class ResponseItemRenderer extends StatelessWidget {
@@ -15,11 +13,11 @@ class ResponseItemRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final requestItemList = requestItems.map((item) {
-      if (item is RequestItemGroupDVO) {
-        return RequestItemGroupRenderer(requestItemGroup: item);
-      }
+      // if (item is RequestItemGroupDVO) {
+      //   return RequestItemGroupRenderer(requestItemGroup: item);
+      // }
 
-      return RequestItemRenderer(item: item);
+      // return RequestItemRenderer(item: item);
     }).toList();
 
     return switch (item) {
@@ -30,7 +28,7 @@ class ResponseItemRenderer extends StatelessWidget {
       final RegisterAttributeListenerAcceptResponseItemDVO dvo => Text(dvo.type),
       final ErrorResponseItemDVO dvo => Text(dvo.type),
       _ => switch (item.type) {
-          'RejectResponseItemDVO' => Column(crossAxisAlignment: CrossAxisAlignment.start, children: requestItemList), //Add Rejected message
+          // 'RejectResponseItemDVO' => Column(crossAxisAlignment: CrossAxisAlignment.start, children: requestItemList), //Add Rejected message
           _ => throw Exception("Invalid type '${item.type}'"),
         }
     };

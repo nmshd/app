@@ -1,6 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:renderers/renderers.dart';
 
 class DecidableConsentRequestItemExample extends StatelessWidget {
   const DecidableConsentRequestItemExample({super.key});
@@ -50,7 +49,7 @@ class DecidableConsentRequestItemExample extends StatelessWidget {
 
     return const Padding(
       padding: EdgeInsets.all(16),
-      child: RequestRenderer(request: localRequest),
+      // child: RequestRenderer(request: localRequest),
     );
   }
 }

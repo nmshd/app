@@ -7,21 +7,33 @@ import 'widgets/processed_query_renderer.dart';
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
+  final int itemIndex;
+  final int? groupIndex;
 
-  const DecidableProposeAttributeRequestItemRenderer({super.key, required this.item, this.controller});
+  const DecidableProposeAttributeRequestItemRenderer({
+    super.key,
+    required this.item,
+    this.controller,
+    required this.itemIndex,
+    this.groupIndex,
+  });
 
   @override
   State<DecidableProposeAttributeRequestItemRenderer> createState() => _DecidableProposeAttributeRequestItemRendererState();
 }
 
 class _DecidableProposeAttributeRequestItemRendererState extends State<DecidableProposeAttributeRequestItemRenderer> {
-  late AcceptProposeAttributeRequestItemParametersWithNewAttribute canAccept;
-
   @override
   void initState() {
     super.initState();
 
-    // widget.controller?.value = AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
+    if (widget.groupIndex != null) {
+      final groupIndex = widget.groupIndex!;
+      widget.controller?.value?.items[groupIndex][widget.itemIndex] =
+          AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
+    }
+    widget.controller?.value?.items[widget.itemIndex] =
+        AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
   }
 
   @override
