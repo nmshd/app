@@ -32,7 +32,8 @@ class ConsentRequestItemRenderer extends StatelessWidget {
                   GetIt.I.get<Logger>().e(e);
                 }
               },
-              icon: const Icon(Icons.open_in_new))
+              icon: const Icon(Icons.open_in_new),
+            )
           : null,
     );
   }
