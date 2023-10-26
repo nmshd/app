@@ -87,12 +87,14 @@ class _RequestRendererState extends State<RequestRenderer> {
   }
 
   List<DecideRequestParametersItem> composeInitialItems(LocalRequestDVO request) {
-    return request.items.map((e) {
+    return List<DecideRequestParametersItem>.from(request.items.map((e) {
       if (e is RequestItemGroupDVO) {
-        return DecideRequestItemGroupParameters(items: e.items.map((e) => const RejectRequestItemParameters()).toList());
+        return DecideRequestItemGroupParameters(
+          items: List<DecideRequestItemParameters>.from(e.items.map((e) => const RejectRequestItemParameters())),
+        );
       }
 
       return const RejectRequestItemParameters();
-    }).toList();
+    }));
   }
 }
