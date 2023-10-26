@@ -24,7 +24,6 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 
   DecideRequestParameters? requestController;
   RequestValidationResultDTO? _validationResult;
-  RequestValidationResultDTO? _validationResult;
 
   @override
   void initState() {
@@ -94,7 +93,10 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               onEdit: () => _addEditItem(),
               validationResult: _validationResult,
             ),
-            if (controller.value?.items != null) Text(controller.value!.items.toString()),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Controller: ${defineControllerValue(controller.value)} '),
+            ),
             if (widget.localRequestDVO.isDecidable)
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -114,6 +116,16 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
         ),
       ),
     );
+  }
+
+  defineControllerValue(controllerValue) {
+    return controllerValue?.items.map((item) {
+      if (item is DecideRequestItemGroupParameters) {
+        return item.items;
+      }
+
+      return item;
+    });
   }
 
   void _addEditItem() {

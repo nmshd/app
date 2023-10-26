@@ -28,7 +28,7 @@ class RequestItemRenderer extends StatelessWidget {
         final DecidableReadAttributeRequestItemDVO dvo =>
           DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit),
         final DecidableProposeAttributeRequestItemDVO dvo =>
-          DecidableProposeAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
+          DecidableProposeAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, groupIndex: groupIndex),
         final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo),
         final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo),
         final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo),

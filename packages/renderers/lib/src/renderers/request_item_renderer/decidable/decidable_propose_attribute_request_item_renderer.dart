@@ -29,9 +29,11 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     if (widget.groupIndex != null) {
       final groupIndex = widget.groupIndex!;
-      widget.controller?.value?.items[groupIndex][widget.itemIndex] =
+      final controllerValue = widget.controller?.value?.items[groupIndex] as DecideRequestItemGroupParameters;
+      controllerValue.items[widget.itemIndex] =
           AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
     }
+
     widget.controller?.value?.items[widget.itemIndex] =
         AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
   }

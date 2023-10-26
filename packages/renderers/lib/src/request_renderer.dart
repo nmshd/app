@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class RequestRendererController extends ValueNotifier<DecideRequestParameters?> 
   RequestRendererController() : super(null);
 }
 
-typedef RequestItemIndex = void Function({
+typedef RequestItemIndex = ({
   int rootIndex,
   int? groupIndex,
 });
@@ -39,7 +40,7 @@ class _RequestRendererState extends State<RequestRenderer> {
     super.initState();
 
     final items = composeInitialItems(widget.request);
-    widget.controller!.value = DecideRequestParameters(
+    widget.controller?.value = DecideRequestParameters(
       requestId: widget.request.id,
       items: items,
     );
@@ -50,10 +51,7 @@ class _RequestRendererState extends State<RequestRenderer> {
     List<StatelessWidget> requestItems = [];
     List<StatelessWidget> responseItems = [];
 
-    requestItems = widget.request.items.asMap().entries.map((entry) {
-      final index = entry.key;
-      final item = entry.value;
-
+    requestItems = widget.request.items.mapIndexed((index, item) {
       if (item is RequestItemGroupDVO) {
         return RequestItemGroupRenderer(requestItemGroup: item, groupIndex: index, controller: widget.controller, onEdit: widget.onEdit);
       }
@@ -62,10 +60,25 @@ class _RequestRendererState extends State<RequestRenderer> {
     }).toList();
 
     if (widget.request.response != null) {
-      responseItems = widget.request.response!.content.items.map((item) {
-        if (item is ResponseItemGroupDVO) return ResponseItemGroupRenderer(responseItemGroup: item, requestItems: widget.request.items);
+      responseItems = widget.request.response!.content.items.asMap().entries.map((entry) {
+        final index = entry.key;
+        final item = entry.value;
 
-        return ResponseItemRenderer(item: item, requestItems: widget.request.items);
+        if (item is ResponseItemGroupDVO) {
+          return ResponseItemGroupRenderer(
+            responseItemGroup: item,
+            requestItems: widget.request.items,
+            groupIndex: index,
+            controller: widget.controller,
+          );
+        }
+
+        return ResponseItemRenderer(
+          item: item,
+          itemIndex: index,
+          requestItems: widget.request.items,
+          controller: widget.controller,
+        );
       }).toList();
     }
 
