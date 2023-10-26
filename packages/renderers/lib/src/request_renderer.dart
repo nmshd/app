@@ -10,10 +10,7 @@ class RequestRendererController extends ValueNotifier<DecideRequestParameters?> 
   RequestRendererController() : super(null);
 }
 
-typedef RequestItemIndex = ({
-  int rootIndex,
-  int? groupIndex,
-});
+typedef RequestItemIndex = ({int rootIndex, int? groupIndex});
 
 class RequestRenderer extends StatefulWidget {
   final RequestRendererController? controller;
@@ -52,11 +49,13 @@ class _RequestRendererState extends State<RequestRenderer> {
     List<StatelessWidget> responseItems = [];
 
     requestItems = widget.request.items.mapIndexed((index, item) {
+      final itemIndex = (rootIndex: index, groupIndex: null);
+
       if (item is RequestItemGroupDVO) {
-        return RequestItemGroupRenderer(requestItemGroup: item, groupIndex: index, controller: widget.controller, onEdit: widget.onEdit);
+        return RequestItemGroupRenderer(requestItemGroup: item, itemIndex: itemIndex, controller: widget.controller, onEdit: widget.onEdit);
       }
 
-      return RequestItemRenderer(item: item, itemIndex: index, controller: widget.controller, onEdit: widget.onEdit);
+      return RequestItemRenderer(item: item, itemIndex: itemIndex, controller: widget.controller, onEdit: widget.onEdit);
     }).toList();
 
     if (widget.request.response != null) {

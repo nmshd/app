@@ -6,14 +6,12 @@ import '../../../../renderers.dart';
 class ProposeAttributeAcceptResponseItemRenderer extends StatefulWidget {
   final ProposeAttributeAcceptResponseItemDVO item;
   final RequestRendererController? controller;
-  final int itemIndex;
-  final int? groupIndex;
+  final RequestItemIndex itemIndex;
 
   const ProposeAttributeAcceptResponseItemRenderer({
     super.key,
     required this.item,
     required this.itemIndex,
-    this.groupIndex,
     this.controller,
   });
 

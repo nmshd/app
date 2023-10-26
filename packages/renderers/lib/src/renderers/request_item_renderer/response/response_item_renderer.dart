@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,8 +13,7 @@ class ResponseItemRenderer extends StatelessWidget {
   final ResponseItemDVO item;
   final List<RequestItemDVO> requestItems;
   final RequestRendererController? controller;
-  final int itemIndex;
-  final int? groupIndex;
+  final RequestItemIndex itemIndex;
 
   const ResponseItemRenderer({
     super.key,
@@ -21,20 +21,18 @@ class ResponseItemRenderer extends StatelessWidget {
     required this.requestItems,
     this.controller,
     required this.itemIndex,
-    this.groupIndex,
   });
 
   @override
   Widget build(BuildContext context) {
-    final requestItemList = requestItems.asMap().entries.map((entry) {
-      final index = entry.key;
-      final item = entry.value;
+    final requestItemList = requestItems.mapIndexed((index, item) {
+      final itemIndex = (rootIndex: index, groupIndex: null);
 
       if (item is RequestItemGroupDVO) {
-        return RequestItemGroupRenderer(requestItemGroup: item, groupIndex: index);
+        return RequestItemGroupRenderer(requestItemGroup: item, itemIndex: itemIndex);
       }
 
-      return RequestItemRenderer(item: item, itemIndex: index);
+      return RequestItemRenderer(item: item, itemIndex: itemIndex);
     }).toList();
 
     return switch (item) {
