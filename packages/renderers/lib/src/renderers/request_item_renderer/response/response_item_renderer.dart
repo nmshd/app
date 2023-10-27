@@ -26,7 +26,7 @@ class ResponseItemRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final requestItemList = requestItems.mapIndexed((index, item) {
-      final itemIndex = (rootIndex: index, groupIndex: null);
+      final itemIndex = (rootIndex: index, innerIndex: null);
 
       if (item is RequestItemGroupDVO) {
         return RequestItemGroupRenderer(requestItemGroup: item, itemIndex: itemIndex);
@@ -38,7 +38,7 @@ class ResponseItemRenderer extends StatelessWidget {
     return switch (item) {
       final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(item: dvo),
       final ProposeAttributeAcceptResponseItemDVO dvo =>
-        ProposeAttributeAcceptResponseItemRenderer(item: dvo, itemIndex: itemIndex, controller: controller, groupIndex: groupIndex),
+        ProposeAttributeAcceptResponseItemRenderer(item: dvo, itemIndex: itemIndex, controller: controller),
       final CreateAttributeAcceptResponseItemDVO dvo => Text(dvo.type),
       final ShareAttributeAcceptResponseItemDVO dvo => Text(dvo.type),
       final RegisterAttributeListenerAcceptResponseItemDVO dvo => Text(dvo.type),

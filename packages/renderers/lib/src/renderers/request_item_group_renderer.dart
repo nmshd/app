@@ -24,7 +24,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
     final requestItems = requestItemGroup.items.mapIndexed((index, item) {
       return RequestItemRenderer(
         item: item,
-        itemIndex: (rootIndex: itemIndex.rootIndex, groupIndex: index),
+        itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
         controller: controller,
         onEdit: onEdit,
       );

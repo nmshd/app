@@ -24,13 +24,14 @@ class _ProposeAttributeAcceptResponseItemRendererState extends State<ProposeAttr
   void initState() {
     super.initState();
 
-    if (widget.groupIndex != null) {
-      final groupIndex = widget.groupIndex!;
-      final controllerValue = widget.controller?.value?.items[groupIndex] as DecideRequestItemGroupParameters;
-      controllerValue.items[widget.itemIndex] =
-          AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
+    if (widget.itemIndex.innerIndex != null) {
+      final rootIndex = widget.itemIndex.rootIndex;
+      final innerIndex = widget.itemIndex.innerIndex!;
+
+      final controllerValue = widget.controller?.value?.items[rootIndex] as DecideRequestItemGroupParameters;
+      controllerValue.items[innerIndex] = AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
     } else {
-      widget.controller?.value?.items[widget.itemIndex] =
+      widget.controller?.value?.items[widget.itemIndex.rootIndex] =
           AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
     }
   }
