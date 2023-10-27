@@ -21,7 +21,7 @@ class DecidableRegisterRequestItemExample extends StatelessWidget {
 
     final identityAttributeQuery = IdentityAttributeQueryDVO(
       id: 'an id',
-      name: 'a Name',
+      name: 'Identity Attribute',
       isProcessed: false,
       type: 'IdentityAttributeQueryDVO',
       tags: [],
@@ -32,8 +32,8 @@ class DecidableRegisterRequestItemExample extends StatelessWidget {
 
     final relationshipAttributeQuery = RelationshipAttributeQueryDVO(
       id: 'id',
-      name: 'name',
-      type: 'DraftRelationshipAttributeDVO',
+      name: 'Relationship Attribute',
+      type: 'RelationshipAttributeQueryDVO',
       valueType: 'ProprietaryLanguage',
       isProcessed: false,
       renderHints: RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
@@ -48,8 +48,8 @@ class DecidableRegisterRequestItemExample extends StatelessWidget {
     );
     const thirdPartyRelationshipAttributeQuery = ThirdPartyRelationshipAttributeQueryDVO(
       id: 'id',
-      name: 'name',
-      type: 'ThirdPartyRelationshipAttribute',
+      name: 'Third Party Relationship Attribute',
+      type: 'ThirdPartyRelationshipAttributeQueryDVO',
       thirdParty: [identityDvo],
       isProcessed: false,
       key: 'a key',
