@@ -24,15 +24,18 @@ class RequestItemRenderer extends StatelessWidget {
     if (item.type.startsWith('Decidable')) {
       return switch (item) {
         final DecidableReadAttributeRequestItemDVO dvo =>
-          DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit),
+          DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit, itemIndex: itemIndex),
         final DecidableProposeAttributeRequestItemDVO dvo =>
           DecidableProposeAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
-        final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo),
-        final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo),
-        final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo),
-        final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(controller: controller, item: dvo),
+        final DecidableCreateAttributeRequestItemDVO dvo =>
+          DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
+        final DecidableShareAttributeRequestItemDVO dvo =>
+          DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
+        final DecidableAuthenticationRequestItemDVO dvo =>
+          DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
+        final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
         final DecidableRegisterAttributeListenerRequestItemDVO dvo =>
-          DecidableRegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo),
+          DecidableRegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
         _ => throw Exception("Invalid type '${item.type}'"),
       };
     }

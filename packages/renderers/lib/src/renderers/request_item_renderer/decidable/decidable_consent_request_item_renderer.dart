@@ -4,19 +4,43 @@ import 'package:flutter/widgets.dart';
 
 import '../../../../renderers.dart';
 
-class DecidableConsentRequestItemRenderer extends StatelessWidget {
+class DecidableConsentRequestItemRenderer extends StatefulWidget {
   final DecidableConsentRequestItemDVO item;
   final RequestRendererController? controller;
+  final RequestItemIndex itemIndex;
 
-  const DecidableConsentRequestItemRenderer({super.key, required this.item, this.controller});
+  const DecidableConsentRequestItemRenderer({
+    super.key,
+    required this.item,
+    this.controller,
+    required this.itemIndex,
+  });
+
+  @override
+  State<DecidableConsentRequestItemRenderer> createState() => _DecidableConsentRequestItemRendererState();
+}
+
+class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRequestItemRenderer> {
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.itemIndex.innerIndex != null) {
+      final groupIndex = widget.itemIndex.innerIndex!;
+      final controllerValue = widget.controller?.value?.items[groupIndex] as DecideRequestItemGroupParameters;
+      controllerValue.items[widget.itemIndex.rootIndex] = const AcceptRequestItemParameters();
+    }
+
+    widget.controller?.value?.items[widget.itemIndex.rootIndex] = const AcceptRequestItemParameters();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('(${item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
-        Text(item.consent),
-        if (item.link != null) Text(item.link!),
+        Text('(${widget.item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
+        Text(widget.item.consent),
+        if (widget.item.link != null) Text(widget.item.link!),
       ],
     );
   }

@@ -8,14 +8,34 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableReadAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
+  final RequestItemIndex itemIndex;
 
-  const DecidableReadAttributeRequestItemRenderer({super.key, required this.item, this.controller, this.onEdit});
+  const DecidableReadAttributeRequestItemRenderer({
+    super.key,
+    required this.item,
+    this.controller,
+    this.onEdit,
+    required this.itemIndex,
+  });
 
   @override
   State<DecidableReadAttributeRequestItemRenderer> createState() => _DecidableReadAttributeRequestItemRendererState();
 }
 
 class _DecidableReadAttributeRequestItemRendererState extends State<DecidableReadAttributeRequestItemRenderer> {
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.itemIndex.innerIndex != null) {
+      final groupIndex = widget.itemIndex.innerIndex!;
+      final controllerValue = widget.controller?.value?.items[groupIndex] as DecideRequestItemGroupParameters;
+      controllerValue.items[widget.itemIndex.rootIndex] = controllerValue.items[widget.itemIndex.rootIndex] = const AcceptRequestItemParameters();
+    }
+
+    widget.controller?.value?.items[widget.itemIndex.rootIndex] = const AcceptRequestItemParameters();
+  }
+
   @override
   Widget build(BuildContext context) {
     return switch (widget.item.query) {
