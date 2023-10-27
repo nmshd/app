@@ -1,8 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../renderers.dart';
+import '../../widgets/custom_list_tile.dart';
 
 class DecidableConsentRequestItemRenderer extends StatelessWidget {
   final DecidableConsentRequestItemDVO item;
@@ -12,12 +15,26 @@ class DecidableConsentRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('(${item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
-        Text(item.consent),
-        if (item.link != null) Text(item.link!),
-      ],
+    return CustomListTile(
+      title: item.consent,
+      description: item.description,
+      trailing: item.link != null
+          ? IconButton(
+              onPressed: () async {
+                final url = Uri.parse(item.link!);
+                if (!await canLaunchUrl(url)) {
+                  GetIt.I.get<Logger>().e('Could not launch $url');
+                  return;
+                }
+                try {
+                  await launchUrl(url);
+                } catch (e) {
+                  GetIt.I.get<Logger>().e(e);
+                }
+              },
+              icon: const Icon(Icons.open_in_new),
+            )
+          : null,
     );
   }
 }
