@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import '/src/url_launcher.dart';
 import '../../widgets/complex_attribute_list_tile.dart';
 import '../../widgets/custom_list_tile.dart';
 
@@ -43,12 +43,14 @@ class DraftAttributeRenderer extends StatelessWidget {
                 ? IconButton(
                     onPressed: () async {
                       final url = Uri.parse(consentAttributeValue.link!);
-                      if (!await canLaunchUrl(url)) {
+                      final urlLauncher = GetIt.I.get<AbstractUrlLauncher>();
+
+                      if (!await urlLauncher.canLaunchUrl(url)) {
                         GetIt.I.get<Logger>().e('Could not launch $url');
                         return;
                       }
                       try {
-                        await launchUrl(url);
+                        await urlLauncher.launchUrl(url);
                       } catch (e) {
                         GetIt.I.get<Logger>().e(e);
                       }
