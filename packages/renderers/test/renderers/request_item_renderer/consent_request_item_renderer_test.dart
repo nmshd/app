@@ -25,6 +25,7 @@ void main() {
     GetIt.I.registerSingleton<AbstractUrlLauncher>(urlLauncherMock);
     GetIt.I.registerSingleton<Logger>(loggerMock);
   });
+
   group('ConsentRequestItemRenderer', () {
     testWidgets(
       'renderer displayed correctly',
@@ -138,6 +139,7 @@ void main() {
       await tester.pump();
 
       verify(urlLauncherMock.canLaunchUrl(Uri.parse(url))).called(1);
+      verifyNever(urlLauncherMock.launchUrl(Uri.parse(url)));
       expect(verify(loggerMock.e(captureAny)).captured.single, 'Could not launch ${Uri.parse(url)}');
     },
   );
