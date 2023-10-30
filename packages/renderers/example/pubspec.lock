@@ -221,10 +221,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_native_splash
-      sha256: "5bf4c3e5e5a0426c1e2fc8ca3555a9e617e76369c3442e1dae8385c7767ba97a"
+      sha256: d93394f22f73e810bda59e11ebe83329c5511d6460b6b7509c4e1f3c92d6d625
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.4"
+    version: "2.3.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -283,14 +283,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
-  ioc_container:
-    dependency: transitive
-    description:
-      name: ioc_container
-      sha256: "25f30ade53718a8bf9b2656a23a2ee1661b23724e14503aac90fc96afe2d9947"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.12"
   js:
     dependency: transitive
     description:
@@ -359,10 +351,10 @@ packages:
     dependency: "direct main"
     description:
       name: mobile_scanner
-      sha256: "2fbc3914fe625e196c64ea8ffc4084cd36781d2be276d4d5923b11af3b5d44ff"
+      sha256: c7b819851c031f73d225b1c1fc84f903b951eb6188278e63bf4e7a961cebfe99
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.1"
+    version: "3.5.1"
   path:
     dependency: transitive
     description:
@@ -383,10 +375,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "6b8b19bd80da4f11ce91b2d1fb931f3006911477cec227cce23d3253d80df3f1"
+      sha256: e595b98692943b4881b219f0a9e3945118d3c16bd7e2813f98ec6e532d905f72
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   path_provider_foundation:
     dependency: transitive
     description:
