@@ -1,5 +1,4 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:example_renderers/pages/response_item_example.dart';
 import 'package:flutter/material.dart';
 
 import 'account_requests/requests_screen.dart';
@@ -13,6 +12,7 @@ import 'item_examples.dart';
 import 'item_group_example.dart';
 import 'read_attribute_request_item_example.dart';
 import 'requests_example.dart';
+import 'response_item_example.dart';
 import 'widgets/widgets.dart';
 
 class ReloadController {
