@@ -1,6 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../widgets/custom_list_tile.dart';
+
 class CreateAttributeAcceptResponseItemRenderer extends StatelessWidget {
   final CreateAttributeAcceptResponseItemDVO item;
 
@@ -8,14 +10,11 @@ class CreateAttributeAcceptResponseItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('(${item.type})', style: const TextStyle(fontWeight: FontWeight.w200)),
-        Text(item.attributeId),
-        Text(item.attribute.value.toString()),
-        const SizedBox(height: 30),
-      ],
+    final attributeValue = item.attribute.value.toJson()['value'];
+
+    return CustomListTile(
+      title: item.type,
+      description: attributeValue,
     );
   }
 }

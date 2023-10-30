@@ -38,7 +38,7 @@ class ResponseItemExample extends StatelessWidget {
         value: GivenNameAttributeValue(value: 'value'),
       ),
       tags: ['tags'],
-      value: const DisplayNameAttributeValue(value: 'DisplayName'),
+      value: const DisplayNameAttributeValue(value: 'Display Name'),
       valueType: 'DisplayNameAttributeValue',
       owner: 'Ower',
       isDraft: false,
