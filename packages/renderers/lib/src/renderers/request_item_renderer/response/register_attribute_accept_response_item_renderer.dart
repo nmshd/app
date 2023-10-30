@@ -1,10 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-class ReadAttributeAcceptResponseItemRenderer extends StatelessWidget {
-  final ReadAttributeAcceptResponseItemDVO item;
+class RegisterAttributeAcceptResponseItemRenderer extends StatelessWidget {
+  final RegisterAttributeListenerAcceptResponseItemDVO item;
 
-  const ReadAttributeAcceptResponseItemRenderer({super.key, required this.item});
+  const RegisterAttributeAcceptResponseItemRenderer({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +12,6 @@ class ReadAttributeAcceptResponseItemRenderer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('(${item.type})', style: const TextStyle(fontWeight: FontWeight.w200)),
-        Text(item.attributeId),
-        Text(item.attribute.value.toString()),
         const SizedBox(height: 30),
       ],
     );

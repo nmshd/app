@@ -1,10 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-class ReadAttributeAcceptResponseItemRenderer extends StatelessWidget {
-  final ReadAttributeAcceptResponseItemDVO item;
+class ProposeAttributeAcceptResponseItemRenderer extends StatelessWidget {
+  final ProposeAttributeAcceptResponseItemDVO item;
 
-  const ReadAttributeAcceptResponseItemRenderer({super.key, required this.item});
+  const ProposeAttributeAcceptResponseItemRenderer({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {

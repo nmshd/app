@@ -24,10 +24,10 @@ class ResponseItemRenderer extends StatelessWidget {
 
     return switch (item) {
       final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(item: dvo),
-      final ProposeAttributeAcceptResponseItemDVO dvo => Text(dvo.type),
-      final CreateAttributeAcceptResponseItemDVO dvo => Text(dvo.type),
-      final ShareAttributeAcceptResponseItemDVO dvo => Text(dvo.type),
-      final RegisterAttributeListenerAcceptResponseItemDVO dvo => Text(dvo.type),
+      final ProposeAttributeAcceptResponseItemDVO dvo => ProposeAttributeAcceptResponseItemRenderer(item: dvo),
+      final CreateAttributeAcceptResponseItemDVO dvo => CreateAttributeAcceptResponseItemRenderer(item: dvo),
+      final ShareAttributeAcceptResponseItemDVO dvo => ShareAttributeAcceptResponseItemRenderer(item: dvo),
+      final RegisterAttributeListenerAcceptResponseItemDVO dvo => RegisterAttributeAcceptResponseItemRenderer(item: dvo),
       final ErrorResponseItemDVO dvo => Text(dvo.type),
       _ => switch (item.type) {
           'RejectResponseItemDVO' => Column(crossAxisAlignment: CrossAxisAlignment.start, children: requestItemList), //Add Rejected message
