@@ -70,6 +70,7 @@ void main() {
             ),
           ),
         ));
+
         expect(find.text('my consent text').first, findsOneWidget);
         expect(find.byIcon(Icons.open_in_new), findsOneWidget);
       },
