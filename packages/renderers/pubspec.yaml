@@ -15,7 +15,6 @@ dependencies:
     sdk: flutter
   get_it: ^7.6.4
   intl: ^0.18.1
-  ioc_container: ^1.0.12
   logger: ^2.0.2+1
   translated_text: 1.0.0
   url_launcher: ^6.1.14
