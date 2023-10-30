@@ -24,8 +24,7 @@ import 'package:renderers/src/url_launcher.dart' as _i2;
 /// A class which mocks [AbstractUrlLauncher].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAbstractUrlLauncher extends _i1.Mock
-    implements _i2.AbstractUrlLauncher {
+class MockAbstractUrlLauncher extends _i1.Mock implements _i2.AbstractUrlLauncher {
   @override
   _i3.Future<bool> canLaunchUrl(Uri? url) => (super.noSuchMethod(
         Invocation.method(
