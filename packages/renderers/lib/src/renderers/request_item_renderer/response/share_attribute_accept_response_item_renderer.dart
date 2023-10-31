@@ -10,11 +10,9 @@ class ShareAttributeAcceptResponseItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final attributeValue = item.attribute.value.toJson()['value'];
-
     return CustomListTile(
-      title: item.type,
-      description: attributeValue,
+      title: 'i18n://dvo.attribute.name.${item.attribute.value.atType}',
+      description: item.attribute.value.toJson()['value'],
     );
   }
 }
