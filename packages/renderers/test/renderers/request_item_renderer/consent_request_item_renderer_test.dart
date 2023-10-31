@@ -110,40 +110,42 @@ void main() {
         verify(urlLauncherMock.launchUrl(Uri.parse(url))).called(1);
       },
     );
-  });
 
-  testWidgets(
-    'renderer logs correctly with invalid link',
-    (WidgetTester tester) async {
-      const url = 'my invalid url';
+    testWidgets(
+      'renderer logs correctly with invalid link',
+      (WidgetTester tester) async {
+        const url = 'my invalid url';
 
-      when(urlLauncherMock.canLaunchUrl(Uri.parse(url))).thenAnswer((_) async => false);
+        when(urlLauncherMock.canLaunchUrl(Uri.parse(url))).thenAnswer((_) async => false);
 
-      await tester.pumpWidget(MaterialApp(
-        home: Material(
-          child: ConsentRequestItemRenderer(
-            item: const ConsentRequestItemDVO(
-              id: 'id',
-              name: 'consentRequestItem',
-              mustBeAccepted: false,
-              isDecidable: false,
-              consent: 'my consent text',
-              link: url,
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Material(
+              child: ConsentRequestItemRenderer(
+                item: const ConsentRequestItemDVO(
+                  id: 'id',
+                  name: 'consentRequestItem',
+                  mustBeAccepted: false,
+                  isDecidable: false,
+                  consent: 'my consent text',
+                  link: url,
+                ),
+                controller: RequestRendererController(),
+              ),
             ),
-            controller: RequestRendererController(),
           ),
-        ),
-      ));
+        );
 
-      expect(find.text('my consent text').first, findsOneWidget);
-      expect(find.byIcon(Icons.open_in_new), findsOneWidget);
+        expect(find.text('my consent text').first, findsOneWidget);
+        expect(find.byIcon(Icons.open_in_new), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.open_in_new));
-      await tester.pump();
+        await tester.tap(find.byIcon(Icons.open_in_new));
+        await tester.pump();
 
-      verify(urlLauncherMock.canLaunchUrl(Uri.parse(url))).called(1);
-      verifyNever(urlLauncherMock.launchUrl(Uri.parse(url)));
-      expect(verify(loggerMock.e(captureAny)).captured.single, 'Could not launch ${Uri.parse(url)}');
-    },
-  );
+        verify(urlLauncherMock.canLaunchUrl(Uri.parse(url))).called(1);
+        verifyNever(urlLauncherMock.launchUrl(Uri.parse(url)));
+        expect(verify(loggerMock.e(captureAny)).captured.single, 'Could not launch ${Uri.parse(url)}');
+      },
+    );
+  });
 }
