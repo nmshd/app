@@ -31,21 +31,6 @@ class ValueRendererListTile extends StatelessWidget {
         fieldName: fieldName,
         renderHints: renderHints,
         valueHints: valueHints,
-        decoration: decoration ??
-            const InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(width: 1, color: Colors.grey),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(width: 1, color: Colors.blue),
-              ),
-              hintMaxLines: 150,
-              errorMaxLines: 150,
-              helperMaxLines: 150,
-            ),
       ),
       trailing: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)),
     );

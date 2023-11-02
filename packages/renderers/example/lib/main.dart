@@ -9,6 +9,7 @@ import 'package:logger/logger.dart';
 
 import 'pages/home_screen.dart';
 import 'pages/onboarding_screen.dart';
+import 'url_launcher.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,7 @@ void main() async {
 
   final logger = Logger(printer: SimplePrinter(colors: false));
   GetIt.I.registerSingleton(logger);
+  GetIt.I.registerSingleton(UrlLauncher());
 
   final runtime = EnmeshedRuntime(
     logger: logger,

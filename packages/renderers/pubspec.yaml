@@ -11,13 +11,19 @@ dependencies:
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
+  flutter_i18n: ^0.34.0
   flutter_localizations:
     sdk: flutter
+  get_it: ^7.6.4
   intl: ^0.18.1
+  logger: ^2.0.2+1
   translated_text: 1.0.0
+  url_launcher: ^6.1.14
   value_renderer: 1.0.0
 
 dev_dependencies:
+  build_runner: ^2.4.6
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  mockito: ^5.4.2

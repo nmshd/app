@@ -36,6 +36,6 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: '', subTitle: widget.item.name);
+    return CustomListTile(title: '', description: widget.item.name);
   }
 }
