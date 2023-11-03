@@ -7,6 +7,7 @@ import 'create_attribute_request_item_example/rejected_create_attribute_request_
 import 'create_attribute_request_item_example/relationship_attribute_example.dart';
 import 'decidable_examples/decidable_consent_request_item_example.dart';
 import 'decidable_examples/decidable_read_request_item_example.dart';
+import 'decidable_examples/decidable_read_request_relationship_item_example.dart';
 import 'decidable_examples/decidable_register_request_item_example.dart';
 import 'item_examples.dart';
 import 'item_group_example.dart';
@@ -109,7 +110,17 @@ class _HomeScreenState extends State<HomeScreen> {
         _MenuItem(
           icon: Icons.description,
           title: 'Decidable Read Identity Attribute with results Example',
-          pageBuilder: (context) => const DecidableReadRequestItemExample(),
+          pageBuilder: (context) => const DecidableReadRequestItemExample(isWithResults: true),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Read Identity Attribute without results Example',
+          pageBuilder: (context) => const DecidableReadRequestItemExample(isWithResults: false),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Read Relationship Attribute with results Example',
+          pageBuilder: (context) => const DecidableReadRequestRelationshipItemExample(isWithResults: true),
         ),
       ])
     ];
