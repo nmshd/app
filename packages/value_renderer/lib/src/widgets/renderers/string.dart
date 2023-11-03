@@ -14,6 +14,7 @@ class StringRenderer extends StatelessWidget {
   final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
+  final bool shouldTranslate;
 
   const StringRenderer({
     super.key,
@@ -26,10 +27,16 @@ class StringRenderer extends StatelessWidget {
     required this.technicalType,
     required this.valueHints,
     this.values,
+    required this.shouldTranslate,
   });
 
   @override
   Widget build(BuildContext context) {
+    final fieldName = this.fieldName.startsWith('i18n://')
+        ? this.fieldName
+        : shouldTranslate
+            ? 'i18n://dvo.attribute.name.${this.fieldName[0].toUpperCase() + this.fieldName.substring(1)}'
+            : this.fieldName;
     final max = valueHints.max;
     final pattern = valueHints.pattern;
 

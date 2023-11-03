@@ -9,12 +9,12 @@ class CheckboxInput extends FormField<bool> {
     bool autovalidate = false,
     ValueRendererController? controller,
     required String fieldName,
-    bool initialValue = false,
+    bool? initialValue,
     FormFieldSetter<bool>? onSaved,
     FormFieldValidator<bool>? validator,
     InputDecoration? decoration,
   }) : super(
-          initialValue: initialValue,
+          initialValue: initialValue ?? false,
           onSaved: onSaved,
           validator: validator,
           builder: (FormFieldState<bool> field) {

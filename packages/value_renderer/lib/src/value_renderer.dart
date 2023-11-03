@@ -13,6 +13,7 @@ class ValueRenderer extends StatelessWidget {
   final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
+  final bool shouldTranslate;
 
   final ValueRendererController? controller;
 
@@ -24,6 +25,7 @@ class ValueRenderer extends StatelessWidget {
     required this.renderHints,
     required this.valueHints,
     this.controller,
+    this.shouldTranslate = true,
   });
 
   @override
@@ -56,6 +58,7 @@ class ValueRenderer extends StatelessWidget {
         initialValue: initialValue,
         renderHints: renderHints,
         valueHints: valueHints,
+        shouldTranslate: shouldTranslate,
       );
     }
 
@@ -70,6 +73,7 @@ class ValueRenderer extends StatelessWidget {
         technicalType: technicalType,
         valueHints: valueHints,
         values: values,
+        shouldTranslate: shouldTranslate,
       );
     }
 

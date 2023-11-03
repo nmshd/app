@@ -15,6 +15,7 @@ class ComplexRenderer extends StatefulWidget {
   final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
+  final bool shouldTranslate;
 
   const ComplexRenderer({
     super.key,
@@ -26,6 +27,7 @@ class ComplexRenderer extends StatefulWidget {
     required this.initialValue,
     required this.renderHints,
     required this.valueHints,
+    required this.shouldTranslate,
   });
 
   @override
@@ -69,10 +71,10 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    final fieldName = widget.fieldName;
+    final fieldName = widget.shouldTranslate ? 'i18n://attributes.values.${widget.fieldName}._title' : widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
-    if (widget.initialValue is BirthDateAttributeValue || fieldName == 'BirthDate') {
+    if (widget.initialValue is BirthDateAttributeValue || widget.fieldName == 'BirthDate') {
       return DatepickerFormField(
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,
@@ -82,16 +84,14 @@ class _ComplexRendererState extends State<ComplexRenderer> {
     }
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
           height: 12,
         ),
         TranslatedText(
-          widget.fieldName,
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 16.0,
-          ),
+          fieldName,
+          style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E)),
         ),
         const SizedBox(
           height: 12,
@@ -102,19 +102,24 @@ class _ComplexRendererState extends State<ComplexRenderer> {
           itemCount: widget.renderHints.propertyHints?.values.length,
           itemBuilder: (context, index) {
             final key = widget.renderHints.propertyHints!.keys.elementAt(index);
+            final translatedKey = 'i18n://attributes.values.${widget.fieldName}.$key.label';
             final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
             final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
             final itemRenderHints = widget.renderHints.propertyHints![key];
             final itemValueHints = widget.valueHints.propertyHints![key];
 
-            return ListTile(
-              title: ValueRenderer(
-                initialValue: itemInitialValue,
-                renderHints: itemRenderHints!,
-                valueHints: itemValueHints!,
-                fieldName: key,
-                controller: controllers?[key],
-              ),
+            return Column(
+              children: [
+                ValueRenderer(
+                  initialValue: itemInitialValue,
+                  renderHints: itemRenderHints!,
+                  valueHints: itemValueHints!,
+                  fieldName: translatedKey,
+                  controller: controllers?[key],
+                  shouldTranslate: widget.shouldTranslate,
+                ),
+                const SizedBox(height: 16),
+              ],
             );
           },
         ),
