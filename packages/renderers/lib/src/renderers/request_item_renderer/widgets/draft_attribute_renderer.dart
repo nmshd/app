@@ -9,8 +9,9 @@ import '../../widgets/custom_list_tile.dart';
 
 class DraftAttributeRenderer extends StatelessWidget {
   final dynamic draftAttribute;
+  final bool? isRejected;
 
-  const DraftAttributeRenderer({super.key, required this.draftAttribute});
+  const DraftAttributeRenderer({super.key, required this.draftAttribute, this.isRejected});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class DraftAttributeRenderer extends StatelessWidget {
         final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
             title: proprietaryAttributeValue.title,
             // TODO: render the description of the ProprietaryAttributeValue
-            description: attributeValueMap['value'].toString(),
+            description: isRejected == false ? attributeValueMap['value'].toString() : null,
           ),
         _ => throw Exception('cannot handle RelationshipAttributeValue: ${attribute.value.runtimeType}'),
       };
@@ -77,6 +78,7 @@ class AttributeRenderer extends StatelessWidget {
   final String customTitle;
   final List<({String label, String value})> fields;
   final String complexTitle;
+  final bool? isRejected;
 
   const AttributeRenderer({
     super.key,
@@ -84,6 +86,7 @@ class AttributeRenderer extends StatelessWidget {
     required this.customTitle,
     required this.fields,
     required this.complexTitle,
+    this.isRejected,
   });
 
   @override
@@ -91,7 +94,7 @@ class AttributeRenderer extends StatelessWidget {
     if (attributeValueMap.length == 2) {
       return CustomListTile(
         title: customTitle,
-        description: attributeValueMap['value'].toString(),
+        description: isRejected == false ? attributeValueMap['value'].toString() : null,
       );
     }
 
