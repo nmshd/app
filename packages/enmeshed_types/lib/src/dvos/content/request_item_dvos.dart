@@ -119,19 +119,19 @@ class ReadAttributeRequestItemDVO extends RequestItemDVODerivation {
 class FreeTextRequestItemDVO extends RequestItemDVODerivation {
   final String freeText;
 
-  const FreeTextRequestItemDVO(
-      {required super.id,
-      required super.name,
-      super.description,
-      super.image,
-      super.date,
-      super.error,
-      super.warning,
-      required super.mustBeAccepted,
-      required super.isDecidable,
-      super.response,
-      required this.freeText})
-      : super(type: 'ProposeAttributeRequestItemDVO');
+  const FreeTextRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
+    super.response,
+    required this.freeText,
+  }) : super(type: 'FreeTextRequestItemDVO');
 
   factory FreeTextRequestItemDVO.fromJson(Map json) => _$FreeTextRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
