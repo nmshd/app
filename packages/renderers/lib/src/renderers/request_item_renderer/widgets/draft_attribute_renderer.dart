@@ -63,7 +63,7 @@ class DraftAttributeRenderer extends StatelessWidget {
         final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
             title: proprietaryAttributeValue.title,
             // TODO: render the description of the ProprietaryAttributeValue
-            description: isRejected == false ? attributeValueMap['value'].toString() : null,
+            description: isRejected != null && isRejected! ? null : attributeValueMap['value'].toString(),
           ),
         _ => throw Exception('cannot handle RelationshipAttributeValue: ${attribute.value.runtimeType}'),
       };
@@ -94,7 +94,7 @@ class AttributeRenderer extends StatelessWidget {
     if (attributeValueMap.length == 2) {
       return CustomListTile(
         title: customTitle,
-        description: isRejected == false ? attributeValueMap['value'].toString() : null,
+        description: isRejected != null && isRejected! ? null : attributeValueMap['value'].toString(),
       );
     }
 
