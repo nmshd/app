@@ -7,9 +7,8 @@ import '../../request_renderer.dart';
 class ProposeAttributeRequestItemRenderer extends StatelessWidget {
   final ProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
-  final bool isRejected;
 
-  const ProposeAttributeRequestItemRenderer({super.key, required this.item, required this.controller, required this.isRejected});
+  const ProposeAttributeRequestItemRenderer({super.key, required this.item, required this.controller});
 
   @override
   Widget build(BuildContext context) {

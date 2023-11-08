@@ -7,9 +7,8 @@ import 'widgets/draft_attribute_renderer.dart';
 class ShareAttributeRequestItemRenderer extends StatelessWidget {
   final ShareAttributeRequestItemDVO item;
   final RequestRendererController? controller;
-  final bool isRejected;
 
-  const ShareAttributeRequestItemRenderer({super.key, required this.item, required this.controller, required this.isRejected});
+  const ShareAttributeRequestItemRenderer({super.key, required this.item, required this.controller});
 
   @override
   Widget build(BuildContext context) {

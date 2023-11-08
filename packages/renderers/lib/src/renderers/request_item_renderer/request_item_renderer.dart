@@ -31,14 +31,13 @@ class RequestItemRenderer extends StatelessWidget {
     }
 
     return switch (item) {
-      final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected!),
-      final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected!),
+      final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(controller: controller, item: dvo),
+      final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(controller: controller, item: dvo),
       final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected!),
-      final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected!),
+      final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(controller: controller, item: dvo),
       final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(controller: controller, item: dvo),
       final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(controller: controller, item: dvo),
-      final RegisterAttributeListenerRequestItemDVO dvo =>
-        RegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected!),
+      final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo),
       _ => throw Exception("Invalid type '${item.type}'"),
     };
   }
