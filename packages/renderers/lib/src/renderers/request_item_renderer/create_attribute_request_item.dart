@@ -13,6 +13,6 @@ class CreateAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DraftAttributeRenderer(draftAttribute: item.attribute);
+    return DraftAttributeRenderer(draftAttribute: item.attribute, isRejected: isRejected);
   }
 }
