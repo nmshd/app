@@ -5,7 +5,7 @@ class BirthDayAttributeValue extends IdentityAttributeValue {
 
   const BirthDayAttributeValue({
     required this.value,
-  });
+  }) : super('BirthDay');
 
   factory BirthDayAttributeValue.fromJson(Map json) => BirthDayAttributeValue(
         value: json['value'].toInt(),
@@ -13,7 +13,7 @@ class BirthDayAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'BirthDay',
+        '@type': super.atType,
         'value': value,
       };
 

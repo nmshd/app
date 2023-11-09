@@ -9,7 +9,7 @@ class ProprietaryStringAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryString');
 
   factory ProprietaryStringAttributeValue.fromJson(Map json) => ProprietaryStringAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryStringAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryString',
         'value': value,
       };
 

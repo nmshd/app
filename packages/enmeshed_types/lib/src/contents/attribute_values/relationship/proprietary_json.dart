@@ -9,7 +9,7 @@ class ProprietaryJSONAttributeValue extends RelationshipAttributeValue {
     required this.title,
     this.description,
     required this.value,
-  });
+  }) : super('ProprietaryJSON');
 
   factory ProprietaryJSONAttributeValue.fromJson(Map json) => ProprietaryJSONAttributeValue(
         title: json['title'],
@@ -19,7 +19,7 @@ class ProprietaryJSONAttributeValue extends RelationshipAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'ProprietaryJSON',
+        '@type': super.atType,
         'title': title,
         if (description != null) 'description': description,
         'value': value,

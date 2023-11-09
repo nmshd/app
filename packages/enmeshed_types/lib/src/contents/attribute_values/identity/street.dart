@@ -5,7 +5,7 @@ class StreetAttributeValue extends IdentityAttributeValue {
 
   const StreetAttributeValue({
     required this.value,
-  });
+  }) : super('Street');
 
   factory StreetAttributeValue.fromJson(Map json) => StreetAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class StreetAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'Street',
+        '@type': super.atType,
         'value': value,
       };
 

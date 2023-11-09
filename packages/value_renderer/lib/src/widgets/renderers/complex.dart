@@ -72,15 +72,12 @@ class _ComplexRendererState extends State<ComplexRenderer> {
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
-    InputDecoration decoration = InputDecoration(labelText: translatedText);
-    if (widget.decoration != null) decoration = widget.decoration!.copyWith(labelText: translatedText);
-
     if (widget.initialValue is BirthDateAttributeValue || fieldName == 'BirthDate') {
       return DatepickerFormField(
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,
-        fieldName: widget.fieldName,
-        decoration: decoration,
+        fieldName: translatedText,
+        decoration: widget.decoration,
       );
     }
 
@@ -129,7 +126,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 class _ComplexAttributeValueChild extends AttributeValue {
   final dynamic value;
 
-  const _ComplexAttributeValueChild(this.value);
+  const _ComplexAttributeValueChild(this.value) : super('Dummy');
 
   @override
   Map<String, dynamic> toJson() => {'value': value};

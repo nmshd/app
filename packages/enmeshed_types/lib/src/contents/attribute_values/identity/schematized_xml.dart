@@ -7,7 +7,7 @@ class SchematizedXMLAttributeValue extends IdentityAttributeValue {
   const SchematizedXMLAttributeValue({
     required this.value,
     this.schemaURL,
-  });
+  }) : super('SchematizedXML');
 
   factory SchematizedXMLAttributeValue.fromJson(Map json) => SchematizedXMLAttributeValue(
         value: json['value'],
@@ -16,7 +16,7 @@ class SchematizedXMLAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'SchematizedXML',
+        '@type': super.atType,
         'value': value,
         'schemaURL': schemaURL,
       };

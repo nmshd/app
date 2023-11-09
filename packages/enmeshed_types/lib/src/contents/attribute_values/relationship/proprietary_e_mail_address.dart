@@ -9,7 +9,7 @@ class ProprietaryEMailAddressAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryEMailAddress');
 
   factory ProprietaryEMailAddressAttributeValue.fromJson(Map json) => ProprietaryEMailAddressAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryEMailAddressAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryEMailAddress',
         'value': value,
       };
 

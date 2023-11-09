@@ -7,9 +7,13 @@ import 'account_requests/requests_screen.dart';
 import 'create_attribute_request_item_example/identity_attribute_example.dart';
 import 'create_attribute_request_item_example/rejected_create_attribute_request_json_example.dart';
 import 'create_attribute_request_item_example/relationship_attribute_example.dart';
+import 'decidable_examples/decidable_consent_request_item_example.dart';
+import 'decidable_examples/decidable_read_request_item_example.dart';
+import 'decidable_examples/decidable_register_request_item_example.dart';
 import 'item_examples.dart';
 import 'item_group_example.dart';
 import 'read_attribute_request_item_example.dart';
+import 'requests_example.dart';
 import 'widgets/widgets.dart';
 
 class ReloadController {
@@ -46,6 +50,11 @@ class _HomeScreenState extends State<HomeScreen> {
     menu = <_MenuGroup>[
       _MenuGroup(
         items: [
+          _MenuItem(
+            icon: Icons.description,
+            title: 'Request Items JSON Example',
+            pageBuilder: (context) => const RequestsExample(),
+          ),
           _MenuItem(
             icon: Icons.description,
             title: 'Item Examples',
@@ -88,21 +97,33 @@ class _HomeScreenState extends State<HomeScreen> {
           pageBuilder: (context) => const RejectedCreateAttributeRequestJsonExample(),
         ),
       ]),
-      _MenuGroup(
-        title: 'Decidables',
-        items: [
-          _MenuItem(
-            icon: Icons.description,
-            title: 'Decidable Share Attribute Request Item JSON Examples',
-            pageBuilder: (context) => const DecidableShareAttributeRequestItemExample(),
-          ),
-          _MenuItem(
-            icon: Icons.description,
-            title: 'Decidable Authentication Request Item JSON Examples',
-            pageBuilder: (context) => const DecidableAuthenticationRequestItemExample(),
-          ),
-        ],
-      ),
+      _MenuGroup(title: 'Decidable Requests', items: [
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Consent Request',
+          pageBuilder: (context) => const DecidableConsentRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Register Request',
+          pageBuilder: (context) => const DecidableRegisterRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Read Identity Attribute with results Example',
+          pageBuilder: (context) => const DecidableReadRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Share Attribute Request Item JSON Examples',
+          pageBuilder: (context) => const DecidableShareAttributeRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Authentication Request Item JSON Examples',
+          pageBuilder: (context) => const DecidableAuthenticationRequestItemExample(),
+        ),
+      ])
     ];
 
     _selectedMenuItem = menu[0].items[0];

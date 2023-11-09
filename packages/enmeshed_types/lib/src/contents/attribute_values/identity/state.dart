@@ -5,7 +5,7 @@ class StateAttributeValue extends IdentityAttributeValue {
 
   const StateAttributeValue({
     required this.value,
-  });
+  }) : super('State');
 
   factory StateAttributeValue.fromJson(Map json) => StateAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class StateAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'State',
+        '@type': super.atType,
         'value': value,
       };
 

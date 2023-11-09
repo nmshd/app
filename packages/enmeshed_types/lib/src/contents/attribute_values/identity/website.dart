@@ -5,7 +5,7 @@ class WebsiteAttributeValue extends IdentityAttributeValue {
 
   const WebsiteAttributeValue({
     required this.value,
-  });
+  }) : super('Website');
 
   factory WebsiteAttributeValue.fromJson(Map json) => WebsiteAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class WebsiteAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'Website',
+        '@type': super.atType,
         'value': value,
       };
 

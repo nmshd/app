@@ -9,7 +9,7 @@ class ProprietaryCountryAttributeValue extends ProprietaryAttributeValue {
     super.description,
     super.valueHintsOverride,
     required this.value,
-  });
+  }) : super('ProprietaryCountry');
 
   factory ProprietaryCountryAttributeValue.fromJson(Map json) => ProprietaryCountryAttributeValue(
         title: json['title'],
@@ -21,7 +21,6 @@ class ProprietaryCountryAttributeValue extends ProprietaryAttributeValue {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        '@type': 'ProprietaryCountry',
         'value': value,
       };
 

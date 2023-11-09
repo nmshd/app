@@ -5,7 +5,7 @@ class SexAttributeValue extends IdentityAttributeValue {
 
   const SexAttributeValue({
     required this.value,
-  });
+  }) : super('Sex');
 
   factory SexAttributeValue.fromJson(Map json) => SexAttributeValue(
         value: json['value'],
@@ -13,7 +13,7 @@ class SexAttributeValue extends IdentityAttributeValue {
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': 'Sex',
+        '@type': super.atType,
         'value': value,
       };
 

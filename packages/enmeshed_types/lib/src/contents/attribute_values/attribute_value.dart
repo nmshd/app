@@ -5,7 +5,9 @@ import 'identity/identity_attribute_value.dart';
 import 'relationship/relationship_attribute_value.dart';
 
 abstract class AttributeValue extends Equatable {
-  const AttributeValue();
+  final String atType;
+
+  const AttributeValue(this.atType);
 
   factory AttributeValue.fromJson(Map json) {
     try {
