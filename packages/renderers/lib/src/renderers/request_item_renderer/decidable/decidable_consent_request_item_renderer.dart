@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../renderers.dart';
+import '/renderers.dart';
 import '../../widgets/custom_list_tile.dart';
 
 class DecidableConsentRequestItemRenderer extends StatelessWidget {
