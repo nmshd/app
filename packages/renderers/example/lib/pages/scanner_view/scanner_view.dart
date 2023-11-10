@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'scanner_entry.dart';
 import 'url_entry.dart';
 
 enum ScannerMode { scan, keyboard }
@@ -24,13 +23,9 @@ class _ScannerViewState extends State<ScannerView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          scannerMode == ScannerMode.scan ? 'scanner_scanQR' : 'scanner_enterManual',
-        ),
+        title: const Text('scanner_enterManual'),
       ),
-      body: scannerMode == ScannerMode.scan
-          ? ScannerEntry(onSubmit: _onSubmit, toggleScannerMode: _toggleScannerMode)
-          : UrlEntry(onSubmit: _onSubmit, toggleScannerMode: _toggleScannerMode),
+      body: UrlEntry(onSubmit: _onSubmit, toggleScannerMode: _toggleScannerMode),
     );
   }
 

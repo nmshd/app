@@ -18,7 +18,6 @@ dependencies:
   get_it: ^7.6.4
   intl: any
   logger: ^2.0.2+1
-  mobile_scanner: ^3.4.1
   push: ^1.0.0
   renderers: 1.0.0
   translated_text: 1.0.0
