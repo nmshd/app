@@ -171,6 +171,20 @@
             }
          }
       },
+      "requestItem": {
+         "CreateRelationshipAttributeRequestItem": {
+            "name": "Create a new relationship attribute for you"
+         },
+         "CreateIdentityAttributeRequestItem": {
+            "name": "Create a new identity attribute for you"
+         },
+         "DecidableCreateRelationshipAttributeRequestItem": {
+            "name": "Creates a new relationship attribute for you"
+         },
+         "DecidableCreateIdentityAttributeRequestItem": {
+            "name": "Creates a new identity attribute for you"
+         }
+      },
       "identity": {
          "self": {
             "name": "Me",
@@ -304,6 +318,9 @@
                "label": "Street"
             },
             "houseNo": {
+               "label": "House Number"
+            },
+            "houseNumber": {
                "label": "House Number"
             },
             "zipCode": {
