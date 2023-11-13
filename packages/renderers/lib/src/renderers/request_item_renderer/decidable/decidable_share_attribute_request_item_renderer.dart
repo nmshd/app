@@ -28,12 +28,10 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
     if (widget.itemIndex.innerIndex != null) {
       final groupIndex = widget.itemIndex.innerIndex!;
       final controllerValue = widget.controller?.value?.items[groupIndex] as DecideRequestItemGroupParameters;
-      controllerValue.items[widget.itemIndex.rootIndex] =
-          AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
+      controllerValue.items[widget.itemIndex.rootIndex] = const AcceptRequestItemParameters();
     }
 
-    widget.controller?.value?.items[widget.itemIndex.rootIndex] =
-        AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id);
+    widget.controller?.value?.items[widget.itemIndex.rootIndex] = const AcceptRequestItemParameters();
   }
 
   @override
