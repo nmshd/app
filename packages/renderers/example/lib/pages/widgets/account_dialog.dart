@@ -36,6 +36,13 @@ class _AccountDialogState extends State<AccountDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            FilledButton(
+              onPressed: () async {
+                await GetIt.I.get<EnmeshedRuntime>().accountServices.clearAccounts();
+                _reloadAccounts();
+              },
+              child: const Text('clear accounts'),
+            ),
             if (_accounts == null) const Center(child: CircularProgressIndicator()),
             if (_accounts != null) ...[
               const Divider(),
