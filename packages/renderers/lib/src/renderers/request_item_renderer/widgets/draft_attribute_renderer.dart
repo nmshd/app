@@ -59,9 +59,16 @@ class DraftAttributeRenderer extends StatelessWidget {
                   )
                 : null,
           ),
+        final ProprietaryJSONAttributeValue proprietaryJSONAttributeValue => CustomListTile(
+            title: proprietaryJSONAttributeValue.title,
+            // TODO: render the description of the ProprietaryAttributeValue
+            // description: proprietaryJSONAttributeValue.description,
+            description: proprietaryJSONAttributeValue.value.toString(),
+          ),
         final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
             title: proprietaryAttributeValue.title,
             // TODO: render the description of the ProprietaryAttributeValue
+            // description: proprietaryAttributeValue.description,
             description: attributeValueMap['value'].toString(),
           ),
         _ => throw Exception('cannot handle RelationshipAttributeValue: ${attribute.value.runtimeType}'),
