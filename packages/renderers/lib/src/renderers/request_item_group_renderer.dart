@@ -3,7 +3,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:renderers/src/renderers/request_item_renderer/request_item_renderer.dart';
 
-import '../../renderers.dart';
+import '/src/request_item_index.dart';
+import '/src/request_renderer_controller.dart';
 
 class RequestItemGroupRenderer extends StatelessWidget {
   final RequestItemGroupDVO requestItemGroup;

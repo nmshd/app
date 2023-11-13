@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
+import '/src/request_renderer_controller.dart';
 import '/src/url_launcher.dart';
-import '../../request_renderer.dart';
 import '../widgets/custom_list_tile.dart';
 
 class ConsentRequestItemRenderer extends StatelessWidget {

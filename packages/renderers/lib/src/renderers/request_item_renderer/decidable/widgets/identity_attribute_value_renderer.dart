@@ -1,7 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../renderers.dart';
+import '/src/request_renderer_controller.dart';
 import '../../../widgets/complex_attribute_list_tile.dart';
 import '../../../widgets/custom_list_tile.dart';
 

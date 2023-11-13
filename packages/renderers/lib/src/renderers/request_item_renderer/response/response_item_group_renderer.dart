@@ -2,7 +2,8 @@ import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../renderers.dart';
+import '/src/request_item_index.dart';
+import '/src/request_renderer_controller.dart';
 import 'response_item_renderer.dart';
 
 class ResponseItemGroupRenderer extends StatelessWidget {

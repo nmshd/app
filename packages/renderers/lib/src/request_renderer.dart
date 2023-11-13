@@ -2,15 +2,10 @@ import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '/src/request_renderer_controller.dart';
 import 'renderers/request_item_group_renderer.dart';
 import 'renderers/request_item_renderer/request_item_renderer.dart';
 import 'renderers/request_item_renderer/response/response.dart';
-
-class RequestRendererController extends ValueNotifier<DecideRequestParameters?> {
-  RequestRendererController() : super(null);
-}
-
-typedef RequestItemIndex = ({int rootIndex, int? innerIndex});
 
 class RequestRenderer extends StatefulWidget {
   final RequestRendererController? controller;

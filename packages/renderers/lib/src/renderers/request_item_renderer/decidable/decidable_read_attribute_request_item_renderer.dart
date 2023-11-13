@@ -1,7 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../renderers.dart';
+import '/src/request_item_index.dart';
+import '/src/request_renderer_controller.dart';
 import 'widgets/processed_query_renderer.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
@@ -27,15 +28,10 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   void initState() {
     super.initState();
 
-    if (widget.itemIndex.innerIndex != null) {
-      final groupIndex = widget.itemIndex.innerIndex!;
-      final controllerValue = widget.controller?.value?.items[groupIndex] as DecideRequestItemGroupParameters;
-      controllerValue.items[widget.itemIndex.rootIndex] = controllerValue.items[widget.itemIndex.rootIndex] =
-          AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: widget.item.query.id);
-    }
-
-    widget.controller?.value?.items[widget.itemIndex.rootIndex] =
-        AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: widget.item.query.id);
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: widget.item.query.id),
+    );
   }
 
   @override

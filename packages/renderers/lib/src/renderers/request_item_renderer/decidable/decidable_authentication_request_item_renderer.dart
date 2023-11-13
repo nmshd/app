@@ -1,7 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../renderers.dart';
+import '/src/request_item_index.dart';
+import '/src/request_renderer_controller.dart';
 import '../../widgets/custom_list_tile.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
@@ -25,13 +26,7 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
   void initState() {
     super.initState();
 
-    if (widget.itemIndex.innerIndex != null) {
-      final groupIndex = widget.itemIndex.innerIndex!;
-      final controllerValue = widget.controller?.value?.items[groupIndex] as DecideRequestItemGroupParameters;
-      controllerValue.items[widget.itemIndex.rootIndex] = const AcceptRequestItemParameters();
-    }
-
-    widget.controller?.value?.items[widget.itemIndex.rootIndex] = const AcceptRequestItemParameters();
+    widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
 
   @override

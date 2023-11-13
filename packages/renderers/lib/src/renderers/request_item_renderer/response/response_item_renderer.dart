@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:renderers/src/renderers/request_item_renderer/response/propose_attribute_accept_response_item_renderer.dart';
 
-import '../../../../renderers.dart';
+import '/src/request_item_index.dart';
+import '/src/request_renderer_controller.dart';
 import '../../request_item_group_renderer.dart';
 import '../request_item_renderer.dart';
 import 'response.dart';
