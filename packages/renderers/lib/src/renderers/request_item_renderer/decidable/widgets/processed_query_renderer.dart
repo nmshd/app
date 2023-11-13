@@ -1,9 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import '/src/request_renderer_controller.dart';
 import 'package:translated_text/translated_text.dart';
 import 'package:value_renderer/value_renderer.dart';
 
+import '/src/request_renderer_controller.dart';
 import '../../../widgets/value_renderer_list_tile.dart';
 import 'identity_attribute_value_renderer.dart';
 import 'relationship_attribute_value_renderer.dart';
