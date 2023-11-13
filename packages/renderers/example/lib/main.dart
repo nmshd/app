@@ -60,8 +60,7 @@ class RequestRendererExample extends StatelessWidget {
       title: 'Request Renderer',
       localizationsDelegates: [
         FlutterI18nDelegate(translationLoader: FileTranslationLoader(basePath: 'assets/i18n')),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        ...GlobalMaterialLocalizations.delegates,
       ],
       supportedLocales: const [
         Locale('en'),
