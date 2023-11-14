@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +36,6 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 
         setState(() {
           _validationResult = result.value;
-          for (final item in controller.value!.items) {
-            log(item.toString());
-          }
         });
       });
     });
@@ -92,10 +87,17 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               controller: controller,
               onEdit: () => _addEditItem(),
               validationResult: _validationResult,
+              // selectAttribute: createDraftIdentityAttributeDVO as Future<AbstractAttribute> Function(),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Controller: ${defineControllerValue(controller.value)} '),
+              child: Column(
+                children: [
+                  Text('requestController: ${defineControllerValue(controller.value)}'),
+                  const SizedBox(height: 10),
+                  Text('validationResult: ${_validationResult.toString()} '),
+                ],
+              ),
             ),
             if (widget.localRequestDVO.isDecidable)
               Row(
@@ -115,6 +117,39 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<DraftAttributeDVO> createDraftIdentityAttributeDVO() async {
+    await Future.delayed(const Duration(seconds: 1));
+
+    return DraftIdentityAttributeDVO(
+      id: 'id',
+      name: 'name',
+      type: 'type',
+      content: const IdentityAttribute(
+        owner: 'owner',
+        value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
+      ),
+      owner: const IdentityDVO(
+        id: 'id',
+        name: 'name',
+        type: 'type',
+        realm: 'realm',
+        initials: 'initials',
+        isSelf: false,
+        hasRelationship: false,
+      ),
+      renderHints: RenderHints(
+        technicalType: RenderHintsTechnicalType.String,
+        editType: RenderHintsEditType.InputLike,
+      ),
+      valueHints: const ValueHints(),
+      valueType: 'valueType',
+      isOwn: false,
+      isDraft: false,
+      value: const DisplayNameAttributeValue(value: 'Alternative Display Name'),
+      tags: ['tags'],
     );
   }
 

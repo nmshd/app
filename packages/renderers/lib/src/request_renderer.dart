@@ -12,7 +12,7 @@ class RequestRenderer extends StatefulWidget {
   final LocalRequestDVO request;
   final VoidCallback? onEdit;
   final RequestValidationResultDTO? validationResult;
-  //same structure as items
+  final Future<AbstractAttribute> Function()? selectAttribute;
 
   const RequestRenderer({
     super.key,
@@ -20,6 +20,7 @@ class RequestRenderer extends StatefulWidget {
     this.onEdit,
     this.validationResult,
     this.controller,
+    this.selectAttribute,
   });
 
   @override
@@ -50,7 +51,13 @@ class _RequestRendererState extends State<RequestRenderer> {
         return RequestItemGroupRenderer(requestItemGroup: item, itemIndex: itemIndex, controller: widget.controller, onEdit: widget.onEdit);
       }
 
-      return RequestItemRenderer(item: item, itemIndex: itemIndex, controller: widget.controller, onEdit: widget.onEdit);
+      return RequestItemRenderer(
+        item: item,
+        itemIndex: itemIndex,
+        controller: widget.controller,
+        onEdit: widget.onEdit,
+        selectAttribute: widget.selectAttribute,
+      );
     }).toList();
 
     if (widget.request.response != null) {

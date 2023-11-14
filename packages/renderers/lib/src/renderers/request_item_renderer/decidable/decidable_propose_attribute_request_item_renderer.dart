@@ -9,12 +9,14 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
+  final Future<AbstractAttribute> Function()? selectAttribute;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
+    this.selectAttribute,
   });
 
   @override
@@ -22,14 +24,31 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableProposeAttributeRequestItemRendererState extends State<DecidableProposeAttributeRequestItemRenderer> {
+  Future<void> _loadSelectedAttribute() async {
+    final selectedAttribute = widget.selectAttribute?.call();
+    if (selectedAttribute != null) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: await selectedAttribute),
+      );
+    } else {
+      final attribute = switch (widget.item.attribute) {
+        final DraftIdentityAttributeDVO dvo => dvo.content,
+        final DraftRelationshipAttributeDVO dvo => dvo.content,
+      };
+
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
 
-    widget.controller?.writeAtIndex(
-      index: widget.itemIndex,
-      value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: widget.item.attribute.id),
-    );
+    _loadSelectedAttribute();
   }
 
   @override
