@@ -30,20 +30,10 @@ class ValueRendererListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (onUpdateCheckbox != null) ...[
-          Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
-        ],
-        ListTile(
-          title: ValueRenderer(
-            fieldName: fieldName,
-            renderHints: renderHints,
-            valueHints: valueHints,
-          ),
-          trailing: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)),
-        ),
-      ],
+    return ListTile(
+      leading: onUpdateCheckbox != null ? Checkbox(value: isChecked, onChanged: onUpdateCheckbox) : null,
+      title: ValueRenderer(fieldName: fieldName, renderHints: renderHints, valueHints: valueHints),
+      trailing: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)),
     );
   }
 }
