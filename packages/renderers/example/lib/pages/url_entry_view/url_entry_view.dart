@@ -41,13 +41,13 @@ class _UrlEntryViewState extends State<UrlEntryView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
-                onSubmitted: (value) => _onSubmit(content: value),
+                onSubmitted: _paused ? null : (value) => _onSubmit(content: value),
                 controller: _controller,
                 decoration: const InputDecoration(hintText: 'nmshd://...'),
               ),
               const SizedBox(height: 8.0),
               OutlinedButton(
-                onPressed: () => _onSubmit(content: _controller.text),
+                onPressed: _paused ? null : () => _onSubmit(content: _controller.text),
                 child: const Text('confirm'),
               ),
             ],
@@ -62,8 +62,8 @@ class _UrlEntryViewState extends State<UrlEntryView> {
 
     widget.onSubmit(
       content: content,
-      pause: () => _paused = true,
-      resume: () => _paused = false,
+      pause: () => setState(() => _paused = true),
+      resume: () => setState(() => _paused = false),
       context: context,
     );
   }
