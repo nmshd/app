@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
+import 'package:renderers/renderers.dart';
 
 import 'pages/home_screen.dart';
 import 'pages/onboarding_screen.dart';
@@ -17,7 +18,7 @@ void main() async {
 
   final logger = Logger(printer: SimplePrinter(colors: false));
   GetIt.I.registerSingleton(logger);
-  GetIt.I.registerSingleton(UrlLauncher());
+  GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
 
   final runtime = EnmeshedRuntime(
     logger: logger,
