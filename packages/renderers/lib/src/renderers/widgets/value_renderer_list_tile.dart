@@ -11,6 +11,8 @@ class ValueRendererListTile extends StatelessWidget {
   final ValueRendererController? controller;
   final Widget? trailing;
   final VoidCallback? onPressed;
+  final void Function(bool?)? onUpdateCheckbox;
+  final bool? isChecked;
 
   const ValueRendererListTile({
     super.key,
@@ -22,17 +24,26 @@ class ValueRendererListTile extends StatelessWidget {
     this.controller,
     this.trailing,
     this.onPressed,
+    this.onUpdateCheckbox,
+    this.isChecked,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: ValueRenderer(
-        fieldName: fieldName,
-        renderHints: renderHints,
-        valueHints: valueHints,
-      ),
-      trailing: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)),
+    return Column(
+      children: [
+        if (onUpdateCheckbox != null) ...[
+          Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
+        ],
+        ListTile(
+          title: ValueRenderer(
+            fieldName: fieldName,
+            renderHints: renderHints,
+            valueHints: valueHints,
+          ),
+          trailing: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)),
+        ),
+      ],
     );
   }
 }

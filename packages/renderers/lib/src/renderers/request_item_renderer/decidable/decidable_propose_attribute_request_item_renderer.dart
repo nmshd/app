@@ -24,6 +24,23 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableProposeAttributeRequestItemRendererState extends State<DecidableProposeAttributeRequestItemRenderer> {
+  bool isChecked = true;
+
+  void onUpdateCheckbox(bool? value) {
+    setState(() {
+      isChecked = value!;
+    });
+
+    if (isChecked) {
+      _loadSelectedAttribute();
+    } else {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
+      );
+    }
+  }
+
   Future<void> _loadSelectedAttribute() async {
     final selectedAttribute = widget.selectAttribute?.call();
     if (selectedAttribute != null) {
@@ -56,9 +73,14 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('(${widget.item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
+        Text('(${widget.item.type} )', style: const TextStyle(fontStyle: FontStyle.italic)),
         switch (widget.item.query) {
-          final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query, controller: widget.controller),
+          final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
+              query: query,
+              controller: widget.controller,
+              onUpdateCheckbox: onUpdateCheckbox,
+              isChecked: isChecked,
+            ),
           final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(query: query),
           final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyAttributeQueryRenderer(query: query),
           _ => throw Exception("Invalid type '${widget.item.query.type}'"),

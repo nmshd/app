@@ -12,8 +12,17 @@ class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
   final ProcessedIdentityAttributeQueryDVO query;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
+  final Function(bool?)? onUpdateCheckbox;
+  final bool? isChecked;
 
-  const ProcessedIdentityAttributeQueryRenderer({super.key, required this.query, this.controller, this.onEdit});
+  const ProcessedIdentityAttributeQueryRenderer({
+    super.key,
+    required this.query,
+    this.controller,
+    this.onEdit,
+    this.onUpdateCheckbox,
+    this.isChecked,
+  });
 
   @override
   State<ProcessedIdentityAttributeQueryRenderer> createState() => _ProcessedIdentityAttributeQueryRendererState();
@@ -42,6 +51,8 @@ class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdent
             renderHints: widget.query.renderHints,
             valueHints: widget.query.valueHints,
             controller: _valueController,
+            onUpdateCheckbox: widget.onUpdateCheckbox,
+            isChecked: widget.isChecked,
           )
         : switch (widget.query.results.first.value) {
             final IdentityAttributeValue value => IdentityAttributeValueRenderer(
