@@ -57,6 +57,7 @@ class _RequestRendererState extends State<RequestRenderer> {
         controller: widget.controller,
         onEdit: widget.onEdit,
         selectAttribute: widget.selectAttribute,
+        requestStatus: widget.request.status,
       );
     }).toList();
 

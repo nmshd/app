@@ -10,6 +10,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
   final Future<AbstractAttribute> Function()? selectAttribute;
+  final LocalRequestStatus? requestStatus;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
@@ -17,6 +18,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
     this.controller,
     required this.itemIndex,
     this.selectAttribute,
+    this.requestStatus,
   });
 
   @override
@@ -80,6 +82,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
               controller: widget.controller,
               onUpdateCheckbox: onUpdateCheckbox,
               isChecked: isChecked,
+              showCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted ? false : true,
             ),
           final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(query: query),
           final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyAttributeQueryRenderer(query: query),

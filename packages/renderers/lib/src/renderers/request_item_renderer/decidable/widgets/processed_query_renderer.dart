@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
 import 'package:value_renderer/value_renderer.dart';
 
-import '/src/request_renderer_controller.dart';
 import '../../../widgets/value_renderer_list_tile.dart';
+import '/src/request_renderer_controller.dart';
 import 'identity_attribute_value_renderer.dart';
 import 'relationship_attribute_value_renderer.dart';
 
@@ -14,6 +14,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
   final VoidCallback? onEdit;
   final Function(bool?)? onUpdateCheckbox;
   final bool? isChecked;
+  final bool? showCheckbox;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -22,6 +23,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
     this.onEdit,
     this.onUpdateCheckbox,
     this.isChecked,
+    this.showCheckbox,
   });
 
   @override
@@ -53,6 +55,7 @@ class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdent
             controller: _valueController,
             onUpdateCheckbox: widget.onUpdateCheckbox,
             isChecked: widget.isChecked,
+            showCheckbox: widget.showCheckbox!,
           )
         : switch (widget.query.results.first.value) {
             final IdentityAttributeValue value => IdentityAttributeValueRenderer(

@@ -13,6 +13,7 @@ class ValueRendererListTile extends StatelessWidget {
   final VoidCallback? onPressed;
   final void Function(bool?)? onUpdateCheckbox;
   final bool? isChecked;
+  final bool showCheckbox;
 
   const ValueRendererListTile({
     super.key,
@@ -26,12 +27,13 @@ class ValueRendererListTile extends StatelessWidget {
     this.onPressed,
     this.onUpdateCheckbox,
     this.isChecked,
+    required this.showCheckbox,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: onUpdateCheckbox != null ? Checkbox(value: isChecked, onChanged: onUpdateCheckbox) : null,
+      leading: showCheckbox ? Checkbox(value: isChecked, onChanged: onUpdateCheckbox) : null,
       title: ValueRenderer(fieldName: fieldName, renderHints: renderHints, valueHints: valueHints),
       trailing: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)),
     );

@@ -12,6 +12,7 @@ class RequestItemRenderer extends StatelessWidget {
   final VoidCallback? onEdit;
   final RequestItemIndex itemIndex;
   final Future<AbstractAttribute> Function()? selectAttribute;
+  final LocalRequestStatus? requestStatus;
 
   const RequestItemRenderer({
     super.key,
@@ -20,6 +21,7 @@ class RequestItemRenderer extends StatelessWidget {
     this.onEdit,
     required this.itemIndex,
     this.selectAttribute,
+    this.requestStatus,
   });
 
   @override
@@ -28,8 +30,13 @@ class RequestItemRenderer extends StatelessWidget {
       return switch (item) {
         final DecidableReadAttributeRequestItemDVO dvo =>
           DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit, itemIndex: itemIndex),
-        final DecidableProposeAttributeRequestItemDVO dvo =>
-          DecidableProposeAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, selectAttribute: selectAttribute),
+        final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+            selectAttribute: selectAttribute,
+            requestStatus: requestStatus,
+          ),
         final DecidableCreateAttributeRequestItemDVO dvo =>
           DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
         final DecidableShareAttributeRequestItemDVO dvo =>
