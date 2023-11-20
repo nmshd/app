@@ -1,9 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
+import 'package:renderers/src/renderers/request_item_renderer/widgets/draft_attribute_renderer.dart';
 
 import '/src/request_item_index.dart';
 import '/src/request_renderer_controller.dart';
-import 'widgets/processed_query_renderer.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;
@@ -27,6 +27,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
 
 class _DecidableProposeAttributeRequestItemRendererState extends State<DecidableProposeAttributeRequestItemRenderer> {
   bool isChecked = true;
+  AbstractAttribute? newAttribute;
 
   void onUpdateCheckbox(bool? value) {
     setState(() {
@@ -34,7 +35,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     });
 
     if (isChecked) {
-      _loadSelectedAttribute();
+      loadSelectedAttribute();
     } else {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
@@ -43,12 +44,16 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     }
   }
 
-  Future<void> _loadSelectedAttribute() async {
-    final selectedAttribute = widget.selectAttribute?.call();
+  Future<void> loadSelectedAttribute() async {
+    final selectedAttribute = await widget.selectAttribute?.call();
     if (selectedAttribute != null) {
+      setState(() {
+        newAttribute = selectedAttribute;
+      });
+
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
-        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: await selectedAttribute),
+        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: newAttribute!),
       );
     } else {
       final attribute = switch (widget.item.attribute) {
@@ -67,29 +72,17 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   void initState() {
     super.initState();
 
-    _loadSelectedAttribute();
+    loadSelectedAttribute();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('(${widget.item.type} )', style: const TextStyle(fontStyle: FontStyle.italic)),
-        switch (widget.item.query) {
-          final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
-              query: query,
-              controller: widget.controller,
-              onUpdateCheckbox: onUpdateCheckbox,
-              isChecked: isChecked,
-              showCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted ? false : true,
-            ),
-          final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(query: query),
-          final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyAttributeQueryRenderer(query: query),
-          _ => throw Exception("Invalid type '${widget.item.query.type}'"),
-        },
-        const SizedBox(height: 30),
-      ],
+    return DraftAttributeRenderer(
+      draftAttribute: widget.item.attribute,
+      onUpdateCheckbox: onUpdateCheckbox,
+      isChecked: isChecked,
+      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+      selectedAttribute: newAttribute,
     );
   }
 }

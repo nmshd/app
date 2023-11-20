@@ -53,9 +53,9 @@ class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdent
             renderHints: widget.query.renderHints,
             valueHints: widget.query.valueHints,
             controller: _valueController,
-            onUpdateCheckbox: widget.onUpdateCheckbox,
-            isChecked: widget.isChecked,
-            showCheckbox: widget.showCheckbox!,
+            // onUpdateCheckbox: widget.onUpdateCheckbox,
+            // isChecked: widget.isChecked,
+            // showCheckbox: widget.showCheckbox!,
           )
         : switch (widget.query.results.first.value) {
             final IdentityAttributeValue value => IdentityAttributeValueRenderer(

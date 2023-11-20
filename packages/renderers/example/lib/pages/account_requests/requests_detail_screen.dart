@@ -87,7 +87,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               controller: controller,
               onEdit: () => _addEditItem(),
               validationResult: _validationResult,
-              // selectAttribute: createDraftIdentityAttributeDVO as Future<AbstractAttribute> Function(),
+              selectAttribute: createIdentityAttributeDVO,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -108,7 +108,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                     child: const Text('cancel'),
                   ),
                   FilledButton(
-                    onPressed: () {},
+                    onPressed: _validationResult != null && _validationResult!.isSuccess ? () {} : null,
                     style: OutlinedButton.styleFrom(minimumSize: const Size(100.0, 36.0)),
                     child: const Text('save'),
                   ),
@@ -120,36 +120,12 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     );
   }
 
-  Future<DraftAttributeDVO> createDraftIdentityAttributeDVO() async {
-    await Future.delayed(const Duration(seconds: 1));
+  Future<IdentityAttribute> createIdentityAttributeDVO() async {
+    await Future.delayed(const Duration(seconds: 3));
 
-    return DraftIdentityAttributeDVO(
-      id: 'id',
-      name: 'name',
-      type: 'type',
-      content: const IdentityAttribute(
-        owner: 'owner',
-        value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
-      ),
-      owner: const IdentityDVO(
-        id: 'id',
-        name: 'name',
-        type: 'type',
-        realm: 'realm',
-        initials: 'initials',
-        isSelf: false,
-        hasRelationship: false,
-      ),
-      renderHints: RenderHints(
-        technicalType: RenderHintsTechnicalType.String,
-        editType: RenderHintsEditType.InputLike,
-      ),
-      valueHints: const ValueHints(),
-      valueType: 'valueType',
-      isOwn: false,
-      isDraft: false,
-      value: const DisplayNameAttributeValue(value: 'Alternative Display Name'),
-      tags: ['tags'],
+    return const IdentityAttribute(
+      owner: '',
+      value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
     );
   }
 
