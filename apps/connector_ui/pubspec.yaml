@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   get_it: ^7.6.4
-  shared_preferences: ^2.2.0
+  shared_preferences: ^2.2.2
   window_size:
     git:
       url: https://github.com/google/flutter-desktop-embedding.git
@@ -22,7 +22,7 @@ dependencies:
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
-  flutter_lints: ^2.0.2
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
 
