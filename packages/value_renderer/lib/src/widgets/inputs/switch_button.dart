@@ -5,17 +5,13 @@ import '../../value_renderer.dart';
 
 class SwitchInput extends FormField<bool> {
   SwitchInput({
-    Key? key,
+    super.key,
     ValueRendererController? controller,
     required String fieldName,
-    bool? initialValue,
-    FormFieldSetter<bool>? onSaved,
-    FormFieldValidator<bool>? validator,
+    super.initialValue,
+    super.onSaved,
+    super.validator,
   }) : super(
-          key: key,
-          initialValue: initialValue,
-          onSaved: onSaved,
-          validator: validator,
           builder: (FormFieldState<bool> field) {
             controller?.value = field.value;
 
