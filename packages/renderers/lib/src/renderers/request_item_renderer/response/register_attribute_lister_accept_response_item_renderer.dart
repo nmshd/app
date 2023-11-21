@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/custom_list_tile.dart';
 
-class RegisterAttributeAcceptResponseItemRenderer extends StatelessWidget {
+class RegisterAttributeListenerAcceptResponseItemRenderer extends StatelessWidget {
   final RegisterAttributeListenerAcceptResponseItemDVO item;
 
-  const RegisterAttributeAcceptResponseItemRenderer({super.key, required this.item});
+  const RegisterAttributeListenerAcceptResponseItemRenderer({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
     return CustomListTile(
-      title: item.type,
+      title: 'i18n://attributes.values.${item.type}._title',
       description: item.listener.name,
     );
   }
