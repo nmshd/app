@@ -34,7 +34,7 @@ class RequestRenderer extends StatelessWidget {
       responseItems = request.response!.content.items.mapIndexed((index, item) {
         if (item is ResponseItemGroupDVO) {
           final requestItemGroup = request.items[index] as RequestItemGroupDVO;
-          return ResponseItemGroupRenderer(responseItemGroup: item, requestItem: requestItemGroup);
+          return ResponseItemGroupRenderer(responseItemGroup: item, requestItemGroup: requestItemGroup);
         }
 
         return ResponseItemRenderer(responseItem: item, requestItem: request.items[index]);

@@ -6,16 +6,16 @@ import 'response_item_renderer.dart';
 
 class ResponseItemGroupRenderer extends StatelessWidget {
   final ResponseItemGroupDVO responseItemGroup;
-  final RequestItemGroupDVO requestItem;
+  final RequestItemGroupDVO requestItemGroup;
 
-  const ResponseItemGroupRenderer({super.key, required this.responseItemGroup, required this.requestItem});
+  const ResponseItemGroupRenderer({super.key, required this.responseItemGroup, required this.requestItemGroup});
 
   @override
   Widget build(BuildContext context) {
     final responseItems = responseItemGroup.items
         .mapIndexed((index, item) => ResponseItemRenderer(
               responseItem: item,
-              requestItem: requestItem.items[index],
+              requestItem: requestItemGroup.items[index],
             ))
         .toList();
 
