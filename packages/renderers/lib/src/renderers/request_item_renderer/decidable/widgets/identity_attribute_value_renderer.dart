@@ -6,12 +6,11 @@ import '../../../widgets/complex_attribute_list_tile.dart';
 import '../../../widgets/custom_list_tile.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
-  final ProcessedIdentityAttributeQueryDVO query;
   final IdentityAttributeValue value;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
 
-  const IdentityAttributeValueRenderer({super.key, required this.value, required this.query, required this.controller, this.onEdit});
+  const IdentityAttributeValueRenderer({super.key, required this.value, required this.controller, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
