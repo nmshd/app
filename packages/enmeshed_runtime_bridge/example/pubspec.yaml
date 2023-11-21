@@ -12,7 +12,7 @@ dependencies:
   enmeshed_types: ^1.0.0
   flutter:
     sdk: flutter
-  flutter_inappwebview: ^5.7.2+3
+  flutter_inappwebview: ^5.8.0
   mobile_scanner: ^3.5.2
   modal_bottom_sheet: ^3.0.0-pre
   permission_handler: ^11.1.0
