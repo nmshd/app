@@ -37,7 +37,7 @@ class RequestRenderer extends StatelessWidget {
           return ResponseItemGroupRenderer(responseItemGroup: item, requestItem: requestItemGroup);
         }
 
-        return ResponseItemRenderer(item: item, requestItem: request.items[index]);
+        return ResponseItemRenderer(responseItem: item, requestItem: request.items[index]);
       }).toList();
     }
 

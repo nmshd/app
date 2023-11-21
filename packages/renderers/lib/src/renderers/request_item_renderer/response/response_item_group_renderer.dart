@@ -12,11 +12,12 @@ class ResponseItemGroupRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final responseItems = responseItemGroup.items.mapIndexed(
-      (index, item) {
-        return ResponseItemRenderer(item: item, requestItem: requestItem.items[index]);
-      },
-    ).toList();
+    final responseItems = responseItemGroup.items
+        .mapIndexed((index, item) => ResponseItemRenderer(
+              responseItem: item,
+              requestItem: requestItem.items[index],
+            ))
+        .toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
