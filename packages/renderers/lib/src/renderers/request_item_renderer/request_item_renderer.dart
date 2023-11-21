@@ -9,7 +9,7 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
-  final bool? isRejected;
+  final bool isRejected;
 
   const RequestItemRenderer({super.key, required this.item, this.controller, this.onEdit, this.isRejected = false});
 
@@ -33,7 +33,7 @@ class RequestItemRenderer extends StatelessWidget {
     return switch (item) {
       final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(controller: controller, item: dvo),
       final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(controller: controller, item: dvo),
-      final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected!),
+      final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected),
       final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(controller: controller, item: dvo),
       final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(controller: controller, item: dvo),
       final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(controller: controller, item: dvo),

@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:renderers/src/renderers/request_item_renderer/response/reject_response_item_renderer.dart';
 
-import '../request_item_renderer.dart';
 import 'response.dart';
 
 class ResponseItemRenderer extends StatelessWidget {
@@ -20,11 +20,8 @@ class ResponseItemRenderer extends StatelessWidget {
       final ShareAttributeAcceptResponseItemDVO dvo => ShareAttributeAcceptResponseItemRenderer(item: dvo),
       final RegisterAttributeListenerAcceptResponseItemDVO dvo => RegisterAttributeListenerAcceptResponseItemRenderer(item: dvo),
       final ErrorResponseItemDVO dvo => Text(dvo.type),
-      // final RejectResponseItemDVO => RequestItemRenderer(item: requestItem, isRejected: true),
-      _ => switch (responseItem.type) {
-          'RejectResponseItemDVO' => RequestItemRenderer(item: requestItem, isRejected: true),
-          _ => throw Exception("Invalid type '${responseItem.type}'"),
-        }
+      final RejectResponseItemDVO _ => RejectResponseItemRenderer(item: requestItem),
+      _ => throw Exception("Invalid type '${responseItem.type}'"),
     };
   }
 }
