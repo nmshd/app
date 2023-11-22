@@ -86,9 +86,9 @@ class AccountCreationScreen extends StatelessWidget {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => WillPopScope(
-        onWillPop: () async => false,
-        child: const Center(
+      builder: (_) => const PopScope(
+        canPop: false,
+        child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
