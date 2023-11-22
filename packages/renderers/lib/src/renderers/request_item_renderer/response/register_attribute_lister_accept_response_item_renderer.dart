@@ -11,7 +11,7 @@ class RegisterAttributeListenerAcceptResponseItemRenderer extends StatelessWidge
   @override
   Widget build(BuildContext context) {
     return CustomListTile(
-      title: 'i18n://attributes.values.${item.type}._title',
+      title: item.type,
       description: item.listener.name,
     );
   }
