@@ -4,9 +4,11 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../arbitraty_json.dart';
+import '../notification.dart';
 import '../response.dart';
 
 part 'mail.dart';
+part 'message_content_notification.dart';
 part 'response_wrapper.dart';
 
 abstract class MessageContent extends Equatable {
@@ -18,6 +20,7 @@ abstract class MessageContent extends Equatable {
     return switch (type) {
       'Mail' => Mail.fromJson(json),
       'ResponseWrapper' => ResponseWrapper.fromJson(json),
+      'Notification' => MessageContentNotification.fromJson(json),
       _ => ArbitraryMessageContent(json),
     };
   }
