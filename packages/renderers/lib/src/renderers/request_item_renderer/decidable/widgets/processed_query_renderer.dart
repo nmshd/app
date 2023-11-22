@@ -15,37 +15,41 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return query.results.isEmpty
-        ? Column(
-            children: [
-              ValueRendererListTile(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints),
-              const SizedBox(height: 16),
-            ],
-          )
-        : IdentityAttributeValueRenderer(
-            query: query,
-            value: query.results.first.value as IdentityAttributeValue,
-            controller: controller,
-            onEdit: onEdit,
-          );
+    if (query.results.isEmpty) {
+      return ValueRendererListTile(
+        fieldName: switch (query.valueType) {
+          'Affiliation' ||
+          'BirthDate' ||
+          'BirthPlace' ||
+          'DeliveryBoxAddress' ||
+          'PersonName' ||
+          'PostOfficeBoxAddress' ||
+          'StreetAddress' =>
+            'i18n://attributes.values.${query.valueType}._title',
+          _ => 'i18n://dvo.attribute.name.${query.valueType[0].toUpperCase() + query.valueType.substring(1)}',
+        },
+        renderHints: query.renderHints,
+        valueHints: query.valueHints,
+      );
+    }
+    return IdentityAttributeValueRenderer(
+      query: query,
+      value: query.results.first.value as IdentityAttributeValue,
+      controller: controller,
+      onEdit: onEdit,
+    );
   }
 }
 
 class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final ProcessedRelationshipAttributeQueryDVO query;
   final RequestRendererController? controller;
-  final VoidCallback? onEdit;
 
-  const ProcessedRelationshipAttributeQueryRenderer({super.key, required this.query, this.controller, this.onEdit});
+  const ProcessedRelationshipAttributeQueryRenderer({super.key, required this.query, this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ValueRendererListTile(fieldName: query.name, renderHints: query.renderHints, valueHints: query.valueHints, shouldTranslate: false),
-        const SizedBox(height: 16),
-      ],
-    );
+    return ValueRendererListTile(fieldName: query.name, renderHints: query.renderHints, valueHints: query.valueHints);
   }
 }
 

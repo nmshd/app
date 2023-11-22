@@ -15,7 +15,6 @@ class ComplexRenderer extends StatefulWidget {
   final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
-  final bool shouldTranslate;
 
   const ComplexRenderer({
     super.key,
@@ -27,7 +26,6 @@ class ComplexRenderer extends StatefulWidget {
     required this.initialValue,
     required this.renderHints,
     required this.valueHints,
-    required this.shouldTranslate,
   });
 
   @override
@@ -71,10 +69,10 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    final fieldName = widget.shouldTranslate ? 'i18n://attributes.values.${widget.fieldName}._title' : widget.fieldName;
+    final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
-    if (widget.initialValue is BirthDateAttributeValue || widget.fieldName == 'BirthDate') {
+    if (widget.initialValue is BirthDateAttributeValue || fieldName == 'BirthDate') {
       return DatepickerFormField(
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,
@@ -93,36 +91,32 @@ class _ComplexRendererState extends State<ComplexRenderer> {
           fieldName,
           style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E)),
         ),
-        const SizedBox(
-          height: 12,
-        ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: widget.renderHints.propertyHints?.values.length,
-          itemBuilder: (context, index) {
-            final key = widget.renderHints.propertyHints!.keys.elementAt(index);
-            final translatedKey = 'i18n://attributes.values.${widget.fieldName}.$key.label';
-            final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
-            final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
-            final itemRenderHints = widget.renderHints.propertyHints![key];
-            final itemValueHints = widget.valueHints.propertyHints![key];
+        const SizedBox(height: 12),
+        if (widget.renderHints.propertyHints != null)
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: widget.renderHints.propertyHints!.values.length,
+            itemBuilder: (context, index) {
+              final key = widget.renderHints.propertyHints!.keys.elementAt(index);
+              final typeIndex = fieldName.lastIndexOf('.');
+              final translatedKey =
+                  typeIndex != -1 ? '${fieldName.substring(0, typeIndex)}.$key.label' : 'i18n://attributes.values.$fieldName.$key.label';
+              final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
+              final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
+              final itemRenderHints = widget.renderHints.propertyHints![key];
+              final itemValueHints = widget.valueHints.propertyHints![key];
 
-            return Column(
-              children: [
-                ValueRenderer(
-                  initialValue: itemInitialValue,
-                  renderHints: itemRenderHints!,
-                  valueHints: itemValueHints!,
-                  fieldName: translatedKey,
-                  controller: controllers?[key],
-                  shouldTranslate: widget.shouldTranslate,
-                ),
-                const SizedBox(height: 16),
-              ],
-            );
-          },
-        ),
+              return ValueRenderer(
+                initialValue: itemInitialValue,
+                renderHints: itemRenderHints!,
+                valueHints: itemValueHints!,
+                fieldName: translatedKey,
+                controller: controllers?[key],
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(height: 16),
+          ),
       ],
     );
   }

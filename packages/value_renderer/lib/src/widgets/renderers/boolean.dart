@@ -34,8 +34,7 @@ class BooleanRenderer extends StatelessWidget {
     }
 
     final bool? initialBoolValue = initialValue?.toJson()['value'];
-    ValueHintsDefaultValueBool? valueHintsDefaultValue;
-    if (initialBoolValue != null) valueHintsDefaultValue = ValueHintsDefaultValueBool(initialBoolValue);
+    final valueHintsDefaultValue = initialBoolValue != null ? ValueHintsDefaultValueBool(initialBoolValue) : null;
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
