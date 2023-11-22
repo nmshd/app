@@ -15,36 +15,37 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return query.results.isEmpty
-        ? ValueRendererListTile(
-            fieldName: switch (query.valueType) {
-              'Affiliation' => 'i18n://attributes.values.${query.valueType}._title',
-              'BirthDate' => 'i18n://attributes.values.${query.valueType}._title',
-              'BirthPlace' => 'i18n://attributes.values.${query.valueType}._title',
-              'DeliveryBoxAddress' => 'i18n://attributes.values.${query.valueType}._title',
-              'PersonName' => 'i18n://attributes.values.${query.valueType}._title',
-              'PostOfficeBoxAddress' => 'i18n://attributes.values.${query.valueType}._title',
-              'StreetAddress' => 'i18n://attributes.values.${query.valueType}._title',
-              _ => 'i18n://dvo.attribute.name.${query.valueType[0].toUpperCase() + query.valueType.substring(1)}',
-            },
-            renderHints: query.renderHints,
-            valueHints: query.valueHints,
-          )
-        : IdentityAttributeValueRenderer(
-            query: query,
-            value: query.results.first.value as IdentityAttributeValue,
-            controller: controller,
-            onEdit: onEdit,
-          );
+    if (query.results.isEmpty) {
+      return ValueRendererListTile(
+        fieldName: switch (query.valueType) {
+          'Affiliation' ||
+          'BirthDate' ||
+          'BirthPlace' ||
+          'DeliveryBoxAddress' ||
+          'PersonName' ||
+          'PostOfficeBoxAddress' ||
+          'StreetAddress' =>
+            'i18n://attributes.values.${query.valueType}._title',
+          _ => 'i18n://dvo.attribute.name.${query.valueType[0].toUpperCase() + query.valueType.substring(1)}',
+        },
+        renderHints: query.renderHints,
+        valueHints: query.valueHints,
+      );
+    }
+    return IdentityAttributeValueRenderer(
+      query: query,
+      value: query.results.first.value as IdentityAttributeValue,
+      controller: controller,
+      onEdit: onEdit,
+    );
   }
 }
 
 class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final ProcessedRelationshipAttributeQueryDVO query;
   final RequestRendererController? controller;
-  final VoidCallback? onEdit;
 
-  const ProcessedRelationshipAttributeQueryRenderer({super.key, required this.query, this.controller, this.onEdit});
+  const ProcessedRelationshipAttributeQueryRenderer({super.key, required this.query, this.controller});
 
   @override
   Widget build(BuildContext context) {
