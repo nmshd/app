@@ -69,9 +69,10 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    final translatedText = widget.fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName.substring(7)) : widget.fieldName;
+    final fieldName = widget.fieldName;
+    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
-    if (widget.initialValue is BirthDateAttributeValue || widget.fieldName == 'BirthDate') {
+    if (widget.initialValue is BirthDateAttributeValue || fieldName == 'BirthDate') {
       return DatepickerFormField(
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,
@@ -87,7 +88,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
           height: 12,
         ),
         TranslatedText(
-          widget.fieldName,
+          fieldName,
           style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E)),
         ),
         const SizedBox(height: 12),
@@ -98,10 +99,9 @@ class _ComplexRendererState extends State<ComplexRenderer> {
             itemCount: widget.renderHints.propertyHints!.values.length,
             itemBuilder: (context, index) {
               final key = widget.renderHints.propertyHints!.keys.elementAt(index);
-              final typeIndex = widget.fieldName.lastIndexOf('.');
-              final translatedKey = typeIndex != -1
-                  ? '${widget.fieldName.substring(0, typeIndex)}.$key.label'
-                  : 'i18n://attributes.values.${widget.fieldName}.$key.label';
+              final typeIndex = fieldName.lastIndexOf('.');
+              final translatedKey =
+                  typeIndex != -1 ? '${fieldName.substring(0, typeIndex)}.$key.label' : 'i18n://attributes.values.$fieldName.$key.label';
               final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
               final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
               final itemRenderHints = widget.renderHints.propertyHints![key];
