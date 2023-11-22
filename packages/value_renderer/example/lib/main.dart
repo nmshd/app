@@ -114,12 +114,11 @@ class _DrawerButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const _DrawerButton({
-    Key? key,
     required this.icon,
     required this.title,
     this.isSelected = false,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

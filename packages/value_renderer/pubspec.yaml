@@ -3,8 +3,8 @@ description: A new Flutter package project.
 version: 1.0.0
 
 environment:
-  sdk: ">=3.0.5 <4.0.0"
-  flutter: ">=1.17.0"
+  sdk: "^3.2.0"
+  flutter: ">=3.16.0"
 
 dependencies:
   enmeshed_types: 1.0.0
@@ -15,6 +15,6 @@ dependencies:
   translated_text: 1.0.0
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter

@@ -6,7 +6,7 @@ final DateTime defaultLastDate = DateTime(2100);
 
 class DatepickerInput extends StatelessWidget {
   DatepickerInput({
-    Key? key,
+    super.key,
     DateFormat? dateFormat,
     this.dateTextStyle,
     this.decoration,
@@ -19,8 +19,7 @@ class DatepickerInput extends StatelessWidget {
     required this.selectedDate,
   })  : dateFormat = DateFormat.yMMMMd(),
         firstDate = firstDate ?? defaultFirstDate,
-        lastDate = lastDate ?? defaultLastDate,
-        super(key: key);
+        lastDate = lastDate ?? defaultLastDate;
 
   final DateFormat dateFormat;
   final TextStyle? dateTextStyle;
@@ -94,13 +93,12 @@ class DatepickerInput extends StatelessWidget {
 
 class _InputDropdown extends StatefulWidget {
   const _InputDropdown({
-    Key? key,
     this.decoration,
     required this.text,
     required this.isEmpty,
     this.onPressed,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   final InputDecoration? decoration;
   final bool isEmpty;
