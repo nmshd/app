@@ -3,20 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import '/src/url_launcher.dart';
 import '../../widgets/complex_attribute_list_tile.dart';
 import '../../widgets/custom_list_tile.dart';
+import '/src/url_launcher.dart';
 
 class DraftAttributeRenderer extends StatelessWidget {
-  final dynamic draftAttribute;
+  final DraftAttributeDVO draftAttribute;
   final bool? isRejected;
 
   const DraftAttributeRenderer({super.key, required this.draftAttribute, this.isRejected});
 
   @override
   Widget build(BuildContext context) {
-    if (draftAttribute.content is IdentityAttribute) {
-      final attribute = draftAttribute.content as IdentityAttribute;
+    final attributeContent = switch (draftAttribute) {
+      final DraftIdentityAttributeDVO item => item.content,
+      final DraftRelationshipAttributeDVO item => item.content,
+    };
+
+    if (attributeContent is IdentityAttribute) {
+      final attribute = attributeContent;
       final attributeValueMap = attribute.value.toJson();
 
       final List<({String label, String value})> fields = attributeValueMap.entries
@@ -32,8 +37,8 @@ class DraftAttributeRenderer extends StatelessWidget {
       );
     }
 
-    if (draftAttribute.content is RelationshipAttribute) {
-      final attribute = draftAttribute.content as RelationshipAttribute;
+    if (attributeContent is RelationshipAttribute) {
+      final attribute = attributeContent;
       final attributeValueMap = attribute.value.toJson();
 
       return switch (attribute.value) {
@@ -93,7 +98,7 @@ class AttributeRenderer extends StatelessWidget {
     if (attributeValueMap.length == 2) {
       return CustomListTile(
         title: customTitle,
-        description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
+        description: isRejected != null && isRejected == true ? null : attributeValueMap['value']?.toString(),
       );
     }
 
