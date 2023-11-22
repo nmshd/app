@@ -9,7 +9,6 @@ class ValueRendererListTile extends StatelessWidget {
   final InputDecoration? decoration;
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
-  final Widget? trailing;
   final VoidCallback? onPressed;
 
   const ValueRendererListTile({
@@ -20,7 +19,6 @@ class ValueRendererListTile extends StatelessWidget {
     this.decoration,
     this.initialValue,
     this.controller,
-    this.trailing,
     this.onPressed,
   });
 
@@ -38,7 +36,7 @@ class ValueRendererListTile extends StatelessWidget {
               initialValue: initialValue,
             ),
           ),
-          SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right)))
+          SizedBox(width: 50, child: IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right)))
         ],
       ),
     );
