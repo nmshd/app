@@ -95,10 +95,10 @@ class AttributeRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (attributeValueMap.length == 2) {
+    if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: customTitle,
-        description: isRejected != null && isRejected == true ? null : attributeValueMap['value']?.toString(),
+        description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
       );
     }
 
