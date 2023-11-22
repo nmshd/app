@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../abstract_attribute.dart';
+
 part 'notification_item.g.dart';
 
 abstract class NotificationItem extends Equatable {
@@ -31,10 +33,12 @@ class GenericNotificationItem extends NotificationItem {
 class PeerSharedAttributeSucceededNotificationItem extends NotificationItem {
   final String predecessorId;
   final String successorId;
+  final AbstractAttribute successorContent;
 
   const PeerSharedAttributeSucceededNotificationItem({
     required this.predecessorId,
     required this.successorId,
+    required this.successorContent,
   });
 
   factory PeerSharedAttributeSucceededNotificationItem.fromJson(Map json) =>

@@ -10,9 +10,11 @@ PeerSharedAttributeSucceededNotificationItem _$PeerSharedAttributeSucceededNotif
     PeerSharedAttributeSucceededNotificationItem(
       predecessorId: json['predecessorId'] as String,
       successorId: json['successorId'] as String,
+      successorContent: AbstractAttribute.fromJson(json['successorContent'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PeerSharedAttributeSucceededNotificationItemToJson(PeerSharedAttributeSucceededNotificationItem instance) => <String, dynamic>{
       'predecessorId': instance.predecessorId,
       'successorId': instance.successorId,
+      'successorContent': instance.successorContent.toJson(),
     };
