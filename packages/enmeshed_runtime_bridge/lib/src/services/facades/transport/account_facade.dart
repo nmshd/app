@@ -4,6 +4,15 @@ import '../abstract_evaluator.dart';
 import '../handle_call_async_js_result.dart';
 import '../result.dart';
 
+enum AccountFacadePushNotificationEnvironment {
+  production._('Production'),
+  development._('Development');
+
+  final String name;
+
+  const AccountFacadePushNotificationEnvironment._(this.name);
+}
+
 class AccountFacade {
   final AbstractEvaluator _evaluator;
   AccountFacade(this._evaluator);
@@ -34,6 +43,9 @@ class AccountFacade {
     required String handle,
     required String installationId,
     required String platform,
+
+    /// will only be used for iOS, defaults to 'production' if not provided
+    required AccountFacadePushNotificationEnvironment? environment,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.registerPushNotificationToken(request)
@@ -44,6 +56,7 @@ class AccountFacade {
           'handle': handle,
           'installationId': installationId,
           'platform': platform,
+          if (environment != null) 'environment': environment.name,
         },
       },
     );

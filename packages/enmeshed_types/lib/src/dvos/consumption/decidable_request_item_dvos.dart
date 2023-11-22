@@ -21,6 +21,7 @@ sealed class DecidableRequestItemDVODerivation extends RequestItemDVODerivation 
         'DecidableShareAttributeRequestItemDVO' => DecidableShareAttributeRequestItemDVO.fromJson(json),
         'DecidableAuthenticationRequestItemDVO' => DecidableAuthenticationRequestItemDVO.fromJson(json),
         'DecidableConsentRequestItemDVO' => DecidableConsentRequestItemDVO.fromJson(json),
+        'DecidableFreeTextRequestItemDVO' => DecidableFreeTextRequestItemDVO.fromJson(json),
         'DecidableRegisterAttributeListenerRequestItemDVO' => DecidableRegisterAttributeListenerRequestItemDVO.fromJson(json),
         _ => throw Exception("Invalid type '${json['type']}'"),
       };
@@ -160,6 +161,27 @@ class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
   factory DecidableConsentRequestItemDVO.fromJson(Map json) => _$DecidableConsentRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableConsentRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class DecidableFreeTextRequestItemDVO extends DecidableRequestItemDVODerivation {
+  final String freeText;
+
+  const DecidableFreeTextRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    required this.freeText,
+  }) : super(type: 'DecidableFreeTextRequestItemDVO', isDecidable: true);
+
+  factory DecidableFreeTextRequestItemDVO.fromJson(Map json) => _$DecidableFreeTextRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$DecidableFreeTextRequestItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)
