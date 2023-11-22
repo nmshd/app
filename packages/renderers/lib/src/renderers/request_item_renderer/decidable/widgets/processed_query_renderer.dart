@@ -26,7 +26,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
           'PostOfficeBoxAddress' ||
           'StreetAddress' =>
             'i18n://attributes.values.${query.valueType}._title',
-          _ => 'i18n://dvo.attribute.name.${query.valueType[0].toUpperCase() + query.valueType.substring(1)}',
+          _ => 'i18n://dvo.attribute.name.${query.valueType}',
         },
         renderHints: query.renderHints,
         valueHints: query.valueHints,
