@@ -40,8 +40,7 @@ class NumberRenderer extends StatelessWidget {
     }
 
     final num? initialNumberValue = initialValue?.toJson()['value'];
-    ValueHintsDefaultValueNum? valueHintsDefaultValue;
-    if (initialNumberValue != null) valueHintsDefaultValue = ValueHintsDefaultValueNum(initialNumberValue);
+    final valueHintsDefaultValue = initialNumberValue != null ? ValueHintsDefaultValueNum(initialNumberValue) : null;
 
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
