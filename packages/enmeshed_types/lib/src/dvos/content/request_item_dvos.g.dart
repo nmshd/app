@@ -79,6 +79,45 @@ Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(ReadAttributeRequestIte
   return val;
 }
 
+FreeTextRequestItemDVO _$FreeTextRequestItemDVOFromJson(Map<String, dynamic> json) => FreeTextRequestItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      mustBeAccepted: json['mustBeAccepted'] as bool,
+      isDecidable: json['isDecidable'] as bool,
+      response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      freeText: json['freeText'] as String,
+    );
+
+Map<String, dynamic> _$FreeTextRequestItemDVOToJson(FreeTextRequestItemDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
+  val['isDecidable'] = instance.isDecidable;
+  writeNotNull('response', instance.response?.toJson());
+  val['freeText'] = instance.freeText;
+  return val;
+}
+
 ProposeAttributeRequestItemDVO _$ProposeAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => ProposeAttributeRequestItemDVO(
       id: json['id'] as String,
       name: json['name'] as String,
@@ -279,6 +318,45 @@ Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instanc
   writeNotNull('response', instance.response?.toJson());
   val['consent'] = instance.consent;
   writeNotNull('link', instance.link);
+  return val;
+}
+
+FreeTextRequestItemDVO _$FreeTextRequestItemDVOFromJson(Map<String, dynamic> json) => FreeTextRequestItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      mustBeAccepted: json['mustBeAccepted'] as bool,
+      isDecidable: json['isDecidable'] as bool,
+      response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      freeText: json['freeText'] as String,
+    );
+
+Map<String, dynamic> _$FreeTextRequestItemDVOToJson(FreeTextRequestItemDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
+  val['isDecidable'] = instance.isDecidable;
+  writeNotNull('response', instance.response?.toJson());
+  val['freeText'] = instance.freeText;
   return val;
 }
 
@@ -538,6 +616,41 @@ Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequ
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['consent'] = instance.consent;
   writeNotNull('link', instance.link);
+  return val;
+}
+
+DecidableFreeTextRequestItemDVO _$DecidableFreeTextRequestItemDVOFromJson(Map<String, dynamic> json) => DecidableFreeTextRequestItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      mustBeAccepted: json['mustBeAccepted'] as bool,
+      freeText: json['freeText'] as String,
+    );
+
+Map<String, dynamic> _$DecidableFreeTextRequestItemDVOToJson(DecidableFreeTextRequestItemDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
+  val['freeText'] = instance.freeText;
   return val;
 }
 
