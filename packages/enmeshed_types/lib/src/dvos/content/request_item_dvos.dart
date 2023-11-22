@@ -82,6 +82,7 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
       'ShareAttributeRequestItemDVO' => ShareAttributeRequestItemDVO.fromJson(json),
       'AuthenticationRequestItemDVO' => AuthenticationRequestItemDVO.fromJson(json),
       'ConsentRequestItemDVO' => ConsentRequestItemDVO.fromJson(json),
+      'FreeTextRequestItemDVO' => FreeTextRequestItemDVO.fromJson(json),
       'RegisterAttributeListenerRequestItemDVO' => RegisterAttributeListenerRequestItemDVO.fromJson(json),
       _ => throw Exception("Invalid type '${json['type']}'"),
     };
@@ -234,6 +235,29 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
   factory ConsentRequestItemDVO.fromJson(Map json) => _$ConsentRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ConsentRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class FreeTextRequestItemDVO extends RequestItemDVODerivation {
+  final String freeText;
+
+  const FreeTextRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
+    super.response,
+    required this.freeText,
+  }) : super(type: 'FreeTextRequestItemDVO');
+
+  factory FreeTextRequestItemDVO.fromJson(Map json) => _$FreeTextRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$FreeTextRequestItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)
