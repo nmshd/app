@@ -47,5 +47,5 @@ class PeerSharedAttributeSucceededNotificationItem extends NotificationItem {
   Map<String, dynamic> toJson() => _$PeerSharedAttributeSucceededNotificationItemToJson(this);
 
   @override
-  List<Object?> get props => [predecessorId, successorId];
+  List<Object?> get props => [predecessorId, successorId, successorContent];
 }
