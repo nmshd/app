@@ -11,7 +11,6 @@ class ValueRendererListTile extends StatelessWidget {
   final ValueRendererController? controller;
   final Widget? trailing;
   final VoidCallback? onPressed;
-  final bool shouldTranslate;
 
   const ValueRendererListTile({
     super.key,
@@ -23,24 +22,25 @@ class ValueRendererListTile extends StatelessWidget {
     this.controller,
     this.trailing,
     this.onPressed,
-    this.shouldTranslate = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: ValueRenderer(
-            fieldName: fieldName,
-            renderHints: renderHints,
-            valueHints: valueHints,
-            initialValue: initialValue,
-            shouldTranslate: shouldTranslate,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: ValueRenderer(
+              fieldName: fieldName,
+              renderHints: renderHints,
+              valueHints: valueHints,
+              initialValue: initialValue,
+            ),
           ),
-        ),
-        SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right)))
-      ],
+          SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right)))
+        ],
+      ),
     );
   }
 }
