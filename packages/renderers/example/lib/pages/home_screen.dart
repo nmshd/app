@@ -7,6 +7,7 @@ import 'create_attribute_request_item_example/rejected_create_attribute_request_
 import 'create_attribute_request_item_example/relationship_attribute_example.dart';
 import 'decidable_examples/decidable_consent_request_item_example.dart';
 import 'decidable_examples/decidable_read_request_item_example.dart';
+import 'decidable_examples/decidable_read_request_relationship_item_example.dart';
 import 'decidable_examples/decidable_register_request_item_example.dart';
 import 'item_examples.dart';
 import 'item_group_example.dart';
@@ -109,7 +110,17 @@ class _HomeScreenState extends State<HomeScreen> {
         _MenuItem(
           icon: Icons.description,
           title: 'Decidable Read Identity Attribute with results Example',
-          pageBuilder: (context) => const DecidableReadRequestItemExample(),
+          pageBuilder: (context) => const DecidableReadRequestItemExample(isWithResults: true),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Read Identity Attribute without results Example',
+          pageBuilder: (context) => const DecidableReadRequestItemExample(isWithResults: false),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Read Relationship Attribute with results Example',
+          pageBuilder: (context) => const DecidableReadRequestRelationshipItemExample(isWithResults: true),
         ),
       ])
     ];
@@ -200,7 +211,7 @@ class _MenuItem {
 }
 
 class _DrawerHeader extends StatelessWidget {
-  const _DrawerHeader({Key? key, required this.title}) : super(key: key);
+  const _DrawerHeader({required this.title});
 
   final String? title;
 
@@ -220,12 +231,11 @@ class _DrawerButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const _DrawerButton({
-    Key? key,
     required this.icon,
     required this.title,
     this.isSelected = false,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

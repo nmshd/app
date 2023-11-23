@@ -7,7 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 import '../home_screen.dart';
-import '../scanner_view/scanner_view.dart';
+import '../url_entry_view/url_entry_view.dart';
 import '../widgets/create_new_identity.dart';
 
 class AccountCreationScreen extends StatelessWidget {
@@ -70,7 +70,7 @@ class AccountCreationScreen extends StatelessWidget {
         ),
       );
 
-  void _onboardingPressed(BuildContext context) => Navigator.push(context, MaterialPageRoute(builder: (_) => ScannerView(onSubmit: onSubmit)));
+  void _onboardingPressed(BuildContext context) => Navigator.push(context, MaterialPageRoute(builder: (_) => UrlEntryView(onSubmit: onSubmit)));
 
   void onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
     pause();
@@ -86,9 +86,9 @@ class AccountCreationScreen extends StatelessWidget {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => WillPopScope(
-        onWillPop: () async => false,
-        child: const Center(
+      builder: (_) => const PopScope(
+        canPop: false,
+        child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

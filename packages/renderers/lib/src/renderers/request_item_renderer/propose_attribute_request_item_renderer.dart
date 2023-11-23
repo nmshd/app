@@ -4,24 +4,17 @@ import 'package:translated_text/translated_text.dart';
 
 import '/src/request_renderer_controller.dart';
 
-class ProposeAttributeRequestItemRenderer extends StatefulWidget {
+class ProposeAttributeRequestItemRenderer extends StatelessWidget {
   final ProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
 
   const ProposeAttributeRequestItemRenderer({super.key, required this.item, required this.controller});
 
   @override
-  State<ProposeAttributeRequestItemRenderer> createState() => _ProposeAttributeRequestItemRendererState();
-}
-
-class _ProposeAttributeRequestItemRendererState extends State<ProposeAttributeRequestItemRenderer> {
-  late AcceptProposeAttributeRequestItemParametersWithNewAttribute canAccept;
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
-      child: TranslatedText(widget.item.query.name, style: const TextStyle(fontSize: 16)),
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)),
     );
   }
 }

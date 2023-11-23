@@ -33,8 +33,8 @@ class BooleanRenderer extends StatelessWidget {
       throw Exception('trying to render an initial value with a non-boolean value');
     }
 
-    final initialBoolValue = initialValue?.toJson()['value'];
-    final valueHintsDefaultValue = ValueHintsDefaultValueBool(initialBoolValue);
+    final bool? initialBoolValue = initialValue?.toJson()['value'];
+    final valueHintsDefaultValue = initialBoolValue != null ? ValueHintsDefaultValueBool(initialBoolValue) : null;
 
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(

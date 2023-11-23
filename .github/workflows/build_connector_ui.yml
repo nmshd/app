@@ -35,4 +35,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: windows app
-          path: ./apps/connector_ui/build/windows/runner/Release
+          path: ./apps/connector_ui/build/windows/x64/runner/Release

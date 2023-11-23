@@ -10,12 +10,12 @@ class Result<T> {
       throw _error!;
     }
 
-    return _value!;
+    return _value;
   }
 
   RuntimeError get error {
     if (_error == null) throw StateError('The result is not an error');
-    return _error!;
+    return _error;
   }
 
   Result._({T? value, RuntimeError? error})

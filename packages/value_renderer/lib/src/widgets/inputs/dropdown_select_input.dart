@@ -67,6 +67,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
               selectedOption = newValue;
             });
           },
+          isExpanded: true,
           items: widget.values.map<DropdownMenuItem<ValueHintsDefaultValue>>((ValueHintsValue value) {
             return DropdownMenuItem<ValueHintsDefaultValue>(
               value: value.key,

@@ -3,25 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
-import '/value_renderer.dart';
 import '../utils/utils.dart';
+import '/value_renderer.dart';
 
 class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
   SegmentedButtonInput({
-    Key? key,
+    super.key,
     ValueRendererController? controller,
     InputDecoration? decoration,
     required String fieldName,
-    ValueHintsDefaultValue? initialValue,
-    FormFieldSetter<ValueHintsDefaultValue?>? onSaved,
+    super.initialValue,
+    super.onSaved,
     required RenderHintsTechnicalType technicalType,
-    FormFieldValidator<ValueHintsDefaultValue?>? validator,
+    super.validator,
     required List<ValueHintsValue> values,
   }) : super(
-          key: key,
-          initialValue: initialValue,
-          onSaved: onSaved,
-          validator: validator,
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
             final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(field.context, fieldName.substring(7)) : fieldName;
             controller?.value = field.value;
