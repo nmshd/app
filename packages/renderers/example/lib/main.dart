@@ -26,6 +26,7 @@ void main() async {
       clientId: const String.fromEnvironment('app_clientId'),
       clientSecret: const String.fromEnvironment('app_clientSecret'),
       applicationId: 'de.bildungsraum.wallet.experimental',
+      useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
     ),
   );
   GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
