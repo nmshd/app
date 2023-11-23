@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -19,6 +20,7 @@ typedef RuntimeConfig = ({
   String clientId,
   String clientSecret,
   String applicationId,
+  bool useAppleSandbox,
 });
 
 class EnmeshedRuntime {
@@ -127,6 +129,7 @@ class EnmeshedRuntime {
       handlerName: 'getDefaultConfig',
       callback: (_) => {
         'applicationId': runtimeConfig.applicationId,
+        if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
         'transport': {
           'baseUrl': runtimeConfig.baseUrl,
           'logLevel': 'warn',
