@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         clientId: const String.fromEnvironment('app_clientId'),
         clientSecret: const String.fromEnvironment('app_clientSecret'),
         applicationId: 'eu.enmeshed.example',
+        useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
       ),
     )..run();
   }
