@@ -147,6 +147,10 @@ class AttributeRenderer extends StatelessWidget {
     return ComplexAttributeListTile(
       title: complexTitle,
       fields: fields,
+      onUpdateCheckbox: onUpdateCheckbox,
+      isChecked: isChecked,
+      hideCheckbox: hideCheckbox,
+      selectedAttribute: newAttribute?.value.toJson()['value'],
     );
   }
 }

@@ -7,6 +7,10 @@ class ComplexAttributeListTile extends StatelessWidget {
   final List<({String label, String value})> fields;
   final Widget? trailing;
   final void Function()? onPressed;
+  final bool? isChecked;
+  final bool? hideCheckbox;
+  final String? selectedAttribute;
+  final Function(bool?)? onUpdateCheckbox;
 
   const ComplexAttributeListTile({
     super.key,
@@ -14,48 +18,59 @@ class ComplexAttributeListTile extends StatelessWidget {
     required this.fields,
     this.trailing,
     this.onPressed,
+    this.isChecked,
+    this.hideCheckbox,
+    this.selectedAttribute,
+    this.onUpdateCheckbox,
   });
 
   @override
   Widget build(BuildContext context) {
     const titlesTextStyle = TextStyle(fontSize: 12, color: Color(0xFF42474E));
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       children: [
-        const SizedBox(height: 12),
-        TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: fields.length,
-                itemBuilder: (context, index) {
-                  final field = fields[index];
+        if (hideCheckbox != null && !hideCheckbox!) Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 12),
+              TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: fields.length,
+                      itemBuilder: (context, index) {
+                        final field = fields[index];
 
-                  final label = field.label;
-                  final translatedLabel = label.startsWith('i18n://') ? FlutterI18n.translate(context, label.substring(7)) : label;
+                        final label = field.label;
+                        final translatedLabel = label.startsWith('i18n://') ? FlutterI18n.translate(context, label.substring(7)) : label;
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('$translatedLabel:', style: titlesTextStyle),
-                      const SizedBox(height: 2),
-                      Text(field.value, style: const TextStyle(fontSize: 16)),
-                      const SizedBox(height: 8),
-                    ],
-                  );
-                },
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('$translatedLabel:', style: titlesTextStyle),
+                            const SizedBox(height: 2),
+                            Text(field.value, style: const TextStyle(fontSize: 16)),
+                            const SizedBox(height: 8),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right))),
+                ],
               ),
-            ),
-            SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right))),
-          ],
+              const SizedBox(height: 12),
+              const Divider(height: 0),
+            ],
+          ),
         ),
-        const SizedBox(height: 12),
-        const Divider(height: 0),
       ],
     );
   }
