@@ -21,6 +21,7 @@ Future<EnmeshedRuntime> setup() async {
       clientId: const String.fromEnvironment('app_clientId'),
       clientSecret: const String.fromEnvironment('app_clientSecret'),
       applicationId: 'eu.enmeshed.test',
+      useiOSSandbox: const bool.fromEnvironment('app_useiOSSandbox'),
     ),
     logger: Logger(printer: SimplePrinter(colors: false), level: Level.warning),
     eventBus: eventBus,

@@ -19,6 +19,7 @@ typedef RuntimeConfig = ({
   String clientId,
   String clientSecret,
   String applicationId,
+  bool useiOSSandbox,
 });
 
 class EnmeshedRuntime {
@@ -127,6 +128,7 @@ class EnmeshedRuntime {
       handlerName: 'getDefaultConfig',
       callback: (_) => {
         'applicationId': runtimeConfig.applicationId,
+        'iosPushEnvironment': runtimeConfig.useiOSSandbox ? 'Development' : 'Production',
         'transport': {
           'baseUrl': runtimeConfig.baseUrl,
           'logLevel': 'warn',
