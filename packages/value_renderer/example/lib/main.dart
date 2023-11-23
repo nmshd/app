@@ -20,6 +20,7 @@ class ValueRendererExample extends StatelessWidget {
       localizationsDelegates: [
         FlutterI18nDelegate(translationLoader: FileTranslationLoader(basePath: 'assets/i18n')),
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: const [
