@@ -9,7 +9,6 @@ class ValueRendererListTile extends StatelessWidget {
   final InputDecoration? decoration;
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
-  final Widget? trailing;
   final VoidCallback? onPressed;
 
   const ValueRendererListTile({
@@ -20,19 +19,26 @@ class ValueRendererListTile extends StatelessWidget {
     this.decoration,
     this.initialValue,
     this.controller,
-    this.trailing,
     this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: ValueRenderer(
-        fieldName: fieldName,
-        renderHints: renderHints,
-        valueHints: valueHints,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: ValueRenderer(
+              fieldName: fieldName,
+              renderHints: renderHints,
+              valueHints: valueHints,
+              initialValue: initialValue,
+            ),
+          ),
+          SizedBox(width: 50, child: IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right)))
+        ],
       ),
-      trailing: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.info)),
     );
   }
 }
