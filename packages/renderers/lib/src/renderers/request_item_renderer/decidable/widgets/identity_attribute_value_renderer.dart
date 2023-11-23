@@ -20,7 +20,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: attributeValueMap['value'].toString(),
-        trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.edit, color: Colors.blue)),
+        trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.chevron_right)),
       );
     }
 
@@ -32,7 +32,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
-      trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.edit, color: Colors.blue)),
+      trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.chevron_right)),
     );
   }
 }

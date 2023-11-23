@@ -1,11 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:renderers/src/renderers/widgets/value_renderer_list_tile.dart';
 import 'package:translated_text/translated_text.dart';
 
-import '../../../../renderers.dart';
-import '../../widgets/value_renderer_list_tile.dart';
+import '../../../request_renderer.dart';
 import 'identity_attribute_value_renderer.dart';
-import 'relationship_attribute_value_renderer.dart';
 
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
@@ -16,38 +15,40 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return query.results.isEmpty
-        ? ValueRendererListTile(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints)
-        : switch (query.results.first.value) {
-            final IdentityAttributeValue value => IdentityAttributeValueRenderer(
-                value: value,
-                controller: controller,
-                onEdit: onEdit,
-              ),
-            final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(results: query.results, value: value),
-            _ => throw Exception('Unknown AttributeValue: ${query.results.first.valueType}'),
-          };
+    if (query.results.isEmpty) {
+      return ValueRendererListTile(
+        fieldName: switch (query.valueType) {
+          'Affiliation' ||
+          'BirthDate' ||
+          'BirthPlace' ||
+          'DeliveryBoxAddress' ||
+          'PersonName' ||
+          'PostOfficeBoxAddress' ||
+          'StreetAddress' =>
+            'i18n://attributes.values.${query.valueType}._title',
+          _ => 'i18n://dvo.attribute.name.${query.valueType}',
+        },
+        renderHints: query.renderHints,
+        valueHints: query.valueHints,
+      );
+    }
+    return IdentityAttributeValueRenderer(
+      value: query.results.first.value as IdentityAttributeValue,
+      controller: controller,
+      onEdit: onEdit,
+    );
   }
 }
 
 class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final ProcessedRelationshipAttributeQueryDVO query;
+  final RequestRendererController? controller;
 
-  const ProcessedRelationshipAttributeQueryRenderer({super.key, required this.query});
+  const ProcessedRelationshipAttributeQueryRenderer({super.key, required this.query, this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TranslatedText(query.name),
-        Text(query.type),
-        // Text(query.valueType),
-        Text(query.owner.name),
-        Text(query.attributeCreationHints.title),
-        //ValueRenderer(fieldName: query.valueType, renderHints: query.renderHints, valueHints: query.valueHints),
-      ],
-    );
+    return ValueRendererListTile(fieldName: query.name, renderHints: query.renderHints, valueHints: query.valueHints);
   }
 }
 
@@ -63,7 +64,6 @@ class ProcessedThirdPartyAttributeQueryRenderer extends StatelessWidget {
       children: [
         Text(query.type),
         TranslatedText(query.name),
-        // owner, thirdParty ...
       ],
     );
   }

@@ -39,8 +39,8 @@ class NumberRenderer extends StatelessWidget {
       throw Exception('trying to render an initial value with a non-Number value');
     }
 
-    final num initialNumberValue = initialValue?.toJson()['value'];
-    final valueHintsDefaultValue = ValueHintsDefaultValueNum(initialNumberValue);
+    final num? initialNumberValue = initialValue?.toJson()['value'];
+    final valueHintsDefaultValue = initialNumberValue != null ? ValueHintsDefaultValueNum(initialNumberValue) : null;
 
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(

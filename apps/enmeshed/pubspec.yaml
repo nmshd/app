@@ -18,7 +18,7 @@ dependencies:
   flutter_native_splash: ^2.3.6
   get_it: ^7.6.4
   logger: ^2.0.2+1
-  mobile_scanner: ^3.5.2
+  mobile_scanner: ^3.5.4
   permission_handler: ^11.1.0
   url_launcher: ^6.2.1
 
