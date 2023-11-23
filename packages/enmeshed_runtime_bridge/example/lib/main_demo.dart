@@ -78,7 +78,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         clientId: const String.fromEnvironment('app_clientId'),
         clientSecret: const String.fromEnvironment('app_clientSecret'),
         applicationId: 'eu.enmeshed.example',
-        useiOSSandbox: const bool.fromEnvironment('app_useiOSSandbox'),
+        useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
       ),
     )..run();
 
