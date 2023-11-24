@@ -18,8 +18,8 @@ class RequestItemRenderer extends StatelessWidget {
       return switch (item) {
         final DecidableReadAttributeRequestItemDVO dvo =>
           DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit),
-        final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(controller: controller, item: dvo),
-        final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo),
+        final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(item: dvo, onEdit: onEdit),
+        final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(item: dvo, onEdit: onEdit),
         final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo),
         final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo),
         final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(controller: controller, item: dvo),
