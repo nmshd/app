@@ -32,12 +32,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         valueHints: query.valueHints,
       );
     }
-    return IdentityAttributeValueRenderer(
-      query: query,
-      value: query.results.first.value as IdentityAttributeValue,
-      controller: controller,
-      onEdit: onEdit,
-    );
+    return IdentityAttributeValueRenderer(value: query.results.first.value as IdentityAttributeValue, controller: controller, onEdit: onEdit);
   }
 }
 
