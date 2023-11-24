@@ -34,7 +34,7 @@ class ResponseItemRenderer extends StatelessWidget {
       final CreateAttributeAcceptResponseItemDVO dvo => CreateAttributeAcceptResponseItemRenderer(item: dvo),
       final ShareAttributeAcceptResponseItemDVO dvo => ShareAttributeAcceptResponseItemRenderer(item: dvo),
       final RegisterAttributeListenerAcceptResponseItemDVO dvo => RegisterAttributeListenerAcceptResponseItemRenderer(item: dvo),
-      final RejectResponseItemDVO _ => RejectResponseItemRenderer(item: requestItem),
+      final RejectResponseItemDVO _ => RejectResponseItemRenderer(item: requestItem, itemIndex: itemIndex),
       final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
       _ => throw Exception("Invalid type '${responseItem.type}'"),
     };

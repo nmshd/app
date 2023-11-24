@@ -27,7 +27,7 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (hideCheckbox != null && !hideCheckbox!) Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
+        if (hideCheckbox != null) Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),

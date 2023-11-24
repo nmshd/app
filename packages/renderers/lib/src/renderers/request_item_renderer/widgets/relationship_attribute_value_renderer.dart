@@ -9,11 +9,19 @@ import '../../widgets/custom_list_tile.dart';
 class RelationshipAttributeValueRenderer extends StatelessWidget {
   final RelationshipAttributeValue value;
   final bool? isRejected;
+  final Function(bool?)? onUpdateCheckbox;
+  final bool? isChecked;
+  final bool? hideCheckbox;
+  final AbstractAttribute? selectedAttribute;
 
   const RelationshipAttributeValueRenderer({
     super.key,
     required this.value,
     this.isRejected,
+    this.onUpdateCheckbox,
+    this.isChecked,
+    this.hideCheckbox,
+    this.selectedAttribute,
   });
 
   @override
