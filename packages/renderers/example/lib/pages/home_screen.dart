@@ -13,6 +13,8 @@ import 'item_examples.dart';
 import 'item_group_example.dart';
 import 'read_attribute_request_item_example.dart';
 import 'requests_example.dart';
+import 'response_examples/error_response_item_example.dart';
+import 'response_examples/response_item_example.dart';
 import 'widgets/widgets.dart';
 
 class ReloadController {
@@ -121,6 +123,18 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icons.description,
           title: 'Decidable Read Relationship Attribute with results Example',
           pageBuilder: (context) => const DecidableReadRequestRelationshipItemExample(isWithResults: true),
+        ),
+      ]),
+      _MenuGroup(title: 'Response Requests', items: [
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Error Response Renderer',
+          pageBuilder: (context) => const ErrorResponseItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Response Renderer',
+          pageBuilder: (context) => const ResponseItemExample(),
         ),
       ])
     ];
