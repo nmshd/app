@@ -66,18 +66,19 @@ class _RequestRendererState extends State<RequestRenderer> {
         final itemIndex = (rootIndex: index, innerIndex: null);
 
         if (item is ResponseItemGroupDVO) {
+          final requestItemGroup = widget.request.items[index] as RequestItemGroupDVO;
           return ResponseItemGroupRenderer(
             responseItemGroup: item,
-            requestItems: widget.request.items,
+            requestItemGroup: requestItemGroup,
             itemIndex: itemIndex,
             controller: widget.controller,
           );
         }
 
         return ResponseItemRenderer(
-          item: item,
+          responseItem: item,
           itemIndex: itemIndex,
-          requestItems: widget.request.items,
+          requestItem: widget.request.items[index],
           controller: widget.controller,
         );
       }).toList();

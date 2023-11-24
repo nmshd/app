@@ -1,26 +1,24 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '/src/request_renderer_controller.dart';
-import '../../../widgets/complex_attribute_list_tile.dart';
-import '../../../widgets/custom_list_tile.dart';
+import '../../widgets/complex_attribute_list_tile.dart';
+import '../../widgets/custom_list_tile.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
-  final RequestRendererController? controller;
   final VoidCallback? onEdit;
 
-  const IdentityAttributeValueRenderer({super.key, required this.value, required this.controller, this.onEdit});
+  const IdentityAttributeValueRenderer({super.key, required this.value, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
     final attributeValueMap = value.toJson();
 
-    if (attributeValueMap.length == 2) {
+    if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: attributeValueMap['value'].toString(),
-        trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.chevron_right)),
+        trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.edit, color: Colors.blue)),
       );
     }
 
@@ -32,7 +30,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
-      trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.chevron_right)),
+      trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.edit, color: Colors.blue)),
     );
   }
 }

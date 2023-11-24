@@ -1,6 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
+import '../widgets/identity_attribute_value_renderer.dart';
+import '../widgets/relationship_attribute_value_renderer.dart';
 import '/src/request_item_index.dart';
 import '/src/request_renderer_controller.dart';
 
@@ -39,13 +41,10 @@ class _ProposeAttributeAcceptResponseItemRendererState extends State<ProposeAttr
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('(${widget.item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
-        Text(widget.item.attribute.value.toString()),
-        const SizedBox(height: 30),
-      ],
-    );
+    return switch (widget.item.attribute.value) {
+      final IdentityAttributeValue value => IdentityAttributeValueRenderer(value: value),
+      final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(value: value),
+      _ => throw Exception('Unknown AttributeValue: ${widget.item.attribute.valueType}'),
+    };
   }
 }
