@@ -44,6 +44,12 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
                 )
               : null,
         ),
+      final ProprietaryJSONAttributeValue proprietaryJSONAttributeValue => CustomListTile(
+          title: proprietaryJSONAttributeValue.title,
+          // TODO: render the description of the ProprietaryAttributeValue
+          // description: proprietaryJSONAttributeValue.description,
+          description: proprietaryJSONAttributeValue.value.toString(),
+        ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
           description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
