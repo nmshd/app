@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import '/src/url_launcher.dart';
 import '../../widgets/complex_attribute_list_tile.dart';
 import '../../widgets/custom_list_tile.dart';
+import '/src/url_launcher.dart';
 
 class DraftAttributeRenderer extends StatelessWidget {
   final dynamic draftAttribute;
+  final VoidCallback? onEdit;
 
-  const DraftAttributeRenderer({super.key, required this.draftAttribute});
+  const DraftAttributeRenderer({super.key, required this.draftAttribute, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class DraftAttributeRenderer extends StatelessWidget {
         customTitle: 'i18n://dvo.attribute.name.${attribute.value.atType}',
         fields: fields,
         complexTitle: 'i18n://attributes.values.${attribute.value.atType}._title',
+        onEdit: onEdit,
       );
     }
 
@@ -77,6 +79,7 @@ class AttributeRenderer extends StatelessWidget {
   final String customTitle;
   final List<({String label, String value})> fields;
   final String complexTitle;
+  final VoidCallback? onEdit;
 
   const AttributeRenderer({
     super.key,
@@ -84,6 +87,7 @@ class AttributeRenderer extends StatelessWidget {
     required this.customTitle,
     required this.fields,
     required this.complexTitle,
+    this.onEdit,
   });
 
   @override
@@ -92,12 +96,14 @@ class AttributeRenderer extends StatelessWidget {
       return CustomListTile(
         title: customTitle,
         description: attributeValueMap['value'].toString(),
+        onPressed: onEdit,
       );
     }
 
     return ComplexAttributeListTile(
       title: complexTitle,
       fields: fields,
+      onPressed: onEdit,
     );
   }
 }
