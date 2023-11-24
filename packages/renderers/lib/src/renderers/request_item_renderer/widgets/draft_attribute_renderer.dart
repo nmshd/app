@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:renderers/src/renderers/request_item_renderer/widgets/relationship_attribute_value_renderer.dart';
 
 import 'identity_attribute_value_renderer.dart';
+import 'relationship_attribute_value_renderer.dart';
 
 class DraftAttributeRenderer extends StatelessWidget {
   final DraftAttributeDVO draftAttribute;

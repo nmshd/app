@@ -1,9 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:renderers/src/renderers/request_item_renderer/response/error_response_item_renderer.dart';
-import 'package:renderers/src/renderers/request_item_renderer/response/reject_response_item_renderer.dart';
 
+import 'error_response_item_renderer.dart';
+import 'reject_response_item_renderer.dart';
 import 'response.dart';
 
 class ResponseItemRenderer extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:renderers/src/renderers/request_item_renderer/request_item_renderer.dart';
+
+import '../request_item_renderer.dart';
 
 class RejectResponseItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
