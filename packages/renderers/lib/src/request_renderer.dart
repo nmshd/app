@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
@@ -30,12 +31,13 @@ class RequestRenderer extends StatelessWidget {
     }).toList();
 
     if (request.response != null) {
-      responseItems = request.response!.content.items.map((item) {
+      responseItems = request.response!.content.items.mapIndexed((index, item) {
         if (item is ResponseItemGroupDVO) {
-          return ResponseItemGroupRenderer(responseItemGroup: item, requestItems: request.items);
+          final requestItemGroup = request.items[index] as RequestItemGroupDVO;
+          return ResponseItemGroupRenderer(responseItemGroup: item, requestItemGroup: requestItemGroup);
         }
 
-        return ResponseItemRenderer(item: item, requestItems: request.items);
+        return ResponseItemRenderer(responseItem: item, requestItem: request.items[index]);
       }).toList();
     }
 

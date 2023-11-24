@@ -6,12 +6,14 @@ class ComplexAttributeListTile extends StatelessWidget {
   final String title;
   final List<({String label, String value})> fields;
   final Widget? trailing;
+  final void Function()? onPressed;
 
   const ComplexAttributeListTile({
     super.key,
     required this.title,
     required this.fields,
     this.trailing,
+    this.onPressed,
   });
 
   @override
@@ -21,17 +23,11 @@ class ComplexAttributeListTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 12),
-        Row(
-          children: [
-            const SizedBox(width: 16),
-            TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
-          ],
-        ),
+        TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
         const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(width: 16),
             Expanded(
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
@@ -55,7 +51,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                 },
               ),
             ),
-            if (trailing != null) SizedBox(width: 96, child: trailing),
+            SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right))),
           ],
         ),
         const SizedBox(height: 12),

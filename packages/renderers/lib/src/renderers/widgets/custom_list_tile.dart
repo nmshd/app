@@ -5,12 +5,14 @@ class CustomListTile extends StatelessWidget {
   final String title;
   final String? description;
   final Widget? trailing;
+  final void Function()? onPressed;
 
   const CustomListTile({
     super.key,
     required this.title,
     this.description,
     this.trailing,
+    this.onPressed,
   });
 
   @override
@@ -19,20 +21,20 @@ class CustomListTile extends StatelessWidget {
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
+            padding: const EdgeInsets.symmetric(vertical: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
                 if (description != null) ...[
                   const SizedBox(height: 2),
-                  Text(description!, style: const TextStyle(fontSize: 16)),
+                  TranslatedText(description!, style: const TextStyle(fontSize: 16)),
                 ]
               ],
             ),
           ),
         ),
-        if (trailing != null) SizedBox(width: 96, child: trailing)
+        SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right)))
       ],
     );
   }

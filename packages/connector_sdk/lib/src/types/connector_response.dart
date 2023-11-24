@@ -9,7 +9,7 @@ class ConnectorResponse<T> {
       throw Exception('${error.code}: ${error.message}');
     }
 
-    return _data!;
+    return _data;
   }
 
   ConnectorError get error {
@@ -17,7 +17,7 @@ class ConnectorResponse<T> {
       throw Exception('No error');
     }
 
-    return _error!;
+    return _error;
   }
 
   ConnectorResponse._(this._data, this._error);

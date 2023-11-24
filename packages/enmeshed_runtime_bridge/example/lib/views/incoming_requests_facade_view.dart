@@ -142,17 +142,17 @@ class IncomingRequestsFacadeView extends StatelessWidget {
 
   AcceptRequestItemParameters generateAcceptItem(RequestItemDerivation requestItem, String currentIdentityAddress) {
     return switch (requestItem.runtimeType) {
-      CreateAttributeRequestItem ||
-      ShareAttributeRequestItem ||
-      ConsentRequestItem ||
-      AuthenticationRequestItem ||
-      RegisterAttributeListenerRequestItem =>
+      CreateAttributeRequestItem _ ||
+      ShareAttributeRequestItem _ ||
+      ConsentRequestItem _ ||
+      AuthenticationRequestItem _ ||
+      RegisterAttributeListenerRequestItem _ =>
         const AcceptRequestItemParameters(),
-      ReadAttributeRequestItem => generateAcceptReadAttributeRequestItemParametersWithNewAttribute(
+      ReadAttributeRequestItem _ => generateAcceptReadAttributeRequestItemParametersWithNewAttribute(
           requestItem as ReadAttributeRequestItem,
           currentIdentityAddress,
         ),
-      ProposeAttributeRequestItem => AcceptProposeAttributeRequestItemParametersWithNewAttribute(
+      ProposeAttributeRequestItem _ => AcceptProposeAttributeRequestItemParametersWithNewAttribute(
           attribute: (requestItem as ProposeAttributeRequestItem).attribute,
         ),
       _ => throw UnimplementedError(),
@@ -164,13 +164,13 @@ class IncomingRequestsFacadeView extends StatelessWidget {
     String currentIdentityAddress,
   ) {
     return switch (requestItem.query.runtimeType) {
-      IdentityAttributeQuery => AcceptReadAttributeRequestItemParametersWithNewAttribute(
+      IdentityAttributeQuery _ => AcceptReadAttributeRequestItemParametersWithNewAttribute(
           newAttribute: generateIdentityAtrribute(requestItem.query as IdentityAttributeQuery, currentIdentityAddress),
         ),
-      RelationshipAttributeQuery => AcceptReadAttributeRequestItemParametersWithNewAttribute(
+      RelationshipAttributeQuery _ => AcceptReadAttributeRequestItemParametersWithNewAttribute(
           newAttribute: generateRelationshipAtrribute(requestItem.query as RelationshipAttributeQuery, currentIdentityAddress),
         ),
-      ThirdPartyRelationshipAttributeQuery => throw UnimplementedError(),
+      ThirdPartyRelationshipAttributeQuery _ => throw UnimplementedError(),
       _ => throw UnimplementedError(),
     };
   }

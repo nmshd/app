@@ -12,7 +12,7 @@ class AuthenticationRequestItemRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Text(item.name, style: const TextStyle(fontSize: 16)),
     );
   }

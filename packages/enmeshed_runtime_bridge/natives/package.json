@@ -11,23 +11,23 @@
     "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@js-soft/logging-abstractions": "^1.0.0",
-    "@js-soft/native-abstractions": "^1.2.1",
-    "@js-soft/ts-utils": "^2.3.1",
-    "@nmshd/app-runtime": "2.3.10",
-    "@nmshd/runtime": "2.8.1",
+    "@js-soft/logging-abstractions": "^1.0.1",
+    "@js-soft/native-abstractions": "^1.2.2",
+    "@js-soft/ts-utils": "^2.3.3",
+    "@nmshd/app-runtime": "2.4.0",
+    "@nmshd/runtime": "2.10.0",
     "js-logger": "^1.6.1",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/json-stringify-safe": "^5.0.1",
-    "@types/lodash": "^4.14.199",
-    "@types/luxon": "^3.3.2",
-    "@types/node": "^20.8.4",
-    "esbuild": "^0.19.4",
-    "luxon": "^3.4.3",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "@types/json-stringify-safe": "^5.0.3",
+    "@types/lodash": "^4.14.202",
+    "@types/luxon": "^3.3.5",
+    "@types/node": "^20.9.4",
+    "esbuild": "^0.19.7",
+    "luxon": "^3.4.4",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2"
   }
 }

@@ -116,29 +116,6 @@ class ReadAttributeRequestItemDVO extends RequestItemDVODerivation {
 }
 
 @JsonSerializable(includeIfNull: false)
-class FreeTextRequestItemDVO extends RequestItemDVODerivation {
-  final String freeText;
-
-  const FreeTextRequestItemDVO({
-    required super.id,
-    required super.name,
-    super.description,
-    super.image,
-    super.date,
-    super.error,
-    super.warning,
-    required super.mustBeAccepted,
-    required super.isDecidable,
-    super.response,
-    required this.freeText,
-  }) : super(type: 'FreeTextRequestItemDVO');
-
-  factory FreeTextRequestItemDVO.fromJson(Map json) => _$FreeTextRequestItemDVOFromJson(Map<String, dynamic>.from(json));
-  @override
-  Map<String, dynamic> toJson() => _$FreeTextRequestItemDVOToJson(this);
-}
-
-@JsonSerializable(includeIfNull: false)
 class ProposeAttributeRequestItemDVO extends RequestItemDVODerivation {
   final AttributeQueryDVO query;
   final DraftAttributeDVO attribute;
@@ -258,6 +235,29 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
   factory ConsentRequestItemDVO.fromJson(Map json) => _$ConsentRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ConsentRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class FreeTextRequestItemDVO extends RequestItemDVODerivation {
+  final String freeText;
+
+  const FreeTextRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
+    super.response,
+    required this.freeText,
+  }) : super(type: 'FreeTextRequestItemDVO');
+
+  factory FreeTextRequestItemDVO.fromJson(Map json) => _$FreeTextRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$FreeTextRequestItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)

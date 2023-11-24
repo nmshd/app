@@ -1,19 +1,20 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+
+import '../widgets/identity_attribute_value_renderer.dart';
+import '../widgets/relationship_attribute_value_renderer.dart';
 
 class ReadAttributeAcceptResponseItemRenderer extends StatelessWidget {
   final ReadAttributeAcceptResponseItemDVO item;
+
   const ReadAttributeAcceptResponseItemRenderer({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('(${item.type})', style: const TextStyle(fontStyle: FontStyle.italic)),
-        Text(item.attribute.value.toString()),
-        const SizedBox(height: 30),
-      ],
-    );
+    return switch (item.attribute.value) {
+      final IdentityAttributeValue value => IdentityAttributeValueRenderer(value: value),
+      final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(value: value),
+      _ => throw Exception('Unknown AttributeValue: ${item.attribute.valueType}'),
+    };
   }
 }

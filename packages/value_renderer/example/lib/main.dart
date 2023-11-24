@@ -20,6 +20,7 @@ class ValueRendererExample extends StatelessWidget {
       localizationsDelegates: [
         FlutterI18nDelegate(translationLoader: FileTranslationLoader(basePath: 'assets/i18n')),
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: const [
@@ -114,12 +115,11 @@ class _DrawerButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const _DrawerButton({
-    Key? key,
     required this.icon,
     required this.title,
     this.isSelected = false,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
