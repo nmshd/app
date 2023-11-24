@@ -2,6 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../../renderers.dart';
+import '../../widgets/custom_list_tile.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatelessWidget {
   final DecidableAuthenticationRequestItemDVO item;
@@ -11,9 +12,6 @@ class DecidableAuthenticationRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Text(item.name, style: const TextStyle(fontSize: 16)),
-    );
+    return CustomListTile(title: 'dvo.requestItem.DecidableAuthenticationRequestItem.name', description: item.name);
   }
 }
