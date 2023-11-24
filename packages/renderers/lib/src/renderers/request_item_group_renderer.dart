@@ -11,6 +11,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
   final RequestItemIndex itemIndex;
+  final LocalRequestStatus? requestStatus;
 
   const RequestItemGroupRenderer({
     super.key,
@@ -18,6 +19,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
     this.controller,
     this.onEdit,
     required this.itemIndex,
+    this.requestStatus,
   });
 
   @override
@@ -28,6 +30,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
         itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
         controller: controller,
         onEdit: onEdit,
+        requestStatus: requestStatus,
       );
     }).toList();
 

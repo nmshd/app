@@ -48,7 +48,13 @@ class _RequestRendererState extends State<RequestRenderer> {
       final itemIndex = (rootIndex: index, innerIndex: null);
 
       if (item is RequestItemGroupDVO) {
-        return RequestItemGroupRenderer(requestItemGroup: item, itemIndex: itemIndex, controller: widget.controller, onEdit: widget.onEdit);
+        return RequestItemGroupRenderer(
+          requestItemGroup: item,
+          itemIndex: itemIndex,
+          controller: widget.controller,
+          onEdit: widget.onEdit,
+          requestStatus: widget.request.status,
+        );
       }
 
       return RequestItemRenderer(
