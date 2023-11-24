@@ -121,7 +121,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   }
 
   Future<IdentityAttribute> createIdentityAttributeDVO() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
 
     return const IdentityAttribute(
       owner: '',

@@ -1,20 +1,22 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../widgets/custom_list_tile.dart';
 import '/src/request_item_index.dart';
 import '/src/request_renderer_controller.dart';
-import '../../widgets/custom_list_tile.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
   final DecidableAuthenticationRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
+  final LocalRequestStatus? requestStatus;
 
   const DecidableAuthenticationRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
+    this.requestStatus,
   });
 
   @override
@@ -22,15 +24,32 @@ class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAuthenticationRequestItemRenderer> {
-  @override
-  void initState() {
-    super.initState();
+  bool isChecked = true;
+  AbstractAttribute? newAttribute;
 
-    widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+  void onUpdateCheckbox(bool? value) {
+    setState(() {
+      isChecked = value!;
+    });
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    } else {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(title: '', description: widget.item.name);
+    return CustomListTile(
+      title: '',
+      description: widget.item.name,
+      isChecked: isChecked,
+      onUpdateCheckbox: onUpdateCheckbox,
+      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+    );
   }
 }

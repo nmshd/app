@@ -8,12 +8,14 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableCreateAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
+  final LocalRequestStatus? requestStatus;
 
   const DecidableCreateAttributeRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
+    this.requestStatus,
   });
 
   @override
@@ -21,11 +23,22 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableCreateAttributeRequestItemRenderer> {
-  @override
-  void initState() {
-    super.initState();
+  bool isChecked = true;
+  AbstractAttribute? newAttribute;
 
-    widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+  void onUpdateCheckbox(bool? value) {
+    setState(() {
+      isChecked = value!;
+    });
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    } else {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
+      );
+    }
   }
 
   @override

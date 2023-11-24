@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import '/src/request_item_index.dart';
 import '../../../../renderers.dart';
 import '../../widgets/custom_list_tile.dart';
+import '/src/request_item_index.dart';
 
 class DecidableConsentRequestItemRenderer extends StatefulWidget {
   final DecidableConsentRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
+  final LocalRequestStatus? requestStatus;
 
   const DecidableConsentRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
+    this.requestStatus,
   });
 
   @override
@@ -24,11 +26,22 @@ class DecidableConsentRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRequestItemRenderer> {
-  @override
-  void initState() {
-    super.initState();
+  bool isChecked = true;
+  AbstractAttribute? newAttribute;
 
-    widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+  void onUpdateCheckbox(bool? value) {
+    setState(() {
+      isChecked = value!;
+    });
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    } else {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
+      );
+    }
   }
 
   @override
@@ -36,6 +49,9 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
     return CustomListTile(
       title: widget.item.consent,
       description: widget.item.description,
+      onUpdateCheckbox: onUpdateCheckbox,
+      isChecked: isChecked,
+      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
       trailing: widget.item.link != null
           ? IconButton(
               onPressed: () async {

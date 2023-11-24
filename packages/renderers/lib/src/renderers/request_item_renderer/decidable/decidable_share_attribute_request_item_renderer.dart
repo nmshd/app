@@ -1,20 +1,22 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
+import '../widgets/draft_attribute_renderer.dart';
 import '/src/request_item_index.dart';
 import '/src/request_renderer_controller.dart';
-import '../widgets/draft_attribute_renderer.dart';
 
 class DecidableShareAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableShareAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
+  final LocalRequestStatus? requestStatus;
 
   const DecidableShareAttributeRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
+    this.requestStatus,
   });
 
   @override
@@ -22,22 +24,31 @@ class DecidableShareAttributeRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableShareAttributeRequestItemRendererState extends State<DecidableShareAttributeRequestItemRenderer> {
-  @override
-  void initState() {
-    super.initState();
+  bool isChecked = true;
+  AbstractAttribute? newAttribute;
 
-    widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+  void onUpdateCheckbox(bool? value) {
+    setState(() {
+      isChecked = value!;
+    });
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    } else {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DraftAttributeRenderer(draftAttribute: widget.item.attribute),
-        Text(widget.item.attribute.name),
-        const SizedBox(height: 30),
-      ],
+    return DraftAttributeRenderer(
+      draftAttribute: widget.item.attribute,
+      isChecked: isChecked,
+      onUpdateCheckbox: onUpdateCheckbox,
+      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
     );
   }
 }
