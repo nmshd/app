@@ -104,12 +104,16 @@ class DecidableReadRequestItemExample extends StatelessWidget {
 
     final birthPlaceRenderHints = RenderHints(technicalType: RenderHintsTechnicalType.Object, editType: RenderHintsEditType.Complex, propertyHints: {
       'city': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
-      'country': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
+      'country': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.SelectLike),
       'state': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
     });
     const birthPlaceValueHints = ValueHints(propertyHints: {
       'city': ValueHints(max: 100, propertyHints: {}),
-      'country': ValueHints(max: 100, propertyHints: {}),
+      'country': ValueHints(max: 100, propertyHints: {}, values: [
+        ValueHintsValue(key: ValueHintsDefaultValueString('AT'), displayName: 'i18n://attributes.values.countries.AT'),
+        ValueHintsValue(key: ValueHintsDefaultValueString('DE'), displayName: 'i18n://attributes.values.countries.DE'),
+        ValueHintsValue(key: ValueHintsDefaultValueString('BR'), displayName: 'i18n://attributes.values.countries.BR'),
+      ]),
       'state': ValueHints(max: 100, propertyHints: {}),
     });
     const birthPlaceAttributeValue = BirthPlaceAttributeValue(city: 'Füssen', country: 'Germany', state: 'Bayern');
@@ -154,7 +158,7 @@ class DecidableReadRequestItemExample extends StatelessWidget {
       'userId': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
       'zipCode': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
       'city': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
-      'country': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
+      'country': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.SelectLike),
     });
     const deliveryBoxAddressValueHints = ValueHints(propertyHints: {
       'recipient': ValueHints(max: 100, propertyHints: {}),
@@ -162,7 +166,11 @@ class DecidableReadRequestItemExample extends StatelessWidget {
       'userId': ValueHints(max: 100, propertyHints: {}),
       'zipCode': ValueHints(max: 100, propertyHints: {}),
       'city': ValueHints(max: 100, propertyHints: {}),
-      'country': ValueHints(max: 100, propertyHints: {}),
+      'country': ValueHints(max: 100, propertyHints: {}, values: [
+        ValueHintsValue(key: ValueHintsDefaultValueString('AT'), displayName: 'i18n://attributes.values.countries.AT'),
+        ValueHintsValue(key: ValueHintsDefaultValueString('DE'), displayName: 'i18n://attributes.values.countries.DE'),
+        ValueHintsValue(key: ValueHintsDefaultValueString('BR'), displayName: 'i18n://attributes.values.countries.BR'),
+      ]),
     });
     const deliveryBoxAddressAttributeValue = DeliveryBoxAddressAttributeValue(
       recipient: 'Max Mustermann',
@@ -255,14 +263,18 @@ class DecidableReadRequestItemExample extends StatelessWidget {
       'boxId': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
       'zipCode': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
       'city': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
-      'country': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
+      'country': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.SelectLike),
     });
     const postOfficeBoxAddressValueHints = ValueHints(propertyHints: {
       'recipient': ValueHints(max: 100, propertyHints: {}),
       'boxId': ValueHints(max: 100, propertyHints: {}),
       'zipCode': ValueHints(max: 100, propertyHints: {}),
       'city': ValueHints(max: 100, propertyHints: {}),
-      'country': ValueHints(max: 100, propertyHints: {}),
+      'country': ValueHints(max: 100, propertyHints: {}, values: [
+        ValueHintsValue(key: ValueHintsDefaultValueString('AT'), displayName: 'i18n://attributes.values.countries.AT'),
+        ValueHintsValue(key: ValueHintsDefaultValueString('DE'), displayName: 'i18n://attributes.values.countries.DE'),
+        ValueHintsValue(key: ValueHintsDefaultValueString('BR'), displayName: 'i18n://attributes.values.countries.BR'),
+      ]),
     });
     const postOfficeBoxAddressAttributeValue = PostOfficeBoxAddressAttributeValue(
       recipient: 'Max Mustermann',
@@ -312,7 +324,7 @@ class DecidableReadRequestItemExample extends StatelessWidget {
       'houseNumber': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
       'zipCode': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
       'city': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
-      'country': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.InputLike),
+      'country': RenderHints(technicalType: RenderHintsTechnicalType.String, editType: RenderHintsEditType.SelectLike),
     });
     const streetAddressValueHints = ValueHints(propertyHints: {
       'recipient': ValueHints(max: 100, propertyHints: {}),
@@ -320,7 +332,11 @@ class DecidableReadRequestItemExample extends StatelessWidget {
       'houseNumber': ValueHints(max: 100, propertyHints: {}),
       'zipCode': ValueHints(max: 100, propertyHints: {}),
       'city': ValueHints(max: 100, propertyHints: {}),
-      'country': ValueHints(max: 100, propertyHints: {}),
+      'country': ValueHints(max: 100, propertyHints: {}, values: [
+        ValueHintsValue(key: ValueHintsDefaultValueString('AT'), displayName: 'i18n://attributes.values.countries.AT'),
+        ValueHintsValue(key: ValueHintsDefaultValueString('DE'), displayName: 'i18n://attributes.values.countries.DE'),
+        ValueHintsValue(key: ValueHintsDefaultValueString('BR'), displayName: 'i18n://attributes.values.countries.BR'),
+      ]),
     });
     const streetAddressAttributeValue = StreetAddressAttributeValue(
       recipient: 'Max Mustermann',
