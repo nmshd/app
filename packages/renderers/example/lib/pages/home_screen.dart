@@ -6,6 +6,10 @@ import 'create_attribute_request_item_example/identity_attribute_example.dart';
 import 'create_attribute_request_item_example/rejected_create_attribute_request_json_example.dart';
 import 'create_attribute_request_item_example/relationship_attribute_example.dart';
 import 'decidable_examples/decidable_consent_request_item_example.dart';
+import 'decidable_examples/decidable_create_request_item_example.dart';
+import 'decidable_examples/decidable_create_request_relationship_item_example.dart';
+import 'decidable_examples/decidable_propose_request_item_example.dart';
+import 'decidable_examples/decidable_propose_request_relationship_item_example.dart';
 import 'decidable_examples/decidable_read_request_item_example.dart';
 import 'decidable_examples/decidable_read_request_relationship_item_example.dart';
 import 'decidable_examples/decidable_register_request_item_example.dart';
@@ -121,6 +125,26 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icons.description,
           title: 'Decidable Read Relationship Attribute with results Example',
           pageBuilder: (context) => const DecidableReadRequestRelationshipItemExample(isWithResults: true),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Propose Identity Attribute Example',
+          pageBuilder: (context) => const DecidableProposeRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Propose Relationship Attribute Example',
+          pageBuilder: (context) => const DecidableProposeRequestRelationshipItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Create Identity Attribute Example',
+          pageBuilder: (context) => const DecidableCreateRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Create Relationship Attribute Example',
+          pageBuilder: (context) => const DecidableCreateRequestRelationshipItemExample(),
         ),
       ])
     ];
