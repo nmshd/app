@@ -14,7 +14,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final attributeValueMap = value.toJson();
 
-    if (attributeValueMap.length == 2) {
+    if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: attributeValueMap['value'].toString(),
