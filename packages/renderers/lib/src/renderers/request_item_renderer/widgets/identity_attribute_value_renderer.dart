@@ -1,16 +1,14 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../renderers.dart';
 import '../../widgets/complex_attribute_list_tile.dart';
 import '../../widgets/custom_list_tile.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
-  final RequestRendererController? controller;
   final VoidCallback? onEdit;
 
-  const IdentityAttributeValueRenderer({super.key, required this.value, this.controller, this.onEdit});
+  const IdentityAttributeValueRenderer({super.key, required this.value, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
