@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../widgets/identity_attribute_value_renderer.dart';
 import '../widgets/relationship_attribute_value_renderer.dart';
 
-class ReadAttributeAcceptResponseItemRenderer extends StatelessWidget {
-  final ReadAttributeAcceptResponseItemDVO item;
+class ProposeAttributeAcceptResponseItemRenderer extends StatelessWidget {
+  final ProposeAttributeAcceptResponseItemDVO item;
 
-  const ReadAttributeAcceptResponseItemRenderer({super.key, required this.item});
+  const ProposeAttributeAcceptResponseItemRenderer({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {

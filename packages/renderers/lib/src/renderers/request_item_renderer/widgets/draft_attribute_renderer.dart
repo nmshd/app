@@ -1,109 +1,31 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:logger/logger.dart';
 
-import '../../widgets/complex_attribute_list_tile.dart';
-import '../../widgets/custom_list_tile.dart';
-import '/src/url_launcher.dart';
+import 'identity_attribute_value_renderer.dart';
+import 'relationship_attribute_value_renderer.dart';
 
 class DraftAttributeRenderer extends StatelessWidget {
-  final dynamic draftAttribute;
+  final DraftAttributeDVO draftAttribute;
   final VoidCallback? onEdit;
+  final bool? isRejected;
 
-  const DraftAttributeRenderer({super.key, required this.draftAttribute, this.onEdit});
+  const DraftAttributeRenderer({super.key, required this.draftAttribute, this.onEdit, this.isRejected});
 
   @override
   Widget build(BuildContext context) {
-    if (draftAttribute.content is IdentityAttribute) {
-      final attribute = draftAttribute.content as IdentityAttribute;
-      final attributeValueMap = attribute.value.toJson();
+    final attributeContent = switch (draftAttribute) {
+      final DraftIdentityAttributeDVO item => item.content,
+      final DraftRelationshipAttributeDVO item => item.content,
+    };
 
-      final List<({String label, String value})> fields = attributeValueMap.entries
-          .where((e) => e.key != '@type')
-          .map((e) => (label: 'i18n://attributes.values.${attribute.value.atType}.${e.key}.label', value: e.value.toString()))
-          .toList();
-
-      return AttributeRenderer(
-        attributeValueMap: attributeValueMap,
-        customTitle: 'i18n://dvo.attribute.name.${attribute.value.atType}',
-        fields: fields,
-        complexTitle: 'i18n://attributes.values.${attribute.value.atType}._title',
-        onEdit: onEdit,
-      );
+    if (attributeContent is IdentityAttribute) {
+      return IdentityAttributeValueRenderer(value: attributeContent.value, onEdit: onEdit);
     }
 
-    if (draftAttribute.content is RelationshipAttribute) {
-      final attribute = draftAttribute.content as RelationshipAttribute;
-      final attributeValueMap = attribute.value.toJson();
-
-      return switch (attribute.value) {
-        final ConsentAttributeValue consentAttributeValue => CustomListTile(
-            title: 'i18n://dvo.attribute.name.${attribute.value.atType}',
-            description: consentAttributeValue.consent,
-            trailing: consentAttributeValue.link != null
-                ? IconButton(
-                    onPressed: () async {
-                      final url = Uri.parse(consentAttributeValue.link!);
-                      final urlLauncher = GetIt.I.get<AbstractUrlLauncher>();
-
-                      if (!await urlLauncher.canLaunchUrl(url)) {
-                        GetIt.I.get<Logger>().e('Could not launch $url');
-                        return;
-                      }
-                      try {
-                        await urlLauncher.launchUrl(url);
-                      } catch (e) {
-                        GetIt.I.get<Logger>().e(e);
-                      }
-                    },
-                    icon: const Icon(Icons.open_in_new),
-                  )
-                : null,
-          ),
-        final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
-            title: proprietaryAttributeValue.title,
-            // TODO: render the description of the ProprietaryAttributeValue
-            description: attributeValueMap['value'].toString(),
-          ),
-        _ => throw Exception('cannot handle RelationshipAttributeValue: ${attribute.value.runtimeType}'),
-      };
+    if (attributeContent is RelationshipAttribute) {
+      return RelationshipAttributeValueRenderer(value: attributeContent.value, onEdit: onEdit);
     }
 
     throw Exception('Unknown AbstractAttribute: ${draftAttribute.runtimeType}');
-  }
-}
-
-class AttributeRenderer extends StatelessWidget {
-  final Map<String, dynamic> attributeValueMap;
-  final String customTitle;
-  final List<({String label, String value})> fields;
-  final String complexTitle;
-  final VoidCallback? onEdit;
-
-  const AttributeRenderer({
-    super.key,
-    required this.attributeValueMap,
-    required this.customTitle,
-    required this.fields,
-    required this.complexTitle,
-    this.onEdit,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (attributeValueMap.length == 2) {
-      return CustomListTile(
-        title: customTitle,
-        description: attributeValueMap['value'].toString(),
-        onPressed: onEdit,
-      );
-    }
-
-    return ComplexAttributeListTile(
-      title: complexTitle,
-      fields: fields,
-      onPressed: onEdit,
-    );
   }
 }
