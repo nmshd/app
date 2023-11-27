@@ -183,6 +183,9 @@
          },
          "DecidableCreateIdentityAttributeRequestItem": {
             "name": "Erstellt ein neues Identitätsattribut für dich"
+         },
+         "DecidableAuthenticationRequestItem": {
+            "name": "Frägt eine Bestätigung an"
          }
       },
       "identity": {

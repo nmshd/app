@@ -1,7 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../renderers.dart';
+import '/renderers.dart';
 import '../widgets/draft_attribute_renderer.dart';
 
 class DecidableShareAttributeRequestItemRenderer extends StatelessWidget {
@@ -12,13 +12,6 @@ class DecidableShareAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DraftAttributeRenderer(draftAttribute: item.attribute),
-        Text(item.attribute.name),
-        const SizedBox(height: 30),
-      ],
-    );
+    return DraftAttributeRenderer(draftAttribute: item.attribute);
   }
 }
