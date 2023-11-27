@@ -27,7 +27,7 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (hideCheckbox != null) Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
+        if (hideCheckbox != null && !hideCheckbox!) Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -37,7 +37,7 @@ class CustomListTile extends StatelessWidget {
                 TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
                 if (description != null) ...[
                   const SizedBox(height: 2),
-                  TranslatedText(description!, style: const TextStyle(fontSize: 16)),
+                  TranslatedText(selectedAttribute ?? description!, style: const TextStyle(fontSize: 16)),
                 ]
               ],
             ),
