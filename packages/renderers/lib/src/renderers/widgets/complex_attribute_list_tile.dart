@@ -9,7 +9,6 @@ class ComplexAttributeListTile extends StatelessWidget {
   final void Function()? onPressed;
   final bool? isChecked;
   final bool? hideCheckbox;
-  final String? selectedAttribute;
   final Function(bool?)? onUpdateCheckbox;
 
   const ComplexAttributeListTile({
@@ -20,7 +19,6 @@ class ComplexAttributeListTile extends StatelessWidget {
     this.onPressed,
     this.isChecked,
     this.hideCheckbox,
-    this.selectedAttribute,
     this.onUpdateCheckbox,
   });
 

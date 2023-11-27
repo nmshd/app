@@ -125,8 +125,20 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 
     return const IdentityAttribute(
       owner: '',
-      value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
+      value: StreetAddressAttributeValue(
+        recipient: 'Alternative Recepient',
+        street: 'Alternative Street',
+        houseNumber: 'Alternative House Number',
+        zipCode: 'Alternative Zip Code',
+        city: 'Alternative City',
+        country: 'Alternative Country',
+      ),
     );
+
+    // return const IdentityAttribute(
+    //   owner: '',
+    //   value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
+    // );
   }
 
   defineControllerValue(controllerValue) {

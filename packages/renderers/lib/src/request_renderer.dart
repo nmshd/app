@@ -54,6 +54,7 @@ class _RequestRendererState extends State<RequestRenderer> {
           controller: widget.controller,
           onEdit: widget.onEdit,
           requestStatus: widget.request.status,
+          selectAttribute: widget.selectAttribute,
         );
       }
 

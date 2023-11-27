@@ -26,8 +26,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final attributeValueMap = value.toJson();
     final newAttribute = selectedAttribute != null ? selectedAttribute as IdentityAttribute : null;
+    final attributeValueMap = newAttribute != null ? newAttribute.value.toJson() : value.toJson();
 
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
@@ -53,7 +53,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       isChecked: isChecked,
       onUpdateCheckbox: onUpdateCheckbox,
       hideCheckbox: hideCheckbox,
-      selectedAttribute: newAttribute != null ? newAttribute.value.toJson()['value'] : null,
     );
   }
 }
