@@ -183,6 +183,9 @@
          },
          "DecidableCreateIdentityAttributeRequestItem": {
             "name": "Creates a new identity attribute for you"
+         },
+         "DecidableAuthenticationRequestItem": {
+            "name": "Requests your authentication"
          }
       },
       "identity": {
