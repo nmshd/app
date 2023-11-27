@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import '../../../../renderers.dart';
+import '/renderers.dart';
 import '../../widgets/custom_list_tile.dart';
 import '/src/request_item_index.dart';
 

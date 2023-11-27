@@ -53,68 +53,64 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Message Detail Screen')),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Title:', style: TextStyle(fontWeight: FontWeight.bold)),
-                  TranslatedText(widget.localRequestDVO.name),
-                  const SizedBox(height: 8),
-                  if (widget.localRequestDVO.description != null) ...[
-                    const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    TranslatedText(widget.localRequestDVO.description!),
-                    const SizedBox(height: 8),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Title:', style: TextStyle(fontWeight: FontWeight.bold)),
+              TranslatedText(widget.localRequestDVO.name),
+              const SizedBox(height: 8),
+              if (widget.localRequestDVO.description != null) ...[
+                const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
+                TranslatedText(widget.localRequestDVO.description!),
+                const SizedBox(height: 8),
+              ],
+              const Text('Request ID:', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(widget.localRequestDVO.id),
+              const SizedBox(height: 8),
+              const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
+              TranslatedText(widget.localRequestDVO.statusText),
+              const SizedBox(height: 8),
+              const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(widget.localRequestDVO.createdBy.name),
+              const SizedBox(height: 8),
+              const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
+              RequestRenderer(
+                request: widget.localRequestDVO,
+                controller: controller,
+                onEdit: () => _addEditItem(),
+                validationResult: _validationResult,
+                selectAttribute: createIdentityAttributeDVO,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text('requestController: ${defineControllerValue(controller.value)}'),
+                    const SizedBox(height: 10),
+                    Text('validationResult: ${_validationResult.toString()} '),
                   ],
-                  const Text('Request ID:', style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(widget.localRequestDVO.id),
-                  const SizedBox(height: 8),
-                  const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
-                  TranslatedText(widget.localRequestDVO.statusText),
-                  const SizedBox(height: 8),
-                  const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(widget.localRequestDVO.createdBy.name),
-                  const SizedBox(height: 8),
-                  const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
-                ],
+                ),
               ),
-            ),
-            RequestRenderer(
-              request: widget.localRequestDVO,
-              controller: controller,
-              onEdit: () => _addEditItem(),
-              validationResult: _validationResult,
-              selectAttribute: createIdentityAttributeDVO,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text('requestController: ${defineControllerValue(controller.value)}'),
-                  const SizedBox(height: 10),
-                  Text('validationResult: ${_validationResult.toString()} '),
-                ],
-              ),
-            ),
-            if (widget.localRequestDVO.isDecidable)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('cancel'),
-                  ),
-                  FilledButton(
-                    onPressed: _validationResult != null && _validationResult!.isSuccess ? () {} : null,
-                    style: OutlinedButton.styleFrom(minimumSize: const Size(100.0, 36.0)),
-                    child: const Text('save'),
-                  ),
-                ],
-              ),
-          ],
+              if (widget.localRequestDVO.isDecidable)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('cancel'),
+                    ),
+                    FilledButton(
+                      onPressed: _validationResult != null && _validationResult!.isSuccess ? () {} : null,
+                      style: OutlinedButton.styleFrom(minimumSize: const Size(100.0, 36.0)),
+                      child: const Text('save'),
+                    ),
+                  ],
+                ),
+            ],
+          ),
         ),
       ),
     );

@@ -2,13 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import 'account_requests/requests_screen.dart';
-import 'create_attribute_request_item_example/identity_attribute_example.dart';
-import 'create_attribute_request_item_example/rejected_create_attribute_request_json_example.dart';
-import 'create_attribute_request_item_example/relationship_attribute_example.dart';
-import 'decidable_examples/decidable_consent_request_item_example.dart';
-import 'decidable_examples/decidable_read_request_item_example.dart';
-import 'decidable_examples/decidable_read_request_relationship_item_example.dart';
-import 'decidable_examples/decidable_register_request_item_example.dart';
+import 'create_attribute_request_item_example/create_attribute_request_item_example.dart';
+import 'decidable_examples/decidable_examples.dart';
 import 'item_examples.dart';
 import 'item_group_example.dart';
 import 'read_attribute_request_item_example.dart';
@@ -123,6 +118,16 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icons.description,
           title: 'Decidable Read Relationship Attribute with results Example',
           pageBuilder: (context) => const DecidableReadRequestRelationshipItemExample(isWithResults: true),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Authentication Request Item JSON Examples',
+          pageBuilder: (context) => const DecidableAuthenticationRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Share Attribute Request Item JSON Examples',
+          pageBuilder: (context) => const DecidableShareAttributeRequestItemExample(),
         ),
       ]),
       _MenuGroup(title: 'Response Requests', items: [
