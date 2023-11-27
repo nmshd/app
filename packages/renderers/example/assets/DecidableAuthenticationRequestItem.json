@@ -13,7 +13,7 @@
       "items": [
         {
           "id": "",
-          "name": "Authentication of User",
+          "name": "Es liegt eine Login-Anfrage vor. Wenn Sie es nicht initiiert haben, ignorieren Sie bitte diese Nachricht und genehmigen Sie es nicht.",
           "type": "DecidableAuthenticationRequestItemDVO",
           "mustBeAccepted": true
         }
@@ -445,7 +445,7 @@
     "items": [
       {
         "id": "",
-        "name": "Authentication of User",
+        "name": "Es liegt eine Login-Anfrage vor. Wenn Sie es nicht initiiert haben, ignorieren Sie bitte diese Nachricht und genehmigen Sie es nicht.",
         "type": "DecidableAuthenticationRequestItemDVO",
         "mustBeAccepted": true
       }

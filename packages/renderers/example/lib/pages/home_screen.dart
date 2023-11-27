@@ -124,6 +124,11 @@ class _HomeScreenState extends State<HomeScreen> {
           title: 'Decidable Authentication Request Item JSON Examples',
           pageBuilder: (context) => const DecidableAuthenticationRequestItemExample(),
         ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Share Attribute Request Item JSON Examples',
+          pageBuilder: (context) => const DecidableShareAttributeRequestItemExample(),
+        ),
       ]),
       _MenuGroup(title: 'Response Requests', items: [
         _MenuItem(
@@ -135,11 +140,6 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icons.description,
           title: 'Response Renderer',
           pageBuilder: (context) => const ResponseItemExample(),
-        ),
-        _MenuItem(
-          icon: Icons.description,
-          title: 'Decidable Share Attribute Request Item JSON Examples',
-          pageBuilder: (context) => const DecidableShareAttributeRequestItemExample(),
         ),
       ])
     ];
