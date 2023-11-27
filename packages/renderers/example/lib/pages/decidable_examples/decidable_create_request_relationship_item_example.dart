@@ -221,39 +221,34 @@ class DecidableCreateRequestRelationshipItemExample extends StatelessWidget {
     );
 
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Title:', style: TextStyle(fontWeight: FontWeight.bold)),
-                TranslatedText(localRequest.name),
-                const SizedBox(height: 8),
-                if (localRequest.description != null) ...[
-                  const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
-                  TranslatedText(localRequest.description!),
-                  const SizedBox(height: 8),
-                ],
-                const Text('Request ID:', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(localRequest.id),
-                const SizedBox(height: 8),
-                const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
-                TranslatedText(localRequest.statusText),
-                const SizedBox(height: 8),
-                const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(localRequest.createdBy.name),
-                const SizedBox(height: 8),
-                const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequest.createdAt))),
-                const Divider(),
-                RequestRenderer(request: localRequest),
-              ],
-            ),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Title:', style: TextStyle(fontWeight: FontWeight.bold)),
+            TranslatedText(localRequest.name),
+            const SizedBox(height: 8),
+            if (localRequest.description != null) ...[
+              const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
+              TranslatedText(localRequest.description!),
+              const SizedBox(height: 8),
+            ],
+            const Text('Request ID:', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(localRequest.id),
+            const SizedBox(height: 8),
+            const Text('Status:', style: TextStyle(fontWeight: FontWeight.bold)),
+            TranslatedText(localRequest.statusText),
+            const SizedBox(height: 8),
+            const Text('Created by:', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(localRequest.createdBy.name),
+            const SizedBox(height: 8),
+            const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequest.createdAt))),
+            const Divider(),
+            RequestRenderer(request: localRequest),
+          ],
+        ),
       ),
     );
   }
