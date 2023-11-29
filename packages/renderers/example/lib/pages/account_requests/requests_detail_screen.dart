@@ -84,16 +84,6 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                 validationResult: _validationResult,
                 selectAttribute: createIdentityAttributeDVO,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    // Text('requestController: ${defineControllerValue(controller.value)}'),
-                    // const SizedBox(height: 10),
-                    Text('Validation Result: ${_validationResult?.isSuccess.toString()} '),
-                  ],
-                ),
-              ),
               if (widget.localRequestDVO.isDecidable)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -165,16 +155,6 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
         ),
       _ => throw Exception('Invalid Value Type: $valueType'),
     };
-  }
-
-  defineControllerValue(controllerValue) {
-    return controllerValue?.items.map((item) {
-      if (item is DecideRequestItemGroupParameters) {
-        return item.items;
-      }
-
-      return item;
-    });
   }
 
   void _addEditItem() {
