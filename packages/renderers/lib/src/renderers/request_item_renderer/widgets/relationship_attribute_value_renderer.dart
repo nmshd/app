@@ -8,6 +8,7 @@ import '../../widgets/custom_list_tile.dart';
 
 class RelationshipAttributeValueRenderer extends StatelessWidget {
   final RelationshipAttributeValue value;
+  final VoidCallback? onEdit;
   final bool? isRejected;
   final Function(bool?)? onUpdateCheckbox;
   final bool? isChecked;
@@ -17,6 +18,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
   const RelationshipAttributeValueRenderer({
     super.key,
     required this.value,
+    this.onEdit,
     this.isRejected,
     this.onUpdateCheckbox,
     this.isChecked,
@@ -61,6 +63,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
           description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
+          onPressed: onEdit,
         ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),
     };

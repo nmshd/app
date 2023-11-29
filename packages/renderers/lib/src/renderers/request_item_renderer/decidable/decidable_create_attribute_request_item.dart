@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
+import '../widgets/draft_attribute_renderer.dart';
 
 import '/src/request_item_index.dart';
 import '/src/request_renderer_controller.dart';
@@ -9,6 +10,8 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
   final LocalRequestStatus? requestStatus;
+  final VoidCallback? onEdit;
+
 
   const DecidableCreateAttributeRequestItemRenderer({
     super.key,
@@ -16,6 +19,7 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
     this.controller,
     required this.itemIndex,
     this.requestStatus,
+    this.onEdit,
   });
 
   @override
@@ -52,6 +56,6 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return DraftAttributeRenderer(draftAttribute: item.attribute, onEdit: onEdit);
   }
 }

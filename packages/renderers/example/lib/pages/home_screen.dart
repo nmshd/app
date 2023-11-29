@@ -2,6 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import 'account_requests/requests_screen.dart';
+import 'create_attribute_request_item_example/identity_attribute_example.dart';
+import 'create_attribute_request_item_example/rejected_create_attribute_request_json_example.dart';
+import 'create_attribute_request_item_example/relationship_attribute_example.dart';
 import 'can_accept_examples/can_accept_checkbox_example.dart';
 import 'create_attribute_request_item_example/create_attribute_request_item_example.dart';
 import 'decidable_examples/decidable_examples.dart';
@@ -129,6 +132,26 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icons.description,
           title: 'Decidable Share Attribute Request Item JSON Examples',
           pageBuilder: (context) => const DecidableShareAttributeRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Propose Identity Attribute Example',
+          pageBuilder: (context) => const DecidableProposeRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Propose Relationship Attribute Example',
+          pageBuilder: (context) => const DecidableProposeRequestRelationshipItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Create Identity Attribute Example',
+          pageBuilder: (context) => const DecidableCreateRequestItemExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Decidable Create Relationship Attribute Example',
+          pageBuilder: (context) => const DecidableCreateRequestRelationshipItemExample(),
         ),
       ]),
       _MenuGroup(title: 'Response Requests', items: [

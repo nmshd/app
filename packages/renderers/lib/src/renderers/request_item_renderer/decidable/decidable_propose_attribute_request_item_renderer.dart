@@ -2,12 +2,14 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 import 'package:renderers/src/renderers/request_item_renderer/widgets/draft_attribute_renderer.dart';
 
+import '../widgets/draft_attribute_renderer.dart';
 import '/src/request_item_index.dart';
 import '/src/request_renderer_controller.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
+  final VoidCallback? onEdit;
   final RequestItemIndex itemIndex;
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
   final LocalRequestStatus? requestStatus;
@@ -19,8 +21,8 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
     required this.itemIndex,
     this.selectAttribute,
     this.requestStatus,
+    this.onEdit,
   });
-
   @override
   State<DecidableProposeAttributeRequestItemRenderer> createState() => _DecidableProposeAttributeRequestItemRendererState();
 }
@@ -108,6 +110,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       isChecked: isChecked,
       hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
       selectedAttribute: newAttribute,
+      onEdit: onEdit,
     );
   }
 }

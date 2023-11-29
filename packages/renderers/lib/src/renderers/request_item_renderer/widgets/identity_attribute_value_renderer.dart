@@ -33,11 +33,10 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: attributeValueMap['value'].toString(),
-        trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.edit, color: Colors.blue)),
-        isChecked: isChecked,
-        onUpdateCheckbox: onUpdateCheckbox,
-        hideCheckbox: hideCheckbox,
-        selectedAttribute: newAttribute != null ? newAttribute.value.toJson()['value'] : null,
+        trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.chevron_right),  isChecked: isChecked,
+          onUpdateCheckbox: onUpdateCheckbox,
+          hideCheckbox: hideCheckbox,
+          selectedAttribute: newAttribute != null ? newAttribute.value.toJson()['value'] : null,),
       );
     }
 
@@ -49,10 +48,9 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
-      trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.edit, color: Colors.blue)),
-      isChecked: isChecked,
-      onUpdateCheckbox: onUpdateCheckbox,
-      hideCheckbox: hideCheckbox,
+      trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.chevron_right),      isChecked: isChecked,
+        onUpdateCheckbox: onUpdateCheckbox,
+        hideCheckbox: hideCheckbox,),
     );
   }
 }
