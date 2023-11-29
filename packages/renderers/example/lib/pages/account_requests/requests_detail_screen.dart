@@ -120,6 +120,10 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     await Future.delayed(const Duration(seconds: 2));
 
     return switch (valueType) {
+      'DisplayName' => const IdentityAttribute(
+          owner: '',
+          value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
+        ),
       'GivenName' => const IdentityAttribute(
           owner: '',
           value: DisplayNameAttributeValue(value: 'Alternative Given Name'),

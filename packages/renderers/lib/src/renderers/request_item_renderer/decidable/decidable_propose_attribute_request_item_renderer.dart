@@ -35,7 +35,15 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     });
 
     if (isChecked) {
-      loadSelectedAttribute();
+      final attribute = switch (widget.item.attribute) {
+        final DraftIdentityAttributeDVO dvo => dvo.content,
+        final DraftRelationshipAttributeDVO dvo => dvo.content,
+      };
+
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: newAttribute ?? attribute),
+      );
     } else {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
