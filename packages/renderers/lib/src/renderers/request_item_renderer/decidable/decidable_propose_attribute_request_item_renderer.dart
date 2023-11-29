@@ -28,16 +28,27 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   bool isChecked = true;
   AbstractAttribute? newAttribute;
 
+  attributeContent(DraftAttributeDVO attribute) {
+    return switch (widget.item.attribute) {
+      final DraftIdentityAttributeDVO dvo => dvo.content,
+      final DraftRelationshipAttributeDVO dvo => dvo.content,
+    };
+  }
+
+  attributeType(DraftAttributeDVO attribute) {
+    return switch (widget.item.attribute) {
+      final DraftIdentityAttributeDVO dvo => dvo.valueType,
+      final DraftRelationshipAttributeDVO dvo => dvo.valueType,
+    };
+  }
+
   void onUpdateCheckbox(bool? value) {
     setState(() {
       isChecked = value!;
     });
 
     if (isChecked) {
-      final attribute = switch (widget.item.attribute) {
-        final DraftIdentityAttributeDVO dvo => dvo.content,
-        final DraftRelationshipAttributeDVO dvo => dvo.content,
-      };
+      final attribute = attributeContent(widget.item.attribute);
 
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
@@ -52,10 +63,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   }
 
   Future<void> loadSelectedAttribute() async {
-    final valueType = switch (widget.item.attribute) {
-      final DraftIdentityAttributeDVO attribute => attribute.valueType,
-      final DraftRelationshipAttributeDVO attribute => attribute.valueType,
-    };
+    final valueType = attributeType(widget.item.attribute);
 
     final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
     if (selectedAttribute != null) {
@@ -68,10 +76,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
         value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: newAttribute!),
       );
     } else {
-      final attribute = switch (widget.item.attribute) {
-        final DraftIdentityAttributeDVO dvo => dvo.content,
-        final DraftRelationshipAttributeDVO dvo => dvo.content,
-      };
+      final attribute = attributeContent(widget.item.attribute);
 
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
@@ -84,10 +89,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   void initState() {
     super.initState();
 
-    final attribute = switch (widget.item.attribute) {
-      final DraftIdentityAttributeDVO dvo => dvo.content,
-      final DraftRelationshipAttributeDVO dvo => dvo.content,
-    };
+    final attribute = attributeContent(widget.item.attribute);
 
     if (isChecked) {
       widget.controller?.writeAtIndex(

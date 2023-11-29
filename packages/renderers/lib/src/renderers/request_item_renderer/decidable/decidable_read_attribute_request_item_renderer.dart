@@ -32,18 +32,31 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   bool isChecked = true;
   AbstractAttribute? newAttribute;
 
+  attributeContent(ProcessedAttributeQueryDVO attribute) {
+    return switch (widget.item.query) {
+      final ProcessedIdentityAttributeQueryDVO query => query.results.first.content,
+      final ProcessedRelationshipAttributeQueryDVO query => query.results.first.content,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.content,
+      final ProcessedIQLQueryDVO query => query.results.first.content,
+    };
+  }
+
+  attributeType(ProcessedAttributeQueryDVO attribute) {
+    return switch (widget.item.query) {
+      final ProcessedIdentityAttributeQueryDVO query => query.results.first.valueType,
+      final ProcessedRelationshipAttributeQueryDVO query => query.results.first.valueType,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.valueType,
+      final ProcessedIQLQueryDVO query => query.results.first.valueType,
+    };
+  }
+
   void onUpdateCheckbox(bool? value) {
     setState(() {
       isChecked = value!;
     });
 
     if (isChecked) {
-      final attribute = switch (widget.item.query) {
-        final ProcessedIdentityAttributeQueryDVO query => query.results.first.content,
-        final ProcessedRelationshipAttributeQueryDVO query => query.results.first.content,
-        final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.content,
-        final ProcessedIQLQueryDVO query => query.results.first.content,
-      };
+      final attribute = attributeContent(widget.item.query);
 
       if (attribute != null) {
         widget.controller?.writeAtIndex(
@@ -60,12 +73,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   Future<void> loadSelectedAttribute() async {
-    final attribute = switch (widget.item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => query.results.first.valueType,
-      final ProcessedRelationshipAttributeQueryDVO query => query.results.first.valueType,
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.valueType,
-      final ProcessedIQLQueryDVO query => query.results.first.valueType,
-    };
+    final attribute = attributeType(widget.item.query);
 
     if (attribute != null) {
       final selectedAttribute = await widget.selectAttribute?.call(valueType: attribute);
@@ -80,12 +88,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         );
       }
     } else {
-      final attribute = switch (widget.item.query) {
-        final ProcessedIdentityAttributeQueryDVO query => query.results.first.content,
-        final ProcessedRelationshipAttributeQueryDVO query => query.results.first.content,
-        final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.content,
-        final ProcessedIQLQueryDVO query => query.results.first.content,
-      };
+      final attribute = attributeContent(widget.item.query);
 
       if (attribute != null) {
         widget.controller?.writeAtIndex(
@@ -100,12 +103,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   void initState() {
     super.initState();
 
-    final attribute = switch (widget.item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => query.results.first.content,
-      final ProcessedRelationshipAttributeQueryDVO query => query.results.first.content,
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.content,
-      final ProcessedIQLQueryDVO query => query.results.first.content,
-    };
+    final attribute = attributeContent(widget.item.query);
 
     if (isChecked) {
       if (attribute != null) {
