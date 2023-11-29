@@ -12,7 +12,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
   final VoidCallback? onEdit;
   final RequestItemIndex itemIndex;
   final LocalRequestStatus? requestStatus;
-  final Future<AbstractAttribute> Function()? selectAttribute;
+  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
 
   const RequestItemGroupRenderer({
     super.key,

@@ -88,9 +88,9 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Text('requestController: ${defineControllerValue(controller.value)}'),
-                    const SizedBox(height: 10),
-                    Text('validationResult: ${_validationResult.toString()} '),
+                    // Text('requestController: ${defineControllerValue(controller.value)}'),
+                    // const SizedBox(height: 10),
+                    Text('Validation Result: ${_validationResult?.isSuccess.toString()} '),
                   ],
                 ),
               ),
@@ -116,25 +116,51 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     );
   }
 
-  Future<IdentityAttribute> createIdentityAttributeDVO() async {
+  Future<IdentityAttribute> createIdentityAttributeDVO({required String valueType}) async {
     await Future.delayed(const Duration(seconds: 2));
 
-    return const IdentityAttribute(
-      owner: '',
-      value: StreetAddressAttributeValue(
-        recipient: 'Alternative Recepient',
-        street: 'Alternative Street',
-        houseNumber: 'Alternative House Number',
-        zipCode: 'Alternative Zip Code',
-        city: 'Alternative City',
-        country: 'Alternative Country',
-      ),
-    );
-
-    // return const IdentityAttribute(
-    //   owner: '',
-    //   value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
-    // );
+    return switch (valueType) {
+      'GivenName' => const IdentityAttribute(
+          owner: '',
+          value: DisplayNameAttributeValue(value: 'Alternative Given Name'),
+        ),
+      'Surname' => const IdentityAttribute(
+          owner: '',
+          value: DisplayNameAttributeValue(value: 'Alternative Surname'),
+        ),
+      'Nationality' => const IdentityAttribute(
+          owner: '',
+          value: DisplayNameAttributeValue(value: 'Alternative Nationality'),
+        ),
+      'CommunicationLanguage' => const IdentityAttribute(
+          owner: '',
+          value: DisplayNameAttributeValue(value: 'Alternative Communication Language'),
+        ),
+      'BirthDate' => const IdentityAttribute(
+          owner: '',
+          value: DisplayNameAttributeValue(value: 'Alternative Birth Date'),
+        ),
+      'EMailAddress' => const IdentityAttribute(
+          owner: '',
+          value: DisplayNameAttributeValue(value: 'Alternative Email Address'),
+        ),
+      'Sex' => const IdentityAttribute(
+          owner: '',
+          value: DisplayNameAttributeValue(value: 'Alternative Sex'),
+        ),
+      'StreetAddress' => const IdentityAttribute(
+          owner: '',
+          value: StreetAddressAttributeValue(
+            recipient: 'Alternative Recepient',
+            street: 'Alternative Street',
+            houseNumber: 'Alternative House Number',
+            zipCode: 'Alternative Zip Code',
+            city: 'Alternative City',
+            country: 'Alternative Country',
+          ),
+        ),
+      _ => throw Exception('Invalid Value Type: $valueType'),
+    };
   }
 
   defineControllerValue(controllerValue) {

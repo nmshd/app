@@ -9,7 +9,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final Future<AbstractAttribute> Function()? selectAttribute;
+  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
   final LocalRequestStatus? requestStatus;
 
   const DecidableProposeAttributeRequestItemRenderer({
@@ -45,7 +45,12 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   }
 
   Future<void> loadSelectedAttribute() async {
-    final selectedAttribute = await widget.selectAttribute?.call();
+    final valueType = switch (widget.item.attribute) {
+      final DraftIdentityAttributeDVO attribute => attribute.valueType,
+      final DraftRelationshipAttributeDVO attribute => attribute.valueType,
+    };
+
+    final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
     if (selectedAttribute != null) {
       setState(() {
         newAttribute = selectedAttribute;

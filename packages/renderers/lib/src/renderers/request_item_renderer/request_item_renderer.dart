@@ -11,7 +11,7 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final VoidCallback? onEdit;
   final RequestItemIndex itemIndex;
-  final Future<AbstractAttribute> Function()? selectAttribute;
+  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
   final LocalRequestStatus? requestStatus;
   final bool isRejected;
 

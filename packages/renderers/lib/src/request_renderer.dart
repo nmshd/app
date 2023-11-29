@@ -12,7 +12,7 @@ class RequestRenderer extends StatefulWidget {
   final LocalRequestDVO request;
   final VoidCallback? onEdit;
   final RequestValidationResultDTO? validationResult;
-  final Future<AbstractAttribute> Function()? selectAttribute;
+  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
 
   const RequestRenderer({
     super.key,
