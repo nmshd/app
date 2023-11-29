@@ -42,6 +42,15 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return const Placeholder();
   }

@@ -29,8 +29,14 @@ class RequestItemRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     if (item.type.startsWith('Decidable')) {
       return switch (item) {
-        final DecidableReadAttributeRequestItemDVO dvo =>
-          DecidableReadAttributeRequestItemRenderer(controller: controller, item: dvo, onEdit: onEdit, itemIndex: itemIndex),
+        final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            onEdit: onEdit,
+            itemIndex: itemIndex,
+            selectAttribute: selectAttribute,
+            requestStatus: requestStatus,
+          ),
         final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
             controller: controller,
             item: dvo,
@@ -39,14 +45,15 @@ class RequestItemRenderer extends StatelessWidget {
             requestStatus: requestStatus,
           ),
         final DecidableCreateAttributeRequestItemDVO dvo =>
-          DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
+          DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
         final DecidableShareAttributeRequestItemDVO dvo =>
-          DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
+          DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
         final DecidableAuthenticationRequestItemDVO dvo =>
-          DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
-        final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
-        final DecidableRegisterAttributeListenerRequestItemDVO dvo =>
-          DecidableRegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
+          DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
+        final DecidableConsentRequestItemDVO dvo =>
+          DecidableConsentRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
+        final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(
+            controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
         _ => throw Exception("Invalid type '${item.type}'"),
       };
     }

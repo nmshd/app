@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import '/renderers.dart';
 import '../../widgets/custom_list_tile.dart';
+import '/renderers.dart';
 import '/src/request_item_index.dart';
 
 class DecidableConsentRequestItemRenderer extends StatefulWidget {
@@ -41,6 +41,15 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
         index: widget.itemIndex,
         value: const RejectRequestItemParameters(),
       );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
     }
   }
 

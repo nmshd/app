@@ -44,6 +44,15 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DraftAttributeRenderer(
       draftAttribute: widget.item.attribute,

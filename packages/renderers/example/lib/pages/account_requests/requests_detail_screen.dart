@@ -117,7 +117,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   }
 
   Future<IdentityAttribute> createIdentityAttributeDVO({required String valueType}) async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
 
     return switch (valueType) {
       'DisplayName' => const IdentityAttribute(
@@ -126,31 +126,31 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
         ),
       'GivenName' => const IdentityAttribute(
           owner: '',
-          value: DisplayNameAttributeValue(value: 'Alternative Given Name'),
+          value: GivenNameAttributeValue(value: 'Alternative Given Name'),
         ),
       'Surname' => const IdentityAttribute(
           owner: '',
-          value: DisplayNameAttributeValue(value: 'Alternative Surname'),
+          value: SurnameAttributeValue(value: 'Alternative Surname'),
         ),
       'Nationality' => const IdentityAttribute(
           owner: '',
-          value: DisplayNameAttributeValue(value: 'Alternative Nationality'),
+          value: NationalityAttributeValue(value: 'DE'),
         ),
       'CommunicationLanguage' => const IdentityAttribute(
           owner: '',
-          value: DisplayNameAttributeValue(value: 'Alternative Communication Language'),
+          value: CommunicationLanguageAttributeValue(value: 'de'),
         ),
       'BirthDate' => const IdentityAttribute(
           owner: '',
-          value: DisplayNameAttributeValue(value: 'Alternative Birth Date'),
+          value: BirthDateAttributeValue(day: 01, month: 01, year: 2000),
         ),
       'EMailAddress' => const IdentityAttribute(
           owner: '',
-          value: DisplayNameAttributeValue(value: 'Alternative Email Address'),
+          value: EMailAddressAttributeValue(value: 'alternative@email.com'),
         ),
       'Sex' => const IdentityAttribute(
           owner: '',
-          value: DisplayNameAttributeValue(value: 'Alternative Sex'),
+          value: SexAttributeValue(value: 'male'),
         ),
       'StreetAddress' => const IdentityAttribute(
           owner: '',
@@ -160,7 +160,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
             houseNumber: 'Alternative House Number',
             zipCode: 'Alternative Zip Code',
             city: 'Alternative City',
-            country: 'Alternative Country',
+            country: 'DE',
           ),
         ),
       _ => throw Exception('Invalid Value Type: $valueType'),

@@ -43,6 +43,15 @@ class _DecidableRegisterAttributeListenerRequestItemRendererState extends State<
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomListTile(
       title: widget.item.query.name,

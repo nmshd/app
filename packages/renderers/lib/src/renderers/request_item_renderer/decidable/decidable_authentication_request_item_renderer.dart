@@ -44,6 +44,15 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomListTile(
       title: 'i18n://dvo.requestItem.DecidableAuthenticationRequestItem.name',

@@ -85,6 +85,18 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   void initState() {
     super.initState();
 
+    final attribute = switch (widget.item.attribute) {
+      final DraftIdentityAttributeDVO dvo => dvo.content,
+      final DraftRelationshipAttributeDVO dvo => dvo.content,
+    };
+
+    if (isChecked) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
+      );
+    }
+
     loadSelectedAttribute();
   }
 
