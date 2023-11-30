@@ -36,7 +36,7 @@ class DraftAttributeRenderer extends StatelessWidget {
         isChecked: isChecked,
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,
-        selectedAttribute: selectedAttribute,
+        selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
       );
     }
 
@@ -47,7 +47,7 @@ class DraftAttributeRenderer extends StatelessWidget {
         isChecked: isChecked,
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,
-        selectedAttribute: selectedAttribute,
+        selectedAttribute: selectedAttribute != null ? selectedAttribute as RelationshipAttribute : null,
       );
     }
 

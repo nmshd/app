@@ -11,7 +11,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final Function(bool?)? onUpdateCheckbox;
   final bool? isChecked;
   final bool? hideCheckbox;
-  final AbstractAttribute? selectedAttribute;
+  final IdentityAttribute? selectedAttribute;
 
   const IdentityAttributeValueRenderer({
     super.key,
@@ -26,8 +26,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final newAttribute = selectedAttribute != null ? selectedAttribute as IdentityAttribute : null;
-    final attributeValueMap = newAttribute != null ? newAttribute.value.toJson() : value.toJson();
+    final attributeValueMap = selectedAttribute != null ? selectedAttribute!.value.toJson() : value.toJson();
 
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
@@ -36,7 +35,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         isChecked: isChecked,
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,
-        selectedAttribute: newAttribute != null ? newAttribute.value.toJson()['value'] : null,
+        selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
         trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.chevron_right)),
       );
     }
