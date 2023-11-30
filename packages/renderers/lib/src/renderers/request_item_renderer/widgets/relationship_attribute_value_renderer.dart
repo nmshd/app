@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import '../../../../../renderers.dart';
 import '../../widgets/custom_list_tile.dart';
+import '/renderers.dart';
 
 class RelationshipAttributeValueRenderer extends StatelessWidget {
   final RelationshipAttributeValue value;
@@ -13,7 +13,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
   final Function(bool?)? onUpdateCheckbox;
   final bool? isChecked;
   final bool? hideCheckbox;
-  final AbstractAttribute? selectedAttribute;
+  final RelationshipAttribute? selectedAttribute;
 
   const RelationshipAttributeValueRenderer({
     super.key,
@@ -34,6 +34,10 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
       final ConsentAttributeValue consentAttributeValue => CustomListTile(
           title: 'i18n://dvo.attribute.name.${value.atType}',
           description: consentAttributeValue.consent,
+          isChecked: isChecked,
+          onUpdateCheckbox: onUpdateCheckbox,
+          hideCheckbox: hideCheckbox,
+          selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
           trailing: consentAttributeValue.link != null
               ? IconButton(
                   onPressed: () async {
@@ -59,11 +63,19 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           // TODO: render the description of the ProprietaryAttributeValue
           // description: proprietaryJSONAttributeValue.description,
           description: proprietaryJSONAttributeValue.value.toString(),
+          isChecked: isChecked,
+          onUpdateCheckbox: onUpdateCheckbox,
+          hideCheckbox: hideCheckbox,
+          selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
           description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
           onPressed: onEdit,
+          isChecked: isChecked,
+          onUpdateCheckbox: onUpdateCheckbox,
+          hideCheckbox: hideCheckbox,
+          selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
         ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),
     };
