@@ -91,12 +91,10 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     final attribute = attributeContent(widget.item.attribute);
 
-    if (isChecked) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
-      );
-    }
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
+    );
 
     loadSelectedAttribute();
   }

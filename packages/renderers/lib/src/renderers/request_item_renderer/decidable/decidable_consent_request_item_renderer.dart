@@ -47,9 +47,7 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
   void initState() {
     super.initState();
 
-    if (isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
-    }
+    widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
 
   @override

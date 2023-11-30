@@ -45,9 +45,7 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
   void initState() {
     super.initState();
 
-    if (isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
-    }
+    widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
 
   @override

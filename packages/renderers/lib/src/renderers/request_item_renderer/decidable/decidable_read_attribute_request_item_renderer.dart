@@ -104,14 +104,13 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     final attribute = attributeContent(widget.item.query);
 
-    if (isChecked) {
-      if (attribute != null) {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
-        );
-      }
+    if (attribute != null) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
+      );
     }
+
     loadSelectedAttribute();
   }
 
