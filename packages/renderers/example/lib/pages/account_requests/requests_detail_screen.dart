@@ -155,37 +155,4 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
       _ => throw Exception('Invalid Value Type: $valueType'),
     };
   }
-
-  void _addEditItem() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => _AddEditItem(decideRequestParameters: decideRequestParameters!),
-    );
-  }
-}
-
-class _AddEditItem extends StatefulWidget {
-  final DecideRequestParameters decideRequestParameters;
-
-  const _AddEditItem({required this.decideRequestParameters});
-
-  @override
-  State<_AddEditItem> createState() => __AddEditItemState();
-}
-
-class __AddEditItemState extends State<_AddEditItem> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(widget.decideRequestParameters.toString()),
-        ],
-      ),
-    );
-  }
 }
