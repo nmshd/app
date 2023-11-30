@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
 import '../widgets/draft_attribute_renderer.dart';
+import 'widgets/handle_checkbox_change.dart';
 
 class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableCreateAttributeRequestItemDVO item;
@@ -26,21 +27,6 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
 class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableCreateAttributeRequestItemRenderer> {
   bool isChecked = true;
 
-  void onUpdateCheckbox(bool? value) {
-    setState(() {
-      isChecked = value!;
-    });
-
-    if (isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
-    } else {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
-      );
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -51,5 +37,17 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
   @override
   Widget build(BuildContext context) {
     return DraftAttributeRenderer(draftAttribute: widget.item.attribute);
+  }
+
+  void onUpdateCheckbox(bool? value) {
+    setState(() {
+      isChecked = value!;
+    });
+
+    handleCheckboxChange(
+      isChecked: isChecked,
+      controller: widget.controller,
+      itemIndex: widget.itemIndex,
+    );
   }
 }

@@ -31,6 +31,32 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   bool isChecked = true;
   AbstractAttribute? newAttribute;
 
+  @override
+  void initState() {
+    super.initState();
+
+    final attribute = attributeContent(widget.item.query);
+
+    if (attribute != null) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
+      );
+    }
+
+    loadSelectedAttribute();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return switch (widget.item.query) {
+      final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query, onEdit: widget.onEdit),
+      final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(query: query),
+      //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
+      _ => throw Exception("Invalid type '${widget.item.query.type}'"),
+    };
+  }
+
   attributeContent(ProcessedAttributeQueryDVO attribute) {
     return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.results.first.content,
@@ -96,31 +122,5 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         );
       }
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    final attribute = attributeContent(widget.item.query);
-
-    if (attribute != null) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
-      );
-    }
-
-    loadSelectedAttribute();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return switch (widget.item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query, onEdit: widget.onEdit),
-      final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(query: query),
-      //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
-      _ => throw Exception("Invalid type '${widget.item.query.type}'"),
-    };
   }
 }

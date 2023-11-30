@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
+import 'package:renderers/src/renderers/request_item_renderer/decidable/widgets/handle_checkbox_change.dart';
 
 import '../../widgets/custom_list_tile.dart';
 import '../../widgets/request_item_index.dart';
@@ -26,21 +27,6 @@ class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
 class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAuthenticationRequestItemRenderer> {
   bool isChecked = true;
 
-  void onUpdateCheckbox(bool? value) {
-    setState(() {
-      isChecked = value!;
-    });
-
-    if (isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
-    } else {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
-      );
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -56,6 +42,18 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
       isChecked: isChecked,
       onUpdateCheckbox: onUpdateCheckbox,
       hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+    );
+  }
+
+  void onUpdateCheckbox(bool? value) {
+    setState(() {
+      isChecked = value!;
+    });
+
+    handleCheckboxChange(
+      isChecked: isChecked,
+      controller: widget.controller,
+      itemIndex: widget.itemIndex,
     );
   }
 }

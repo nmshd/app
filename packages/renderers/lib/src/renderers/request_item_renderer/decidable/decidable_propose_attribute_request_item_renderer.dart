@@ -28,6 +28,31 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   bool isChecked = true;
   AbstractAttribute? newAttribute;
 
+  @override
+  void initState() {
+    super.initState();
+
+    final attribute = attributeContent(widget.item.attribute);
+
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
+    );
+
+    loadSelectedAttribute();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DraftAttributeRenderer(
+      draftAttribute: widget.item.attribute,
+      onUpdateCheckbox: onUpdateCheckbox,
+      isChecked: isChecked,
+      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+      selectedAttribute: newAttribute,
+    );
+  }
+
   attributeContent(DraftAttributeDVO attribute) {
     return switch (widget.item.attribute) {
       final DraftIdentityAttributeDVO dvo => dvo.content,
@@ -83,30 +108,5 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
         value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
       );
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    final attribute = attributeContent(widget.item.attribute);
-
-    widget.controller?.writeAtIndex(
-      index: widget.itemIndex,
-      value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
-    );
-
-    loadSelectedAttribute();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DraftAttributeRenderer(
-      draftAttribute: widget.item.attribute,
-      onUpdateCheckbox: onUpdateCheckbox,
-      isChecked: isChecked,
-      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
-      selectedAttribute: newAttribute,
-    );
   }
 }

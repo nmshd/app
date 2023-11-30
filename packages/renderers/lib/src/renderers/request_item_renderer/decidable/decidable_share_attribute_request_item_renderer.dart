@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
 import '../widgets/draft_attribute_renderer.dart';
+import 'widgets/handle_checkbox_change.dart';
 
 class DecidableShareAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableShareAttributeRequestItemDVO item;
@@ -26,21 +27,6 @@ class DecidableShareAttributeRequestItemRenderer extends StatefulWidget {
 class _DecidableShareAttributeRequestItemRendererState extends State<DecidableShareAttributeRequestItemRenderer> {
   bool isChecked = true;
 
-  void onUpdateCheckbox(bool? value) {
-    setState(() {
-      isChecked = value!;
-    });
-
-    if (isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
-    } else {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
-      );
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -55,6 +41,18 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
       isChecked: isChecked,
       onUpdateCheckbox: onUpdateCheckbox,
       hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+    );
+  }
+
+  void onUpdateCheckbox(bool? value) {
+    setState(() {
+      isChecked = value!;
+    });
+
+    handleCheckboxChange(
+      isChecked: isChecked,
+      controller: widget.controller,
+      itemIndex: widget.itemIndex,
     );
   }
 }

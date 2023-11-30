@@ -6,6 +6,7 @@ import 'package:logger/logger.dart';
 import '../../widgets/custom_list_tile.dart';
 import '../../widgets/request_item_index.dart';
 import '/renderers.dart';
+import 'widgets/handle_checkbox_change.dart';
 
 class DecidableConsentRequestItemRenderer extends StatefulWidget {
   final DecidableConsentRequestItemDVO item;
@@ -27,21 +28,6 @@ class DecidableConsentRequestItemRenderer extends StatefulWidget {
 
 class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRequestItemRenderer> {
   bool isChecked = true;
-
-  void onUpdateCheckbox(bool? value) {
-    setState(() {
-      isChecked = value!;
-    });
-
-    if (isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
-    } else {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
-      );
-    }
-  }
 
   @override
   void initState() {
@@ -77,6 +63,18 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
               icon: const Icon(Icons.open_in_new),
             )
           : null,
+    );
+  }
+
+  void onUpdateCheckbox(bool? value) {
+    setState(() {
+      isChecked = value!;
+    });
+
+    handleCheckboxChange(
+      isChecked: isChecked,
+      controller: widget.controller,
+      itemIndex: widget.itemIndex,
     );
   }
 }
