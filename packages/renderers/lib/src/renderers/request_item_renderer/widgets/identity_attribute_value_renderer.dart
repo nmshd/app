@@ -7,20 +7,20 @@ import '../../widgets/custom_list_tile.dart';
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
   final VoidCallback? onEdit;
-  final bool? isRejected;
   final Function(bool?)? onUpdateCheckbox;
   final bool? isChecked;
   final bool? hideCheckbox;
+  final bool? isRejected;
   final IdentityAttribute? selectedAttribute;
 
   const IdentityAttributeValueRenderer({
     super.key,
     required this.value,
     this.onEdit,
-    this.isRejected,
     this.onUpdateCheckbox,
     this.isChecked,
     this.hideCheckbox,
+    this.isRejected,
     this.selectedAttribute,
   });
 
@@ -31,7 +31,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: attributeValueMap['value'].toString(),
+        description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
         isChecked: isChecked,
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,

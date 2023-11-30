@@ -32,8 +32,8 @@ class DraftAttributeRenderer extends StatelessWidget {
     if (attributeContent is IdentityAttribute) {
       return IdentityAttributeValueRenderer(
         value: attributeContent.value,
-        isRejected: isRejected,
         isChecked: isChecked,
+        isRejected: isRejected,
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,
         selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,

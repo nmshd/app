@@ -15,15 +15,16 @@ class RequestItemRenderer extends StatelessWidget {
   final LocalRequestStatus? requestStatus;
   final bool isRejected;
 
-  const RequestItemRenderer(
-      {super.key,
-      required this.item,
-      this.controller,
-      this.onEdit,
-      required this.itemIndex,
-      this.selectAttribute,
-      this.requestStatus,
-      this.isRejected = false});
+  const RequestItemRenderer({
+    super.key,
+    required this.item,
+    this.controller,
+    this.onEdit,
+    required this.itemIndex,
+    this.selectAttribute,
+    this.requestStatus,
+    this.isRejected = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class RequestItemRenderer extends StatelessWidget {
       final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(controller: controller, item: dvo),
       final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(controller: controller, item: dvo),
       final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected),
-      final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(controller: controller, item: dvo),
+      final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected),
       final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(controller: controller, item: dvo),
       final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(controller: controller, item: dvo),
       final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo),
