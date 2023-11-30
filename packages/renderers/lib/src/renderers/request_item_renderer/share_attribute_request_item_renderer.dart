@@ -8,7 +8,7 @@ class ShareAttributeRequestItemRenderer extends StatelessWidget {
   final ShareAttributeRequestItemDVO item;
   final RequestRendererController? controller;
 
-  const ShareAttributeRequestItemRenderer({super.key, required this.item, required this.controller});
+  const ShareAttributeRequestItemRenderer({super.key, required this.item, this.controller});
 
   @override
   Widget build(BuildContext context) {

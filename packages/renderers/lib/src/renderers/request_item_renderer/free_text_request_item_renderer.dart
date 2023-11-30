@@ -7,7 +7,7 @@ class FreeTextRequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
   final RequestRendererController? controller;
 
-  const FreeTextRequestItemRenderer({super.key, required this.item, required this.controller});
+  const FreeTextRequestItemRenderer({super.key, required this.item, this.controller});
 
   @override
   Widget build(BuildContext context) {

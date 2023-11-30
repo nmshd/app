@@ -8,7 +8,7 @@ class ProposeAttributeRequestItemRenderer extends StatelessWidget {
   final ProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
 
-  const ProposeAttributeRequestItemRenderer({super.key, required this.item, required this.controller});
+  const ProposeAttributeRequestItemRenderer({super.key, required this.item, this.controller});
 
   @override
   Widget build(BuildContext context) {

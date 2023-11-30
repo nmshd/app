@@ -1,7 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:renderers/renderers.dart';
 import 'package:renderers/src/renderers/request_item_renderer/authentication_request_item_renderer.dart';
 
 void main() {
@@ -9,15 +8,14 @@ void main() {
     testWidgets(
       'Renderer displays correct text',
       (WidgetTester tester) async {
-        await tester.pumpWidget(MaterialApp(
+        await tester.pumpWidget(const MaterialApp(
           home: AuthenticationRequestItemRenderer(
-            item: const AuthenticationRequestItemDVO(
+            item: AuthenticationRequestItemDVO(
               id: 'id',
               name: 'authenticationRequestItem',
               mustBeAccepted: false,
               isDecidable: false,
             ),
-            controller: RequestRendererController(),
           ),
         ));
 

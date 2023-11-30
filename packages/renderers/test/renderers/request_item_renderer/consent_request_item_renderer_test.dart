@@ -31,17 +31,16 @@ void main() {
       'renderer displayed correctly',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          MaterialApp(
+          const MaterialApp(
             home: Material(
               child: ConsentRequestItemRenderer(
-                item: const ConsentRequestItemDVO(
+                item: ConsentRequestItemDVO(
                   id: 'id',
                   name: 'consentRequestItem',
                   mustBeAccepted: false,
                   isDecidable: false,
                   consent: 'my consent text',
                 ),
-                controller: RequestRendererController(),
               ),
             ),
           ),
@@ -55,10 +54,10 @@ void main() {
     testWidgets(
       'renderer displays correctly with link',
       (WidgetTester tester) async {
-        await tester.pumpWidget(MaterialApp(
+        await tester.pumpWidget(const MaterialApp(
           home: Material(
             child: ConsentRequestItemRenderer(
-              item: const ConsentRequestItemDVO(
+              item: ConsentRequestItemDVO(
                 id: 'id',
                 name: 'consentRequestItem',
                 mustBeAccepted: false,
@@ -66,7 +65,6 @@ void main() {
                 consent: 'my consent text',
                 link: 'my link',
               ),
-              controller: RequestRendererController(),
             ),
           ),
         ));
@@ -84,10 +82,10 @@ void main() {
         when(urlLauncherMock.canLaunchUrl(Uri.parse(url))).thenAnswer((_) async => true);
         when(urlLauncherMock.launchUrl(Uri.parse(url))).thenAnswer((_) async => true);
 
-        await tester.pumpWidget(MaterialApp(
+        await tester.pumpWidget(const MaterialApp(
           home: Material(
             child: ConsentRequestItemRenderer(
-              item: const ConsentRequestItemDVO(
+              item: ConsentRequestItemDVO(
                 id: 'id',
                 name: 'consentRequestItem',
                 mustBeAccepted: false,
@@ -95,7 +93,6 @@ void main() {
                 consent: 'my consent text',
                 link: url,
               ),
-              controller: RequestRendererController(),
             ),
           ),
         ));
@@ -119,10 +116,10 @@ void main() {
         when(urlLauncherMock.canLaunchUrl(Uri.parse(url))).thenAnswer((_) async => false);
 
         await tester.pumpWidget(
-          MaterialApp(
+          const MaterialApp(
             home: Material(
               child: ConsentRequestItemRenderer(
-                item: const ConsentRequestItemDVO(
+                item: ConsentRequestItemDVO(
                   id: 'id',
                   name: 'consentRequestItem',
                   mustBeAccepted: false,
@@ -130,7 +127,6 @@ void main() {
                   consent: 'my consent text',
                   link: url,
                 ),
-                controller: RequestRendererController(),
               ),
             ),
           ),

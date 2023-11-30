@@ -9,7 +9,7 @@ class CreateAttributeRequestItemRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final bool isRejected;
 
-  const CreateAttributeRequestItemRenderer({super.key, required this.item, required this.controller, required this.isRejected});
+  const CreateAttributeRequestItemRenderer({super.key, required this.item, this.controller, required this.isRejected});
 
   @override
   Widget build(BuildContext context) {

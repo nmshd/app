@@ -11,7 +11,7 @@ class ConsentRequestItemRenderer extends StatelessWidget {
   final ConsentRequestItemDVO item;
   final RequestRendererController? controller;
 
-  const ConsentRequestItemRenderer({super.key, required this.item, required this.controller});
+  const ConsentRequestItemRenderer({super.key, required this.item, this.controller});
 
   @override
   Widget build(BuildContext context) {
