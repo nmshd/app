@@ -44,16 +44,36 @@ class RequestItemRenderer extends StatelessWidget {
             selectAttribute: selectAttribute,
             requestStatus: requestStatus,
           ),
-        final DecidableCreateAttributeRequestItemDVO dvo =>
-          DecidableCreateAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
-        final DecidableShareAttributeRequestItemDVO dvo =>
-          DecidableShareAttributeRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
-        final DecidableAuthenticationRequestItemDVO dvo =>
-          DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
-        final DecidableConsentRequestItemDVO dvo =>
-          DecidableConsentRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
+        final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+            requestStatus: requestStatus,
+          ),
+        final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+            requestStatus: requestStatus,
+          ),
+        final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+            requestStatus: requestStatus,
+          ),
+        final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+            requestStatus: requestStatus,
+          ),
         final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(
-            controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus),
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+            requestStatus: requestStatus,
+          ),
         _ => throw Exception("Invalid type '${item.type}'"),
       };
     }
