@@ -1,9 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
-import 'package:renderers/src/renderers/request_item_renderer/widgets/draft_attribute_renderer.dart';
 
-import '/src/request_item_index.dart';
-import '/src/request_renderer_controller.dart';
+import '../../widgets/request_item_index.dart';
+import '../../widgets/request_renderer_controller.dart';
+import '../widgets/draft_attribute_renderer.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;

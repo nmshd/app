@@ -1,9 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:renderers/src/renderers/widgets/value_renderer_list_tile.dart';
 import 'package:translated_text/translated_text.dart';
 
-import '../../../../renderers.dart';
+import '../../widgets/request_renderer_controller.dart';
+import '../../widgets/value_renderer_list_tile.dart';
 import 'identity_attribute_value_renderer.dart';
 
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {

@@ -1,10 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../renderers.dart';
+import '../../widgets/request_item_index.dart';
+import '../../widgets/request_renderer_controller.dart';
 import '../widgets/processed_query_renderer.dart';
-import '/src/request_item_index.dart';
-import '/src/request_renderer_controller.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableReadAttributeRequestItemDVO item;

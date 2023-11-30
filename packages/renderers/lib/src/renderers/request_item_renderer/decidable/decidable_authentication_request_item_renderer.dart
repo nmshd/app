@@ -2,9 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../widgets/custom_list_tile.dart';
-import '/renderers.dart';
-import '/src/request_item_index.dart';
-import '/src/request_renderer_controller.dart';
+import '../../widgets/request_item_index.dart';
+import '../../widgets/request_renderer_controller.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
   final DecidableAuthenticationRequestItemDVO item;

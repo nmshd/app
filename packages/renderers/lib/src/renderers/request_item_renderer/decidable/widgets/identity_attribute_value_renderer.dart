@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../widgets/complex_attribute_list_tile.dart';
 import '../../../widgets/custom_list_tile.dart';
-import '/src/request_renderer_controller.dart';
+import '../../../widgets/request_renderer_controller.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;

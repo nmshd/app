@@ -4,8 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 import '../../widgets/custom_list_tile.dart';
+import '../../widgets/request_item_index.dart';
+import '../../widgets/request_renderer_controller.dart';
 import '/renderers.dart';
-import '/src/request_item_index.dart';
 
 class DecidableConsentRequestItemRenderer extends StatefulWidget {
   final DecidableConsentRequestItemDVO item;

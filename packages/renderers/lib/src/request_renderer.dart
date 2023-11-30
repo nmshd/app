@@ -2,10 +2,10 @@ import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '/src/request_renderer_controller.dart';
 import 'renderers/request_item_group_renderer.dart';
 import 'renderers/request_item_renderer/request_item_renderer.dart';
 import 'renderers/request_item_renderer/response/response.dart';
+import 'renderers/widgets/request_renderer_controller.dart';
 
 class RequestRenderer extends StatelessWidget {
   final RequestRendererController? controller;
