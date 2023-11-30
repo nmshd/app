@@ -20,7 +20,7 @@ class RequestsDetailScreen extends StatefulWidget {
 class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   late RequestRendererController controller;
 
-  DecideRequestParameters? requestController;
+  DecideRequestParameters? decideRequestParameters;
   RequestValidationResultDTO? _validationResult;
 
   @override
@@ -158,14 +158,15 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   }
 
   void _addEditItem() {
-    showModalBottomSheet(context: context, isScrollControlled: true, builder: (context) => _AddEditItem(requestController: requestController!));
+    showModalBottomSheet(
+        context: context, isScrollControlled: true, builder: (context) => _AddEditItem(decideRequestParameters: decideRequestParameters!));
   }
 }
 
 class _AddEditItem extends StatefulWidget {
-  final DecideRequestParameters requestController;
+  final DecideRequestParameters decideRequestParameters;
 
-  const _AddEditItem({required this.requestController});
+  const _AddEditItem({required this.decideRequestParameters});
 
   @override
   State<_AddEditItem> createState() => __AddEditItemState();
@@ -180,7 +181,7 @@ class __AddEditItemState extends State<_AddEditItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(widget.requestController.toString()),
+          Text(widget.decideRequestParameters.toString()),
         ],
       ),
     );
