@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
 import '../widgets/processed_query_renderer.dart';
+import 'widgets/handle_checkbox_change.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableReadAttributeRequestItemDVO item;
@@ -80,21 +81,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       isChecked = value!;
     });
 
-    if (isChecked) {
-      final attribute = attributeContent(widget.item.query);
+    final attribute = attributeContent(widget.item.query);
 
-      if (attribute != null) {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: newAttribute ?? attribute),
-        );
-      }
-    } else {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
-      );
-    }
+    handleCheckboxChange(
+      isChecked: isChecked,
+      controller: widget.controller,
+      itemIndex: widget.itemIndex,
+      acceptRequestItemParameter: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: newAttribute ?? attribute),
+    );
   }
 
   Future<void> loadSelectedAttribute() async {
