@@ -43,14 +43,28 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       );
     }
 
-    loadSelectedAttribute();
+    updateSelectedAttribute();
   }
 
   @override
   Widget build(BuildContext context) {
     return switch (widget.item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query),
-      final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(query: query),
+      final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
+          query: query,
+          onUpdateCheckbox: onUpdateCheckbox,
+          isChecked: isChecked,
+          hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+          onUpdateAttribute: onUpdateAttribute,
+          selectedAttribute: newAttribute,
+        ),
+      final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
+          query: query,
+          onUpdateCheckbox: onUpdateCheckbox,
+          isChecked: isChecked,
+          hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+          onUpdateAttribute: onUpdateAttribute,
+          selectedAttribute: newAttribute,
+        ),
       //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
       _ => throw Exception("Invalid type '${widget.item.query.type}'"),
     };
@@ -80,30 +94,22 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     );
   }
 
-  Future<void> loadSelectedAttribute() async {
-    attributeType(ProcessedAttributeQueryDVO attribute) {
-      return switch (widget.item.query) {
-        final ProcessedIdentityAttributeQueryDVO query => query.results.first.valueType,
-        final ProcessedRelationshipAttributeQueryDVO query => query.results.first.valueType,
-        final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.valueType,
-        final ProcessedIQLQueryDVO query => query.results.first.valueType,
-      };
+  Future<void> onUpdateAttribute(String valueType) async {
+    final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
+
+    if (selectedAttribute != null) {
+      setState(() {
+        newAttribute = selectedAttribute;
+      });
     }
+  }
 
-    final attribute = attributeType(widget.item.query);
-
-    if (attribute != null) {
-      final selectedAttribute = await widget.selectAttribute?.call(valueType: attribute);
-      if (selectedAttribute != null) {
-        setState(() {
-          newAttribute = selectedAttribute;
-        });
-
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: newAttribute!),
-        );
-      }
+  Future<void> updateSelectedAttribute() async {
+    if (newAttribute != null) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: newAttribute!),
+      );
     } else {
       final attribute = attributeContent(widget.item.query);
 

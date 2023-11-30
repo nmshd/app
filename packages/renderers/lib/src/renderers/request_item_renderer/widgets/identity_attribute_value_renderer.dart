@@ -11,7 +11,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final bool? hideCheckbox;
   final bool? isRejected;
   final IdentityAttribute? selectedAttribute;
-
   final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const IdentityAttributeValueRenderer({

@@ -67,7 +67,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                     width: 50,
                     child: trailing ??
                         IconButton(
-                          onPressed: onUpdateAttribute != null ? () => onUpdateAttribute!(valueType!) : null,
+                          onPressed: onUpdateAttribute != null && valueType != null ? () => onUpdateAttribute!(valueType!) : null,
                           icon: const Icon(Icons.chevron_right),
                         ),
                   ),

@@ -9,8 +9,22 @@ import 'identity_attribute_value_renderer.dart';
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
   final RequestRendererController? controller;
+  final Function(bool?)? onUpdateCheckbox;
+  final bool? isChecked;
+  final bool? hideCheckbox;
+  final AbstractAttribute? selectedAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
 
-  const ProcessedIdentityAttributeQueryRenderer({super.key, required this.query, this.controller});
+  const ProcessedIdentityAttributeQueryRenderer({
+    super.key,
+    required this.query,
+    this.controller,
+    this.onUpdateCheckbox,
+    this.isChecked,
+    this.hideCheckbox,
+    this.selectedAttribute,
+    this.onUpdateAttribute,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,21 +43,58 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         },
         renderHints: query.renderHints,
         valueHints: query.valueHints,
+        isChecked: isChecked,
+        onUpdateCheckbox: onUpdateCheckbox,
+        hideCheckbox: hideCheckbox,
+        selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
+        onUpdateAttribute: onUpdateAttribute,
+        valueType: query.valueType,
       );
     }
-    return IdentityAttributeValueRenderer(value: query.results.first.value as IdentityAttributeValue);
+    return IdentityAttributeValueRenderer(
+      value: query.results.first.value as IdentityAttributeValue,
+      isChecked: isChecked,
+      onUpdateCheckbox: onUpdateCheckbox,
+      hideCheckbox: hideCheckbox,
+      selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
+      onUpdateAttribute: onUpdateAttribute,
+    );
   }
 }
 
 class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final ProcessedRelationshipAttributeQueryDVO query;
   final RequestRendererController? controller;
+  final Function(bool?)? onUpdateCheckbox;
+  final bool? isChecked;
+  final bool? hideCheckbox;
+  final AbstractAttribute? selectedAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
 
-  const ProcessedRelationshipAttributeQueryRenderer({super.key, required this.query, this.controller});
+  const ProcessedRelationshipAttributeQueryRenderer({
+    super.key,
+    required this.query,
+    this.controller,
+    this.onUpdateCheckbox,
+    this.isChecked,
+    this.hideCheckbox,
+    this.selectedAttribute,
+    this.onUpdateAttribute,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ValueRendererListTile(fieldName: query.name, renderHints: query.renderHints, valueHints: query.valueHints);
+    return ValueRendererListTile(
+      fieldName: query.name,
+      renderHints: query.renderHints,
+      valueHints: query.valueHints,
+      isChecked: isChecked,
+      onUpdateCheckbox: onUpdateCheckbox,
+      hideCheckbox: hideCheckbox,
+      selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
+      onUpdateAttribute: onUpdateAttribute,
+      //TODO: add valueType
+    );
   }
 }
 

@@ -9,7 +9,12 @@ class ValueRendererListTile extends StatelessWidget {
   final InputDecoration? decoration;
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
-  final VoidCallback? onPressed;
+  final Function(bool?)? onUpdateCheckbox;
+  final bool? isChecked;
+  final bool? hideCheckbox;
+  final IdentityAttribute? selectedAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
+  final String? valueType;
 
   const ValueRendererListTile({
     super.key,
@@ -19,7 +24,12 @@ class ValueRendererListTile extends StatelessWidget {
     this.decoration,
     this.initialValue,
     this.controller,
-    this.onPressed,
+    this.onUpdateCheckbox,
+    this.isChecked,
+    this.hideCheckbox,
+    this.selectedAttribute,
+    this.onUpdateAttribute,
+    this.valueType,
   });
 
   @override
@@ -36,7 +46,13 @@ class ValueRendererListTile extends StatelessWidget {
               initialValue: initialValue,
             ),
           ),
-          SizedBox(width: 50, child: IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right)))
+          SizedBox(
+            width: 50,
+            child: IconButton(
+              onPressed: onUpdateAttribute != null && valueType != null ? () => onUpdateAttribute!(valueType!) : null,
+              icon: const Icon(Icons.chevron_right),
+            ),
+          )
         ],
       ),
     );
