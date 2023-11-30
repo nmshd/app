@@ -159,7 +159,10 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 
   void _addEditItem() {
     showModalBottomSheet(
-        context: context, isScrollControlled: true, builder: (context) => _AddEditItem(decideRequestParameters: decideRequestParameters!));
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => _AddEditItem(decideRequestParameters: decideRequestParameters!),
+    );
   }
 }
 
