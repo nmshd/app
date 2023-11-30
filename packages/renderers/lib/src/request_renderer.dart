@@ -7,7 +7,7 @@ import 'renderers/request_item_group_renderer.dart';
 import 'renderers/request_item_renderer/request_item_renderer.dart';
 import 'renderers/request_item_renderer/response/response.dart';
 
-class RequestRenderer extends StatefulWidget {
+class RequestRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final LocalRequestDVO request;
   final VoidCallback? onEdit;
@@ -24,69 +24,53 @@ class RequestRenderer extends StatefulWidget {
   });
 
   @override
-  State<RequestRenderer> createState() => _RequestRendererState();
-}
-
-class _RequestRendererState extends State<RequestRenderer> {
-  @override
-  void initState() {
-    super.initState();
-
-    final items = composeInitialItems(widget.request);
-    widget.controller?.value = DecideRequestParameters(
-      requestId: widget.request.id,
-      items: items,
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     List<StatelessWidget> requestItems = [];
     List<StatelessWidget> responseItems = [];
 
-    requestItems = widget.request.items.mapIndexed((index, item) {
+    requestItems = request.items.mapIndexed((index, item) {
       final itemIndex = (rootIndex: index, innerIndex: null);
 
       if (item is RequestItemGroupDVO) {
         return RequestItemGroupRenderer(
           requestItemGroup: item,
           itemIndex: itemIndex,
-          controller: widget.controller,
-          onEdit: widget.onEdit,
-          requestStatus: widget.request.status,
-          selectAttribute: widget.selectAttribute,
+          controller: controller,
+          onEdit: onEdit,
+          requestStatus: request.status,
+          selectAttribute: selectAttribute,
         );
       }
 
       return RequestItemRenderer(
         item: item,
         itemIndex: itemIndex,
-        controller: widget.controller,
-        onEdit: widget.onEdit,
-        selectAttribute: widget.selectAttribute,
-        requestStatus: widget.request.status,
+        controller: controller,
+        onEdit: onEdit,
+        selectAttribute: selectAttribute,
+        requestStatus: request.status,
       );
     }).toList();
 
-    if (widget.request.response != null) {
-      responseItems = widget.request.response!.content.items.mapIndexed((index, item) {
+    if (request.response != null) {
+      responseItems = request.response!.content.items.mapIndexed((index, item) {
         final itemIndex = (rootIndex: index, innerIndex: null);
 
         if (item is ResponseItemGroupDVO) {
-          final requestItemGroup = widget.request.items[index] as RequestItemGroupDVO;
+          final requestItemGroup = request.items[index] as RequestItemGroupDVO;
           return ResponseItemGroupRenderer(
             responseItemGroup: item,
             requestItemGroup: requestItemGroup,
             itemIndex: itemIndex,
-            controller: widget.controller,
+            controller: controller,
           );
         }
 
         return ResponseItemRenderer(
           responseItem: item,
           itemIndex: itemIndex,
-          requestItem: widget.request.items[index],
-          controller: widget.controller,
+          requestItem: request.items[index],
+          controller: controller,
         );
       }).toList();
     }
@@ -94,17 +78,5 @@ class _RequestRendererState extends State<RequestRenderer> {
     return SingleChildScrollView(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems.isNotEmpty ? responseItems : requestItems),
     );
-  }
-
-  List<DecideRequestParametersItem> composeInitialItems(LocalRequestDVO request) {
-    return List<DecideRequestParametersItem>.from(request.items.map((e) {
-      if (e is RequestItemGroupDVO) {
-        return DecideRequestItemGroupParameters(
-          items: List<DecideRequestItemParameters>.from(e.items.map((e) => const RejectRequestItemParameters())),
-        );
-      }
-
-      return const RejectRequestItemParameters();
-    }));
   }
 }
