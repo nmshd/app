@@ -9,7 +9,6 @@ import 'request_item_renderers.dart';
 class RequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
   final RequestRendererController? controller;
-  final VoidCallback? onEdit;
   final RequestItemIndex itemIndex;
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
   final LocalRequestStatus? requestStatus;
@@ -19,7 +18,6 @@ class RequestItemRenderer extends StatelessWidget {
     super.key,
     required this.item,
     this.controller,
-    this.onEdit,
     required this.itemIndex,
     this.selectAttribute,
     this.requestStatus,
@@ -33,7 +31,6 @@ class RequestItemRenderer extends StatelessWidget {
         final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(
             controller: controller,
             item: dvo,
-            onEdit: onEdit,
             itemIndex: itemIndex,
             selectAttribute: selectAttribute,
             requestStatus: requestStatus,

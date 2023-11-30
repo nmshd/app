@@ -80,7 +80,6 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               RequestRenderer(
                 request: widget.localRequestDVO,
                 controller: controller,
-                onEdit: () => _addEditItem(),
                 validationResult: _validationResult,
                 selectAttribute: createIdentityAttributeDVO,
               ),
@@ -107,7 +106,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   }
 
   Future<IdentityAttribute> createIdentityAttributeDVO({required String valueType}) async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
 
     return switch (valueType) {
       'DisplayName' => const IdentityAttribute(

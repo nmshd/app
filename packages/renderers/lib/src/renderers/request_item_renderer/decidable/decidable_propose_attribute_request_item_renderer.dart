@@ -40,7 +40,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
     );
 
-    loadSelectedAttribute();
+    updateSelectedAttribute();
   }
 
   @override
@@ -50,6 +50,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       onUpdateCheckbox: onUpdateCheckbox,
       isChecked: isChecked,
       hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+      onUpdateAttribute: onUpdateAttribute,
       selectedAttribute: newAttribute,
     );
   }
@@ -58,13 +59,6 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     return switch (widget.item.attribute) {
       final DraftIdentityAttributeDVO dvo => dvo.content,
       final DraftRelationshipAttributeDVO dvo => dvo.content,
-    };
-  }
-
-  attributeType(DraftAttributeDVO attribute) {
-    return switch (widget.item.attribute) {
-      final DraftIdentityAttributeDVO dvo => dvo.valueType,
-      final DraftRelationshipAttributeDVO dvo => dvo.valueType,
     };
   }
 
@@ -83,15 +77,18 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     );
   }
 
-  Future<void> loadSelectedAttribute() async {
-    final valueType = attributeType(widget.item.attribute);
-
+  Future<void> onUpdateAttribute(String valueType) async {
     final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
+
     if (selectedAttribute != null) {
       setState(() {
         newAttribute = selectedAttribute;
       });
+    }
+  }
 
+  Future<void> updateSelectedAttribute() async {
+    if (newAttribute != null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
         value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: newAttribute!),

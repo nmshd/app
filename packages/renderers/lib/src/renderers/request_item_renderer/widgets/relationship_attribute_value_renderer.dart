@@ -8,22 +8,22 @@ import '/renderers.dart';
 
 class RelationshipAttributeValueRenderer extends StatelessWidget {
   final RelationshipAttributeValue value;
-  final VoidCallback? onEdit;
   final bool? isRejected;
   final Function(bool?)? onUpdateCheckbox;
   final bool? isChecked;
   final bool? hideCheckbox;
   final RelationshipAttribute? selectedAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const RelationshipAttributeValueRenderer({
     super.key,
     required this.value,
-    this.onEdit,
     this.isRejected,
     this.onUpdateCheckbox,
     this.isChecked,
     this.hideCheckbox,
     this.selectedAttribute,
+    this.onUpdateAttribute,
   });
 
   @override
@@ -36,6 +36,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           description: isRejected != null && isRejected == true ? null : consentAttributeValue.consent,
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
+          valueType: value.atType,
           hideCheckbox: hideCheckbox,
           selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
           trailing: consentAttributeValue.link != null
@@ -65,15 +66,16 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           description: isRejected != null && isRejected == true ? null : proprietaryJSONAttributeValue.value.toString(),
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
+          valueType: value.atType,
           hideCheckbox: hideCheckbox,
           selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
           description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
-          onPressed: onEdit,
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
+          valueType: value.atType,
           hideCheckbox: hideCheckbox,
           selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
         ),

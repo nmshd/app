@@ -9,7 +9,8 @@ class CustomListTile extends StatelessWidget {
   final bool? hideCheckbox;
   final String? selectedAttribute;
   final Function(bool?)? onUpdateCheckbox;
-  final void Function()? onPressed;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
+  final String? valueType;
 
   const CustomListTile({
     super.key,
@@ -20,7 +21,8 @@ class CustomListTile extends StatelessWidget {
     this.hideCheckbox,
     this.selectedAttribute,
     this.onUpdateCheckbox,
-    this.onPressed,
+    this.onUpdateAttribute,
+    this.valueType,
   });
 
   @override
@@ -43,7 +45,14 @@ class CustomListTile extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right)))
+        SizedBox(
+          width: 50,
+          child: trailing ??
+              IconButton(
+                onPressed: onUpdateAttribute != null ? () => onUpdateAttribute!(valueType!) : null,
+                icon: const Icon(Icons.chevron_right),
+              ),
+        )
       ],
     );
   }

@@ -9,7 +9,6 @@ import 'widgets/request_renderer_controller.dart';
 class RequestItemGroupRenderer extends StatelessWidget {
   final RequestItemGroupDVO requestItemGroup;
   final RequestRendererController? controller;
-  final VoidCallback? onEdit;
   final RequestItemIndex itemIndex;
   final LocalRequestStatus? requestStatus;
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
@@ -18,7 +17,6 @@ class RequestItemGroupRenderer extends StatelessWidget {
     super.key,
     required this.requestItemGroup,
     this.controller,
-    this.onEdit,
     required this.itemIndex,
     this.requestStatus,
     this.selectAttribute,
@@ -31,7 +29,6 @@ class RequestItemGroupRenderer extends StatelessWidget {
         item: item,
         itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
         controller: controller,
-        onEdit: onEdit,
         requestStatus: requestStatus,
         selectAttribute: selectAttribute,
       );

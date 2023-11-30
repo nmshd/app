@@ -6,20 +6,22 @@ class ComplexAttributeListTile extends StatelessWidget {
   final String title;
   final List<({String label, String value})> fields;
   final Widget? trailing;
-  final void Function()? onPressed;
   final bool? isChecked;
   final bool? hideCheckbox;
   final Function(bool?)? onUpdateCheckbox;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
+  final String? valueType;
 
   const ComplexAttributeListTile({
     super.key,
     required this.title,
     required this.fields,
     this.trailing,
-    this.onPressed,
     this.isChecked,
     this.hideCheckbox,
     this.onUpdateCheckbox,
+    this.onUpdateAttribute,
+    this.valueType,
   });
 
   @override
@@ -61,7 +63,14 @@ class ComplexAttributeListTile extends StatelessWidget {
                       },
                     ),
                   ),
-                  SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right))),
+                  SizedBox(
+                    width: 50,
+                    child: trailing ??
+                        IconButton(
+                          onPressed: onUpdateAttribute != null ? () => onUpdateAttribute!(valueType!) : null,
+                          icon: const Icon(Icons.chevron_right),
+                        ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),

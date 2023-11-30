@@ -9,7 +9,6 @@ import 'widgets/handle_checkbox_change.dart';
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableReadAttributeRequestItemDVO item;
   final RequestRendererController? controller;
-  final VoidCallback? onEdit;
   final RequestItemIndex itemIndex;
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
   final LocalRequestStatus? requestStatus;
@@ -18,7 +17,6 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
     super.key,
     required this.item,
     this.controller,
-    this.onEdit,
     required this.itemIndex,
     this.selectAttribute,
     this.requestStatus,
@@ -51,7 +49,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   @override
   Widget build(BuildContext context) {
     return switch (widget.item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query, onEdit: widget.onEdit),
+      final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(query: query),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(query: query),
       //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
       _ => throw Exception("Invalid type '${widget.item.query.type}'"),
@@ -64,15 +62,6 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       final ProcessedRelationshipAttributeQueryDVO query => query.results.first.content,
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.content,
       final ProcessedIQLQueryDVO query => query.results.first.content,
-    };
-  }
-
-  attributeType(ProcessedAttributeQueryDVO attribute) {
-    return switch (widget.item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => query.results.first.valueType,
-      final ProcessedRelationshipAttributeQueryDVO query => query.results.first.valueType,
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.valueType,
-      final ProcessedIQLQueryDVO query => query.results.first.valueType,
     };
   }
 
@@ -92,6 +81,15 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   Future<void> loadSelectedAttribute() async {
+    attributeType(ProcessedAttributeQueryDVO attribute) {
+      return switch (widget.item.query) {
+        final ProcessedIdentityAttributeQueryDVO query => query.results.first.valueType,
+        final ProcessedRelationshipAttributeQueryDVO query => query.results.first.valueType,
+        final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.valueType,
+        final ProcessedIQLQueryDVO query => query.results.first.valueType,
+      };
+    }
+
     final attribute = attributeType(widget.item.query);
 
     if (attribute != null) {

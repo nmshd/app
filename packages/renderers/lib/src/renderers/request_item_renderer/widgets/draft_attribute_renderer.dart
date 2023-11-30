@@ -11,6 +11,7 @@ class DraftAttributeRenderer extends StatelessWidget {
   final bool? isChecked;
   final bool? hideCheckbox;
   final AbstractAttribute? selectedAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const DraftAttributeRenderer({
     super.key,
@@ -20,6 +21,7 @@ class DraftAttributeRenderer extends StatelessWidget {
     this.isChecked,
     this.hideCheckbox,
     this.selectedAttribute,
+    this.onUpdateAttribute,
   });
 
   @override
@@ -37,6 +39,7 @@ class DraftAttributeRenderer extends StatelessWidget {
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,
         selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
+        onUpdateAttribute: onUpdateAttribute,
       );
     }
 
@@ -48,6 +51,7 @@ class DraftAttributeRenderer extends StatelessWidget {
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,
         selectedAttribute: selectedAttribute != null ? selectedAttribute as RelationshipAttribute : null,
+        onUpdateAttribute: onUpdateAttribute,
       );
     }
 

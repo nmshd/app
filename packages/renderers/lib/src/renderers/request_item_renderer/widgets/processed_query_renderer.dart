@@ -9,9 +9,8 @@ import 'identity_attribute_value_renderer.dart';
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
   final RequestRendererController? controller;
-  final VoidCallback? onEdit;
 
-  const ProcessedIdentityAttributeQueryRenderer({super.key, required this.query, this.controller, this.onEdit});
+  const ProcessedIdentityAttributeQueryRenderer({super.key, required this.query, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         valueHints: query.valueHints,
       );
     }
-    return IdentityAttributeValueRenderer(value: query.results.first.value as IdentityAttributeValue, onEdit: onEdit);
+    return IdentityAttributeValueRenderer(value: query.results.first.value as IdentityAttributeValue);
   }
 }
 
