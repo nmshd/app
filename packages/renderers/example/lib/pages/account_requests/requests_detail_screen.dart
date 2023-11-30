@@ -18,7 +18,7 @@ class RequestsDetailScreen extends StatefulWidget {
 }
 
 class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
-  RequestRendererController controller = RequestRendererController();
+  late RequestRendererController controller;
 
   DecideRequestParameters? requestController;
   RequestValidationResultDTO? _validationResult;
@@ -27,11 +27,11 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   void initState() {
     super.initState();
 
+    controller = RequestRendererController(request: widget.localRequestDVO);
+
     controller.addListener(() {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        if (controller.value == null) return;
-
-        final result = await GetIt.I.get<EnmeshedRuntime>().currentSession.consumptionServices.incomingRequests.canAccept(params: controller.value!);
+        final result = await GetIt.I.get<EnmeshedRuntime>().currentSession.consumptionServices.incomingRequests.canAccept(params: controller.value);
         if (result.isError) return GetIt.I.get<Logger>().e(result.error);
 
         setState(() {
