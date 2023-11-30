@@ -180,7 +180,7 @@ class __AddEditItemState extends State<_AddEditItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          TranslatedText(widget.requestController.toString()),
+          Text(widget.requestController.toString()),
         ],
       ),
     );

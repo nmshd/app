@@ -5,7 +5,6 @@ import 'package:logger/logger.dart';
 
 import '../../widgets/custom_list_tile.dart';
 import '../../widgets/request_item_index.dart';
-import '../../widgets/request_renderer_controller.dart';
 import '/renderers.dart';
 
 class DecidableConsentRequestItemRenderer extends StatefulWidget {
@@ -28,7 +27,6 @@ class DecidableConsentRequestItemRenderer extends StatefulWidget {
 
 class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRequestItemRenderer> {
   bool isChecked = true;
-  AbstractAttribute? newAttribute;
 
   void onUpdateCheckbox(bool? value) {
     setState(() {

@@ -25,7 +25,6 @@ class DecidableShareAttributeRequestItemRenderer extends StatefulWidget {
 
 class _DecidableShareAttributeRequestItemRendererState extends State<DecidableShareAttributeRequestItemRenderer> {
   bool isChecked = true;
-  AbstractAttribute? newAttribute;
 
   void onUpdateCheckbox(bool? value) {
     setState(() {

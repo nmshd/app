@@ -25,7 +25,6 @@ class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
 
 class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAuthenticationRequestItemRenderer> {
   bool isChecked = true;
-  AbstractAttribute? newAttribute;
 
   void onUpdateCheckbox(bool? value) {
     setState(() {

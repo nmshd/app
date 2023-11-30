@@ -25,7 +25,6 @@ class DecidableRegisterAttributeListenerRequestItemRenderer extends StatefulWidg
 
 class _DecidableRegisterAttributeListenerRequestItemRendererState extends State<DecidableRegisterAttributeListenerRequestItemRenderer> {
   bool isChecked = true;
-  AbstractAttribute? newAttribute;
 
   void onUpdateCheckbox(bool? value) {
     setState(() {

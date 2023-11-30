@@ -25,7 +25,6 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
 
 class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableCreateAttributeRequestItemRenderer> {
   bool isChecked = true;
-  AbstractAttribute? newAttribute;
 
   void onUpdateCheckbox(bool? value) {
     setState(() {
