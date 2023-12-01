@@ -72,10 +72,10 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
   attributeContent(ProcessedAttributeQueryDVO attribute) {
     return switch (widget.item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => query.results.first.content,
-      final ProcessedRelationshipAttributeQueryDVO query => query.results.first.content,
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.first.content,
-      final ProcessedIQLQueryDVO query => query.results.first.content,
+      final ProcessedIdentityAttributeQueryDVO query => query.results.firstOrNull?.content,
+      final ProcessedRelationshipAttributeQueryDVO query => query.results.firstOrNull?.content,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.firstOrNull?.content,
+      final ProcessedIQLQueryDVO query => query.results.firstOrNull?.content,
     };
   }
 
