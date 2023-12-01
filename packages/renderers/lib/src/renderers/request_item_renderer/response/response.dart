@@ -1,3 +1,4 @@
+export 'accept_response_item_renderer.dart';
 export 'create_attribute_accept_response_item_renderer.dart';
 export 'propose_attribute_accept_response_item_renderer.dart';
 export 'read_attribute_accept_response_item_renderer.dart';
