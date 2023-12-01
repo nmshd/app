@@ -38,6 +38,7 @@ class ValueRendererListTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
+          if (hideCheckbox != null && !hideCheckbox!) Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
           Expanded(
             child: ValueRenderer(
               fieldName: fieldName,
