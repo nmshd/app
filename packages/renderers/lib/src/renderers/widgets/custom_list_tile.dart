@@ -5,20 +5,29 @@ class CustomListTile extends StatelessWidget {
   final String title;
   final String? description;
   final Widget? trailing;
-  final void Function()? onPressed;
+  final bool? isChecked;
+  final bool? hideCheckbox;
+  final Function(bool?)? onUpdateCheckbox;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
+  final String? valueType;
 
   const CustomListTile({
     super.key,
     required this.title,
     this.description,
     this.trailing,
-    this.onPressed,
+    this.isChecked,
+    this.hideCheckbox,
+    this.onUpdateCheckbox,
+    this.onUpdateAttribute,
+    this.valueType,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        if (hideCheckbox != null && !hideCheckbox!) Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -34,7 +43,14 @@ class CustomListTile extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 50, child: trailing ?? IconButton(onPressed: onPressed, icon: const Icon(Icons.chevron_right)))
+        SizedBox(
+          width: 50,
+          child: trailing ??
+              IconButton(
+                onPressed: onUpdateAttribute != null && valueType != null ? () => onUpdateAttribute!(valueType!) : null,
+                icon: const Icon(Icons.chevron_right),
+              ),
+        )
       ],
     );
   }

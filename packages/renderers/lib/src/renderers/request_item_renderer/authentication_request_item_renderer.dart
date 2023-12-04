@@ -1,13 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '../../request_renderer.dart';
+import '../widgets/request_renderer_controller.dart';
 
 class AuthenticationRequestItemRenderer extends StatelessWidget {
   final AuthenticationRequestItemDVO item;
   final RequestRendererController? controller;
 
-  const AuthenticationRequestItemRenderer({super.key, required this.item, required this.controller});
+  const AuthenticationRequestItemRenderer({super.key, required this.item, this.controller});
 
   @override
   Widget build(BuildContext context) {

@@ -3,29 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import '../../../../../renderers.dart';
 import '../../widgets/custom_list_tile.dart';
+import '/renderers.dart';
 
 class RelationshipAttributeValueRenderer extends StatelessWidget {
   final RelationshipAttributeValue value;
-  final VoidCallback? onEdit;
   final bool? isRejected;
+  final Function(bool?)? onUpdateCheckbox;
+  final bool? isChecked;
+  final bool? hideCheckbox;
+  final RelationshipAttribute? selectedAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const RelationshipAttributeValueRenderer({
     super.key,
     required this.value,
-    this.onEdit,
     this.isRejected,
+    this.onUpdateCheckbox,
+    this.isChecked,
+    this.hideCheckbox,
+    this.selectedAttribute,
+    this.onUpdateAttribute,
   });
 
   @override
   Widget build(BuildContext context) {
-    final attributeValueMap = value.toJson();
+    final attributeValueMap = selectedAttribute != null ? selectedAttribute!.value.toJson() : value.toJson();
 
     return switch (value) {
       final ConsentAttributeValue consentAttributeValue => CustomListTile(
           title: 'i18n://dvo.attribute.name.${value.atType}',
-          description: consentAttributeValue.consent,
+          description: isRejected ?? false ? null : consentAttributeValue.consent,
+          isChecked: isChecked,
+          onUpdateCheckbox: onUpdateCheckbox,
+          valueType: value.atType,
+          hideCheckbox: hideCheckbox,
           trailing: consentAttributeValue.link != null
               ? IconButton(
                   onPressed: () async {
@@ -50,12 +62,20 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           title: proprietaryJSONAttributeValue.title,
           // TODO: render the description of the ProprietaryAttributeValue
           // description: proprietaryJSONAttributeValue.description,
-          description: proprietaryJSONAttributeValue.value.toString(),
+          description:
+              isRejected ?? false ? null : selectedAttribute?.value.toJson()['value'].toString() ?? proprietaryJSONAttributeValue.value.toString(),
+          isChecked: isChecked,
+          onUpdateCheckbox: onUpdateCheckbox,
+          valueType: value.atType,
+          hideCheckbox: hideCheckbox,
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
-          description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
-          onPressed: onEdit,
+          description: isRejected ?? false ? null : attributeValueMap['value'].toString(),
+          isChecked: isChecked,
+          onUpdateCheckbox: onUpdateCheckbox,
+          valueType: value.atType,
+          hideCheckbox: hideCheckbox,
         ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),
     };

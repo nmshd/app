@@ -6,19 +6,37 @@ import '../../widgets/custom_list_tile.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
-  final VoidCallback? onEdit;
+  final Function(bool?)? onUpdateCheckbox;
+  final bool? isChecked;
+  final bool? hideCheckbox;
+  final bool? isRejected;
+  final IdentityAttribute? selectedAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
 
-  const IdentityAttributeValueRenderer({super.key, required this.value, this.onEdit});
+  const IdentityAttributeValueRenderer({
+    super.key,
+    required this.value,
+    this.isRejected,
+    this.onUpdateCheckbox,
+    this.isChecked,
+    this.hideCheckbox,
+    this.selectedAttribute,
+    this.onUpdateAttribute,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final attributeValueMap = value.toJson();
+    final attributeValueMap = selectedAttribute != null ? selectedAttribute!.value.toJson() : value.toJson();
 
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: attributeValueMap['value'].toString(),
-        trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.chevron_right)),
+        description: isRejected ?? false ? null : attributeValueMap['value'].toString(),
+        isChecked: isChecked,
+        onUpdateCheckbox: onUpdateCheckbox,
+        hideCheckbox: hideCheckbox,
+        onUpdateAttribute: onUpdateAttribute,
+        valueType: value.atType,
       );
     }
 
@@ -30,7 +48,11 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
-      trailing: IconButton(onPressed: onEdit, icon: const Icon(Icons.chevron_right)),
+      isChecked: isChecked,
+      onUpdateCheckbox: onUpdateCheckbox,
+      hideCheckbox: hideCheckbox,
+      onUpdateAttribute: onUpdateAttribute,
+      valueType: value.atType,
     );
   }
 }

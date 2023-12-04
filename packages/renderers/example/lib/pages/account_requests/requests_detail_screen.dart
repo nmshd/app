@@ -1,6 +1,9 @@
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 
@@ -15,17 +18,25 @@ class RequestsDetailScreen extends StatefulWidget {
 }
 
 class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
-  RequestRendererController controller = RequestRendererController();
+  late RequestRendererController controller;
 
-  ProcessedAttributeQueryDVO? requestController;
+  DecideRequestParameters? decideRequestParameters;
+  RequestValidationResultDTO? _validationResult;
 
   @override
   void initState() {
     super.initState();
 
+    controller = RequestRendererController(request: widget.localRequestDVO);
+
     controller.addListener(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        setState(() => requestController = controller.value);
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        final result = await GetIt.I.get<EnmeshedRuntime>().currentSession.consumptionServices.incomingRequests.canAccept(params: controller.value);
+        if (result.isError) return GetIt.I.get<Logger>().e(result.error);
+
+        setState(() {
+          _validationResult = result.value;
+        });
       });
     });
   }
@@ -66,7 +77,12 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               const SizedBox(height: 8),
               const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
               Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
-              RequestRenderer(request: widget.localRequestDVO, controller: controller, onEdit: () => _addEditItem()),
+              RequestRenderer(
+                request: widget.localRequestDVO,
+                controller: controller,
+                validationResult: _validationResult,
+                selectAttribute: createIdentityAttributeDVO,
+              ),
               if (widget.localRequestDVO.isDecidable)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -76,7 +92,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                       child: const Text('cancel'),
                     ),
                     FilledButton(
-                      onPressed: () {},
+                      onPressed: _validationResult != null && _validationResult!.isSuccess ? () {} : null,
                       style: OutlinedButton.styleFrom(minimumSize: const Size(100.0, 36.0)),
                       child: const Text('save'),
                     ),
@@ -89,32 +105,54 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     );
   }
 
-  void _addEditItem() {
-    showModalBottomSheet(context: context, isScrollControlled: true, builder: (context) => _AddEditItem(requestController: requestController!));
-  }
-}
+  Future<IdentityAttribute> createIdentityAttributeDVO({required String valueType}) async {
+    await Future.delayed(const Duration(seconds: 1));
 
-class _AddEditItem extends StatefulWidget {
-  final ProcessedAttributeQueryDVO requestController;
-
-  const _AddEditItem({required this.requestController});
-
-  @override
-  State<_AddEditItem> createState() => __AddEditItemState();
-}
-
-class __AddEditItemState extends State<_AddEditItem> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TranslatedText(widget.requestController.name),
-        ],
-      ),
-    );
+    return switch (valueType) {
+      'DisplayName' => const IdentityAttribute(
+          owner: '',
+          value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
+        ),
+      'GivenName' => const IdentityAttribute(
+          owner: '',
+          value: GivenNameAttributeValue(value: 'Alternative Given Name'),
+        ),
+      'Surname' => const IdentityAttribute(
+          owner: '',
+          value: SurnameAttributeValue(value: 'Alternative Surname'),
+        ),
+      'Nationality' => const IdentityAttribute(
+          owner: '',
+          value: NationalityAttributeValue(value: 'DE'),
+        ),
+      'CommunicationLanguage' => const IdentityAttribute(
+          owner: '',
+          value: CommunicationLanguageAttributeValue(value: 'de'),
+        ),
+      'BirthDate' => const IdentityAttribute(
+          owner: '',
+          value: BirthDateAttributeValue(day: 01, month: 01, year: 2000),
+        ),
+      'EMailAddress' => const IdentityAttribute(
+          owner: '',
+          value: EMailAddressAttributeValue(value: 'alternative@email.com'),
+        ),
+      'Sex' => const IdentityAttribute(
+          owner: '',
+          value: SexAttributeValue(value: 'male'),
+        ),
+      'StreetAddress' => const IdentityAttribute(
+          owner: '',
+          value: StreetAddressAttributeValue(
+            recipient: 'Alternative Recepient',
+            street: 'Alternative Street',
+            houseNumber: 'Alternative House Number',
+            zipCode: 'Alternative Zip Code',
+            city: 'Alternative City',
+            country: 'DE',
+          ),
+        ),
+      _ => throw Exception('Invalid Value Type: $valueType'),
+    };
   }
 }

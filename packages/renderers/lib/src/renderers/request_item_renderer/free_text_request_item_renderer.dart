@@ -1,13 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '../../request_renderer.dart';
+import '../widgets/request_renderer_controller.dart';
 
 class FreeTextRequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
   final RequestRendererController? controller;
 
-  const FreeTextRequestItemRenderer({super.key, required this.item, required this.controller});
+  const FreeTextRequestItemRenderer({super.key, required this.item, this.controller});
 
   @override
   Widget build(BuildContext context) {
