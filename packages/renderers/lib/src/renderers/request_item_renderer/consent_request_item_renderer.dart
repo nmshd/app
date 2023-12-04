@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
+import '../../abstract_url_launcher.dart';
 import '../widgets/custom_list_tile.dart';
 import '../widgets/request_renderer_controller.dart';
-import '/src/abstract_url_launcher.dart';
 
 class ConsentRequestItemRenderer extends StatelessWidget {
   final ConsentRequestItemDVO item;
