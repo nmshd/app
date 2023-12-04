@@ -21,6 +21,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
     this.selectAttribute,
     this.requestStatus,
   });
+
   @override
   State<DecidableProposeAttributeRequestItemRenderer> createState() => _DecidableProposeAttributeRequestItemRendererState();
 }
