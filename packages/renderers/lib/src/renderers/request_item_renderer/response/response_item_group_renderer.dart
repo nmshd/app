@@ -3,19 +3,16 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../widgets/request_item_index.dart';
-import '../../widgets/request_renderer_controller.dart';
 import 'response_item_renderer.dart';
 
 class ResponseItemGroupRenderer extends StatelessWidget {
   final ResponseItemGroupDVO responseItemGroup;
   final RequestItemGroupDVO requestItemGroup;
-  final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
 
   const ResponseItemGroupRenderer({
     super.key,
     required this.responseItemGroup,
-    this.controller,
     required this.itemIndex,
     required this.requestItemGroup,
   });
@@ -27,7 +24,6 @@ class ResponseItemGroupRenderer extends StatelessWidget {
         responseItem: item,
         requestItem: requestItemGroup.items[index],
         itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
-        controller: controller,
       );
     }).toList();
     return Column(

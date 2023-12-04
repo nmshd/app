@@ -33,7 +33,6 @@ class RequestRenderer extends StatelessWidget {
             responseItemGroup: item,
             requestItemGroup: requestItemGroup,
             itemIndex: itemIndex,
-            controller: controller,
           );
         }
 
@@ -41,7 +40,6 @@ class RequestRenderer extends StatelessWidget {
           responseItem: item,
           itemIndex: itemIndex,
           requestItem: request.items[index],
-          controller: controller,
         );
       }).toList();
 

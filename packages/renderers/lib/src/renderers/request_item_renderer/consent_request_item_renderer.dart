@@ -4,14 +4,12 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 import '../widgets/custom_list_tile.dart';
-import '../widgets/request_renderer_controller.dart';
 import '/src/url_launcher.dart';
 
 class ConsentRequestItemRenderer extends StatelessWidget {
   final ConsentRequestItemDVO item;
-  final RequestRendererController? controller;
 
-  const ConsentRequestItemRenderer({super.key, required this.item, this.controller});
+  const ConsentRequestItemRenderer({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
