@@ -36,6 +36,8 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
 
   final event = switch (namespace) {
     'transport.messageSent' => MessageSentEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
+    'transport.messageReceived' => MessageReceivedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
+    'transport.relationshipChanged' => RelationshipChangedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
     'consumption.outgoingRequestCreated' => OutgoingRequestCreatedEvent(
         eventTargetAddress: eventTargetAddress,
         data: LocalRequestDTO.fromJson(data),
