@@ -63,6 +63,11 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
         messages: List<MessageDTO>.from((data['messages'] as List<dynamic>).map((e) => MessageDTO.fromJson(e))),
         relationships: List<RelationshipDTO>.from((data['relationships'] as List<dynamic>).map((e) => RelationshipDTO.fromJson(e))),
       ),
+    'runtime.accountSelected' => AccountSelectedEvent(
+        eventTargetAddress: eventTargetAddress,
+        localAccountId: data['localAccountId'] as String,
+        address: data['address'] as String,
+      ),
     _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: data),
   };
 
