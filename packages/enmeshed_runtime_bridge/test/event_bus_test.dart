@@ -21,7 +21,7 @@ class EventWithMap extends Event {
   EventWithMap(this.myMap, {super.eventTargetAddress = 'id1'});
 }
 
-main() {
+void main() {
   group('[EventBus]', () {
     test('publish one event', () async {
       final eventBus = EventBus();

@@ -17,7 +17,7 @@ class DatepickerInput extends StatelessWidget {
     DateTime? lastDate,
     required this.onDateSelected,
     required this.selectedDate,
-  })  : dateFormat = DateFormat.yMMMMd(),
+  })  : dateFormat = DateFormat.yMd(),
         firstDate = firstDate ?? defaultFirstDate,
         lastDate = lastDate ?? defaultLastDate;
 

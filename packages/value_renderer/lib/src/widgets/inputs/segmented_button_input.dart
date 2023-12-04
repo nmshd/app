@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../utils/utils.dart';
@@ -18,14 +19,13 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
     required List<ValueHintsValue> values,
   }) : super(
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
+            final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(field.context, fieldName.substring(7)) : fieldName;
             controller?.value = field.value;
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 18, 0, 12),
-                  child: TranslatedText(fieldName),
-                ),
+                Padding(padding: const EdgeInsets.only(left: 16), child: Text(translatedText)),
                 InputDecorator(
                   decoration: decoration ?? const InputDecoration(border: InputBorder.none),
                   child: SegmentedButton<ValueHintsDefaultValue>(
@@ -37,11 +37,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
                       );
                     }).toList(),
                     onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
-                      controller?.value = ControllerTypeResolver.resolveType(
-                        inputValue: newSelection.first,
-                        type: technicalType,
-                      );
-
+                      controller?.value = ControllerTypeResolver.resolveType(inputValue: newSelection.first, type: technicalType);
                       field.didChange(newSelection.first);
                     },
                   ),

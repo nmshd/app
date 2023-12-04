@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
 
-    cb() => setState(() => _loginEnabled = !(baseUrlController.text.isEmpty || apiKeyController.text.isEmpty));
+    void cb() => setState(() => _loginEnabled = !(baseUrlController.text.isEmpty || apiKeyController.text.isEmpty));
     baseUrlController.addListener(cb);
     apiKeyController.addListener(cb);
   }

@@ -1,9 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../../value_renderer.dart';
 import '../utils/utils.dart';
+import 'styles/input_decoration.dart';
 
 class DropdownSelectInput extends StatefulWidget {
   final ValueRendererController? controller;
@@ -44,16 +46,17 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
   @override
   Widget build(BuildContext context) {
+    final fieldName = widget.fieldName;
+    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: TranslatedText(widget.fieldName),
-        ),
         DropdownButtonFormField<ValueHintsDefaultValue>(
-          decoration: widget.decoration,
           value: selectedOption,
+          decoration: widget.decoration != null
+              ? widget.decoration!.copyWith(labelText: translatedText)
+              : inputDecoration.copyWith(labelText: translatedText),
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(
               inputValue: newValue,
@@ -64,6 +67,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
               selectedOption = newValue;
             });
           },
+          isExpanded: true,
           items: widget.values.map<DropdownMenuItem<ValueHintsDefaultValue>>((ValueHintsValue value) {
             return DropdownMenuItem<ValueHintsDefaultValue>(
               value: value.key,

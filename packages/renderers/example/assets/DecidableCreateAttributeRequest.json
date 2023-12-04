@@ -1,0 +1,1097 @@
+{
+    "id": "REQhdz7YsukPQeZyGpaT",
+    "isOwn": false,
+    "peer": {
+      "type": "IdentityDVO",
+      "id": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+      "name": "Gymnasium Hugendubel",
+      "date": "2023-09-27T11:15:30.471Z",
+      "description": "i18n://dvo.relationship.Active",
+      "publicKey": "eyJwdWIiOiJCSkV5V0xQZ19BVDlwc1FiYUJUck5vNTNkUVlqVFlOZjNRZVlaWTJWRWNRIiwiYWxnIjozfQ",
+      "realm": "id1",
+      "initials": "GH",
+      "isSelf": false,
+      "hasRelationship": true,
+      "relationship": {
+        "id": "RELXxv4L62tbRRE3nSmz",
+        "name": "Gymnasium Hugendubel",
+        "description": "i18n://dvo.relationship.Active",
+        "date": "2023-09-27T11:15:30.471Z",
+        "image": "",
+        "type": "RelationshipDVO",
+        "status": "Active",
+        "statusText": "i18n://dvo.relationship.Active",
+        "direction": "Outgoing",
+        "isPinned": false,
+        "attributeMap": {
+          "DisplayName": [
+            {
+              "type": "PeerAttributeDVO",
+              "id": "ATTiyskjZKhIqPqhHMsl",
+              "name": "i18n://dvo.attribute.name.DisplayName",
+              "description": "i18n://dvo.attribute.description.DisplayName",
+              "content": {
+                "@type": "IdentityAttribute",
+                "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+                "value": {
+                  "@type": "DisplayName",
+                  "value": "Gymnasium Hugendubel"
+                }
+              },
+              "value": {
+                "@type": "DisplayName",
+                "value": "Gymnasium Hugendubel"
+              },
+              "date": "2023-09-27T11:15:28.147Z",
+              "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+              "renderHints": {
+                "@type": "RenderHints",
+                "editType": "InputLike",
+                "propertyHints": {},
+                "technicalType": "String"
+              },
+              "valueHints": {
+                "@type": "ValueHints",
+                "max": 100,
+                "propertyHints": {}
+              },
+              "isValid": true,
+              "createdAt": "2023-09-27T11:15:28.147Z",
+              "isOwn": false,
+              "peer": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+              "isDraft": false,
+              "requestReference": "REQsqqv5TrCjxudifYU8",
+              "tags": [],
+              "valueType": "DisplayName"
+            }
+          ]
+        },
+        "items": [
+          {
+            "type": "PeerAttributeDVO",
+            "id": "ATTiyskjZKhIqPqhHMsl",
+            "name": "i18n://dvo.attribute.name.DisplayName",
+            "description": "i18n://dvo.attribute.description.DisplayName",
+            "content": {
+              "@type": "IdentityAttribute",
+              "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+              "value": { "@type": "DisplayName", "value": "Gymnasium Hugendubel" }
+            },
+            "value": { "@type": "DisplayName", "value": "Gymnasium Hugendubel" },
+            "date": "2023-09-27T11:15:28.147Z",
+            "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+            "renderHints": {
+              "@type": "RenderHints",
+              "editType": "InputLike",
+              "propertyHints": {},
+              "technicalType": "String"
+            },
+            "valueHints": {
+              "@type": "ValueHints",
+              "max": 100,
+              "propertyHints": {}
+            },
+            "isValid": true,
+            "createdAt": "2023-09-27T11:15:28.147Z",
+            "isOwn": false,
+            "peer": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+            "isDraft": false,
+            "requestReference": "REQsqqv5TrCjxudifYU8",
+            "tags": [],
+            "valueType": "DisplayName"
+          }
+        ],
+        "nameMap": { "DisplayName": "Gymnasium Hugendubel" },
+        "changes": [
+          {
+            "type": "RelationshipChangeDVO",
+            "id": "RCHOcQYgzYSIztebsnMP",
+            "name": "",
+            "date": "2023-09-27T11:15:31.731Z",
+            "status": "Accepted",
+            "statusText": "i18n://dvo.relationshipChange.Accepted",
+            "changeType": "Creation",
+            "changeTypeText": "i18n://dvo.relationshipChange.Creation",
+            "isOwn": true,
+            "request": {
+              "createdBy": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "createdByDevice": "DVCmLgD3Y0WxzG77imlb",
+              "createdAt": "2023-09-27T11:15:30.471Z",
+              "content": {
+                "@type": "RelationshipCreationChangeRequestContent",
+                "response": {
+                  "items": [
+                    {
+                      "@type": "ResponseItemGroup",
+                      "items": [
+                        {
+                          "@type": "ShareAttributeAcceptResponseItem",
+                          "attributeId": "ATTiyskjZKhIqPqhHMsl",
+                          "result": "Accepted"
+                        }
+                      ]
+                    },
+                    {
+                      "@type": "ResponseItemGroup",
+                      "items": [
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": { "@type": "GivenName", "value": "Barbara" }
+                          },
+                          "attributeId": "ATTceEadXGZQWj725FkN",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": { "@type": "Surname", "value": "Elsner" }
+                          },
+                          "attributeId": "ATTsF00BJX6SMEJ5fzk9",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": { "@type": "Nationality", "value": "DE" }
+                          },
+                          "attributeId": "ATTNj2RRdgZubT7f1tcd",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": {
+                              "@type": "CommunicationLanguage",
+                              "value": "de"
+                            }
+                          },
+                          "attributeId": "ATTJDsgteawjuxtSYBB5",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": {
+                              "@type": "BirthDate",
+                              "day": 12,
+                              "month": 8,
+                              "year": 2022
+                            }
+                          },
+                          "attributeId": "ATToO0kPU38BZWd8i27a",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": {
+                              "@type": "EMailAddress",
+                              "value": "barbara.elsner222@privat.de"
+                            }
+                          },
+                          "attributeId": "ATTBZ4zPe0v5ECOjBpw1",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": { "@type": "Sex", "value": "female" }
+                          },
+                          "attributeId": "ATTI2KSH5yCgJL5Qzknx",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": {
+                              "@type": "StreetAddress",
+                              "city": "Aachen",
+                              "country": "DE",
+                              "houseNo": "3",
+                              "recipient": "Familie Elsner",
+                              "street": "Mittelstraße",
+                              "zipCode": "52062"
+                            }
+                          },
+                          "attributeId": "ATT5IdMsvV2W84LMTikm",
+                          "result": "Accepted"
+                        }
+                      ]
+                    },
+                    { "@type": "AcceptResponseItem", "result": "Accepted" }
+                  ],
+                  "requestId": "REQsqqv5TrCjxudifYU8",
+                  "result": "Accepted"
+                }
+              },
+              "id": "RCHOcQYgzYSIztebsnMP_request",
+              "name": "i18n://dvo.relationshipChange.request.name",
+              "type": "RelationshipChangeRequestDVO"
+            },
+            "response": {
+              "createdBy": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+              "createdByDevice": "DVCw3LDX324JboZVitC1",
+              "createdAt": "2023-09-27T11:15:31.731Z",
+              "content": {},
+              "id": "RCHOcQYgzYSIztebsnMP_response",
+              "name": "i18n://dvo.relationshipChange.response.name",
+              "type": "RelationshipChangeResponseDVO"
+            }
+          }
+        ],
+        "changeCount": 1,
+        "templateId": "RLTIwckiKaawghu2UNL9"
+      },
+      "items": [
+        {
+          "type": "PeerAttributeDVO",
+          "id": "ATTiyskjZKhIqPqhHMsl",
+          "name": "i18n://dvo.attribute.name.DisplayName",
+          "description": "i18n://dvo.attribute.description.DisplayName",
+          "content": {
+            "@type": "IdentityAttribute",
+            "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+            "value": { "@type": "DisplayName", "value": "Gymnasium Hugendubel" }
+          },
+          "value": { "@type": "DisplayName", "value": "Gymnasium Hugendubel" },
+          "date": "2023-09-27T11:15:28.147Z",
+          "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+          "renderHints": {
+            "@type": "RenderHints",
+            "editType": "InputLike",
+            "propertyHints": {},
+            "technicalType": "String"
+          },
+          "valueHints": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
+          },
+          "isValid": true,
+          "createdAt": "2023-09-27T11:15:28.147Z",
+          "isOwn": false,
+          "peer": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+          "isDraft": false,
+          "requestReference": "REQsqqv5TrCjxudifYU8",
+          "tags": [],
+          "valueType": "DisplayName"
+        }
+      ]
+    },
+    "createdAt": "2023-09-27T11:39:29.532Z",
+    "content": {
+      "id": "REQhdz7YsukPQeZyGpaT",
+      "name": "Request REQhdz7YsukPQeZyGpaT",
+      "type": "RequestDVO",
+      "@type": "Request",
+      "items": [
+        {
+          "@type": "CreateAttributeRequestItem",
+          "attribute": {
+            "type": "DraftRelationshipAttributeDVO",
+            "content": {
+              "@type": "RelationshipAttribute",
+              "confidentiality": "protected",
+              "isTechnical": true,
+              "key": "Schule.Hochschulzulassung.Typ",
+              "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "value": {
+                "@type": "ProprietaryString",
+                "title": "Art der Hochschulzulassung",
+                "value": "Allgemeine Hochschulreife"
+              }
+            },
+            "name": "Art der Hochschulzulassung",
+            "description": "i18n://dvo.attribute.description.ProprietaryString",
+            "key": "Schule.Hochschulzulassung.Typ",
+            "confidentiality": "protected",
+            "isTechnical": true,
+            "id": "",
+            "owner": {
+              "id": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "type": "IdentityDVO",
+              "name": "i18n://dvo.identity.self.name",
+              "initials": "i18n://dvo.identity.self.initials",
+              "realm": "id1",
+              "description": "i18n://dvo.identity.self.description",
+              "isSelf": true,
+              "hasRelationship": false
+            },
+            "renderHints": {
+              "@type": "RenderHints",
+              "editType": "InputLike",
+              "propertyHints": {},
+              "technicalType": "String"
+            },
+            "valueHints": {
+              "@type": "ValueHints",
+              "max": 100,
+              "propertyHints": {}
+            },
+            "value": {
+              "@type": "ProprietaryString",
+              "title": "Art der Hochschulzulassung",
+              "value": "Allgemeine Hochschulreife"
+            },
+            "isDraft": true,
+            "isOwn": true,
+            "valueType": "ProprietaryString"
+          },
+          "mustBeAccepted": true,
+          "title": "",
+          "type": "DecidableCreateAttributeRequestItemDVO",
+          "id": "",
+          "name": "",
+          "description": "i18n://dvo.requestItem.DecidableCreateRelationshipAttributeRequestItem.name",
+          "isDecidable": true
+        },
+        {
+          "@type": "CreateAttributeRequestItem",
+          "attribute": {
+            "type": "DraftRelationshipAttributeDVO",
+            "content": {
+              "@type": "RelationshipAttribute",
+              "confidentiality": "protected",
+              "isTechnical": true,
+              "key": "Schule.Hochschulzulassung.Bundesland",
+              "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "value": {
+                "@type": "ProprietaryString",
+                "title": "Ausstellendes Bundesland",
+                "value": "Nordrhein-Westfalen"
+              }
+            },
+            "name": "Ausstellendes Bundesland",
+            "description": "i18n://dvo.attribute.description.ProprietaryString",
+            "key": "Schule.Hochschulzulassung.Bundesland",
+            "confidentiality": "protected",
+            "isTechnical": true,
+            "id": "",
+            "owner": {
+              "id": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "type": "IdentityDVO",
+              "name": "i18n://dvo.identity.self.name",
+              "initials": "i18n://dvo.identity.self.initials",
+              "realm": "id1",
+              "description": "i18n://dvo.identity.self.description",
+              "isSelf": true,
+              "hasRelationship": false
+            },
+            "renderHints": {
+              "@type": "RenderHints",
+              "editType": "InputLike",
+              "propertyHints": {},
+              "technicalType": "String"
+            },
+            "valueHints": {
+              "@type": "ValueHints",
+              "max": 100,
+              "propertyHints": {}
+            },
+            "value": {
+              "@type": "ProprietaryString",
+              "title": "Ausstellendes Bundesland",
+              "value": "Nordrhein-Westfalen"
+            },
+            "isDraft": true,
+            "isOwn": true,
+            "valueType": "ProprietaryString"
+          },
+          "mustBeAccepted": true,
+          "title": "",
+          "type": "DecidableCreateAttributeRequestItemDVO",
+          "id": "",
+          "name": "",
+          "description": "i18n://dvo.requestItem.DecidableCreateRelationshipAttributeRequestItem.name",
+          "isDecidable": true
+        },
+        {
+          "@type": "CreateAttributeRequestItem",
+          "attribute": {
+            "type": "DraftRelationshipAttributeDVO",
+            "content": {
+              "@type": "RelationshipAttribute",
+              "confidentiality": "protected",
+              "isTechnical": true,
+              "key": "Schule.Hochschulzulassung.Note",
+              "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "value": {
+                "@type": "ProprietaryFloat",
+                "title": "Durchschnittsnote",
+                "value": 2.1
+              }
+            },
+            "name": "Durchschnittsnote",
+            "description": "i18n://dvo.attribute.description.ProprietaryFloat",
+            "key": "Schule.Hochschulzulassung.Note",
+            "confidentiality": "protected",
+            "isTechnical": true,
+            "id": "",
+            "owner": {
+              "id": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "type": "IdentityDVO",
+              "name": "i18n://dvo.identity.self.name",
+              "initials": "i18n://dvo.identity.self.initials",
+              "realm": "id1",
+              "description": "i18n://dvo.identity.self.description",
+              "isSelf": true,
+              "hasRelationship": false
+            },
+            "renderHints": {
+              "@type": "RenderHints",
+              "editType": "ButtonLike",
+              "propertyHints": {},
+              "technicalType": "Float"
+            },
+            "valueHints": { "@type": "ValueHints", "propertyHints": {} },
+            "value": {
+              "@type": "ProprietaryFloat",
+              "title": "Durchschnittsnote",
+              "value": 2.1
+            },
+            "isDraft": true,
+            "isOwn": true,
+            "valueType": "ProprietaryFloat"
+          },
+          "mustBeAccepted": true,
+          "title": "",
+          "type": "DecidableCreateAttributeRequestItemDVO",
+          "id": "",
+          "name": "",
+          "description": "i18n://dvo.requestItem.DecidableCreateRelationshipAttributeRequestItem.name",
+          "isDecidable": true
+        },
+        {
+          "@type": "CreateAttributeRequestItem",
+          "attribute": {
+            "type": "DraftRelationshipAttributeDVO",
+            "content": {
+              "@type": "RelationshipAttribute",
+              "confidentiality": "protected",
+              "isTechnical": true,
+              "key": "Schule.Hochschulzulassung.Datum",
+              "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "value": {
+                "@type": "ProprietaryString",
+                "title": "Tag der Hochschulzulassung",
+                "value": "25.05.2023"
+              }
+            },
+            "name": "Tag der Hochschulzulassung",
+            "description": "i18n://dvo.attribute.description.ProprietaryString",
+            "key": "Schule.Hochschulzulassung.Datum",
+            "confidentiality": "protected",
+            "isTechnical": true,
+            "id": "",
+            "owner": {
+              "id": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "type": "IdentityDVO",
+              "name": "i18n://dvo.identity.self.name",
+              "initials": "i18n://dvo.identity.self.initials",
+              "realm": "id1",
+              "description": "i18n://dvo.identity.self.description",
+              "isSelf": true,
+              "hasRelationship": false
+            },
+            "renderHints": {
+              "@type": "RenderHints",
+              "editType": "InputLike",
+              "propertyHints": {},
+              "technicalType": "String"
+            },
+            "valueHints": {
+              "@type": "ValueHints",
+              "max": 100,
+              "propertyHints": {}
+            },
+            "value": {
+              "@type": "ProprietaryString",
+              "title": "Tag der Hochschulzulassung",
+              "value": "25.05.2023"
+            },
+            "isDraft": true,
+            "isOwn": true,
+            "valueType": "ProprietaryString"
+          },
+          "mustBeAccepted": true,
+          "title": "",
+          "type": "DecidableCreateAttributeRequestItemDVO",
+          "id": "",
+          "name": "",
+          "description": "i18n://dvo.requestItem.DecidableCreateRelationshipAttributeRequestItem.name",
+          "isDecidable": true
+        }
+      ],
+      "title": "Deine Hochschulreife"
+    },
+    "source": { "type": "Message", "reference": "MSG80jdvuChXQWHJqg9w" },
+    "status": "ManualDecisionRequired",
+    "items": [
+      {
+        "@type": "CreateAttributeRequestItem",
+        "attribute": {
+          "type": "DraftRelationshipAttributeDVO",
+          "content": {
+            "@type": "RelationshipAttribute",
+            "confidentiality": "protected",
+            "isTechnical": true,
+            "key": "Schule.Hochschulzulassung.Typ",
+            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+            "value": {
+              "@type": "ProprietaryString",
+              "title": "Art der Hochschulzulassung",
+              "value": "Allgemeine Hochschulreife"
+            }
+          },
+          "name": "Art der Hochschulzulassung",
+          "description": "i18n://dvo.attribute.description.ProprietaryString",
+          "key": "Schule.Hochschulzulassung.Typ",
+          "confidentiality": "protected",
+          "isTechnical": true,
+          "id": "",
+          "owner": {
+            "id": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+            "type": "IdentityDVO",
+            "name": "i18n://dvo.identity.self.name",
+            "initials": "i18n://dvo.identity.self.initials",
+            "realm": "id1",
+            "description": "i18n://dvo.identity.self.description",
+            "isSelf": true,
+            "hasRelationship": false
+          },
+          "renderHints": {
+            "@type": "RenderHints",
+            "editType": "InputLike",
+            "propertyHints": {},
+            "technicalType": "String"
+          },
+          "valueHints": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
+          },
+          "value": {
+            "@type": "ProprietaryString",
+            "title": "Art der Hochschulzulassung",
+            "value": "Allgemeine Hochschulreife"
+          },
+          "isDraft": true,
+          "isOwn": true,
+          "valueType": "ProprietaryString"
+        },
+        "mustBeAccepted": true,
+        "title": "",
+        "type": "DecidableCreateAttributeRequestItemDVO",
+        "id": "",
+        "name": "",
+        "description": "i18n://dvo.requestItem.DecidableCreateRelationshipAttributeRequestItem.name",
+        "isDecidable": true
+      },
+      {
+        "@type": "CreateAttributeRequestItem",
+        "attribute": {
+          "type": "DraftRelationshipAttributeDVO",
+          "content": {
+            "@type": "RelationshipAttribute",
+            "confidentiality": "protected",
+            "isTechnical": true,
+            "key": "Schule.Hochschulzulassung.Bundesland",
+            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+            "value": {
+              "@type": "ProprietaryString",
+              "title": "Ausstellendes Bundesland",
+              "value": "Nordrhein-Westfalen"
+            }
+          },
+          "name": "Ausstellendes Bundesland",
+          "description": "i18n://dvo.attribute.description.ProprietaryString",
+          "key": "Schule.Hochschulzulassung.Bundesland",
+          "confidentiality": "protected",
+          "isTechnical": true,
+          "id": "",
+          "owner": {
+            "id": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+            "type": "IdentityDVO",
+            "name": "i18n://dvo.identity.self.name",
+            "initials": "i18n://dvo.identity.self.initials",
+            "realm": "id1",
+            "description": "i18n://dvo.identity.self.description",
+            "isSelf": true,
+            "hasRelationship": false
+          },
+          "renderHints": {
+            "@type": "RenderHints",
+            "editType": "InputLike",
+            "propertyHints": {},
+            "technicalType": "String"
+          },
+          "valueHints": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
+          },
+          "value": {
+            "@type": "ProprietaryString",
+            "title": "Ausstellendes Bundesland",
+            "value": "Nordrhein-Westfalen"
+          },
+          "isDraft": true,
+          "isOwn": true,
+          "valueType": "ProprietaryString"
+        },
+        "mustBeAccepted": true,
+        "title": "",
+        "type": "DecidableCreateAttributeRequestItemDVO",
+        "id": "",
+        "name": "",
+        "description": "i18n://dvo.requestItem.DecidableCreateRelationshipAttributeRequestItem.name",
+        "isDecidable": true
+      },
+      {
+        "@type": "CreateAttributeRequestItem",
+        "attribute": {
+          "type": "DraftRelationshipAttributeDVO",
+          "content": {
+            "@type": "RelationshipAttribute",
+            "confidentiality": "protected",
+            "isTechnical": true,
+            "key": "Schule.Hochschulzulassung.Note",
+            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+            "value": {
+              "@type": "ProprietaryFloat",
+              "title": "Durchschnittsnote",
+              "value": 2.1
+            }
+          },
+          "name": "Durchschnittsnote",
+          "description": "i18n://dvo.attribute.description.ProprietaryFloat",
+          "key": "Schule.Hochschulzulassung.Note",
+          "confidentiality": "protected",
+          "isTechnical": true,
+          "id": "",
+          "owner": {
+            "id": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+            "type": "IdentityDVO",
+            "name": "i18n://dvo.identity.self.name",
+            "initials": "i18n://dvo.identity.self.initials",
+            "realm": "id1",
+            "description": "i18n://dvo.identity.self.description",
+            "isSelf": true,
+            "hasRelationship": false
+          },
+          "renderHints": {
+            "@type": "RenderHints",
+            "editType": "ButtonLike",
+            "propertyHints": {},
+            "technicalType": "Float"
+          },
+          "valueHints": { "@type": "ValueHints", "propertyHints": {} },
+          "value": {
+            "@type": "ProprietaryFloat",
+            "title": "Durchschnittsnote",
+            "value": 2.1
+          },
+          "isDraft": true,
+          "isOwn": true,
+          "valueType": "ProprietaryFloat"
+        },
+        "mustBeAccepted": true,
+        "title": "",
+        "type": "DecidableCreateAttributeRequestItemDVO",
+        "id": "",
+        "name": "",
+        "description": "i18n://dvo.requestItem.DecidableCreateRelationshipAttributeRequestItem.name",
+        "isDecidable": true
+      },
+      {
+        "@type": "CreateAttributeRequestItem",
+        "attribute": {
+          "type": "DraftRelationshipAttributeDVO",
+          "content": {
+            "@type": "RelationshipAttribute",
+            "confidentiality": "protected",
+            "isTechnical": true,
+            "key": "Schule.Hochschulzulassung.Datum",
+            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+            "value": {
+              "@type": "ProprietaryString",
+              "title": "Tag der Hochschulzulassung",
+              "value": "25.05.2023"
+            }
+          },
+          "name": "Tag der Hochschulzulassung",
+          "description": "i18n://dvo.attribute.description.ProprietaryString",
+          "key": "Schule.Hochschulzulassung.Datum",
+          "confidentiality": "protected",
+          "isTechnical": true,
+          "id": "",
+          "owner": {
+            "id": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+            "type": "IdentityDVO",
+            "name": "i18n://dvo.identity.self.name",
+            "initials": "i18n://dvo.identity.self.initials",
+            "realm": "id1",
+            "description": "i18n://dvo.identity.self.description",
+            "isSelf": true,
+            "hasRelationship": false
+          },
+          "renderHints": {
+            "@type": "RenderHints",
+            "editType": "InputLike",
+            "propertyHints": {},
+            "technicalType": "String"
+          },
+          "valueHints": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
+          },
+          "value": {
+            "@type": "ProprietaryString",
+            "title": "Tag der Hochschulzulassung",
+            "value": "25.05.2023"
+          },
+          "isDraft": true,
+          "isOwn": true,
+          "valueType": "ProprietaryString"
+        },
+        "mustBeAccepted": true,
+        "title": "",
+        "type": "DecidableCreateAttributeRequestItemDVO",
+        "id": "",
+        "name": "",
+        "description": "i18n://dvo.requestItem.DecidableCreateRelationshipAttributeRequestItem.name",
+        "isDecidable": true
+      }
+    ],
+    "name": "i18n://dvo.localRequest.Message.incoming.ManualDecisionRequired.name",
+    "directionText": "i18n://dvo.localRequest.direction.incoming",
+    "description": "i18n://dvo.localRequest.Message.incoming.ManualDecisionRequired.description",
+    "sourceTypeText": "i18n://dvo.localRequest.sourceType.Message",
+    "type": "LocalRequestDVO",
+    "date": "2023-09-27T11:39:29.532Z",
+    "createdBy": {
+      "type": "IdentityDVO",
+      "id": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+      "name": "Gymnasium Hugendubel",
+      "date": "2023-09-27T11:15:30.471Z",
+      "description": "i18n://dvo.relationship.Active",
+      "publicKey": "eyJwdWIiOiJCSkV5V0xQZ19BVDlwc1FiYUJUck5vNTNkUVlqVFlOZjNRZVlaWTJWRWNRIiwiYWxnIjozfQ",
+      "realm": "id1",
+      "initials": "GH",
+      "isSelf": false,
+      "hasRelationship": true,
+      "relationship": {
+        "id": "RELXxv4L62tbRRE3nSmz",
+        "name": "Gymnasium Hugendubel",
+        "description": "i18n://dvo.relationship.Active",
+        "date": "2023-09-27T11:15:30.471Z",
+        "image": "",
+        "type": "RelationshipDVO",
+        "status": "Active",
+        "statusText": "i18n://dvo.relationship.Active",
+        "direction": "Outgoing",
+        "isPinned": false,
+        "attributeMap": {
+          "DisplayName": [
+            {
+              "type": "PeerAttributeDVO",
+              "id": "ATTiyskjZKhIqPqhHMsl",
+              "name": "i18n://dvo.attribute.name.DisplayName",
+              "description": "i18n://dvo.attribute.description.DisplayName",
+              "content": {
+                "@type": "IdentityAttribute",
+                "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+                "value": {
+                  "@type": "DisplayName",
+                  "value": "Gymnasium Hugendubel"
+                }
+              },
+              "value": {
+                "@type": "DisplayName",
+                "value": "Gymnasium Hugendubel"
+              },
+              "date": "2023-09-27T11:15:28.147Z",
+              "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+              "renderHints": {
+                "@type": "RenderHints",
+                "editType": "InputLike",
+                "propertyHints": {},
+                "technicalType": "String"
+              },
+              "valueHints": {
+                "@type": "ValueHints",
+                "max": 100,
+                "propertyHints": {}
+              },
+              "isValid": true,
+              "createdAt": "2023-09-27T11:15:28.147Z",
+              "isOwn": false,
+              "peer": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+              "isDraft": false,
+              "requestReference": "REQsqqv5TrCjxudifYU8",
+              "tags": [],
+              "valueType": "DisplayName"
+            }
+          ]
+        },
+        "items": [
+          {
+            "type": "PeerAttributeDVO",
+            "id": "ATTiyskjZKhIqPqhHMsl",
+            "name": "i18n://dvo.attribute.name.DisplayName",
+            "description": "i18n://dvo.attribute.description.DisplayName",
+            "content": {
+              "@type": "IdentityAttribute",
+              "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+              "value": { "@type": "DisplayName", "value": "Gymnasium Hugendubel" }
+            },
+            "value": { "@type": "DisplayName", "value": "Gymnasium Hugendubel" },
+            "date": "2023-09-27T11:15:28.147Z",
+            "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+            "renderHints": {
+              "@type": "RenderHints",
+              "editType": "InputLike",
+              "propertyHints": {},
+              "technicalType": "String"
+            },
+            "valueHints": {
+              "@type": "ValueHints",
+              "max": 100,
+              "propertyHints": {}
+            },
+            "isValid": true,
+            "createdAt": "2023-09-27T11:15:28.147Z",
+            "isOwn": false,
+            "peer": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+            "isDraft": false,
+            "requestReference": "REQsqqv5TrCjxudifYU8",
+            "tags": [],
+            "valueType": "DisplayName"
+          }
+        ],
+        "nameMap": { "DisplayName": "Gymnasium Hugendubel" },
+        "changes": [
+          {
+            "type": "RelationshipChangeDVO",
+            "id": "RCHOcQYgzYSIztebsnMP",
+            "name": "",
+            "date": "2023-09-27T11:15:31.731Z",
+            "status": "Accepted",
+            "statusText": "i18n://dvo.relationshipChange.Accepted",
+            "changeType": "Creation",
+            "changeTypeText": "i18n://dvo.relationshipChange.Creation",
+            "isOwn": true,
+            "request": {
+              "createdBy": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+              "createdByDevice": "DVCmLgD3Y0WxzG77imlb",
+              "createdAt": "2023-09-27T11:15:30.471Z",
+              "content": {
+                "@type": "RelationshipCreationChangeRequestContent",
+                "response": {
+                  "items": [
+                    {
+                      "@type": "ResponseItemGroup",
+                      "items": [
+                        {
+                          "@type": "ShareAttributeAcceptResponseItem",
+                          "attributeId": "ATTiyskjZKhIqPqhHMsl",
+                          "result": "Accepted"
+                        }
+                      ]
+                    },
+                    {
+                      "@type": "ResponseItemGroup",
+                      "items": [
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": { "@type": "GivenName", "value": "Barbara" }
+                          },
+                          "attributeId": "ATTceEadXGZQWj725FkN",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": { "@type": "Surname", "value": "Elsner" }
+                          },
+                          "attributeId": "ATTsF00BJX6SMEJ5fzk9",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": { "@type": "Nationality", "value": "DE" }
+                          },
+                          "attributeId": "ATTNj2RRdgZubT7f1tcd",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": {
+                              "@type": "CommunicationLanguage",
+                              "value": "de"
+                            }
+                          },
+                          "attributeId": "ATTJDsgteawjuxtSYBB5",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": {
+                              "@type": "BirthDate",
+                              "day": 12,
+                              "month": 8,
+                              "year": 2022
+                            }
+                          },
+                          "attributeId": "ATToO0kPU38BZWd8i27a",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": {
+                              "@type": "EMailAddress",
+                              "value": "barbara.elsner222@privat.de"
+                            }
+                          },
+                          "attributeId": "ATTBZ4zPe0v5ECOjBpw1",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": { "@type": "Sex", "value": "female" }
+                          },
+                          "attributeId": "ATTI2KSH5yCgJL5Qzknx",
+                          "result": "Accepted"
+                        },
+                        {
+                          "@type": "ProposeAttributeAcceptResponseItem",
+                          "attribute": {
+                            "@type": "IdentityAttribute",
+                            "owner": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+                            "value": {
+                              "@type": "StreetAddress",
+                              "city": "Aachen",
+                              "country": "DE",
+                              "houseNo": "3",
+                              "recipient": "Familie Elsner",
+                              "street": "Mittelstraße",
+                              "zipCode": "52062"
+                            }
+                          },
+                          "attributeId": "ATT5IdMsvV2W84LMTikm",
+                          "result": "Accepted"
+                        }
+                      ]
+                    },
+                    { "@type": "AcceptResponseItem", "result": "Accepted" }
+                  ],
+                  "requestId": "REQsqqv5TrCjxudifYU8",
+                  "result": "Accepted"
+                }
+              },
+              "id": "RCHOcQYgzYSIztebsnMP_request",
+              "name": "i18n://dvo.relationshipChange.request.name",
+              "type": "RelationshipChangeRequestDVO"
+            },
+            "response": {
+              "createdBy": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+              "createdByDevice": "DVCw3LDX324JboZVitC1",
+              "createdAt": "2023-09-27T11:15:31.731Z",
+              "content": {},
+              "id": "RCHOcQYgzYSIztebsnMP_response",
+              "name": "i18n://dvo.relationshipChange.response.name",
+              "type": "RelationshipChangeResponseDVO"
+            }
+          }
+        ],
+        "changeCount": 1,
+        "templateId": "RLTIwckiKaawghu2UNL9"
+      },
+      "items": [
+        {
+          "type": "PeerAttributeDVO",
+          "id": "ATTiyskjZKhIqPqhHMsl",
+          "name": "i18n://dvo.attribute.name.DisplayName",
+          "description": "i18n://dvo.attribute.description.DisplayName",
+          "content": {
+            "@type": "IdentityAttribute",
+            "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+            "value": { "@type": "DisplayName", "value": "Gymnasium Hugendubel" }
+          },
+          "value": { "@type": "DisplayName", "value": "Gymnasium Hugendubel" },
+          "date": "2023-09-27T11:15:28.147Z",
+          "owner": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+          "renderHints": {
+            "@type": "RenderHints",
+            "editType": "InputLike",
+            "propertyHints": {},
+            "technicalType": "String"
+          },
+          "valueHints": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
+          },
+          "isValid": true,
+          "createdAt": "2023-09-27T11:15:28.147Z",
+          "isOwn": false,
+          "peer": "id1KotS3HXFnTGKgo1s8tUaKQzmhnjkjddUo",
+          "isDraft": false,
+          "requestReference": "REQsqqv5TrCjxudifYU8",
+          "tags": [],
+          "valueType": "DisplayName"
+        }
+      ]
+    },
+    "decider": {
+      "id": "id17VhbFbFMg1xQC784SEwsbEGXxGKtcB67V",
+      "type": "IdentityDVO",
+      "name": "i18n://dvo.identity.self.name",
+      "initials": "i18n://dvo.identity.self.initials",
+      "realm": "id1",
+      "description": "i18n://dvo.identity.self.description",
+      "isSelf": true,
+      "hasRelationship": false
+    },
+    "statusText": "i18n://dvo.localRequest.status.ManualDecisionRequired",
+    "isDecidable": true
+  }
+  

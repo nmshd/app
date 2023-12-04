@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScannerView extends StatefulWidget {
-  final Function(String) onDetected;
+  final void Function(String) onDetected;
 
   const ScannerView({super.key, required this.onDetected});
 

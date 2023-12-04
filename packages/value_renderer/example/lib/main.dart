@@ -6,7 +6,7 @@ import 'pages/controller_example.dart';
 import 'pages/input_examples.dart';
 import 'pages/renderer.dart';
 
-main() {
+void main() {
   runApp(const ValueRendererExample());
 }
 
@@ -20,6 +20,7 @@ class ValueRendererExample extends StatelessWidget {
       localizationsDelegates: [
         FlutterI18nDelegate(translationLoader: FileTranslationLoader(basePath: 'assets/i18n')),
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: const [

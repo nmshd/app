@@ -12,7 +12,7 @@ class MockEventBus extends EventBus {
     bool Function(T)? predicate,
     timeout = const Duration(minutes: 1),
   }) async {
-    eventMatches(Event event) => event is T && event.eventTargetAddress == eventTargetAddress && (predicate == null || predicate(event));
+    bool eventMatches(Event event) => event is T && event.eventTargetAddress == eventTargetAddress && (predicate == null || predicate(event));
 
     final alreadyTriggeredEvents = _events.where(eventMatches).cast<T>().toList();
     if (alreadyTriggeredEvents.isNotEmpty) return alreadyTriggeredEvents.first;
