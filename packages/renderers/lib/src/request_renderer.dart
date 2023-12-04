@@ -23,10 +23,34 @@ class RequestRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<StatelessWidget> requestItems = [];
-    List<StatelessWidget> responseItems = [];
+    if (request.response != null) {
+      final responseItems = request.response!.content.items.mapIndexed((index, item) {
+        final itemIndex = (rootIndex: index, innerIndex: null);
 
-    requestItems = request.items.mapIndexed((index, item) {
+        if (item is ResponseItemGroupDVO) {
+          final requestItemGroup = request.items[index] as RequestItemGroupDVO;
+          return ResponseItemGroupRenderer(
+            responseItemGroup: item,
+            requestItemGroup: requestItemGroup,
+            itemIndex: itemIndex,
+            controller: controller,
+          );
+        }
+
+        return ResponseItemRenderer(
+          responseItem: item,
+          itemIndex: itemIndex,
+          requestItem: request.items[index],
+          controller: controller,
+        );
+      }).toList();
+
+      return SingleChildScrollView(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems),
+      );
+    }
+
+    final requestItems = request.items.mapIndexed((index, item) {
       final itemIndex = (rootIndex: index, innerIndex: null);
 
       if (item is RequestItemGroupDVO) {
@@ -48,31 +72,8 @@ class RequestRenderer extends StatelessWidget {
       );
     }).toList();
 
-    if (request.response != null) {
-      responseItems = request.response!.content.items.mapIndexed((index, item) {
-        final itemIndex = (rootIndex: index, innerIndex: null);
-
-        if (item is ResponseItemGroupDVO) {
-          final requestItemGroup = request.items[index] as RequestItemGroupDVO;
-          return ResponseItemGroupRenderer(
-            responseItemGroup: item,
-            requestItemGroup: requestItemGroup,
-            itemIndex: itemIndex,
-            controller: controller,
-          );
-        }
-
-        return ResponseItemRenderer(
-          responseItem: item,
-          itemIndex: itemIndex,
-          requestItem: request.items[index],
-          controller: controller,
-        );
-      }).toList();
-    }
-
     return SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems.isNotEmpty ? responseItems : requestItems),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: requestItems),
     );
   }
 }
