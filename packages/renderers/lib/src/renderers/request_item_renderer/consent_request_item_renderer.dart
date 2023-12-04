@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 
 import '../widgets/custom_list_tile.dart';
 import '../widgets/request_renderer_controller.dart';
-import '/src/url_launcher.dart';
+import '/src/abstract_url_launcher.dart';
 
 class ConsentRequestItemRenderer extends StatelessWidget {
   final ConsentRequestItemDVO item;
