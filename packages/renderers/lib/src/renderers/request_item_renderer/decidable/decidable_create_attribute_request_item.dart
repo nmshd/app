@@ -37,7 +37,9 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
   @override
   Widget build(BuildContext context) {
     return DraftAttributeRenderer(
+      isChecked: isChecked,
       draftAttribute: widget.item.attribute,
+      onUpdateCheckbox: onUpdateCheckbox,
       hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
     );
   }
