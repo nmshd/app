@@ -1,6 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-import 'event.dart';
+import '../event.dart';
 
 class ExternalEventReceivedEvent extends Event {
   final List<MessageDTO> messages;

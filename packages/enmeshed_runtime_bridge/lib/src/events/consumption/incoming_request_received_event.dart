@@ -1,11 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-import 'event.dart';
+import '../event.dart';
 
-class OutgoingRequestCreatedEvent extends Event {
+class IncomingRequestReceivedEvent extends Event {
   final LocalRequestDTO data;
 
-  const OutgoingRequestCreatedEvent({
+  const IncomingRequestReceivedEvent({
     required this.data,
     required super.eventTargetAddress,
   });
