@@ -35,6 +35,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
     }).toList();
 
     return ExpansionTile(
+      maintainState: true,
       initiallyExpanded: true,
       // TODO: render anything else than empty string when title is not defined
       title: Text(requestItemGroup.title ?? ''),
