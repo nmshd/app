@@ -34,6 +34,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     super.initState();
 
     final attribute = attributeContent(widget.item.attribute);
+    if (attribute == null) return;
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
@@ -55,7 +56,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     );
   }
 
-  attributeContent(DraftAttributeDVO attribute) {
+  AbstractAttribute? attributeContent(DraftAttributeDVO attribute) {
     return switch (widget.item.attribute) {
       final DraftIdentityAttributeDVO dvo => dvo.content,
       final DraftRelationshipAttributeDVO dvo => dvo.content,
@@ -68,6 +69,14 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     });
 
     final attribute = attributeContent(widget.item.attribute);
+    if (attribute == null) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
+      );
+
+      return;
+    }
 
     handleCheckboxChange(
       isChecked: isChecked,
@@ -95,6 +104,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       );
     } else {
       final attribute = attributeContent(widget.item.attribute);
+      if (attribute == null) return;
 
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,

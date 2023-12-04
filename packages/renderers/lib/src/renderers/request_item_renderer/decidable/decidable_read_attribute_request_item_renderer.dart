@@ -35,13 +35,12 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     super.initState();
 
     final attribute = attributeContent(widget.item.query);
+    if (attribute == null) return;
 
-    if (attribute != null) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
-      );
-    }
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
+    );
 
     updateSelectedAttribute();
   }
@@ -70,7 +69,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     };
   }
 
-  attributeContent(ProcessedAttributeQueryDVO attribute) {
+  AbstractAttribute? attributeContent(ProcessedAttributeQueryDVO attribute) {
     return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.results.firstOrNull?.content,
       final ProcessedRelationshipAttributeQueryDVO query => query.results.firstOrNull?.content,
@@ -85,6 +84,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     });
 
     final attribute = attributeContent(widget.item.query);
+    if (attribute == null) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
+      );
+
+      return;
+    }
 
     handleCheckboxChange(
       isChecked: isChecked,
@@ -112,13 +119,12 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       );
     } else {
       final attribute = attributeContent(widget.item.query);
+      if (attribute == null) return;
 
-      if (attribute != null) {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
-        );
-      }
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
+      );
     }
   }
 }
