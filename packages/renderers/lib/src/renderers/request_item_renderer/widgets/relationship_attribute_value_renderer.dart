@@ -28,7 +28,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final attributeValueMap = value.toJson();
+    final attributeValueMap = selectedAttribute != null ? selectedAttribute!.value.toJson() : value.toJson();
 
     return switch (value) {
       final ConsentAttributeValue consentAttributeValue => CustomListTile(
@@ -38,7 +38,6 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           onUpdateCheckbox: onUpdateCheckbox,
           valueType: value.atType,
           hideCheckbox: hideCheckbox,
-          selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
           trailing: consentAttributeValue.link != null
               ? IconButton(
                   onPressed: () async {
@@ -63,12 +62,13 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           title: proprietaryJSONAttributeValue.title,
           // TODO: render the description of the ProprietaryAttributeValue
           // description: proprietaryJSONAttributeValue.description,
-          description: isRejected != null && isRejected == true ? null : proprietaryJSONAttributeValue.value.toString(),
+          description: isRejected != null && isRejected == true
+              ? null
+              : selectedAttribute?.value.toJson()['value'].toString() ?? proprietaryJSONAttributeValue.value.toString(),
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
           valueType: value.atType,
           hideCheckbox: hideCheckbox,
-          selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
@@ -77,7 +77,6 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           onUpdateCheckbox: onUpdateCheckbox,
           valueType: value.atType,
           hideCheckbox: hideCheckbox,
-          selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
         ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),
     };

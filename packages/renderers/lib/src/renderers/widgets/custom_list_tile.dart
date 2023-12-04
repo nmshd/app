@@ -7,7 +7,6 @@ class CustomListTile extends StatelessWidget {
   final Widget? trailing;
   final bool? isChecked;
   final bool? hideCheckbox;
-  final String? selectedAttribute;
   final Function(bool?)? onUpdateCheckbox;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final String? valueType;
@@ -19,7 +18,6 @@ class CustomListTile extends StatelessWidget {
     this.trailing,
     this.isChecked,
     this.hideCheckbox,
-    this.selectedAttribute,
     this.onUpdateCheckbox,
     this.onUpdateAttribute,
     this.valueType,
@@ -39,7 +37,7 @@ class CustomListTile extends StatelessWidget {
                 TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
                 if (description != null) ...[
                   const SizedBox(height: 2),
-                  TranslatedText(selectedAttribute ?? description!, style: const TextStyle(fontSize: 16)),
+                  TranslatedText(description!, style: const TextStyle(fontSize: 16)),
                 ]
               ],
             ),

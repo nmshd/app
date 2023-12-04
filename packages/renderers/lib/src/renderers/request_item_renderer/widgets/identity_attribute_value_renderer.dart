@@ -35,7 +35,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         isChecked: isChecked,
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,
-        selectedAttribute: selectedAttribute != null ? selectedAttribute!.value.toJson()['value'] : null,
         onUpdateAttribute: onUpdateAttribute,
         valueType: value.atType,
       );
