@@ -33,7 +33,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
     return switch (value) {
       final ConsentAttributeValue consentAttributeValue => CustomListTile(
           title: 'i18n://dvo.attribute.name.${value.atType}',
-          description: isRejected != null && isRejected == true ? null : consentAttributeValue.consent,
+          description: isRejected ?? false ? null : consentAttributeValue.consent,
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
           valueType: value.atType,
@@ -62,9 +62,8 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           title: proprietaryJSONAttributeValue.title,
           // TODO: render the description of the ProprietaryAttributeValue
           // description: proprietaryJSONAttributeValue.description,
-          description: isRejected != null && isRejected == true
-              ? null
-              : selectedAttribute?.value.toJson()['value'].toString() ?? proprietaryJSONAttributeValue.value.toString(),
+          description:
+              isRejected ?? false ? null : selectedAttribute?.value.toJson()['value'].toString() ?? proprietaryJSONAttributeValue.value.toString(),
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
           valueType: value.atType,
@@ -72,7 +71,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
-          description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
+          description: isRejected ?? false ? null : attributeValueMap['value'].toString(),
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
           valueType: value.atType,

@@ -31,7 +31,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: isRejected != null && isRejected == true ? null : attributeValueMap['value'].toString(),
+        description: isRejected ?? false ? null : attributeValueMap['value'].toString(),
         isChecked: isChecked,
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,
