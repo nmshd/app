@@ -28,6 +28,7 @@ class ConsentRequestItemRenderer extends StatelessWidget {
                   GetIt.I.get<Logger>().e('Could not launch $url');
                   return;
                 }
+
                 try {
                   await urlLauncher.launchUrl(url);
                 } catch (e) {
