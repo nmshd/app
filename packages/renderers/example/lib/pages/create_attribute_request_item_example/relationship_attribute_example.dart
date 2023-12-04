@@ -60,7 +60,7 @@ class RelationshipAttributeExample extends StatelessWidget {
       value: 'http://example.com',
     );
 
-    createRequestItem({required RelationshipAttributeValue value}) => CreateAttributeRequestItemDVO(
+    CreateAttributeRequestItemDVO createRequestItem({required RelationshipAttributeValue value}) => CreateAttributeRequestItemDVO(
           id: '1',
           name: 'Create 1',
           mustBeAccepted: true,

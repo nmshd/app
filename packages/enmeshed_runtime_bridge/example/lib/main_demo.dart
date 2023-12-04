@@ -135,7 +135,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void qrPressed() async {
-    onDetected(String truncatedReference) async {
+    void onDetected(String truncatedReference) async {
       final item = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference(reference: truncatedReference);
 
       if (item.value.type != LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate) return;

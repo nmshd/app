@@ -5,7 +5,7 @@ mixin ArbitraryJSON {
 
   Map<String, dynamic> toJson() => internalJson;
 
-  operator [](Object? key) => internalJson[key];
+  dynamic operator [](Object? key) => internalJson[key];
 
   void operator []=(String key, value) => internalJson[key] = value;
 
@@ -13,5 +13,5 @@ mixin ArbitraryJSON {
 
   Iterable<String> get keys => internalJson.keys;
 
-  remove(Object? key) => internalJson.remove(key);
+  void remove(Object? key) => internalJson.remove(key);
 }

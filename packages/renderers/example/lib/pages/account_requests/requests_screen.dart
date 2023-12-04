@@ -24,7 +24,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
     _reloadRequests(syncBefore: true);
   }
 
-  _reloadRequests({bool syncBefore = false}) async {
+  Future<void> _reloadRequests({bool syncBefore = false}) async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     if (syncBefore) await session.transportServices.account.syncEverything();

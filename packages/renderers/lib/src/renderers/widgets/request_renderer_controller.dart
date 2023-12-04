@@ -10,7 +10,7 @@ class RequestRendererController extends ValueNotifier<DecideRequestParameters> {
       : rejectParams = _composeRejectItems(request),
         super(_composeRejectItems(request));
 
-  writeAtIndex({required RequestItemIndex index, required DecideRequestItemParameters value}) {
+  void writeAtIndex({required RequestItemIndex index, required DecideRequestItemParameters value}) {
     if (index.innerIndex == null) {
       this.value.items[index.rootIndex] = value;
     } else {

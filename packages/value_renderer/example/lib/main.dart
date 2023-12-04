@@ -6,7 +6,7 @@ import 'pages/controller_example.dart';
 import 'pages/input_examples.dart';
 import 'pages/renderer.dart';
 
-main() {
+void main() {
   runApp(const ValueRendererExample());
 }
 
