@@ -26,57 +26,51 @@ class RequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (item.type.startsWith('Decidable')) {
-      return switch (item) {
-        final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(
-            controller: controller,
-            item: dvo,
-            itemIndex: itemIndex,
-            selectAttribute: selectAttribute,
-            requestStatus: requestStatus,
-          ),
-        final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
-            controller: controller,
-            item: dvo,
-            itemIndex: itemIndex,
-            selectAttribute: selectAttribute,
-            requestStatus: requestStatus,
-          ),
-        final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
-            controller: controller,
-            item: dvo,
-            itemIndex: itemIndex,
-            requestStatus: requestStatus,
-          ),
-        final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(
-            controller: controller,
-            item: dvo,
-            itemIndex: itemIndex,
-            requestStatus: requestStatus,
-          ),
-        final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
-            controller: controller,
-            item: dvo,
-            itemIndex: itemIndex,
-            requestStatus: requestStatus,
-          ),
-        final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(
-            controller: controller,
-            item: dvo,
-            itemIndex: itemIndex,
-            requestStatus: requestStatus,
-          ),
-        final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(
-            controller: controller,
-            item: dvo,
-            itemIndex: itemIndex,
-            requestStatus: requestStatus,
-          ),
-        _ => throw Exception("Invalid type '${item.type}'"),
-      };
-    }
-
     return switch (item) {
+      final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          selectAttribute: selectAttribute,
+          requestStatus: requestStatus,
+        ),
+      final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          selectAttribute: selectAttribute,
+          requestStatus: requestStatus,
+        ),
+      final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          requestStatus: requestStatus,
+        ),
+      final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          requestStatus: requestStatus,
+        ),
+      final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          requestStatus: requestStatus,
+        ),
+      final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          requestStatus: requestStatus,
+        ),
+      final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          requestStatus: requestStatus,
+        ),
       final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(controller: controller, item: dvo),
       final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(controller: controller, item: dvo),
       final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(controller: controller, item: dvo, isRejected: isRejected),
