@@ -59,6 +59,12 @@ class EnmeshedRuntime {
 
   final EventBus eventBus;
 
+  String? _runtimeVersion;
+  String get runtimeVersion {
+    if (_runtimeVersion == null) throw Exception('Runtime version not available');
+    return _runtimeVersion!;
+  }
+
   EnmeshedRuntime({
     Logger? logger,
     VoidCallback? runtimeReadyCallback,
@@ -120,6 +126,7 @@ class EnmeshedRuntime {
       handlerName: 'runtimeReady',
       callback: (_) {
         _isReady = true;
+
         _runtimeReadyCallback?.call();
         _runtimeReadyCompleter.complete();
       },
@@ -223,6 +230,16 @@ class EnmeshedRuntime {
               _ => e,
             })
         .toList();
+  }
+
+  Future<void> loadRuntimeVersion() async {
+    final result = await _evaluateJavaScript('window.runtimeVersion');
+
+    if (result.value is String) {
+      _runtimeVersion = result.value as String;
+    } else {
+      _logger.e('error loading runtime version');
+    }
   }
 
   Future<void> setPushToken(String token) async {

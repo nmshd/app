@@ -10,6 +10,7 @@ declare global {
     setPushToken: (token: string) => Promise<void>;
     triggerRemoteNotificationEvent: (notification: INativePushNotification) => Promise<void>;
     triggerAppReadyEvent: () => Promise<void>;
+    runtimeVersion: string;
   }
 }
 

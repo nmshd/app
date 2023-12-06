@@ -23,9 +23,9 @@
   "devDependencies": {
     "@types/json-stringify-safe": "^5.0.3",
     "@types/lodash": "^4.14.202",
-    "@types/luxon": "^3.3.5",
-    "@types/node": "^20.9.4",
-    "esbuild": "^0.19.7",
+    "@types/luxon": "^3.3.7",
+    "@types/node": "^20.10.3",
+    "esbuild": "^0.19.8",
     "luxon": "^3.4.4",
     "prettier": "^3.1.0",
     "typescript": "^5.3.2"
