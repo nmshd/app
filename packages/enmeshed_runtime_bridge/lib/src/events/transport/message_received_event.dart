@@ -1,11 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-import 'event.dart';
+import '../event.dart';
 
-class MessageSentEvent extends Event {
+class MessageReceivedEvent extends Event {
   final MessageDTO data;
 
-  const MessageSentEvent({
+  const MessageReceivedEvent({
     required this.data,
     required super.eventTargetAddress,
   });
