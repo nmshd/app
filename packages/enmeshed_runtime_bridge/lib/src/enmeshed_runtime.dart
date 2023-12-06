@@ -235,7 +235,7 @@ class EnmeshedRuntime {
   }
 
   Future<void> _loadRuntimeVersion() async {
-    final result = await _evaluateJavaScript('window.runtimeVersion');
+    final result = await _evaluateJavaScript('return window.runtimeVersion');
 
     if (result.value is String) {
       _runtimeVersion = result.value as String;
