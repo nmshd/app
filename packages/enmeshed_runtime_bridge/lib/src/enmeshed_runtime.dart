@@ -127,6 +127,8 @@ class EnmeshedRuntime {
       callback: (_) {
         _isReady = true;
 
+        _loadRuntimeVersion();
+
         _runtimeReadyCallback?.call();
         _runtimeReadyCompleter.complete();
       },
@@ -232,7 +234,7 @@ class EnmeshedRuntime {
         .toList();
   }
 
-  Future<void> loadRuntimeVersion() async {
+  Future<void> _loadRuntimeVersion() async {
     final result = await _evaluateJavaScript('window.runtimeVersion');
 
     if (result.value is String) {
