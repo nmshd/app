@@ -188,7 +188,7 @@ class JsToUIBridge {
       handlerName: 'uibridge_requestAccountSelection',
       callback: (args) async {
         final dto = await uiBridge.requestAccountSelection(
-          args[0].map((e) => LocalAccountDTO.fromJson(e)).toList(),
+          List<LocalAccountDTO>.from(args[0].map((e) => LocalAccountDTO.fromJson(e))),
           args.length > 1 ? args[1] : null,
           args.length > 2 ? args[2] : null,
         );
