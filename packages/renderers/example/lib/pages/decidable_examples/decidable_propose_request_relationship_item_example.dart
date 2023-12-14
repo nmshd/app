@@ -38,7 +38,6 @@ class DecidableProposeRequestRelationshipItemExample extends StatelessWidget {
               description: 'i18n://dvo.attribute.description.ProprietaryBoolean',
               content: relationshipAttribute,
               owner: 'id13ggHCcrFrWYk92br5qhy6NQGDz1W2fRAd',
-              tags: [],
               value: value,
               valueType: 'Affiliation',
               renderHints: RenderHints(technicalType: RenderHintsTechnicalType.Boolean, editType: RenderHintsEditType.SelectLike),
