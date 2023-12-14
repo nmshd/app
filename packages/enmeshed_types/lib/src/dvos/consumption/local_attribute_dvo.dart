@@ -10,7 +10,6 @@ sealed class LocalAttributeDVO extends DataViewObject {
   final AbstractAttribute content;
   final String owner;
 
-  final List<String> tags;
   final AttributeValue value;
   final String valueType;
 
@@ -36,7 +35,6 @@ sealed class LocalAttributeDVO extends DataViewObject {
     super.warning,
     required this.content,
     required this.owner,
-    required this.tags,
     required this.value,
     required this.valueType,
     required this.renderHints,
@@ -61,6 +59,8 @@ sealed class LocalAttributeDVO extends DataViewObject {
 }
 
 sealed class IdentityAttributeDVO extends LocalAttributeDVO {
+  final List<String> tags;
+
   const IdentityAttributeDVO({
     required super.id,
     required super.name,
@@ -72,7 +72,7 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required super.tags,
+    required this.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -176,7 +176,6 @@ class PeerAttributeDVO extends LocalAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required super.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -213,7 +212,6 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required super.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -252,7 +250,6 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required super.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -286,7 +283,6 @@ class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required super.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
