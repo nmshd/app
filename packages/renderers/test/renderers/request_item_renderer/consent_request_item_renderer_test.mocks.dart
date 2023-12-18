@@ -5,8 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:logger/src/log_level.dart' as _i5;
-import 'package:logger/src/logger.dart' as _i4;
+import 'package:logger/logger.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:renderers/src/abstract_url_launcher.dart' as _i2;
 
@@ -46,6 +45,16 @@ class MockAbstractUrlLauncher extends _i1.Mock implements _i2.AbstractUrlLaunche
         returnValue: _i3.Future<bool>.value(false),
         returnValueForMissingStub: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);
+
+  @override
+  _i3.Future<void> launchSafe(Uri? url) => (super.noSuchMethod(
+        Invocation.method(
+          #launchSafe,
+          [url],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }
 
 /// A class which mocks [Logger].
@@ -214,7 +223,7 @@ class MockLogger extends _i1.Mock implements _i4.Logger {
 
   @override
   void log(
-    _i5.Level? level,
+    _i4.Level? level,
     dynamic message, {
     DateTime? time,
     Object? error,
