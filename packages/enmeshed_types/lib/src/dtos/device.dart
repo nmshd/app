@@ -15,6 +15,8 @@ class DeviceDTO extends Equatable {
   final String username;
   final bool isCurrentDevice;
 
+  bool get isOnboarded => publicKey != null;
+
   const DeviceDTO({
     required this.id,
     required this.isAdmin,
