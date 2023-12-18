@@ -1,7 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:logger/logger.dart';
 
 import '../../../abstract_url_launcher.dart';
 import '../../widgets/custom_list_tile.dart';
@@ -42,18 +41,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
               ? IconButton(
                   onPressed: () async {
                     final url = Uri.parse(consentAttributeValue.link!);
-                    final urlLauncher = GetIt.I.get<AbstractUrlLauncher>();
-
-                    if (!await urlLauncher.canLaunchUrl(url)) {
-                      GetIt.I.get<Logger>().e('Could not launch $url');
-                      return;
-                    }
-
-                    try {
-                      await urlLauncher.launchUrl(url);
-                    } catch (e) {
-                      GetIt.I.get<Logger>().e(e);
-                    }
+                    await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
                   },
                   icon: const Icon(Icons.open_in_new),
                 )

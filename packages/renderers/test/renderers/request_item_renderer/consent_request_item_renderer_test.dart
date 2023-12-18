@@ -103,8 +103,7 @@ void main() {
         await tester.tap(find.byIcon(Icons.open_in_new));
         await tester.pump();
 
-        verify(urlLauncherMock.canLaunchUrl(Uri.parse(url))).called(1);
-        verify(urlLauncherMock.launchUrl(Uri.parse(url))).called(1);
+        verify(urlLauncherMock.launchSafe(Uri.parse(url))).called(1);
       },
     );
 
@@ -138,9 +137,8 @@ void main() {
         await tester.tap(find.byIcon(Icons.open_in_new));
         await tester.pump();
 
-        verify(urlLauncherMock.canLaunchUrl(Uri.parse(url))).called(1);
+        verify(urlLauncherMock.launchSafe(Uri.parse(url))).called(1);
         verifyNever(urlLauncherMock.launchUrl(Uri.parse(url)));
-        expect(verify(loggerMock.e(captureAny)).captured.single, 'Could not launch ${Uri.parse(url)}');
       },
     );
   });
