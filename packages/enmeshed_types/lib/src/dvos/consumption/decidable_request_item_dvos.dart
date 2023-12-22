@@ -12,6 +12,7 @@ sealed class DecidableRequestItemDVODerivation extends RequestItemDVODerivation 
     super.warning,
     required super.mustBeAccepted,
     required super.isDecidable,
+    super.requireManualDecision,
   });
 
   factory DecidableRequestItemDVODerivation.fromJson(Map json) => switch (json['type']) {
@@ -44,6 +45,7 @@ class DecidableReadAttributeRequestItemDVO extends DecidableRequestItemDVODeriva
     super.warning,
     required super.mustBeAccepted,
     required this.query,
+    super.requireManualDecision,
   }) : super(type: 'DecidableReadAttributeRequestItemDVO', isDecidable: true);
 
   factory DecidableReadAttributeRequestItemDVO.fromJson(Map json) => _$DecidableReadAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));
@@ -65,6 +67,7 @@ class DecidableProposeAttributeRequestItemDVO extends DecidableRequestItemDVODer
     super.error,
     super.warning,
     required super.mustBeAccepted,
+    super.requireManualDecision,
     required this.query,
     required this.attribute,
   }) : super(type: 'DecidableProposeAttributeRequestItemDVO', isDecidable: true);
@@ -88,6 +91,7 @@ class DecidableCreateAttributeRequestItemDVO extends DecidableRequestItemDVODeri
     super.error,
     super.warning,
     required super.mustBeAccepted,
+    super.requireManualDecision,
     required this.attribute,
   }) : super(type: 'DecidableCreateAttributeRequestItemDVO', isDecidable: true);
 
@@ -111,6 +115,7 @@ class DecidableShareAttributeRequestItemDVO extends DecidableRequestItemDVODeriv
     super.error,
     super.warning,
     required super.mustBeAccepted,
+    super.requireManualDecision,
     required this.sourceAttributeId,
     required this.attribute,
   }) : super(type: 'DecidableShareAttributeRequestItemDVO', isDecidable: true);
@@ -132,6 +137,7 @@ class DecidableAuthenticationRequestItemDVO extends DecidableRequestItemDVODeriv
     super.error,
     super.warning,
     required super.mustBeAccepted,
+    super.requireManualDecision,
   }) : super(type: 'DecidableAuthenticationRequestItemDVO', isDecidable: true);
 
   factory DecidableAuthenticationRequestItemDVO.fromJson(Map json) =>
@@ -154,6 +160,7 @@ class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
     super.error,
     super.warning,
     required super.mustBeAccepted,
+    super.requireManualDecision,
     required this.consent,
     this.link,
   }) : super(type: 'DecidableConsentRequestItemDVO', isDecidable: true);
@@ -176,6 +183,7 @@ class DecidableFreeTextRequestItemDVO extends DecidableRequestItemDVODerivation 
     super.error,
     super.warning,
     required super.mustBeAccepted,
+    super.requireManualDecision,
     required this.freeText,
   }) : super(type: 'DecidableFreeTextRequestItemDVO', isDecidable: true);
 
@@ -197,6 +205,7 @@ class DecidableRegisterAttributeListenerRequestItemDVO extends DecidableRequestI
     super.error,
     super.warning,
     required super.mustBeAccepted,
+    super.requireManualDecision,
     required this.query,
   }) : super(type: 'DecidableRegisterAttributeListenerRequestItemDVO', isDecidable: true);
 

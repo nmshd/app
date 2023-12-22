@@ -57,6 +57,7 @@ class RequestItemGroupDVO extends RequestItemDVO {
 
 sealed class RequestItemDVODerivation extends RequestItemDVO {
   final ResponseItemDVO? response;
+  final bool? requireManualDecision;
 
   const RequestItemDVODerivation({
     required super.id,
@@ -70,6 +71,7 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
     required super.mustBeAccepted,
     required super.isDecidable,
     this.response,
+    this.requireManualDecision,
   });
 
   factory RequestItemDVODerivation.fromJson(Map json) {
@@ -107,6 +109,7 @@ class ReadAttributeRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
+    super.requireManualDecision,
     required this.query,
   }) : super(type: 'ReadAttributeRequestItemDVO');
 
@@ -132,6 +135,7 @@ class ProposeAttributeRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
+    super.requireManualDecision,
     required this.query,
     required this.attribute,
     required this.proposedValueOverruled,
@@ -158,6 +162,7 @@ class CreateAttributeRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
+    super.requireManualDecision,
     required this.attribute,
     this.sourceAttributeId,
   }) : super(type: 'CreateAttributeRequestItemDVO');
@@ -183,6 +188,7 @@ class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
+    super.requireManualDecision,
     required this.attribute,
     required this.sourceAttributeId,
   }) : super(type: 'ShareAttributeRequestItemDVO');
@@ -205,6 +211,7 @@ class AuthenticationRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
+    super.requireManualDecision,
   }) : super(type: 'AuthenticationRequestItemDVO');
 
   factory AuthenticationRequestItemDVO.fromJson(Map json) => _$AuthenticationRequestItemDVOFromJson(Map<String, dynamic>.from(json));
@@ -228,6 +235,7 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
+    super.requireManualDecision,
     required this.consent,
     this.link,
   }) : super(type: 'ConsentRequestItemDVO');
@@ -252,6 +260,7 @@ class FreeTextRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
+    super.requireManualDecision,
     required this.freeText,
   }) : super(type: 'FreeTextRequestItemDVO');
 
@@ -275,6 +284,7 @@ class RegisterAttributeListenerRequestItemDVO extends RequestItemDVODerivation {
     required super.mustBeAccepted,
     required super.isDecidable,
     super.response,
+    super.requireManualDecision,
     required this.query,
   }) : super(type: 'RegisterAttributeListenerRequestItemDVO');
 

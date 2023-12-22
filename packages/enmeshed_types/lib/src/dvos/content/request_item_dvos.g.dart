@@ -51,6 +51,7 @@ ReadAttributeRequestItemDVO _$ReadAttributeRequestItemDVOFromJson(Map<String, dy
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
     );
 
@@ -75,6 +76,7 @@ Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(ReadAttributeRequestIte
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['query'] = instance.query.toJson();
   return val;
 }
@@ -90,6 +92,7 @@ ProposeAttributeRequestItemDVO _$ProposeAttributeRequestItemDVOFromJson(Map<Stri
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
       proposedValueOverruled: json['proposedValueOverruled'] as bool,
@@ -116,6 +119,7 @@ Map<String, dynamic> _$ProposeAttributeRequestItemDVOToJson(ProposeAttributeRequ
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['query'] = instance.query.toJson();
   val['attribute'] = instance.attribute.toJson();
   val['proposedValueOverruled'] = instance.proposedValueOverruled;
@@ -133,6 +137,7 @@ CreateAttributeRequestItemDVO _$CreateAttributeRequestItemDVOFromJson(Map<String
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
       sourceAttributeId: json['sourceAttributeId'] as String?,
     );
@@ -158,6 +163,7 @@ Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(CreateAttributeReques
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['attribute'] = instance.attribute.toJson();
   writeNotNull('sourceAttributeId', instance.sourceAttributeId);
   return val;
@@ -174,6 +180,7 @@ ShareAttributeRequestItemDVO _$ShareAttributeRequestItemDVOFromJson(Map<String, 
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
       attribute: DraftIdentityAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
       sourceAttributeId: json['sourceAttributeId'] as String,
     );
@@ -199,6 +206,7 @@ Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestI
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['attribute'] = instance.attribute.toJson();
   val['sourceAttributeId'] = instance.sourceAttributeId;
   return val;
@@ -215,6 +223,7 @@ AuthenticationRequestItemDVO _$AuthenticationRequestItemDVOFromJson(Map<String, 
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
     );
 
 Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestItemDVO instance) {
@@ -238,6 +247,7 @@ Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestI
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   return val;
 }
 
@@ -252,6 +262,7 @@ ConsentRequestItemDVO _$ConsentRequestItemDVOFromJson(Map<String, dynamic> json)
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
       consent: json['consent'] as String,
       link: json['link'] as String?,
     );
@@ -277,6 +288,7 @@ Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instanc
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['consent'] = instance.consent;
   writeNotNull('link', instance.link);
   return val;
@@ -293,6 +305,7 @@ FreeTextRequestItemDVO _$FreeTextRequestItemDVOFromJson(Map<String, dynamic> jso
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
       freeText: json['freeText'] as String,
     );
 
@@ -317,6 +330,7 @@ Map<String, dynamic> _$FreeTextRequestItemDVOToJson(FreeTextRequestItemDVO insta
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['freeText'] = instance.freeText;
   return val;
 }
@@ -333,6 +347,7 @@ RegisterAttributeListenerRequestItemDVO _$RegisterAttributeListenerRequestItemDV
       mustBeAccepted: json['mustBeAccepted'] as bool,
       isDecidable: json['isDecidable'] as bool,
       response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
     );
 
@@ -357,6 +372,7 @@ Map<String, dynamic> _$RegisterAttributeListenerRequestItemDVOToJson(RegisterAtt
   val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['query'] = instance.query.toJson();
   return val;
 }
@@ -372,6 +388,7 @@ DecidableReadAttributeRequestItemDVO _$DecidableReadAttributeRequestItemDVOFromJ
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
       query: ProcessedAttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
     );
 
 Map<String, dynamic> _$DecidableReadAttributeRequestItemDVOToJson(DecidableReadAttributeRequestItemDVO instance) {
@@ -393,6 +410,7 @@ Map<String, dynamic> _$DecidableReadAttributeRequestItemDVOToJson(DecidableReadA
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['query'] = instance.query.toJson();
   return val;
 }
@@ -407,6 +425,7 @@ DecidableProposeAttributeRequestItemDVO _$DecidableProposeAttributeRequestItemDV
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
+      requireManualDecision: json['requireManualDecision'] as bool?,
       query: ProcessedAttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
@@ -430,6 +449,7 @@ Map<String, dynamic> _$DecidableProposeAttributeRequestItemDVOToJson(DecidablePr
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['query'] = instance.query.toJson();
   val['attribute'] = instance.attribute.toJson();
   return val;
@@ -445,6 +465,7 @@ DecidableCreateAttributeRequestItemDVO _$DecidableCreateAttributeRequestItemDVOF
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
+      requireManualDecision: json['requireManualDecision'] as bool?,
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
 
@@ -467,6 +488,7 @@ Map<String, dynamic> _$DecidableCreateAttributeRequestItemDVOToJson(DecidableCre
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['attribute'] = instance.attribute.toJson();
   return val;
 }
@@ -481,6 +503,7 @@ DecidableShareAttributeRequestItemDVO _$DecidableShareAttributeRequestItemDVOFro
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
+      requireManualDecision: json['requireManualDecision'] as bool?,
       sourceAttributeId: json['sourceAttributeId'] as String,
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
@@ -504,6 +527,7 @@ Map<String, dynamic> _$DecidableShareAttributeRequestItemDVOToJson(DecidableShar
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['sourceAttributeId'] = instance.sourceAttributeId;
   val['attribute'] = instance.attribute.toJson();
   return val;
@@ -519,6 +543,7 @@ DecidableAuthenticationRequestItemDVO _$DecidableAuthenticationRequestItemDVOFro
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
+      requireManualDecision: json['requireManualDecision'] as bool?,
     );
 
 Map<String, dynamic> _$DecidableAuthenticationRequestItemDVOToJson(DecidableAuthenticationRequestItemDVO instance) {
@@ -540,6 +565,7 @@ Map<String, dynamic> _$DecidableAuthenticationRequestItemDVOToJson(DecidableAuth
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   return val;
 }
 
@@ -552,6 +578,7 @@ DecidableConsentRequestItemDVO _$DecidableConsentRequestItemDVOFromJson(Map<Stri
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
+      requireManualDecision: json['requireManualDecision'] as bool?,
       consent: json['consent'] as String,
       link: json['link'] as String?,
     );
@@ -575,6 +602,7 @@ Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequ
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['consent'] = instance.consent;
   writeNotNull('link', instance.link);
   return val;
@@ -589,6 +617,7 @@ DecidableFreeTextRequestItemDVO _$DecidableFreeTextRequestItemDVOFromJson(Map<St
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
+      requireManualDecision: json['requireManualDecision'] as bool?,
       freeText: json['freeText'] as String,
     );
 
@@ -611,6 +640,7 @@ Map<String, dynamic> _$DecidableFreeTextRequestItemDVOToJson(DecidableFreeTextRe
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['freeText'] = instance.freeText;
   return val;
 }
@@ -625,6 +655,7 @@ DecidableRegisterAttributeListenerRequestItemDVO _$DecidableRegisterAttributeLis
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
+      requireManualDecision: json['requireManualDecision'] as bool?,
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
     );
 
@@ -647,6 +678,7 @@ Map<String, dynamic> _$DecidableRegisterAttributeListenerRequestItemDVOToJson(De
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['query'] = instance.query.toJson();
   return val;
 }
