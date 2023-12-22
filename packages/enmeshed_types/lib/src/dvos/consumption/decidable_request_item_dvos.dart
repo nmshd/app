@@ -1,7 +1,6 @@
 part of '../content/request_item_dvos.dart';
 
 sealed class DecidableRequestItemDVODerivation extends RequestItemDVODerivation {
-  final bool? requireManualDecision;
   const DecidableRequestItemDVODerivation({
     required super.id,
     required super.name,
@@ -13,7 +12,7 @@ sealed class DecidableRequestItemDVODerivation extends RequestItemDVODerivation 
     super.warning,
     required super.mustBeAccepted,
     required super.isDecidable,
-    this.requireManualDecision,
+    super.requireManualDecision,
   });
 
   factory DecidableRequestItemDVODerivation.fromJson(Map json) => switch (json['type']) {
