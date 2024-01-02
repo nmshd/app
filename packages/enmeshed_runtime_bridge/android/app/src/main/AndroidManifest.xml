@@ -30,7 +30,7 @@
         <meta-data android:name="flutterEmbedding"
             android:value="2" />
 
-        <provider android:name="com.pichillilorenzo.flutter_inappwebview.InAppWebViewFileProvider"
+        <provider android:name="com.pichillilorenzo.flutter_inappwebview_android.InAppWebViewFileProvider"
             android:authorities="com.example.runtime_bridge_example.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">

@@ -15,12 +15,12 @@ dependencies:
   flutter_inappwebview: any
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.3.6
+  flutter_native_splash: ^2.3.9
   get_it: ^7.6.4
   logger: ^2.0.2+1
-  mobile_scanner: ^3.5.4
+  mobile_scanner: ^3.5.5
   permission_handler: ^11.1.0
-  url_launcher: ^6.2.1
+  url_launcher: ^6.2.2
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
@@ -37,6 +37,7 @@ flutter:
     - assets/enmeshed_logo_light.png
     - assets/enmeshed_logo_light_cut.png
 
+# dart run flutter_launcher_icons
 flutter_icons:
   image_path: "assets/icon.png"
   android: true
@@ -47,9 +48,9 @@ flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.
   # Customize the parameters below, and run the following command in the terminal:
-  # flutter pub run flutter_native_splash:create
+  # dart run flutter_native_splash:create
   # To restore Flutter's default white splash screen, run the following command in the terminal:
-  # flutter pub run flutter_native_splash:remove
+  # dart run flutter_native_splash:remove
 
   image: "assets/icon.png"
   color: "#ffffff"

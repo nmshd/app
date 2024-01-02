@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
-import 'package:meta/meta.dart';
 
 import 'data_view_expander.dart';
 import 'event_bus.dart';
@@ -27,11 +26,13 @@ class EnmeshedRuntime {
   static String _assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
 
   bool _isReady = false;
+
   bool get isReady => _isReady;
 
   final RuntimeConfig runtimeConfig;
 
   late final HeadlessInAppWebView _headlessWebView;
+  late final InAppWebViewController _controller;
 
   final _filesystemAdapter = FilesystemAdapter();
   final _jsToUIBridge = JsToUIBridge();
@@ -78,9 +79,23 @@ class EnmeshedRuntime {
     if (runtimeConfig.clientSecret.isEmpty) throw Exception('Missing runtimeConfig value: clientSecret');
     if (runtimeConfig.applicationId.isEmpty) throw Exception('Missing runtimeConfig value: applicationId');
 
+    PlatformInAppWebViewController.debugLoggingSettings.excludeFilter.addAll([
+      RegExp(r'onConsoleMessage'),
+      RegExp(r'handleRuntimeEvent'),
+      RegExp(r'runtimeReady'),
+      RegExp(r'onReceivedServerTrustAuthRequest'),
+      RegExp(r'getDeviceInfo'),
+      RegExp(r'getDefaultConfig'),
+      RegExp(r'uibridge_'),
+      RegExp(r'notifications_'),
+      RegExp(r'.*File'),
+    ]);
+
     _headlessWebView = HeadlessInAppWebView(
+      initialSettings: InAppWebViewSettings(isInspectable: kDebugMode),
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
+        _controller = controller;
         _jsToUIBridge.controller = controller;
         await _addJavaScriptHandlers(controller);
         _logger.i('WebView created');
@@ -182,6 +197,7 @@ class EnmeshedRuntime {
 
   Future<void> dispose() async {
     _isReady = false;
+    _controller.dispose();
     await _headlessWebView.dispose();
   }
 
@@ -193,7 +209,7 @@ class EnmeshedRuntime {
       throw Exception('Runtime not ready');
     }
 
-    final resultOrNull = await _headlessWebView.webViewController.callAsyncJavaScript(
+    final resultOrNull = await _controller.callAsyncJavaScript(
       functionBody: source,
       arguments: arguments,
     );

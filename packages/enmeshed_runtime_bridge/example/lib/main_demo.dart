@@ -14,7 +14,7 @@ void main() async {
 
   await Permission.camera.request();
   if (Platform.isAndroid) {
-    await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+    await InAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
 
   runApp(const DemoApp());
