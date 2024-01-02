@@ -21,7 +21,7 @@ void main() async {
   await Permission.camera.request();
 
   if (Platform.isAndroid && kDebugMode) {
-    await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+    await InAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
 
   final logger = Logger(printer: SimplePrinter(colors: false));
