@@ -27,11 +27,13 @@ class EnmeshedRuntime {
   static String _assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
 
   bool _isReady = false;
+
   bool get isReady => _isReady;
 
   final RuntimeConfig runtimeConfig;
 
   late final HeadlessInAppWebView _headlessWebView;
+  late final InAppWebViewController _controller;
 
   final _filesystemAdapter = FilesystemAdapter();
   final _jsToUIBridge = JsToUIBridge();
@@ -81,6 +83,7 @@ class EnmeshedRuntime {
     _headlessWebView = HeadlessInAppWebView(
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
+        _controller = controller;
         _jsToUIBridge.controller = controller;
         await _addJavaScriptHandlers(controller);
         _logger.i('WebView created');
@@ -182,6 +185,7 @@ class EnmeshedRuntime {
 
   Future<void> dispose() async {
     _isReady = false;
+    _controller.dispose();
     await _headlessWebView.dispose();
   }
 
@@ -193,7 +197,7 @@ class EnmeshedRuntime {
       throw Exception('Runtime not ready');
     }
 
-    final resultOrNull = await _headlessWebView.webViewController.callAsyncJavaScript(
+    final resultOrNull = await _controller.callAsyncJavaScript(
       functionBody: source,
       arguments: arguments,
     );

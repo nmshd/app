@@ -8,5 +8,5 @@ final initialData = InAppWebViewInitialData(
   data: _htmlContent,
   mimeType: 'text/html',
   encoding: 'utf-8',
-  baseUrl: Uri.parse('nmshd://prod'),
+  baseUrl: WebUri('nmshd://prod'),
 );
