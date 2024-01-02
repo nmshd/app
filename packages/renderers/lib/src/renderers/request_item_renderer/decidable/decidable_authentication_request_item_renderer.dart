@@ -41,7 +41,7 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
       description: widget.item.name,
       isChecked: isChecked,
       onUpdateCheckbox: onUpdateCheckbox,
-      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+      hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
     );
   }
 

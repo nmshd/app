@@ -77,6 +77,7 @@ class CanAcceptCheckboxExample extends StatelessWidget {
       mustBeAccepted: true,
       query: identityAttributeQuery,
       attribute: draftIdentityAttributeDVOTrue,
+      requireManualDecision: true,
     );
     final mustBeAcceptedFalse = DecidableProposeAttributeRequestItemDVO(
       id: 'Id',
@@ -84,6 +85,7 @@ class CanAcceptCheckboxExample extends StatelessWidget {
       mustBeAccepted: false,
       query: identityAttributeQuery,
       attribute: draftIdentityAttributeDVOFalse,
+      requireManualDecision: false,
     );
 
     final LocalRequestDVO localRequest = LocalRequestDVO(

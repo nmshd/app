@@ -40,7 +40,7 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
       draftAttribute: widget.item.attribute,
       isChecked: isChecked,
       onUpdateCheckbox: onUpdateCheckbox,
-      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+      hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
     );
   }
 

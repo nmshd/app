@@ -35,7 +35,6 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           description: isRejected ?? false ? null : consentAttributeValue.consent,
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
-          valueType: value.atType,
           hideCheckbox: hideCheckbox,
           trailing: consentAttributeValue.link != null
               ? IconButton(
@@ -55,7 +54,6 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
               isRejected ?? false ? null : selectedAttribute?.value.toJson()['value'].toString() ?? proprietaryJSONAttributeValue.value.toString(),
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
-          valueType: value.atType,
           hideCheckbox: hideCheckbox,
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
@@ -63,7 +61,6 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           description: isRejected ?? false ? null : attributeValueMap['value'].toString(),
           isChecked: isChecked,
           onUpdateCheckbox: onUpdateCheckbox,
-          valueType: value.atType,
           hideCheckbox: hideCheckbox,
         ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),

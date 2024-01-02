@@ -43,7 +43,7 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
       description: widget.item.description,
       onUpdateCheckbox: onUpdateCheckbox,
       isChecked: isChecked,
-      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+      hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
       trailing: widget.item.link != null
           ? IconButton(
               onPressed: () async {
