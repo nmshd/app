@@ -43,14 +43,15 @@ class CustomListTile extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          width: 50,
-          child: trailing ??
-              IconButton(
-                onPressed: onUpdateAttribute != null && valueType != null ? () => onUpdateAttribute!(valueType!) : null,
-                icon: const Icon(Icons.chevron_right),
-              ),
-        )
+        if (onUpdateAttribute != null)
+          SizedBox(
+            width: 50,
+            child: trailing ??
+                IconButton(
+                  onPressed: onUpdateAttribute != null && valueType != null ? () => onUpdateAttribute!(valueType!) : null,
+                  icon: const Icon(Icons.chevron_right),
+                ),
+          )
       ],
     );
   }
