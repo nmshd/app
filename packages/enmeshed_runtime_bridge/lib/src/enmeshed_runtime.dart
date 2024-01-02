@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
-import 'package:meta/meta.dart';
 
 import 'data_view_expander.dart';
 import 'event_bus.dart';
@@ -80,7 +79,20 @@ class EnmeshedRuntime {
     if (runtimeConfig.clientSecret.isEmpty) throw Exception('Missing runtimeConfig value: clientSecret');
     if (runtimeConfig.applicationId.isEmpty) throw Exception('Missing runtimeConfig value: applicationId');
 
+    PlatformInAppWebViewController.debugLoggingSettings.excludeFilter.addAll([
+      RegExp(r'onConsoleMessage'),
+      RegExp(r'handleRuntimeEvent'),
+      RegExp(r'runtimeReady'),
+      RegExp(r'onReceivedServerTrustAuthRequest'),
+      RegExp(r'getDeviceInfo'),
+      RegExp(r'getDefaultConfig'),
+      RegExp(r'uibridge_'),
+      RegExp(r'notifications_'),
+      RegExp(r'.*File'),
+    ]);
+
     _headlessWebView = HeadlessInAppWebView(
+      initialSettings: InAppWebViewSettings(isInspectable: kDebugMode),
       initialData: webview_constants.initialData,
       onWebViewCreated: (controller) async {
         _controller = controller;
