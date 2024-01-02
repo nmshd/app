@@ -51,7 +51,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       draftAttribute: widget.item.attribute,
       onUpdateCheckbox: onUpdateCheckbox,
       isChecked: isChecked,
-      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+      hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
       onUpdateAttribute: onUpdateAttribute,
       selectedAttribute: newAttribute,
     );

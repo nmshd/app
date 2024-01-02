@@ -40,7 +40,7 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
       isChecked: isChecked,
       draftAttribute: widget.item.attribute,
       onUpdateCheckbox: onUpdateCheckbox,
-      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+      hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
     );
   }
 

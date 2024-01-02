@@ -40,7 +40,7 @@ class _DecidableRegisterAttributeListenerRequestItemRendererState extends State<
       title: widget.item.query.name,
       isChecked: isChecked,
       onUpdateCheckbox: onUpdateCheckbox,
-      hideCheckbox: widget.requestStatus != LocalRequestStatus.ManualDecisionRequired && widget.item.mustBeAccepted,
+      hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
     );
   }
 
