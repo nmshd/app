@@ -35,8 +35,12 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         isChecked: isChecked,
         onUpdateCheckbox: onUpdateCheckbox,
         hideCheckbox: hideCheckbox,
-        onUpdateAttribute: onUpdateAttribute,
-        valueType: value.atType,
+        trailing: onUpdateAttribute == null
+            ? null
+            : IconButton(
+                onPressed: () => onUpdateAttribute!(value.atType),
+                icon: const Icon(Icons.chevron_right),
+              ),
       );
     }
 
