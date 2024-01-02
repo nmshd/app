@@ -15,12 +15,12 @@ dependencies:
   flutter_inappwebview: any
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.3.6
+  flutter_native_splash: ^2.3.9
   get_it: ^7.6.4
   logger: ^2.0.2+1
-  mobile_scanner: ^3.5.4
+  mobile_scanner: ^3.5.5
   permission_handler: ^11.1.0
-  url_launcher: ^6.2.1
+  url_launcher: ^6.2.2
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
