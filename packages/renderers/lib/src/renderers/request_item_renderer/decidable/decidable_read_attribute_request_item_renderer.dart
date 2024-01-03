@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
 import '../widgets/processed_query_renderer.dart';
+import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
@@ -27,12 +28,14 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableReadAttributeRequestItemRendererState extends State<DecidableReadAttributeRequestItemRenderer> {
-  bool isChecked = true;
+  late bool isChecked;
   AbstractAttribute? newAttribute;
 
   @override
   void initState() {
     super.initState();
+
+    isChecked = widget.item.initiallyChecked;
 
     final attribute = attributeContent(widget.item.query);
     if (attribute == null) return;
@@ -50,17 +53,13 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
           query: query,
-          onUpdateCheckbox: onUpdateCheckbox,
-          isChecked: isChecked,
-          hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
+          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
           selectedAttribute: newAttribute,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
           query: query,
-          onUpdateCheckbox: onUpdateCheckbox,
-          isChecked: isChecked,
-          hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
+          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
           selectedAttribute: newAttribute,
         ),

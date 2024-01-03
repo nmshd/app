@@ -2,6 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:value_renderer/value_renderer.dart';
 
+import 'custom_list_tile.dart';
+
 class ValueRendererListTile extends StatelessWidget {
   final String fieldName;
   final RenderHints renderHints;
@@ -9,12 +11,10 @@ class ValueRendererListTile extends StatelessWidget {
   final InputDecoration? decoration;
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
-  final Function(bool?)? onUpdateCheckbox;
-  final bool? isChecked;
-  final bool? hideCheckbox;
   final IdentityAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final String? valueType;
+  final CheckboxSettings? checkboxSettings;
 
   const ValueRendererListTile({
     super.key,
@@ -24,12 +24,10 @@ class ValueRendererListTile extends StatelessWidget {
     this.decoration,
     this.initialValue,
     this.controller,
-    this.onUpdateCheckbox,
-    this.isChecked,
-    this.hideCheckbox,
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.valueType,
+    this.checkboxSettings,
   });
 
   @override
@@ -38,7 +36,7 @@ class ValueRendererListTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          if (hideCheckbox != null && !hideCheckbox!) Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
+          if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
           Expanded(
             child: ValueRenderer(
               fieldName: fieldName,

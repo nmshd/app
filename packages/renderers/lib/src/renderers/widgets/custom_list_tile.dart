@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
 
+typedef CheckboxSettings = ({bool isChecked, Function(bool?)? onUpdateCheckbox});
+
 class CustomListTile extends StatelessWidget {
   final String title;
   final String? description;
+  final String? thirdLine;
   final Widget? trailing;
-  final bool? isChecked;
-  final bool? hideCheckbox;
-  final Function(bool?)? onUpdateCheckbox;
+  final CheckboxSettings? checkboxSettings;
 
   const CustomListTile({
     super.key,
     required this.title,
     this.description,
+    this.thirdLine,
     this.trailing,
-    this.isChecked,
-    this.hideCheckbox,
-    this.onUpdateCheckbox,
+    this.checkboxSettings,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (hideCheckbox != null && !hideCheckbox!) Checkbox(value: isChecked, onChanged: onUpdateCheckbox),
+        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -34,6 +34,10 @@ class CustomListTile extends StatelessWidget {
                 if (description != null) ...[
                   const SizedBox(height: 2),
                   TranslatedText(description!, style: const TextStyle(fontSize: 16)),
+                ],
+                if (thirdLine != null) ...[
+                  const SizedBox(height: 2),
+                  TranslatedText(thirdLine!, style: const TextStyle(fontSize: 16)),
                 ]
               ],
             ),

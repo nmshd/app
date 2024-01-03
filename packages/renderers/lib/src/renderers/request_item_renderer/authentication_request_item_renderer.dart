@@ -12,7 +12,7 @@ class AuthenticationRequestItemRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomListTile(
       title: 'i18n://dvo.requestItem.DecidableAuthenticationRequestItem.name',
-      description: item.name,
+      thirdLine: item.name,
     );
   }
 }
