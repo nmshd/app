@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:renderers/src/renderers/request_item_renderer/decidable/checkbox_enabled_extension.dart';
 
 import '../../../abstract_url_launcher.dart';
 import '../../widgets/custom_list_tile.dart';
@@ -27,11 +28,13 @@ class DecidableConsentRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRequestItemRenderer> {
-  bool isChecked = true;
+  late bool isChecked;
 
   @override
   void initState() {
     super.initState();
+
+    isChecked = widget.item.initiallyChecked;
 
     widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
@@ -39,11 +42,10 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
   @override
   Widget build(BuildContext context) {
     return CustomListTile(
-      title: widget.item.consent,
+      title: widget.item.name,
       description: widget.item.description,
-      onUpdateCheckbox: onUpdateCheckbox,
-      isChecked: isChecked,
-      hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
+      thirdLine: widget.item.consent,
+      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
       trailing: widget.item.link != null
           ? IconButton(
               onPressed: () async {

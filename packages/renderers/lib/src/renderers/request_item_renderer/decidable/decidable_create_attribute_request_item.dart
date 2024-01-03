@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
 import '../widgets/draft_attribute_renderer.dart';
+import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
@@ -25,11 +26,13 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableCreateAttributeRequestItemRenderer> {
-  bool isChecked = true;
+  late bool isChecked;
 
   @override
   void initState() {
     super.initState();
+
+    isChecked = widget.item.initiallyChecked;
 
     widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
@@ -37,10 +40,8 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
   @override
   Widget build(BuildContext context) {
     return DraftAttributeRenderer(
-      isChecked: isChecked,
       draftAttribute: widget.item.attribute,
-      onUpdateCheckbox: onUpdateCheckbox,
-      hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
+      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
     );
   }
 

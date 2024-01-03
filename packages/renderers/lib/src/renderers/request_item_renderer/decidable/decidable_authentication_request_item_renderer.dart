@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../../widgets/custom_list_tile.dart';
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
+import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
@@ -25,11 +26,13 @@ class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAuthenticationRequestItemRenderer> {
-  bool isChecked = true;
+  late bool isChecked;
 
   @override
   void initState() {
     super.initState();
+
+    isChecked = widget.item.initiallyChecked;
 
     widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
@@ -38,10 +41,8 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
   Widget build(BuildContext context) {
     return CustomListTile(
       title: 'i18n://dvo.requestItem.DecidableAuthenticationRequestItem.name',
-      description: widget.item.name,
-      isChecked: isChecked,
-      onUpdateCheckbox: onUpdateCheckbox,
-      hideCheckbox: widget.item.requireManualDecision == true && widget.item.mustBeAccepted,
+      thirdLine: widget.item.name,
+      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
     );
   }
 
