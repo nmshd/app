@@ -44,8 +44,6 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       index: widget.itemIndex,
       value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
     );
-
-    updateSelectedAttribute();
   }
 
   @override
@@ -55,12 +53,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           query: query,
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
+          onUpdateInput: onUpdateInput,
           selectedAttribute: newAttribute,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
           query: query,
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
+          onUpdateInput: onUpdateInput,
           selectedAttribute: newAttribute,
         ),
       //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
@@ -100,6 +100,24 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     );
   }
 
+  void onUpdateInput({String? valueType, String? inputValue}) {
+    if (inputValue != null && inputValue != '') {
+      setState(() {
+        newAttribute = IdentityAttribute(
+          owner: '',
+          value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': inputValue}),
+        );
+      });
+
+      updateSelectedAttribute();
+    } else {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
+      );
+    }
+  }
+
   Future<void> onUpdateAttribute(String valueType) async {
     final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
 
@@ -107,10 +125,12 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       setState(() {
         newAttribute = selectedAttribute;
       });
+
+      updateSelectedAttribute();
     }
   }
 
-  Future<void> updateSelectedAttribute() async {
+  void updateSelectedAttribute() {
     if (newAttribute != null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,

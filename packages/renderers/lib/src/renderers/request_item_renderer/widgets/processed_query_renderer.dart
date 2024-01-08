@@ -13,6 +13,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
+  final void Function({String? valueType, String? inputValue}) onUpdateInput;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -21,6 +22,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
+    required this.onUpdateInput,
   });
 
   @override
@@ -41,7 +43,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         renderHints: query.renderHints,
         valueHints: query.valueHints,
         selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
-        onUpdateAttribute: onUpdateAttribute,
+        onUpdateInput: onUpdateInput,
         valueType: query.valueType,
       );
     }
@@ -60,6 +62,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
+  final void Function({String? valueType, String? inputValue}) onUpdateInput;
 
   const ProcessedRelationshipAttributeQueryRenderer({
     super.key,
@@ -68,6 +71,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
+    required this.onUpdateInput,
   });
 
   @override
@@ -78,7 +82,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
       valueHints: query.valueHints,
       checkboxSettings: checkboxSettings,
       selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
-      onUpdateAttribute: onUpdateAttribute,
+      onUpdateInput: onUpdateInput,
       //TODO: add valueType
     );
   }
