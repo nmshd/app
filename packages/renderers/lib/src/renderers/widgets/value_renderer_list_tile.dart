@@ -63,6 +63,7 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
               renderHints: widget.renderHints,
               valueHints: widget.valueHints,
               initialValue: widget.initialValue,
+              valueType: widget.valueType,
               controller: controller,
             ),
           ),

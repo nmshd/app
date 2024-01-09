@@ -15,6 +15,7 @@ class ComplexRenderer extends StatefulWidget {
   final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
+  final String? valueType;
 
   const ComplexRenderer({
     super.key,
@@ -26,6 +27,7 @@ class ComplexRenderer extends StatefulWidget {
     required this.initialValue,
     required this.renderHints,
     required this.valueHints,
+    this.valueType,
   });
 
   @override
@@ -72,7 +74,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
     final fieldName = widget.fieldName;
     final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
 
-    if (widget.initialValue is BirthDateAttributeValue || fieldName == 'BirthDate') {
+    if (widget.initialValue is BirthDateAttributeValue || widget.valueType == 'BirthDate') {
       return DatepickerFormField(
         controller: widget.controller,
         initialValueAttribute: widget.initialValue,

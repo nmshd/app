@@ -13,6 +13,7 @@ class ValueRenderer extends StatelessWidget {
   final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
+  final String? valueType;
 
   final ValueRendererController? controller;
 
@@ -24,6 +25,7 @@ class ValueRenderer extends StatelessWidget {
     required this.renderHints,
     required this.valueHints,
     this.controller,
+    this.valueType,
   });
 
   @override
@@ -56,6 +58,7 @@ class ValueRenderer extends StatelessWidget {
         initialValue: initialValue,
         renderHints: renderHints,
         valueHints: valueHints,
+        valueType: valueType,
       );
     }
 
