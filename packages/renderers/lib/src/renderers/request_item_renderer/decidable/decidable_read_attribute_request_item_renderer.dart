@@ -100,12 +100,19 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     );
   }
 
-  void onUpdateInput({String? valueType, String? inputValue}) {
+  void onUpdateInput({String? valueType, dynamic inputValue}) {
     if (inputValue != null && inputValue != '') {
+      final attributeValue = switch (inputValue) {
+        final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
+        final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
+        final ValueHintsDefaultValueString attribute => attribute.value,
+        _ => inputValue.toString(),
+      };
+
       setState(() {
         newAttribute = IdentityAttribute(
           owner: '',
-          value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': inputValue}),
+          value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': attributeValue}),
         );
       });
 

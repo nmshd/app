@@ -12,7 +12,7 @@ class ValueRendererListTile extends StatefulWidget {
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
   final IdentityAttribute? selectedAttribute;
-  final void Function({String? valueType, String? inputValue}) onUpdateInput;
+  final void Function({String? valueType, dynamic inputValue}) onUpdateInput;
   final String? valueType;
   final CheckboxSettings? checkboxSettings;
 
@@ -36,7 +36,7 @@ class ValueRendererListTile extends StatefulWidget {
 
 class _ValueRendererListTileState extends State<ValueRendererListTile> {
   final ValueRendererController controller = ValueRendererController();
-  String? inputValue;
+  dynamic inputValue;
 
   @override
   void initState() {

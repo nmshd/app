@@ -13,7 +13,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
-  final void Function({String? valueType, String? inputValue}) onUpdateInput;
+  final void Function({String? valueType, dynamic inputValue}) onUpdateInput;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -62,7 +62,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
-  final void Function({String? valueType, String? inputValue}) onUpdateInput;
+  final void Function({String? valueType, dynamic inputValue}) onUpdateInput;
 
   const ProcessedRelationshipAttributeQueryRenderer({
     super.key,
