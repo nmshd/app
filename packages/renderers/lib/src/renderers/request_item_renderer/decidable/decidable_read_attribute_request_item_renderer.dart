@@ -110,10 +110,23 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       };
 
       setState(() {
-        newAttribute = IdentityAttribute(
-          owner: '',
-          value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': attributeValue}),
-        );
+        // If Complex - Loop through each field
+        if (valueType == 'BirthDate') {
+          newAttribute = IdentityAttribute(
+            owner: '',
+            value: IdentityAttributeValue.fromJson({
+              '@type': valueType,
+              'day': DateTime.parse(attributeValue).day,
+              'month': DateTime.parse(attributeValue).month,
+              'year': DateTime.parse(attributeValue).year,
+            }),
+          );
+        } else {
+          newAttribute = IdentityAttribute(
+            owner: '',
+            value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': attributeValue}),
+          );
+        }
       });
 
       updateSelectedAttribute();
