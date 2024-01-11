@@ -12,7 +12,7 @@ class ValueRendererListTile extends StatefulWidget {
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
   final IdentityAttribute? selectedAttribute;
-  final void Function({String? valueType, dynamic inputValue}) onUpdateInput;
+  final void Function({String? valueType, dynamic inputValue, required bool isComplex}) onUpdateInput;
   final String? valueType;
   final CheckboxSettings? checkboxSettings;
 
@@ -45,7 +45,11 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
     controller.addListener(() {
       setState(() => inputValue = controller.value);
 
-      widget.onUpdateInput(inputValue: inputValue, valueType: widget.valueType);
+      widget.onUpdateInput(
+        inputValue: inputValue,
+        valueType: widget.valueType,
+        isComplex: widget.renderHints.editType == RenderHintsEditType.Complex ? true : false,
+      );
     });
   }
 

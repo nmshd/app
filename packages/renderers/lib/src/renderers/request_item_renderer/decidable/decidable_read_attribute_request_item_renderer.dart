@@ -100,34 +100,53 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     );
   }
 
-  void onUpdateInput({String? valueType, dynamic inputValue}) {
+  void onUpdateInput({String? valueType, dynamic inputValue, required bool isComplex}) {
     if (inputValue != null && inputValue != '') {
-      final attributeValue = switch (inputValue) {
-        final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
-        final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
-        final ValueHintsDefaultValueString attribute => attribute.value,
-        _ => inputValue.toString(),
-      };
+      if (isComplex && valueType != 'BirthDate') {
+        final attributeValues = inputValue.map((String key, value) {
+          final attributeValue = switch (value) {
+            final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
+            final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
+            final ValueHintsDefaultValueString attribute => attribute.value,
+            final String attribute => attribute,
+            final bool attribute => attribute.toString(),
+            _ => value.toString()
+          };
 
-      setState(() {
-        // If Complex - Loop through each field
-        if (valueType == 'BirthDate') {
-          newAttribute = IdentityAttribute(
-            owner: '',
-            value: IdentityAttributeValue.fromJson({
-              '@type': valueType,
-              'day': DateTime.parse(attributeValue).day,
-              'month': DateTime.parse(attributeValue).month,
-              'year': DateTime.parse(attributeValue).year,
-            }),
-          );
-        } else {
+          return MapEntry(key, attributeValue);
+        });
+
+        newAttribute = IdentityAttribute(
+          owner: '',
+          value: IdentityAttributeValue.fromJson({'@type': valueType, ...attributeValues}),
+        );
+      } else if (valueType == 'BirthDate') {
+        newAttribute = IdentityAttribute(
+          owner: '',
+          value: IdentityAttributeValue.fromJson({
+            '@type': valueType,
+            'day': DateTime.parse(inputValue).day,
+            'month': DateTime.parse(inputValue).month,
+            'year': DateTime.parse(inputValue).year,
+          }),
+        );
+      } else {
+        final attributeValue = switch (inputValue) {
+          final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
+          final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
+          final ValueHintsDefaultValueString attribute => attribute.value,
+          final String attribute => attribute,
+          final bool attribute => attribute.toString(),
+          _ => inputValue.toString()
+        };
+
+        setState(() {
           newAttribute = IdentityAttribute(
             owner: '',
             value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': attributeValue}),
           );
-        }
-      });
+        });
+      }
 
       updateSelectedAttribute();
     } else {
