@@ -11,14 +11,12 @@ class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
   final DecidableAuthenticationRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final LocalRequestStatus? requestStatus;
 
   const DecidableAuthenticationRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
-    this.requestStatus,
   });
 
   @override

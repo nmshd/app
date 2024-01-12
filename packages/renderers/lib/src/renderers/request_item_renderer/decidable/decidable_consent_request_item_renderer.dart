@@ -13,14 +13,12 @@ class DecidableConsentRequestItemRenderer extends StatefulWidget {
   final DecidableConsentRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final LocalRequestStatus? requestStatus;
 
   const DecidableConsentRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
-    this.requestStatus,
   });
 
   @override
