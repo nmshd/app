@@ -110,16 +110,27 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
             final ValueHintsDefaultValueString attribute => attribute.value,
             final String attribute => attribute,
             final bool attribute => attribute.toString(),
-            _ => value.toString()
+            _ => null
           };
 
-          return MapEntry(key, attributeValue);
+          return MapEntry(key, attributeValue != '' ? attributeValue : null);
         });
 
-        newAttribute = IdentityAttribute(
-          owner: '',
-          value: IdentityAttributeValue.fromJson({'@type': valueType, ...attributeValues}),
-        );
+        try {
+          final identityAttributeValue = IdentityAttributeValue.fromJson({'@type': valueType, ...attributeValues});
+
+          newAttribute = IdentityAttribute(
+            owner: '',
+            value: identityAttributeValue,
+          );
+        } catch (e) {
+          widget.controller?.writeAtIndex(
+            index: widget.itemIndex,
+            value: const RejectRequestItemParameters(),
+          );
+
+          return;
+        }
       } else if (valueType == 'BirthDate') {
         newAttribute = IdentityAttribute(
           owner: '',
