@@ -1,11 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
-import 'package:renderers/src/renderers/request_item_renderer/decidable/widgets/compose_identity_attribute_value.dart';
 
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
 import '../widgets/processed_query_renderer.dart';
 import 'checkbox_enabled_extension.dart';
+import 'widgets/compose_identity_attribute_value.dart';
 import 'widgets/compose_relationship_attribute_value.dart';
 import 'widgets/handle_checkbox_change.dart';
 

@@ -50,8 +50,8 @@ RelationshipAttribute? composeRelationshipAttributeValue({
         owner: query?.owner.id ?? '',
         value: RelationshipAttributeValue.fromJson({
           '@type': valueType,
-          'value': attributeValue,
           'title': query?.attributeCreationHints.title ?? '',
+          'value': attributeValue,
         }),
       );
     }
