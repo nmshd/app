@@ -66,6 +66,7 @@ ProcessedRelationshipAttributeQueryDVO _$ProcessedRelationshipAttributeQueryDVOF
       key: json['key'] as String,
       owner: IdentityDVO.fromJson(json['owner'] as Map<String, dynamic>),
       attributeCreationHints: RelationshipAttributeCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
+      valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
     );
@@ -94,6 +95,7 @@ Map<String, dynamic> _$ProcessedRelationshipAttributeQueryDVOToJson(ProcessedRel
   val['key'] = instance.key;
   val['owner'] = instance.owner.toJson();
   val['attributeCreationHints'] = instance.attributeCreationHints.toJson();
+  val['valueType'] = instance.valueType;
   val['renderHints'] = instance.renderHints.toJson();
   val['valueHints'] = instance.valueHints.toJson();
   return val;

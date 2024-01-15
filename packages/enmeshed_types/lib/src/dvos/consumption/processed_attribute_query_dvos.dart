@@ -72,6 +72,7 @@ class ProcessedRelationshipAttributeQueryDVO extends ProcessedAttributeQueryDVO 
   final String key;
   final IdentityDVO owner;
   final RelationshipAttributeCreationHints attributeCreationHints;
+  final String valueType;
   final RenderHints renderHints;
   final ValueHints valueHints;
 
@@ -89,6 +90,7 @@ class ProcessedRelationshipAttributeQueryDVO extends ProcessedAttributeQueryDVO 
     required this.key,
     required this.owner,
     required this.attributeCreationHints,
+    required this.valueType,
     required this.renderHints,
     required this.valueHints,
   }) : super(type: 'ProcessedRelationshipAttributeQueryDVO');
