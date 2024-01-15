@@ -44,6 +44,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         valueHints: query.valueHints,
         onUpdateInput: onUpdateInput,
         valueType: query.valueType,
+        checkboxSettings: checkboxSettings,
       );
     }
     return IdentityAttributeValueRenderer(
