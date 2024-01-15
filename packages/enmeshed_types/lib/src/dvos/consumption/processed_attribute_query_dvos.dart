@@ -107,7 +107,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
   final String key;
   final IdentityDVO owner;
   final List<IdentityDVO> thirdParty;
-  final String valueType;
+  final String? valueType;
   final RenderHints? renderHints;
   final ValueHints? valueHints;
 
@@ -125,7 +125,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
     required this.key,
     required this.owner,
     required this.thirdParty,
-    required this.valueType,
+    this.valueType,
     this.renderHints,
     this.valueHints,
   }) : super(type: 'ProcessedThirdPartyRelationshipAttributeQueryDVO');
@@ -139,7 +139,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
 @JsonSerializable(includeIfNull: false)
 class ProcessedIQLQueryDVO extends ProcessedAttributeQueryDVO {
   final List<RepositoryAttributeDVO> results;
-  final String valueType;
+  final String? valueType;
   final RenderHints? renderHints;
   final ValueHints? valueHints;
   final List<String>? tags;
@@ -155,7 +155,7 @@ class ProcessedIQLQueryDVO extends ProcessedAttributeQueryDVO {
     super.validFrom,
     super.validTo,
     required this.results,
-    required this.valueType,
+    this.valueType,
     this.renderHints,
     this.valueHints,
     this.tags,
