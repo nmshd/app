@@ -42,7 +42,6 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         },
         renderHints: query.renderHints,
         valueHints: query.valueHints,
-        selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
         onUpdateInput: onUpdateInput,
         valueType: query.valueType,
       );
@@ -81,9 +80,8 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
       renderHints: query.renderHints,
       valueHints: query.valueHints,
       checkboxSettings: checkboxSettings,
-      selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
       onUpdateInput: onUpdateInput,
-      //TODO: add valueType
+      valueType: query.valueType,
     );
   }
 }

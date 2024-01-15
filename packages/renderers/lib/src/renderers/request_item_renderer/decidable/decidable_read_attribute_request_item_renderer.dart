@@ -1,10 +1,12 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
+import 'package:renderers/src/renderers/request_item_renderer/decidable/widgets/compose_identity_attribute_value.dart';
 
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
 import '../widgets/processed_query_renderer.dart';
 import 'checkbox_enabled_extension.dart';
+import 'widgets/compose_relationship_attribute_value.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
@@ -99,70 +101,45 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   void onUpdateInput({String? valueType, dynamic inputValue, required bool isComplex}) {
-    if (inputValue != null && inputValue != '') {
-      if (isComplex && valueType != 'BirthDate') {
-        final attributeValues = inputValue.map((String key, value) {
-          final attributeValue = switch (value) {
-            final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
-            final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
-            final ValueHintsDefaultValueString attribute => attribute.value,
-            final String attribute => attribute,
-            final bool attribute => attribute.toString(),
-            _ => null
-          };
-
-          return MapEntry(key, attributeValue != '' ? attributeValue : null);
-        });
-
-        try {
-          final identityAttributeValue = IdentityAttributeValue.fromJson({'@type': valueType, ...attributeValues});
-
-          newAttribute = IdentityAttribute(
-            owner: '',
-            value: identityAttributeValue,
-          );
-        } catch (e) {
-          widget.controller?.writeAtIndex(
-            index: widget.itemIndex,
-            value: const RejectRequestItemParameters(),
-          );
-
-          return;
-        }
-      } else if (valueType == 'BirthDate') {
-        newAttribute = IdentityAttribute(
-          owner: '',
-          value: IdentityAttributeValue.fromJson({
-            '@type': valueType,
-            'day': DateTime.parse(inputValue).day,
-            'month': DateTime.parse(inputValue).month,
-            'year': DateTime.parse(inputValue).year,
-          }),
-        );
-      } else {
-        final attributeValue = switch (inputValue) {
-          final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
-          final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
-          final ValueHintsDefaultValueString attribute => attribute.value,
-          final String attribute => attribute,
-          final bool attribute => attribute.toString(),
-          _ => inputValue.toString()
-        };
-
-        setState(() {
-          newAttribute = IdentityAttribute(
-            owner: '',
-            value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': attributeValue}),
-          );
-        });
-      }
-
-      updateSelectedAttribute();
-    } else {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
+    if (widget.item.query is ProcessedIdentityAttributeQueryDVO) {
+      final IdentityAttribute? composedValue = composeIdentityAttributeValue(
+        inputValue: inputValue,
+        valueType: valueType,
+        isComplex: isComplex,
+        controller: widget.controller,
       );
+
+      if (composedValue != null) {
+        setState(() => newAttribute = composedValue);
+
+        updateSelectedAttribute();
+      } else {
+        widget.controller?.writeAtIndex(
+          index: widget.itemIndex,
+          value: const RejectRequestItemParameters(),
+        );
+      }
+    }
+
+    if (widget.item.query is ProcessedRelationshipAttributeQueryDVO) {
+      final RelationshipAttribute? composedValue = composeRelationshipAttributeValue(
+        inputValue: inputValue,
+        valueType: valueType,
+        isComplex: isComplex,
+        controller: widget.controller,
+        query: widget.item.query as ProcessedRelationshipAttributeQueryDVO,
+      );
+
+      if (composedValue != null) {
+        setState(() => newAttribute = composedValue);
+
+        updateSelectedAttribute();
+      } else {
+        widget.controller?.writeAtIndex(
+          index: widget.itemIndex,
+          value: const RejectRequestItemParameters(),
+        );
+      }
     }
   }
 
@@ -170,9 +147,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
 
     if (selectedAttribute != null) {
-      setState(() {
-        newAttribute = selectedAttribute;
-      });
+      setState(() => newAttribute = selectedAttribute);
 
       updateSelectedAttribute();
     }
