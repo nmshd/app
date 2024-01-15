@@ -66,6 +66,7 @@ ProcessedRelationshipAttributeQueryDVO _$ProcessedRelationshipAttributeQueryDVOF
       key: json['key'] as String,
       owner: IdentityDVO.fromJson(json['owner'] as Map<String, dynamic>),
       attributeCreationHints: RelationshipAttributeCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
+      valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
     );
@@ -94,6 +95,7 @@ Map<String, dynamic> _$ProcessedRelationshipAttributeQueryDVOToJson(ProcessedRel
   val['key'] = instance.key;
   val['owner'] = instance.owner.toJson();
   val['attributeCreationHints'] = instance.attributeCreationHints.toJson();
+  val['valueType'] = instance.valueType;
   val['renderHints'] = instance.renderHints.toJson();
   val['valueHints'] = instance.valueHints.toJson();
   return val;
@@ -114,7 +116,7 @@ ProcessedThirdPartyRelationshipAttributeQueryDVO _$ProcessedThirdPartyRelationsh
       key: json['key'] as String,
       owner: IdentityDVO.fromJson(json['owner'] as Map<String, dynamic>),
       thirdParty: (json['thirdParty'] as List<dynamic>).map((e) => IdentityDVO.fromJson(e as Map<String, dynamic>)).toList(),
-      valueType: json['valueType'] as String,
+      valueType: json['valueType'] as String?,
       renderHints: json['renderHints'] == null ? null : RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: json['valueHints'] == null ? null : ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
     );
@@ -143,7 +145,7 @@ Map<String, dynamic> _$ProcessedThirdPartyRelationshipAttributeQueryDVOToJson(Pr
   val['key'] = instance.key;
   val['owner'] = instance.owner.toJson();
   val['thirdParty'] = instance.thirdParty.map((e) => e.toJson()).toList();
-  val['valueType'] = instance.valueType;
+  writeNotNull('valueType', instance.valueType);
   writeNotNull('renderHints', instance.renderHints?.toJson());
   writeNotNull('valueHints', instance.valueHints?.toJson());
   return val;
@@ -160,7 +162,7 @@ ProcessedIQLQueryDVO _$ProcessedIQLQueryDVOFromJson(Map<String, dynamic> json) =
       validFrom: json['validFrom'] as String?,
       validTo: json['validTo'] as String?,
       results: (json['results'] as List<dynamic>).map((e) => RepositoryAttributeDVO.fromJson(e as Map<String, dynamic>)).toList(),
-      valueType: json['valueType'] as String,
+      valueType: json['valueType'] as String?,
       renderHints: json['renderHints'] == null ? null : RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
       valueHints: json['valueHints'] == null ? null : ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -187,7 +189,7 @@ Map<String, dynamic> _$ProcessedIQLQueryDVOToJson(ProcessedIQLQueryDVO instance)
   writeNotNull('validFrom', instance.validFrom);
   writeNotNull('validTo', instance.validTo);
   val['results'] = instance.results.map((e) => e.toJson()).toList();
-  val['valueType'] = instance.valueType;
+  writeNotNull('valueType', instance.valueType);
   writeNotNull('renderHints', instance.renderHints?.toJson());
   writeNotNull('valueHints', instance.valueHints?.toJson());
   writeNotNull('tags', instance.tags);

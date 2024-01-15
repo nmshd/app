@@ -54,6 +54,7 @@ class DecidableProposeRequestRelationshipItemExample extends StatelessWidget {
           ],
           renderHints: renderHints,
           valueHints: const ValueHints(),
+          valueType: 'Affiliation',
           key: 'key',
           owner: identityDvo,
           attributeCreationHints: const RelationshipAttributeCreationHints(
