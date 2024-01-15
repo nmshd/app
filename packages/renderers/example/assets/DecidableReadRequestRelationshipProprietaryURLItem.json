@@ -23,6 +23,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "ProprietaryURL",
+          "valueType": "ProprietaryURL",
           "owner": {
             "id": "",
             "name": "",
@@ -492,6 +493,7 @@
         "type": "ProcessedRelationshipAttributeQueryDVO",
         "results": [],
         "key": "ProprietaryURL",
+        "valueType": "ProprietaryURL",
         "owner": {
           "id": "",
           "name": "",

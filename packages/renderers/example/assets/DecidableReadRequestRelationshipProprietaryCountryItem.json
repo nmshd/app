@@ -23,6 +23,7 @@
             "type": "ProcessedRelationshipAttributeQueryDVO",
             "results": [],
             "key": "ProprietaryCountry",
+            "valueType": "ProprietaryCountry",
             "owner": {
               "id": "",
               "name": "",
@@ -1739,6 +1740,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "ProprietaryCountry",
+          "valueType": "ProprietaryCountry",
           "owner": {
             "id": "",
             "name": "",

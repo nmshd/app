@@ -23,6 +23,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "ProprietaryLanguage",
+          "valueType": "ProprietaryLanguage",
           "owner": {
             "id": "",
             "name": "",
@@ -1409,6 +1410,7 @@
         "type": "ProcessedRelationshipAttributeQueryDVO",
         "results": [],
         "key": "ProprietaryLanguage",
+        "valueType": "ProprietaryLanguage",
         "owner": {
           "id": "",
           "name": "",

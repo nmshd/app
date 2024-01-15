@@ -23,6 +23,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "ProprietaryString",
+          "valueType": "ProprietaryString",
           "owner": {
             "id": "",
             "name": "",
@@ -490,6 +491,7 @@
         "type": "ProcessedRelationshipAttributeQueryDVO",
         "results": [],
         "key": "ProprietaryString",
+        "valueType": "ProprietaryString",
         "owner": {
           "id": "",
           "name": "",

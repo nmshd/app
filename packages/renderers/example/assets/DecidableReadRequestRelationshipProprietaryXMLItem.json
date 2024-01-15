@@ -23,6 +23,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "ProprietaryXML",
+          "valueType": "ProprietaryXML",
           "owner": {
             "id": "",
             "name": "",
@@ -491,6 +492,7 @@
         "type": "ProcessedRelationshipAttributeQueryDVO",
         "results": [],
         "key": "ProprietaryXML",
+        "valueType": "ProprietaryXML",
         "owner": {
           "id": "",
           "name": "",

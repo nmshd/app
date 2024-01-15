@@ -23,6 +23,7 @@
             "type": "ProcessedRelationshipAttributeQueryDVO",
             "results": [],
             "key": "ProprietaryFileReference",
+            "valueType": "ProprietaryFileReference",
             "owner": {
               "id": "",
               "name": "",
@@ -492,6 +493,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "ProprietaryFileReference",
+          "valueType": "ProprietaryFileReference",
           "owner": {
             "id": "",
             "name": "",
