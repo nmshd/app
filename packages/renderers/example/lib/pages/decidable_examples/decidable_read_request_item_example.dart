@@ -66,7 +66,11 @@ class DecidableReadRequestItemExample extends StatelessWidget {
       ),
     );
 
-    final birthDateRenderHints = RenderHints(technicalType: RenderHintsTechnicalType.Object, editType: RenderHintsEditType.Complex);
+    final birthDateRenderHints = RenderHints(technicalType: RenderHintsTechnicalType.Object, editType: RenderHintsEditType.Complex, propertyHints: {
+      'day': RenderHints(technicalType: RenderHintsTechnicalType.Integer, editType: RenderHintsEditType.SelectLike),
+      'month': RenderHints(technicalType: RenderHintsTechnicalType.Integer, editType: RenderHintsEditType.SelectLike),
+      'year': RenderHints(technicalType: RenderHintsTechnicalType.Integer, editType: RenderHintsEditType.SelectLike),
+    });
     const birthDateAttributeValue = BirthDateAttributeValue(day: 1, month: 12, year: 1980);
     final birthDateRequestItem = DecidableReadAttributeRequestItemDVO(
       id: '',
