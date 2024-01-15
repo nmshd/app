@@ -34,17 +34,14 @@ class ValueRendererListTile extends StatefulWidget {
 
 class _ValueRendererListTileState extends State<ValueRendererListTile> {
   final ValueRendererController controller = ValueRendererController();
-  dynamic inputValue;
 
   @override
   void initState() {
     super.initState();
 
     controller.addListener(() {
-      setState(() => inputValue = controller.value);
-
       widget.onUpdateInput(
-        inputValue: inputValue,
+        inputValue: controller.value,
         valueType: widget.valueType,
         isComplex: widget.renderHints.editType == RenderHintsEditType.Complex ? true : false,
       );
