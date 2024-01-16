@@ -89,6 +89,7 @@ class AttributesFacade {
 
   Future<Result<List<LocalAttributeDTO>>> getSharedToPeerAttributes({
     required String peer,
+    Map<String, QueryValue>? query,
     bool? onlyValid,
     bool? hideTechnical,
   }) async {
@@ -101,6 +102,7 @@ class AttributesFacade {
           'peer': peer,
           if (onlyValid != null) 'onlyValid': onlyValid,
           if (hideTechnical != null) 'hideTechnical': hideTechnical,
+          if (query != null) 'query': query.toJson(),
         },
       },
     );
