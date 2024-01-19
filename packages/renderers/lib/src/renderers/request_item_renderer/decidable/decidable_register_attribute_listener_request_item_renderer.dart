@@ -46,8 +46,10 @@ class _DecidableRegisterAttributeListenerRequestItemRendererState extends State<
   }
 
   void onUpdateCheckbox(bool? value) {
+    if (value == null) return;
+
     setState(() {
-      isChecked = value!;
+      isChecked = value;
     });
 
     handleCheckboxChange(
