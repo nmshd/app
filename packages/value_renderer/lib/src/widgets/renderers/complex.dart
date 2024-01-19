@@ -5,6 +5,7 @@ import 'package:translated_text/translated_text.dart';
 
 import '../../value_renderer.dart';
 import '../inputs/inputs.dart';
+import '../utils/utils.dart';
 
 class ComplexRenderer extends StatefulWidget {
   final ValueRendererController? controller;
@@ -52,7 +53,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 
         controller.addListener(() {
           value[key] = controller.value;
-          widget.controller!.value = Map<String, dynamic>.from(value);
+          widget.controller!.value = ValueRendererInputValueMap(Map<String, dynamic>.from(value));
         });
       }
     }

@@ -1,22 +1,27 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:value_renderer/value_renderer.dart';
 
 import '../../../widgets/request_renderer_controller.dart';
 
 IdentityAttribute? composeIdentityAttributeValue({
   String? valueType,
-  dynamic inputValue,
+  ValueRendererInputValue? inputValue,
   required bool isComplex,
   required RequestRendererController? controller,
 }) {
-  if (inputValue != null && inputValue != '') {
+  if (inputValue != null) {
+    if (inputValue is ValueRendererInputValueString && inputValue.value == '') return null;
+
     if (isComplex && valueType != 'BirthDate') {
-      final attributeValues = inputValue.map((key, value) {
+      final complexInputValue = inputValue as ValueRendererInputValueMap;
+
+      final attributeValues = complexInputValue.value.map((key, value) {
         final attributeValue = switch (value) {
-          final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
-          final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
-          final ValueHintsDefaultValueString attribute => attribute.value,
-          final String attribute => attribute,
-          final bool attribute => attribute.toString(),
+          final ValueRendererInputValueBool attribute => attribute.value.toString(),
+          final ValueRendererInputValueNum attribute => attribute.value.toString(),
+          final ValueRendererInputValueString attribute => attribute.value,
+          final ValueRendererInputValueDateTime attribute => attribute.value,
+          final ValueRendererInputValueMap attribute => attribute.value,
           _ => null
         };
 
@@ -32,23 +37,24 @@ IdentityAttribute? composeIdentityAttributeValue({
         return null;
       }
     } else if (valueType == 'BirthDate') {
+      final birthDateInputValue = inputValue as ValueRendererInputValueDateTime;
+
       return IdentityAttribute(
         owner: '',
         value: IdentityAttributeValue.fromJson({
           '@type': valueType,
-          'day': inputValue.day,
-          'month': inputValue.month,
-          'year': inputValue.year,
+          'day': birthDateInputValue.value.day,
+          'month': birthDateInputValue.value.month,
+          'year': birthDateInputValue.value.year,
         }),
       );
     } else {
       final attributeValue = switch (inputValue) {
-        final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
-        final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
-        final ValueHintsDefaultValueString attribute => attribute.value,
-        final String attribute => attribute,
-        final bool attribute => attribute.toString(),
-        _ => inputValue.toString()
+        final ValueRendererInputValueBool attribute => attribute.value.toString(),
+        final ValueRendererInputValueNum attribute => attribute.value.toString(),
+        final ValueRendererInputValueString attribute => attribute.value,
+        final ValueRendererInputValueDateTime attribute => attribute.value,
+        final ValueRendererInputValueMap attribute => attribute.value,
       };
 
       return IdentityAttribute(

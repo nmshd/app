@@ -1,23 +1,28 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:value_renderer/value_renderer.dart';
 
 import '../../../widgets/request_renderer_controller.dart';
 
 RelationshipAttribute? composeRelationshipAttributeValue({
   String? valueType,
-  dynamic inputValue,
+  ValueRendererInputValue? inputValue,
   required bool isComplex,
   required RequestRendererController? controller,
   ProcessedRelationshipAttributeQueryDVO? query,
 }) {
-  if (inputValue != null && inputValue != '') {
+  if (inputValue != null) {
+    if (inputValue is ValueRendererInputValueString && inputValue.value == '') return null;
+
     if (isComplex) {
-      final attributeValues = inputValue.map((key, value) {
+      final complexInputValue = inputValue as ValueRendererInputValueMap;
+
+      final attributeValues = complexInputValue.value.map((key, value) {
         final attributeValue = switch (value) {
-          final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
-          final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
-          final ValueHintsDefaultValueString attribute => attribute.value,
-          final String attribute => attribute,
-          final bool attribute => attribute.toString(),
+          final ValueRendererInputValueBool attribute => attribute.value.toString(),
+          final ValueRendererInputValueNum attribute => attribute.value.toString(),
+          final ValueRendererInputValueString attribute => attribute.value,
+          final ValueRendererInputValueDateTime attribute => attribute.value,
+          final ValueRendererInputValueMap attribute => attribute.value,
           _ => null
         };
 
@@ -36,12 +41,11 @@ RelationshipAttribute? composeRelationshipAttributeValue({
       }
     } else {
       final attributeValue = switch (inputValue) {
-        final ValueHintsDefaultValueBool attribute => attribute.value.toString(),
-        final ValueHintsDefaultValueNum attribute => attribute.value.toString(),
-        final ValueHintsDefaultValueString attribute => attribute.value,
-        final String attribute => attribute,
-        final bool attribute => attribute.toString(),
-        _ => inputValue.toString()
+        final ValueRendererInputValueBool attribute => attribute.value.toString(),
+        final ValueRendererInputValueNum attribute => attribute.value.toString(),
+        final ValueRendererInputValueString attribute => attribute.value,
+        final ValueRendererInputValueDateTime attribute => attribute.value,
+        final ValueRendererInputValueMap attribute => attribute.value,
       };
 
       return RelationshipAttribute(

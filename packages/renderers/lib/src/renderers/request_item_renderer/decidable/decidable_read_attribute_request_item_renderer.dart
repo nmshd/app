@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
+import 'package:value_renderer/value_renderer.dart';
 
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
@@ -100,7 +101,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     );
   }
 
-  void onUpdateInput({String? valueType, dynamic inputValue, required bool isComplex}) {
+  void onUpdateInput({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) {
     if (widget.item.query is ProcessedIdentityAttributeQueryDVO) {
       final IdentityAttribute? composedValue = composeIdentityAttributeValue(
         inputValue: inputValue,

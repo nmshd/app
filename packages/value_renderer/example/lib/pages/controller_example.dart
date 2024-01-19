@@ -14,27 +14,27 @@ class ControllerExample extends StatefulWidget {
 class _ControllerExampleState extends State<ControllerExample> {
   late final Controllers controllers;
 
-  String? textInputValue;
-  ValueHintsDefaultValueNum? integerInputValue;
-  ValueHintsDefaultValueNum? doubleInputValue;
-  ValueHintsDefaultValueNum? integerSliderInputValue;
-  ValueHintsDefaultValueNum? doubleSliderInputValue;
-  ValueHintsDefaultValueString? stringDropdownInputValue;
-  ValueHintsDefaultValueNum? integerDropdownInputValue;
-  ValueHintsDefaultValueNum? doubleDropdownInputValue;
-  ValueHintsDefaultValueBool? booleanDropdownInputValue;
-  ValueHintsDefaultValueString? stringSegmentedInputValue;
-  ValueHintsDefaultValueNum? integerSegmentedInputValue;
-  ValueHintsDefaultValueNum? doubleSegmentedInputValue;
-  ValueHintsDefaultValueBool? booleanSegmentedInputValue;
-  ValueHintsDefaultValueString? stringRadioInputValue;
-  ValueHintsDefaultValueNum? integerRadioInputValue;
-  ValueHintsDefaultValueNum? doubleRadioInputValue;
-  ValueHintsDefaultValueBool? booleanRadioInputValue;
-  bool? switchInputValue;
-  bool? checkboxInputValue;
-  dynamic datepickerInputValue;
-  dynamic complexInputValue;
+  ValueRendererInputValueString? textInputValue;
+  ValueRendererInputValueNum? integerInputValue;
+  ValueRendererInputValueNum? doubleInputValue;
+  ValueRendererInputValueNum? integerSliderInputValue;
+  ValueRendererInputValueNum? doubleSliderInputValue;
+  ValueRendererInputValueString? stringDropdownInputValue;
+  ValueRendererInputValueNum? integerDropdownInputValue;
+  ValueRendererInputValueNum? doubleDropdownInputValue;
+  ValueRendererInputValueBool? booleanDropdownInputValue;
+  ValueRendererInputValueString? stringSegmentedInputValue;
+  ValueRendererInputValueNum? integerSegmentedInputValue;
+  ValueRendererInputValueNum? doubleSegmentedInputValue;
+  ValueRendererInputValueBool? booleanSegmentedInputValue;
+  ValueRendererInputValueString? stringRadioInputValue;
+  ValueRendererInputValueNum? integerRadioInputValue;
+  ValueRendererInputValueNum? doubleRadioInputValue;
+  ValueRendererInputValueBool? booleanRadioInputValue;
+  ValueRendererInputValueBool? switchInputValue;
+  ValueRendererInputValueBool? checkboxInputValue;
+  ValueRendererInputValueDateTime? datepickerInputValue;
+  ValueRendererInputValueMap? complexInputValue;
 
   @override
   void initState() {
@@ -120,7 +120,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                               initialValue: const FullyDynamicAttributeValue('Text'),
                               controller: controllers.textInputController,
                             ),
-                            ControllerDataText(controllerData: textInputValue.toString()),
+                            ControllerDataText(controllerData: textInputValue?.value.toString() ?? ''),
                             const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),
@@ -291,7 +291,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                               initialValue: const FullyDynamicAttributeValue(false),
                               controller: controllers.checkboxInputController,
                             ),
-                            ControllerDataText(controllerData: checkboxInputValue?.toString() ?? 'null'),
+                            ControllerDataText(controllerData: checkboxInputValue?.value.toString() ?? 'null'),
                             const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),
@@ -309,7 +309,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                               initialValue: const FullyDynamicAttributeValue(true),
                               controller: controllers.switchInputController,
                             ),
-                            ControllerDataText(controllerData: switchInputValue?.toString() ?? 'null'),
+                            ControllerDataText(controllerData: switchInputValue?.value.toString() ?? 'null'),
                             const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),
@@ -465,7 +465,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                               initialValue: const BirthDateAttributeValue(day: 12, month: 8, year: 2022),
                               controller: controllers.datepickerInputController,
                             ),
-                            ControllerDataText(controllerData: datepickerInputValue?.toString() ?? 'null'),
+                            ControllerDataText(controllerData: datepickerInputValue?.value.toString() ?? 'null'),
                             const Divider(color: Colors.black12, thickness: 1.0, indent: 50, endIndent: 50),
                           ],
                         ),
@@ -797,10 +797,10 @@ class _ControllerExampleState extends State<ControllerExample> {
                             ),
                           ),
                           ControllerDataText(
-                            controllerData: complexInputValue?.entries
+                            controllerData: complexInputValue?.value.entries
                                     .map(
                                       (entry) =>
-                                          '${entry.key}: ${entry.value is ValueHintsDefaultValue ? (entry.value as ValueHintsDefaultValue).toJson() : entry.value}',
+                                          '${entry.key}: ${entry.value.value is ValueHintsDefaultValue ? (entry.value.value as ValueHintsDefaultValue).toJson() : entry.value.value}',
                                     )
                                     .join('\n') ??
                                 'null',
