@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
+import 'package:renderers/src/renderers/request_item_renderer/decidable/decidable_free_text_request_item.dart';
 
 import '../widgets/request_item_index.dart';
 import '../widgets/request_renderer_controller.dart';
@@ -66,6 +67,12 @@ class RequestItemRenderer extends StatelessWidget {
           requestStatus: requestStatus,
         ),
       final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          requestStatus: requestStatus,
+        ),
+      final DecidableFreeTextRequestItemDVO dvo => DecidableFreeTextRequestItemRenderer(
           controller: controller,
           item: dvo,
           itemIndex: itemIndex,
