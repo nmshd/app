@@ -78,6 +78,7 @@ class RequestItemRenderer extends StatelessWidget {
       final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(item: dvo),
       final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),
       final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(item: dvo),
+      final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(item: dvo),
       _ => throw Exception("Invalid type '${item.type}'"),
     };
   }
