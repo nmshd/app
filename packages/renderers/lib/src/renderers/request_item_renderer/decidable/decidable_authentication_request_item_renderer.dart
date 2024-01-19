@@ -47,8 +47,10 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
   }
 
   void onUpdateCheckbox(bool? value) {
+    if (value == null) return;
+
     setState(() {
-      isChecked = value!;
+      isChecked = value;
     });
 
     handleCheckboxChange(

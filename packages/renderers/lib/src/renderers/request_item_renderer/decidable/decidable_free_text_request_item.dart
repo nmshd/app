@@ -48,8 +48,10 @@ class _DecidableFreeTextRequestItemRendererState extends State<DecidableFreeText
   }
 
   void onUpdateCheckbox(bool? value) {
+    if (value == null) return;
+
     setState(() {
-      isChecked = value!;
+      isChecked = value;
     });
 
     handleCheckboxChange(

@@ -46,8 +46,10 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
   }
 
   void onUpdateCheckbox(bool? value) {
+    if (value == null) return;
+
     setState(() {
-      isChecked = value!;
+      isChecked = value;
     });
 
     handleCheckboxChange(
