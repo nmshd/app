@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
+import '../utils/parse_regexp.dart';
 import '../utils/utils.dart';
 import 'styles/input_decoration.dart';
 
@@ -128,7 +129,8 @@ class NumberInputState extends State<NumberInput> {
   bool validateFormat(String input) {
     if (widget.pattern == null) return true;
 
-    final valuePattern = RegExp(widget.pattern!);
-    return valuePattern.hasMatch(input);
+    final parsedRegex = parseRegExp(widget.pattern!);
+
+    return parsedRegex.hasMatch(input);
   }
 }
