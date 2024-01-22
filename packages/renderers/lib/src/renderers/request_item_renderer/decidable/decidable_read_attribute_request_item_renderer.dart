@@ -79,8 +79,10 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   void onUpdateCheckbox(bool? value) {
+    if (value == null) return;
+
     setState(() {
-      isChecked = value!;
+      isChecked = value;
     });
 
     final attribute = attributeContent(widget.item.query);

@@ -64,8 +64,10 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   }
 
   void onUpdateCheckbox(bool? value) {
+    if (value == null) return;
+
     setState(() {
-      isChecked = value!;
+      isChecked = value;
     });
 
     final attribute = attributeContent(widget.item.attribute);

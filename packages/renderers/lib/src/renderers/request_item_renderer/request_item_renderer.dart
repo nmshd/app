@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
+import 'package:renderers/src/renderers/request_item_renderer/decidable/decidable_free_text_request_item.dart';
 
 import '../widgets/request_item_index.dart';
 import '../widgets/request_renderer_controller.dart';
@@ -64,6 +65,12 @@ class RequestItemRenderer extends StatelessWidget {
           item: dvo,
           itemIndex: itemIndex,
         ),
+      final DecidableFreeTextRequestItemDVO dvo => DecidableFreeTextRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          requestStatus: requestStatus,
+        ),
       final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(item: dvo),
       final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(item: dvo),
       final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(item: dvo, isRejected: isRejected),
@@ -71,6 +78,7 @@ class RequestItemRenderer extends StatelessWidget {
       final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(item: dvo),
       final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),
       final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(item: dvo),
+      final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(item: dvo),
       _ => throw Exception("Invalid type '${item.type}'"),
     };
   }

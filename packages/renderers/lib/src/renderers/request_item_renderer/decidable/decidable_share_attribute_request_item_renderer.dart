@@ -44,8 +44,10 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
   }
 
   void onUpdateCheckbox(bool? value) {
+    if (value == null) return;
+
     setState(() {
-      isChecked = value!;
+      isChecked = value;
     });
 
     handleCheckboxChange(
