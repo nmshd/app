@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../../value_renderer.dart';
+import '../utils/utils.dart';
 
 class SwitchInput extends FormField<bool> {
   SwitchInput({
@@ -13,7 +14,7 @@ class SwitchInput extends FormField<bool> {
     super.validator,
   }) : super(
           builder: (FormFieldState<bool> field) {
-            controller?.value = field.value;
+            if (field.value != null) controller?.value = ValueRendererInputValueBool(field.value!);
 
             return Row(
               children: [

@@ -18,7 +18,13 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
     required List<ValueHintsValue> values,
   }) : super(
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
-            controller?.value = field.value;
+            if (field.value != null) {
+              controller?.value = ControllerTypeResolver.resolveType(
+                inputValue: field.value,
+                type: technicalType,
+              );
+            }
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

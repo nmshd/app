@@ -81,7 +81,7 @@ class BooleanRenderer extends StatelessWidget {
       controller: controller,
       decoration: decoration,
       fieldName: fieldName,
-      initialValue: initialBoolValue,
+      initialValue: valueHintsDefaultValue,
     );
   }
 }

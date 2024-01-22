@@ -14,6 +14,7 @@ class RequestItemRenderer extends StatelessWidget {
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
   final LocalRequestStatus? requestStatus;
   final bool isRejected;
+  final String currentAddress;
 
   const RequestItemRenderer({
     super.key,
@@ -23,6 +24,7 @@ class RequestItemRenderer extends StatelessWidget {
     this.selectAttribute,
     this.requestStatus,
     this.isRejected = false,
+    required this.currentAddress,
   });
 
   @override
@@ -33,44 +35,38 @@ class RequestItemRenderer extends StatelessWidget {
           item: dvo,
           itemIndex: itemIndex,
           selectAttribute: selectAttribute,
-          requestStatus: requestStatus,
+          currentAddress: currentAddress,
         ),
       final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
           controller: controller,
           item: dvo,
           itemIndex: itemIndex,
           selectAttribute: selectAttribute,
-          requestStatus: requestStatus,
         ),
       final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
           controller: controller,
           item: dvo,
           itemIndex: itemIndex,
-          requestStatus: requestStatus,
         ),
       final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(
           controller: controller,
           item: dvo,
           itemIndex: itemIndex,
-          requestStatus: requestStatus,
         ),
       final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
           controller: controller,
           item: dvo,
           itemIndex: itemIndex,
-          requestStatus: requestStatus,
         ),
       final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(
           controller: controller,
           item: dvo,
           itemIndex: itemIndex,
-          requestStatus: requestStatus,
         ),
       final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(
           controller: controller,
           item: dvo,
           itemIndex: itemIndex,
-          requestStatus: requestStatus,
         ),
       final DecidableFreeTextRequestItemDVO dvo => DecidableFreeTextRequestItemRenderer(
           controller: controller,

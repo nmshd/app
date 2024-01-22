@@ -23,6 +23,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "ProprietaryFloat",
+          "valueType": "ProprietaryFloat",
           "owner": {
             "id": "",
             "name": "",
@@ -489,6 +490,7 @@
         "type": "ProcessedRelationshipAttributeQueryDVO",
         "results": [],
         "key": "ProprietaryFloat",
+        "valueType": "ProprietaryFloat",
         "owner": {
           "id": "",
           "name": "",

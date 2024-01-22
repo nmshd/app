@@ -26,14 +26,14 @@ class DatepickerFormField extends FormField<DateTime> {
   }) : super(
           initialValue: getInitialDateAttribute(initialValueAttribute),
           builder: (FormFieldState<DateTime> field) {
-            controller?.value = field.value;
+            if (field.value != null) controller?.value = ValueRendererInputValueDateTime(field.value!);
 
             void onChangedHandler(DateTime value) {
               if (onDateSelected != null) {
                 onDateSelected(value);
               }
               field.didChange(value);
-              controller?.value = value;
+              controller?.value = ValueRendererInputValueDateTime(field.value!);
             }
 
             return DatepickerInput(

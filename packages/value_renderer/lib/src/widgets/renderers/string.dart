@@ -71,7 +71,7 @@ class StringRenderer extends StatelessWidget {
         controller: controller,
         decoration: decoration,
         fieldName: fieldName,
-        initialValue: initialStringValue,
+        initialValue: valueHintsDefaultValue,
         values: values,
       );
     }
@@ -92,7 +92,7 @@ class StringRenderer extends StatelessWidget {
         controller: controller,
         decoration: decoration,
         fieldName: fieldName,
-        initialValue: initialStringValue,
+        initialValue: valueHintsDefaultValue,
         max: max,
         pattern: pattern,
         values: values!,
@@ -103,7 +103,7 @@ class StringRenderer extends StatelessWidget {
       controller: controller,
       decoration: decoration,
       fieldName: fieldName,
-      initialValue: initialStringValue,
+      initialValue: valueHintsDefaultValue,
       pattern: pattern,
       max: max,
     );

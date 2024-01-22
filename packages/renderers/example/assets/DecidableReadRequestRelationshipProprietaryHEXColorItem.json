@@ -23,6 +23,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "ProprietaryHEXColor",
+          "valueType": "ProprietaryHEXColor",
           "owner": {
             "id": "",
             "name": "",
@@ -493,6 +494,7 @@
         "type": "ProcessedRelationshipAttributeQueryDVO",
         "results": [],
         "key": "ProprietaryHEXColor",
+        "valueType": "ProprietaryHEXColor",
         "owner": {
           "id": "",
           "name": "",

@@ -82,6 +82,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                 controller: controller,
                 validationResult: _validationResult,
                 selectAttribute: createIdentityAttributeDVO,
+                currentAddress: widget.accountId,
               ),
               if (widget.localRequestDVO.isDecidable)
                 Row(

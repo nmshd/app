@@ -23,6 +23,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "Consent",
+          "valueType": "Consent",
           "owner": {
             "id": "",
             "name": "",
@@ -513,6 +514,7 @@
         "type": "ProcessedRelationshipAttributeQueryDVO",
         "results": [],
         "key": "Consent",
+        "valueType": "Consent",
         "owner": {
           "id": "",
           "name": "",

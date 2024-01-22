@@ -11,14 +11,12 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableCreateAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final LocalRequestStatus? requestStatus;
 
   const DecidableCreateAttributeRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
-    this.requestStatus,
   });
 
   @override

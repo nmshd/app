@@ -1,10 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
+import 'package:value_renderer/value_renderer.dart';
 
 import '../../widgets/request_item_index.dart';
 import '../../widgets/request_renderer_controller.dart';
 import '../widgets/processed_query_renderer.dart';
 import 'checkbox_enabled_extension.dart';
+import 'widgets/compose_identity_attribute_value.dart';
+import 'widgets/compose_relationship_attribute_value.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
@@ -12,7 +15,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
-  final LocalRequestStatus? requestStatus;
+  final String currentAddress;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
@@ -20,7 +23,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
     this.controller,
     required this.itemIndex,
     this.selectAttribute,
-    this.requestStatus,
+    required this.currentAddress,
   });
 
   @override
@@ -55,12 +58,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           query: query,
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
+          onUpdateInput: onUpdateInput,
           selectedAttribute: newAttribute,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
           query: query,
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
+          onUpdateInput: onUpdateInput,
           selectedAttribute: newAttribute,
         ),
       //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
@@ -102,17 +107,60 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     );
   }
 
+  void onUpdateInput({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) {
+    if (widget.item.query is ProcessedIdentityAttributeQueryDVO) {
+      final IdentityAttribute? composedValue = composeIdentityAttributeValue(
+        inputValue: inputValue,
+        valueType: valueType,
+        isComplex: isComplex,
+        currentAddress: widget.currentAddress,
+      );
+
+      if (composedValue != null) {
+        setState(() => newAttribute = composedValue);
+
+        updateSelectedAttribute();
+      } else {
+        widget.controller?.writeAtIndex(
+          index: widget.itemIndex,
+          value: const RejectRequestItemParameters(),
+        );
+      }
+    }
+
+    if (widget.item.query is ProcessedRelationshipAttributeQueryDVO) {
+      final RelationshipAttribute? composedValue = composeRelationshipAttributeValue(
+        inputValue: inputValue,
+        valueType: valueType,
+        isComplex: isComplex,
+        query: widget.item.query as ProcessedRelationshipAttributeQueryDVO,
+        currentAddress: widget.currentAddress,
+      );
+
+      if (composedValue != null) {
+        setState(() => newAttribute = composedValue);
+
+        updateSelectedAttribute();
+      } else {
+        widget.controller?.writeAtIndex(
+          index: widget.itemIndex,
+          value: const RejectRequestItemParameters(),
+        );
+      }
+    }
+  }
+
   Future<void> onUpdateAttribute(String valueType) async {
     final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
 
     if (selectedAttribute != null) {
-      setState(() {
-        newAttribute = selectedAttribute;
-      });
+      setState(() => newAttribute = selectedAttribute);
+
+      updateSelectedAttribute();
     }
   }
 
-  Future<void> updateSelectedAttribute() async {
+  void updateSelectedAttribute() {
     if (newAttribute != null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,

@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
+import '../utils/utils.dart';
 import 'styles/input_decoration.dart';
 
 class TextInput extends StatefulWidget {
   final ValueRendererController? controller;
   final InputDecoration? decoration;
   final String fieldName;
-  final String? initialValue;
+  final ValueHintsDefaultValueString? initialValue;
   final int? max;
   final String? pattern;
   final List<ValueHintsValue>? values;
@@ -37,11 +38,17 @@ class TextInputState extends State<TextInput> {
     super.initState();
 
     final initialValue = widget.initialValue;
-    _controller = TextEditingController(text: initialValue);
+    _controller = TextEditingController(text: initialValue?.value);
 
     if (widget.controller != null) {
-      _controller.addListener(() => widget.controller!.value = _controller.text);
-      if (initialValue != null) widget.controller!.value = initialValue;
+      _controller.addListener(
+        () => widget.controller!.value = ValueRendererInputValueString(_controller.text),
+      );
+      if (initialValue != null) {
+        widget.controller!.value = ValueRendererInputValueString(
+          widget.initialValue!.value,
+        );
+      }
     }
   }
 

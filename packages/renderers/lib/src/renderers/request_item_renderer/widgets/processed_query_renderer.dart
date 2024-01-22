@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
+import 'package:value_renderer/value_renderer.dart';
 
 import '../../widgets/custom_list_tile.dart';
 import '../../widgets/request_renderer_controller.dart';
@@ -13,6 +14,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
+  final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -21,6 +23,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
+    required this.onUpdateInput,
   });
 
   @override
@@ -40,9 +43,9 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         },
         renderHints: query.renderHints,
         valueHints: query.valueHints,
-        selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
-        onUpdateAttribute: onUpdateAttribute,
+        onUpdateInput: onUpdateInput,
         valueType: query.valueType,
+        checkboxSettings: checkboxSettings,
       );
     }
     return IdentityAttributeValueRenderer(
@@ -60,6 +63,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
+  final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
 
   const ProcessedRelationshipAttributeQueryRenderer({
     super.key,
@@ -68,6 +72,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
+    required this.onUpdateInput,
   });
 
   @override
@@ -77,9 +82,8 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
       renderHints: query.renderHints,
       valueHints: query.valueHints,
       checkboxSettings: checkboxSettings,
-      selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
-      onUpdateAttribute: onUpdateAttribute,
-      //TODO: add valueType
+      onUpdateInput: onUpdateInput,
+      valueType: query.valueType,
     );
   }
 }

@@ -20,7 +20,12 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
   }) : super(
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
             final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(field.context, fieldName.substring(7)) : fieldName;
-            controller?.value = field.value;
+            if (field.value != null) {
+              controller?.value = ControllerTypeResolver.resolveType(
+                inputValue: field.value,
+                type: technicalType,
+              );
+            }
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,

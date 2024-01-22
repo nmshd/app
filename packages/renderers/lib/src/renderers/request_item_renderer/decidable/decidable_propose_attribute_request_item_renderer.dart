@@ -12,7 +12,6 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
-  final LocalRequestStatus? requestStatus;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
@@ -20,7 +19,6 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
     this.controller,
     required this.itemIndex,
     this.selectAttribute,
-    this.requestStatus,
   });
 
   @override

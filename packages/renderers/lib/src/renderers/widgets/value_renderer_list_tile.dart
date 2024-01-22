@@ -4,15 +4,14 @@ import 'package:value_renderer/value_renderer.dart';
 
 import 'custom_list_tile.dart';
 
-class ValueRendererListTile extends StatelessWidget {
+class ValueRendererListTile extends StatefulWidget {
   final String fieldName;
   final RenderHints renderHints;
   final ValueHints valueHints;
   final InputDecoration? decoration;
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
-  final IdentityAttribute? selectedAttribute;
-  final Future<void> Function(String valueType)? onUpdateAttribute;
+  final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
   final String? valueType;
   final CheckboxSettings? checkboxSettings;
 
@@ -24,11 +23,37 @@ class ValueRendererListTile extends StatelessWidget {
     this.decoration,
     this.initialValue,
     this.controller,
-    this.selectedAttribute,
-    this.onUpdateAttribute,
     this.valueType,
     this.checkboxSettings,
+    required this.onUpdateInput,
   });
+
+  @override
+  State<ValueRendererListTile> createState() => _ValueRendererListTileState();
+}
+
+class _ValueRendererListTileState extends State<ValueRendererListTile> {
+  final ValueRendererController controller = ValueRendererController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller.addListener(() {
+      widget.onUpdateInput(
+        inputValue: controller.value,
+        valueType: widget.valueType,
+        isComplex: widget.renderHints.editType == RenderHintsEditType.Complex ? true : false,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +61,22 @@ class ValueRendererListTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+          if (widget.checkboxSettings != null)
+            Checkbox(
+              value: widget.checkboxSettings!.isChecked,
+              onChanged: widget.checkboxSettings!.onUpdateCheckbox,
+            ),
           Expanded(
             child: ValueRenderer(
-              fieldName: fieldName,
-              renderHints: renderHints,
-              valueHints: valueHints,
-              initialValue: initialValue,
+              fieldName: widget.fieldName,
+              renderHints: widget.renderHints,
+              valueHints: widget.valueHints,
+              initialValue: widget.initialValue,
+              valueType: widget.valueType,
+              controller: controller,
             ),
           ),
-          SizedBox(
-            width: 50,
-            child: IconButton(
-              onPressed: onUpdateAttribute != null && valueType != null ? () => onUpdateAttribute!(valueType!) : null,
-              icon: const Icon(Icons.chevron_right),
-            ),
-          )
+          const SizedBox(width: 50)
         ],
       ),
     );

@@ -11,14 +11,12 @@ class DecidableRegisterAttributeListenerRequestItemRenderer extends StatefulWidg
   final DecidableRegisterAttributeListenerRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final LocalRequestStatus? requestStatus;
 
   const DecidableRegisterAttributeListenerRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
-    this.requestStatus,
   });
 
   @override

@@ -20,7 +20,7 @@ class DropdownSelectInput extends StatefulWidget {
     this.controller,
     this.decoration,
     required this.fieldName,
-    required this.initialValue,
+    this.initialValue,
     required this.technicalType,
     required this.values,
   });
@@ -38,10 +38,12 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
     selectedOption = widget.initialValue;
 
-    widget.controller?.value = ControllerTypeResolver.resolveType(
-      inputValue: widget.initialValue,
-      type: widget.technicalType,
-    );
+    if (widget.initialValue != null) {
+      widget.controller?.value = ControllerTypeResolver.resolveType(
+        inputValue: widget.initialValue,
+        type: widget.technicalType,
+      );
+    }
   }
 
   @override

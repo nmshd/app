@@ -23,6 +23,7 @@
           "type": "ProcessedRelationshipAttributeQueryDVO",
           "results": [],
           "key": "ProprietaryPhoneNumber",
+          "valueType": "ProprietaryPhoneNumber",
           "owner": {
             "id": "",
             "name": "",
@@ -493,6 +494,7 @@
         "type": "ProcessedRelationshipAttributeQueryDVO",
         "results": [],
         "key": "ProprietaryPhoneNumber",
+        "valueType": "ProprietaryPhoneNumber",
         "owner": {
           "id": "",
           "name": "",

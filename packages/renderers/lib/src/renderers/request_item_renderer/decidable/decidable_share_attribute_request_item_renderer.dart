@@ -11,14 +11,12 @@ class DecidableShareAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableShareAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final LocalRequestStatus? requestStatus;
 
   const DecidableShareAttributeRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
-    this.requestStatus,
   });
 
   @override
