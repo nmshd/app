@@ -67,7 +67,12 @@ class _ItemGroupExampleState extends State<ItemGroupExample> {
           const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
           Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequestDVO!.createdAt))),
           const Divider(),
-          RequestRenderer(request: localRequestDVO!, controller: controller, validationResult: _validationResult),
+          RequestRenderer(
+            request: localRequestDVO!,
+            controller: controller,
+            validationResult: _validationResult,
+            currentAddress: 'a current address',
+          ),
           FilledButton(
             onPressed: () {},
             style: OutlinedButton.styleFrom(minimumSize: const Size(100.0, 36.0)),

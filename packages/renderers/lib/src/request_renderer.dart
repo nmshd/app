@@ -12,6 +12,7 @@ class RequestRenderer extends StatelessWidget {
   final LocalRequestDVO request;
   final RequestValidationResultDTO? validationResult;
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
+  final String currentAddress;
 
   const RequestRenderer({
     super.key,
@@ -19,6 +20,7 @@ class RequestRenderer extends StatelessWidget {
     this.validationResult,
     this.controller,
     this.selectAttribute,
+    required this.currentAddress,
   });
 
   @override
@@ -33,6 +35,7 @@ class RequestRenderer extends StatelessWidget {
             responseItemGroup: item,
             requestItemGroup: requestItemGroup,
             itemIndex: itemIndex,
+            currentAddress: currentAddress,
           );
         }
 
@@ -40,6 +43,7 @@ class RequestRenderer extends StatelessWidget {
           responseItem: item,
           itemIndex: itemIndex,
           requestItem: request.items[index],
+          currentAddress: currentAddress,
         );
       }).toList();
 
@@ -58,6 +62,7 @@ class RequestRenderer extends StatelessWidget {
           controller: controller,
           requestStatus: request.status,
           selectAttribute: selectAttribute,
+          currentAddress: currentAddress,
         );
       }
 
@@ -67,6 +72,7 @@ class RequestRenderer extends StatelessWidget {
         controller: controller,
         selectAttribute: selectAttribute,
         requestStatus: request.status,
+        currentAddress: currentAddress,
       );
     }).toList();
 

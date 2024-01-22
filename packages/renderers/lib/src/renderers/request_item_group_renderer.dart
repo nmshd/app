@@ -12,6 +12,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
   final RequestItemIndex itemIndex;
   final LocalRequestStatus? requestStatus;
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
+  final String currentAddress;
 
   const RequestItemGroupRenderer({
     super.key,
@@ -20,6 +21,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
     required this.itemIndex,
     this.requestStatus,
     this.selectAttribute,
+    required this.currentAddress,
   });
 
   @override
@@ -31,6 +33,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
         controller: controller,
         requestStatus: requestStatus,
         selectAttribute: selectAttribute,
+        currentAddress: currentAddress,
       );
     }).toList();
 

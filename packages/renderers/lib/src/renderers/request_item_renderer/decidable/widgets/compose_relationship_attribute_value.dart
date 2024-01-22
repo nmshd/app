@@ -5,7 +5,8 @@ RelationshipAttribute? composeRelationshipAttributeValue({
   String? valueType,
   ValueRendererInputValue? inputValue,
   required bool isComplex,
-  ProcessedRelationshipAttributeQueryDVO? query,
+  required ProcessedRelationshipAttributeQueryDVO query,
+  required String currentAddress,
 }) {
   if (inputValue == null) return null;
   if (inputValue is ValueRendererInputValueString && inputValue.value == '') return null;
@@ -27,9 +28,9 @@ RelationshipAttribute? composeRelationshipAttributeValue({
 
     try {
       return RelationshipAttribute(
-        confidentiality: RelationshipAttributeConfidentiality.values.byName(query?.attributeCreationHints.confidentiality ?? 'public'),
-        key: query?.key ?? '',
-        owner: query?.owner.id ?? '',
+        confidentiality: RelationshipAttributeConfidentiality.values.byName(query.attributeCreationHints.confidentiality),
+        key: query.key,
+        owner: currentAddress,
         value: RelationshipAttributeValue.fromJson({'@type': valueType, ...attributeValues}),
       );
     } catch (e) {
@@ -48,12 +49,12 @@ RelationshipAttribute? composeRelationshipAttributeValue({
   if (attributeValue == null) return null;
 
   return RelationshipAttribute(
-    confidentiality: RelationshipAttributeConfidentiality.values.byName(query?.attributeCreationHints.confidentiality ?? 'public'),
-    key: query?.key ?? '',
-    owner: query?.owner.id ?? '',
+    confidentiality: RelationshipAttributeConfidentiality.values.byName(query.attributeCreationHints.confidentiality),
+    key: query.key,
+    owner: currentAddress,
     value: RelationshipAttributeValue.fromJson({
       '@type': valueType,
-      'title': query?.attributeCreationHints.title ?? '',
+      'title': query.attributeCreationHints.title,
       'value': attributeValue,
     }),
   );

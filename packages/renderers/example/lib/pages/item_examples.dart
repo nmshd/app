@@ -238,7 +238,7 @@ class ItemExamples extends StatelessWidget {
             const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
             Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(readAttributeRequestItem.createdAt))),
             const Divider(),
-            RequestRenderer(request: readAttributeRequestItem),
+            RequestRenderer(request: readAttributeRequestItem, currentAddress: 'a current address'),
           ],
         ),
       ),

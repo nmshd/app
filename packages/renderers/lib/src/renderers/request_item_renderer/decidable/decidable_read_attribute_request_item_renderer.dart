@@ -15,6 +15,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
+  final String currentAddress;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
@@ -22,6 +23,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
     this.controller,
     required this.itemIndex,
     this.selectAttribute,
+    required this.currentAddress,
   });
 
   @override
@@ -109,6 +111,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         inputValue: inputValue,
         valueType: valueType,
         isComplex: isComplex,
+        currentAddress: widget.currentAddress,
       );
 
       if (composedValue != null) {
@@ -129,6 +132,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         valueType: valueType,
         isComplex: isComplex,
         query: widget.item.query as ProcessedRelationshipAttributeQueryDVO,
+        currentAddress: widget.currentAddress,
       );
 
       if (composedValue != null) {

@@ -14,6 +14,7 @@ class RequestItemRenderer extends StatelessWidget {
   final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
   final LocalRequestStatus? requestStatus;
   final bool isRejected;
+  final String currentAddress;
 
   const RequestItemRenderer({
     super.key,
@@ -23,6 +24,7 @@ class RequestItemRenderer extends StatelessWidget {
     this.selectAttribute,
     this.requestStatus,
     this.isRejected = false,
+    required this.currentAddress,
   });
 
   @override
@@ -33,6 +35,7 @@ class RequestItemRenderer extends StatelessWidget {
           item: dvo,
           itemIndex: itemIndex,
           selectAttribute: selectAttribute,
+          currentAddress: currentAddress,
         ),
       final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
           controller: controller,
