@@ -109,7 +109,6 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         inputValue: inputValue,
         valueType: valueType,
         isComplex: isComplex,
-        controller: widget.controller,
       );
 
       if (composedValue != null) {
@@ -129,7 +128,6 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         inputValue: inputValue,
         valueType: valueType,
         isComplex: isComplex,
-        controller: widget.controller,
         query: widget.item.query as ProcessedRelationshipAttributeQueryDVO,
       );
 
