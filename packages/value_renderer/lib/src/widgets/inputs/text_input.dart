@@ -95,7 +95,8 @@ class TextInputState extends State<TextInput> {
   bool validateFormat(String input) {
     if (widget.pattern == null) return true;
 
-    final valuePattern = RegExp(widget.pattern!);
-    return valuePattern.hasMatch(input);
+    final parsedRegex = parseRegExp(widget.pattern!);
+
+    return parsedRegex.hasMatch(input);
   }
 }
