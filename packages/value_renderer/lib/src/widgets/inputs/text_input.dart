@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
-import '../utils/parse_regexp.dart';
 import '../utils/utils.dart';
 import 'styles/input_decoration.dart';
 
