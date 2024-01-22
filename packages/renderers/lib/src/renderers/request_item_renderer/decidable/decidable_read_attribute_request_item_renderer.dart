@@ -47,6 +47,8 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       index: widget.itemIndex,
       value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
     );
+
+    updateSelectedAttribute();
   }
 
   @override
