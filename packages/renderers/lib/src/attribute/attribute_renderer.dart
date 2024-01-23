@@ -23,9 +23,11 @@ class AttributeRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final attribute = this.attribute;
+
     if (attribute is IdentityAttribute) {
       return IdentityAttributeValueRenderer(
-        value: (attribute as IdentityAttribute).value,
+        value: attribute.value,
         isRejected: isRejected,
         checkboxSettings: checkboxSettings,
         selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
@@ -35,7 +37,7 @@ class AttributeRenderer extends StatelessWidget {
 
     if (attribute is RelationshipAttribute) {
       return RelationshipAttributeValueRenderer(
-        value: (attribute as RelationshipAttribute).value,
+        value: attribute.value,
         isRejected: isRejected,
         checkboxSettings: checkboxSettings,
         selectedAttribute: selectedAttribute != null ? selectedAttribute as RelationshipAttribute : null,
