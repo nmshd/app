@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:renderers/src/renderers/request_item_renderer/authentication_request_item_renderer.dart';
+import 'package:renderers/src/request/request_item_renderer/authentication_request_item_renderer.dart';
 
 void main() {
   group('AuthenticationRequestItemRenderer', () {

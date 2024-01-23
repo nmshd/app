@@ -6,7 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:renderers/renderers.dart';
-import 'package:renderers/src/renderers/request_item_renderer/consent_request_item_renderer.dart';
+import 'package:renderers/src/request/request_item_renderer/consent_request_item_renderer.dart';
 
 @GenerateNiceMocks([MockSpec<AbstractUrlLauncher>()])
 @GenerateNiceMocks([MockSpec<Logger>()])
