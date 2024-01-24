@@ -14,6 +14,7 @@ class NumberRenderer extends StatelessWidget {
   final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
+  final bool? mustBeAccepted;
 
   const NumberRenderer({
     super.key,
@@ -26,6 +27,7 @@ class NumberRenderer extends StatelessWidget {
     required this.technicalType,
     required this.valueHints,
     this.values,
+    this.mustBeAccepted,
   });
 
   @override
@@ -90,6 +92,7 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialNumberValue,
         max: max,
         technicalType: technicalType,
+        mustBeAccepted: mustBeAccepted,
       );
     }
 
@@ -104,6 +107,7 @@ class NumberRenderer extends StatelessWidget {
         max: max,
         pattern: pattern,
         technicalType: technicalType,
+        mustBeAccepted: mustBeAccepted,
       );
     }
 
@@ -139,6 +143,7 @@ class NumberRenderer extends StatelessWidget {
       max: max,
       pattern: pattern,
       technicalType: technicalType,
+      mustBeAccepted: mustBeAccepted,
     );
   }
 }

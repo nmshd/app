@@ -14,6 +14,7 @@ class StringRenderer extends StatelessWidget {
   final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
+  final bool? mustBeAccepted;
 
   const StringRenderer({
     super.key,
@@ -26,6 +27,7 @@ class StringRenderer extends StatelessWidget {
     required this.technicalType,
     required this.valueHints,
     this.values,
+    this.mustBeAccepted,
   });
 
   @override
@@ -73,6 +75,7 @@ class StringRenderer extends StatelessWidget {
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         values: values,
+        mustBeAccepted: mustBeAccepted,
       );
     }
 
@@ -96,6 +99,7 @@ class StringRenderer extends StatelessWidget {
         max: max,
         pattern: pattern,
         values: values!,
+        mustBeAccepted: mustBeAccepted,
       );
     }
 
@@ -106,6 +110,7 @@ class StringRenderer extends StatelessWidget {
       initialValue: valueHintsDefaultValue,
       pattern: pattern,
       max: max,
+      mustBeAccepted: mustBeAccepted,
     );
   }
 }

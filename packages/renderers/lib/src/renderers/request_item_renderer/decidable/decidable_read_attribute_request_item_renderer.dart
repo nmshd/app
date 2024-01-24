@@ -60,6 +60,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           onUpdateAttribute: onUpdateAttribute,
           onUpdateInput: onUpdateInput,
           selectedAttribute: newAttribute,
+          mustBeAccepted: widget.item.mustBeAccepted,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
           query: query,
@@ -67,6 +68,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           onUpdateAttribute: onUpdateAttribute,
           onUpdateInput: onUpdateInput,
           selectedAttribute: newAttribute,
+          mustBeAccepted: widget.item.mustBeAccepted,
         ),
       //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
       _ => throw Exception("Invalid type '${widget.item.query.type}'"),

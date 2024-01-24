@@ -17,6 +17,7 @@ class NumberInput extends StatefulWidget {
   final String? pattern;
   final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue>? values;
+  final bool? mustBeAccepted;
 
   const NumberInput({
     super.key,
@@ -29,6 +30,7 @@ class NumberInput extends StatefulWidget {
     this.pattern,
     required this.technicalType,
     this.values,
+    this.mustBeAccepted,
   });
 
   @override
@@ -74,7 +76,7 @@ class NumberInputState extends State<NumberInput> {
       child: TextFormField(
         controller: _controller,
         keyboardType: TextInputType.number,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.always,
         validator: (value) => validateInput(value),
         inputFormatters: [
           widget.technicalType == RenderHintsTechnicalType.Float
@@ -88,18 +90,18 @@ class NumberInputState extends State<NumberInput> {
   }
 
   String? validateInput(input) {
-    if (input.isEmpty) {
+    if (input.isEmpty && widget.mustBeAccepted == true) {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
     } else {
       final numInput = num.parse(input);
 
       if (!validateMaxValue(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.maxValue', translationParams: {'value': widget.max!.toString()});
-      } else if (!validateMinValue(numInput)) {
+      } else if (!input.isEmpty && !validateMinValue(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.minValue', translationParams: {'value': widget.min!.toString()});
-      } else if (!validateFormat(input)) {
+      } else if (!input.isEmpty && !validateFormat(input)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
-      } else if (!validateEquality(numInput)) {
+      } else if (!input.isEmpty && !validateEquality(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
       } else {
         return null;

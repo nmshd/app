@@ -15,6 +15,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
   final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
+  final bool mustBeAccepted;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -24,6 +25,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
     this.onUpdateAttribute,
     this.checkboxSettings,
     required this.onUpdateInput,
+    required this.mustBeAccepted,
   });
 
   @override
@@ -46,6 +48,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         onUpdateInput: onUpdateInput,
         valueType: query.valueType,
         checkboxSettings: checkboxSettings,
+        mustBeAccepted: mustBeAccepted,
       );
     }
     return IdentityAttributeValueRenderer(
@@ -64,6 +67,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
   final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
+  final bool mustBeAccepted;
 
   const ProcessedRelationshipAttributeQueryRenderer({
     super.key,
@@ -73,6 +77,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     this.onUpdateAttribute,
     this.checkboxSettings,
     required this.onUpdateInput,
+    required this.mustBeAccepted,
   });
 
   @override
@@ -84,6 +89,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
       checkboxSettings: checkboxSettings,
       onUpdateInput: onUpdateInput,
       valueType: query.valueType,
+      mustBeAccepted: mustBeAccepted,
     );
   }
 }

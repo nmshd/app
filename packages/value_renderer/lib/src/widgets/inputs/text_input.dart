@@ -14,6 +14,7 @@ class TextInput extends StatefulWidget {
   final int? max;
   final String? pattern;
   final List<ValueHintsValue>? values;
+  final bool? mustBeAccepted;
 
   const TextInput({
     super.key,
@@ -24,6 +25,7 @@ class TextInput extends StatefulWidget {
     this.max,
     this.pattern,
     this.values,
+    this.mustBeAccepted,
   });
 
   @override
@@ -67,7 +69,7 @@ class TextInputState extends State<TextInput> {
       child: TextFormField(
         maxLength: widget.max,
         controller: _controller,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.always,
         validator: (value) => validateInput(value),
         decoration:
             widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
@@ -76,11 +78,11 @@ class TextInputState extends State<TextInput> {
   }
 
   String? validateInput(input) {
-    if (input.isEmpty) {
+    if (input.isEmpty && widget.mustBeAccepted == true) {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
-    } else if (!validateEquality(input)) {
+    } else if (!input.isEmpty && !validateEquality(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
-    } else if (!validateFormat(input)) {
+    } else if (!input.isEmpty && !validateFormat(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
     }
     return null;

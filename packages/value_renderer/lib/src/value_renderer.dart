@@ -14,6 +14,7 @@ class ValueRenderer extends StatelessWidget {
   final RenderHints renderHints;
   final ValueHints valueHints;
   final String? valueType;
+  final bool? mustBeAccepted;
 
   final ValueRendererController? controller;
 
@@ -26,6 +27,7 @@ class ValueRenderer extends StatelessWidget {
     required this.valueHints,
     this.controller,
     this.valueType,
+    this.mustBeAccepted,
   });
 
   @override
@@ -46,6 +48,7 @@ class ValueRenderer extends StatelessWidget {
         technicalType: technicalType,
         values: values,
         valueHints: valueHints,
+        mustBeAccepted: mustBeAccepted,
       );
     }
 
@@ -73,6 +76,7 @@ class ValueRenderer extends StatelessWidget {
         technicalType: technicalType,
         valueHints: valueHints,
         values: values,
+        mustBeAccepted: mustBeAccepted,
       );
     }
 
