@@ -62,6 +62,7 @@ class ValueRenderer extends StatelessWidget {
         renderHints: renderHints,
         valueHints: valueHints,
         valueType: valueType,
+        mustBeAccepted: mustBeAccepted,
       );
     }
 

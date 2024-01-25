@@ -17,6 +17,7 @@ class ComplexRenderer extends StatefulWidget {
   final RenderHints renderHints;
   final ValueHints valueHints;
   final String? valueType;
+  final bool? mustBeAccepted;
 
   const ComplexRenderer({
     super.key,
@@ -29,6 +30,7 @@ class ComplexRenderer extends StatefulWidget {
     required this.renderHints,
     required this.valueHints,
     this.valueType,
+    this.mustBeAccepted,
   });
 
   @override
@@ -81,6 +83,8 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         initialValueAttribute: widget.initialValue,
         fieldName: translatedText,
         decoration: widget.decoration,
+        mustBeAccepted: widget.mustBeAccepted,
+        emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
       );
     }
 
