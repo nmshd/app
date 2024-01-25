@@ -7,7 +7,6 @@ import '/src/checkbox_settings.dart';
 class DraftAttributeRenderer extends StatelessWidget {
   final DraftAttributeDVO draftAttribute;
   final bool? isRejected;
-  final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
 
@@ -15,7 +14,6 @@ class DraftAttributeRenderer extends StatelessWidget {
     super.key,
     required this.draftAttribute,
     this.isRejected,
-    this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
   });
@@ -34,7 +32,6 @@ class DraftAttributeRenderer extends StatelessWidget {
           child: AttributeRenderer(
             attribute: attributeContent,
             isRejected: isRejected,
-            selectedAttribute: selectedAttribute,
             onUpdateAttribute: onUpdateAttribute,
           ),
         ),

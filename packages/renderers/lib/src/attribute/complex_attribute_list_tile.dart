@@ -21,55 +21,46 @@ class ComplexAttributeListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const titlesTextStyle = TextStyle(fontSize: 12, color: Color(0xFF42474E));
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 12),
-              TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: fields.length,
-                      itemBuilder: (context, index) {
-                        final field = fields[index];
+        TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: fields.length,
+                separatorBuilder: (context, index) => const SizedBox(height: 8),
+                itemBuilder: (context, index) {
+                  final field = fields[index];
 
-                        final label = field.label;
-                        final translatedLabel = label.startsWith('i18n://') ? FlutterI18n.translate(context, label.substring(7)) : label;
+                  final label = field.label;
+                  final translatedLabel = label.startsWith('i18n://') ? FlutterI18n.translate(context, label.substring(7)) : label;
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('$translatedLabel:', style: titlesTextStyle),
-                            const SizedBox(height: 2),
-                            Text(field.value, style: const TextStyle(fontSize: 16)),
-                            const SizedBox(height: 8),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 50,
-                    child: trailing ??
-                        IconButton(
-                          onPressed: onUpdateAttribute != null && valueType != null ? () => onUpdateAttribute!(valueType!) : null,
-                          icon: const Icon(Icons.chevron_right),
-                        ),
-                  ),
-                ],
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('$translatedLabel:', style: titlesTextStyle),
+                      const SizedBox(height: 2),
+                      Text(field.value, style: const TextStyle(fontSize: 16)),
+                    ],
+                  );
+                },
               ),
-              const SizedBox(height: 12),
-              const Divider(height: 0),
-            ],
-          ),
+            ),
+            SizedBox(
+              width: 50,
+              child: trailing ??
+                  IconButton(
+                    onPressed: onUpdateAttribute != null && valueType != null ? () => onUpdateAttribute!(valueType!) : null,
+                    icon: const Icon(Icons.chevron_right),
+                  ),
+            ),
+          ],
         ),
       ],
     );
