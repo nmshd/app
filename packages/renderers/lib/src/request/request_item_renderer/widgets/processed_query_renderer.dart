@@ -55,7 +55,6 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         Expanded(
           child: IdentityAttributeValueRenderer(
             value: query.results.first.value as IdentityAttributeValue,
-            selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
             onUpdateAttribute: onUpdateAttribute,
           ),
         ),
