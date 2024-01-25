@@ -12,6 +12,7 @@ class DropdownSelectInput extends StatefulWidget {
   final InputDecoration? decoration;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
+  final bool? mustBeAccepted;
   final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue> values;
 
@@ -23,6 +24,7 @@ class DropdownSelectInput extends StatefulWidget {
     this.initialValue,
     required this.technicalType,
     required this.values,
+    this.mustBeAccepted,
   });
 
   @override
@@ -55,10 +57,17 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DropdownButtonFormField<ValueHintsDefaultValue>(
+          autovalidateMode: AutovalidateMode.always,
           value: selectedOption,
           decoration: widget.decoration != null
               ? widget.decoration!.copyWith(labelText: translatedText)
               : inputDecoration.copyWith(labelText: translatedText),
+          validator: (value) => value == null && widget.mustBeAccepted == true
+              ? FlutterI18n.translate(
+                  context,
+                  'errors.value_renderer.emptyField',
+                )
+              : null,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(
               inputValue: newValue,

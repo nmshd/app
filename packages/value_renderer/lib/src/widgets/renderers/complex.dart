@@ -80,11 +80,11 @@ class _ComplexRendererState extends State<ComplexRenderer> {
     if (widget.initialValue is BirthDateAttributeValue || widget.valueType == 'BirthDate') {
       return DatepickerFormField(
         controller: widget.controller,
-        initialValueAttribute: widget.initialValue,
-        fieldName: translatedText,
-        decoration: widget.decoration,
-        mustBeAccepted: widget.mustBeAccepted,
         emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
+        initialValueAttribute: widget.initialValue,
+        decoration: widget.decoration,
+        fieldName: translatedText,
+        mustBeAccepted: widget.mustBeAccepted,
       );
     }
 

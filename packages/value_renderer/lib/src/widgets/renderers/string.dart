@@ -49,6 +49,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        mustBeAccepted: mustBeAccepted,
         technicalType: technicalType,
         values: values!,
       );
@@ -74,8 +75,8 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
-        values: values,
         mustBeAccepted: mustBeAccepted,
+        values: values,
       );
     }
 
@@ -97,9 +98,9 @@ class StringRenderer extends StatelessWidget {
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         max: max,
+        mustBeAccepted: mustBeAccepted,
         pattern: pattern,
         values: values!,
-        mustBeAccepted: mustBeAccepted,
       );
     }
 

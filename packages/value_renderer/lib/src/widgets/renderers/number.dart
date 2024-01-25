@@ -50,6 +50,7 @@ class NumberRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        mustBeAccepted: mustBeAccepted,
         technicalType: technicalType,
         values: values!,
       );
@@ -91,8 +92,8 @@ class NumberRenderer extends StatelessWidget {
         values: values,
         initialValue: initialNumberValue,
         max: max,
-        technicalType: technicalType,
         mustBeAccepted: mustBeAccepted,
+        technicalType: technicalType,
       );
     }
 
@@ -105,9 +106,9 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialNumberValue,
         min: min,
         max: max,
+        mustBeAccepted: mustBeAccepted,
         pattern: pattern,
         technicalType: technicalType,
-        mustBeAccepted: mustBeAccepted,
       );
     }
 
@@ -141,9 +142,9 @@ class NumberRenderer extends StatelessWidget {
       fieldName: fieldName,
       initialValue: initialNumberValue,
       max: max,
+      mustBeAccepted: mustBeAccepted,
       pattern: pattern,
       technicalType: technicalType,
-      mustBeAccepted: mustBeAccepted,
     );
   }
 }

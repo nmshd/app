@@ -45,10 +45,10 @@ class ValueRenderer extends StatelessWidget {
         dataType: dataType,
         fieldName: fieldName,
         initialValue: initialValue,
+        mustBeAccepted: mustBeAccepted,
         technicalType: technicalType,
         values: values,
         valueHints: valueHints,
-        mustBeAccepted: mustBeAccepted,
       );
     }
 
@@ -59,10 +59,10 @@ class ValueRenderer extends StatelessWidget {
         editType: editType,
         fieldName: fieldName,
         initialValue: initialValue,
+        mustBeAccepted: mustBeAccepted,
         renderHints: renderHints,
         valueHints: valueHints,
         valueType: valueType,
-        mustBeAccepted: mustBeAccepted,
       );
     }
 
@@ -74,10 +74,10 @@ class ValueRenderer extends StatelessWidget {
         editType: editType,
         fieldName: fieldName,
         initialValue: initialValue,
+        mustBeAccepted: mustBeAccepted,
         technicalType: technicalType,
         valueHints: valueHints,
         values: values,
-        mustBeAccepted: mustBeAccepted,
       );
     }
 
@@ -88,6 +88,7 @@ class ValueRenderer extends StatelessWidget {
         decoration: decoration,
         editType: editType,
         initialValue: initialValue,
+        mustBeAccepted: mustBeAccepted,
         technicalType: technicalType,
         fieldName: fieldName,
         values: values,

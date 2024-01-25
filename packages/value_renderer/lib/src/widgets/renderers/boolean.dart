@@ -11,6 +11,7 @@ class BooleanRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
+  final bool? mustBeAccepted;
   final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue>? values;
 
@@ -22,6 +23,7 @@ class BooleanRenderer extends StatelessWidget {
     this.editType,
     required this.fieldName,
     this.initialValue,
+    this.mustBeAccepted,
     required this.technicalType,
     this.values,
   });
@@ -64,6 +66,7 @@ class BooleanRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        mustBeAccepted: mustBeAccepted,
         technicalType: technicalType,
         values: values!,
       );
