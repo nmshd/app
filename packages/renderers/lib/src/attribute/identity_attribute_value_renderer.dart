@@ -7,13 +7,11 @@ import 'complex_attribute_list_tile.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
-  final bool? isRejected;
   final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const IdentityAttributeValueRenderer({
     super.key,
     required this.value,
-    this.isRejected,
     this.onUpdateAttribute,
   });
 
@@ -38,7 +36,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: isRejected ?? false ? null : attributeValueMap['value'].toString(),
+        description: attributeValueMap['value'].toString(),
         trailing: onUpdateAttribute == null
             ? null
             : IconButton(

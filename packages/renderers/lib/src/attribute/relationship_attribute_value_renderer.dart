@@ -7,13 +7,11 @@ import '../custom_list_tile.dart';
 
 class RelationshipAttributeValueRenderer extends StatelessWidget {
   final RelationshipAttributeValue value;
-  final bool? isRejected;
   final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const RelationshipAttributeValueRenderer({
     super.key,
     required this.value,
-    this.isRejected,
     this.onUpdateAttribute,
   });
 
@@ -24,7 +22,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
     return switch (value) {
       final ConsentAttributeValue consentAttributeValue => CustomListTile(
           title: 'i18n://dvo.attribute.name.${value.atType}',
-          description: isRejected ?? false ? null : consentAttributeValue.consent,
+          description: consentAttributeValue.consent,
           trailing: consentAttributeValue.link != null
               ? IconButton(
                   onPressed: () async {
@@ -38,11 +36,11 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
       final ProprietaryJSONAttributeValue proprietaryJSONAttributeValue => CustomListTile(
           title: proprietaryJSONAttributeValue.title,
           description: proprietaryJSONAttributeValue.description,
-          thirdLine: isRejected ?? false ? null : proprietaryJSONAttributeValue.value.toString(),
+          thirdLine: proprietaryJSONAttributeValue.value.toString(),
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
-          description: isRejected ?? false ? null : attributeValueMap['value'].toString(),
+          description: attributeValueMap['value'].toString(),
         ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),
     };
