@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
-import '../checkbox_settings.dart';
-
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
   final List<({String label, String value})> fields;
   final Widget? trailing;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final String? valueType;
-  final CheckboxSettings? checkboxSettings;
 
   const ComplexAttributeListTile({
     super.key,
@@ -19,7 +16,6 @@ class ComplexAttributeListTile extends StatelessWidget {
     this.trailing,
     this.onUpdateAttribute,
     this.valueType,
-    this.checkboxSettings,
   });
 
   @override
@@ -27,7 +23,6 @@ class ComplexAttributeListTile extends StatelessWidget {
     const titlesTextStyle = TextStyle(fontSize: 12, color: Color(0xFF42474E));
     return Row(
       children: [
-        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

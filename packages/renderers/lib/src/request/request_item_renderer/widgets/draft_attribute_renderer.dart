@@ -27,12 +27,18 @@ class DraftAttributeRenderer extends StatelessWidget {
       final DraftRelationshipAttributeDVO item => item.content,
     };
 
-    return AttributeRenderer(
-      attribute: attributeContent,
-      isRejected: isRejected,
-      checkboxSettings: checkboxSettings,
-      selectedAttribute: selectedAttribute,
-      onUpdateAttribute: onUpdateAttribute,
+    return Row(
+      children: [
+        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+        Expanded(
+          child: AttributeRenderer(
+            attribute: attributeContent,
+            isRejected: isRejected,
+            selectedAttribute: selectedAttribute,
+            onUpdateAttribute: onUpdateAttribute,
+          ),
+        ),
+      ],
     );
   }
 }

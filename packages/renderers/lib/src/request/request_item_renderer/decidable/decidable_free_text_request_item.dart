@@ -1,5 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import '../../../custom_list_tile.dart';
 import '../../request_item_index.dart';
@@ -39,11 +39,17 @@ class _DecidableFreeTextRequestItemRendererState extends State<DecidableFreeText
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(
-      title: widget.item.name,
-      description: widget.item.description,
-      thirdLine: widget.item.freeText,
-      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+    return Row(
+      children: [
+        Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        Expanded(
+          child: CustomListTile(
+            title: widget.item.name,
+            description: widget.item.description,
+            thirdLine: widget.item.freeText,
+          ),
+        ),
+      ],
     );
   }
 

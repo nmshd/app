@@ -1,7 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '../checkbox_settings.dart';
 import '../custom_list_tile.dart';
 import 'complex_attribute_list_tile.dart';
 
@@ -10,7 +9,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final bool? isRejected;
   final IdentityAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
-  final CheckboxSettings? checkboxSettings;
 
   const IdentityAttributeValueRenderer({
     super.key,
@@ -18,7 +16,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     this.isRejected,
     this.selectedAttribute,
     this.onUpdateAttribute,
-    this.checkboxSettings,
   });
 
   @override
@@ -29,7 +26,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: isRejected ?? false ? null : attributeValueMap['value'].toString(),
-        checkboxSettings: checkboxSettings,
         trailing: onUpdateAttribute == null
             ? null
             : IconButton(
@@ -47,7 +43,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
-      checkboxSettings: checkboxSettings,
       onUpdateAttribute: onUpdateAttribute,
       valueType: value.atType,
     );

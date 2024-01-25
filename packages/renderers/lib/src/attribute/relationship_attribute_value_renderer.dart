@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../abstract_url_launcher.dart';
-import '../checkbox_settings.dart';
 import '../custom_list_tile.dart';
 
 class RelationshipAttributeValueRenderer extends StatelessWidget {
@@ -11,7 +10,6 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
   final bool? isRejected;
   final RelationshipAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
-  final CheckboxSettings? checkboxSettings;
 
   const RelationshipAttributeValueRenderer({
     super.key,
@@ -19,7 +17,6 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
     this.isRejected,
     this.selectedAttribute,
     this.onUpdateAttribute,
-    this.checkboxSettings,
   });
 
   @override
@@ -30,7 +27,6 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
       final ConsentAttributeValue consentAttributeValue => CustomListTile(
           title: 'i18n://dvo.attribute.name.${value.atType}',
           description: isRejected ?? false ? null : consentAttributeValue.consent,
-          checkboxSettings: checkboxSettings,
           trailing: consentAttributeValue.link != null
               ? IconButton(
                   onPressed: () async {
@@ -46,12 +42,10 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           description: proprietaryJSONAttributeValue.description,
           thirdLine:
               isRejected ?? false ? null : selectedAttribute?.value.toJson()['value'].toString() ?? proprietaryJSONAttributeValue.value.toString(),
-          checkboxSettings: checkboxSettings,
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
           description: isRejected ?? false ? null : attributeValueMap['value'].toString(),
-          checkboxSettings: checkboxSettings,
         ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),
     };

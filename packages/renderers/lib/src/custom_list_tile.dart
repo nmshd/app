@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
 
-import 'checkbox_settings.dart';
-
 class CustomListTile extends StatelessWidget {
   final String title;
   final String? description;
   final String? thirdLine;
   final Widget? trailing;
-  final CheckboxSettings? checkboxSettings;
+  // final CheckboxSettings? checkboxSettings;
 
   const CustomListTile({
     super.key,
@@ -16,14 +14,14 @@ class CustomListTile extends StatelessWidget {
     this.description,
     this.thirdLine,
     this.trailing,
-    this.checkboxSettings,
+    // this.checkboxSettings,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+        // if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
