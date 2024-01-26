@@ -1,5 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import '../../../custom_list_tile.dart';
 import '../../request_item_index.dart';
@@ -37,10 +37,16 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(
-      title: 'i18n://dvo.requestItem.DecidableAuthenticationRequestItem.name',
-      thirdLine: widget.item.name,
-      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+    return Row(
+      children: [
+        Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        Expanded(
+          child: CustomListTile(
+            title: 'i18n://dvo.requestItem.DecidableAuthenticationRequestItem.name',
+            thirdLine: widget.item.name,
+          ),
+        ),
+      ],
     );
   }
 

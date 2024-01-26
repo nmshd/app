@@ -51,11 +51,17 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         mustBeAccepted: mustBeAccepted,
       );
     }
-    return IdentityAttributeValueRenderer(
-      value: query.results.first.value as IdentityAttributeValue,
-      checkboxSettings: checkboxSettings,
-      selectedAttribute: selectedAttribute != null ? selectedAttribute as IdentityAttribute : null,
-      onUpdateAttribute: onUpdateAttribute,
+
+    return Row(
+      children: [
+        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+        Expanded(
+          child: IdentityAttributeValueRenderer(
+            value: query.results.first.value as IdentityAttributeValue,
+            onUpdateAttribute: onUpdateAttribute,
+          ),
+        ),
+      ],
     );
   }
 }

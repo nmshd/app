@@ -1,9 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
 import '../widgets/draft_attribute_renderer.dart';
+import '/src/attribute/attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
@@ -48,11 +49,19 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
   @override
   Widget build(BuildContext context) {
+    if (newAttribute != null) {
+      return Row(
+        children: [
+          Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+          Expanded(child: AttributeRenderer(attribute: newAttribute!, onUpdateAttribute: onUpdateAttribute)),
+        ],
+      );
+    }
+
     return DraftAttributeRenderer(
       draftAttribute: widget.item.attribute,
       checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
       onUpdateAttribute: onUpdateAttribute,
-      selectedAttribute: newAttribute,
     );
   }
 

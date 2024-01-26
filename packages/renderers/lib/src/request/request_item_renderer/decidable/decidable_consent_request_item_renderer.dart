@@ -39,20 +39,26 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(
-      title: widget.item.name,
-      description: widget.item.description,
-      thirdLine: widget.item.consent,
-      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-      trailing: widget.item.link != null
-          ? IconButton(
-              onPressed: () async {
-                final url = Uri.parse(widget.item.link!);
-                await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
-              },
-              icon: const Icon(Icons.open_in_new),
-            )
-          : null,
+    return Row(
+      children: [
+        Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        Expanded(
+          child: CustomListTile(
+            title: widget.item.name,
+            description: widget.item.description,
+            thirdLine: widget.item.consent,
+            trailing: widget.item.link != null
+                ? IconButton(
+                    onPressed: () async {
+                      final url = Uri.parse(widget.item.link!);
+                      await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
+                    },
+                    icon: const Icon(Icons.open_in_new),
+                  )
+                : null,
+          ),
+        ),
+      ],
     );
   }
 
