@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 import '/src/attribute/attribute_renderer.dart';
 import '/src/checkbox_settings.dart';
+import '/src/custom_list_tile.dart';
 
 class DraftAttributeRenderer extends StatelessWidget {
   final DraftAttributeDVO draftAttribute;
   final bool? isRejected;
-  final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
 
@@ -15,7 +15,6 @@ class DraftAttributeRenderer extends StatelessWidget {
     super.key,
     required this.draftAttribute,
     this.isRejected,
-    this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
   });
@@ -27,12 +26,23 @@ class DraftAttributeRenderer extends StatelessWidget {
       final DraftRelationshipAttributeDVO item => item.content,
     };
 
-    return AttributeRenderer(
-      attribute: attributeContent,
-      isRejected: isRejected,
-      checkboxSettings: checkboxSettings,
-      selectedAttribute: selectedAttribute,
-      onUpdateAttribute: onUpdateAttribute,
+    return Row(
+      children: [
+        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+        Expanded(
+          child: isRejected ?? false
+              ? CustomListTile(title: attributeContent.valueTypeAtTypeI18n)
+              : AttributeRenderer(attribute: attributeContent, onUpdateAttribute: onUpdateAttribute),
+        ),
+      ],
     );
   }
+}
+
+extension _ValueTypeI18n on AbstractAttribute {
+  String get valueTypeAtTypeI18n => switch (this) {
+        final IdentityAttribute item => item.value.atType,
+        final RelationshipAttribute item => item.value.atType,
+        _ => throw Exception('Unknown AbstractAttribute: $runtimeType'),
+      };
 }
