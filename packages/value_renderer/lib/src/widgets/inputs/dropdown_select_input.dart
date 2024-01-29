@@ -12,7 +12,7 @@ class DropdownSelectInput extends StatefulWidget {
   final InputDecoration? decoration;
   final String fieldName;
   final ValueHintsDefaultValue? initialValue;
-  final bool? mustBeAccepted;
+  final bool? mustBeFilledOut;
   final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue> values;
 
@@ -24,7 +24,7 @@ class DropdownSelectInput extends StatefulWidget {
     this.initialValue,
     required this.technicalType,
     required this.values,
-    this.mustBeAccepted,
+    this.mustBeFilledOut,
   });
 
   @override
@@ -62,7 +62,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           decoration: widget.decoration != null
               ? widget.decoration!.copyWith(labelText: translatedText)
               : inputDecoration.copyWith(labelText: translatedText),
-          validator: (value) => value == null && widget.mustBeAccepted == true
+          validator: (value) => value == null && widget.mustBeFilledOut == true
               ? FlutterI18n.translate(
                   context,
                   'errors.value_renderer.emptyField',

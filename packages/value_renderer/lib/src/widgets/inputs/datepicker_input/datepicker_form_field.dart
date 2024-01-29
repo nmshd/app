@@ -13,7 +13,7 @@ class DatepickerFormField extends FormField<DateTime> {
     TextStyle? dateTextStyle,
     DateFormat? dateFormat,
     InputDecoration? decoration,
-    bool? mustBeAccepted,
+    bool? mustBeFilledOut,
     super.enabled,
     required String fieldName,
     DateTime? firstDate,
@@ -26,7 +26,7 @@ class DatepickerFormField extends FormField<DateTime> {
   }) : super(
           initialValue: getInitialDateAttribute(initialValueAttribute),
           autovalidateMode: AutovalidateMode.always,
-          validator: (value) => value == null && mustBeAccepted == true ? emptyFieldMessage : null,
+          validator: (value) => value == null && mustBeFilledOut == true ? emptyFieldMessage : null,
           builder: (FormFieldState<DateTime> field) {
             if (field.value != null) controller?.value = ValueRendererInputValueDateTime(field.value!);
 

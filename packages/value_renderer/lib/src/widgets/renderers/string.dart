@@ -14,7 +14,7 @@ class StringRenderer extends StatelessWidget {
   final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
-  final bool? mustBeAccepted;
+  final bool? mustBeFilledOut;
 
   const StringRenderer({
     super.key,
@@ -27,7 +27,7 @@ class StringRenderer extends StatelessWidget {
     required this.technicalType,
     required this.valueHints,
     this.values,
-    this.mustBeAccepted,
+    this.mustBeFilledOut,
   });
 
   @override
@@ -49,7 +49,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
       );
@@ -61,7 +61,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
       );
@@ -76,7 +76,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         values: values,
       );
     }
@@ -87,7 +87,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
       );
@@ -100,7 +100,7 @@ class StringRenderer extends StatelessWidget {
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         max: max,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         pattern: pattern,
         values: values!,
       );
@@ -113,7 +113,7 @@ class StringRenderer extends StatelessWidget {
       initialValue: valueHintsDefaultValue,
       pattern: pattern,
       max: max,
-      mustBeAccepted: mustBeAccepted,
+      mustBeFilledOut: mustBeFilledOut,
     );
   }
 }

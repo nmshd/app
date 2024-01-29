@@ -14,7 +14,7 @@ class TextInput extends StatefulWidget {
   final int? max;
   final String? pattern;
   final List<ValueHintsValue>? values;
-  final bool? mustBeAccepted;
+  final bool? mustBeFilledOut;
 
   const TextInput({
     super.key,
@@ -25,7 +25,7 @@ class TextInput extends StatefulWidget {
     this.max,
     this.pattern,
     this.values,
-    this.mustBeAccepted,
+    this.mustBeFilledOut,
   });
 
   @override
@@ -78,7 +78,7 @@ class TextInputState extends State<TextInput> {
   }
 
   String? validateInput(input) {
-    if (input.isEmpty && widget.mustBeAccepted == true) {
+    if (input.isEmpty && widget.mustBeFilledOut == true) {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
     } else if (input.isNotEmpty && !validateEquality(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');

@@ -17,7 +17,7 @@ class ComplexRenderer extends StatefulWidget {
   final RenderHints renderHints;
   final ValueHints valueHints;
   final String? valueType;
-  final bool? mustBeAccepted;
+  final bool? mustBeFilledOut;
 
   const ComplexRenderer({
     super.key,
@@ -30,7 +30,7 @@ class ComplexRenderer extends StatefulWidget {
     required this.renderHints,
     required this.valueHints,
     this.valueType,
-    this.mustBeAccepted,
+    this.mustBeFilledOut,
   });
 
   @override
@@ -84,7 +84,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         initialValueAttribute: widget.initialValue,
         decoration: widget.decoration,
         fieldName: translatedText,
-        mustBeAccepted: widget.mustBeAccepted,
+        mustBeFilledOut: widget.mustBeFilledOut,
       );
     }
 

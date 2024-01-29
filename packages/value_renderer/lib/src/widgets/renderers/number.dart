@@ -14,7 +14,7 @@ class NumberRenderer extends StatelessWidget {
   final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
-  final bool? mustBeAccepted;
+  final bool? mustBeFilledOut;
 
   const NumberRenderer({
     super.key,
@@ -27,7 +27,7 @@ class NumberRenderer extends StatelessWidget {
     required this.technicalType,
     required this.valueHints,
     this.values,
-    this.mustBeAccepted,
+    this.mustBeFilledOut,
   });
 
   @override
@@ -50,7 +50,7 @@ class NumberRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
       );
@@ -75,7 +75,7 @@ class NumberRenderer extends StatelessWidget {
         controller: controller,
         decoration: decoration,
         fieldName: fieldName,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
@@ -93,7 +93,7 @@ class NumberRenderer extends StatelessWidget {
         values: values,
         initialValue: initialNumberValue,
         max: max,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
       );
     }
@@ -107,7 +107,7 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialNumberValue,
         min: min,
         max: max,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         pattern: pattern,
         technicalType: technicalType,
       );
@@ -119,7 +119,7 @@ class NumberRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
-        mustBeAccepted: mustBeAccepted,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
       );
@@ -144,7 +144,7 @@ class NumberRenderer extends StatelessWidget {
       fieldName: fieldName,
       initialValue: initialNumberValue,
       max: max,
-      mustBeAccepted: mustBeAccepted,
+      mustBeFilledOut: mustBeFilledOut,
       pattern: pattern,
       technicalType: technicalType,
     );
