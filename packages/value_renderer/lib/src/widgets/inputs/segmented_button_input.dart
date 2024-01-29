@@ -32,7 +32,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
               children: [
                 TranslatedText(
                   fieldName,
-                  style: field.value != null ? null : const TextStyle(color: Color(0xFFb3261e)),
+                  style: field.value == null && mustBeAccepted == true ? const TextStyle(color: Color(0xFFb3261e)) : null,
                 ),
                 InputDecorator(
                   decoration: decoration ?? const InputDecoration(border: InputBorder.none),

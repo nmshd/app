@@ -32,7 +32,7 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
               children: <Widget>[
                 TranslatedText(
                   fieldName,
-                  style: field.value != null ? null : const TextStyle(color: Color(0xFFb3261e)),
+                  style: field.value == null && mustBeAccepted == true ? const TextStyle(color: Color(0xFFb3261e)) : null,
                 ),
                 ...values.map(
                   (option) => InputDecorator(
