@@ -122,6 +122,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         setState(() => newAttribute = composedValue);
 
         updateSelectedAttribute();
+        updateCheckbox();
       } else {
         widget.controller?.writeAtIndex(
           index: widget.itemIndex,
@@ -143,6 +144,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         setState(() => newAttribute = composedValue);
 
         updateSelectedAttribute();
+        updateCheckbox();
       } else {
         widget.controller?.writeAtIndex(
           index: widget.itemIndex,
@@ -176,6 +178,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         index: widget.itemIndex,
         value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
       );
+    }
+  }
+
+  void updateCheckbox() {
+    if (widget.controller != null && !widget.item.mustBeAccepted) {
+      setState(() {
+        isChecked = true;
+      });
     }
   }
 }
