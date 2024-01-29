@@ -80,9 +80,9 @@ class TextInputState extends State<TextInput> {
   String? validateInput(input) {
     if (input.isEmpty && widget.mustBeAccepted == true) {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
-    } else if (!input.isEmpty && !validateEquality(input)) {
+    } else if (input.isNotEmpty && !validateEquality(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
-    } else if (!input.isEmpty && !validateFormat(input)) {
+    } else if (input.isNotEmpty && !validateFormat(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
     }
     return null;
