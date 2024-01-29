@@ -54,7 +54,7 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
                     ),
                   ),
                 ),
-                if (field.value == null && mustBeAccepted == null)
+                if (field.value == null && mustBeAccepted == true)
                   Text(
                     FlutterI18n.translate(
                       field.context,

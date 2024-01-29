@@ -86,6 +86,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        mustBeAccepted: mustBeAccepted,
         technicalType: technicalType,
         values: values!,
       );
