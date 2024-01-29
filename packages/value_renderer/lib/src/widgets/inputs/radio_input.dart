@@ -13,7 +13,7 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
     InputDecoration? decoration,
     required String fieldName,
     super.initialValue,
-    final bool? mustBeAccepted,
+    bool? mustBeAccepted,
     super.onSaved,
     required RenderHintsTechnicalType technicalType,
     super.validator,

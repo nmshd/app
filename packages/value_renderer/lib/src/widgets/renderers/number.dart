@@ -75,6 +75,7 @@ class NumberRenderer extends StatelessWidget {
         controller: controller,
         decoration: decoration,
         fieldName: fieldName,
+        mustBeAccepted: mustBeAccepted,
         technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
