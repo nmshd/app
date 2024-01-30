@@ -55,22 +55,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         .toList();
 
     if (value is StreetAddressAttributeValue) {
-      // return Row(
-      //   children: [
-      //     Expanded(
-      //       child: Padding(
-      //         padding: const EdgeInsets.symmetric(vertical: 12),
-      //         child: Column(
-      //           mainAxisSize: MainAxisSize.max,
-      //           crossAxisAlignment: CrossAxisAlignment.start,
-      //           children: [
-      //             TranslatedText('i18n://attributes.values.${value.atType}._title', style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // );
       final streetAddress = value as StreetAddressAttributeValue;
       return StreetAddressAttributeRenderer(
         value: streetAddress,
