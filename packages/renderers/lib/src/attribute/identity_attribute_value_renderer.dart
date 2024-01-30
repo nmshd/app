@@ -23,38 +23,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final attributeValueMap = value.toJson();
 
-    if (value is BirthDateAttributeValue) {
-      final birthDate = value as BirthDateAttributeValue;
-      return CustomListTile(
-        title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime(birthDate.year, birthDate.month, birthDate.day)),
-        trailing: onUpdateAttribute == null
-            ? null
-            : IconButton(
-                onPressed: () => onUpdateAttribute!(value.atType),
-                icon: const Icon(Icons.chevron_right),
-              ),
-      );
-    }
-
-    if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
-      return CustomListTile(
-        title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: _getValueHintsTranslation(attributeValueMap['value'].toString(), valueHints),
-        trailing: onUpdateAttribute == null
-            ? null
-            : IconButton(
-                onPressed: () => onUpdateAttribute!(value.atType),
-                icon: const Icon(Icons.chevron_right),
-              ),
-      );
-    }
-
-    final List<({String label, String value})> fields = attributeValueMap.entries
-        .where((e) => e.key != '@type')
-        .map((e) => (label: 'i18n://attributes.values.${value.atType}.${e.key}.label', value: e.value.toString()))
-        .toList();
-
     if (value is StreetAddressAttributeValue) {
       final streetAddress = value as StreetAddressAttributeValue;
       return StreetAddressAttributeRenderer(
@@ -79,6 +47,38 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       );
     }
 
+    if (value is BirthDateAttributeValue) {
+      final birthDate = value as BirthDateAttributeValue;
+      return CustomListTile(
+        title: 'i18n://dvo.attribute.name.${value.atType}',
+        description: DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime(birthDate.year, birthDate.month, birthDate.day)),
+        trailing: onUpdateAttribute == null
+            ? null
+            : IconButton(
+                onPressed: () => onUpdateAttribute!(value.atType),
+                icon: const Icon(Icons.chevron_right),
+              ),
+      );
+    }
+
+    if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
+      return CustomListTile(
+        title: 'i18n://dvo.attribute.name.${value.atType}',
+        description: valueHints.getTranslation(attributeValueMap['value'].toString()),
+        trailing: onUpdateAttribute == null
+            ? null
+            : IconButton(
+                onPressed: () => onUpdateAttribute!(value.atType),
+                icon: const Icon(Icons.chevron_right),
+              ),
+      );
+    }
+
+    final List<({String label, String value})> fields = attributeValueMap.entries
+        .where((e) => e.key != '@type')
+        .map((e) => (label: 'i18n://attributes.values.${value.atType}.${e.key}.label', value: e.value.toString()))
+        .toList();
+
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
@@ -86,19 +86,5 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       onUpdateAttribute: onUpdateAttribute,
       valueType: value.atType,
     );
-  }
-
-  String _getValueHintsTranslation(value, ValueHints valueHints) {
-    if (valueHints.values == null) {
-      return value;
-    } else {
-      try {
-        final valueHint = valueHints.values!.firstWhere((valueHint) => valueHint.key.toJson() == value);
-        return valueHint.displayName;
-      } on StateError {
-        // no matching valueHint found
-        return value;
-      }
-    }
   }
 }

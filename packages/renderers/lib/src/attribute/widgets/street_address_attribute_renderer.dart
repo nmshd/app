@@ -57,26 +57,12 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
               ],
             ),
             TranslatedText(
-              _getValueHintsTranslation(value.country, valueHints.propertyHints!['country']!),
+              valueHints.propertyHints!['country']!.getTranslation(value.country),
               style: const TextStyle(fontSize: 16),
             )
           ],
         )
       ],
     );
-  }
-
-  String _getValueHintsTranslation(value, ValueHints valueHints) {
-    if (valueHints.values == null) {
-      return value;
-    } else {
-      try {
-        final valueHint = valueHints.values!.firstWhere((valueHint) => valueHint.key.toJson() == value);
-        return valueHint.displayName;
-      } on StateError {
-        // no matching valueHint found
-        return value;
-      }
-    }
   }
 }
