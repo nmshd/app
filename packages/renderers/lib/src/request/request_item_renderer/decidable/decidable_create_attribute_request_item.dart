@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '../widgets/draft_attribute_renderer.dart';
+import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 

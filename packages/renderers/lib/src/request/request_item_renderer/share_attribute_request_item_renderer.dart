@@ -1,7 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
-import 'widgets/draft_attribute_renderer.dart';
+import '/src/attribute/draft_attribute_renderer.dart';
 
 class ShareAttributeRequestItemRenderer extends StatelessWidget {
   final ShareAttributeRequestItemDVO item;
