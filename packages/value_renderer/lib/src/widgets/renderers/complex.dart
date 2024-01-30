@@ -14,10 +14,10 @@ class ComplexRenderer extends StatefulWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
+  final bool mustBeFilledOut;
   final RenderHints renderHints;
   final ValueHints valueHints;
   final String? valueType;
-  final bool? mustBeFilledOut;
 
   const ComplexRenderer({
     super.key,
@@ -27,10 +27,10 @@ class ComplexRenderer extends StatefulWidget {
     this.editType,
     required this.fieldName,
     required this.initialValue,
+    required this.mustBeFilledOut,
     required this.renderHints,
     required this.valueHints,
     this.valueType,
-    this.mustBeFilledOut,
   });
 
   @override

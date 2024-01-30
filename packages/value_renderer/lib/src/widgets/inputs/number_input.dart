@@ -14,10 +14,10 @@ class NumberInput extends StatefulWidget {
   final num? initialValue;
   final num? max;
   final num? min;
+  final bool mustBeFilledOut;
   final String? pattern;
   final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue>? values;
-  final bool? mustBeFilledOut;
 
   const NumberInput({
     super.key,
@@ -27,10 +27,10 @@ class NumberInput extends StatefulWidget {
     this.initialValue,
     this.max,
     this.min,
+    required this.mustBeFilledOut,
     this.pattern,
     required this.technicalType,
     this.values,
-    this.mustBeFilledOut,
   });
 
   @override
@@ -90,7 +90,7 @@ class NumberInputState extends State<NumberInput> {
   }
 
   String? validateInput(input) {
-    if (input.isEmpty && widget.mustBeFilledOut == true) {
+    if (input.isEmpty && widget.mustBeFilledOut) {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
     } else {
       final numInput = num.parse(input);

@@ -13,7 +13,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
     InputDecoration? decoration,
     required String fieldName,
     super.initialValue,
-    final bool? mustBeFilledOut,
+    required bool mustBeFilledOut,
     super.onSaved,
     required RenderHintsTechnicalType technicalType,
     super.validator,
@@ -32,7 +32,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
               children: [
                 TranslatedText(
                   fieldName,
-                  style: field.value == null && mustBeFilledOut == true ? const TextStyle(color: Color(0xFFb3261e)) : null,
+                  style: field.value == null && mustBeFilledOut ? const TextStyle(color: Color(0xFFb3261e)) : null,
                 ),
                 InputDecorator(
                   decoration: decoration ?? const InputDecoration(border: InputBorder.none),
@@ -51,7 +51,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
                     },
                   ),
                 ),
-                if (field.value == null && mustBeFilledOut == true)
+                if (field.value == null && mustBeFilledOut)
                   Text(
                     FlutterI18n.translate(
                       field.context,

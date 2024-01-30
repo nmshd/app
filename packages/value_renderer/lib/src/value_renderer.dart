@@ -14,7 +14,7 @@ class ValueRenderer extends StatelessWidget {
   final RenderHints renderHints;
   final ValueHints valueHints;
   final String? valueType;
-  final bool? mustBeFilledOut;
+  final bool mustBeFilledOut;
 
   final ValueRendererController? controller;
 
@@ -27,7 +27,7 @@ class ValueRenderer extends StatelessWidget {
     required this.valueHints,
     this.controller,
     this.valueType,
-    this.mustBeFilledOut,
+    this.mustBeFilledOut = false,
   });
 
   @override
