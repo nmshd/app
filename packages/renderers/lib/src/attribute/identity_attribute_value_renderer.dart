@@ -1,10 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:renderers/src/attribute/widgets/street_address_attribute_renderer.dart';
 
 import '../custom_list_tile.dart';
 import 'complex_attribute_list_tile.dart';
+import 'widgets/delivery_box_address_attribute_renderer.dart';
+import 'widgets/street_address_attribute_renderer.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
@@ -64,7 +65,18 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
 
     if (value is DeliveryBoxAddressAttributeValue) {
       final deliveryAddress = value as DeliveryBoxAddressAttributeValue;
-      return DeliveryBoxAddressAttributeRenderer(value: deliveryAddress, valueHints: valueHints)
+      return DeliveryBoxAddressAttributeRenderer(
+        value: deliveryAddress,
+        valueHints: valueHints,
+      );
+    }
+
+    if (value is PostOfficeBoxAddressAttributeValue) {
+      final deliveryAddress = value as DeliveryBoxAddressAttributeValue;
+      return DeliveryBoxAddressAttributeRenderer(
+        value: deliveryAddress,
+        valueHints: valueHints,
+      );
     }
 
     return ComplexAttributeListTile(
