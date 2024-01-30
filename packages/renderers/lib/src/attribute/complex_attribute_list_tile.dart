@@ -1,10 +1,11 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
   final List<({String label, String value})> fields;
+  final ValueHints? valueHints;
   final Widget? trailing;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final String? valueType;
@@ -13,6 +14,7 @@ class ComplexAttributeListTile extends StatelessWidget {
     super.key,
     required this.title,
     required this.fields,
+    this.valueHints,
     this.trailing,
     this.onUpdateAttribute,
     this.valueType,
@@ -39,14 +41,14 @@ class ComplexAttributeListTile extends StatelessWidget {
                   final field = fields[index];
 
                   final label = field.label;
-                  final translatedLabel = label.startsWith('i18n://') ? FlutterI18n.translate(context, label.substring(7)) : label;
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('$translatedLabel:', style: titlesTextStyle),
+                      TranslatedText(label, style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      Text(field.value, style: const TextStyle(fontSize: 16)),
+                      TranslatedText(_getValueHintsTranslation(field.value, valueHints!.propertyHints!.values.elementAt(index)),
+                          style: const TextStyle(fontSize: 16)),
                     ],
                   );
                 },
@@ -64,5 +66,19 @@ class ComplexAttributeListTile extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _getValueHintsTranslation(value, ValueHints valueHints) {
+    if (valueHints.values == null) {
+      return value;
+    } else {
+      try {
+        final valueHint = valueHints.values!.firstWhere((valueHint) => valueHint.key.toJson() == value);
+        return valueHint.displayName;
+      } on StateError {
+        // no matching valueHint found
+        return value;
+      }
+    }
   }
 }

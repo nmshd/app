@@ -7,11 +7,13 @@ import 'complex_attribute_list_tile.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
+  final ValueHints? valueHints;
   final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const IdentityAttributeValueRenderer({
     super.key,
     required this.value,
+    this.valueHints,
     this.onUpdateAttribute,
   });
 
@@ -36,7 +38,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: attributeValueMap['value'].toString(),
+        description: _getValueHintsTranslation(attributeValueMap['value'].toString()),
         trailing: onUpdateAttribute == null
             ? null
             : IconButton(
@@ -54,8 +56,23 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
+      valueHints: valueHints,
       onUpdateAttribute: onUpdateAttribute,
       valueType: value.atType,
     );
+  }
+
+  String _getValueHintsTranslation(value) {
+    if (valueHints?.values == null) {
+      return value;
+    } else {
+      try {
+        final valueHint = valueHints!.values!.firstWhere((valueHint) => valueHint.key.toJson() == value);
+        return valueHint.displayName;
+      } on StateError {
+        // no matching valueHint found
+        return value;
+      }
+    }
   }
 }
