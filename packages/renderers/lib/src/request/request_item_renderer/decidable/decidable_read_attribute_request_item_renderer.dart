@@ -48,7 +48,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
     );
 
-    updateSelectedAttribute();
+    _updateSelectedAttribute();
   }
 
   @override
@@ -121,8 +121,8 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       if (composedValue != null) {
         setState(() => newAttribute = composedValue);
 
-        updateSelectedAttribute();
-        updateCheckbox();
+        _updateSelectedAttribute();
+        _enableCheckbox();
       } else {
         widget.controller?.writeAtIndex(
           index: widget.itemIndex,
@@ -143,8 +143,8 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       if (composedValue != null) {
         setState(() => newAttribute = composedValue);
 
-        updateSelectedAttribute();
-        updateCheckbox();
+        _updateSelectedAttribute();
+        _enableCheckbox();
       } else {
         widget.controller?.writeAtIndex(
           index: widget.itemIndex,
@@ -160,11 +160,11 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     if (selectedAttribute != null) {
       setState(() => newAttribute = selectedAttribute);
 
-      updateSelectedAttribute();
+      _updateSelectedAttribute();
     }
   }
 
-  void updateSelectedAttribute() {
+  void _updateSelectedAttribute() {
     if (newAttribute != null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
@@ -181,7 +181,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     }
   }
 
-  void updateCheckbox() {
+  void _enableCheckbox() {
     if (widget.controller != null && !widget.item.mustBeAccepted) {
       setState(() {
         isChecked = true;
