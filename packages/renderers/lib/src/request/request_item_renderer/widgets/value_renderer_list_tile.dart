@@ -76,7 +76,7 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
               initialValue: widget.initialValue,
               valueType: widget.valueType,
               controller: controller,
-              mustBeFilledOut: widget.mustBeAccepted,
+              mustBeFilledOut: widget.checkboxSettings?.isChecked ?? widget.mustBeAccepted,
             ),
           ),
           const SizedBox(width: 50)
