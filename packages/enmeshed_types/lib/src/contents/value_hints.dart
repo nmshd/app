@@ -107,11 +107,9 @@ extension Translation on ValueHints {
     dynamic value,
   ) {
     if (values == null) return value;
-
     final valueHint = values!.firstWhereOrNull((valueHint) => valueHint.key.toJson() == value);
 
     if (valueHint == null) return value;
-
     return valueHint.displayName;
   }
 }

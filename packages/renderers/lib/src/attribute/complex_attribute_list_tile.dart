@@ -47,7 +47,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                     children: [
                       TranslatedText(label, style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      TranslatedText(_getValueHintsTranslation(field.value, valueHints.propertyHints!.values.elementAt(index)),
+                      TranslatedText(valueHints.propertyHints!.values.elementAt(index).getTranslation(field.value),
                           style: const TextStyle(fontSize: 16)),
                     ],
                   );
@@ -66,19 +66,5 @@ class ComplexAttributeListTile extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  String _getValueHintsTranslation(value, ValueHints valueHints) {
-    if (valueHints.values == null) {
-      return value;
-    } else {
-      try {
-        final valueHint = valueHints.values!.firstWhere((valueHint) => valueHint.key.toJson() == value);
-        return valueHint.displayName;
-      } on StateError {
-        // no matching valueHint found
-        return value;
-      }
-    }
   }
 }
