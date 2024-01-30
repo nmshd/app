@@ -6,13 +6,13 @@ import 'relationship_attribute_value_renderer.dart';
 
 class AttributeRenderer extends StatelessWidget {
   final AbstractAttribute attribute;
-  final ValueHints? valueHints;
+  final ValueHints valueHints;
   final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const AttributeRenderer({
     super.key,
     required this.attribute,
-    this.valueHints,
+    required this.valueHints,
     this.onUpdateAttribute,
   });
 

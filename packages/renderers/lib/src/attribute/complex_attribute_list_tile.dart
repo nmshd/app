@@ -5,7 +5,7 @@ import 'package:translated_text/translated_text.dart';
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
   final List<({String label, String value})> fields;
-  final ValueHints? valueHints;
+  final ValueHints valueHints;
   final Widget? trailing;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final String? valueType;
@@ -14,7 +14,7 @@ class ComplexAttributeListTile extends StatelessWidget {
     super.key,
     required this.title,
     required this.fields,
-    this.valueHints,
+    required this.valueHints,
     this.trailing,
     this.onUpdateAttribute,
     this.valueType,
@@ -47,7 +47,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                     children: [
                       TranslatedText(label, style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      TranslatedText(_getValueHintsTranslation(field.value, valueHints!.propertyHints!.values.elementAt(index)),
+                      TranslatedText(_getValueHintsTranslation(field.value, valueHints.propertyHints!.values.elementAt(index)),
                           style: const TextStyle(fontSize: 16)),
                     ],
                   );

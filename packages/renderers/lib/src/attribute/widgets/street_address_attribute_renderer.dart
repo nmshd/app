@@ -4,13 +4,13 @@ import 'package:translated_text/translated_text.dart';
 
 class StreetAddressAttributeRenderer extends StatelessWidget {
   final StreetAddressAttributeValue value;
-  final ValueHints? valueHints;
+  final ValueHints valueHints;
   final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const StreetAddressAttributeRenderer({
     super.key,
     required this.value,
-    this.valueHints,
+    required this.valueHints,
     this.onUpdateAttribute,
   });
 
@@ -57,7 +57,7 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
               ],
             ),
             TranslatedText(
-              _getValueHintsTranslation(value.country, valueHints!.propertyHints!['country']!),
+              _getValueHintsTranslation(value.country, valueHints.propertyHints!['country']!),
               style: const TextStyle(fontSize: 16),
             )
           ],

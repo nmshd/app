@@ -4,13 +4,13 @@ import 'package:translated_text/translated_text.dart';
 
 class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
   final PostOfficeBoxAddressAttributeValue value;
-  final ValueHints? valueHints;
+  final ValueHints valueHints;
   final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const PostOfficeBoxAddressAttributeRenderer({
     super.key,
     required this.value,
-    this.valueHints,
+    required this.valueHints,
     this.onUpdateAttribute,
   });
 
@@ -48,11 +48,11 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
               ],
             ),
             TranslatedText(
-              _getValueHintsTranslation(value.country, valueHints!.propertyHints!['country']!),
+              _getValueHintsTranslation(value.country, valueHints.propertyHints!['country']!),
               style: const TextStyle(fontSize: 16),
             ),
             TranslatedText(
-              _getValueHintsTranslation(value.state, valueHints!.propertyHints!['state']!),
+              _getValueHintsTranslation(value.state, valueHints.propertyHints!['state']!),
               style: const TextStyle(fontSize: 16),
             ),
           ],

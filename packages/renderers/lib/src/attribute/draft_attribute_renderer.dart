@@ -32,7 +32,11 @@ class DraftAttributeRenderer extends StatelessWidget {
         Expanded(
           child: isRejected ?? false
               ? CustomListTile(title: attributeContent.valueTypeAtTypeI18n)
-              : AttributeRenderer(attribute: attributeContent, onUpdateAttribute: onUpdateAttribute),
+              : AttributeRenderer(
+                  attribute: attributeContent,
+                  onUpdateAttribute: onUpdateAttribute,
+                  valueHints: draftAttribute.valueHints,
+                ),
         ),
       ],
     );

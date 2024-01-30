@@ -9,13 +9,13 @@ import 'widgets/street_address_attribute_renderer.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
-  final ValueHints? valueHints;
+  final ValueHints valueHints;
   final Future<void> Function(String valueType)? onUpdateAttribute;
 
   const IdentityAttributeValueRenderer({
     super.key,
     required this.value,
-    this.valueHints,
+    required this.valueHints,
     this.onUpdateAttribute,
   });
 
@@ -40,7 +40,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: _getValueHintsTranslation(attributeValueMap['value'].toString(), valueHints!),
+        description: _getValueHintsTranslation(attributeValueMap['value'].toString(), valueHints),
         trailing: onUpdateAttribute == null
             ? null
             : IconButton(

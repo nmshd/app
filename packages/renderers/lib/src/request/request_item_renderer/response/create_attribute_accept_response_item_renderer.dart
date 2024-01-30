@@ -12,7 +12,7 @@ class CreateAttributeAcceptResponseItemRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (item.attribute.value) {
-      final IdentityAttributeValue value => IdentityAttributeValueRenderer(value: value),
+      final IdentityAttributeValue value => IdentityAttributeValueRenderer(value: value, valueHints: item.attribute.valueHints),
       final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(value: value),
       _ => throw Exception('Unknown AttributeValue: ${item.attribute.valueType}'),
     };
