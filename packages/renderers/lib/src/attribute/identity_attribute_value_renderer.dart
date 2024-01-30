@@ -62,6 +62,11 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       );
     }
 
+    if (value is DeliveryBoxAddressAttributeValue) {
+      final deliveryAddress = value as DeliveryBoxAddressAttributeValue;
+      return DeliveryBoxAddressAttributeRenderer(value: deliveryAddress, valueHints: valueHints)
+    }
+
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
