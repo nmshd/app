@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:renderers/src/attribute/widgets/street_address_attribute_renderer.dart';
 
 import '../custom_list_tile.dart';
 import 'complex_attribute_list_tile.dart';
@@ -38,7 +39,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: _getValueHintsTranslation(attributeValueMap['value'].toString()),
+        description: _getValueHintsTranslation(attributeValueMap['value'].toString(), valueHints!),
         trailing: onUpdateAttribute == null
             ? null
             : IconButton(
@@ -53,6 +54,30 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         .map((e) => (label: 'i18n://attributes.values.${value.atType}.${e.key}.label', value: e.value.toString()))
         .toList();
 
+    if (value is StreetAddressAttributeValue) {
+      // return Row(
+      //   children: [
+      //     Expanded(
+      //       child: Padding(
+      //         padding: const EdgeInsets.symmetric(vertical: 12),
+      //         child: Column(
+      //           mainAxisSize: MainAxisSize.max,
+      //           crossAxisAlignment: CrossAxisAlignment.start,
+      //           children: [
+      //             TranslatedText('i18n://attributes.values.${value.atType}._title', style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+      //           ],
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // );
+      final streetAddress = value as StreetAddressAttributeValue;
+      return StreetAddressAttributeRenderer(
+        value: streetAddress,
+        valueHints: valueHints,
+      );
+    }
+
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
@@ -62,12 +87,12 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     );
   }
 
-  String _getValueHintsTranslation(value) {
-    if (valueHints?.values == null) {
+  String _getValueHintsTranslation(value, ValueHints valueHints) {
+    if (valueHints.values == null) {
       return value;
     } else {
       try {
-        final valueHint = valueHints!.values!.firstWhere((valueHint) => valueHint.key.toJson() == value);
+        final valueHint = valueHints.values!.firstWhere((valueHint) => valueHint.key.toJson() == value);
         return valueHint.displayName;
       } on StateError {
         // no matching valueHint found
