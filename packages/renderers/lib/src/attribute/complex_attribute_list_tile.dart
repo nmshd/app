@@ -9,7 +9,6 @@ class ComplexAttributeListTile extends StatelessWidget {
   final List<({String label, String value})> fields;
   final ValueHints valueHints;
   final Widget? trailing;
-  final Future<void> Function(String valueType)? onUpdateAttribute;
   final String? valueType;
 
   const ComplexAttributeListTile({
@@ -18,7 +17,6 @@ class ComplexAttributeListTile extends StatelessWidget {
     required this.fields,
     required this.valueHints,
     this.trailing,
-    this.onUpdateAttribute,
     this.valueType,
   });
 
@@ -56,14 +54,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              width: 50,
-              child: trailing ??
-                  IconButton(
-                    onPressed: onUpdateAttribute != null && valueType != null ? () => onUpdateAttribute!(valueType!) : null,
-                    icon: const Icon(Icons.chevron_right),
-                  ),
-            ),
+            SizedBox(width: 50, child: trailing),
           ],
         ),
       ],

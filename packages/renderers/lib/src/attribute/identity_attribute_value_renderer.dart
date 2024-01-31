@@ -30,6 +30,12 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return StreetAddressAttributeRenderer(
         value: streetAddress,
         valueHints: valueHints,
+        trailing: onUpdateAttribute == null
+            ? null
+            : IconButton(
+                onPressed: () => onUpdateAttribute!(value.atType),
+                icon: const Icon(Icons.chevron_right),
+              ),
       );
     }
 
@@ -38,6 +44,12 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return DeliveryBoxAddressAttributeRenderer(
         value: deliveryAddress,
         valueHints: valueHints,
+        trailing: onUpdateAttribute == null
+            ? null
+            : IconButton(
+                onPressed: () => onUpdateAttribute!(value.atType),
+                icon: const Icon(Icons.chevron_right),
+              ),
       );
     }
 
@@ -46,6 +58,12 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return PostOfficeBoxAddressAttributeRenderer(
         value: postOfficeAddress,
         valueHints: valueHints,
+        trailing: onUpdateAttribute == null
+            ? null
+            : IconButton(
+                onPressed: () => onUpdateAttribute!(value.atType),
+                icon: const Icon(Icons.chevron_right),
+              ),
       );
     }
 
@@ -85,8 +103,13 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
       valueHints: valueHints,
-      onUpdateAttribute: onUpdateAttribute,
       valueType: value.atType,
+      trailing: onUpdateAttribute == null
+          ? null
+          : IconButton(
+              onPressed: () => onUpdateAttribute!(value.atType),
+              icon: const Icon(Icons.chevron_right),
+            ),
     );
   }
 }

@@ -39,7 +39,7 @@ class CustomListTile extends StatelessWidget {
             ),
           ),
         ),
-        if (trailing != null) SizedBox(width: 50, child: trailing),
+        SizedBox(width: 50, child: trailing),
       ],
     );
   }
