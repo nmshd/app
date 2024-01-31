@@ -7,12 +7,13 @@ import '../custom_list_tile.dart';
 
 class RelationshipAttributeValueRenderer extends StatelessWidget {
   final RelationshipAttributeValue value;
-  final Future<void> Function(String valueType)? onUpdateAttribute;
+  // TODO: render trailing
+  final Widget? trailing;
 
   const RelationshipAttributeValueRenderer({
     super.key,
     required this.value,
-    this.onUpdateAttribute,
+    this.trailing,
   });
 
   @override

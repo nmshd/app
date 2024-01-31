@@ -8,15 +8,15 @@ import '/src/custom_list_tile.dart';
 class DraftAttributeRenderer extends StatelessWidget {
   final DraftAttributeDVO draftAttribute;
   final bool? isRejected;
-  final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
+  final Widget? trailing;
 
   const DraftAttributeRenderer({
     super.key,
     required this.draftAttribute,
     this.isRejected,
-    this.onUpdateAttribute,
     this.checkboxSettings,
+    this.trailing,
   });
 
   @override
@@ -32,7 +32,7 @@ class DraftAttributeRenderer extends StatelessWidget {
         Expanded(
           child: isRejected ?? false
               ? CustomListTile(title: attributeContent.valueTypeAtTypeI18n)
-              : AttributeRenderer(attribute: attributeContent, onUpdateAttribute: onUpdateAttribute, valueHints: draftAttribute.valueHints),
+              : AttributeRenderer(attribute: attributeContent, trailing: trailing, valueHints: draftAttribute.valueHints),
         ),
       ],
     );

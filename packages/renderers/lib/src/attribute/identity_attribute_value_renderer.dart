@@ -12,21 +12,18 @@ import 'widgets/street_address_attribute_renderer.dart';
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
   final ValueHints valueHints;
-  final Future<void> Function(String valueType)? onUpdateAttribute;
+  final Widget? trailing;
 
   const IdentityAttributeValueRenderer({
     super.key,
     required this.value,
     required this.valueHints,
-    this.onUpdateAttribute,
+    this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
     final attributeValueMap = value.toJson();
-
-    final trailing =
-        onUpdateAttribute == null ? null : IconButton(onPressed: () => onUpdateAttribute!(value.atType), icon: const Icon(Icons.chevron_right));
 
     if (value is StreetAddressAttributeValue) {
       final streetAddress = value as StreetAddressAttributeValue;
