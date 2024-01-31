@@ -2,6 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
 
+import '../value_hint_translation.dart';
+
 class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
   final DeliveryBoxAddressAttributeValue value;
   final ValueHints valueHints;
@@ -21,11 +23,13 @@ class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TranslatedText('i18n://attributes.values.${value.atType}._title',
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF42474E),
-                )),
+            TranslatedText(
+              'i18n://attributes.values.${value.atType}._title',
+              style: const TextStyle(
+                fontSize: 12,
+                color: Color(0xFF42474E),
+              ),
+            ),
             TranslatedText(
               value.recipient,
               style: const TextStyle(fontSize: 16),

@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -100,16 +99,4 @@ class ValueHintsDefaultValueBool implements ValueHintsDefaultValue {
 
   @override
   int get hashCode => runtimeType.hashCode ^ value.hashCode;
-}
-
-extension Translation on ValueHints {
-  String getTranslation(
-    dynamic value,
-  ) {
-    if (values == null) return value;
-    final valueHint = values!.firstWhereOrNull((valueHint) => valueHint.key.toJson() == value);
-
-    if (valueHint == null) return value;
-    return valueHint.displayName;
-  }
 }

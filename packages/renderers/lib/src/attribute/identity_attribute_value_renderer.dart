@@ -4,7 +4,9 @@ import 'package:intl/intl.dart';
 
 import '../custom_list_tile.dart';
 import 'complex_attribute_list_tile.dart';
+import 'value_hint_translation.dart';
 import 'widgets/delivery_box_address_attribute_renderer.dart';
+import 'widgets/post_office_address_attribute_renderer.dart';
 import 'widgets/street_address_attribute_renderer.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
@@ -40,9 +42,9 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     }
 
     if (value is PostOfficeBoxAddressAttributeValue) {
-      final deliveryAddress = value as DeliveryBoxAddressAttributeValue;
-      return DeliveryBoxAddressAttributeRenderer(
-        value: deliveryAddress,
+      final postOfficeAddress = value as PostOfficeBoxAddressAttributeValue;
+      return PostOfficeBoxAddressAttributeRenderer(
+        value: postOfficeAddress,
         valueHints: valueHints,
       );
     }
