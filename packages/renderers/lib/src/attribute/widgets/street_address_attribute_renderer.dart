@@ -18,6 +18,7 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const textStyle = TextStyle(fontSize: 16);
     return Row(
       children: [
         Column(
@@ -30,18 +31,18 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
                 )),
             TranslatedText(
               value.recipient,
-              style: const TextStyle(fontSize: 16),
+              style: textStyle,
             ),
             Row(
               children: [
                 TranslatedText(
                   value.street,
-                  style: const TextStyle(fontSize: 16),
+                  style: textStyle,
                 ),
                 const SizedBox(width: 4),
                 TranslatedText(
                   value.houseNumber,
-                  style: const TextStyle(fontSize: 16),
+                  style: textStyle,
                 )
               ],
             ),
@@ -49,18 +50,18 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
               children: [
                 TranslatedText(
                   value.zipCode,
-                  style: const TextStyle(fontSize: 16),
+                  style: textStyle,
                 ),
                 const SizedBox(width: 4),
                 TranslatedText(
                   value.city,
-                  style: const TextStyle(fontSize: 16),
+                  style: textStyle,
                 )
               ],
             ),
             TranslatedText(
               valueHints.propertyHints!['country']!.getTranslation(value.country),
-              style: const TextStyle(fontSize: 16),
+              style: textStyle,
             )
           ],
         )
