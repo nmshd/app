@@ -57,10 +57,11 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
-          width: 50,
-          child: trailing,
-        )
+        if (trailing != null)
+          SizedBox(
+            width: 50,
+            child: trailing,
+          )
       ],
     );
   }
