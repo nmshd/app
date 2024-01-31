@@ -54,11 +54,12 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
         children: [
           Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           Expanded(
-              child: AttributeRenderer(
-            attribute: newAttribute!,
-            onUpdateAttribute: onUpdateAttribute,
-            valueHints: widget.item.attribute.valueHints,
-          )),
+            child: AttributeRenderer(
+              attribute: newAttribute!,
+              onUpdateAttribute: onUpdateAttribute,
+              valueHints: widget.item.attribute.valueHints,
+            ),
+          ),
         ],
       );
     }
