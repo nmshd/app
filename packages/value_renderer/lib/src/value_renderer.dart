@@ -14,6 +14,7 @@ class ValueRenderer extends StatelessWidget {
   final RenderHints renderHints;
   final ValueHints valueHints;
   final String? valueType;
+  final bool mustBeFilledOut;
 
   final ValueRendererController? controller;
 
@@ -26,6 +27,7 @@ class ValueRenderer extends StatelessWidget {
     required this.valueHints,
     this.controller,
     this.valueType,
+    this.mustBeFilledOut = false,
   });
 
   @override
@@ -43,6 +45,7 @@ class ValueRenderer extends StatelessWidget {
         dataType: dataType,
         fieldName: fieldName,
         initialValue: initialValue,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values,
         valueHints: valueHints,
@@ -56,6 +59,7 @@ class ValueRenderer extends StatelessWidget {
         editType: editType,
         fieldName: fieldName,
         initialValue: initialValue,
+        mustBeFilledOut: mustBeFilledOut,
         renderHints: renderHints,
         valueHints: valueHints,
         valueType: valueType,
@@ -70,6 +74,7 @@ class ValueRenderer extends StatelessWidget {
         editType: editType,
         fieldName: fieldName,
         initialValue: initialValue,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         valueHints: valueHints,
         values: values,
@@ -83,6 +88,7 @@ class ValueRenderer extends StatelessWidget {
         decoration: decoration,
         editType: editType,
         initialValue: initialValue,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         fieldName: fieldName,
         values: values,

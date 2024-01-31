@@ -14,6 +14,7 @@ class NumberInput extends StatefulWidget {
   final num? initialValue;
   final num? max;
   final num? min;
+  final bool mustBeFilledOut;
   final String? pattern;
   final RenderHintsTechnicalType technicalType;
   final List<ValueHintsValue>? values;
@@ -26,6 +27,7 @@ class NumberInput extends StatefulWidget {
     this.initialValue,
     this.max,
     this.min,
+    required this.mustBeFilledOut,
     this.pattern,
     required this.technicalType,
     this.values,
@@ -74,7 +76,7 @@ class NumberInputState extends State<NumberInput> {
       child: TextFormField(
         controller: _controller,
         keyboardType: TextInputType.number,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.always,
         validator: (value) => validateInput(value),
         inputFormatters: [
           widget.technicalType == RenderHintsTechnicalType.Float
@@ -88,18 +90,18 @@ class NumberInputState extends State<NumberInput> {
   }
 
   String? validateInput(input) {
-    if (input.isEmpty) {
+    if (input.isEmpty && widget.mustBeFilledOut) {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
     } else {
       final numInput = num.parse(input);
 
       if (!validateMaxValue(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.maxValue', translationParams: {'value': widget.max!.toString()});
-      } else if (!validateMinValue(numInput)) {
+      } else if (input.isNotEmpty && !validateMinValue(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.minValue', translationParams: {'value': widget.min!.toString()});
-      } else if (!validateFormat(input)) {
+      } else if (input.isNotEmpty && !validateFormat(input)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
-      } else if (!validateEquality(numInput)) {
+      } else if (input.isNotEmpty && !validateEquality(numInput)) {
         return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
       } else {
         return null;

@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../utils/utils.dart';
@@ -12,6 +13,7 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
     InputDecoration? decoration,
     required String fieldName,
     super.initialValue,
+    required bool mustBeFilledOut,
     super.onSaved,
     required RenderHintsTechnicalType technicalType,
     super.validator,
@@ -28,7 +30,10 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TranslatedText(fieldName),
+                TranslatedText(
+                  fieldName,
+                  style: field.value == null && mustBeFilledOut ? const TextStyle(color: Color(0xFFb3261e)) : null,
+                ),
                 ...values.map(
                   (option) => InputDecorator(
                     decoration: decoration ?? const InputDecoration(border: InputBorder.none),
@@ -43,11 +48,20 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
                           inputValue: value,
                           type: technicalType,
                         );
+
                         field.didChange(value);
                       },
                     ),
                   ),
                 ),
+                if (field.value == null && mustBeFilledOut)
+                  Text(
+                    FlutterI18n.translate(
+                      field.context,
+                      'errors.value_renderer.emptyField',
+                    ),
+                    style: const TextStyle(color: Color(0xFFb3261e), fontSize: 12),
+                  )
               ],
             );
           },

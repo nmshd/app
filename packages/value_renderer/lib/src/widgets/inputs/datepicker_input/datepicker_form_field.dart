@@ -9,11 +9,11 @@ import '/value_renderer.dart';
 class DatepickerFormField extends FormField<DateTime> {
   DatepickerFormField({
     super.key,
-    super.autovalidateMode,
     ValueRendererController? controller,
     TextStyle? dateTextStyle,
     DateFormat? dateFormat,
     InputDecoration? decoration,
+    required bool mustBeFilledOut,
     super.enabled,
     required String fieldName,
     DateTime? firstDate,
@@ -21,10 +21,12 @@ class DatepickerFormField extends FormField<DateTime> {
     AttributeValue? initialValueAttribute,
     DateTime? lastDate,
     ValueChanged<DateTime>? onDateSelected,
+    String? emptyFieldMessage,
     super.onSaved,
-    super.validator,
   }) : super(
           initialValue: getInitialDateAttribute(initialValueAttribute),
+          autovalidateMode: AutovalidateMode.always,
+          validator: (value) => value == null && mustBeFilledOut ? emptyFieldMessage : null,
           builder: (FormFieldState<DateTime> field) {
             if (field.value != null) controller?.value = ValueRendererInputValueDateTime(field.value!);
 

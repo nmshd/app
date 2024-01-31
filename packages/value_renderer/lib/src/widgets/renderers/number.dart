@@ -11,6 +11,7 @@ class NumberRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
+  final bool mustBeFilledOut;
   final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
@@ -23,6 +24,7 @@ class NumberRenderer extends StatelessWidget {
     this.editType,
     required this.fieldName,
     required this.initialValue,
+    required this.mustBeFilledOut,
     required this.technicalType,
     required this.valueHints,
     this.values,
@@ -48,6 +50,7 @@ class NumberRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
       );
@@ -72,6 +75,7 @@ class NumberRenderer extends StatelessWidget {
         controller: controller,
         decoration: decoration,
         fieldName: fieldName,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
@@ -89,6 +93,7 @@ class NumberRenderer extends StatelessWidget {
         values: values,
         initialValue: initialNumberValue,
         max: max,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
       );
     }
@@ -102,6 +107,7 @@ class NumberRenderer extends StatelessWidget {
         initialValue: initialNumberValue,
         min: min,
         max: max,
+        mustBeFilledOut: mustBeFilledOut,
         pattern: pattern,
         technicalType: technicalType,
       );
@@ -112,9 +118,10 @@ class NumberRenderer extends StatelessWidget {
         controller: controller,
         decoration: decoration,
         fieldName: fieldName,
+        initialValue: valueHintsDefaultValue,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
-        initialValue: valueHintsDefaultValue,
       );
     }
 
@@ -137,6 +144,7 @@ class NumberRenderer extends StatelessWidget {
       fieldName: fieldName,
       initialValue: initialNumberValue,
       max: max,
+      mustBeFilledOut: mustBeFilledOut,
       pattern: pattern,
       technicalType: technicalType,
     );
