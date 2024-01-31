@@ -54,9 +54,10 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
           child: IdentityAttributeValueRenderer(
-              value: query.results.first.value as IdentityAttributeValue,
-              onUpdateAttribute: onUpdateAttribute,
-              valueHints: query.results.first.valueHints),
+            value: query.results.first.value as IdentityAttributeValue,
+            onUpdateAttribute: onUpdateAttribute,
+            valueHints: query.results.first.valueHints,
+          ),
         ),
       ],
     );
