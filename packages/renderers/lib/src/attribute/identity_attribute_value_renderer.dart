@@ -25,17 +25,15 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final attributeValueMap = value.toJson();
 
+    final trailing =
+        onUpdateAttribute == null ? null : IconButton(onPressed: () => onUpdateAttribute!(value.atType), icon: const Icon(Icons.chevron_right));
+
     if (value is StreetAddressAttributeValue) {
       final streetAddress = value as StreetAddressAttributeValue;
       return StreetAddressAttributeRenderer(
         value: streetAddress,
         valueHints: valueHints,
-        trailing: onUpdateAttribute == null
-            ? null
-            : IconButton(
-                onPressed: () => onUpdateAttribute!(value.atType),
-                icon: const Icon(Icons.chevron_right),
-              ),
+        trailing: trailing,
       );
     }
 
@@ -44,12 +42,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return DeliveryBoxAddressAttributeRenderer(
         value: deliveryAddress,
         valueHints: valueHints,
-        trailing: onUpdateAttribute == null
-            ? null
-            : IconButton(
-                onPressed: () => onUpdateAttribute!(value.atType),
-                icon: const Icon(Icons.chevron_right),
-              ),
+        trailing: trailing,
       );
     }
 
@@ -58,12 +51,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return PostOfficeBoxAddressAttributeRenderer(
         value: postOfficeAddress,
         valueHints: valueHints,
-        trailing: onUpdateAttribute == null
-            ? null
-            : IconButton(
-                onPressed: () => onUpdateAttribute!(value.atType),
-                icon: const Icon(Icons.chevron_right),
-              ),
+        trailing: trailing,
       );
     }
 
@@ -72,12 +60,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime(birthDate.year, birthDate.month, birthDate.day)),
-        trailing: onUpdateAttribute == null
-            ? null
-            : IconButton(
-                onPressed: () => onUpdateAttribute!(value.atType),
-                icon: const Icon(Icons.chevron_right),
-              ),
+        trailing: trailing,
       );
     }
 
@@ -85,12 +68,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: valueHints.getTranslation(attributeValueMap['value'].toString()),
-        trailing: onUpdateAttribute == null
-            ? null
-            : IconButton(
-                onPressed: () => onUpdateAttribute!(value.atType),
-                icon: const Icon(Icons.chevron_right),
-              ),
+        trailing: trailing,
       );
     }
 
@@ -104,12 +82,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       fields: fields,
       valueHints: valueHints,
       valueType: value.atType,
-      trailing: onUpdateAttribute == null
-          ? null
-          : IconButton(
-              onPressed: () => onUpdateAttribute!(value.atType),
-              icon: const Icon(Icons.chevron_right),
-            ),
+      trailing: trailing,
     );
   }
 }

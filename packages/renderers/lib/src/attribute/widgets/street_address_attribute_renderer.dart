@@ -25,11 +25,13 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TranslatedText('i18n://attributes.values.${value.atType}._title',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF42474E),
-                  )),
+              TranslatedText(
+                'i18n://attributes.values.${value.atType}._title',
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF42474E),
+                ),
+              ),
               TranslatedText(
                 value.recipient,
                 style: textStyle,
@@ -67,11 +69,7 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
             ],
           ),
         ),
-        if (trailing != null)
-          SizedBox(
-            width: 50,
-            child: trailing,
-          )
+        if (trailing != null) SizedBox(width: 50, child: trailing)
       ],
     );
   }

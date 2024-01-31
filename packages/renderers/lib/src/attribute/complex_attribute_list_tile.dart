@@ -47,8 +47,10 @@ class ComplexAttributeListTile extends StatelessWidget {
                     children: [
                       TranslatedText(label, style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      TranslatedText(valueHints.propertyHints!.values.elementAt(index).getTranslation(field.value),
-                          style: const TextStyle(fontSize: 16)),
+                      TranslatedText(
+                        valueHints.propertyHints!.values.elementAt(index).getTranslation(field.value),
+                        style: const TextStyle(fontSize: 16),
+                      ),
                     ],
                   );
                 },
