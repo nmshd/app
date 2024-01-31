@@ -16,9 +16,10 @@ class AttributeRenderer extends StatelessWidget {
     this.trailing,
   });
 
-  factory AttributeRenderer.localAttribute(LocalAttributeDVO attribute) => AttributeRenderer(
+  factory AttributeRenderer.localAttribute({required LocalAttributeDVO attribute, Widget? trailing}) => AttributeRenderer(
         attribute: attribute.content,
         valueHints: attribute.valueHints,
+        trailing: trailing,
       );
 
   @override
