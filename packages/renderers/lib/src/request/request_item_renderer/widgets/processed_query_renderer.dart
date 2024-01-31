@@ -58,7 +58,10 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         Expanded(
           child: IdentityAttributeValueRenderer(
             value: query.results.first.value as IdentityAttributeValue,
-            onUpdateAttribute: onUpdateAttribute,
+            trailing: onUpdateAttribute == null
+                ? null
+                : IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
+            valueHints: query.results.first.valueHints,
           ),
         ),
       ],

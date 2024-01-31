@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '../widgets/draft_attribute_renderer.dart';
 import '/src/attribute/attribute_renderer.dart';
+import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
@@ -49,11 +49,19 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
   @override
   Widget build(BuildContext context) {
+    final trailing = IconButton(onPressed: () => onUpdateAttribute(widget.item.attribute.valueType), icon: const Icon(Icons.chevron_right));
+
     if (newAttribute != null) {
       return Row(
         children: [
           Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          Expanded(child: AttributeRenderer(attribute: newAttribute!, onUpdateAttribute: onUpdateAttribute)),
+          Expanded(
+            child: AttributeRenderer(
+              attribute: newAttribute!,
+              trailing: trailing,
+              valueHints: widget.item.attribute.valueHints,
+            ),
+          ),
         ],
       );
     }
@@ -61,7 +69,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     return DraftAttributeRenderer(
       draftAttribute: widget.item.attribute,
       checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-      onUpdateAttribute: onUpdateAttribute,
+      trailing: trailing,
     );
   }
 

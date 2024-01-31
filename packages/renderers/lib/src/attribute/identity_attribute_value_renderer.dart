@@ -4,45 +4,68 @@ import 'package:intl/intl.dart';
 
 import '../custom_list_tile.dart';
 import 'complex_attribute_list_tile.dart';
+import 'value_hint_translation.dart';
+import 'widgets/delivery_box_address_attribute_renderer.dart';
+import 'widgets/post_office_address_attribute_renderer.dart';
+import 'widgets/street_address_attribute_renderer.dart';
 
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
-  final Future<void> Function(String valueType)? onUpdateAttribute;
+  final ValueHints valueHints;
+  final Widget? trailing;
 
   const IdentityAttributeValueRenderer({
     super.key,
     required this.value,
-    this.onUpdateAttribute,
+    required this.valueHints,
+    this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
     final attributeValueMap = value.toJson();
 
+    if (value is StreetAddressAttributeValue) {
+      final streetAddress = value as StreetAddressAttributeValue;
+      return StreetAddressAttributeRenderer(
+        value: streetAddress,
+        valueHints: valueHints,
+        trailing: trailing,
+      );
+    }
+
+    if (value is DeliveryBoxAddressAttributeValue) {
+      final deliveryAddress = value as DeliveryBoxAddressAttributeValue;
+      return DeliveryBoxAddressAttributeRenderer(
+        value: deliveryAddress,
+        valueHints: valueHints,
+        trailing: trailing,
+      );
+    }
+
+    if (value is PostOfficeBoxAddressAttributeValue) {
+      final postOfficeAddress = value as PostOfficeBoxAddressAttributeValue;
+      return PostOfficeBoxAddressAttributeRenderer(
+        value: postOfficeAddress,
+        valueHints: valueHints,
+        trailing: trailing,
+      );
+    }
+
     if (value is BirthDateAttributeValue) {
       final birthDate = value as BirthDateAttributeValue;
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime(birthDate.year, birthDate.month, birthDate.day)),
-        trailing: onUpdateAttribute == null
-            ? null
-            : IconButton(
-                onPressed: () => onUpdateAttribute!(value.atType),
-                icon: const Icon(Icons.chevron_right),
-              ),
+        trailing: trailing,
       );
     }
 
     if (attributeValueMap.containsKey('value') && attributeValueMap.length == 2) {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
-        description: attributeValueMap['value'].toString(),
-        trailing: onUpdateAttribute == null
-            ? null
-            : IconButton(
-                onPressed: () => onUpdateAttribute!(value.atType),
-                icon: const Icon(Icons.chevron_right),
-              ),
+        description: valueHints.getTranslation(attributeValueMap['value'].toString()),
+        trailing: trailing,
       );
     }
 
@@ -54,8 +77,9 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     return ComplexAttributeListTile(
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
-      onUpdateAttribute: onUpdateAttribute,
+      valueHints: valueHints,
       valueType: value.atType,
+      trailing: trailing,
     );
   }
 }

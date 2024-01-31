@@ -6,13 +6,20 @@ import 'relationship_attribute_value_renderer.dart';
 
 class AttributeRenderer extends StatelessWidget {
   final AbstractAttribute attribute;
-  final Future<void> Function(String valueType)? onUpdateAttribute;
+  final ValueHints valueHints;
+  final Widget? trailing;
 
   const AttributeRenderer({
     super.key,
     required this.attribute,
-    this.onUpdateAttribute,
+    required this.valueHints,
+    this.trailing,
   });
+
+  factory AttributeRenderer.localAttribute(LocalAttributeDVO attribute) => AttributeRenderer(
+        attribute: attribute.content,
+        valueHints: attribute.valueHints,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +28,15 @@ class AttributeRenderer extends StatelessWidget {
     if (attribute is IdentityAttribute) {
       return IdentityAttributeValueRenderer(
         value: attribute.value,
-        onUpdateAttribute: onUpdateAttribute,
+        valueHints: valueHints,
+        trailing: trailing,
       );
     }
 
     if (attribute is RelationshipAttribute) {
       return RelationshipAttributeValueRenderer(
         value: attribute.value,
-        onUpdateAttribute: onUpdateAttribute,
+        trailing: trailing,
       );
     }
 
