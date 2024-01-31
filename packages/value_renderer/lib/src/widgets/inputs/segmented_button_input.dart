@@ -13,13 +13,13 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
     InputDecoration? decoration,
     required String fieldName,
     super.initialValue,
+    required bool mustBeFilledOut,
     super.onSaved,
     required RenderHintsTechnicalType technicalType,
     super.validator,
     required List<ValueHintsValue> values,
   }) : super(
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
-            final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(field.context, fieldName.substring(7)) : fieldName;
             if (field.value != null) {
               controller?.value = ControllerTypeResolver.resolveType(
                 inputValue: field.value,
@@ -30,10 +30,14 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(padding: const EdgeInsets.only(left: 16), child: Text(translatedText)),
+                TranslatedText(
+                  fieldName,
+                  style: field.value == null && mustBeFilledOut ? const TextStyle(color: Color(0xFFb3261e)) : null,
+                ),
                 InputDecorator(
                   decoration: decoration ?? const InputDecoration(border: InputBorder.none),
                   child: SegmentedButton<ValueHintsDefaultValue>(
+                    emptySelectionAllowed: true,
                     selected: field.value == null ? {} : {field.value!},
                     segments: values.map((ValueHintsValue value) {
                       return ButtonSegment<ValueHintsDefaultValue>(
@@ -47,6 +51,14 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
                     },
                   ),
                 ),
+                if (field.value == null && mustBeFilledOut)
+                  Text(
+                    FlutterI18n.translate(
+                      field.context,
+                      'errors.value_renderer.emptyField',
+                    ),
+                    style: const TextStyle(color: Color(0xFFb3261e), fontSize: 12),
+                  )
               ],
             );
           },

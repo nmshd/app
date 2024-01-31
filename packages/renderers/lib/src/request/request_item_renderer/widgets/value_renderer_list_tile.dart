@@ -14,6 +14,7 @@ class ValueRendererListTile extends StatefulWidget {
   final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
   final String? valueType;
   final CheckboxSettings? checkboxSettings;
+  final bool mustBeAccepted;
 
   const ValueRendererListTile({
     super.key,
@@ -26,6 +27,7 @@ class ValueRendererListTile extends StatefulWidget {
     this.valueType,
     this.checkboxSettings,
     required this.onUpdateInput,
+    required this.mustBeAccepted,
   });
 
   @override
@@ -74,6 +76,7 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
               initialValue: widget.initialValue,
               valueType: widget.valueType,
               controller: controller,
+              mustBeFilledOut: widget.checkboxSettings?.isChecked ?? widget.mustBeAccepted,
             ),
           ),
           const SizedBox(width: 50)

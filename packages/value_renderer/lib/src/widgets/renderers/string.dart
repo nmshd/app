@@ -11,6 +11,7 @@ class StringRenderer extends StatelessWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
+  final bool mustBeFilledOut;
   final RenderHintsTechnicalType technicalType;
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
@@ -23,6 +24,7 @@ class StringRenderer extends StatelessWidget {
     this.editType,
     required this.fieldName,
     required this.initialValue,
+    required this.mustBeFilledOut,
     required this.technicalType,
     required this.valueHints,
     this.values,
@@ -47,6 +49,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
       );
@@ -58,6 +61,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
       );
@@ -72,6 +76,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        mustBeFilledOut: mustBeFilledOut,
         values: values,
       );
     }
@@ -82,6 +87,7 @@ class StringRenderer extends StatelessWidget {
         decoration: decoration,
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
+        mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
       );
@@ -94,6 +100,7 @@ class StringRenderer extends StatelessWidget {
         fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         max: max,
+        mustBeFilledOut: mustBeFilledOut,
         pattern: pattern,
         values: values!,
       );
@@ -106,6 +113,7 @@ class StringRenderer extends StatelessWidget {
       initialValue: valueHintsDefaultValue,
       pattern: pattern,
       max: max,
+      mustBeFilledOut: mustBeFilledOut,
     );
   }
 }

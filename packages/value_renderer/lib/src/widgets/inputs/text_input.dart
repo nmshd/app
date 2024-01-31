@@ -12,6 +12,7 @@ class TextInput extends StatefulWidget {
   final String fieldName;
   final ValueHintsDefaultValueString? initialValue;
   final int? max;
+  final bool mustBeFilledOut;
   final String? pattern;
   final List<ValueHintsValue>? values;
 
@@ -22,6 +23,7 @@ class TextInput extends StatefulWidget {
     required this.fieldName,
     required this.initialValue,
     this.max,
+    required this.mustBeFilledOut,
     this.pattern,
     this.values,
   });
@@ -67,7 +69,7 @@ class TextInputState extends State<TextInput> {
       child: TextFormField(
         maxLength: widget.max,
         controller: _controller,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.always,
         validator: (value) => validateInput(value),
         decoration:
             widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
@@ -76,11 +78,11 @@ class TextInputState extends State<TextInput> {
   }
 
   String? validateInput(input) {
-    if (input.isEmpty) {
+    if (input.isEmpty && widget.mustBeFilledOut) {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
-    } else if (!validateEquality(input)) {
+    } else if (input.isNotEmpty && !validateEquality(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
-    } else if (!validateFormat(input)) {
+    } else if (input.isNotEmpty && !validateFormat(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
     }
     return null;

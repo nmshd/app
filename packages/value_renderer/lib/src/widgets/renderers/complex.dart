@@ -14,6 +14,7 @@ class ComplexRenderer extends StatefulWidget {
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
+  final bool mustBeFilledOut;
   final RenderHints renderHints;
   final ValueHints valueHints;
   final String? valueType;
@@ -26,6 +27,7 @@ class ComplexRenderer extends StatefulWidget {
     this.editType,
     required this.fieldName,
     required this.initialValue,
+    required this.mustBeFilledOut,
     required this.renderHints,
     required this.valueHints,
     this.valueType,
@@ -78,9 +80,11 @@ class _ComplexRendererState extends State<ComplexRenderer> {
     if (widget.initialValue is BirthDateAttributeValue || widget.valueType == 'BirthDate') {
       return DatepickerFormField(
         controller: widget.controller,
+        emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
         initialValueAttribute: widget.initialValue,
-        fieldName: translatedText,
         decoration: widget.decoration,
+        fieldName: translatedText,
+        mustBeFilledOut: widget.mustBeFilledOut,
       );
     }
 
