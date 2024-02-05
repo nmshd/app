@@ -17,17 +17,8 @@ class AttributesFacadeView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
-
-              final attribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
-                content: {
-                  '@type': 'IdentityAttribute',
-                  'value': {
-                    '@type': 'DisplayName',
-                    'value': 'ADisplayName',
-                  },
-                  'owner': identityInfo.value.address,
-                },
+              final attribute = await runtime.currentSession.consumptionServices.attributes.createIdentityAttribute(
+                value: const DisplayNameAttributeValue(value: 'ADisplayName'),
               );
               print(attribute);
             },
@@ -36,76 +27,15 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
-
-              final phAttribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
-                content: {
-                  '@type': 'IdentityAttribute',
-                  'value': {
-                    '@type': 'DisplayName',
-                    'value': 'ADisplayName',
-                  },
-                  'owner': identityInfo.value.address,
-                },
-              );
-              final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
-
-              final attributeId = phAttribute.value.id;
-              final peer = relationships.value.first.peer;
-              const requestReference = 'REQIDXXXXXXXXXXXXXXX';
-              final attribute = await runtime.currentSession.consumptionServices.attributes.createSharedAttributeCopy(
-                attributeId: attributeId,
-                peer: peer,
-                requestReference: requestReference,
-              );
-              print(attribute);
-            },
-            child: const Text('createSharedAttributeCopy'),
-          ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () async {
-              final attributes = await runtime.currentSession.consumptionServices.attributes.getAttributes();
-              if (attributes.value.isEmpty) {
-                final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
-
-                final attribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
-                  content: {
-                    '@type': 'IdentityAttribute',
-                    'value': {
-                      '@type': 'DisplayName',
-                      'value': 'ADisplayName',
-                    },
-                    'owner': identityInfo.value.address,
-                  },
-                );
-                attributes.value.add(attribute.value);
-              }
-
-              print('attributes length before delete: ${attributes.value.length}');
-              final attributeId = attributes.value.first.id;
-              await runtime.currentSession.consumptionServices.attributes.deleteAttribute(
-                attributeId: attributeId,
-              );
-
-              final attributesAfterDelete = await runtime.currentSession.consumptionServices.attributes.getAttributes();
-
-              print('attributes length after delete: ${attributesAfterDelete.value.length}');
-            },
-            child: const Text('deleteAttribute'),
-          ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () async {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
 
               final peer = relationships.value.first.peer;
-              final attributes = await runtime.currentSession.consumptionServices.attributes.getPeerAttributes(
+              final attributes = await runtime.currentSession.consumptionServices.attributes.getPeerSharedAttributes(
                 peer: peer,
               );
               print(attributes);
             },
-            child: const Text('getPeerAttributes'),
+            child: const Text('getPeerSharedAttributes'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
@@ -113,12 +43,12 @@ class AttributesFacadeView extends StatelessWidget {
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
 
               final peer = relationships.value.first.peer;
-              final attributes = await runtime.currentSession.consumptionServices.attributes.getSharedToPeerAttributes(
+              final attributes = await runtime.currentSession.consumptionServices.attributes.getOwnSharedAttributes(
                 peer: peer,
               );
               print(attributes);
             },
-            child: const Text('getSharedToPeerAttributes'),
+            child: const Text('getOwnSharedAttributes'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
@@ -147,17 +77,8 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
-
-              await runtime.currentSession.consumptionServices.attributes.createAttribute(
-                content: {
-                  '@type': 'IdentityAttribute',
-                  'value': {
-                    '@type': 'PhoneNumber',
-                    'value': '012345678910',
-                  },
-                  'owner': identityInfo.value.address,
-                },
+              await runtime.currentSession.consumptionServices.attributes.createIdentityAttribute(
+                value: const PhoneNumberAttributeValue(value: '012345678910'),
               );
 
               const query = IdentityAttributeQuery(valueType: 'PhoneNumber');
@@ -167,42 +88,6 @@ class AttributesFacadeView extends StatelessWidget {
               print(attributes);
             },
             child: const Text('executeIdentityAttributeQuery'),
-          ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
-
-              await runtime.currentSession.consumptionServices.attributes.createAttribute(
-                content: {
-                  '@type': 'RelationshipAttribute',
-                  'value': {
-                    '@type': 'ProprietaryString',
-                    'title': 'aTitle',
-                    'value': 'aProprietaryStringValue',
-                  },
-                  'key': 'website',
-                  'confidentiality': 'protected',
-                  'owner': identityInfo.value.address,
-                },
-              );
-              final owner = identityInfo.value.address;
-              const attributeCreationHints = RelationshipAttributeCreationHints(
-                title: 'AnAttributeHint',
-                valueType: 'ProprietaryString',
-                confidentiality: 'protected',
-              );
-              final query = RelationshipAttributeQuery(
-                key: 'website',
-                owner: owner,
-                attributeCreationHints: attributeCreationHints,
-              );
-              final attribute = await runtime.currentSession.consumptionServices.attributes.executeRelationshipAttributeQuery(
-                query: query,
-              );
-              print(attribute);
-            },
-            child: const Text('executeRelationshipAttributeQuery'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
@@ -221,114 +106,15 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
-
-              final displayNameParams = {
-                '@type': 'IdentityAttribute',
-                'value': {'@type': 'DisplayName', 'value': 'ADisplayName'},
-                'owner': identityInfo.value.address,
-              };
-
-              final successorDate = DateTime.now().toUtc();
-
-              final attribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
-                content: displayNameParams,
-              );
-              print(attribute);
-              final attributeId = attribute.value.id;
-
-              final successorContent = {
-                '@type': 'IdentityAttribute',
-                'value': {'@type': 'DisplayName', 'value': 'ANewDisplayName'},
-                'owner': identityInfo.value.address,
-                'validFrom': successorDate.toString(),
-              };
-              final succeeds = attributeId;
-              final successor = await runtime.currentSession.consumptionServices.attributes.succeedAttribute(
-                successorContent: successorContent,
-                succeeds: succeeds,
-              );
-              print(successor);
-            },
-            child: const Text('succeedAttribute'),
-          ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
-
-              final createdAttribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
-                content: {
-                  '@type': 'IdentityAttribute',
-                  'value': {
-                    '@type': 'StreetAddress',
-                    'recipient': 'ARecipient',
-                    'street': 'AStreet',
-                    'houseNo': 'AHouseNo',
-                    'zipCode': 'AZipCode',
-                    'city': 'ACity',
-                    'country': 'DE',
-                  },
-                  'validTo': DateTime.now().toUtc().toString(),
-                  'owner': identityInfo.value.address,
-                },
-              );
-              final updatedAttribute = {
-                '@type': 'IdentityAttribute',
-                'value': {
-                  '@type': 'StreetAddress',
-                  'recipient': 'ANewRecipient',
-                  'street': 'ANewStreet',
-                  'houseNo': 'ANewHouseNo',
-                  'zipCode': 'ANewZipCode',
-                  'city': 'ANewCity',
-                  'country': 'DE',
-                },
-                'validTo': DateTime.now().toUtc().toString(),
-                'owner': identityInfo.value.address,
-              };
-
-              final attributeId = createdAttribute.value.id;
-              final content = updatedAttribute;
-
-              final attributeBU = await runtime.currentSession.consumptionServices.attributes.getAttribute(
-                attributeId: attributeId,
-              );
-
-              final attribute = await runtime.currentSession.consumptionServices.attributes.updateAttribute(
-                attributeId: attributeId,
-                content: content,
-              );
-
-              final attributeAU = await runtime.currentSession.consumptionServices.attributes.getAttribute(
-                attributeId: attributeId,
-              );
-              print(attribute);
-              print('attributeBU');
-              print(attributeBU);
-              print('attributeAU');
-              print(attributeAU);
-            },
-            child: const Text('updateAttribute'),
-          ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () async {
-              final identityInfo = await runtime.currentSession.transportServices.account.getIdentityInfo();
-
-              final createdAttribute = await runtime.currentSession.consumptionServices.attributes.createAttribute(
-                content: {
-                  '@type': 'IdentityAttribute',
-                  'value': {'@type': 'PhoneNumber', 'value': '012345678910'},
-                  'owner': identityInfo.value.address,
-                },
+              final createdAttribute = await runtime.currentSession.consumptionServices.attributes.createIdentityAttribute(
+                value: const PhoneNumberAttributeValue(value: '012345678910'),
               );
 
               final relationships = await runtime.currentSession.transportServices.relationships.getRelationships();
 
               final attributeId = createdAttribute.value.id;
               final peer = relationships.value.last.peer;
-              final request = await runtime.currentSession.consumptionServices.attributes.shareAttribute(
+              final request = await runtime.currentSession.consumptionServices.attributes.shareIdentityAttribute(
                 attributeId: attributeId,
                 peer: peer,
               );

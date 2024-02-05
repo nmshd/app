@@ -126,16 +126,16 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
   return await syncUntilHasRelationship(session1);
 }
 
-Future<void> shareAndAcceptPeerAttribute(
+Future<AbstractAttribute> shareAndAcceptPeerAttribute(
   Session sender,
   Session recipient,
   String recipientAddress,
-  AbstractAttribute attribute,
+  IdentityAttributeValue attributeValue,
 ) async {
-  final createdAttributeResult = await sender.consumptionServices.attributes.createAttribute(content: attribute.toJson());
+  final createdAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(value: attributeValue);
   final createdAttribute = createdAttributeResult.value;
 
-  final shareAttributeResult = await sender.consumptionServices.attributes.shareAttribute(
+  final shareAttributeResult = await sender.consumptionServices.attributes.shareIdentityAttribute(
     attributeId: createdAttribute.id,
     peer: recipientAddress,
   );
@@ -146,26 +146,45 @@ Future<void> shareAndAcceptPeerAttribute(
   await recipient.consumptionServices.incomingRequests.accept(
     params: DecideRequestParameters(requestId: sharedAttribute.id, items: [
       AcceptReadAttributeRequestItemParametersWithNewAttribute(
+        newAttribute: createdAttribute.content,
+      ),
+    ]),
+  );
+
+  await syncUntilHasMessage(sender);
+
+  return createdAttribute.content;
+}
+
+Future<AbstractAttribute> shareAndAcceptRelationshipAttribute(
+  Session sender,
+  Session recipient,
+  String recipientAddress,
+  RelationshipAttributeValue attributeValue,
+) async {
+  final requestResult = await sender.consumptionServices.attributes.createAndShareRelationshipAttribute(
+    value: attributeValue,
+    key: 'aKey',
+    confidentiality: RelationshipAttributeConfidentiality.public,
+    peer: recipientAddress,
+  );
+  final request = requestResult.value;
+
+  await syncUntilHasMessage(recipient);
+
+  final attribute = (request.content.items.first as CreateAttributeRequestItem).attribute;
+
+  await recipient.consumptionServices.incomingRequests.accept(
+    params: DecideRequestParameters(requestId: request.id, items: [
+      AcceptReadAttributeRequestItemParametersWithNewAttribute(
         newAttribute: attribute,
       ),
     ]),
   );
 
   await syncUntilHasMessage(sender);
-}
 
-Future<LocalAttributeDTO> establishSharedAttributeCopy(Session sender, String senderAddress, String peer, AbstractAttribute attribute) async {
-  final createdAttributeResult = await sender.consumptionServices.attributes.createAttribute(content: attribute.toJson());
-  final createdAttribute = createdAttributeResult.value;
-
-  final sharedAttributeResult = await sender.consumptionServices.attributes.createSharedAttributeCopy(
-    attributeId: createdAttribute.id,
-    peer: peer,
-    requestReference: 'REQIDXXXXXXXXXXXXXXX',
-  );
-  final sharedAttribute = sharedAttributeResult.value;
-
-  return sharedAttribute;
+  return attribute;
 }
 
 Future<void> exchangeAndAcceptRequestByMessage(
