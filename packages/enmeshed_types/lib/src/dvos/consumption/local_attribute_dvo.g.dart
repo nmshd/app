@@ -58,8 +58,8 @@ Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO insta
   val['createdAt'] = instance.createdAt;
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
-  val['tags'] = instance.tags;
   val['sharedWith'] = instance.sharedWith.map((e) => e.toJson()).toList();
+  val['tags'] = instance.tags;
   return val;
 }
 
@@ -84,7 +84,8 @@ SharedToPeerAttributeDVO _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic>
       succeeds: json['succeeds'] as String?,
       succeededBy: json['succeededBy'] as String?,
       peer: json['peer'] as String,
-      requestReference: json['requestReference'] as String,
+      requestReference: json['requestReference'] as String?,
+      notificationReference: json['notificationReference'] as String?,
       sourceAttribute: json['sourceAttribute'] as String,
     );
 
@@ -117,10 +118,11 @@ Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO i
   val['createdAt'] = instance.createdAt;
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
-  val['tags'] = instance.tags;
   val['peer'] = instance.peer;
-  val['requestReference'] = instance.requestReference;
+  writeNotNull('requestReference', instance.requestReference);
+  writeNotNull('notificationReference', instance.notificationReference);
   val['sourceAttribute'] = instance.sourceAttribute;
+  val['tags'] = instance.tags;
   return val;
 }
 
@@ -144,7 +146,9 @@ PeerAttributeDVO _$PeerAttributeDVOFromJson(Map<String, dynamic> json) => PeerAt
       succeeds: json['succeeds'] as String?,
       succeededBy: json['succeededBy'] as String?,
       peer: json['peer'] as String,
-      requestReference: json['requestReference'] as String,
+      requestReference: json['requestReference'] as String?,
+      notificationReference: json['notificationReference'] as String?,
+      tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
@@ -177,7 +181,9 @@ Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
   val['peer'] = instance.peer;
-  val['requestReference'] = instance.requestReference;
+  writeNotNull('requestReference', instance.requestReference);
+  writeNotNull('notificationReference', instance.notificationReference);
+  val['tags'] = instance.tags;
   return val;
 }
 
@@ -202,7 +208,7 @@ OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dy
       succeededBy: json['succeededBy'] as String?,
       key: json['key'] as String,
       peer: json['peer'] as String,
-      requestReference: json['requestReference'] as String,
+      requestReference: json['requestReference'] as String?,
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
     );
@@ -238,7 +244,7 @@ Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttribut
   writeNotNull('succeededBy', instance.succeededBy);
   val['key'] = instance.key;
   val['peer'] = instance.peer;
-  val['requestReference'] = instance.requestReference;
+  writeNotNull('requestReference', instance.requestReference);
   val['confidentiality'] = instance.confidentiality;
   val['isTechnical'] = instance.isTechnical;
   return val;
@@ -265,7 +271,7 @@ PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, 
       succeededBy: json['succeededBy'] as String?,
       key: json['key'] as String,
       peer: json['peer'] as String,
-      requestReference: json['requestReference'] as String,
+      requestReference: json['requestReference'] as String?,
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
     );
@@ -301,7 +307,7 @@ Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttrib
   writeNotNull('succeededBy', instance.succeededBy);
   val['key'] = instance.key;
   val['peer'] = instance.peer;
-  val['requestReference'] = instance.requestReference;
+  writeNotNull('requestReference', instance.requestReference);
   val['confidentiality'] = instance.confidentiality;
   val['isTechnical'] = instance.isTechnical;
   return val;
