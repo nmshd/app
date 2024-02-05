@@ -8,7 +8,7 @@ class TokensEndpoint extends Endpoint {
 
   Future<ConnectorResponse<TokenDTO>> getToken(String tokenId) => get('/api/v2/Tokens/$tokenId', transformer: tokenTransformer);
 
-  Future<ConnectorResponse<List<int>>> getQrCodeForToken(String tokenId) => downloadQrCode('GET', '/api/v2/Tokens/$tokenId');
+  Future<ConnectorResponse<List<int>>> getQRCodeForToken(String tokenId) => downloadQRCode('GET', '/api/v2/Tokens/$tokenId');
 
   Future<ConnectorResponse<List<TokenDTO>>> getOwnTokens([Map<String, dynamic>? query]) => get(
         '/api/v2/Tokens/Own',

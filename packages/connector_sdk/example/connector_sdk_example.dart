@@ -27,7 +27,7 @@ void main() async {
   final download = await cc.files.downloadFile(file.data.id);
   print(utf8.decode(download.data));
 
-  final qr = await cc.files.getQrCodeForFile(file.data.id);
+  final qr = await cc.files.getQRCodeForFile(file.data.id);
   File('qr.png').writeAsBytesSync(qr.data);
 
   final files = await cc.files.getFiles();

@@ -77,12 +77,12 @@ class RelationshipTemplatesFacadeView extends StatelessWidget {
               final relationshipTemplates = relationshipTemplatesResult.value;
               if (relationshipTemplates.isEmpty) return;
 
-              final response = await runtime.currentSession.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(
+              final response = await runtime.currentSession.transportServices.relationshipTemplates.createQRCodeForOwnTemplate(
                 templateId: relationshipTemplates.first.id,
               );
               print(response);
             },
-            child: const Text('createQrCodeForOwnTemplate'),
+            child: const Text('createQRCodeForOwnTemplate'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
@@ -91,12 +91,12 @@ class RelationshipTemplatesFacadeView extends StatelessWidget {
               final relationshipTemplates = relationshipTemplatesResult.value;
               if (relationshipTemplates.isEmpty) return;
 
-              final response = await runtime.currentSession.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
+              final response = await runtime.currentSession.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(
                 templateId: relationshipTemplates.first.id,
               );
               print(response);
             },
-            child: const Text('createTokenQrCodeForOwnTemplate'),
+            child: const Text('createTokenQRCodeForOwnTemplate'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(

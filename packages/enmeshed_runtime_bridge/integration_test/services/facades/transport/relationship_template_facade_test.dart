@@ -199,8 +199,8 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: createQrCodeForOwnTemplate', () {
-    test('should return a valid CreateQrCodeResponse', () async {
+  group('RelationshipTemplatesFacade: createQRCodeForOwnTemplate', () {
+    test('should return a valid CreateQRCodeResponse', () async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -209,16 +209,16 @@ void run(EnmeshedRuntime runtime) {
         content: content,
       );
 
-      final response = await session1.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(
+      final response = await session1.transportServices.relationshipTemplates.createQRCodeForOwnTemplate(
         templateId: createdTemplateResult.value.id,
       );
 
-      expect(response, isSuccessful<CreateQrCodeResponse>());
+      expect(response, isSuccessful<CreateQRCodeResponse>());
     });
   });
 
-  group('RelationshipTemplatesFacade: createTokenQrCodeForOwnTemplate', () {
-    test('should return a valid CreateQrCodeResponse', () async {
+  group('RelationshipTemplatesFacade: createTokenQRCodeForOwnTemplate', () {
+    test('should return a valid CreateQRCodeResponse', () async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -227,14 +227,14 @@ void run(EnmeshedRuntime runtime) {
         content: content,
       );
 
-      final response = await session1.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
+      final response = await session1.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(
         templateId: createdTemplateResult.value.id,
       );
 
-      expect(response, isSuccessful<CreateQrCodeResponse>());
+      expect(response, isSuccessful<CreateQRCodeResponse>());
     });
 
-    test('should return a valid CreateQrCodeResponse with all properties', () async {
+    test('should return a valid CreateQRCodeResponse with all properties', () async {
       final expiresAt = generateExpiryString();
       const content = {'aKey': 'aValue'};
 
@@ -243,12 +243,12 @@ void run(EnmeshedRuntime runtime) {
         content: content,
       );
 
-      final response = await session1.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(
+      final response = await session1.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(
         templateId: createdTemplateResult.value.id,
         expiresAt: expiresAt,
       );
 
-      expect(response, isSuccessful<CreateQrCodeResponse>());
+      expect(response, isSuccessful<CreateQRCodeResponse>());
     });
   });
 

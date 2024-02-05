@@ -181,7 +181,7 @@ void run(EnmeshedRuntime runtime) {
 
       final result = await session1.transportServices.tokens.getQRCodeForToken(token.value.id);
 
-      expect(result, isSuccessful<CreateQrCodeResponse>());
+      expect(result, isSuccessful<CreateQRCodeResponse>());
     });
   });
 }

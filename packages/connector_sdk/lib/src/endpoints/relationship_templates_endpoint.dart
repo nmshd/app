@@ -38,7 +38,7 @@ class RelationshipTemplatesEndpoint extends Endpoint {
         transformer: relationshipTemplateTransformer,
       );
 
-  Future<ConnectorResponse<List<int>>> getQrCodeForOwnRelationshipTemplate(String id) => downloadQrCode('GET', '/api/v2/RelationshipTemplates/$id');
+  Future<ConnectorResponse<List<int>>> getQRCodeForOwnRelationshipTemplate(String id) => downloadQRCode('GET', '/api/v2/RelationshipTemplates/$id');
 
   Future<ConnectorResponse<TokenDTO>> createTokenForOwnRelationshipTemplate(String id, {String? expiresAt, bool? ephemeral}) => post(
         '/api/v2/RelationshipTemplates/Own/$id/Token',
@@ -49,7 +49,7 @@ class RelationshipTemplatesEndpoint extends Endpoint {
         transformer: tokenTransformer,
       );
 
-  Future<ConnectorResponse<List<int>>> createTokenQrCodeForOwnRelationshipTemplate(String id, {String? expiresAt, bool? ephemeral}) => downloadQrCode(
+  Future<ConnectorResponse<List<int>>> createTokenQRCodeForOwnRelationshipTemplate(String id, {String? expiresAt, bool? ephemeral}) => downloadQRCode(
         'POST',
         '/api/v2/RelationshipTemplates/Own/$id/Token',
         request: {
