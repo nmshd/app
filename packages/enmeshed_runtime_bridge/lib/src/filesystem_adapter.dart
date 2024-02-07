@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:path_provider/path_provider.dart';
 
@@ -14,6 +15,14 @@ class FilesystemAdapter {
 
     final file = File('${directory.path}/$path');
     final content = await file.readAsString();
+    return content;
+  }
+
+  Future<Uint8List> readFileAsBinary(String path, String storageName) async {
+    final directory = await getDirectoryForStorage(storageName);
+
+    final file = File('${directory.path}/$path');
+    final content = await file.readAsBytes();
     return content;
   }
 
