@@ -219,6 +219,21 @@ extension Filesystem on InAppWebViewController {
     );
 
     addJavaScriptHandler(
+      handlerName: 'readFileAsBinary',
+      callback: (args) async {
+        final path = args[0] as String;
+        final storage = args[1] as String;
+
+        try {
+          final fileContent = await filesystemAdapter.readFileAsBinary(path, storage);
+          return {'ok': true, 'content': fileContent.toList()};
+        } catch (e) {
+          return {'ok': false, 'content': e.toString()};
+        }
+      },
+    );
+
+    addJavaScriptHandler(
       handlerName: 'writeFile',
       callback: (args) async {
         final path = args[0] as String;

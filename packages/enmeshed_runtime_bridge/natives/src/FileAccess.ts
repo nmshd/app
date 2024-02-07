@@ -16,6 +16,20 @@ export class FileAccess {
     return Result.ok(result.content);
   }
 
+  public async readFileAsBinary(
+    path: string,
+    storage: NativeFileStorage = NativeFileStorage.Data
+  ): Promise<Result<Uint8Array>> {
+    const result: { ok: true; content: number[] } | { ok: false; error: string } =
+      await window.flutter_inappwebview.callHandler("readFileAsBinary", path, storage);
+
+    if (!result.ok) {
+      return Result.fail(new ApplicationError("err.filesystem.read", result.error));
+    }
+
+    return Result.ok(new Uint8Array(result.content));
+  }
+
   public async writeFile(
     path: string,
     data: string | Uint8Array,
