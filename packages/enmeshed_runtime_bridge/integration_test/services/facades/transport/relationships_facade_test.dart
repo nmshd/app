@@ -138,13 +138,13 @@ void run(EnmeshedRuntime runtime) {
       await shareAndAcceptPeerAttribute(
         session2,
         session1,
-        establishedRelationship.peer,
+        establishedRelationship.changes.first.request.createdBy,
         const DisplayNameAttributeValue(value: 'ADisplayName'),
       );
       await shareAndAcceptPeerAttribute(
         session1,
         session2,
-        establishedRelationship.changes.first.request.createdBy,
+        establishedRelationship.peer,
         const DisplayNameAttributeValue(value: 'BDisplayName'),
       );
 

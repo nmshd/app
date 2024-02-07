@@ -16,7 +16,7 @@ void run(EnmeshedRuntime runtime) {
   late Session recipient;
   late MockEventBus eventBus;
 
-  setUpAll(() async {
+  setUp(() async {
     account1 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 1');
     sender = runtime.getSession(account1.id);
     account2 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 2');
@@ -25,35 +25,14 @@ void run(EnmeshedRuntime runtime) {
     eventBus = runtime.eventBus as MockEventBus;
 
     await ensureActiveRelationship(sender, recipient);
-  });
 
-  setUp(() async {
-    await sender.consumptionServices.attributes.createAttribute(
-      content: IdentityAttribute(owner: account1.address!, value: const SurnameAttributeValue(value: 'aSurname')).toJson(),
-    );
-
-    await sender.consumptionServices.attributes.createAttribute(
-      content: IdentityAttribute(owner: account1.address!, value: const GivenNameAttributeValue(value: 'aGivenName')).toJson(),
-    );
-  });
-
-  tearDown(() async {
-    final senderAttributesResult = await sender.consumptionServices.attributes.getAttributes();
-    for (final attribute in senderAttributesResult.value) {
-      await sender.consumptionServices.attributes.deleteAttribute(attributeId: attribute.id);
-    }
-
-    final recipientAttributesResult = await recipient.consumptionServices.attributes.getAttributes();
-    for (final attribute in recipientAttributesResult.value) {
-      await recipient.consumptionServices.attributes.deleteAttribute(attributeId: attribute.id);
-    }
+    await sender.consumptionServices.attributes.createIdentityAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+    await sender.consumptionServices.attributes.createIdentityAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
   });
 
   group('AttributesFacade: createAttribute', () {
     test('should create an attribute', () async {
-      final attributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')).toJson(),
-      );
+      final attributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(value: const CityAttributeValue(value: 'aCity'));
 
       expect(attributeResult, isSuccessful<LocalAttributeDTO>());
       expect(attributeResult.value.content.toJson()['@type'], 'IdentityAttribute');
@@ -61,69 +40,41 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: createSharedAttributeCopy', () {
-    test('should allow to create a shared copy', () async {
-      final nationalityParams = IdentityAttribute(owner: account1.address!, value: const NationalityAttributeValue(value: 'DE'));
-
-      final attributeResult = await sender.consumptionServices.attributes.createAttribute(content: nationalityParams.toJson());
-      final attribute = attributeResult.value;
-
-      final sharedNationalityResult = await sender.consumptionServices.attributes.createSharedAttributeCopy(
-        attributeId: attribute.id,
-        peer: 'id1A35CharacterLongAddressXXXXXXXXX',
-        requestReference: 'REQIDXXXXXXXXXXXXXXX',
-      );
-
-      expect(sharedNationalityResult, isSuccessful<LocalAttributeDTO>());
-      expect(sharedNationalityResult.value.content, nationalityParams);
-      expect(sharedNationalityResult.value.content.toJson()['value'], nationalityParams.value.toJson());
-      expect(sharedNationalityResult.value.shareInfo?.peer, 'id1A35CharacterLongAddressXXXXXXXXX');
-    });
-  });
-
-  group('AttributesFacade: deleteAttribute', () {
-    test('should delete the attributes successfully', () async {
-      final attributesBeforeDeleteResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributesBeforeDelete = attributesBeforeDeleteResult.value;
-
-      await sender.consumptionServices.attributes.deleteAttribute(attributeId: attributesBeforeDelete.first.id);
-
-      final attributesAfterDeleteResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributesAfterDelete = attributesAfterDeleteResult.value;
-
-      expect(attributesBeforeDelete.length, 2);
-      expect(attributesAfterDelete.length, 1);
-    });
-  });
-
   group('AttributesFacade: getPeerAttributes', () {
     test('should return a valid list of peer attributes', () async {
-      final attribute = IdentityAttribute(owner: account1.address!, value: const PhoneNumberAttributeValue(value: '012345678910'));
+      final sharedAttribute = await shareAndAcceptPeerAttribute(
+        sender,
+        recipient,
+        account2.address!,
+        const PhoneNumberAttributeValue(value: '012345678910'),
+      );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address!);
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(peer: account1.address!);
 
       expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
 
       final attributeContents = recipientAttributesResult.value.map((e) => e.content);
 
       expect(recipientAttributesResult.value.length, 1);
-      expect(attributeContents, contains(attribute));
+      expect(attributeContents, contains(sharedAttribute));
     });
 
     test('should return just non technical peer attributes when hideTechnical=true', () async {
-      final attribute = RelationshipAttribute(
-        owner: account1.address!,
+      await shareAndAcceptRelationshipAttribute(
+        sender,
+        recipient,
+        account2.address!,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
+      );
+
+      await sender.consumptionServices.attributes.createAndShareRelationshipAttribute(
         value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         key: 'aKey',
         confidentiality: RelationshipAttributeConfidentiality.public,
-        isTechnical: true,
+        peer: account2.address!,
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(
         peer: account1.address!,
         hideTechnical: true,
       );

@@ -145,9 +145,7 @@ Future<AbstractAttribute> shareAndAcceptPeerAttribute(
 
   await recipient.consumptionServices.incomingRequests.accept(
     params: DecideRequestParameters(requestId: sharedAttribute.id, items: [
-      AcceptReadAttributeRequestItemParametersWithNewAttribute(
-        newAttribute: createdAttribute.content,
-      ),
+      AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: createdAttribute.content),
     ]),
   );
 
