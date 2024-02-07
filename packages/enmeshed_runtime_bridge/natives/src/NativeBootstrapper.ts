@@ -44,7 +44,7 @@ export class NativeBootstrapper implements RuntimeNativeBootstrapper {
     this.fileAccess = new FileAccess();
     this.loggerFactory = new LoggerFactory();
     this.configAccess = new ConfigAccess(this.fileAccess, this.loggerFactory.getLogger(ConfigAccess), "config.json");
-    this.databaseFactory = new DatabaseFactory(this.fileAccess);
+    this.databaseFactory = new DatabaseFactory(this.fileAccess, this.loggerFactory.getLogger(DatabaseFactory));
     this.deviceInfoAccess = new DeviceInfoAccess();
     this.notificationAccess = new NotificationAccess(this.loggerFactory, this.configAccess);
   }

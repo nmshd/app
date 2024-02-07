@@ -22,7 +22,10 @@
     "lib": ["es2019", "dom"],
     "typeRoots": ["./node_modules/@types"],
     "types": ["luxon"],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "bson": ["./node_modules/bson/src/"]
+    }
   },
   "include": ["src/**/*.ts"]
 }
