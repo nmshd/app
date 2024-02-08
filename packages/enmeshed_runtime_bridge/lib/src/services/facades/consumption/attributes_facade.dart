@@ -164,6 +164,8 @@ class AttributesFacade {
 
   Future<Result<List<LocalAttributeDTO>>> getSharedVersionsOfIdentityAttribute({
     required String attributeId,
+    List<String>? peers,
+    bool? onlyLatestVersions,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.getSharedVersionsOfIdentityAttribute(request)
@@ -172,6 +174,8 @@ class AttributesFacade {
       arguments: {
         'request': {
           'attributeId': attributeId,
+          if (peers != null) 'peers': peers,
+          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
         },
       },
     );
