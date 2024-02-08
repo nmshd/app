@@ -299,11 +299,7 @@ class EnmeshedRuntime {
     final result = await _evaluateJavaScript('return window.NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES');
     result.throwOnError();
 
-    if (result.value is List<String>) {
-      return result.value as List<String>;
-    } else {
-      throw Exception('Invalid result');
-    }
+    return List<String>.from(result.value);
   }
 }
 
