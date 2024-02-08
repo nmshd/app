@@ -126,14 +126,11 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
   return await syncUntilHasRelationship(session1);
 }
 
-Future<AbstractAttribute> shareAndAcceptPeerAttribute(
-  Session sender,
-  Session recipient,
-  String recipientAddress,
-  IdentityAttributeValue attributeValue,
-) async {
+Future<LocalAttributeDTO> exchangeIdentityAttribute(Session sender, Session recipient, IdentityAttributeValue attributeValue) async {
   final createdAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(value: attributeValue);
   final createdAttribute = createdAttributeResult.value;
+
+  final recipientAddress = (await recipient.transportServices.account.getIdentityInfo()).value.address;
 
   final shareAttributeResult = await sender.consumptionServices.attributes.shareIdentityAttribute(
     attributeId: createdAttribute.id,
@@ -151,38 +148,44 @@ Future<AbstractAttribute> shareAndAcceptPeerAttribute(
 
   await syncUntilHasMessage(sender);
 
-  return createdAttribute.content;
+  return createdAttribute;
 }
 
-Future<AbstractAttribute> shareAndAcceptRelationshipAttribute(
+Future<LocalAttributeDTO> exchangeRelationshipAttribute(
   Session sender,
   Session recipient,
-  String recipientAddress,
-  RelationshipAttributeValue attributeValue,
-) async {
+  RelationshipAttributeValue attributeValue, {
+  bool? isTechnical,
+  String? validTo,
+}) async {
+  final recipientAddress = (await recipient.transportServices.account.getIdentityInfo()).value.address;
+
   final requestResult = await sender.consumptionServices.attributes.createAndShareRelationshipAttribute(
     value: attributeValue,
     key: 'aKey',
     confidentiality: RelationshipAttributeConfidentiality.public,
+    isTechnical: isTechnical,
+    validTo: validTo,
     peer: recipientAddress,
   );
   final request = requestResult.value;
 
   await syncUntilHasMessage(recipient);
 
-  final attribute = (request.content.items.first as CreateAttributeRequestItem).attribute;
-
   await recipient.consumptionServices.incomingRequests.accept(
-    params: DecideRequestParameters(requestId: request.id, items: [
-      AcceptReadAttributeRequestItemParametersWithNewAttribute(
-        newAttribute: attribute,
-      ),
-    ]),
+    params: DecideRequestParameters(requestId: request.id, items: [const AcceptRequestItemParameters()]),
   );
 
   await syncUntilHasMessage(sender);
 
-  return attribute;
+  final localAttributes = await sender.consumptionServices.attributes.getAttributes(query: {
+    'content.@type': QueryValue.string('RelationshipAttribute'),
+    'shareInfo.requestReference': QueryValue.string(request.id),
+  });
+  assert(localAttributes.value.isNotEmpty);
+  assert(localAttributes.value.first.shareInfo?.requestReference == request.id);
+
+  return localAttributes.value.first;
 }
 
 Future<void> exchangeAndAcceptRequestByMessage(

@@ -134,19 +134,10 @@ void run(EnmeshedRuntime runtime) {
 
   group('RelationshipsFacade: getAttributesForRelationship', () {
     test('should return a valid list of LocalAttributeDTOs', () async {
-      final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
-      await shareAndAcceptPeerAttribute(
-        session2,
-        session1,
-        establishedRelationship.changes.first.request.createdBy,
-        const DisplayNameAttributeValue(value: 'ADisplayName'),
-      );
-      await shareAndAcceptPeerAttribute(
-        session1,
-        session2,
-        establishedRelationship.peer,
-        const DisplayNameAttributeValue(value: 'BDisplayName'),
-      );
+      final establishedRelationship = await ensureActiveRelationship(session1, session2);
+
+      await exchangeIdentityAttribute(session2, session1, const DisplayNameAttributeValue(value: 'ADisplayName'));
+      await exchangeIdentityAttribute(session1, session2, const DisplayNameAttributeValue(value: 'BDisplayName'));
 
       final responseResult = await session1.transportServices.relationships.getAttributesForRelationship(relationshipId: establishedRelationship.id);
 
