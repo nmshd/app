@@ -134,7 +134,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
       if (selectedAttribute is IdentityAttributeValue) {
         final attributeValue = IdentityAttribute(
-          owner: widget.currentAddress,
+          owner: '',
           value: selectedAttribute,
         );
 
