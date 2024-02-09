@@ -11,7 +11,7 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
+  final Future<AttributeValue?> Function({required String valueType, List<AttributeValue>? attributes})? selectAttribute;
   final LocalRequestStatus? requestStatus;
   final bool isRejected;
   final String currentAddress;
@@ -42,6 +42,7 @@ class RequestItemRenderer extends StatelessWidget {
           item: dvo,
           itemIndex: itemIndex,
           selectAttribute: selectAttribute,
+          currentAddress: currentAddress,
         ),
       final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
           controller: controller,

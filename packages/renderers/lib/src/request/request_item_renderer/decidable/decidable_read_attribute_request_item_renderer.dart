@@ -14,7 +14,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableReadAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
+  final Future<AttributeValue?> Function({required String valueType, List<AttributeValue>? attributes})? selectAttribute;
   final String currentAddress;
 
   const DecidableReadAttributeRequestItemRenderer({
@@ -154,13 +154,57 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     }
   }
 
+  List<AttributeValue> getAttributeValue(ProcessedAttributeQueryDVO attribute) {
+    final results = switch (widget.item.query) {
+      final ProcessedIdentityAttributeQueryDVO query => query.results,
+      final ProcessedRelationshipAttributeQueryDVO query => query.results,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
+      final ProcessedIQLQueryDVO query => query.results,
+    };
+
+    final resultValue = results.map((result) {
+      return switch (result.content) {
+        final IdentityAttribute resultContent => resultContent.value,
+        final RelationshipAttribute resultContent => resultContent.value,
+        _ => throw Exception("Invalid type '${result.content.runtimeType}'"),
+      };
+    }).toList();
+
+    return resultValue;
+  }
+
   Future<void> onUpdateAttribute(String valueType) async {
-    final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
+    if (widget.selectAttribute != null) {
+      final resultValues = getAttributeValue(widget.item.query);
 
-    if (selectedAttribute != null) {
-      setState(() => newAttribute = selectedAttribute);
+      final selectedAttribute = await widget.selectAttribute!(valueType: valueType, attributes: resultValues);
 
-      _updateSelectedAttribute();
+      if (selectedAttribute is IdentityAttribute) {
+        print('read');
+        final attributeValue = IdentityAttribute(
+          owner: widget.currentAddress,
+          value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': selectedAttribute}),
+        );
+
+        setState(() => newAttribute = attributeValue);
+
+        _updateSelectedAttribute();
+      }
+
+      if (selectedAttribute is RelationshipAttribute) {
+        final processedAttributeQuery = widget.item.query as ProcessedRelationshipAttributeQueryDVO;
+
+        final attributeValue = RelationshipAttribute(
+          confidentiality: RelationshipAttributeConfidentiality.values.byName(processedAttributeQuery.attributeCreationHints.confidentiality),
+          key: processedAttributeQuery.key,
+          owner: widget.currentAddress,
+          value: RelationshipAttributeValue.fromJson({'@type': valueType, 'value': selectedAttribute}),
+        );
+
+        setState(() => newAttribute = attributeValue);
+
+        _updateSelectedAttribute();
+      }
     }
   }
 

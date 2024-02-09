@@ -81,7 +81,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                 request: widget.localRequestDVO,
                 controller: controller,
                 validationResult: _validationResult,
-                selectAttribute: createIdentityAttributeDVO,
+                selectAttribute: _openAttributeScreen,
                 currentAddress: widget.accountId,
               ),
               if (widget.localRequestDVO.isDecidable)
@@ -106,54 +106,76 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     );
   }
 
-  Future<IdentityAttribute> createIdentityAttributeDVO({required String valueType}) async {
-    await Future.delayed(const Duration(seconds: 1));
+  Future<AttributeValue?> _openAttributeScreen({required String valueType, List<AttributeValue>? attributes}) async {
+    final attribute = await Navigator.of(context).push<AttributeValue?>(
+      MaterialPageRoute(
+        builder: (ctx) => AttributeScreen(
+          attributes: attributes,
+        ),
+      ),
+    );
 
-    return switch (valueType) {
-      'DisplayName' => const IdentityAttribute(
-          owner: '',
-          value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
-        ),
-      'GivenName' => const IdentityAttribute(
-          owner: '',
-          value: GivenNameAttributeValue(value: 'Alternative Given Name'),
-        ),
-      'Surname' => const IdentityAttribute(
-          owner: '',
-          value: SurnameAttributeValue(value: 'Alternative Surname'),
-        ),
-      'Nationality' => const IdentityAttribute(
-          owner: '',
-          value: NationalityAttributeValue(value: 'DE'),
-        ),
-      'CommunicationLanguage' => const IdentityAttribute(
-          owner: '',
-          value: CommunicationLanguageAttributeValue(value: 'de'),
-        ),
-      'BirthDate' => const IdentityAttribute(
-          owner: '',
-          value: BirthDateAttributeValue(day: 01, month: 01, year: 2000),
-        ),
-      'EMailAddress' => const IdentityAttribute(
-          owner: '',
-          value: EMailAddressAttributeValue(value: 'alternative@email.com'),
-        ),
-      'Sex' => const IdentityAttribute(
-          owner: '',
-          value: SexAttributeValue(value: 'male'),
-        ),
-      'StreetAddress' => const IdentityAttribute(
-          owner: '',
-          value: StreetAddressAttributeValue(
-            recipient: 'Alternative Recepient',
-            street: 'Alternative Street',
-            houseNumber: 'Alternative House Number',
-            zipCode: 'Alternative Zip Code',
-            city: 'Alternative City',
-            country: 'DE',
+    return attribute;
+  }
+}
+
+class AttributeScreen extends StatefulWidget {
+  final List<AttributeValue>? attributes;
+
+  const AttributeScreen({super.key, this.attributes});
+
+  @override
+  State<AttributeScreen> createState() => _AttributeScreenState();
+}
+
+class _AttributeScreenState extends State<AttributeScreen> {
+  AttributeValue? selectedOption;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.attributes!.first.atType),
+      ),
+      body: Column(
+        children: [
+          const Text('Description'),
+          const Row(
+            children: [Text('My Entries'), Text('+ Add')],
           ),
-        ),
-      _ => throw Exception('Invalid Value Type: $valueType'),
-    };
+          Expanded(
+            child: ListView(
+              children: widget.attributes!.map((item) {
+                return RadioListTile<AttributeValue>(
+                  title: Text(item.toJson()['value'].toString()),
+                  value: item,
+                  groupValue: selectedOption,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedOption = value;
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton.icon(
+                icon: const Icon(Icons.close, size: 16),
+                label: const Text('Cancel', style: TextStyle(fontWeight: FontWeight.bold)),
+                onPressed: () => Navigator.pop(context),
+              ),
+              FilledButton(
+                style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
+                onPressed: () => Navigator.pop(context, selectedOption),
+                child: const Text('Select'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -12,7 +12,8 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
+  final Future<AttributeValue?> Function({required String valueType, List<AttributeValue>? attributes})? selectAttribute;
+  final String currentAddress;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
@@ -20,6 +21,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
     this.controller,
     required this.itemIndex,
     this.selectAttribute,
+    required this.currentAddress,
   });
 
   @override
@@ -44,7 +46,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
     );
 
-    updateSelectedAttribute();
+    _updateSelectedAttribute();
   }
 
   @override
@@ -105,17 +107,60 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     );
   }
 
-  Future<void> onUpdateAttribute(String valueType) async {
-    final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
+  List<AttributeValue> getAttributeValue(ProcessedAttributeQueryDVO attribute) {
+    final results = switch (widget.item.query) {
+      final ProcessedIdentityAttributeQueryDVO query => query.results,
+      final ProcessedRelationshipAttributeQueryDVO query => query.results,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
+      final ProcessedIQLQueryDVO query => query.results,
+    };
 
-    if (selectedAttribute != null) {
-      setState(() {
-        newAttribute = selectedAttribute;
-      });
+    final List<AttributeValue> resultValue = results.map((result) {
+      return switch (result.content) {
+        final IdentityAttribute resultContent => resultContent.value,
+        final RelationshipAttribute resultContent => resultContent.value,
+        _ => throw Exception("Invalid type '${result.content.runtimeType}'"),
+      };
+    }).toList();
+
+    return resultValue;
+  }
+
+  Future<void> onUpdateAttribute(String valueType) async {
+    if (widget.selectAttribute != null) {
+      final resultValues = getAttributeValue(widget.item.query);
+
+      final selectedAttribute = await widget.selectAttribute!(valueType: valueType, attributes: resultValues);
+
+      if (selectedAttribute is IdentityAttributeValue) {
+        final attributeValue = IdentityAttribute(
+          owner: widget.currentAddress,
+          value: selectedAttribute,
+        );
+
+        setState(() => newAttribute = attributeValue);
+
+        _updateSelectedAttribute();
+      }
+
+      if (selectedAttribute is RelationshipAttributeValue) {
+        final processedAttributeQuery = widget.item.query as ProcessedRelationshipAttributeQueryDVO;
+
+        final attributeValue = RelationshipAttribute(
+          confidentiality: RelationshipAttributeConfidentiality.values.byName(processedAttributeQuery.attributeCreationHints.confidentiality),
+          key: processedAttributeQuery.key,
+          owner: widget.currentAddress,
+          value: selectedAttribute,
+        );
+
+        setState(() => newAttribute = attributeValue);
+
+        _updateSelectedAttribute();
+      }
     }
   }
 
-  Future<void> updateSelectedAttribute() async {
+  Future<void> _updateSelectedAttribute() async {
     if (newAttribute != null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,

@@ -11,7 +11,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
   final LocalRequestStatus? requestStatus;
-  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
+  final Future<AttributeValue?> Function({required String valueType, List<AttributeValue>? attributes})? selectAttribute;
   final String currentAddress;
 
   const RequestItemGroupRenderer({
