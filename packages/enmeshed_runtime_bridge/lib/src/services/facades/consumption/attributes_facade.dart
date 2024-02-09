@@ -290,7 +290,7 @@ class AttributesFacade {
     String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.succeedAttribute(request)
+      '''const result = await session.consumptionServices.attributes.succeedIdentityAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {

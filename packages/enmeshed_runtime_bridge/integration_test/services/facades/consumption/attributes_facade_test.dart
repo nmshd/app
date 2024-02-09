@@ -40,7 +40,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: getPeerAttributes', () {
+  group('AttributesFacade: getPeerSharedAttributes', () {
     test('should return a valid list of peer attributes', () async {
       final sharedAttribute = await exchangeIdentityAttribute(sender, recipient, const PhoneNumberAttributeValue(value: '012345678910'));
 
@@ -467,7 +467,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: shareAttribute', () {
+  group('AttributesFacade: shareIdentityAttribute', () {
     test('should allow to share an attribute', () async {
       final recipientAddress = account2.address!;
 
