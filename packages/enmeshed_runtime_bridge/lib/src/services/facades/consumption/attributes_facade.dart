@@ -314,6 +314,7 @@ class AttributesFacade {
     required String attributeId,
     required String peer,
     ({String? title, String? description, Map<String, dynamic>? metadata, String? expiresAt})? requestMetadata,
+    ({String? title, String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.shareIdentityAttribute(request)
@@ -329,6 +330,13 @@ class AttributesFacade {
               if (requestMetadata.description != null) 'description': requestMetadata.description,
               if (requestMetadata.metadata != null) 'metadata': requestMetadata.metadata,
               if (requestMetadata.expiresAt != null) 'expiresAt': requestMetadata.expiresAt,
+            },
+          if (requestItemMetadata != null)
+            'requestItemMetadata': {
+              if (requestItemMetadata.title != null) 'title': requestItemMetadata.title,
+              if (requestItemMetadata.description != null) 'description': requestItemMetadata.description,
+              if (requestItemMetadata.metadata != null) 'metadata': requestItemMetadata.metadata,
+              if (requestItemMetadata.requireManualDecision != null) 'requireManualDecision': requestItemMetadata.requireManualDecision,
             },
         },
       },
@@ -347,6 +355,7 @@ class AttributesFacade {
     String? validTo,
     required String peer,
     ({String? title, String? description, Map<String, dynamic>? metadata, String? expiresAt})? requestMetadata,
+    ({String? title, String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.createAndShareRelationshipAttribute(request)
@@ -369,6 +378,13 @@ class AttributesFacade {
               if (requestMetadata.description != null) 'description': requestMetadata.description,
               if (requestMetadata.metadata != null) 'metadata': requestMetadata.metadata,
               if (requestMetadata.expiresAt != null) 'expiresAt': requestMetadata.expiresAt,
+            },
+          if (requestItemMetadata != null)
+            'requestItemMetadata': {
+              if (requestItemMetadata.title != null) 'title': requestItemMetadata.title,
+              if (requestItemMetadata.description != null) 'description': requestItemMetadata.description,
+              if (requestItemMetadata.metadata != null) 'metadata': requestItemMetadata.metadata,
+              if (requestItemMetadata.requireManualDecision != null) 'requireManualDecision': requestItemMetadata.requireManualDecision,
             },
         },
       },

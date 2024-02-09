@@ -531,8 +531,12 @@ void run(EnmeshedRuntime runtime) {
           description: 'aRequestDescription',
           metadata: {'a': 'b'},
           expiresAt: null,
-          // requestItemTitle: 'aRequestItemTitle',
-          // requestItemDescription: 'aRequestItemDescription'
+        ),
+        requestItemMetadata: (
+          title: 'aRequestItemTitle',
+          description: 'aRequestItemDescription',
+          metadata: null,
+          requireManualDecision: null,
         ),
       );
 
@@ -571,8 +575,8 @@ void run(EnmeshedRuntime runtime) {
       expect(event.request.content.title, 'aRequestTitle');
       expect(event.request.content.description, 'aRequestDescription');
       expect(event.request.content.metadata, {'a': 'b'});
-      // expect(event.request.content.items.first.title, 'aRequestItemTitle');
-      // expect(event.request.content.items.first.description, 'aRequestItemDescription');
+      expect(event.request.content.items.first.title, 'aRequestItemTitle');
+      expect(event.request.content.items.first.description, 'aRequestItemDescription');
     });
   });
 }
