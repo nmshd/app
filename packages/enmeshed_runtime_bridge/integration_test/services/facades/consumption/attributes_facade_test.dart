@@ -30,8 +30,8 @@ void run(EnmeshedRuntime runtime) {
     await sender.consumptionServices.attributes.createIdentityAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
   });
 
-  group('AttributesFacade: createAttribute', () {
-    test('should create an attribute', () async {
+  group('AttributesFacade: createIdentityAttribute', () {
+    test('should create an identity attribute', () async {
       final attributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(value: const CityAttributeValue(value: 'aCity'));
 
       expect(attributeResult, isSuccessful<LocalAttributeDTO>());
@@ -41,7 +41,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: getPeerSharedAttributes', () {
-    test('should return a valid list of peer attributes', () async {
+    test('should return a valid list of peer shared', () async {
       final sharedAttribute = await exchangeIdentityAttribute(sender, recipient, const PhoneNumberAttributeValue(value: '012345678910'));
 
       final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(peer: account1.address!);
@@ -52,7 +52,7 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributesResult.value.first.id, sharedAttribute.id);
     });
 
-    test('should return just non technical peer attributes when hideTechnical=true', () async {
+    test('should return just non technical peer shared when hideTechnical=true', () async {
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -69,7 +69,7 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributesResult.value.length, 0);
     });
 
-    test('should return also technical peer attributes when hideTechnical=false', () async {
+    test('should return also technical peer shared when hideTechnical=false', () async {
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -86,7 +86,7 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributesResult.value.length, 1);
     });
 
-    test('should return just valid peer attributes when onlyValid=true', () async {
+    test('should return just valid peer shared when onlyValid=true', () async {
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -103,7 +103,7 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributesResult.value.length, 0);
     });
 
-    test('should return also expired peer attributes when onlyValid=false', () async {
+    test('should return also expired peer shared when onlyValid=false', () async {
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -141,7 +141,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: getOwnSharedAttributes', () {
-    test('should return a valid list of shared to peer attributes', () async {
+    test('should return a valid list of own shared attributes', () async {
       final peer = account2.address!;
 
       await exchangeIdentityAttribute(sender, recipient, const NationalityAttributeValue(value: 'DE'));
@@ -157,7 +157,7 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedNationality.shareInfo?.peer, peer);
     });
 
-    test('should return just non technical shared to peer attributes when hideTechnical=true', () async {
+    test('should return just non technical own shared attributes when hideTechnical=true', () async {
       final peer = account2.address!;
 
       await exchangeRelationshipAttribute(
@@ -176,7 +176,7 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedToPeerAttributeResult.value.length, 0);
     });
 
-    test('should return also technical shared to peer attributes when hideTechnical=false', () async {
+    test('should return also technical own shared attributes when hideTechnical=false', () async {
       final peer = account2.address!;
 
       final shared = await exchangeRelationshipAttribute(
@@ -198,7 +198,7 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedToPeerAttributeResult.value.first.shareInfo?.peer, peer);
     });
 
-    test('should return just valid shared to peer attributes when onlyValid=true', () async {
+    test('should return just valid own shared attributes when onlyValid=true', () async {
       final peer = account2.address!;
 
       await exchangeRelationshipAttribute(
@@ -217,7 +217,7 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedToPeerAttributeResult.value.length, 0);
     });
 
-    test('should return also expired shared to peer attributes when onlyValid=false', () async {
+    test('should return also expired own shared attributes when onlyValid=false', () async {
       final peer = account2.address!;
 
       final sharedproprietaryBoolean = await exchangeRelationshipAttribute(

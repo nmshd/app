@@ -22,7 +22,7 @@ class AttributesFacadeView extends StatelessWidget {
               );
               print(attribute);
             },
-            child: const Text('createAttribute'),
+            child: const Text('createIdentityAttribute'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
