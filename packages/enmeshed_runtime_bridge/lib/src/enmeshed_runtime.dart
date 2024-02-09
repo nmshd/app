@@ -292,6 +292,15 @@ class EnmeshedRuntime {
     final result = await _evaluateJavaScript('await window.triggerAppReadyEvent()');
     result.throwOnError();
   }
+
+  Future<List<String>> getEditableAttributes() async {
+    assert(_isReady, 'Runtime not ready');
+
+    final result = await _evaluateJavaScript('return window.NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES');
+    result.throwOnError();
+
+    return List<String>.from(result.value);
+  }
 }
 
 class Evaluator extends AbstractEvaluator {
