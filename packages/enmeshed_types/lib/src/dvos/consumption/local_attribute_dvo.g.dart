@@ -209,6 +209,7 @@ OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dy
       key: json['key'] as String,
       peer: json['peer'] as String,
       requestReference: json['requestReference'] as String?,
+      notificationReference: json['notificationReference'] as String?,
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
     );
@@ -245,6 +246,7 @@ Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttribut
   val['key'] = instance.key;
   val['peer'] = instance.peer;
   writeNotNull('requestReference', instance.requestReference);
+  writeNotNull('notificationReference', instance.notificationReference);
   val['confidentiality'] = instance.confidentiality;
   val['isTechnical'] = instance.isTechnical;
   return val;
@@ -271,7 +273,8 @@ PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, 
       succeededBy: json['succeededBy'] as String?,
       key: json['key'] as String,
       peer: json['peer'] as String,
-      requestReference: json['requestReference'] as String?,
+      requestReference: json['requestReference'],
+      notificationReference: json['notificationReference'],
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
     );
@@ -308,6 +311,7 @@ Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttrib
   val['key'] = instance.key;
   val['peer'] = instance.peer;
   writeNotNull('requestReference', instance.requestReference);
+  writeNotNull('notificationReference', instance.notificationReference);
   val['confidentiality'] = instance.confidentiality;
   val['isTechnical'] = instance.isTechnical;
   return val;

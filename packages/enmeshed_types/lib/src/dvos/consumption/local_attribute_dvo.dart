@@ -268,7 +268,8 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
     super.succeededBy,
     required super.key,
     required super.peer,
-    required super.requestReference,
+    super.requestReference,
+    super.notificationReference,
     required super.confidentiality,
     required super.isTechnical,
   }) : super(type: 'OwnRelationshipAttributeDVO', isOwn: true);
@@ -301,7 +302,8 @@ class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
     super.succeededBy,
     required super.key,
     required super.peer,
-    required super.requestReference,
+    required requestReference,
+    required notificationReference,
     required super.confidentiality,
     required super.isTechnical,
   }) : super(type: 'PeerRelationshipAttributeDVO', isOwn: false);
