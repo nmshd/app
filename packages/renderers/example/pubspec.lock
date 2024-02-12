@@ -176,10 +176,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_i18n
-      sha256: "091af6970be8036c37121b8a683bc392d0182786186ab8fe2cf20403aebdcfa6"
+      sha256: c823a9c9e32d2166d0ce8fa60b63459648a55f29a17c0d5dbf66fe4c9e05f1c2
       url: "https://pub.dev"
     source: hosted
-    version: "0.35.0"
+    version: "0.35.1"
   flutter_inappwebview:
     dependency: transitive
     description:
