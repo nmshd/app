@@ -9,6 +9,10 @@ import { buildInformation } from "@nmshd/runtime";
 import { NativeBootstrapper } from "./NativeBootstrapper";
 import { UIBridge } from "./uiBridge";
 
+import * as contentLib from "@nmshd/content";
+
+window.NMSHDContent = contentLib;
+
 window.registerUIBridge = function () {
   window.runtime.registerUIBridge(new UIBridge());
 };

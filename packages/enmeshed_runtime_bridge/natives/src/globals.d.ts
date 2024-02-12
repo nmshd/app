@@ -11,6 +11,7 @@ declare global {
     triggerRemoteNotificationEvent: (notification: INativePushNotification) => Promise<void>;
     triggerAppReadyEvent: () => Promise<void>;
     runtimeVersion: string;
+    NMSHDContent: typeof import("@nmshd/content");
   }
 }
 
