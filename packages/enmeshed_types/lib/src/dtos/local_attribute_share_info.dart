@@ -24,8 +24,5 @@ class LocalAttributeShareInfo extends Equatable {
   Map<String, dynamic> toJson() => _$LocalAttributeShareInfoToJson(this);
 
   @override
-  String toString() => 'LocalAttributeShareInfoJSON(requestReference: $requestReference, peer: $peer, sourceAttribute: $sourceAttribute)';
-
-  @override
-  List<Object?> get props => [requestReference, peer, sourceAttribute];
+  List<Object?> get props => [requestReference, notificationReference, peer, sourceAttribute];
 }
