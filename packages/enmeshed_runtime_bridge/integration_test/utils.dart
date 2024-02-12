@@ -126,46 +126,71 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
   return await syncUntilHasRelationship(session1);
 }
 
-Future<void> shareAndAcceptPeerAttribute(
-  Session sender,
-  Session recipient,
-  String recipientAddress,
-  AbstractAttribute attribute,
-) async {
-  final createdAttributeResult = await sender.consumptionServices.attributes.createAttribute(content: attribute.toJson());
+Future<LocalAttributeDTO> exchangeIdentityAttribute(Session sender, Session recipient, IdentityAttributeValue attributeValue) async {
+  final createdAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(value: attributeValue);
   final createdAttribute = createdAttributeResult.value;
 
-  final shareAttributeResult = await sender.consumptionServices.attributes.shareAttribute(
+  final recipientAddress = (await recipient.transportServices.account.getIdentityInfo()).value.address;
+
+  final shareAttributeResult = await sender.consumptionServices.attributes.shareIdentityAttribute(
     attributeId: createdAttribute.id,
     peer: recipientAddress,
   );
-  final sharedAttribute = shareAttributeResult.value;
+  final request = shareAttributeResult.value;
 
   await syncUntilHasMessage(recipient);
 
   await recipient.consumptionServices.incomingRequests.accept(
-    params: DecideRequestParameters(requestId: sharedAttribute.id, items: [
-      AcceptReadAttributeRequestItemParametersWithNewAttribute(
-        newAttribute: attribute,
-      ),
-    ]),
+    params: DecideRequestParameters(requestId: request.id, items: [const AcceptRequestItemParameters()]),
   );
 
   await syncUntilHasMessage(sender);
+
+  final localAttributes = await sender.consumptionServices.attributes.getAttributes(query: {
+    'content.@type': QueryValue.string('IdentityAttribute'),
+    'shareInfo.requestReference': QueryValue.string(request.id),
+  });
+  assert(localAttributes.value.isNotEmpty);
+  assert(localAttributes.value.first.shareInfo?.requestReference == request.id);
+
+  return localAttributes.value.first;
 }
 
-Future<LocalAttributeDTO> establishSharedAttributeCopy(Session sender, String senderAddress, String peer, AbstractAttribute attribute) async {
-  final createdAttributeResult = await sender.consumptionServices.attributes.createAttribute(content: attribute.toJson());
-  final createdAttribute = createdAttributeResult.value;
+Future<LocalAttributeDTO> exchangeRelationshipAttribute(
+  Session sender,
+  Session recipient,
+  RelationshipAttributeValue attributeValue, {
+  bool? isTechnical,
+  String? validTo,
+}) async {
+  final recipientAddress = (await recipient.transportServices.account.getIdentityInfo()).value.address;
 
-  final sharedAttributeResult = await sender.consumptionServices.attributes.createSharedAttributeCopy(
-    attributeId: createdAttribute.id,
-    peer: peer,
-    requestReference: 'REQIDXXXXXXXXXXXXXXX',
+  final requestResult = await sender.consumptionServices.attributes.createAndShareRelationshipAttribute(
+    value: attributeValue,
+    key: 'aKey',
+    confidentiality: RelationshipAttributeConfidentiality.public,
+    isTechnical: isTechnical,
+    validTo: validTo,
+    peer: recipientAddress,
   );
-  final sharedAttribute = sharedAttributeResult.value;
+  final request = requestResult.value;
 
-  return sharedAttribute;
+  await syncUntilHasMessage(recipient);
+
+  await recipient.consumptionServices.incomingRequests.accept(
+    params: DecideRequestParameters(requestId: request.id, items: [const AcceptRequestItemParameters()]),
+  );
+
+  await syncUntilHasMessage(sender);
+
+  final localAttributes = await sender.consumptionServices.attributes.getAttributes(query: {
+    'content.@type': QueryValue.string('RelationshipAttribute'),
+    'shareInfo.requestReference': QueryValue.string(request.id),
+  });
+  assert(localAttributes.value.isNotEmpty);
+  assert(localAttributes.value.first.shareInfo?.requestReference == request.id);
+
+  return localAttributes.value.first;
 }
 
 Future<void> exchangeAndAcceptRequestByMessage(

@@ -104,7 +104,7 @@ class TokensFacade {
     return Result.fromJson(value, (x) => TokenDTO.fromJson(x));
   }
 
-  Future<Result<CreateQrCodeResponse>> getQRCodeForToken(String id) async {
+  Future<Result<CreateQRCodeResponse>> getQRCodeForToken(String id) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.getQRCodeForToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -117,6 +117,6 @@ class TokensFacade {
     );
 
     final value = result.valueToMap();
-    return Result.fromJson(value, (x) => CreateQrCodeResponse.fromJson(x));
+    return Result.fromJson(value, (x) => CreateQRCodeResponse.fromJson(x));
   }
 }

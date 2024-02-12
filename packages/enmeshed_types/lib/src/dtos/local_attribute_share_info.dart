@@ -1,35 +1,28 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'local_attribute_share_info.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class LocalAttributeShareInfo extends Equatable {
-  final String requestReference;
+  final String? requestReference;
+  final String? notificationReference;
   final String peer;
   final String? sourceAttribute;
 
   const LocalAttributeShareInfo({
-    required this.requestReference,
+    this.requestReference,
+    this.notificationReference,
     required this.peer,
     this.sourceAttribute,
   });
 
-  factory LocalAttributeShareInfo.fromJson(Map json) {
-    return LocalAttributeShareInfo(
-      requestReference: json['requestReference'],
-      peer: json['peer'],
-      sourceAttribute: json['sourceAttribute'],
-    );
-  }
+  factory LocalAttributeShareInfo.fromJson(Map json) => _$LocalAttributeShareInfoFromJson(Map<String, dynamic>.from(json));
 
   static LocalAttributeShareInfo? fromJsonNullable(Map? json) => json != null ? LocalAttributeShareInfo.fromJson(json) : null;
 
-  Map<String, dynamic> toJson() => {
-        'requestReference': requestReference,
-        'peer': peer,
-        if (sourceAttribute != null) 'sourceAttribute': sourceAttribute,
-      };
+  Map<String, dynamic> toJson() => _$LocalAttributeShareInfoToJson(this);
 
   @override
-  String toString() => 'LocalAttributeShareInfoJSON(requestReference: $requestReference, peer: $peer, sourceAttribute: $sourceAttribute)';
-
-  @override
-  List<Object?> get props => [requestReference, peer, sourceAttribute];
+  List<Object?> get props => [requestReference, notificationReference, peer, sourceAttribute];
 }

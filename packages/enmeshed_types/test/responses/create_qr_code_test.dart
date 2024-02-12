@@ -2,23 +2,23 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('CreateQrCodeResponse toJson', () {
+  group('CreateQRCodeResponse toJson', () {
     test('is correctly converted', () {
-      const response = CreateQrCodeResponse(qrCodeBytes: 'aQrCodeBytes');
+      const response = CreateQRCodeResponse(qrCodeBytes: 'aQRCodeBytes');
       final responseJson = response.toJson();
       expect(
         responseJson,
-        equals({'qrCodeBytes': 'aQrCodeBytes'}),
+        equals({'qrCodeBytes': 'aQRCodeBytes'}),
       );
     });
   });
 
-  group('CreateQrCodeResponse fromJson', () {
+  group('CreateQRCodeResponse fromJson', () {
     test('is correctly converted', () {
-      final json = {'qrCodeBytes': 'aQrCodeBytes'};
+      final json = {'qrCodeBytes': 'aQRCodeBytes'};
       expect(
-        CreateQrCodeResponse.fromJson(json),
-        equals(const CreateQrCodeResponse(qrCodeBytes: 'aQrCodeBytes')),
+        CreateQRCodeResponse.fromJson(json),
+        equals(const CreateQRCodeResponse(qrCodeBytes: 'aQRCodeBytes')),
       );
     });
   });

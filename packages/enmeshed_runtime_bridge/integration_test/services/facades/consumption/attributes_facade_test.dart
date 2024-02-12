@@ -16,7 +16,7 @@ void run(EnmeshedRuntime runtime) {
   late Session recipient;
   late MockEventBus eventBus;
 
-  setUpAll(() async {
+  setUp(() async {
     account1 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 1');
     sender = runtime.getSession(account1.id);
     account2 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 2');
@@ -25,35 +25,14 @@ void run(EnmeshedRuntime runtime) {
     eventBus = runtime.eventBus as MockEventBus;
 
     await ensureActiveRelationship(sender, recipient);
+
+    await sender.consumptionServices.attributes.createIdentityAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+    await sender.consumptionServices.attributes.createIdentityAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
   });
 
-  setUp(() async {
-    await sender.consumptionServices.attributes.createAttribute(
-      content: IdentityAttribute(owner: account1.address!, value: const SurnameAttributeValue(value: 'aSurname')).toJson(),
-    );
-
-    await sender.consumptionServices.attributes.createAttribute(
-      content: IdentityAttribute(owner: account1.address!, value: const GivenNameAttributeValue(value: 'aGivenName')).toJson(),
-    );
-  });
-
-  tearDown(() async {
-    final senderAttributesResult = await sender.consumptionServices.attributes.getAttributes();
-    for (final attribute in senderAttributesResult.value) {
-      await sender.consumptionServices.attributes.deleteAttribute(attributeId: attribute.id);
-    }
-
-    final recipientAttributesResult = await recipient.consumptionServices.attributes.getAttributes();
-    for (final attribute in recipientAttributesResult.value) {
-      await recipient.consumptionServices.attributes.deleteAttribute(attributeId: attribute.id);
-    }
-  });
-
-  group('AttributesFacade: createAttribute', () {
-    test('should create an attribute', () async {
-      final attributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')).toJson(),
-      );
+  group('AttributesFacade: createIdentityAttribute', () {
+    test('should create an identity attribute', () async {
+      final attributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(value: const CityAttributeValue(value: 'aCity'));
 
       expect(attributeResult, isSuccessful<LocalAttributeDTO>());
       expect(attributeResult.value.content.toJson()['@type'], 'IdentityAttribute');
@@ -61,69 +40,27 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: createSharedAttributeCopy', () {
-    test('should allow to create a shared copy', () async {
-      final nationalityParams = IdentityAttribute(owner: account1.address!, value: const NationalityAttributeValue(value: 'DE'));
+  group('AttributesFacade: getPeerSharedAttributes', () {
+    test('should return a valid list of peer shared', () async {
+      final sharedAttribute = await exchangeIdentityAttribute(sender, recipient, const PhoneNumberAttributeValue(value: '012345678910'));
 
-      final attributeResult = await sender.consumptionServices.attributes.createAttribute(content: nationalityParams.toJson());
-      final attribute = attributeResult.value;
-
-      final sharedNationalityResult = await sender.consumptionServices.attributes.createSharedAttributeCopy(
-        attributeId: attribute.id,
-        peer: 'id1A35CharacterLongAddressXXXXXXXXX',
-        requestReference: 'REQIDXXXXXXXXXXXXXXX',
-      );
-
-      expect(sharedNationalityResult, isSuccessful<LocalAttributeDTO>());
-      expect(sharedNationalityResult.value.content, nationalityParams);
-      expect(sharedNationalityResult.value.content.toJson()['value'], nationalityParams.value.toJson());
-      expect(sharedNationalityResult.value.shareInfo?.peer, 'id1A35CharacterLongAddressXXXXXXXXX');
-    });
-  });
-
-  group('AttributesFacade: deleteAttribute', () {
-    test('should delete the attributes successfully', () async {
-      final attributesBeforeDeleteResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributesBeforeDelete = attributesBeforeDeleteResult.value;
-
-      await sender.consumptionServices.attributes.deleteAttribute(attributeId: attributesBeforeDelete.first.id);
-
-      final attributesAfterDeleteResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributesAfterDelete = attributesAfterDeleteResult.value;
-
-      expect(attributesBeforeDelete.length, 2);
-      expect(attributesAfterDelete.length, 1);
-    });
-  });
-
-  group('AttributesFacade: getPeerAttributes', () {
-    test('should return a valid list of peer attributes', () async {
-      final attribute = IdentityAttribute(owner: account1.address!, value: const PhoneNumberAttributeValue(value: '012345678910'));
-
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address!);
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(peer: account1.address!);
 
       expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
 
-      final attributeContents = recipientAttributesResult.value.map((e) => e.content);
-
       expect(recipientAttributesResult.value.length, 1);
-      expect(attributeContents, contains(attribute));
+      expect(recipientAttributesResult.value.first.id, sharedAttribute.id);
     });
 
-    test('should return just non technical peer attributes when hideTechnical=true', () async {
-      final attribute = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+    test('should return just non technical peer shared when hideTechnical=true', () async {
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         isTechnical: true,
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(
         peer: account1.address!,
         hideTechnical: true,
       );
@@ -132,18 +69,15 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributesResult.value.length, 0);
     });
 
-    test('should return also technical peer attributes when hideTechnical=false', () async {
-      final attribute = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+    test('should return also technical peer shared when hideTechnical=false', () async {
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         isTechnical: true,
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(
         peer: account1.address!,
         hideTechnical: false,
       );
@@ -152,18 +86,15 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributesResult.value.length, 1);
     });
 
-    test('should return just valid peer attributes when onlyValid=true', () async {
-      final attribute = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+    test('should return just valid peer shared when onlyValid=true', () async {
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         validTo: DateTime.now().toRuntimeIsoString(),
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(
         peer: account1.address!,
         onlyValid: true,
       );
@@ -172,18 +103,15 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributesResult.value.length, 0);
     });
 
-    test('should return also expired peer attributes when onlyValid=false', () async {
-      final attribute = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+    test('should return also expired peer shared when onlyValid=false', () async {
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         validTo: DateTime.now().toRuntimeIsoString(),
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(
         peer: account1.address!,
         onlyValid: false,
       );
@@ -193,18 +121,15 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return a valid list of LocalAttributeDTOs with all properties', () async {
-      final attribute = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
         validTo: DateTime.now().toRuntimeIsoString(),
         isTechnical: true,
       );
 
-      await shareAndAcceptPeerAttribute(sender, recipient, account2.address!, attribute);
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(
         peer: account1.address!,
         onlyValid: true,
         hideTechnical: true,
@@ -215,61 +140,53 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: getSharedToPeerAttributes', () {
-    test('should return a valid list of shared to peer attributes', () async {
-      final nationalityParams = IdentityAttribute(owner: account1.address!, value: const NationalityAttributeValue(value: 'DE'));
-      const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
+  group('AttributesFacade: getOwnSharedAttributes', () {
+    test('should return a valid list of own shared attributes', () async {
+      final peer = account2.address!;
 
-      final sharedNationality = await establishSharedAttributeCopy(sender, account1.address!, peer, nationalityParams);
+      await exchangeIdentityAttribute(sender, recipient, const NationalityAttributeValue(value: 'DE'));
 
-      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(peer: peer);
+      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getOwnSharedAttributes(peer: peer);
 
       expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributeResult.value.length, 1);
 
-      expect(sharedNationality.content.toJson()['value'], nationalityParams.value.toJson());
+      final sharedNationality = sharedToPeerAttributeResult.value.first;
+
+      expect(sharedNationality.content.toJson()['value'], {'@type': 'Nationality', 'value': 'DE'});
       expect(sharedNationality.shareInfo?.peer, peer);
     });
 
-    test('should return just non technical shared to peer attributes when hideTechnical=true', () async {
-      final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+    test('should return just non technical own shared attributes when hideTechnical=true', () async {
+      final peer = account2.address!;
+
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         isTechnical: true,
       );
 
-      const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
-
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
-
-      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
+      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getOwnSharedAttributes(
         peer: peer,
         hideTechnical: true,
       );
 
       expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributeResult.value.length, 0);
-
-      expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
-      expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('should return also technical shared to peer attributes when hideTechnical=false', () async {
-      final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+    test('should return also technical own shared attributes when hideTechnical=false', () async {
+      final peer = account2.address!;
+
+      final shared = await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         isTechnical: true,
       );
 
-      const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
-
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
-
-      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
+      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getOwnSharedAttributes(
         peer: peer,
         hideTechnical: false,
       );
@@ -277,49 +194,40 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributeResult.value.length, 1);
 
-      expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
-      expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
+      expect(sharedToPeerAttributeResult.value.first.content.toJson()['value'], shared.contentAsRelationshipAttribute.value.toJson());
+      expect(sharedToPeerAttributeResult.value.first.shareInfo?.peer, peer);
     });
 
-    test('should return just valid shared to peer attributes when onlyValid=true', () async {
-      final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+    test('should return just valid own shared attributes when onlyValid=true', () async {
+      final peer = account2.address!;
+
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         validTo: DateTime.now().toRuntimeIsoString(),
       );
 
-      const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
-
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
-
-      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
+      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getOwnSharedAttributes(
         peer: peer,
         onlyValid: true,
       );
 
       expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributeResult.value.length, 0);
-
-      expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
-      expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
 
-    test('should return also expired shared to peer attributes when onlyValid=false', () async {
-      final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+    test('should return also expired own shared attributes when onlyValid=false', () async {
+      final peer = account2.address!;
+
+      final sharedproprietaryBoolean = await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         validTo: DateTime.now().toRuntimeIsoString(),
       );
 
-      const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
-
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
-
-      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
+      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getOwnSharedAttributes(
         peer: peer,
         onlyValid: false,
       );
@@ -327,25 +235,25 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributeResult.value.length, 1);
 
-      expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
-      expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
+      expect(
+        sharedToPeerAttributeResult.value.first.content.toJson()['value'],
+        sharedproprietaryBoolean.contentAsRelationshipAttribute.value.toJson(),
+      );
+      expect(sharedToPeerAttributeResult.value.first.shareInfo?.peer, peer);
     });
 
     test('should return a valid list of non technical LocalAttributeDTOs with all properties', () async {
-      final proprietaryBooleanParams = RelationshipAttribute(
-        owner: account1.address!,
-        value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        key: 'aKey',
-        confidentiality: RelationshipAttributeConfidentiality.public,
+      final peer = account2.address!;
+
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
         validTo: DateTime.now().toRuntimeIsoString(),
         isTechnical: true,
       );
 
-      const peer = 'id1A35CharacterLongAddressXXXXXXXXX';
-
-      final sharedproprietaryBoolean = await establishSharedAttributeCopy(sender, account1.address!, peer, proprietaryBooleanParams);
-
-      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getSharedToPeerAttributes(
+      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getOwnSharedAttributes(
         peer: peer,
         onlyValid: true,
         hideTechnical: true,
@@ -353,9 +261,6 @@ void run(EnmeshedRuntime runtime) {
 
       expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(sharedToPeerAttributeResult.value.length, 0);
-
-      expect(sharedproprietaryBoolean.content.toJson()['value'], proprietaryBooleanParams.value.toJson());
-      expect(sharedproprietaryBoolean.shareInfo?.peer, peer);
     });
   });
 
@@ -393,15 +298,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return a valid list of queried LocalAttributeDTOs', () async {
-      await sender.consumptionServices.attributes.createAttribute(
-        content: RelationshipAttribute(
-          owner: account1.address!,
-          value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-          key: 'aKey',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-          isTechnical: true,
-        ).toJson(),
-      );
+      await exchangeRelationshipAttribute(sender, recipient, const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'));
 
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(
         query: {'content.value.@type': QueryValue.string('ProprietaryString')},
@@ -412,14 +309,11 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return just non technical attributes when hideTechnical=true', () async {
-      await sender.consumptionServices.attributes.createAttribute(
-        content: RelationshipAttribute(
-          owner: account1.address!,
-          value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-          key: 'aKey',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-          isTechnical: true,
-        ).toJson(),
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
+        isTechnical: true,
       );
 
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(hideTechnical: true);
@@ -429,14 +323,11 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return also technical attributes when hideTechnical=false', () async {
-      await sender.consumptionServices.attributes.createAttribute(
-        content: RelationshipAttribute(
-          owner: account1.address!,
-          value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-          key: 'aKey',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-          isTechnical: true,
-        ).toJson(),
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
+        isTechnical: true,
       );
 
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(hideTechnical: false);
@@ -446,14 +337,11 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return just valid attributes when onlyValid=true', () async {
-      await sender.consumptionServices.attributes.createAttribute(
-        content: RelationshipAttribute(
-          owner: account1.address!,
-          value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-          key: 'aKey',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-          validTo: DateTime.now().toRuntimeIsoString(),
-        ).toJson(),
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
+        validTo: DateTime.now().toRuntimeIsoString(),
       );
 
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: true);
@@ -463,14 +351,11 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return also expired attributes when onlyValid=false', () async {
-      await sender.consumptionServices.attributes.createAttribute(
-        content: RelationshipAttribute(
-          owner: account1.address!,
-          value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-          key: 'aKey',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-          validTo: DateTime.now().toRuntimeIsoString(),
-        ).toJson(),
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
+        validTo: DateTime.now().toRuntimeIsoString(),
       );
 
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: false);
@@ -480,15 +365,12 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return a valid list of LocalAttributeDTOs with all properties', () async {
-      await sender.consumptionServices.attributes.createAttribute(
-        content: RelationshipAttribute(
-          owner: account1.address!,
-          value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-          key: 'aKey',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-          validTo: DateTime.now().toRuntimeIsoString(),
-          isTechnical: true,
-        ).toJson(),
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
+        validTo: DateTime.now().toRuntimeIsoString(),
+        isTechnical: true,
       );
 
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(
@@ -504,20 +386,16 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: executeIdentityAttributeQuery', () {
     test('should allow to execute an identityAttributeQuery', () async {
-      final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(owner: account1.address!, value: const PhoneNumberAttributeValue(value: '012345678910')).toJson(),
+      final identityAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(
+        value: const PhoneNumberAttributeValue(value: '012345678910'),
       );
       final identityAttribute = identityAttributeResult.value;
 
-      final relationshipAttributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: RelationshipAttribute(
-          owner: account1.address!,
-          value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aProprietaryStringValue'),
-          key: 'phone',
-          confidentiality: RelationshipAttributeConfidentiality.protected,
-        ).toJson(),
+      await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
       );
-      final relationshipAttribute = relationshipAttributeResult.value;
 
       final receivedAttributesResult = await sender.consumptionServices.attributes.executeIdentityAttributeQuery(
         query: const IdentityAttributeQuery(valueType: 'PhoneNumber'),
@@ -528,7 +406,6 @@ void run(EnmeshedRuntime runtime) {
       final attributeIds = receivedAttributesResult.value.map((v) => v.id);
 
       expect(receivedAttributesResult.value.length, 1);
-      expect(attributeIds, isNot(contains(relationshipAttribute.id)));
       expect(attributeIds, contains(identityAttribute.id));
       expect(receivedAttributesResult.value.first, identityAttribute);
     });
@@ -536,15 +413,11 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: executeRelationshipAttributeQuery', () {
     test('should allow to execute a relationshipAttributeQuery', () async {
-      final relationshipAttributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: RelationshipAttribute(
-          owner: account1.address!,
-          value: const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-          key: 'aKey',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-        ).toJson(),
+      final relationshipAttribute = await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
       );
-      final relationshipAttribute = relationshipAttributeResult.value;
 
       final attributesResult = await sender.consumptionServices.attributes.executeRelationshipAttributeQuery(
         query: RelationshipAttributeQuery(
@@ -558,7 +431,7 @@ void run(EnmeshedRuntime runtime) {
         ),
       );
 
-      expect(relationshipAttributeResult, isSuccessful<LocalAttributeDTO>());
+      expect(attributesResult, isSuccessful<LocalAttributeDTO>());
       expect(attributesResult.value.id, relationshipAttribute.id);
     });
   });
@@ -594,105 +467,16 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: succeedAttribute', () {
-    test('should allow to succeed an attribute', () async {
-      final successorDate = DateTime.now();
-
-      final displayNameParams = IdentityAttribute(owner: account1.address!, value: const DisplayNameAttributeValue(value: 'aDisplayName'));
-
-      final attributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: displayNameParams.toJson(),
-      );
-      final attribute = attributeResult.value;
-
-      final createSuccessorParams = IdentityAttribute(
-        owner: account1.address!,
-        value: const DisplayNameAttributeValue(value: 'aNewDisplayName'),
-        validFrom: successorDate.toRuntimeIsoString(),
-      );
-
-      final successorResult = await sender.consumptionServices.attributes.succeedAttribute(
-        successorContent: createSuccessorParams.toJson(),
-        succeeds: attribute.id,
-      );
-
-      expect(successorResult, isSuccessful<LocalAttributeDTO>());
-
-      final succeededAttributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: attribute.id);
-      final succeededAttribute = succeededAttributeResult.value;
-
-      final succeessorAttributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: successorResult.value.id);
-      final succeessorAttribute = succeessorAttributeResult.value;
-
-      final allAttributesResult = await sender.consumptionServices.attributes.getAttributes();
-      final allAttributes = allAttributesResult.value;
-
-      final currentAttributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: true);
-      final currentAttributes = currentAttributesResult.value;
-
-      final allAttributesIds = allAttributes.map((e) => e.id);
-      final currentAttributesIds = currentAttributes.map((e) => e.id);
-
-      expect(succeededAttribute.content.validTo, successorDate.subtract(const Duration(milliseconds: 1)).toRuntimeIsoString());
-      expect(succeessorAttribute.content.validFrom, successorDate.toRuntimeIsoString());
-      expect(allAttributesIds, contains(succeededAttribute.id));
-      expect(currentAttributesIds, isNot(contains(succeededAttribute.id)));
-      expect(currentAttributesIds, contains(succeessorAttribute.id));
-    });
-  });
-
-  group('AttributesFacade: updateAttribute', () {
-    test('should updated an attribute', () async {
-      final addressResult = await sender.consumptionServices.attributes.createAttribute(
-        content: IdentityAttribute(
-          owner: account1.address!,
-          value: const StreetAddressAttributeValue(
-            recipient: 'aRecipient',
-            street: 'aStreet',
-            houseNumber: 'aHouseNumber',
-            zipCode: 'aZipCode',
-            city: 'aCity',
-            country: 'DE',
-            state: 'aState',
-          ),
-        ).toJson(),
-      );
-      final address = addressResult.value;
-
-      final updatedParams = IdentityAttribute(
-        owner: account1.address!,
-        value: const StreetAddressAttributeValue(
-          recipient: 'aNewRecipient',
-          street: 'aNewStreet',
-          houseNumber: 'aNewHouseNumber',
-          zipCode: 'aNewZipCode',
-          city: 'aNewCity',
-          country: 'DE',
-          state: 'aNewState',
-        ),
-      );
-
-      final newAddressResult = await sender.consumptionServices.attributes.updateAttribute(
-        attributeId: address.id,
-        content: updatedParams.toJson(),
-      );
-
-      expect(newAddressResult, isSuccessful<LocalAttributeDTO>());
-      expect(newAddressResult.value.content, updatedParams);
-    });
-  });
-
-  group('AttributesFacade: shareAttribute', () {
+  group('AttributesFacade: shareIdentityAttribute', () {
     test('should allow to share an attribute', () async {
       final recipientAddress = account2.address!;
-      final attribute = IdentityAttribute(owner: account1.address!, value: const PhoneNumberAttributeValue(value: '012345678910'));
 
-      final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: attribute.toJson(),
+      final identityAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(
+        value: const PhoneNumberAttributeValue(value: '012345678910'),
       );
       final identityAttribute = identityAttributeResult.value;
 
-      final shareAttributeResult = await sender.consumptionServices.attributes.shareAttribute(
+      final shareAttributeResult = await sender.consumptionServices.attributes.shareIdentityAttribute(
         attributeId: identityAttribute.id,
         peer: recipientAddress,
       );
@@ -711,7 +495,7 @@ void run(EnmeshedRuntime runtime) {
       final acceptRequestResult = await recipient.consumptionServices.incomingRequests.accept(
         params: DecideRequestParameters(
           requestId: shareAttributeResult.value.id,
-          items: [AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute)],
+          items: [AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: identityAttributeResult.value.content)],
         ),
       );
 
@@ -722,7 +506,7 @@ void run(EnmeshedRuntime runtime) {
         predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
       );
 
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address!);
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(peer: account1.address!);
       final recipientAttributes = recipientAttributesResult.value;
 
       final attributeContents = recipientAttributes.map((v) => v.content);
@@ -733,21 +517,27 @@ void run(EnmeshedRuntime runtime) {
 
     test('should allow to share an attribute with all properties', () async {
       final recipientAddress = account2.address!;
-      final attribute = IdentityAttribute(owner: account1.address!, value: const PhoneNumberAttributeValue(value: '012345678910'));
 
-      final identityAttributeResult = await sender.consumptionServices.attributes.createAttribute(
-        content: attribute.toJson(),
+      final identityAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(
+        value: const PhoneNumberAttributeValue(value: '012345678910'),
       );
       final identityAttribute = identityAttributeResult.value;
 
-      final shareAttributeResult = await sender.consumptionServices.attributes.shareAttribute(
+      final shareAttributeResult = await sender.consumptionServices.attributes.shareIdentityAttribute(
         attributeId: identityAttribute.id,
         peer: recipientAddress,
-        requestTitle: 'aRequestTitle',
-        requestDescription: 'aRequestDescription',
-        requestMetadata: {'a': 'b'},
-        requestItemTitle: 'aRequestItemTitle',
-        requestItemDescription: 'aRequestItemDescription',
+        requestMetadata: (
+          title: 'aRequestTitle',
+          description: 'aRequestDescription',
+          metadata: {'a': 'b'},
+          expiresAt: null,
+        ),
+        requestItemMetadata: (
+          title: 'aRequestItemTitle',
+          description: 'aRequestItemDescription',
+          metadata: null,
+          requireManualDecision: null,
+        ),
       );
 
       expect(shareAttributeResult, isSuccessful<LocalRequestDTO>());
@@ -764,7 +554,7 @@ void run(EnmeshedRuntime runtime) {
       final acceptRequestResult = await recipient.consumptionServices.incomingRequests.accept(
         params: DecideRequestParameters(
           requestId: shareAttributeResult.value.id,
-          items: [AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute)],
+          items: [AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: identityAttributeResult.value.content)],
         ),
       );
 
@@ -775,7 +565,7 @@ void run(EnmeshedRuntime runtime) {
         predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
       );
 
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerAttributes(peer: account1.address!);
+      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(peer: account1.address!);
       final recipientAttributes = recipientAttributesResult.value;
 
       final attributeContents = recipientAttributes.map((v) => v.content);

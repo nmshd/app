@@ -102,11 +102,11 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(value, (x) => RelationshipTemplateDTO.fromJson(x));
   }
 
-  Future<Result<CreateQrCodeResponse>> createQrCodeForOwnTemplate({
+  Future<Result<CreateQRCodeResponse>> createQRCodeForOwnTemplate({
     required String templateId,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationshipTemplates.createQrCodeForOwnTemplate(request)
+      '''const result = await session.transportServices.relationshipTemplates.createQRCodeForOwnTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -117,15 +117,15 @@ class RelationshipTemplatesFacade {
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (value) => CreateQrCodeResponse.fromJson(value));
+    return Result.fromJson(json, (value) => CreateQRCodeResponse.fromJson(value));
   }
 
-  Future<Result<CreateQrCodeResponse>> createTokenQrCodeForOwnTemplate({
+  Future<Result<CreateQRCodeResponse>> createTokenQRCodeForOwnTemplate({
     required String templateId,
     String? expiresAt,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationshipTemplates.createTokenQrCodeForOwnTemplate(request)
+      '''const result = await session.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -137,7 +137,7 @@ class RelationshipTemplatesFacade {
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (value) => CreateQrCodeResponse.fromJson(value));
+    return Result.fromJson(json, (value) => CreateQRCodeResponse.fromJson(value));
   }
 
   Future<Result<TokenDTO>> createTokenForOwnTemplate({
