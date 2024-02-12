@@ -136,22 +136,22 @@ Future<LocalAttributeDTO> exchangeIdentityAttribute(Session sender, Session reci
     attributeId: createdAttribute.id,
     peer: recipientAddress,
   );
-  final sharedAttribute = shareAttributeResult.value;
+  final request = shareAttributeResult.value;
 
   await syncUntilHasMessage(recipient);
 
   await recipient.consumptionServices.incomingRequests.accept(
-    params: DecideRequestParameters(requestId: sharedAttribute.id, items: [const AcceptRequestItemParameters()]),
+    params: DecideRequestParameters(requestId: request.id, items: [const AcceptRequestItemParameters()]),
   );
 
   await syncUntilHasMessage(sender);
 
   final localAttributes = await sender.consumptionServices.attributes.getAttributes(query: {
     'content.@type': QueryValue.string('IdentityAttribute'),
-    'shareInfo.requestReference': QueryValue.string(sharedAttribute.id),
+    'shareInfo.requestReference': QueryValue.string(request.id),
   });
   assert(localAttributes.value.isNotEmpty);
-  assert(localAttributes.value.first.shareInfo?.requestReference == sharedAttribute.id);
+  assert(localAttributes.value.first.shareInfo?.requestReference == request.id);
 
   return localAttributes.value.first;
 }
