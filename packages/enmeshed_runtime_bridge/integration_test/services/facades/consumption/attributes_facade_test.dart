@@ -26,13 +26,13 @@ void run(EnmeshedRuntime runtime) {
 
     await ensureActiveRelationship(sender, recipient);
 
-    await sender.consumptionServices.attributes.createIdentityAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
-    await sender.consumptionServices.attributes.createIdentityAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
+    await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+    await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
   });
 
-  group('AttributesFacade: createIdentityAttribute', () {
+  group('AttributesFacade: createRepositoryAttribute', () {
     test('should create an identity attribute', () async {
-      final attributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(value: const CityAttributeValue(value: 'aCity'));
+      final attributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const CityAttributeValue(value: 'aCity'));
 
       expect(attributeResult, isSuccessful<LocalAttributeDTO>());
       expect(attributeResult.value.content.toJson()['@type'], 'IdentityAttribute');
@@ -264,6 +264,18 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
+  group('AttributesFacade: getRepositoryAttributes', () {
+    test('should return a valid list of repository attributes', () async {
+      exchangeIdentityAttribute(sender, recipient, const SurnameAttributeValue(value: 'aSurname'));
+
+      final repositoryAttributesResult = await sender.consumptionServices.attributes.getRepositoryAttributes();
+      expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
+
+      expect(repositoryAttributesResult.value.length, 3);
+      expect(repositoryAttributesResult.value.every((e) => e.shareInfo == null), true);
+    });
+  });
+
   group('AttributesFacade: getAttribute', () {
     test('should return a valid LocalAttributeDTO', () async {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes();
@@ -386,7 +398,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: executeIdentityAttributeQuery', () {
     test('should allow to execute an identityAttributeQuery', () async {
-      final identityAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const PhoneNumberAttributeValue(value: '012345678910'),
       );
       final identityAttribute = identityAttributeResult.value;
@@ -412,7 +424,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: executeRelationshipAttributeQuery', () {
-    test('should allow to execute a relationshipAttributeQuery', () async {
+    test('should allow to execute a RelationshipAttributeQuery', () async {
       final relationshipAttribute = await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -467,16 +479,29 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: shareIdentityAttribute', () {
+  group('AttributesFacade: executeIQLQuery', () {
+    test('should allow to execute an IQLQuery', () async {
+      await recipient.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+
+      final receivedAttributeResult = await recipient.consumptionServices.attributes.executeIQLQuery(query: const IQLQuery(queryString: 'Surname'));
+
+      expect(receivedAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
+      expect(receivedAttributeResult.value.length, 1);
+
+      expect(receivedAttributeResult.value.first.contentAsIdentityAttribute.value.atType, 'Surname');
+    });
+  });
+
+  group('AttributesFacade: shareRepositoryAttribute', () {
     test('should allow to share an attribute', () async {
       final recipientAddress = account2.address!;
 
-      final identityAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const PhoneNumberAttributeValue(value: '012345678910'),
       );
       final identityAttribute = identityAttributeResult.value;
 
-      final shareAttributeResult = await sender.consumptionServices.attributes.shareIdentityAttribute(
+      final shareAttributeResult = await sender.consumptionServices.attributes.shareRepositoryAttribute(
         attributeId: identityAttribute.id,
         peer: recipientAddress,
       );
@@ -518,12 +543,12 @@ void run(EnmeshedRuntime runtime) {
     test('should allow to share an attribute with all properties', () async {
       final recipientAddress = account2.address!;
 
-      final identityAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const PhoneNumberAttributeValue(value: '012345678910'),
       );
       final identityAttribute = identityAttributeResult.value;
 
-      final shareAttributeResult = await sender.consumptionServices.attributes.shareIdentityAttribute(
+      final shareAttributeResult = await sender.consumptionServices.attributes.shareRepositoryAttribute(
         attributeId: identityAttribute.id,
         peer: recipientAddress,
         requestMetadata: (

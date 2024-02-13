@@ -8,14 +8,14 @@ class AttributesFacade {
   final AbstractEvaluator _evaluator;
   AttributesFacade(this._evaluator);
 
-  Future<Result<LocalAttributeDTO>> createIdentityAttribute({
+  Future<Result<LocalAttributeDTO>> createRepositoryAttribute({
     required IdentityAttributeValue value,
     List<String>? tags,
     String? validFrom,
     String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.createIdentityAttribute(request)
+      '''const result = await session.consumptionServices.attributes.createRepositoryAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -86,11 +86,11 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<Result<List<LocalAccountDTO>>> getOwnIdentityAttributes({
+  Future<Result<List<LocalAttributeDTO>>> getRepositoryAttributes({
     bool? onlyLatestVersions,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.getOwnIdentityAttributes(request)
+      '''const result = await session.consumptionServices.attributes.getRepositoryAttributes(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -101,7 +101,7 @@ class AttributesFacade {
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (value) => List<LocalAccountDTO>.from(value.map((e) => LocalAccountDTO.fromJson(e))));
+    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
   Future<Result<LocalAttributeDTO>> getAttribute({
@@ -162,13 +162,13 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<Result<List<LocalAttributeDTO>>> getSharedVersionsOfIdentityAttribute({
+  Future<Result<List<LocalAttributeDTO>>> getSharedVersionsOfRepositoryAttribute({
     required String attributeId,
     List<String>? peers,
     bool? onlyLatestVersions,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.getSharedVersionsOfIdentityAttribute(request)
+      '''const result = await session.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -282,7 +282,7 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<Result<SucceedIdentityAttributeResponse>> succeedIdentityAttribute({
+  Future<Result<SucceedRepositoryAttributeResponse>> succeedRepositoryAttribute({
     required String predecessorId,
     required IdentityAttributeValue value,
     List<String>? tags,
@@ -290,7 +290,7 @@ class AttributesFacade {
     String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.succeedIdentityAttribute(request)
+      '''const result = await session.consumptionServices.attributes.succeedRepositoryAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -307,17 +307,17 @@ class AttributesFacade {
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (value) => SucceedIdentityAttributeResponse.fromJson(value));
+    return Result.fromJson(json, (value) => SucceedRepositoryAttributeResponse.fromJson(value));
   }
 
-  Future<Result<LocalRequestDTO>> shareIdentityAttribute({
+  Future<Result<LocalRequestDTO>> shareRepositoryAttribute({
     required String attributeId,
     required String peer,
     ({String? title, String? description, Map<String, dynamic>? metadata, String? expiresAt})? requestMetadata,
     ({String? title, String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.shareIdentityAttribute(request)
+      '''const result = await session.consumptionServices.attributes.shareRepositoryAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -394,12 +394,12 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => LocalRequestDTO.fromJson(value));
   }
 
-  Future<Result<NotifyPeerAboutIdentityAttributeSuccessionResponse>> notifyPeerAboutIdentityAttributeSuccession({
+  Future<Result<NotifyPeerAboutRepositoryAttributeSuccessionResponse>> notifyPeerAboutRepositoryAttributeSuccession({
     required String attributeId,
     required String peer,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.notifyPeerAboutIdentityAttributeSuccession(request)
+      '''const result = await session.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -411,6 +411,6 @@ class AttributesFacade {
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (value) => NotifyPeerAboutIdentityAttributeSuccessionResponse.fromJson(value));
+    return Result.fromJson(json, (value) => NotifyPeerAboutRepositoryAttributeSuccessionResponse.fromJson(value));
   }
 }

@@ -127,12 +127,12 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
 }
 
 Future<LocalAttributeDTO> exchangeIdentityAttribute(Session sender, Session recipient, IdentityAttributeValue attributeValue) async {
-  final createdAttributeResult = await sender.consumptionServices.attributes.createIdentityAttribute(value: attributeValue);
+  final createdAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: attributeValue);
   final createdAttribute = createdAttributeResult.value;
 
   final recipientAddress = (await recipient.transportServices.account.getIdentityInfo()).value.address;
 
-  final shareAttributeResult = await sender.consumptionServices.attributes.shareIdentityAttribute(
+  final shareAttributeResult = await sender.consumptionServices.attributes.shareRepositoryAttribute(
     attributeId: createdAttribute.id,
     peer: recipientAddress,
   );

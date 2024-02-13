@@ -17,12 +17,12 @@ class AttributesFacadeView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () async {
-              final attribute = await runtime.currentSession.consumptionServices.attributes.createIdentityAttribute(
+              final attribute = await runtime.currentSession.consumptionServices.attributes.createRepositoryAttribute(
                 value: const DisplayNameAttributeValue(value: 'ADisplayName'),
               );
               print(attribute);
             },
-            child: const Text('createIdentityAttribute'),
+            child: const Text('createRepositoryAttribute'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
@@ -77,7 +77,7 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              await runtime.currentSession.consumptionServices.attributes.createIdentityAttribute(
+              await runtime.currentSession.consumptionServices.attributes.createRepositoryAttribute(
                 value: const PhoneNumberAttributeValue(value: '012345678910'),
               );
 
@@ -106,7 +106,7 @@ class AttributesFacadeView extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              final createdAttribute = await runtime.currentSession.consumptionServices.attributes.createIdentityAttribute(
+              final createdAttribute = await runtime.currentSession.consumptionServices.attributes.createRepositoryAttribute(
                 value: const PhoneNumberAttributeValue(value: '012345678910'),
               );
 
@@ -114,7 +114,7 @@ class AttributesFacadeView extends StatelessWidget {
 
               final attributeId = createdAttribute.value.id;
               final peer = relationships.value.last.peer;
-              final request = await runtime.currentSession.consumptionServices.attributes.shareIdentityAttribute(
+              final request = await runtime.currentSession.consumptionServices.attributes.shareRepositoryAttribute(
                 attributeId: attributeId,
                 peer: peer,
               );
