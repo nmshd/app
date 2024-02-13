@@ -271,8 +271,8 @@ void run(EnmeshedRuntime runtime) {
       final repositoryAttributesResult = await sender.consumptionServices.attributes.getRepositoryAttributes();
       expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
 
-      expect(repositoryAttributesResult.value.length, 1);
-      expect(repositoryAttributesResult.value.first.shareInfo, isNull);
+      expect(repositoryAttributesResult.value.length, 3);
+      expect(repositoryAttributesResult.value.every((e) => e.shareInfo == null), true);
     });
   });
 
