@@ -139,20 +139,43 @@ class _AttributeScreenState extends State<AttributeScreen> {
       ),
       body: Column(
         children: [
-          const Text('Description'),
+          const Text('Description', textAlign: TextAlign.start),
           const Row(
-            children: [Text('My Entries'), Text('+ Add')],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('My Entries', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('+ Add Entry'),
+            ],
           ),
           Expanded(
             child: ListView(
               children: widget.attributes!.map((item) {
-                return RadioListTile<AttributeValue>(
-                  title: Text(item.toJson()['value'].toString()),
-                  value: item,
-                  groupValue: selectedOption,
-                  onChanged: (value) {
+                final attributeValue = item.toJson();
+
+                return ListTile(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      attributeValue.containsKey('value') && attributeValue.length == 2
+                          ? Text(attributeValue['value'].toString())
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: attributeValue.entries.map((attribute) => Text(attribute.value)).toList(),
+                            ),
+                      Radio<AttributeValue>(
+                        value: item,
+                        groupValue: selectedOption,
+                        onChanged: (AttributeValue? value) {
+                          setState(() {
+                            selectedOption = value!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  onTap: () {
                     setState(() {
-                      selectedOption = value;
+                      selectedOption = item;
                     });
                   },
                 );
@@ -160,12 +183,11 @@ class _AttributeScreenState extends State<AttributeScreen> {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextButton.icon(
-                icon: const Icon(Icons.close, size: 16),
-                label: const Text('Cancel', style: TextStyle(fontWeight: FontWeight.bold)),
+              TextButton(
                 onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
               ),
               FilledButton(
                 style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),

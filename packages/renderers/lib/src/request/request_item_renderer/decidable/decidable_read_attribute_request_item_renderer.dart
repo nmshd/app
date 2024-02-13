@@ -180,7 +180,6 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       final selectedAttribute = await widget.selectAttribute!(valueType: valueType, attributes: resultValues);
 
       if (selectedAttribute is IdentityAttribute) {
-        print('read');
         final attributeValue = IdentityAttribute(
           owner: widget.currentAddress,
           value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': selectedAttribute}),
