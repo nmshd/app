@@ -179,10 +179,10 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
       final selectedAttribute = await widget.selectAttribute!(valueType: valueType, attributes: resultValues);
 
-      if (selectedAttribute is IdentityAttribute) {
+      if (selectedAttribute is IdentityAttributeValue) {
         final attributeValue = IdentityAttribute(
-          owner: widget.currentAddress,
-          value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': selectedAttribute}),
+          owner: '',
+          value: selectedAttribute,
         );
 
         setState(() => newAttribute = attributeValue);
@@ -190,14 +190,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         _updateSelectedAttribute();
       }
 
-      if (selectedAttribute is RelationshipAttribute) {
+      if (selectedAttribute is RelationshipAttributeValue) {
         final processedAttributeQuery = widget.item.query as ProcessedRelationshipAttributeQueryDVO;
 
         final attributeValue = RelationshipAttribute(
           confidentiality: RelationshipAttributeConfidentiality.values.byName(processedAttributeQuery.attributeCreationHints.confidentiality),
           key: processedAttributeQuery.key,
           owner: widget.currentAddress,
-          value: RelationshipAttributeValue.fromJson({'@type': valueType, 'value': selectedAttribute}),
+          value: selectedAttribute,
         );
 
         setState(() => newAttribute = attributeValue);
