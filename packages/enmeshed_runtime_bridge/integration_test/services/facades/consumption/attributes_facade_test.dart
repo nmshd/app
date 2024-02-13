@@ -264,6 +264,18 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
+  group('AttributesFacade: getRepositoryAttributes', () {
+    test('should return a valid list of repository attributes', () async {
+      exchangeIdentityAttribute(sender, recipient, const SurnameAttributeValue(value: 'aSurname'));
+
+      final repositoryAttributesResult = await sender.consumptionServices.attributes.getRepositoryAttributes();
+      expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
+
+      expect(repositoryAttributesResult.value.length, 1);
+      expect(repositoryAttributesResult.value.first.shareInfo, isNull);
+    });
+  });
+
   group('AttributesFacade: getAttribute', () {
     test('should return a valid LocalAttributeDTO', () async {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes();
@@ -412,7 +424,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: executeRelationshipAttributeQuery', () {
-    test('should allow to execute a relationshipAttributeQuery', () async {
+    test('should allow to execute a RelationshipAttributeQuery', () async {
       final relationshipAttribute = await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -464,6 +476,19 @@ void run(EnmeshedRuntime runtime) {
 
       expect(receivedAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(receivedAttributeResult.value.length, 1);
+    });
+  });
+
+  group('AttributesFacade: executeIQLQuery', () {
+    test('should allow to execute an IQLQuery', () async {
+      await recipient.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+
+      final receivedAttributeResult = await recipient.consumptionServices.attributes.executeIQLQuery(query: const IQLQuery(queryString: 'Surname'));
+
+      expect(receivedAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
+      expect(receivedAttributeResult.value.length, 1);
+
+      expect(receivedAttributeResult.value.first.contentAsIdentityAttribute.value.atType, 'Surname');
     });
   });
 
