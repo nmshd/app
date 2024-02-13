@@ -86,7 +86,7 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<Result<List<LocalAccountDTO>>> getRepositoryAttributes({
+  Future<Result<List<LocalAttributeDTO>>> getRepositoryAttributes({
     bool? onlyLatestVersions,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
@@ -101,7 +101,7 @@ class AttributesFacade {
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (value) => List<LocalAccountDTO>.from(value.map((e) => LocalAccountDTO.fromJson(e))));
+    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
   Future<Result<LocalAttributeDTO>> getAttribute({
