@@ -5,36 +5,36 @@ import '../dtos/dtos.dart';
 part 'succession.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class NotifyPeerAboutIdentityAttributeSuccessionResponse {
+class NotifyPeerAboutRepositoryAttributeSuccessionResponse {
   final LocalAttributeDTO predecessor;
   final LocalAttributeDTO successor;
   final String notificationId;
 
-  NotifyPeerAboutIdentityAttributeSuccessionResponse({
+  NotifyPeerAboutRepositoryAttributeSuccessionResponse({
     required this.predecessor,
     required this.successor,
     required this.notificationId,
   });
 
-  factory NotifyPeerAboutIdentityAttributeSuccessionResponse.fromJson(Map<String, dynamic> json) =>
-      _$NotifyPeerAboutIdentityAttributeSuccessionResponseFromJson(json);
+  factory NotifyPeerAboutRepositoryAttributeSuccessionResponse.fromJson(Map<String, dynamic> json) =>
+      _$NotifyPeerAboutRepositoryAttributeSuccessionResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$NotifyPeerAboutIdentityAttributeSuccessionResponseToJson(this);
+  Map<String, dynamic> toJson() => _$NotifyPeerAboutRepositoryAttributeSuccessionResponseToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)
-class SucceedIdentityAttributeResponse {
+class SucceedRepositoryAttributeResponse {
   final LocalAttributeDTO predecessor;
   final LocalAttributeDTO successor;
 
-  SucceedIdentityAttributeResponse({
+  SucceedRepositoryAttributeResponse({
     required this.predecessor,
     required this.successor,
   });
 
-  factory SucceedIdentityAttributeResponse.fromJson(Map<String, dynamic> json) => _$SucceedIdentityAttributeResponseFromJson(json);
+  factory SucceedRepositoryAttributeResponse.fromJson(Map<String, dynamic> json) => _$SucceedRepositoryAttributeResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SucceedIdentityAttributeResponseToJson(this);
+  Map<String, dynamic> toJson() => _$SucceedRepositoryAttributeResponseToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)
