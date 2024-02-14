@@ -27,6 +27,7 @@ RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) => Requ
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
       content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
+      wasReadAt: json['wasReadAt'] as String?,
       request: LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
     );
 
@@ -60,6 +61,7 @@ Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) {
   val['statusText'] = instance.statusText;
   val['peer'] = instance.peer.toJson();
   val['content'] = instance.content.toJson();
+  writeNotNull('wasReadAt', instance.wasReadAt);
   val['request'] = instance.request.toJson();
   return val;
 }
@@ -91,6 +93,7 @@ MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
       content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
+      wasReadAt: json['wasReadAt'] as String?,
       to: (json['to'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
       cc: (json['cc'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
       subject: json['subject'] as String,
@@ -129,6 +132,7 @@ Map<String, dynamic> _$MailDVOToJson(MailDVO instance) {
   val['statusText'] = instance.statusText;
   val['peer'] = instance.peer.toJson();
   val['content'] = instance.content.toJson();
+  writeNotNull('wasReadAt', instance.wasReadAt);
   val['to'] = instance.to.map((e) => e.toJson()).toList();
   val['cc'] = instance.cc.map((e) => e.toJson()).toList();
   val['subject'] = instance.subject;

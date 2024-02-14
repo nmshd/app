@@ -1,8 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../contents/contents.dart';
 import 'recipient.dart';
 
+part 'message.g.dart';
+
+@JsonSerializable()
 class MessageDTO extends Equatable {
   final String id;
   final bool isOwn;
@@ -12,6 +16,7 @@ class MessageDTO extends Equatable {
   final List<RecipientDTO> recipients;
   final String createdAt;
   final List<String> attachments;
+  final String? wasReadAt;
 
   const MessageDTO({
     required this.id,
@@ -22,35 +27,13 @@ class MessageDTO extends Equatable {
     required this.recipients,
     required this.createdAt,
     required this.attachments,
+    this.wasReadAt,
   });
 
-  factory MessageDTO.fromJson(Map json) => MessageDTO(
-        id: json['id'],
-        isOwn: json['isOwn'],
-        content: MessageContent.fromJson(json['content']),
-        createdBy: json['createdBy'],
-        createdByDevice: json['createdByDevice'],
-        recipients: List<RecipientDTO>.from(json['recipients'].map((x) => RecipientDTO.fromJson(x))),
-        createdAt: json['createdAt'],
-        attachments: List<String>.from(json['attachments']),
-      );
+  factory MessageDTO.fromJson(Map json) => _$MessageDTOFromJson(Map<String, dynamic>.from(json));
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'isOwn': isOwn,
-        'content': content.toJson(),
-        'createdBy': createdBy,
-        'createdByDevice': createdByDevice,
-        'recipients': recipients.map((x) => x.toJson()).toList(),
-        'createdAt': createdAt,
-        'attachments': attachments,
-      };
+  Map<String, dynamic> toJson() => _$MessageDTOToJson(this);
 
   @override
-  String toString() {
-    return 'MessageDTO { id: $id, isOwn: $isOwn, content: $content, createdBy: $createdBy, createdByDevice: $createdByDevice, recipients: $recipients, createdAt: $createdAt, attachments: $attachments }';
-  }
-
-  @override
-  List<Object?> get props => [id, isOwn, content, createdBy, createdByDevice, recipients, createdAt, attachments];
+  List<Object?> get props => [id, isOwn, content, createdBy, createdByDevice, recipients, createdAt, attachments, wasReadAt];
 }
