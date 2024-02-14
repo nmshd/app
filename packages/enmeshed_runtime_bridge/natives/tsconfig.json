@@ -24,7 +24,7 @@
     "types": ["luxon"],
     "baseUrl": ".",
     "paths": {
-      "bson": ["./node_modules/bson/src/"]
+      "bson": ["./node_modules/bson/lib/"]
     }
   },
   "include": ["src/**/*.ts"]

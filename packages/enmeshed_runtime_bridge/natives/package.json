@@ -15,7 +15,7 @@
     "@js-soft/native-abstractions": "^1.2.2",
     "@js-soft/ts-utils": "^2.3.3",
     "@nmshd/app-runtime": "3.0.4",
-    "@nmshd/runtime": "4.0.0",
+    "@nmshd/runtime": "4.1.0",
     "@types/pako": "^2.0.3",
     "bson": "^6.3.0",
     "js-logger": "^1.6.1",
