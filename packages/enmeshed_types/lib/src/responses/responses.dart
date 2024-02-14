@@ -1,6 +1,7 @@
 export 'challenge_validation_result.dart';
 export 'create_qr_code.dart';
 export 'download_file.dart';
+export 'get_hints_response.dart';
 export 'get_identity_info.dart';
 export 'load_item_from_truncated_reference.dart';
 export 'succession.dart';
