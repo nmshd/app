@@ -4,14 +4,35 @@ import {
   RemoteNotificationEvent,
   RemoteNotificationRegistrationEvent
 } from "@js-soft/native-abstractions";
+import { Serializable } from "@js-soft/ts-serval";
+import { ApplicationError, Result } from "@js-soft/ts-utils";
 import { AppRuntime } from "@nmshd/app-runtime";
+import * as contentLib from "@nmshd/content";
+import { RenderHints, RenderHintsJSON, ValueHints, ValueHintsJSON } from "@nmshd/content";
 import { buildInformation } from "@nmshd/runtime";
 import { NativeBootstrapper } from "./NativeBootstrapper";
 import { UIBridge } from "./uiBridge";
 
-import * as contentLib from "@nmshd/content";
-
 window.NMSHDContent = contentLib;
+
+window.getHints = function (valueType: string): Result<{ renderHints: RenderHintsJSON; valueHints: ValueHintsJSON }> {
+  const valueTypeClass = Serializable.getModule(valueType, 1);
+  if (valueTypeClass === undefined) {
+    return Result.fail(new ApplicationError("error.app.valueTypeNotFound", "The given value type was not found."));
+  }
+
+  const valueHints = valueTypeClass.valueHints as ValueHints | undefined;
+  const renderHints = valueTypeClass.renderHints as RenderHints | undefined;
+
+  if (valueHints === undefined || renderHints === undefined) {
+    return Result.fail(new ApplicationError("error.app.hintsNotFound", "The given value type has no hints."));
+  }
+
+  return Result.ok({
+    renderHints: renderHints.toJSON(),
+    valueHints: valueHints.toJSON()
+  });
+};
 
 window.registerUIBridge = function () {
   window.runtime.registerUIBridge(new UIBridge());
