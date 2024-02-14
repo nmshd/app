@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'account_requests/requests_screen.dart';
 import 'attribute_renderer_example/identity_attribute_renderer_example.dart';
+import 'attribute_renderer_example/relationship_attribute_renderer_example.dart';
 import 'can_accept_examples/can_accept_checkbox_example.dart';
 import 'create_attribute_request_item_example/create_attribute_request_item_example.dart';
 import 'decidable_examples/decidable_examples.dart';
@@ -176,6 +177,11 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icons.description,
           title: 'Identity Attribute Renderer',
           pageBuilder: (context) => const IdentityAttributeRendererExample(),
+        ),
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Relationship Attribute Renderer',
+          pageBuilder: (context) => const RelationshipAttributeRendererExample(),
         ),
       ]),
     ];
