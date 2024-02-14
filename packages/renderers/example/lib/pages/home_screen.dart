@@ -2,6 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import 'account_requests/requests_screen.dart';
+import 'attribute_renderer_example/identity_attribute_renderer_example.dart';
 import 'can_accept_examples/can_accept_checkbox_example.dart';
 import 'create_attribute_request_item_example/create_attribute_request_item_example.dart';
 import 'decidable_examples/decidable_examples.dart';
@@ -169,7 +170,14 @@ class _HomeScreenState extends State<HomeScreen> {
           title: 'Manual Decision Not Required',
           pageBuilder: (context) => const CanAcceptCheckboxExample(),
         ),
-      ])
+      ]),
+      _MenuGroup(title: 'Attribute Renderer', items: [
+        _MenuItem(
+          icon: Icons.description,
+          title: 'Identity Attribute Renderer',
+          pageBuilder: (context) => const IdentityAttributeRendererExample(),
+        ),
+      ]),
     ];
 
     _selectedMenuItem = menu[0].items[0];
