@@ -6,7 +6,7 @@ import 'recipient.dart';
 
 part 'message.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class MessageDTO extends Equatable {
   final String id;
   final bool isOwn;
