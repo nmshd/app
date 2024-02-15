@@ -1,6 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-import 'value_renderer_input_value.dart';
+import '../value_renderer_input_value.dart';
 
 class ControllerTypeResolver {
   static ValueRendererInputValue resolveType({required dynamic inputValue, required RenderHintsTechnicalType type}) {
