@@ -5,6 +5,8 @@ class CustomListTile extends StatelessWidget {
   final String title;
   final String? description;
   final String? thirdLine;
+  final bool showTitle;
+  final TextStyle valueTextStyle;
   final Widget? trailing;
 
   const CustomListTile({
@@ -12,6 +14,8 @@ class CustomListTile extends StatelessWidget {
     required this.title,
     this.description,
     this.thirdLine,
+    this.showTitle = true,
+    this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
   });
 
@@ -26,14 +30,14 @@ class CustomListTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+                if (showTitle) TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
                 if (description != null) ...[
                   const SizedBox(height: 2),
-                  TranslatedText(description!, style: const TextStyle(fontSize: 16)),
+                  TranslatedText(description!, style: valueTextStyle),
                 ],
                 if (thirdLine != null) ...[
                   const SizedBox(height: 2),
-                  TranslatedText(thirdLine!, style: const TextStyle(fontSize: 16)),
+                  TranslatedText(thirdLine!, style: valueTextStyle),
                 ]
               ],
             ),

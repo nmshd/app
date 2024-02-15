@@ -7,14 +7,21 @@ import '../value_hint_translation.dart';
 class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
   final PostOfficeBoxAddressAttributeValue value;
   final ValueHints valueHints;
+  final bool showTitle;
+  final TextStyle valueTextStyle;
   final Widget? trailing;
 
-  const PostOfficeBoxAddressAttributeRenderer({super.key, required this.value, required this.valueHints, this.trailing});
+  const PostOfficeBoxAddressAttributeRenderer({
+    super.key,
+    required this.value,
+    required this.valueHints,
+    required this.showTitle,
+    required this.valueTextStyle,
+    this.trailing,
+  });
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(fontSize: 16);
-
     return Row(
       children: [
         Expanded(
@@ -23,42 +30,22 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TranslatedText(
-                  'i18n://attributes.values.${value.atType}._title',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF42474E),
+                if (showTitle)
+                  TranslatedText(
+                    'i18n://attributes.values.${value.atType}._title',
+                    style: const TextStyle(fontSize: 12, color: Color(0xFF42474E)),
                   ),
-                ),
-                TranslatedText(
-                  value.recipient,
-                  style: textStyle,
-                ),
-                TranslatedText(
-                  value.boxId,
-                  style: textStyle,
-                ),
+                TranslatedText(value.recipient, style: valueTextStyle),
+                TranslatedText(value.boxId, style: valueTextStyle),
                 Row(
                   children: [
-                    TranslatedText(
-                      value.zipCode,
-                      style: textStyle,
-                    ),
+                    TranslatedText(value.zipCode, style: valueTextStyle),
                     const SizedBox(width: 4),
-                    TranslatedText(
-                      value.city,
-                      style: textStyle,
-                    )
+                    TranslatedText(value.city, style: valueTextStyle),
                   ],
                 ),
-                TranslatedText(
-                  valueHints.propertyHints!['country']!.getTranslation(value.country),
-                  style: textStyle,
-                ),
-                TranslatedText(
-                  valueHints.propertyHints!['state']!.getTranslation(value.state),
-                  style: textStyle,
-                ),
+                TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
+                TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
               ],
             ),
           ),

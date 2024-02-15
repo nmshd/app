@@ -12,12 +12,16 @@ import 'widgets/street_address_attribute_renderer.dart';
 class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
   final ValueHints valueHints;
+  final bool showTitle;
+  final TextStyle valueTextStyle;
   final Widget? trailing;
 
   const IdentityAttributeValueRenderer({
     super.key,
     required this.value,
     required this.valueHints,
+    this.showTitle = true,
+    this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
   });
 
@@ -30,6 +34,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return StreetAddressAttributeRenderer(
         value: streetAddress,
         valueHints: valueHints,
+        showTitle: showTitle,
+        valueTextStyle: valueTextStyle,
         trailing: trailing,
       );
     }
@@ -39,6 +45,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return DeliveryBoxAddressAttributeRenderer(
         value: deliveryAddress,
         valueHints: valueHints,
+        showTitle: showTitle,
+        valueTextStyle: valueTextStyle,
         trailing: trailing,
       );
     }
@@ -48,6 +56,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return PostOfficeBoxAddressAttributeRenderer(
         value: postOfficeAddress,
         valueHints: valueHints,
+        showTitle: showTitle,
+        valueTextStyle: valueTextStyle,
         trailing: trailing,
       );
     }
@@ -57,6 +67,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime(birthDate.year, birthDate.month, birthDate.day)),
+        showTitle: showTitle,
+        valueTextStyle: valueTextStyle,
         trailing: trailing,
       );
     }
@@ -65,6 +77,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: valueHints.getTranslation(attributeValueMap['value'].toString()),
+        showTitle: showTitle,
+        valueTextStyle: valueTextStyle,
         trailing: trailing,
       );
     }
@@ -78,7 +92,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       title: 'i18n://attributes.values.${value.atType}._title',
       fields: fields,
       valueHints: valueHints,
-      valueType: value.atType,
+      showTitle: showTitle,
+      valueTextStyle: valueTextStyle,
       trailing: trailing,
     );
   }
