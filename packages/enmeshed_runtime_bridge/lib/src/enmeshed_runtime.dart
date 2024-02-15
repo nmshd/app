@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
@@ -9,6 +10,7 @@ import 'data_view_expander.dart';
 import 'event_bus.dart';
 import 'filesystem_adapter.dart';
 import 'javascript_handlers.dart';
+import 'services/facades/result.dart';
 import 'services/services.dart';
 import 'string_processor.dart';
 import 'ui_bridge.dart';
@@ -300,6 +302,20 @@ class EnmeshedRuntime {
     result.throwOnError();
 
     return List<String>.from(result.value);
+  }
+
+  Future<Result<GetHintsResponse>> getHints(String valueType) async {
+    final result = await _evaluateJavaScript(
+      '''const result = window.getHints(valueType)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'valueType': valueType,
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => GetHintsResponse.fromJson(value));
   }
 }
 

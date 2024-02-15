@@ -4,10 +4,10 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../utils/utils.dart';
-import '/value_renderer.dart';
+import '../value_renderer_controller.dart';
 
-class RadioInput extends FormField<ValueHintsDefaultValue?> {
-  RadioInput({
+class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
+  SegmentedButtonInput({
     super.key,
     ValueRendererController? controller,
     InputDecoration? decoration,
@@ -29,29 +29,26 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              children: [
                 TranslatedText(
                   fieldName,
                   style: field.value == null && mustBeFilledOut ? const TextStyle(color: Color(0xFFb3261e)) : null,
                 ),
-                ...values.map(
-                  (option) => InputDecorator(
-                    decoration: decoration ?? const InputDecoration(border: InputBorder.none),
-                    child: RadioListTile<ValueHintsDefaultValue>(
-                      title: TranslatedText(option.displayName),
-                      value: option.key,
-                      groupValue: field.value,
-                      onChanged: (ValueHintsDefaultValue? value) {
-                        if (value == null) return;
-
-                        controller?.value = ControllerTypeResolver.resolveType(
-                          inputValue: value,
-                          type: technicalType,
-                        );
-
-                        field.didChange(value);
-                      },
-                    ),
+                InputDecorator(
+                  decoration: decoration ?? const InputDecoration(border: InputBorder.none),
+                  child: SegmentedButton<ValueHintsDefaultValue>(
+                    emptySelectionAllowed: true,
+                    selected: field.value == null ? {} : {field.value!},
+                    segments: values.map((ValueHintsValue value) {
+                      return ButtonSegment<ValueHintsDefaultValue>(
+                        value: value.key,
+                        label: TranslatedText(value.displayName),
+                      );
+                    }).toList(),
+                    onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
+                      controller?.value = ControllerTypeResolver.resolveType(inputValue: newSelection.first, type: technicalType);
+                      field.didChange(newSelection.first);
+                    },
                   ),
                 ),
                 if (field.value == null && mustBeFilledOut)

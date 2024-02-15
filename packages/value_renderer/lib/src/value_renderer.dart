@@ -1,11 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import './widgets/renderers/renderers.dart';
-
-class ValueRendererController extends ValueNotifier<dynamic> {
-  ValueRendererController() : super(null);
-}
+import 'renderers/renderers.dart';
+import 'value_renderer_controller.dart';
 
 class ValueRenderer extends StatelessWidget {
   final InputDecoration? decoration;
