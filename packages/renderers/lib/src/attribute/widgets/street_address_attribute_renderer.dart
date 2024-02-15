@@ -8,7 +8,7 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
   final StreetAddressAttributeValue value;
   final ValueHints valueHints;
   final bool showTitle;
-  final TextStyle? valueTextStyle;
+  final TextStyle valueTextStyle;
   final Widget? trailing;
 
   const StreetAddressAttributeRenderer({
@@ -16,14 +16,12 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
     required this.value,
     required this.valueHints,
     required this.showTitle,
-    this.valueTextStyle,
+    required this.valueTextStyle,
     this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = valueTextStyle ?? const TextStyle(fontSize: 16);
-
     return Row(
       children: [
         Expanded(
@@ -37,22 +35,22 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
                     'i18n://attributes.values.${value.atType}._title',
                     style: const TextStyle(fontSize: 12, color: Color(0xFF42474E)),
                   ),
-                TranslatedText(value.recipient, style: textStyle),
+                TranslatedText(value.recipient, style: valueTextStyle),
                 Row(
                   children: [
-                    TranslatedText(value.street, style: textStyle),
+                    TranslatedText(value.street, style: valueTextStyle),
                     const SizedBox(width: 4),
-                    TranslatedText(value.houseNumber, style: textStyle)
+                    TranslatedText(value.houseNumber, style: valueTextStyle)
                   ],
                 ),
                 Row(
                   children: [
-                    TranslatedText(value.zipCode, style: textStyle),
+                    TranslatedText(value.zipCode, style: valueTextStyle),
                     const SizedBox(width: 4),
-                    TranslatedText(value.city, style: textStyle),
+                    TranslatedText(value.city, style: valueTextStyle),
                   ],
                 ),
-                TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: textStyle)
+                TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle)
               ],
             ),
           ),

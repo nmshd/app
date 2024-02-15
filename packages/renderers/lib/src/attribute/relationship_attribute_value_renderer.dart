@@ -8,7 +8,7 @@ import '../custom_list_tile.dart';
 class RelationshipAttributeValueRenderer extends StatelessWidget {
   final RelationshipAttributeValue value;
   final bool showTitle;
-  final TextStyle? valueTextStyle;
+  final TextStyle valueTextStyle;
   // TODO: render trailing
   final Widget? trailing;
 
@@ -16,7 +16,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
     super.key,
     required this.value,
     this.showTitle = true,
-    this.valueTextStyle,
+    this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
   });
 

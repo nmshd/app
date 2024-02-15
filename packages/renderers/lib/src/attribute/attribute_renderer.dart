@@ -8,7 +8,7 @@ class AttributeRenderer extends StatelessWidget {
   final AbstractAttribute attribute;
   final ValueHints valueHints;
   final bool showTitle;
-  final TextStyle? valueTextStyle;
+  final TextStyle valueTextStyle;
   final Widget? trailing;
 
   const AttributeRenderer({
@@ -16,7 +16,7 @@ class AttributeRenderer extends StatelessWidget {
     required this.attribute,
     required this.valueHints,
     this.showTitle = true,
-    this.valueTextStyle,
+    this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
   });
 
@@ -30,7 +30,7 @@ class AttributeRenderer extends StatelessWidget {
         attribute: attribute.content,
         valueHints: attribute.valueHints,
         showTitle: showTitle,
-        valueTextStyle: valueTextStyle,
+        valueTextStyle: valueTextStyle ?? const TextStyle(fontSize: 16),
         trailing: trailing,
       );
 

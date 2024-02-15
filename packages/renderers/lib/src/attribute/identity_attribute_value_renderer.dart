@@ -13,7 +13,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final IdentityAttributeValue value;
   final ValueHints valueHints;
   final bool showTitle;
-  final TextStyle? valueTextStyle;
+  final TextStyle valueTextStyle;
   final Widget? trailing;
 
   const IdentityAttributeValueRenderer({
@@ -21,7 +21,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     required this.value,
     required this.valueHints,
     this.showTitle = true,
-    this.valueTextStyle,
+    this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
   });
 
