@@ -29,8 +29,10 @@ class ComplexAttributeListTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
-        const SizedBox(height: 8),
+        if (showTitle) ...[
+          TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
+          const SizedBox(height: 8),
+        ],
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -48,7 +50,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (showTitle) TranslatedText(label, style: titlesTextStyle),
+                      TranslatedText(label, style: titlesTextStyle),
                       const SizedBox(height: 2),
                       TranslatedText(
                         valueHints.propertyHints!.values.elementAt(index).getTranslation(field.value),
