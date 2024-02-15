@@ -23,14 +23,14 @@ class AttributeRenderer extends StatelessWidget {
   factory AttributeRenderer.localAttribute({
     required LocalAttributeDVO attribute,
     bool showTitle = true,
-    TextStyle? valueTextStyle,
+    TextStyle valueTextStyle = const TextStyle(fontSize: 16),
     Widget? trailing,
   }) =>
       AttributeRenderer(
         attribute: attribute.content,
         valueHints: attribute.valueHints,
         showTitle: showTitle,
-        valueTextStyle: valueTextStyle ?? const TextStyle(fontSize: 16),
+        valueTextStyle: valueTextStyle,
         trailing: trailing,
       );
 
