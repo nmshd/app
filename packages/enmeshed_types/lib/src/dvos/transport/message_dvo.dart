@@ -29,6 +29,7 @@ class MessageDVO extends DataViewObject {
   final String statusText;
   final IdentityDVO peer;
   final MessageContent content;
+  final String? wasReadAt;
 
   const MessageDVO({
     required super.id,
@@ -51,6 +52,7 @@ class MessageDVO extends DataViewObject {
     required this.statusText,
     required this.peer,
     required this.content,
+    this.wasReadAt,
   });
 
   factory MessageDVO.fromJson(Map json) => switch (json['type']) {

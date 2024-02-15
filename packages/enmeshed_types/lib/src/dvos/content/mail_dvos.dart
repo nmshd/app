@@ -33,6 +33,7 @@ class RequestMessageDVO extends MessageDVO {
     required super.statusText,
     required super.peer,
     required super.content,
+    required super.wasReadAt,
     required this.request,
   });
 
@@ -73,6 +74,7 @@ class MailDVO extends MessageDVO {
     required super.statusText,
     required super.peer,
     required super.content,
+    required super.wasReadAt,
     required this.to,
     required this.cc,
     required this.subject,
