@@ -9,7 +9,7 @@ import 'styles/input_decoration.dart';
 class TextInput extends StatefulWidget {
   final ValueRendererController? controller;
   final InputDecoration? decoration;
-  final String fieldName;
+  final String? fieldName;
   final ValueHintsDefaultValueString? initialValue;
   final int? max;
   final bool mustBeFilledOut;
@@ -20,7 +20,7 @@ class TextInput extends StatefulWidget {
     super.key,
     this.controller,
     this.decoration,
-    required this.fieldName,
+    this.fieldName,
     required this.initialValue,
     this.max,
     required this.mustBeFilledOut,
@@ -34,6 +34,7 @@ class TextInput extends StatefulWidget {
 
 class TextInputState extends State<TextInput> {
   late TextEditingController _controller;
+  String? _translatedText;
 
   @override
   void initState() {
@@ -62,8 +63,9 @@ class TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
-    final fieldName = widget.fieldName;
-    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+    if (widget.fieldName != null) {
+      _translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
+    }
 
     return Form(
       child: TextFormField(
@@ -71,8 +73,9 @@ class TextInputState extends State<TextInput> {
         controller: _controller,
         autovalidateMode: AutovalidateMode.always,
         validator: (value) => validateInput(value),
-        decoration:
-            widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
+        decoration: widget.decoration != null
+            ? widget.decoration!.copyWith(labelText: _translatedText)
+            : inputDecoration.copyWith(labelText: _translatedText),
       ),
     );
   }

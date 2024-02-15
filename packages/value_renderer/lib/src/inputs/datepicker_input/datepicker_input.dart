@@ -11,7 +11,7 @@ class DatepickerInput extends StatelessWidget {
     this.dateTextStyle,
     this.decoration,
     this.enabled = true,
-    required this.fieldName,
+    this.fieldName,
     DateTime? firstDate,
     this.initialDate,
     DateTime? lastDate,
@@ -25,7 +25,7 @@ class DatepickerInput extends StatelessWidget {
   final TextStyle? dateTextStyle;
   final InputDecoration? decoration;
   final bool? enabled;
-  final String fieldName;
+  final String? fieldName;
   final DateTime? initialDate;
   final DateTime firstDate;
   final DateTime lastDate;

@@ -10,7 +10,7 @@ import 'styles/input_decoration.dart';
 class NumberInput extends StatefulWidget {
   final ValueRendererController? controller;
   final InputDecoration? decoration;
-  final String fieldName;
+  final String? fieldName;
   final num? initialValue;
   final num? max;
   final num? min;
@@ -23,7 +23,7 @@ class NumberInput extends StatefulWidget {
     super.key,
     this.controller,
     this.decoration,
-    required this.fieldName,
+    this.fieldName,
     this.initialValue,
     this.max,
     this.min,
@@ -39,6 +39,7 @@ class NumberInput extends StatefulWidget {
 
 class NumberInputState extends State<NumberInput> {
   late TextEditingController _controller;
+  String? _translatedText;
 
   @override
   void initState() {
@@ -69,8 +70,9 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
-    final fieldName = widget.fieldName;
-    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+    if (widget.fieldName != null) {
+      _translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
+    }
 
     return Form(
       child: TextFormField(
@@ -83,8 +85,9 @@ class NumberInputState extends State<NumberInput> {
               ? FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
               : FilteringTextInputFormatter.digitsOnly,
         ],
-        decoration:
-            widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
+        decoration: widget.decoration != null
+            ? widget.decoration!.copyWith(labelText: _translatedText)
+            : inputDecoration.copyWith(labelText: _translatedText),
       ),
     );
   }

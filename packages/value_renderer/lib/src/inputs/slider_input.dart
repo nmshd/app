@@ -7,7 +7,7 @@ import '../value_renderer_controller.dart';
 
 class SliderInput extends StatefulWidget {
   final ValueRendererController? controller;
-  final String fieldName;
+  final String? fieldName;
   final num? initialValue;
   final num max;
   final num min;
@@ -16,7 +16,7 @@ class SliderInput extends StatefulWidget {
   const SliderInput({
     super.key,
     this.controller,
-    required this.fieldName,
+    this.fieldName,
     this.initialValue,
     required this.max,
     required this.min,
@@ -48,7 +48,7 @@ class _SliderInputState extends State<SliderInput> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 18),
-        TranslatedText(widget.fieldName),
+        if (widget.fieldName != null) TranslatedText(widget.fieldName!),
         Slider(
           value: currentSliderValue.toDouble(),
           min: widget.min.toDouble(),

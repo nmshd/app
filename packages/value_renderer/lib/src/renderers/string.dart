@@ -9,7 +9,7 @@ class StringRenderer extends StatelessWidget {
   final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
-  final String fieldName;
+  final String? fieldName;
   final AttributeValue? initialValue;
   final bool mustBeFilledOut;
   final RenderHintsTechnicalType technicalType;
@@ -22,7 +22,7 @@ class StringRenderer extends StatelessWidget {
     this.decoration,
     this.dataType,
     this.editType,
-    required this.fieldName,
+    this.fieldName,
     required this.initialValue,
     required this.mustBeFilledOut,
     required this.technicalType,

@@ -10,7 +10,7 @@ import 'styles/input_decoration.dart';
 class DropdownSelectInput extends StatefulWidget {
   final ValueRendererController? controller;
   final InputDecoration? decoration;
-  final String fieldName;
+  final String? fieldName;
   final ValueHintsDefaultValue? initialValue;
   final bool mustBeFilledOut;
   final RenderHintsTechnicalType technicalType;
@@ -20,7 +20,7 @@ class DropdownSelectInput extends StatefulWidget {
     super.key,
     this.controller,
     this.decoration,
-    required this.fieldName,
+    this.fieldName,
     this.initialValue,
     required this.mustBeFilledOut,
     required this.technicalType,
@@ -32,13 +32,14 @@ class DropdownSelectInput extends StatefulWidget {
 }
 
 class _DropdownSelectInputState extends State<DropdownSelectInput> {
-  late ValueHintsDefaultValue? selectedOption;
+  late ValueHintsDefaultValue? _selectedOption;
+  String? _translatedText;
 
   @override
   void initState() {
     super.initState();
 
-    selectedOption = widget.initialValue;
+    _selectedOption = widget.initialValue;
 
     if (widget.initialValue != null) {
       widget.controller?.value = ControllerTypeResolver.resolveType(
@@ -50,18 +51,19 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
   @override
   Widget build(BuildContext context) {
-    final fieldName = widget.fieldName;
-    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+    if (widget.fieldName != null) {
+      _translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DropdownButtonFormField<ValueHintsDefaultValue>(
           autovalidateMode: AutovalidateMode.always,
-          value: selectedOption,
+          value: _selectedOption,
           decoration: widget.decoration != null
-              ? widget.decoration!.copyWith(labelText: translatedText)
-              : inputDecoration.copyWith(labelText: translatedText),
+              ? widget.decoration!.copyWith(labelText: _translatedText)
+              : inputDecoration.copyWith(labelText: _translatedText),
           validator: (value) => value == null && widget.mustBeFilledOut
               ? FlutterI18n.translate(
                   context,
@@ -75,7 +77,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
             );
 
             setState(() {
-              selectedOption = newValue;
+              _selectedOption = newValue;
             });
           },
           isExpanded: true,

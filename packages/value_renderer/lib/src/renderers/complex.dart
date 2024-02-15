@@ -13,7 +13,7 @@ class ComplexRenderer extends StatefulWidget {
   final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
-  final String fieldName;
+  final String? fieldName;
   final AttributeValue? initialValue;
   final bool mustBeFilledOut;
   final RenderHints renderHints;
@@ -26,7 +26,7 @@ class ComplexRenderer extends StatefulWidget {
     this.decoration,
     this.dataType,
     this.editType,
-    required this.fieldName,
+    this.fieldName,
     required this.initialValue,
     required this.mustBeFilledOut,
     required this.renderHints,
@@ -40,7 +40,7 @@ class ComplexRenderer extends StatefulWidget {
 
 class _ComplexRendererState extends State<ComplexRenderer> {
   Map<String, dynamic> value = {};
-
+  String? _translatedText;
   Map<String, ValueRendererController>? controllers;
 
   @override
@@ -76,7 +76,9 @@ class _ComplexRendererState extends State<ComplexRenderer> {
   @override
   Widget build(BuildContext context) {
     final fieldName = widget.fieldName;
-    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+    if (widget.fieldName != null) {
+      _translatedText = fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+    }
 
     if (widget.initialValue is BirthDateAttributeValue || widget.valueType == 'BirthDate') {
       return DatepickerFormField(
@@ -84,7 +86,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
         initialValueAttribute: widget.initialValue,
         decoration: widget.decoration,
-        fieldName: translatedText,
+        fieldName: _translatedText,
         mustBeFilledOut: widget.mustBeFilledOut,
       );
     }
@@ -95,10 +97,11 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         const SizedBox(
           height: 12,
         ),
-        TranslatedText(
-          fieldName,
-          style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E)),
-        ),
+        if (fieldName != null)
+          TranslatedText(
+            fieldName,
+            style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E)),
+          ),
         const SizedBox(height: 12),
         if (widget.renderHints.propertyHints != null)
           ListView.separated(
@@ -106,10 +109,14 @@ class _ComplexRendererState extends State<ComplexRenderer> {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: widget.renderHints.propertyHints!.values.length,
             itemBuilder: (context, index) {
+              late String? translatedKey;
               final key = widget.renderHints.propertyHints!.keys.elementAt(index);
-              final typeIndex = fieldName.lastIndexOf('.');
-              final translatedKey =
-                  typeIndex != -1 ? '${fieldName.substring(0, typeIndex)}.$key.label' : 'i18n://attributes.values.$fieldName.$key.label';
+              if (fieldName != null) {
+                final typeIndex = fieldName.lastIndexOf('.');
+                translatedKey =
+                    typeIndex != -1 ? '${fieldName.substring(0, typeIndex)}.$key.label' : 'i18n://attributes.values.$fieldName.$key.label';
+              }
+
               final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
               final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
               final itemRenderHints = widget.renderHints.propertyHints![key];
