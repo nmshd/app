@@ -1,13 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '../../value_renderer.dart';
 import '../inputs/inputs.dart';
+import '../value_renderer_controller.dart';
 
-class StringRenderer extends StatelessWidget {
+class NumberRenderer extends StatelessWidget {
   final ValueRendererController? controller;
-  final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
+  final InputDecoration? decoration;
   final RenderHintsEditType? editType;
   final String fieldName;
   final AttributeValue? initialValue;
@@ -16,7 +16,7 @@ class StringRenderer extends StatelessWidget {
   final ValueHints valueHints;
   final List<ValueHintsValue>? values;
 
-  const StringRenderer({
+  const NumberRenderer({
     super.key,
     this.controller,
     this.decoration,
@@ -32,16 +32,17 @@ class StringRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final min = valueHints.min;
     final max = valueHints.max;
     final pattern = valueHints.pattern;
 
     final json = initialValue?.toJson();
-    if (json != null && json['value'] != null && json['value'] is! String) {
-      throw Exception('trying to render an initial value with a non-String value');
+    if (json != null && json['value'] != null && json['value'] is! num) {
+      throw Exception('trying to render an initial value with a non-Number value');
     }
 
-    final String? initialStringValue = initialValue?.toJson()['value'];
-    final valueHintsDefaultValue = initialStringValue == null ? null : ValueHintsDefaultValueString(initialStringValue);
+    final num? initialNumberValue = initialValue?.toJson()['value'];
+    final valueHintsDefaultValue = initialNumberValue != null ? ValueHintsDefaultValueNum(initialNumberValue) : null;
 
     if (editType == RenderHintsEditType.SelectLike && (values != null && values!.isNotEmpty)) {
       return DropdownSelectInput(
@@ -55,29 +56,60 @@ class StringRenderer extends StatelessWidget {
       );
     }
 
+    if (editType == RenderHintsEditType.SelectLike) {
+      // Replacing UI5's Rating Indicator
+      // (https://sapui5.hana.ondemand.com/#/entity/sap.m.RatingIndicator/sample/sap.m.sample.RatingIndicator)
+      // with a SliderInput for now, for simplicity
+      return SliderInput(
+        controller: controller,
+        fieldName: fieldName,
+        initialValue: initialNumberValue,
+        min: 1,
+        max: 5,
+        technicalType: technicalType,
+      );
+    }
+
     if (editType == RenderHintsEditType.ButtonLike && (values != null && values!.isNotEmpty)) {
       return RadioInput(
         controller: controller,
         decoration: decoration,
         fieldName: fieldName,
-        initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
+        initialValue: valueHintsDefaultValue,
       );
     }
 
     if (editType == RenderHintsEditType.ButtonLike) {
       // Replacing UI5's StepInput
       // (https://sapui5.hana.ondemand.com/#/entity/sap.ui.webc.main.StepInput/sample/sap.ui.webc.main.sample.StepInput)
-      // with a normal TextInput for now, for simplicity
-      return TextInput(
+      // with a normal NumberInput for now, for simplicity
+      return NumberInput(
         controller: controller,
         decoration: decoration,
         fieldName: fieldName,
-        initialValue: valueHintsDefaultValue,
-        mustBeFilledOut: mustBeFilledOut,
         values: values,
+        initialValue: initialNumberValue,
+        max: max,
+        mustBeFilledOut: mustBeFilledOut,
+        technicalType: technicalType,
+      );
+    }
+
+    if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
+      return NumberInput(
+        controller: controller,
+        decoration: decoration,
+        fieldName: fieldName,
+        values: values!,
+        initialValue: initialNumberValue,
+        min: min,
+        max: max,
+        mustBeFilledOut: mustBeFilledOut,
+        pattern: pattern,
+        technicalType: technicalType,
       );
     }
 
@@ -93,27 +125,28 @@ class StringRenderer extends StatelessWidget {
       );
     }
 
-    if (editType == RenderHintsEditType.InputLike && (values != null && values!.isNotEmpty)) {
-      return TextInput(
+    if (editType == RenderHintsEditType.SliderLike) {
+      if (min == null || max == null) throw Exception('trying to render a SliderInput without a min/max value');
+
+      return SliderInput(
         controller: controller,
-        decoration: decoration,
         fieldName: fieldName,
-        initialValue: valueHintsDefaultValue,
+        initialValue: initialNumberValue,
+        min: min,
         max: max,
-        mustBeFilledOut: mustBeFilledOut,
-        pattern: pattern,
-        values: values!,
+        technicalType: technicalType,
       );
     }
 
-    return TextInput(
+    return NumberInput(
       controller: controller,
       decoration: decoration,
       fieldName: fieldName,
-      initialValue: valueHintsDefaultValue,
-      pattern: pattern,
+      initialValue: initialNumberValue,
       max: max,
       mustBeFilledOut: mustBeFilledOut,
+      pattern: pattern,
+      technicalType: technicalType,
     );
   }
 }

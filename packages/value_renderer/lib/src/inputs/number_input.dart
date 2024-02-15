@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../value_renderer.dart';
 import '../utils/utils.dart';
+import '../value_renderer_controller.dart';
 import 'styles/input_decoration.dart';
 
 class NumberInput extends StatefulWidget {
