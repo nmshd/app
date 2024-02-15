@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --keep-names --target=chrome60,firefox60,safari11,edge18 --outdir=../assets",
+    "build": "esbuild src/index.ts --bundle --minify --keep-names --target=chrome60,firefox60,safari11,edge18 --outdir=../assets --tsconfig=tsconfig.esbuild.json",
     "build:watch": "npm run build -- --watch",
     "lint": "npm run lint:prettier && npm run lint:ts",
     "lint:prettier": "prettier --check .",
@@ -15,7 +15,7 @@
     "@js-soft/native-abstractions": "^1.2.2",
     "@js-soft/ts-utils": "^2.3.3",
     "@nmshd/app-runtime": "3.0.4",
-    "@nmshd/runtime": "4.0.0",
+    "@nmshd/runtime": "4.1.1",
     "@types/pako": "^2.0.3",
     "bson": "^6.3.0",
     "js-logger": "^1.6.1",

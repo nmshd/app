@@ -27,6 +27,7 @@ MessageDVO _$MessageDVOFromJson(Map<String, dynamic> json) => MessageDVO(
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
       content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
+      wasReadAt: json['wasReadAt'] as String?,
     );
 
 Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) {
@@ -59,6 +60,7 @@ Map<String, dynamic> _$MessageDVOToJson(MessageDVO instance) {
   val['statusText'] = instance.statusText;
   val['peer'] = instance.peer.toJson();
   val['content'] = instance.content.toJson();
+  writeNotNull('wasReadAt', instance.wasReadAt);
   return val;
 }
 
