@@ -34,7 +34,6 @@ class TextInput extends StatefulWidget {
 
 class TextInputState extends State<TextInput> {
   late TextEditingController _controller;
-  String? _translatedText;
 
   @override
   void initState() {
@@ -61,8 +60,10 @@ class TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
+    String? translatedText;
+
     if (widget.fieldName != null) {
-      _translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
+      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
     }
 
     return Form(
@@ -71,9 +72,8 @@ class TextInputState extends State<TextInput> {
         controller: _controller,
         autovalidateMode: AutovalidateMode.always,
         validator: (value) => validateInput(value),
-        decoration: widget.decoration != null
-            ? widget.decoration!.copyWith(labelText: _translatedText)
-            : inputDecoration.copyWith(labelText: _translatedText),
+        decoration:
+            widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
       ),
     );
   }

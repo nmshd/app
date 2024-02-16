@@ -39,7 +39,6 @@ class NumberInput extends StatefulWidget {
 
 class NumberInputState extends State<NumberInput> {
   late TextEditingController _controller;
-  String? _translatedText;
 
   @override
   void initState() {
@@ -70,8 +69,10 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
+    String? translatedText;
+
     if (widget.fieldName != null) {
-      _translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
+      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
     }
 
     return Form(
@@ -85,9 +86,8 @@ class NumberInputState extends State<NumberInput> {
               ? FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
               : FilteringTextInputFormatter.digitsOnly,
         ],
-        decoration: widget.decoration != null
-            ? widget.decoration!.copyWith(labelText: _translatedText)
-            : inputDecoration.copyWith(labelText: _translatedText),
+        decoration:
+            widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
       ),
     );
   }

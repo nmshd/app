@@ -33,7 +33,6 @@ class DropdownSelectInput extends StatefulWidget {
 
 class _DropdownSelectInputState extends State<DropdownSelectInput> {
   late ValueHintsDefaultValue? _selectedOption;
-  String? _translatedText;
 
   @override
   void initState() {
@@ -51,8 +50,10 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
   @override
   Widget build(BuildContext context) {
+    String? translatedText;
+
     if (widget.fieldName != null) {
-      _translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
+      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
     }
 
     return Column(
@@ -62,8 +63,8 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           autovalidateMode: AutovalidateMode.always,
           value: _selectedOption,
           decoration: widget.decoration != null
-              ? widget.decoration!.copyWith(labelText: _translatedText)
-              : inputDecoration.copyWith(labelText: _translatedText),
+              ? widget.decoration!.copyWith(labelText: translatedText)
+              : inputDecoration.copyWith(labelText: translatedText),
           validator: (value) => value == null && widget.mustBeFilledOut
               ? FlutterI18n.translate(
                   context,
