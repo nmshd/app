@@ -85,7 +85,7 @@ class _CreateNewIdentityState extends State<CreateNewIdentity> {
 
     final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: _controller.text);
 
-    if (context.mounted) Navigator.pop(context);
+    if (mounted) Navigator.pop(context);
     widget.onAccountCreated(account);
   }
 }

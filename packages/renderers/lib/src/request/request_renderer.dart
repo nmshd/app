@@ -47,9 +47,7 @@ class RequestRenderer extends StatelessWidget {
         );
       }).toList();
 
-      return SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems),
-      );
+      return ListView(children: responseItems);
     }
 
     final requestItems = request.items.mapIndexed((index, item) {
@@ -76,8 +74,6 @@ class RequestRenderer extends StatelessWidget {
       );
     }).toList();
 
-    return SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: requestItems),
-    );
+    return ListView(children: requestItems);
   }
 }
