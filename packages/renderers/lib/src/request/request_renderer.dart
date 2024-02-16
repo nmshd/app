@@ -11,8 +11,12 @@ class RequestRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final LocalRequestDVO request;
   final RequestValidationResultDTO? validationResult;
-  final Future<AttributeValue?> Function({required String valueType, List<AttributeValue>? attributes})? selectAttribute;
   final String currentAddress;
+  final Future<AbstractAttribute?> Function({
+    required String valueType,
+    required List<AbstractAttribute> attributes,
+    ValueHints? valueHints,
+  })? selectAttribute;
 
   const RequestRenderer({
     super.key,

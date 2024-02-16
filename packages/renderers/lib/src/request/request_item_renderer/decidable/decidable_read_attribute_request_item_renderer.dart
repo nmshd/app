@@ -14,8 +14,12 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableReadAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final Future<AttributeValue?> Function({required String valueType, List<AttributeValue>? attributes})? selectAttribute;
   final String currentAddress;
+  final Future<AbstractAttribute?> Function({
+    required String valueType,
+    required List<AbstractAttribute> attributes,
+    ValueHints? valueHints,
+  })? selectAttribute;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
@@ -154,20 +158,25 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     }
   }
 
-  List<AttributeValue> getAttributeValue(ProcessedAttributeQueryDVO attribute) {
-    final results = switch (widget.item.query) {
+  ValueHints? getQueryValueHints(ProcessedAttributeQueryDVO attribute) {
+    return switch (attribute) {
+      final ProcessedIdentityAttributeQueryDVO query => query.valueHints,
+      final ProcessedRelationshipAttributeQueryDVO query => query.valueHints,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueHints,
+      final ProcessedIQLQueryDVO query => query.valueHints,
+    };
+  }
+
+  List<AbstractAttribute> getAttributeValue(ProcessedAttributeQueryDVO attribute) {
+    final results = switch (attribute) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    final resultValue = results.map((result) {
-      return switch (result.content) {
-        final IdentityAttribute resultContent => resultContent.value,
-        final RelationshipAttribute resultContent => resultContent.value,
-        _ => throw Exception("Invalid type '${result.content.runtimeType}'"),
-      };
+    final List<AbstractAttribute> resultValue = results.map((result) {
+      return result.content;
     }).toList();
 
     return resultValue;
@@ -176,34 +185,17 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   Future<void> onUpdateAttribute(String valueType) async {
     if (widget.selectAttribute != null) {
       final resultValues = getAttributeValue(widget.item.query);
+      final valueHints = getQueryValueHints(widget.item.query);
 
-      final selectedAttribute = await widget.selectAttribute!(valueType: valueType, attributes: resultValues);
+      final selectedAttribute = await widget.selectAttribute!(
+        valueType: valueType,
+        attributes: resultValues,
+        valueHints: valueHints,
+      );
 
-      if (selectedAttribute is IdentityAttributeValue) {
-        final attributeValue = IdentityAttribute(
-          owner: '',
-          value: selectedAttribute,
-        );
+      setState(() => newAttribute = selectedAttribute);
 
-        setState(() => newAttribute = attributeValue);
-
-        _updateSelectedAttribute();
-      }
-
-      if (selectedAttribute is RelationshipAttributeValue) {
-        final processedAttributeQuery = widget.item.query as ProcessedRelationshipAttributeQueryDVO;
-
-        final attributeValue = RelationshipAttribute(
-          confidentiality: RelationshipAttributeConfidentiality.values.byName(processedAttributeQuery.attributeCreationHints.confidentiality),
-          key: processedAttributeQuery.key,
-          owner: widget.currentAddress,
-          value: selectedAttribute,
-        );
-
-        setState(() => newAttribute = attributeValue);
-
-        _updateSelectedAttribute();
-      }
+      _updateSelectedAttribute();
     }
   }
 

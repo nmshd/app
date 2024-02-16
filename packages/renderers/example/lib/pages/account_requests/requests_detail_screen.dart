@@ -106,11 +106,16 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     );
   }
 
-  Future<AttributeValue?> _openAttributeScreen({required String valueType, List<AttributeValue>? attributes}) async {
-    final attribute = await Navigator.of(context).push<AttributeValue?>(
+  Future<AbstractAttribute?> _openAttributeScreen({
+    required String valueType,
+    required List<AbstractAttribute> attributes,
+    ValueHints? valueHints,
+  }) async {
+    final attribute = await Navigator.of(context).push<AbstractAttribute?>(
       MaterialPageRoute(
         builder: (ctx) => AttributeScreen(
           attributes: attributes,
+          valueHints: valueHints,
         ),
       ),
     );
@@ -120,22 +125,23 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 }
 
 class AttributeScreen extends StatefulWidget {
-  final List<AttributeValue>? attributes;
+  final List<AbstractAttribute> attributes;
+  final ValueHints? valueHints;
 
-  const AttributeScreen({super.key, this.attributes});
+  const AttributeScreen({super.key, required this.attributes, this.valueHints});
 
   @override
   State<AttributeScreen> createState() => _AttributeScreenState();
 }
 
 class _AttributeScreenState extends State<AttributeScreen> {
-  AttributeValue? selectedOption;
+  AbstractAttribute? selectedOption;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.attributes!.first.atType),
+        title: const Text('aa'),
       ),
       body: Column(
         children: [
@@ -149,23 +155,25 @@ class _AttributeScreenState extends State<AttributeScreen> {
           ),
           Expanded(
             child: ListView(
-              children: widget.attributes!.map((item) {
+              children: widget.attributes.map((item) {
                 final attributeValue = item.toJson();
 
                 return ListTile(
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      attributeValue.containsKey('value') && attributeValue.length == 2
-                          ? Text(attributeValue['value'].toString())
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: attributeValue.entries.map((attribute) => Text(attribute.value)).toList(),
-                            ),
-                      Radio<AttributeValue>(
+                      // attributeValue.containsKey('value') && attributeValue.length == 2
+                      //     ? Text(attributeValue['value'].toString())
+                      //     : Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: attributeValue.entries.map((attribute) => Text(attribute.value)).toList(),
+                      //       ),
+                      // TODO: handle null valueHints
+                      Expanded(child: AttributeRenderer(attribute: item, valueHints: widget.valueHints!)),
+                      Radio<AbstractAttribute>(
                         value: item,
                         groupValue: selectedOption,
-                        onChanged: (AttributeValue? value) {
+                        onChanged: (AbstractAttribute? value) {
                           setState(() {
                             selectedOption = value!;
                           });

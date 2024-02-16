@@ -11,10 +11,14 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final Future<AttributeValue?> Function({required String valueType, List<AttributeValue>? attributes})? selectAttribute;
   final LocalRequestStatus? requestStatus;
   final bool isRejected;
   final String currentAddress;
+  final Future<AbstractAttribute?> Function({
+    required String valueType,
+    required List<AbstractAttribute> attributes,
+    ValueHints? valueHints,
+  })? selectAttribute;
 
   const RequestItemRenderer({
     super.key,
