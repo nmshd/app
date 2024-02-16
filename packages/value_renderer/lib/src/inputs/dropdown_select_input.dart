@@ -76,9 +76,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
               type: widget.technicalType,
             );
 
-            setState(() {
-              _selectedOption = newValue;
-            });
+            setState(() => _selectedOption = newValue);
           },
           isExpanded: true,
           items: widget.values.map<DropdownMenuItem<ValueHintsDefaultValue>>((ValueHintsValue value) {

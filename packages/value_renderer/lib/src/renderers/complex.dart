@@ -92,9 +92,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 12,
-        ),
+        const SizedBox(height: 12),
         TranslatedText(
           fieldName,
           style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E)),
@@ -117,9 +115,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
               final itemRenderHints = widget.renderHints.propertyHints![key];
               final itemValueHints = widget.valueHints.propertyHints![key];
 
-              if (itemValueHints == null) {
-                return const Divider(height: 0);
-              }
+              if (itemValueHints == null) return const Divider(height: 0);
 
               return ValueRenderer(
                 initialValue: itemInitialValue,
