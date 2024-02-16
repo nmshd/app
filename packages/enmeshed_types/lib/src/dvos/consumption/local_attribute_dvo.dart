@@ -59,8 +59,6 @@ sealed class LocalAttributeDVO extends DataViewObject {
 }
 
 sealed class IdentityAttributeDVO extends LocalAttributeDVO {
-  final List<String> tags;
-
   const IdentityAttributeDVO({
     required super.id,
     required super.name,
@@ -72,7 +70,6 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required this.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -96,6 +93,7 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
 @JsonSerializable(includeIfNull: false)
 class RepositoryAttributeDVO extends IdentityAttributeDVO {
   final List<SharedToPeerAttributeDVO> sharedWith;
+  final List<String> tags;
 
   const RepositoryAttributeDVO({
     required super.id,
@@ -107,7 +105,7 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required super.tags,
+    required this.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -128,8 +126,10 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
 @JsonSerializable(includeIfNull: false)
 class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
   final String peer;
-  final String requestReference;
+  final String? requestReference;
+  final String? notificationReference;
   final String sourceAttribute;
+  final List<String> tags;
 
   const SharedToPeerAttributeDVO({
     required super.id,
@@ -141,7 +141,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required super.tags,
+    required this.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -152,7 +152,8 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
     super.succeeds,
     super.succeededBy,
     required this.peer,
-    required this.requestReference,
+    this.requestReference,
+    this.notificationReference,
     required this.sourceAttribute,
   }) : super(type: 'SharedToPeerAttributeDVO');
 
@@ -164,7 +165,9 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
 @JsonSerializable(includeIfNull: false)
 class PeerAttributeDVO extends LocalAttributeDVO {
   final String peer;
-  final String requestReference;
+  final String? requestReference;
+  final String? notificationReference;
+  final List<String> tags;
 
   const PeerAttributeDVO({
     required super.id,
@@ -186,7 +189,9 @@ class PeerAttributeDVO extends LocalAttributeDVO {
     super.succeeds,
     super.succeededBy,
     required this.peer,
-    required this.requestReference,
+    this.requestReference,
+    this.notificationReference,
+    required this.tags,
   }) : super(type: 'PeerAttributeDVO', isOwn: false);
 
   factory PeerAttributeDVO.fromJson(Map json) => _$PeerAttributeDVOFromJson(Map<String, dynamic>.from(json));
@@ -197,7 +202,8 @@ class PeerAttributeDVO extends LocalAttributeDVO {
 sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
   final String key;
   final String peer;
-  final String requestReference;
+  final String? requestReference;
+  final String? notificationReference;
   final String confidentiality;
   final bool isTechnical;
 
@@ -224,7 +230,8 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
     super.succeededBy,
     required this.key,
     required this.peer,
-    required this.requestReference,
+    this.requestReference,
+    this.notificationReference,
     required this.confidentiality,
     required this.isTechnical,
   });
@@ -261,7 +268,8 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
     super.succeededBy,
     required super.key,
     required super.peer,
-    required super.requestReference,
+    super.requestReference,
+    super.notificationReference,
     required super.confidentiality,
     required super.isTechnical,
   }) : super(type: 'OwnRelationshipAttributeDVO', isOwn: true);
@@ -294,7 +302,8 @@ class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
     super.succeededBy,
     required super.key,
     required super.peer,
-    required super.requestReference,
+    required requestReference,
+    required notificationReference,
     required super.confidentiality,
     required super.isTechnical,
   }) : super(type: 'PeerRelationshipAttributeDVO', isOwn: false);

@@ -5,7 +5,7 @@ version: 0.1.0
 
 environment:
   sdk: ^3.2.0
-  flutter: ">=3.16.0"
+  flutter: ">=3.19.0"
 
 dependencies:
   enmeshed_runtime_bridge: ^1.0.0
@@ -15,12 +15,12 @@ dependencies:
   flutter_inappwebview: any
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.3.9
-  get_it: ^7.6.4
+  flutter_native_splash: ^2.3.10
+  get_it: ^7.6.7
   logger: ^2.0.2+1
-  mobile_scanner: ^3.5.5
-  permission_handler: ^11.1.0
-  url_launcher: ^6.2.2
+  mobile_scanner: ^4.0.0
+  permission_handler: ^11.2.1
+  url_launcher: ^6.2.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

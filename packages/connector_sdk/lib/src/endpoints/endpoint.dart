@@ -85,7 +85,7 @@ abstract class Endpoint {
   }
 
   @protected
-  Future<ConnectorResponse<List<int>>> downloadQrCode(String method, String url, {Map<String, dynamic>? request}) async {
+  Future<ConnectorResponse<List<int>>> downloadQRCode(String method, String url, {Map<String, dynamic>? request}) async {
     final Options config = Options(responseType: ResponseType.bytes, headers: {'accept': 'image/png'});
 
     final httpResponse = switch (method) {

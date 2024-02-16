@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-class CreateQrCodeResponse extends Equatable {
+class CreateQRCodeResponse extends Equatable {
   final String qrCodeBytes;
 
-  const CreateQrCodeResponse({required this.qrCodeBytes});
+  const CreateQRCodeResponse({required this.qrCodeBytes});
 
-  factory CreateQrCodeResponse.fromJson(Map json) => CreateQrCodeResponse(qrCodeBytes: json['qrCodeBytes']);
+  factory CreateQRCodeResponse.fromJson(Map json) => CreateQRCodeResponse(qrCodeBytes: json['qrCodeBytes']);
   Map<String, dynamic> toJson() => {'qrCodeBytes': qrCodeBytes};
 
   @override

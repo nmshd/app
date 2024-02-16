@@ -127,11 +127,11 @@ class FilesFacade {
     return Result.fromJson(value, (x) => FileDTO.fromJson(x));
   }
 
-  Future<Result<CreateQrCodeResponse>> createQrCodeForFile({
+  Future<Result<CreateQRCodeResponse>> createQRCodeForFile({
     required String fileId,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.files.createQrCodeForFile(request)
+      '''const result = await session.transportServices.files.createQRCodeForFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -142,7 +142,7 @@ class FilesFacade {
     );
 
     final value = result.valueToMap();
-    return Result.fromJson(value, (x) => CreateQrCodeResponse.fromJson(x));
+    return Result.fromJson(value, (x) => CreateQRCodeResponse.fromJson(x));
   }
 
   Future<Result<TokenDTO>> createTokenForFile({
@@ -167,12 +167,12 @@ class FilesFacade {
     return Result.fromJson(value, (x) => TokenDTO.fromJson(x));
   }
 
-  Future<Result<CreateQrCodeResponse>> createTokenQrCodeForFile({
+  Future<Result<CreateQRCodeResponse>> createTokenQRCodeForFile({
     required String fileId,
     String? expiresAt,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.files.createTokenQrCodeForFile(request)
+      '''const result = await session.transportServices.files.createTokenQRCodeForFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -184,6 +184,6 @@ class FilesFacade {
     );
 
     final value = result.valueToMap();
-    return Result.fromJson(value, (x) => CreateQrCodeResponse.fromJson(x));
+    return Result.fromJson(value, (x) => CreateQRCodeResponse.fromJson(x));
   }
 }

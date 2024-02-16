@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '../../value_renderer.dart';
 import '../inputs/inputs.dart';
+import '../value_renderer_controller.dart';
 
 class BooleanRenderer extends StatelessWidget {
   final ValueRendererController? controller;

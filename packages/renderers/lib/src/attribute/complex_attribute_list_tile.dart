@@ -8,26 +8,31 @@ class ComplexAttributeListTile extends StatelessWidget {
   final String title;
   final List<({String label, String value})> fields;
   final ValueHints valueHints;
+  final bool showTitle;
+  final TextStyle valueTextStyle;
   final Widget? trailing;
-  final String? valueType;
 
   const ComplexAttributeListTile({
     super.key,
     required this.title,
     required this.fields,
     required this.valueHints,
+    required this.showTitle,
+    required this.valueTextStyle,
     this.trailing,
-    this.valueType,
   });
 
   @override
   Widget build(BuildContext context) {
     const titlesTextStyle = TextStyle(fontSize: 12, color: Color(0xFF42474E));
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
-        const SizedBox(height: 8),
+        if (showTitle) ...[
+          TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
+          const SizedBox(height: 8),
+        ],
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -47,10 +52,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                     children: [
                       TranslatedText(label, style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      TranslatedText(
-                        valueHints.propertyHints!.values.elementAt(index).getTranslation(field.value),
-                        style: const TextStyle(fontSize: 16),
-                      ),
+                      TranslatedText(valueHints.propertyHints!.values.elementAt(index).getTranslation(field.value), style: valueTextStyle),
                     ],
                   );
                 },

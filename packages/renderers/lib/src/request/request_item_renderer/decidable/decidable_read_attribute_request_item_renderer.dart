@@ -2,12 +2,11 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 import 'package:value_renderer/value_renderer.dart';
 
+import '../../../utils/compose_attributes.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
 import '../widgets/processed_query_renderer.dart';
 import 'checkbox_enabled_extension.dart';
-import 'widgets/compose_identity_attribute_value.dart';
-import 'widgets/compose_relationship_attribute_value.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {

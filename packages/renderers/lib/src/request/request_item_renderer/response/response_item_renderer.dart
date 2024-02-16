@@ -23,16 +23,19 @@ class ResponseItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return switch (responseItem) {
-      final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(item: dvo),
-      final ProposeAttributeAcceptResponseItemDVO dvo => ProposeAttributeAcceptResponseItemRenderer(item: dvo),
-      final CreateAttributeAcceptResponseItemDVO dvo => CreateAttributeAcceptResponseItemRenderer(item: dvo),
-      final ShareAttributeAcceptResponseItemDVO dvo => ShareAttributeAcceptResponseItemRenderer(item: dvo),
-      final RegisterAttributeListenerAcceptResponseItemDVO dvo => RegisterAttributeListenerAcceptResponseItemRenderer(item: dvo),
-      final RejectResponseItemDVO _ => RejectResponseItemRenderer(item: requestItem, itemIndex: itemIndex, currentAddress: currentAddress),
-      final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
-      final AcceptResponseItemDVO _ => AcceptResponseItemRenderer(item: requestItem, itemIndex: itemIndex, currentAddress: currentAddress),
-      _ => throw Exception("Invalid type '${responseItem.type}'"),
-    };
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: switch (responseItem) {
+        final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(item: dvo),
+        final ProposeAttributeAcceptResponseItemDVO dvo => ProposeAttributeAcceptResponseItemRenderer(item: dvo),
+        final CreateAttributeAcceptResponseItemDVO dvo => CreateAttributeAcceptResponseItemRenderer(item: dvo),
+        final ShareAttributeAcceptResponseItemDVO dvo => ShareAttributeAcceptResponseItemRenderer(item: dvo),
+        final RegisterAttributeListenerAcceptResponseItemDVO dvo => RegisterAttributeListenerAcceptResponseItemRenderer(item: dvo),
+        final RejectResponseItemDVO _ => RejectResponseItemRenderer(item: requestItem, itemIndex: itemIndex, currentAddress: currentAddress),
+        final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
+        final AcceptResponseItemDVO _ => AcceptResponseItemRenderer(item: requestItem, itemIndex: itemIndex, currentAddress: currentAddress),
+        _ => throw Exception("Invalid type '${responseItem.type}'"),
+      },
+    );
   }
 }

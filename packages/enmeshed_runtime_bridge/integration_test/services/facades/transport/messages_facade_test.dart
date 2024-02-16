@@ -154,6 +154,41 @@ void run(EnmeshedRuntime runtime) {
       expect(attachmentResult.value.title, 'aTitle');
       expect(attachmentResult.value.description, 'aDescription');
     });
+
+    group('Mark Message as', () {
+      test('read', () async {
+        final result = await session1.transportServices.messages.sendMessage(
+          recipients: [session2Address],
+          content: Mail(to: [session2Address], subject: 'subject', body: 'body').toJson(),
+          attachments: [fileId],
+        );
+        final message = result.value;
+
+        await syncUntilHasMessage(session2);
+
+        final markAsReadResult = await session2.transportServices.messages.markMessageAsRead(message.id);
+
+        expect(markAsReadResult, isSuccessful<MessageDTO>());
+        expect(markAsReadResult.value.wasReadAt, isNotNull);
+      });
+
+      test('unread', () async {
+        final result = await session1.transportServices.messages.sendMessage(
+          recipients: [session2Address],
+          content: Mail(to: [session2Address], subject: 'subject', body: 'body').toJson(),
+          attachments: [fileId],
+        );
+        final message = result.value;
+
+        await syncUntilHasMessage(session2);
+
+        await session2.transportServices.messages.markMessageAsRead(message.id);
+        final markAsReadResult = await session2.transportServices.messages.markMessageAsUnread(message.id);
+
+        expect(markAsReadResult, isSuccessful<MessageDTO>());
+        expect(markAsReadResult.value.wasReadAt, isNull);
+      });
+    });
   });
 
   group('Message errors', () {

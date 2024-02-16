@@ -97,7 +97,7 @@ class _MainScreenState extends State<MainScreen> {
     final identityInfoResponse = await client.account.getIdentityInfo();
     final identityInfo = identityInfoResponse.data;
 
-    if (context.mounted) {
+    if (mounted) {
       return showDialog<void>(
         context: context,
         barrierDismissible: false,

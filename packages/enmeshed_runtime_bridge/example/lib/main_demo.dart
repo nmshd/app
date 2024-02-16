@@ -178,7 +178,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         await reloadData(false);
       },
     );
-    // ignore: use_build_context_synchronously
+
+    if (!mounted) return;
+
     await modal_bottom_sheet.showMaterialModalBottomSheet(
       context: context,
       bounce: true,

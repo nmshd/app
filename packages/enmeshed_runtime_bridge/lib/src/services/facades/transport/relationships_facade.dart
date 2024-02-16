@@ -127,6 +127,7 @@ class RelationshipsFacade {
   Future<Result<List<LocalAttributeDTO>>> getAttributesForRelationship({
     required String relationshipId,
     bool? hideTechnical,
+    bool? onlyLatestVersions,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.getAttributesForRelationship(request)
@@ -136,6 +137,7 @@ class RelationshipsFacade {
         'request': {
           'id': relationshipId,
           if (hideTechnical != null) 'hideTechnical': hideTechnical,
+          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
         },
       },
     );
