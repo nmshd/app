@@ -11,7 +11,7 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
     super.key,
     ValueRendererController? controller,
     InputDecoration? decoration,
-    required String fieldName,
+    String? fieldName,
     super.initialValue,
     required bool mustBeFilledOut,
     super.onSaved,
@@ -30,10 +30,11 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TranslatedText(
-                  fieldName,
-                  style: field.value == null && mustBeFilledOut ? const TextStyle(color: Color(0xFFb3261e)) : null,
-                ),
+                if (fieldName != null)
+                  TranslatedText(
+                    fieldName,
+                    style: field.value == null && mustBeFilledOut ? const TextStyle(color: Color(0xFFb3261e)) : null,
+                  ),
                 ...values.map(
                   (option) => InputDecorator(
                     decoration: decoration ?? const InputDecoration(border: InputBorder.none),

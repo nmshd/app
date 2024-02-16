@@ -12,7 +12,7 @@ class ValueRendererListTile extends StatefulWidget {
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
   final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
-  final String? valueType;
+  final String valueType;
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;
 
@@ -24,7 +24,7 @@ class ValueRendererListTile extends StatefulWidget {
     this.decoration,
     this.initialValue,
     this.controller,
-    this.valueType,
+    required this.valueType,
     this.checkboxSettings,
     required this.onUpdateInput,
     required this.mustBeAccepted,

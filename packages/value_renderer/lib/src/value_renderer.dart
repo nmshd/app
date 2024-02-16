@@ -6,7 +6,7 @@ import 'value_renderer_controller.dart';
 
 class ValueRenderer extends StatelessWidget {
   final InputDecoration? decoration;
-  final String fieldName;
+  final String? fieldName;
   final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
@@ -18,7 +18,7 @@ class ValueRenderer extends StatelessWidget {
   const ValueRenderer({
     super.key,
     this.decoration,
-    required this.fieldName,
+    this.fieldName,
     this.initialValue,
     required this.renderHints,
     required this.valueHints,
@@ -50,6 +50,8 @@ class ValueRenderer extends StatelessWidget {
     }
 
     if (editType == RenderHintsEditType.Complex) {
+      assert(valueType != null, 'Value type must be provided for complex type');
+
       return ComplexRenderer(
         controller: controller,
         decoration: decoration,
@@ -59,7 +61,7 @@ class ValueRenderer extends StatelessWidget {
         mustBeFilledOut: mustBeFilledOut,
         renderHints: renderHints,
         valueHints: valueHints,
-        valueType: valueType,
+        valueType: valueType!,
       );
     }
 

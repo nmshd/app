@@ -117,6 +117,7 @@ class Renderer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: ValueRenderer(
+            valueType: '',
             renderHints: RenderHints(
               editType: RenderHintsEditType.Complex,
               propertyHints: {
@@ -198,6 +199,7 @@ class Renderer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: ValueRenderer(
+            valueType: '',
             renderHints: RenderHints(
               editType: RenderHintsEditType.Complex,
               propertyHints: {
