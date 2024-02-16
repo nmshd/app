@@ -116,6 +116,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
         builder: (ctx) => AttributeScreen(
           attributes: attributes,
           valueHints: valueHints,
+          attributeTitle: valueType,
         ),
       ),
     );
@@ -127,8 +128,14 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
 class AttributeScreen extends StatefulWidget {
   final List<AbstractAttribute> attributes;
   final ValueHints? valueHints;
+  final String attributeTitle;
 
-  const AttributeScreen({super.key, required this.attributes, this.valueHints});
+  const AttributeScreen({
+    super.key,
+    required this.attributes,
+    this.valueHints,
+    required this.attributeTitle,
+  });
 
   @override
   State<AttributeScreen> createState() => _AttributeScreenState();
@@ -141,7 +148,7 @@ class _AttributeScreenState extends State<AttributeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('aa'),
+        title: TranslatedText('i18n://dvo.attribute.name.${widget.attributeTitle}'),
       ),
       body: Column(
         children: [
@@ -156,18 +163,10 @@ class _AttributeScreenState extends State<AttributeScreen> {
           Expanded(
             child: ListView(
               children: widget.attributes.map((item) {
-                final attributeValue = item.toJson();
-
                 return ListTile(
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // attributeValue.containsKey('value') && attributeValue.length == 2
-                      //     ? Text(attributeValue['value'].toString())
-                      //     : Column(
-                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                      //         children: attributeValue.entries.map((attribute) => Text(attribute.value)).toList(),
-                      //       ),
                       // TODO: handle null valueHints
                       Expanded(child: AttributeRenderer(attribute: item, valueHints: widget.valueHints!)),
                       Radio<AbstractAttribute>(
