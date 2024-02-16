@@ -25,29 +25,26 @@ class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (showTitle)
-                  TranslatedText(
-                    'i18n://attributes.values.${value.atType}._title',
-                    style: const TextStyle(fontSize: 12, color: Color(0xFF42474E)),
-                  ),
-                TranslatedText(value.recipient, style: valueTextStyle),
-                TranslatedText(value.deliveryBoxId, style: valueTextStyle),
-                Row(
-                  children: [
-                    TranslatedText(value.zipCode, style: valueTextStyle),
-                    const SizedBox(width: 4),
-                    TranslatedText(value.city, style: valueTextStyle),
-                  ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (showTitle)
+                TranslatedText(
+                  'i18n://attributes.values.${value.atType}._title',
+                  style: const TextStyle(fontSize: 12, color: Color(0xFF42474E)),
                 ),
-                TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
-                TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
-              ],
-            ),
+              TranslatedText(value.recipient, style: valueTextStyle),
+              TranslatedText(value.deliveryBoxId, style: valueTextStyle),
+              Row(
+                children: [
+                  TranslatedText(value.zipCode, style: valueTextStyle),
+                  const SizedBox(width: 4),
+                  TranslatedText(value.city, style: valueTextStyle),
+                ],
+              ),
+              TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
+              TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
+            ],
           ),
         ),
         if (trailing != null) SizedBox(width: 50, child: trailing)

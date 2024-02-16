@@ -101,17 +101,17 @@ class _LoginScreenState extends State<LoginScreen> {
         _errorMessage = errorMessage;
       });
 
-      if (context.mounted) {}
-
-      setState(() {
-        _loginEnabled = true;
-        _loginProcessing = false;
-      });
+      if (context.mounted) {
+        setState(() {
+          _loginEnabled = true;
+          _loginProcessing = false;
+        });
+      }
 
       return;
     }
 
-    if (context.mounted) {
+    if (mounted) {
       if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
         setWindowTitle('Connector Management UI - $baseUrl');
       }

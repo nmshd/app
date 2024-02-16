@@ -29,60 +29,63 @@ class RequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return switch (item) {
-      final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-          selectAttribute: selectAttribute,
-          currentAddress: currentAddress,
-        ),
-      final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-          selectAttribute: selectAttribute,
-        ),
-      final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-        ),
-      final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-        ),
-      final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-        ),
-      final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-        ),
-      final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-        ),
-      final DecidableFreeTextRequestItemDVO dvo => DecidableFreeTextRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-          requestStatus: requestStatus,
-        ),
-      final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(item: dvo),
-      final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(item: dvo),
-      final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(item: dvo, isRejected: isRejected),
-      final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(item: dvo, isRejected: isRejected),
-      final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(item: dvo),
-      final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),
-      final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(item: dvo),
-      final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(item: dvo),
-      _ => throw Exception("Invalid type '${item.type}'"),
-    };
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: switch (item) {
+        final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+            selectAttribute: selectAttribute,
+            currentAddress: currentAddress,
+          ),
+        final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+            selectAttribute: selectAttribute,
+          ),
+        final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+          ),
+        final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+          ),
+        final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+          ),
+        final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+          ),
+        final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+          ),
+        final DecidableFreeTextRequestItemDVO dvo => DecidableFreeTextRequestItemRenderer(
+            controller: controller,
+            item: dvo,
+            itemIndex: itemIndex,
+            requestStatus: requestStatus,
+          ),
+        final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(item: dvo),
+        final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(item: dvo),
+        final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(item: dvo, isRejected: isRejected),
+        final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(item: dvo, isRejected: isRejected),
+        final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(item: dvo),
+        final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),
+        final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(item: dvo),
+        final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(item: dvo),
+        _ => throw Exception("Invalid type '${item.type}'"),
+      },
+    );
   }
 }

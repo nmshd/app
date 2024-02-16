@@ -24,23 +24,20 @@ class CustomListTile extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (showTitle) TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
-                if (description != null) ...[
-                  const SizedBox(height: 2),
-                  TranslatedText(description!, style: valueTextStyle),
-                ],
-                if (thirdLine != null) ...[
-                  const SizedBox(height: 2),
-                  TranslatedText(thirdLine!, style: valueTextStyle),
-                ]
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (showTitle) TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+              if (description != null) ...[
+                const SizedBox(height: 2),
+                TranslatedText(description!, style: valueTextStyle),
               ],
-            ),
+              if (thirdLine != null) ...[
+                const SizedBox(height: 2),
+                TranslatedText(thirdLine!, style: valueTextStyle),
+              ]
+            ],
           ),
         ),
         if (trailing != null) SizedBox(width: 50, child: trailing),
