@@ -10,7 +10,7 @@ class ValueRenderer extends StatelessWidget {
   final AttributeValue? initialValue;
   final RenderHints renderHints;
   final ValueHints valueHints;
-  final String valueType;
+  final String? valueType;
   final bool mustBeFilledOut;
 
   final ValueRendererController? controller;
@@ -23,7 +23,7 @@ class ValueRenderer extends StatelessWidget {
     required this.renderHints,
     required this.valueHints,
     this.controller,
-    required this.valueType,
+    this.valueType,
     this.mustBeFilledOut = false,
   });
 
@@ -50,6 +50,8 @@ class ValueRenderer extends StatelessWidget {
     }
 
     if (editType == RenderHintsEditType.Complex) {
+      assert(valueType != null, 'Value type must be provided for complex type');
+
       return ComplexRenderer(
         controller: controller,
         decoration: decoration,
@@ -59,7 +61,7 @@ class ValueRenderer extends StatelessWidget {
         mustBeFilledOut: mustBeFilledOut,
         renderHints: renderHints,
         valueHints: valueHints,
-        valueType: valueType,
+        valueType: valueType!,
       );
     }
 
