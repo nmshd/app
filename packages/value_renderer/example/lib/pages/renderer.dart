@@ -23,6 +23,7 @@ class Renderer extends StatelessWidget {
                 ),
               ),
               ValueRenderer(
+                valueType: '',
                 renderHints: RenderHints(
                   editType: RenderHintsEditType.InputLike,
                   technicalType: RenderHintsTechnicalType.String,
@@ -49,6 +50,7 @@ class Renderer extends StatelessWidget {
                 ),
               ),
               ValueRenderer(
+                valueType: '',
                 renderHints: RenderHints(
                   editType: RenderHintsEditType.InputLike,
                   technicalType: RenderHintsTechnicalType.String,
@@ -60,6 +62,7 @@ class Renderer extends StatelessWidget {
                 fieldName: 'GivenName',
               ),
               ValueRenderer(
+                valueType: '',
                 renderHints: RenderHints(
                   editType: RenderHintsEditType.InputLike,
                   technicalType: RenderHintsTechnicalType.String,
@@ -71,6 +74,7 @@ class Renderer extends StatelessWidget {
                 fieldName: 'Surname',
               ),
               ValueRenderer(
+                valueType: '',
                 renderHints: RenderHints(editType: RenderHintsEditType.SelectLike, technicalType: RenderHintsTechnicalType.String),
                 valueHints: const ValueHints(
                   values: [
@@ -85,6 +89,7 @@ class Renderer extends StatelessWidget {
                 fieldName: 'Nationality',
               ),
               ValueRenderer(
+                valueType: '',
                 renderHints: RenderHints(
                   dataType: RenderHintsDataType.Language,
                   editType: RenderHintsEditType.SelectLike,
@@ -117,6 +122,7 @@ class Renderer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: ValueRenderer(
+            valueType: '',
             renderHints: RenderHints(
               editType: RenderHintsEditType.Complex,
               propertyHints: {
@@ -162,6 +168,7 @@ class Renderer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: ValueRenderer(
+            valueType: '',
             renderHints: RenderHints(
               dataType: RenderHintsDataType.EMailAddress,
               editType: RenderHintsEditType.InputLike,
@@ -179,6 +186,7 @@ class Renderer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: ValueRenderer(
+            valueType: '',
             renderHints: RenderHints(
               editType: RenderHintsEditType.ButtonLike,
               technicalType: RenderHintsTechnicalType.String,
@@ -198,6 +206,7 @@ class Renderer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: ValueRenderer(
+            valueType: '',
             renderHints: RenderHints(
               editType: RenderHintsEditType.Complex,
               propertyHints: {

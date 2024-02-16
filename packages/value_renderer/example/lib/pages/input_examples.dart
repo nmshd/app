@@ -720,7 +720,7 @@ class _InputExamplesState extends State<InputExamples> {
                         ValueRenderer(
                           renderHints: renderHints,
                           valueHints: valueHints,
-                          valueType: 'DeliverBoxAddress',
+                          valueType: 'DeliveryBoxAddress',
                         ),
                       ],
                     ),
