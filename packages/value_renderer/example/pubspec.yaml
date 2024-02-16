@@ -26,3 +26,4 @@ flutter:
   generate: true
   assets:
     - assets/i18n/
+    - assets/
