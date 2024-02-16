@@ -73,7 +73,6 @@ class _InputExamplesState extends State<InputExamples> {
                         const Divider(color: Colors.blue, thickness: 1.0),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
                             technicalType: RenderHintsTechnicalType.String,
@@ -86,7 +85,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
                             technicalType: RenderHintsTechnicalType.String,
@@ -103,7 +101,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
                             technicalType: RenderHintsTechnicalType.String,
@@ -166,7 +163,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
                             technicalType: RenderHintsTechnicalType.String,
@@ -183,7 +179,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
                             technicalType: RenderHintsTechnicalType.String,
@@ -196,7 +191,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
                             technicalType: RenderHintsTechnicalType.String,
@@ -251,7 +245,6 @@ class _InputExamplesState extends State<InputExamples> {
                         const Divider(color: Colors.blue, thickness: 1.0),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
                             technicalType: RenderHintsTechnicalType.Boolean,
@@ -269,7 +262,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
                             technicalType: RenderHintsTechnicalType.Boolean,
@@ -286,7 +278,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
                             technicalType: RenderHintsTechnicalType.Boolean,
@@ -299,7 +290,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
                             technicalType: RenderHintsTechnicalType.Boolean,
@@ -312,7 +302,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
                             technicalType: RenderHintsTechnicalType.Boolean,
@@ -366,7 +355,6 @@ class _InputExamplesState extends State<InputExamples> {
                         const Divider(color: Colors.blue, thickness: 1.0),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
                             technicalType: RenderHintsTechnicalType.Integer,
@@ -381,7 +369,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
                             technicalType: RenderHintsTechnicalType.Integer,
@@ -400,7 +387,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
                             technicalType: RenderHintsTechnicalType.Integer,
@@ -418,7 +404,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
                             technicalType: RenderHintsTechnicalType.Integer,
@@ -480,7 +465,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
                             technicalType: RenderHintsTechnicalType.Integer,
@@ -498,7 +482,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
                             technicalType: RenderHintsTechnicalType.Integer,
@@ -512,7 +495,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
                             technicalType: RenderHintsTechnicalType.Integer,
@@ -532,7 +514,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
                             technicalType: RenderHintsTechnicalType.Integer,
@@ -586,7 +567,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
                             technicalType: RenderHintsTechnicalType.Float,
@@ -601,7 +581,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.InputLike,
                             technicalType: RenderHintsTechnicalType.Float,
@@ -620,7 +599,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
                             technicalType: RenderHintsTechnicalType.Float,
@@ -638,7 +616,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SelectLike,
                             technicalType: RenderHintsTechnicalType.Float,
@@ -653,7 +630,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
                             technicalType: RenderHintsTechnicalType.Float,
@@ -671,7 +647,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.ButtonLike,
                             technicalType: RenderHintsTechnicalType.Float,
@@ -685,7 +660,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
                             technicalType: RenderHintsTechnicalType.Float,
@@ -703,7 +677,6 @@ class _InputExamplesState extends State<InputExamples> {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
-                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.SliderLike,
                             technicalType: RenderHintsTechnicalType.Float,
