@@ -7,6 +7,8 @@ import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 
+import 'widgets/attribute_screen.dart';
+
 class RequestsDetailScreen extends StatefulWidget {
   final String accountId;
   final LocalRequestDVO localRequestDVO;
@@ -122,89 +124,5 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     );
 
     return attribute;
-  }
-}
-
-class AttributeScreen extends StatefulWidget {
-  final List<AbstractAttribute> attributes;
-  final ValueHints? valueHints;
-  final String attributeTitle;
-
-  const AttributeScreen({
-    super.key,
-    required this.attributes,
-    this.valueHints,
-    required this.attributeTitle,
-  });
-
-  @override
-  State<AttributeScreen> createState() => _AttributeScreenState();
-}
-
-class _AttributeScreenState extends State<AttributeScreen> {
-  AbstractAttribute? selectedOption;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: TranslatedText('i18n://dvo.attribute.name.${widget.attributeTitle}'),
-      ),
-      body: Column(
-        children: [
-          const Text('Description', textAlign: TextAlign.start),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('My Entries', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('+ Add Entry'),
-            ],
-          ),
-          Expanded(
-            child: ListView(
-              children: widget.attributes.map((item) {
-                return ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // TODO: handle null valueHints
-                      Expanded(child: AttributeRenderer(attribute: item, valueHints: widget.valueHints!)),
-                      Radio<AbstractAttribute>(
-                        value: item,
-                        groupValue: selectedOption,
-                        onChanged: (AbstractAttribute? value) {
-                          setState(() {
-                            selectedOption = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    setState(() {
-                      selectedOption = item;
-                    });
-                  },
-                );
-              }).toList(),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
-              ),
-              FilledButton(
-                style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                onPressed: () => Navigator.pop(context, selectedOption),
-                child: const Text('Select'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
   }
 }
