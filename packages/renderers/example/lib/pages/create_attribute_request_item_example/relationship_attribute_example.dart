@@ -169,7 +169,7 @@ class RelationshipAttributeExample extends StatelessWidget {
             const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
             Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequest.createdAt))),
             const Divider(),
-            RequestRenderer(request: localRequest, currentAddress: 'a currentAddress'),
+            Expanded(child: RequestRenderer(request: localRequest, currentAddress: 'a currentAddress')),
           ],
         ),
       ),

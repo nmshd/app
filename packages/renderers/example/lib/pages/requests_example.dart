@@ -60,7 +60,7 @@ class _RequestsExampleState extends State<RequestsExample> {
             ),
           ),
           const Divider(),
-          RequestRenderer(request: localRequestDVO, currentAddress: 'a current address'),
+          Expanded(child: RequestRenderer(request: localRequestDVO, currentAddress: 'a current address')),
         ],
       ),
     );

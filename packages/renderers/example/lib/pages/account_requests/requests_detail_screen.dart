@@ -79,12 +79,14 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               const SizedBox(height: 8),
               const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
               Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
-              RequestRenderer(
-                request: widget.localRequestDVO,
-                controller: controller,
-                validationResult: _validationResult,
-                openAttributeScreen: _openAttributeScreen,
-                currentAddress: widget.accountId,
+              Expanded(
+                child: RequestRenderer(
+                  request: widget.localRequestDVO,
+                  controller: controller,
+                  validationResult: _validationResult,
+                  openAttributeScreen: _openAttributeScreen,
+                  currentAddress: widget.accountId,
+                ),
               ),
               if (widget.localRequestDVO.isDecidable)
                 Row(

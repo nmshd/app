@@ -55,7 +55,7 @@ class _DecidableShareAttributeRequestItemExampleState extends State<DecidableSha
             const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
             Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequestDVO.createdAt))),
             const Divider(),
-            RequestRenderer(request: localRequestDVO, currentAddress: 'a current address'),
+            Expanded(child: RequestRenderer(request: localRequestDVO, currentAddress: 'a current address')),
           ],
         ),
       ),

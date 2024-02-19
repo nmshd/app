@@ -60,7 +60,7 @@ class _RejectedCreateAttributeRequestJsonExampleState extends State<RejectedCrea
             ),
           ),
           const Divider(),
-          RequestRenderer(request: localRequestDVO, currentAddress: 'a currentAddress'),
+          Expanded(child: RequestRenderer(request: localRequestDVO, currentAddress: 'a currentAddress')),
         ],
       ),
     );
