@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '../widgets/open_select_attribute_screen_function.dart';
+import '../widgets/open_attribute_switcher_function.dart';
 import '/src/attribute/attribute_renderer.dart';
 import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
@@ -14,7 +14,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
-  final OpenSelectAttributeScreenFunction? openAttributeScreen;
+  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
@@ -22,7 +22,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
     required this.itemIndex,
     required this.item,
     this.controller,
-    this.openAttributeScreen,
+    this.openAttributeSwitcher,
   });
 
   @override
@@ -125,10 +125,10 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   }
 
   Future<void> onUpdateAttribute(String valueType) async {
-    if (widget.openAttributeScreen != null) {
+    if (widget.openAttributeSwitcher != null) {
       final resultValues = _getAttributeValue(widget.item.query);
 
-      final selectedAttribute = await widget.openAttributeScreen!(
+      final selectedAttribute = await widget.openAttributeSwitcher!(
         valueType: valueType,
         attributes: resultValues,
         valueHints: widget.item.attribute.valueHints,

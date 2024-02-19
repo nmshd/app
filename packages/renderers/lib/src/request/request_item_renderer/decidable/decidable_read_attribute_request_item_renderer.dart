@@ -5,7 +5,7 @@ import 'package:value_renderer/value_renderer.dart';
 import '../../../utils/compose_attributes.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '../widgets/open_select_attribute_screen_function.dart';
+import '../widgets/open_attribute_switcher_function.dart';
 import '../widgets/processed_query_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
@@ -15,7 +15,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableReadAttributeRequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
-  final OpenSelectAttributeScreenFunction? openAttributeScreen;
+  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
@@ -23,7 +23,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
     required this.item,
     required this.itemIndex,
     this.controller,
-    this.openAttributeScreen,
+    this.openAttributeSwitcher,
   });
 
   @override
@@ -180,11 +180,11 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   Future<void> onUpdateAttribute(String valueType) async {
-    if (widget.openAttributeScreen != null) {
+    if (widget.openAttributeSwitcher != null) {
       final resultValues = _getAttributeValue(widget.item.query);
       final valueHints = _getQueryValueHints(widget.item.query);
 
-      final selectedAttribute = await widget.openAttributeScreen!(
+      final selectedAttribute = await widget.openAttributeSwitcher!(
         valueType: valueType,
         attributes: resultValues,
         valueHints: valueHints,

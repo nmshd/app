@@ -84,7 +84,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                   request: widget.localRequestDVO,
                   controller: controller,
                   validationResult: _validationResult,
-                  openAttributeScreen: _openAttributeScreen,
+                  openAttributeSwitcher: _openAttributeSwitcher,
                   currentAddress: widget.accountId,
                 ),
               ),
@@ -110,7 +110,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     );
   }
 
-  Future<AbstractAttribute?> _openAttributeScreen({
+  Future<AbstractAttribute?> _openAttributeSwitcher({
     required String valueType,
     required List<AbstractAttribute> attributes,
     ValueHints? valueHints,

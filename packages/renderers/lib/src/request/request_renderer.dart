@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'request_item_group_renderer.dart';
 import 'request_item_renderer/request_item_renderer.dart';
 import 'request_item_renderer/response/response.dart';
-import 'request_item_renderer/widgets/open_select_attribute_screen_function.dart';
+import 'request_item_renderer/widgets/open_attribute_switcher_function.dart';
 import 'request_renderer_controller.dart';
 
 class RequestRenderer extends StatelessWidget {
@@ -13,7 +13,7 @@ class RequestRenderer extends StatelessWidget {
   final String currentAddress;
   final LocalRequestDVO request;
   final RequestValidationResultDTO? validationResult;
-  final OpenSelectAttributeScreenFunction? openAttributeScreen;
+  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
   const RequestRenderer({
     super.key,
@@ -21,7 +21,7 @@ class RequestRenderer extends StatelessWidget {
     required this.currentAddress,
     this.validationResult,
     this.controller,
-    this.openAttributeScreen,
+    this.openAttributeSwitcher,
   });
 
   @override
@@ -60,7 +60,7 @@ class RequestRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           controller: controller,
           requestStatus: request.status,
-          openAttributeScreen: openAttributeScreen,
+          openAttributeSwitcher: openAttributeSwitcher,
           currentAddress: currentAddress,
         );
       }
@@ -69,7 +69,7 @@ class RequestRenderer extends StatelessWidget {
         item: item,
         itemIndex: itemIndex,
         controller: controller,
-        openAttributeScreen: openAttributeScreen,
+        openAttributeSwitcher: openAttributeSwitcher,
         requestStatus: request.status,
         currentAddress: currentAddress,
       );

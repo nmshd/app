@@ -6,7 +6,7 @@ import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
 import 'decidable/decidable.dart';
 import 'request_item_renderers.dart';
-import 'widgets/open_select_attribute_screen_function.dart';
+import 'widgets/open_attribute_switcher_function.dart';
 
 class RequestItemRenderer extends StatelessWidget {
   final String currentAddress;
@@ -15,7 +15,7 @@ class RequestItemRenderer extends StatelessWidget {
   final RequestRendererController? controller;
   final LocalRequestStatus? requestStatus;
   final bool isRejected;
-  final OpenSelectAttributeScreenFunction? openAttributeScreen;
+  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
   const RequestItemRenderer({
     super.key,
@@ -25,7 +25,7 @@ class RequestItemRenderer extends StatelessWidget {
     this.controller,
     this.requestStatus,
     this.isRejected = false,
-    this.openAttributeScreen,
+    this.openAttributeSwitcher,
   });
 
   @override
@@ -37,14 +37,14 @@ class RequestItemRenderer extends StatelessWidget {
             controller: controller,
             item: dvo,
             itemIndex: itemIndex,
-            openAttributeScreen: openAttributeScreen,
+            openAttributeSwitcher: openAttributeSwitcher,
             currentAddress: currentAddress,
           ),
         final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
             controller: controller,
             item: dvo,
             itemIndex: itemIndex,
-            openAttributeScreen: openAttributeScreen,
+            openAttributeSwitcher: openAttributeSwitcher,
             currentAddress: currentAddress,
           ),
         final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
