@@ -157,6 +157,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     final selectedAttribute = await widget.openAttributeSwitcher!(
       valueType: valueType,
       attributes: resultValues,
+      currentChoice: _choice,
       valueHints: valueHints,
     );
 
