@@ -67,14 +67,14 @@ class _AttributeScreenState extends State<AttributeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // TODO: handle null valueHints
-                            Expanded(
-                              child: AttributeRenderer(
-                                attribute: item,
-                                valueHints: widget.valueHints!,
-                                showTitle: false,
+                            if (widget.valueHints != null)
+                              Expanded(
+                                child: AttributeRenderer(
+                                  attribute: item,
+                                  valueHints: widget.valueHints!,
+                                  showTitle: false,
+                                ),
                               ),
-                            ),
                             Radio<AbstractAttribute>(
                               value: item,
                               groupValue: selectedOption,
