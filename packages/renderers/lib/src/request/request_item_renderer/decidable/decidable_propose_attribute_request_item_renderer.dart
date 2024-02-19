@@ -1,16 +1,14 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '../widgets/open_attribute_switcher_function.dart';
 import '/src/attribute/attribute_renderer.dart';
-import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
-  final String currentAddress;
   final DecidableProposeAttributeRequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
@@ -18,7 +16,6 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
-    required this.currentAddress,
     required this.itemIndex,
     required this.item,
     this.controller,

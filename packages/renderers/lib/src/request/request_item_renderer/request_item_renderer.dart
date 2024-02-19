@@ -45,7 +45,6 @@ class RequestItemRenderer extends StatelessWidget {
             item: dvo,
             itemIndex: itemIndex,
             openAttributeSwitcher: openAttributeSwitcher,
-            currentAddress: currentAddress,
           ),
         final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
             controller: controller,
