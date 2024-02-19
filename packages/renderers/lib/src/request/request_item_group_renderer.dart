@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'request_item_index.dart';
 import 'request_item_renderer/request_item_renderer.dart';
-import 'request_item_renderer/widgets/open_attribute_screen_function.dart';
+import 'request_item_renderer/widgets/open_select_attribute_screen_function.dart';
 import 'request_renderer_controller.dart';
 
 class RequestItemGroupRenderer extends StatelessWidget {
@@ -13,7 +13,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
   final RequestItemGroupDVO requestItemGroup;
   final RequestRendererController? controller;
   final LocalRequestStatus? requestStatus;
-  final OpenAttributeScreenFunction? openAttributeScreen;
+  final OpenSelectAttributeScreenFunction? openAttributeScreen;
 
   const RequestItemGroupRenderer({
     super.key,

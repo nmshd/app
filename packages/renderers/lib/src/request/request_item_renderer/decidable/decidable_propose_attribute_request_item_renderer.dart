@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '../widgets/open_attribute_screen_function.dart';
+import '../widgets/open_select_attribute_screen_function.dart';
 import '/src/attribute/attribute_renderer.dart';
 import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
@@ -14,7 +14,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
-  final OpenAttributeScreenFunction? openAttributeScreen;
+  final OpenSelectAttributeScreenFunction? openAttributeScreen;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
