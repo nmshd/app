@@ -4,7 +4,7 @@ import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 
 class AttributeScreen extends StatefulWidget {
-  final List<AbstractAttribute> attributes;
+  final List<AttributeSwitcherChoice> attributes;
   final ValueHints? valueHints;
   final String attributeTitle;
 
@@ -20,7 +20,7 @@ class AttributeScreen extends StatefulWidget {
 }
 
 class _AttributeScreenState extends State<AttributeScreen> {
-  AbstractAttribute? selectedOption;
+  AttributeSwitcherChoice? selectedOption;
 
   @override
   void initState() {
@@ -70,15 +70,15 @@ class _AttributeScreenState extends State<AttributeScreen> {
                             if (widget.valueHints != null)
                               Expanded(
                                 child: AttributeRenderer(
-                                  attribute: item,
+                                  attribute: item.attribute,
                                   valueHints: widget.valueHints!,
                                   showTitle: false,
                                 ),
                               ),
-                            Radio<AbstractAttribute>(
+                            Radio<AttributeSwitcherChoice>(
                               value: item,
                               groupValue: selectedOption,
-                              onChanged: (AbstractAttribute? value) {
+                              onChanged: (AttributeSwitcherChoice? value) {
                                 setState(() {
                                   selectedOption = value!;
                                 });

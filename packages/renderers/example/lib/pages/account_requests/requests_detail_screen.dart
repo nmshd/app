@@ -110,12 +110,12 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     );
   }
 
-  Future<AbstractAttribute?> _openAttributeSwitcher({
+  Future<AttributeSwitcherChoice?> _openAttributeSwitcher({
     required String valueType,
-    required List<AbstractAttribute> attributes,
+    required List<AttributeSwitcherChoice> attributes,
     ValueHints? valueHints,
   }) async {
-    final attribute = await Navigator.of(context).push<AbstractAttribute?>(
+    final attribute = await Navigator.of(context).push<AttributeSwitcherChoice?>(
       MaterialPageRoute(
         builder: (ctx) => AttributeScreen(
           attributes: attributes,

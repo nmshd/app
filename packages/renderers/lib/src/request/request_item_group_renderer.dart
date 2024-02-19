@@ -2,9 +2,9 @@ import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import 'open_attribute_switcher_function.dart';
 import 'request_item_index.dart';
 import 'request_item_renderer/request_item_renderer.dart';
-import 'request_item_renderer/widgets/open_attribute_switcher_function.dart';
 import 'request_renderer_controller.dart';
 
 class RequestItemGroupRenderer extends StatelessWidget {

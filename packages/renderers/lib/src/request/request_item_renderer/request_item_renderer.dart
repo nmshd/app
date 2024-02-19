@@ -2,11 +2,11 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 import 'package:renderers/src/request/request_item_renderer/decidable/decidable_free_text_request_item.dart';
 
+import '../open_attribute_switcher_function.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
 import 'decidable/decidable.dart';
 import 'request_item_renderers.dart';
-import 'widgets/open_attribute_switcher_function.dart';
 
 class RequestItemRenderer extends StatelessWidget {
   final String currentAddress;
