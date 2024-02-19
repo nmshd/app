@@ -5,28 +5,25 @@ import 'package:value_renderer/value_renderer.dart';
 import '../../../utils/compose_attributes.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
+import '../widgets/open_attribute_screen.dart';
 import '../widgets/processed_query_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
-  final DecidableReadAttributeRequestItemDVO item;
-  final RequestRendererController? controller;
-  final RequestItemIndex itemIndex;
   final String currentAddress;
-  final Future<AbstractAttribute?> Function({
-    required String valueType,
-    required List<AbstractAttribute> attributes,
-    ValueHints? valueHints,
-  })? openAttributeScreen;
+  final DecidableReadAttributeRequestItemDVO item;
+  final RequestItemIndex itemIndex;
+  final RequestRendererController? controller;
+  final OpenAttributeScreen? openAttributeScreen;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
-    required this.item,
-    this.controller,
-    required this.itemIndex,
-    this.openAttributeScreen,
     required this.currentAddress,
+    required this.item,
+    required this.itemIndex,
+    this.controller,
+    this.openAttributeScreen,
   });
 
   @override

@@ -6,29 +6,26 @@ import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
 import 'decidable/decidable.dart';
 import 'request_item_renderers.dart';
+import 'widgets/open_attribute_screen.dart';
 
 class RequestItemRenderer extends StatelessWidget {
+  final String currentAddress;
   final RequestItemDVO item;
-  final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
+  final RequestRendererController? controller;
   final LocalRequestStatus? requestStatus;
   final bool isRejected;
-  final String currentAddress;
-  final Future<AbstractAttribute?> Function({
-    required String valueType,
-    required List<AbstractAttribute> attributes,
-    ValueHints? valueHints,
-  })? openAttributeScreen;
+  final OpenAttributeScreen? openAttributeScreen;
 
   const RequestItemRenderer({
     super.key,
+    required this.currentAddress,
     required this.item,
-    this.controller,
     required this.itemIndex,
-    this.openAttributeScreen,
+    this.controller,
     this.requestStatus,
     this.isRejected = false,
-    required this.currentAddress,
+    this.openAttributeScreen,
   });
 
   @override

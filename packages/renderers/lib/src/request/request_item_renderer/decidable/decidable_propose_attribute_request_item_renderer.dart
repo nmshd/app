@@ -3,29 +3,26 @@ import 'package:flutter/material.dart';
 
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
+import '../widgets/open_attribute_screen.dart';
 import '/src/attribute/attribute_renderer.dart';
 import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
-  final DecidableProposeAttributeRequestItemDVO item;
-  final RequestRendererController? controller;
-  final RequestItemIndex itemIndex;
   final String currentAddress;
-  final Future<AbstractAttribute?> Function({
-    required String valueType,
-    required List<AbstractAttribute> attributes,
-    ValueHints? valueHints,
-  })? openAttributeScreen;
+  final DecidableProposeAttributeRequestItemDVO item;
+  final RequestItemIndex itemIndex;
+  final RequestRendererController? controller;
+  final OpenAttributeScreen? openAttributeScreen;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
+    required this.currentAddress,
+    required this.itemIndex,
     required this.item,
     this.controller,
-    required this.itemIndex,
     this.openAttributeScreen,
-    required this.currentAddress,
   });
 
   @override

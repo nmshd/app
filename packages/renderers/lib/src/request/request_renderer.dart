@@ -5,26 +5,23 @@ import 'package:flutter/material.dart';
 import 'request_item_group_renderer.dart';
 import 'request_item_renderer/request_item_renderer.dart';
 import 'request_item_renderer/response/response.dart';
+import 'request_item_renderer/widgets/open_attribute_screen.dart';
 import 'request_renderer_controller.dart';
 
 class RequestRenderer extends StatelessWidget {
   final RequestRendererController? controller;
+  final String currentAddress;
   final LocalRequestDVO request;
   final RequestValidationResultDTO? validationResult;
-  final String currentAddress;
-  final Future<AbstractAttribute?> Function({
-    required String valueType,
-    required List<AbstractAttribute> attributes,
-    ValueHints? valueHints,
-  })? openAttributeScreen;
+  final OpenAttributeScreen? openAttributeScreen;
 
   const RequestRenderer({
     super.key,
     required this.request,
+    required this.currentAddress,
     this.validationResult,
     this.controller,
     this.openAttributeScreen,
-    required this.currentAddress,
   });
 
   @override
@@ -51,9 +48,7 @@ class RequestRenderer extends StatelessWidget {
         );
       }).toList();
 
-      return SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems),
-      );
+      return ListView(children: responseItems);
     }
 
     final requestItems = request.items.mapIndexed((index, item) {
@@ -80,8 +75,6 @@ class RequestRenderer extends StatelessWidget {
       );
     }).toList();
 
-    return SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: requestItems),
-    );
+    return ListView(children: requestItems);
   }
 }

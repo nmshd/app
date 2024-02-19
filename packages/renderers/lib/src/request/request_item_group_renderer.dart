@@ -4,28 +4,25 @@ import 'package:flutter/material.dart';
 
 import 'request_item_index.dart';
 import 'request_item_renderer/request_item_renderer.dart';
+import 'request_item_renderer/widgets/open_attribute_screen.dart';
 import 'request_renderer_controller.dart';
 
 class RequestItemGroupRenderer extends StatelessWidget {
+  final String currentAddress;
+  final RequestItemIndex itemIndex;
   final RequestItemGroupDVO requestItemGroup;
   final RequestRendererController? controller;
-  final RequestItemIndex itemIndex;
   final LocalRequestStatus? requestStatus;
-  final String currentAddress;
-  final Future<AbstractAttribute?> Function({
-    required String valueType,
-    required List<AbstractAttribute> attributes,
-    ValueHints? valueHints,
-  })? openAttributeScreen;
+  final OpenAttributeScreen? openAttributeScreen;
 
   const RequestItemGroupRenderer({
     super.key,
+    required this.currentAddress,
+    required this.itemIndex,
     required this.requestItemGroup,
     this.controller,
-    required this.itemIndex,
     this.requestStatus,
     this.openAttributeScreen,
-    required this.currentAddress,
   });
 
   @override
