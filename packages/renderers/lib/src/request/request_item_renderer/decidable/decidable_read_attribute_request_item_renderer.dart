@@ -18,14 +18,14 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
     required String valueType,
     required List<AbstractAttribute> attributes,
     ValueHints? valueHints,
-  })? selectAttribute;
+  })? openAttributeScreen;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
-    this.selectAttribute,
+    this.openAttributeScreen,
     required this.currentAddress,
   });
 
@@ -36,6 +36,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
 class _DecidableReadAttributeRequestItemRendererState extends State<DecidableReadAttributeRequestItemRenderer> {
   late bool isChecked;
   AbstractAttribute? newAttribute;
+  AbstractAttribute? selectedExistingAttribute;
 
   @override
   void initState() {
@@ -43,7 +44,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     isChecked = widget.item.initiallyChecked;
 
-    final attribute = attributeContent(widget.item.query);
+    final attribute = _getAttributeContent(widget.item.query);
     if (attribute == null) return;
 
     widget.controller?.writeAtIndex(
@@ -62,7 +63,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
           onUpdateInput: onUpdateInput,
-          selectedAttribute: newAttribute,
+          selectedAttribute: newAttribute ?? selectedExistingAttribute,
           mustBeAccepted: widget.item.mustBeAccepted,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
@@ -70,7 +71,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
           onUpdateInput: onUpdateInput,
-          selectedAttribute: newAttribute,
+          selectedAttribute: newAttribute ?? selectedExistingAttribute,
           mustBeAccepted: widget.item.mustBeAccepted,
         ),
       //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
@@ -78,7 +79,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     };
   }
 
-  AbstractAttribute? attributeContent(ProcessedAttributeQueryDVO attribute) {
+  AbstractAttribute? _getAttributeContent(ProcessedAttributeQueryDVO attribute) {
     return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.results.firstOrNull?.content,
       final ProcessedRelationshipAttributeQueryDVO query => query.results.firstOrNull?.content,
@@ -94,7 +95,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       isChecked = value;
     });
 
-    final attribute = attributeContent(widget.item.query);
+    final attribute = _getAttributeContent(widget.item.query);
     if (attribute == null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
@@ -157,7 +158,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     }
   }
 
-  ValueHints? getQueryValueHints(ProcessedAttributeQueryDVO attribute) {
+  ValueHints? _getQueryValueHints(ProcessedAttributeQueryDVO attribute) {
     return switch (attribute) {
       final ProcessedIdentityAttributeQueryDVO query => query.valueHints,
       final ProcessedRelationshipAttributeQueryDVO query => query.valueHints,
@@ -166,7 +167,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     };
   }
 
-  List<AbstractAttribute> getAttributeValue(ProcessedAttributeQueryDVO attribute) {
+  List<AbstractAttribute> _getAttributeValue(ProcessedAttributeQueryDVO attribute) {
     final results = switch (attribute) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
@@ -182,17 +183,21 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   Future<void> onUpdateAttribute(String valueType) async {
-    if (widget.selectAttribute != null) {
-      final resultValues = getAttributeValue(widget.item.query);
-      final valueHints = getQueryValueHints(widget.item.query);
+    if (widget.openAttributeScreen != null) {
+      final resultValues = _getAttributeValue(widget.item.query);
+      final valueHints = _getQueryValueHints(widget.item.query);
 
-      final selectedAttribute = await widget.selectAttribute!(
+      final selectedAttribute = await widget.openAttributeScreen!(
         valueType: valueType,
         attributes: resultValues,
         valueHints: valueHints,
       );
 
-      setState(() => newAttribute = selectedAttribute);
+      if (resultValues.contains(selectedAttribute)) {
+        setState(() => selectedExistingAttribute = selectedAttribute);
+      } else {
+        setState(() => newAttribute = selectedAttribute);
+      }
 
       _updateSelectedAttribute();
     }
@@ -204,8 +209,30 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         index: widget.itemIndex,
         value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: newAttribute!),
       );
+    } else if (selectedExistingAttribute != null) {
+      final results = switch (widget.item.query) {
+        final ProcessedIdentityAttributeQueryDVO query => query.results,
+        final ProcessedRelationshipAttributeQueryDVO query => query.results,
+        final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
+        final ProcessedIQLQueryDVO query => query.results,
+      };
+
+      final existingAttribute = results.singleWhere((result) => result.content == selectedExistingAttribute);
+
+      final existingAttributeId = switch (existingAttribute) {
+        final RepositoryAttributeDVO attribute => attribute.id,
+        final SharedToPeerAttributeDVO attribute => attribute.id,
+        final PeerAttributeDVO attribute => attribute.id,
+        final OwnRelationshipAttributeDVO attribute => attribute.id,
+        final PeerRelationshipAttributeDVO attribute => attribute.id,
+      };
+
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: existingAttributeId),
+      );
     } else {
-      final attribute = attributeContent(widget.item.query);
+      final attribute = _getAttributeContent(widget.item.query);
       if (attribute == null) return;
 
       widget.controller?.writeAtIndex(

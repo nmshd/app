@@ -17,14 +17,14 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
     required String valueType,
     required List<AbstractAttribute> attributes,
     ValueHints? valueHints,
-  })? selectAttribute;
+  })? openAttributeScreen;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
-    this.selectAttribute,
+    this.openAttributeScreen,
     required this.currentAddress,
   });
 
@@ -35,6 +35,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
 class _DecidableProposeAttributeRequestItemRendererState extends State<DecidableProposeAttributeRequestItemRenderer> {
   late bool isChecked;
   AbstractAttribute? newAttribute;
+  AbstractAttribute? selectedExistingAttribute;
 
   @override
   void initState() {
@@ -42,7 +43,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     isChecked = widget.item.initiallyChecked;
 
-    final attribute = attributeContent(widget.item.attribute);
+    final attribute = _getAttributeContent(widget.item.attribute);
     if (attribute == null) return;
 
     widget.controller?.writeAtIndex(
@@ -57,13 +58,13 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   Widget build(BuildContext context) {
     final trailing = IconButton(onPressed: () => onUpdateAttribute(widget.item.attribute.valueType), icon: const Icon(Icons.chevron_right));
 
-    if (newAttribute != null) {
+    if (newAttribute != null || selectedExistingAttribute != null) {
       return Row(
         children: [
           Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           Expanded(
             child: AttributeRenderer(
-              attribute: newAttribute!,
+              attribute: newAttribute ?? selectedExistingAttribute!,
               trailing: trailing,
               valueHints: widget.item.attribute.valueHints,
             ),
@@ -79,7 +80,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     );
   }
 
-  AbstractAttribute? attributeContent(DraftAttributeDVO attribute) {
+  AbstractAttribute? _getAttributeContent(DraftAttributeDVO attribute) {
     return switch (widget.item.attribute) {
       final DraftIdentityAttributeDVO dvo => dvo.content,
       final DraftRelationshipAttributeDVO dvo => dvo.content,
@@ -93,7 +94,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       isChecked = value;
     });
 
-    final attribute = attributeContent(widget.item.attribute);
+    final attribute = _getAttributeContent(widget.item.attribute);
     if (attribute == null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
@@ -111,7 +112,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     );
   }
 
-  List<AbstractAttribute> getAttributeValue(ProcessedAttributeQueryDVO attribute) {
+  List<AbstractAttribute> _getAttributeValue(ProcessedAttributeQueryDVO attribute) {
     final results = switch (attribute) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
@@ -127,16 +128,20 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   }
 
   Future<void> onUpdateAttribute(String valueType) async {
-    if (widget.selectAttribute != null) {
-      final resultValues = getAttributeValue(widget.item.query);
+    if (widget.openAttributeScreen != null) {
+      final resultValues = _getAttributeValue(widget.item.query);
 
-      final selectedAttribute = await widget.selectAttribute!(
+      final selectedAttribute = await widget.openAttributeScreen!(
         valueType: valueType,
         attributes: resultValues,
         valueHints: widget.item.attribute.valueHints,
       );
 
-      setState(() => newAttribute = selectedAttribute);
+      if (resultValues.contains(selectedAttribute)) {
+        setState(() => selectedExistingAttribute = selectedAttribute);
+      } else {
+        setState(() => newAttribute = selectedAttribute);
+      }
 
       _updateSelectedAttribute();
     }
@@ -148,8 +153,30 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
         index: widget.itemIndex,
         value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: newAttribute!),
       );
+    } else if (selectedExistingAttribute != null) {
+      final results = switch (widget.item.query) {
+        final ProcessedIdentityAttributeQueryDVO query => query.results,
+        final ProcessedRelationshipAttributeQueryDVO query => query.results,
+        final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
+        final ProcessedIQLQueryDVO query => query.results,
+      };
+
+      final existingAttribute = results.singleWhere((result) => result.content == selectedExistingAttribute);
+
+      final existingAttributeId = switch (existingAttribute) {
+        final RepositoryAttributeDVO attribute => attribute.id,
+        final SharedToPeerAttributeDVO attribute => attribute.id,
+        final PeerAttributeDVO attribute => attribute.id,
+        final OwnRelationshipAttributeDVO attribute => attribute.id,
+        final PeerRelationshipAttributeDVO attribute => attribute.id,
+      };
+
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: existingAttributeId),
+      );
     } else {
-      final attribute = attributeContent(widget.item.attribute);
+      final attribute = _getAttributeContent(widget.item.attribute);
       if (attribute == null) return;
 
       widget.controller?.writeAtIndex(
