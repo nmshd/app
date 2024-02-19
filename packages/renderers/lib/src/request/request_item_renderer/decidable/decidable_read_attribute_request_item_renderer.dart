@@ -1,14 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 
-import '../../../utils/compose_attributes.dart';
 import '../../request_item_index.dart';
-import '../../request_renderer_controller.dart';
-import '../widgets/open_attribute_switcher_function.dart';
 import '../widgets/processed_query_renderer.dart';
 import 'checkbox_enabled_extension.dart';
-import 'widgets/handle_checkbox_change.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final String currentAddress;
@@ -32,8 +29,8 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
 
 class _DecidableReadAttributeRequestItemRendererState extends State<DecidableReadAttributeRequestItemRenderer> {
   late bool isChecked;
-  AbstractAttribute? newAttribute;
-  AbstractAttribute? selectedExistingAttribute;
+
+  AttributeSwitcherChoice? _choice;
 
   @override
   void initState() {
@@ -41,15 +38,15 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     isChecked = widget.item.initiallyChecked;
 
-    final attribute = _getAttributeContent(widget.item.query);
-    if (attribute == null) return;
+    final choice = _getChoices().firstOrNull;
+    if (choice == null) return;
+
+    _choice = choice;
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
+      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id),
     );
-
-    _updateSelectedAttribute();
   }
 
   @override
@@ -60,7 +57,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
           onUpdateInput: onUpdateInput,
-          selectedAttribute: newAttribute ?? selectedExistingAttribute,
+          selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
@@ -68,20 +65,11 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: onUpdateAttribute,
           onUpdateInput: onUpdateInput,
-          selectedAttribute: newAttribute ?? selectedExistingAttribute,
+          selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
         ),
       //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
       _ => throw Exception("Invalid type '${widget.item.query.type}'"),
-    };
-  }
-
-  AbstractAttribute? _getAttributeContent(ProcessedAttributeQueryDVO attribute) {
-    return switch (widget.item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => query.results.firstOrNull?.content,
-      final ProcessedRelationshipAttributeQueryDVO query => query.results.firstOrNull?.content,
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.thirdParty.first.relationship?.items.firstOrNull?.content,
-      final ProcessedIQLQueryDVO query => query.results.firstOrNull?.content,
     };
   }
 
@@ -92,8 +80,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       isChecked = value;
     });
 
-    final attribute = _getAttributeContent(widget.item.query);
-    if (attribute == null) {
+    if (_choice == null || !value) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
         value: const RejectRequestItemParameters(),
@@ -102,11 +89,13 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       return;
     }
 
-    handleCheckboxChange(
-      isChecked: isChecked,
-      controller: widget.controller,
-      itemIndex: widget.itemIndex,
-      acceptRequestItemParameter: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: newAttribute ?? attribute),
+    final choice = _choice!;
+
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: choice.id == null
+          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
     );
   }
 
@@ -120,9 +109,11 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       );
 
       if (composedValue != null) {
-        setState(() => newAttribute = composedValue);
+        widget.controller?.writeAtIndex(
+          index: widget.itemIndex,
+          value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: composedValue),
+        );
 
-        _updateSelectedAttribute();
         _enableCheckbox();
       } else {
         widget.controller?.writeAtIndex(
@@ -142,9 +133,11 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       );
 
       if (composedValue != null) {
-        setState(() => newAttribute = composedValue);
+        widget.controller?.writeAtIndex(
+          index: widget.itemIndex,
+          value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: composedValue),
+        );
 
-        _updateSelectedAttribute();
         _enableCheckbox();
       } else {
         widget.controller?.writeAtIndex(
@@ -155,8 +148,41 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     }
   }
 
-  ValueHints? _getQueryValueHints(ProcessedAttributeQueryDVO attribute) {
-    return switch (attribute) {
+  Future<void> onUpdateAttribute(String valueType) async {
+    if (widget.openAttributeSwitcher == null) return;
+
+    final resultValues = _getChoices();
+    final valueHints = _getQueryValueHints();
+
+    final selectedAttribute = await widget.openAttributeSwitcher!(
+      valueType: valueType,
+      attributes: resultValues,
+      valueHints: valueHints,
+    );
+
+    if (selectedAttribute == null) return;
+
+    final choice = selectedAttribute;
+
+    if (choice.id != null) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      );
+    } else {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute),
+      );
+    }
+
+    setState(() {
+      _choice = selectedAttribute;
+    });
+  }
+
+  ValueHints? _getQueryValueHints() {
+    return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.valueHints,
       final ProcessedRelationshipAttributeQueryDVO query => query.valueHints,
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueHints,
@@ -164,81 +190,18 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     };
   }
 
-  List<AbstractAttribute> _getAttributeValue(ProcessedAttributeQueryDVO attribute) {
-    final results = switch (attribute) {
+  List<({String id, AbstractAttribute attribute})> _getChoices() {
+    final results = switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    final List<AbstractAttribute> resultValue = results.map((result) {
-      return result.content;
-    }).toList();
-
-    return resultValue;
+    return results.map((result) => (id: result.id, attribute: result.content)).toList();
   }
 
-  Future<void> onUpdateAttribute(String valueType) async {
-    if (widget.openAttributeSwitcher != null) {
-      final resultValues = _getAttributeValue(widget.item.query);
-      final valueHints = _getQueryValueHints(widget.item.query);
-
-      final selectedAttribute = await widget.openAttributeSwitcher!(
-        valueType: valueType,
-        attributes: resultValues,
-        valueHints: valueHints,
-      );
-
-      if (resultValues.contains(selectedAttribute)) {
-        setState(() => selectedExistingAttribute = selectedAttribute);
-      } else {
-        setState(() => newAttribute = selectedAttribute);
-      }
-
-      _updateSelectedAttribute();
-    }
-  }
-
-  void _updateSelectedAttribute() {
-    if (newAttribute != null) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: newAttribute!),
-      );
-    } else if (selectedExistingAttribute != null) {
-      final results = switch (widget.item.query) {
-        final ProcessedIdentityAttributeQueryDVO query => query.results,
-        final ProcessedRelationshipAttributeQueryDVO query => query.results,
-        final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
-        final ProcessedIQLQueryDVO query => query.results,
-      };
-
-      final existingAttribute = results.singleWhere((result) => result.content == selectedExistingAttribute);
-
-      final existingAttributeId = switch (existingAttribute) {
-        final RepositoryAttributeDVO attribute => attribute.id,
-        final SharedToPeerAttributeDVO attribute => attribute.id,
-        final PeerAttributeDVO attribute => attribute.id,
-        final OwnRelationshipAttributeDVO attribute => attribute.id,
-        final PeerRelationshipAttributeDVO attribute => attribute.id,
-      };
-
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: existingAttributeId),
-      );
-    } else {
-      final attribute = _getAttributeContent(widget.item.query);
-      if (attribute == null) return;
-
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: attribute),
-      );
-    }
-  }
-
+  // TODO(Vin-RM): if there is an ENABLE checkbox why don't we need a DISABLE checkbox?
   void _enableCheckbox() {
     if (widget.controller != null && !widget.item.mustBeAccepted) {
       setState(() {
