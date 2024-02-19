@@ -23,6 +23,13 @@ class _AttributeScreenState extends State<AttributeScreen> {
   AbstractAttribute? selectedOption;
 
   @override
+  void initState() {
+    super.initState();
+
+    selectedOption = widget.attributes.first;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
