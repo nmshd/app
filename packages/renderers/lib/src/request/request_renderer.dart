@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'request_item_group_renderer.dart';
 import 'request_item_renderer/request_item_renderer.dart';
 import 'request_item_renderer/response/response.dart';
-import 'request_item_renderer/widgets/open_attribute_screen.dart';
+import 'request_item_renderer/widgets/open_attribute_screen_function.dart';
 import 'request_renderer_controller.dart';
 
 class RequestRenderer extends StatelessWidget {
@@ -13,7 +13,7 @@ class RequestRenderer extends StatelessWidget {
   final String currentAddress;
   final LocalRequestDVO request;
   final RequestValidationResultDTO? validationResult;
-  final OpenAttributeScreen? openAttributeScreen;
+  final OpenAttributeScreenFunction? openAttributeScreen;
 
   const RequestRenderer({
     super.key,
