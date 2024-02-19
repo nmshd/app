@@ -18,14 +18,14 @@ class RequestItemRenderer extends StatelessWidget {
     required String valueType,
     required List<AbstractAttribute> attributes,
     ValueHints? valueHints,
-  })? selectAttribute;
+  })? openAttributeScreen;
 
   const RequestItemRenderer({
     super.key,
     required this.item,
     this.controller,
     required this.itemIndex,
-    this.selectAttribute,
+    this.openAttributeScreen,
     this.requestStatus,
     this.isRejected = false,
     required this.currentAddress,
@@ -40,14 +40,14 @@ class RequestItemRenderer extends StatelessWidget {
             controller: controller,
             item: dvo,
             itemIndex: itemIndex,
-            selectAttribute: selectAttribute,
+            openAttributeScreen: openAttributeScreen,
             currentAddress: currentAddress,
           ),
         final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
             controller: controller,
             item: dvo,
             itemIndex: itemIndex,
-            selectAttribute: selectAttribute,
+            openAttributeScreen: openAttributeScreen,
             currentAddress: currentAddress,
           ),
         final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(

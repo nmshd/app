@@ -16,7 +16,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
     required String valueType,
     required List<AbstractAttribute> attributes,
     ValueHints? valueHints,
-  })? selectAttribute;
+  })? openAttributeScreen;
 
   const RequestItemGroupRenderer({
     super.key,
@@ -24,7 +24,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
     this.controller,
     required this.itemIndex,
     this.requestStatus,
-    this.selectAttribute,
+    this.openAttributeScreen,
     required this.currentAddress,
   });
 
@@ -36,7 +36,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
         itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
         controller: controller,
         requestStatus: requestStatus,
-        selectAttribute: selectAttribute,
+        openAttributeScreen: openAttributeScreen,
         currentAddress: currentAddress,
       );
     }).toList();

@@ -83,7 +83,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                 request: widget.localRequestDVO,
                 controller: controller,
                 validationResult: _validationResult,
-                selectAttribute: _openAttributeScreen,
+                openAttributeScreen: _openAttributeScreen,
                 currentAddress: widget.accountId,
               ),
               if (widget.localRequestDVO.isDecidable)

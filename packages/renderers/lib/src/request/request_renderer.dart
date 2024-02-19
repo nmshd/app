@@ -16,14 +16,14 @@ class RequestRenderer extends StatelessWidget {
     required String valueType,
     required List<AbstractAttribute> attributes,
     ValueHints? valueHints,
-  })? selectAttribute;
+  })? openAttributeScreen;
 
   const RequestRenderer({
     super.key,
     required this.request,
     this.validationResult,
     this.controller,
-    this.selectAttribute,
+    this.openAttributeScreen,
     required this.currentAddress,
   });
 
@@ -51,7 +51,9 @@ class RequestRenderer extends StatelessWidget {
         );
       }).toList();
 
-      return ListView(children: responseItems);
+      return SingleChildScrollView(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems),
+      );
     }
 
     final requestItems = request.items.mapIndexed((index, item) {
@@ -63,7 +65,7 @@ class RequestRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           controller: controller,
           requestStatus: request.status,
-          selectAttribute: selectAttribute,
+          openAttributeScreen: openAttributeScreen,
           currentAddress: currentAddress,
         );
       }
@@ -72,12 +74,14 @@ class RequestRenderer extends StatelessWidget {
         item: item,
         itemIndex: itemIndex,
         controller: controller,
-        selectAttribute: selectAttribute,
+        openAttributeScreen: openAttributeScreen,
         requestStatus: request.status,
         currentAddress: currentAddress,
       );
     }).toList();
 
-    return ListView(children: requestItems);
+    return SingleChildScrollView(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: requestItems),
+    );
   }
 }
