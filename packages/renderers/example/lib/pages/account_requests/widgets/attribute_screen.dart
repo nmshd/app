@@ -4,15 +4,17 @@ import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 
 class AttributeScreen extends StatefulWidget {
-  final List<AttributeSwitcherChoice> attributes;
+  final List<AttributeSwitcherChoice> choices;
+  final AttributeSwitcherChoice? currentChoice;
   final ValueHints? valueHints;
   final String attributeTitle;
 
   const AttributeScreen({
     super.key,
-    required this.attributes,
+    required this.choices,
     this.valueHints,
     required this.attributeTitle,
+    this.currentChoice,
   });
 
   @override
@@ -26,7 +28,7 @@ class _AttributeScreenState extends State<AttributeScreen> {
   void initState() {
     super.initState();
 
-    selectedOption = widget.attributes.first;
+    selectedOption = widget.currentChoice;
   }
 
   @override
@@ -58,7 +60,7 @@ class _AttributeScreenState extends State<AttributeScreen> {
           ),
           Expanded(
             child: ListView(
-              children: widget.attributes.map((item) {
+              children: widget.choices.map((item) {
                 return ColoredBox(
                   color: Colors.white,
                   child: ListTile(

@@ -90,7 +90,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     final choice = await widget.openAttributeSwitcher!(
       valueType: valueType,
-      attributes: resultValues,
+      choices: resultValues,
       currentChoice: _choice,
       valueHints: widget.item.attribute.valueHints,
     );
