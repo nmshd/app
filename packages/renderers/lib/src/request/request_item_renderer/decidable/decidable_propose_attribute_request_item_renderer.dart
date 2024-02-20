@@ -122,10 +122,11 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return [
+    return {
       ...results.map((result) => (id: result.id, attribute: result.content)),
       _getProposedChoice(),
-    ];
+      _choice,
+    }.toList();
   }
 
   ({String? id, AbstractAttribute attribute}) _getProposedChoice() {

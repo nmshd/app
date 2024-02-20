@@ -151,12 +151,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   Future<void> onUpdateAttribute(String valueType) async {
     if (widget.openAttributeSwitcher == null) return;
 
-    final resultValues = _getChoices();
+    final resultValues = Set<AttributeSwitcherChoice>.from(_getChoices());
+    if (_choice != null) resultValues.add(_choice!);
+
     final valueHints = _getQueryValueHints();
 
     final selectedAttribute = await widget.openAttributeSwitcher!(
       valueType: valueType,
-      attributes: resultValues,
+      attributes: resultValues.toList(),
       currentChoice: _choice,
       valueHints: valueHints,
     );
