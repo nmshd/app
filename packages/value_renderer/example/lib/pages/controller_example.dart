@@ -420,6 +420,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                         Column(
                           children: [
                             ValueRenderer(
+                              valueType: '',
                               renderHints: RenderHints(
                                 editType: RenderHintsEditType.Complex,
                                 propertyHints: {
@@ -730,6 +731,7 @@ class _ControllerExampleState extends State<ControllerExample> {
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: ValueRenderer(
+                              valueType: 'StreetAddress',
                               fieldName: 'StreetAddress',
                               renderHints: RenderHints(
                                 editType: RenderHintsEditType.Complex,

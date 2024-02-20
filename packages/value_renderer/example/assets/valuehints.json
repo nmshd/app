@@ -1,0 +1,54 @@
+{
+    "@type": "ValueHints",
+    "propertyHints": {
+      "userId": {
+        "@type": "ValueHints",
+        "propertyHints": {}
+      },
+      "deliveryBoxId": {
+        "@type": "ValueHints",
+        "propertyHints": {}
+      },
+      "zipCode": {
+        "@type": "ValueHints",
+        "max": 100,
+        "propertyHints": {}
+      },
+      "city": {
+        "@type": "ValueHints",
+        "max": 100,
+        "propertyHints": {}
+      },
+      "country": {
+        "@type": "ValueHints",
+        "min": 2,
+        "max": 2,
+        "values": [
+          {
+            "@type": "ValueHintsValue",
+            "key": "AF",
+            "displayName": "i18n://attributes.values.countries.AF"
+          },
+          {
+            "@type": "ValueHintsValue",
+            "key": "ZW",
+            "displayName": "i18n://attributes.values.countries.ZW"
+          }
+        ],
+        "propertyHints": {}
+      },
+      "phoneNumber": {
+        "@type": "ValueHints",
+        "min": 3,
+        "max": 100,
+        "pattern": "/^[d+-x#*()/[] ]{3,100}$/",
+        "propertyHints": {}
+      },
+      "state": {
+        "@type": "ValueHints",
+        "max": 100,
+        "propertyHints": {}
+      }
+    }
+  }
+  

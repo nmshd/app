@@ -13,12 +13,12 @@ class ComplexRenderer extends StatefulWidget {
   final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
   final RenderHintsEditType? editType;
-  final String fieldName;
+  final String? fieldName;
   final AttributeValue? initialValue;
   final bool mustBeFilledOut;
   final RenderHints renderHints;
   final ValueHints valueHints;
-  final String? valueType;
+  final String valueType;
 
   const ComplexRenderer({
     super.key,
@@ -26,12 +26,12 @@ class ComplexRenderer extends StatefulWidget {
     this.decoration,
     this.dataType,
     this.editType,
-    required this.fieldName,
+    this.fieldName,
     required this.initialValue,
     required this.mustBeFilledOut,
     required this.renderHints,
     required this.valueHints,
-    this.valueType,
+    required this.valueType,
   });
 
   @override
@@ -40,7 +40,6 @@ class ComplexRenderer extends StatefulWidget {
 
 class _ComplexRendererState extends State<ComplexRenderer> {
   Map<String, dynamic> value = {};
-
   Map<String, ValueRendererController>? controllers;
 
   @override
@@ -75,8 +74,11 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    final fieldName = widget.fieldName;
-    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+    String? translatedText;
+
+    if (widget.fieldName != null) {
+      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName;
+    }
 
     if (widget.initialValue is BirthDateAttributeValue || widget.valueType == 'BirthDate') {
       return DatepickerFormField(
@@ -92,14 +94,10 @@ class _ComplexRendererState extends State<ComplexRenderer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 12,
-        ),
-        TranslatedText(
-          fieldName,
-          style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E)),
-        ),
-        const SizedBox(height: 12),
+        if (translatedText != null) ...[
+          TranslatedText(translatedText, style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E))),
+          const SizedBox(height: 12),
+        ],
         if (widget.renderHints.propertyHints != null)
           ListView.separated(
             shrinkWrap: true,
@@ -107,18 +105,18 @@ class _ComplexRendererState extends State<ComplexRenderer> {
             itemCount: widget.renderHints.propertyHints!.values.length,
             itemBuilder: (context, index) {
               final key = widget.renderHints.propertyHints!.keys.elementAt(index);
-              final typeIndex = fieldName.lastIndexOf('.');
-              final translatedKey =
-                  typeIndex != -1 ? '${fieldName.substring(0, typeIndex)}.$key.label' : 'i18n://attributes.values.$fieldName.$key.label';
+
+              final translatedKey = 'i18n://attributes.values.${widget.valueType}.$key.label';
+
               final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
               final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
               final itemRenderHints = widget.renderHints.propertyHints![key];
-              final itemValueHints = widget.valueHints.propertyHints![key];
+              final itemValueHints = widget.valueHints.propertyHints![key] ?? const ValueHints();
 
               return ValueRenderer(
                 initialValue: itemInitialValue,
                 renderHints: itemRenderHints!,
-                valueHints: itemValueHints!,
+                valueHints: itemValueHints,
                 fieldName: translatedKey,
                 controller: controllers?[key],
               );

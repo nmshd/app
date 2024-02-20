@@ -8,7 +8,7 @@ class SwitchInput extends FormField<bool> {
   SwitchInput({
     super.key,
     ValueRendererController? controller,
-    required String fieldName,
+    String? fieldName,
     super.initialValue,
     super.onSaved,
     super.validator,
@@ -18,7 +18,7 @@ class SwitchInput extends FormField<bool> {
 
             return Row(
               children: [
-                TranslatedText(fieldName),
+                if (fieldName != null) TranslatedText(fieldName),
                 Switch(
                   value: field.value ?? false,
                   activeColor: Colors.blue,

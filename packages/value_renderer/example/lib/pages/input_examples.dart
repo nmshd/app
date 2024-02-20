@@ -1,12 +1,44 @@
+import 'dart:convert';
+
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:value_renderer/value_renderer.dart';
 
-class InputExamples extends StatelessWidget {
+class InputExamples extends StatefulWidget {
   const InputExamples({super.key});
 
   @override
+  State<InputExamples> createState() => _InputExamplesState();
+}
+
+class _InputExamplesState extends State<InputExamples> {
+  Map<String, dynamic>? _valuehintsJsonData;
+  Map<String, dynamic>? _renderhintsJsonData;
+
+  @override
+  void initState() {
+    _loadJsonData();
+
+    super.initState();
+  }
+
+  Future<void> _loadJsonData() async {
+    final valuehintsJsonData = await rootBundle.loadString('assets/valuehints.json');
+    final renderhintsJsonData = await rootBundle.loadString('assets/renderhints.json');
+
+    setState(() {
+      _valuehintsJsonData = jsonDecode(valuehintsJsonData);
+      _renderhintsJsonData = jsonDecode(renderhintsJsonData);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_valuehintsJsonData == null || _renderhintsJsonData == null) return const CircularProgressIndicator();
+    final renderHints = RenderHints.fromJson(_renderhintsJsonData!);
+    final valueHints = ValueHints.fromJson(_valuehintsJsonData!);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -87,6 +119,7 @@ class InputExamples extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
+                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.Complex,
                             propertyHints: {
@@ -385,6 +418,7 @@ class InputExamples extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
+                          valueType: '',
                           renderHints: RenderHints(
                             editType: RenderHintsEditType.Complex,
                             propertyHints: {
@@ -654,6 +688,12 @@ class InputExamples extends StatelessWidget {
                           ),
                           fieldName: 'Double / SliderLike',
                           initialValue: const FullyDynamicAttributeValue(7.5),
+                        ),
+                        const Divider(),
+                        ValueRenderer(
+                          renderHints: renderHints,
+                          valueHints: valueHints,
+                          valueType: 'DeliveryBoxAddress',
                         ),
                       ],
                     ),

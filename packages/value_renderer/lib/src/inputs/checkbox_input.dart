@@ -10,7 +10,7 @@ class CheckboxInput extends FormField<bool> {
     super.key,
     bool autovalidate = false,
     ValueRendererController? controller,
-    required String fieldName,
+    String? fieldName,
     ValueHintsDefaultValueBool? initialValue,
     super.onSaved,
     super.validator,
@@ -22,7 +22,7 @@ class CheckboxInput extends FormField<bool> {
             return InputDecorator(
               decoration: decoration ?? const InputDecoration(border: InputBorder.none),
               child: CheckboxListTile(
-                title: TranslatedText(fieldName),
+                title: fieldName != null ? TranslatedText(fieldName) : null,
                 value: field.value,
                 onChanged: field.didChange,
                 controlAffinity: ListTileControlAffinity.leading,

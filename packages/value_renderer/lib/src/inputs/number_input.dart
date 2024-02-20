@@ -10,7 +10,7 @@ import 'styles/input_decoration.dart';
 class NumberInput extends StatefulWidget {
   final ValueRendererController? controller;
   final InputDecoration? decoration;
-  final String fieldName;
+  final String? fieldName;
   final num? initialValue;
   final num? max;
   final num? min;
@@ -23,7 +23,7 @@ class NumberInput extends StatefulWidget {
     super.key,
     this.controller,
     this.decoration,
-    required this.fieldName,
+    this.fieldName,
     this.initialValue,
     this.max,
     this.min,
@@ -69,8 +69,11 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
-    final fieldName = widget.fieldName;
-    final translatedText = fieldName.startsWith('i18n://') ? FlutterI18n.translate(context, fieldName.substring(7)) : fieldName;
+    String? translatedText;
+
+    if (widget.fieldName != null) {
+      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
+    }
 
     return Form(
       child: TextFormField(

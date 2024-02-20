@@ -9,7 +9,7 @@ class NumberRenderer extends StatelessWidget {
   final RenderHintsDataType? dataType;
   final InputDecoration? decoration;
   final RenderHintsEditType? editType;
-  final String fieldName;
+  final String? fieldName;
   final AttributeValue? initialValue;
   final bool mustBeFilledOut;
   final RenderHintsTechnicalType technicalType;
@@ -22,7 +22,7 @@ class NumberRenderer extends StatelessWidget {
     this.decoration,
     this.dataType,
     this.editType,
-    required this.fieldName,
+    this.fieldName,
     required this.initialValue,
     required this.mustBeFilledOut,
     required this.technicalType,

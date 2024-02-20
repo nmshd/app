@@ -16,7 +16,7 @@ class DatepickerFormField extends FormField<DateTime> {
     InputDecoration? decoration,
     required bool mustBeFilledOut,
     super.enabled,
-    required String fieldName,
+    String? fieldName,
     DateTime? firstDate,
     DateTime? initialDate,
     AttributeValue? initialValueAttribute,
