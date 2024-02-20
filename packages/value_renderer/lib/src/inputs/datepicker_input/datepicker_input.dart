@@ -5,22 +5,6 @@ final DateTime defaultFirstDate = DateTime(1900);
 final DateTime defaultLastDate = DateTime(2100);
 
 class DatepickerInput extends StatelessWidget {
-  DatepickerInput({
-    super.key,
-    DateFormat? dateFormat,
-    this.dateTextStyle,
-    this.decoration,
-    this.enabled = true,
-    this.fieldName,
-    DateTime? firstDate,
-    this.initialDate,
-    DateTime? lastDate,
-    required this.onDateSelected,
-    required this.selectedDate,
-  })  : dateFormat = DateFormat.yMd(),
-        firstDate = firstDate ?? defaultFirstDate,
-        lastDate = lastDate ?? defaultLastDate;
-
   final DateFormat dateFormat;
   final TextStyle? dateTextStyle;
   final InputDecoration? decoration;
@@ -31,6 +15,21 @@ class DatepickerInput extends StatelessWidget {
   final DateTime lastDate;
   final ValueChanged<DateTime>? onDateSelected;
   final DateTime? selectedDate;
+
+  DatepickerInput({
+    super.key,
+    required this.dateFormat,
+    this.dateTextStyle,
+    this.decoration,
+    this.enabled = true,
+    this.fieldName,
+    DateTime? firstDate,
+    this.initialDate,
+    DateTime? lastDate,
+    required this.onDateSelected,
+    required this.selectedDate,
+  })  : firstDate = firstDate ?? defaultFirstDate,
+        lastDate = lastDate ?? defaultLastDate;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime initialDateTime;

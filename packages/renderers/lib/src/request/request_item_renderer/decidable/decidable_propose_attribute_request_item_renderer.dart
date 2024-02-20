@@ -99,6 +99,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     setState(() {
       _choice = choice;
+      isChecked = true;
     });
 
     if (choice.id != null) {

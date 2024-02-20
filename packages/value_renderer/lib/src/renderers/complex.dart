@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:intl/intl.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../inputs/inputs.dart';
@@ -88,6 +89,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         decoration: widget.decoration,
         fieldName: translatedText,
         mustBeFilledOut: widget.mustBeFilledOut,
+        dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
       );
     }
 
@@ -99,29 +101,27 @@ class _ComplexRendererState extends State<ComplexRenderer> {
           const SizedBox(height: 12),
         ],
         if (widget.renderHints.propertyHints != null)
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: widget.renderHints.propertyHints!.values.length,
-            itemBuilder: (context, index) {
-              final key = widget.renderHints.propertyHints!.keys.elementAt(index);
+          Column(
+            children: widget.renderHints.propertyHints!.keys
+                .map((key) {
+                  final translatedKey = 'i18n://attributes.values.${widget.valueType}.$key.label';
 
-              final translatedKey = 'i18n://attributes.values.${widget.valueType}.$key.label';
+                  final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
+                  final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
+                  final itemRenderHints = widget.renderHints.propertyHints![key];
+                  final itemValueHints = widget.valueHints.propertyHints![key] ?? const ValueHints();
 
-              final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
-              final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
-              final itemRenderHints = widget.renderHints.propertyHints![key];
-              final itemValueHints = widget.valueHints.propertyHints![key] ?? const ValueHints();
-
-              return ValueRenderer(
-                initialValue: itemInitialValue,
-                renderHints: itemRenderHints!,
-                valueHints: itemValueHints,
-                fieldName: translatedKey,
-                controller: controllers?[key],
-              );
-            },
-            separatorBuilder: (context, index) => const SizedBox(height: 16),
+                  return ValueRenderer(
+                    initialValue: itemInitialValue,
+                    renderHints: itemRenderHints!,
+                    valueHints: itemValueHints,
+                    fieldName: translatedKey,
+                    controller: controllers?[key],
+                  );
+                })
+                .indexed
+                .map((e) => e.$1 == 0 ? e.$2 : Padding(padding: const EdgeInsets.only(top: 16), child: e.$2))
+                .toList(),
           ),
       ],
     );

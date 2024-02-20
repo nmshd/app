@@ -114,7 +114,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: composedValue),
         );
 
-        _enableCheckbox();
+        if (!isChecked) setState(() => isChecked = true);
       } else {
         widget.controller?.writeAtIndex(
           index: widget.itemIndex,
@@ -138,7 +138,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: composedValue),
         );
 
-        _enableCheckbox();
+        if (!isChecked) setState(() => isChecked = true);
       } else {
         widget.controller?.writeAtIndex(
           index: widget.itemIndex,
@@ -165,6 +165,11 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     if (choice == null) return;
 
+    setState(() {
+      _choice = choice;
+      isChecked = true;
+    });
+
     if (choice.id != null) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
@@ -176,10 +181,6 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute),
       );
     }
-
-    setState(() {
-      _choice = choice;
-    });
   }
 
   ValueHints? _getQueryValueHints() {
@@ -200,14 +201,5 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     };
 
     return results.map((result) => (id: result.id, attribute: result.content)).toList();
-  }
-
-  // TODO(Vin-RM): if there is an ENABLE checkbox why don't we need a DISABLE checkbox?
-  void _enableCheckbox() {
-    if (widget.controller != null && !widget.item.mustBeAccepted) {
-      setState(() {
-        isChecked = true;
-      });
-    }
   }
 }
