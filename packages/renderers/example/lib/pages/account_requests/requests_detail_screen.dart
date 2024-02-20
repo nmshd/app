@@ -7,6 +7,8 @@ import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 
+import 'widgets/attribute_screen.dart';
+
 class RequestsDetailScreen extends StatefulWidget {
   final String accountId;
   final LocalRequestDVO localRequestDVO;
@@ -77,12 +79,14 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               const SizedBox(height: 8),
               const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
               Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
-              RequestRenderer(
-                request: widget.localRequestDVO,
-                controller: controller,
-                validationResult: _validationResult,
-                selectAttribute: createIdentityAttributeDVO,
-                currentAddress: widget.accountId,
+              Expanded(
+                child: RequestRenderer(
+                  request: widget.localRequestDVO,
+                  controller: controller,
+                  validationResult: _validationResult,
+                  openAttributeSwitcher: _openAttributeSwitcher,
+                  currentAddress: widget.accountId,
+                ),
               ),
               if (widget.localRequestDVO.isDecidable)
                 Row(
@@ -106,54 +110,23 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
     );
   }
 
-  Future<IdentityAttribute> createIdentityAttributeDVO({required String valueType}) async {
-    await Future.delayed(const Duration(seconds: 1));
+  Future<AttributeSwitcherChoice?> _openAttributeSwitcher({
+    required String valueType,
+    required List<AttributeSwitcherChoice> choices,
+    AttributeSwitcherChoice? currentChoice,
+    ValueHints? valueHints,
+  }) async {
+    final attribute = await Navigator.of(context).push<AttributeSwitcherChoice?>(
+      MaterialPageRoute(
+        builder: (ctx) => AttributeScreen(
+          choices: choices,
+          currentChoice: currentChoice,
+          valueHints: valueHints,
+          attributeTitle: valueType,
+        ),
+      ),
+    );
 
-    return switch (valueType) {
-      'DisplayName' => const IdentityAttribute(
-          owner: '',
-          value: DisplayNameAttributeValue(value: 'Alternative Display Name'),
-        ),
-      'GivenName' => const IdentityAttribute(
-          owner: '',
-          value: GivenNameAttributeValue(value: 'Alternative Given Name'),
-        ),
-      'Surname' => const IdentityAttribute(
-          owner: '',
-          value: SurnameAttributeValue(value: 'Alternative Surname'),
-        ),
-      'Nationality' => const IdentityAttribute(
-          owner: '',
-          value: NationalityAttributeValue(value: 'DE'),
-        ),
-      'CommunicationLanguage' => const IdentityAttribute(
-          owner: '',
-          value: CommunicationLanguageAttributeValue(value: 'de'),
-        ),
-      'BirthDate' => const IdentityAttribute(
-          owner: '',
-          value: BirthDateAttributeValue(day: 01, month: 01, year: 2000),
-        ),
-      'EMailAddress' => const IdentityAttribute(
-          owner: '',
-          value: EMailAddressAttributeValue(value: 'alternative@email.com'),
-        ),
-      'Sex' => const IdentityAttribute(
-          owner: '',
-          value: SexAttributeValue(value: 'male'),
-        ),
-      'StreetAddress' => const IdentityAttribute(
-          owner: '',
-          value: StreetAddressAttributeValue(
-            recipient: 'Alternative Recepient',
-            street: 'Alternative Street',
-            houseNumber: 'Alternative House Number',
-            zipCode: 'Alternative Zip Code',
-            city: 'Alternative City',
-            country: 'DE',
-          ),
-        ),
-      _ => throw Exception('Invalid Value Type: $valueType'),
-    };
+    return attribute;
   }
 }

@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import 'open_attribute_switcher_function.dart';
 import 'request_item_group_renderer.dart';
 import 'request_item_renderer/request_item_renderer.dart';
 import 'request_item_renderer/response/response.dart';
@@ -9,18 +10,18 @@ import 'request_renderer_controller.dart';
 
 class RequestRenderer extends StatelessWidget {
   final RequestRendererController? controller;
+  final String currentAddress;
   final LocalRequestDVO request;
   final RequestValidationResultDTO? validationResult;
-  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
-  final String currentAddress;
+  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
   const RequestRenderer({
     super.key,
     required this.request,
+    required this.currentAddress,
     this.validationResult,
     this.controller,
-    this.selectAttribute,
-    required this.currentAddress,
+    this.openAttributeSwitcher,
   });
 
   @override
@@ -59,7 +60,7 @@ class RequestRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           controller: controller,
           requestStatus: request.status,
-          selectAttribute: selectAttribute,
+          openAttributeSwitcher: openAttributeSwitcher,
           currentAddress: currentAddress,
         );
       }
@@ -68,7 +69,7 @@ class RequestRenderer extends StatelessWidget {
         item: item,
         itemIndex: itemIndex,
         controller: controller,
-        selectAttribute: selectAttribute,
+        openAttributeSwitcher: openAttributeSwitcher,
         requestStatus: request.status,
         currentAddress: currentAddress,
       );

@@ -1,25 +1,24 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
 import '/src/attribute/attribute_renderer.dart';
-import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
-import 'widgets/handle_checkbox_change.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final DecidableProposeAttributeRequestItemDVO item;
-  final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
-  final Future<AbstractAttribute> Function({required String valueType})? selectAttribute;
+  final RequestRendererController? controller;
+  final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
+    required this.itemIndex,
     required this.item,
     this.controller,
-    required this.itemIndex,
-    this.selectAttribute,
+    this.openAttributeSwitcher,
   });
 
   @override
@@ -28,7 +27,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
 
 class _DecidableProposeAttributeRequestItemRendererState extends State<DecidableProposeAttributeRequestItemRenderer> {
   late bool isChecked;
-  AbstractAttribute? newAttribute;
+  late AttributeSwitcherChoice _choice;
 
   @override
   void initState() {
@@ -36,59 +35,38 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     isChecked = widget.item.initiallyChecked;
 
-    final attribute = attributeContent(widget.item.attribute);
-    if (attribute == null) return;
+    _choice = _getProposedChoice();
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
+      value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
     );
-
-    updateSelectedAttribute();
   }
 
   @override
   Widget build(BuildContext context) {
     final trailing = IconButton(onPressed: () => onUpdateAttribute(widget.item.attribute.valueType), icon: const Icon(Icons.chevron_right));
 
-    if (newAttribute != null) {
-      return Row(
-        children: [
-          Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          Expanded(
-            child: AttributeRenderer(
-              attribute: newAttribute!,
-              trailing: trailing,
-              valueHints: widget.item.attribute.valueHints,
-            ),
+    return Row(
+      children: [
+        Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        Expanded(
+          child: AttributeRenderer(
+            attribute: _choice.attribute,
+            trailing: trailing,
+            valueHints: widget.item.attribute.valueHints,
           ),
-        ],
-      );
-    }
-
-    return DraftAttributeRenderer(
-      draftAttribute: widget.item.attribute,
-      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-      trailing: trailing,
+        ),
+      ],
     );
-  }
-
-  AbstractAttribute? attributeContent(DraftAttributeDVO attribute) {
-    return switch (widget.item.attribute) {
-      final DraftIdentityAttributeDVO dvo => dvo.content,
-      final DraftRelationshipAttributeDVO dvo => dvo.content,
-    };
   }
 
   void onUpdateCheckbox(bool? value) {
     if (value == null) return;
 
-    setState(() {
-      isChecked = value;
-    });
+    setState(() => isChecked = value);
 
-    final attribute = attributeContent(widget.item.attribute);
-    if (attribute == null) {
+    if (!isChecked) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
         value: const RejectRequestItemParameters(),
@@ -97,38 +75,64 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       return;
     }
 
-    handleCheckboxChange(
-      isChecked: isChecked,
-      controller: widget.controller,
-      itemIndex: widget.itemIndex,
-      acceptRequestItemParameter: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: newAttribute ?? attribute),
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: _choice.id != null
+          ? AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.id!)
+          : AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
     );
   }
 
   Future<void> onUpdateAttribute(String valueType) async {
-    final selectedAttribute = await widget.selectAttribute?.call(valueType: valueType);
+    if (widget.openAttributeSwitcher == null) return;
 
-    if (selectedAttribute != null) {
-      setState(() {
-        newAttribute = selectedAttribute;
-      });
+    final resultValues = _getChoices();
+
+    final choice = await widget.openAttributeSwitcher!(
+      valueType: valueType,
+      choices: resultValues,
+      currentChoice: _choice,
+      valueHints: widget.item.attribute.valueHints,
+    );
+
+    if (choice == null) return;
+
+    setState(() {
+      _choice = choice;
+    });
+
+    if (choice.id != null) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: choice.id!),
+      );
+    } else {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: choice.attribute),
+      );
     }
   }
 
-  Future<void> updateSelectedAttribute() async {
-    if (newAttribute != null) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: newAttribute!),
-      );
-    } else {
-      final attribute = attributeContent(widget.item.attribute);
-      if (attribute == null) return;
+  List<AttributeSwitcherChoice> _getChoices() {
+    final results = switch (widget.item.query) {
+      final ProcessedIdentityAttributeQueryDVO query => query.results,
+      final ProcessedRelationshipAttributeQueryDVO query => query.results,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
+      final ProcessedIQLQueryDVO query => query.results,
+    };
 
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: attribute),
-      );
-    }
+    return {
+      ...results.map((result) => (id: result.id, attribute: result.content)),
+      _getProposedChoice(),
+      _choice,
+    }.toList();
+  }
+
+  ({String? id, AbstractAttribute attribute}) _getProposedChoice() {
+    return switch (widget.item.attribute) {
+      final DraftIdentityAttributeDVO dvo => (id: null, attribute: dvo.content),
+      final DraftRelationshipAttributeDVO dvo => (id: null, attribute: dvo.content),
+    };
   }
 }

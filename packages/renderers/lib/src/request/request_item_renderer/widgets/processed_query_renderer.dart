@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 import 'package:value_renderer/value_renderer.dart';
 
@@ -30,6 +31,8 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final selectedAttribute = this.selectedAttribute;
+
     if (query.results.isEmpty) {
       return ValueRendererListTile(
         fieldName: switch (query.valueType) {
@@ -57,7 +60,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
           child: IdentityAttributeValueRenderer(
-            value: query.results.first.value as IdentityAttributeValue,
+            value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
             trailing: onUpdateAttribute == null
                 ? null
                 : IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
