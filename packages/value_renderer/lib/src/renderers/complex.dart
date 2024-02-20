@@ -88,6 +88,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         decoration: widget.decoration,
         fieldName: translatedText,
         mustBeFilledOut: widget.mustBeFilledOut,
+        dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
       );
     }
 

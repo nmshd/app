@@ -12,7 +12,7 @@ class DatepickerFormField extends FormField<DateTime> {
     super.key,
     ValueRendererController? controller,
     TextStyle? dateTextStyle,
-    DateFormat? dateFormat,
+    required DateFormat dateFormat,
     InputDecoration? decoration,
     required bool mustBeFilledOut,
     super.enabled,
