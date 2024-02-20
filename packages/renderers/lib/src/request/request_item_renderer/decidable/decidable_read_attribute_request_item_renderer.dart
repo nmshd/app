@@ -156,16 +156,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     final valueHints = _getQueryValueHints();
 
-    final selectedAttribute = await widget.openAttributeSwitcher!(
+    final choice = await widget.openAttributeSwitcher!(
       valueType: valueType,
       attributes: resultValues.toList(),
       currentChoice: _choice,
       valueHints: valueHints,
     );
 
-    if (selectedAttribute == null) return;
-
-    final choice = selectedAttribute;
+    if (choice == null) return;
 
     if (choice.id != null) {
       widget.controller?.writeAtIndex(
@@ -180,7 +178,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     }
 
     setState(() {
-      _choice = selectedAttribute;
+      _choice = choice;
     });
   }
 
