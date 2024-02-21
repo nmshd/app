@@ -143,7 +143,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
   Widget build(BuildContext context) {
     final selectedAttribute = this.selectedAttribute;
 
-    Row(
+    return Row(
       children: [
         if (checkboxSettings != null)
           Checkbox(value: checkboxSettings!.isChecked, onChanged: query.results.isEmpty ? null : checkboxSettings!.onUpdateCheckbox),
@@ -155,15 +155,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
             ),
           )
         else
-          TranslatedText('i18n://dvo.attribute.name.${query.runtimeType.toString()}'),
-      ],
-    );
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(query.type),
-        TranslatedText(query.name),
+          TranslatedText('i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults', style: const TextStyle(color: Colors.redAccent)),
       ],
     );
   }
