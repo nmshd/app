@@ -4,10 +4,11 @@ import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 import 'package:value_renderer/value_renderer.dart';
 
-import '../../request_renderer_controller.dart';
+import '../../../request_renderer_controller.dart';
+import '../../widgets/value_renderer_list_tile.dart';
 import '/src/attribute/identity_attribute_value_renderer.dart';
+import '/src/attribute/relationship_attribute_value_renderer.dart';
 import '/src/checkbox_settings.dart';
-import 'value_renderer_list_tile.dart';
 
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
@@ -94,25 +95,70 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueRendererListTile(
-      fieldName: query.name,
-      renderHints: query.renderHints,
-      valueHints: query.valueHints,
-      checkboxSettings: checkboxSettings,
-      onUpdateInput: onUpdateInput,
-      valueType: query.valueType,
-      mustBeAccepted: mustBeAccepted,
+    final selectedAttribute = this.selectedAttribute;
+
+    if (query.results.isEmpty) {
+      return ValueRendererListTile(
+        fieldName: query.name,
+        renderHints: query.renderHints,
+        valueHints: query.valueHints,
+        checkboxSettings: checkboxSettings,
+        onUpdateInput: onUpdateInput,
+        valueType: query.valueType,
+        mustBeAccepted: mustBeAccepted,
+      );
+    }
+
+    return Row(
+      children: [
+        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+        Expanded(
+          child: RelationshipAttributeValueRenderer(
+            value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
+            trailing: onUpdateAttribute == null
+                ? null
+                : IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
+          ),
+        ),
+      ],
     );
   }
 }
 
-class ProcessedThirdPartyAttributeQueryRenderer extends StatelessWidget {
+class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWidget {
   final ProcessedThirdPartyRelationshipAttributeQueryDVO query;
+  final CheckboxSettings? checkboxSettings;
+  final AbstractAttribute? selectedAttribute;
+  final Future<void> Function()? onUpdateAttribute;
 
-  const ProcessedThirdPartyAttributeQueryRenderer({super.key, required this.query});
+  const ProcessedThirdPartyRelationshipAttributeQueryRenderer({
+    super.key,
+    required this.query,
+    this.checkboxSettings,
+    this.selectedAttribute,
+    this.onUpdateAttribute,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final selectedAttribute = this.selectedAttribute;
+
+    Row(
+      children: [
+        if (checkboxSettings != null)
+          Checkbox(value: checkboxSettings!.isChecked, onChanged: query.results.isEmpty ? null : checkboxSettings!.onUpdateCheckbox),
+        if (selectedAttribute != null || query.results.isNotEmpty)
+          Expanded(
+            child: RelationshipAttributeValueRenderer(
+              value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
+              trailing: onUpdateAttribute == null ? null : IconButton(onPressed: () => onUpdateAttribute!(), icon: const Icon(Icons.chevron_right)),
+            ),
+          )
+        else
+          TranslatedText('i18n://dvo.attribute.name.${query.runtimeType.toString()}'),
+      ],
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

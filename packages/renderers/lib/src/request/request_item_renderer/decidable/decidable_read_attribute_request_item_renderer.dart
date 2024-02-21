@@ -4,8 +4,8 @@ import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 import '../../request_item_index.dart';
-import '../widgets/processed_query_renderer.dart';
 import 'checkbox_enabled_extension.dart';
+import 'widgets/processed_query_renderer.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final String currentAddress;
@@ -70,8 +70,9 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
         ),
-      //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
-      _ => throw Exception("Invalid type '${widget.item.query.type}'"),
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(query: query),
+      // TODO: implement IQL
+      final ProcessedIQLQueryDVO _ => throw UnimplementedError(),
     };
   }
 
