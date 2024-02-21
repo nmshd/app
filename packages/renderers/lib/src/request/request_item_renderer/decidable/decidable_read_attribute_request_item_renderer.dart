@@ -70,7 +70,12 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
         ),
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(query: query),
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
+          query: query,
+          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+          onUpdateAttribute: () async {},
+          selectedAttribute: _choice?.attribute,
+        ),
       // TODO: implement IQL
       final ProcessedIQLQueryDVO _ => throw UnimplementedError(),
     };
