@@ -43,10 +43,12 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     _choice = choice;
 
-    widget.controller?.writeAtIndex(
-      index: widget.itemIndex,
-      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id),
-    );
+    if (isChecked) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id),
+      );
+    }
   }
 
   @override
