@@ -78,7 +78,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           },
           selectedAttribute: _choice?.attribute,
         ),
-      // TODO: implement IQL
+      // TODO: implement ProcessedIQLQueryDVORenderer
       final ProcessedIQLQueryDVO _ => throw UnimplementedError(),
     };
   }
