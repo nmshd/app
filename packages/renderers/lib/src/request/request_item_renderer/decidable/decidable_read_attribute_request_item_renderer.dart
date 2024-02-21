@@ -73,7 +73,9 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
           query: query,
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          onUpdateAttribute: () async {},
+          onUpdateAttribute: () async {
+            // TODO: trigger attribute update but without adding the possibility to create a new attribute
+          },
           selectedAttribute: _choice?.attribute,
         ),
       // TODO: implement IQL
