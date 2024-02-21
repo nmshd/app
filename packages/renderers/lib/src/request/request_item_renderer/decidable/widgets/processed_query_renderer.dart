@@ -155,7 +155,10 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
             ),
           )
         else
-          TranslatedText('i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults', style: const TextStyle(color: Colors.redAccent)),
+          const TranslatedText(
+            'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
+            style: TextStyle(color: Colors.redAccent),
+          ),
       ],
     );
   }
