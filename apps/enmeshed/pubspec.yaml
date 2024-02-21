@@ -19,7 +19,7 @@ dependencies:
   get_it: ^7.6.7
   logger: ^2.0.2+1
   mobile_scanner: ^4.0.0
-  permission_handler: ^11.2.1
+  permission_handler: ^11.3.0
   url_launcher: ^6.2.4
 
 dev_dependencies:
