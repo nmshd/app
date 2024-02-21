@@ -4,8 +4,8 @@ import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 import '../../request_item_index.dart';
-import '../widgets/processed_query_renderer.dart';
 import 'checkbox_enabled_extension.dart';
+import 'widgets/processed_query_renderer.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final String currentAddress;
@@ -43,10 +43,12 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     _choice = choice;
 
-    widget.controller?.writeAtIndex(
-      index: widget.itemIndex,
-      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id),
-    );
+    if (isChecked) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id),
+      );
+    }
   }
 
   @override
@@ -68,8 +70,16 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
         ),
-      //final ThirdPartyRelationshipAttributeQueryDVO query => ThirdPartyAttributeQueryRenderer(query: query),
-      _ => throw Exception("Invalid type '${widget.item.query.type}'"),
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
+          query: query,
+          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+          onUpdateAttribute: () async {
+            // TODO: trigger attribute update but without adding the possibility to create a new attribute
+          },
+          selectedAttribute: _choice?.attribute,
+        ),
+      // TODO: implement ProcessedIQLQueryDVORenderer
+      final ProcessedIQLQueryDVO _ => throw UnimplementedError(),
     };
   }
 

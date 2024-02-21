@@ -37,10 +37,12 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     _choice = _getProposedChoice();
 
-    widget.controller?.writeAtIndex(
-      index: widget.itemIndex,
-      value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
-    );
+    if (isChecked) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
+      );
+    }
   }
 
   @override
@@ -119,6 +121,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     final results = switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
+      // TODO: how to handle this (this will never happen as it is not sent from a ProposeAttributeRequestItem)
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,
       final ProcessedIQLQueryDVO query => query.results,
     };
