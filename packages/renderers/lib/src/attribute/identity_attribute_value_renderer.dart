@@ -39,6 +39,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
+        trailingWidth: trailingWidth,
       );
     }
 
@@ -50,6 +51,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
+        trailingWidth: trailingWidth,
       );
     }
 
@@ -61,6 +63,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
+        trailingWidth: trailingWidth,
       );
     }
 
@@ -72,6 +75,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
+        trailingWidth: trailingWidth,
       );
     }
 
@@ -82,6 +86,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
+        trailingWidth: trailingWidth,
       );
     }
 
@@ -97,6 +102,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       showTitle: showTitle,
       valueTextStyle: valueTextStyle,
       trailing: trailing,
+      trailingWidth: trailingWidth,
     );
   }
 }
