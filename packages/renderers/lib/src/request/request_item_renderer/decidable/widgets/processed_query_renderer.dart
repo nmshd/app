@@ -62,10 +62,16 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         Expanded(
           child: IdentityAttributeValueRenderer(
             value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
+            valueHints: query.results.first.valueHints,
             trailing: onUpdateAttribute == null
                 ? null
-                : IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
-            valueHints: query.results.first.valueHints,
+                : SizedBox(
+                    width: 50,
+                    child: IconButton(
+                      onPressed: () => onUpdateAttribute!(query.valueType),
+                      icon: const Icon(Icons.chevron_right),
+                    ),
+                  ),
           ),
         ),
       ],
@@ -117,7 +123,13 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
             value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
             trailing: onUpdateAttribute == null
                 ? null
-                : IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
+                : SizedBox(
+                    width: 50,
+                    child: IconButton(
+                      onPressed: () => onUpdateAttribute!(query.valueType),
+                      icon: const Icon(Icons.chevron_right),
+                    ),
+                  ),
           ),
         ),
       ],
@@ -151,7 +163,15 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
           Expanded(
             child: RelationshipAttributeValueRenderer(
               value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
-              trailing: onUpdateAttribute == null ? null : IconButton(onPressed: () => onUpdateAttribute!(), icon: const Icon(Icons.chevron_right)),
+              trailing: onUpdateAttribute == null
+                  ? null
+                  : SizedBox(
+                      width: 50,
+                      child: IconButton(
+                        onPressed: () => onUpdateAttribute!(),
+                        icon: const Icon(Icons.chevron_right),
+                      ),
+                    ),
             ),
           )
         else

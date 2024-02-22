@@ -31,12 +31,15 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           showTitle: showTitle,
           valueTextStyle: valueTextStyle,
           trailing: consentAttributeValue.link != null
-              ? IconButton(
-                  onPressed: () async {
-                    final url = Uri.parse(consentAttributeValue.link!);
-                    await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
-                  },
-                  icon: const Icon(Icons.open_in_new),
+              ? SizedBox(
+                  width: 50,
+                  child: IconButton(
+                    icon: const Icon(Icons.open_in_new),
+                    onPressed: () async {
+                      final url = Uri.parse(consentAttributeValue.link!);
+                      await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
+                    },
+                  ),
                 )
               : null,
         ),
@@ -46,12 +49,14 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           thirdLine: proprietaryJSONAttributeValue.value.toString(),
           showTitle: showTitle,
           valueTextStyle: valueTextStyle,
+          trailing: trailing,
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
           description: attributeValueMap['value'].toString(),
           showTitle: showTitle,
           valueTextStyle: valueTextStyle,
+          trailing: trailing,
         ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),
     };

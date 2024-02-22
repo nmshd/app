@@ -58,7 +58,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                 },
               ),
             ),
-            if (trailing != null) SizedBox(width: 50, child: trailing),
+            if (trailing != null) trailing!,
           ],
         ),
       ],

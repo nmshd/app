@@ -47,16 +47,20 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
   @override
   Widget build(BuildContext context) {
-    final trailing = IconButton(onPressed: () => onUpdateAttribute(widget.item.attribute.valueType), icon: const Icon(Icons.chevron_right));
-
     return Row(
       children: [
         Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
         Expanded(
           child: AttributeRenderer(
             attribute: _choice.attribute,
-            trailing: trailing,
             valueHints: widget.item.attribute.valueHints,
+            trailing: SizedBox(
+              width: 50,
+              child: IconButton(
+                onPressed: () => onUpdateAttribute(widget.item.attribute.valueType),
+                icon: const Icon(Icons.chevron_right),
+              ),
+            ),
           ),
         ),
       ],
