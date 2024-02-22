@@ -8,6 +8,7 @@ class CustomListTile extends StatelessWidget {
   final bool showTitle;
   final TextStyle valueTextStyle;
   final Widget? trailing;
+  final double? trailingWidth;
 
   const CustomListTile({
     super.key,
@@ -17,6 +18,7 @@ class CustomListTile extends StatelessWidget {
     this.showTitle = true,
     this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
+    this.trailingWidth = 50,
   });
 
   @override
@@ -40,7 +42,7 @@ class CustomListTile extends StatelessWidget {
             ],
           ),
         ),
-        if (trailing != null) SizedBox(width: 50, child: trailing),
+        if (trailing != null) SizedBox(width: trailingWidth, child: trailing),
       ],
     );
   }

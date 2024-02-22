@@ -11,6 +11,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
   final TextStyle valueTextStyle;
   // TODO: render trailing
   final Widget? trailing;
+  final double? trailingWidth;
 
   const RelationshipAttributeValueRenderer({
     super.key,
@@ -18,6 +19,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
     this.showTitle = true,
     this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
+    this.trailingWidth = 50,
   });
 
   @override
@@ -30,6 +32,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           description: consentAttributeValue.consent,
           showTitle: showTitle,
           valueTextStyle: valueTextStyle,
+          trailingWidth: trailingWidth,
           trailing: consentAttributeValue.link != null
               ? IconButton(
                   onPressed: () async {
@@ -46,12 +49,16 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           thirdLine: proprietaryJSONAttributeValue.value.toString(),
           showTitle: showTitle,
           valueTextStyle: valueTextStyle,
+          trailing: trailing,
+          trailingWidth: trailingWidth,
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(
           title: proprietaryAttributeValue.title,
           description: attributeValueMap['value'].toString(),
           showTitle: showTitle,
           valueTextStyle: valueTextStyle,
+          trailing: trailing,
+          trailingWidth: trailingWidth,
         ),
       _ => throw Exception('cannot handle RelationshipAttributeValue: ${value.runtimeType}'),
     };

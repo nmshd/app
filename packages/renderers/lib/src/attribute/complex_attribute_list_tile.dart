@@ -11,6 +11,7 @@ class ComplexAttributeListTile extends StatelessWidget {
   final bool showTitle;
   final TextStyle valueTextStyle;
   final Widget? trailing;
+  final double? trailingWidth;
 
   const ComplexAttributeListTile({
     super.key,
@@ -20,6 +21,7 @@ class ComplexAttributeListTile extends StatelessWidget {
     required this.showTitle,
     required this.valueTextStyle,
     this.trailing,
+    this.trailingWidth,
   });
 
   @override
@@ -58,7 +60,7 @@ class ComplexAttributeListTile extends StatelessWidget {
                 },
               ),
             ),
-            if (trailing != null) SizedBox(width: 50, child: trailing),
+            if (trailing != null) SizedBox(width: trailingWidth, child: trailing),
           ],
         ),
       ],
