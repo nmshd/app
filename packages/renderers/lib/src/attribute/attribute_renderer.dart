@@ -10,7 +10,6 @@ class AttributeRenderer extends StatelessWidget {
   final bool showTitle;
   final TextStyle valueTextStyle;
   final Widget? trailing;
-  final double? trailingWidth;
 
   const AttributeRenderer({
     super.key,
@@ -19,7 +18,6 @@ class AttributeRenderer extends StatelessWidget {
     this.showTitle = true,
     this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
-    this.trailingWidth = 50,
   });
 
   factory AttributeRenderer.localAttribute({
@@ -27,7 +25,6 @@ class AttributeRenderer extends StatelessWidget {
     bool showTitle = true,
     TextStyle valueTextStyle = const TextStyle(fontSize: 16),
     Widget? trailing,
-    double? trailingWidth = 50,
   }) =>
       AttributeRenderer(
         attribute: attribute.content,
@@ -35,7 +32,6 @@ class AttributeRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
-        trailingWidth: trailingWidth,
       );
 
   @override
@@ -49,7 +45,6 @@ class AttributeRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
-        trailingWidth: trailingWidth,
       );
     }
 
@@ -59,7 +54,6 @@ class AttributeRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
-        trailingWidth: trailingWidth,
       );
     }
 

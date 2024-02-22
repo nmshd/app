@@ -10,7 +10,6 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
   final bool showTitle;
   final TextStyle valueTextStyle;
   final Widget? trailing;
-  final double? trailingWidth;
 
   const StreetAddressAttributeRenderer({
     super.key,
@@ -19,7 +18,6 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
     required this.showTitle,
     required this.valueTextStyle,
     this.trailing,
-    this.trailingWidth,
   });
 
   @override
@@ -54,7 +52,7 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
             ],
           ),
         ),
-        if (trailing != null) SizedBox(width: trailingWidth, child: trailing)
+        if (trailing != null) trailing!
       ],
     );
   }

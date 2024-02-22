@@ -10,7 +10,6 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
   final bool showTitle;
   final TextStyle valueTextStyle;
   final Widget? trailing;
-  final double? trailingWidth;
 
   const PostOfficeBoxAddressAttributeRenderer({
     super.key,
@@ -19,7 +18,6 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
     required this.showTitle,
     required this.valueTextStyle,
     this.trailing,
-    this.trailingWidth,
   });
 
   @override
@@ -49,7 +47,7 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
             ],
           ),
         ),
-        if (trailing != null) SizedBox(width: trailingWidth, child: trailing)
+        if (trailing != null) trailing!
       ],
     );
   }

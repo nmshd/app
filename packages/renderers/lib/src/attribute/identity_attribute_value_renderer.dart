@@ -15,7 +15,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final bool showTitle;
   final TextStyle valueTextStyle;
   final Widget? trailing;
-  final double? trailingWidth;
 
   const IdentityAttributeValueRenderer({
     super.key,
@@ -24,7 +23,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     this.showTitle = true,
     this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
-    this.trailingWidth = 50,
   });
 
   @override
@@ -39,7 +37,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
-        trailingWidth: trailingWidth,
       );
     }
 
@@ -51,7 +48,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
-        trailingWidth: trailingWidth,
       );
     }
 
@@ -63,7 +59,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
-        trailingWidth: trailingWidth,
       );
     }
 
@@ -75,7 +70,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
-        trailingWidth: trailingWidth,
       );
     }
 
@@ -86,7 +80,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
-        trailingWidth: trailingWidth,
       );
     }
 
@@ -102,7 +95,6 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       showTitle: showTitle,
       valueTextStyle: valueTextStyle,
       trailing: trailing,
-      trailingWidth: trailingWidth,
     );
   }
 }
