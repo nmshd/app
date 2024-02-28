@@ -117,6 +117,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
                     valueHints: itemValueHints,
                     fieldName: translatedKey,
                     controller: controllers?[key],
+                    decoration: widget.decoration,
                   );
                 })
                 .indexed
