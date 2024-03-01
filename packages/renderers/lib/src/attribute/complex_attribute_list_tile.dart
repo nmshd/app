@@ -6,7 +6,7 @@ import 'value_hint_translation.dart';
 
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
-  final List<({String label, String value})> fields;
+  final List<({String label, String key, String value})> fields;
   final ValueHints valueHints;
   final bool showTitle;
   final TextStyle valueTextStyle;
@@ -45,14 +45,15 @@ class ComplexAttributeListTile extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final field = fields[index];
 
-                  final label = field.label;
+                  final propertyHints = valueHints.propertyHints![field.key]!;
+                  final translation = propertyHints.getTranslation(field.value);
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TranslatedText(label, style: titlesTextStyle),
+                      TranslatedText(field.label, style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      TranslatedText(valueHints.propertyHints!.values.elementAt(index).getTranslation(field.value), style: valueTextStyle),
+                      TranslatedText(translation, style: valueTextStyle),
                     ],
                   );
                 },
