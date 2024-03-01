@@ -6,7 +6,7 @@ import 'value_hint_translation.dart';
 
 class ComplexAttributeListTile extends StatelessWidget {
   final String title;
-  final List<({String label, String value})> fields;
+  final List<({String label, String key, String value})> fields;
   final ValueHints valueHints;
   final bool showTitle;
   final TextStyle valueTextStyle;
