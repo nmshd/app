@@ -45,14 +45,15 @@ class ComplexAttributeListTile extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final field = fields[index];
 
-                  final label = field.label;
+                  final propertyHints = valueHints.propertyHints![field.key]!;
+                  final translation = propertyHints.getTranslation(field.value);
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TranslatedText(label, style: titlesTextStyle),
+                      TranslatedText(field.label, style: titlesTextStyle),
                       const SizedBox(height: 2),
-                      TranslatedText(valueHints.propertyHints!.values.elementAt(index).getTranslation(field.value), style: valueTextStyle),
+                      TranslatedText(translation, style: valueTextStyle),
                     ],
                   );
                 },
