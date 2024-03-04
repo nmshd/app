@@ -42,8 +42,9 @@ class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
                   TranslatedText(value.city, style: valueTextStyle),
                 ],
               ),
-              TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
-              TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
+              TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country)!, style: valueTextStyle),
+              if (valueHints.propertyHints!['state']!.getTranslation(value.state) != null)
+                TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state)!, style: valueTextStyle),
             ],
           ),
         ),
