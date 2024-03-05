@@ -49,13 +49,15 @@ class NumberInputState extends State<NumberInput> {
 
     if (widget.controller != null) {
       _controller.addListener(
-        () => widget.controller!.value =
-            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType),
+        () => widget.controller!.value = validateInput(_controller.text) == null
+            ? ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType)
+            : ValueRendererValidationError(),
       );
 
       if (initialValue != null) {
-        widget.controller!.value =
-            ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType);
+        widget.controller!.value = validateInput(_controller.text) == null
+            ? ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType)
+            : ValueRendererValidationError();
       }
     }
   }
