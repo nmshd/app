@@ -2,8 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+import '../../value_renderer.dart';
 import '../utils/utils.dart';
-import '../value_renderer_controller.dart';
 import 'styles/input_decoration.dart';
 
 class TextInput extends StatefulWidget {
@@ -43,7 +43,8 @@ class TextInputState extends State<TextInput> {
     _controller = TextEditingController(text: initialValue?.value);
 
     if (widget.controller != null) {
-      _controller.addListener(() => widget.controller!.value = ValueRendererInputValueString(_controller.text));
+      _controller.addListener(() => widget.controller!.value =
+          validateInput(_controller.text) == null ? ValueRendererInputValueString(_controller.text) : ValueRendererValidationError());
       if (initialValue != null) {
         widget.controller!.value = ValueRendererInputValueString(
           widget.initialValue!.value,

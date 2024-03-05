@@ -1,0 +1,1 @@
+class ValueRendererValidationError extends Error {}
