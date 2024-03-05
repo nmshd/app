@@ -88,6 +88,7 @@ class AttributesFacade {
 
   Future<Result<List<LocalAttributeDTO>>> getRepositoryAttributes({
     bool? onlyLatestVersions,
+    Map<String, QueryValue>? query,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.getRepositoryAttributes(request)
@@ -96,6 +97,7 @@ class AttributesFacade {
       arguments: {
         'request': {
           if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
+          if (query != null) 'query': query.toJson(),
         },
       },
     );
