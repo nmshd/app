@@ -42,6 +42,18 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
     super.initState();
 
     controller.addListener(() {
+      final value = controller.value;
+
+      if (value is ValueRendererValidationError) {
+        widget.onUpdateInput(
+          inputValue: null,
+          valueType: widget.valueType,
+          isComplex: widget.renderHints.editType == RenderHintsEditType.Complex ? true : false,
+        );
+
+        return;
+      }
+
       widget.onUpdateInput(
         inputValue: controller.value,
         valueType: widget.valueType,
