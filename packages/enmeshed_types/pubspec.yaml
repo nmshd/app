@@ -3,7 +3,7 @@ description: Enmeshed Types.
 version: 1.0.0
 publish_to: none
 
-repository: https://github.com/nmshd/cns-app
+repository: https://github.com/nmshd/app
 homepage: https://enmeshed.eu
 
 environment:
