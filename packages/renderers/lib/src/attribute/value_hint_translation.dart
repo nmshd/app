@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 
 extension Translation on ValueHints {
-  String? getTranslation(
+  String getTranslation(
     dynamic value,
   ) {
     if (values == null) return value;

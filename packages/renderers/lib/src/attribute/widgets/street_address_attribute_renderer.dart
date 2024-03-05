@@ -48,8 +48,8 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
                   TranslatedText(value.city, style: valueTextStyle),
                 ],
               ),
-              if (valueHints.propertyHints!['country']!.getTranslation(value.country) != null)
-                TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country)!, style: valueTextStyle)
+              if (valueHints.propertyHints!['country'] != null)
+                TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle)
             ],
           ),
         ),

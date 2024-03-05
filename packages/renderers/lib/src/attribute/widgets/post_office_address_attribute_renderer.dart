@@ -42,10 +42,10 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
                   TranslatedText(value.city, style: valueTextStyle),
                 ],
               ),
-              if (valueHints.propertyHints!['country']!.getTranslation(value.country) != null)
-                TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country)!, style: valueTextStyle),
-              if (valueHints.propertyHints!['state']!.getTranslation(value.state) != null)
-                TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state)!, style: valueTextStyle),
+              if (valueHints.propertyHints!['country'] != null)
+                TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
+              if (valueHints.propertyHints!['state'] != null)
+                TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
             ],
           ),
         ),
