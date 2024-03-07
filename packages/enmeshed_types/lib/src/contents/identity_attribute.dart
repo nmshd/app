@@ -23,7 +23,7 @@ class IdentityAttribute extends AbstractAttribute {
         validFrom: json['validFrom'],
         validTo: json['validTo'],
         value: IdentityAttributeValue.fromJson(json['value']),
-        tags: json['tags'],
+        tags: json['tags'] != null ? List<String>.from(json['tags']) : null,
       );
 
   @override
