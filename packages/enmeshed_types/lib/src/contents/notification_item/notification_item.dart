@@ -8,10 +8,10 @@ part 'notification_item.g.dart';
 abstract class NotificationItem extends Equatable {
   const NotificationItem();
 
-  factory NotificationItem.fromJson(Map json) => switch (json['type']) {
+  factory NotificationItem.fromJson(Map json) => switch (json['@type']) {
         'PeerSharedAttributeSucceededNotificationItem' => PeerSharedAttributeSucceededNotificationItem.fromJson(json),
         final String type => GenericNotificationItem(type: type, data: Map<String, dynamic>.from(json)),
-        _ => throw ArgumentError('Unknown type: ${json['type']}'),
+        _ => throw ArgumentError('Unknown type: ${json['@type']}'),
       };
   Map<String, dynamic> toJson();
 }
