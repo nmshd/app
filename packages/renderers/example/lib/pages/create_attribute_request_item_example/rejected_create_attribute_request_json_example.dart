@@ -60,7 +60,14 @@ class _RejectedCreateAttributeRequestJsonExampleState extends State<RejectedCrea
             ),
           ),
           const Divider(),
-          Expanded(child: RequestRenderer(request: localRequestDVO, currentAddress: 'a currentAddress')),
+          Expanded(
+            child: RequestRenderer(
+              request: localRequestDVO,
+              currentAddress: 'a currentAddress',
+              chooseFile: () async => null,
+              expandFileReference: (_) async => throw Exception('Not implemented'),
+            ),
+          ),
         ],
       ),
     );
