@@ -68,6 +68,22 @@ Future<MessageDTO> syncUntilHasMessage(Session session) async {
   throw Exception('Could not sync until having a message');
 }
 
+Future<MessageDTO> syncUntilHasMessageWithNotification(Session session, String notificationId) async {
+  int retries = 0;
+
+  do {
+    final syncResult = await session.transportServices.account.syncEverything();
+    if (syncResult.value.messages.isNotEmpty && syncResult.value.messages.first.toJson()['content']['id'] == notificationId) {
+      return syncResult.value.messages.first;
+    }
+
+    retries++;
+    await Future.delayed(Duration(seconds: 5 * retries));
+  } while (retries < 10);
+
+  throw Exception('Could not sync until having a message');
+}
+
 Future<List<MessageDTO>> syncUntilHasMessages(Session session, {required int expectedNumberOfMessages}) async {
   final messages = <MessageDTO>[];
 
@@ -213,16 +229,7 @@ Future<void> exchangeAndAcceptRequestByMessage(
   );
 
   final acceptedRequest = await recipient.consumptionServices.incomingRequests.accept(
-    params: DecideRequestParameters(requestId: createRequestResult.value.id, items: [
-      AcceptReadAttributeRequestItemParametersWithNewAttribute(
-        newAttribute: RelationshipAttribute(
-          owner: recipientAddress,
-          value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aProprietaryStringValue'),
-          key: 'website',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-        ),
-      ),
-    ]),
+    params: DecideRequestParameters(requestId: createRequestResult.value.id, items: [const AcceptRequestItemParameters()]),
   );
   assert(acceptedRequest.isSuccess);
 
@@ -233,6 +240,107 @@ Future<void> exchangeAndAcceptRequestByMessage(
     eventTargetAddress: senderAddress,
     predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
   );
+}
+
+Future<LocalAttributeDTO> acceptIncomingShareAttributeRequest(
+  Session sender,
+  Session recipient,
+  String senderAddress,
+  String recipientAddress,
+  LocalRequestDTO request,
+  MockEventBus eventBus,
+) async {
+  await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
+    eventTargetAddress: senderAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.Open,
+  );
+
+  await syncUntilHasMessage(recipient);
+
+  await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
+    eventTargetAddress: recipientAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.ManualDecisionRequired,
+  );
+
+  final acceptRequestResult = await recipient.consumptionServices.incomingRequests.accept(
+    params: DecideRequestParameters(
+      requestId: request.id,
+      items: [const AcceptRequestItemParameters()],
+    ),
+  );
+
+  assert(acceptRequestResult.isSuccess);
+
+  await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
+    eventTargetAddress: recipientAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
+  );
+
+  await syncUntilHasMessage(sender);
+
+  final attributesResult = await recipient.consumptionServices.attributes.getAttributes();
+  final attributes = attributesResult.value;
+
+  final attributeResult = await recipient.consumptionServices.attributes.getAttribute(attributeId: attributes.first.id);
+
+  return attributeResult.value;
+}
+
+Future<LocalAttributeDTO> executeFullCreateAndShareRelationshipAttributeFlow(
+  Session sender,
+  Session recipient,
+  String senderAddress,
+  String recipientAddress,
+  RelationshipAttributeValue attributeValue,
+  RelationshipAttributeValue succeededAttributeValue,
+  MockEventBus eventBus,
+) async {
+  final requestResult = await sender.consumptionServices.attributes.createAndShareRelationshipAttribute(
+    value: attributeValue,
+    key: 'aKey',
+    confidentiality: RelationshipAttributeConfidentiality.public,
+    peer: recipientAddress,
+  );
+  final request = requestResult.value;
+
+  await syncUntilHasMessage(recipient);
+
+  await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
+    eventTargetAddress: recipientAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.ManualDecisionRequired,
+  );
+
+  await recipient.consumptionServices.incomingRequests.accept(
+    params: DecideRequestParameters(requestId: request.id, items: [const AcceptRequestItemParameters()]),
+  );
+
+  final responseMessage = await syncUntilHasMessage(sender);
+  final sharedAttributeId = responseMessage.content.toJson()['response']['items'][0]['attributeId'];
+
+  await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
+    eventTargetAddress: senderAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
+  );
+
+  final senderOwnSharedAttributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: sharedAttributeId);
+  return senderOwnSharedAttributeResult.value;
+}
+
+Future<void> waitForRecipientToReceiveNotification(
+  Session sender,
+  Session recipient,
+  String senderAddress,
+  String recipientAddress,
+  String notificationId,
+  String successorId,
+  MockEventBus eventBus,
+) async {
+  await syncUntilHasMessageWithNotification(recipient, notificationId);
+
+  await eventBus.waitForEvent<OwnSharedAttributeSucceededEvent>(eventTargetAddress: senderAddress, predicate: (e) => e.successor.id == successorId);
+
+  await eventBus.waitForEvent<PeerSharedAttributeSucceededEvent>(
+      eventTargetAddress: recipientAddress, predicate: (e) => e.successor.id == successorId);
 }
 
 Future<FileDTO> uploadFile(Session session) async {
