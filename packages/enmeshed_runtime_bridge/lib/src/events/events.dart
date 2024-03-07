@@ -6,6 +6,8 @@ export 'consumption/incoming_request_received_event.dart';
 export 'consumption/incoming_request_status_changed_event.dart';
 export 'consumption/outgoing_request_created_event.dart';
 export 'consumption/outgoing_request_status_changed_event.dart';
+export 'consumption/own_shared_attribute_succeeded_event.dart';
+export 'consumption/peer_shared_attribute_succeeded_event.dart';
 export 'event.dart';
 export 'transport/message_received_event.dart';
 export 'transport/message_sent_event.dart';
