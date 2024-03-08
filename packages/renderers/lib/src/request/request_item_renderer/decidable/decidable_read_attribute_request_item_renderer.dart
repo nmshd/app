@@ -16,6 +16,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
@@ -26,6 +27,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
     this.openAttributeSwitcher,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -62,34 +64,44 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
           query: query,
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          onUpdateAttribute: onUpdateAttribute,
-          onUpdateInput: onUpdateInput,
+          onUpdateAttribute: _onUpdateAttribute,
+          onUpdateInput: _onUpdateInput,
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
+          openFileDetails: widget.openFileDetails,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
           query: query,
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          onUpdateAttribute: onUpdateAttribute,
-          onUpdateInput: onUpdateInput,
+          onUpdateAttribute: _onUpdateAttribute,
+          onUpdateInput: _onUpdateInput,
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
+          openFileDetails: widget.openFileDetails,
         ),
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
           query: query,
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          onUpdateAttribute: () async {
-            // TODO: trigger attribute update but without adding the possibility to create a new attribute
-          },
+          onUpdateAttribute: _onUpdateAttribute,
           selectedAttribute: _choice?.attribute,
           expandFileReference: widget.expandFileReference,
+          openFileDetails: widget.openFileDetails,
         ),
-      // TODO: implement ProcessedIQLQueryDVORenderer
-      final ProcessedIQLQueryDVO _ => throw UnimplementedError(),
+      final ProcessedIQLQueryDVO query => ProcessedIQLQueryRenderer(
+          query: query,
+          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+          onUpdateAttribute: _onUpdateAttribute,
+          selectedAttribute: _choice?.attribute,
+          expandFileReference: widget.expandFileReference,
+          chooseFile: widget.chooseFile,
+          mustBeAccepted: widget.item.mustBeAccepted,
+          onUpdateInput: _onUpdateInput,
+          openFileDetails: widget.openFileDetails,
+        ),
     };
   }
 
@@ -119,7 +131,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     );
   }
 
-  void onUpdateInput({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) {
+  void _onUpdateInput({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) {
     if (widget.item.query is ProcessedIdentityAttributeQueryDVO) {
       final IdentityAttribute? composedValue = composeIdentityAttributeValue(
         inputValue: inputValue,
@@ -168,7 +180,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     }
   }
 
-  Future<void> onUpdateAttribute(String valueType) async {
+  Future<void> _onUpdateAttribute([String? valueType]) async {
     if (widget.openAttributeSwitcher == null) return;
 
     final resultValues = Set<AttributeSwitcherChoice>.from(_getChoices());

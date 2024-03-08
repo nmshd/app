@@ -13,6 +13,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
   // TODO: render trailing
   final Widget? trailing;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
 
   const RelationshipAttributeValueRenderer({
     super.key,
@@ -21,6 +22,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
     this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
     required this.expandFileReference,
+    required this.openFileDetails,
   });
 
   @override
@@ -57,6 +59,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
       final ProprietaryFileReferenceAttributeValue value => FileReferenceRenderer(
           fileReference: value.value,
           expandFileReference: expandFileReference,
+          openFileDetails: openFileDetails,
           valueType: value.atType,
           showTitle: showTitle,
           trailing: trailing,

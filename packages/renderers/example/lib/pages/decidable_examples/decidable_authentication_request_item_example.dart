@@ -61,6 +61,7 @@ class _DecidableAuthenticationRequestItemExampleState extends State<DecidableAut
                 currentAddress: 'a current address',
                 chooseFile: () async => null,
                 expandFileReference: (_) async => throw Exception('Not implemented'),
+                openFileDetails: (_) async => throw Exception('Not implemented'),
               ),
             ),
           ),

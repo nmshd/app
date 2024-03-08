@@ -11,6 +11,7 @@ class DraftAttributeRenderer extends StatelessWidget {
   final CheckboxSettings? checkboxSettings;
   final Widget? trailing;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
 
   const DraftAttributeRenderer({
     super.key,
@@ -19,6 +20,7 @@ class DraftAttributeRenderer extends StatelessWidget {
     this.checkboxSettings,
     this.trailing,
     required this.expandFileReference,
+    required this.openFileDetails,
   });
 
   @override
@@ -39,6 +41,7 @@ class DraftAttributeRenderer extends StatelessWidget {
                   trailing: trailing,
                   valueHints: draftAttribute.valueHints,
                   expandFileReference: expandFileReference,
+                  openFileDetails: openFileDetails,
                 ),
         ),
       ],

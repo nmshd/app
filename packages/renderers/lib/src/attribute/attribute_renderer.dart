@@ -11,6 +11,7 @@ class AttributeRenderer extends StatelessWidget {
   final TextStyle valueTextStyle;
   final Widget? trailing;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
 
   const AttributeRenderer({
     super.key,
@@ -20,6 +21,7 @@ class AttributeRenderer extends StatelessWidget {
     this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
     required this.expandFileReference,
+    required this.openFileDetails,
   });
 
   factory AttributeRenderer.localAttribute({
@@ -28,6 +30,7 @@ class AttributeRenderer extends StatelessWidget {
     TextStyle valueTextStyle = const TextStyle(fontSize: 16),
     Widget? trailing,
     required Future<FileDVO> Function(String) expandFileReference,
+    required void Function(FileDVO) openFileDetails,
   }) =>
       AttributeRenderer(
         attribute: attribute.content,
@@ -36,6 +39,7 @@ class AttributeRenderer extends StatelessWidget {
         valueTextStyle: valueTextStyle,
         trailing: trailing,
         expandFileReference: expandFileReference,
+        openFileDetails: openFileDetails,
       );
 
   @override
@@ -50,6 +54,7 @@ class AttributeRenderer extends StatelessWidget {
         valueTextStyle: valueTextStyle,
         trailing: trailing,
         expandFileReference: expandFileReference,
+        openFileDetails: openFileDetails,
       );
     }
 
@@ -60,6 +65,7 @@ class AttributeRenderer extends StatelessWidget {
         valueTextStyle: valueTextStyle,
         trailing: trailing,
         expandFileReference: expandFileReference,
+        openFileDetails: openFileDetails,
       );
     }
 

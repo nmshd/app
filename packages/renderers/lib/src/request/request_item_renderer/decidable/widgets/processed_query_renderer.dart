@@ -21,6 +21,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -33,6 +34,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
     required this.mustBeAccepted,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -60,6 +62,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         mustBeAccepted: mustBeAccepted,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
       );
     }
 
@@ -80,6 +83,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
                     ),
                   ),
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         ),
       ],
@@ -98,6 +102,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const ProcessedRelationshipAttributeQueryRenderer({
     super.key,
@@ -110,6 +115,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     required this.mustBeAccepted,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -127,6 +133,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
         mustBeAccepted: mustBeAccepted,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
       );
     }
 
@@ -146,6 +153,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
                     ),
                   ),
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         ),
       ],
@@ -159,6 +167,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function()? onUpdateAttribute;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
 
   const ProcessedThirdPartyRelationshipAttributeQueryRenderer({
     super.key,
@@ -167,6 +176,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
     this.selectedAttribute,
     this.onUpdateAttribute,
     required this.expandFileReference,
+    required this.openFileDetails,
   });
 
   @override
@@ -191,6 +201,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
                       ),
                     ),
               expandFileReference: expandFileReference,
+              openFileDetails: openFileDetails,
             ),
           )
         else
@@ -198,6 +209,93 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
             'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
             style: TextStyle(color: Colors.redAccent),
           ),
+      ],
+    );
+  }
+}
+
+class ProcessedIQLQueryRenderer extends StatelessWidget {
+  final ProcessedIQLQueryDVO query;
+  final CheckboxSettings? checkboxSettings;
+  final AbstractAttribute? selectedAttribute;
+  final Future<void> Function([String? valueType])? onUpdateAttribute;
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+  final bool mustBeAccepted;
+  final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
+  final void Function(FileDVO) openFileDetails;
+
+  const ProcessedIQLQueryRenderer({
+    super.key,
+    required this.query,
+    this.checkboxSettings,
+    this.selectedAttribute,
+    this.onUpdateAttribute,
+    required this.expandFileReference,
+    required this.chooseFile,
+    required this.mustBeAccepted,
+    required this.onUpdateInput,
+    required this.openFileDetails,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedAttribute = this.selectedAttribute;
+
+    if (query.results.isEmpty) {
+      if (query.valueType != null && query.valueHints != null && query.renderHints != null) {
+        return ValueRendererListTile(
+          fieldName: switch (query.valueType) {
+            'Affiliation' ||
+            'BirthDate' ||
+            'BirthPlace' ||
+            'DeliveryBoxAddress' ||
+            'PersonName' ||
+            'PostOfficeBoxAddress' ||
+            'StreetAddress' =>
+              'i18n://attributes.values.${query.valueType}._title',
+            _ => 'i18n://dvo.attribute.name.${query.valueType}',
+          },
+          renderHints: query.renderHints!,
+          valueHints: query.valueHints!,
+          onUpdateInput: onUpdateInput,
+          valueType: query.valueType!,
+          checkboxSettings: checkboxSettings,
+          mustBeAccepted: mustBeAccepted,
+          expandFileReference: expandFileReference,
+          chooseFile: chooseFile,
+          openFileDetails: openFileDetails,
+        );
+      } else {
+        return Row(
+          children: [
+            if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: null),
+            const TranslatedText('i18n://dvo.attributeQuery.IQLQuery.noResults', style: TextStyle(color: Colors.redAccent)),
+          ],
+        );
+      }
+    }
+
+    return Row(
+      children: [
+        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+        Expanded(
+          child: IdentityAttributeValueRenderer(
+            value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
+            valueHints: query.results.first.valueHints,
+            trailing: onUpdateAttribute == null
+                ? null
+                : SizedBox(
+                    width: 50,
+                    child: IconButton(
+                      onPressed: () => onUpdateAttribute!(query.valueType),
+                      icon: const Icon(Icons.chevron_right),
+                    ),
+                  ),
+            expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
+          ),
+        ),
       ],
     );
   }

@@ -87,6 +87,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
                   controller: controller,
                   validationResult: _validationResult,
                   openAttributeSwitcher: _openAttributeSwitcher,
+                  openFileDetails: (_) async => throw Exception('Not implemented'),
                   currentAddress: widget.accountId,
                 ),
               ),
@@ -113,7 +114,7 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
   }
 
   Future<AttributeSwitcherChoice?> _openAttributeSwitcher({
-    required String valueType,
+    required String? valueType,
     required List<AttributeSwitcherChoice> choices,
     AttributeSwitcherChoice? currentChoice,
     ValueHints? valueHints,

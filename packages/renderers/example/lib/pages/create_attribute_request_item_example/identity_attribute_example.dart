@@ -242,6 +242,7 @@ class IdentityAttributeExample extends StatelessWidget {
                 currentAddress: 'a currentAddress',
                 chooseFile: () async => null,
                 expandFileReference: (_) async => throw Exception('Not implemented'),
+                openFileDetails: (_) async => throw Exception('Not implemented'),
               ),
             ),
           ],

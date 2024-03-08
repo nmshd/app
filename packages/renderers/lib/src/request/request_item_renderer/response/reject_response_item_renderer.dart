@@ -11,6 +11,7 @@ class RejectResponseItemRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const RejectResponseItemRenderer({
     super.key,
@@ -19,6 +20,7 @@ class RejectResponseItemRenderer extends StatelessWidget {
     required this.currentAddress,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -30,6 +32,7 @@ class RejectResponseItemRenderer extends StatelessWidget {
       currentAddress: currentAddress,
       expandFileReference: expandFileReference,
       chooseFile: chooseFile,
+      openFileDetails: openFileDetails,
     );
   }
 }

@@ -7,7 +7,7 @@ class AttributeScreen extends StatefulWidget {
   final List<AttributeSwitcherChoice> choices;
   final AttributeSwitcherChoice? currentChoice;
   final ValueHints? valueHints;
-  final String attributeTitle;
+  final String? attributeTitle;
 
   const AttributeScreen({
     super.key,
@@ -76,6 +76,7 @@ class _AttributeScreenState extends State<AttributeScreen> {
                                   valueHints: widget.valueHints!,
                                   showTitle: false,
                                   expandFileReference: (_) async => throw Exception('Not implemented'),
+                                  openFileDetails: (_) async => throw Exception('Not implemented'),
                                 ),
                               ),
                             Radio<AttributeSwitcherChoice>(

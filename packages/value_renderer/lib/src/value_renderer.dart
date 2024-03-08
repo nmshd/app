@@ -17,6 +17,7 @@ class ValueRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const ValueRenderer({
     super.key,
@@ -30,6 +31,7 @@ class ValueRenderer extends StatelessWidget {
     this.mustBeFilledOut = false,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -48,6 +50,7 @@ class ValueRenderer extends StatelessWidget {
         valueHints: valueHints,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
       );
     }
 
@@ -81,6 +84,7 @@ class ValueRenderer extends StatelessWidget {
         valueType: valueType!,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
       );
     }
 

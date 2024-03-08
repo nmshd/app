@@ -7,6 +7,7 @@ class FileReferenceRenderer extends StatefulWidget {
   final String valueType;
   final bool showTitle;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
   final Widget? trailing;
 
   const FileReferenceRenderer({
@@ -15,6 +16,7 @@ class FileReferenceRenderer extends StatefulWidget {
     required this.valueType,
     this.showTitle = true,
     required this.expandFileReference,
+    required this.openFileDetails,
     this.trailing,
   });
 
@@ -28,14 +30,17 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
   @override
   void initState() {
     super.initState();
+    _reloadFileFromReference();
+  }
 
-    widget.expandFileReference(widget.fileReference).then((value) {
-      if (mounted) {
-        setState(() {
-          expandedFileReference = value;
-        });
-      }
-    });
+  @override
+  void didUpdateWidget(covariant FileReferenceRenderer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.fileReference != widget.fileReference) {
+      setState(() => expandedFileReference = null);
+      _reloadFileFromReference();
+    }
   }
 
   @override
@@ -65,8 +70,22 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
             ],
           ),
         ),
+        IconButton(
+          onPressed: expandedFileReference != null ? () => widget.openFileDetails(expandedFileReference!) : null,
+          icon: const Icon(Icons.info),
+        ),
         if (widget.trailing != null) widget.trailing!
       ],
     );
+  }
+
+  void _reloadFileFromReference() async {
+    final file = await widget.expandFileReference(widget.fileReference);
+
+    if (mounted) {
+      setState(() {
+        expandedFileReference = file;
+      });
+    }
   }
 }
