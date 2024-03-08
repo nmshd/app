@@ -77,6 +77,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
             : const TranslatedText('i18n://valueRenderer.fileReference.noFileSelected');
 
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       title: title ?? subtitle,
       subtitle: title != null ? subtitle : null,
       trailing: TextButton(
