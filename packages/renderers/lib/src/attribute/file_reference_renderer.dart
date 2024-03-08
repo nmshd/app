@@ -30,14 +30,17 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
   @override
   void initState() {
     super.initState();
+    _reloadFileFromReference();
+  }
 
-    widget.expandFileReference(widget.fileReference).then((value) {
-      if (mounted) {
-        setState(() {
-          expandedFileReference = value;
-        });
-      }
-    });
+  @override
+  void didUpdateWidget(covariant FileReferenceRenderer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.fileReference != widget.fileReference) {
+      setState(() => expandedFileReference = null);
+      _reloadFileFromReference();
+    }
   }
 
   @override
@@ -74,5 +77,15 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
         if (widget.trailing != null) widget.trailing!
       ],
     );
+  }
+
+  void _reloadFileFromReference() async {
+    final file = await widget.expandFileReference(widget.fileReference);
+
+    if (mounted) {
+      setState(() {
+        expandedFileReference = file;
+      });
+    }
   }
 }
