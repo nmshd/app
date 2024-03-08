@@ -60,7 +60,14 @@ class _RequestsExampleState extends State<RequestsExample> {
             ),
           ),
           const Divider(),
-          Expanded(child: RequestRenderer(request: localRequestDVO, currentAddress: 'a current address')),
+          Expanded(
+            child: RequestRenderer(
+              request: localRequestDVO,
+              currentAddress: 'a current address',
+              chooseFile: () async => null,
+              expandFileReference: (_) async => throw Exception('Not implemented'),
+            ),
+          ),
         ],
       ),
     );

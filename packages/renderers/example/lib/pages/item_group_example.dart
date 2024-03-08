@@ -73,6 +73,8 @@ class _ItemGroupExampleState extends State<ItemGroupExample> {
               controller: controller,
               validationResult: _validationResult,
               currentAddress: 'a current address',
+              chooseFile: () async => null,
+              expandFileReference: (_) async => throw Exception('Not implemented'),
             ),
           ),
           FilledButton(

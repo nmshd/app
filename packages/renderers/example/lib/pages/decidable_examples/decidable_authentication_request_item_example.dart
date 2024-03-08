@@ -54,7 +54,16 @@ class _DecidableAuthenticationRequestItemExampleState extends State<DecidableAut
           const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
           Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(localRequestDVO.createdAt))),
           const Divider(),
-          Expanded(child: Expanded(child: RequestRenderer(request: localRequestDVO, currentAddress: 'a current address'))),
+          Expanded(
+            child: Expanded(
+              child: RequestRenderer(
+                request: localRequestDVO,
+                currentAddress: 'a current address',
+                chooseFile: () async => null,
+                expandFileReference: (_) async => throw Exception('Not implemented'),
+              ),
+            ),
+          ),
         ],
       ),
     );

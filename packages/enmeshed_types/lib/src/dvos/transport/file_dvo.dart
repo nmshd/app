@@ -20,6 +20,7 @@ class FileDVO extends DataViewObject {
   final bool isOwn;
   final String title;
   final String secretKey;
+  final String truncatedReference;
 
   const FileDVO({
     required super.id,
@@ -40,6 +41,7 @@ class FileDVO extends DataViewObject {
     required this.isOwn,
     required this.title,
     required this.secretKey,
+    required this.truncatedReference,
   });
 
   factory FileDVO.fromJson(Map json) => _$FileDVOFromJson(Map<String, dynamic>.from(json));

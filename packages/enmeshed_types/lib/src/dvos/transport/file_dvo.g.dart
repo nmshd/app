@@ -25,6 +25,7 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
       isOwn: json['isOwn'] as bool,
       title: json['title'] as String,
       secretKey: json['secretKey'] as String,
+      truncatedReference: json['truncatedReference'] as String,
     );
 
 Map<String, dynamic> _$FileDVOToJson(FileDVO instance) {
@@ -55,5 +56,6 @@ Map<String, dynamic> _$FileDVOToJson(FileDVO instance) {
   val['isOwn'] = instance.isOwn;
   val['title'] = instance.title;
   val['secretKey'] = instance.secretKey;
+  val['truncatedReference'] = instance.truncatedReference;
   return val;
 }

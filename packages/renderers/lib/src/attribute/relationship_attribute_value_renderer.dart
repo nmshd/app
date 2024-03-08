@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:renderers/src/attribute/file_reference_renderer.dart';
 
 import '../abstract_url_launcher.dart';
 import '../custom_list_tile.dart';
@@ -11,6 +12,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
   final TextStyle valueTextStyle;
   // TODO: render trailing
   final Widget? trailing;
+  final Future<FileDVO> Function(String) expandFileReference;
 
   const RelationshipAttributeValueRenderer({
     super.key,
@@ -18,6 +20,7 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
     this.showTitle = true,
     this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
+    required this.expandFileReference,
   });
 
   @override
@@ -49,6 +52,13 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
           thirdLine: proprietaryJSONAttributeValue.value.toString(),
           showTitle: showTitle,
           valueTextStyle: valueTextStyle,
+          trailing: trailing,
+        ),
+      final ProprietaryFileReferenceAttributeValue value => FileReferenceRenderer(
+          fileReference: value.value,
+          expandFileReference: expandFileReference,
+          valueType: value.atType,
+          showTitle: showTitle,
           trailing: trailing,
         ),
       final ProprietaryAttributeValue proprietaryAttributeValue => CustomListTile(

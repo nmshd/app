@@ -238,7 +238,14 @@ class ItemExamples extends StatelessWidget {
             const Text('Created at:', style: TextStyle(fontWeight: FontWeight.bold)),
             Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(readAttributeRequestItem.createdAt))),
             const Divider(),
-            Expanded(child: RequestRenderer(request: readAttributeRequestItem, currentAddress: 'a current address')),
+            Expanded(
+              child: RequestRenderer(
+                request: readAttributeRequestItem,
+                currentAddress: 'a current address',
+                chooseFile: () async => null,
+                expandFileReference: (_) async => throw Exception('Not implemented'),
+              ),
+            ),
           ],
         ),
       ),

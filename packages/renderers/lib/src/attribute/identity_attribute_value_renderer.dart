@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../custom_list_tile.dart';
 import 'complex_attribute_list_tile.dart';
+import 'file_reference_renderer.dart';
 import 'value_hint_translation.dart';
 import 'widgets/delivery_box_address_attribute_renderer.dart';
 import 'widgets/post_office_address_attribute_renderer.dart';
@@ -15,6 +16,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final bool showTitle;
   final TextStyle valueTextStyle;
   final Widget? trailing;
+  final Future<FileDVO> Function(String) expandFileReference;
 
   const IdentityAttributeValueRenderer({
     super.key,
@@ -23,6 +25,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     this.showTitle = true,
     this.valueTextStyle = const TextStyle(fontSize: 16),
     this.trailing,
+    required this.expandFileReference,
   });
 
   @override
@@ -69,6 +72,16 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         description: DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime(birthDate.year, birthDate.month, birthDate.day)),
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
+        trailing: trailing,
+      );
+    }
+
+    if (value is IdentityFileReferenceAttributeValue) {
+      return FileReferenceRenderer(
+        fileReference: (value as IdentityFileReferenceAttributeValue).value,
+        expandFileReference: expandFileReference,
+        valueType: value.atType,
+        showTitle: showTitle,
         trailing: trailing,
       );
     }
