@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:translated_text/translated_text.dart';
 
-class FileReferenceRenderer extends StatelessWidget {
+class FileReferenceRenderer extends StatefulWidget {
   final String fileReference;
   final String valueType;
   final bool showTitle;
@@ -19,6 +19,26 @@ class FileReferenceRenderer extends StatelessWidget {
   });
 
   @override
+  State<FileReferenceRenderer> createState() => _FileReferenceRendererState();
+}
+
+class _FileReferenceRendererState extends State<FileReferenceRenderer> {
+  FileDVO? expandedFileReference;
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget.expandFileReference(widget.fileReference).then((value) {
+      if (mounted) {
+        setState(() {
+          expandedFileReference = value;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
@@ -27,23 +47,25 @@ class FileReferenceRenderer extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (showTitle) TranslatedText('i18n://dvo.attribute.name.$valueType', style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
-              FutureBuilder(
-                future: expandFileReference(fileReference),
-                builder: (context, snapshot) => snapshot.hasData
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(snapshot.data!.title),
-                          Text(snapshot.data!.filename),
-                        ],
-                      )
-                    : const SizedBox(height: 20, width: 20, child: LinearProgressIndicator()),
-              ),
+              if (widget.showTitle)
+                TranslatedText('i18n://dvo.attribute.name.${widget.valueType}', style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+              if (expandedFileReference == null)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: SizedBox(width: 80, child: LinearProgressIndicator()),
+                )
+              else
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(expandedFileReference!.title),
+                    Text(expandedFileReference!.filename),
+                  ],
+                ),
             ],
           ),
         ),
-        if (trailing != null) trailing!
+        if (widget.trailing != null) widget.trailing!
       ],
     );
   }
