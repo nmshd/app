@@ -15,6 +15,9 @@ class RequestItemGroupRenderer extends StatelessWidget {
   final LocalRequestStatus? requestStatus;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const RequestItemGroupRenderer({
     super.key,
     required this.currentAddress,
@@ -23,6 +26,8 @@ class RequestItemGroupRenderer extends StatelessWidget {
     this.controller,
     this.requestStatus,
     this.openAttributeSwitcher,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -35,6 +40,8 @@ class RequestItemGroupRenderer extends StatelessWidget {
         requestStatus: requestStatus,
         openAttributeSwitcher: openAttributeSwitcher,
         currentAddress: currentAddress,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
       );
     }).toList();
 

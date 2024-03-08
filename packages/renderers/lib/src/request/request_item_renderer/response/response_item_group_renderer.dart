@@ -11,12 +11,17 @@ class ResponseItemGroupRenderer extends StatelessWidget {
   final RequestItemIndex itemIndex;
   final String currentAddress;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const ResponseItemGroupRenderer({
     super.key,
     required this.responseItemGroup,
     required this.itemIndex,
     required this.requestItemGroup,
     required this.currentAddress,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -27,6 +32,8 @@ class ResponseItemGroupRenderer extends StatelessWidget {
         requestItem: requestItemGroup.items[index],
         itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
         currentAddress: currentAddress,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
       );
     }).toList();
     return Column(

@@ -15,6 +15,9 @@ class ValueRenderer extends StatelessWidget {
 
   final ValueRendererController? controller;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const ValueRenderer({
     super.key,
     this.decoration,
@@ -25,6 +28,8 @@ class ValueRenderer extends StatelessWidget {
     this.controller,
     this.valueType,
     this.mustBeFilledOut = false,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -33,6 +38,18 @@ class ValueRenderer extends StatelessWidget {
     final editType = renderHints.editType;
     final dataType = renderHints.dataType;
     final values = valueHints.values;
+
+    if (dataType == RenderHintsDataType.FileReference) {
+      return FileReferenceRenderer(
+        controller: controller,
+        fieldName: fieldName,
+        initialValue: initialValue,
+        mustBeFilledOut: mustBeFilledOut,
+        valueHints: valueHints,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
+      );
+    }
 
     if (technicalType == RenderHintsTechnicalType.Integer || technicalType == RenderHintsTechnicalType.Float) {
       return NumberRenderer(
@@ -62,6 +79,8 @@ class ValueRenderer extends StatelessWidget {
         renderHints: renderHints,
         valueHints: valueHints,
         valueType: valueType!,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
       );
     }
 

@@ -9,11 +9,16 @@ class AcceptResponseItemRenderer extends StatelessWidget {
   final RequestItemIndex itemIndex;
   final String currentAddress;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const AcceptResponseItemRenderer({
     super.key,
     required this.item,
     required this.itemIndex,
     required this.currentAddress,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -22,6 +27,8 @@ class AcceptResponseItemRenderer extends StatelessWidget {
       item: item,
       itemIndex: itemIndex,
       currentAddress: currentAddress,
+      expandFileReference: expandFileReference,
+      chooseFile: chooseFile,
     );
   }
 }

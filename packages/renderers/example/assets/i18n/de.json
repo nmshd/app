@@ -893,5 +893,11 @@
          "invalidFormat": "Ungültiges Format",
          "noDateSelected": "Kein Datum ausgewählt"
       }
+   },
+   "valueRenderer": {
+      "fileReference": {
+         "selectFile": "Datei auswählen",
+         "noFileSelected": "Keine Datei ausgewählt"
+      }
    }
 }

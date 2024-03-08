@@ -14,6 +14,9 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final RequestRendererController? controller;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
     required this.currentAddress,
@@ -21,6 +24,8 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
     required this.itemIndex,
     this.controller,
     this.openAttributeSwitcher,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -61,6 +66,8 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           onUpdateInput: onUpdateInput,
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
+          expandFileReference: widget.expandFileReference,
+          chooseFile: widget.chooseFile,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
           query: query,
@@ -69,6 +76,8 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           onUpdateInput: onUpdateInput,
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
+          expandFileReference: widget.expandFileReference,
+          chooseFile: widget.chooseFile,
         ),
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
           query: query,
@@ -77,6 +86,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
             // TODO: trigger attribute update but without adding the possibility to create a new attribute
           },
           selectedAttribute: _choice?.attribute,
+          expandFileReference: widget.expandFileReference,
         ),
       // TODO: implement ProcessedIQLQueryDVORenderer
       final ProcessedIQLQueryDVO _ => throw UnimplementedError(),

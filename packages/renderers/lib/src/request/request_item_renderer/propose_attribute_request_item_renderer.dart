@@ -9,6 +9,7 @@ class ProposeAttributeRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: what is that?!?
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)),

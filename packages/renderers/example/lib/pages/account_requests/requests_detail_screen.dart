@@ -81,6 +81,8 @@ class _RequestsDetailScreenState extends State<RequestsDetailScreen> {
               Text(DateFormat('yMd', Localizations.localeOf(context).languageCode).format(DateTime.parse(widget.localRequestDVO.createdAt))),
               Expanded(
                 child: RequestRenderer(
+                  chooseFile: () async => null,
+                  expandFileReference: (_) async => throw Exception('Not implemented'),
                   request: widget.localRequestDVO,
                   controller: controller,
                   validationResult: _validationResult,

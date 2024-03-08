@@ -63,7 +63,10 @@ class RelationshipAttributeRendererExample extends StatelessWidget {
         itemCount: listOfAttributes.length,
         itemBuilder: (context, index) {
           final attribute = listOfAttributes[index];
-          return AttributeRenderer.localAttribute(attribute: attribute);
+          return AttributeRenderer.localAttribute(
+            attribute: attribute,
+            expandFileReference: (_) async => throw Exception('Not implemented'),
+          );
         },
       ),
     );

@@ -10,6 +10,7 @@ class DraftAttributeRenderer extends StatelessWidget {
   final bool? isRejected;
   final CheckboxSettings? checkboxSettings;
   final Widget? trailing;
+  final Future<FileDVO> Function(String) expandFileReference;
 
   const DraftAttributeRenderer({
     super.key,
@@ -17,6 +18,7 @@ class DraftAttributeRenderer extends StatelessWidget {
     this.isRejected,
     this.checkboxSettings,
     this.trailing,
+    required this.expandFileReference,
   });
 
   @override
@@ -32,7 +34,12 @@ class DraftAttributeRenderer extends StatelessWidget {
         Expanded(
           child: isRejected ?? false
               ? CustomListTile(title: attributeContent.valueTypeAtTypeI18n)
-              : AttributeRenderer(attribute: attributeContent, trailing: trailing, valueHints: draftAttribute.valueHints),
+              : AttributeRenderer(
+                  attribute: attributeContent,
+                  trailing: trailing,
+                  valueHints: draftAttribute.valueHints,
+                  expandFileReference: expandFileReference,
+                ),
         ),
       ],
     );

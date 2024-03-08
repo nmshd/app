@@ -12,6 +12,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
+  final Future<FileDVO> Function(String) expandFileReference;
 
   const DecidableProposeAttributeRequestItemRenderer({
     super.key,
@@ -19,6 +20,7 @@ class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
     required this.item,
     this.controller,
     this.openAttributeSwitcher,
+    required this.expandFileReference,
   });
 
   @override
@@ -61,6 +63,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
                 icon: const Icon(Icons.chevron_right),
               ),
             ),
+            expandFileReference: widget.expandFileReference,
           ),
         ),
       ],

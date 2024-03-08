@@ -75,6 +75,7 @@ class _AttributeScreenState extends State<AttributeScreen> {
                                   attribute: item.attribute,
                                   valueHints: widget.valueHints!,
                                   showTitle: false,
+                                  expandFileReference: (_) async => throw Exception('Not implemented'),
                                 ),
                               ),
                             Radio<AttributeSwitcherChoice>(
