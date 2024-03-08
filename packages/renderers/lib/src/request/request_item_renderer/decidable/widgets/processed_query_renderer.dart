@@ -267,7 +267,12 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
           openFileDetails: openFileDetails,
         );
       } else {
-        return const TranslatedText('i18n://dvo.attributeQuery.IQLQuery.noResults', style: TextStyle(color: Colors.redAccent));
+        return Row(
+          children: [
+            if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: null),
+            const TranslatedText('i18n://dvo.attributeQuery.IQLQuery.noResults', style: TextStyle(color: Colors.redAccent)),
+          ],
+        );
       }
     }
 
