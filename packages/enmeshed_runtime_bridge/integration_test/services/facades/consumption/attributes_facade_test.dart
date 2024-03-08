@@ -1033,6 +1033,7 @@ void run(EnmeshedRuntime runtime) {
             ),
           ),
         ]),
+        [const AcceptRequestItemParameters()],
         eventBus,
       );
 

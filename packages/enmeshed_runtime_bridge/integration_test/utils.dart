@@ -215,6 +215,7 @@ Future<void> exchangeAndAcceptRequestByMessage(
   String senderAddress,
   String recipientAddress,
   Request request,
+  List<DecideRequestParametersItem> responseItems,
   MockEventBus eventBus,
 ) async {
   final createRequestResult = await sender.consumptionServices.outgoingRequests.create(content: request, peer: recipientAddress);
@@ -229,7 +230,7 @@ Future<void> exchangeAndAcceptRequestByMessage(
   );
 
   final acceptedRequest = await recipient.consumptionServices.incomingRequests.accept(
-    params: DecideRequestParameters(requestId: createRequestResult.value.id, items: [const AcceptRequestItemParameters()]),
+    params: DecideRequestParameters(requestId: createRequestResult.value.id, items: responseItems),
   );
   assert(acceptedRequest.isSuccess);
 
