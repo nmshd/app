@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:translated_text/translated_text.dart';
 
 import '../utils/utils.dart';
 import '../value_renderer_controller.dart';
@@ -64,7 +65,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
   Widget build(BuildContext context) {
     final title = widget.fieldName != null ? Text(widget.fieldName!) : null;
     final subtitle = !initialLoadComplete
-        ? const CircularProgressIndicator()
+        ? const LinearProgressIndicator()
         : selectedFile != null
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,15 +74,13 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
                   Text(selectedFile!.filename),
                 ],
               )
-            // TODO: Localize
-            : const Text('No file selected');
+            : const TranslatedText('valueRenderer.fileReference.noFileSelected');
 
     return ListTile(
       title: title ?? subtitle,
       subtitle: title != null ? subtitle : null,
       trailing: TextButton(
-        // TODO: Localize
-        child: const Text('Datei auswählen'),
+        child: const TranslatedText('valueRenderer.fileReference.selectFile'),
         onPressed: () async {
           final file = await widget.chooseFile();
           if (file != null) {
