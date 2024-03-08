@@ -6,8 +6,13 @@ import '/src/attribute/relationship_attribute_value_renderer.dart';
 
 class CreateAttributeAcceptResponseItemRenderer extends StatelessWidget {
   final CreateAttributeAcceptResponseItemDVO item;
+  final Future<FileDVO> Function(String) expandFileReference;
 
-  const CreateAttributeAcceptResponseItemRenderer({super.key, required this.item});
+  const CreateAttributeAcceptResponseItemRenderer({
+    super.key,
+    required this.item,
+    required this.expandFileReference,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +20,12 @@ class CreateAttributeAcceptResponseItemRenderer extends StatelessWidget {
       final IdentityAttributeValue value => IdentityAttributeValueRenderer(
           value: value,
           valueHints: item.attribute.valueHints,
+          expandFileReference: expandFileReference,
         ),
-      final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(value: value),
+      final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(
+          value: value,
+          expandFileReference: expandFileReference,
+        ),
       _ => throw Exception('Unknown AttributeValue: ${item.attribute.valueType}'),
     };
   }

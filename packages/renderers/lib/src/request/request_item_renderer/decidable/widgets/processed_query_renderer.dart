@@ -19,6 +19,9 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
   final bool mustBeAccepted;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
     required this.query,
@@ -28,6 +31,8 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
     this.checkboxSettings,
     required this.onUpdateInput,
     required this.mustBeAccepted,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -53,6 +58,8 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         valueType: query.valueType,
         checkboxSettings: checkboxSettings,
         mustBeAccepted: mustBeAccepted,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
       );
     }
 
@@ -72,6 +79,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
                       icon: const Icon(Icons.chevron_right),
                     ),
                   ),
+            expandFileReference: expandFileReference,
           ),
         ),
       ],
@@ -88,6 +96,9 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
   final bool mustBeAccepted;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const ProcessedRelationshipAttributeQueryRenderer({
     super.key,
     required this.query,
@@ -97,6 +108,8 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     this.checkboxSettings,
     required this.onUpdateInput,
     required this.mustBeAccepted,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -112,6 +125,8 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
         onUpdateInput: onUpdateInput,
         valueType: query.valueType,
         mustBeAccepted: mustBeAccepted,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
       );
     }
 
@@ -130,6 +145,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
                       icon: const Icon(Icons.chevron_right),
                     ),
                   ),
+            expandFileReference: expandFileReference,
           ),
         ),
       ],
@@ -142,6 +158,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
   final CheckboxSettings? checkboxSettings;
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function()? onUpdateAttribute;
+  final Future<FileDVO> Function(String) expandFileReference;
 
   const ProcessedThirdPartyRelationshipAttributeQueryRenderer({
     super.key,
@@ -149,6 +166,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
     this.checkboxSettings,
     this.selectedAttribute,
     this.onUpdateAttribute,
+    required this.expandFileReference,
   });
 
   @override
@@ -172,6 +190,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
                         icon: const Icon(Icons.chevron_right),
                       ),
                     ),
+              expandFileReference: expandFileReference,
             ),
           )
         else

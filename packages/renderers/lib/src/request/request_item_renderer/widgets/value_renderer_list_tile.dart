@@ -16,6 +16,9 @@ class ValueRendererListTile extends StatefulWidget {
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const ValueRendererListTile({
     super.key,
     required this.fieldName,
@@ -28,6 +31,8 @@ class ValueRendererListTile extends StatefulWidget {
     this.checkboxSettings,
     required this.onUpdateInput,
     required this.mustBeAccepted,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -87,6 +92,8 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
             valueType: widget.valueType,
             controller: controller,
             mustBeFilledOut: widget.checkboxSettings?.isChecked ?? widget.mustBeAccepted,
+            expandFileReference: widget.expandFileReference,
+            chooseFile: widget.chooseFile,
           ),
         ),
         const SizedBox(width: 25)

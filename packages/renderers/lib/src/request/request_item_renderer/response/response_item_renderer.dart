@@ -13,12 +13,17 @@ class ResponseItemRenderer extends StatelessWidget {
   final RequestItemIndex itemIndex;
   final String currentAddress;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const ResponseItemRenderer({
     super.key,
     required this.itemIndex,
     required this.responseItem,
     required this.requestItem,
     required this.currentAddress,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -26,14 +31,38 @@ class ResponseItemRenderer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: switch (responseItem) {
-        final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(item: dvo),
-        final ProposeAttributeAcceptResponseItemDVO dvo => ProposeAttributeAcceptResponseItemRenderer(item: dvo),
-        final CreateAttributeAcceptResponseItemDVO dvo => CreateAttributeAcceptResponseItemRenderer(item: dvo),
-        final ShareAttributeAcceptResponseItemDVO dvo => ShareAttributeAcceptResponseItemRenderer(item: dvo),
+        final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(
+            item: dvo,
+            expandFileReference: expandFileReference,
+          ),
+        final ProposeAttributeAcceptResponseItemDVO dvo => ProposeAttributeAcceptResponseItemRenderer(
+            item: dvo,
+            expandFileReference: expandFileReference,
+          ),
+        final CreateAttributeAcceptResponseItemDVO dvo => CreateAttributeAcceptResponseItemRenderer(
+            item: dvo,
+            expandFileReference: expandFileReference,
+          ),
+        final ShareAttributeAcceptResponseItemDVO dvo => ShareAttributeAcceptResponseItemRenderer(
+            item: dvo,
+            expandFileReference: expandFileReference,
+          ),
         final RegisterAttributeListenerAcceptResponseItemDVO dvo => RegisterAttributeListenerAcceptResponseItemRenderer(item: dvo),
-        final RejectResponseItemDVO _ => RejectResponseItemRenderer(item: requestItem, itemIndex: itemIndex, currentAddress: currentAddress),
+        final RejectResponseItemDVO _ => RejectResponseItemRenderer(
+            item: requestItem,
+            itemIndex: itemIndex,
+            currentAddress: currentAddress,
+            expandFileReference: expandFileReference,
+            chooseFile: chooseFile,
+          ),
         final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
-        final AcceptResponseItemDVO _ => AcceptResponseItemRenderer(item: requestItem, itemIndex: itemIndex, currentAddress: currentAddress),
+        final AcceptResponseItemDVO _ => AcceptResponseItemRenderer(
+            item: requestItem,
+            itemIndex: itemIndex,
+            currentAddress: currentAddress,
+            expandFileReference: expandFileReference,
+            chooseFile: chooseFile,
+          ),
         _ => throw Exception("Invalid type '${responseItem.type}'"),
       },
     );

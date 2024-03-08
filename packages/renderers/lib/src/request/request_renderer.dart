@@ -15,6 +15,9 @@ class RequestRenderer extends StatelessWidget {
   final RequestValidationResultDTO? validationResult;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const RequestRenderer({
     super.key,
     required this.request,
@@ -22,6 +25,8 @@ class RequestRenderer extends StatelessWidget {
     this.validationResult,
     this.controller,
     this.openAttributeSwitcher,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -37,6 +42,8 @@ class RequestRenderer extends StatelessWidget {
             requestItemGroup: requestItemGroup,
             itemIndex: itemIndex,
             currentAddress: currentAddress,
+            expandFileReference: expandFileReference,
+            chooseFile: chooseFile,
           );
         }
 
@@ -45,6 +52,8 @@ class RequestRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           requestItem: request.items[index],
           currentAddress: currentAddress,
+          expandFileReference: expandFileReference,
+          chooseFile: chooseFile,
         );
       }).toList();
 
@@ -62,6 +71,8 @@ class RequestRenderer extends StatelessWidget {
           requestStatus: request.status,
           openAttributeSwitcher: openAttributeSwitcher,
           currentAddress: currentAddress,
+          expandFileReference: expandFileReference,
+          chooseFile: chooseFile,
         );
       }
 
@@ -72,6 +83,8 @@ class RequestRenderer extends StatelessWidget {
         openAttributeSwitcher: openAttributeSwitcher,
         requestStatus: request.status,
         currentAddress: currentAddress,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
       );
     }).toList();
 

@@ -17,6 +17,9 @@ class RequestItemRenderer extends StatelessWidget {
   final bool isRejected;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+
   const RequestItemRenderer({
     super.key,
     required this.currentAddress,
@@ -26,6 +29,8 @@ class RequestItemRenderer extends StatelessWidget {
     this.requestStatus,
     this.isRejected = false,
     this.openAttributeSwitcher,
+    required this.expandFileReference,
+    required this.chooseFile,
   });
 
   @override
@@ -39,22 +44,27 @@ class RequestItemRenderer extends StatelessWidget {
             itemIndex: itemIndex,
             openAttributeSwitcher: openAttributeSwitcher,
             currentAddress: currentAddress,
+            expandFileReference: expandFileReference,
+            chooseFile: chooseFile,
           ),
         final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
             controller: controller,
             item: dvo,
             itemIndex: itemIndex,
             openAttributeSwitcher: openAttributeSwitcher,
+            expandFileReference: expandFileReference,
           ),
         final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
             controller: controller,
             item: dvo,
             itemIndex: itemIndex,
+            expandFileReference: expandFileReference,
           ),
         final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(
             controller: controller,
             item: dvo,
             itemIndex: itemIndex,
+            expandFileReference: expandFileReference,
           ),
         final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
             controller: controller,
@@ -79,8 +89,16 @@ class RequestItemRenderer extends StatelessWidget {
           ),
         final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(item: dvo),
         final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(item: dvo),
-        final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(item: dvo, isRejected: isRejected),
-        final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(item: dvo, isRejected: isRejected),
+        final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(
+            item: dvo,
+            isRejected: isRejected,
+            expandFileReference: expandFileReference,
+          ),
+        final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(
+            item: dvo,
+            isRejected: isRejected,
+            expandFileReference: expandFileReference,
+          ),
         final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(item: dvo),
         final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),
         final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(item: dvo),
