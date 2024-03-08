@@ -63,7 +63,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    final title = widget.fieldName != null ? Text(widget.fieldName!) : null;
+    final title = widget.fieldName != null ? TranslatedText(widget.fieldName!) : null;
     final subtitle = !initialLoadComplete
         ? const LinearProgressIndicator()
         : selectedFile != null
