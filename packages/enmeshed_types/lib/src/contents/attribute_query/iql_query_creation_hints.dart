@@ -11,7 +11,7 @@ class IQLQueryCreationHints extends Equatable {
   });
 
   factory IQLQueryCreationHints.fromJson(Map json) => _$IQLQueryCreationHintsFromJson(Map<String, dynamic>.from(json));
-  Map<String, dynamic> toJson() => {'@type': 'IQLQueryCreationHints', ..._$IQLQueryCreationHintsToJson(this)};
+  Map<String, dynamic> toJson() => _$IQLQueryCreationHintsToJson(this);
 
   @override
   List<Object?> get props => [valueType, tags];
