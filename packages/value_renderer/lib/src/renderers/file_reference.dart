@@ -74,13 +74,14 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
                   Text(selectedFile!.filename),
                 ],
               )
-            : const TranslatedText('valueRenderer.fileReference.noFileSelected');
+            : const TranslatedText('i18n://valueRenderer.fileReference.noFileSelected');
 
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       title: title ?? subtitle,
       subtitle: title != null ? subtitle : null,
       trailing: TextButton(
-        child: const TranslatedText('valueRenderer.fileReference.selectFile'),
+        child: const TranslatedText('i18n://valueRenderer.fileReference.selectFile'),
         onPressed: () async {
           final file = await widget.chooseFile();
           if (file != null) {
