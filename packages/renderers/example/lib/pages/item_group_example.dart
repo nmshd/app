@@ -75,6 +75,7 @@ class _ItemGroupExampleState extends State<ItemGroupExample> {
               currentAddress: 'a current address',
               chooseFile: () async => null,
               expandFileReference: (_) async => throw Exception('Not implemented'),
+              openFileDetails: (_) async => throw Exception('Not implemented'),
             ),
           ),
           FilledButton(

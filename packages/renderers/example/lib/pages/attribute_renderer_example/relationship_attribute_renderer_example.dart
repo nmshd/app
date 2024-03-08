@@ -66,6 +66,7 @@ class RelationshipAttributeRendererExample extends StatelessWidget {
           return AttributeRenderer.localAttribute(
             attribute: attribute,
             expandFileReference: (_) async => throw Exception('Not implemented'),
+            openFileDetails: (_) async => throw Exception('Not implemented'),
           );
         },
       ),

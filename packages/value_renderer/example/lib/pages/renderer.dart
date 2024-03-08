@@ -25,6 +25,7 @@ class Renderer extends StatelessWidget {
               ValueRenderer(
                 chooseFile: () async => null,
                 expandFileReference: (_) async => throw Exception('Not implemented'),
+                openFileDetails: (_) {},
                 renderHints: RenderHints(
                   editType: RenderHintsEditType.InputLike,
                   technicalType: RenderHintsTechnicalType.String,
@@ -53,6 +54,7 @@ class Renderer extends StatelessWidget {
               ValueRenderer(
                 chooseFile: () async => null,
                 expandFileReference: (_) async => throw Exception('Not implemented'),
+                openFileDetails: (_) {},
                 renderHints: RenderHints(
                   editType: RenderHintsEditType.InputLike,
                   technicalType: RenderHintsTechnicalType.String,
@@ -66,6 +68,7 @@ class Renderer extends StatelessWidget {
               ValueRenderer(
                 chooseFile: () async => null,
                 expandFileReference: (_) async => throw Exception('Not implemented'),
+                openFileDetails: (_) {},
                 renderHints: RenderHints(
                   editType: RenderHintsEditType.InputLike,
                   technicalType: RenderHintsTechnicalType.String,
@@ -79,6 +82,7 @@ class Renderer extends StatelessWidget {
               ValueRenderer(
                 chooseFile: () async => null,
                 expandFileReference: (_) async => throw Exception('Not implemented'),
+                openFileDetails: (_) {},
                 renderHints: RenderHints(editType: RenderHintsEditType.SelectLike, technicalType: RenderHintsTechnicalType.String),
                 valueHints: const ValueHints(
                   values: [
@@ -95,6 +99,7 @@ class Renderer extends StatelessWidget {
               ValueRenderer(
                 chooseFile: () async => null,
                 expandFileReference: (_) async => throw Exception('Not implemented'),
+                openFileDetails: (_) {},
                 renderHints: RenderHints(
                   dataType: RenderHintsDataType.Language,
                   editType: RenderHintsEditType.SelectLike,
@@ -129,6 +134,7 @@ class Renderer extends StatelessWidget {
           child: ValueRenderer(
             chooseFile: () async => null,
             expandFileReference: (_) async => throw Exception('Not implemented'),
+            openFileDetails: (_) {},
             valueType: '',
             renderHints: RenderHints(
               editType: RenderHintsEditType.Complex,
@@ -177,6 +183,7 @@ class Renderer extends StatelessWidget {
           child: ValueRenderer(
             chooseFile: () async => null,
             expandFileReference: (_) async => throw Exception('Not implemented'),
+            openFileDetails: (_) {},
             renderHints: RenderHints(
               dataType: RenderHintsDataType.EMailAddress,
               editType: RenderHintsEditType.InputLike,
@@ -196,6 +203,7 @@ class Renderer extends StatelessWidget {
           child: ValueRenderer(
             chooseFile: () async => null,
             expandFileReference: (_) async => throw Exception('Not implemented'),
+            openFileDetails: (_) {},
             renderHints: RenderHints(
               editType: RenderHintsEditType.ButtonLike,
               technicalType: RenderHintsTechnicalType.String,
@@ -217,6 +225,7 @@ class Renderer extends StatelessWidget {
           child: ValueRenderer(
             chooseFile: () async => null,
             expandFileReference: (_) async => throw Exception('Not implemented'),
+            openFileDetails: (_) {},
             valueType: '',
             renderHints: RenderHints(
               editType: RenderHintsEditType.Complex,

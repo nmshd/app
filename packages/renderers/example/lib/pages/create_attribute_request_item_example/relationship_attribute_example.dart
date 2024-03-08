@@ -173,6 +173,7 @@ class RelationshipAttributeExample extends StatelessWidget {
               child: RequestRenderer(
                 chooseFile: () async => null,
                 expandFileReference: (_) async => throw Exception('Not implemented'),
+                openFileDetails: (_) async => throw Exception('Not implemented'),
                 request: localRequest,
                 currentAddress: 'a currentAddress',
               ),
