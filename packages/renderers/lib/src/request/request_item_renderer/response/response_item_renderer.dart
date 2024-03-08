@@ -15,6 +15,7 @@ class ResponseItemRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const ResponseItemRenderer({
     super.key,
@@ -24,6 +25,7 @@ class ResponseItemRenderer extends StatelessWidget {
     required this.currentAddress,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -34,18 +36,22 @@ class ResponseItemRenderer extends StatelessWidget {
         final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(
             item: dvo,
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         final ProposeAttributeAcceptResponseItemDVO dvo => ProposeAttributeAcceptResponseItemRenderer(
             item: dvo,
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         final CreateAttributeAcceptResponseItemDVO dvo => CreateAttributeAcceptResponseItemRenderer(
             item: dvo,
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         final ShareAttributeAcceptResponseItemDVO dvo => ShareAttributeAcceptResponseItemRenderer(
             item: dvo,
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         final RegisterAttributeListenerAcceptResponseItemDVO dvo => RegisterAttributeListenerAcceptResponseItemRenderer(item: dvo),
         final RejectResponseItemDVO _ => RejectResponseItemRenderer(
@@ -54,6 +60,7 @@ class ResponseItemRenderer extends StatelessWidget {
             currentAddress: currentAddress,
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
+            openFileDetails: openFileDetails,
           ),
         final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
         final AcceptResponseItemDVO _ => AcceptResponseItemRenderer(
@@ -62,6 +69,7 @@ class ResponseItemRenderer extends StatelessWidget {
             currentAddress: currentAddress,
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
+            openFileDetails: openFileDetails,
           ),
         _ => throw Exception("Invalid type '${responseItem.type}'"),
       },

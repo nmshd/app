@@ -21,6 +21,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -33,6 +34,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
     required this.mustBeAccepted,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -60,6 +62,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         mustBeAccepted: mustBeAccepted,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
       );
     }
 
@@ -80,6 +83,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
                     ),
                   ),
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         ),
       ],
@@ -98,6 +102,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const ProcessedRelationshipAttributeQueryRenderer({
     super.key,
@@ -110,6 +115,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     required this.mustBeAccepted,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -127,6 +133,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
         mustBeAccepted: mustBeAccepted,
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
       );
     }
 
@@ -146,6 +153,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
                     ),
                   ),
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         ),
       ],
@@ -159,6 +167,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function()? onUpdateAttribute;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
 
   const ProcessedThirdPartyRelationshipAttributeQueryRenderer({
     super.key,
@@ -167,6 +176,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
     this.selectedAttribute,
     this.onUpdateAttribute,
     required this.expandFileReference,
+    required this.openFileDetails,
   });
 
   @override
@@ -191,6 +201,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
                       ),
                     ),
               expandFileReference: expandFileReference,
+              openFileDetails: openFileDetails,
             ),
           )
         else
@@ -212,6 +223,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
   final Future<FileDVO?> Function() chooseFile;
   final bool mustBeAccepted;
   final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
+  final void Function(FileDVO) openFileDetails;
 
   const ProcessedIQLQueryRenderer({
     super.key,
@@ -223,6 +235,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     required this.chooseFile,
     required this.mustBeAccepted,
     required this.onUpdateInput,
+    required this.openFileDetails,
   });
 
   @override
@@ -251,6 +264,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
           mustBeAccepted: mustBeAccepted,
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
+          openFileDetails: openFileDetails,
         );
       } else {
         return const TranslatedText('i18n://dvo.attributeQuery.IQLQuery.noResults', style: TextStyle(color: Colors.redAccent));
@@ -274,6 +288,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
                     ),
                   ),
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         ),
       ],

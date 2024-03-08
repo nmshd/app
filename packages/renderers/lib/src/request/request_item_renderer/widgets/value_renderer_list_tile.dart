@@ -18,6 +18,7 @@ class ValueRendererListTile extends StatefulWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const ValueRendererListTile({
     super.key,
@@ -33,6 +34,7 @@ class ValueRendererListTile extends StatefulWidget {
     required this.mustBeAccepted,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -96,6 +98,7 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
               mustBeFilledOut: widget.checkboxSettings?.isChecked ?? widget.mustBeAccepted,
               expandFileReference: widget.expandFileReference,
               chooseFile: widget.chooseFile,
+              openFileDetails: widget.openFileDetails,
             ),
           ),
         ],

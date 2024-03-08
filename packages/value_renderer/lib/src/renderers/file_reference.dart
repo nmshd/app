@@ -14,6 +14,7 @@ class FileReferenceRenderer extends StatefulWidget {
   final bool mustBeFilledOut;
   final ValueHints valueHints;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
   final Future<FileDVO?> Function() chooseFile;
 
   const FileReferenceRenderer({
@@ -24,6 +25,7 @@ class FileReferenceRenderer extends StatefulWidget {
     required this.mustBeFilledOut,
     required this.valueHints,
     required this.expandFileReference,
+    required this.openFileDetails,
     required this.chooseFile,
   });
 
@@ -80,18 +82,26 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
       contentPadding: EdgeInsets.zero,
       title: title ?? subtitle,
       subtitle: title != null ? subtitle : null,
-      trailing: TextButton(
-        child: const TranslatedText('i18n://valueRenderer.fileReference.selectFile'),
-        onPressed: () async {
-          final file = await widget.chooseFile();
-          if (file != null) {
-            setState(() {
-              selectedFile = file;
-            });
+      trailing: Row(
+        children: [
+          IconButton(
+            onPressed: selectedFile != null ? () => widget.openFileDetails(selectedFile!) : null,
+            icon: const Icon(Icons.info),
+          ),
+          TextButton(
+            child: const TranslatedText('i18n://valueRenderer.fileReference.selectFile'),
+            onPressed: () async {
+              final file = await widget.chooseFile();
+              if (file != null) {
+                setState(() {
+                  selectedFile = file;
+                });
 
-            widget.controller?.value = ValueRendererInputValueString(file.truncatedReference);
-          }
-        },
+                widget.controller?.value = ValueRendererInputValueString(file.truncatedReference);
+              }
+            },
+          ),
+        ],
       ),
     );
   }

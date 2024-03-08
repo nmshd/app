@@ -19,6 +19,7 @@ class RequestItemRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const RequestItemRenderer({
     super.key,
@@ -31,6 +32,7 @@ class RequestItemRenderer extends StatelessWidget {
     this.openAttributeSwitcher,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -46,6 +48,7 @@ class RequestItemRenderer extends StatelessWidget {
             currentAddress: currentAddress,
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
+            openFileDetails: openFileDetails,
           ),
         final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
             controller: controller,
@@ -53,18 +56,21 @@ class RequestItemRenderer extends StatelessWidget {
             itemIndex: itemIndex,
             openAttributeSwitcher: openAttributeSwitcher,
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
             controller: controller,
             item: dvo,
             itemIndex: itemIndex,
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(
             controller: controller,
             item: dvo,
             itemIndex: itemIndex,
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
             controller: controller,
@@ -93,11 +99,13 @@ class RequestItemRenderer extends StatelessWidget {
             item: dvo,
             isRejected: isRejected,
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(
             item: dvo,
             isRejected: isRejected,
             expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(item: dvo),
         final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),

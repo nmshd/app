@@ -7,12 +7,14 @@ class ShareAttributeRequestItemRenderer extends StatelessWidget {
   final ShareAttributeRequestItemDVO item;
   final bool isRejected;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
 
   const ShareAttributeRequestItemRenderer({
     super.key,
     required this.item,
     required this.isRejected,
     required this.expandFileReference,
+    required this.openFileDetails,
   });
 
   @override
@@ -21,6 +23,7 @@ class ShareAttributeRequestItemRenderer extends StatelessWidget {
       draftAttribute: item.attribute,
       isRejected: isRejected,
       expandFileReference: expandFileReference,
+      openFileDetails: openFileDetails,
     );
   }
 }

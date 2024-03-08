@@ -22,6 +22,7 @@ class ComplexRenderer extends StatefulWidget {
   final String valueType;
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const ComplexRenderer({
     super.key,
@@ -37,6 +38,7 @@ class ComplexRenderer extends StatefulWidget {
     required this.valueType,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -124,6 +126,7 @@ class _ComplexRendererState extends State<ComplexRenderer> {
                     decoration: widget.decoration,
                     expandFileReference: widget.expandFileReference,
                     chooseFile: widget.chooseFile,
+                    openFileDetails: widget.openFileDetails,
                   );
                 })
                 .indexed

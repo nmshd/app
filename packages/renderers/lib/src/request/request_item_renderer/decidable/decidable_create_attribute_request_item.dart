@@ -12,6 +12,7 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
 
   const DecidableCreateAttributeRequestItemRenderer({
     super.key,
@@ -19,6 +20,7 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
     this.controller,
     required this.itemIndex,
     required this.expandFileReference,
+    required this.openFileDetails,
   });
 
   @override
@@ -45,6 +47,7 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
       draftAttribute: widget.item.attribute,
       checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
       expandFileReference: widget.expandFileReference,
+      openFileDetails: widget.openFileDetails,
     );
   }
 

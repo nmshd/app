@@ -7,6 +7,7 @@ class FileReferenceRenderer extends StatefulWidget {
   final String valueType;
   final bool showTitle;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
   final Widget? trailing;
 
   const FileReferenceRenderer({
@@ -15,6 +16,7 @@ class FileReferenceRenderer extends StatefulWidget {
     required this.valueType,
     this.showTitle = true,
     required this.expandFileReference,
+    required this.openFileDetails,
     this.trailing,
   });
 
@@ -64,6 +66,10 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
                 ),
             ],
           ),
+        ),
+        IconButton(
+          onPressed: expandedFileReference != null ? () => widget.openFileDetails(expandedFileReference!) : null,
+          icon: const Icon(Icons.info),
         ),
         if (widget.trailing != null) widget.trailing!
       ],

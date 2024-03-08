@@ -16,6 +16,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
@@ -26,6 +27,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
     this.openAttributeSwitcher,
     required this.expandFileReference,
     required this.chooseFile,
+    required this.openFileDetails,
   });
 
   @override
@@ -68,6 +70,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           mustBeAccepted: widget.item.mustBeAccepted,
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
+          openFileDetails: widget.openFileDetails,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
           query: query,
@@ -78,6 +81,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           mustBeAccepted: widget.item.mustBeAccepted,
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
+          openFileDetails: widget.openFileDetails,
         ),
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
           query: query,
@@ -85,6 +89,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           onUpdateAttribute: _onUpdateAttribute,
           selectedAttribute: _choice?.attribute,
           expandFileReference: widget.expandFileReference,
+          openFileDetails: widget.openFileDetails,
         ),
       final ProcessedIQLQueryDVO query => ProcessedIQLQueryRenderer(
           query: query,
@@ -95,6 +100,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           chooseFile: widget.chooseFile,
           mustBeAccepted: widget.item.mustBeAccepted,
           onUpdateInput: _onUpdateInput,
+          openFileDetails: widget.openFileDetails,
         ),
     };
   }

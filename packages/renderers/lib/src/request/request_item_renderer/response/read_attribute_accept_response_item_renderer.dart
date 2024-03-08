@@ -7,11 +7,13 @@ import '/src/attribute/relationship_attribute_value_renderer.dart';
 class ReadAttributeAcceptResponseItemRenderer extends StatelessWidget {
   final ReadAttributeAcceptResponseItemDVO item;
   final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
 
   const ReadAttributeAcceptResponseItemRenderer({
     super.key,
     required this.item,
     required this.expandFileReference,
+    required this.openFileDetails,
   });
 
   @override
@@ -21,10 +23,12 @@ class ReadAttributeAcceptResponseItemRenderer extends StatelessWidget {
           value: value,
           valueHints: item.attribute.valueHints,
           expandFileReference: expandFileReference,
+          openFileDetails: openFileDetails,
         ),
       final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(
           value: value,
           expandFileReference: expandFileReference,
+          openFileDetails: openFileDetails,
         ),
       _ => throw Exception('Unknown AttributeValue: ${item.attribute.valueType}'),
     };
