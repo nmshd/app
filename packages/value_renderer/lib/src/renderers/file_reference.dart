@@ -83,6 +83,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
       title: title ?? subtitle,
       subtitle: title != null ? subtitle : null,
       trailing: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
             onPressed: selectedFile != null ? () => widget.openFileDetails(selectedFile!) : null,
