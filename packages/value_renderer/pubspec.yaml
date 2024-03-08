@@ -13,7 +13,9 @@ dependencies:
   flutter_i18n: ^0.35.1
   flutter_localizations:
     sdk: flutter
+  get_it: ^7.6.7
   intl: any
+  logger: ^2.1.0
   translated_text: 1.0.0
 
 dev_dependencies:

@@ -1,6 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 import '../../utils/utils.dart';
 import '../../value_renderer_controller.dart';
@@ -63,16 +65,9 @@ class DatepickerFormField extends FormField<DateTime> {
       case final BirthDateAttributeValue value:
         return DateTime(value.year, value.month, value.day);
       default:
-        logCannotHandle(initialValueAttribute);
+        GetIt.I.get<Logger>().e('Cannot assign defult value of ${initialValueAttribute.runtimeType} in the DatePicker.');
         return null;
     }
-  }
-
-  static void logCannotHandle(AttributeValue attributeValue) {
-    // TODO add a proper logger
-    // ignore: avoid_print
-    print('Cannot assign defult value of ${attributeValue.runtimeType} in the DatePicker.');
-    return;
   }
 
   @override
