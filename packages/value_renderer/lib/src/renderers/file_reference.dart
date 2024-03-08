@@ -46,10 +46,12 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
       };
 
       widget.expandFileReference(truncatedReference).then((value) {
-        setState(() {
-          selectedFile = value;
-          initialLoadComplete = true;
-        });
+        if (mounted) {
+          setState(() {
+            selectedFile = value;
+            initialLoadComplete = true;
+          });
+        }
 
         widget.controller?.value = ValueRendererInputValueString(value.truncatedReference);
       });
