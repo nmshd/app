@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'pages/controller_example.dart';
-import 'pages/input_examples.dart';
-import 'pages/renderer.dart';
+import 'pages/pages.dart';
 
 void main() {
   runApp(const ValueRendererExample());
@@ -93,6 +91,11 @@ final _menu = [
     icon: Icons.description,
     title: 'Controller Example',
     pageBuilder: (context) => const ControllerExample(),
+  ),
+  _MenuItem(
+    icon: Icons.description,
+    title: 'Address Example',
+    pageBuilder: (context) => const AddressExample(),
   ),
 ];
 
