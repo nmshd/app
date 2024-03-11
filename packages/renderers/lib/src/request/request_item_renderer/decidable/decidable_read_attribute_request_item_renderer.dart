@@ -138,7 +138,9 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         valueType: valueType,
         isComplex: isComplex,
         currentAddress: widget.currentAddress,
-        tags: widget.item.query is ProcessedIQLQueryDVO ? (widget.item.query as ProcessedIQLQueryDVO).tags : null,
+        tags: widget.item.query is ProcessedIQLQueryDVO
+            ? (widget.item.query as ProcessedIQLQueryDVO).tags
+            : (widget.item.query as ProcessedIdentityAttributeQueryDVO).tags,
       );
 
       if (composedValue != null) {
