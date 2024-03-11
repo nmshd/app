@@ -132,12 +132,15 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   void _onUpdateInput({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) {
-    if (widget.item.query is ProcessedIdentityAttributeQueryDVO) {
+    if (widget.item.query is ProcessedIdentityAttributeQueryDVO && widget.item.query is ProcessedIQLQueryDVO) {
       final IdentityAttribute? composedValue = composeIdentityAttributeValue(
         inputValue: inputValue,
         valueType: valueType,
         isComplex: isComplex,
         currentAddress: widget.currentAddress,
+        tags: widget.item.query is ProcessedIQLQueryDVO
+            ? (widget.item.query as ProcessedIQLQueryDVO).tags
+            : (widget.item.query as ProcessedIdentityAttributeQueryDVO).tags,
       );
 
       if (composedValue != null) {
@@ -153,9 +156,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           value: const RejectRequestItemParameters(),
         );
       }
-    }
-
-    if (widget.item.query is ProcessedRelationshipAttributeQueryDVO) {
+    } else if (widget.item.query is ProcessedRelationshipAttributeQueryDVO) {
       final RelationshipAttribute? composedValue = composeRelationshipAttributeValue(
         inputValue: inputValue,
         valueType: valueType,
