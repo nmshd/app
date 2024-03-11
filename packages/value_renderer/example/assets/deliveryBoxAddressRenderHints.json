@@ -1,0 +1,48 @@
+{
+    "technicalType": "Object",
+    "editType": "Complex",
+    "propertyHints": {
+      "recipient": {
+        "technicalType": "String",
+        "editType": "InputLike",
+        "propertyHints": {}
+      },
+      "userId": {
+        "technicalType": "String",
+        "editType": "InputLike",
+        "propertyHints": {}
+      },
+      "deliveryBoxId": {
+        "technicalType": "String",
+        "editType": "InputLike",
+        "propertyHints": {}
+      },
+      "zipCode": {
+        "technicalType": "String",
+        "editType": "InputLike",
+        "propertyHints": {}
+      },
+      "city": {
+        "technicalType": "String",
+        "editType": "InputLike",
+        "propertyHints": {}
+      },
+      "country": {
+        "technicalType": "String",
+        "editType": "SelectLike",
+        "dataType": "Country",
+        "propertyHints": {}
+      },
+      "phoneNumber": {
+        "technicalType": "String",
+        "editType": "InputLike",
+        "dataType": "PhoneNumber",
+        "propertyHints": {}
+      },
+      "state": {
+        "technicalType": "String",
+        "editType": "InputLike",
+        "propertyHints": {}
+      }
+    }
+  }
