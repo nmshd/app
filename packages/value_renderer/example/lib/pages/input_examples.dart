@@ -84,7 +84,7 @@ class _InputExamplesState extends State<InputExamples> {
                             max: 100,
                           ),
                           fieldName: 'String / InputLike',
-                          initialValue: const FullyDynamicAttributeValue(''),
+                          initialValue: const _FullyDynamicAttributeValue(''),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -103,7 +103,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'String / InputLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue('Some Value'),
+                          initialValue: const _FullyDynamicAttributeValue('Some Value'),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -124,7 +124,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'String / SelectLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue('Option 1'),
+                          initialValue: const _FullyDynamicAttributeValue('Option 1'),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -190,7 +190,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'String / ButtonLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue('Option 1'),
+                          initialValue: const _FullyDynamicAttributeValue('Option 1'),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -205,7 +205,7 @@ class _InputExamplesState extends State<InputExamples> {
                             max: 100,
                           ),
                           fieldName: 'String / ButtonLike',
-                          initialValue: const FullyDynamicAttributeValue(''),
+                          initialValue: const _FullyDynamicAttributeValue(''),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -226,7 +226,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'String / SliderLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue('Option 1'),
+                          initialValue: const _FullyDynamicAttributeValue('Option 1'),
                         ),
                       ],
                     ),
@@ -282,7 +282,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Boolean / SelectLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(true),
+                          initialValue: const _FullyDynamicAttributeValue(true),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -301,7 +301,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Boolean / ButtonLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(true),
+                          initialValue: const _FullyDynamicAttributeValue(true),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -316,7 +316,7 @@ class _InputExamplesState extends State<InputExamples> {
                             max: 100,
                           ),
                           fieldName: 'Boolean / ButtonLike',
-                          initialValue: const FullyDynamicAttributeValue(false),
+                          initialValue: const _FullyDynamicAttributeValue(false),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -331,7 +331,7 @@ class _InputExamplesState extends State<InputExamples> {
                             propertyHints: {},
                           ),
                           fieldName: 'Boolean / SliderSlike',
-                          initialValue: const FullyDynamicAttributeValue(false),
+                          initialValue: const _FullyDynamicAttributeValue(false),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -351,7 +351,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Boolean / SliderLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(false),
+                          initialValue: const _FullyDynamicAttributeValue(false),
                         ),
                       ],
                     ),
@@ -404,7 +404,7 @@ class _InputExamplesState extends State<InputExamples> {
                             pattern: r'^\d+$',
                           ),
                           fieldName: 'Integer / InputLike',
-                          initialValue: const FullyDynamicAttributeValue(1),
+                          initialValue: const _FullyDynamicAttributeValue(1),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -425,7 +425,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Integer / InputLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(1),
+                          initialValue: const _FullyDynamicAttributeValue(1),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -445,7 +445,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Integer / SelectLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(1),
+                          initialValue: const _FullyDynamicAttributeValue(1),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -462,7 +462,7 @@ class _InputExamplesState extends State<InputExamples> {
                             propertyHints: {},
                           ),
                           fieldName: 'Integer / SelectLike',
-                          initialValue: const FullyDynamicAttributeValue(5),
+                          initialValue: const _FullyDynamicAttributeValue(5),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -532,7 +532,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Integer / ButtonLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(1),
+                          initialValue: const _FullyDynamicAttributeValue(1),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -548,7 +548,7 @@ class _InputExamplesState extends State<InputExamples> {
                             propertyHints: {},
                           ),
                           fieldName: 'Integer / ButtonLike',
-                          initialValue: const FullyDynamicAttributeValue(0),
+                          initialValue: const _FullyDynamicAttributeValue(0),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -570,7 +570,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Integer / SliderLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(1),
+                          initialValue: const _FullyDynamicAttributeValue(1),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -587,7 +587,7 @@ class _InputExamplesState extends State<InputExamples> {
                             propertyHints: {},
                           ),
                           fieldName: 'Integer / SliderLike',
-                          initialValue: const FullyDynamicAttributeValue(75),
+                          initialValue: const _FullyDynamicAttributeValue(75),
                         ),
                       ],
                     ),
@@ -643,7 +643,7 @@ class _InputExamplesState extends State<InputExamples> {
                             pattern: r'^\d+(\.\d{1,2})?$',
                           ),
                           fieldName: 'Double / InputLike',
-                          initialValue: const FullyDynamicAttributeValue(1.5),
+                          initialValue: const _FullyDynamicAttributeValue(1.5),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -664,7 +664,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Double / InputLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(1.2),
+                          initialValue: const _FullyDynamicAttributeValue(1.2),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -684,7 +684,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Double / SelectLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(1.2),
+                          initialValue: const _FullyDynamicAttributeValue(1.2),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -701,7 +701,7 @@ class _InputExamplesState extends State<InputExamples> {
                             propertyHints: {},
                           ),
                           fieldName: 'Double / SelectLike',
-                          initialValue: const FullyDynamicAttributeValue(1.5),
+                          initialValue: const _FullyDynamicAttributeValue(1.5),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -721,7 +721,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Double / ButtonLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(1.5),
+                          initialValue: const _FullyDynamicAttributeValue(1.5),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -737,7 +737,7 @@ class _InputExamplesState extends State<InputExamples> {
                             propertyHints: {},
                           ),
                           fieldName: 'Double / ButtonLike',
-                          initialValue: const FullyDynamicAttributeValue(1.5),
+                          initialValue: const _FullyDynamicAttributeValue(1.5),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -757,7 +757,7 @@ class _InputExamplesState extends State<InputExamples> {
                             ],
                           ),
                           fieldName: 'Double / SliderLike / ValueHints.Values',
-                          initialValue: const FullyDynamicAttributeValue(1.5),
+                          initialValue: const _FullyDynamicAttributeValue(1.5),
                         ),
                         const SizedBox(height: 12),
                         ValueRenderer(
@@ -774,7 +774,7 @@ class _InputExamplesState extends State<InputExamples> {
                             propertyHints: {},
                           ),
                           fieldName: 'Double / SliderLike',
-                          initialValue: const FullyDynamicAttributeValue(7.5),
+                          initialValue: const _FullyDynamicAttributeValue(7.5),
                         ),
                         const Divider(),
                         ValueRenderer(
@@ -798,10 +798,10 @@ class _InputExamplesState extends State<InputExamples> {
   }
 }
 
-class FullyDynamicAttributeValue extends AttributeValue {
+class _FullyDynamicAttributeValue extends AttributeValue {
   final dynamic value;
 
-  const FullyDynamicAttributeValue(this.value) : super('FullyDynamic');
+  const _FullyDynamicAttributeValue(this.value) : super('FullyDynamic');
 
   @override
   Map<String, dynamic> toJson() => {'value': value};
