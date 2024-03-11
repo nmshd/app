@@ -1,10 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:renderers/renderers.dart';
 import 'package:translated_text/translated_text.dart';
 import 'package:value_renderer/value_renderer.dart';
 
-import '../../../request_renderer_controller.dart';
 import '../../widgets/value_renderer_list_tile.dart';
 import '/src/attribute/identity_attribute_value_renderer.dart';
 import '/src/attribute/relationship_attribute_value_renderer.dart';
@@ -12,7 +10,6 @@ import '/src/checkbox_settings.dart';
 
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
-  final RequestRendererController? controller;
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
@@ -26,7 +23,6 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
     required this.query,
-    this.controller,
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
@@ -93,7 +89,6 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
 class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final ProcessedRelationshipAttributeQueryDVO query;
-  final RequestRendererController? controller;
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
@@ -107,7 +102,6 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   const ProcessedRelationshipAttributeQueryRenderer({
     super.key,
     required this.query,
-    this.controller,
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
