@@ -21,7 +21,7 @@ class TextInput extends StatefulWidget {
     this.controller,
     this.decoration,
     this.fieldName,
-    required this.initialValue,
+    this.initialValue,
     this.max,
     required this.mustBeFilledOut,
     this.pattern,
