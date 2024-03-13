@@ -65,6 +65,26 @@ class _ComplexRendererState extends State<ComplexRenderer> {
           widget.controller!.value = ValueRendererInputValueMap(Map<String, dynamic>.from(value));
         });
       }
+
+      /*
+      if (widget.valueType == 'StreetAddress') {
+        widget.controller!.addListener(() {
+          if (widget.controller!.value is! ValueRendererValidationError) {
+            final canCreateAttribute = composeIdentityAttributeValue(
+              isComplex: widget.editType == RenderHintsEditType.Complex,
+              currentAddress: '',
+              valueType: widget.valueType,
+              inputValue: widget.controller!.value,
+            );
+
+            if (canCreateAttribute != null) {
+              widget.controller!.value = ValueRendererInputValueMap(Map<String, dynamic>.from(value));
+            } else {
+              widget.controller!.value = ValueRendererValidationError();
+            }
+          }
+        });
+      } */
     }
   }
 
@@ -98,6 +118,13 @@ class _ComplexRendererState extends State<ComplexRenderer> {
         dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
       );
     }
+
+    // if (widget.initialValue is DeliveryBoxAddressAttributeValue || widget.valueType == 'DeliveryBoxAddress') {
+    //   return DeliveryBoxAddressRenderer(
+    //     controller: widget.controller,
+    //     fieldName: translatedText
+    //   );
+    // }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
