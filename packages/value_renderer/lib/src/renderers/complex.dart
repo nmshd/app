@@ -8,12 +8,11 @@ import '../inputs/inputs.dart';
 import '../utils/utils.dart';
 import '../value_renderer.dart';
 import '../value_renderer_controller.dart';
+import 'renderers.dart';
 
 class ComplexRenderer extends StatefulWidget {
   final ValueRendererController? controller;
   final InputDecoration? decoration;
-  final RenderHintsDataType? dataType;
-  final RenderHintsEditType? editType;
   final String? fieldName;
   final AttributeValue? initialValue;
   final bool mustBeFilledOut;
@@ -28,8 +27,6 @@ class ComplexRenderer extends StatefulWidget {
     super.key,
     this.controller,
     this.decoration,
-    this.dataType,
-    this.editType,
     this.fieldName,
     required this.initialValue,
     required this.mustBeFilledOut,
@@ -46,52 +43,32 @@ class ComplexRenderer extends StatefulWidget {
 }
 
 class _ComplexRendererState extends State<ComplexRenderer> {
-  Map<String, dynamic> value = {};
-  Map<String, ValueRendererController>? controllers;
+  final Map<String, dynamic> _value = {};
+  Map<String, ValueRendererController>? _controllers;
 
   @override
   void initState() {
     super.initState();
 
     if (widget.controller != null) {
-      controllers = <String, ValueRendererController>{};
+      _controllers = <String, ValueRendererController>{};
 
       for (final key in widget.renderHints.propertyHints!.keys) {
         final controller = ValueRendererController();
-        controllers![key] = controller;
+        _controllers![key] = controller;
 
         controller.addListener(() {
-          value[key] = controller.value;
-          widget.controller!.value = ValueRendererInputValueMap(Map<String, dynamic>.from(value));
+          _value[key] = controller.value;
+          widget.controller!.value = ValueRendererInputValueMap(Map<String, dynamic>.from(_value));
         });
       }
-
-      /*
-      if (widget.valueType == 'StreetAddress') {
-        widget.controller!.addListener(() {
-          if (widget.controller!.value is! ValueRendererValidationError) {
-            final canCreateAttribute = composeIdentityAttributeValue(
-              isComplex: widget.editType == RenderHintsEditType.Complex,
-              currentAddress: '',
-              valueType: widget.valueType,
-              inputValue: widget.controller!.value,
-            );
-
-            if (canCreateAttribute != null) {
-              widget.controller!.value = ValueRendererInputValueMap(Map<String, dynamic>.from(value));
-            } else {
-              widget.controller!.value = ValueRendererValidationError();
-            }
-          }
-        });
-      } */
     }
   }
 
   @override
   void dispose() {
-    if (controllers != null) {
-      for (final controller in controllers!.values) {
+    if (_controllers != null) {
+      for (final controller in _controllers!.values) {
         controller.dispose();
       }
     }
@@ -119,12 +96,34 @@ class _ComplexRendererState extends State<ComplexRenderer> {
       );
     }
 
-    // if (widget.initialValue is DeliveryBoxAddressAttributeValue || widget.valueType == 'DeliveryBoxAddress') {
-    //   return DeliveryBoxAddressRenderer(
-    //     controller: widget.controller,
-    //     fieldName: translatedText
-    //   );
-    // }
+    if (_isAddress) {
+      return AddressRenderer(
+        controller: widget.controller,
+        translatedText: translatedText,
+        renderHints: widget.renderHints,
+        valueHints: widget.valueHints,
+        expandFileReference: widget.expandFileReference,
+        chooseFile: widget.chooseFile,
+        openFileDetails: widget.openFileDetails,
+        valueType: widget.valueType,
+      );
+    }
+
+    return ComplexItemRenderer(
+      initialValue: widget.initialValue,
+      renderHints: widget.renderHints,
+      valueHints: widget.valueHints,
+      translatedText: translatedText,
+      controller: widget.controller,
+      decoration: widget.decoration,
+      expandFileReference: widget.expandFileReference,
+      chooseFile: widget.chooseFile,
+      openFileDetails: widget.openFileDetails,
+      controllers: _controllers,
+      valueType: widget.valueType,
+    );
+
+    /*
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +160,20 @@ class _ComplexRendererState extends State<ComplexRenderer> {
                 .toList(),
           ),
       ],
-    );
+    );*/
+  }
+
+  bool get _isAddress => _isOfTypeAddress(widget.initialValue?.atType) || _isOfTypeAddress(widget.valueType);
+
+  bool _isOfTypeAddress(String? valueType) {
+    return [
+      'StreetAddress',
+      'StreetAddressAttributeValue',
+      'DeliveryBoxAddress',
+      'DeliveryBoxAddressAttributeValue',
+      'PostOfficeBoxAddress',
+      'PostOfficeBoxAddressAttributeValue'
+    ].contains(valueType);
   }
 }
 
@@ -175,4 +187,72 @@ class _ComplexAttributeValueChild extends AttributeValue {
 
   @override
   List<Object?> get props => [value];
+}
+
+class ComplexItemRenderer extends StatelessWidget {
+  final ValueRendererController? controller;
+  final InputDecoration? decoration;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
+  final String? translatedText;
+  final Map<String, ValueRendererController>? controllers;
+  final String valueType;
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
+  final AttributeValue? initialValue;
+
+  const ComplexItemRenderer({
+    super.key,
+    this.controller,
+    this.decoration,
+    this.translatedText,
+    required this.renderHints,
+    required this.valueHints,
+    this.controllers,
+    required this.valueType,
+    required this.expandFileReference,
+    required this.chooseFile,
+    required this.openFileDetails,
+    this.initialValue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (translatedText != null) ...[
+          TranslatedText(translatedText!, style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E))),
+          const SizedBox(height: 12),
+        ],
+        Column(
+          children: renderHints.propertyHints!.keys
+              .map((key) {
+                final translatedKey = 'i18n://attributes.values.$valueType.$key.label';
+
+                final itemRenderHints = renderHints.propertyHints![key];
+                final itemValueHints = valueHints.propertyHints![key] ?? const ValueHints();
+                final itemInitialDynamicValue = initialValue?.toJson()[key];
+                final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
+
+                return ValueRenderer(
+                  initialValue: itemInitialValue,
+                  renderHints: itemRenderHints!,
+                  valueHints: itemValueHints,
+                  fieldName: translatedKey,
+                  controller: controllers?[key],
+                  decoration: decoration,
+                  expandFileReference: expandFileReference,
+                  chooseFile: chooseFile,
+                  openFileDetails: openFileDetails,
+                );
+              })
+              .indexed
+              .map((e) => e.$1 == 0 ? e.$2 : Padding(padding: const EdgeInsets.only(top: 16), child: e.$2))
+              .toList(),
+        ),
+      ],
+    );
+  }
 }
