@@ -75,7 +75,6 @@ class ValueRenderer extends StatelessWidget {
       return ComplexRenderer(
         controller: controller,
         decoration: decoration,
-        editType: editType,
         fieldName: fieldName,
         initialValue: initialValue,
         mustBeFilledOut: mustBeFilledOut,
