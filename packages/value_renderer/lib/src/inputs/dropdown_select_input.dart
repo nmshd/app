@@ -103,6 +103,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
     translated.sort((a, b) => a.translation.compareTo(b.translation));
 
+    // add DACH and DE/EN duplicates (values may not occur more than once, so they are prefixed with 'dup_')
     if (widget.dataType == RenderHintsDataType.Country) {
       final de = translated.firstWhereOrNull((e) => e.key.toJson() == 'DE');
       final at = translated.firstWhereOrNull((e) => e.key.toJson() == 'AT');
