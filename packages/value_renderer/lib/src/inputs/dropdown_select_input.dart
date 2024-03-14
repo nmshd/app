@@ -76,7 +76,9 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
               : null,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(
-              inputValue: newValue,
+              inputValue: newValue is ValueHintsDefaultValueString && newValue.value.startsWith('dup_')
+                  ? ValueHintsDefaultValueString(newValue.value.substring(4))
+                  : newValue,
               type: widget.technicalType,
             );
 
