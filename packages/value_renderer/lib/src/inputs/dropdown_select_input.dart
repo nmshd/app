@@ -101,21 +101,25 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
     translated.sort((a, b) => a.translation.compareTo(b.translation));
 
-    translated.insertAll(
-      0,
-      switch (widget.dataType) {
-        RenderHintsDataType.Country => [
-            translated.firstWhereOrNull((e) => e.key.toJson() == 'DE'),
-            translated.firstWhereOrNull((e) => e.key.toJson() == 'AT'),
-            translated.firstWhereOrNull((e) => e.key.toJson() == 'CH'),
-          ].whereNotNull(),
-        RenderHintsDataType.Language => [
-            translated.firstWhereOrNull((e) => e.key.toJson() == 'de'),
-            translated.firstWhereOrNull((e) => e.key.toJson() == 'en'),
-          ].whereNotNull(),
-        _ => [],
-      },
-    );
+    if (widget.dataType == RenderHintsDataType.Country) {
+      final de = translated.firstWhereOrNull((e) => e.key.toJson() == 'DE');
+      final at = translated.firstWhereOrNull((e) => e.key.toJson() == 'AT');
+      final ch = translated.firstWhereOrNull((e) => e.key.toJson() == 'CH');
+
+      translated.insertAll(0, [
+        if (de != null) (key: const ValueHintsDefaultValueString('dup_DE'), translation: de.translation),
+        if (at != null) (key: const ValueHintsDefaultValueString('dup_AT'), translation: at.translation),
+        if (ch != null) (key: const ValueHintsDefaultValueString('dup_CH'), translation: ch.translation),
+      ]);
+    } else if (widget.dataType == RenderHintsDataType.Language) {
+      final de = translated.firstWhereOrNull((e) => e.key.toJson() == 'de');
+      final en = translated.firstWhereOrNull((e) => e.key.toJson() == 'en');
+
+      translated.insertAll(0, [
+        if (de != null) (key: const ValueHintsDefaultValueString('dup_de'), translation: de.translation),
+        if (en != null) (key: const ValueHintsDefaultValueString('dup_en'), translation: en.translation),
+      ]);
+    }
 
     return translated
         .map((e) => DropdownMenuItem<ValueHintsDefaultValue>(
