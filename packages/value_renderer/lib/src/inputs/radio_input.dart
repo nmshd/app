@@ -37,8 +37,10 @@ class RadioInput extends FormField<ValueHintsDefaultValue?> {
                   ),
                 ...values.map(
                   (option) => InputDecorator(
-                    decoration: decoration ?? const InputDecoration(border: InputBorder.none),
+                    decoration: decoration?.copyWith(border: InputBorder.none, contentPadding: EdgeInsets.zero) ??
+                        const InputDecoration(border: InputBorder.none, contentPadding: EdgeInsets.zero),
                     child: RadioListTile<ValueHintsDefaultValue>(
+                      contentPadding: EdgeInsets.zero,
                       title: TranslatedText(option.displayName),
                       value: option.key,
                       groupValue: field.value,
