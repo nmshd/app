@@ -43,8 +43,9 @@ class TextInputState extends State<TextInput> {
     _controller = TextEditingController(text: initialValue?.value);
 
     if (widget.controller != null) {
-      _controller.addListener(() => widget.controller!.value =
-          validateInput(_controller.text) == null ? ValueRendererInputValueString(_controller.text) : ValueRendererValidationError());
+      _controller.addListener(() => widget.controller!.value = validateInput(_controller.text) == null && _controller.text.isNotEmpty
+          ? ValueRendererInputValueString(_controller.text)
+          : ValueRendererValidationError());
       if (initialValue != null) {
         widget.controller!.value = ValueRendererInputValueString(
           widget.initialValue!.value,
