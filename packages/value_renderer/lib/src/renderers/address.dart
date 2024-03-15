@@ -1,8 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:renderers/renderers.dart';
-import 'package:value_renderer/src/renderers/complex.dart';
 import 'package:value_renderer/value_renderer.dart';
+
+import 'complex_item.dart';
 
 class AddressRenderer extends StatefulWidget {
   final RenderHints renderHints;
