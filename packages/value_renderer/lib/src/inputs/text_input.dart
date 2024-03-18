@@ -7,25 +7,25 @@ import '../utils/utils.dart';
 import 'styles/input_decoration.dart';
 
 class TextInput extends StatefulWidget {
+  final bool mustBeFilledOut;
   final ValueRendererController? controller;
   final InputDecoration? decoration;
   final String? fieldName;
   final ValueHintsDefaultValueString? initialValue;
   final int? max;
-  final bool mustBeFilledOut;
   final String? pattern;
   final List<ValueHintsValue>? values;
 
   const TextInput({
-    super.key,
+    required this.mustBeFilledOut,
     this.controller,
     this.decoration,
     this.fieldName,
     this.initialValue,
     this.max,
-    required this.mustBeFilledOut,
     this.pattern,
     this.values,
+    super.key,
   });
 
   @override
@@ -43,20 +43,17 @@ class TextInputState extends State<TextInput> {
     _controller = TextEditingController(text: initialValue?.value);
 
     if (widget.controller != null) {
-      _controller.addListener(() => widget.controller!.value = validateInput(_controller.text) == null && _controller.text.isNotEmpty
-          ? ValueRendererInputValueString(_controller.text)
-          : ValueRendererValidationError());
-      if (initialValue != null) {
-        widget.controller!.value = ValueRendererInputValueString(
-          widget.initialValue!.value,
-        );
-      }
+      _controller.addListener(() => widget.controller!.value =
+          validateInput(_controller.text) == null ? ValueRendererInputValueString(_controller.text) : ValueRendererValidationError());
+
+      if (initialValue != null) widget.controller!.value = ValueRendererInputValueString(widget.initialValue!.value);
     }
   }
 
   @override
   void dispose() {
     _controller.dispose();
+
     super.dispose();
   }
 
