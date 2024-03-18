@@ -345,7 +345,7 @@
                "label": "Empfänger"
             },
             "userId": {
-               "label": "Nummer"
+               "label": "Persönliche Postnummer"
             },
             "deliveryBoxId": {
                "label": "Packstationsnummer"
