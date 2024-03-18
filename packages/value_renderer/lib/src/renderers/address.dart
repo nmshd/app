@@ -53,7 +53,10 @@ class _AddressRendererState extends State<AddressRenderer> {
         controller.addListener(() {
           _value[key] = controller.value;
 
-          if (controller.value is ValueRendererValidationError) return;
+          if (controller.value is ValueRendererValidationError) {
+            widget.controller!.value = ValueRendererValidationError();
+            return;
+          }
 
           _attributeValue = composeIdentityAttributeValue(
             isComplex: widget.renderHints.editType == RenderHintsEditType.Complex,
