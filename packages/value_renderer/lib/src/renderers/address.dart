@@ -12,6 +12,7 @@ class AddressRenderer extends StatefulWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
+  final List<String> optionalValues;
   final ValueRendererController? controller;
   final String? translatedText;
   final AttributeValue? initialValue;
@@ -24,6 +25,7 @@ class AddressRenderer extends StatefulWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
+    required this.optionalValues,
     this.controller,
     this.translatedText,
     this.initialValue,
@@ -36,7 +38,6 @@ class AddressRenderer extends StatefulWidget {
 class _AddressRendererState extends State<AddressRenderer> {
   Map<String, ValueRendererController>? _controllers;
   IdentityAttribute? _attributeValue;
-
   final Map<String, dynamic> _value = {};
 
   @override
@@ -92,6 +93,7 @@ class _AddressRendererState extends State<AddressRenderer> {
     return ComplexItemRenderer(
       renderHints: widget.renderHints,
       controller: widget.controller,
+      optionalValues: widget.optionalValues,
       controllers: _controllers,
       valueHints: widget.valueHints,
       valueType: widget.valueType,

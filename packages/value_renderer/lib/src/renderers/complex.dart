@@ -94,9 +94,12 @@ class _ComplexRendererState extends State<ComplexRenderer> {
       );
     }
 
-    if (_isAddress) {
+    final optionalAddressValues = _optionalAddressValues(widget.valueType);
+
+    if (optionalAddressValues != null) {
       return AddressRenderer(
         controller: widget.controller,
+        optionalValues: optionalAddressValues,
         translatedText: translatedText,
         renderHints: widget.renderHints,
         valueHints: widget.valueHints,
@@ -122,16 +125,14 @@ class _ComplexRendererState extends State<ComplexRenderer> {
     );
   }
 
-  bool get _isAddress => _isOfTypeAddress(widget.initialValue?.atType) || _isOfTypeAddress(widget.valueType);
-
-  bool _isOfTypeAddress(String? valueType) {
-    return [
-      'StreetAddress',
-      'StreetAddressAttributeValue',
-      'DeliveryBoxAddress',
-      'DeliveryBoxAddressAttributeValue',
-      'PostOfficeBoxAddress',
-      'PostOfficeBoxAddressAttributeValue'
-    ].contains(valueType);
+  List<String>? _optionalAddressValues(String? valueType) {
+    switch (valueType) {
+      case 'StreetAddress':
+      case 'PostOfficeBoxAddress':
+        return ['state'];
+      case 'DeliveryBoxAddress':
+        return ['phoneNumber', 'state'];
+    }
+    return null;
   }
 }

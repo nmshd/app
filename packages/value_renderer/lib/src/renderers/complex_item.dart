@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:translated_text/translated_text.dart';
 
 import '../../value_renderer.dart';
@@ -11,6 +12,7 @@ class ComplexItemRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
+  final List<String>? optionalValues;
   final ValueRendererController? controller;
   final Map<String, ValueRendererController>? controllers;
   final String? translatedText;
@@ -24,6 +26,7 @@ class ComplexItemRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
+    this.optionalValues,
     this.controller,
     this.controllers,
     this.translatedText,
@@ -44,8 +47,7 @@ class ComplexItemRenderer extends StatelessWidget {
         Column(
           children: renderHints.propertyHints!.keys
               .map((key) {
-                final translatedKey = 'i18n://attributes.values.$valueType.$key.label';
-
+                final fieldName = FlutterI18n.translate(context, 'attributes.values.$valueType.$key.label');
                 final itemRenderHints = renderHints.propertyHints![key];
                 final itemValueHints = valueHints.propertyHints![key] ?? const ValueHints();
                 final itemInitialDynamicValue = initialValue?.toJson()[key];
@@ -55,7 +57,7 @@ class ComplexItemRenderer extends StatelessWidget {
                   initialValue: itemInitialValue,
                   renderHints: itemRenderHints!,
                   valueHints: itemValueHints,
-                  fieldName: translatedKey,
+                  fieldName: optionalValues != null && !optionalValues!.contains(key) ? '$fieldName*' : fieldName,
                   controller: controllers?[key],
                   decoration: decoration,
                   expandFileReference: expandFileReference,
