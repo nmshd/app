@@ -18,7 +18,6 @@ class AddressRenderer extends StatefulWidget {
   final AttributeValue? initialValue;
 
   const AddressRenderer({
-    super.key,
     required this.renderHints,
     required this.valueHints,
     required this.valueType,
@@ -29,6 +28,7 @@ class AddressRenderer extends StatefulWidget {
     this.controller,
     this.translatedText,
     this.initialValue,
+    super.key,
   });
 
   @override
@@ -38,11 +38,14 @@ class AddressRenderer extends StatefulWidget {
 class _AddressRendererState extends State<AddressRenderer> {
   Map<String, ValueRendererController>? _controllers;
   IdentityAttribute? _attributeValue;
+  List<String>? _keys;
   final Map<String, dynamic> _value = {};
 
   @override
   void initState() {
     super.initState();
+
+    setState(() => _keys = _getKeysOrder(widget.valueType));
 
     if (widget.controller != null) {
       _controllers = <String, ValueRendererController>{};
@@ -94,6 +97,7 @@ class _AddressRendererState extends State<AddressRenderer> {
       renderHints: widget.renderHints,
       controller: widget.controller,
       optionalValues: widget.optionalValues,
+      keys: _keys,
       controllers: _controllers,
       valueHints: widget.valueHints,
       valueType: widget.valueType,
@@ -101,5 +105,17 @@ class _AddressRendererState extends State<AddressRenderer> {
       chooseFile: widget.chooseFile,
       openFileDetails: widget.openFileDetails,
     );
+  }
+
+  List<String>? _getKeysOrder(String? valueType) {
+    switch (valueType) {
+      case 'StreetAddress':
+        return ['recipient', 'street', 'houseNo', 'zipCode', 'city', 'state', 'country'];
+      case 'PostOfficeBoxAddress':
+        return ['recipient', 'boxId', 'zipCode', 'city', 'state', 'country'];
+      case 'DeliveryBoxAddress':
+        return ['recipient', 'deliveryBoxId', 'userId', 'phoneNumber', 'zipCode', 'city', 'state', 'country'];
+    }
+    return null;
   }
 }

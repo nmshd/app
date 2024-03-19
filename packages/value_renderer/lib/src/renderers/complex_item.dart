@@ -13,6 +13,7 @@ class ComplexItemRenderer extends StatelessWidget {
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
   final List<String>? optionalValues;
+  final List<String>? keys;
   final ValueRendererController? controller;
   final Map<String, ValueRendererController>? controllers;
   final String? translatedText;
@@ -27,6 +28,7 @@ class ComplexItemRenderer extends StatelessWidget {
     required this.chooseFile,
     required this.openFileDetails,
     this.optionalValues,
+    this.keys,
     this.controller,
     this.controllers,
     this.translatedText,
@@ -37,6 +39,8 @@ class ComplexItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hintKeys = keys ?? renderHints.propertyHints!.keys;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -45,7 +49,7 @@ class ComplexItemRenderer extends StatelessWidget {
           const SizedBox(height: 12),
         ],
         Column(
-          children: renderHints.propertyHints!.keys
+          children: hintKeys
               .map((key) {
                 final fieldName = FlutterI18n.translate(context, 'attributes.values.$valueType.$key.label');
                 final itemRenderHints = renderHints.propertyHints![key];
