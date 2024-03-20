@@ -6,9 +6,8 @@ final DateTime defaultLastDate = DateTime(2100);
 
 class DatepickerInput extends StatelessWidget {
   final DateFormat dateFormat;
-  final TextStyle? dateTextStyle;
-  final InputDecoration? decoration;
-  final bool? enabled;
+  final InputDecoration decoration;
+  final bool enabled;
   final String? fieldName;
   final DateTime? initialDate;
   final DateTime firstDate;
@@ -19,8 +18,7 @@ class DatepickerInput extends StatelessWidget {
   DatepickerInput({
     super.key,
     required this.dateFormat,
-    this.dateTextStyle,
-    this.decoration,
+    required this.decoration,
     this.enabled = true,
     this.fieldName,
     DateTime? firstDate,
@@ -30,6 +28,20 @@ class DatepickerInput extends StatelessWidget {
     required this.selectedDate,
   })  : firstDate = firstDate ?? defaultFirstDate,
         lastDate = lastDate ?? defaultLastDate;
+
+  @override
+  Widget build(BuildContext context) {
+    String? text;
+
+    if (selectedDate != null) text = dateFormat.format(selectedDate!);
+
+    return _DecoratedDatePicker(
+      text: text,
+      isEmpty: selectedDate == null,
+      decoration: decoration.copyWith(enabled: enabled),
+      onPressed: enabled ? () => _selectDate(context) : null,
+    );
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime initialDateTime;
@@ -69,55 +81,31 @@ class DatepickerInput extends StatelessWidget {
       lastDate: lastDate,
     );
   }
-
-  @override
-  Widget build(BuildContext context) {
-    String? text;
-
-    if (selectedDate != null) text = dateFormat.format(selectedDate!);
-
-    TextStyle? textStyle;
-
-    textStyle = dateTextStyle ?? dateTextStyle;
-
-    return _InputDropdown(
-      text: text,
-      textStyle: textStyle,
-      isEmpty: selectedDate == null,
-      decoration: decoration,
-      onPressed: enabled! ? () => _selectDate(context) : null,
-    );
-  }
 }
 
-class _InputDropdown extends StatefulWidget {
-  const _InputDropdown({
-    this.decoration,
-    required this.text,
-    required this.isEmpty,
-    this.onPressed,
-    this.textStyle,
-  });
-
-  final InputDecoration? decoration;
+class _DecoratedDatePicker extends StatefulWidget {
+  final InputDecoration decoration;
   final bool isEmpty;
   final VoidCallback? onPressed;
   final String? text;
-  final TextStyle? textStyle;
+
+  const _DecoratedDatePicker({
+    required this.decoration,
+    required this.text,
+    required this.isEmpty,
+    this.onPressed,
+  });
 
   @override
-  State<_InputDropdown> createState() => _InputDropdownState();
+  State<_DecoratedDatePicker> createState() => _DecoratedDatePickerState();
 }
 
-class _InputDropdownState extends State<_InputDropdown> {
+class _DecoratedDatePickerState extends State<_DecoratedDatePicker> {
   bool focused = false;
 
   @override
   Widget build(BuildContext context) {
-    final InputDecoration effectiveDecoration = widget.decoration ??
-        const InputDecoration(
-          suffixIcon: Icon(Icons.arrow_drop_down),
-        );
+    final theme = Theme.of(context);
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -130,10 +118,8 @@ class _InputDropdownState extends State<_InputDropdown> {
           child: InputDecorator(
             isHovering: focused,
             isEmpty: widget.isEmpty,
-            decoration: effectiveDecoration.applyDefaults(
-              Theme.of(context).inputDecorationTheme,
-            ),
-            child: widget.text == null ? Text('', style: widget.textStyle) : Text(widget.text!, style: widget.textStyle),
+            decoration: widget.decoration.applyDefaults(Theme.of(context).inputDecorationTheme),
+            child: Text(widget.text ?? '', style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal)),
           ),
         ),
       ),
