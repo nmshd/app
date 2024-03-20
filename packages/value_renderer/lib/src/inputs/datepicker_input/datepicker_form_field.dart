@@ -13,7 +13,6 @@ class DatepickerFormField extends FormField<DateTime> {
   DatepickerFormField({
     super.key,
     ValueRendererController? controller,
-    TextStyle? dateTextStyle,
     required DateFormat dateFormat,
     InputDecoration? decoration,
     required bool mustBeFilledOut,
@@ -43,7 +42,6 @@ class DatepickerFormField extends FormField<DateTime> {
 
             return DatepickerInput(
               dateFormat: dateFormat,
-              dateTextStyle: dateTextStyle,
               enabled: enabled,
               firstDate: firstDate,
               fieldName: fieldName,
@@ -51,9 +49,11 @@ class DatepickerFormField extends FormField<DateTime> {
               lastDate: lastDate,
               onDateSelected: onChangedHandler,
               selectedDate: field.value,
-              decoration: decoration != null
-                  ? decoration.copyWith(labelText: fieldName, errorText: field.errorText)
-                  : inputDecoration.copyWith(labelText: fieldName, errorText: field.errorText, suffixIcon: const Icon(Icons.calendar_today)),
+              decoration: (decoration ?? inputDecoration).copyWith(
+                labelText: fieldName,
+                errorText: field.errorText,
+                suffixIcon: const Icon(Icons.calendar_today),
+              ),
             );
           },
         );
