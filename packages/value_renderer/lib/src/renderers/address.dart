@@ -59,6 +59,7 @@ class _AddressRendererState extends State<AddressRenderer> {
 
           if (controller.value is ValueRendererValidationError) {
             widget.controller!.value = ValueRendererValidationError();
+
             return;
           }
 
@@ -71,6 +72,7 @@ class _AddressRendererState extends State<AddressRenderer> {
 
           if (_attributeValue == null) {
             widget.controller!.value = ValueRendererValidationError();
+
             return;
           }
 
