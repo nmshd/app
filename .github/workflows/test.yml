@@ -7,8 +7,8 @@ jobs:
   run-checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2.8.0
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
       - run: dart pub global activate melos
       - run: melos bootstrap
       - run: melos analyze
@@ -17,8 +17,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2.8.0
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
       - run: dart pub global activate melos
       - run: melos bootstrap
       - run: melos test
