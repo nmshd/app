@@ -7,7 +7,7 @@ final DateTime defaultLastDate = DateTime(2100);
 class DatepickerInput extends StatelessWidget {
   final DateFormat dateFormat;
   final InputDecoration decoration;
-  final bool? enabled;
+  final bool enabled;
   final String? fieldName;
   final DateTime? initialDate;
   final DateTime firstDate;
@@ -39,7 +39,7 @@ class DatepickerInput extends StatelessWidget {
       text: text,
       isEmpty: selectedDate == null,
       decoration: decoration.copyWith(enabled: enabled),
-      onPressed: enabled! ? () => _selectDate(context) : null,
+      onPressed: enabled ? () => _selectDate(context) : null,
     );
   }
 
