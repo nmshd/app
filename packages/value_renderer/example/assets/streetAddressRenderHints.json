@@ -2,42 +2,41 @@
     "technicalType": "Object",
     "editType": "Complex",
     "propertyHints": {
-      "recipient": {
-        "technicalType": "String",
-        "editType": "InputLike",
-        "propertyHints": {}
-      },
-      "street": {
-        "technicalType": "String",
-        "editType": "InputLike",
-        "propertyHints": {}
-      },
-      "houseNo": {
-        "technicalType": "String",
-        "editType": "InputLike",
-        "propertyHints": {}
-      },
-      "zipCode": {
-        "technicalType": "String",
-        "editType": "InputLike",
-        "propertyHints": {}
-      },
-      "city": {
-        "technicalType": "String",
-        "editType": "InputLike",
-        "propertyHints": {}
-      },
-      "country": {
-        "technicalType": "String",
-        "editType": "SelectLike",
-        "dataType": "Country",
-        "propertyHints": {}
-      },
-      "state": {
-        "technicalType": "String",
-        "editType": "InputLike",
-        "propertyHints": {}
-      }
+        "recipient": {
+            "technicalType": "String",
+            "editType": "InputLike",
+            "propertyHints": {}
+        },
+        "street": {
+            "technicalType": "String",
+            "editType": "InputLike",
+            "propertyHints": {}
+        },
+        "houseNo": {
+            "technicalType": "String",
+            "editType": "InputLike",
+            "propertyHints": {}
+        },
+        "zipCode": {
+            "technicalType": "String",
+            "editType": "InputLike",
+            "propertyHints": {}
+        },
+        "city": {
+            "technicalType": "String",
+            "editType": "InputLike",
+            "propertyHints": {}
+        },
+        "country": {
+            "technicalType": "String",
+            "editType": "SelectLike",
+            "dataType": "Country",
+            "propertyHints": {}
+        },
+        "state": {
+            "technicalType": "String",
+            "editType": "InputLike",
+            "propertyHints": {}
+        }
     }
-  }
-  
+}

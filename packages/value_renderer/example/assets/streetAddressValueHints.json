@@ -1,112 +1,112 @@
 {
-  "@type": "ValueHints",
-  "propertyHints": {
-    "recipient": {
-      "@type": "ValueHints",
-      "propertyHints": {}
-    },
-    "street": {
-      "@type": "ValueHints",
-      "max": 100,
-      "propertyHints": {}
-    },
-    "houseNo": {
-      "@type": "ValueHints",
-      "max": 100,
-      "propertyHints": {}
-    },
-    "zipCode": {
-      "@type": "ValueHints",
-      "max": 100,
-      "propertyHints": {}
-    },
-    "city": {
-      "@type": "ValueHints",
-      "max": 100,
-      "propertyHints": {}
-    },
-    "country": {
-      "@type": "ValueHints",
-      "min": 2,
-      "max": 2,
-      "values": [
-        {
-          "@type": "ValueHintsValue",
-          "key": "AF",
-          "displayName": "i18n://attributes.values.countries.AF"
+    "@type": "ValueHints",
+    "propertyHints": {
+        "recipient": {
+            "@type": "ValueHints",
+            "propertyHints": {}
         },
-        {
-          "@type": "ValueHintsValue",
-          "key": "AL",
-          "displayName": "i18n://attributes.values.countries.AL"
+        "street": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
         },
-        {
-          "@type": "ValueHintsValue",
-          "key": "AS",
-          "displayName": "i18n://attributes.values.countries.AS"
+        "houseNo": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
         },
-        {
-          "@type": "ValueHintsValue",
-          "key": "AD",
-          "displayName": "i18n://attributes.values.countries.AD"
+        "zipCode": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
         },
-        {
-          "@type": "ValueHintsValue",
-          "key": "AO",
-          "displayName": "i18n://attributes.values.countries.AO"
+        "city": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
         },
-        {
-          "@type": "ValueHintsValue",
-          "key": "AI",
-          "displayName": "i18n://attributes.values.countries.AI"
+        "country": {
+            "@type": "ValueHints",
+            "min": 2,
+            "max": 2,
+            "values": [
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "AF",
+                    "displayName": "i18n://attributes.values.countries.AF"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "AL",
+                    "displayName": "i18n://attributes.values.countries.AL"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "AS",
+                    "displayName": "i18n://attributes.values.countries.AS"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "AD",
+                    "displayName": "i18n://attributes.values.countries.AD"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "AO",
+                    "displayName": "i18n://attributes.values.countries.AO"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "AI",
+                    "displayName": "i18n://attributes.values.countries.AI"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "VI",
+                    "displayName": "i18n://attributes.values.countries.VI"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "WS",
+                    "displayName": "i18n://attributes.values.countries.WS"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "WF",
+                    "displayName": "i18n://attributes.values.countries.WF"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "YT",
+                    "displayName": "i18n://attributes.values.countries.YT"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "YE",
+                    "displayName": "i18n://attributes.values.countries.YE"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "ZA",
+                    "displayName": "i18n://attributes.values.countries.ZA"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "ZM",
+                    "displayName": "i18n://attributes.values.countries.ZM"
+                },
+                {
+                    "@type": "ValueHintsValue",
+                    "key": "ZW",
+                    "displayName": "i18n://attributes.values.countries.ZW"
+                }
+            ],
+            "propertyHints": {}
         },
-        {
-          "@type": "ValueHintsValue",
-          "key": "VI",
-          "displayName": "i18n://attributes.values.countries.VI"
-        },
-        {
-          "@type": "ValueHintsValue",
-          "key": "WS",
-          "displayName": "i18n://attributes.values.countries.WS"
-        },
-        {
-          "@type": "ValueHintsValue",
-          "key": "WF",
-          "displayName": "i18n://attributes.values.countries.WF"
-        },
-        {
-          "@type": "ValueHintsValue",
-          "key": "YT",
-          "displayName": "i18n://attributes.values.countries.YT"
-        },
-        {
-          "@type": "ValueHintsValue",
-          "key": "YE",
-          "displayName": "i18n://attributes.values.countries.YE"
-        },
-        {
-          "@type": "ValueHintsValue",
-          "key": "ZA",
-          "displayName": "i18n://attributes.values.countries.ZA"
-        },
-        {
-          "@type": "ValueHintsValue",
-          "key": "ZM",
-          "displayName": "i18n://attributes.values.countries.ZM"
-        },
-        {
-          "@type": "ValueHintsValue",
-          "key": "ZW",
-          "displayName": "i18n://attributes.values.countries.ZW"
+        "state": {
+            "@type": "ValueHints",
+            "max": 100,
+            "propertyHints": {}
         }
-      ],
-      "propertyHints": {}
-    },
-    "state": {
-      "@type": "ValueHints",
-      "max": 100,
-      "propertyHints": {}
     }
-  }
 }
