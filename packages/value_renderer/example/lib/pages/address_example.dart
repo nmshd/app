@@ -101,10 +101,10 @@ class _AddressExampleState extends State<AddressExample> {
   }
 
   bool get _addressHintsExist =>
-      _streetAddressValueHints != null ||
-      _deliveryBoxAddressValueHints != null ||
-      _postOfficeBoxAddressValueHints != null ||
-      _streetAddressRenderHints != null ||
-      _deliveryBoxAddressRenderHints != null ||
+      _streetAddressValueHints != null &&
+      _deliveryBoxAddressValueHints != null &&
+      _postOfficeBoxAddressValueHints != null &&
+      _streetAddressRenderHints != null &&
+      _deliveryBoxAddressRenderHints != null &&
       _postOfficeBoxAddressRenderHints != null;
 }
