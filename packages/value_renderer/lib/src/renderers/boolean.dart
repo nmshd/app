@@ -70,6 +70,7 @@ class BooleanRenderer extends StatelessWidget {
         initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
+        dataType: dataType,
         values: values!,
       );
     }

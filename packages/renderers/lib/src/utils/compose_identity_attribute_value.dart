@@ -6,6 +6,7 @@ IdentityAttribute? composeIdentityAttributeValue({
   ValueRendererInputValue? inputValue,
   required bool isComplex,
   required String currentAddress,
+  List<String>? tags,
 }) {
   if (inputValue == null) return null;
   if (inputValue is ValueRendererInputValueString && inputValue.value == '') return null;
@@ -15,6 +16,7 @@ IdentityAttribute? composeIdentityAttributeValue({
 
     return IdentityAttribute(
       owner: currentAddress,
+      tags: tags,
       value: IdentityAttributeValue.fromJson({
         '@type': valueType,
         'day': birthDateInputValue.value.day,

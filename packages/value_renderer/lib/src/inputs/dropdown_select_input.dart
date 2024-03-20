@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -14,6 +15,7 @@ class DropdownSelectInput extends StatefulWidget {
   final ValueHintsDefaultValue? initialValue;
   final bool mustBeFilledOut;
   final RenderHintsTechnicalType technicalType;
+  final RenderHintsDataType? dataType;
   final List<ValueHintsValue> values;
 
   const DropdownSelectInput({
@@ -24,6 +26,7 @@ class DropdownSelectInput extends StatefulWidget {
     this.initialValue,
     required this.mustBeFilledOut,
     required this.technicalType,
+    required this.dataType,
     required this.values,
   });
 
@@ -73,21 +76,59 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
               : null,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(
-              inputValue: newValue,
+              inputValue: newValue is ValueHintsDefaultValueString && newValue.value.startsWith('dup_')
+                  ? ValueHintsDefaultValueString(newValue.value.substring(4))
+                  : newValue,
               type: widget.technicalType,
             );
 
             setState(() => _selectedOption = newValue);
           },
           isExpanded: true,
-          items: widget.values.map<DropdownMenuItem<ValueHintsDefaultValue>>((ValueHintsValue value) {
-            return DropdownMenuItem<ValueHintsDefaultValue>(
-              value: value.key,
-              child: TranslatedText(value.displayName),
-            );
-          }).toList(),
+          items: _buildMenuItems(),
         ),
       ],
     );
+  }
+
+  List<DropdownMenuItem<ValueHintsDefaultValue>> _buildMenuItems() {
+    final translated = widget.values
+        .map(
+          (e) => (
+            key: e.key,
+            translation: e.displayName.startsWith('i18n://') ? FlutterI18n.translate(context, e.displayName.substring(7)) : e.displayName,
+          ),
+        )
+        .toList();
+
+    translated.sort((a, b) => a.translation.compareTo(b.translation));
+
+    // add DACH and DE/EN duplicates (values may not occur more than once, so they are prefixed with 'dup_')
+    if (widget.dataType == RenderHintsDataType.Country) {
+      final de = translated.firstWhereOrNull((e) => e.key.toJson() == 'DE');
+      final at = translated.firstWhereOrNull((e) => e.key.toJson() == 'AT');
+      final ch = translated.firstWhereOrNull((e) => e.key.toJson() == 'CH');
+
+      translated.insertAll(0, [
+        if (de != null) (key: const ValueHintsDefaultValueString('dup_DE'), translation: de.translation),
+        if (at != null) (key: const ValueHintsDefaultValueString('dup_AT'), translation: at.translation),
+        if (ch != null) (key: const ValueHintsDefaultValueString('dup_CH'), translation: ch.translation),
+      ]);
+    } else if (widget.dataType == RenderHintsDataType.Language) {
+      final de = translated.firstWhereOrNull((e) => e.key.toJson() == 'de');
+      final en = translated.firstWhereOrNull((e) => e.key.toJson() == 'en');
+
+      translated.insertAll(0, [
+        if (de != null) (key: const ValueHintsDefaultValueString('dup_de'), translation: de.translation),
+        if (en != null) (key: const ValueHintsDefaultValueString('dup_en'), translation: en.translation),
+      ]);
+    }
+
+    return translated
+        .map((e) => DropdownMenuItem<ValueHintsDefaultValue>(
+              value: e.key,
+              child: TranslatedText(e.translation),
+            ))
+        .toList();
   }
 }

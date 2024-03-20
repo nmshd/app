@@ -3,7 +3,8 @@ import 'relationship_attribute_value.dart';
 class ProprietaryJSONAttributeValue extends RelationshipAttributeValue {
   final String title;
   final String? description;
-  final Map<String, dynamic> value;
+  // can be anything json can be (Map<String, dynamic>, List<dynamic>, String, int, double, bool, null)
+  final dynamic value;
 
   const ProprietaryJSONAttributeValue({
     required this.title,
@@ -14,7 +15,7 @@ class ProprietaryJSONAttributeValue extends RelationshipAttributeValue {
   factory ProprietaryJSONAttributeValue.fromJson(Map json) => ProprietaryJSONAttributeValue(
         title: json['title'],
         description: json['description'],
-        value: Map<String, dynamic>.from(json['value']),
+        value: json['value'],
       );
 
   @override
