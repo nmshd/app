@@ -38,7 +38,7 @@ class DatepickerInput extends StatelessWidget {
     return _DecoratedDatePicker(
       text: text,
       isEmpty: selectedDate == null,
-      decoration: decoration,
+      decoration: decoration.copyWith(enabled: enabled),
       onPressed: enabled! ? () => _selectDate(context) : null,
     );
   }
