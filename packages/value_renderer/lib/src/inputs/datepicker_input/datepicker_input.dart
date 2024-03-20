@@ -119,9 +119,7 @@ class _DecoratedDatePickerState extends State<_DecoratedDatePicker> {
             isHovering: focused,
             isEmpty: widget.isEmpty,
             decoration: widget.decoration.applyDefaults(Theme.of(context).inputDecorationTheme),
-            child: widget.text != null
-                ? Text(widget.text!, style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal))
-                : const Text(''),
+            child: Text(widget.text ?? '', style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal)),
           ),
         ),
       ),
