@@ -106,6 +106,8 @@ class _AddressRendererState extends State<AddressRenderer> {
       expandFileReference: widget.expandFileReference,
       chooseFile: widget.chooseFile,
       openFileDetails: widget.openFileDetails,
+      translatedText: widget.translatedText,
+      initialValue: widget.initialValue,
     );
   }
 
