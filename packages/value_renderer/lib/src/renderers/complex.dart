@@ -9,7 +9,7 @@ import '../utils/utils.dart';
 import '../value_renderer.dart';
 import '../value_renderer_controller.dart';
 
-class ComplexRenderer extends StatefulWidget {
+class ComplexRenderer extends StatelessWidget {
   final ValueRendererController? controller;
   final InputDecoration? decoration;
   final RenderHintsDataType? dataType;
@@ -42,10 +42,72 @@ class ComplexRenderer extends StatefulWidget {
   });
 
   @override
-  State<ComplexRenderer> createState() => _ComplexRendererState();
+  Widget build(BuildContext context) {
+    final translatedText = fieldName == null
+        ? null
+        : fieldName!.startsWith('i18n://')
+            ? FlutterI18n.translate(context, fieldName!.substring(7))
+            : fieldName;
+
+    if (initialValue is BirthDateAttributeValue || valueType == 'BirthDate') {
+      return DatepickerFormField(
+        controller: controller,
+        emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
+        initialValueAttribute: initialValue,
+        decoration: decoration,
+        fieldName: translatedText,
+        mustBeFilledOut: mustBeFilledOut,
+        dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
+      );
+    }
+
+    // TODO: add renderers for addresses (StreetAddress, ...)
+
+    return _GenericComplexRenderer(
+      translatedText: translatedText,
+      controller: controller,
+      renderHints: renderHints,
+      valueHints: valueHints,
+      valueType: valueType,
+      initialValue: initialValue,
+      decoration: decoration,
+      expandFileReference: expandFileReference,
+      chooseFile: chooseFile,
+      openFileDetails: openFileDetails,
+    );
+  }
 }
 
-class _ComplexRendererState extends State<ComplexRenderer> {
+class _GenericComplexRenderer extends StatefulWidget {
+  final ValueRendererController? controller;
+  final String? translatedText;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
+  final String valueType;
+  final AttributeValue? initialValue;
+  final InputDecoration? decoration;
+  final Future<FileDVO> Function(String) expandFileReference;
+  final Future<FileDVO?> Function() chooseFile;
+  final void Function(FileDVO) openFileDetails;
+
+  const _GenericComplexRenderer({
+    this.controller,
+    required this.translatedText,
+    required this.renderHints,
+    required this.valueHints,
+    required this.valueType,
+    required this.initialValue,
+    required this.decoration,
+    required this.expandFileReference,
+    required this.chooseFile,
+    required this.openFileDetails,
+  });
+
+  @override
+  State<_GenericComplexRenderer> createState() => _GenericComplexRendererState();
+}
+
+class _GenericComplexRendererState extends State<_GenericComplexRenderer> {
   Map<String, dynamic> value = {};
   Map<String, ValueRendererController>? controllers;
 
@@ -81,29 +143,11 @@ class _ComplexRendererState extends State<ComplexRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    String? translatedText;
-
-    if (widget.fieldName != null) {
-      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName;
-    }
-
-    if (widget.initialValue is BirthDateAttributeValue || widget.valueType == 'BirthDate') {
-      return DatepickerFormField(
-        controller: widget.controller,
-        emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
-        initialValueAttribute: widget.initialValue,
-        decoration: widget.decoration,
-        fieldName: translatedText,
-        mustBeFilledOut: widget.mustBeFilledOut,
-        dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
-      );
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (translatedText != null) ...[
-          TranslatedText(translatedText, style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E))),
+        if (widget.translatedText != null) ...[
+          TranslatedText(widget.translatedText!, style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E))),
           const SizedBox(height: 12),
         ],
         if (widget.renderHints.propertyHints != null)
