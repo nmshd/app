@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:translated_text/translated_text.dart';
+import 'package:value_renderer/src/renderers/address/street_address.dart';
 
 import '../inputs/inputs.dart';
 import '../utils/utils.dart';
@@ -62,6 +63,17 @@ class ComplexRenderer extends StatelessWidget {
     }
 
     // TODO: add renderers for addresses (StreetAddress, ...)
+
+    if (initialValue is StreetAddressAttributeValue || valueType == 'StreetAddress') {
+      return StreetAddressRenderer(
+        translatedText: translatedText,
+        controller: controller,
+        renderHints: renderHints,
+        valueHints: valueHints,
+        initialValue: initialValue,
+        decoration: decoration,
+      );
+    }
 
     return _GenericComplexRenderer(
       translatedText: translatedText,
