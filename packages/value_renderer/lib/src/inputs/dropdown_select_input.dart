@@ -17,6 +17,7 @@ class DropdownSelectInput extends StatefulWidget {
   final RenderHintsTechnicalType technicalType;
   final RenderHintsDataType? dataType;
   final List<ValueHintsValue> values;
+  final Function(String)? onChanged;
 
   const DropdownSelectInput({
     super.key,
@@ -24,6 +25,7 @@ class DropdownSelectInput extends StatefulWidget {
     this.decoration,
     this.fieldName,
     this.initialValue,
+    this.onChanged,
     required this.mustBeFilledOut,
     required this.technicalType,
     required this.dataType,
@@ -81,6 +83,11 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
                   : newValue,
               type: widget.technicalType,
             );
+
+            if (widget.onChanged != null) {
+              final value = newValue as ValueHintsDefaultValueString;
+              widget.onChanged!(value.value);
+            }
 
             setState(() => _selectedOption = newValue);
           },
