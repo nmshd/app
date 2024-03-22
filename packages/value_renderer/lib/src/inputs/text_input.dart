@@ -15,6 +15,7 @@ class TextInput extends StatefulWidget {
   final bool mustBeFilledOut;
   final String? pattern;
   final List<ValueHintsValue>? values;
+  final Function(String)? onChanged;
 
   const TextInput({
     super.key,
@@ -26,6 +27,7 @@ class TextInput extends StatefulWidget {
     required this.mustBeFilledOut,
     this.pattern,
     this.values,
+    this.onChanged,
   });
 
   @override
@@ -69,6 +71,7 @@ class TextInputState extends State<TextInput> {
 
     return Form(
       child: TextFormField(
+        onChanged: widget.onChanged,
         maxLength: widget.max,
         controller: _controller,
         autovalidateMode: AutovalidateMode.always,
