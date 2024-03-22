@@ -90,7 +90,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
           TextInput(
             mustBeFilledOut: false,
             initialValue: null,
-            onChanged: (value) => _onChanged(key: 'state', value: value, required: false),
+            onChanged: (value) => _onChanged(key: 'state', value: value, requiredValue: false),
             values: widget.valueHints.propertyHints!['state']!.values,
             pattern: widget.valueHints.propertyHints!['state']!.pattern,
             fieldName: _fieldName(context, 'state'),
@@ -116,8 +116,8 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
     return _requiredValues.contains(key) ? '$translation*' : translation;
   }
 
-  void _onChanged({bool required = true, required String key, required String value}) {
-    if (value.isEmpty && required) {
+  void _onChanged({bool requiredValue = true, required String key, required String value}) {
+    if (value.isEmpty && requiredValue) {
       _valueMap.remove(key);
       _validateForm();
 
