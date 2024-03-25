@@ -7,27 +7,29 @@ import '../utils/utils.dart';
 import 'styles/input_decoration.dart';
 
 class TextInput extends StatefulWidget {
+  final bool mustBeFilledOut;
   final ValueRendererController? controller;
   final InputDecoration? decoration;
   final String? fieldName;
   final ValueHintsDefaultValueString? initialValue;
   final int? max;
-  final bool mustBeFilledOut;
   final String? pattern;
   final List<ValueHintsValue>? values;
   final Function(String)? onChanged;
+  final AutovalidateMode? autovalidateMode;
 
   const TextInput({
-    super.key,
+    required this.mustBeFilledOut,
     this.controller,
     this.decoration,
     this.fieldName,
-    required this.initialValue,
+    this.initialValue,
     this.max,
-    required this.mustBeFilledOut,
     this.pattern,
     this.values,
     this.onChanged,
+    this.autovalidateMode = AutovalidateMode.always,
+    super.key,
   });
 
   @override
@@ -48,9 +50,7 @@ class TextInputState extends State<TextInput> {
       _controller.addListener(() => widget.controller!.value =
           validateInput(_controller.text) == null ? ValueRendererInputValueString(_controller.text) : ValueRendererValidationError());
       if (initialValue != null) {
-        widget.controller!.value = ValueRendererInputValueString(
-          widget.initialValue!.value,
-        );
+        widget.controller!.value = ValueRendererInputValueString(widget.initialValue!.value);
       }
     }
   }
@@ -58,6 +58,7 @@ class TextInputState extends State<TextInput> {
   @override
   void dispose() {
     _controller.dispose();
+
     super.dispose();
   }
 
@@ -74,7 +75,7 @@ class TextInputState extends State<TextInput> {
         onChanged: widget.onChanged,
         maxLength: widget.max,
         controller: _controller,
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: widget.autovalidateMode,
         validator: (value) => validateInput(value),
         decoration:
             widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
