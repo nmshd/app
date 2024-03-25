@@ -10,7 +10,7 @@ class StreetAddressRenderer extends StatefulWidget {
   final ValueHints valueHints;
   final String? translatedText;
   final ValueRendererController? controller;
-  final AttributeValue? initialValue;
+  final StreetAddressAttributeValue? initialValue;
   final InputDecoration? decoration;
 
   const StreetAddressRenderer({
@@ -38,13 +38,12 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidateMode: AutovalidateMode.always,
       child: Column(
         children: [
-          // TODO: add missing initialValues
           TextInput(
-            mustBeFilledOut: false,
-            initialValue: null,
+            mustBeFilledOut: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            initialValue: _initialValue(widget.initialValue?.recipient),
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
@@ -52,8 +51,9 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: false,
-            initialValue: null,
+            mustBeFilledOut: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            initialValue: _initialValue(widget.initialValue?.street),
             onChanged: (value) => _onChanged(key: 'street', value: value),
             values: widget.valueHints.propertyHints!['street']!.values,
             pattern: widget.valueHints.propertyHints!['street']!.pattern,
@@ -61,8 +61,9 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: false,
-            initialValue: null,
+            mustBeFilledOut: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            initialValue: _initialValue(widget.initialValue?.houseNumber),
             onChanged: (value) => _onChanged(key: 'houseNo', value: value),
             values: widget.valueHints.propertyHints!['houseNo']!.values,
             pattern: widget.valueHints.propertyHints!['houseNo']!.pattern,
@@ -70,8 +71,9 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: false,
-            initialValue: null,
+            mustBeFilledOut: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            initialValue: _initialValue(widget.initialValue?.zipCode),
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
@@ -79,8 +81,9 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: false,
-            initialValue: null,
+            mustBeFilledOut: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            initialValue: _initialValue(widget.initialValue?.city),
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
@@ -89,7 +92,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
           const SizedBox(height: 16),
           TextInput(
             mustBeFilledOut: false,
-            initialValue: null,
+            initialValue: _initialValue(widget.initialValue?.state),
             onChanged: (value) => _onChanged(key: 'state', value: value, requiredValue: false),
             values: widget.valueHints.propertyHints!['state']!.values,
             pattern: widget.valueHints.propertyHints!['state']!.pattern,
@@ -100,6 +103,8 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'country', value: value),
             decoration: widget.decoration,
             mustBeFilledOut: false,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            initialValue: _initialValue(widget.initialValue?.country),
             technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
             dataType: widget.renderHints.propertyHints!['country']!.dataType,
             values: widget.valueHints.propertyHints!['country']!.values!,
@@ -134,6 +139,8 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
       widget.controller!.value = _formKey.currentState!.validate() && _containsAllRequiredValues ? _inputValueMap : ValueRendererValidationError();
     }
   }
+
+  ValueHintsDefaultValueString? _initialValue(String? value) => value != null ? ValueHintsDefaultValueString(value) : null;
 
   bool get _containsAllRequiredValues => _requiredValues.every((element) => _valueMap.containsKey(element));
 }
