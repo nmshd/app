@@ -73,7 +73,7 @@ class ComplexRenderer extends StatelessWidget {
       );
     }
 
-    if (initialValue is PostOfficeBoxAddressAttributeValue || valueType == 'DeliveryBoxAddress') {
+    if (initialValue is DeliveryBoxAddressAttributeValue || valueType == 'DeliveryBoxAddress') {
       return DeliveryBoxAddressRenderer(
         translatedText: translatedText,
         controller: controller,
