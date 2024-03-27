@@ -70,16 +70,14 @@ class TextInputState extends State<TextInput> {
       translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
     }
 
-    return Form(
-      child: TextFormField(
-        onChanged: widget.onChanged,
-        maxLength: widget.max,
-        controller: _controller,
-        autovalidateMode: widget.autovalidateMode,
-        validator: (value) => validateInput(value),
-        decoration:
-            widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
-      ),
+    return TextFormField(
+      onChanged: widget.onChanged,
+      maxLength: widget.max,
+      controller: _controller,
+      autovalidateMode: widget.autovalidateMode,
+      validator: (value) => validateInput(value),
+      decoration:
+          widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
     );
   }
 
