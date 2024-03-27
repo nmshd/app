@@ -61,7 +61,7 @@ class RequestRenderer extends StatelessWidget {
         );
       }).toList();
 
-      return ListView(children: responseItems);
+      return Column(children: responseItems);
     }
 
     final requestItems = request.items.mapIndexed((index, item) {
@@ -94,6 +94,6 @@ class RequestRenderer extends StatelessWidget {
       );
     }).toList();
 
-    return ListView(children: requestItems);
+    return Column(children: requestItems);
   }
 }
