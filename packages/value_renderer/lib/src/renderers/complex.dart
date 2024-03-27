@@ -111,28 +111,28 @@ class ComplexRenderer extends StatelessWidget {
 }
 
 class _GenericComplexRenderer extends StatefulWidget {
-  final ValueRendererController? controller;
-  final String? translatedText;
   final RenderHints renderHints;
   final ValueHints valueHints;
   final String valueType;
-  final AttributeValue? initialValue;
-  final InputDecoration? decoration;
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
+  final ValueRendererController? controller;
+  final AttributeValue? initialValue;
+  final InputDecoration? decoration;
+  final String? translatedText;
 
   const _GenericComplexRenderer({
-    this.controller,
-    required this.translatedText,
     required this.renderHints,
     required this.valueHints,
     required this.valueType,
-    required this.initialValue,
-    required this.decoration,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
+    this.controller,
+    this.initialValue,
+    this.decoration,
+    this.translatedText,
   });
 
   @override
