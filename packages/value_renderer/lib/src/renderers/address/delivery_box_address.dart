@@ -113,7 +113,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
           DropdownSelectInput(
             onChanged: (value) => _onChanged(key: 'country', value: value),
             decoration: widget.decoration,
-            mustBeFilledOut: false,
+            mustBeFilledOut: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: _initialValue(widget.initialValue?.country),
             technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
