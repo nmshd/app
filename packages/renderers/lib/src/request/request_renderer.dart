@@ -94,6 +94,6 @@ class RequestRenderer extends StatelessWidget {
       );
     }).toList();
 
-    return ListView(children: requestItems);
+    return Column(children: requestItems);
   }
 }
