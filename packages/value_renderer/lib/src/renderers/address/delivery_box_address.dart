@@ -102,6 +102,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
           const SizedBox(height: 16),
           TextInput(
             mustBeFilledOut: false,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: _initialValue(widget.initialValue?.state),
             onChanged: (value) => _onChanged(key: 'state', value: value, requiredValue: false),
             values: widget.valueHints.propertyHints!['state']!.values,
@@ -134,19 +135,17 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
   void _onChanged({bool requiredValue = true, required String key, required String value}) {
     if (value.isEmpty && requiredValue) {
       _valueMap.remove(key);
-      _validateForm();
-
-      return;
+    } else {
+      _valueMap[key] = ValueRendererInputValueString(value);
+      _inputValueMap = ValueRendererInputValueMap(Map<String, dynamic>.from(_valueMap));
     }
 
-    _valueMap[key] = ValueRendererInputValueString(value);
-    _inputValueMap = ValueRendererInputValueMap(Map<String, dynamic>.from(_valueMap));
     _validateForm();
   }
 
   void _validateForm() {
-    if (widget.controller != null) {
-      widget.controller!.value = _formKey.currentState!.validate() && _containsAllRequiredValues ? _inputValueMap : ValueRendererValidationError();
+    if (widget.controller != null && _formKey.currentState != null) {
+      widget.controller!.value = _containsAllRequiredValues && _formKey.currentState!.validate() ? _inputValueMap : ValueRendererValidationError();
     }
   }
 

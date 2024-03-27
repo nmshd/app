@@ -73,16 +73,6 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
           TextInput(
             mustBeFilledOut: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: _initialValue(widget.initialValue?.zipCode),
-            onChanged: (value) => _onChanged(key: 'zipCode', value: value),
-            values: widget.valueHints.propertyHints!['zipCode']!.values,
-            pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: _fieldName(context, 'zipCode'),
-          ),
-          const SizedBox(height: 16),
-          TextInput(
-            mustBeFilledOut: true,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: _initialValue(widget.initialValue?.city),
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
@@ -92,6 +82,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
           const SizedBox(height: 16),
           TextInput(
             mustBeFilledOut: false,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: _initialValue(widget.initialValue?.state),
             onChanged: (value) => _onChanged(key: 'state', value: value, requiredValue: false),
             values: widget.valueHints.propertyHints!['state']!.values,
@@ -124,19 +115,17 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
   void _onChanged({bool requiredValue = true, required String key, required String value}) {
     if (value.isEmpty && requiredValue) {
       _valueMap.remove(key);
-      _validateForm();
-
-      return;
+    } else {
+      _valueMap[key] = ValueRendererInputValueString(value);
+      _inputValueMap = ValueRendererInputValueMap(Map<String, dynamic>.from(_valueMap));
     }
 
-    _valueMap[key] = ValueRendererInputValueString(value);
-    _inputValueMap = ValueRendererInputValueMap(Map<String, dynamic>.from(_valueMap));
     _validateForm();
   }
 
   void _validateForm() {
-    if (widget.controller != null) {
-      widget.controller!.value = _formKey.currentState!.validate() && _containsAllRequiredValues ? _inputValueMap : ValueRendererValidationError();
+    if (widget.controller != null && _formKey.currentState != null) {
+      widget.controller!.value = _containsAllRequiredValues && _formKey.currentState!.validate() ? _inputValueMap : ValueRendererValidationError();
     }
   }
 
