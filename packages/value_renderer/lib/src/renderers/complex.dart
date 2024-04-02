@@ -50,7 +50,7 @@ class ComplexRenderer extends StatelessWidget {
             ? FlutterI18n.translate(context, fieldName!.substring(7))
             : fieldName;
 
-    if (initialValue is BirthDateAttributeValue || valueType == 'BirthDate') {
+    if (valueType == 'BirthDate') {
       return DatepickerFormField(
         controller: controller,
         emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
@@ -62,7 +62,7 @@ class ComplexRenderer extends StatelessWidget {
       );
     }
 
-    if (initialValue is StreetAddressAttributeValue || valueType == 'StreetAddress') {
+    if (valueType == 'StreetAddress') {
       return StreetAddressRenderer(
         translatedText: translatedText,
         controller: controller,
@@ -73,7 +73,7 @@ class ComplexRenderer extends StatelessWidget {
       );
     }
 
-    if (initialValue is DeliveryBoxAddressAttributeValue || valueType == 'DeliveryBoxAddress') {
+    if (valueType == 'DeliveryBoxAddress') {
       return DeliveryBoxAddressRenderer(
         translatedText: translatedText,
         controller: controller,
@@ -84,7 +84,7 @@ class ComplexRenderer extends StatelessWidget {
       );
     }
 
-    if (initialValue is PostOfficeBoxAddressAttributeValue || valueType == 'PostOfficeBoxAddress') {
+    if (valueType == 'PostOfficeBoxAddress') {
       return PostOfficeBoxAddressRenderer(
         translatedText: translatedText,
         controller: controller,
