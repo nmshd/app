@@ -134,9 +134,9 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
   }
 
   void _validateForm() {
-    if (widget.controller != null && _formKey.currentState != null) {
-      widget.controller!.value = _containsAllRequiredValues && _formKey.currentState!.validate() ? _inputValueMap : ValueRendererValidationError();
-    }
+    if (widget.controller == null || _formKey.currentState == null) return;
+
+    widget.controller!.value = _containsAllRequiredValues && _formKey.currentState!.validate() ? _inputValueMap : ValueRendererValidationError();
   }
 
   ValueHintsDefaultValueString? _initialValue(String? value) => value != null ? ValueHintsDefaultValueString(value) : null;
