@@ -9,25 +9,29 @@ import '../value_renderer_controller.dart';
 import 'styles/input_decoration.dart';
 
 class DropdownSelectInput extends StatefulWidget {
+  final List<ValueHintsValue> values;
+  final bool mustBeFilledOut;
+  final RenderHintsTechnicalType technicalType;
+  final AutovalidateMode autovalidateMode;
+  final RenderHintsDataType? dataType;
   final ValueRendererController? controller;
   final InputDecoration? decoration;
   final String? fieldName;
   final ValueHintsDefaultValue? initialValue;
-  final bool mustBeFilledOut;
-  final RenderHintsTechnicalType technicalType;
-  final RenderHintsDataType? dataType;
-  final List<ValueHintsValue> values;
+  final Function(String)? onChanged;
 
   const DropdownSelectInput({
-    super.key,
+    required this.values,
+    required this.mustBeFilledOut,
+    required this.technicalType,
+    this.autovalidateMode = AutovalidateMode.always,
+    this.dataType,
     this.controller,
     this.decoration,
     this.fieldName,
     this.initialValue,
-    required this.mustBeFilledOut,
-    required this.technicalType,
-    required this.dataType,
-    required this.values,
+    this.onChanged,
+    super.key,
   });
 
   @override
@@ -63,24 +67,24 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DropdownButtonFormField<ValueHintsDefaultValue>(
-          autovalidateMode: AutovalidateMode.always,
+          autovalidateMode: widget.autovalidateMode,
           value: _selectedOption,
           decoration: widget.decoration != null
               ? widget.decoration!.copyWith(labelText: translatedText)
               : inputDecoration.copyWith(labelText: translatedText),
-          validator: (value) => value == null && widget.mustBeFilledOut
-              ? FlutterI18n.translate(
-                  context,
-                  'errors.value_renderer.emptyField',
-                )
-              : null,
+          validator: (value) => value == null && widget.mustBeFilledOut ? FlutterI18n.translate(context, 'errors.value_renderer.emptyField') : null,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(
+              type: widget.technicalType,
               inputValue: newValue is ValueHintsDefaultValueString && newValue.value.startsWith('dup_')
                   ? ValueHintsDefaultValueString(newValue.value.substring(4))
                   : newValue,
-              type: widget.technicalType,
             );
+
+            if (widget.onChanged != null) {
+              final value = newValue as ValueHintsDefaultValueString;
+              widget.onChanged!(value.value);
+            }
 
             setState(() => _selectedOption = newValue);
           },

@@ -7,25 +7,29 @@ import '../utils/utils.dart';
 import 'styles/input_decoration.dart';
 
 class TextInput extends StatefulWidget {
+  final bool mustBeFilledOut;
+  final AutovalidateMode autovalidateMode;
   final ValueRendererController? controller;
   final InputDecoration? decoration;
   final String? fieldName;
   final ValueHintsDefaultValueString? initialValue;
   final int? max;
-  final bool mustBeFilledOut;
   final String? pattern;
   final List<ValueHintsValue>? values;
+  final Function(String)? onChanged;
 
   const TextInput({
-    super.key,
+    required this.mustBeFilledOut,
+    this.autovalidateMode = AutovalidateMode.always,
     this.controller,
     this.decoration,
     this.fieldName,
-    required this.initialValue,
+    this.initialValue,
     this.max,
-    required this.mustBeFilledOut,
     this.pattern,
     this.values,
+    this.onChanged,
+    super.key,
   });
 
   @override
@@ -46,9 +50,7 @@ class TextInputState extends State<TextInput> {
       _controller.addListener(() => widget.controller!.value =
           validateInput(_controller.text) == null ? ValueRendererInputValueString(_controller.text) : ValueRendererValidationError());
       if (initialValue != null) {
-        widget.controller!.value = ValueRendererInputValueString(
-          widget.initialValue!.value,
-        );
+        widget.controller!.value = ValueRendererInputValueString(widget.initialValue!.value);
       }
     }
   }
@@ -56,6 +58,7 @@ class TextInputState extends State<TextInput> {
   @override
   void dispose() {
     _controller.dispose();
+
     super.dispose();
   }
 
@@ -67,15 +70,14 @@ class TextInputState extends State<TextInput> {
       translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
     }
 
-    return Form(
-      child: TextFormField(
-        maxLength: widget.max,
-        controller: _controller,
-        autovalidateMode: AutovalidateMode.always,
-        validator: (value) => validateInput(value),
-        decoration:
-            widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
-      ),
+    return TextFormField(
+      onChanged: widget.onChanged,
+      maxLength: widget.max,
+      controller: _controller,
+      autovalidateMode: widget.autovalidateMode,
+      validator: (value) => validateInput(value),
+      decoration:
+          widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
     );
   }
 
