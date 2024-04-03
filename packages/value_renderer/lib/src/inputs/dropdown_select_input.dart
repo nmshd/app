@@ -18,7 +18,7 @@ class DropdownSelectInput extends StatefulWidget {
   final String? fieldName;
   final ValueHintsDefaultValue? initialValue;
   final Function(String)? onChanged;
-  final AutovalidateMode? autovalidateMode;
+  final AutovalidateMode autovalidateMode;
 
   const DropdownSelectInput({
     required this.values,

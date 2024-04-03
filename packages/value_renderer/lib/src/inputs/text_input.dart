@@ -16,7 +16,7 @@ class TextInput extends StatefulWidget {
   final String? pattern;
   final List<ValueHintsValue>? values;
   final Function(String)? onChanged;
-  final AutovalidateMode? autovalidateMode;
+  final AutovalidateMode autovalidateMode;
 
   const TextInput({
     required this.mustBeFilledOut,
