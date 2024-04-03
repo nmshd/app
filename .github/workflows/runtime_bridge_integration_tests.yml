@@ -50,9 +50,6 @@ jobs:
 
   android:
     runs-on: macos-latest
-    env:
-      api-level: 32
-      target: playstore
     steps:
       - uses: actions/checkout@v4
       - name: Setup Java
@@ -72,8 +69,8 @@ jobs:
       - name: Start emulator and run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          target: ${{ env.target }}
-          api-level: ${{ env.api-level }}
+          target: playstore
+          api-level: 32
           force-avd-creation: false
           avd-name: integration_test
           disable-spellchecker: true
