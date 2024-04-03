@@ -83,7 +83,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
             if (widget.onChanged != null) {
               final value = newValue as ValueHintsDefaultValueString;
-              widget.onChanged!(value.value);
+              widget.onChanged!(value.value.startsWith('dup_') ? value.value.substring(4) : value.value);
             }
 
             setState(() => _selectedOption = newValue);
