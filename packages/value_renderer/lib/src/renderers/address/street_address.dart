@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../inputs/inputs.dart';
+import './extensions.dart';
 import '/value_renderer.dart';
 
 class StreetAddressRenderer extends StatefulWidget {
@@ -28,6 +28,8 @@ class StreetAddressRenderer extends StatefulWidget {
 }
 
 class _StreetAddressRendererState extends State<StreetAddressRenderer> {
+  static const __valueType = 'StreetAddress';
+
   ValueRendererInputValueMap? _inputValueMap;
 
   final Map<String, dynamic> _valueMap = {};
@@ -43,61 +45,61 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
           TextInput(
             mustBeFilledOut: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: _initialValue(widget.initialValue?.recipient),
+            initialValue: widget.initialValue?.recipient.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
-            fieldName: _fieldName(context, 'recipient'),
+            fieldName: context.fieldName(__valueType, 'recipient', _requiredValues),
           ),
           const SizedBox(height: 16),
           TextInput(
             mustBeFilledOut: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: _initialValue(widget.initialValue?.street),
+            initialValue: widget.initialValue?.street.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'street', value: value),
             values: widget.valueHints.propertyHints!['street']!.values,
             pattern: widget.valueHints.propertyHints!['street']!.pattern,
-            fieldName: _fieldName(context, 'street'),
+            fieldName: context.fieldName(__valueType, 'street', _requiredValues),
           ),
           const SizedBox(height: 16),
           TextInput(
             mustBeFilledOut: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: _initialValue(widget.initialValue?.houseNumber),
+            initialValue: widget.initialValue?.houseNumber.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'houseNo', value: value),
             values: widget.valueHints.propertyHints!['houseNo']!.values,
             pattern: widget.valueHints.propertyHints!['houseNo']!.pattern,
-            fieldName: _fieldName(context, 'houseNo'),
+            fieldName: context.fieldName(__valueType, 'houseNo', _requiredValues),
           ),
           const SizedBox(height: 16),
           TextInput(
             mustBeFilledOut: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: _initialValue(widget.initialValue?.zipCode),
+            initialValue: widget.initialValue?.zipCode.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: _fieldName(context, 'zipCode'),
+            fieldName: context.fieldName(__valueType, 'zipCode', _requiredValues),
           ),
           const SizedBox(height: 16),
           TextInput(
             mustBeFilledOut: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: _initialValue(widget.initialValue?.city),
+            initialValue: widget.initialValue?.city.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
-            fieldName: _fieldName(context, 'city'),
+            fieldName: context.fieldName(__valueType, 'city', _requiredValues),
           ),
           const SizedBox(height: 16),
           TextInput(
             mustBeFilledOut: false,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: _initialValue(widget.initialValue?.state),
-            onChanged: (value) => _onChanged(key: 'state', value: value, requiredValue: false),
+            initialValue: widget.initialValue?.state.toValueHintsDefaultValue(),
+            onChanged: (value) => _onChanged(key: 'state', value: value),
             values: widget.valueHints.propertyHints!['state']!.values,
             pattern: widget.valueHints.propertyHints!['state']!.pattern,
-            fieldName: _fieldName(context, 'state'),
+            fieldName: context.fieldName(__valueType, 'state', _requiredValues),
           ),
           const SizedBox(height: 16),
           DropdownSelectInput(
@@ -105,41 +107,33 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             decoration: widget.decoration,
             mustBeFilledOut: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: _initialValue(widget.initialValue?.country),
+            initialValue: widget.initialValue?.country.toValueHintsDefaultValue(),
             technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
             dataType: widget.renderHints.propertyHints!['country']!.dataType,
             values: widget.valueHints.propertyHints!['country']!.values!,
-            fieldName: _fieldName(context, 'country'),
+            fieldName: context.fieldName(__valueType, 'country', _requiredValues),
           ),
         ],
       ),
     );
   }
 
-  String _fieldName(BuildContext context, String key) {
-    final translation = FlutterI18n.translate(context, 'attributes.values.StreetAddress.$key.label');
+  void _onChanged({required String key, required String value}) {
+    if (widget.controller == null) return;
 
-    return _requiredValues.contains(key) ? '$translation*' : translation;
-  }
-
-  void _onChanged({bool requiredValue = true, required String key, required String value}) {
-    if (value.isEmpty && requiredValue) {
+    if (value.isEmpty) {
       _valueMap.remove(key);
     } else {
       _valueMap[key] = ValueRendererInputValueString(value);
       _inputValueMap = ValueRendererInputValueMap(Map<String, dynamic>.from(_valueMap));
     }
 
-    _validateForm();
+    if (!_requiredValues.every((element) => _valueMap.containsKey(element)) || !_formKey.currentState!.validate()) {
+      widget.controller!.value = ValueRendererValidationError();
+
+      return;
+    }
+
+    widget.controller!.value = _inputValueMap;
   }
-
-  void _validateForm() {
-    if (widget.controller == null || _formKey.currentState == null) return;
-
-    widget.controller!.value = _containsAllRequiredValues && _formKey.currentState!.validate() ? _inputValueMap : ValueRendererValidationError();
-  }
-
-  ValueHintsDefaultValueString? _initialValue(String? value) => value != null ? ValueHintsDefaultValueString(value) : null;
-
-  bool get _containsAllRequiredValues => _requiredValues.every((element) => _valueMap.containsKey(element));
 }
