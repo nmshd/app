@@ -12,25 +12,25 @@ class DropdownSelectInput extends StatefulWidget {
   final List<ValueHintsValue> values;
   final bool mustBeFilledOut;
   final RenderHintsTechnicalType technicalType;
+  final AutovalidateMode autovalidateMode;
   final RenderHintsDataType? dataType;
   final ValueRendererController? controller;
   final InputDecoration? decoration;
   final String? fieldName;
   final ValueHintsDefaultValue? initialValue;
   final Function(String)? onChanged;
-  final AutovalidateMode autovalidateMode;
 
   const DropdownSelectInput({
     required this.values,
     required this.mustBeFilledOut,
     required this.technicalType,
+    this.autovalidateMode = AutovalidateMode.always,
     this.dataType,
     this.controller,
     this.decoration,
     this.fieldName,
     this.initialValue,
     this.onChanged,
-    this.autovalidateMode = AutovalidateMode.always,
     super.key,
   });
 

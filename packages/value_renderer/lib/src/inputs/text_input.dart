@@ -8,6 +8,7 @@ import 'styles/input_decoration.dart';
 
 class TextInput extends StatefulWidget {
   final bool mustBeFilledOut;
+  final AutovalidateMode autovalidateMode;
   final ValueRendererController? controller;
   final InputDecoration? decoration;
   final String? fieldName;
@@ -16,10 +17,10 @@ class TextInput extends StatefulWidget {
   final String? pattern;
   final List<ValueHintsValue>? values;
   final Function(String)? onChanged;
-  final AutovalidateMode autovalidateMode;
 
   const TextInput({
     required this.mustBeFilledOut,
+    this.autovalidateMode = AutovalidateMode.always,
     this.controller,
     this.decoration,
     this.fieldName,
@@ -28,7 +29,6 @@ class TextInput extends StatefulWidget {
     this.pattern,
     this.values,
     this.onChanged,
-    this.autovalidateMode = AutovalidateMode.always,
     super.key,
   });
 
