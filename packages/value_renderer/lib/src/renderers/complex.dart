@@ -179,7 +179,7 @@ class _GenericComplexRendererState extends State<_GenericComplexRenderer> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.translatedText != null) ...[
-          TranslatedText(widget.translatedText!, style: const TextStyle(fontSize: 16.0, color: Color(0xFF42474E))),
+          TranslatedText(widget.translatedText!, style: TextStyle(fontSize: 16.0, color: Theme.of(context).colorScheme.onSurfaceVariant)),
           const SizedBox(height: 12),
         ],
         if (widget.renderHints.propertyHints != null)

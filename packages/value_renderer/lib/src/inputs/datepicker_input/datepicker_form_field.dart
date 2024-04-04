@@ -40,19 +40,21 @@ class DatepickerFormField extends FormField<DateTime> {
               controller?.value = ValueRendererInputValueDateTime(field.value!);
             }
 
-            return DatepickerInput(
-              dateFormat: dateFormat,
-              enabled: enabled,
-              firstDate: firstDate,
-              fieldName: fieldName,
-              initialDate: getInitialDateAttribute(initialValueAttribute),
-              lastDate: lastDate,
-              onDateSelected: onChangedHandler,
-              selectedDate: field.value,
-              decoration: (decoration ?? inputDecoration).copyWith(
-                labelText: fieldName,
-                errorText: field.errorText,
-                suffixIcon: const Icon(Icons.calendar_today),
+            return Builder(
+              builder: (context) => DatepickerInput(
+                dateFormat: dateFormat,
+                enabled: enabled,
+                firstDate: firstDate,
+                fieldName: fieldName,
+                initialDate: getInitialDateAttribute(initialValueAttribute),
+                lastDate: lastDate,
+                onDateSelected: onChangedHandler,
+                selectedDate: field.value,
+                decoration: (decoration ?? inputDecoration(context)).copyWith(
+                  labelText: fieldName,
+                  errorText: field.errorText,
+                  suffixIcon: const Icon(Icons.calendar_today),
+                ),
               ),
             );
           },

@@ -71,7 +71,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           value: _selectedOption,
           decoration: widget.decoration != null
               ? widget.decoration!.copyWith(labelText: translatedText)
-              : inputDecoration.copyWith(labelText: translatedText),
+              : inputDecoration(context).copyWith(labelText: translatedText),
           validator: (value) => value == null && widget.mustBeFilledOut ? FlutterI18n.translate(context, 'errors.value_renderer.emptyField') : null,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(

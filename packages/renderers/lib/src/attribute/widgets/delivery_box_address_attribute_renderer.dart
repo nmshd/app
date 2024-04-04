@@ -31,7 +31,7 @@ class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
               if (showTitle)
                 TranslatedText(
                   'i18n://attributes.values.${value.atType}._title',
-                  style: const TextStyle(fontSize: 12, color: Color(0xFF42474E)),
+                  style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               TranslatedText(value.recipient, style: valueTextStyle),
               TranslatedText(value.deliveryBoxId, style: valueTextStyle),

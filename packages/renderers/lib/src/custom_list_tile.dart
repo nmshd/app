@@ -28,7 +28,7 @@ class CustomListTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (showTitle) TranslatedText(title, style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+              if (showTitle) TranslatedText(title, style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant)),
               if (description != null) ...[
                 const SizedBox(height: 2),
                 TranslatedText(description!, style: valueTextStyle),

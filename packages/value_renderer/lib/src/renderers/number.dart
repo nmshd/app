@@ -80,6 +80,7 @@ class NumberRenderer extends StatelessWidget {
         technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
+        errorColor: Theme.of(context).colorScheme.error,
       );
     }
 
@@ -123,6 +124,7 @@ class NumberRenderer extends StatelessWidget {
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
+        errorColor: Theme.of(context).colorScheme.error,
       );
     }
 
