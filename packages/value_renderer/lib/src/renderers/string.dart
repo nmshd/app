@@ -65,6 +65,7 @@ class StringRenderer extends StatelessWidget {
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
+        errorColor: Theme.of(context).colorScheme.error,
       );
     }
 
@@ -91,6 +92,7 @@ class StringRenderer extends StatelessWidget {
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
+        errorColor: Theme.of(context).colorScheme.error,
       );
     }
 

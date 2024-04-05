@@ -53,7 +53,10 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (widget.showTitle)
-                TranslatedText('i18n://dvo.attribute.name.${widget.valueType}', style: const TextStyle(fontSize: 12, color: Color(0xFF42474E))),
+                TranslatedText(
+                  'i18n://dvo.attribute.name.${widget.valueType}',
+                  style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                ),
               if (expandedFileReference == null)
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),

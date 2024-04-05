@@ -18,6 +18,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
     required RenderHintsTechnicalType technicalType,
     super.validator,
     required List<ValueHintsValue> values,
+    required Color errorColor,
   }) : super(
           builder: (FormFieldState<ValueHintsDefaultValue?> field) {
             if (field.value != null) {
@@ -33,7 +34,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
                 if (fieldName != null)
                   TranslatedText(
                     fieldName,
-                    style: field.value == null && mustBeFilledOut ? const TextStyle(color: Color(0xFFb3261e)) : null,
+                    style: field.value == null && mustBeFilledOut ? TextStyle(color: errorColor) : null,
                   ),
                 InputDecorator(
                   decoration: decoration ?? const InputDecoration(border: InputBorder.none),
@@ -58,7 +59,7 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
                       field.context,
                       'errors.value_renderer.emptyField',
                     ),
-                    style: const TextStyle(color: Color(0xFFb3261e), fontSize: 12),
+                    style: TextStyle(color: errorColor, fontSize: 12),
                   )
               ],
             );

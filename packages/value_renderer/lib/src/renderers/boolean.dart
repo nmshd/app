@@ -47,6 +47,7 @@ class BooleanRenderer extends StatelessWidget {
         technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
+        errorColor: Theme.of(context).colorScheme.error,
       );
     }
 
@@ -59,6 +60,7 @@ class BooleanRenderer extends StatelessWidget {
         technicalType: technicalType,
         values: values!,
         initialValue: valueHintsDefaultValue,
+        errorColor: Theme.of(context).colorScheme.error,
       );
     }
 

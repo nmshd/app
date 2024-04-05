@@ -88,8 +88,9 @@ class NumberInputState extends State<NumberInput> {
               ? FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
               : FilteringTextInputFormatter.digitsOnly,
         ],
-        decoration:
-            widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
+        decoration: widget.decoration != null
+            ? widget.decoration!.copyWith(labelText: translatedText)
+            : inputDecoration(context).copyWith(labelText: translatedText),
       ),
     );
   }

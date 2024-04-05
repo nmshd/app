@@ -24,13 +24,13 @@ class ComplexAttributeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titlesTextStyle = TextStyle(fontSize: 12, color: Color(0xFF42474E));
+    final titlesTextStyle = TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (showTitle) ...[
-          TranslatedText(title, style: const TextStyle(fontSize: 16, color: Color(0xFF42474E))),
+          TranslatedText(title, style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurfaceVariant)),
           const SizedBox(height: 8),
         ],
         Row(

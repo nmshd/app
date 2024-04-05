@@ -199,9 +199,9 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
             ),
           )
         else
-          const TranslatedText(
+          TranslatedText(
             'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
-            style: TextStyle(color: Colors.redAccent),
+            style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
       ],
     );
@@ -264,7 +264,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
         return Row(
           children: [
             if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: null),
-            const TranslatedText('i18n://dvo.attributeQuery.IQLQuery.noResults', style: TextStyle(color: Colors.redAccent)),
+            TranslatedText('i18n://dvo.attributeQuery.IQLQuery.noResults', style: TextStyle(color: Theme.of(context).colorScheme.error)),
           ],
         );
       }

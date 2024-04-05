@@ -76,8 +76,9 @@ class TextInputState extends State<TextInput> {
       controller: _controller,
       autovalidateMode: widget.autovalidateMode,
       validator: (value) => validateInput(value),
-      decoration:
-          widget.decoration != null ? widget.decoration!.copyWith(labelText: translatedText) : inputDecoration.copyWith(labelText: translatedText),
+      decoration: widget.decoration != null
+          ? widget.decoration!.copyWith(labelText: translatedText)
+          : inputDecoration(context).copyWith(labelText: translatedText),
     );
   }
 

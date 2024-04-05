@@ -21,7 +21,6 @@ class SwitchInput extends FormField<bool> {
                 if (fieldName != null) TranslatedText(fieldName),
                 Switch(
                   value: field.value ?? false,
-                  activeColor: Colors.blue,
                   onChanged: (bool value) {
                     controller?.value = value;
                     field.didChange(value);
