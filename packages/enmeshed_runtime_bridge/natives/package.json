@@ -14,10 +14,10 @@
     "@js-soft/logging-abstractions": "^1.0.1",
     "@js-soft/native-abstractions": "^1.2.2",
     "@js-soft/ts-utils": "^2.3.3",
-    "@nmshd/app-runtime": "3.0.4",
-    "@nmshd/runtime": "4.3.6",
+    "@nmshd/app-runtime": "3.1.0",
+    "@nmshd/runtime": "4.4.1",
     "@types/pako": "^2.0.3",
-    "bson": "^6.4.0",
+    "bson": "^6.6.0",
     "js-logger": "^1.6.1",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21",
@@ -25,12 +25,12 @@
   },
   "devDependencies": {
     "@types/json-stringify-safe": "^5.0.3",
-    "@types/lodash": "^4.14.202",
+    "@types/lodash": "^4.17.0",
     "@types/luxon": "^3.4.2",
-    "@types/node": "^20.11.25",
-    "esbuild": "^0.20.1",
+    "@types/node": "^20.12.5",
+    "esbuild": "^0.20.2",
     "luxon": "^3.4.4",
     "prettier": "^3.2.5",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.4"
   }
 }
