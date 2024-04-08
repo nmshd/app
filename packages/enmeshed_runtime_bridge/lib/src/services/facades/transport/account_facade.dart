@@ -64,6 +64,16 @@ class AccountFacade {
     result.throwOnError();
   }
 
+  Future<void> unregisterPushNotificationToken() async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.account.unregisterPushNotificationToken()
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+    );
+
+    result.throwOnError();
+  }
+
   Future<void> syncDatawallet() async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.syncDatawallet({})

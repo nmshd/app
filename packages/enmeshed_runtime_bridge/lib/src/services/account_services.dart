@@ -57,6 +57,15 @@ class AccountServices {
     return account;
   }
 
+  Future<void> deleteAccount(String id) async {
+    final result = await _evaluator.evaluateJavaScript(
+      'return await runtime.accountServices.deleteAccount(id)',
+      arguments: {'id': id},
+    );
+
+    result.throwOnError();
+  }
+
   Future<void> clearAccounts() async {
     final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.clearAccounts()',

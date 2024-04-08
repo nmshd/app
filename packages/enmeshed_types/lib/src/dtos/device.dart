@@ -14,6 +14,7 @@ class DeviceDTO extends Equatable {
   final String type;
   final String username;
   final bool isCurrentDevice;
+  final bool? isOffboarded;
 
   bool get isOnboarded => publicKey != null;
 
@@ -31,6 +32,7 @@ class DeviceDTO extends Equatable {
     required this.type,
     required this.username,
     required this.isCurrentDevice,
+    this.isOffboarded,
   });
 
   factory DeviceDTO.fromJson(Map json) => DeviceDTO(
@@ -47,6 +49,7 @@ class DeviceDTO extends Equatable {
         type: json['type'],
         username: json['username'],
         isCurrentDevice: json['isCurrentDevice'],
+        isOffboarded: json['isOffboarded'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -63,12 +66,8 @@ class DeviceDTO extends Equatable {
         'type': type,
         'username': username,
         'isCurrentDevice': isCurrentDevice,
+        if (isOffboarded != null) 'isOffboarded': isOffboarded,
       };
-
-  @override
-  String toString() {
-    return 'DeviceDTO(id: $id, publicKey: $publicKey, certificate: $certificate, name: $name, description: $description, createdAt: $createdAt, createdByDevice: $createdByDevice, operatingSystem: $operatingSystem, lastLoginAt: $lastLoginAt, type: $type, username: $username)';
-  }
 
   @override
   List<Object?> get props => [
@@ -84,5 +83,6 @@ class DeviceDTO extends Equatable {
         type,
         username,
         isCurrentDevice,
+        isOffboarded,
       ];
 }
