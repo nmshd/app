@@ -25,10 +25,13 @@ class AccountServices {
     return account;
   }
 
-  Future<LocalAccountDTO> onboardAccount(DeviceSharedSecret onboardingInfo) async {
+  Future<LocalAccountDTO> onboardAccount(DeviceSharedSecret onboardingInfo, {String? name}) async {
     final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.onboardAccount(onboardingInfo)',
-      arguments: {'onboardingInfo': onboardingInfo.toJson()},
+      'return await runtime.accountServices.onboardAccount(onboardingInfo, name)',
+      arguments: {
+        'onboardingInfo': onboardingInfo.toJson(),
+        if (name != null) 'name': name,
+      },
     );
 
     final value = result.valueToMap();
