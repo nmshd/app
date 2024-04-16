@@ -8,6 +8,7 @@ class DeviceSharedSecret extends Equatable {
   final String createdByDevice;
   final String? name;
   final String? description;
+  final String? profileName;
   final String secretBaseKey;
   final int deviceIndex;
   final String synchronizationKey;
@@ -22,6 +23,7 @@ class DeviceSharedSecret extends Equatable {
     required this.createdByDevice,
     this.name,
     this.description,
+    this.profileName,
     required this.secretBaseKey,
     required this.deviceIndex,
     required this.synchronizationKey,
@@ -31,11 +33,6 @@ class DeviceSharedSecret extends Equatable {
     required this.username,
   });
 
-  @override
-  String toString() {
-    return 'DeviceOnboardingInfo { id: $id, createdAt: $createdAt, createdByDevice: $createdByDevice, name: $name, description: $description, secretBaseKey: $secretBaseKey, deviceIndex: $deviceIndex, synchronizationKey: $synchronizationKey, identityPrivateKey: $identityPrivateKey, identity: $identity, password: $password, username: $username }';
-  }
-
   factory DeviceSharedSecret.fromJson(Map json) {
     return DeviceSharedSecret(
       id: json['id'],
@@ -43,6 +40,7 @@ class DeviceSharedSecret extends Equatable {
       createdByDevice: json['createdByDevice'],
       name: json['name'],
       description: json['description'],
+      profileName: json['profileName'],
       secretBaseKey: json['secretBaseKey'],
       deviceIndex: json['deviceIndex'].toInt(),
       synchronizationKey: json['synchronizationKey'],
@@ -60,6 +58,7 @@ class DeviceSharedSecret extends Equatable {
       'createdByDevice': createdByDevice,
       if (name != null) 'name': name,
       if (description != null) 'description': description,
+      if (profileName != null) 'profileName': profileName,
       'secretBaseKey': secretBaseKey,
       'deviceIndex': deviceIndex,
       'synchronizationKey': synchronizationKey,
@@ -77,6 +76,7 @@ class DeviceSharedSecret extends Equatable {
         createdByDevice,
         name,
         description,
+        profileName,
         secretBaseKey,
         deviceIndex,
         synchronizationKey,

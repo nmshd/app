@@ -53,7 +53,7 @@ class DevicesFacade {
     return Result.fromJson(json, (value) => DeviceDTO.fromJson(value));
   }
 
-  Future<Result<DeviceSharedSecret>> getDeviceOnboardingInfo(String id) async {
+  Future<Result<DeviceSharedSecret>> getDeviceOnboardingInfo(String id, {String? profileName}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.devices.getDeviceOnboardingInfo(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -61,6 +61,7 @@ class DevicesFacade {
       arguments: {
         'request': {
           'id': id,
+          if (profileName != null) 'profileName': profileName,
         },
       },
     );
@@ -69,7 +70,7 @@ class DevicesFacade {
     return Result.fromJson(json, (value) => DeviceSharedSecret.fromJson(value));
   }
 
-  Future<Result<TokenDTO>> getDeviceOnboardingToken(String id, {String? expiresAt}) async {
+  Future<Result<TokenDTO>> getDeviceOnboardingToken(String id, {String? expiresAt, String? profileName}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.devices.getDeviceOnboardingToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -78,6 +79,7 @@ class DevicesFacade {
         'request': {
           'id': id,
           if (expiresAt != null) 'expiresAt': expiresAt,
+          if (profileName != null) 'profileName': profileName,
         },
       },
     );

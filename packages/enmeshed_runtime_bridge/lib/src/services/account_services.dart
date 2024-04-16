@@ -27,7 +27,7 @@ class AccountServices {
 
   Future<LocalAccountDTO> onboardAccount(DeviceSharedSecret onboardingInfo, {String? name}) async {
     final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.onboardAccount(onboardingInfo, name)',
+      'return await runtime.accountServices.onboardAccount(onboardingInfo, name ?? undefined)',
       arguments: {
         'onboardingInfo': onboardingInfo.toJson(),
         if (name != null) 'name': name,
