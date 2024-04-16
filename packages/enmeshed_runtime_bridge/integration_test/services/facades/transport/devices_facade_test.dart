@@ -58,6 +58,15 @@ void run(EnmeshedRuntime runtime) {
       expect(onboardingInfo, isSuccessful<DeviceSharedSecret>());
     });
 
+    test('getDeviceOnboardingInfo with profile name', () async {
+      final device = (await session.transportServices.devices.createDevice()).value;
+      const profileName = 'profileName';
+
+      final onboardingInfo = await session.transportServices.devices.getDeviceOnboardingInfo(device.id, profileName: profileName);
+      expect(onboardingInfo, isSuccessful<DeviceSharedSecret>());
+      expect(onboardingInfo.value.profileName, profileName);
+    });
+
     test('getDeviceOnboardingToken', () async {
       final device = (await session.transportServices.devices.createDevice()).value;
 
@@ -66,6 +75,18 @@ void run(EnmeshedRuntime runtime) {
 
       final onboardingToken = onboardingTokenResult.value;
       expect(onboardingToken.content, const TypeMatcher<TokenContentDeviceSharedSecret>());
+    });
+
+    test('getDeviceOnboardingToken with profile name', () async {
+      final device = (await session.transportServices.devices.createDevice()).value;
+      const profileName = 'profileName';
+
+      final onboardingTokenResult = await session.transportServices.devices.getDeviceOnboardingToken(device.id, profileName: profileName);
+      expect(onboardingTokenResult, isSuccessful<TokenDTO>());
+
+      final onboardingToken = onboardingTokenResult.value;
+      expect(onboardingToken.content, const TypeMatcher<TokenContentDeviceSharedSecret>());
+      expect((onboardingToken.content as TokenContentDeviceSharedSecret).sharedSecret.profileName, profileName);
     });
 
     test('updateDevice', () async {
