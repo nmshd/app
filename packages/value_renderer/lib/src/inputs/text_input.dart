@@ -15,6 +15,7 @@ class TextInput extends StatefulWidget {
   final ValueHintsDefaultValueString? initialValue;
   final int? max;
   final String? pattern;
+  final String? validationMessage;
   final List<ValueHintsValue>? values;
   final Function(String)? onChanged;
 
@@ -29,6 +30,7 @@ class TextInput extends StatefulWidget {
     this.pattern,
     this.values,
     this.onChanged,
+    this.validationMessage,
     super.key,
   });
 
@@ -87,6 +89,8 @@ class TextInputState extends State<TextInput> {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
     } else if (input.isNotEmpty && !validateEquality(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
+    } else if (input.isNotEmpty && !validateFormat(input) && widget.validationMessage != null) {
+      return widget.validationMessage;
     } else if (input.isNotEmpty && !validateFormat(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
     }
