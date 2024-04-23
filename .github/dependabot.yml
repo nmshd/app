@@ -1,0 +1,148 @@
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/app/packages/enmeshed_runtime_bridge/natives"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pub"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  # many all apps / packages as depdendabot currently does not support globs
+  # https://github.com/dependabot/dependabot-core/issues/2178
+
+  - package-ecosystem: "pub"
+    directory: "/packages/renderers"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pub"
+    directory: "/packages/connector_sdk"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pub"
+    directory: "/packages/translated_text"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pub"
+    directory: "/packages/enmeshed_types"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pub"
+    directory: "/packages/enmeshed_runtime_bridge"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pub"
+    directory: "/packages/value_renderer"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pub"
+    directory: "/apps/connector_ui"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pub"
+    directory: "/apps/enmeshed"
+    schedule:
+      interval: "daily"
+    groups:
+      update-github-actions-dependencies:
+        patterns:
+          - "*"
+    reviewers:
+      - "jkoenig134"
+    labels:
+      - "dependencies"
