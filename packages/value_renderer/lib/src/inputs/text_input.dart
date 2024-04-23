@@ -111,7 +111,6 @@ class TextInputState extends State<TextInput> {
     if (pattern == null) return true;
 
     final parsedRegex = parseRegExp(pattern);
-    print(parsedRegex);
 
     return parsedRegex.hasMatch(input);
   }
