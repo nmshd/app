@@ -70,6 +70,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'houseNo', value: value),
             values: widget.valueHints.propertyHints!['houseNo']!.values,
             pattern: widget.valueHints.propertyHints!['houseNo']!.pattern,
+            formatValidations: const {r'\d': 'errors.value_renderer.houseNoNumericCharacter'},
             fieldName: context.fieldName(__valueType, 'houseNo', _requiredValues),
           ),
           const SizedBox(height: 16),
