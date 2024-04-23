@@ -169,6 +169,49 @@ Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(CreateAttributeReques
   return val;
 }
 
+DeleteAttributeRequestItemDVO _$DeleteAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => DeleteAttributeRequestItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      mustBeAccepted: json['mustBeAccepted'] as bool,
+      isDecidable: json['isDecidable'] as bool,
+      response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+      requireManualDecision: json['requireManualDecision'] as bool?,
+      attributeId: json['attributeId'] as String,
+      attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$DeleteAttributeRequestItemDVOToJson(DeleteAttributeRequestItemDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
+  val['isDecidable'] = instance.isDecidable;
+  writeNotNull('response', instance.response?.toJson());
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
+  val['attributeId'] = instance.attributeId;
+  val['attribute'] = instance.attribute.toJson();
+  return val;
+}
+
 ShareAttributeRequestItemDVO _$ShareAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => ShareAttributeRequestItemDVO(
       id: json['id'] as String,
       name: json['name'] as String,
@@ -489,6 +532,46 @@ Map<String, dynamic> _$DecidableCreateAttributeRequestItemDVOToJson(DecidableCre
   writeNotNull('warning', instance.warning?.toJson());
   val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
+  val['attribute'] = instance.attribute.toJson();
+  return val;
+}
+
+DecidableDeleteAttributeRequestItemDVO _$DecidableDeleteAttributeRequestItemDVOFromJson(Map<String, dynamic> json) =>
+    DecidableDeleteAttributeRequestItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      mustBeAccepted: json['mustBeAccepted'] as bool,
+      requireManualDecision: json['requireManualDecision'] as bool?,
+      attributeId: json['attributeId'] as String,
+      attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$DecidableDeleteAttributeRequestItemDVOToJson(DecidableDeleteAttributeRequestItemDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
+  writeNotNull('requireManualDecision', instance.requireManualDecision);
+  val['attributeId'] = instance.attributeId;
   val['attribute'] = instance.attribute.toJson();
   return val;
 }

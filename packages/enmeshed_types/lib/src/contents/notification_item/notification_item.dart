@@ -4,12 +4,20 @@ import 'package:json_annotation/json_annotation.dart';
 import '../abstract_attribute.dart';
 
 part 'notification_item.g.dart';
+part 'peer_shared_attribute_succeeded_notification_item.dart';
+part 'own_shared_attribute_deleted_by_owner_notification_item.dart';
+part 'peer_shared_attribute_deleted_by_peer_notification_item.dart';
+part 'third_party_owned_relationship_attribute_deleted_by_peer_notification_item.dart';
 
 abstract class NotificationItem extends Equatable {
   const NotificationItem();
 
   factory NotificationItem.fromJson(Map json) => switch (json['@type']) {
         'PeerSharedAttributeSucceededNotificationItem' => PeerSharedAttributeSucceededNotificationItem.fromJson(json),
+        'OwnSharedAttributeDeletedByOwnerNotificationItem' => OwnSharedAttributeDeletedByOwnerNotificationItem.fromJson(json),
+        'PeerSharedAttributeDeletedByPeerNotificationItem' => PeerSharedAttributeDeletedByPeerNotificationItem.fromJson(json),
+        'ThirdPartyOwnedRelationshipAttributeDeletedByPeerNotificationItem' =>
+          ThirdPartyOwnedRelationshipAttributeDeletedByPeerNotificationItem.fromJson(json),
         final String type => GenericNotificationItem(type: type, data: Map<String, dynamic>.from(json)),
         _ => throw ArgumentError('Unknown type: ${json['@type']}'),
       };
@@ -27,25 +35,4 @@ class GenericNotificationItem extends NotificationItem {
 
   @override
   Map<String, dynamic> toJson() => data;
-}
-
-@JsonSerializable(includeIfNull: false)
-class PeerSharedAttributeSucceededNotificationItem extends NotificationItem {
-  final String predecessorId;
-  final String successorId;
-  final AbstractAttribute successorContent;
-
-  const PeerSharedAttributeSucceededNotificationItem({
-    required this.predecessorId,
-    required this.successorId,
-    required this.successorContent,
-  });
-
-  factory PeerSharedAttributeSucceededNotificationItem.fromJson(Map json) =>
-      _$PeerSharedAttributeSucceededNotificationItemFromJson(Map<String, dynamic>.from(json));
-  @override
-  Map<String, dynamic> toJson() => _$PeerSharedAttributeSucceededNotificationItemToJson(this);
-
-  @override
-  List<Object?> get props => [predecessorId, successorId, successorContent];
 }

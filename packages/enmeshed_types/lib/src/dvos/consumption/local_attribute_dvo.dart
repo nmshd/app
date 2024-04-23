@@ -130,6 +130,8 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
   final String? notificationReference;
   final String sourceAttribute;
   final List<String> tags;
+  final String? deletionDate;
+  final String? deletionStatus;
 
   const SharedToPeerAttributeDVO({
     required super.id,
@@ -155,6 +157,8 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
     this.requestReference,
     this.notificationReference,
     required this.sourceAttribute,
+    this.deletionDate,
+    this.deletionStatus,
   }) : super(type: 'SharedToPeerAttributeDVO');
 
   factory SharedToPeerAttributeDVO.fromJson(Map json) => _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic>.from(json));
@@ -168,6 +172,8 @@ class PeerAttributeDVO extends LocalAttributeDVO {
   final String? requestReference;
   final String? notificationReference;
   final List<String> tags;
+  final String? deletionDate;
+  final String? deletionStatus;
 
   const PeerAttributeDVO({
     required super.id,
@@ -192,6 +198,8 @@ class PeerAttributeDVO extends LocalAttributeDVO {
     this.requestReference,
     this.notificationReference,
     required this.tags,
+    this.deletionDate,
+    this.deletionStatus,
   }) : super(type: 'PeerAttributeDVO', isOwn: false);
 
   factory PeerAttributeDVO.fromJson(Map json) => _$PeerAttributeDVOFromJson(Map<String, dynamic>.from(json));
@@ -206,6 +214,8 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
   final String? notificationReference;
   final String confidentiality;
   final bool isTechnical;
+  final String? deletionDate;
+  final String? deletionStatus;
 
   const RelationshipAttributeDVO({
     required super.id,
@@ -234,6 +244,8 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
     this.notificationReference,
     required this.confidentiality,
     required this.isTechnical,
+    this.deletionDate,
+    this.deletionStatus,
   });
 
   factory RelationshipAttributeDVO.fromJson(Map json) => switch (json['type']) {
@@ -272,6 +284,8 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
     super.notificationReference,
     required super.confidentiality,
     required super.isTechnical,
+    super.deletionDate,
+    super.deletionStatus,
   }) : super(type: 'OwnRelationshipAttributeDVO', isOwn: true);
 
   factory OwnRelationshipAttributeDVO.fromJson(Map json) => _$OwnRelationshipAttributeDVOFromJson(Map<String, dynamic>.from(json));
@@ -306,6 +320,8 @@ class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
     required notificationReference,
     required super.confidentiality,
     required super.isTechnical,
+    super.deletionDate,
+    super.deletionStatus,
   }) : super(type: 'PeerRelationshipAttributeDVO', isOwn: false);
 
   factory PeerRelationshipAttributeDVO.fromJson(Map json) => _$PeerRelationshipAttributeDVOFromJson(Map<String, dynamic>.from(json));

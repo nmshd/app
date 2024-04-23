@@ -50,6 +50,13 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
         successor: LocalAttributeDTO.fromJson(data['successor']),
       ),
     'consumption.attributeCreated' => AttributeCreatedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
+    'consumption.attributeDeleted' => AttributeDeletedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
+    'consumption.ownSharedAttributeDeletedByOwner' =>
+      OwnSharedAttributeDeletedByOwnerEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
+    'consumption.peerSharedAttributeDeletedByPeer' =>
+      PeerSharedAttributeDeletedByPeerEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
+    'consumption.thirdPartyOwnedRelationshipAttributeDeletedByPeer' =>
+      ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
     'consumption.outgoingRequestCreated' => OutgoingRequestCreatedEvent(
         eventTargetAddress: eventTargetAddress,
         data: LocalRequestDTO.fromJson(data),

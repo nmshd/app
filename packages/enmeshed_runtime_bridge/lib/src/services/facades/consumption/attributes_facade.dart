@@ -415,4 +415,75 @@ class AttributesFacade {
     final json = result.valueToMap();
     return Result.fromJson(json, (value) => NotifyPeerAboutRepositoryAttributeSuccessionResponse.fromJson(value));
   }
+
+  Future<Result<DeleteOwnSharedAttributeAndNotifyPeerResponse>> deleteOwnSharedAttributeAndNotifyPeer({
+    required String attributeId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'attributeId': attributeId,
+        },
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => DeleteOwnSharedAttributeAndNotifyPeerResponse.fromJson(value));
+  }
+
+  Future<Result<DeletePeerSharedAttributeAndNotifyOwnerResponse>> deletePeerSharedAttributeAndNotifyOwner({
+    required String attributeId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.deletePeerSharedAttributeAndNotifyOwner(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'attributeId': attributeId,
+        },
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => DeletePeerSharedAttributeAndNotifyOwnerResponse.fromJson(value));
+  }
+
+  Future<Result<DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse>> deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer({
+    required String attributeId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'attributeId': attributeId,
+        },
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse.fromJson(value));
+  }
+
+  Future<Result<void>> deleteRepositoryAttribute({
+    required String attributeId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.deleteRepositoryAttribute(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'attributeId': attributeId,
+        },
+      },
+    );
+    // TODO: catch error and fix return
+    return Result.fromJson({}, (p0) => {});
+  }
 }

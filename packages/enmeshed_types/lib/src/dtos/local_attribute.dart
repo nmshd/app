@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../contents/contents.dart';
+import 'local_attribute_deletion_info.dart';
 import 'local_attribute_share_info.dart';
 
 class LocalAttributeDTO extends Equatable {
@@ -11,6 +12,7 @@ class LocalAttributeDTO extends Equatable {
   final String? succeeds;
   final String? succeededBy;
   final LocalAttributeShareInfo? shareInfo;
+  final LocalAttributeDeletionInfo? deletionInfo;
 
   const LocalAttributeDTO({
     required this.id,
@@ -20,6 +22,7 @@ class LocalAttributeDTO extends Equatable {
     this.succeeds,
     this.succeededBy,
     this.shareInfo,
+    this.deletionInfo,
   });
 
   RelationshipAttribute get contentAsRelationshipAttribute {
@@ -41,6 +44,7 @@ class LocalAttributeDTO extends Equatable {
       succeeds: json['succeeds'],
       succeededBy: json['succeededBy'],
       shareInfo: LocalAttributeShareInfo.fromJsonNullable(json['shareInfo']),
+      deletionInfo: LocalAttributeDeletionInfo.fromJsonNullable(json['deletionInfo']),
     );
   }
 
@@ -52,13 +56,14 @@ class LocalAttributeDTO extends Equatable {
         if (succeeds != null) 'succeeds': succeeds,
         if (succeededBy != null) 'succeededBy': succeededBy,
         if (shareInfo != null) 'shareInfo': shareInfo?.toJson(),
+        if (deletionInfo != null) 'deletionInfo': deletionInfo?.toJson(),
       };
 
   @override
   String toString() {
-    return 'LocalAttributeDTO(id: $id, parentId: $parentId, createdAt: $createdAt, content: $content, succeeds: $succeeds, succeededBy: $succeededBy, shareInfo: $shareInfo)';
+    return 'LocalAttributeDTO(id: $id, parentId: $parentId, createdAt: $createdAt, content: $content, succeeds: $succeeds, succeededBy: $succeededBy, shareInfo: $shareInfo, deletionInfo: $deletionInfo)';
   }
 
   @override
-  List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo];
+  List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo, deletionInfo];
 }
