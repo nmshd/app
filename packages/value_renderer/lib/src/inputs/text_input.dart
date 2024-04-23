@@ -15,7 +15,7 @@ class TextInput extends StatefulWidget {
   final ValueHintsDefaultValueString? initialValue;
   final int? max;
   final String? pattern;
-  final String? validationMessage;
+  final Map<String, String>? formatValidations;
   final List<ValueHintsValue>? values;
   final Function(String)? onChanged;
 
@@ -30,7 +30,7 @@ class TextInput extends StatefulWidget {
     this.pattern,
     this.values,
     this.onChanged,
-    this.validationMessage,
+    this.formatValidations,
     super.key,
   });
 
@@ -89,9 +89,13 @@ class TextInputState extends State<TextInput> {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
     } else if (input.isNotEmpty && !validateEquality(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
-    } else if (input.isNotEmpty && !validateFormat(input) && widget.validationMessage != null) {
-      return widget.validationMessage;
-    } else if (input.isNotEmpty && !validateFormat(input)) {
+    } else if (input.isNotEmpty && widget.formatValidations != null) {
+      for (final entry in widget.formatValidations!.entries) {
+        if (!validateFormat(input, entry.key)) {
+          return FlutterI18n.translate(context, entry.value);
+        }
+      }
+    } else if (input.isNotEmpty && !validateFormat(input, widget.pattern)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
     }
     return null;
@@ -103,10 +107,11 @@ class TextInputState extends State<TextInput> {
     return widget.values!.map((e) => e.key).contains(ValueHintsDefaultValueString(input));
   }
 
-  bool validateFormat(String input) {
-    if (widget.pattern == null) return true;
+  bool validateFormat(String input, String? pattern) {
+    if (pattern == null) return true;
 
-    final parsedRegex = parseRegExp(widget.pattern!);
+    final parsedRegex = parseRegExp(pattern);
+    print(parsedRegex);
 
     return parsedRegex.hasMatch(input);
   }

@@ -1,6 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../inputs/dropdown_select_input.dart';
 import '../../inputs/text_input.dart';
@@ -70,8 +69,8 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             initialValue: widget.initialValue?.houseNumber.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'houseNo', value: value),
             values: widget.valueHints.propertyHints!['houseNo']!.values,
-            pattern: widget.valueHints.propertyHints!['houseNo']?.pattern ?? r'\d',
-            validationMessage: FlutterI18n.translate(context, 'errors.value_renderer.houseNoNumericCharacter'),
+            pattern: widget.valueHints.propertyHints!['houseNo']!.pattern,
+            formatValidations: const {r'\d': 'errors.value_renderer.houseNoNumericCharacter'},
             fieldName: context.fieldName(__valueType, 'houseNo', _requiredValues),
           ),
           const SizedBox(height: 16),
