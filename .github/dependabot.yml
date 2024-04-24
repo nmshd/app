@@ -70,19 +70,6 @@ updates:
       - "dependencies"
 
   - package-ecosystem: "pub"
-    directory: "/packages/translated_text"
-    schedule:
-      interval: "daily"
-    groups:
-      update-github-actions-dependencies:
-        patterns:
-          - "*"
-    reviewers:
-      - "jkoenig134"
-    labels:
-      - "dependencies"
-
-  - package-ecosystem: "pub"
     directory: "/packages/enmeshed_types"
     schedule:
       interval: "daily"
