@@ -1346,6 +1346,19 @@ void run(EnmeshedRuntime runtime) {
       final deletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
       expect(deletionResult, isSuccessful<void>());
     });
+
+    test('should return an error trying to delete an already deleted attribute', () async {
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const PhoneNumberAttributeValue(value: '012345678910'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+
+      final successfulDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
+      expect(successfulDeletionResult, isSuccessful<void>());
+
+      final failingDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
+      expect(failingDeletionResult, isFailing('LocalAttribute not found. Make sure the ID exists and the record is not expired.'));
+    });
   });
 
   group('AttributesFacade: deleteOwnSharedAttributeAndNotifyPeer', () {
