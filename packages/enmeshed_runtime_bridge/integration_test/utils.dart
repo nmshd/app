@@ -327,6 +327,52 @@ Future<LocalAttributeDTO> executeFullCreateAndShareRelationshipAttributeFlow(
   return senderOwnSharedAttributeResult.value;
 }
 
+Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
+  Session sender,
+  Session recipient,
+  String senderAddress,
+  String recipientAddress,
+  String thirdPartyAddress,
+  RequestItem requestItem,
+  LocalAttributeDTO sourceRelationshipAttribute,
+  MockEventBus eventBus,
+) async {
+  final localRequestDTOResult = await recipient.consumptionServices.outgoingRequests.create(content: Request(items: [requestItem]), peer: senderAddress);
+  assert(localRequestDTOResult.isSuccess);
+
+  await recipient.transportServices.messages.sendMessage(recipients: [senderAddress], content: localRequestDTOResult.value.content.toJson());
+  await syncUntilHasMessage(sender);
+
+  await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
+    eventTargetAddress: senderAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.ManualDecisionRequired,
+  );
+
+  final responseItems = [AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: sourceRelationshipAttribute.content)];
+  final acceptedRequest = await sender.consumptionServices.incomingRequests.accept(
+    params: DecideRequestParameters(requestId: localRequestDTOResult.value.id, items: responseItems),
+  );
+  assert(acceptedRequest.isSuccess);
+
+  await eventBus.waitForEvent<MessageSentEvent>(eventTargetAddress: senderAddress);
+
+  final responseMessage = await syncUntilHasMessage(recipient);
+  await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
+    eventTargetAddress: recipientAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
+  );
+
+  final thirdPartyOwnedRelationshipAttributeId = responseMessage.content.toJson()['response']['items'][0]['attributeId'];
+
+  await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
+    eventTargetAddress: recipientAddress,
+    predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
+  );
+
+  final senderOwnSharedAttributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnedRelationshipAttributeId);
+  return senderOwnSharedAttributeResult.value;
+}
+
 Future<void> waitForRecipientToReceiveNotification(
   Session sender,
   Session recipient,
