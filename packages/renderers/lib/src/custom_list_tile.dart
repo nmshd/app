@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:translated_text/translated_text.dart';
+import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
