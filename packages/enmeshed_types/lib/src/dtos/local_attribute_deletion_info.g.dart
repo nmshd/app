@@ -7,11 +7,18 @@ part of 'local_attribute_deletion_info.dart';
 // **************************************************************************
 
 LocalAttributeDeletionInfo _$LocalAttributeDeletionInfoFromJson(Map<String, dynamic> json) => LocalAttributeDeletionInfo(
-      deletionStatus: json['deletionStatus'] as String,
+      deletionStatus: $enumDecode(_$DeletionStatusEnumMap, json['deletionStatus']),
       deletionDate: json['deletionDate'] as String,
     );
 
 Map<String, dynamic> _$LocalAttributeDeletionInfoToJson(LocalAttributeDeletionInfo instance) => <String, dynamic>{
-      'deletionStatus': instance.deletionStatus,
+      'deletionStatus': _$DeletionStatusEnumMap[instance.deletionStatus]!,
       'deletionDate': instance.deletionDate,
     };
+
+const _$DeletionStatusEnumMap = {
+  DeletionStatus.toBeDeleted: 'toBeDeleted',
+  DeletionStatus.toBeDeletedByPeer: 'toBeDeletedByPeer',
+  DeletionStatus.deletedByPeer: 'deletedByPeer',
+  DeletionStatus.deletedByOwner: 'deletedByOwner',
+};
