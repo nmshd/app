@@ -1,4 +1,6 @@
 export 'accept_request/accept_request_item_parameters.dart';
+export 'accept_request/delete_attribute.dart';
+export 'accept_request/free_text.dart';
 export 'accept_request/propose_attribute.dart';
 export 'accept_request/read_attribute.dart';
 export 'decide_request_item_group_parameters.dart';
