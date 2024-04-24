@@ -483,7 +483,7 @@ class AttributesFacade {
         },
       },
     );
-    
+
     final json = result.valueToMap();
     return Result.fromJson(json, (value) => value);
   }

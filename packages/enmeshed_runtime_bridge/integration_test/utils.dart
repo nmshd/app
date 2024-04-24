@@ -337,7 +337,8 @@ Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttrib
   LocalAttributeDTO sourceRelationshipAttribute,
   MockEventBus eventBus,
 ) async {
-  final localRequestDTOResult = await recipient.consumptionServices.outgoingRequests.create(content: Request(items: [requestItem]), peer: senderAddress);
+  final localRequestDTOResult =
+      await recipient.consumptionServices.outgoingRequests.create(content: Request(items: [requestItem]), peer: senderAddress);
   assert(localRequestDTOResult.isSuccess);
 
   await recipient.transportServices.messages.sendMessage(recipients: [senderAddress], content: localRequestDTOResult.value.content.toJson());
@@ -369,7 +370,8 @@ Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttrib
     predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
   );
 
-  final senderOwnSharedAttributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnedRelationshipAttributeId);
+  final senderOwnSharedAttributeResult =
+      await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnedRelationshipAttributeId);
   return senderOwnSharedAttributeResult.value;
 }
 
