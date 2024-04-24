@@ -1,6 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:translated_text/translated_text.dart';
+import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import 'value_hint_translation.dart';
 
