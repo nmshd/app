@@ -15,7 +15,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get_it: ^7.6.7
-  i18n_translated_text: 1.0.0
+  i18n_translated_text: ^1.0.1
   intl: any
   logger: ^2.1.0
 
