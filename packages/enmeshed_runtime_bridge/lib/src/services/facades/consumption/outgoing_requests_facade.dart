@@ -86,7 +86,7 @@ class OutgoingRequestsFacade {
     return Result.fromJson(json, (value) => List<LocalRequestDTO>.from(value.map((e) => LocalRequestDTO.fromJson(e))));
   }
 
-  Future<void> discard({
+  Future<VoidResult> discard({
     required String requestId,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
@@ -100,6 +100,7 @@ class OutgoingRequestsFacade {
       },
     );
 
-    result.throwOnError();
+    final value = result.valueToMap();
+    return VoidResult.fromJson(value);
   }
 }

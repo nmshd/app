@@ -83,7 +83,7 @@ class SettingsFacade {
     );
   }
 
-  Future<Result<bool>> deleteSetting(String id) async {
+  Future<VoidResult> deleteSetting(String id) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.settings.deleteSetting(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -96,7 +96,7 @@ class SettingsFacade {
     );
 
     final value = result.valueToMap();
-    return Result.fromJson(value, (_) => true);
+    return VoidResult.fromJson(value);
   }
 
   Future<Result<SettingDTO>> updateSetting(String id, Map<String, dynamic> value) async {

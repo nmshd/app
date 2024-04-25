@@ -106,7 +106,7 @@ class DevicesFacade {
     return Result.fromJson(json, (value) => DeviceDTO.fromJson(value));
   }
 
-  Future<Result<bool>> deleteDevice(String deviceId) async {
+  Future<VoidResult> deleteDevice(String deviceId) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.devices.deleteDevice(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -119,6 +119,6 @@ class DevicesFacade {
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (_) => true);
+    return VoidResult.fromJson(json);
   }
 }

@@ -39,7 +39,7 @@ class AccountFacade {
     return Result.fromJson(value, (x) => DeviceDTO.fromJson(x));
   }
 
-  Future<void> registerPushNotificationToken({
+  Future<VoidResult> registerPushNotificationToken({
     required String handle,
     required String installationId,
     required String platform,
@@ -61,27 +61,30 @@ class AccountFacade {
       },
     );
 
-    result.throwOnError();
+    final value = result.valueToMap();
+    return VoidResult.fromJson(value);
   }
 
-  Future<void> unregisterPushNotificationToken() async {
+  Future<VoidResult> unregisterPushNotificationToken() async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.unregisterPushNotificationToken()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
     );
 
-    result.throwOnError();
+    final value = result.valueToMap();
+    return VoidResult.fromJson(value);
   }
 
-  Future<void> syncDatawallet() async {
+  Future<VoidResult> syncDatawallet() async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.syncDatawallet({})
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
     );
 
-    result.throwOnError();
+    final value = result.valueToMap();
+    return VoidResult.fromJson(value);
   }
 
   Future<Result<SyncEverythingResponse>> syncEverything() async {
@@ -106,24 +109,26 @@ class AccountFacade {
     return Result.fromJson(value, (x) => SyncInfoResponse.fromJson(x));
   }
 
-  Future<void> enableAutoSync() async {
+  Future<VoidResult> enableAutoSync() async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.enableAutoSync()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
     );
 
-    result.throwOnError();
+    final value = result.valueToMap();
+    return VoidResult.fromJson(value);
   }
 
-  Future<void> disableAutoSync() async {
+  Future<VoidResult> disableAutoSync() async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.disableAutoSync()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
     );
 
-    result.throwOnError();
+    final value = result.valueToMap();
+    return VoidResult.fromJson(value);
   }
 
   Future<Result<LoadItemFromTruncatedReferenceResponse>> loadItemFromTruncatedReference({
