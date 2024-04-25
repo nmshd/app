@@ -17,8 +17,8 @@ Map<String, dynamic> _$LocalAttributeDeletionInfoToJson(LocalAttributeDeletionIn
     };
 
 const _$DeletionStatusEnumMap = {
-  DeletionStatus.toBeDeleted: 'toBeDeleted',
-  DeletionStatus.toBeDeletedByPeer: 'toBeDeletedByPeer',
-  DeletionStatus.deletedByPeer: 'deletedByPeer',
-  DeletionStatus.deletedByOwner: 'deletedByOwner',
+  DeletionStatus.ToBeDeleted: 'ToBeDeleted',
+  DeletionStatus.ToBeDeletedByPeer: 'ToBeDeletedByPeer',
+  DeletionStatus.DeletedByPeer: 'DeletedByPeer',
+  DeletionStatus.DeletedByOwner: 'DeletedByOwner',
 };
