@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:enmeshed_types/enmeshed_types.dart';
 
 import '../abstract_evaluator.dart';
@@ -484,7 +486,11 @@ class AttributesFacade {
       },
     );
 
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => value);
+    if (result.value.length == 0) {
+      return Result.success(Void);
+    }
+    final message = result.value["error"]["message"];
+    final code = result.value["error"]["code"];
+    return Result.failure(RuntimeError(message: message, code: code));
   }
 }

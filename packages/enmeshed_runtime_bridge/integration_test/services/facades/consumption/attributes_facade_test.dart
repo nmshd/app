@@ -1363,7 +1363,7 @@ void run(EnmeshedRuntime runtime) {
       expect(successfulDeletionResult, isSuccessful<void>());
 
       final failingDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
-      expect(failingDeletionResult, isFailing('LocalAttribute not found. Make sure the ID exists and the record is not expired.'));
+      expect(failingDeletionResult, isFailing('error.runtime.recordNotFound'));
     });
   });
 
