@@ -281,15 +281,14 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: getAttribute', () {
     test('should return a valid LocalAttributeDTO', () async {
-      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
-      final attributesResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributes = attributesResult.value;
+      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+      final attribute = attributesResult.value;
 
-      final attributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: attributes.first.id);
+      final attributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: attribute.id);
 
       expect(attributeResult, isSuccessful<LocalAttributeDTO>());
-      expect(attributeResult.value.id, attributes.first.id);
-      expect(attributeResult.value.content, attributes.first.content);
+      expect(attributeResult.value.id, attribute.id);
+      expect(attributeResult.value.content, attribute.content);
     });
 
     test('throws an exception if file id does not match the pattern', () async {
@@ -316,6 +315,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return a valid list of queried LocalAttributeDTOs', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(sender, recipient, const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'));
 
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(
@@ -1072,9 +1072,8 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: succeedRepositoryAttribute', () {
     test('should succeed an identity attribute', () async {
-      final attributesResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributes = attributesResult.value;
-      final attribute = attributes.first;
+      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+      final attribute = attributesResult.value;
 
       final succeededAttributeResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
         predecessorId: attribute.id,
@@ -1089,9 +1088,8 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should succeed an identity attribute with properties "tags", "validFrom" and "validTo"', () async {
-      final attributesResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributes = attributesResult.value;
-      final attribute = attributes.first;
+      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+      final attribute = attributesResult.value;
 
       final succeededAttributeResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
         predecessorId: attribute.id,
