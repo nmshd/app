@@ -15,7 +15,10 @@ class PeerSharedAttributeSucceededNotificationItem extends NotificationItem {
   factory PeerSharedAttributeSucceededNotificationItem.fromJson(Map json) =>
       _$PeerSharedAttributeSucceededNotificationItemFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() => _$PeerSharedAttributeSucceededNotificationItemToJson(this);
+  Map<String, dynamic> toJson() => {
+        ..._$PeerSharedAttributeSucceededNotificationItemToJson(this),
+        '@type': 'PeerSharedAttributeSucceededNotificationItem',
+      };
 
   @override
   List<Object?> get props => [predecessorId, successorId, successorContent];
