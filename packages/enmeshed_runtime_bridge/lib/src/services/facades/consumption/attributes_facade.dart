@@ -487,10 +487,12 @@ class AttributesFacade {
     );
 
     if (result.value.length == 0) {
+      // TODO(Milena-Czierlinski): remove this workaround as soon as VoidResult landed
+      // ignore: void_checks
       return Result.success(Void);
     }
-    final message = result.value["error"]["message"];
-    final code = result.value["error"]["code"];
+    final message = result.value['error']['message'];
+    final code = result.value['error']['code'];
     return Result.failure(RuntimeError(message: message, code: code));
   }
 }
