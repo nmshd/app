@@ -6,7 +6,5 @@ class RuntimeError extends Error {
   factory RuntimeError.fromJson(Map json) => RuntimeError(message: json['message'], code: json['code']);
 
   @override
-  String toString() {
-    return 'Error: $message';
-  }
+  String toString() => 'RuntimeError: $message';
 }
