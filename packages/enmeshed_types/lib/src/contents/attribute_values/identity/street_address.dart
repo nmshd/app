@@ -42,10 +42,5 @@ class StreetAddressAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() {
-    return 'StreetAddressAttributeValue(recipient: $recipient, street: $street, houseNumber: $houseNumber, zipCode: $zipCode, city: $city, country: $country, state: $state)';
-  }
-
-  @override
   List<Object?> get props => [recipient, street, zipCode, city, country, state];
 }

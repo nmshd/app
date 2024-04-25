@@ -38,10 +38,5 @@ class PostOfficeBoxAddressAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() {
-    return 'PostOfficeBoxAddressAttributeValue(recipient: $recipient, boxId: $boxId, zipCode: $zipCode, city: $city, country: $country, state: $state)';
-  }
-
-  @override
   List<Object?> get props => [recipient, boxId, zipCode, city, country, state];
 }

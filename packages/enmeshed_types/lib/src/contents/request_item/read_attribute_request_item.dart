@@ -31,8 +31,5 @@ class ReadAttributeRequestItem extends RequestItemDerivation {
       };
 
   @override
-  String toString() => 'ReadAttributeRequestItem(query: $query)';
-
-  @override
   List<Object?> get props => [super.props, query];
 }

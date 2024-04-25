@@ -34,10 +34,5 @@ class PersonNameAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() {
-    return 'PersonNameAttributeValue(givenName: $givenName, middleName: $middleName, surname: $surname, honorificSuffix: $honorificSuffix, honorificPrefix: $honorificPrefix)';
-  }
-
-  @override
   List<Object?> get props => [givenName, middleName, surname, honorificSuffix, honorificPrefix];
 }

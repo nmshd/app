@@ -21,8 +21,5 @@ class ShareAttributeAcceptResponseItem extends AcceptResponseItem {
       };
 
   @override
-  String toString() => 'ShareAttributeAcceptResponseItem(attributeId: $attributeId)';
-
-  @override
   List<Object?> get props => [super.props, attributeId];
 }

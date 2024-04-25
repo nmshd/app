@@ -26,8 +26,5 @@ class BirthPlaceAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'BirthPlaceAttributeValue(city: $city, country: $country, state: $state)';
-
-  @override
   List<Object?> get props => [city, country, state];
 }

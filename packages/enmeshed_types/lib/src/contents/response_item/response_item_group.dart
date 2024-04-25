@@ -20,8 +20,5 @@ class ResponseItemGroup extends ResponseItem {
       };
 
   @override
-  String toString() => 'ResponseItemGroup(items: $items)';
-
-  @override
   List<Object?> get props => [items];
 }

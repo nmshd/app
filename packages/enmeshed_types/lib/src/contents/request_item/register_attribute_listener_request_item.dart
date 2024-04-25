@@ -31,8 +31,5 @@ class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
       };
 
   @override
-  String toString() => 'RegisterAttributeListenerRequestItem(query: $query)';
-
-  @override
   List<Object?> get props => [super.props, query];
 }

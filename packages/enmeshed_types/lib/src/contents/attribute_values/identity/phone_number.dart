@@ -18,8 +18,5 @@ class PhoneNumberAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'PhoneNumberAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

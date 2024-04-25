@@ -18,8 +18,5 @@ class FaxNumberAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'FaxNumberAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

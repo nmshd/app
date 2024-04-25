@@ -31,8 +31,5 @@ class CreateAttributeRequestItem extends RequestItemDerivation {
       };
 
   @override
-  String toString() => 'CreateAttributeRequestItem(attribute: $attribute)';
-
-  @override
   List<Object?> get props => [super.props, attribute];
 }

@@ -28,8 +28,5 @@ class DownloadFileResponse extends Equatable {
   }
 
   @override
-  String toString() => 'DownloadFileResponse(content: $content, filename: $filename, mimeType: $mimeType)';
-
-  @override
   List<Object?> get props => [content, filename, mimeType];
 }

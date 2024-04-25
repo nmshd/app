@@ -21,8 +21,5 @@ class FreeTextAcceptResponseItem extends AcceptResponseItem {
       };
 
   @override
-  String toString() => 'FreeTextAcceptResponseItem(freeText: $freeText)';
-
-  @override
   List<Object?> get props => [super.props, freeText];
 }

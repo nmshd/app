@@ -42,10 +42,5 @@ class RelationshipDTO extends Equatable {
       };
 
   @override
-  String toString() {
-    return 'RelationshipDTO(id: $id, template: $template, status: $status, peer: $peer, peerIdentity: $peerIdentity, changes: $changes)';
-  }
-
-  @override
   List<Object?> get props => [id, template, status, peer, peerIdentity, changes];
 }

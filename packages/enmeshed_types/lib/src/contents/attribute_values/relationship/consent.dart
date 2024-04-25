@@ -27,8 +27,5 @@ class ConsentAttributeValue extends RelationshipAttributeValue {
       };
 
   @override
-  String toString() => 'ConsentAttributeValue(consent: $consent, valueHintsOverride: $valueHintsOverride, link: $link)';
-
-  @override
   List<Object?> get props => [consent, valueHintsOverride, link];
 }

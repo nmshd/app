@@ -64,11 +64,6 @@ class FileDTO extends Equatable {
       };
 
   @override
-  String toString() {
-    return 'FileDTO { id: $id, filename: $filename, filesize: $filesize, createdAt: $createdAt, createdBy: $createdBy, createdByDevice: $createdByDevice, expiresAt: $expiresAt, mimetype: $mimetype, isOwn: $isOwn, title: $title, secretKey: $secretKey, description: $description, truncatedReference: $truncatedReference }';
-  }
-
-  @override
   List<Object?> get props =>
       [id, filename, filesize, createdAt, createdBy, createdByDevice, expiresAt, mimetype, isOwn, title, secretKey, description, truncatedReference];
 }

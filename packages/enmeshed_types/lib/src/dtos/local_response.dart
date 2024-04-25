@@ -31,8 +31,5 @@ class LocalResponseDTO extends Equatable {
       };
 
   @override
-  String toString() => 'LocalResponseDTO(createdAt: $createdAt, content: $content, source: $source)';
-
-  @override
   List<Object?> get props => [createdAt, content, source];
 }

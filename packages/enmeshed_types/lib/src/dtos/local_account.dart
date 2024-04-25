@@ -19,11 +19,6 @@ class LocalAccountDTO extends Equatable {
     this.lastAccessedAt,
   });
 
-  @override
-  String toString() {
-    return 'LocalAccount { id: $id, address: $address, name: $name, realm: $realm, directory: $directory, order: $order }';
-  }
-
   factory LocalAccountDTO.fromJson(Map json) {
     return LocalAccountDTO(
       id: json['id'],

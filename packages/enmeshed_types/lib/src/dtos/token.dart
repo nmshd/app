@@ -25,11 +25,6 @@ class TokenDTO extends Equatable {
     required this.isEphemeral,
   });
 
-  @override
-  String toString() {
-    return 'TokenDTO(id: $id, createdBy: $createdBy, createdByDevice: $createdByDevice, content: $content, createdAt: $createdAt, expiresAt: $expiresAt, secretKey: $secretKey, truncatedReference: $truncatedReference, isEphemeral: $isEphemeral)';
-  }
-
   factory TokenDTO.fromJson(Map json) {
     return TokenDTO(
       id: json['id'],

@@ -18,8 +18,5 @@ class SexAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'SexAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }
