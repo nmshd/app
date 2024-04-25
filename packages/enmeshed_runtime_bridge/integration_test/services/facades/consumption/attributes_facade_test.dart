@@ -30,9 +30,6 @@ void run(EnmeshedRuntime runtime) {
 
     await ensureActiveRelationship(sender, recipient);
     await ensureActiveRelationship(sender, thirdParty);
-
-    await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
-    await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
   });
 
   group('AttributesFacade: createRepositoryAttribute', () {
@@ -271,18 +268,20 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: getRepositoryAttributes', () {
     test('should return a valid list of repository attributes', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       exchangeIdentityAttribute(sender, recipient, const SurnameAttributeValue(value: 'aSurname'));
 
       final repositoryAttributesResult = await sender.consumptionServices.attributes.getRepositoryAttributes();
       expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
 
-      expect(repositoryAttributesResult.value.length, 3);
+      expect(repositoryAttributesResult.value.length, 2);
       expect(repositoryAttributesResult.value.every((e) => e.shareInfo == null), true);
     });
   });
 
   group('AttributesFacade: getAttribute', () {
     test('should return a valid LocalAttributeDTO', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       final attributesResult = await sender.consumptionServices.attributes.getAttributes();
       final attributes = attributesResult.value;
 
@@ -308,6 +307,8 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: getAttributes', () {
     test('should return a valid list of LocalAttributeDTOs', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
       final attributesResult = await sender.consumptionServices.attributes.getAttributes();
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
@@ -326,6 +327,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return just non technical attributes when hideTechnical=true', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -336,10 +338,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(hideTechnical: true);
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 2);
+      expect(attributesResult.value.length, 1);
     });
 
     test('should return also technical attributes when hideTechnical=false', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -350,10 +353,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(hideTechnical: false);
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 3);
+      expect(attributesResult.value.length, 2);
     });
 
     test('should return just valid attributes when onlyValid=true', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -364,10 +368,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: true);
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 2);
+      expect(attributesResult.value.length, 1);
     });
 
     test('should return also expired attributes when onlyValid=false', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -378,10 +383,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: false);
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 3);
+      expect(attributesResult.value.length, 2);
     });
 
     test('should return a valid list of LocalAttributeDTOs with all properties', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
