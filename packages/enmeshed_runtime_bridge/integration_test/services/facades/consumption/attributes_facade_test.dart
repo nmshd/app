@@ -281,7 +281,9 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: getAttribute', () {
     test('should return a valid LocalAttributeDTO', () async {
-      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const SurnameAttributeValue(value: 'aSurname'),
+      );
       final attribute = attributesResult.value;
 
       final attributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: attribute.id);
@@ -1072,7 +1074,9 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: succeedRepositoryAttribute', () {
     test('should succeed an identity attribute', () async {
-      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const SurnameAttributeValue(value: 'aSurname'),
+      );
       final attribute = attributesResult.value;
 
       final succeededAttributeResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
@@ -1088,7 +1092,9 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should succeed an identity attribute with properties "tags", "validFrom" and "validTo"', () async {
-      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const SurnameAttributeValue(value: 'aSurname'),
+      );
       final attribute = attributesResult.value;
 
       final succeededAttributeResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
