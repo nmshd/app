@@ -11,7 +11,10 @@ class PeerSharedAttributeDeletedByPeerNotificationItem extends NotificationItem 
   factory PeerSharedAttributeDeletedByPeerNotificationItem.fromJson(Map json) =>
       _$PeerSharedAttributeDeletedByPeerNotificationItemFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() => _$PeerSharedAttributeDeletedByPeerNotificationItemToJson(this);
+  Map<String, dynamic> toJson() => {
+        ..._$PeerSharedAttributeDeletedByPeerNotificationItemToJson(this),
+        '@type': 'PeerSharedAttributeDeletedByPeerNotificationItem',
+      };
 
   @override
   List<Object?> get props => [attributeId];
