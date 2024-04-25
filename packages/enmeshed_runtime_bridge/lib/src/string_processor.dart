@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import 'services/facades/abstract_evaluator.dart';
 import 'services/facades/handle_call_async_js_result.dart';
-import 'services/facades/result.dart';
+import 'services/facades/utilities/utilities.dart';
 
 class StringProcessor {
   final AbstractEvaluator _evaluator;
