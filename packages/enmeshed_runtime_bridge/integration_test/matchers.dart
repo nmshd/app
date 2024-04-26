@@ -52,7 +52,7 @@ class _ResultSuccessfulMatcher<T> extends Matcher {
   Description describe(Description description) => description.add('result is successful');
 
   @override
-  bool matches(item, Map matchState) => item is Result && item.isSuccess && item.value is T;
+  bool matches(item, Map matchState) => (item is VoidResult && item.isSuccess) || (item is Result && item.isSuccess && item.value is T);
 
   @override
   Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
