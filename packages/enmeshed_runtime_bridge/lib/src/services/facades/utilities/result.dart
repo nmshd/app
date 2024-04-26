@@ -1,3 +1,5 @@
+import 'runtime_error.dart';
+
 class Result<T> {
   final T? _value;
   final RuntimeError? _error;
@@ -30,18 +32,5 @@ class Result<T> {
       return Result.failure(RuntimeError.fromJson(json['error']));
     }
     return Result.success(transformer(json['value']));
-  }
-}
-
-class RuntimeError extends Error {
-  final String message;
-  final String code;
-
-  RuntimeError({required this.message, required this.code});
-  factory RuntimeError.fromJson(Map json) => RuntimeError(message: json['message'], code: json['code']);
-
-  @override
-  String toString() {
-    return 'Error: $message';
   }
 }

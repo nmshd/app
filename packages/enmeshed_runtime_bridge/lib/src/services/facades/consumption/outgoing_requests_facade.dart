@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import '../abstract_evaluator.dart';
 import '../handle_call_async_js_result.dart';
-import '../result.dart';
+import '../utilities/utilities.dart';
 
 /// This facade lacks the functions createAndCompleteFromRelationshipTemplateResponse, sent and complete
 /// because they are only usable in the automation of the actual JavaScript Enmeshed Runtime and shall not be used here.
@@ -86,7 +86,7 @@ class OutgoingRequestsFacade {
     return Result.fromJson(json, (value) => List<LocalRequestDTO>.from(value.map((e) => LocalRequestDTO.fromJson(e))));
   }
 
-  Future<void> discard({
+  Future<VoidResult> discard({
     required String requestId,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
@@ -100,6 +100,7 @@ class OutgoingRequestsFacade {
       },
     );
 
-    result.throwOnError();
+    final value = result.valueToMap();
+    return VoidResult.fromJson(value);
   }
 }
