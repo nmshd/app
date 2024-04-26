@@ -1354,7 +1354,7 @@ void run(EnmeshedRuntime runtime) {
       final identityAttribute = identityAttributeResult.value;
 
       final deletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
-      expect(deletionResult, isSuccessful<void>());
+      expect(deletionResult, isSuccessful<VoidResult>());
     });
 
     test('should return an error trying to delete an already deleted attribute', () async {
@@ -1364,10 +1364,10 @@ void run(EnmeshedRuntime runtime) {
       final identityAttribute = identityAttributeResult.value;
 
       final successfulDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
-      expect(successfulDeletionResult, isSuccessful<void>());
+      expect(successfulDeletionResult, isSuccessful<VoidResult>());
 
       final failingDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
-      expect(failingDeletionResult, isFailing('error.runtime.recordNotFound'));
+      expect(failingDeletionResult, isFailingVoidResult('error.runtime.recordNotFound'));
     });
   });
 

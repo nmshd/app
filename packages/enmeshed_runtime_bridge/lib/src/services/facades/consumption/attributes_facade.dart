@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:enmeshed_types/enmeshed_types.dart';
 
 import '../abstract_evaluator.dart';
@@ -472,7 +470,7 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse.fromJson(value));
   }
 
-  Future<Result<void>> deleteRepositoryAttribute({
+  Future<VoidResult> deleteRepositoryAttribute({
     required String attributeId,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
@@ -486,13 +484,6 @@ class AttributesFacade {
       },
     );
 
-    if (result.value.length == 0) {
-      // TODO(Milena-Czierlinski): remove this workaround as soon as VoidResult landed
-      // ignore: void_checks
-      return Result.success(Void);
-    }
-    final message = result.value['error']['message'];
-    final code = result.value['error']['code'];
-    return Result.failure(RuntimeError(message: message, code: code));
+    return VoidResult.fromJson(result.valueToMap());
   }
 }
