@@ -13,11 +13,6 @@ class RequestValidationResultDTO extends Equatable {
     required this.items,
   });
 
-  @override
-  String toString() {
-    return 'RequestValidationResult(isSuccess: $isSuccess, code: $code, message: $message, items: $items)';
-  }
-
   factory RequestValidationResultDTO.fromJson(Map json) => RequestValidationResultDTO(
         isSuccess: json['isSuccess'],
         code: json['code'],

@@ -25,8 +25,5 @@ class ProprietaryURLAttributeValue extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryURLAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [super.props, value];
 }

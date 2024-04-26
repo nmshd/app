@@ -26,8 +26,5 @@ class SyncEverythingResponse extends Equatable {
   }
 
   @override
-  String toString() => 'SyncEverythingResponse(relationships: $relationships, messages: $messages)';
-
-  @override
   List<Object?> get props => [relationships, messages];
 }

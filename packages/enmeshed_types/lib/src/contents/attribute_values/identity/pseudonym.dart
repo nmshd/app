@@ -18,8 +18,5 @@ class PseudonymAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'PseudonymAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

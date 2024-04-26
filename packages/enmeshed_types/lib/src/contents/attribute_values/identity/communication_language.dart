@@ -18,8 +18,5 @@ class CommunicationLanguageAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'CommunicationLanguageAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

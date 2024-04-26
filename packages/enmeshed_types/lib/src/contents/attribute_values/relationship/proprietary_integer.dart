@@ -25,8 +25,5 @@ class ProprietaryIntegerAttributeValue extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryIntegerAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [super.props, value];
 }

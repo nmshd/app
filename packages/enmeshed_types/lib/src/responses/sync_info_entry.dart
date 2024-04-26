@@ -12,8 +12,5 @@ class SyncInfoEntry extends Equatable {
   Map<String, dynamic> toJson() => {'completedAt': completedAt};
 
   @override
-  String toString() => 'SyncInfoEntry(completedAt: $completedAt)';
-
-  @override
   List<Object?> get props => [completedAt];
 }

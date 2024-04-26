@@ -19,11 +19,6 @@ class RelationshipAttribute extends AbstractAttribute {
     required this.confidentiality,
   });
 
-  @override
-  String toString() {
-    return 'RelationshipAttribute(owner: $owner, validFrom: $validFrom, validTo: $validTo, value: $value, key: $key, isTechnical: $isTechnical, confidentiality: $confidentiality)';
-  }
-
   factory RelationshipAttribute.fromJson(Map json) => RelationshipAttribute(
         owner: json['owner'],
         validFrom: json['validFrom'],

@@ -25,8 +25,5 @@ class ErrorResponseItem extends ResponseItemDerivation {
       };
 
   @override
-  String toString() => 'ErrorResponseItem(code: $code, message: $message)';
-
-  @override
   List<Object?> get props => [super.props, code, message];
 }

@@ -18,8 +18,5 @@ class HouseNumberAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'HouseNumberAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

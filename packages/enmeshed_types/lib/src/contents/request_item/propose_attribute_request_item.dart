@@ -35,8 +35,5 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
       };
 
   @override
-  String toString() => 'ProposeAttributeRequestItem(query: $query, attribute: $attribute)';
-
-  @override
   List<Object?> get props => [super.props, query, attribute];
 }

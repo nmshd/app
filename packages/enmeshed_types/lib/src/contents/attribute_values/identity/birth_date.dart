@@ -26,8 +26,5 @@ class BirthDateAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'BirthDateAttributeValue(day: $day, month: $month, year: $year)';
-
-  @override
   List<Object?> get props => [day, month, year];
 }

@@ -18,8 +18,5 @@ class StateAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'StateAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

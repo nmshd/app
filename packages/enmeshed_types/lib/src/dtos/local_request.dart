@@ -51,10 +51,5 @@ class LocalRequestDTO extends Equatable {
       };
 
   @override
-  String toString() {
-    return 'LocalRequestDTO(id: $id, isOwn: $isOwn, peer: $peer, createdAt: $createdAt, status: $status, content: $content, source: $source, response: $response)';
-  }
-
-  @override
   List<Object?> get props => [id, isOwn, peer, createdAt, status, content, source, response];
 }

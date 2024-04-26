@@ -33,11 +33,6 @@ class ValueHints extends Equatable {
   Map<String, dynamic> toJson() => {'@type': 'ValueHints', ..._$ValueHintsToJson(this)};
 
   @override
-  String toString() {
-    return 'ValueHints(editHelp: $editHelp, min: $min, max: $max, pattern: $pattern, values: $values, defaultValue: $defaultValue, propertyHints: $propertyHints)';
-  }
-
-  @override
   List<Object?> get props => [editHelp, min, max, pattern, values, defaultValue, propertyHints];
 }
 

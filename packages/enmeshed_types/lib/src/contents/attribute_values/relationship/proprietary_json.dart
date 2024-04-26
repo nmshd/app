@@ -27,8 +27,5 @@ class ProprietaryJSONAttributeValue extends RelationshipAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryJSONAttributeValue(title: $title, description: $description, value: $value)';
-
-  @override
   List<Object?> get props => [title, description, value];
 }

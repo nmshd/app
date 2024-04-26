@@ -25,8 +25,5 @@ class ProprietaryCountryAttributeValue extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryCountryAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [super.props, value];
 }

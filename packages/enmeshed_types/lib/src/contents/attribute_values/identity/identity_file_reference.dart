@@ -18,8 +18,5 @@ class IdentityFileReferenceAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'IdentityFileReferenceAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

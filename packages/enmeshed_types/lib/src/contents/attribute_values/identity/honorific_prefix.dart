@@ -18,8 +18,5 @@ class HonorificPrefixAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'HonorificPrefixAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

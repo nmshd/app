@@ -13,11 +13,6 @@ class IdentityAttribute extends AbstractAttribute {
     this.tags,
   });
 
-  @override
-  String toString() {
-    return 'IdentityAttribute(owner: $owner, validFrom: $validFrom, validTo: $validTo, value: $value, tags: $tags)';
-  }
-
   factory IdentityAttribute.fromJson(Map json) => IdentityAttribute(
         owner: json['owner'],
         validFrom: json['validFrom'],

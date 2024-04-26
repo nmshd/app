@@ -18,8 +18,5 @@ class HonorificSuffixAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'HonorificSuffixAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }
