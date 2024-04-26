@@ -60,5 +60,5 @@ class LocalAttributeDTO extends Equatable {
       };
 
   @override
-  List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo];
+  List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo, deletionInfo];
 }
