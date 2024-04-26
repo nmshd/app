@@ -43,10 +43,5 @@ class Request extends Equatable {
   }
 
   @override
-  String toString() {
-    return 'Request(id: $id, expiresAt: $expiresAt, items: $items, title: $title, description: $description, metadata: $metadata)';
-  }
-
-  @override
   List<Object?> get props => [id, expiresAt, items, title, description, metadata];
 }

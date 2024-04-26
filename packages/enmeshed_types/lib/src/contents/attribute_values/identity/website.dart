@@ -18,8 +18,5 @@ class WebsiteAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'WebsiteAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

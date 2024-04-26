@@ -28,8 +28,5 @@ class LocalAttributeListenerDTO extends Equatable {
       };
 
   @override
-  String toString() => 'LocalAttributeListenerDTO(id: $id, query: $query, peer: $peer)';
-
-  @override
   List<Object?> get props => [id, query, peer];
 }

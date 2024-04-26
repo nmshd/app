@@ -18,8 +18,5 @@ class StreetAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'StreetAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

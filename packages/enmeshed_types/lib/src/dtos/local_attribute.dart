@@ -60,10 +60,5 @@ class LocalAttributeDTO extends Equatable {
       };
 
   @override
-  String toString() {
-    return 'LocalAttributeDTO(id: $id, parentId: $parentId, createdAt: $createdAt, content: $content, succeeds: $succeeds, succeededBy: $succeededBy, shareInfo: $shareInfo, deletionInfo: $deletionInfo)';
-  }
-
-  @override
-  List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo, deletionInfo];
+  List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo];
 }

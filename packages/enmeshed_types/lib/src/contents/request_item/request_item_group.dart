@@ -29,8 +29,5 @@ class RequestItemGroup extends RequestItem {
       };
 
   @override
-  String toString() => 'RequestItemGroup(items: $items)';
-
-  @override
   List<Object?> get props => [super.props, items];
 }

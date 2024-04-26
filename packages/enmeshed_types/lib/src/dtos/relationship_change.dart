@@ -38,10 +38,5 @@ class RelationshipChangeDTO extends Equatable {
       };
 
   @override
-  String toString() {
-    return 'RelationshipChange { id: $id, request: $request, status: $status, type: $type, response: $response }';
-  }
-
-  @override
   List<Object?> get props => [id, request, status, type, response];
 }

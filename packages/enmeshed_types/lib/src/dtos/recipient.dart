@@ -28,10 +28,5 @@ class RecipientDTO extends Equatable {
       };
 
   @override
-  String toString() {
-    return 'RecipientDTO { address: $address, receivedAt: $receivedAt, receivedByDevice: $receivedByDevice, relationshipId: $relationshipId }';
-  }
-
-  @override
   List<Object?> get props => [address, receivedAt, receivedByDevice, relationshipId];
 }

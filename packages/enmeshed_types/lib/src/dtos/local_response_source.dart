@@ -24,8 +24,5 @@ class LocalResponseSourceDTO extends Equatable {
       };
 
   @override
-  String toString() => 'LocalResponseSourceDTO(type: $type, reference: $reference)';
-
-  @override
   List<Object?> get props => [type, reference];
 }

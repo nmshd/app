@@ -10,7 +10,7 @@ import 'data_view_expander.dart';
 import 'event_bus.dart';
 import 'filesystem_adapter.dart';
 import 'javascript_handlers.dart';
-import 'services/facades/result.dart';
+import 'services/facades/utilities/result.dart';
 import 'services/services.dart';
 import 'string_processor.dart';
 import 'ui_bridge.dart';

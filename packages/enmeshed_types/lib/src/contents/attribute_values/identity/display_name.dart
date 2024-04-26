@@ -18,8 +18,5 @@ class DisplayNameAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'DisplayNameAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

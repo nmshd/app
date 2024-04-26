@@ -25,8 +25,5 @@ class ProprietaryFloatAttributeValue extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryFloatAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [super.props, value];
 }

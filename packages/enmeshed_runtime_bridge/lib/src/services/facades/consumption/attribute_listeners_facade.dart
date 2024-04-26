@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import '../abstract_evaluator.dart';
 import '../handle_call_async_js_result.dart';
-import '../result.dart';
+import '../utilities/utilities.dart';
 
 class AttributeListenersFacade {
   final AbstractEvaluator _evaluator;

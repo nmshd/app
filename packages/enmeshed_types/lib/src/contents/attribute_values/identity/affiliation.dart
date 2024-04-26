@@ -21,8 +21,5 @@ class AffiliationAttributeValue extends IdentityAttributeValue {
   Map<String, dynamic> toJson() => {'@type': super.atType, 'role': role, 'organization': organization, 'unit': unit};
 
   @override
-  String toString() => 'AffiliationAttributeValue(role: $role, organization: $organization, unit: $unit)';
-
-  @override
   List<Object?> get props => [role, organization, unit];
 }

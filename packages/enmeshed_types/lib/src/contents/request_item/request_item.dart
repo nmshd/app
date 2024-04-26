@@ -46,11 +46,6 @@ abstract class RequestItem extends Equatable {
         'mustBeAccepted': mustBeAccepted,
       };
 
-  @override
-  String toString() {
-    return 'RequestItem(title: $title, description: $description, metadata: $metadata, mustBeAccepted: $mustBeAccepted)';
-  }
-
   @mustCallSuper
   @override
   List<Object?> get props => [title, description, metadata, mustBeAccepted];

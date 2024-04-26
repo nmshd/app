@@ -32,10 +32,5 @@ class RelationshipChangeResponseDTO extends Equatable {
       };
 
   @override
-  String toString() {
-    return 'RelationshipChangeResponseDTO { createdBy: $createdBy, createdByDevice: $createdByDevice, createdAt: $createdAt, content: $content }';
-  }
-
-  @override
   List<Object?> get props => [createdBy, createdByDevice, createdAt, content];
 }

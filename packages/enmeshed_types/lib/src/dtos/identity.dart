@@ -11,11 +11,6 @@ class IdentityDTO extends Equatable {
     required this.realm,
   });
 
-  @override
-  String toString() {
-    return 'Identity { address: $address, publicKey: $publicKey, realm: $realm }';
-  }
-
   factory IdentityDTO.fromJson(Map json) {
     return IdentityDTO(
       address: json['address'],

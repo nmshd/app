@@ -18,8 +18,5 @@ class JobTitleAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'JobTitleAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

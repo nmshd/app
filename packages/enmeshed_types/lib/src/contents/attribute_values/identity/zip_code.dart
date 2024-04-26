@@ -18,8 +18,5 @@ class ZipCodeAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'ZipCodeAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

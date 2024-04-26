@@ -18,8 +18,5 @@ class EMailAddressAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'EMailAddressAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }
