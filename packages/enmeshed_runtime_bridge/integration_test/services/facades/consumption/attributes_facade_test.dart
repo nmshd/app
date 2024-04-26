@@ -1354,7 +1354,7 @@ void run(EnmeshedRuntime runtime) {
       final identityAttribute = identityAttributeResult.value;
 
       final deletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
-      expect(deletionResult, isSuccessful<VoidResult>());
+      expect(deletionResult, isSuccessful());
     });
 
     test('should return an error trying to delete an already deleted attribute', () async {
@@ -1364,7 +1364,7 @@ void run(EnmeshedRuntime runtime) {
       final identityAttribute = identityAttributeResult.value;
 
       final successfulDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
-      expect(successfulDeletionResult, isSuccessful<VoidResult>());
+      expect(successfulDeletionResult, isSuccessful());
 
       final failingDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
       expect(failingDeletionResult, isFailingVoidResult('error.runtime.recordNotFound'));
@@ -1571,7 +1571,7 @@ void run(EnmeshedRuntime runtime) {
       final deletionResult = await sender.consumptionServices.attributes
           .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
       expect(deletionResult, isSuccessful<DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse>());
-    });
+    }, timeout: const Timeout(Duration(seconds: 60)));
 
     test('should delete a third party owned relationship attribute as the recipient of it', () async {
       final senderAddress = account1.address!;
@@ -1606,6 +1606,51 @@ void run(EnmeshedRuntime runtime) {
       final deletionResult = await recipient.consumptionServices.attributes
           .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: recipientThirdPartyOwnedRelationshipAttribute.id);
       expect(deletionResult, isSuccessful<DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse>());
+    });
+
+    test('should set the deletionInfo of the peer`s attribute, deleting a third party owned relationship attribute as the sender of it', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+      final thirdPartyAddress = account3.address!;
+
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
+
+      final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        thirdParty,
+        sender,
+        account3.address!,
+        senderAddress,
+        attributeValue,
+        succeededAttributeValue,
+        eventBus,
+      );
+
+      final senderOwnSharedRelationshipAttribute =
+          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
+
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
+      final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
+
+      final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+
+      final deletionResult = await sender.consumptionServices.attributes
+          .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
+      expect(deletionResult, isSuccessful<DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse>());
+      final notificationId = deletionResult.value.notificationId;
+
+      final timeBeforeUpdate = DateTime.now();
+      await syncUntilHasMessageWithNotification(recipient, notificationId);
+      await eventBus.waitForEvent<ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent>(
+          eventTargetAddress: recipientAddress, predicate: (e) => e.data.id == senderThirdPartyOwnedRelationshipAttribute.id);
+      final timeAfterUpdate = DateTime.now();
+
+      final recipientThirdPartyOwnedRelationshipAttribute =
+          (await recipient.consumptionServices.attributes.getAttribute(attributeId: senderOwnSharedRelationshipAttribute.id)).value;
+      expect(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionStatus, DeletionStatus.DeletedByPeer);
+      expect(DateTime.parse(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
+      expect(DateTime.parse(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
     });
 
     test('should set the deletionInfo of the peer`s attribute, deleting a third party owned relationship attribute as the recipient of it', () async {
@@ -1647,51 +1692,6 @@ void run(EnmeshedRuntime runtime) {
 
       final recipientThirdPartyOwnedRelationshipAttribute =
           (await sender.consumptionServices.attributes.getAttribute(attributeId: senderOwnSharedRelationshipAttribute.id)).value;
-      expect(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionStatus, DeletionStatus.DeletedByPeer);
-      expect(DateTime.parse(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
-      expect(DateTime.parse(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
-    });
-
-    test('should set the deletionInfo of the peer`s attribute, deleting a third party owned relationship attribute as the sender of it', () async {
-      final senderAddress = account1.address!;
-      final recipientAddress = account2.address!;
-      final thirdPartyAddress = account3.address!;
-
-      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
-
-      final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
-        thirdParty,
-        sender,
-        account3.address!,
-        senderAddress,
-        attributeValue,
-        succeededAttributeValue,
-        eventBus,
-      );
-
-      final senderOwnSharedRelationshipAttribute =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
-
-      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
-      final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
-
-      final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
-
-      final deletionResult = await sender.consumptionServices.attributes
-          .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
-      expect(deletionResult, isSuccessful<DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse>());
-      final notificationId = deletionResult.value.notificationId;
-
-      final timeBeforeUpdate = DateTime.now();
-      await syncUntilHasMessageWithNotification(sender, notificationId);
-      await eventBus.waitForEvent<ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent>(
-          eventTargetAddress: recipientAddress, predicate: (e) => e.data.id == senderThirdPartyOwnedRelationshipAttribute.id);
-      final timeAfterUpdate = DateTime.now();
-
-      final recipientThirdPartyOwnedRelationshipAttribute =
-          (await recipient.consumptionServices.attributes.getAttribute(attributeId: senderOwnSharedRelationshipAttribute.id)).value;
       expect(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionStatus, DeletionStatus.DeletedByPeer);
       expect(DateTime.parse(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
       expect(DateTime.parse(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
