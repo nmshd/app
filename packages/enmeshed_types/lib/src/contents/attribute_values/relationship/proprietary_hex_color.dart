@@ -25,8 +25,5 @@ class ProprietaryHEXColorAttributeValue extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryHEXColorAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [super.props, value];
 }

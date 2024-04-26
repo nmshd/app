@@ -21,8 +21,5 @@ class CreateAttributeAcceptResponseItem extends AcceptResponseItem {
       };
 
   @override
-  String toString() => 'CreateAttributeAcceptResponseItem(attributeId: $attributeId)';
-
-  @override
   List<Object?> get props => [super.props, attributeId];
 }

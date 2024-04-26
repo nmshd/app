@@ -35,8 +35,5 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
       };
 
   @override
-  String toString() => 'ShareAttributeRequestItem(attribute: $attribute, sourceAttributeId: $sourceAttributeId)';
-
-  @override
   List<Object?> get props => [super.props, attribute, sourceAttributeId];
 }

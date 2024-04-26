@@ -24,8 +24,5 @@ class GetIdentityInfoResponse extends Equatable {
   }
 
   @override
-  String toString() => 'GetIdentityInfoResponse(address: $address, publicKey: $publicKey)';
-
-  @override
   List<Object?> get props => [address, publicKey];
 }

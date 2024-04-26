@@ -25,8 +25,5 @@ class ProprietaryLanguageAttributeValue extends ProprietaryAttributeValue {
       };
 
   @override
-  String toString() => 'ProprietaryLanguageAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [super.props, value];
 }

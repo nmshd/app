@@ -31,8 +31,5 @@ class Response extends Equatable {
       };
 
   @override
-  String toString() => 'ResponseJSON(result: $result, requestId: $requestId, items: $items)';
-
-  @override
   List<Object?> get props => [result, requestId, items];
 }

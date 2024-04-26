@@ -19,8 +19,5 @@ class ValueHintsValue extends Equatable {
   Map<String, dynamic> toJson() => {'@type': 'ValueHintsValue', ..._$ValueHintsValueToJson(this)};
 
   @override
-  String toString() => 'ValueHintsValue(key: $key, displayName: $displayName)';
-
-  @override
   List<Object?> get props => [key, displayName];
 }

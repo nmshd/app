@@ -21,8 +21,5 @@ class RegisterAttributeListenerAcceptResponseItem extends AcceptResponseItem {
       };
 
   @override
-  String toString() => 'RegisterAttributeListenerAcceptResponseItem(listenerId: $listenerId)';
-
-  @override
   List<Object?> get props => [super.props, listenerId];
 }

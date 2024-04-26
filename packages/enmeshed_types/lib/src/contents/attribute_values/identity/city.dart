@@ -18,8 +18,5 @@ class CityAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'CityAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

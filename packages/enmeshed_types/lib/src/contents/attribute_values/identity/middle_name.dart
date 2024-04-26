@@ -18,8 +18,5 @@ class MiddleNameAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'MiddleNameAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

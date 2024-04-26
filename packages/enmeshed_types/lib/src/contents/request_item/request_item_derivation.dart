@@ -34,8 +34,5 @@ abstract class RequestItemDerivation extends RequestItem {
       };
 
   @override
-  String toString() => 'RequestItemDerivation(requireManualDecision: $requireManualDecision)';
-
-  @override
   List<Object?> get props => [super.props, requireManualDecision];
 }

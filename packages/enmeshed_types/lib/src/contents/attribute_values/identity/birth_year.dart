@@ -18,8 +18,5 @@ class BirthYearAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'BirthYearAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

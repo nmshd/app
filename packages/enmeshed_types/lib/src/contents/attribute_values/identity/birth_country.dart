@@ -18,8 +18,5 @@ class BirthCountryAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'BirthCountryAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

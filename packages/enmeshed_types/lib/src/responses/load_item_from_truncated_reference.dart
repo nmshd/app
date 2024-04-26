@@ -48,8 +48,5 @@ class LoadItemFromTruncatedReferenceResponse extends Equatable {
   Map<String, dynamic> toJson() => {'type': type.name, 'value': _value};
 
   @override
-  String toString() => 'LoadItemFromTruncatedReferenceResponse(type: $type, value: $_value)';
-
-  @override
   List<Object?> get props => [type, _value];
 }

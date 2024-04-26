@@ -18,8 +18,5 @@ class SurnameAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'SurnameAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

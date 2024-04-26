@@ -25,8 +25,5 @@ class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
       };
 
   @override
-  String toString() => 'ReadAttributeAcceptResponseItem(attributeId: $attributeId, attribute: $attribute)';
-
-  @override
   List<Object?> get props => [super.props, attributeId, attribute];
 }

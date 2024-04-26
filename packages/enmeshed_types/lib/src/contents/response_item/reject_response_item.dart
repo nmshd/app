@@ -25,8 +25,5 @@ class RejectResponseItem extends ResponseItemDerivation {
       };
 
   @override
-  String toString() => 'RejectResponseItem(code: $code, message: $message)';
-
-  @override
   List<Object?> get props => [super.props, code, message];
 }

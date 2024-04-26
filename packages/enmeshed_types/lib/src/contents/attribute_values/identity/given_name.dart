@@ -18,8 +18,5 @@ class GivenNameAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() => 'GivenNameAttributeValue(value: $value)';
-
-  @override
   List<Object?> get props => [value];
 }

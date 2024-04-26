@@ -46,10 +46,5 @@ class DeliveryBoxAddressAttributeValue extends IdentityAttributeValue {
       };
 
   @override
-  String toString() {
-    return 'DeliveryBoxAddressAttributeValue(recipient: $recipient, deliveryBoxId: $deliveryBoxId, userId: $userId, zipCode: $zipCode, city: $city, country: $country, phoneNumber: $phoneNumber, state: $state)';
-  }
-
-  @override
   List<Object?> get props => [recipient, deliveryBoxId, userId, zipCode, city, country, phoneNumber, state];
 }

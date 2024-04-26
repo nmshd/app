@@ -54,10 +54,6 @@ class RelationshipTemplateDTO extends Equatable {
       };
 
   @override
-  String toString() =>
-      'RelationshipTemplateDTO(id: $id, isOwn: $isOwn, createdBy: $createdBy, createdByDevice: $createdByDevice, createdAt: $createdAt, content: $content, expiresAt: $expiresAt, maxNumberOfAllocations: $maxNumberOfAllocations, secretKey: $secretKey, truncatedReference: $truncatedReference)';
-
-  @override
   List<Object?> get props => [
         id,
         isOwn,

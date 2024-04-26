@@ -22,8 +22,5 @@ class SyncInfoResponse extends Equatable {
       };
 
   @override
-  String toString() => 'SyncInfoResponse(lastDatawalletSync: $lastDatawalletSync, lastSyncRun: $lastSyncRun)';
-
-  @override
   List<Object?> get props => [lastDatawalletSync, lastSyncRun];
 }
