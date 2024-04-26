@@ -6,6 +6,11 @@ class VoidResult {
   bool get isError => _error != null;
   bool get isSuccess => _error == null;
 
+  RuntimeError get error {
+    if (_error == null) throw StateError('The result is not an error');
+    return _error;
+  }
+
   VoidResult._({RuntimeError? error}) : _error = error;
 
   factory VoidResult.success() => VoidResult._();
