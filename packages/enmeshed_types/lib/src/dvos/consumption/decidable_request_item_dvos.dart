@@ -102,6 +102,31 @@ class DecidableCreateAttributeRequestItemDVO extends DecidableRequestItemDVODeri
 }
 
 @JsonSerializable(includeIfNull: false)
+class DecidableDeleteAttributeRequestItemDVO extends DecidableRequestItemDVODerivation {
+  final String attributeId;
+  final LocalAttributeDVO attribute;
+
+  const DecidableDeleteAttributeRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    super.requireManualDecision,
+    required this.attributeId,
+    required this.attribute,
+  }) : super(type: 'DecidableDeleteAttributeRequestItemDVO', isDecidable: true);
+
+  factory DecidableDeleteAttributeRequestItemDVO.fromJson(Map json) =>
+      _$DecidableDeleteAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$DecidableDeleteAttributeRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
 class DecidableShareAttributeRequestItemDVO extends DecidableRequestItemDVODerivation {
   final String sourceAttributeId;
   final DraftAttributeDVO attribute;

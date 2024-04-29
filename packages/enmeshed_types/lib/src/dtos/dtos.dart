@@ -5,6 +5,7 @@ export 'file.dart';
 export 'identity.dart';
 export 'local_account.dart';
 export 'local_attribute.dart';
+export 'local_attribute_deletion_info.dart';
 export 'local_attribute_listener.dart';
 export 'local_attribute_share_info.dart';
 export 'local_request.dart';

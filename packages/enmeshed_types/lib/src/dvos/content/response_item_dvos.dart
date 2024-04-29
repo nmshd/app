@@ -128,6 +128,7 @@ class AcceptResponseItemDVO extends ResponseItemDVODerivation {
         'ReadAttributeAcceptResponseItemDVO' => ReadAttributeAcceptResponseItemDVO.fromJson(json),
         'ProposeAttributeAcceptResponseItemDVO' => ProposeAttributeAcceptResponseItemDVO.fromJson(json),
         'CreateAttributeAcceptResponseItemDVO' => CreateAttributeAcceptResponseItemDVO.fromJson(json),
+        'DeleteAttributeAcceptResponseItemDVO' => DeleteAttributeAcceptResponseItemDVO.fromJson(json),
         'ShareAttributeAcceptResponseItemDVO' => ShareAttributeAcceptResponseItemDVO.fromJson(json),
         'RegisterAttributeListenerAcceptResponseItemDVO' => RegisterAttributeListenerAcceptResponseItemDVO.fromJson(json),
         _ => throw Exception("Invalid type '${json['type']}'"),
@@ -204,6 +205,27 @@ class CreateAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   factory CreateAttributeAcceptResponseItemDVO.fromJson(Map json) => _$CreateAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$CreateAttributeAcceptResponseItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class DeleteAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
+  final String deletionDate;
+
+  const DeleteAttributeAcceptResponseItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    required super.type,
+    super.date,
+    super.error,
+    super.warning,
+    required this.deletionDate,
+  });
+
+  factory DeleteAttributeAcceptResponseItemDVO.fromJson(Map json) => _$DeleteAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$DeleteAttributeAcceptResponseItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)

@@ -246,6 +246,41 @@ Map<String, dynamic> _$CreateAttributeAcceptResponseItemDVOToJson(CreateAttribut
   return val;
 }
 
+DeleteAttributeAcceptResponseItemDVO _$DeleteAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
+    DeleteAttributeAcceptResponseItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      type: json['type'] as String,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      deletionDate: json['deletionDate'] as String,
+    );
+
+Map<String, dynamic> _$DeleteAttributeAcceptResponseItemDVOToJson(DeleteAttributeAcceptResponseItemDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['deletionDate'] = instance.deletionDate;
+  return val;
+}
+
 ShareAttributeAcceptResponseItemDVO _$ShareAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => ShareAttributeAcceptResponseItemDVO(
       id: json['id'] as String,
       name: json['name'] as String,

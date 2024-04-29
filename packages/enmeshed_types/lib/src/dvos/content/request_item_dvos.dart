@@ -81,6 +81,7 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
       'ReadAttributeRequestItemDVO' => ReadAttributeRequestItemDVO.fromJson(json),
       'ProposeAttributeRequestItemDVO' => ProposeAttributeRequestItemDVO.fromJson(json),
       'CreateAttributeRequestItemDVO' => CreateAttributeRequestItemDVO.fromJson(json),
+      'DeleteAttributeRequestItemDVO' => DeleteAttributeRequestItemDVO.fromJson(json),
       'ShareAttributeRequestItemDVO' => ShareAttributeRequestItemDVO.fromJson(json),
       'AuthenticationRequestItemDVO' => AuthenticationRequestItemDVO.fromJson(json),
       'ConsentRequestItemDVO' => ConsentRequestItemDVO.fromJson(json),
@@ -170,6 +171,32 @@ class CreateAttributeRequestItemDVO extends RequestItemDVODerivation {
   factory CreateAttributeRequestItemDVO.fromJson(Map json) => _$CreateAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$CreateAttributeRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class DeleteAttributeRequestItemDVO extends RequestItemDVODerivation {
+  final String attributeId;
+  final LocalAttributeDVO attribute;
+
+  const DeleteAttributeRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
+    super.response,
+    super.requireManualDecision,
+    required this.attributeId,
+    required this.attribute,
+  }) : super(type: 'DeleteAttributeRequestItemDVO');
+
+  factory DeleteAttributeRequestItemDVO.fromJson(Map json) => _$DeleteAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$DeleteAttributeRequestItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)

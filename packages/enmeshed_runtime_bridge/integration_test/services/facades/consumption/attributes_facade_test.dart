@@ -14,6 +14,8 @@ void run(EnmeshedRuntime runtime) {
   late Session sender;
   late LocalAccountDTO account2;
   late Session recipient;
+  late LocalAccountDTO account3;
+  late Session thirdParty;
   late MockEventBus eventBus;
 
   setUp(() async {
@@ -21,13 +23,13 @@ void run(EnmeshedRuntime runtime) {
     sender = runtime.getSession(account1.id);
     account2 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 2');
     recipient = runtime.getSession(account2.id);
+    account3 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 3');
+    thirdParty = runtime.getSession(account3.id);
 
     eventBus = runtime.eventBus as MockEventBus;
 
     await ensureActiveRelationship(sender, recipient);
-
-    await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
-    await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
+    await ensureActiveRelationship(sender, thirdParty);
   });
 
   group('AttributesFacade: createRepositoryAttribute', () {
@@ -266,26 +268,29 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: getRepositoryAttributes', () {
     test('should return a valid list of repository attributes', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       exchangeIdentityAttribute(sender, recipient, const SurnameAttributeValue(value: 'aSurname'));
 
       final repositoryAttributesResult = await sender.consumptionServices.attributes.getRepositoryAttributes();
       expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
 
-      expect(repositoryAttributesResult.value.length, 3);
+      expect(repositoryAttributesResult.value.length, 2);
       expect(repositoryAttributesResult.value.every((e) => e.shareInfo == null), true);
     });
   });
 
   group('AttributesFacade: getAttribute', () {
     test('should return a valid LocalAttributeDTO', () async {
-      final attributesResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributes = attributesResult.value;
+      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const SurnameAttributeValue(value: 'aSurname'),
+      );
+      final attribute = attributesResult.value;
 
-      final attributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: attributes.first.id);
+      final attributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: attribute.id);
 
       expect(attributeResult, isSuccessful<LocalAttributeDTO>());
-      expect(attributeResult.value.id, attributes.first.id);
-      expect(attributeResult.value.content, attributes.first.content);
+      expect(attributeResult.value.id, attribute.id);
+      expect(attributeResult.value.content, attribute.content);
     });
 
     test('throws an exception if file id does not match the pattern', () async {
@@ -303,6 +308,8 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: getAttributes', () {
     test('should return a valid list of LocalAttributeDTOs', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
       final attributesResult = await sender.consumptionServices.attributes.getAttributes();
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
@@ -310,6 +317,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return a valid list of queried LocalAttributeDTOs', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(sender, recipient, const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'));
 
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(
@@ -321,6 +329,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return just non technical attributes when hideTechnical=true', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -331,10 +340,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(hideTechnical: true);
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 2);
+      expect(attributesResult.value.length, 1);
     });
 
     test('should return also technical attributes when hideTechnical=false', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -345,10 +355,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(hideTechnical: false);
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 3);
+      expect(attributesResult.value.length, 2);
     });
 
     test('should return just valid attributes when onlyValid=true', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -359,10 +370,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: true);
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 2);
+      expect(attributesResult.value.length, 1);
     });
 
     test('should return also expired attributes when onlyValid=false', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -373,10 +385,11 @@ void run(EnmeshedRuntime runtime) {
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: false);
 
       expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 3);
+      expect(attributesResult.value.length, 2);
     });
 
     test('should return a valid list of LocalAttributeDTOs with all properties', () async {
+      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
@@ -1061,9 +1074,10 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: succeedRepositoryAttribute', () {
     test('should succeed an identity attribute', () async {
-      final attributesResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributes = attributesResult.value;
-      final attribute = attributes.first;
+      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const SurnameAttributeValue(value: 'aSurname'),
+      );
+      final attribute = attributesResult.value;
 
       final succeededAttributeResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
         predecessorId: attribute.id,
@@ -1078,9 +1092,10 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should succeed an identity attribute with properties "tags", "validFrom" and "validTo"', () async {
-      final attributesResult = await sender.consumptionServices.attributes.getAttributes();
-      final attributes = attributesResult.value;
-      final attribute = attributes.first;
+      final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const SurnameAttributeValue(value: 'aSurname'),
+      );
+      final attribute = attributesResult.value;
 
       final succeededAttributeResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
         predecessorId: attribute.id,
@@ -1329,5 +1344,357 @@ void run(EnmeshedRuntime runtime) {
       expect(event.request.content.items.first.title, 'aRequestItemTitle');
       expect(event.request.content.items.first.description, 'aRequestItemDescription');
     });
+  });
+
+  group('AttributesFacade: deleteRepositoryAttribute', () {
+    test('should delete a repository attribute', () async {
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const PhoneNumberAttributeValue(value: '012345678910'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+
+      final deletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
+      expect(deletionResult, isSuccessful());
+    });
+
+    test('should return an error trying to delete an already deleted attribute', () async {
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const PhoneNumberAttributeValue(value: '012345678910'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+
+      final successfulDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
+      expect(successfulDeletionResult, isSuccessful());
+
+      final failingDeletionResult = await sender.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: identityAttribute.id);
+      expect(failingDeletionResult, isFailingVoidResult('error.runtime.recordNotFound'));
+    });
+  });
+
+  group('AttributesFacade: deleteOwnSharedAttributeAndNotifyPeer', () {
+    test('should delete an own shared identity attribute', () async {
+      final recipientAddress = account2.address!;
+
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const PhoneNumberAttributeValue(value: '012345678910'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+
+      final shareAttributeResult = await sender.consumptionServices.attributes.shareRepositoryAttribute(
+        attributeId: identityAttribute.id,
+        peer: recipientAddress,
+      );
+
+      final recipientPeerSharedIdentityAttribute = await acceptIncomingShareAttributeRequest(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        shareAttributeResult.value,
+        eventBus,
+      );
+
+      final senderOwnSharedIdentityAttribute =
+          (await sender.consumptionServices.attributes.getAttribute(attributeId: recipientPeerSharedIdentityAttribute.id)).value;
+
+      final deletionResult =
+          await sender.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(attributeId: senderOwnSharedIdentityAttribute.id);
+      expect(deletionResult, isSuccessful<DeleteOwnSharedAttributeAndNotifyPeerResponse>());
+    });
+
+    test('should delete an own shared relationship attribute', () async {
+      final recipientAddress = account2.address!;
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
+
+      final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        attributeValue,
+        succeededAttributeValue,
+        eventBus,
+      );
+
+      final deletionResult =
+          await sender.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(attributeId: senderOwnSharedRelationshipAttribute.id);
+      expect(deletionResult, isSuccessful<DeleteOwnSharedAttributeAndNotifyPeerResponse>());
+    });
+
+    test('should set the deletionInfo of the peer`s attribute, deleting an own shared relationship attribute', () async {
+      final recipientAddress = account2.address!;
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
+
+      final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        attributeValue,
+        succeededAttributeValue,
+        eventBus,
+      );
+
+      final deletionResult =
+          await sender.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(attributeId: senderOwnSharedRelationshipAttribute.id);
+      final notificationId = deletionResult.value.notificationId;
+
+      final timeBeforeUpdate = DateTime.now();
+      await syncUntilHasMessageWithNotification(recipient, notificationId);
+      await eventBus.waitForEvent<OwnSharedAttributeDeletedByOwnerEvent>(
+          eventTargetAddress: recipientAddress, predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id);
+      final timeAfterUpdate = DateTime.now();
+
+      final recipientPeerSharedRelationshipAttribute =
+          (await recipient.consumptionServices.attributes.getAttribute(attributeId: senderOwnSharedRelationshipAttribute.id)).value;
+      expect(recipientPeerSharedRelationshipAttribute.deletionInfo!.deletionStatus, DeletionStatus.DeletedByOwner);
+      expect(DateTime.parse(recipientPeerSharedRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
+      expect(DateTime.parse(recipientPeerSharedRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
+    });
+  });
+
+  group('AttributesFacade: deletePeerSharedAttributeAndNotifyOwner', () {
+    test('should delete a peer shared identity attribute', () async {
+      final recipientAddress = account2.address!;
+
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const PhoneNumberAttributeValue(value: '012345678910'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+
+      final shareAttributeResult = await sender.consumptionServices.attributes.shareRepositoryAttribute(
+        attributeId: identityAttribute.id,
+        peer: recipientAddress,
+      );
+
+      final recipientPeerSharedIdentityAttribute = await acceptIncomingShareAttributeRequest(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        shareAttributeResult.value,
+        eventBus,
+      );
+
+      final deletionResult = await recipient.consumptionServices.attributes
+          .deletePeerSharedAttributeAndNotifyOwner(attributeId: recipientPeerSharedIdentityAttribute.id);
+      expect(deletionResult, isSuccessful<DeletePeerSharedAttributeAndNotifyOwnerResponse>());
+    });
+
+    test('should delete a peer shared relationship attribute', () async {
+      final recipientAddress = account2.address!;
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
+
+      final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        attributeValue,
+        succeededAttributeValue,
+        eventBus,
+      );
+
+      final recipientOwnSharedRelationshipAttribute =
+          (await recipient.consumptionServices.attributes.getAttribute(attributeId: senderOwnSharedRelationshipAttribute.id)).value;
+
+      final deletionResult = await recipient.consumptionServices.attributes
+          .deletePeerSharedAttributeAndNotifyOwner(attributeId: recipientOwnSharedRelationshipAttribute.id);
+      expect(deletionResult, isSuccessful<DeletePeerSharedAttributeAndNotifyOwnerResponse>());
+    });
+
+    test('should set the deletionInfo of the owner`s attribute, deleting a peer shared relationship attribute', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
+
+      final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        sender,
+        recipient,
+        senderAddress,
+        recipientAddress,
+        attributeValue,
+        succeededAttributeValue,
+        eventBus,
+      );
+
+      final deletionResult = await recipient.consumptionServices.attributes
+          .deletePeerSharedAttributeAndNotifyOwner(attributeId: senderOwnSharedRelationshipAttribute.id);
+      final notificationId = deletionResult.value.notificationId;
+
+      final timeBeforeUpdate = DateTime.now();
+      await syncUntilHasMessageWithNotification(sender, notificationId);
+      await eventBus.waitForEvent<PeerSharedAttributeDeletedByPeerEvent>(
+          eventTargetAddress: senderAddress, predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id);
+      final timeAfterUpdate = DateTime.now();
+
+      final updatedSenderOwnSharedRelationshipAttribute =
+          (await sender.consumptionServices.attributes.getAttribute(attributeId: senderOwnSharedRelationshipAttribute.id)).value;
+      expect(updatedSenderOwnSharedRelationshipAttribute.deletionInfo!.deletionStatus, DeletionStatus.DeletedByPeer);
+      expect(DateTime.parse(updatedSenderOwnSharedRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
+      expect(DateTime.parse(updatedSenderOwnSharedRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
+    });
+  });
+
+  group('AttributesFacade: deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer', () {
+    test('should delete a third party owned relationship attribute as the sender of it', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+      final thirdPartyAddress = account3.address!;
+
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
+
+      final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        thirdParty,
+        sender,
+        account3.address!,
+        senderAddress,
+        attributeValue,
+        succeededAttributeValue,
+        eventBus,
+      );
+
+      final senderOwnSharedRelationshipAttribute =
+          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
+
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
+      final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
+
+      final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+
+      final deletionResult = await sender.consumptionServices.attributes
+          .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
+      expect(deletionResult, isSuccessful<DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse>());
+    }, timeout: const Timeout(Duration(seconds: 60)));
+
+    test('should delete a third party owned relationship attribute as the recipient of it', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+      final thirdPartyAddress = account3.address!;
+
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
+
+      final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        thirdParty,
+        sender,
+        account3.address!,
+        senderAddress,
+        attributeValue,
+        succeededAttributeValue,
+        eventBus,
+      );
+
+      final senderOwnSharedRelationshipAttribute =
+          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
+
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
+      final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
+
+      final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+
+      final recipientThirdPartyOwnedRelationshipAttribute =
+          (await sender.consumptionServices.attributes.getAttribute(attributeId: senderThirdPartyOwnedRelationshipAttribute.id)).value;
+
+      final deletionResult = await recipient.consumptionServices.attributes
+          .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: recipientThirdPartyOwnedRelationshipAttribute.id);
+      expect(deletionResult, isSuccessful<DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse>());
+    });
+
+    test('should set the deletionInfo of the peer`s attribute, deleting a third party owned relationship attribute as the sender of it', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+      final thirdPartyAddress = account3.address!;
+
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
+
+      final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        thirdParty,
+        sender,
+        account3.address!,
+        senderAddress,
+        attributeValue,
+        succeededAttributeValue,
+        eventBus,
+      );
+
+      final senderOwnSharedRelationshipAttribute =
+          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
+
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
+      final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
+
+      final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+
+      final deletionResult = await sender.consumptionServices.attributes
+          .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
+      expect(deletionResult, isSuccessful<DeleteThirdPartyOwnedRelationshipAttributeAndNotifyPeerResponse>());
+      final notificationId = deletionResult.value.notificationId;
+
+      final timeBeforeUpdate = DateTime.now();
+      await syncUntilHasMessageWithNotification(recipient, notificationId);
+      await eventBus.waitForEvent<ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent>(
+          eventTargetAddress: recipientAddress, predicate: (e) => e.data.id == senderThirdPartyOwnedRelationshipAttribute.id);
+      final timeAfterUpdate = DateTime.now();
+
+      final recipientThirdPartyOwnedRelationshipAttribute =
+          (await recipient.consumptionServices.attributes.getAttribute(attributeId: senderThirdPartyOwnedRelationshipAttribute.id)).value;
+      expect(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionStatus, DeletionStatus.DeletedByPeer);
+      expect(DateTime.parse(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
+      expect(DateTime.parse(recipientThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
+    });
+
+    test('should set the deletionInfo of the peer`s attribute, deleting a third party owned relationship attribute as the recipient of it', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+      final thirdPartyAddress = account3.address!;
+
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
+
+      final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        thirdParty,
+        sender,
+        account3.address!,
+        senderAddress,
+        attributeValue,
+        succeededAttributeValue,
+        eventBus,
+      );
+
+      final senderOwnSharedRelationshipAttribute =
+          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
+
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
+      final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
+
+      final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+
+      final deletionResult = await recipient.consumptionServices.attributes
+          .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
+      final notificationId = deletionResult.value.notificationId;
+
+      final timeBeforeUpdate = DateTime.now();
+      await syncUntilHasMessageWithNotification(sender, notificationId);
+      await eventBus.waitForEvent<ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent>(
+          eventTargetAddress: senderAddress, predicate: (e) => e.data.id == senderThirdPartyOwnedRelationshipAttribute.id);
+      final timeAfterUpdate = DateTime.now();
+
+      final updatedSenderThirdPartyOwnedRelationshipAttribute =
+          (await sender.consumptionServices.attributes.getAttribute(attributeId: senderThirdPartyOwnedRelationshipAttribute.id)).value;
+      expect(updatedSenderThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionStatus, DeletionStatus.DeletedByPeer);
+      expect(DateTime.parse(updatedSenderThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
+      expect(DateTime.parse(updatedSenderThirdPartyOwnedRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
+    }, timeout: const Timeout(Duration(seconds: 60)));
   });
 }
