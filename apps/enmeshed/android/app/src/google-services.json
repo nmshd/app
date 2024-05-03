@@ -1,0 +1,39 @@
+{
+    "project_info": {
+      "project_number": "41802216214",
+      "project_id": "enmeshed",
+      "storage_bucket": "enmeshed.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:41802216214:android:99a09088e09db38abd1637",
+          "android_client_info": {
+            "package_name": "eu.enmeshed.app"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "41802216214-lh4ob7k8ag6ge5grmtan93n0uc95dhbl.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyBVYeF-2shVc_nugW4KeykvFUfkDyoURFI"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "41802216214-lh4ob7k8ag6ge5grmtan93n0uc95dhbl.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }
