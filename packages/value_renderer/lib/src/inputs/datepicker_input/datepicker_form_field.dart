@@ -53,7 +53,7 @@ class DatepickerFormField extends FormField<DateTime> {
                 decoration: (decoration ?? inputDecoration(context)).copyWith(
                   labelText: fieldName,
                   errorText: field.errorText,
-                  suffixIcon: const Icon(Icons.calendar_today),
+                  suffixIcon: const Icon(Icons.calendar_month),
                 ),
               ),
             );
