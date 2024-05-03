@@ -15,7 +15,6 @@ class OnboardingLegalTexts extends StatefulWidget {
 
 class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
   bool _isPrivacyPolicyAccepted = false;
-  bool _isTermsOfUseAccepted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,21 +70,12 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
             isLegalTextAccepted: _isPrivacyPolicyAccepted,
             toggleIsLegalTextAccepted: () => setState(() => _isPrivacyPolicyAccepted = !_isPrivacyPolicyAccepted),
           ),
-          Gaps.h16,
-          _LegalTextNote(
-            legalTextStart: context.l10n.onboarding_termsOfUse_start,
-            legalTextLink: context.l10n.onboarding_termsOfUse_link,
-            legalTextEnd: context.l10n.onboarding_termsOfUse_end,
-            path: '/terms-and-conditions',
-            isLegalTextAccepted: _isTermsOfUseAccepted,
-            toggleIsLegalTextAccepted: () => setState(() => _isTermsOfUseAccepted = !_isTermsOfUseAccepted),
-          ),
           Gaps.h8,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Align(
               child: FilledButton(
-                onPressed: isLegalAgreementCompleted ? widget.goToOnboardingCreateAccount : null,
+                onPressed: _isPrivacyPolicyAccepted ? widget.goToOnboardingCreateAccount : null,
                 style: FilledButton.styleFrom(minimumSize: const Size(double.infinity, 40)),
                 child: Text(context.l10n.next),
               ),
@@ -95,8 +85,6 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
       ),
     );
   }
-
-  bool get isLegalAgreementCompleted => _isPrivacyPolicyAccepted && _isTermsOfUseAccepted;
 }
 
 class _LegalTextNote extends StatelessWidget {

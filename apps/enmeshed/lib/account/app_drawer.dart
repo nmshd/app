@@ -51,12 +51,6 @@ class AppDrawer extends StatelessWidget {
                   ListTile(
                     onTap: () => context
                       ..pop()
-                      ..push('/terms-and-conditions'),
-                    title: Text(context.l10n.termsAndConditions, style: Theme.of(context).textTheme.labelLarge),
-                  ),
-                  ListTile(
-                    onTap: () => context
-                      ..pop()
                       ..push('/legal-notice'),
                     title: Text(context.l10n.legalNotice, style: Theme.of(context).textTheme.labelLarge),
                   ),

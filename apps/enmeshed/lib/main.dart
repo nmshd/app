@@ -81,14 +81,6 @@ final _router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/terms-and-conditions',
-      builder: (context, state) => LegalTextScreen(
-        filePath: 'assets/texts/eula.md',
-        title: context.l10n.termsAndConditions,
-      ),
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
       path: '/legal-notice',
       builder: (context, state) => LegalTextScreen(
         filePath: 'assets/texts/legal_notice.md',

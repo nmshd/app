@@ -1,7 +1,7 @@
 name: enmeshed
 description: The official Enmeshed app.
 publish_to: "none"
-version: 0.1.0
+version: 3.0.1
 
 environment:
   sdk: ^3.2.0
@@ -68,7 +68,6 @@ flutter:
     - assets/i18n/de.json
     - assets/i18n/en.json
     - assets/texts/privacy.md
-    - assets/texts/eula.md
     - assets/texts/imprint.md
     - assets/texts/legal_notice.md
     - assets/pictures/profile_deletion/confirm_deletion.svg
