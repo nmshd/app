@@ -1,0 +1,1191 @@
+{
+  "attributes": {
+    "action": {
+      "shareAttribute": "Share Attribute"
+    },
+    "availableAttributesList": {
+      "addNewAttribute": "Enter new information",
+      "cancel": "Cancel",
+      "description": "Select the information which should be sent to the contact.",
+      "save": "Save",
+      "title": "Change {0}"
+    },
+    "share": {
+      "title": "Share Attribute"
+    },
+    "values": {
+      "Affiliation": {
+        "_title": "Affiliation",
+        "organization": {
+          "label": "Organization"
+        },
+        "role": {
+          "label": "Role"
+        },
+        "unit": {
+          "label": "Unit"
+        }
+      },
+      "BirthDate": {
+        "_title": "Birth Date",
+        "day": {
+          "label": "Day"
+        },
+        "month": {
+          "label": "Month"
+        },
+        "year": {
+          "label": "Year"
+        }
+      },
+      "BirthPlace": {
+        "_title": "Birth Place",
+        "city": {
+          "label": "City"
+        },
+        "country": {
+          "label": "Country"
+        },
+        "state": {
+          "label": "State"
+        }
+      },
+      "countries": {
+        "AD": "Andorra",
+        "AE": "United Arab Emirates (the)",
+        "AF": "Afghanistan",
+        "AG": "Antigua and Barbuda",
+        "AI": "Anguilla",
+        "AL": "Albania",
+        "AM": "Armenia",
+        "AO": "Angola",
+        "AQ": "Antarctica",
+        "AR": "Argentina",
+        "AS": "American Samoa",
+        "AT": "Austria",
+        "AU": "Australia",
+        "AW": "Aruba",
+        "AX": "Åland Islands",
+        "AZ": "Azerbaijan",
+        "BA": "Bosnia and Herzegovina",
+        "BB": "Barbados",
+        "BD": "Bangladesh",
+        "BE": "Belgium",
+        "BF": "Burkina Faso",
+        "BG": "Bulgaria",
+        "BH": "Bahrain",
+        "BI": "Burundi",
+        "BJ": "Benin",
+        "BL": "Saint Barthélemy",
+        "BM": "Bermuda",
+        "BN": "Brunei Darussalam",
+        "BO": "Bolivia (Plurinational State of)",
+        "BQ": "Bonaire, Sint Eustatius and Saba",
+        "BR": "Brazil",
+        "BS": "Bahamas (the)",
+        "BT": "Bhutan",
+        "BV": "Bouvet Island",
+        "BW": "Botswana",
+        "BY": "Belarus",
+        "BZ": "Belize",
+        "CA": "Canada",
+        "CC": "Cocos (Keeling) Islands (the)",
+        "CD": "Congo (the Democratic Republic of the)",
+        "CF": "Central African Republic (the)",
+        "CG": "Congo (the)",
+        "CH": "Switzerland",
+        "CI": "Côte d'Ivoire",
+        "CK": "Cook Islands (the)",
+        "CL": "Chile",
+        "CM": "Cameroon",
+        "CN": "China",
+        "CO": "Colombia",
+        "CR": "Costa Rica",
+        "CU": "Cuba",
+        "CV": "Cabo Verde",
+        "CW": "Curaçao",
+        "CX": "Christmas Island",
+        "CY": "Cyprus",
+        "CZ": "Czechia",
+        "DE": "Germany",
+        "DJ": "Djibouti",
+        "DK": "Denmark",
+        "DM": "Dominica",
+        "DO": "Dominican Republic (the)",
+        "DZ": "Algeria",
+        "EC": "Ecuador",
+        "EE": "Estonia",
+        "EG": "Egypt",
+        "EH": "Western Sahara",
+        "ER": "Eritrea",
+        "ES": "Spain",
+        "ET": "Ethiopia",
+        "FI": "Finland",
+        "FJ": "Fiji",
+        "FK": "Falkland Islands (the) [Malvinas]",
+        "FM": "Micronesia (Federated States of)",
+        "FO": "Faroe Islands (the)",
+        "FR": "France",
+        "GA": "Gabon",
+        "GB": "United Kingdom of Great Britain and Northern Ireland (the)",
+        "GD": "Grenada",
+        "GE": "Georgia",
+        "GF": "French Guiana",
+        "GG": "Guernsey",
+        "GH": "Ghana",
+        "GI": "Gibraltar",
+        "GL": "Greenland",
+        "GM": "Gambia (the)",
+        "GN": "Guinea",
+        "GP": "Guadeloupe",
+        "GQ": "Equatorial Guinea",
+        "GR": "Greece",
+        "GS": "South Georgia and the South Sandwich Islands",
+        "GT": "Guatemala",
+        "GU": "Guam",
+        "GW": "Guinea-Bissau",
+        "GY": "Guyana",
+        "HK": "Hong Kong",
+        "HM": "Heard Island and McDonald Islands",
+        "HN": "Honduras",
+        "HR": "Croatia",
+        "HT": "Haiti",
+        "HU": "Hungary",
+        "ID": "Indonesia",
+        "IE": "Ireland",
+        "IL": "Israel",
+        "IM": "Isle of Man",
+        "IN": "India",
+        "IO": "British Indian Ocean Territory (the)",
+        "IQ": "Iraq",
+        "IR": "Iran (Islamic Republic of)",
+        "IS": "Iceland",
+        "IT": "Italy",
+        "JE": "Jersey",
+        "JM": "Jamaica",
+        "JO": "Jordan",
+        "JP": "Japan",
+        "KE": "Kenya",
+        "KG": "Kyrgyzstan",
+        "KH": "Cambodia",
+        "KI": "Kiribati",
+        "KM": "Comoros (the)",
+        "KN": "Saint Kitts and Nevis",
+        "KP": "Korea (the Democratic People's Republic of)",
+        "KR": "Korea (the Republic of)",
+        "KW": "Kuwait",
+        "KY": "Cayman Islands (the)",
+        "KZ": "Kazakhstan",
+        "LA": "Lao People's Democratic Republic (the)",
+        "LB": "Lebanon",
+        "LC": "Saint Lucia",
+        "LI": "Liechtenstein",
+        "LK": "Sri Lanka",
+        "LR": "Liberia",
+        "LS": "Lesotho",
+        "LT": "Lithuania",
+        "LU": "Luxembourg",
+        "LV": "Latvia",
+        "LY": "Libya",
+        "MA": "Morocco",
+        "MC": "Monaco",
+        "MD": "Moldova (the Republic of)",
+        "ME": "Montenegro",
+        "MF": "Saint Martin (French part)",
+        "MG": "Madagascar",
+        "MH": "Marshall Islands (the)",
+        "MK": "Republic of North Macedonia",
+        "ML": "Mali",
+        "MM": "Myanmar",
+        "MN": "Mongolia",
+        "MO": "Macao",
+        "MP": "Northern Mariana Islands (the)",
+        "MQ": "Martinique",
+        "MR": "Mauritania",
+        "MS": "Montserrat",
+        "MT": "Malta",
+        "MU": "Mauritius",
+        "MV": "Maldives",
+        "MW": "Malawi",
+        "MX": "Mexico",
+        "MY": "Malaysia",
+        "MZ": "Mozambique",
+        "NA": "Namibia",
+        "NC": "New Caledonia",
+        "NE": "Niger (the)",
+        "NF": "Norfolk Island",
+        "NG": "Nigeria",
+        "NI": "Nicaragua",
+        "NL": "Netherlands (the)",
+        "NO": "Norway",
+        "NP": "Nepal",
+        "NR": "Nauru",
+        "NU": "Niue",
+        "NZ": "New Zealand",
+        "OM": "Oman",
+        "PA": "Panama",
+        "PE": "Peru",
+        "PF": "French Polynesia",
+        "PG": "Papua New Guinea",
+        "PH": "Philippines (the)",
+        "PK": "Pakistan",
+        "PL": "Poland",
+        "PM": "Saint Pierre and Miquelon",
+        "PN": "Pitcairn",
+        "PR": "Puerto Rico",
+        "PS": "Palestine, State of",
+        "PT": "Portugal",
+        "PW": "Palau",
+        "PY": "Paraguay",
+        "QA": "Qatar",
+        "RE": "Réunion",
+        "RO": "Romania",
+        "RS": "Serbia",
+        "RU": "Russian Federation (the)",
+        "RW": "Rwanda",
+        "SA": "Saudi Arabia",
+        "SB": "Solomon Islands",
+        "SC": "Seychelles",
+        "SD": "Sudan (the)",
+        "SE": "Sweden",
+        "SG": "Singapore",
+        "SH": "Saint Helena, Ascension and Tristan da Cunha",
+        "SI": "Slovenia",
+        "SJ": "Svalbard and Jan Mayen",
+        "SK": "Slovakia",
+        "SL": "Sierra Leone",
+        "SM": "San Marino",
+        "SN": "Senegal",
+        "SO": "Somalia",
+        "SR": "Suriname",
+        "SS": "South Sudan",
+        "ST": "Sao Tome and Principe",
+        "SV": "El Salvador",
+        "SX": "Sint Maarten (Dutch part)",
+        "SY": "Syrian Arab Republic",
+        "SZ": "Eswatini",
+        "TC": "Turks and Caicos Islands (the)",
+        "TD": "Chad",
+        "TF": "French Southern Territories (the)",
+        "TG": "Togo",
+        "TH": "Thailand",
+        "TJ": "Tajikistan",
+        "TK": "Tokelau",
+        "TL": "Timor-Leste",
+        "TM": "Turkmenistan",
+        "TN": "Tunisia",
+        "TO": "Tonga",
+        "TR": "Turkey",
+        "TT": "Trinidad and Tobago",
+        "TV": "Tuvalu",
+        "TW": "Taiwan",
+        "TZ": "Tanzania, United Republic of",
+        "UA": "Ukraine",
+        "UG": "Uganda",
+        "UM": "United States Minor Outlying Islands (the)",
+        "US": "United States of America (the)",
+        "UY": "Uruguay",
+        "UZ": "Uzbekistan",
+        "VA": "Holy See (the)",
+        "VC": "Saint Vincent and the Grenadines",
+        "VE": "Venezuela (Bolivarian Republic of)",
+        "VG": "Virgin Islands (British)",
+        "VI": "Virgin Islands (U.S.)",
+        "VN": "Viet Nam",
+        "VU": "Vanuatu",
+        "WF": "Wallis and Futuna",
+        "WS": "Samoa",
+        "XK": "Kosovo",
+        "YE": "Yemen",
+        "YT": "Mayotte",
+        "ZA": "South Africa",
+        "ZM": "Zambia",
+        "ZW": "Zimbabwe"
+      },
+      "DeliveryBoxAddress": {
+        "_title": "Delivery Box",
+        "city": {
+          "label": "City"
+        },
+        "country": {
+          "label": "Country"
+        },
+        "deliveryBoxId": {
+          "label": "Delivery Box Number"
+        },
+        "phoneNumber": {
+          "label": "Phone Number"
+        },
+        "recipient": {
+          "label": "Recipient"
+        },
+        "state": {
+          "label": "State"
+        },
+        "userId": {
+          "label": "Personal Postal Number"
+        },
+        "zipCode": {
+          "label": "Zip Code"
+        }
+      },
+      "languages": {
+        "aa": "Afar",
+        "ab": "Abkhaz",
+        "ae": "Avestan",
+        "af": "Afrikaans",
+        "ak": "Akan",
+        "am": "Amharic",
+        "an": "Aragonese",
+        "ar": "Arabic",
+        "as": "Assamese",
+        "av": "Avaric",
+        "ay": "Aymara",
+        "az": "Azerbaijani",
+        "ba": "Bashkir",
+        "be": "Belarusian",
+        "bg": "Bulgarian",
+        "bi": "Bislama",
+        "bm": "Bambara",
+        "bn": "Bengali",
+        "bo": "Tibetan",
+        "br": "Breton",
+        "bs": "Bosnian",
+        "ca": "Catalan",
+        "ce": "Chechen",
+        "ch": "Chamorro",
+        "co": "Corsican",
+        "cr": "Cree",
+        "cs": "Czech",
+        "cu": "Old Church Slavonic",
+        "cv": "Chuvash",
+        "cy": "Welsh",
+        "da": "Danish",
+        "de": "German",
+        "dv": "Divehi",
+        "dz": "Dzongkha",
+        "ee": "Ewe",
+        "el": "Greek",
+        "en": "English",
+        "eo": "Esperanto",
+        "es": "Spanish",
+        "et": "Estonian",
+        "eu": "Basque",
+        "fa": "Persian",
+        "ff": "Fula",
+        "fi": "Finnish",
+        "fj": "Fijian",
+        "fo": "Faroese",
+        "fr": "French",
+        "fy": "Western Frisian",
+        "ga": "Irish",
+        "gd": "Scottish Gaelic",
+        "gl": "Galician",
+        "gn": "Guaraní",
+        "gu": "Gujarati",
+        "gv": "Manx",
+        "ha": "Hausa",
+        "he": "Hebrew",
+        "hi": "Hindi",
+        "ho": "Hiri Motu",
+        "hr": "Croatian",
+        "ht": "Haitian",
+        "hu": "Hungarian",
+        "hy": "Armenian",
+        "hz": "Herero",
+        "ia": "Interlingua",
+        "id": "Indonesian",
+        "ie": "Interlingue",
+        "ig": "Igbo",
+        "ii": "Nuosu",
+        "ik": "Inupiaq",
+        "io": "Ido",
+        "is": "Icelandic",
+        "it": "Italian",
+        "iu": "Inuktitut",
+        "ja": "Japanese",
+        "jv": "Javanese",
+        "ka": "Georgian",
+        "kg": "Kongo",
+        "ki": "Kikuyu",
+        "kj": "Kwanyama",
+        "kk": "Kazakh",
+        "kl": "Kalaallisut",
+        "km": "Khmer",
+        "kn": "Kannada",
+        "ko": "Korean",
+        "kr": "Kanuri",
+        "ks": "Kashmiri",
+        "ku": "Kurdish",
+        "kv": "Komi",
+        "kw": "Cornish",
+        "ky": "Kyrgyz",
+        "la": "Latin",
+        "lb": "Luxembourgish",
+        "lg": "Ganda",
+        "li": "Limburgish",
+        "ln": "Lingala",
+        "lo": "Lao",
+        "lt": "Lithuanian",
+        "lu": "Luba-Katanga",
+        "lv": "Latvian",
+        "mg": "Malagasy",
+        "mh": "Marshallese",
+        "mi": "Māori",
+        "mk": "Macedonian",
+        "ml": "Malayalam",
+        "mn": "Mongolian",
+        "mr": "Marathi",
+        "ms": "Malay",
+        "mt": "Maltese",
+        "my": "Burmese",
+        "na": "Nauru",
+        "nb": "Norwegian Bokmål",
+        "nd": "Northern Ndebele",
+        "ne": "Nepali",
+        "ng": "Ndonga",
+        "nl": "Dutch",
+        "nn": "Norwegian Nynorsk",
+        "no": "Norwegian",
+        "nr": "Southern Ndebele",
+        "nv": "Navajo",
+        "ny": "Chichewa",
+        "oc": "Occitan",
+        "oj": "Ojibwe",
+        "om": "Oromo",
+        "or": "Oriya",
+        "os": "Ossetian",
+        "pa": "Panjabi",
+        "pi": "Pāli",
+        "pl": "Polish",
+        "ps": "Pashto",
+        "pt": "Portuguese",
+        "qu": "Quechua",
+        "rm": "Romansh",
+        "rn": "Kirundi",
+        "ro": "Romanian",
+        "ru": "Russian",
+        "rw": "Kinyarwanda",
+        "sa": "Sanskrit",
+        "sc": "Sardinian",
+        "sd": "Sindhi",
+        "se": "Northern Sami",
+        "sg": "Sango",
+        "si": "Sinhala",
+        "sk": "Slovak",
+        "sl": "Slovenian",
+        "sm": "Samoan",
+        "sn": "Shona",
+        "so": "Somali",
+        "sq": "Albanian",
+        "sr": "Serbian",
+        "ss": "Swati",
+        "st": "Southern Sotho",
+        "su": "Sundanese",
+        "sv": "Swedish",
+        "sw": "Swahili",
+        "ta": "Tamil",
+        "te": "Telugu",
+        "tg": "Tajik",
+        "th": "Thai",
+        "ti": "Tigrinya",
+        "tk": "Turkmen",
+        "tl": "Tagalog",
+        "tn": "Tswana",
+        "to": "Tonga",
+        "tr": "Turkish",
+        "ts": "Tsonga",
+        "tt": "Tatar",
+        "tw": "Twi",
+        "ty": "Tahitian",
+        "ug": "Uyghur",
+        "uk": "Ukrainian",
+        "ur": "Urdu",
+        "uz": "Uzbek",
+        "ve": "Venda",
+        "vi": "Vietnamese",
+        "vo": "Volapük",
+        "wa": "Walloon",
+        "wo": "Wolof",
+        "xh": "Xhosa",
+        "yi": "Yiddish",
+        "yo": "Yoruba",
+        "za": "Zhuang",
+        "zh": "Chinese",
+        "zu": "Zulu"
+      },
+      "nativeLanguages": {
+        "aa": "Afaraf",
+        "ab": "аҧсуа бызшәа",
+        "ae": "avesta",
+        "af": "Afrikaans",
+        "ak": "Akan",
+        "am": "አማርኛ",
+        "an": "aragonés",
+        "ar": "اَلْعَرَبِيَّةُ",
+        "as": "অসমীয়া",
+        "av": "авар мацӀ",
+        "ay": "aymar aru",
+        "az": "azərbaycan dili",
+        "ba": "башҡорт теле",
+        "be": "беларуская мова",
+        "bg": "български език",
+        "bi": "Bislama",
+        "bm": "bamanankan",
+        "bn": "বাংলা",
+        "bo": "བོད་ཡིག",
+        "br": "brezhoneg",
+        "bs": "bosanski jezik",
+        "ca": "Català",
+        "ce": "нохчийн мотт",
+        "ch": "Chamoru",
+        "co": "corsu",
+        "cr": "ᓀᐦᐃᔭᐍᐏᐣ",
+        "cs": "čeština",
+        "cu": "ѩзыкъ словѣньскъ",
+        "cv": "чӑваш чӗлхи",
+        "cy": "Cymraeg",
+        "da": "dansk",
+        "de": "Deutsch",
+        "dv": "ދިވެހި",
+        "dz": "རྫོང་ཁ",
+        "ee": "Eʋegbe",
+        "el": "Ελληνικά",
+        "en": "English",
+        "eo": "Esperanto",
+        "es": "Español",
+        "et": "eesti",
+        "eu": "euskara",
+        "fa": "فارسی",
+        "ff": "Fulfulde",
+        "fi": "suomi",
+        "fj": "vosa Vakaviti",
+        "fo": "føroyskt",
+        "fr": "Français",
+        "fy": "Frysk",
+        "ga": "Gaeilge",
+        "gd": "Gàidhlig",
+        "gl": "galego",
+        "gn": "Avañe'ẽ",
+        "gu": "ગુજરાતી",
+        "gv": "Gaelg",
+        "ha": "هَوُسَ",
+        "he": "עברית",
+        "hi": "हिन्दी",
+        "ho": "Hiri Motu",
+        "hr": "Hrvatski",
+        "ht": "Kreyòl ayisyen",
+        "hu": "magyar",
+        "hy": "Հայերեն",
+        "hz": "Otjiherero",
+        "ia": "Interlingua",
+        "id": "Bahasa Indonesia",
+        "ie": "Interlingue",
+        "ig": "Asụsụ Igbo",
+        "ii": "ꆈꌠ꒿ Nuosuhxop",
+        "ik": "Iñupiaq",
+        "io": "Ido",
+        "is": "Íslenska",
+        "it": "Italiano",
+        "iu": "ᐃᓄᒃᑎᑐᑦ",
+        "ja": "日本語",
+        "jv": "basa Jawa",
+        "ka": "ქართული",
+        "kg": "Kikongo",
+        "ki": "Gĩkũyũ",
+        "kj": "Kuanyama",
+        "kk": "қазақ тілі",
+        "kl": "kalaallisut",
+        "km": "ខេមរភាសា",
+        "kn": "ಕನ್ನಡ",
+        "ko": "한국어",
+        "kr": "Kanuri",
+        "ks": "कश्मीरी",
+        "ku": "Kurdî",
+        "kv": "коми кыв",
+        "kw": "Kernewek",
+        "ky": "Кыргызча",
+        "la": "latine",
+        "lb": "Lëtzebuergesch",
+        "lg": "Luganda",
+        "li": "Limburgs",
+        "ln": "Lingála",
+        "lo": "ພາສາລາວ",
+        "lt": "lietuvių kalba",
+        "lu": "Kiluba",
+        "lv": "latviešu valoda",
+        "mg": "fiteny malagasy",
+        "mh": "Kajin M̧ajeļ",
+        "mi": "te reo Māori",
+        "mk": "македонски јазик",
+        "ml": "മലയാളം",
+        "mn": "Монгол хэл",
+        "mr": "मराठी",
+        "ms": "Bahasa Melayu",
+        "mt": "Malti",
+        "my": "ဗမာစာ",
+        "na": "Dorerin Naoero",
+        "nb": "Norsk bokmål",
+        "nd": "isiNdebele",
+        "ne": "नेपाली",
+        "ng": "Owambo",
+        "nl": "Nederlands",
+        "nn": "Norsk nynorsk",
+        "no": "Norsk",
+        "nr": "isiNdebele",
+        "nv": "Diné bizaad",
+        "ny": "chiCheŵa",
+        "oc": "occitan",
+        "oj": "ᐊᓂᔑᓈᐯᒧᐎᓐ",
+        "om": "Afaan Oromoo",
+        "or": "ଓଡ଼ିଆ",
+        "os": "ирон æвзаг",
+        "pa": "ਪੰਜਾਬੀ",
+        "pi": "पाऴि",
+        "pl": "Polski",
+        "ps": "پښتو",
+        "pt": "Português",
+        "qu": "Runa Simi",
+        "rm": "rumantsch grischun",
+        "rn": "Ikirundi",
+        "ro": "Română",
+        "ru": "Русский",
+        "rw": "Ikinyarwanda",
+        "sa": "संस्कृतम्",
+        "sc": "sardu",
+        "sd": "सिन्धी",
+        "se": "Davvisámegiella",
+        "sg": "yângâ tî sängö",
+        "si": "සිංහල",
+        "sk": "slovenčina",
+        "sl": "slovenščina",
+        "sm": "gagana fa'a Samoa",
+        "sn": "chiShona",
+        "so": "Soomaaliga",
+        "sq": "Shqip",
+        "sr": "српски језик",
+        "ss": "SiSwati",
+        "st": "Sesotho",
+        "su": "Basa Sunda",
+        "sv": "Svenska",
+        "sw": "Kiswahili",
+        "ta": "தமிழ்",
+        "te": "తెలుగు",
+        "tg": "тоҷикӣ",
+        "th": "ไทย",
+        "ti": "ትግርኛ",
+        "tk": "Türkmençe",
+        "tl": "Wikang Tagalog",
+        "tn": "Setswana",
+        "to": "faka Tonga",
+        "tr": "Türkçe",
+        "ts": "Xitsonga",
+        "tt": "татар теле",
+        "tw": "Twi",
+        "ty": "Reo Tahiti",
+        "ug": "ئۇيغۇرچە‎",
+        "uk": "Українська",
+        "ur": "اردو",
+        "uz": "Ўзбек",
+        "ve": "Tshivenḓa",
+        "vi": "Tiếng Việt",
+        "vo": "Volapük",
+        "wa": "walon",
+        "wo": "Wollof",
+        "xh": "isiXhosa",
+        "yi": "ייִדיש",
+        "yo": "Yorùbá",
+        "za": "Saɯ cueŋƅ",
+        "zh": "中文",
+        "zu": "isiZulu"
+      },
+      "PersonName": {
+        "_title": "Person Name",
+        "givenName": {
+          "label": "Given Name"
+        },
+        "honorificPrefix": {
+          "label": "Honorific Prefix"
+        },
+        "honorificSuffix": {
+          "label": "Honorific Suffix"
+        },
+        "middleName": {
+          "label": "Middle Name"
+        },
+        "surname": {
+          "label": "Surname"
+        }
+      },
+      "PostOfficeBoxAddress": {
+        "_title": "Post Office Box",
+        "boxId": {
+          "label": "Post Office Box Number"
+        },
+        "city": {
+          "label": "City"
+        },
+        "country": {
+          "label": "Country"
+        },
+        "recipient": {
+          "label": "Recipient"
+        },
+        "state": {
+          "label": "State"
+        },
+        "zipCode": {
+          "label": "Zip Code"
+        }
+      },
+      "sex": {
+        "female": "Female",
+        "intersex": "Intersex",
+        "male": "Male"
+      },
+      "StreetAddress": {
+        "_title": "Address",
+        "city": {
+          "label": "City"
+        },
+        "country": {
+          "label": "Country"
+        },
+        "houseNo": {
+          "label": "House Number"
+        },
+        "recipient": {
+          "label": "Recipient"
+        },
+        "state": {
+          "label": "State"
+        },
+        "street": {
+          "label": "Street"
+        },
+        "zipCode": {
+          "label": "Zip Code"
+        }
+      }
+    }
+  },
+  "dvo": {
+    "attribute": {
+      "description": {
+        "Affiliation": "An affiliation or membership to an organization, in a specific role and unit.",
+        "AffiliationOrganization": "The overarching organization of this affiliation.",
+        "AffiliationRole": "The role of the identity within this affiliation.",
+        "AffiliationUnit": "The team or organizational unit of the identity for this affiliation.",
+        "BirthCity": "The city of birth",
+        "BirthCountry": "The country of birth",
+        "BirthDate": "The date of birth, a combined value of day, month and year of birth.",
+        "BirthDay": "The day of birth",
+        "BirthMonth": "The month of birth",
+        "BirthName": "The Birth Name is the surname of the person at birth. Some countries allow changing the surname, thus the Birth Name is used as the identification. The Birth Name is innate depending on your surname at birth.",
+        "BirthPlace": "The place of birth, a combined value of city, state and country of birth.",
+        "BirthState": "The state of birth",
+        "BirthYear": "The year of birth",
+        "Citizenship": "The Citizenship defines which country currently recognizes you as a citizen. Thus, the Citizenship usually refers to the Country you have a passport from.",
+        "City": "A town or city within a state and country",
+        "CommunicationLanguage": "The Communication Language is an officially recognized language with which the person can communicate with.",
+        "Consent": "A consent is an agreement of some sort between two parties. This agreement could for example be privacy policies or end user license agreements (EULA).",
+        "Country": "A country",
+        "DeliveryBoxAddress": "An address pointing to a delivery box for like automated parcel stations.",
+        "DisplayName": "The Display Name is the usual textual representation of the natural or legal person. It is usually combined out of titles, names or legal statuses.",
+        "EMailAddress": "An E-Mail Address which can be used to send E-Mails.",
+        "EnmeshedAddress": "The enmeshed address is the primary identifier of digital identities within the enmeshed ecosystem.",
+        "FaxNumber": "A phone number for submitting data over audio communication like fax or pagers.",
+        "GivenName": "The Given Name, also called first name or forename, is the name given to a person at birth which differentiates it from other family, tribe or community members.",
+        "HonorificPrefix": "A honorific title which is usually mentioned before the name, like \"Sir\".",
+        "HonorificSuffix": "A honorific title which is usually mentioned after the name, like \"M.Sc.\"",
+        "HouseNumber": "A house number of a street",
+        "IdentityFileReference": "A generic file which could be shared and requested across identities.",
+        "JobTitle": "The current job or role, usually stated under the name.",
+        "MiddleName": "",
+        "Nationality": "The Nationality is the citizenship of an person at birth. One cannot change the Nationality because it's innate. Thus, the Nationality refers usually to the country where you are born.",
+        "PersonName": "A combined name of a person. Consists of the given, middle and surnames, and the honorific suffix and prefix.",
+        "PhoneNumber": "A phone number for voice communication.",
+        "PostOfficeBoxAddress": "An address pointing to a specific post box in a post office.",
+        "ProprietaryBoolean": "A proprietary boolean which is used as a true or false flag.",
+        "ProprietaryFileReference": "A generic file which could be shared and requested across identities.",
+        "ProprietaryString": "A proprietary string which is used as any kind of text storage.",
+        "Pseudonym": "A pseudonym or alias is an officially registered alternative name.",
+        "SchematizedXML": "An XML payload which is based on a certain schema.",
+        "Sex": "The Sex is the biological, medical, or public gender of a natural person. So far, there are only three possible values for the Sex: 1) Intersex, 2) Female, or 3) Male.",
+        "Street": "A state within a country",
+        "StreetAddress": "An address pointing to recipient on a street and house number.",
+        "Surname": "The Surname, also called family name or last name, is the portion of the personal name that indicates the family, tribe or community.",
+        "Website": "A website which provides more information of this identity on the Internet.",
+        "ZipCode": "The zip code of the city or post box"
+      },
+      "name": {
+        "Affiliation": "Affiliation",
+        "AffiliationOrganization": "Organization",
+        "AffiliationRole": "Role",
+        "AffiliationUnit": "Unit",
+        "BirthCity": "City of Birth",
+        "BirthCountry": "Country of Birth",
+        "BirthDate": "Birth Date",
+        "BirthDay": "Day of Birth",
+        "BirthMonth": "Month of Birth",
+        "BirthName": "Birth Name",
+        "BirthPlace": "Birth Place",
+        "BirthState": "State of Birth",
+        "BirthYear": "Year of Birth",
+        "Citizenship": "Citizenship",
+        "City": "City",
+        "CommunicationLanguage": "Communication Language",
+        "Consent": "Consent",
+        "Country": "Country",
+        "DeliveryBoxAddress": "Delivery Box",
+        "DisplayName": "Display Name",
+        "EMailAddress": "E-Mail Address",
+        "EnmeshedAddress": "Enmeshed Address",
+        "FaxNumber": "Fax Number",
+        "GivenName": "Given Name",
+        "HonorificPrefix": "Honorific Prefix",
+        "HonorificSuffix": "Honorific Suffix",
+        "HouseNumber": "House Number",
+        "IdentityFileReference": "File",
+        "JobTitle": "Job Title",
+        "MiddleName": "Middle Name",
+        "Nationality": "Nationality",
+        "PersonName": "Person Name",
+        "PhoneNumber": "Phone Number",
+        "PostOfficeBoxAddress": "Post Office Box",
+        "ProprietaryBoolean": "Proprietary Boolean",
+        "ProprietaryFileReference": "File",
+        "ProprietaryString": "Proprietary String",
+        "Pseudonym": "Pseudonym",
+        "SchematizedXML": "Schematized XML",
+        "Sex": "Sex",
+        "State": "State",
+        "Street": "Street",
+        "StreetAddress": "Address",
+        "Surname": "Surname",
+        "Website": "Website",
+        "ZipCode": "Zip Code"
+      }
+    },
+    "attributeQuery": {
+      "description": {
+        "IQLQuery": "This queries Identity Attributes of you.",
+        "RelationshipAttributeQuery": "This queries Relationship Attributes between you and the peer.",
+        "ThirdPartyRelationshipAttributeQuery": "This queries Relationship Attributes stored by one of your contacts."
+      },
+      "name": {
+        "IQLQuery": "Complex Identity Attribute Query",
+        "RelationshipAttributeQuery": "Relationship Attribute Query",
+        "ThirdPartyRelationshipAttributeQuery": "Third Party Relationship Attribute Query"
+      },
+      "ThirdPartyRelationshipAttributeQuery": {
+        "noResults": "Your contacts haven't entered any data for this enquiry yet."
+      },
+      "IQLQuery": {
+        "noResults": "You have not yet entered any data for this enquiry."
+      }
+    },
+    "identity": {
+      "Salutation": {
+        "m": "Mr.",
+        "w": "Ms.",
+        "x": ""
+      },
+      "self": {
+        "description": "Myself",
+        "initials": "Me",
+        "name": "Me"
+      },
+      "unknown": {
+        "description": "Unknown Identity",
+        "publicKey": "Unknown Public Key"
+      }
+    },
+    "localRequest": {
+      "incoming": {
+        "name": "Incoming Request"
+      },
+      "Message": {
+        "incoming": {
+          "Completed": {
+            "description": "This was an incoming Request which you received by a peer and you have already decided on it.",
+            "name": "Completed Incoming Request"
+          },
+          "Decided": {
+            "description": "This is an incoming Request that was decided, but the decision has not yet been sent.",
+            "name": "Decided Incoming Request"
+          },
+          "DecisionRequired": {
+            "description": "This is an incoming Request which the App needs to automatically process.",
+            "name": "Open Incoming Request"
+          },
+          "Error": {
+            "description": "This was an errorneous incoming Request",
+            "name": "Errorneous Incoming Request"
+          },
+          "Expired": {
+            "description": "This was an incoming Request which you received by a peer and was expired before you decided on it.",
+            "name": "Expired Incoming Request"
+          },
+          "ManualDecisionRequired": {
+            "description": "This is an incoming Request which you need to decide on.",
+            "name": "To Decide: Incoming Request"
+          },
+          "Open": {
+            "description": "This is an incoming Request which the App needs to automatically process.",
+            "name": "Open Incoming Request"
+          }
+        },
+        "outgoing": {
+          "Completed": {
+            "description": "This was an outgoing Request which you sent to a peer and the peer decided on it.",
+            "name": "Completed Outgoing Request"
+          },
+          "Draft": {
+            "description": "This is an outgoing Request which the App created for you. You can decide if the request should be sent.",
+            "name": "To Decide: Draft Outgoing Request"
+          },
+          "Error": {
+            "description": "This was an errorneous outgoing Request",
+            "name": "Errorneous Outgoing Request"
+          },
+          "Expired": {
+            "description": "This was an outgoing Request which you sent to a peer, but the request expired before the peer could decide on it.",
+            "name": "Expired Outgoing Request"
+          },
+          "Open": {
+            "description": "This is an outgoing Request which the peer still needs to decide on.",
+            "name": "Open Outgoing Request"
+          }
+        }
+      },
+      "outgoing": {
+        "name": "Outgoing Request or Template"
+      },
+      "RelationshipTemplate": {
+        "incoming": {
+          "Completed": {
+            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You decided on it. If you accepted the Contact Request, the App sent the response to the peer. If you declined the Contact Request, it was completed without communicating any data to the peer.",
+            "name": "Completed Incoming Contact Request"
+          },
+          "Decided": {
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. It was decided by you, but the decision has not yet been sent to the peer by your App. Please be patient and check again soon.",
+            "name": "Decided Incoming Contact Request"
+          },
+          "DecisionRequired": {
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon.",
+            "name": "Open Incoming Contact Request"
+          },
+          "Error": {
+            "description": "This was an errorneous incoming Contact Request",
+            "name": "Errorneous Incoming Contact Request"
+          },
+          "Expired": {
+            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. Before a decision was made by you, the request has been expired and could no longer be processed. It has thus been completed without communicating any data to the peer.",
+            "name": "Expired Incoming Contact Request"
+          },
+          "ManualDecisionRequired": {
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You can decide if you want to communicate with the peer, which data you want to share and which consents you would like to give.",
+            "name": "To Decide: Scanned Contact Opportunity"
+          },
+          "Open": {
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon.",
+            "name": "Open Incoming Contact Request"
+          }
+        },
+        "outgoing": {
+          "Completed": {
+            "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. The peer accepted your request.",
+            "name": "Completed Outgoing Contact Request"
+          },
+          "Draft": {
+            "description": "This is an outgoing Contact Request based on a Relationship Template which the App created for a peer. You can decide if the request should be sent.",
+            "name": "To Decide: Draft Outgoing Contact Request"
+          },
+          "Error": {
+            "description": "This was an errorneous outgoing Contact Request",
+            "name": "Errorneous Outgoing Contact Request"
+          },
+          "Expired": {
+            "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. Your request expired before the peer decided on it. This could also mean that the peer rejected the request.",
+            "name": "Expired Outgoing Contact Request"
+          },
+          "Open": {
+            "description": "This is a Response to an outgoing Contact Request based on a Relationship Template which you communicated to a peer. The peer accepted the Contact Request and the App still needs to process it. Please be patient and check again soon.",
+            "name": "Open Outgoing Contact Request"
+          }
+        }
+      },
+      "status": {
+        "Completed": "Completed",
+        "Decided": "Decided",
+        "DecisionRequired": "Waiting for Automation",
+        "Draft": "Draft",
+        "Error": "Error",
+        "Expired": "Expired",
+        "ManualDecisionRequired": "Decision Required",
+        "Open": "Waiting for Response"
+      },
+      "unknown": {
+        "outgoing": {
+          "Draft": {
+            "description": "This is a request created by you, sent to the contact.",
+            "name": "Outgoing Request or Template"
+          }
+        }
+      }
+    },
+    "localResponse": {
+      "name": "Response"
+    },
+    "mails": {
+      "mailSubjectFallback": "Message"
+    },
+    "message": {
+      "Delivered": "Delivered",
+      "Delivering": "Delivering",
+      "name": "Technical message",
+      "Received": "Received"
+    },
+    "relationship": {
+      "Active": "Active contact",
+      "Incoming": "Incoming contact request",
+      "Outgoing": "Outgoing contact request",
+      "Rejected": "Rejected contact request",
+      "Revoked": "Withdrawn contact request"
+    },
+    "relationshipChange": {
+      "Accepted": "Accepted relationship change",
+      "Creation": "Relationship Creation",
+      "Pending": "Pending relationship change",
+      "Rejected": "Rejected relationship change",
+      "request": {
+        "name": "Relationship Change Request"
+      },
+      "response": {
+        "name": "Relationship Change Response"
+      },
+      "Revoked": "Revoked relationship change",
+      "Termination": "Relationship Termination",
+      "TerminationCancellation": "Cancellation of Relationship Termination"
+    },
+    "requestItem": {
+      "AuthenticationRequestItem": {
+        "name": "Requested your authentication"
+      },
+      "ConsentRequestItem": {
+        "name": "Requested your consent"
+      },
+      "CreateIdentityAttributeRequestItem": {
+        "name": "Created a new attribute for you"
+      },
+      "CreateRelationshipAttributeRequestItem": {
+        "name": "Created a new relationship attribute for you"
+      },
+      "DecidableAuthenticationRequestItem": {
+        "name": "Requests you authentication"
+      },
+      "DecidableConsentRequestItem": {
+        "name": "Requests your consent"
+      },
+      "DecidableCreateIdentityAttributeRequestItem": {
+        "name": "Creates a new attribute for you"
+      },
+      "DecidableCreateRelationshipAttributeRequestItem": {
+        "name": "Creates a new relationship attribute for you"
+      },
+      "DecidableFreeTextRequestItem": {
+        "name": "Requests something of you"
+      },
+      "DecidableProposeAttributeRequestItem": {
+        "name": "Proposes an attribute for you"
+      },
+      "DecidableReadAttributeRequestItem": {
+        "name": "Requests an attribute from you"
+      },
+      "DecidableRegisterAttributeListenerRequestItem": {
+        "name": "Requests an attirbute listener for one of your attributes"
+      },
+      "DecidableShareAttributeRequestItem": {
+        "name": "Shares an attribute to you"
+      },
+      "FreeTextRequestItem": {
+        "name": "Requested something of you"
+      },
+      "name": "Request item",
+      "ProposeAttributeRequestItem": {
+        "name": "Proposed an attribute for you"
+      },
+      "ReadAttributeRequestItem": {
+        "name": "Requested an attribute from you"
+      },
+      "RegisterAttributeListenerRequestItem": {
+        "name": "Requested an attribute listener for one of your attributes"
+      },
+      "ShareAttributeRequestItem": {
+        "name": "Shared an attribute to you"
+      }
+    },
+    "response": {
+      "name": "Response"
+    },
+    "responseItem": {
+      "AcceptResponseItem": {
+        "acceptedName": "The item has been accepted."
+      },
+      "CreateAttributeAcceptResponseItem": {
+        "acceptedName": "The attribute has been created."
+      },
+      "error": "Errorneous item",
+      "ProposeAttributeAcceptResponseItem": {
+        "acceptedName": "The proposed attribute has been received."
+      },
+      "ReadAttributeAcceptResponseItem": {
+        "acceptedName": "The queried attribute has been received."
+      },
+      "RegisterAttributeListenerAcceptResponseItem": {
+        "acceptedName": "The listener has been created."
+      },
+      "rejected": "Rejected item",
+      "ShareAttributeAcceptResponseItem": {
+        "acceptedName": "The attribute has been shared."
+      }
+    },
+    "template": {
+      "incoming": {
+        "description": "",
+        "name": "Incoming template"
+      },
+      "outgoing": {
+        "description": "",
+        "name": "Outgoing template"
+      }
+    }
+  },
+  "errors": {
+    "value_renderer": {
+      "emptyField": "This field cannot be empty",
+      "maxValue": "Value must be less than or equal to {value}",
+      "minValue": "Value must be greater than or equal to {value}",
+      "invalidInput": "Invalid Input",
+      "invalidFormat": "Invalid Format",
+      "noDateSelected": "No date selected",
+      "houseNoNumericCharacter": "Value must contain at least one numeric character"
+    }
+  },
+  "files": {
+    "profile_picture": "Profile Picture"
+  },
+  "uibridge": {
+    "accountSelection": {
+      "title": "Profile Selection",
+      "description": "Select a profile to process the scanned QR-code or Link."
+    }
+  },
+  "valueRenderer": {
+    "fileReference": {
+      "selectFile": "Select File",
+      "noFileSelected": "No file selected"
+    }
+  }
+}

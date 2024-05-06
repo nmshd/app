@@ -1,78 +1,415 @@
-import 'dart:io';
-
-import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:flutter/foundation.dart';
+import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
-import 'screens/account_screen.dart';
-import 'screens/onboarding_screen.dart';
+import '/themes/themes.dart';
+import 'account/account.dart';
+import 'core/core.dart';
+import 'drawer/drawer.dart';
+import 'onboarding/onboarding.dart';
+import 'profiles/profiles.dart';
+import 'splash_screen.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  await Permission.camera.request();
+  timeago.setLocaleMessages('de', timeago.DeMessages());
+  timeago.setLocaleMessages('en', timeago.EnMessages());
 
-  if (Platform.isAndroid && kDebugMode) {
-    await InAppWebViewController.setWebContentsDebuggingEnabled(true);
-  }
-
-  final logger = Logger(printer: SimplePrinter(colors: false));
-  GetIt.I.registerSingleton(logger);
-
-  final runtime = EnmeshedRuntime(
-    logger: logger,
-    runtimeConfig: (
-      baseUrl: const String.fromEnvironment('app_baseUrl'),
-      clientId: const String.fromEnvironment('app_clientId'),
-      clientSecret: const String.fromEnvironment('app_clientSecret'),
-      applicationId: 'eu.enmeshed.app',
-      useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
-    ),
-  );
-  GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
-  await GetIt.I.allReady();
-
-  final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-  if (accounts.isEmpty) {
-    runApp(const EnmeshedApp(home: OnboardingScreen()));
-    return;
-  }
-
-  accounts.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
-
-  final account = accounts.first;
-  await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
-  runApp(EnmeshedApp(home: AccountScreen(initialAccount: account)));
+  runApp(const EnmeshedApp());
 }
 
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorKey = GlobalKey<NavigatorState>();
+
+final _mailboxFilterController = MailboxFilterController();
+
+final ValueNotifier<SuggestionsBuilder?> _suggestionsBuilder = ValueNotifier(null);
+
+final _router = GoRouter(
+  initialLocation: '/splash',
+  navigatorKey: _rootNavigatorKey,
+  routes: [
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/splash',
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/onboarding',
+      builder: (context, state) => OnboardingScreen(skipIntroduction: state.uri.queryParameters['skipIntroduction'] == 'true'),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/device-onboarding',
+      builder: (context, state) => DeviceOnboardingScreen(deviceSharedSecret: state.extra! as DeviceSharedSecret),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/profiles',
+      builder: (context, state) => const ProfilesScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/select-profile-popup',
+      pageBuilder: (context, state) => DialogPage(
+        builder: (context) {
+          final extra = state.extra! as ({List<LocalAccountDTO> possibleAccounts, String? title, String? description});
+
+          return SelectProfileDialog(
+            possibleAccounts: extra.possibleAccounts,
+            title: extra.title,
+            description: extra.description,
+          );
+        },
+      ),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/scan',
+      builder: (context, state) => const ScanScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/legal-notice',
+      builder: (context, state) => LegalTextScreen(
+        filePath: 'assets/texts/legal_notice.md',
+        title: context.l10n.legalNotice,
+      ),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/data-protection',
+      builder: (context, state) => LegalTextScreen(
+        filePath: 'assets/texts/privacy.md',
+        title: context.l10n.dataProtection,
+      ),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/imprint',
+      builder: (context, state) => LegalTextScreen(
+        filePath: 'assets/texts/imprint.md',
+        title: context.l10n.imprint,
+      ),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/debug',
+      builder: (context, state) => const DebugScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/error',
+      pageBuilder: (context, state) => DialogPage(
+        builder: (context) => AlertDialog(
+          title: Text(context.l10n.error),
+          content: Text(context.l10n.errorDialog_description),
+        ),
+      ),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/account/:accountId',
+      redirect: (_, state) => state.fullPath == '/account/:accountId' ? '${state.matchedLocation}/home' : null,
+      routes: [
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: 'devices',
+          builder: (context, state) => DevicesScreen(accountId: state.pathParameters['accountId']!),
+          routes: [
+            GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: ':deviceId',
+              builder: (context, state) => DeviceDetailScreen(
+                accountId: state.pathParameters['accountId']!,
+                deviceId: state.pathParameters['deviceId']!,
+              ),
+            ),
+          ],
+        ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: 'scan',
+          builder: (context, state) => ScanScreen(accountId: state.pathParameters['accountId']),
+        ),
+        ShellRoute(
+          navigatorKey: _shellNavigatorKey,
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state, child) => AccountScreen(
+            key: ValueKey(state.pathParameters['accountId']),
+            suggestionsBuilder: _suggestionsBuilder,
+            accountId: state.pathParameters['accountId']!,
+            location: state.fullPath!,
+            mailboxFilterController: _mailboxFilterController,
+            showSecondTab: state.uri.queryParameters['showSecondTab'] == 'true' || state.uri.pathSegments.contains('contact-request'),
+            child: child,
+          ),
+          routes: [
+            GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              path: 'home',
+              pageBuilder: (context, state) => NoTransitionPage<void>(
+                key: state.pageKey,
+                child: HomeView(accountId: state.pathParameters['accountId']!),
+              ),
+            ),
+            GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              path: 'contacts',
+              pageBuilder: (context, state) => NoTransitionPage<void>(
+                key: state.pageKey,
+                child: ContactsView(
+                  accountId: state.pathParameters['accountId']!,
+                  setSuggestionsBuilder: (s) => _suggestionsBuilder.value = s,
+                ),
+              ),
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: ':contactId',
+                  builder: (context, state) => ContactDetailScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    contactId: state.pathParameters['contactId']!,
+                  ),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: 'exchangedData',
+                      builder: (context, state) => ContactExchangedAttributesScreen(
+                        accountId: state.pathParameters['accountId']!,
+                        contactId: state.pathParameters['contactId']!,
+                        showSharedAttributes: state.uri.queryParameters['showSharedAttributes'] == 'true',
+                      ),
+                    ),
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: 'shared-files',
+                      builder: (context, state) => ContactSharedFilesScreen(
+                        accountId: state.pathParameters['accountId']!,
+                        contactId: state.pathParameters['contactId']!,
+                        sharedFiles: state.extra is Set<FileDVO> ? state.extra! as Set<FileDVO> : null,
+                      ),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'contact-request/:requestId',
+                  builder: (context, state) => RequestScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    requestId: state.pathParameters['requestId']!,
+                    isIncoming: true,
+                    requestDVO: state.extra is LocalRequestDVO ? state.extra! as LocalRequestDVO : null,
+                  ),
+                ),
+              ],
+            ),
+            GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              path: 'my-data',
+              pageBuilder: (context, state) => NoTransitionPage<void>(
+                key: state.pageKey,
+                child: MyDataView(accountId: state.pathParameters['accountId']!),
+              ),
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'files',
+                  builder: (context, state) => FilesScreen(accountId: state.pathParameters['accountId']!),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: ':fileId',
+                      pageBuilder: (context, state) => ModalPage(
+                        builder: (context) => FileDetailScreen(
+                          accountId: state.pathParameters['accountId']!,
+                          fileId: state.pathParameters['fileId']!,
+                          preLoadedFile: state.extra is FileDVO ? state.extra! as FileDVO : null,
+                        ),
+                        isScrollControlled: true,
+                      ),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'all-data',
+                  builder: (context, state) => AllDataScreen(accountId: state.pathParameters['accountId']!),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'details/:attributeId',
+                  builder: (context, state) => AttributeDetailScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    attributeId: state.pathParameters['attributeId']!,
+                    attribute: state.extra is RepositoryAttributeDVO ? state.extra! as RepositoryAttributeDVO : null,
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'personal-data',
+                  builder: (context, state) => FilteredDataScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    title: context.l10n.myData_personalData,
+                    valueTypes: personalDataInitialAttributeTypes,
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'address-data',
+                  builder: (context, state) => FilteredDataScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    title: context.l10n.myData_addressData,
+                    valueTypes: addressDataInitialAttributeTypes,
+                    emphasizeAttributeHeadings: true,
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'initial-personalData-creation',
+                  builder: (context, state) => MyDataInitialCreationScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    title: context.l10n.myData_initialCreation_personalData,
+                    description: context.l10n.myData_initialCreation_personalData_description,
+                    valueTypes: personalDataInitialAttributeTypes,
+                    onAttributesCreated: () => context.go('/account/${state.pathParameters['accountId']!}/my-data/personal-data'),
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'initial-communicationData-creation',
+                  builder: (context, state) => MyDataInitialCreationScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    title: context.l10n.myData_initialCreation_communicationData,
+                    description: context.l10n.myData_initialCreation_communicationData_description,
+                    valueTypes: communcationDataInitialAttributeTypes,
+                    onAttributesCreated: () => context.go('/account/${state.pathParameters['accountId']!}/my-data/communication-data'),
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'initial-addressData-creation',
+                  builder: (context, state) => MyDataInitialAddressCreationScreen(accountId: state.pathParameters['accountId']!),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'communication-data',
+                  builder: (context, state) => FilteredDataScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    title: context.l10n.myData_communicationData,
+                    valueTypes: communcationDataInitialAttributeTypes,
+                  ),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'data-details/:valueType',
+                  builder: (context, state) => DataDetailsScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    valueType: state.pathParameters['valueType']!,
+                  ),
+                ),
+              ],
+            ),
+            GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              path: 'mailbox',
+              pageBuilder: (context, state) => NoTransitionPage<void>(
+                key: state.pageKey,
+                child: MailboxView(
+                  accountId: state.pathParameters['accountId']!,
+                  mailboxFilterController: _mailboxFilterController,
+                  setSuggestionsBuilder: (s) => _suggestionsBuilder.value = s,
+                  filteredContactId: state.extra is String ? state.extra! as String : null,
+                ),
+              ),
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'send',
+                  builder: (context, state) => SendMailScreen(
+                    contact: state.extra != null ? state.extra! as IdentityDVO : null,
+                    accountId: state.pathParameters['accountId']!,
+                  ),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: 'select-attachments',
+                      builder: (context, state) => SelectAttachmentsScreen(
+                        accountId: state.pathParameters['accountId']!,
+                        previouslySelectedAttachments: state.extra is List ? List<FileDVO>.from(state.extra! as List) : [],
+                      ),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: ':messageId',
+                  builder: (context, state) => MessageDetailScreen(
+                    messageId: state.pathParameters['messageId']!,
+                    accountId: state.pathParameters['accountId']!,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+
 class EnmeshedApp extends StatelessWidget {
-  final Widget home;
-  const EnmeshedApp({super.key, required this.home});
+  const EnmeshedApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    FlutterNativeSplash.remove();
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(useMaterial3: true),
-      darkTheme: ThemeData.dark(useMaterial3: true),
-      supportedLocales: AppLocalizations.supportedLocales,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      home: home,
+    return Features(
+      child: MaterialApp.router(
+        routerConfig: _router,
+        debugShowCheckedModeBanner: false,
+        // dark mode is disabled until we have a proper dark theme
+        themeMode: ThemeMode.light,
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: lightColorScheme,
+          extensions: [lightCustomColors, woltThemeData],
+          navigationBarTheme: lightNavigationBarTheme,
+          textTheme: textTheme,
+        ),
+        darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: darkColorScheme,
+          extensions: [darkCustomColors, woltThemeData],
+          navigationBarTheme: darkNavigationBarTheme,
+          textTheme: textTheme,
+        ),
+        localizationsDelegates: [
+          FlutterI18nDelegate(
+            translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
+            missingTranslationHandler: (key, locale) {
+              GetIt.I.get<Logger>().e('Missing Key: $key, locale: $locale');
+            },
+          ),
+          ...AppLocalizations.localizationsDelegates,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+      ),
     );
   }
 }

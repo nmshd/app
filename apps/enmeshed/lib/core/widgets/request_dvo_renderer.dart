@@ -1,0 +1,390 @@
+import 'dart:async';
+
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:i18n_translated_text/i18n_translated_text.dart';
+import 'package:logger/logger.dart';
+import 'package:renderers/renderers.dart';
+
+import '../modals/create_attribute.dart';
+import '../utils/utils.dart';
+import 'file_chooser.dart';
+
+class RequestDVORenderer extends StatefulWidget {
+  final String accountId;
+  final String requestId;
+  final bool isIncoming;
+
+  final LocalRequestDVO? requestDVO;
+
+  final String acceptRequestText;
+  final VoidCallback onAfterAccept;
+
+  const RequestDVORenderer({
+    required this.accountId,
+    required this.requestId,
+    required this.isIncoming,
+    required this.acceptRequestText,
+    required this.onAfterAccept,
+    super.key,
+    this.requestDVO,
+  });
+
+  @override
+  State<RequestDVORenderer> createState() => _RequestDVORendererState();
+}
+
+class _RequestDVORendererState extends State<RequestDVORenderer> {
+  late RequestRendererController _controller;
+  LocalRequestDVO? _request;
+
+  bool _loading = false;
+
+  DecideRequestParameters? _decideRequestParameters;
+  RequestValidationResultDTO? _validationResult;
+
+  GetIdentityInfoResponse? _identityInfo;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    _request = widget.requestDVO;
+
+    _updateIdentityInfo();
+
+    if (_request == null) {
+      _loadRequest(session);
+    } else {
+      _setController(session, _request!);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant RequestDVORenderer oldWidget) {
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    if (oldWidget.requestDVO?.id != widget.requestDVO?.id && oldWidget.requestDVO?.status != widget.requestDVO?.status) {
+      _request = widget.requestDVO;
+      _controller.dispose();
+
+      _updateIdentityInfo();
+
+      if (_request == null) {
+        _loadRequest(session);
+      } else {
+        _setController(session, _request!);
+      }
+    }
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_request == null || _identityInfo == null) return const Center(child: CircularProgressIndicator());
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: RequestRenderer(
+              request: _request!,
+              controller: _controller,
+              validationResult: _validationResult,
+              currentAddress: _identityInfo!.address,
+              openAttributeSwitcher: _openAttributeSwitcher,
+              expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+              chooseFile: () => openFileChooser(context, widget.accountId),
+              openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
+            ),
+          ),
+        ),
+        if (_request!.isDecidable)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton.icon(
+                icon: const Icon(Icons.delete, size: 16),
+                label: Text(context.l10n.reject, style: const TextStyle(fontWeight: FontWeight.bold)),
+                onPressed: _loading && _request != null ? null : _rejectRequest,
+              ),
+              FilledButton(
+                style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
+                onPressed: _canAccept ? _acceptRequest : null,
+                child: Text(widget.acceptRequestText),
+              ),
+            ],
+          ),
+      ],
+    );
+  }
+
+  bool get _canAccept => !_loading && (_validationResult?.isSuccess ?? false) && _decideRequestParameters != null;
+
+  Future<void> _loadRequest(Session session) async {
+    final requestDto = widget.isIncoming
+        ? await session.consumptionServices.incomingRequests.getRequest(requestId: widget.requestId)
+        : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
+    final request = await session.expander.expandLocalRequestDTO(requestDto.value);
+
+    _setController(session, request);
+    setState(() => _request = request);
+  }
+
+  Future<void> _updateIdentityInfo() async {
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final identityInfo = await session.transportServices.account.getIdentityInfo();
+    if (identityInfo.isError) return;
+
+    setState(() {
+      _identityInfo = identityInfo.value;
+    });
+  }
+
+  void _setController(Session session, LocalRequestDVO request) {
+    _controller = RequestRendererController(request: request)
+      ..addListener(() {
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          final params = _controller.value;
+
+          final result = await session.consumptionServices.incomingRequests.canAccept(params: params);
+          if (result.isError) return GetIt.I.get<Logger>().e(result.error);
+
+          setState(() {
+            _validationResult = result.value;
+            _decideRequestParameters = params;
+          });
+        });
+      });
+  }
+
+  Future<void> _acceptRequest() async {
+    setState(() => _loading = true);
+
+    unawaited(showLoadingDialog(context, context.l10n.request_accepting));
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final result = await session.consumptionServices.incomingRequests.accept(params: _decideRequestParameters!);
+    if (result.isError) {
+      GetIt.I.get<Logger>().e('Can not accept request: ${result.error}');
+
+      if (mounted) context.pop();
+      // TODO(jkoenig134): show error to user.
+
+      return;
+    }
+
+    if (mounted) context.pop();
+    widget.onAfterAccept();
+  }
+
+  Future<void> _rejectRequest() async {
+    setState(() => _loading = true);
+
+    unawaited(showLoadingDialog(context, context.l10n.request_rejecting));
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    final canReject = await session.consumptionServices.incomingRequests.canReject(params: _controller.rejectParams);
+    if (canReject.isError) {
+      setState(() => _loading = false);
+
+      // TODO(jkoenig134): show error to user
+
+      GetIt.I.get<Logger>().e('Can not reject request: ${canReject.error}');
+
+      return;
+    }
+
+    final rejectResult = await session.consumptionServices.incomingRequests.reject(params: _controller.rejectParams);
+    if (rejectResult.isError) {
+      setState(() => _loading = false);
+      // TODO(jkoenig134): show error to user
+
+      GetIt.I.get<Logger>().e('Can not reject request: ${canReject.error}');
+
+      return;
+    }
+
+    if (mounted) {
+      context
+        ..pop()
+        ..pop();
+    }
+  }
+
+  Future<AttributeSwitcherChoice?> _openAttributeSwitcher({
+    required String? valueType,
+    required List<AttributeSwitcherChoice> choices,
+    required AttributeSwitcherChoice? currentChoice,
+    ValueHints? valueHints,
+  }) async {
+    final choice = await Navigator.of(context).push<AttributeSwitcherChoice?>(
+      MaterialPageRoute(
+        builder: (ctx) => _AttributeSwitcher(
+          choices: choices,
+          currentChoice: currentChoice,
+          valueHints: valueHints,
+          valueType: valueType,
+          accountId: widget.accountId,
+          currentAddress: _identityInfo!.address,
+        ),
+      ),
+    );
+
+    return choice;
+  }
+}
+
+class _AttributeSwitcher extends StatefulWidget {
+  final List<AttributeSwitcherChoice> choices;
+  final AttributeSwitcherChoice? currentChoice;
+  final String? valueType;
+  final String accountId;
+  final String currentAddress;
+  final ValueHints? valueHints;
+
+  const _AttributeSwitcher({
+    required this.choices,
+    required this.currentChoice,
+    required this.valueType,
+    required this.accountId,
+    required this.currentAddress,
+    this.valueHints,
+  });
+
+  @override
+  State<_AttributeSwitcher> createState() => _AttributeSwitcherState();
+}
+
+class _AttributeSwitcherState extends State<_AttributeSwitcher> {
+  AttributeSwitcherChoice? selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedOption = widget.currentChoice;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: widget.valueType != null ? TranslatedText('i18n://dvo.attribute.name.${widget.valueType}') : Text(context.l10n.contactDetail_entry),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                if (widget.valueType != null)
+                  Text(context.l10n.contactDetail_selectOrCreateEntryMessage)
+                else
+                  Text(context.l10n.contactDetail_selectEntryMessage),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      context.l10n.myEntries,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    if (widget.valueType != null)
+                      TextButton.icon(
+                        icon: const Icon(Icons.add, size: 16),
+                        label: Text(context.l10n.contactDetail_addEntry),
+                        onPressed: () => showCreateAttributeModal(
+                          context: context,
+                          accountId: widget.accountId,
+                          onCreateAttributePressed: ({required BuildContext context, required IdentityAttributeValue value}) => context
+                            ..pop()
+                            ..pop((id: null, attribute: IdentityAttribute(owner: widget.currentAddress, value: value))),
+                          initialValueType: widget.valueType,
+                          onAttributeCreated: null,
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.separated(
+              itemCount: widget.choices.length,
+              separatorBuilder: (context, index) => Divider(height: 0, color: Theme.of(context).colorScheme.outline),
+              itemBuilder: (context, index) {
+                final item = widget.choices[index];
+
+                return ColoredBox(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  child: ListTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (widget.valueHints != null)
+                          Expanded(
+                            child: AttributeRenderer(
+                              attribute: item.attribute,
+                              valueHints: widget.valueHints!,
+                              showTitle: false,
+                              expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                              openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
+                            ),
+                          ),
+                        Radio<AttributeSwitcherChoice>(
+                          value: item,
+                          groupValue: selectedOption,
+                          onChanged: (AttributeSwitcherChoice? value) => setState(() => selectedOption = value),
+                        ),
+                      ],
+                    ),
+                    onTap: () => setState(() => selectedOption = item),
+                  ),
+                );
+              },
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onPrimary,
+              boxShadow: [
+                BoxShadow(color: Theme.of(context).colorScheme.outline.withOpacity(0.5), spreadRadius: 1, blurRadius: 1, offset: const Offset(0, 1)),
+              ],
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(right: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 24, top: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () => context.pop(),
+                    child: Text(context.l10n.cancel),
+                  ),
+                  FilledButton(
+                    style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
+                    onPressed: () => context.pop(selectedOption),
+                    child: Text(context.l10n.save),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
