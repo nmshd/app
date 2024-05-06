@@ -38,6 +38,27 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.initialValue != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _onChanged(key: 'recipient', value: widget.initialValue!.recipient);
+        _onChanged(key: 'deliveryBoxId', value: widget.initialValue!.deliveryBoxId);
+        _onChanged(key: 'userId', value: widget.initialValue!.userId);
+        if (widget.initialValue!.phoneNumber != null) _onChanged(key: 'phoneNumber', value: widget.initialValue!.phoneNumber!);
+        _onChanged(key: 'zipCode', value: widget.initialValue!.zipCode);
+        _onChanged(key: 'city', value: widget.initialValue!.city);
+        if (widget.initialValue!.state != null) _onChanged(key: 'state', value: widget.initialValue!.state!);
+        _onChanged(
+          key: 'country',
+          value: widget.initialValue!.country.startsWith('dup_') ? widget.initialValue!.country.substring(4) : widget.initialValue!.country,
+        );
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,

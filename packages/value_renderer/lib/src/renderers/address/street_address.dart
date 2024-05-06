@@ -38,6 +38,26 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.initialValue != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _onChanged(key: 'recipient', value: widget.initialValue!.recipient);
+        _onChanged(key: 'street', value: widget.initialValue!.street);
+        _onChanged(key: 'houseNo', value: widget.initialValue!.houseNumber);
+        _onChanged(key: 'zipCode', value: widget.initialValue!.zipCode);
+        _onChanged(key: 'city', value: widget.initialValue!.city);
+        if (widget.initialValue!.state != null) _onChanged(key: 'state', value: widget.initialValue!.state!);
+        _onChanged(
+          key: 'country',
+          value: widget.initialValue!.country.startsWith('dup_') ? widget.initialValue!.country.substring(4) : widget.initialValue!.country,
+        );
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
