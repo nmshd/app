@@ -37,7 +37,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
   final _requiredValues = ['recipient', 'street', 'houseNo', 'zipCode', 'city', 'country'];
   final _formKey = GlobalKey<FormState>();
 
-   @override
+  @override
   void initState() {
     super.initState();
 
