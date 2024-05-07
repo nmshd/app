@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
 import '../utils/utils.dart';
+import './extensions.dart';
 import 'styles/input_decoration.dart';
 
 class TextInput extends StatefulWidget {
@@ -72,8 +73,8 @@ class TextInputState extends State<TextInput> {
       autovalidateMode: widget.autovalidateMode,
       validator: (value) => validateInput(value),
       decoration: widget.decoration != null
-          ? widget.decoration!.copyWith(labelText: widget.fieldName)
-          : inputDecoration(context).copyWith(labelText: widget.fieldName),
+          ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
+          : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
     );
   }
 

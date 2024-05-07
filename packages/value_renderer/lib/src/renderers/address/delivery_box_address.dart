@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../inputs/dropdown_select_input.dart';
 import '../../inputs/text_input.dart';
 import '../../value_renderer_utils.dart';
-import '../extensions.dart';
+import '../../inputs/extensions.dart';
 
 class DeliveryBoxAddressRenderer extends StatefulWidget {
   final RenderHints renderHints;

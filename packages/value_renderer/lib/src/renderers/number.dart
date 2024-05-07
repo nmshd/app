@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../inputs/inputs.dart';
 import '../value_renderer_controller.dart';
-import './extensions.dart';
+import '../inputs/extensions.dart';
 
 class NumberRenderer extends StatelessWidget {
   final ValueRendererController? controller;
@@ -49,7 +49,7 @@ class NumberRenderer extends StatelessWidget {
       return DropdownSelectInput(
         controller: controller,
         decoration: decoration,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
@@ -64,7 +64,7 @@ class NumberRenderer extends StatelessWidget {
       // with a SliderInput for now, for simplicity
       return SliderInput(
         controller: controller,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         initialValue: initialNumberValue,
         min: 1,
         max: 5,
@@ -76,7 +76,7 @@ class NumberRenderer extends StatelessWidget {
       return RadioInput(
         controller: controller,
         decoration: decoration,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
@@ -92,7 +92,7 @@ class NumberRenderer extends StatelessWidget {
       return NumberInput(
         controller: controller,
         decoration: decoration,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         values: values,
         initialValue: initialNumberValue,
         max: max,
@@ -105,7 +105,7 @@ class NumberRenderer extends StatelessWidget {
       return NumberInput(
         controller: controller,
         decoration: decoration,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         values: values!,
         initialValue: initialNumberValue,
         min: min,
@@ -120,7 +120,7 @@ class NumberRenderer extends StatelessWidget {
       return SegmentedButtonInput(
         controller: controller,
         decoration: decoration,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
@@ -134,7 +134,7 @@ class NumberRenderer extends StatelessWidget {
 
       return SliderInput(
         controller: controller,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         initialValue: initialNumberValue,
         min: min,
         max: max,
@@ -145,7 +145,7 @@ class NumberRenderer extends StatelessWidget {
     return NumberInput(
       controller: controller,
       decoration: decoration,
-      fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+      fieldName: fieldName,
       initialValue: initialNumberValue,
       max: max,
       mustBeFilledOut: mustBeFilledOut,

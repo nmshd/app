@@ -8,7 +8,7 @@ import '../inputs/inputs.dart';
 import '../utils/utils.dart';
 import '../value_renderer.dart';
 import '../value_renderer_controller.dart';
-import './extensions.dart';
+import '../inputs/extensions.dart';
 import 'address/address.dart';
 
 class ComplexRenderer extends StatelessWidget {
@@ -51,7 +51,7 @@ class ComplexRenderer extends StatelessWidget {
           emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
           initialValueAttribute: initialValue,
           decoration: decoration,
-          fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+          fieldName: fieldName,
           mustBeFilledOut: mustBeFilledOut,
           dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
           lastDate: DateTime.now());
@@ -59,7 +59,7 @@ class ComplexRenderer extends StatelessWidget {
 
     if (valueType == 'StreetAddress') {
       return StreetAddressRenderer(
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         controller: controller,
         renderHints: renderHints,
         valueHints: valueHints,
@@ -70,7 +70,7 @@ class ComplexRenderer extends StatelessWidget {
 
     if (valueType == 'DeliveryBoxAddress') {
       return DeliveryBoxAddressRenderer(
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         controller: controller,
         renderHints: renderHints,
         valueHints: valueHints,
@@ -81,7 +81,7 @@ class ComplexRenderer extends StatelessWidget {
 
     if (valueType == 'PostOfficeBoxAddress') {
       return PostOfficeBoxAddressRenderer(
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         controller: controller,
         renderHints: renderHints,
         valueHints: valueHints,
@@ -91,7 +91,7 @@ class ComplexRenderer extends StatelessWidget {
     }
 
     return _GenericComplexRenderer(
-      fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+      fieldName: fieldName,
       controller: controller,
       renderHints: renderHints,
       valueHints: valueHints,

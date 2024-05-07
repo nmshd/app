@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../inputs/inputs.dart';
 import '../value_renderer_controller.dart';
-import './extensions.dart';
+import '../inputs/extensions.dart';
 
 class BooleanRenderer extends StatelessWidget {
   final ValueRendererController? controller;
@@ -43,7 +43,7 @@ class BooleanRenderer extends StatelessWidget {
       return RadioInput(
         controller: controller,
         decoration: decoration,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
@@ -56,7 +56,7 @@ class BooleanRenderer extends StatelessWidget {
       return SegmentedButtonInput(
         controller: controller,
         decoration: decoration,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
@@ -69,7 +69,7 @@ class BooleanRenderer extends StatelessWidget {
       return DropdownSelectInput(
         controller: controller,
         decoration: decoration,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
@@ -81,15 +81,16 @@ class BooleanRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike) {
       return SwitchInput(
         controller: controller,
-        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+        fieldName: fieldName,
         initialValue: initialBoolValue,
+
       );
     }
 
     return CheckboxInput(
       controller: controller,
       decoration: decoration,
-      fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+      fieldName: fieldName,
       initialValue: valueHintsDefaultValue,
     );
   }

@@ -5,6 +5,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../utils/utils.dart';
 import '../value_renderer_controller.dart';
+import './extensions.dart';
 
 class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
   SegmentedButtonInput({
@@ -32,10 +33,8 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (fieldName != null)
-                  TranslatedText(
-                    fieldName,
-                    style: field.value == null && mustBeFilledOut ? TextStyle(color: errorColor) : null,
-                  ),
+                  Text(field.context.translateFieldName(fieldName, mustBeFilledOut)!,
+                      style: field.value == null && mustBeFilledOut ? TextStyle(color: errorColor) : null),
                 InputDecorator(
                   decoration: decoration ?? const InputDecoration(border: InputBorder.none),
                   child: SegmentedButton<ValueHintsDefaultValue>(
