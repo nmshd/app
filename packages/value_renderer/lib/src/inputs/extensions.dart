@@ -8,15 +8,10 @@ extension ToValueHintsDefaultValueString on String? {
 
 extension FieldName on BuildContext {
   String? translateFieldName(String? fieldName, bool isRequired) {
-    String translatedFieldName;
-
-    if (fieldName == null) {
-      return null;
-    }
-    translatedFieldName = fieldName.startsWith('i18n://') ? FlutterI18n.translate(this, fieldName.substring(7)) : fieldName;
-    if (isRequired && !translatedFieldName.contains('*')) {
-      translatedFieldName = '$translatedFieldName*';
-    }
+    if (fieldName == null) return null;
+    
+    final translatedFieldName = fieldName.startsWith('i18n://') ? FlutterI18n.translate(this, fieldName.substring(7)) : fieldName;
+    if (isRequired && !translatedFieldName.contains('*')) return '$translatedFieldName*';
     return translatedFieldName;
   }
 }
