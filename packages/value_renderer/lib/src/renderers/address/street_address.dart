@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import '../../inputs/dropdown_select_input.dart';
 import '../../inputs/text_input.dart';
 import '../../value_renderer_utils.dart';
-import 'extensions.dart';
+import '../extensions.dart';
 
 class StreetAddressRenderer extends StatefulWidget {
   final RenderHints renderHints;
   final ValueHints valueHints;
-  final String? translatedText;
+  final String? fieldName;
   final ValueRendererController? controller;
   final StreetAddressAttributeValue? initialValue;
   final InputDecoration? decoration;
@@ -17,7 +17,7 @@ class StreetAddressRenderer extends StatefulWidget {
   const StreetAddressRenderer({
     required this.renderHints,
     required this.valueHints,
-    this.translatedText,
+    this.fieldName,
     this.controller,
     this.initialValue,
     this.decoration,
@@ -29,8 +29,6 @@ class StreetAddressRenderer extends StatefulWidget {
 }
 
 class _StreetAddressRendererState extends State<StreetAddressRenderer> {
-  static const __valueType = 'StreetAddress';
-
   ValueRendererInputValueMap? _inputValueMap;
 
   final Map<String, dynamic> _valueMap = {};
@@ -64,76 +62,76 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
       child: Column(
         children: [
           TextInput(
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('recipient'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.recipient.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
-            fieldName: context.fieldName(__valueType, 'recipient', _requiredValues),
+            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.recipient.label', _requiredValues.contains('recipient')),
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('street'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.street.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'street', value: value),
             values: widget.valueHints.propertyHints!['street']!.values,
             pattern: widget.valueHints.propertyHints!['street']!.pattern,
-            fieldName: context.fieldName(__valueType, 'street', _requiredValues),
+            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.street.label', _requiredValues.contains('street')),
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('houseNo'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.houseNumber.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'houseNo', value: value),
             values: widget.valueHints.propertyHints!['houseNo']!.values,
             pattern: widget.valueHints.propertyHints!['houseNo']!.pattern,
             formatValidations: const {r'\d': 'errors.value_renderer.houseNoNumericCharacter'},
-            fieldName: context.fieldName(__valueType, 'houseNo', _requiredValues),
+            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.houseNo.label', _requiredValues.contains('houseNo')),
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('zipCode'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.zipCode.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: context.fieldName(__valueType, 'zipCode', _requiredValues),
+            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.zipCode.label', _requiredValues.contains('zipCode')),
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('city'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.city.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
-            fieldName: context.fieldName(__valueType, 'city', _requiredValues),
+            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.city.label', _requiredValues.contains('city')),
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: false,
+            mustBeFilledOut: _requiredValues.contains('state'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.state.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'state', value: value),
             values: widget.valueHints.propertyHints!['state']!.values,
             pattern: widget.valueHints.propertyHints!['state']!.pattern,
-            fieldName: context.fieldName(__valueType, 'state', _requiredValues),
+            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.state.label', _requiredValues.contains('state')),
           ),
           const SizedBox(height: 16),
           DropdownSelectInput(
             onChanged: (value) => _onChanged(key: 'country', value: value),
             decoration: widget.decoration,
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('country'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.country.toValueHintsDefaultValue(),
             technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
             dataType: widget.renderHints.propertyHints!['country']!.dataType,
             values: widget.valueHints.propertyHints!['country']!.values!,
-            fieldName: context.fieldName(__valueType, 'country', _requiredValues),
+            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.country.label', _requiredValues.contains('country')),
           ),
         ],
       ),
