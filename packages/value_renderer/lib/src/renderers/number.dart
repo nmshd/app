@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../inputs/inputs.dart';
 import '../value_renderer_controller.dart';
-import '../inputs/extensions.dart';
 
 class NumberRenderer extends StatelessWidget {
   final ValueRendererController? controller;
