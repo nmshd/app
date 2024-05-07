@@ -52,14 +52,14 @@ class ComplexRenderer extends StatelessWidget {
 
     if (valueType == 'BirthDate') {
       return DatepickerFormField(
-        controller: controller,
-        emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
-        initialValueAttribute: initialValue,
-        decoration: decoration,
-        fieldName: translatedText,
-        mustBeFilledOut: mustBeFilledOut,
-        dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
-      );
+          controller: controller,
+          emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
+          initialValueAttribute: initialValue,
+          decoration: decoration,
+          fieldName: translatedText,
+          mustBeFilledOut: mustBeFilledOut,
+          dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
+          lastDate: DateTime.now());
     }
 
     if (valueType == 'StreetAddress') {
