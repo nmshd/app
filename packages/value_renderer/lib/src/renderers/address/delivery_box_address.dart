@@ -29,6 +29,8 @@ class DeliveryBoxAddressRenderer extends StatefulWidget {
 }
 
 class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer> {
+  static const __valueType = 'DeliveryBoxAddress';
+
   ValueRendererInputValueMap? _inputValueMap;
 
   final Map<String, dynamic> _valueMap = {};
@@ -69,7 +71,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
-            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.recipient.label',
+            fieldName: 'i18n://attributes.values.$__valueType.recipient.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -79,7 +81,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'deliveryBoxId', value: value),
             values: widget.valueHints.propertyHints!['deliveryBoxId']!.values,
             pattern: widget.valueHints.propertyHints!['deliveryBoxId']!.pattern,
-            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.deliveryBoxId.label',
+            fieldName: 'i18n://attributes.values.$__valueType.deliveryBoxId.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -89,7 +91,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'userId', value: value),
             values: widget.valueHints.propertyHints!['userId']!.values,
             pattern: widget.valueHints.propertyHints!['userId']!.pattern,
-            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.userId.label',
+            fieldName: 'i18n://attributes.values.$__valueType.userId.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -99,7 +101,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'phoneNumber', value: value),
             values: widget.valueHints.propertyHints!['phoneNumber']!.values,
             pattern: widget.valueHints.propertyHints!['phoneNumber']!.pattern,
-            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.phoneNumber.label',
+            fieldName: 'i18n://attributes.values.$__valueType.phoneNumber.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -109,7 +111,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.zipCode.label',
+            fieldName: 'i18n://attributes.values.$__valueType.zipCode.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -119,7 +121,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
-            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.city.label',
+            fieldName: 'i18n://attributes.values.$__valueType.city.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -129,7 +131,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
               onChanged: (value) => _onChanged(key: 'state', value: value),
               values: widget.valueHints.propertyHints!['state']!.values,
               pattern: widget.valueHints.propertyHints!['state']!.pattern,
-              fieldName: 'i18n://attributes.values.DeliveryBoxAddress.state.label'),
+              fieldName: 'i18n://attributes.values.$__valueType.state.label'),
           const SizedBox(height: 16),
           DropdownSelectInput(
               onChanged: (value) => _onChanged(key: 'country', value: value),
@@ -140,7 +142,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
               technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
               dataType: widget.renderHints.propertyHints!['country']!.dataType,
               values: widget.valueHints.propertyHints!['country']!.values!,
-              fieldName: 'i18n://attributes.values.DeliveryBoxAddress.country.label'),
+              fieldName: 'i18n://attributes.values.$__valueType.country.label'),
         ],
       ),
     );

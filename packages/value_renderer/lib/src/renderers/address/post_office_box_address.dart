@@ -29,6 +29,8 @@ class PostOfficeBoxAddressRenderer extends StatefulWidget {
 }
 
 class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRenderer> {
+  static const __valueType = 'PostOfficeBoxAddress';
+
   ValueRendererInputValueMap? _inputValueMap;
 
   final Map<String, dynamic> _valueMap = {};
@@ -67,7 +69,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
-            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.recipient.label',
+            fieldName: 'i18n://attributes.values.$__valueType.recipient.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -77,7 +79,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'boxId', value: value),
             values: widget.valueHints.propertyHints!['boxId']!.values,
             pattern: widget.valueHints.propertyHints!['boxId']!.pattern,
-            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.boxId.label',
+            fieldName: 'i18n://attributes.values.$__valueType.boxId.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -87,7 +89,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.zipCode.label',
+            fieldName: 'i18n://attributes.values.$__valueType.zipCode.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -97,7 +99,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
-            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.city.label',
+            fieldName: 'i18n://attributes.values.$__valueType.city.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -107,7 +109,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'state', value: value),
             values: widget.valueHints.propertyHints!['state']!.values,
             pattern: widget.valueHints.propertyHints!['state']!.pattern,
-            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.state.label',
+            fieldName: 'i18n://attributes.values.$__valueType.state.label',
           ),
           const SizedBox(height: 16),
           DropdownSelectInput(
@@ -119,7 +121,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
             dataType: widget.renderHints.propertyHints!['country']!.dataType,
             values: widget.valueHints.propertyHints!['country']!.values!,
-            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.country.label',
+            fieldName: 'i18n://attributes.values.$__valueType.country.label',
           ),
         ],
       ),

@@ -29,6 +29,8 @@ class StreetAddressRenderer extends StatefulWidget {
 }
 
 class _StreetAddressRendererState extends State<StreetAddressRenderer> {
+  static const __valueType = 'StreetAddress';
+
   ValueRendererInputValueMap? _inputValueMap;
 
   final Map<String, dynamic> _valueMap = {};
@@ -68,7 +70,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
-            fieldName: 'i18n://attributes.values.StreetAddress.recipient.label',
+            fieldName: 'i18n://attributes.values.$__valueType.recipient.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -78,7 +80,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'street', value: value),
             values: widget.valueHints.propertyHints!['street']!.values,
             pattern: widget.valueHints.propertyHints!['street']!.pattern,
-            fieldName: 'i18n://attributes.values.StreetAddress.street.label',
+            fieldName: 'i18n://attributes.values.$__valueType.street.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -89,7 +91,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             values: widget.valueHints.propertyHints!['houseNo']!.values,
             pattern: widget.valueHints.propertyHints!['houseNo']!.pattern,
             formatValidations: const {r'\d': 'errors.value_renderer.houseNoNumericCharacter'},
-            fieldName: 'i18n://attributes.values.StreetAddress.houseNo.label',
+            fieldName: 'i18n://attributes.values.$__valueType.houseNo.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -99,7 +101,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: 'i18n://attributes.values.StreetAddress.zipCode.label',
+            fieldName: 'i18n://attributes.values.$__valueType.zipCode.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -109,7 +111,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
-            fieldName: 'i18n://attributes.values.StreetAddress.city.label',
+            fieldName: 'i18n://attributes.values.$__valueType.city.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -119,7 +121,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'state', value: value),
             values: widget.valueHints.propertyHints!['state']!.values,
             pattern: widget.valueHints.propertyHints!['state']!.pattern,
-            fieldName: 'i18n://attributes.values.StreetAddress.state.label',
+            fieldName: 'i18n://attributes.values.$__valueType.state.label',
           ),
           const SizedBox(height: 16),
           DropdownSelectInput(
@@ -131,7 +133,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
             dataType: widget.renderHints.propertyHints!['country']!.dataType,
             values: widget.valueHints.propertyHints!['country']!.values!,
-            fieldName: 'i18n://attributes.values.StreetAddress.country.label',
+            fieldName: 'i18n://attributes.values.$__valueType.country.label',
           ),
         ],
       ),
