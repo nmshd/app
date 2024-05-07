@@ -6,6 +6,7 @@ import 'package:logger/logger.dart';
 
 import '../../utils/utils.dart';
 import '../../value_renderer_controller.dart';
+import '../extensions.dart';
 import '../styles/input_decoration.dart';
 import './datepicker_input.dart';
 
@@ -27,7 +28,7 @@ class DatepickerFormField extends FormField<DateTime> {
     super.onSaved,
   }) : super(
           initialValue: getInitialDateAttribute(initialValueAttribute),
-          autovalidateMode: AutovalidateMode.always,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) => value == null && mustBeFilledOut ? emptyFieldMessage : null,
           builder: (FormFieldState<DateTime> field) {
             if (field.value != null) controller?.value = ValueRendererInputValueDateTime(field.value!);
@@ -45,13 +46,13 @@ class DatepickerFormField extends FormField<DateTime> {
                 dateFormat: dateFormat,
                 enabled: enabled,
                 firstDate: firstDate,
-                fieldName: fieldName,
+                fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
                 initialDate: getInitialDateAttribute(initialValueAttribute),
                 lastDate: lastDate,
                 onDateSelected: onChangedHandler,
                 selectedDate: field.value,
                 decoration: (decoration ?? inputDecoration(context)).copyWith(
-                  labelText: fieldName,
+                  labelText: context.translateFieldName(fieldName, mustBeFilledOut),
                   errorText: field.errorText,
                   suffixIcon: const Icon(Icons.calendar_month),
                 ),

@@ -6,6 +6,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../utils/utils.dart';
 import '../value_renderer_controller.dart';
+import 'extensions.dart';
 import 'styles/input_decoration.dart';
 
 class DropdownSelectInput extends StatefulWidget {
@@ -24,7 +25,7 @@ class DropdownSelectInput extends StatefulWidget {
     required this.values,
     required this.mustBeFilledOut,
     required this.technicalType,
-    this.autovalidateMode = AutovalidateMode.always,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.dataType,
     this.controller,
     this.decoration,
@@ -57,12 +58,6 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
   @override
   Widget build(BuildContext context) {
-    String? translatedText;
-
-    if (widget.fieldName != null) {
-      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -70,8 +65,8 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           autovalidateMode: widget.autovalidateMode,
           value: _selectedOption,
           decoration: widget.decoration != null
-              ? widget.decoration!.copyWith(labelText: translatedText)
-              : inputDecoration(context).copyWith(labelText: translatedText),
+              ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
+              : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
           validator: (value) => value == null && widget.mustBeFilledOut ? FlutterI18n.translate(context, 'errors.value_renderer.emptyField') : null,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(

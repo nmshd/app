@@ -5,6 +5,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
 import '../utils/utils.dart';
+import 'extensions.dart';
 import 'styles/input_decoration.dart';
 
 class NumberInput extends StatefulWidget {
@@ -71,17 +72,11 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
-    String? translatedText;
-
-    if (widget.fieldName != null) {
-      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
-    }
-
     return Form(
       child: TextFormField(
         controller: _controller,
         keyboardType: TextInputType.number,
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => validateInput(value),
         inputFormatters: [
           widget.technicalType == RenderHintsTechnicalType.Float
@@ -89,8 +84,8 @@ class NumberInputState extends State<NumberInput> {
               : FilteringTextInputFormatter.digitsOnly,
         ],
         decoration: widget.decoration != null
-            ? widget.decoration!.copyWith(labelText: translatedText)
-            : inputDecoration(context).copyWith(labelText: translatedText),
+            ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
+            : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
       ),
     );
   }

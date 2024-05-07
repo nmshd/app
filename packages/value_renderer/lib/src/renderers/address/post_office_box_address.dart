@@ -9,7 +9,7 @@ import 'extensions.dart';
 class PostOfficeBoxAddressRenderer extends StatefulWidget {
   final RenderHints renderHints;
   final ValueHints valueHints;
-  final String? translatedText;
+  final String? fieldName;
   final ValueRendererController? controller;
   final PostOfficeBoxAddressAttributeValue? initialValue;
   final InputDecoration? decoration;
@@ -17,7 +17,7 @@ class PostOfficeBoxAddressRenderer extends StatefulWidget {
   const PostOfficeBoxAddressRenderer({
     required this.renderHints,
     required this.valueHints,
-    this.translatedText,
+    this.fieldName,
     this.controller,
     this.initialValue,
     this.decoration,
@@ -63,65 +63,65 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
       child: Column(
         children: [
           TextInput(
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('recipient'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.recipient.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
-            fieldName: context.fieldName(__valueType, 'recipient', _requiredValues),
+            fieldName: 'i18n://attributes.values.$__valueType.recipient.label',
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('boxId'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.boxId.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'boxId', value: value),
             values: widget.valueHints.propertyHints!['boxId']!.values,
             pattern: widget.valueHints.propertyHints!['boxId']!.pattern,
-            fieldName: context.fieldName(__valueType, 'boxId', _requiredValues),
+            fieldName: 'i18n://attributes.values.$__valueType.boxId.label',
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('zipCode'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.zipCode.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: context.fieldName(__valueType, 'zipCode', _requiredValues),
+            fieldName: 'i18n://attributes.values.$__valueType.zipCode.label',
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('city'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.city.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
-            fieldName: context.fieldName(__valueType, 'city', _requiredValues),
+            fieldName: 'i18n://attributes.values.$__valueType.city.label',
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: false,
+            mustBeFilledOut: _requiredValues.contains('state'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.state.toValueHintsDefaultValue(),
             onChanged: (value) => _onChanged(key: 'state', value: value),
             values: widget.valueHints.propertyHints!['state']!.values,
             pattern: widget.valueHints.propertyHints!['state']!.pattern,
-            fieldName: context.fieldName(__valueType, 'state', _requiredValues),
+            fieldName: 'i18n://attributes.values.$__valueType.state.label',
           ),
           const SizedBox(height: 16),
           DropdownSelectInput(
             onChanged: (value) => _onChanged(key: 'country', value: value),
             decoration: widget.decoration,
-            mustBeFilledOut: true,
+            mustBeFilledOut: _requiredValues.contains('country'),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: widget.initialValue?.country.toValueHintsDefaultValue(),
             technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
             dataType: widget.renderHints.propertyHints!['country']!.dataType,
             values: widget.valueHints.propertyHints!['country']!.values!,
-            fieldName: context.fieldName(__valueType, 'country', _requiredValues),
+            fieldName: 'i18n://attributes.values.$__valueType.country.label',
           ),
         ],
       ),
