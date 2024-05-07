@@ -71,7 +71,6 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
-
     return Form(
       child: TextFormField(
         controller: _controller,

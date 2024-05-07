@@ -45,7 +45,6 @@ class ComplexRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     if (valueType == 'BirthDate') {
       return DatepickerFormField(
           controller: controller,

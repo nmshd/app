@@ -65,7 +65,6 @@ class TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
-
     return TextFormField(
       onChanged: widget.onChanged,
       maxLength: widget.max,
