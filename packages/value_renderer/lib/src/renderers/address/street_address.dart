@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../inputs/dropdown_select_input.dart';
 import '../../inputs/text_input.dart';
 import '../../value_renderer_utils.dart';
-import '../../inputs/extensions.dart';
+import './extensions.dart';
 
 class StreetAddressRenderer extends StatefulWidget {
   final RenderHints renderHints;
@@ -68,7 +68,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.recipient.label', _requiredValues.contains('recipient')),
+            fieldName: 'i18n://attributes.values.StreetAddress.recipient.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -78,7 +78,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'street', value: value),
             values: widget.valueHints.propertyHints!['street']!.values,
             pattern: widget.valueHints.propertyHints!['street']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.street.label', _requiredValues.contains('street')),
+            fieldName: 'i18n://attributes.values.StreetAddress.street.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -89,7 +89,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             values: widget.valueHints.propertyHints!['houseNo']!.values,
             pattern: widget.valueHints.propertyHints!['houseNo']!.pattern,
             formatValidations: const {r'\d': 'errors.value_renderer.houseNoNumericCharacter'},
-            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.houseNo.label', _requiredValues.contains('houseNo')),
+            fieldName: 'i18n://attributes.values.StreetAddress.houseNo.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -99,7 +99,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.zipCode.label', _requiredValues.contains('zipCode')),
+            fieldName: 'i18n://attributes.values.StreetAddress.zipCode.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -109,7 +109,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.city.label', _requiredValues.contains('city')),
+            fieldName: 'i18n://attributes.values.StreetAddress.city.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -119,7 +119,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             onChanged: (value) => _onChanged(key: 'state', value: value),
             values: widget.valueHints.propertyHints!['state']!.values,
             pattern: widget.valueHints.propertyHints!['state']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.state.label', _requiredValues.contains('state')),
+            fieldName: 'i18n://attributes.values.StreetAddress.state.label',
           ),
           const SizedBox(height: 16),
           DropdownSelectInput(
@@ -131,7 +131,7 @@ class _StreetAddressRendererState extends State<StreetAddressRenderer> {
             technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
             dataType: widget.renderHints.propertyHints!['country']!.dataType,
             values: widget.valueHints.propertyHints!['country']!.values!,
-            fieldName: context.translateFieldName('i18n://attributes.values.StreetAddress.country.label', _requiredValues.contains('country')),
+            fieldName: 'i18n://attributes.values.StreetAddress.country.label',
           ),
         ],
       ),

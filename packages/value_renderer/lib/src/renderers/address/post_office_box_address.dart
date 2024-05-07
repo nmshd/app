@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import '../../inputs/dropdown_select_input.dart';
+import './extensions.dart';
 import '../../inputs/text_input.dart';
 import '../../value_renderer_utils.dart';
-import '../../inputs/extensions.dart';
 
 class PostOfficeBoxAddressRenderer extends StatefulWidget {
   final RenderHints renderHints;
@@ -67,8 +67,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
-            fieldName:
-                context.translateFieldName('i18n://attributes.values.PostOfficeBoxAddress.recipient.label', _requiredValues.contains('recipient')),
+            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.recipient.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -78,7 +77,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'boxId', value: value),
             values: widget.valueHints.propertyHints!['boxId']!.values,
             pattern: widget.valueHints.propertyHints!['boxId']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.PostOfficeBoxAddress.boxId.label', _requiredValues.contains('boxId')),
+            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.boxId.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -88,7 +87,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.PostOfficeBoxAddress.zipCode.label', _requiredValues.contains('zipCode')),
+            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.zipCode.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -98,7 +97,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.PostOfficeBoxAddress.city.label', _requiredValues.contains('city')),
+            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.city.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -108,7 +107,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             onChanged: (value) => _onChanged(key: 'state', value: value),
             values: widget.valueHints.propertyHints!['state']!.values,
             pattern: widget.valueHints.propertyHints!['state']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.PostOfficeBoxAddress.state.label', _requiredValues.contains('state')),
+            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.state.label',
           ),
           const SizedBox(height: 16),
           DropdownSelectInput(
@@ -120,7 +119,7 @@ class _PostOfficeBoxAddressRendererState extends State<PostOfficeBoxAddressRende
             technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
             dataType: widget.renderHints.propertyHints!['country']!.dataType,
             values: widget.valueHints.propertyHints!['country']!.values!,
-            fieldName: context.translateFieldName('i18n://attributes.values.PostOfficeBoxAddress.country.label', _requiredValues.contains('country')),
+            fieldName: 'i18n://attributes.values.PostOfficeBoxAddress.country.label',
           ),
         ],
       ),

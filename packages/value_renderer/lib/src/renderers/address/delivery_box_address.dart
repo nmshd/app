@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../inputs/dropdown_select_input.dart';
 import '../../inputs/text_input.dart';
 import '../../value_renderer_utils.dart';
-import '../../inputs/extensions.dart';
+import './extensions.dart';
 
 class DeliveryBoxAddressRenderer extends StatefulWidget {
   final RenderHints renderHints;
@@ -69,8 +69,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'recipient', value: value),
             values: widget.valueHints.propertyHints!['recipient']!.values,
             pattern: widget.valueHints.propertyHints!['recipient']!.pattern,
-            fieldName:
-                context.translateFieldName('i18n://attributes.values.DeliveryBoxAddress.recipient.label', _requiredValues.contains('recipient')),
+            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.recipient.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -80,8 +79,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'deliveryBoxId', value: value),
             values: widget.valueHints.propertyHints!['deliveryBoxId']!.values,
             pattern: widget.valueHints.propertyHints!['deliveryBoxId']!.pattern,
-            fieldName: context.translateFieldName(
-                'i18n://attributes.values.DeliveryBoxAddress.deliveryBoxId.label', _requiredValues.contains('deliveryBoxId')),
+            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.deliveryBoxId.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -91,7 +89,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'userId', value: value),
             values: widget.valueHints.propertyHints!['userId']!.values,
             pattern: widget.valueHints.propertyHints!['userId']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.DeliveryBoxAddress.userId.label', _requiredValues.contains('userId')),
+            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.userId.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -101,8 +99,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'phoneNumber', value: value),
             values: widget.valueHints.propertyHints!['phoneNumber']!.values,
             pattern: widget.valueHints.propertyHints!['phoneNumber']!.pattern,
-            fieldName:
-                context.translateFieldName('i18n://attributes.values.DeliveryBoxAddress.phoneNumber.label', _requiredValues.contains('phoneNumber')),
+            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.phoneNumber.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -112,7 +109,7 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'zipCode', value: value),
             values: widget.valueHints.propertyHints!['zipCode']!.values,
             pattern: widget.valueHints.propertyHints!['zipCode']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.DeliveryBoxAddress.zipCode.label', _requiredValues.contains('zipCode')),
+            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.zipCode.label',
           ),
           const SizedBox(height: 16),
           TextInput(
@@ -122,30 +119,28 @@ class _DeliveryBoxAddressRendererState extends State<DeliveryBoxAddressRenderer>
             onChanged: (value) => _onChanged(key: 'city', value: value),
             values: widget.valueHints.propertyHints!['city']!.values,
             pattern: widget.valueHints.propertyHints!['city']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.DeliveryBoxAddress.city.label', _requiredValues.contains('city')),
+            fieldName: 'i18n://attributes.values.DeliveryBoxAddress.city.label',
           ),
           const SizedBox(height: 16),
           TextInput(
-            mustBeFilledOut: _requiredValues.contains('state'),
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: widget.initialValue?.state.toValueHintsDefaultValue(),
-            onChanged: (value) => _onChanged(key: 'state', value: value),
-            values: widget.valueHints.propertyHints!['state']!.values,
-            pattern: widget.valueHints.propertyHints!['state']!.pattern,
-            fieldName: context.translateFieldName('i18n://attributes.values.DeliveryBoxAddress.state.label', _requiredValues.contains('state')),
-          ),
+              mustBeFilledOut: _requiredValues.contains('state'),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              initialValue: widget.initialValue?.state.toValueHintsDefaultValue(),
+              onChanged: (value) => _onChanged(key: 'state', value: value),
+              values: widget.valueHints.propertyHints!['state']!.values,
+              pattern: widget.valueHints.propertyHints!['state']!.pattern,
+              fieldName: 'i18n://attributes.values.DeliveryBoxAddress.state.label'),
           const SizedBox(height: 16),
           DropdownSelectInput(
-            onChanged: (value) => _onChanged(key: 'country', value: value),
-            decoration: widget.decoration,
-            mustBeFilledOut: _requiredValues.contains('country'),
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            initialValue: widget.initialValue?.country.toValueHintsDefaultValue(),
-            technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
-            dataType: widget.renderHints.propertyHints!['country']!.dataType,
-            values: widget.valueHints.propertyHints!['country']!.values!,
-            fieldName: context.translateFieldName('i18n://attributes.values.DeliveryBoxAddress.country.label', _requiredValues.contains('country')),
-          ),
+              onChanged: (value) => _onChanged(key: 'country', value: value),
+              decoration: widget.decoration,
+              mustBeFilledOut: _requiredValues.contains('country'),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              initialValue: widget.initialValue?.country.toValueHintsDefaultValue(),
+              technicalType: widget.renderHints.propertyHints!['country']!.technicalType,
+              dataType: widget.renderHints.propertyHints!['country']!.dataType,
+              values: widget.valueHints.propertyHints!['country']!.values!,
+              fieldName: 'i18n://attributes.values.DeliveryBoxAddress.country.label'),
         ],
       ),
     );
