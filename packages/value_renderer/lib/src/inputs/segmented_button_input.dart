@@ -33,8 +33,10 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (fieldName != null)
-                  Text(field.context.translateFieldName(fieldName, mustBeFilledOut)!,
-                      style: field.value == null && mustBeFilledOut ? TextStyle(color: errorColor) : null),
+                  Text(
+                    field.context.translateFieldName(fieldName, mustBeFilledOut)!,
+                    style: field.value == null && mustBeFilledOut ? TextStyle(color: errorColor) : null,
+                  ),
                 InputDecorator(
                   decoration: decoration ?? const InputDecoration(border: InputBorder.none),
                   child: SegmentedButton<ValueHintsDefaultValue>(
