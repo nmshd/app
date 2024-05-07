@@ -21,7 +21,7 @@ class TextInput extends StatefulWidget {
 
   const TextInput({
     required this.mustBeFilledOut,
-    this.autovalidateMode = AutovalidateMode.always,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.controller,
     this.decoration,
     this.fieldName,
@@ -40,7 +40,6 @@ class TextInput extends StatefulWidget {
 
 class TextInputState extends State<TextInput> {
   late TextEditingController _controller;
-
   @override
   void initState() {
     super.initState();
@@ -70,6 +69,9 @@ class TextInputState extends State<TextInput> {
 
     if (widget.fieldName != null) {
       translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
+      if (widget.mustBeFilledOut) {
+        translatedText = '$translatedText*';
+      }
     }
 
     return TextFormField(

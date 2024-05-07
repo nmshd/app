@@ -81,7 +81,7 @@ class NumberInputState extends State<NumberInput> {
       child: TextFormField(
         controller: _controller,
         keyboardType: TextInputType.number,
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => validateInput(value),
         inputFormatters: [
           widget.technicalType == RenderHintsTechnicalType.Float

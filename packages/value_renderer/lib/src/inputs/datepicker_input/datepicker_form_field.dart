@@ -27,7 +27,7 @@ class DatepickerFormField extends FormField<DateTime> {
     super.onSaved,
   }) : super(
           initialValue: getInitialDateAttribute(initialValueAttribute),
-          autovalidateMode: AutovalidateMode.always,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) => value == null && mustBeFilledOut ? emptyFieldMessage : null,
           builder: (FormFieldState<DateTime> field) {
             if (field.value != null) controller?.value = ValueRendererInputValueDateTime(field.value!);

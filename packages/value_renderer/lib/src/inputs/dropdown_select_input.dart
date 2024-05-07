@@ -24,7 +24,7 @@ class DropdownSelectInput extends StatefulWidget {
     required this.values,
     required this.mustBeFilledOut,
     required this.technicalType,
-    this.autovalidateMode = AutovalidateMode.always,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.dataType,
     this.controller,
     this.decoration,
@@ -61,6 +61,9 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
     if (widget.fieldName != null) {
       translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
+      if (widget.mustBeFilledOut) {
+        translatedText = '$translatedText*';
+      }
     }
 
     return Column(
