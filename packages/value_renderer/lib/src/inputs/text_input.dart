@@ -4,7 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 import '../../value_renderer.dart';
 import '../utils/utils.dart';
-import './extensions.dart';
+import 'extensions.dart';
 import 'styles/input_decoration.dart';
 
 class TextInput extends StatefulWidget {

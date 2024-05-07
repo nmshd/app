@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import '../../inputs/dropdown_select_input.dart';
-import './extensions.dart';
 import '../../inputs/text_input.dart';
 import '../../value_renderer_utils.dart';
+import 'extensions.dart';
 
 class PostOfficeBoxAddressRenderer extends StatefulWidget {
   final RenderHints renderHints;

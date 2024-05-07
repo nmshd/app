@@ -5,7 +5,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../utils/utils.dart';
 import '../value_renderer_controller.dart';
-import './extensions.dart';
+import 'extensions.dart';
 
 class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
   SegmentedButtonInput({
