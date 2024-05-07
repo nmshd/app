@@ -57,15 +57,6 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
 
   @override
   Widget build(BuildContext context) {
-    String? translatedText;
-
-    if (widget.fieldName != null) {
-      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
-      if (widget.mustBeFilledOut) {
-        translatedText = '$translatedText*';
-      }
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -73,8 +64,8 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
           autovalidateMode: widget.autovalidateMode,
           value: _selectedOption,
           decoration: widget.decoration != null
-              ? widget.decoration!.copyWith(labelText: translatedText)
-              : inputDecoration(context).copyWith(labelText: translatedText),
+              ? widget.decoration!.copyWith(labelText: widget.fieldName)
+              : inputDecoration(context).copyWith(labelText: widget.fieldName),
           validator: (value) => value == null && widget.mustBeFilledOut ? FlutterI18n.translate(context, 'errors.value_renderer.emptyField') : null,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(

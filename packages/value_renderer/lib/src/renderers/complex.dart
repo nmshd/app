@@ -8,6 +8,7 @@ import '../inputs/inputs.dart';
 import '../utils/utils.dart';
 import '../value_renderer.dart';
 import '../value_renderer_controller.dart';
+import './extensions.dart';
 import 'address/address.dart';
 
 class ComplexRenderer extends StatelessWidget {
@@ -44,11 +45,6 @@ class ComplexRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final translatedText = fieldName == null
-        ? null
-        : fieldName!.startsWith('i18n://')
-            ? FlutterI18n.translate(context, fieldName!.substring(7))
-            : fieldName;
 
     if (valueType == 'BirthDate') {
       return DatepickerFormField(
@@ -56,7 +52,7 @@ class ComplexRenderer extends StatelessWidget {
           emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
           initialValueAttribute: initialValue,
           decoration: decoration,
-          fieldName: translatedText,
+          fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
           mustBeFilledOut: mustBeFilledOut,
           dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
           lastDate: DateTime.now());
@@ -64,7 +60,7 @@ class ComplexRenderer extends StatelessWidget {
 
     if (valueType == 'StreetAddress') {
       return StreetAddressRenderer(
-        translatedText: translatedText,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         controller: controller,
         renderHints: renderHints,
         valueHints: valueHints,
@@ -75,7 +71,7 @@ class ComplexRenderer extends StatelessWidget {
 
     if (valueType == 'DeliveryBoxAddress') {
       return DeliveryBoxAddressRenderer(
-        translatedText: translatedText,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         controller: controller,
         renderHints: renderHints,
         valueHints: valueHints,
@@ -86,7 +82,7 @@ class ComplexRenderer extends StatelessWidget {
 
     if (valueType == 'PostOfficeBoxAddress') {
       return PostOfficeBoxAddressRenderer(
-        translatedText: translatedText,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         controller: controller,
         renderHints: renderHints,
         valueHints: valueHints,
@@ -96,7 +92,7 @@ class ComplexRenderer extends StatelessWidget {
     }
 
     return _GenericComplexRenderer(
-      translatedText: translatedText,
+      fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
       controller: controller,
       renderHints: renderHints,
       valueHints: valueHints,
@@ -120,7 +116,7 @@ class _GenericComplexRenderer extends StatefulWidget {
   final ValueRendererController? controller;
   final AttributeValue? initialValue;
   final InputDecoration? decoration;
-  final String? translatedText;
+  final String? fieldName;
 
   const _GenericComplexRenderer({
     required this.renderHints,
@@ -132,7 +128,7 @@ class _GenericComplexRenderer extends StatefulWidget {
     this.controller,
     this.initialValue,
     this.decoration,
-    this.translatedText,
+    this.fieldName,
   });
 
   @override
@@ -178,8 +174,8 @@ class _GenericComplexRendererState extends State<_GenericComplexRenderer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.translatedText != null) ...[
-          TranslatedText(widget.translatedText!, style: TextStyle(fontSize: 16.0, color: Theme.of(context).colorScheme.onSurfaceVariant)),
+        if (widget.fieldName != null) ...[
+          TranslatedText(widget.fieldName!, style: TextStyle(fontSize: 16.0, color: Theme.of(context).colorScheme.onSurfaceVariant)),
           const SizedBox(height: 12),
         ],
         if (widget.renderHints.propertyHints != null)

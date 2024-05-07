@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../inputs/inputs.dart';
 import '../value_renderer_controller.dart';
+import './extensions.dart';
 
 class BooleanRenderer extends StatelessWidget {
   final ValueRendererController? controller;
@@ -42,7 +43,7 @@ class BooleanRenderer extends StatelessWidget {
       return RadioInput(
         controller: controller,
         decoration: decoration,
-        fieldName: fieldName,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
@@ -55,7 +56,7 @@ class BooleanRenderer extends StatelessWidget {
       return SegmentedButtonInput(
         controller: controller,
         decoration: decoration,
-        fieldName: fieldName,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
         values: values!,
@@ -68,7 +69,7 @@ class BooleanRenderer extends StatelessWidget {
       return DropdownSelectInput(
         controller: controller,
         decoration: decoration,
-        fieldName: fieldName,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
@@ -80,7 +81,7 @@ class BooleanRenderer extends StatelessWidget {
     if (editType == RenderHintsEditType.SliderLike) {
       return SwitchInput(
         controller: controller,
-        fieldName: fieldName,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         initialValue: initialBoolValue,
       );
     }
@@ -88,7 +89,7 @@ class BooleanRenderer extends StatelessWidget {
     return CheckboxInput(
       controller: controller,
       decoration: decoration,
-      fieldName: fieldName,
+      fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
       initialValue: valueHintsDefaultValue,
     );
   }

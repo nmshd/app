@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../inputs/inputs.dart';
 import '../value_renderer_controller.dart';
+import './extensions.dart';
 
 class StringRenderer extends StatelessWidget {
   final ValueRendererController? controller;
@@ -47,7 +48,7 @@ class StringRenderer extends StatelessWidget {
       return DropdownSelectInput(
         controller: controller,
         decoration: decoration,
-        fieldName: fieldName,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
@@ -60,7 +61,7 @@ class StringRenderer extends StatelessWidget {
       return RadioInput(
         controller: controller,
         decoration: decoration,
-        fieldName: fieldName,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
@@ -76,7 +77,7 @@ class StringRenderer extends StatelessWidget {
       return TextInput(
         controller: controller,
         decoration: decoration,
-        fieldName: fieldName,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         values: values,
@@ -87,7 +88,7 @@ class StringRenderer extends StatelessWidget {
       return SegmentedButtonInput(
         controller: controller,
         decoration: decoration,
-        fieldName: fieldName,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         initialValue: valueHintsDefaultValue,
         mustBeFilledOut: mustBeFilledOut,
         technicalType: technicalType,
@@ -100,7 +101,7 @@ class StringRenderer extends StatelessWidget {
       return TextInput(
         controller: controller,
         decoration: decoration,
-        fieldName: fieldName,
+        fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
         initialValue: valueHintsDefaultValue,
         max: max,
         mustBeFilledOut: mustBeFilledOut,
@@ -112,7 +113,7 @@ class StringRenderer extends StatelessWidget {
     return TextInput(
       controller: controller,
       decoration: decoration,
-      fieldName: fieldName,
+      fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
       initialValue: valueHintsDefaultValue,
       pattern: pattern,
       max: max,

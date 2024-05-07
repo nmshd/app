@@ -71,11 +71,6 @@ class NumberInputState extends State<NumberInput> {
 
   @override
   Widget build(BuildContext context) {
-    String? translatedText;
-
-    if (widget.fieldName != null) {
-      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
-    }
 
     return Form(
       child: TextFormField(
@@ -89,8 +84,8 @@ class NumberInputState extends State<NumberInput> {
               : FilteringTextInputFormatter.digitsOnly,
         ],
         decoration: widget.decoration != null
-            ? widget.decoration!.copyWith(labelText: translatedText)
-            : inputDecoration(context).copyWith(labelText: translatedText),
+            ? widget.decoration!.copyWith(labelText: widget.fieldName)
+            : inputDecoration(context).copyWith(labelText: widget.fieldName),
       ),
     );
   }

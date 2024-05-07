@@ -65,14 +65,6 @@ class TextInputState extends State<TextInput> {
 
   @override
   Widget build(BuildContext context) {
-    String? translatedText;
-
-    if (widget.fieldName != null) {
-      translatedText = widget.fieldName!.startsWith('i18n://') ? FlutterI18n.translate(context, widget.fieldName!.substring(7)) : widget.fieldName!;
-      if (widget.mustBeFilledOut) {
-        translatedText = '$translatedText*';
-      }
-    }
 
     return TextFormField(
       onChanged: widget.onChanged,
@@ -81,8 +73,8 @@ class TextInputState extends State<TextInput> {
       autovalidateMode: widget.autovalidateMode,
       validator: (value) => validateInput(value),
       decoration: widget.decoration != null
-          ? widget.decoration!.copyWith(labelText: translatedText)
-          : inputDecoration(context).copyWith(labelText: translatedText),
+          ? widget.decoration!.copyWith(labelText: widget.fieldName)
+          : inputDecoration(context).copyWith(labelText: widget.fieldName),
     );
   }
 
