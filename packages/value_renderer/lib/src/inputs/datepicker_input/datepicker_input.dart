@@ -67,22 +67,9 @@ class _DatepickerInputState extends State<DatepickerInput> {
   }
 
   void _selectDate() async {
-    final DateTime initialDateTime;
-
-    if (widget.selectedDate != null) {
-      initialDateTime = widget.selectedDate!;
-    } else {
-      final DateTime now = DateTime.now();
-      if (widget.firstDate.isAfter(now) || widget.lastDate.isBefore(now)) {
-        initialDateTime = widget.initialDate ?? widget.lastDate;
-      } else {
-        initialDateTime = widget.initialDate ?? now;
-      }
-    }
-
     final pickedDate = await showDatePicker(
       context: context,
-      initialDate: initialDateTime,
+      initialDate: widget.initialDate,
       firstDate: widget.firstDate,
       lastDate: widget.lastDate,
     );
