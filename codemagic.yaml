@@ -1,0 +1,135 @@
+workflows:
+  android-release:
+    name: Android Release
+    max_build_duration: 30
+    instance_type: linux_x2
+    environment:
+      android_signing:
+        - enmeshed-upload
+      groups:
+        - config-secrets
+        - webhook-secrets
+        - google_credentials
+      flutter: stable
+      java: 17
+    triggering:
+      events:
+        - tag
+      tag_patterns:
+        - pattern: "enmeshed-v*"
+          include: true
+      cancel_previous_builds: false
+
+    scripts:
+      - name: Set up local.properties
+        script: echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/apps/enmeshed/android/local.properties"
+
+      - name: Install melos
+        script: dart pub global activate melos
+
+      - name: Bootstrap repository
+        script: melos bootstrap
+
+      - name: Build appbundle with Flutter
+        script: |
+          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "eu.enmeshed.app" --tracks="internal") + 1)) 
+          flutter build appbundle --release \
+            --build-number=$BUILD_NUMBER \
+            --dart-define="app_baseUrl=$app_baseUrl" \
+            --dart-define="app_clientId=$app_clientId" \
+            --dart-define="app_clientSecret=$app_clientSecret"
+        working_directory: apps/enmeshed
+
+      - name: Build finished successfully
+        script: touch ~/SUCCESS
+
+    artifacts:
+      - apps/enmeshed/build/**/outputs/**/*.aab
+      - apps/enmeshed/build/**/outputs/**/mapping.txt
+      - apps/enmeshed/flutter_drive.log
+
+    publishing:
+      email:
+        recipients:
+          - julian.koenig@js-soft.com
+        notify:
+          success: true
+          failure: true
+
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: internal
+
+      scripts:
+        - name: Custom MS-Teams integration publish
+          script: |
+            npm install -g @js-soft/codemagic-tools@1.0.2
+            jscm teams-production --platform "android" --projectName "Enmeshed"
+
+  ios-release:
+    name: iOS Release
+    max_build_duration: 40
+    instance_type: mac_mini_m1
+    integrations:
+      app_store_connect: codemagic
+    triggering:
+      events:
+        - tag
+      tag_patterns:
+        - pattern: "enmeshed-v*"
+          include: true
+      cancel_previous_builds: true
+    environment:
+      groups:
+        - config-secrets
+        - webhook-secrets
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: eu.enmeshed.app
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Set up code signing settings on Xcode project
+        script: xcode-project use-profiles
+
+      - name: Install melos
+        script: dart pub global activate melos
+
+      - name: Bootstrap repository
+        script: melos bootstrap
+
+      - name: Flutter build ipa
+        script: |
+          flutter build ipa --release \
+           --export-options-plist=/Users/builder/export_options.plist \
+           --dart-define="app_baseUrl=$app_baseUrl" \
+           --dart-define="app_clientId=$app_clientId" \
+           --dart-define="app_clientSecret=$app_clientSecret"
+        working_directory: apps/enmeshed
+
+      - name: Build finished successfully
+        script: touch ~/SUCCESS
+
+    artifacts:
+      - apps/enmeshed/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - apps/enmeshed/flutter_drive.log
+
+    publishing:
+      email:
+        recipients:
+          - julian.koenig@js-soft.com
+        notify:
+          success: true
+          failure: true
+
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+
+      scripts:
+        - name: Custom MS-Teams integration
+          script: |
+            npm install -g @js-soft/codemagic-tools@1.0.2
+            jscm teams-publish --platform "ios" --projectName "Enmeshed"
