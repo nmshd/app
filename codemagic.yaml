@@ -22,7 +22,7 @@ workflows:
 
     scripts:
       - name: Set up local.properties
-        script: echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+        script: echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/apps/enmeshed/android/local.properties"
 
       - name: Install melos
         script: dart pub global activate melos
