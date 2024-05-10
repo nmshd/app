@@ -39,6 +39,8 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
     'transport.messageReceived' => MessageReceivedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.relationshipChanged' => RelationshipChangedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
     'transport.messageWasReadAtChanged' => MessageWasReadAtChangedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
+    'transport.identityDeletionProcessStatusChanged' =>
+      IdentityDeletionProcessStatusChangedEvent(eventTargetAddress: eventTargetAddress, data: IdentityDeletionProcessDTO.fromJson(data)),
     'consumption.ownSharedAttributeSucceeded' => OwnSharedAttributeSucceededEvent(
         eventTargetAddress: eventTargetAddress,
         predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
