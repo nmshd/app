@@ -33,7 +33,7 @@ workflows:
       - name: Build appbundle with Flutter
         script: |
           BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "eu.enmeshed.app" --tracks="internal") + 1)) 
-          flutter build appbundle -t lib/main.dart --release \
+          flutter build appbundle --release \
             --build-number=$BUILD_NUMBER \
             --dart-define="app_baseUrl=$app_baseUrl" \
             --dart-define="app_clientId=$app_clientId" \
@@ -101,7 +101,7 @@ workflows:
 
       - name: Flutter build ipa
         script: |
-          flutter build ipa -t lib/main.dart --release \
+          flutter build ipa --release \
            --export-options-plist=/Users/builder/export_options.plist \
            --dart-define="app_baseUrl=$app_baseUrl" \
            --dart-define="app_clientId=$app_clientId" \
