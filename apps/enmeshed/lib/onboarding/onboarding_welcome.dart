@@ -26,7 +26,7 @@ class OnboardingWelcome extends StatelessWidget {
                       child: Center(
                         child: Hero(
                           tag: 'logo',
-                          child: Image.asset(switch (MediaQuery.of(context).platformBrightness) {
+                          child: Image.asset(switch (Theme.of(context).brightness) {
                             Brightness.light => 'assets/enmeshed_logo_light_cut.png',
                             Brightness.dark => 'assets/enmeshed_logo_dark_cut.png',
                           }),
