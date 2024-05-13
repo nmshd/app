@@ -23,7 +23,7 @@ class DatepickerFormField extends FormField<DateTime> {
     DateTime? initialDate,
     AttributeValue? initialValueAttribute,
     DateTime? lastDate,
-    ValueChanged<DateTime>? onDateSelected,
+    ValueChanged<DateTime?>? onDateSelected,
     String? emptyFieldMessage,
     super.onSaved,
   }) : super(
@@ -33,12 +33,10 @@ class DatepickerFormField extends FormField<DateTime> {
           builder: (FormFieldState<DateTime> field) {
             if (field.value != null) controller?.value = ValueRendererInputValueDateTime(field.value!);
 
-            void onChangedHandler(DateTime value) {
-              if (onDateSelected != null) {
-                onDateSelected(value);
-              }
+            void onChangedHandler(DateTime? value) {
+              onDateSelected?.call(value);
               field.didChange(value);
-              controller?.value = ValueRendererInputValueDateTime(field.value!);
+              controller?.value = value != null ? ValueRendererInputValueDateTime(value) : null;
             }
 
             return Builder(
@@ -55,6 +53,7 @@ class DatepickerFormField extends FormField<DateTime> {
                   labelText: context.translateFieldName(fieldName, mustBeFilledOut),
                   errorText: field.errorText,
                   suffixIcon: const Icon(Icons.calendar_month),
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                 ),
               ),
             );

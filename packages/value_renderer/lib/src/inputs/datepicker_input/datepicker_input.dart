@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 final DateTime defaultFirstDate = DateTime(1900);
 final DateTime defaultLastDate = DateTime(2100);
 
-class DatepickerInput extends StatelessWidget {
+class DatepickerInput extends StatefulWidget {
   final DateFormat dateFormat;
   final InputDecoration decoration;
   final bool enabled;
@@ -12,7 +12,7 @@ class DatepickerInput extends StatelessWidget {
   final DateTime? initialDate;
   final DateTime firstDate;
   final DateTime lastDate;
-  final ValueChanged<DateTime>? onDateSelected;
+  final ValueChanged<DateTime?>? onDateSelected;
   final DateTime? selectedDate;
 
   DatepickerInput({
@@ -30,99 +30,71 @@ class DatepickerInput extends StatelessWidget {
         lastDate = lastDate ?? defaultLastDate;
 
   @override
+  State<DatepickerInput> createState() => _DatepickerInputState();
+}
+
+class _DatepickerInputState extends State<DatepickerInput> {
+  late TextEditingController _controller;
+  DateTime? _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = TextEditingController();
+
+    _selectedDate = widget.selectedDate;
+    if (_selectedDate != null) _controller.text = widget.dateFormat.format(_selectedDate!);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String? text;
-
-    if (selectedDate != null) text = dateFormat.format(selectedDate!);
-
-    return _DecoratedDatePicker(
-      text: text,
-      isEmpty: selectedDate == null,
-      decoration: decoration.copyWith(enabled: enabled),
-      onPressed: enabled ? () => _selectDate(context) : null,
+    return TextField(
+      onTap: widget.enabled ? _selectDate : null,
+      readOnly: true,
+      controller: _controller,
+      decoration: widget.decoration.copyWith(
+        suffixIcon: _selectedDate == null ? const Icon(Icons.calendar_today) : IconButton(onPressed: _clearDate, icon: const Icon(Icons.clear)),
+      ),
     );
   }
 
-  Future<void> _selectDate(BuildContext context) async {
+  void _selectDate() async {
     final DateTime initialDateTime;
 
-    if (selectedDate != null) {
-      initialDateTime = selectedDate!;
+    if (widget.selectedDate != null) {
+      initialDateTime = widget.selectedDate!;
     } else {
       final DateTime now = DateTime.now();
-      if (firstDate.isAfter(now) || lastDate.isBefore(now)) {
-        initialDateTime = initialDate ?? lastDate;
+      if (widget.firstDate.isAfter(now) || widget.lastDate.isBefore(now)) {
+        initialDateTime = widget.initialDate ?? widget.lastDate;
       } else {
-        initialDateTime = initialDate ?? now;
+        initialDateTime = widget.initialDate ?? now;
       }
     }
 
-    DateTime selectedDateTime = initialDateTime;
-
-    final DateTime? selectedDatePicker = await showMaterialDatePicker(context, initialDateTime);
-
-    if (selectedDatePicker != null) {
-      selectedDateTime = selectedDatePicker;
-    } else {
-      return;
-    }
-
-    onDateSelected!(selectedDateTime);
-  }
-
-  Future<DateTime?> showMaterialDatePicker(
-    BuildContext context,
-    DateTime initialDateTime,
-  ) {
-    return showDatePicker(
+    final pickedDate = await showDatePicker(
       context: context,
       initialDate: initialDateTime,
-      firstDate: firstDate,
-      lastDate: lastDate,
+      firstDate: widget.firstDate,
+      lastDate: widget.lastDate,
     );
+    if (pickedDate == null) return;
+
+    widget.onDateSelected!(pickedDate);
+    _controller.text = widget.dateFormat.format(pickedDate);
+    if (mounted) setState(() => _selectedDate = pickedDate);
   }
-}
 
-class _DecoratedDatePicker extends StatefulWidget {
-  final InputDecoration decoration;
-  final bool isEmpty;
-  final VoidCallback? onPressed;
-  final String? text;
-
-  const _DecoratedDatePicker({
-    required this.decoration,
-    required this.text,
-    required this.isEmpty,
-    this.onPressed,
-  });
-
-  @override
-  State<_DecoratedDatePicker> createState() => _DecoratedDatePickerState();
-}
-
-class _DecoratedDatePickerState extends State<_DecoratedDatePicker> {
-  bool focused = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: widget.onPressed,
-        child: Focus(
-          onFocusChange: (bool newFocus) => setState(() {
-            focused = newFocus;
-          }),
-          child: InputDecorator(
-            isHovering: focused,
-            isEmpty: widget.isEmpty,
-            decoration: widget.decoration.applyDefaults(Theme.of(context).inputDecorationTheme),
-            child: Text(widget.text ?? '', style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal)),
-          ),
-        ),
-      ),
-    );
+  void _clearDate() {
+    widget.onDateSelected!(null);
+    _controller.clear();
   }
 }
