@@ -19,10 +19,9 @@ const lightColorScheme = ColorScheme(
   errorContainer: Color(0xFFFFDAD6),
   onError: Color(0xFFFFFFFF),
   onErrorContainer: Color(0xFF410002),
-  background: Color(0xFFF8FDFF),
-  onBackground: Color(0xFF001F25),
   surface: Color(0xFFF8FDFF),
   onSurface: Color(0xFF001F25),
+  // ignore: deprecated_member_use
   surfaceVariant: Color(0xFFDEE3EB),
   onSurfaceVariant: Color(0xFF42474E),
   outline: Color(0xFF72787E),
@@ -59,10 +58,9 @@ const darkColorScheme = ColorScheme(
   errorContainer: Color(0xFF93000A),
   onError: Color(0xFF690005),
   onErrorContainer: Color(0xFFFFDAD6),
-  background: Color(0xFF001F25),
-  onBackground: Color(0xFFA6EEFF),
   surface: Color(0xFF001F25),
   onSurface: Color(0xFFA6EEFF),
+  // ignore: deprecated_member_use
   surfaceVariant: Color(0xFF42474E),
   onSurfaceVariant: Color(0xFFC2C7CF),
   outline: Color(0xFF8C9198),
