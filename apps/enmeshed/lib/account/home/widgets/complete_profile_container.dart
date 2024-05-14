@@ -200,6 +200,7 @@ class ToCompleteIcon extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
         shape: BoxShape.circle,
+        // ignore: deprecated_member_use
         border: Border.all(color: Theme.of(context).colorScheme.surfaceVariant, width: 2),
       ),
       child: Center(
