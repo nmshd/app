@@ -47,7 +47,6 @@ class IdentityDeletionProcessDTO extends Equatable {
   Map<String, dynamic> toJson() => {
         'id': id,
         'status': status.name,
-        'rejectedAt': rejectedAt,
         if (createdAt != null) 'createdAt': createdAt,
         if (createdByDevice != null) 'createdByDevice': createdByDevice,
         if (rejectedAt != null) 'rejectedAt': rejectedAt,

@@ -9,7 +9,6 @@ class TransportServices {
   final AccountFacade account;
   final TokensFacade tokens;
   final DevicesFacade devices;
-  final IdentityFacade identity;
   final IdentityDeletionProcessesFacade identityDeletionProcesses;
 
   TransportServices(AbstractEvaluator evaluator)
@@ -20,6 +19,5 @@ class TransportServices {
         account = AccountFacade(evaluator),
         tokens = TokensFacade(evaluator),
         devices = DevicesFacade(evaluator),
-        identity = IdentityFacade(evaluator),
         identityDeletionProcesses = IdentityDeletionProcessesFacade(evaluator);
 }
