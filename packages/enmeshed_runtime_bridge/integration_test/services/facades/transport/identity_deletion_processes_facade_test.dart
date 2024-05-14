@@ -45,7 +45,7 @@ void run(EnmeshedRuntime runtime) {
       expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Approved);
 
       final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
-      expect(event.data.id, result.value.id);
+      expect(event.data.id, identityDeletionProcess.id);
       expect(event.data.status, IdentityDeletionProcessStatus.Approved);
     });
 
@@ -54,10 +54,8 @@ void run(EnmeshedRuntime runtime) {
       expect(result1, isSuccessful<IdentityDeletionProcessDTO>());
 
       final result2 = await session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
-      expect(result2, isFailing('error.runtime.identity.activeIdentityDeletionProcessAlreadyExists'));
+      expect(result2, isFailing('error.runtime.identityDeletionProcess.activeIdentityDeletionProcessAlreadyExists'));
     });
-
-    // TODO: should return an error trying to initiate an IdentityDeletionProcess if there already is one waiting for approval
   });
 
   group('Get active IdentityDeletionProcess', () {
@@ -74,7 +72,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return an error trying to get the active IdentityDeletionProcess if there is none active', () async {
       final result = await session.transportServices.identityDeletionProcesses.getActiveIdentityDeletionProcess();
-      expect(result, isFailing('error.runtime.identity.noActiveIdentityDeletionProcess')); // TODO: adjust error code
+      expect(result, isFailing('error.runtime.identityDeletionProcess.noActiveIdentityDeletionProcess'));
     });
   });
 
@@ -90,8 +88,6 @@ void run(EnmeshedRuntime runtime) {
       expect(identityDeletionProcess, initiatedIdentityDeletionProcess);
     });
 
-    // TODO: should get an IdentityDeletionProcess after it got updated by the Backbone
-
     test('should return an error trying to get an IdentityDeletionProcess specifying an unknown ID', () async {
       final result = await session.transportServices.identityDeletionProcesses.getIdentityDeletionProcess('IDPxxxxxxxxxxxxxxxxx');
       expect(result, isFailing('error.runtime.recordNotFound'));
@@ -100,7 +96,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('Get IdentityDeletionProcesses', () {
     test('should get all IdentityDeletionProcesses', () async {
-      // Initialize new identities for these tests as otherwise they would be depending on the other tests
+      // Initialize new Identities for these tests as otherwise they would be depending on the other tests
       await runtime.accountServices.deleteAccount(account.id);
       account = await runtime.accountServices.createAccount(name: 'identityDeletionProcessesFacade Test');
       session = runtime.getSession(account.id);
@@ -122,7 +118,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return an empty list trying to get all IdentityDeletionProcesses if there are none', () async {
-      // Initialize new identities for these tests as otherwise they would be depending on the other tests
+      // Initialize new Identities for these tests as otherwise they would be depending on the other tests
       await runtime.accountServices.deleteAccount(account.id);
       account = await runtime.accountServices.createAccount(name: 'identityDeletionProcessesFacade Test');
       session = runtime.getSession(account.id);
@@ -146,16 +142,55 @@ void run(EnmeshedRuntime runtime) {
       expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Cancelled);
 
       final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
-      expect(event.data.id, result.value.id);
+      expect(event.data.id, identityDeletionProcess.id);
       expect(event.data.status, IdentityDeletionProcessStatus.Cancelled);
     });
 
     test('should return an error trying to cancel an IdentityDeletionProcess if there is none active', () async {
       final result = await session.transportServices.identityDeletionProcesses.cancelIdentityDeletionProcess();
-      expect(result, isFailing('error.runtime.identity.noApprovedIdentityDeletionProcess')); // TODO: adjust error code
+      expect(result, isFailing('error.runtime.identityDeletionProcess.noApprovedIdentityDeletionProcess'));
     });
   });
 
-  // TODO: approve
-  // TODO: reject
+  group('Approve IdentityDeletionProcesses', () {
+    test('should approve a waiting for approval IdentityDeletionProcess', () async {
+      // start IdentityDeletionProcessFromBackboneAdminApi
+
+      final result = await session.transportServices.identityDeletionProcesses.approveIdentityDeletionProcess();
+      expect(result, isSuccessful<List<IdentityDeletionProcessDTO>>());
+
+      final identityDeletionProcess = result.value;
+      expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Approved);
+
+      final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
+      expect(event.data.id, identityDeletionProcess.id);
+      expect(event.data.status, IdentityDeletionProcessStatus.Approved);
+    }, skip: 'skipped for now since we cannot start an IdentityDeletionProcess from the Backbone Admin API here');
+
+    test('should return an error trying to cancel an IdentityDeletionProcess if there is none active', () async {
+      final result = await session.transportServices.identityDeletionProcesses.approveIdentityDeletionProcess();
+      expect(result, isFailing('error.runtime.identityDeletionProcess.noWaitingForApprovalIdentityDeletionProcess'));
+    });
+  });
+
+  group('Reject IdentityDeletionProcesses', () {
+    test('should approve a waiting for approval IdentityDeletionProcess', () async {
+      // start IdentityDeletionProcessFromBackboneAdminApi
+
+      final result = await session.transportServices.identityDeletionProcesses.rejectIdentityDeletionProcess();
+      expect(result, isSuccessful<List<IdentityDeletionProcessDTO>>());
+
+      final identityDeletionProcess = result.value;
+      expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Rejected);
+
+      final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
+      expect(event.data.id, identityDeletionProcess.id);
+      expect(event.data.status, IdentityDeletionProcessStatus.Rejected);
+    }, skip: 'skipped for now since we cannot start an IdentityDeletionProcess from the Backbone Admin API here');
+
+    test('should return an error trying to cancel an IdentityDeletionProcess if there is none active', () async {
+      final result = await session.transportServices.identityDeletionProcesses.rejectIdentityDeletionProcess();
+      expect(result, isFailing('error.runtime.identityDeletionProcess.noWaitingForApprovalIdentityDeletionProcess'));
+    });
+  });
 }
