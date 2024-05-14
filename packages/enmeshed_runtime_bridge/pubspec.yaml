@@ -7,8 +7,8 @@ repository: https://github.com/nmshd/app
 homepage: https://enmeshed.eu
 
 environment:
-  sdk: ^3.2.0
-  flutter: ">=3.19.0"
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
 
 dependencies:
   device_info_plus: ^9.1.2
