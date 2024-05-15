@@ -1,5 +1,4 @@
 export 'challenge_validation_result.dart';
-export 'check_identity.dart';
 export 'create_qr_code.dart';
 export 'delete_own_shared_attribute_and_notify_peer.dart';
 export 'delete_peer_shared_attribute_and_notify_owner.dart';
