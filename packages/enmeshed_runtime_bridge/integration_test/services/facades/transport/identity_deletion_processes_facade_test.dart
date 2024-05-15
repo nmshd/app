@@ -135,7 +135,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('Cancel IdentityDeletionProcesses', () {
+  group('Cancel IdentityDeletionProcess', () {
     test('should cancel an IdentityDeletionProcess', () async {
       await session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
       eventBus.reset();
@@ -157,7 +157,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('Approve IdentityDeletionProcesses', () {
+  group('Approve IdentityDeletionProcess', () {
     test('should approve a waiting for approval IdentityDeletionProcess', () async {
       // start IdentityDeletionProcessFromBackboneAdminApi
 
@@ -172,14 +172,14 @@ void run(EnmeshedRuntime runtime) {
       expect(event.data.status, IdentityDeletionProcessStatus.Approved);
     }, skip: 'skipped for now since we cannot start an IdentityDeletionProcess from the Backbone Admin API here');
 
-    test('should return an error trying to cancel an IdentityDeletionProcess if there is none active', () async {
+    test('should return an error trying to approve an IdentityDeletionProcess if there is none active', () async {
       final result = await session.transportServices.identityDeletionProcesses.approveIdentityDeletionProcess();
       expect(result, isFailing('error.runtime.identityDeletionProcess.noWaitingForApprovalIdentityDeletionProcess'));
     });
   });
 
-  group('Reject IdentityDeletionProcesses', () {
-    test('should approve a waiting for approval IdentityDeletionProcess', () async {
+  group('Reject IdentityDeletionProcess', () {
+    test('should reject a waiting for approval IdentityDeletionProcess', () async {
       // start IdentityDeletionProcessFromBackboneAdminApi
 
       final result = await session.transportServices.identityDeletionProcesses.rejectIdentityDeletionProcess();
@@ -193,7 +193,7 @@ void run(EnmeshedRuntime runtime) {
       expect(event.data.status, IdentityDeletionProcessStatus.Rejected);
     }, skip: 'skipped for now since we cannot start an IdentityDeletionProcess from the Backbone Admin API here');
 
-    test('should return an error trying to cancel an IdentityDeletionProcess if there is none active', () async {
+    test('should return an error trying to reject an IdentityDeletionProcess if there is none active', () async {
       final result = await session.transportServices.identityDeletionProcesses.rejectIdentityDeletionProcess();
       expect(result, isFailing('error.runtime.identityDeletionProcess.noWaitingForApprovalIdentityDeletionProcess'));
     });
