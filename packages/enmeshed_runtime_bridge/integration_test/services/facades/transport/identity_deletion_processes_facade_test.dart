@@ -20,6 +20,10 @@ void run(EnmeshedRuntime runtime) {
     eventBus = runtime.eventBus as MockEventBus;
   });
 
+  setUp(() async {
+    eventBus.reset();
+  });
+
   tearDown(() async {
     final activeIdentityDeletionProcess = await session.transportServices.identityDeletionProcesses.getActiveIdentityDeletionProcess();
     if (!activeIdentityDeletionProcess.isSuccess) {
@@ -134,6 +138,7 @@ void run(EnmeshedRuntime runtime) {
   group('Cancel IdentityDeletionProcesses', () {
     test('should cancel an IdentityDeletionProcess', () async {
       await session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
+      eventBus.reset();
 
       final result = await session.transportServices.identityDeletionProcesses.cancelIdentityDeletionProcess();
       expect(result, isSuccessful<IdentityDeletionProcessDTO>());
@@ -142,7 +147,7 @@ void run(EnmeshedRuntime runtime) {
       expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Cancelled);
 
       final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
-      expect(event.data.id, identityDeletionProcess.id);
+      expect(event.data.id, result.value.id);
       expect(event.data.status, IdentityDeletionProcessStatus.Cancelled);
     });
 
