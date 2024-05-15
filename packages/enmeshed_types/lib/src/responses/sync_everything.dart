@@ -17,8 +17,9 @@ class SyncEverythingResponse extends Equatable {
     return SyncEverythingResponse(
       relationships: List<RelationshipDTO>.from(json['relationships'].map((x) => RelationshipDTO.fromJson(x))),
       messages: List<MessageDTO>.from(json['messages'].map((x) => MessageDTO.fromJson(x))),
-      identityDeletionProcesses:
-          List<IdentityDeletionProcessDTO>.from(json['identityDeletionProcesses'].map((x) => IdentityDeletionProcessDTO.fromJson(x))),
+      identityDeletionProcesses: List<IdentityDeletionProcessDTO>.from(
+        json['identityDeletionProcesses'].map((x) => IdentityDeletionProcessDTO.fromJson(x)),
+      ),
     );
   }
 

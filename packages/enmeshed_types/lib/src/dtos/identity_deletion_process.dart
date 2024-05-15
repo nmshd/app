@@ -1,8 +1,11 @@
-import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'identity_deletion_process.g.dart';
 
 enum IdentityDeletionProcessStatus { WaitingForApproval, Rejected, Approved, Deleting, Cancelled }
 
-class IdentityDeletionProcessDTO extends Equatable {
+@JsonSerializable(includeIfNull: false)
+class IdentityDeletionProcessDTO {
   final String id;
   final IdentityDeletionProcessStatus status;
   final String? createdAt;
@@ -15,61 +18,21 @@ class IdentityDeletionProcessDTO extends Equatable {
   final String? cancelledAt;
   final String? cancelledByDevice;
 
-  const IdentityDeletionProcessDTO(
-      {required this.id,
-      required this.status,
-      this.createdAt,
-      this.createdByDevice,
-      this.rejectedAt,
-      this.rejectedByDevice,
-      this.approvedAt,
-      this.approvedByDevice,
-      this.gracePeriodEndsAt,
-      this.cancelledAt,
-      this.cancelledByDevice});
+  const IdentityDeletionProcessDTO({
+    required this.id,
+    required this.status,
+    this.createdAt,
+    this.createdByDevice,
+    this.rejectedAt,
+    this.rejectedByDevice,
+    this.approvedAt,
+    this.approvedByDevice,
+    this.gracePeriodEndsAt,
+    this.cancelledAt,
+    this.cancelledByDevice,
+  });
 
-  factory IdentityDeletionProcessDTO.fromJson(Map json) {
-    return IdentityDeletionProcessDTO(
-      id: json['id'],
-      status: IdentityDeletionProcessStatus.values.byName(json['status']),
-      createdAt: json['createdAt'],
-      createdByDevice: json['createdByDevice'],
-      rejectedAt: json['rejectedAt'],
-      rejectedByDevice: json['rejectedByDevice'],
-      approvedAt: json['approvedAt'],
-      approvedByDevice: json['approvedByDevice'],
-      gracePeriodEndsAt: json['gracePeriodEndsAt'],
-      cancelledAt: json['cancelledAt'],
-      cancelledByDevice: json['cancelledByDevice'],
-    );
-  }
+  factory IdentityDeletionProcessDTO.fromJson(Map json) => _$IdentityDeletionProcessDTOFromJson(Map<String, dynamic>.from(json));
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'status': status.name,
-        if (createdAt != null) 'createdAt': createdAt,
-        if (createdByDevice != null) 'createdByDevice': createdByDevice,
-        if (rejectedAt != null) 'rejectedAt': rejectedAt,
-        if (rejectedByDevice != null) 'rejectedByDevice': rejectedByDevice,
-        if (approvedAt != null) 'approvedAt': approvedAt,
-        if (approvedByDevice != null) 'approvedByDevice': approvedByDevice,
-        if (gracePeriodEndsAt != null) 'gracePeriodEndsAt': gracePeriodEndsAt,
-        if (cancelledAt != null) 'cancelledAt': cancelledAt,
-        if (cancelledByDevice != null) 'cancelledByDevice': cancelledByDevice,
-      };
-
-  @override
-  List<Object?> get props => [
-        id,
-        status,
-        createdAt,
-        createdByDevice,
-        rejectedAt,
-        rejectedByDevice,
-        approvedAt,
-        approvedByDevice,
-        gracePeriodEndsAt,
-        cancelledAt,
-        cancelledByDevice
-      ];
+  Map<String, dynamic> toJson() => _$IdentityDeletionProcessDTOToJson(this);
 }
