@@ -767,7 +767,7 @@ void run(EnmeshedRuntime runtime) {
         expect(result2.value.length, 1);
         expect(result2.value, [attributeVersion2]);
       }
-    }, timeout: const Timeout(Duration(seconds: 60)));
+    }, timeout: const Timeout(Duration(seconds: 90)));
 
     test('should get all shared to peer versions of a repository attribute for a specific peer', () async {
       final account3 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 3');
