@@ -2,6 +2,7 @@ export 'challenge.dart';
 export 'device.dart';
 export 'device_shared_secret.dart';
 export 'file.dart';
+export 'identity_deletion_process.dart';
 export 'identity.dart';
 export 'local_account.dart';
 export 'local_attribute.dart';

@@ -6,7 +6,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import 'mock_event_bus.dart';
 
-const _expiresAtDuration = Duration(hours: 1);
+const _expiresAtDuration = Duration(hours: 2);
 String generateExpiryString() => DateTime.now().add(_expiresAtDuration).toRuntimeIsoString();
 
 extension ToRuntimeIsoString on DateTime {

@@ -1,30 +1,26 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../dtos/dtos.dart';
 
+part 'sync_everything.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class SyncEverythingResponse extends Equatable {
   final List<RelationshipDTO> relationships;
   final List<MessageDTO> messages;
+  final List<IdentityDeletionProcessDTO> identityDeletionProcesses;
 
   const SyncEverythingResponse({
     required this.relationships,
     required this.messages,
+    required this.identityDeletionProcesses,
   });
 
-  factory SyncEverythingResponse.fromJson(Map json) {
-    return SyncEverythingResponse(
-      relationships: List<RelationshipDTO>.from(json['relationships'].map((x) => RelationshipDTO.fromJson(x))),
-      messages: List<MessageDTO>.from(json['messages'].map((x) => MessageDTO.fromJson(x))),
-    );
-  }
+  factory SyncEverythingResponse.fromJson(Map<String, dynamic> json) => _$SyncEverythingResponseFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      'relationships': relationships.map((e) => e.toJson()).toList(),
-      'messages': messages.map((e) => e.toJson()).toList(),
-    };
-  }
+  Map<String, dynamic> toJson() => _$SyncEverythingResponseToJson(this);
 
   @override
-  List<Object?> get props => [relationships, messages];
+  List<Object?> get props => [relationships, messages, identityDeletionProcesses];
 }
