@@ -58,8 +58,6 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
         }
       });
 
-    _cameraController.addListener(() => setState(() {}));
-
     _startScanning();
   }
 
