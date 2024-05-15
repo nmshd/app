@@ -104,7 +104,7 @@ void run(EnmeshedRuntime runtime) {
       final cancelledIdentityDeletionProcess = (await session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess()).value;
       await session.transportServices.identityDeletionProcesses.cancelIdentityDeletionProcess();
 
-      final activeIdentityDeletionProcess = (await session.transportServices.identityDeletionProcesses.cancelIdentityDeletionProcess()).value;
+      final activeIdentityDeletionProcess = (await session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess()).value;
 
       final result = await session.transportServices.identityDeletionProcesses.getIdentityDeletionProcesses();
       expect(result, isSuccessful<List<IdentityDeletionProcessDTO>>());
@@ -136,7 +136,7 @@ void run(EnmeshedRuntime runtime) {
       await session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
 
       final result = await session.transportServices.identityDeletionProcesses.cancelIdentityDeletionProcess();
-      expect(result, isSuccessful<List<IdentityDeletionProcessDTO>>());
+      expect(result, isSuccessful<IdentityDeletionProcessDTO>());
 
       final identityDeletionProcess = result.value;
       expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Cancelled);
