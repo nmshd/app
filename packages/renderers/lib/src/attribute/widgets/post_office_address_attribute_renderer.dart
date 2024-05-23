@@ -9,8 +9,7 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
   final ValueHints valueHints;
   final bool showTitle;
   final TextStyle valueTextStyle;
-  final String? extraLine;
-  final TextStyle? extraLineTextStyle;
+  final Widget? extraLine;
   final Widget? trailing;
 
   const PostOfficeBoxAddressAttributeRenderer({
@@ -20,7 +19,6 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
     required this.showTitle,
     required this.valueTextStyle,
     this.extraLine,
-    this.extraLineTextStyle,
     this.trailing,
   });
 
@@ -50,7 +48,7 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
               if (value.state != null) TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
               if (extraLine != null) ...[
                 const SizedBox(height: 2),
-                TranslatedText(extraLine!, style: extraLineTextStyle),
+                extraLine!,
               ],
             ],
           ),
