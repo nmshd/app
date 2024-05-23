@@ -5,6 +5,8 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 class FileReferenceRenderer extends StatefulWidget {
   final String fileReference;
   final String valueType;
+  final String? extraLine;
+  final TextStyle? extraLineTextStyle;
   final bool showTitle;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
@@ -14,6 +16,8 @@ class FileReferenceRenderer extends StatefulWidget {
     super.key,
     required this.fileReference,
     required this.valueType,
+    this.extraLine,
+    this.extraLineTextStyle,
     this.showTitle = true,
     required this.expandFileReference,
     required this.openFileDetails,
@@ -68,6 +72,10 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
                   children: [
                     Text(expandedFileReference!.title),
                     Text(expandedFileReference!.filename),
+                    if (widget.extraLine != null) ...[
+                      const SizedBox(height: 2),
+                      TranslatedText(widget.extraLine!, style: widget.extraLineTextStyle),
+                    ]
                   ],
                 ),
             ],

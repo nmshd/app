@@ -10,6 +10,8 @@ class ComplexAttributeListTile extends StatelessWidget {
   final ValueHints valueHints;
   final bool showTitle;
   final TextStyle valueTextStyle;
+  final String? extraLine;
+  final TextStyle? extraLineTextStyle;
   final Widget? trailing;
 
   const ComplexAttributeListTile({
@@ -19,6 +21,8 @@ class ComplexAttributeListTile extends StatelessWidget {
     required this.valueHints,
     required this.showTitle,
     required this.valueTextStyle,
+    this.extraLine,
+    this.extraLineTextStyle,
     this.trailing,
   });
 
@@ -54,6 +58,10 @@ class ComplexAttributeListTile extends StatelessWidget {
                       TranslatedText(field.label, style: titlesTextStyle),
                       const SizedBox(height: 2),
                       TranslatedText(translation, style: valueTextStyle),
+                      if (extraLine != null) ...[
+                        const SizedBox(height: 2),
+                        TranslatedText(extraLine!, style: extraLineTextStyle),
+                      ],
                     ],
                   );
                 },

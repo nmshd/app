@@ -15,6 +15,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final ValueHints valueHints;
   final bool showTitle;
   final TextStyle valueTextStyle;
+  final String? extraLine;
+  final TextStyle? extraLineTextStyle;
   final Widget? trailing;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
@@ -25,6 +27,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     required this.valueHints,
     this.showTitle = true,
     this.valueTextStyle = const TextStyle(fontSize: 16),
+    this.extraLine,
+    this.extraLineTextStyle,
     this.trailing,
     required this.expandFileReference,
     required this.openFileDetails,
@@ -41,6 +45,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         valueHints: valueHints,
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
+        extraLine: extraLine,
+        extraLineTextStyle: extraLineTextStyle,
         trailing: trailing,
       );
     }
@@ -52,6 +58,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         valueHints: valueHints,
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
+        extraLine: extraLine,
+        extraLineTextStyle: extraLineTextStyle,
         trailing: trailing,
       );
     }
@@ -63,6 +71,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         valueHints: valueHints,
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
+        extraLine: extraLine,
+        extraLineTextStyle: extraLineTextStyle,
         trailing: trailing,
       );
     }
@@ -72,6 +82,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime(birthDate.year, birthDate.month, birthDate.day)),
+        extraLine: extraLine,
+        extraLineTextStyle: extraLineTextStyle,
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
@@ -84,6 +96,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
         valueType: value.atType,
+        extraLine: extraLine,
+        extraLineTextStyle: extraLineTextStyle,
         showTitle: showTitle,
         trailing: trailing,
       );
@@ -93,6 +107,8 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
       return CustomListTile(
         title: 'i18n://dvo.attribute.name.${value.atType}',
         description: valueHints.getTranslation(attributeValueMap['value'].toString()),
+        extraLine: extraLine,
+        extraLineTextStyle: extraLineTextStyle,
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
         trailing: trailing,
