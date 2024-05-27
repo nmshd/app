@@ -86,7 +86,7 @@ SharedToPeerAttributeDVO _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic>
       peer: json['peer'] as String,
       requestReference: json['requestReference'] as String?,
       notificationReference: json['notificationReference'] as String?,
-      sourceAttribute: json['sourceAttribute'] as String,
+      sourceAttribute: json['sourceAttribute'] as String?,
       deletionDate: json['deletionDate'] as String?,
       deletionStatus: json['deletionStatus'] as String?,
     );
@@ -123,7 +123,7 @@ Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO i
   val['peer'] = instance.peer;
   writeNotNull('requestReference', instance.requestReference);
   writeNotNull('notificationReference', instance.notificationReference);
-  val['sourceAttribute'] = instance.sourceAttribute;
+  writeNotNull('sourceAttribute', instance.sourceAttribute);
   val['tags'] = instance.tags;
   writeNotNull('deletionDate', instance.deletionDate);
   writeNotNull('deletionStatus', instance.deletionStatus);
