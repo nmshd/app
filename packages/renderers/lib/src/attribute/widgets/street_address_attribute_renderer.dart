@@ -9,6 +9,7 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
   final ValueHints valueHints;
   final bool showTitle;
   final TextStyle valueTextStyle;
+  final Widget? extraLine;
   final Widget? trailing;
 
   const StreetAddressAttributeRenderer({
@@ -17,6 +18,7 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
     required this.valueHints,
     required this.showTitle,
     required this.valueTextStyle,
+    this.extraLine,
     this.trailing,
   });
 
@@ -48,7 +50,11 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
                   TranslatedText(value.city, style: valueTextStyle),
                 ],
               ),
-              TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle)
+              TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
+              if (extraLine != null) ...[
+                const SizedBox(height: 2),
+                extraLine!,
+              ],
             ],
           ),
         ),

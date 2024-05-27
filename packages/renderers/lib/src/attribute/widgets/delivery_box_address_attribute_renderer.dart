@@ -9,6 +9,7 @@ class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
   final ValueHints valueHints;
   final bool showTitle;
   final TextStyle valueTextStyle;
+  final Widget? extraLine;
   final Widget? trailing;
 
   const DeliveryBoxAddressAttributeRenderer({
@@ -17,6 +18,7 @@ class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
     required this.valueHints,
     required this.showTitle,
     required this.valueTextStyle,
+    this.extraLine,
     this.trailing,
   });
 
@@ -44,6 +46,10 @@ class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
               ),
               TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
               if (value.state != null) TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
+              if (extraLine != null) ...[
+                const SizedBox(height: 2),
+                extraLine!,
+              ],
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../common/common.dart';
@@ -8,7 +9,7 @@ import 'identity_dvo.dart';
 part 'file_dvo.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class FileDVO extends DataViewObject {
+class FileDVO extends DataViewObject with EquatableMixin {
   final String filename;
   @IntegerConverter()
   final int filesize;
@@ -46,4 +47,27 @@ class FileDVO extends DataViewObject {
 
   factory FileDVO.fromJson(Map json) => _$FileDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$FileDVOToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        description,
+        image,
+        type,
+        date,
+        error,
+        warning,
+        filename,
+        filesize,
+        createdAt,
+        createdBy,
+        createdByDevice,
+        expiresAt,
+        mimetype,
+        isOwn,
+        title,
+        secretKey,
+        truncatedReference,
+      ];
 }

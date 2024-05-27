@@ -13,7 +13,7 @@ void run(EnmeshedRuntime runtime) {
   late Session session;
 
   setUpAll(() async {
-    account = await runtime.accountServices.createAccount(name: 'attributesFacade Test');
+    account = await runtime.accountServices.createAccount(name: 'accountFacade Test');
     session = runtime.getSession(account.id);
   });
 

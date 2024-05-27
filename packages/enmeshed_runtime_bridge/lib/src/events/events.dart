@@ -13,6 +13,7 @@ export 'consumption/peer_shared_attribute_deleted_by_peer_event.dart';
 export 'consumption/peer_shared_attribute_succeeded_event.dart';
 export 'consumption/third_party_owned_relationship_attribute_deleted_by_peer_event.dart';
 export 'event.dart';
+export 'transport/identity_deletion_process_status_changed_event.dart';
 export 'transport/message_received_event.dart';
 export 'transport/message_sent_event.dart';
 export 'transport/message_was_read_at_changed_event.dart';
