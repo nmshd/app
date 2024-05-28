@@ -10,28 +10,37 @@ import '../extensions.dart';
 import '../styles/input_decoration.dart';
 import './datepicker_input.dart';
 
+final DateTime defaultFirstDate = DateTime(1900);
+final DateTime defaultLastDate = DateTime(2100);
+
 class DatepickerFormField extends FormField<DateTime> {
   DatepickerFormField({
     super.key,
+    super.enabled,
     ValueRendererController? controller,
     required DateFormat dateFormat,
     InputDecoration? decoration,
     required bool mustBeFilledOut,
-    super.enabled,
     String? fieldName,
     DateTime? firstDate,
+    DateTime? lastDate,
     DateTime? initialDate,
     AttributeValue? initialValueAttribute,
-    DateTime? lastDate,
     ValueChanged<DateTime?>? onDateSelected,
     String? emptyFieldMessage,
     super.onSaved,
   }) : super(
-          initialValue: getInitialDateAttribute(initialValueAttribute),
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) => value == null && mustBeFilledOut ? emptyFieldMessage : null,
+          initialValue: getInitialDate(
+            initialDate: getInitialDateAttributeValue(initialValueAttribute) ?? initialDate,
+            firstDate: firstDate,
+            lastDate: lastDate,
+          ),
           builder: (FormFieldState<DateTime> field) {
-            if (field.value != null) controller?.value = ValueRendererInputValueDateTime(field.value!);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (field.value != null) controller?.value = ValueRendererInputValueDateTime(field.value!);
+            });
 
             void onChangedHandler(DateTime? value) {
               onDateSelected?.call(value);
@@ -43,12 +52,16 @@ class DatepickerFormField extends FormField<DateTime> {
               builder: (context) => DatepickerInput(
                 dateFormat: dateFormat,
                 enabled: enabled,
-                firstDate: firstDate,
+                firstDate: firstDate ?? defaultFirstDate,
                 fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
-                initialDate: getInitialDateAttribute(initialValueAttribute) ?? initialDate,
-                lastDate: lastDate,
+                lastDate: lastDate ?? defaultLastDate,
                 onDateSelected: onChangedHandler,
                 selectedDate: field.value,
+                initialDate: getInitialDate(
+                  initialDate: getInitialDateAttributeValue(initialValueAttribute) ?? initialDate,
+                  firstDate: firstDate,
+                  lastDate: lastDate,
+                ),
                 decoration: (decoration ?? inputDecoration(context)).copyWith(
                   labelText: context.translateFieldName(fieldName, mustBeFilledOut),
                   errorText: field.errorText,
@@ -60,7 +73,19 @@ class DatepickerFormField extends FormField<DateTime> {
           },
         );
 
-  static DateTime? getInitialDateAttribute(AttributeValue? initialValueAttribute) {
+  static DateTime? getInitialDate({DateTime? initialDate, DateTime? firstDate, DateTime? lastDate}) {
+    if (initialDate != null) {
+      final firstDateValue = firstDate ?? defaultFirstDate;
+      final lastDateValue = lastDate ?? defaultLastDate;
+
+      if (initialDate.isBefore(firstDateValue) || initialDate.isAfter(lastDateValue)) {
+        return firstDateValue;
+      }
+    }
+    return initialDate;
+  }
+
+  static DateTime? getInitialDateAttributeValue(AttributeValue? initialValueAttribute) {
     switch (initialValueAttribute) {
       case null:
         return null;

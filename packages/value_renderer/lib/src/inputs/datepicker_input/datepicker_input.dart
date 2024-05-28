@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-final DateTime defaultFirstDate = DateTime(1900);
-final DateTime defaultLastDate = DateTime(2100);
-
 class DatepickerInput extends StatefulWidget {
   final DateFormat dateFormat;
   final InputDecoration decoration;
@@ -15,19 +12,18 @@ class DatepickerInput extends StatefulWidget {
   final ValueChanged<DateTime?>? onDateSelected;
   final DateTime? selectedDate;
 
-  DatepickerInput({
+  const DatepickerInput({
     super.key,
     required this.dateFormat,
     required this.decoration,
     this.enabled = true,
     this.fieldName,
-    DateTime? firstDate,
     this.initialDate,
-    DateTime? lastDate,
     required this.onDateSelected,
     required this.selectedDate,
-  })  : firstDate = firstDate ?? defaultFirstDate,
-        lastDate = lastDate ?? defaultLastDate;
+    required this.firstDate,
+    required this.lastDate,
+  });
 
   @override
   State<DatepickerInput> createState() => _DatepickerInputState();
@@ -61,7 +57,7 @@ class _DatepickerInputState extends State<DatepickerInput> {
       readOnly: true,
       controller: _controller,
       decoration: widget.decoration.copyWith(
-        suffixIcon: _selectedDate == null ? const Icon(Icons.calendar_today) : IconButton(onPressed: _clearDate, icon: const Icon(Icons.clear)),
+        suffixIcon: _selectedDate == null ? const Icon(Icons.calendar_month) : IconButton(onPressed: _clearDate, icon: const Icon(Icons.clear)),
       ),
     );
   }
