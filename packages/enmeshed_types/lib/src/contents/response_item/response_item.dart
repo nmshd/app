@@ -4,6 +4,8 @@ import 'package:meta/meta.dart';
 import '../contents.dart';
 
 part 'accept_response_item.dart';
+part 'attribute_already_shared_accept_response_item.dart';
+part 'attribute_succession_accept_response_item.dart';
 part 'create_attribute_accept_response_item.dart';
 part 'delete_attribute_accept_response_item.dart';
 part 'error_response_item.dart';
