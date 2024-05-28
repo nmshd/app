@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../common/common.dart';
@@ -7,7 +8,7 @@ import 'relationship_dvo.dart';
 part 'identity_dvo.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class IdentityDVO extends DataViewObject {
+class IdentityDVO extends DataViewObject with EquatableMixin {
   final String? publicKey;
   final String realm;
   final String initials;
@@ -34,4 +35,22 @@ class IdentityDVO extends DataViewObject {
 
   factory IdentityDVO.fromJson(Map json) => _$IdentityDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$IdentityDVOToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        description,
+        image,
+        type,
+        date,
+        error,
+        warning,
+        publicKey,
+        realm,
+        initials,
+        isSelf,
+        hasRelationship,
+        relationship,
+      ];
 }

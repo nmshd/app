@@ -39,6 +39,10 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
     'transport.messageReceived' => MessageReceivedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.relationshipChanged' => RelationshipChangedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
     'transport.messageWasReadAtChanged' => MessageWasReadAtChangedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
+    'transport.identityDeletionProcessStatusChanged' => IdentityDeletionProcessStatusChangedEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: IdentityDeletionProcessDTO.fromJson(data),
+      ),
     'consumption.ownSharedAttributeSucceeded' => OwnSharedAttributeSucceededEvent(
         eventTargetAddress: eventTargetAddress,
         predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
@@ -49,14 +53,26 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
         predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
         successor: LocalAttributeDTO.fromJson(data['successor']),
       ),
-    'consumption.attributeCreated' => AttributeCreatedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
-    'consumption.attributeDeleted' => AttributeDeletedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
-    'consumption.ownSharedAttributeDeletedByOwner' =>
-      OwnSharedAttributeDeletedByOwnerEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
-    'consumption.peerSharedAttributeDeletedByPeer' =>
-      PeerSharedAttributeDeletedByPeerEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
-    'consumption.thirdPartyOwnedRelationshipAttributeDeletedByPeer' =>
-      ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
+    'consumption.attributeCreated' => AttributeCreatedEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: LocalAttributeDTO.fromJson(data),
+      ),
+    'consumption.attributeDeleted' => AttributeDeletedEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: LocalAttributeDTO.fromJson(data),
+      ),
+    'consumption.ownSharedAttributeDeletedByOwner' => OwnSharedAttributeDeletedByOwnerEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: LocalAttributeDTO.fromJson(data),
+      ),
+    'consumption.peerSharedAttributeDeletedByPeer' => PeerSharedAttributeDeletedByPeerEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: LocalAttributeDTO.fromJson(data),
+      ),
+    'consumption.thirdPartyOwnedRelationshipAttributeDeletedByPeer' => ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: LocalAttributeDTO.fromJson(data),
+      ),
     'consumption.outgoingRequestCreated' => OutgoingRequestCreatedEvent(
         eventTargetAddress: eventTargetAddress,
         data: LocalRequestDTO.fromJson(data),

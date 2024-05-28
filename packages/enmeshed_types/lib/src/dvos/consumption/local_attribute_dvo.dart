@@ -128,7 +128,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
   final String peer;
   final String? requestReference;
   final String? notificationReference;
-  final String sourceAttribute;
+  final String? sourceAttribute;
   final List<String> tags;
   final String? deletionDate;
   final String? deletionStatus;
@@ -156,7 +156,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
     required this.peer,
     this.requestReference,
     this.notificationReference,
-    required this.sourceAttribute,
+    this.sourceAttribute,
     this.deletionDate,
     this.deletionStatus,
   }) : super(type: 'SharedToPeerAttributeDVO');

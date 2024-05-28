@@ -9,6 +9,7 @@ class AttributeRenderer extends StatelessWidget {
   final ValueHints valueHints;
   final bool showTitle;
   final TextStyle valueTextStyle;
+  final Widget? extraLine;
   final Widget? trailing;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
@@ -19,6 +20,7 @@ class AttributeRenderer extends StatelessWidget {
     required this.valueHints,
     this.showTitle = true,
     this.valueTextStyle = const TextStyle(fontSize: 16),
+    this.extraLine,
     this.trailing,
     required this.expandFileReference,
     required this.openFileDetails,
@@ -28,6 +30,7 @@ class AttributeRenderer extends StatelessWidget {
     required LocalAttributeDVO attribute,
     bool showTitle = true,
     TextStyle valueTextStyle = const TextStyle(fontSize: 16),
+    Widget? extraLine,
     Widget? trailing,
     required Future<FileDVO> Function(String) expandFileReference,
     required void Function(FileDVO) openFileDetails,
@@ -37,6 +40,7 @@ class AttributeRenderer extends StatelessWidget {
         valueHints: attribute.valueHints,
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
+        extraLine: extraLine,
         trailing: trailing,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
@@ -52,6 +56,7 @@ class AttributeRenderer extends StatelessWidget {
         valueHints: valueHints,
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
+        extraLine: extraLine,
         trailing: trailing,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,

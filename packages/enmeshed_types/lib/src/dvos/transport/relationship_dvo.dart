@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../dtos/relationship_change.dart';
@@ -11,7 +12,7 @@ part 'relationship_dvo.g.dart';
 enum RelationshipDirection { Incoming, Outgoing }
 
 @JsonSerializable(includeIfNull: false)
-class RelationshipDVO extends DataViewObject {
+class RelationshipDVO extends DataViewObject with EquatableMixin {
   final String status;
   final RelationshipDirection direction;
   final String statusText;
@@ -49,6 +50,10 @@ class RelationshipDVO extends DataViewObject {
 
   factory RelationshipDVO.fromJson(Map json) => _$RelationshipDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipDVOToJson(this);
+
+  @override
+  // relationship is equal if id is equal other fields are too volatile
+  List<Object?> get props => [id];
 }
 
 @JsonSerializable(includeIfNull: false)
