@@ -45,7 +45,7 @@ class DatepickerFormField extends FormField<DateTime> {
                 enabled: enabled,
                 firstDate: firstDate,
                 fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
-                initialDate: getInitialDateAttribute(initialValueAttribute),
+                initialDate: getInitialDateAttribute(initialValueAttribute) ?? initialDate,
                 lastDate: lastDate,
                 onDateSelected: onChangedHandler,
                 selectedDate: field.value,
