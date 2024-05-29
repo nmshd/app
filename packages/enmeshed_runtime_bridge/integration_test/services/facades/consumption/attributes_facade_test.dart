@@ -465,6 +465,484 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
 
+  group('AttributesFacade: getSharedVersionsOfAttribute', () {
+    test('should get only latest shared versions of a repository attribute', () async {
+      final recipientAddress = account2.address!;
+      final List<LocalAttributeDTO> versions = [];
+
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'First Name'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+      versions.add(identityAttribute);
+
+      final shareAttributeResult = await sender.consumptionServices.attributes.shareRepositoryAttribute(
+        attributeId: identityAttribute.id,
+        peer: recipientAddress,
+      );
+
+      await acceptIncomingShareAttributeRequest(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        shareAttributeResult.value,
+        eventBus,
+      );
+
+      final succeededAttribute1Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: identityAttribute.id,
+        value: const GivenNameAttributeValue(value: 'Second Name'),
+      );
+      versions.add(succeededAttribute1Result.value.successor);
+
+      final succeededAttribute2Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: succeededAttribute1Result.value.successor.id,
+        value: const GivenNameAttributeValue(value: 'Third Name'),
+      );
+      versions.add(succeededAttribute2Result.value.successor);
+
+      final notifyRequestResult = await sender.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(
+        attributeId: succeededAttribute2Result.value.successor.id,
+        peer: recipientAddress,
+      );
+
+      await waitForRecipientToReceiveNotification(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        notifyRequestResult.value.notificationId,
+        notifyRequestResult.value.successor.id,
+        eventBus,
+      );
+
+      final attributeVersion3 = notifyRequestResult.value.successor;
+
+      for (final version in versions) {
+        final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
+          attributeId: version.id,
+          onlyLatestVersions: true,
+        );
+        expect(result, isSuccessful<List<LocalAttributeDTO>>());
+        expect(result.value.length, 1);
+        expect(result.value.first, attributeVersion3);
+      }
+    }, timeout: const Timeout(Duration(seconds: 60)));
+
+    test('should get only latest shared to peer versions of a repository attribute with property onlyLatestVersions: true', () async {
+      final recipientAddress = account2.address!;
+      final List<LocalAttributeDTO> versions = [];
+
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'First Name'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+      versions.add(identityAttribute);
+
+      final shareAttributeResult = await sender.consumptionServices.attributes.shareRepositoryAttribute(
+        attributeId: identityAttribute.id,
+        peer: recipientAddress,
+      );
+
+      await acceptIncomingShareAttributeRequest(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        shareAttributeResult.value,
+        eventBus,
+      );
+
+      final succeededAttribute1Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: identityAttribute.id,
+        value: const GivenNameAttributeValue(value: 'Second Name'),
+      );
+      versions.add(succeededAttribute1Result.value.successor);
+
+      final succeededAttribute2Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: succeededAttribute1Result.value.successor.id,
+        value: const GivenNameAttributeValue(value: 'Third Name'),
+      );
+      versions.add(succeededAttribute2Result.value.successor);
+
+      final notifyRequestResult = await sender.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(
+        attributeId: succeededAttribute2Result.value.successor.id,
+        peer: recipientAddress,
+      );
+
+      await waitForRecipientToReceiveNotification(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        notifyRequestResult.value.notificationId,
+        notifyRequestResult.value.successor.id,
+        eventBus,
+      );
+
+      final attributeVersion3 = notifyRequestResult.value.successor;
+
+      for (final version in versions) {
+        final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
+          attributeId: version.id,
+          onlyLatestVersions: true,
+        );
+        expect(result, isSuccessful<List<LocalAttributeDTO>>());
+        expect(result.value.length, 1);
+        expect(result.value.first, attributeVersion3);
+      }
+    }, timeout: const Timeout(Duration(seconds: 60)));
+
+    test('should get all shared to peer versions of a repository attribute with property onlyLatestVersions: false', () async {
+      final recipientAddress = account2.address!;
+      final List<LocalAttributeDTO> versions = [];
+
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'First Name'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+      versions.add(identityAttribute);
+
+      final shareAttributeResult = await sender.consumptionServices.attributes.shareRepositoryAttribute(
+        attributeId: identityAttribute.id,
+        peer: recipientAddress,
+      );
+
+      await acceptIncomingShareAttributeRequest(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        shareAttributeResult.value,
+        eventBus,
+      );
+
+      final succeededAttribute1Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: identityAttribute.id,
+        value: const GivenNameAttributeValue(value: 'Second Name'),
+      );
+      versions.add(succeededAttribute1Result.value.successor);
+
+      final succeededAttribute2Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: succeededAttribute1Result.value.successor.id,
+        value: const GivenNameAttributeValue(value: 'Third Name'),
+      );
+      versions.add(succeededAttribute2Result.value.successor);
+
+      final notifyRequestResult = await sender.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(
+        attributeId: succeededAttribute2Result.value.successor.id,
+        peer: recipientAddress,
+      );
+
+      await waitForRecipientToReceiveNotification(
+        sender,
+        recipient,
+        account1.address!,
+        recipientAddress,
+        notifyRequestResult.value.notificationId,
+        notifyRequestResult.value.successor.id,
+        eventBus,
+      );
+
+      final attributeVersion1 = notifyRequestResult.value.predecessor;
+      final attributeVersion3 = notifyRequestResult.value.successor;
+
+      for (final version in versions) {
+        final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
+          attributeId: version.id,
+          onlyLatestVersions: false,
+        );
+
+        expect(result, isSuccessful<List<LocalAttributeDTO>>());
+        expect(result.value.length, 2);
+        expect(result.value, [attributeVersion3, attributeVersion1]);
+      }
+    }, timeout: const Timeout(Duration(seconds: 60)));
+
+    test('should get only latest shared versions of a repository attribute for a specific peer', () async {
+      final recipient2 = runtime.getSession(account3.id);
+
+      final recipient1Address = account2.address!;
+      final recipient2Address = account3.address!;
+      final List<LocalAttributeDTO> versions = [];
+
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'First Name'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+      versions.add(identityAttribute);
+
+      final shareAttributeToRecipient1Result = await sender.consumptionServices.attributes.shareRepositoryAttribute(
+        attributeId: identityAttribute.id,
+        peer: recipient1Address,
+      );
+
+      await acceptIncomingShareAttributeRequest(
+        sender,
+        recipient,
+        account1.address!,
+        recipient1Address,
+        shareAttributeToRecipient1Result.value,
+        eventBus,
+      );
+
+      final shareAttributeToRecipient2Result = await sender.consumptionServices.attributes.shareRepositoryAttribute(
+        attributeId: identityAttribute.id,
+        peer: recipient2Address,
+      );
+
+      await acceptIncomingShareAttributeRequest(
+        sender,
+        recipient2,
+        account1.address!,
+        recipient2Address,
+        shareAttributeToRecipient2Result.value,
+        eventBus,
+      );
+
+      final succeededAttribute1Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: identityAttribute.id,
+        value: const GivenNameAttributeValue(value: 'Second Name'),
+      );
+      versions.add(succeededAttribute1Result.value.successor);
+
+      final notifyRecipient2RequestResult = await sender.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(
+        attributeId: succeededAttribute1Result.value.successor.id,
+        peer: recipient2Address,
+      );
+
+      await waitForRecipientToReceiveNotification(
+        sender,
+        recipient2,
+        account1.address!,
+        recipient2Address,
+        notifyRecipient2RequestResult.value.notificationId,
+        notifyRecipient2RequestResult.value.successor.id,
+        eventBus,
+      );
+
+      final succeededAttribute2Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: succeededAttribute1Result.value.successor.id,
+        value: const GivenNameAttributeValue(value: 'Third Name'),
+      );
+      versions.add(succeededAttribute2Result.value.successor);
+
+      final notifyRecipient1RequestResult = await sender.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(
+        attributeId: succeededAttribute2Result.value.successor.id,
+        peer: recipient1Address,
+      );
+
+      await waitForRecipientToReceiveNotification(
+        sender,
+        recipient,
+        account1.address!,
+        recipient1Address,
+        notifyRecipient1RequestResult.value.notificationId,
+        notifyRecipient1RequestResult.value.successor.id,
+        eventBus,
+      );
+
+      final attributeVersion2 = notifyRecipient2RequestResult.value.successor;
+      final attributeVersion3 = notifyRecipient1RequestResult.value.successor;
+
+      for (final version in versions) {
+        final result1 = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
+          attributeId: version.id,
+          peers: [recipient1Address],
+        );
+
+        expect(result1, isSuccessful<List<LocalAttributeDTO>>());
+        expect(result1.value.length, 1);
+        expect(result1.value, [attributeVersion3]);
+
+        final result2 = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
+          attributeId: version.id,
+          peers: [recipient2Address],
+        );
+
+        expect(result2, isSuccessful<List<LocalAttributeDTO>>());
+        expect(result2.value.length, 1);
+        expect(result2.value, [attributeVersion2]);
+      }
+    }, timeout: const Timeout(Duration(seconds: 90)));
+
+    test('should get all shared to peer versions of a repository attribute for a specific peer', () async {
+      final recipient2 = runtime.getSession(account3.id);
+
+      final recipient1Address = account2.address!;
+      final recipient2Address = account3.address!;
+      final List<LocalAttributeDTO> versions = [];
+
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'First Name'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+      versions.add(identityAttribute);
+
+      final shareAttributeToRecipient1Result = await sender.consumptionServices.attributes.shareRepositoryAttribute(
+        attributeId: identityAttribute.id,
+        peer: recipient1Address,
+      );
+
+      await acceptIncomingShareAttributeRequest(
+        sender,
+        recipient,
+        account1.address!,
+        recipient1Address,
+        shareAttributeToRecipient1Result.value,
+        eventBus,
+      );
+
+      final shareAttributeToRecipient2Result = await sender.consumptionServices.attributes.shareRepositoryAttribute(
+        attributeId: identityAttribute.id,
+        peer: recipient2Address,
+      );
+
+      await acceptIncomingShareAttributeRequest(
+        sender,
+        recipient2,
+        account1.address!,
+        recipient2Address,
+        shareAttributeToRecipient2Result.value,
+        eventBus,
+      );
+
+      final succeededAttribute1Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: identityAttribute.id,
+        value: const GivenNameAttributeValue(value: 'Second Name'),
+      );
+      versions.add(succeededAttribute1Result.value.successor);
+
+      final notifyRecipient2RequestResult = await sender.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(
+        attributeId: succeededAttribute1Result.value.successor.id,
+        peer: recipient2Address,
+      );
+
+      await waitForRecipientToReceiveNotification(
+        sender,
+        recipient2,
+        account1.address!,
+        recipient2Address,
+        notifyRecipient2RequestResult.value.notificationId,
+        notifyRecipient2RequestResult.value.successor.id,
+        eventBus,
+      );
+
+      final succeededAttribute2Result = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: succeededAttribute1Result.value.successor.id,
+        value: const GivenNameAttributeValue(value: 'Third Name'),
+      );
+      versions.add(succeededAttribute2Result.value.successor);
+
+      final notifyRecipient1RequestResult = await sender.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(
+        attributeId: succeededAttribute2Result.value.successor.id,
+        peer: recipient1Address,
+      );
+
+      await waitForRecipientToReceiveNotification(
+        sender,
+        recipient,
+        account1.address!,
+        recipient1Address,
+        notifyRecipient1RequestResult.value.notificationId,
+        notifyRecipient1RequestResult.value.successor.id,
+        eventBus,
+      );
+
+      final attributeVersion1R1 = notifyRecipient1RequestResult.value.predecessor;
+      final attributeVersion1R2 = notifyRecipient2RequestResult.value.predecessor;
+      final attributeVersion2 = notifyRecipient2RequestResult.value.successor;
+      final attributeVersion3 = notifyRecipient1RequestResult.value.successor;
+
+      for (final version in versions) {
+        final result1 = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
+          attributeId: version.id,
+          peers: [recipient1Address],
+          onlyLatestVersions: false,
+        );
+
+        expect(result1, isSuccessful<List<LocalAttributeDTO>>());
+        expect(result1.value.length, 2);
+        expect(result1.value, [attributeVersion3, attributeVersion1R1]);
+
+        final result2 = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
+          attributeId: version.id,
+          peers: [recipient2Address],
+          onlyLatestVersions: false,
+        );
+
+        expect(result2, isSuccessful<List<LocalAttributeDTO>>());
+        expect(result2.value.length, 2);
+        expect(result2.value, [attributeVersion2, attributeVersion1R2]);
+      }
+    }, timeout: const Timeout(Duration(seconds: 90)));
+
+    test('should get all shared third party relationship attributes of a source relationship attribute', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+      final thirdPartyAddress = account3.address!;
+
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+
+      final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        sender,
+        thirdParty,
+        senderAddress,
+        thirdPartyAddress,
+        attributeValue,
+        eventBus,
+      );
+
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: senderAddress, thirdParty: [thirdPartyAddress]);
+      final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
+
+      final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+
+      final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(attributeId: senderOwnSharedRelationshipAttribute.id);
+
+      expect(result, isSuccessful<List<LocalAttributeDTO>>());
+      expect(result.value.length, 1);
+      expect(result.value[0], senderThirdPartyOwnedRelationshipAttribute);
+    }, timeout: const Timeout(Duration(seconds: 60)));
+
+    // TODO: re-try with updated runtime
+    test('should return an empty list if a relationship attribute without associated third party relationship attributes is queried', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+
+      final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        sender,
+        recipient,
+        senderAddress,
+        recipientAddress,
+        attributeValue,
+        eventBus,
+      );
+
+      final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(attributeId: senderOwnSharedRelationshipAttribute.id);
+
+      expect(result, isSuccessful<List<LocalAttributeDTO>>());
+      expect(result.value.length, 0);
+    });
+
+    test('should return an empty list if a repository attribute without shared copies is queried', () async {
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'First Name'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+
+      final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
+        attributeId: identityAttribute.id,
+      );
+      expect(result, isSuccessful<List<LocalAttributeDTO>>());
+      expect(result.value.length, 0);
+    }, timeout: const Timeout(Duration(seconds: 60)));
+  });
+
   group('AttributesFacade: getSharedVersionsOfRepositoryAttribute', () {
     test('should get only latest shared versions of a repository attribute', () async {
       final recipientAddress = account2.address!;
@@ -661,9 +1139,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 60)));
 
     test('should get only latest shared versions of a repository attribute for a specific peer', () async {
-      final account3 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 3');
       final recipient2 = runtime.getSession(account3.id);
-      await ensureActiveRelationship(sender, recipient2);
 
       final recipient1Address = account2.address!;
       final recipient2Address = account3.address!;
@@ -770,9 +1246,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 90)));
 
     test('should get all shared to peer versions of a repository attribute for a specific peer', () async {
-      final account3 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 3');
       final recipient2 = runtime.getSession(account3.id);
-      await ensureActiveRelationship(sender, recipient2);
 
       final recipient1Address = account2.address!;
       final recipient2Address = account3.address!;
@@ -947,7 +1421,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -994,7 +1467,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1405,7 +1877,6 @@ void run(EnmeshedRuntime runtime) {
     test('should delete an own shared relationship attribute', () async {
       final recipientAddress = account2.address!;
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         sender,
@@ -1413,7 +1884,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1425,7 +1895,6 @@ void run(EnmeshedRuntime runtime) {
     test('should set the deletionInfo of the peer`s attribute, deleting an own shared relationship attribute', () async {
       final recipientAddress = account2.address!;
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         sender,
@@ -1433,7 +1902,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1486,7 +1954,6 @@ void run(EnmeshedRuntime runtime) {
     test('should delete a peer shared relationship attribute', () async {
       final recipientAddress = account2.address!;
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         sender,
@@ -1494,7 +1961,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1510,7 +1976,6 @@ void run(EnmeshedRuntime runtime) {
       final senderAddress = account1.address!;
       final recipientAddress = account2.address!;
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         sender,
@@ -1518,7 +1983,6 @@ void run(EnmeshedRuntime runtime) {
         senderAddress,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1547,7 +2011,6 @@ void run(EnmeshedRuntime runtime) {
       final thirdPartyAddress = account3.address!;
 
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         thirdParty,
@@ -1555,7 +2018,6 @@ void run(EnmeshedRuntime runtime) {
         account3.address!,
         senderAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1579,7 +2041,6 @@ void run(EnmeshedRuntime runtime) {
       final thirdPartyAddress = account3.address!;
 
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         thirdParty,
@@ -1587,7 +2048,6 @@ void run(EnmeshedRuntime runtime) {
         account3.address!,
         senderAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1614,7 +2074,6 @@ void run(EnmeshedRuntime runtime) {
       final thirdPartyAddress = account3.address!;
 
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         thirdParty,
@@ -1622,7 +2081,6 @@ void run(EnmeshedRuntime runtime) {
         account3.address!,
         senderAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1659,7 +2117,6 @@ void run(EnmeshedRuntime runtime) {
       final thirdPartyAddress = account3.address!;
 
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         thirdParty,
@@ -1667,7 +2124,6 @@ void run(EnmeshedRuntime runtime) {
         account3.address!,
         senderAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 

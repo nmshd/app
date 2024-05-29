@@ -293,7 +293,6 @@ Future<LocalAttributeDTO> executeFullCreateAndShareRelationshipAttributeFlow(
   String senderAddress,
   String recipientAddress,
   RelationshipAttributeValue attributeValue,
-  RelationshipAttributeValue succeededAttributeValue,
   MockEventBus eventBus,
 ) async {
   final requestResult = await sender.consumptionServices.attributes.createAndShareRelationshipAttribute(
