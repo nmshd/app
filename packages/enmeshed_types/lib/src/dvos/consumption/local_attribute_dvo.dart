@@ -93,7 +93,7 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
 @JsonSerializable(includeIfNull: false)
 class RepositoryAttributeDVO extends IdentityAttributeDVO {
   final List<SharedToPeerAttributeDVO> sharedWith;
-  final List<String> tags;
+  final List<String>? tags;
 
   const RepositoryAttributeDVO({
     required super.id,
@@ -105,7 +105,7 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required this.tags,
+    this.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,

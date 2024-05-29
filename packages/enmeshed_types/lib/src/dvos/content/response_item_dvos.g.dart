@@ -317,6 +317,40 @@ Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeA
   return val;
 }
 
+FreeTextAcceptResponseItemDVO _$FreeTextAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => FreeTextAcceptResponseItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      type: json['type'] as String,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      freeText: json['freeText'] as String,
+    );
+
+Map<String, dynamic> _$FreeTextAcceptResponseItemDVOToJson(FreeTextAcceptResponseItemDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['freeText'] = instance.freeText;
+  return val;
+}
+
 RegisterAttributeListenerAcceptResponseItemDVO _$RegisterAttributeListenerAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     RegisterAttributeListenerAcceptResponseItemDVO(
       id: json['id'] as String,
@@ -351,5 +385,83 @@ Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(Regi
   writeNotNull('warning', instance.warning?.toJson());
   val['listenerId'] = instance.listenerId;
   val['listener'] = instance.listener.toJson();
+  return val;
+}
+
+AttributeSuccessionAcceptResponseItemDVO _$AttributeSuccessionAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
+    AttributeSuccessionAcceptResponseItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      type: json['type'] as String,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      predecessorId: json['predecessorId'] as String,
+      successorId: json['successorId'] as String,
+      predecessor: LocalAttributeDVO.fromJson(json['predecessor'] as Map<String, dynamic>),
+      successor: LocalAttributeDVO.fromJson(json['successor'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$AttributeSuccessionAcceptResponseItemDVOToJson(AttributeSuccessionAcceptResponseItemDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['predecessorId'] = instance.predecessorId;
+  val['successorId'] = instance.successorId;
+  val['predecessor'] = instance.predecessor.toJson();
+  val['successor'] = instance.successor.toJson();
+  return val;
+}
+
+AttributeAlreadySharedAcceptResponseItemDVO _$AttributeAlreadySharedAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
+    AttributeAlreadySharedAcceptResponseItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      type: json['type'] as String,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+      attributeId: json['attributeId'] as String,
+      attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$AttributeAlreadySharedAcceptResponseItemDVOToJson(AttributeAlreadySharedAcceptResponseItemDVO instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('image', instance.image);
+  val['type'] = instance.type;
+  writeNotNull('date', instance.date);
+  writeNotNull('error', instance.error?.toJson());
+  writeNotNull('warning', instance.warning?.toJson());
+  val['attributeId'] = instance.attributeId;
+  val['attribute'] = instance.attribute.toJson();
   return val;
 }

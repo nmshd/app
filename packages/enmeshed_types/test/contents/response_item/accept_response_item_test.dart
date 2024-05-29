@@ -32,6 +32,13 @@ void main() {
       expect(acceptResponseItem, isA<CreateAttributeAcceptResponseItem>());
     });
 
+    test('parsed valid FreeTextAcceptResponseItem', () {
+      final responseItemJson = {'@type': 'FreeTextAcceptResponseItem', 'freeText': 'aText'};
+
+      final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);
+      expect(acceptResponseItem, isA<FreeTextAcceptResponseItem>());
+    });
+
     test('parsed valid ShareAttributeAcceptResponseItem', () {
       final responseItemJson = {'@type': 'ShareAttributeAcceptResponseItem', 'attributeId': 'anAttributeId'};
 

@@ -16,7 +16,7 @@ RepositoryAttributeDVO _$RepositoryAttributeDVOFromJson(Map<String, dynamic> jso
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: json['owner'] as String,
-      tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
@@ -59,7 +59,7 @@ Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO insta
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
   val['sharedWith'] = instance.sharedWith.map((e) => e.toJson()).toList();
-  val['tags'] = instance.tags;
+  writeNotNull('tags', instance.tags);
   return val;
 }
 

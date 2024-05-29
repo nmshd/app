@@ -130,7 +130,10 @@ class AcceptResponseItemDVO extends ResponseItemDVODerivation {
         'CreateAttributeAcceptResponseItemDVO' => CreateAttributeAcceptResponseItemDVO.fromJson(json),
         'DeleteAttributeAcceptResponseItemDVO' => DeleteAttributeAcceptResponseItemDVO.fromJson(json),
         'ShareAttributeAcceptResponseItemDVO' => ShareAttributeAcceptResponseItemDVO.fromJson(json),
+        'FreeTextAcceptResponseItemDVO' => FreeTextAcceptResponseItemDVO.fromJson(json),
         'RegisterAttributeListenerAcceptResponseItemDVO' => RegisterAttributeListenerAcceptResponseItemDVO.fromJson(json),
+        'AttributeSuccessionAcceptResponseItemDVO' => AttributeSuccessionAcceptResponseItemDVO.fromJson(json),
+        'AttributeAlreadySharedAcceptResponseItemDVO' => AttributeAlreadySharedAcceptResponseItemDVO.fromJson(json),
         _ => throw Exception("Invalid type '${json['type']}'"),
       };
   @override
@@ -252,6 +255,27 @@ class ShareAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
 }
 
 @JsonSerializable(includeIfNull: false)
+class FreeTextAcceptResponseItemDVO extends AcceptResponseItemDVO {
+  final String freeText;
+
+  const FreeTextAcceptResponseItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    required super.type,
+    super.date,
+    super.error,
+    super.warning,
+    required this.freeText,
+  });
+
+  factory FreeTextAcceptResponseItemDVO.fromJson(Map json) => _$FreeTextAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$FreeTextAcceptResponseItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
 class RegisterAttributeListenerAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String listenerId;
   final LocalAttributeListenerDVO listener;
@@ -273,4 +297,56 @@ class RegisterAttributeListenerAcceptResponseItemDVO extends AcceptResponseItemD
       _$RegisterAttributeListenerAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RegisterAttributeListenerAcceptResponseItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class AttributeSuccessionAcceptResponseItemDVO extends AcceptResponseItemDVO {
+  final String predecessorId;
+  final String successorId;
+  final LocalAttributeDVO predecessor;
+  final LocalAttributeDVO successor;
+
+  const AttributeSuccessionAcceptResponseItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    required super.type,
+    super.date,
+    super.error,
+    super.warning,
+    required this.predecessorId,
+    required this.successorId,
+    required this.predecessor,
+    required this.successor,
+  });
+
+  factory AttributeSuccessionAcceptResponseItemDVO.fromJson(Map json) =>
+      _$AttributeSuccessionAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$AttributeSuccessionAcceptResponseItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class AttributeAlreadySharedAcceptResponseItemDVO extends AcceptResponseItemDVO {
+  final String attributeId;
+  final LocalAttributeDVO attribute;
+
+  const AttributeAlreadySharedAcceptResponseItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    required super.type,
+    super.date,
+    super.error,
+    super.warning,
+    required this.attributeId,
+    required this.attribute,
+  });
+
+  factory AttributeAlreadySharedAcceptResponseItemDVO.fromJson(Map json) =>
+      _$AttributeAlreadySharedAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$AttributeAlreadySharedAcceptResponseItemDVOToJson(this);
 }

@@ -1133,10 +1133,19 @@
       "AcceptResponseItem": {
         "acceptedName": "Das Element wurde akzeptiert."
       },
+      "AttributeAlreadySharedAcceptResponseItem": {
+        "acceptedName": "Das angefragte Attribut wurde bereits geteilt."
+      },
+      "AttributeSuccessionAcceptResponseItem": {
+        "acceptedName": "Das angefragte Attribute wurde bearbeitet."
+      },
       "CreateAttributeAcceptResponseItem": {
         "acceptedName": "Das Attribut wurde erstellt."
       },
       "error": "Fehlerhaftes Element",
+      "FreeTextAcceptResponseItem": {
+        "acceptedName": "Der Freitext wurde akzeptiert."
+      },
       "ProposeAttributeAcceptResponseItem": {
         "acceptedName": "Das vorgeschlagene Attribut wurde empfangen."
       },
