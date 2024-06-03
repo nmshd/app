@@ -898,7 +898,7 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
 
       final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(attributeId: senderOwnSharedRelationshipAttribute.id);
 
@@ -907,7 +907,6 @@ void run(EnmeshedRuntime runtime) {
       expect(result.value[0], senderThirdPartyOwnedRelationshipAttribute);
     }, timeout: const Timeout(Duration(seconds: 60)));
 
-    // TODO: re-try with updated runtime
     test('should return an empty list if a relationship attribute without associated third party relationship attributes is queried', () async {
       final senderAddress = account1.address!;
       final recipientAddress = account2.address!;
@@ -2028,7 +2027,7 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
 
       final deletionResult = await sender.consumptionServices.attributes
           .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
@@ -2058,7 +2057,7 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
 
       final recipientThirdPartyOwnedRelationshipAttribute =
           (await sender.consumptionServices.attributes.getAttribute(attributeId: senderThirdPartyOwnedRelationshipAttribute.id)).value;
@@ -2091,7 +2090,7 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
 
       final deletionResult = await sender.consumptionServices.attributes
           .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
@@ -2134,7 +2133,7 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
 
       final deletionResult = await recipient.consumptionServices.attributes
           .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);

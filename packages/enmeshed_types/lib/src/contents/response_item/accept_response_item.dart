@@ -10,6 +10,7 @@ class AcceptResponseItem extends ResponseItemDerivation {
 
     return switch (type) {
       'CreateAttributeAcceptResponseItem' => CreateAttributeAcceptResponseItem.fromJson(json),
+      'DeleteAttributeAcceptResponseItem' => DeleteAttributeAcceptResponseItem.fromJson(json),
       'ShareAttributeAcceptResponseItem' => ShareAttributeAcceptResponseItem.fromJson(json),
       'ProposeAttributeAcceptResponseItem' => ProposeAttributeAcceptResponseItem.fromJson(json),
       'ReadAttributeAcceptResponseItem' => ReadAttributeAcceptResponseItem.fromJson(json),

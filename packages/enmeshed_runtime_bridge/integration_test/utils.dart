@@ -333,7 +333,7 @@ Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttrib
   String recipientAddress,
   String thirdPartyAddress,
   RequestItem requestItem,
-  LocalAttributeDTO sourceRelationshipAttribute,
+  String sourceRelationshipAttributeId,
   MockEventBus eventBus,
 ) async {
   final localRequestDTOResult =
@@ -348,7 +348,7 @@ Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttrib
     predicate: (e) => e.newStatus == LocalRequestStatus.ManualDecisionRequired,
   );
 
-  final responseItems = [AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: sourceRelationshipAttribute.content)];
+  final responseItems = [AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: sourceRelationshipAttributeId)];
   final acceptedRequest = await sender.consumptionServices.incomingRequests.accept(
     params: DecideRequestParameters(requestId: localRequestDTOResult.value.id, items: responseItems),
   );
