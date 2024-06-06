@@ -186,29 +186,6 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  @Deprecated('getSharedVersionsOfRepositoryAttribute will not be available in runtime version 5 anymore. Use getSharedVersionsOfAttribute instead.')
-  Future<Result<List<LocalAttributeDTO>>> getSharedVersionsOfRepositoryAttribute({
-    required String attributeId,
-    List<String>? peers,
-    bool? onlyLatestVersions,
-  }) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'attributeId': attributeId,
-          if (peers != null) 'peers': peers,
-          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
-        },
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
-  }
-
   Future<Result<List<LocalAttributeDTO>>> executeIdentityAttributeQuery({
     required IdentityAttributeQuery query,
   }) async {
