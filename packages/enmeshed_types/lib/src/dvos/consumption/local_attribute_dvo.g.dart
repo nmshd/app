@@ -16,7 +16,7 @@ RepositoryAttributeDVO _$RepositoryAttributeDVOFromJson(Map<String, dynamic> jso
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: json['owner'] as String,
-      tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
@@ -59,7 +59,7 @@ Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO insta
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
   val['sharedWith'] = instance.sharedWith.map((e) => e.toJson()).toList();
-  val['tags'] = instance.tags;
+  writeNotNull('tags', instance.tags);
   return val;
 }
 
@@ -218,6 +218,7 @@ OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dy
       peer: json['peer'] as String,
       requestReference: json['requestReference'] as String?,
       notificationReference: json['notificationReference'] as String?,
+      sourceAttribute: json['sourceAttribute'] as String?,
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
       deletionDate: json['deletionDate'] as String?,
@@ -257,6 +258,7 @@ Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttribut
   val['peer'] = instance.peer;
   writeNotNull('requestReference', instance.requestReference);
   writeNotNull('notificationReference', instance.notificationReference);
+  writeNotNull('sourceAttribute', instance.sourceAttribute);
   val['confidentiality'] = instance.confidentiality;
   val['isTechnical'] = instance.isTechnical;
   writeNotNull('deletionDate', instance.deletionDate);
@@ -287,6 +289,7 @@ PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, 
       peer: json['peer'] as String,
       requestReference: json['requestReference'],
       notificationReference: json['notificationReference'],
+      sourceAttribute: json['sourceAttribute'],
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
       deletionDate: json['deletionDate'] as String?,
@@ -326,6 +329,7 @@ Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttrib
   val['peer'] = instance.peer;
   writeNotNull('requestReference', instance.requestReference);
   writeNotNull('notificationReference', instance.notificationReference);
+  writeNotNull('sourceAttribute', instance.sourceAttribute);
   val['confidentiality'] = instance.confidentiality;
   val['isTechnical'] = instance.isTechnical;
   writeNotNull('deletionDate', instance.deletionDate);

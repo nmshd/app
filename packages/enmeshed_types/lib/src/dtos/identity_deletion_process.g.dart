@@ -11,6 +11,7 @@ IdentityDeletionProcessDTO _$IdentityDeletionProcessDTOFromJson(Map<String, dyna
       status: $enumDecode(_$IdentityDeletionProcessStatusEnumMap, json['status']),
       createdAt: json['createdAt'] as String?,
       createdByDevice: json['createdByDevice'] as String?,
+      approvalPeriodEndsAt: json['approvalPeriodEndsAt'] as String?,
       rejectedAt: json['rejectedAt'] as String?,
       rejectedByDevice: json['rejectedByDevice'] as String?,
       approvedAt: json['approvedAt'] as String?,
@@ -34,6 +35,7 @@ Map<String, dynamic> _$IdentityDeletionProcessDTOToJson(IdentityDeletionProcessD
 
   writeNotNull('createdAt', instance.createdAt);
   writeNotNull('createdByDevice', instance.createdByDevice);
+  writeNotNull('approvalPeriodEndsAt', instance.approvalPeriodEndsAt);
   writeNotNull('rejectedAt', instance.rejectedAt);
   writeNotNull('rejectedByDevice', instance.rejectedByDevice);
   writeNotNull('approvedAt', instance.approvedAt);
@@ -48,6 +50,5 @@ const _$IdentityDeletionProcessStatusEnumMap = {
   IdentityDeletionProcessStatus.WaitingForApproval: 'WaitingForApproval',
   IdentityDeletionProcessStatus.Rejected: 'Rejected',
   IdentityDeletionProcessStatus.Approved: 'Approved',
-  IdentityDeletionProcessStatus.Deleting: 'Deleting',
   IdentityDeletionProcessStatus.Cancelled: 'Cancelled',
 };

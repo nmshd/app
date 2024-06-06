@@ -465,7 +465,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
 
-  group('AttributesFacade: getSharedVersionsOfRepositoryAttribute', () {
+  group('AttributesFacade: getSharedVersionsOfAttribute', () {
     test('should get only latest shared versions of a repository attribute', () async {
       final recipientAddress = account2.address!;
       final List<LocalAttributeDTO> versions = [];
@@ -520,7 +520,7 @@ void run(EnmeshedRuntime runtime) {
       final attributeVersion3 = notifyRequestResult.value.successor;
 
       for (final version in versions) {
-        final result = await sender.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(
+        final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
           attributeId: version.id,
           onlyLatestVersions: true,
         );
@@ -584,7 +584,7 @@ void run(EnmeshedRuntime runtime) {
       final attributeVersion3 = notifyRequestResult.value.successor;
 
       for (final version in versions) {
-        final result = await sender.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(
+        final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
           attributeId: version.id,
           onlyLatestVersions: true,
         );
@@ -649,7 +649,7 @@ void run(EnmeshedRuntime runtime) {
       final attributeVersion3 = notifyRequestResult.value.successor;
 
       for (final version in versions) {
-        final result = await sender.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(
+        final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
           attributeId: version.id,
           onlyLatestVersions: false,
         );
@@ -661,9 +661,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 60)));
 
     test('should get only latest shared versions of a repository attribute for a specific peer', () async {
-      final account3 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 3');
       final recipient2 = runtime.getSession(account3.id);
-      await ensureActiveRelationship(sender, recipient2);
 
       final recipient1Address = account2.address!;
       final recipient2Address = account3.address!;
@@ -749,7 +747,7 @@ void run(EnmeshedRuntime runtime) {
       final attributeVersion3 = notifyRecipient1RequestResult.value.successor;
 
       for (final version in versions) {
-        final result1 = await sender.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(
+        final result1 = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
           attributeId: version.id,
           peers: [recipient1Address],
         );
@@ -758,7 +756,7 @@ void run(EnmeshedRuntime runtime) {
         expect(result1.value.length, 1);
         expect(result1.value, [attributeVersion3]);
 
-        final result2 = await sender.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(
+        final result2 = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
           attributeId: version.id,
           peers: [recipient2Address],
         );
@@ -770,9 +768,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 90)));
 
     test('should get all shared to peer versions of a repository attribute for a specific peer', () async {
-      final account3 = await runtime.accountServices.createAccount(name: 'attributesFacade Test 3');
       final recipient2 = runtime.getSession(account3.id);
-      await ensureActiveRelationship(sender, recipient2);
 
       final recipient1Address = account2.address!;
       final recipient2Address = account3.address!;
@@ -860,7 +856,7 @@ void run(EnmeshedRuntime runtime) {
       final attributeVersion3 = notifyRecipient1RequestResult.value.successor;
 
       for (final version in versions) {
-        final result1 = await sender.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(
+        final result1 = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
           attributeId: version.id,
           peers: [recipient1Address],
           onlyLatestVersions: false,
@@ -870,7 +866,7 @@ void run(EnmeshedRuntime runtime) {
         expect(result1.value.length, 2);
         expect(result1.value, [attributeVersion3, attributeVersion1R1]);
 
-        final result2 = await sender.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(
+        final result2 = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
           attributeId: version.id,
           peers: [recipient2Address],
           onlyLatestVersions: false,
@@ -881,6 +877,69 @@ void run(EnmeshedRuntime runtime) {
         expect(result2.value, [attributeVersion2, attributeVersion1R2]);
       }
     }, timeout: const Timeout(Duration(seconds: 90)));
+
+    test('should get all shared third party relationship attributes of a source relationship attribute', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+      final thirdPartyAddress = account3.address!;
+
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+
+      final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        sender,
+        thirdParty,
+        senderAddress,
+        thirdPartyAddress,
+        attributeValue,
+        eventBus,
+      );
+
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: senderAddress, thirdParty: [thirdPartyAddress]);
+      final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
+
+      final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
+
+      final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(attributeId: senderOwnSharedRelationshipAttribute.id);
+
+      expect(result, isSuccessful<List<LocalAttributeDTO>>());
+      expect(result.value.length, 1);
+      expect(result.value[0], senderThirdPartyOwnedRelationshipAttribute);
+    }, timeout: const Timeout(Duration(seconds: 60)));
+
+    test('should return an empty list if a relationship attribute without associated third party relationship attributes is queried', () async {
+      final senderAddress = account1.address!;
+      final recipientAddress = account2.address!;
+
+      const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
+
+      final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
+        sender,
+        recipient,
+        senderAddress,
+        recipientAddress,
+        attributeValue,
+        eventBus,
+      );
+
+      final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(attributeId: senderOwnSharedRelationshipAttribute.id);
+
+      expect(result, isSuccessful<List<LocalAttributeDTO>>());
+      expect(result.value.length, 0);
+    });
+
+    test('should return an empty list if a repository attribute without shared copies is queried', () async {
+      final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'First Name'),
+      );
+      final identityAttribute = identityAttributeResult.value;
+
+      final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(
+        attributeId: identityAttribute.id,
+      );
+      expect(result, isSuccessful<List<LocalAttributeDTO>>());
+      expect(result.value.length, 0);
+    }, timeout: const Timeout(Duration(seconds: 60)));
   });
 
   group('AttributesFacade: executeIdentityAttributeQuery', () {
@@ -947,7 +1006,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -994,7 +1052,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1405,7 +1462,6 @@ void run(EnmeshedRuntime runtime) {
     test('should delete an own shared relationship attribute', () async {
       final recipientAddress = account2.address!;
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         sender,
@@ -1413,7 +1469,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1425,7 +1480,6 @@ void run(EnmeshedRuntime runtime) {
     test('should set the deletionInfo of the peer`s attribute, deleting an own shared relationship attribute', () async {
       final recipientAddress = account2.address!;
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         sender,
@@ -1433,7 +1487,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1486,7 +1539,6 @@ void run(EnmeshedRuntime runtime) {
     test('should delete a peer shared relationship attribute', () async {
       final recipientAddress = account2.address!;
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         sender,
@@ -1494,7 +1546,6 @@ void run(EnmeshedRuntime runtime) {
         account1.address!,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1510,7 +1561,6 @@ void run(EnmeshedRuntime runtime) {
       final senderAddress = account1.address!;
       final recipientAddress = account2.address!;
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final senderOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         sender,
@@ -1518,7 +1568,6 @@ void run(EnmeshedRuntime runtime) {
         senderAddress,
         recipientAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1547,7 +1596,6 @@ void run(EnmeshedRuntime runtime) {
       final thirdPartyAddress = account3.address!;
 
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         thirdParty,
@@ -1555,7 +1603,6 @@ void run(EnmeshedRuntime runtime) {
         account3.address!,
         senderAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1566,7 +1613,7 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
 
       final deletionResult = await sender.consumptionServices.attributes
           .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
@@ -1579,7 +1626,6 @@ void run(EnmeshedRuntime runtime) {
       final thirdPartyAddress = account3.address!;
 
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         thirdParty,
@@ -1587,7 +1633,6 @@ void run(EnmeshedRuntime runtime) {
         account3.address!,
         senderAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1598,7 +1643,7 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
 
       final recipientThirdPartyOwnedRelationshipAttribute =
           (await sender.consumptionServices.attributes.getAttribute(attributeId: senderThirdPartyOwnedRelationshipAttribute.id)).value;
@@ -1614,7 +1659,6 @@ void run(EnmeshedRuntime runtime) {
       final thirdPartyAddress = account3.address!;
 
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         thirdParty,
@@ -1622,7 +1666,6 @@ void run(EnmeshedRuntime runtime) {
         account3.address!,
         senderAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1633,7 +1676,7 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
 
       final deletionResult = await sender.consumptionServices.attributes
           .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);
@@ -1659,7 +1702,6 @@ void run(EnmeshedRuntime runtime) {
       final thirdPartyAddress = account3.address!;
 
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
-      const succeededAttributeValue = ProprietaryStringAttributeValue(title: 'another title', value: 'another value');
 
       final thirdPartyOwnSharedRelationshipAttribute = await executeFullCreateAndShareRelationshipAttributeFlow(
         thirdParty,
@@ -1667,7 +1709,6 @@ void run(EnmeshedRuntime runtime) {
         account3.address!,
         senderAddress,
         attributeValue,
-        succeededAttributeValue,
         eventBus,
       );
 
@@ -1678,7 +1719,7 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute, eventBus);
+          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
 
       final deletionResult = await recipient.consumptionServices.attributes
           .deleteThirdPartyOwnedRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyOwnedRelationshipAttribute.id);

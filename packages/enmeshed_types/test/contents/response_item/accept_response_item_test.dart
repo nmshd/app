@@ -3,11 +3,40 @@ import 'package:test/test.dart';
 
 void main() {
   group('AcceptResponseItem fromJson', () {
+    test('parsed valid AttributeAlreadySharedAcceptResponseItem', () {
+      final responseItemJson = {
+        '@type': 'AttributeAlreadySharedAcceptResponseItem',
+        'attributeId': 'anAttributeId',
+      };
+
+      final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);
+      expect(acceptResponseItem, isA<AttributeAlreadySharedAcceptResponseItem>());
+    });
+
+    test('parsed valid AttributeSuccessionAcceptResponseItem', () {
+      final responseItemJson = {
+        '@type': 'AttributeSuccessionAcceptResponseItem',
+        'predecessorId': 'aPredecessorId',
+        'successorId': 'aSuccessorId',
+        'successorContent': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+      };
+
+      final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);
+      expect(acceptResponseItem, isA<AttributeSuccessionAcceptResponseItem>());
+    });
+
     test('parsed valid CreateAttributeAcceptResponseItem', () {
       final responseItemJson = {'@type': 'CreateAttributeAcceptResponseItem', 'attributeId': 'anAttributeId'};
 
       final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);
       expect(acceptResponseItem, isA<CreateAttributeAcceptResponseItem>());
+    });
+
+    test('parsed valid FreeTextAcceptResponseItem', () {
+      final responseItemJson = {'@type': 'FreeTextAcceptResponseItem', 'freeText': 'aText'};
+
+      final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);
+      expect(acceptResponseItem, isA<FreeTextAcceptResponseItem>());
     });
 
     test('parsed valid ShareAttributeAcceptResponseItem', () {
