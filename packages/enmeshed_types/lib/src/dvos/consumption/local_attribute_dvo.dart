@@ -93,7 +93,7 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
 @JsonSerializable(includeIfNull: false)
 class RepositoryAttributeDVO extends IdentityAttributeDVO {
   final List<SharedToPeerAttributeDVO> sharedWith;
-  final List<String> tags;
+  final List<String>? tags;
 
   const RepositoryAttributeDVO({
     required super.id,
@@ -105,7 +105,7 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required this.tags,
+    this.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -212,6 +212,7 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
   final String peer;
   final String? requestReference;
   final String? notificationReference;
+  final String? sourceAttribute;
   final String confidentiality;
   final bool isTechnical;
   final String? deletionDate;
@@ -242,6 +243,7 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
     required this.peer,
     this.requestReference,
     this.notificationReference,
+    this.sourceAttribute,
     required this.confidentiality,
     required this.isTechnical,
     this.deletionDate,
@@ -282,6 +284,7 @@ class OwnRelationshipAttributeDVO extends RelationshipAttributeDVO {
     required super.peer,
     super.requestReference,
     super.notificationReference,
+    super.sourceAttribute,
     required super.confidentiality,
     required super.isTechnical,
     super.deletionDate,
@@ -318,6 +321,7 @@ class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
     required super.peer,
     required requestReference,
     required notificationReference,
+    required sourceAttribute,
     required super.confidentiality,
     required super.isTechnical,
     super.deletionDate,

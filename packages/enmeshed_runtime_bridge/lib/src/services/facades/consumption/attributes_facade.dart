@@ -164,13 +164,13 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => List<LocalAttributeDTO>.from(value.map((e) => LocalAttributeDTO.fromJson(e))));
   }
 
-  Future<Result<List<LocalAttributeDTO>>> getSharedVersionsOfRepositoryAttribute({
+  Future<Result<List<LocalAttributeDTO>>> getSharedVersionsOfAttribute({
     required String attributeId,
     List<String>? peers,
     bool? onlyLatestVersions,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.getSharedVersionsOfRepositoryAttribute(request)
+      '''const result = await session.consumptionServices.attributes.getSharedVersionsOfAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
