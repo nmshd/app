@@ -1,10 +1,22 @@
+import 'package:enmeshed_types/src/contents/relationship_creation_content/relationship_creation_content.dart';
 import 'package:equatable/equatable.dart';
 
 import 'identity.dart';
-import 'relationship_change.dart';
 import 'relationship_template.dart';
 
-enum RelationshipStatus { Pending, Active, Rejected, Revoked, Terminating, Terminated }
+enum RelationshipStatus { Pending, Active, Rejected, Revoked, Terminated }
+
+enum RelationshipAuditLogEntryReason {
+  Creation,
+  AcceptanceOfCreation,
+  RejectionOfCreation,
+  RevocationOfCreation,
+  Termination,
+  ReactivationRequested,
+  AcceptanceOfReactivation,
+  RejectionOfReactivation,
+  RevocationOfReactivation
+}
 
 class RelationshipDTO extends Equatable {
   final String id;
@@ -12,7 +24,8 @@ class RelationshipDTO extends Equatable {
   final RelationshipStatus status;
   final String peer;
   final IdentityDTO peerIdentity;
-  final List<RelationshipChangeDTO> changes;
+  final RelationshipCreationContent creationContent;
+  final List<RelationshipAuditLogEntryDTO> auditLog;
 
   const RelationshipDTO({
     required this.id,
@@ -20,17 +33,18 @@ class RelationshipDTO extends Equatable {
     required this.status,
     required this.peer,
     required this.peerIdentity,
-    required this.changes,
+    required this.creationContent,
+    required this.auditLog,
   });
 
   factory RelationshipDTO.fromJson(Map json) => RelationshipDTO(
-        id: json['id'],
-        template: RelationshipTemplateDTO.fromJson(json['template']),
-        status: RelationshipStatus.values.byName(json['status']),
-        peer: json['peer'],
-        peerIdentity: IdentityDTO.fromJson(json['peerIdentity']),
-        changes: List<RelationshipChangeDTO>.from(json['changes'].map((x) => RelationshipChangeDTO.fromJson(x))),
-      );
+      id: json['id'],
+      template: RelationshipTemplateDTO.fromJson(json['template']),
+      status: RelationshipStatus.values.byName(json['status']),
+      peer: json['peer'],
+      peerIdentity: IdentityDTO.fromJson(json['peerIdentity']),
+      creationContent: RelationshipCreationContent.fromJson(json['creationContent']),
+      auditLog: json['auditLog']);
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -38,9 +52,47 @@ class RelationshipDTO extends Equatable {
         'status': status.name,
         'peer': peer,
         'peerIdentity': peerIdentity.toJson(),
-        'changes': changes.map((e) => e.toJson()).toList(),
+        'creationContent': creationContent.toJson(),
+        'auditLog': auditLog,
       };
 
   @override
-  List<Object?> get props => [id, template, status, peer, peerIdentity, changes];
+  List<Object?> get props => [id, template, status, peer, peerIdentity, creationContent, auditLog];
+}
+
+class RelationshipAuditLogEntryDTO extends Equatable {
+  final String createdAt;
+  final String createdBy;
+  final String createdByDevice;
+  final RelationshipAuditLogEntryReason reason;
+  final RelationshipStatus? oldStatus;
+  final RelationshipStatus newStatus;
+
+  const RelationshipAuditLogEntryDTO(
+      {required this.createdAt,
+      required this.createdBy,
+      required this.createdByDevice,
+      required this.reason,
+      this.oldStatus,
+      required this.newStatus});
+
+  factory RelationshipAuditLogEntryDTO.fromJson(Map json) => RelationshipAuditLogEntryDTO(
+      createdAt: json['createdAt'],
+      createdBy: json['createdBy'],
+      createdByDevice: json['createdByDevice'],
+      reason: json['reason'],
+      oldStatus: json['oldStatus'],
+      newStatus: json['newStatus']);
+
+  Map<String, dynamic> toJson() => {
+        'createdAt': createdAt,
+        'createdBy': createdBy,
+        'createdByDevice': createdByDevice,
+        'reason': reason,
+        if (oldStatus != null) 'oldStatus': oldStatus,
+        'newStatus': newStatus,
+      };
+
+  @override
+  List<Object?> get props => [createdAt, createdBy, createdByDevice, reason, oldStatus, newStatus];
 }
