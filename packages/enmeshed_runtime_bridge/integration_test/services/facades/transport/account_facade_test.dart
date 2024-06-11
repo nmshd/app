@@ -23,6 +23,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(identityInfoResult, isSuccessful<GetIdentityInfoResponse>());
       expect(identityInfoResult.value.address.length, greaterThanOrEqualTo(35));
+      expect(identityInfoResult.value.address, contains('did:e:'));
       expect(identityInfoResult.value.publicKey.length, equals(82));
     });
   });

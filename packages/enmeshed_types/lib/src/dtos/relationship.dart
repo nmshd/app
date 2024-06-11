@@ -44,7 +44,7 @@ class RelationshipDTO extends Equatable {
       peer: json['peer'],
       peerIdentity: IdentityDTO.fromJson(json['peerIdentity']),
       creationContent: RelationshipCreationContent.fromJson(json['creationContent']),
-      auditLog: json['auditLog']);
+      auditLog: List<RelationshipAuditLogEntryDTO>.from(json['auditLog'].map((x) => RelationshipAuditLogEntryDTO.fromJson(x))));
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -53,7 +53,7 @@ class RelationshipDTO extends Equatable {
         'peer': peer,
         'peerIdentity': peerIdentity.toJson(),
         'creationContent': creationContent.toJson(),
-        'auditLog': auditLog,
+        'auditLog': auditLog.map((e) => e.toJson()).toList(),
       };
 
   @override

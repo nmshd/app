@@ -15,7 +15,7 @@ void main() {
       expect(
         relationshipCreationContentJson,
         equals({
-          '@type': 'RelationshipCreationChangeRequestContent',
+          '@type': 'RelationshipCreationContent',
           'response': const Response(
             result: ResponseResult.Accepted,
             requestId: 'aRequestId',
