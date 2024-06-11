@@ -25,8 +25,8 @@ In order to update it, you must adjust the version there, navigate to `packages/
 Afterwards, run `npm run build` in the same location, which will update the `index.js` file.
 
 Now, to make the changes accessible for the App, all adjustments that are exposed, e.g. DTOs, DVOs, use cases and events, need to be adjusted in their respective places.
-To do so, step through every Runtime change that was performed from the previous version to your newly updated one and check if it needs to be tranferred to the App.
-Usually, only changes to the Content- and Runtime-library are relevant for the App, but if you aren't sure, simply use the search function and check if the respecive data object occurs anywhere besides the `index.js` file in the App-repository.
+To do so, step through every Runtime change that was performed from the previous version to your newly updated one and check if it needs to be transferred to the App.
+Usually, only changes to the Content- and Runtime-library are relevant for the App, but if you aren't sure, simply use the search function and check if the respective data object occurs anywhere besides the `index.js` file in the App-repository.
 Don't forget to test every function you add to a facade.
 
 Sometimes, a part of adding a new or adjusting an existing data object can be automated.
