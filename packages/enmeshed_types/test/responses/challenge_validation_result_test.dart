@@ -13,22 +13,38 @@ void main() {
 
     test('is correctly converted with property "correspondingRelationship"', () {
       final relationshipDTO = RelationshipDTO(
-        id: 'id',
-        template: RelationshipTemplateDTO(
           id: 'id',
-          isOwn: false,
-          createdBy: 'createdBy',
-          createdByDevice: 'createdByDevice',
-          createdAt: 'createdAt',
-          content: ArbitraryRelationshipTemplateContent(const {}),
-          secretKey: 'aSecretKey',
-          truncatedReference: 'truncatedReference',
-        ),
-        status: RelationshipStatus.Active,
-        peer: 'peer',
-        peerIdentity: const IdentityDTO(address: 'address', publicKey: 'publicKey', realm: 'realm'),
-        changes: const [],
-      );
+          template: RelationshipTemplateDTO(
+            id: 'id',
+            isOwn: false,
+            createdBy: 'createdBy',
+            createdByDevice: 'createdByDevice',
+            createdAt: 'createdAt',
+            content: ArbitraryRelationshipTemplateContent(const {}),
+            secretKey: 'aSecretKey',
+            truncatedReference: 'truncatedReference',
+          ),
+          status: RelationshipStatus.Active,
+          peer: 'peer',
+          peerIdentity: const IdentityDTO(address: 'address', publicKey: 'publicKey'),
+          creationContent: const RelationshipCreationContentWithResponse(
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
+          ),
+          auditLog: const [
+            RelationshipAuditLogEntryDTO(
+                createdAt: '2023',
+                createdBy: 'createdBy',
+                createdByDevice: 'createdByDevice',
+                reason: RelationshipAuditLogEntryReason.Creation,
+                newStatus: RelationshipStatus.Pending),
+            RelationshipAuditLogEntryDTO(
+                createdAt: '2023',
+                createdBy: 'peer',
+                createdByDevice: 'peerDevice',
+                reason: RelationshipAuditLogEntryReason.AcceptanceOfCreation,
+                oldStatus: RelationshipStatus.Pending,
+                newStatus: RelationshipStatus.Active)
+          ]);
 
       final json = {'isValid': true, 'correspondingRelationship': relationshipDTO.toJson()};
 

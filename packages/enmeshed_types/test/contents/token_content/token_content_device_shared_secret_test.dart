@@ -9,7 +9,7 @@ void main() {
     secretBaseKey: 'aSecretBaseKey',
     deviceIndex: 1,
     synchronizationKey: 'aSynchronizationKey',
-    identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey', realm: 'aRealm'),
+    identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
     password: 'aPassword',
     username: 'anUsername',
   );
@@ -72,11 +72,7 @@ void main() {
             deviceIndex: 0,
             synchronizationKey: 'eyJhIjoiYiJ9',
             identityPrivateKey: 'eyJhIjoiYiJ9',
-            identity: IdentityDTO(
-              address: 'anAddress',
-              publicKey: 'eyJhIjoiYiJ9',
-              realm: 'aRealm',
-            ),
+            identity: IdentityDTO(address: 'anAddress', publicKey: 'eyJhIjoiYiJ9'),
             password: 'aPassword',
             username: 'aUsername',
           ),

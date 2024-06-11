@@ -22,9 +22,7 @@ void run(EnmeshedRuntime runtime) {
       final identityInfoResult = await session.transportServices.account.getIdentityInfo();
 
       expect(identityInfoResult, isSuccessful<GetIdentityInfoResponse>());
-      expect(identityInfoResult.value.address.length, lessThanOrEqualTo(36));
       expect(identityInfoResult.value.address.length, greaterThanOrEqualTo(35));
-      expect(identityInfoResult.value.address, contains('id1'));
       expect(identityInfoResult.value.publicKey.length, equals(82));
     });
   });

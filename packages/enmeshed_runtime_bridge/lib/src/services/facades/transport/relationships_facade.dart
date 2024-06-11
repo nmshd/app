@@ -62,7 +62,7 @@ class RelationshipsFacade {
 
   Future<Result<RelationshipDTO>> createRelationship({
     required String templateId,
-    required Map<String, dynamic> content,
+    required Map<String, dynamic> creationContent,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.createRelationship(request)
@@ -71,7 +71,7 @@ class RelationshipsFacade {
       arguments: {
         'request': {
           'templateId': templateId,
-          'content': content,
+          'creationContent': creationContent,
         },
       },
     );

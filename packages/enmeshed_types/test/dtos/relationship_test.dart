@@ -25,7 +25,7 @@ void main() {
           ),
           status: RelationshipStatus.Active,
           peer: 'aPeer',
-          peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey', realm: 'aRealm'),
+          peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
           creationContent: RelationshipCreationContentWithResponse(
             response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
@@ -69,7 +69,7 @@ void main() {
           ).toJson(),
           'status': 'Active',
           'peer': 'aPeer',
-          'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey', realm: 'aRealm').toJson(),
+          'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
           'creationContent': const RelationshipCreationContentWithResponse(
             response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ).toJson(),
@@ -118,7 +118,7 @@ void main() {
         ).toJson(),
         'status': 'Active',
         'peer': 'aPeer',
-        'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey', realm: 'aRealm').toJson(),
+        'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
         'creationContent': const RelationshipCreationContentWithResponse(
           response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
         ).toJson(),
@@ -163,7 +163,7 @@ void main() {
             ),
             status: RelationshipStatus.Active,
             peer: 'aPeer',
-            peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey', realm: 'aRealm'),
+            peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
             creationContent: RelationshipCreationContentWithResponse(
               response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),

@@ -8,8 +8,8 @@ void main() {
         '@type': 'RelationshipCreationContent',
         'response': const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: []).toJson(),
       };
-      final relationshipChangeRequestContent = RelationshipCreationContent.fromJson(relationshipCreationContentJson);
-      expect(relationshipChangeRequestContent, isA<RelationshipCreationContentWithResponse>());
+      final relationshipCreationContent = RelationshipCreationContent.fromJson(relationshipCreationContentJson);
+      expect(relationshipCreationContent, isA<RelationshipCreationContentWithResponse>());
     });
 
     test('parsed valid ArbitraryRelationshipCreationContent when not given a Response', () {
