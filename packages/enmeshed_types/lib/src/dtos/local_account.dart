@@ -4,7 +4,6 @@ class LocalAccountDTO extends Equatable {
   final String id;
   final String? address;
   final String name;
-  final String realm;
   final String directory;
   final int order;
   final String? lastAccessedAt;
@@ -13,7 +12,6 @@ class LocalAccountDTO extends Equatable {
     required this.id,
     this.address,
     required this.name,
-    required this.realm,
     required this.directory,
     required this.order,
     this.lastAccessedAt,
@@ -24,7 +22,6 @@ class LocalAccountDTO extends Equatable {
       id: json['id'],
       address: json['address'],
       name: json['name'],
-      realm: json['realm'],
       directory: json['directory'],
       order: json['order'].toInt(),
       lastAccessedAt: json['lastAccessedAt'],
@@ -36,7 +33,6 @@ class LocalAccountDTO extends Equatable {
       'id': id,
       if (address != null) 'address': address,
       'name': name,
-      'realm': realm,
       'directory': directory,
       'order': order,
       if (lastAccessedAt != null) 'lastAccessedAt': lastAccessedAt,
@@ -44,5 +40,5 @@ class LocalAccountDTO extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, address, name, realm, directory, order];
+  List<Object?> get props => [id, address, name, directory, order];
 }
