@@ -80,7 +80,6 @@ RecipientDVO _$RecipientDVOFromJson(Map<String, dynamic> json) => RecipientDVO(
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       publicKey: json['publicKey'] as String?,
-      realm: json['realm'] as String,
       initials: json['initials'] as String,
       isSelf: json['isSelf'] as bool,
       hasRelationship: json['hasRelationship'] as bool,
@@ -108,7 +107,6 @@ Map<String, dynamic> _$RecipientDVOToJson(RecipientDVO instance) {
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('publicKey', instance.publicKey);
-  val['realm'] = instance.realm;
   val['initials'] = instance.initials;
   val['isSelf'] = instance.isSelf;
   val['hasRelationship'] = instance.hasRelationship;

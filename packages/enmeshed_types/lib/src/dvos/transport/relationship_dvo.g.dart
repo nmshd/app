@@ -20,7 +20,8 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
       statusText: json['statusText'] as String,
       isPinned: json['isPinned'] as bool,
       theme: json['theme'] == null ? null : RelationshipTheme.fromJson(json['theme'] as Map<String, dynamic>),
-      changes: (json['changes'] as List<dynamic>).map((e) => RelationshipChangeDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      creationContent: RelationshipCreationContent.fromJson(json['creationContent'] as Map<String, dynamic>),
+      auditLog: (json['auditLog'] as List<dynamic>).map((e) => RelationshipAuditLogEntryDTO.fromJson(e as Map<String, dynamic>)).toList(),
       changeCount: const IntegerConverter().fromJson(json['changeCount']),
       items: (json['items'] as List<dynamic>).map((e) => LocalAttributeDVO.fromJson(e as Map<String, dynamic>)).toList(),
       attributeMap: (json['attributeMap'] as Map<String, dynamic>).map(
@@ -53,7 +54,8 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
   val['statusText'] = instance.statusText;
   val['isPinned'] = instance.isPinned;
   writeNotNull('theme', instance.theme?.toJson());
-  val['changes'] = instance.changes.map((e) => e.toJson()).toList();
+  val['creationContent'] = instance.creationContent.toJson();
+  val['auditLog'] = instance.auditLog.map((e) => e.toJson()).toList();
   writeNotNull('changeCount', const IntegerConverter().toJson(instance.changeCount));
   val['items'] = instance.items.map((e) => e.toJson()).toList();
   val['attributeMap'] = instance.attributeMap.map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList()));
@@ -87,144 +89,5 @@ Map<String, dynamic> _$RelationshipThemeToJson(RelationshipTheme instance) {
   writeNotNull('headerImage', instance.headerImage);
   writeNotNull('backgroundColor', instance.backgroundColor);
   writeNotNull('foregroundColor', instance.foregroundColor);
-  return val;
-}
-
-RelationshipChangeDVO _$RelationshipChangeDVOFromJson(Map<String, dynamic> json) => RelationshipChangeDVO(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String?,
-      image: json['image'] as String?,
-      type: json['type'] as String,
-      date: json['date'] as String?,
-      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-      request: RelationshipChangeRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
-      response: json['response'] == null ? null : RelationshipChangeResponseDVO.fromJson(json['response'] as Map<String, dynamic>),
-      status: $enumDecode(_$RelationshipChangeStatusEnumMap, json['status']),
-      statusText: json['statusText'] as String,
-      changeType: $enumDecode(_$RelationshipChangeTypeEnumMap, json['changeType']),
-      changeTypeText: json['changeTypeText'] as String,
-      isOwn: json['isOwn'] as bool,
-    );
-
-Map<String, dynamic> _$RelationshipChangeDVOToJson(RelationshipChangeDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['request'] = instance.request.toJson();
-  writeNotNull('response', instance.response?.toJson());
-  val['status'] = _$RelationshipChangeStatusEnumMap[instance.status]!;
-  val['statusText'] = instance.statusText;
-  val['changeType'] = _$RelationshipChangeTypeEnumMap[instance.changeType]!;
-  val['changeTypeText'] = instance.changeTypeText;
-  val['isOwn'] = instance.isOwn;
-  return val;
-}
-
-const _$RelationshipChangeStatusEnumMap = {
-  RelationshipChangeStatus.Pending: 'Pending',
-  RelationshipChangeStatus.Rejected: 'Rejected',
-  RelationshipChangeStatus.Revoked: 'Revoked',
-  RelationshipChangeStatus.Accepted: 'Accepted',
-};
-
-const _$RelationshipChangeTypeEnumMap = {
-  RelationshipChangeType.Creation: 'Creation',
-  RelationshipChangeType.Termination: 'Termination',
-  RelationshipChangeType.TerminationCancellation: 'TerminationCancellation',
-};
-
-RelationshipChangeRequestDVO _$RelationshipChangeRequestDVOFromJson(Map<String, dynamic> json) => RelationshipChangeRequestDVO(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String?,
-      image: json['image'] as String?,
-      type: json['type'] as String,
-      date: json['date'] as String?,
-      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-      createdBy: json['createdBy'] as String,
-      createdByDevice: json['createdByDevice'] as String,
-      createdAt: json['createdAt'] as String,
-      content: json['content'] as Map<String, dynamic>?,
-    );
-
-Map<String, dynamic> _$RelationshipChangeRequestDVOToJson(RelationshipChangeRequestDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['createdBy'] = instance.createdBy;
-  val['createdByDevice'] = instance.createdByDevice;
-  val['createdAt'] = instance.createdAt;
-  writeNotNull('content', instance.content);
-  return val;
-}
-
-RelationshipChangeResponseDVO _$RelationshipChangeResponseDVOFromJson(Map<String, dynamic> json) => RelationshipChangeResponseDVO(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String?,
-      image: json['image'] as String?,
-      type: json['type'] as String,
-      date: json['date'] as String?,
-      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-      createdBy: json['createdBy'] as String,
-      createdByDevice: json['createdByDevice'] as String,
-      createdAt: json['createdAt'] as String,
-      content: json['content'] as Map<String, dynamic>?,
-    );
-
-Map<String, dynamic> _$RelationshipChangeResponseDVOToJson(RelationshipChangeResponseDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['createdBy'] = instance.createdBy;
-  val['createdByDevice'] = instance.createdByDevice;
-  val['createdAt'] = instance.createdAt;
-  writeNotNull('content', instance.content);
   return val;
 }
