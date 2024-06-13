@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'local_attribute_deletion_info.g.dart';
 
-enum DeletionStatus { ToBeDeleted, ToBeDeletedByPeer, DeletedByPeer, DeletedByOwner }
+enum DeletionStatus { DeletionRequestSent, DeletionRequestRejected, ToBeDeleted, ToBeDeletedByPeer, DeletedByPeer, DeletedByOwner }
 
 @JsonSerializable(includeIfNull: false)
 class LocalAttributeDeletionInfo extends Equatable {
