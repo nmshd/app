@@ -23,6 +23,7 @@ abstract class RequestItemDerivation extends RequestItem {
       'AuthenticationRequestItem' => AuthenticationRequestItem.fromJson(json),
       'RegisterAttributeListenerRequestItem' => RegisterAttributeListenerRequestItem.fromJson(json),
       'FreeTextRequestItem' => FreeTextRequestItem.fromJson(json),
+      'DeleteAttributeRequestItem' => DeleteAttributeRequestItem.fromJson(json),
       _ => throw Exception('Unknown type: $type')
     };
   }
