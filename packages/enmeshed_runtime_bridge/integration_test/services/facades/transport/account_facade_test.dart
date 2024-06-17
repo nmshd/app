@@ -158,7 +158,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('Un-/RegisterPushNotificationToken', () {
-    test('register with production environment', () async {
+    test('register push notification token with production environment', () async {
       final result = await session.transportServices.account.registerPushNotificationToken(
           handle: 'handleLongerThan10Characters', platform: 'apns', appId: 'appId', environment: AccountFacadePushNotificationEnvironment.production);
 
@@ -167,7 +167,7 @@ void run(EnmeshedRuntime runtime) {
       expect(matcher.hasMatch(result.value.devicePushIdentifier), true);
     });
 
-    test('register with development environment', () async {
+    test('register push notification token with development environment', () async {
       final result = await session.transportServices.account.registerPushNotificationToken(
           handle: 'handleLongerThan10Characters',
           platform: 'apns',
@@ -179,7 +179,7 @@ void run(EnmeshedRuntime runtime) {
       expect(matcher.hasMatch(result.value.devicePushIdentifier), true);
     });
 
-    test('register with development environment', () async {
+    test('unregister push notification token', () async {
       final result = await session.transportServices.account.unregisterPushNotificationToken();
 
       expect(result, isSuccessful());
