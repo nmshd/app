@@ -82,7 +82,7 @@ class RelationshipsFacade {
 
   Future<Result<RelationshipDTO>> acceptRelationship({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationships.acceptRelationshipChange(request)
+      '''const result = await session.transportServices.relationships.acceptRelationship(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -194,7 +194,7 @@ class RelationshipsFacade {
     required String relationshipId,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationships.rejectRelationshipReactivation(request)
+      '''const result = await session.transportServices.relationships.revokeRelationshipReactivation(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
