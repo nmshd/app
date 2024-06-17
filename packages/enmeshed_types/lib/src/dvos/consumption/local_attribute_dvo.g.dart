@@ -73,7 +73,7 @@ SharedToPeerAttributeDVO _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic>
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       content: AbstractAttribute.fromJson(json['content'] as Map<String, dynamic>),
       owner: json['owner'] as String,
-      tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       value: AttributeValue.fromJson(json['value'] as Map<String, dynamic>),
       valueType: json['valueType'] as String,
       renderHints: RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
@@ -124,7 +124,7 @@ Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO i
   writeNotNull('requestReference', instance.requestReference);
   writeNotNull('notificationReference', instance.notificationReference);
   writeNotNull('sourceAttribute', instance.sourceAttribute);
-  val['tags'] = instance.tags;
+  writeNotNull('tags', instance.tags);
   writeNotNull('deletionDate', instance.deletionDate);
   writeNotNull('deletionStatus', instance.deletionStatus);
   return val;
@@ -152,7 +152,7 @@ PeerAttributeDVO _$PeerAttributeDVOFromJson(Map<String, dynamic> json) => PeerAt
       peer: json['peer'] as String,
       requestReference: json['requestReference'] as String?,
       notificationReference: json['notificationReference'] as String?,
-      tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       deletionDate: json['deletionDate'] as String?,
       deletionStatus: json['deletionStatus'] as String?,
     );
@@ -189,7 +189,7 @@ Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
   val['peer'] = instance.peer;
   writeNotNull('requestReference', instance.requestReference);
   writeNotNull('notificationReference', instance.notificationReference);
-  val['tags'] = instance.tags;
+  writeNotNull('tags', instance.tags);
   writeNotNull('deletionDate', instance.deletionDate);
   writeNotNull('deletionStatus', instance.deletionStatus);
   return val;
@@ -287,9 +287,9 @@ PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, 
       succeededBy: json['succeededBy'] as String?,
       key: json['key'] as String,
       peer: json['peer'] as String,
-      requestReference: json['requestReference'],
-      notificationReference: json['notificationReference'],
-      sourceAttribute: json['sourceAttribute'],
+      requestReference: json['requestReference'] as String?,
+      notificationReference: json['notificationReference'] as String?,
+      sourceAttribute: json['sourceAttribute'] as String?,
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
       deletionDate: json['deletionDate'] as String?,
