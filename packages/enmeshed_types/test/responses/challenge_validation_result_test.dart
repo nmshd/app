@@ -27,7 +27,7 @@ void main() {
           status: RelationshipStatus.Active,
           peer: 'peer',
           peerIdentity: const IdentityDTO(address: 'address', publicKey: 'publicKey'),
-          creationContent: const RelationshipCreationContentWithResponse(
+          creationContent: const RelationshipCreationContentContainingResponse(
             response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
           auditLog: const [

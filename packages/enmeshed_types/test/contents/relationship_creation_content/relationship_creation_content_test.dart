@@ -9,7 +9,7 @@ void main() {
         'response': const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: []).toJson(),
       };
       final relationshipCreationContent = RelationshipCreationContent.fromJson(relationshipCreationContentJson);
-      expect(relationshipCreationContent, isA<RelationshipCreationContentWithResponse>());
+      expect(relationshipCreationContent, isA<RelationshipCreationContentContainingResponse>());
     });
 
     test('parsed valid ArbitraryRelationshipCreationContent when not given a Response', () {

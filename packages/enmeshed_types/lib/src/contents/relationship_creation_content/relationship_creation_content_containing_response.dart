@@ -1,13 +1,13 @@
 part of 'relationship_creation_content.dart';
 
-class RelationshipCreationContentWithResponse extends RelationshipCreationContent {
+class RelationshipCreationContentContainingResponse extends RelationshipCreationContent {
   final Response response;
 
-  const RelationshipCreationContentWithResponse({
+  const RelationshipCreationContentContainingResponse({
     required this.response,
   });
 
-  factory RelationshipCreationContentWithResponse.fromJson(Map json) => RelationshipCreationContentWithResponse(
+  factory RelationshipCreationContentContainingResponse.fromJson(Map json) => RelationshipCreationContentContainingResponse(
         response: Response.fromJson(json['response']),
       );
 

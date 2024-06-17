@@ -6,14 +6,14 @@ import 'package:meta/meta.dart';
 import '../arbitraty_json.dart';
 import '../response.dart';
 
-part 'relationship_creation_content_with_response.dart';
+part 'relationship_creation_content_containing_response.dart';
 
 abstract class RelationshipCreationContent extends Equatable {
   const RelationshipCreationContent();
 
   factory RelationshipCreationContent.fromJson(Map json) {
     if (json.containsKey('response')) {
-      return RelationshipCreationContentWithResponse.fromJson(json);
+      return RelationshipCreationContentContainingResponse.fromJson(json);
     }
 
     return ArbitraryRelationshipCreationContent(json);
