@@ -171,10 +171,10 @@ void run(EnmeshedRuntime runtime) {
       expect(reactivationRequestResult.value.id, establishedRelationship.id);
 
       await syncUntilHasRelationship(session2);
-      final rejectionResult =
+      final acceptanceResult =
           await session2.transportServices.relationships.acceptRelationshipReactivation(relationshipId: establishedRelationship.id);
-      expect(rejectionResult, isSuccessful<RelationshipDTO>());
-      expect(rejectionResult.value.id, establishedRelationship.id);
+      expect(acceptanceResult, isSuccessful<RelationshipDTO>());
+      expect(acceptanceResult.value.id, establishedRelationship.id);
     });
   });
 

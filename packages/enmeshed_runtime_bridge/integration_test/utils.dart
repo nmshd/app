@@ -40,12 +40,6 @@ Future<RelationshipDTO> establishRelationshipAndSync({required Session requestor
   return await syncUntilHasRelationship(templator);
 }
 
-Future<RelationshipDTO> establishTerminatedRelationshipAndSync({required Session requestor, required Session templator}) async {
-  final relationship = await establishRelationship(requestor: requestor, templator: templator);
-  await requestor.transportServices.relationships.terminateRelationship(relationshipId: relationship.id);
-  return await syncUntilHasRelationship(templator);
-}
-
 Future<RelationshipDTO> syncUntilHasRelationship(Session session) async {
   int retries = 0;
 
