@@ -12,7 +12,7 @@ jobs:
       - run: dart pub global activate melos
       - run: melos bootstrap
       - run: melos analyze
-      - run: melos run format
+      - run: melos format
 
   test:
     runs-on: ubuntu-latest
