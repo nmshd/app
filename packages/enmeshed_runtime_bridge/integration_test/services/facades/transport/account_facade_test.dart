@@ -160,7 +160,10 @@ void run(EnmeshedRuntime runtime) {
   group('Un-/RegisterPushNotificationToken', () {
     test('register push notification token with production environment', () async {
       final result = await session.transportServices.account.registerPushNotificationToken(
-          handle: 'handleLongerThan10Characters', platform: 'apns', appId: 'appId', environment: AccountFacadePushNotificationEnvironment.production);
+          handle: 'handleLongerThan10Characters',
+          platform: 'dummy',
+          appId: 'appId',
+          environment: AccountFacadePushNotificationEnvironment.production);
 
       expect(result, isSuccessful<RegisterPushNotificationTokenResponse>());
       final matcher = RegExp(r'^DPI[a-zA-Z0-9]{17}$');
@@ -170,7 +173,7 @@ void run(EnmeshedRuntime runtime) {
     test('register push notification token with development environment', () async {
       final result = await session.transportServices.account.registerPushNotificationToken(
           handle: 'handleLongerThan10Characters',
-          platform: 'apns',
+          platform: 'dummy',
           appId: 'appId',
           environment: AccountFacadePushNotificationEnvironment.development);
 
