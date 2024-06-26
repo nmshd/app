@@ -8,6 +8,7 @@ class LocalAccountDTO extends Equatable {
   final String directory;
   final int order;
   final String? lastAccessedAt;
+  final String? devicePushIdentitfier;
 
   const LocalAccountDTO({
     required this.id,
@@ -17,6 +18,7 @@ class LocalAccountDTO extends Equatable {
     required this.directory,
     required this.order,
     this.lastAccessedAt,
+    this.devicePushIdentitfier,
   });
 
   factory LocalAccountDTO.fromJson(Map json) {
@@ -28,6 +30,7 @@ class LocalAccountDTO extends Equatable {
       directory: json['directory'],
       order: json['order'].toInt(),
       lastAccessedAt: json['lastAccessedAt'],
+      devicePushIdentitfier: json['devicePushIdentitfier'],
     );
   }
 
@@ -40,9 +43,10 @@ class LocalAccountDTO extends Equatable {
       'directory': directory,
       'order': order,
       if (lastAccessedAt != null) 'lastAccessedAt': lastAccessedAt,
+      if (devicePushIdentitfier != null) 'devicePushIdentitfier': devicePushIdentitfier,
     };
   }
 
   @override
-  List<Object?> get props => [id, address, name, realm, directory, order];
+  List<Object?> get props => [id, address, name, realm, directory, order, lastAccessedAt, devicePushIdentitfier];
 }
