@@ -102,7 +102,7 @@ class FilesFacade {
     required List<int> content,
     required String filename,
     required String mimetype,
-    required String expiresAt,
+    String? expiresAt,
     required String title,
     String? description,
   }) async {
@@ -116,7 +116,7 @@ class FilesFacade {
           'content': content,
           'filename': filename,
           'mimetype': mimetype,
-          'expiresAt': expiresAt,
+          if (expiresAt != null) 'expiresAt': expiresAt,
           'title': title,
           if (description != null) 'description': description,
         },

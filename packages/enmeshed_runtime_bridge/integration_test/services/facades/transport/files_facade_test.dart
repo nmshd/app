@@ -83,6 +83,21 @@ void run(EnmeshedRuntime runtime) {
       expect(fileResult.value.title, 'aTitle');
       expect(fileResult.value.description, 'aDescription');
     });
+
+    test('should use default uploading own file without expiry date', () async {
+      final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
+
+      final fileResult = await session.transportServices.files.uploadOwnFile(
+        content: bytes,
+        filename: 'facades/test.txt',
+        mimetype: 'plain',
+        title: 'aTitle',
+      );
+
+      expect(fileResult, isSuccessful<FileDTO>());
+      const defaultExpiryDate = '9999-12-31T00:00:00.000Z';
+      expect(fileResult.value.expiresAt, defaultExpiryDate);
+    });
   });
 
   group('FilesFacade: getFiles', () {
