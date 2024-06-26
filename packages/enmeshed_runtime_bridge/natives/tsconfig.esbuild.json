@@ -1,8 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "paths": {
-      "bson": ["./node_modules/bson/src/"]
-    }
-  }
+  "compilerOptions": {}
 }
