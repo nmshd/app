@@ -1,4 +1,5 @@
 @Timeout(Duration(minutes: 10))
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 
