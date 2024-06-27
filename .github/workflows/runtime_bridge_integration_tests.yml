@@ -49,7 +49,10 @@ jobs:
           dart pub global activate melos
           melos bootstrap
       - name: Run integration tests
-        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=http://localhost:8090 --dart-define=app_clientId=dev --dart-define=app_clientSecret=dev
+        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=http://localhost:8090 --dart-define=app_clientId=test --dart-define=app_clientSecret=test
+      - name: Stop Backbone
+        run: docker compose -f .dev/compose.backbone.yml --env-file .dev/compose.backbone.env down
+        if: always()
 
   android:
     runs-on: ubuntu-latest
@@ -87,4 +90,7 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           arch: x86_64
           profile: pixel
-          script: cd packages/enmeshed_runtime_bridge && adb reverse tcp:8090 tcp:8090 && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=http://localhost:8090 --dart-define=app_clientId=dev --dart-define=app_clientSecret=dev
+          script: cd packages/enmeshed_runtime_bridge && adb reverse tcp:8090 tcp:8090 && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=http://localhost:8090 --dart-define=app_clientId=test --dart-define=app_clientSecret=test
+      - name: Stop Backbone
+        run: docker compose -f .dev/compose.backbone.yml --env-file .dev/compose.backbone.env down
+        if: always()
