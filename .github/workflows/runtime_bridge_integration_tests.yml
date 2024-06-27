@@ -15,6 +15,8 @@ jobs:
     runs-on: imhotep
     steps:
       - uses: actions/checkout@v4
+      - name: Start Backbone
+        run: docker compose -f .dev/compose.backbone.yml up -d
       - name: "List all simulators"
         run: "xcrun xctrace list devices"
       - name: "Start Simulator"
@@ -47,12 +49,14 @@ jobs:
           dart pub global activate melos
           melos bootstrap
       - name: Run integration tests
-        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=${{secrets.CNS_NMSHD_TEST_BASEURL}} --dart-define=app_clientId=${{secrets.CNS_NMSHD_TEST_CLIENTID}} --dart-define=app_clientSecret=${{secrets.CNS_NMSHD_TEST_CLIENTSECRET}}
+        run: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=http://localhost:8090 --dart-define=app_clientId=dev --dart-define=app_clientSecret=dev
 
   android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Start Backbone
+        run: docker compose -f .dev/compose.backbone.yml up -d
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -83,4 +87,4 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           arch: x86_64
           profile: pixel
-          script: cd packages/enmeshed_runtime_bridge && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=${{secrets.CNS_NMSHD_TEST_BASEURL}} --dart-define=app_clientId=${{secrets.CNS_NMSHD_TEST_CLIENTID}} --dart-define=app_clientSecret=${{secrets.CNS_NMSHD_TEST_CLIENTSECRET}}
+          script: cd packages/enmeshed_runtime_bridge && adb reverse tcp:8090 tcp:8090 && flutter test integration_test/suite_test.dart --dart-define=app_baseUrl=http://localhost:8090 --dart-define=app_clientId=dev --dart-define=app_clientSecret=dev
