@@ -9,13 +9,11 @@ class AccountServices {
   AccountServices(this._evaluator);
 
   Future<LocalAccountDTO> createAccount({
-    realm = 'id1',
     required String name,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.createAccount(realm, name)',
+      'return await runtime.accountServices.createAccount(name)',
       arguments: {
-        'realm': realm,
         'name': name,
       },
     );

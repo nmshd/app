@@ -5,43 +5,46 @@ void main() {
   group('RelationshipDTO toJson', () {
     test('is correctly converted', () {
       const dto = RelationshipDTO(
-        id: 'anId',
-        template: RelationshipTemplateDTO(
           id: 'anId',
-          isOwn: true,
-          createdBy: 'aCreatorAddress',
-          createdByDevice: 'aCreatorDeviceId',
-          createdAt: '2023',
-          content: RelationshipTemplateContent(
-            onNewRelationship: Request(items: [
-              CreateAttributeRequestItem(
-                mustBeAccepted: true,
-                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-              ),
-            ]),
-          ),
-          secretKey: 'aSecretKey',
-          truncatedReference: 'aTruncatedReference',
-        ),
-        status: RelationshipStatus.Active,
-        peer: 'aPeer',
-        peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey', realm: 'aRealm'),
-        changes: [
-          RelationshipChangeDTO(
+          template: RelationshipTemplateDTO(
             id: 'anId',
-            request: RelationshipChangeRequestDTO(
-              createdBy: 'aCreator',
-              createdByDevice: 'aCreatorDeviceId',
-              createdAt: '2023',
-              content: RelationshipCreationChangeRequestContent(
-                response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
-              ),
+            isOwn: true,
+            createdBy: 'aCreatorAddress',
+            createdByDevice: 'aCreatorDeviceId',
+            createdAt: '2023',
+            content: RelationshipTemplateContent(
+              onNewRelationship: Request(items: [
+                CreateAttributeRequestItem(
+                  mustBeAccepted: true,
+                  attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                ),
+              ]),
             ),
-            status: RelationshipChangeStatus.Accepted,
-            type: RelationshipChangeType.Creation,
+            secretKey: 'aSecretKey',
+            truncatedReference: 'aTruncatedReference',
           ),
-        ],
-      );
+          status: RelationshipStatus.Active,
+          peer: 'aPeer',
+          peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+          creationContent: RelationshipCreationContentContainingResponse(
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
+          ),
+          auditLog: [
+            RelationshipAuditLogEntryDTO(
+                createdAt: '2023',
+                createdBy: 'aRequestorAddress',
+                createdByDevice: 'aRequestorDevice',
+                reason: RelationshipAuditLogEntryReason.Creation,
+                newStatus: RelationshipStatus.Pending),
+            RelationshipAuditLogEntryDTO(
+                createdAt: '2023',
+                createdBy: 'aCreatorAddress',
+                createdByDevice: 'aCreatorDevice',
+                reason: RelationshipAuditLogEntryReason.AcceptanceOfCreation,
+                oldStatus: RelationshipStatus.Pending,
+                newStatus: RelationshipStatus.Active)
+          ]);
+
       final dtoJson = dto.toJson();
       expect(
         dtoJson,
@@ -66,22 +69,27 @@ void main() {
           ).toJson(),
           'status': 'Active',
           'peer': 'aPeer',
-          'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey', realm: 'aRealm').toJson(),
-          'changes': [
-            const RelationshipChangeDTO(
-              id: 'anId',
-              request: RelationshipChangeRequestDTO(
-                createdBy: 'aCreator',
-                createdByDevice: 'aCreatorDeviceId',
-                createdAt: '2023',
-                content: RelationshipCreationChangeRequestContent(
-                  response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
-                ),
-              ),
-              status: RelationshipChangeStatus.Accepted,
-              type: RelationshipChangeType.Creation,
-            ).toJson(),
-          ],
+          'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
+          'creationContent': const RelationshipCreationContentContainingResponse(
+            response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
+          ).toJson(),
+          'auditLog': [
+            {
+              'createdAt': '2023',
+              'createdBy': 'aRequestorAddress',
+              'createdByDevice': 'aRequestorDevice',
+              'reason': RelationshipAuditLogEntryReason.Creation,
+              'newStatus': RelationshipStatus.Pending
+            },
+            {
+              'createdAt': '2023',
+              'createdBy': 'aCreatorAddress',
+              'createdByDevice': 'aCreatorDevice',
+              'reason': RelationshipAuditLogEntryReason.AcceptanceOfCreation,
+              'oldStatus': RelationshipStatus.Pending,
+              'newStatus': RelationshipStatus.Active
+            }
+          ]
         }),
       );
     });
@@ -110,63 +118,70 @@ void main() {
         ).toJson(),
         'status': 'Active',
         'peer': 'aPeer',
-        'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey', realm: 'aRealm').toJson(),
-        'changes': [
-          const RelationshipChangeDTO(
-            id: 'anId',
-            request: RelationshipChangeRequestDTO(
-              createdBy: 'aCreator',
-              createdByDevice: 'aCreatorDeviceId',
-              createdAt: '2023',
-              content: RelationshipCreationChangeRequestContent(
-                response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
-              ),
-            ),
-            status: RelationshipChangeStatus.Accepted,
-            type: RelationshipChangeType.Creation,
-          ).toJson(),
-        ],
+        'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
+        'creationContent': const RelationshipCreationContentContainingResponse(
+          response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
+        ).toJson(),
+        'auditLog': [
+          {
+            'createdAt': '2023',
+            'createdBy': 'aRequestorAddress',
+            'createdByDevice': 'aRequestorDevice',
+            'reason': RelationshipAuditLogEntryReason.Creation,
+            'newStatus': RelationshipStatus.Pending
+          },
+          {
+            'createdAt': '2023',
+            'createdBy': 'aCreatorAddress',
+            'createdByDevice': 'aCreatorDevice',
+            'reason': RelationshipAuditLogEntryReason.AcceptanceOfCreation,
+            'oldStatus': RelationshipStatus.Pending,
+            'newStatus': RelationshipStatus.Active
+          }
+        ]
       };
       expect(
         RelationshipDTO.fromJson(json),
         equals(const RelationshipDTO(
-          id: 'anId',
-          template: RelationshipTemplateDTO(
             id: 'anId',
-            isOwn: true,
-            createdBy: 'aCreatorAddress',
-            createdByDevice: 'aCreatorDeviceId',
-            createdAt: '2023',
-            content: RelationshipTemplateContent(
-              onNewRelationship: Request(items: [
-                CreateAttributeRequestItem(
-                  mustBeAccepted: true,
-                  attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-                ),
-              ]),
-            ),
-            secretKey: 'aSecretKey',
-            truncatedReference: 'aTruncatedReference',
-          ),
-          status: RelationshipStatus.Active,
-          peer: 'aPeer',
-          peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey', realm: 'aRealm'),
-          changes: [
-            RelationshipChangeDTO(
+            template: RelationshipTemplateDTO(
               id: 'anId',
-              request: RelationshipChangeRequestDTO(
-                createdBy: 'aCreator',
-                createdByDevice: 'aCreatorDeviceId',
-                createdAt: '2023',
-                content: RelationshipCreationChangeRequestContent(
-                  response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
-                ),
+              isOwn: true,
+              createdBy: 'aCreatorAddress',
+              createdByDevice: 'aCreatorDeviceId',
+              createdAt: '2023',
+              content: RelationshipTemplateContent(
+                onNewRelationship: Request(items: [
+                  CreateAttributeRequestItem(
+                    mustBeAccepted: true,
+                    attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                  ),
+                ]),
               ),
-              status: RelationshipChangeStatus.Accepted,
-              type: RelationshipChangeType.Creation,
+              secretKey: 'aSecretKey',
+              truncatedReference: 'aTruncatedReference',
             ),
-          ],
-        )),
+            status: RelationshipStatus.Active,
+            peer: 'aPeer',
+            peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+            creationContent: RelationshipCreationContentContainingResponse(
+              response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
+            ),
+            auditLog: [
+              RelationshipAuditLogEntryDTO(
+                  createdAt: '2023',
+                  createdBy: 'aRequestorAddress',
+                  createdByDevice: 'aRequestorDevice',
+                  reason: RelationshipAuditLogEntryReason.Creation,
+                  newStatus: RelationshipStatus.Pending),
+              RelationshipAuditLogEntryDTO(
+                  createdAt: '2023',
+                  createdBy: 'aCreatorAddress',
+                  createdByDevice: 'aCreatorDevice',
+                  reason: RelationshipAuditLogEntryReason.AcceptanceOfCreation,
+                  oldStatus: RelationshipStatus.Pending,
+                  newStatus: RelationshipStatus.Active)
+            ])),
       );
     });
   });

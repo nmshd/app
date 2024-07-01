@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum LocalResponseSourceType { Message, RelationshipChange }
+enum LocalResponseSourceType { Message, Relationship }
 
 class LocalResponseSourceDTO extends Equatable {
   final LocalResponseSourceType type;

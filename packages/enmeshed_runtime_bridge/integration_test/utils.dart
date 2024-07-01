@@ -29,7 +29,7 @@ Future<RelationshipDTO> establishRelationship({required Session requestor, requi
 
   final relationship = await requestor.transportServices.relationships.createRelationship(
     templateId: template.id,
-    content: {'a': 'b'},
+    creationContent: {'a': 'b'},
   );
 
   return relationship.value;
@@ -113,11 +113,29 @@ Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session sessi
   }
   if (relationships.first.status == RelationshipStatus.Pending) {
     final relationship = relationships.first;
-    await session1.transportServices.relationships.acceptRelationshipChange(
-      relationshipId: relationship.id,
-      changeId: relationship.changes.first.id,
-      content: {},
-    );
+    await session1.transportServices.relationships.acceptRelationship(relationshipId: relationship.id);
+    await syncUntilHasRelationship(session2);
+  }
+  return (await session1.transportServices.relationships.getRelationships()).value.first;
+}
+
+Future<RelationshipDTO> ensureTerminatedRelationship(Session session1, Session session2) async {
+  final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
+  List<RelationshipDTO> relationships =
+      (await session1.transportServices.relationships.getRelationships(query: {'peer': QueryValue.string(session2Address)})).value;
+
+  if (relationships.isEmpty) {
+    await establishRelationshipBetweenSessionsAndSync(session1, session2);
+    relationships = (await session1.transportServices.relationships.getRelationships(query: {'peer': QueryValue.string(session2Address)})).value;
+  }
+  final relationship = relationships.first;
+  if (relationships.first.status == RelationshipStatus.Pending) {
+    await session1.transportServices.relationships.acceptRelationship(relationshipId: relationship.id);
+    await session1.transportServices.relationships.terminateRelationship(relationshipId: relationship.id);
+    await syncUntilHasRelationship(session2);
+  }
+  if (relationships.first.status == RelationshipStatus.Active) {
+    await session1.transportServices.relationships.terminateRelationship(relationshipId: relationship.id);
     await syncUntilHasRelationship(session2);
   }
   return (await session1.transportServices.relationships.getRelationships()).value.first;
@@ -135,7 +153,7 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
 
   final createRelationshipResult = await session2.transportServices.relationships.createRelationship(
     templateId: connectorLoadTemplateResult.value.id,
-    content: {'a': 'b'},
+    creationContent: {'a': 'b'},
   );
   assert(createRelationshipResult.isSuccess);
 
