@@ -9,8 +9,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
-import 'package:path/path.dart' as path_lib;
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:push/push.dart';
 import 'package:renderers/renderers.dart';
@@ -61,8 +59,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _init(GoRouter router) async {
     await GetIt.I.reset();
-
-    if (Platform.isAndroid) await _moveOldAppVersionFiles();
 
     // TODO(jkoenig134): we should probably ask for permission when we need it
     await Permission.camera.request();
@@ -123,32 +119,5 @@ class _SplashScreenState extends State<SplashScreen> {
     if (initialAppLink != null) {
       await GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: initialAppLink.toString());
     }
-  }
-
-  Future<void> _moveOldAppVersionFiles() async {
-    // make sure that this function is not mistakenly called on a non-android platform
-    if (!Platform.isAndroid) return;
-
-    final documentsDirectory = await getApplicationDocumentsDirectory();
-
-    // old apps data is stored in /data/user/0/<package-id>/files/files/data
-    // flutter resolves getApplicationDocumentsDirectory as /data/user/0/<package-id>/app_flutter
-    final oldDataDirectory = Directory(path_lib.join(documentsDirectory.parent.path, 'files/files/data'));
-    if (!oldDataDirectory.existsSync()) return;
-
-    final newDirectory = Directory(path_lib.join(documentsDirectory.path, 'data'));
-    if (newDirectory.existsSync()) return;
-
-    await newDirectory.create();
-
-    await for (final entity in oldDataDirectory.list(recursive: true)) {
-      if (entity is File) {
-        final newPath = path_lib.join(newDirectory.path, path_lib.relative(entity.path, from: oldDataDirectory.path));
-        File(newPath).createSync(recursive: true);
-        await entity.copy(newPath);
-      }
-    }
-
-    await oldDataDirectory.delete(recursive: true);
   }
 }

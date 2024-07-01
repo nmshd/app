@@ -1,4 +1,5 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_runtime_bridge/src/services/facades/transport/account_facade.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -153,5 +154,39 @@ void run(EnmeshedRuntime runtime) {
 
     //TODO: add test for Token
     //TODO: add test for DeviceOnboardingInfo
+  });
+
+  group('Un-/RegisterPushNotificationToken', () {
+    test('register push notification token with production environment', () async {
+      final result = await session.transportServices.account.registerPushNotificationToken(
+        handle: 'handleLongerThan10Characters',
+        platform: 'dummy',
+        appId: 'appId',
+        environment: AccountFacadePushNotificationEnvironment.production,
+      );
+
+      expect(result, isSuccessful<RegisterPushNotificationTokenResponse>());
+      final matcher = RegExp(r'^DPI[a-zA-Z0-9]{17}$');
+      expect(matcher.hasMatch(result.value.devicePushIdentifier), true);
+    });
+
+    test('register push notification token with development environment', () async {
+      final result = await session.transportServices.account.registerPushNotificationToken(
+        handle: 'handleLongerThan10Characters',
+        platform: 'dummy',
+        appId: 'appId',
+        environment: AccountFacadePushNotificationEnvironment.development,
+      );
+
+      expect(result, isSuccessful<RegisterPushNotificationTokenResponse>());
+      final matcher = RegExp(r'^DPI[a-zA-Z0-9]{17}$');
+      expect(matcher.hasMatch(result.value.devicePushIdentifier), true);
+    });
+
+    test('unregister push notification token', () async {
+      final result = await session.transportServices.account.unregisterPushNotificationToken();
+
+      expect(result, isSuccessful());
+    });
   });
 }

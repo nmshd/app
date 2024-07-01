@@ -129,7 +129,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
   final String? requestReference;
   final String? notificationReference;
   final String? sourceAttribute;
-  final List<String> tags;
+  final List<String>? tags;
   final String? deletionDate;
   final String? deletionStatus;
 
@@ -143,7 +143,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    required this.tags,
+    this.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -171,7 +171,7 @@ class PeerAttributeDVO extends LocalAttributeDVO {
   final String peer;
   final String? requestReference;
   final String? notificationReference;
-  final List<String> tags;
+  final List<String>? tags;
   final String? deletionDate;
   final String? deletionStatus;
 
@@ -197,7 +197,7 @@ class PeerAttributeDVO extends LocalAttributeDVO {
     required this.peer,
     this.requestReference,
     this.notificationReference,
-    required this.tags,
+    this.tags,
     this.deletionDate,
     this.deletionStatus,
   }) : super(type: 'PeerAttributeDVO', isOwn: false);
@@ -319,9 +319,9 @@ class PeerRelationshipAttributeDVO extends RelationshipAttributeDVO {
     super.succeededBy,
     required super.key,
     required super.peer,
-    required requestReference,
-    required notificationReference,
-    required sourceAttribute,
+    super.requestReference,
+    super.notificationReference,
+    super.sourceAttribute,
     required super.confidentiality,
     required super.isTechnical,
     super.deletionDate,
