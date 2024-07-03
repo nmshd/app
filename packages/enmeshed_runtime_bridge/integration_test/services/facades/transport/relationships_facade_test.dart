@@ -115,7 +115,7 @@ void run(EnmeshedRuntime runtime) {
 
       final result = await session1.transportServices.relationships.createRelationship(
         templateId: item.value.relationshipTemplateValue.id,
-        content: {},
+        creationContent: {},
       );
 
       expect(result, isFailing('error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate'));

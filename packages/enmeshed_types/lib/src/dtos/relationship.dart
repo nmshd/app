@@ -80,9 +80,9 @@ class RelationshipAuditLogEntryDTO extends Equatable {
       createdAt: json['createdAt'],
       createdBy: json['createdBy'],
       createdByDevice: json['createdByDevice'],
-      reason: json['reason'],
-      oldStatus: json['oldStatus'],
-      newStatus: json['newStatus']);
+      reason: RelationshipAuditLogEntryReason.values.byName(json['reason']),
+      oldStatus: json['oldStatus'] == null ? null : RelationshipStatus.values.byName(json['oldStatus']),
+      newStatus: RelationshipStatus.values.byName(json['newStatus']));
 
   Map<String, dynamic> toJson() => {
         'createdAt': createdAt,
