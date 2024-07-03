@@ -84,14 +84,18 @@ class RelationshipAuditLogEntryDTO extends Equatable {
       oldStatus: json['oldStatus'] == null ? null : RelationshipStatus.values.byName(json['oldStatus']),
       newStatus: RelationshipStatus.values.byName(json['newStatus']));
 
-  Map<String, dynamic> toJson() => {
-        'createdAt': createdAt,
-        'createdBy': createdBy,
-        'createdByDevice': createdByDevice,
-        'reason': reason,
-        if (oldStatus != null) 'oldStatus': oldStatus,
-        'newStatus': newStatus,
-      };
+  Map<String, dynamic> toJson() {
+    final json = <String, dynamic>{
+      'createdAt': createdAt,
+      'createdBy': createdBy,
+      'createdByDevice': createdByDevice,
+      'reason': reason.name,
+      'oldStatus': oldStatus?.name,
+      'newStatus': newStatus.name,
+    };
+    json.removeWhere((key, value) => value == null);
+    return json;
+  }
 
   @override
   List<Object?> get props => [createdAt, createdBy, createdByDevice, reason, oldStatus, newStatus];

@@ -78,16 +78,16 @@ void main() {
               'createdAt': '2023',
               'createdBy': 'aRequestorAddress',
               'createdByDevice': 'aRequestorDevice',
-              'reason': RelationshipAuditLogEntryReason.Creation,
-              'newStatus': RelationshipStatus.Pending
+              'reason': 'Creation',
+              'newStatus': 'Pending'
             },
             {
               'createdAt': '2023',
               'createdBy': 'aCreatorAddress',
               'createdByDevice': 'aCreatorDevice',
-              'reason': RelationshipAuditLogEntryReason.AcceptanceOfCreation,
-              'oldStatus': RelationshipStatus.Pending,
-              'newStatus': RelationshipStatus.Active
+              'reason': 'AcceptanceOfCreation',
+              'oldStatus': 'Pending',
+              'newStatus': 'Active'
             }
           ]
         }),
@@ -127,16 +127,16 @@ void main() {
             'createdAt': '2023',
             'createdBy': 'aRequestorAddress',
             'createdByDevice': 'aRequestorDevice',
-            'reason': RelationshipAuditLogEntryReason.Creation,
-            'newStatus': RelationshipStatus.Pending
+            'reason': 'Creation',
+            'newStatus': 'Pending'
           },
           {
             'createdAt': '2023',
             'createdBy': 'aCreatorAddress',
             'createdByDevice': 'aCreatorDevice',
-            'reason': RelationshipAuditLogEntryReason.AcceptanceOfCreation,
-            'oldStatus': RelationshipStatus.Pending,
-            'newStatus': RelationshipStatus.Active
+            'reason': 'AcceptanceOfCreation',
+            'oldStatus': 'Pending',
+            'newStatus': 'Active'
           }
         ]
       };
