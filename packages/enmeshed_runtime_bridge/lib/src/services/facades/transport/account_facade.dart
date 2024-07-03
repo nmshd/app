@@ -39,9 +39,9 @@ class AccountFacade {
     return Result.fromJson(value, (x) => DeviceDTO.fromJson(x));
   }
 
-  Future<VoidResult> registerPushNotificationToken({
+  Future<Result<RegisterPushNotificationTokenResponse>> registerPushNotificationToken({
     required String handle,
-    required String installationId,
+    required String appId,
     required String platform,
 
     /// will only be used for iOS, defaults to 'production' if not provided
@@ -54,7 +54,7 @@ class AccountFacade {
       arguments: {
         'request': {
           'handle': handle,
-          'installationId': installationId,
+          'appId': appId,
           'platform': platform,
           if (environment != null) 'environment': environment.name,
         },
@@ -62,7 +62,7 @@ class AccountFacade {
     );
 
     final value = result.valueToMap();
-    return VoidResult.fromJson(value);
+    return Result.fromJson(value, (x) => RegisterPushNotificationTokenResponse.fromJson(x));
   }
 
   Future<VoidResult> unregisterPushNotificationToken() async {

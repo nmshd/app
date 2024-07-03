@@ -1,0 +1,129 @@
+services:
+  consumer-api:
+    image: ghcr.io/nmshd/backbone-consumer-api:${BACKBONE_VERSION}
+    container_name: consumer-api
+    hostname: consumer-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8090:8080"
+    depends_on:
+      database:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      seed-database:
+        condition: service_completed_successfully
+      azure-storage-emulator:
+        condition: service_started
+      database-migrator:
+        condition: service_completed_successfully
+    configs:
+      - source: Config
+        target: app/appsettings.override.json
+
+  event-handler-service:
+    image: ghcr.io/nmshd/backbone-event-handler:${BACKBONE_VERSION}
+    container_name: event-handler-service
+    depends_on:
+      database:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      database-migrator:
+        condition: service_completed_successfully
+    configs:
+      - source: Config
+        target: app/appsettings.override.json
+
+  admin-ui:
+    image: ghcr.io/nmshd/backbone-admin-ui:${BACKBONE_VERSION}
+    container_name: admin-ui
+    hostname: admin-ui
+    ports:
+      - "8091:8080"
+    depends_on:
+      database:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      consumer-api:
+        condition: service_healthy
+      database-migrator:
+        condition: service_completed_successfully
+    configs:
+      - source: Config
+        target: app/appsettings.override.json
+
+  database-migrator:
+    container_name: database-migrator-test
+    image: ghcr.io/nmshd/backbone-database-migrator:${BACKBONE_VERSION}
+    depends_on:
+      seed-database:
+        condition: service_completed_successfully
+    environment:
+      Infrastructure__SqlDatabase__Provider: Postgres
+      Infrastructure__SqlDatabase__ConnectionString: "Server=postgres;Database=enmeshed;User Id=postgres;Password=Passw0rd;Port=5432"
+      ASPNETCORE_ENVIRONMENT: Development
+    configs:
+      - source: Config
+        target: app/appsettings.override.json
+
+  ### infrastructure ###
+
+  database:
+    container_name: bkb-postgres
+    hostname: postgres
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=Passw0rd
+      - POSTGRES_DB=enmeshed
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  azure-storage-emulator:
+    container_name: azure-storage-emulator
+    hostname: azurite
+    image: mcr.microsoft.com/azure-storage/azurite
+    command: azurite -d /data/debug.log -l /data --blobHost "0.0.0.0" --queueHost "0.0.0.0"
+    ports:
+      - "10000:10000"
+
+  rabbitmq:
+    container_name: bkb-rabbitmq
+    hostname: rabbitmq
+    image: rabbitmq:3.12.10-management-alpine
+    ports:
+      - "5672:5672"
+
+  ### seeds ###
+
+  seed-database:
+    container_name: seed-database
+    image: postgres
+    environment:
+      - PGPASSWORD=Passw0rd
+    command: /bin/bash -c 'env && apt update -y && apt install -y wget && wget https://raw.githubusercontent.com/nmshd/backbone/${BACKBONE_VERSION}/setup-db/setup-postgres.sql -O /setup-postgres.sql && psql -h postgres -U postgres -d enmeshed -f /setup-postgres.sql'
+    depends_on:
+      database:
+        condition: service_healthy
+
+  seed-client:
+    container_name: seed-client
+    image: ghcr.io/nmshd/backbone-admin-cli:${BACKBONE_VERSION}
+    depends_on:
+      consumer-api:
+        condition: service_healthy
+    command: backbone client create --clientId test --clientSecret test --defaultTier Basic
+    environment:
+      Database__Provider: Postgres
+      Database__ConnectionString: "Server=postgres;Database=enmeshed;User Id=devices;Password=Passw0rd;Port=5432"
+
+configs:
+  Config:
+    file: appsettings.override.json
