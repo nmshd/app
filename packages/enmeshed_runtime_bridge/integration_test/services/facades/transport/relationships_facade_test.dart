@@ -100,6 +100,26 @@ void run(EnmeshedRuntime runtime) {
 
       expect(relationshipResult, isSuccessful<RelationshipDTO>());
     });
+
+    test('returns error if templator has active IdentityDeletionProcess', () async {
+      final responseTemplate = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+        expiresAt: generateExpiryString(),
+        content: {},
+      );
+
+      final item = await session1.transportServices.account.loadItemFromTruncatedReference(
+        reference: responseTemplate.value.truncatedReference,
+      );
+
+      await session2.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
+
+      final result = await session1.transportServices.relationships.createRelationship(
+        templateId: item.value.relationshipTemplateValue.id,
+        content: {},
+      );
+
+      expect(result, isFailing('error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate'));
+    });
   });
 
   group('RelationshipsFacade: acceptRelationship', () {
