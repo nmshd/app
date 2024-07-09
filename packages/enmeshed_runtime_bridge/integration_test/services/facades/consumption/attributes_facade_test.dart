@@ -894,7 +894,7 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: senderAddress, thirdParty: [thirdPartyAddress]);
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: 'recipient', thirdParty: [thirdPartyAddress]);
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
@@ -1108,7 +1108,7 @@ void run(EnmeshedRuntime runtime) {
       );
 
       final receivedAttributeResult = await recipient.consumptionServices.attributes.executeThirdPartyRelationshipAttributeQuery(
-        query: ThirdPartyRelationshipAttributeQuery(key: 'website', owner: account1.address!, thirdParty: [account1.address!]),
+        query: ThirdPartyRelationshipAttributeQuery(key: 'website', owner: 'thirdParty', thirdParty: [account1.address!]),
       );
 
       expect(receivedAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
@@ -1609,7 +1609,7 @@ void run(EnmeshedRuntime runtime) {
       final senderOwnSharedRelationshipAttribute =
           (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
 
-      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: 'thirdParty', thirdParty: [thirdPartyAddress]);
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
@@ -1639,7 +1639,7 @@ void run(EnmeshedRuntime runtime) {
       final senderOwnSharedRelationshipAttribute =
           (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
 
-      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: 'thirdParty', thirdParty: [thirdPartyAddress]);
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
@@ -1672,7 +1672,7 @@ void run(EnmeshedRuntime runtime) {
       final senderOwnSharedRelationshipAttribute =
           (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
 
-      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: 'thirdParty', thirdParty: [thirdPartyAddress]);
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
@@ -1715,7 +1715,7 @@ void run(EnmeshedRuntime runtime) {
       final senderOwnSharedRelationshipAttribute =
           (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnSharedRelationshipAttribute.id)).value;
 
-      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: thirdPartyAddress, thirdParty: [thirdPartyAddress]);
+      final query = ThirdPartyRelationshipAttributeQuery(key: 'aKey', owner: 'thirdParty', thirdParty: [thirdPartyAddress]);
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyOwnedRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
