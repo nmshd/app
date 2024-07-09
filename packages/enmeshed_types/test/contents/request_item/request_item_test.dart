@@ -6,7 +6,6 @@ void main() {
     test('parsed valid RequestItemGroup', () {
       final requestItemGroupJson = {
         '@type': 'RequestItemGroup',
-        'mustBeAccepted': true,
         'items': [],
       };
       final requestItemGroup = RequestItem.fromJson(requestItemGroupJson);
@@ -80,7 +79,7 @@ class MockRequestItem extends RequestItem {
     super.title,
     super.description,
     super.metadata,
-    required super.mustBeAccepted,
+    required mustBeAccepted,
   });
 
   @override
