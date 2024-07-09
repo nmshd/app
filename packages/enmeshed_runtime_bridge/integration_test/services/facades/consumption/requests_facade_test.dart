@@ -300,7 +300,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.accept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
