@@ -22,7 +22,6 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
       theme: json['theme'] == null ? null : RelationshipTheme.fromJson(json['theme'] as Map<String, dynamic>),
       creationContent: RelationshipCreationContent.fromJson(json['creationContent'] as Map<String, dynamic>),
       auditLog: (json['auditLog'] as List<dynamic>).map((e) => RelationshipAuditLogEntryDTO.fromJson(e as Map<String, dynamic>)).toList(),
-      changeCount: const IntegerConverter().fromJson(json['changeCount']),
       items: (json['items'] as List<dynamic>).map((e) => LocalAttributeDVO.fromJson(e as Map<String, dynamic>)).toList(),
       attributeMap: (json['attributeMap'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, (e as List<dynamic>).map((e) => LocalAttributeDVO.fromJson(e as Map<String, dynamic>)).toList()),
@@ -56,7 +55,6 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
   writeNotNull('theme', instance.theme?.toJson());
   val['creationContent'] = instance.creationContent.toJson();
   val['auditLog'] = instance.auditLog.map((e) => e.toJson()).toList();
-  writeNotNull('changeCount', const IntegerConverter().toJson(instance.changeCount));
   val['items'] = instance.items.map((e) => e.toJson()).toList();
   val['attributeMap'] = instance.attributeMap.map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList()));
   val['nameMap'] = instance.nameMap;

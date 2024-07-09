@@ -2,8 +2,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../integer_converter.dart';
-
 part 'relationship_dvo.g.dart';
 
 enum RelationshipDirection { Incoming, Outgoing }
@@ -17,8 +15,6 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
   final RelationshipTheme? theme;
   final RelationshipCreationContent creationContent;
   final List<RelationshipAuditLogEntryDTO> auditLog;
-  @IntegerConverter()
-  final int changeCount;
   final List<LocalAttributeDVO> items;
   final Map<String, List<LocalAttributeDVO>> attributeMap;
   final Map<String, String> nameMap;
@@ -40,7 +36,6 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
     this.theme,
     required this.creationContent,
     required this.auditLog,
-    required this.changeCount,
     required this.items,
     required this.attributeMap,
     required this.nameMap,
