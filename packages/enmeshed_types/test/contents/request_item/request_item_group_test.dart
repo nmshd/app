@@ -102,7 +102,6 @@ void main() {
     test('is correctly converted with property "metadata', () {
       final json = {
         'metadata': {'aKey': 'aValue'},
-        'mustBeAccepted': true,
         'items': [],
       };
       expect(RequestItemGroup.fromJson(json), equals(const RequestItemGroup(metadata: {'aKey': 'aValue'}, items: [])));
