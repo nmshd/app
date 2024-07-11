@@ -6,11 +6,11 @@ import 'transformers.dart';
 class RelationshipsEndpoint extends Endpoint {
   RelationshipsEndpoint(super.dio);
 
-  Future<ConnectorResponse<RelationshipDTO>> createRelationship({required String templateId, required Map<String, dynamic> content}) => post(
+  Future<ConnectorResponse<RelationshipDTO>> createRelationship({required String templateId, required Map<String, dynamic> creationContent}) => post(
         '/api/v2/Relationships',
         data: {
           'templateId': templateId,
-          'content': content,
+          'content': creationContent,
         },
         transformer: relationshipTransformer,
       );
@@ -25,25 +25,39 @@ class RelationshipsEndpoint extends Endpoint {
         '/api/v2/Relationships/$relationshipId',
         transformer: relationshipTransformer,
       );
-  Future<ConnectorResponse<RelationshipDTO>> acceptRelationshipChange({
-    required String relationshipId,
-    required String changeId,
-    required Map<String, dynamic> content,
-  }) =>
-      put(
-        '/api/v2/Relationships/$relationshipId/Changes/$changeId/Accept',
-        data: {'content': content},
+
+  Future<ConnectorResponse<RelationshipDTO>> acceptRelationship(String relationshipId) => put(
+        '/api/v2/Relationships/$relationshipId/Accept',
         transformer: relationshipTransformer,
       );
 
-  Future<ConnectorResponse<RelationshipDTO>> rejectRelationshipChange({
-    required String relationshipId,
-    required String changeId,
-    required Map<String, dynamic> content,
-  }) =>
-      put(
-        '/api/v2/Relationships/$relationshipId/Changes/$changeId/Reject',
-        data: {'content': content},
+  Future<ConnectorResponse<RelationshipDTO>> rejectRelationship(String relationshipId) => put(
+        '/api/v2/Relationships/$relationshipId/Reject',
+        transformer: relationshipTransformer,
+      );
+
+  Future<ConnectorResponse<RelationshipDTO>> revokeRelationship(String relationshipId) => put(
+        '/api/v2/Relationships/$relationshipId/Revoke',
+        transformer: relationshipTransformer,
+      );
+
+  Future<ConnectorResponse<RelationshipDTO>> requestRelationshipReactivation(String relationshipId) => put(
+        '/api/v2/Relationships/$relationshipId/Reactivate',
+        transformer: relationshipTransformer,
+      );
+
+  Future<ConnectorResponse<RelationshipDTO>> acceptRelationshipReactivation(String relationshipId) => put(
+        '/api/v2/Relationships/$relationshipId/Reactivate/Accept',
+        transformer: relationshipTransformer,
+      );
+
+  Future<ConnectorResponse<RelationshipDTO>> rejectRelationshipReactivation(String relationshipId) => put(
+        '/api/v2/Relationships/$relationshipId/Reactivate/Reject',
+        transformer: relationshipTransformer,
+      );
+
+  Future<ConnectorResponse<RelationshipDTO>> revokeRelationshipReactivation(String relationshipId) => put(
+        '/api/v2/Relationships/$relationshipId/Reactivate/Revoke',
         transformer: relationshipTransformer,
       );
 
