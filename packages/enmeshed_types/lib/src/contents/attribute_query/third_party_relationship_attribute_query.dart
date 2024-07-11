@@ -23,7 +23,7 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
       owner: json['owner'] == ''
           ? ThirdPartyRelationshipAttributeQueryOwner.empty
           : ThirdPartyRelationshipAttributeQueryOwner.values.byName(json['owner']),
-      thirdParty: (json['thirdParty'] as List<String>).map((e) => e).toList(),
+      thirdParty: (json['thirdParty'] as List<dynamic>).map((e) => e as String).toList(),
       validFrom: json['validTo'],
       validTo: json['validTo'],
     );
