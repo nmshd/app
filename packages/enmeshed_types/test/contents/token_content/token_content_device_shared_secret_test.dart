@@ -52,7 +52,6 @@ void main() {
           'identity': {
             'address': 'anAddress',
             'publicKey': {'a': 'b'},
-            'realm': 'aRealm',
           },
           'password': 'aPassword',
           'username': 'aUsername',
