@@ -23,8 +23,8 @@ void run(EnmeshedRuntime runtime) {
       final identityInfoResult = await session.transportServices.account.getIdentityInfo();
 
       expect(identityInfoResult, isSuccessful<GetIdentityInfoResponse>());
-      expect(identityInfoResult.value.address.length, greaterThanOrEqualTo(35));
-      expect(identityInfoResult.value.address, contains('did:e:'));
+      final RegExp regExp = RegExp(r'^did:e:[a-zA-Z0-9.-]+:dids:[0-9a-f]{22}$');
+      expect(regExp.hasMatch(identityInfoResult.value.address), true);
       expect(identityInfoResult.value.publicKey.length, equals(82));
     });
   });
