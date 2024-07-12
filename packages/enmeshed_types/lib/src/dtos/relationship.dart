@@ -38,13 +38,14 @@ class RelationshipDTO extends Equatable {
   });
 
   factory RelationshipDTO.fromJson(Map json) => RelationshipDTO(
-      id: json['id'],
-      template: RelationshipTemplateDTO.fromJson(json['template']),
-      status: RelationshipStatus.values.byName(json['status']),
-      peer: json['peer'],
-      peerIdentity: IdentityDTO.fromJson(json['peerIdentity']),
-      creationContent: RelationshipCreationContentDerivation.fromJson(json['creationContent']),
-      auditLog: List<RelationshipAuditLogEntryDTO>.from(json['auditLog'].map((x) => RelationshipAuditLogEntryDTO.fromJson(x))));
+        id: json['id'],
+        template: RelationshipTemplateDTO.fromJson(json['template']),
+        status: RelationshipStatus.values.byName(json['status']),
+        peer: json['peer'],
+        peerIdentity: IdentityDTO.fromJson(json['peerIdentity']),
+        creationContent: RelationshipCreationContentDerivation.fromJson(json['creationContent']),
+        auditLog: List<RelationshipAuditLogEntryDTO>.from(json['auditLog'].map((x) => RelationshipAuditLogEntryDTO.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -77,12 +78,13 @@ class RelationshipAuditLogEntryDTO extends Equatable {
       required this.newStatus});
 
   factory RelationshipAuditLogEntryDTO.fromJson(Map json) => RelationshipAuditLogEntryDTO(
-      createdAt: json['createdAt'],
-      createdBy: json['createdBy'],
-      createdByDevice: json['createdByDevice'],
-      reason: RelationshipAuditLogEntryReason.values.byName(json['reason']),
-      oldStatus: json['oldStatus'] == null ? null : RelationshipStatus.values.byName(json['oldStatus']),
-      newStatus: RelationshipStatus.values.byName(json['newStatus']));
+        createdAt: json['createdAt'],
+        createdBy: json['createdBy'],
+        createdByDevice: json['createdByDevice'],
+        reason: RelationshipAuditLogEntryReason.values.byName(json['reason']),
+        oldStatus: json['oldStatus'] == null ? null : RelationshipStatus.values.byName(json['oldStatus']),
+        newStatus: RelationshipStatus.values.byName(json['newStatus']),
+      );
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{
