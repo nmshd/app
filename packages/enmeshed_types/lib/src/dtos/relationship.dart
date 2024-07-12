@@ -1,4 +1,4 @@
-import 'package:enmeshed_types/src/contents/relationship_creation_content/relationship_creation_content.dart';
+import 'package:enmeshed_types/src/contents/relationship_creation_content/relationship_creation_content_derivation.dart';
 import 'package:equatable/equatable.dart';
 
 import 'identity.dart';
@@ -24,7 +24,7 @@ class RelationshipDTO extends Equatable {
   final RelationshipStatus status;
   final String peer;
   final IdentityDTO peerIdentity;
-  final RelationshipCreationContent creationContent;
+  final RelationshipCreationContentDerivation creationContent;
   final List<RelationshipAuditLogEntryDTO> auditLog;
 
   const RelationshipDTO({
@@ -43,7 +43,7 @@ class RelationshipDTO extends Equatable {
       status: RelationshipStatus.values.byName(json['status']),
       peer: json['peer'],
       peerIdentity: IdentityDTO.fromJson(json['peerIdentity']),
-      creationContent: RelationshipCreationContent.fromJson(json['creationContent']),
+      creationContent: RelationshipCreationContentDerivation.fromJson(json['creationContent']),
       auditLog: List<RelationshipAuditLogEntryDTO>.from(json['auditLog'].map((x) => RelationshipAuditLogEntryDTO.fromJson(x))));
 
   Map<String, dynamic> toJson() => {

@@ -28,7 +28,7 @@ void main() {
           status: RelationshipStatus.Active,
           peer: 'aPeer',
           peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-          creationContent: RelationshipCreationContentContainingResponse(
+          creationContent: RelationshipCreationContent(
             response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
           ),
           auditLog: [
@@ -74,7 +74,7 @@ void main() {
               'status': 'Active',
               'peer': 'aPeer',
               'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
-              'creationContent': const RelationshipCreationContentContainingResponse(
+              'creationContent': const RelationshipCreationContent(
                 response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
               ).toJson(),
               'auditLog': [
@@ -125,7 +125,7 @@ void main() {
         'status': 'Active',
         'peer': 'aPeer',
         'peerIdentity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
-        'creationContent': const RelationshipCreationContentContainingResponse(
+        'creationContent': const RelationshipCreationContent(
           response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
         ).toJson(),
         'auditLog': [
@@ -171,7 +171,7 @@ void main() {
             status: RelationshipStatus.Active,
             peer: 'aPeer',
             peerIdentity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-            creationContent: RelationshipCreationContentContainingResponse(
+            creationContent: RelationshipCreationContent(
               response: Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]),
             ),
             auditLog: [

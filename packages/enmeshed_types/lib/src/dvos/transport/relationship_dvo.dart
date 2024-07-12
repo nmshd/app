@@ -13,7 +13,7 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
   final String statusText;
   final bool isPinned;
   final RelationshipTheme? theme;
-  final RelationshipCreationContent creationContent;
+  final RelationshipCreationContentDerivation creationContent;
   final List<RelationshipAuditLogEntryDTO> auditLog;
   final List<LocalAttributeDVO> items;
   final Map<String, List<LocalAttributeDVO>> attributeMap;

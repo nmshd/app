@@ -2,23 +2,50 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('RelationshipCreationContent fromJson', () {
-    test('parsed valid RelationshipCreationContent', () {
-      final relationshipCreationContentJson = {
-        '@type': 'RelationshipCreationContent',
-        'response': const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: []).toJson(),
-      };
-      final relationshipCreationContent = RelationshipCreationContent.fromJson(relationshipCreationContentJson);
-      expect(relationshipCreationContent, isA<RelationshipCreationContentContainingResponse>());
+  group('RelationshipCreationContent toJson', () {
+    test('is correctly converted', () {
+      const relationshipCreationContent = RelationshipCreationContent(
+        response: Response(
+          result: ResponseResult.Accepted,
+          requestId: 'aRequestId',
+          items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        ),
+      );
+      final relationshipCreationContentJson = relationshipCreationContent.toJson();
+      expect(
+        relationshipCreationContentJson,
+        equals({
+          '@type': 'RelationshipCreationContent',
+          'response': const Response(
+            result: ResponseResult.Accepted,
+            requestId: 'aRequestId',
+            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+          ).toJson(),
+        }),
+      );
     });
+  });
 
-    test('parsed valid ArbitraryRelationshipCreationContent when not given a Response', () {
-      final arbitraryRelationshipCreationContentJson = {
+  group('RelationshipCreationContent fromJson', () {
+    test('is correctly converted', () {
+      final json = {
         '@type': 'RelationshipCreationContent',
-        'internalJson': 'anInternalJson',
+        'response': const Response(
+          result: ResponseResult.Accepted,
+          requestId: 'aRequestId',
+          items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        ).toJson(),
       };
-      final arbitraryRelationshipCreationContent = RelationshipCreationContent.fromJson(arbitraryRelationshipCreationContentJson);
-      expect(arbitraryRelationshipCreationContent, isA<ArbitraryRelationshipCreationContent>());
+      expect(
+        RelationshipCreationContent.fromJson(json),
+        equals(const RelationshipCreationContent(
+          response: Response(
+            result: ResponseResult.Accepted,
+            requestId: 'aRequestId',
+            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+          ),
+        )),
+      );
     });
   });
 }
