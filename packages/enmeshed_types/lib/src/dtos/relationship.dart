@@ -1,6 +1,6 @@
-import 'package:enmeshed_types/src/contents/relationship_creation_content/relationship_creation_content_derivation.dart';
 import 'package:equatable/equatable.dart';
 
+import '../contents/contents.dart';
 import 'identity.dart';
 import 'relationship_template.dart';
 

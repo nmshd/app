@@ -1,6 +1,10 @@
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../contents/contents.dart';
+import '../../dtos/dtos.dart';
+import '../consumption/local_attribute_dvo.dart';
+import '../data_view_object.dart';
 
 part 'relationship_dvo.g.dart';
 
