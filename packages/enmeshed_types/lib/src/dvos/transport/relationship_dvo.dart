@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../contents/contents.dart';
 import '../../dtos/dtos.dart';
+import '../common/common.dart';
 import '../consumption/local_attribute_dvo.dart';
 import '../data_view_object.dart';
 
