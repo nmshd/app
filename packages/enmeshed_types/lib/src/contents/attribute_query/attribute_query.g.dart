@@ -122,3 +122,36 @@ Map<String, dynamic> _$RelationshipAttributeQueryToJson(RelationshipAttributeQue
   writeNotNull('validTo', instance.validTo);
   return val;
 }
+
+ThirdPartyRelationshipAttributeQuery _$ThirdPartyRelationshipAttributeQueryFromJson(Map<String, dynamic> json) =>
+    ThirdPartyRelationshipAttributeQuery(
+      key: json['key'] as String,
+      owner: $enumDecode(_$ThirdPartyRelationshipAttributeQueryOwnerEnumMap, json['owner']),
+      thirdParty: (json['thirdParty'] as List<dynamic>).map((e) => e as String).toList(),
+      validFrom: json['validFrom'] as String?,
+      validTo: json['validTo'] as String?,
+    );
+
+Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryToJson(ThirdPartyRelationshipAttributeQuery instance) {
+  final val = <String, dynamic>{
+    'key': instance.key,
+    'owner': _$ThirdPartyRelationshipAttributeQueryOwnerEnumMap[instance.owner]!,
+    'thirdParty': instance.thirdParty,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('validFrom', instance.validFrom);
+  writeNotNull('validTo', instance.validTo);
+  return val;
+}
+
+const _$ThirdPartyRelationshipAttributeQueryOwnerEnumMap = {
+  ThirdPartyRelationshipAttributeQueryOwner.thirdParty: 'thirdParty',
+  ThirdPartyRelationshipAttributeQueryOwner.recipient: 'recipient',
+  ThirdPartyRelationshipAttributeQueryOwner.empty: '',
+};
