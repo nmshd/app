@@ -8,7 +8,6 @@ part of 'request_item_dvos.dart';
 
 RequestItemGroupDVO _$RequestItemGroupDVOFromJson(Map<String, dynamic> json) => RequestItemGroupDVO(
       isDecidable: json['isDecidable'] as bool,
-      mustBeAccepted: json['mustBeAccepted'] as bool,
       items: (json['items'] as List<dynamic>).map((e) => RequestItemDVODerivation.fromJson(e as Map<String, dynamic>)).toList(),
       title: json['title'] as String?,
       response: json['response'] == null ? null : ResponseItemGroupDVO.fromJson(json['response'] as Map<String, dynamic>),
@@ -32,7 +31,6 @@ Map<String, dynamic> _$RequestItemGroupDVOToJson(RequestItemGroupDVO instance) {
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   val['items'] = instance.items.map((e) => e.toJson()).toList();
   writeNotNull('title', instance.title);
@@ -73,9 +71,9 @@ Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(ReadAttributeRequestIte
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['query'] = instance.query.toJson();
   return val;
@@ -116,9 +114,9 @@ Map<String, dynamic> _$ProposeAttributeRequestItemDVOToJson(ProposeAttributeRequ
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['query'] = instance.query.toJson();
   val['attribute'] = instance.attribute.toJson();
@@ -160,9 +158,9 @@ Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(CreateAttributeReques
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['attribute'] = instance.attribute.toJson();
   writeNotNull('sourceAttributeId', instance.sourceAttributeId);
@@ -203,9 +201,9 @@ Map<String, dynamic> _$DeleteAttributeRequestItemDVOToJson(DeleteAttributeReques
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['attributeId'] = instance.attributeId;
   val['attribute'] = instance.attribute.toJson();
@@ -246,9 +244,9 @@ Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestI
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['attribute'] = instance.attribute.toJson();
   val['sourceAttributeId'] = instance.sourceAttributeId;
@@ -287,9 +285,9 @@ Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestI
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   return val;
 }
@@ -328,9 +326,9 @@ Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instanc
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['consent'] = instance.consent;
   writeNotNull('link', instance.link);
@@ -370,9 +368,9 @@ Map<String, dynamic> _$FreeTextRequestItemDVOToJson(FreeTextRequestItemDVO insta
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['freeText'] = instance.freeText;
   return val;
@@ -412,9 +410,9 @@ Map<String, dynamic> _$RegisterAttributeListenerRequestItemDVOToJson(RegisterAtt
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
   val['isDecidable'] = instance.isDecidable;
   writeNotNull('response', instance.response?.toJson());
+  val['mustBeAccepted'] = instance.mustBeAccepted;
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['query'] = instance.query.toJson();
   return val;

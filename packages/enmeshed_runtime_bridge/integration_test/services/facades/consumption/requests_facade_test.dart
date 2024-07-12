@@ -48,7 +48,7 @@ void run(EnmeshedRuntime runtime) {
         expect(sLocalRequest.status, LocalRequestStatus.Draft);
         expect(sLocalRequest.content.items.length, 1);
         expect(sLocalRequest.content.items.first, isA<ReadAttributeRequestItem>());
-        expect(sLocalRequest.content.items.first.mustBeAccepted, false);
+        expect((sLocalRequest.content.items.first as ReadAttributeRequestItem).mustBeAccepted, false);
       });
 
       test('sender: send the outgoing Request via Message', () async {
@@ -161,7 +161,7 @@ void run(EnmeshedRuntime runtime) {
         expect(sLocalRequest.status, LocalRequestStatus.Draft);
         expect(sLocalRequest.content.items.length, 1);
         expect(sLocalRequest.content.items.first, isA<ReadAttributeRequestItem>());
-        expect(sLocalRequest.content.items.first.mustBeAccepted, false);
+        expect((sLocalRequest.content.items.first as ReadAttributeRequestItem).mustBeAccepted, false);
       });
 
       test('sender: send the outgoing Request via Message', () async {
