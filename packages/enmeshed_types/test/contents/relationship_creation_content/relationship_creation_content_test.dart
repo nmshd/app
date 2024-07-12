@@ -2,20 +2,20 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('RelationshipCreationChangeRequestContent toJson', () {
+  group('RelationshipCreationContent toJson', () {
     test('is correctly converted', () {
-      const relationshipCreationChangeRequestContent = RelationshipCreationChangeRequestContent(
+      const relationshipCreationContent = RelationshipCreationContent(
         response: Response(
           result: ResponseResult.Accepted,
           requestId: 'aRequestId',
           items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
         ),
       );
-      final relationshipCreationChangeRequestContentJson = relationshipCreationChangeRequestContent.toJson();
+      final relationshipCreationContentJson = relationshipCreationContent.toJson();
       expect(
-        relationshipCreationChangeRequestContentJson,
+        relationshipCreationContentJson,
         equals({
-          '@type': 'RelationshipCreationChangeRequestContent',
+          '@type': 'RelationshipCreationContent',
           'response': const Response(
             result: ResponseResult.Accepted,
             requestId: 'aRequestId',
@@ -26,10 +26,10 @@ void main() {
     });
   });
 
-  group('RelationshipCreationChangeRequestContent fromJson', () {
+  group('RelationshipCreationContent fromJson', () {
     test('is correctly converted', () {
       final json = {
-        '@type': 'RelationshipCreationChangeRequestContent',
+        '@type': 'RelationshipCreationContent',
         'response': const Response(
           result: ResponseResult.Accepted,
           requestId: 'aRequestId',
@@ -37,8 +37,8 @@ void main() {
         ).toJson(),
       };
       expect(
-        RelationshipCreationChangeRequestContent.fromJson(json),
-        equals(const RelationshipCreationChangeRequestContent(
+        RelationshipCreationContent.fromJson(json),
+        equals(const RelationshipCreationContent(
           response: Response(
             result: ResponseResult.Accepted,
             requestId: 'aRequestId',
