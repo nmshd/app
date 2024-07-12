@@ -62,7 +62,7 @@ class RelationshipsFacade {
 
   Future<Result<RelationshipDTO>> createRelationship({
     required String templateId,
-    required Map<String, dynamic> content,
+    required Map<String, dynamic> creationContent,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.createRelationship(request)
@@ -71,7 +71,7 @@ class RelationshipsFacade {
       arguments: {
         'request': {
           'templateId': templateId,
-          'content': content,
+          'creationContent': creationContent,
         },
       },
     );
@@ -80,21 +80,13 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> acceptRelationshipChange({
-    required String relationshipId,
-    required String changeId,
-    required Map<String, dynamic> content,
-  }) async {
+  Future<Result<RelationshipDTO>> acceptRelationship({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationships.acceptRelationshipChange(request)
+      '''const result = await session.transportServices.relationships.acceptRelationship(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'relationshipId': relationshipId,
-          'changeId': changeId,
-          'content': content,
-        },
+        'request': {'relationshipId': relationshipId},
       },
     );
 
@@ -102,21 +94,111 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> rejectRelationshipChange({
+  Future<Result<RelationshipDTO>> rejectRelationship({
     required String relationshipId,
-    required String changeId,
-    required Map<String, dynamic> content,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationships.rejectRelationshipChange(request)
+      '''const result = await session.transportServices.relationships.rejectRelationship(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'relationshipId': relationshipId,
-          'changeId': changeId,
-          'content': content,
-        },
+        'request': {'relationshipId': relationshipId},
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
+  }
+
+  Future<Result<RelationshipDTO>> revokeRelationship({
+    required String relationshipId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.relationships.revokeRelationship(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'relationshipId': relationshipId},
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
+  }
+
+  Future<Result<RelationshipDTO>> terminateRelationship({
+    required String relationshipId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.relationships.terminateRelationship(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'relationshipId': relationshipId},
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
+  }
+
+  Future<Result<RelationshipDTO>> requestRelationshipReactivation({
+    required String relationshipId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.relationships.requestRelationshipReactivation(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'relationshipId': relationshipId},
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
+  }
+
+  Future<Result<RelationshipDTO>> acceptRelationshipReactivation({
+    required String relationshipId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.relationships.acceptRelationshipReactivation(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'relationshipId': relationshipId},
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
+  }
+
+  Future<Result<RelationshipDTO>> rejectRelationshipReactivation({
+    required String relationshipId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.relationships.rejectRelationshipReactivation(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'relationshipId': relationshipId},
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
+  }
+
+  Future<Result<RelationshipDTO>> revokeRelationshipReactivation({
+    required String relationshipId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.relationships.revokeRelationshipReactivation(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'relationshipId': relationshipId},
       },
     );
 

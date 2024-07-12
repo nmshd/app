@@ -1054,21 +1054,6 @@
       "Rejected": "Rejected contact request",
       "Revoked": "Withdrawn contact request"
     },
-    "relationshipChange": {
-      "Accepted": "Accepted relationship change",
-      "Creation": "Relationship Creation",
-      "Pending": "Pending relationship change",
-      "Rejected": "Rejected relationship change",
-      "request": {
-        "name": "Relationship Change Request"
-      },
-      "response": {
-        "name": "Relationship Change Response"
-      },
-      "Revoked": "Revoked relationship change",
-      "Termination": "Relationship Termination",
-      "TerminationCancellation": "Cancellation of Relationship Termination"
-    },
     "requestItem": {
       "AuthenticationRequestItem": {
         "name": "Requested your authentication"

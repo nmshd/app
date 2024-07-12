@@ -79,7 +79,6 @@ class RecipientDVO extends IdentityDVO {
     super.error,
     super.warning,
     super.publicKey,
-    required super.realm,
     required super.initials,
     required super.isSelf,
     required super.hasRelationship,
