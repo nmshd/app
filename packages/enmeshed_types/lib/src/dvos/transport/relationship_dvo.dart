@@ -13,7 +13,7 @@ enum RelationshipDirection { Incoming, Outgoing }
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipDVO extends DataViewObject with EquatableMixin {
-  final String status;
+  final RelationshipStatus status;
   final RelationshipDirection direction;
   final String statusText;
   final bool isPinned;
