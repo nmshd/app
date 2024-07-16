@@ -68,6 +68,7 @@ const _$RelationshipStatusEnumMap = {
   RelationshipStatus.Rejected: 'Rejected',
   RelationshipStatus.Revoked: 'Revoked',
   RelationshipStatus.Terminated: 'Terminated',
+  RelationshipStatus.DeletionProposed: 'DeletionProposed',
 };
 
 const _$RelationshipDirectionEnumMap = {
