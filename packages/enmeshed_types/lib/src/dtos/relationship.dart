@@ -4,7 +4,7 @@ import '../contents/contents.dart';
 import 'identity.dart';
 import 'relationship_template.dart';
 
-enum RelationshipStatus { Pending, Active, Rejected, Revoked, Terminated }
+enum RelationshipStatus { Pending, Active, Rejected, Revoked, Terminated, DeletionProposed }
 
 enum RelationshipAuditLogEntryReason {
   Creation,
@@ -15,7 +15,8 @@ enum RelationshipAuditLogEntryReason {
   ReactivationRequested,
   AcceptanceOfReactivation,
   RejectionOfReactivation,
-  RevocationOfReactivation
+  RevocationOfReactivation,
+  Decomposition
 }
 
 class RelationshipDTO extends Equatable {

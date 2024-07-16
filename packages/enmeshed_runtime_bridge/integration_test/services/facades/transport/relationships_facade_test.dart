@@ -232,4 +232,14 @@ void run(EnmeshedRuntime runtime) {
       expect(rejectionResult.value.id, establishedRelationship.id);
     });
   });
+
+  group('RelationshipsFacade: requestRelationshipReactivation / rejectRelationshipReactivation', () {
+    test('should decompose a relationship', () async {
+      final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
+
+      final decompositionResult = await session1.transportServices.relationships.decomposeRelationship(relationshipId: establishedRelationship.id);
+
+      expect(decompositionResult, isSuccessful<void>());
+    });
+  });
 }

@@ -61,6 +61,11 @@ class RelationshipsEndpoint extends Endpoint {
         transformer: relationshipTransformer,
       );
 
+  Future<ConnectorResponse<void>> decomposeRelationship(String relationshipId) => put(
+        '/api/v2/Relationships/$relationshipId/Decompose',
+        transformer: (v) => v,
+      );
+
   Future<ConnectorResponse<List<LocalAttributeDTO>>> getAttributesForRelationship(String relationshipId) => get(
         '/api/v2/Relationships/$relationshipId/Attributes',
         transformer: localAttributeListTransformer,
