@@ -19,5 +19,6 @@ export 'transport/message_received_event.dart';
 export 'transport/message_sent_event.dart';
 export 'transport/message_was_read_at_changed_event.dart';
 export 'transport/relationship_changed_event.dart';
+export 'transport/relationship_decomposed_by_self_event.dart';
 export 'transport/relationship_reactivation_completed_event.dart';
 export 'transport/relationship_reactivation_requested_event.dart';

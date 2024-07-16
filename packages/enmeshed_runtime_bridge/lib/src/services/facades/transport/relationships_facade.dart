@@ -206,6 +206,22 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
+  Future<VoidResult> decomposeRelationship({
+    required String relationshipId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.relationships.decomposeRelationship(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'relationshipId': relationshipId},
+      },
+    );
+
+    final value = result.valueToMap();
+    return VoidResult.fromJson(value);
+  }
+
   Future<Result<List<LocalAttributeDTO>>> getAttributesForRelationship({
     required String relationshipId,
     bool? hideTechnical,
