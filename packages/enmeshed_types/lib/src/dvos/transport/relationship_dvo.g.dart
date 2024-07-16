@@ -15,7 +15,7 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
       date: json['date'] as String?,
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-      status: json['status'] as String,
+      status: $enumDecode(_$RelationshipStatusEnumMap, json['status']),
       direction: $enumDecode(_$RelationshipDirectionEnumMap, json['direction']),
       statusText: json['statusText'] as String,
       isPinned: json['isPinned'] as bool,
@@ -48,7 +48,7 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
   writeNotNull('date', instance.date);
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
-  val['status'] = instance.status;
+  val['status'] = _$RelationshipStatusEnumMap[instance.status]!;
   val['direction'] = _$RelationshipDirectionEnumMap[instance.direction]!;
   val['statusText'] = instance.statusText;
   val['isPinned'] = instance.isPinned;
@@ -61,6 +61,14 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
   val['templateId'] = instance.templateId;
   return val;
 }
+
+const _$RelationshipStatusEnumMap = {
+  RelationshipStatus.Pending: 'Pending',
+  RelationshipStatus.Active: 'Active',
+  RelationshipStatus.Rejected: 'Rejected',
+  RelationshipStatus.Revoked: 'Revoked',
+  RelationshipStatus.Terminated: 'Terminated',
+};
 
 const _$RelationshipDirectionEnumMap = {
   RelationshipDirection.Incoming: 'Incoming',
