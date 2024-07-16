@@ -206,7 +206,7 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<Null>> decomposeRelationship({
+  Future<VoidResult> decomposeRelationship({
     required String relationshipId,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
@@ -218,8 +218,8 @@ class RelationshipsFacade {
       },
     );
 
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => value);
+    final value = result.valueToMap();
+    return VoidResult.fromJson(value);
   }
 
   Future<Result<List<LocalAttributeDTO>>> getAttributesForRelationship({
