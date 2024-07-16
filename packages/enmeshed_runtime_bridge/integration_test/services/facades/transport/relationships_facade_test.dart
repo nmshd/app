@@ -233,7 +233,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: requestRelationshipReactivation / rejectRelationshipReactivation', () {
+  group('RelationshipsFacade: decomposeRelationship', () {
     test('should decompose a relationship', () async {
       final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
 
