@@ -42,7 +42,10 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
       RelationshipReactivationRequestedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
     'transport.relationshipReactivationCompleted' =>
       RelationshipReactivationCompletedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
-    'transport.relationshipDecomposedBySelf' => RelationshipDecomposedBySelfEvent(eventTargetAddress: eventTargetAddress, data: data as String),
+    'transport.relationshipDecomposedBySelf' => RelationshipDecomposedBySelfEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: data['relationshipId'] as String,
+      ),
     'transport.messageWasReadAtChanged' => MessageWasReadAtChangedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.identityDeletionProcessStatusChanged' => IdentityDeletionProcessStatusChangedEvent(
         eventTargetAddress: eventTargetAddress,
