@@ -14,20 +14,20 @@
     "@js-soft/logging-abstractions": "^1.0.1",
     "@js-soft/native-abstractions": "^1.2.2",
     "@js-soft/ts-utils": "^2.3.3",
-    "@nmshd/app-runtime": "5.0.0-alpha.7",
-    "@nmshd/runtime": "5.0.0-alpha.7",
+    "@nmshd/app-runtime": "5.0.0-alpha.8",
+    "@nmshd/runtime": "5.0.0-alpha.8",
     "js-logger": "^1.6.1",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/json-stringify-safe": "^5.0.3",
-    "@types/lodash": "^4.17.0",
+    "@types/lodash": "^4.17.7",
     "@types/luxon": "^3.4.2",
-    "@types/node": "^20.14.2",
-    "esbuild": "^0.20.2",
+    "@types/node": "^20.14.11",
+    "esbuild": "^0.23.0",
     "luxon": "^3.4.4",
-    "prettier": "^3.3.1",
-    "typescript": "^5.4.5"
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.3"
   }
 }
