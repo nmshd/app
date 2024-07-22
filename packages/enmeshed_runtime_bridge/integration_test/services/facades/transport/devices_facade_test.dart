@@ -110,5 +110,10 @@ void run(EnmeshedRuntime runtime) {
 
     // deleteDevice is implemented but has to be handled with caution
     test('deleteDevice', skip: true, () async {});
+
+    test('setCommunicationLanguage', () async {
+      final result = await session.transportServices.devices.setCommunicationLanguage('fr');
+      expect(result, isSuccessful());
+    });
   });
 }
