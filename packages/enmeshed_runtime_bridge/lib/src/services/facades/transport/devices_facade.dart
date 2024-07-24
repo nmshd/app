@@ -122,14 +122,14 @@ class DevicesFacade {
     return VoidResult.fromJson(json);
   }
 
-  Future<VoidResult> setCommunicationLanguage(String language) async {
+  Future<VoidResult> setCommunicationLanguage({required String communicationLanguage}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.devices.setCommunicationLanguage(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: null }''',
       arguments: {
         'request': {
-          'communicationLanguage': language,
+          'communicationLanguage': communicationLanguage,
         },
       },
     );

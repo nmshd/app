@@ -112,12 +112,12 @@ void run(EnmeshedRuntime runtime) {
     test('deleteDevice', skip: true, () async {});
 
     test('setCommunicationLanguage', () async {
-      final result = await session.transportServices.devices.setCommunicationLanguage('fr');
+      final result = await session.transportServices.devices.setCommunicationLanguage(communicationLanguage: 'fr');
       expect(result, isSuccessful());
     });
 
     test('setCommunicationLanguage with false input', () async {
-      final result = await session.transportServices.devices.setCommunicationLanguage('fra');
+      final result = await session.transportServices.devices.setCommunicationLanguage(communicationLanguage: 'fra');
       expect(result, isFailingVoidResult('error.runtime.validation.invalidPropertyValue'));
     });
   });
