@@ -118,7 +118,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('setCommunicationLanguage with false input', () async {
       final result = await session.transportServices.devices.setCommunicationLanguage('fra');
-      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
+      expect(result, isFailingVoidResult('error.runtime.validation.invalidPropertyValue'));
     });
   });
 }
