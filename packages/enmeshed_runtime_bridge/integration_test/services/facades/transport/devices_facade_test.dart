@@ -115,5 +115,10 @@ void run(EnmeshedRuntime runtime) {
       final result = await session.transportServices.devices.setCommunicationLanguage('fr');
       expect(result, isSuccessful());
     });
+
+    test('setCommunicationLanguage with false input', () async {
+      final result = await session.transportServices.devices.setCommunicationLanguage('fra');
+      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
+    });
   });
 }
