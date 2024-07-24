@@ -11,7 +11,6 @@ part '../consumption/decidable_request_item_dvos.dart';
 part 'request_item_dvos.g.dart';
 
 sealed class RequestItemDVO extends DataViewObject {
-  final bool mustBeAccepted;
   final bool isDecidable;
 
   const RequestItemDVO({
@@ -23,7 +22,6 @@ sealed class RequestItemDVO extends DataViewObject {
     super.date,
     super.error,
     super.warning,
-    required this.mustBeAccepted,
     required this.isDecidable,
   });
 
@@ -44,7 +42,6 @@ class RequestItemGroupDVO extends RequestItemDVO {
 
   const RequestItemGroupDVO({
     required super.isDecidable,
-    required super.mustBeAccepted,
     required this.items,
     this.title,
     this.response,
@@ -57,6 +54,7 @@ class RequestItemGroupDVO extends RequestItemDVO {
 
 sealed class RequestItemDVODerivation extends RequestItemDVO {
   final ResponseItemDVO? response;
+  final bool mustBeAccepted;
   final bool? requireManualDecision;
 
   const RequestItemDVODerivation({
@@ -68,8 +66,8 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
     super.date,
     super.error,
     super.warning,
-    required super.mustBeAccepted,
     required super.isDecidable,
+    required this.mustBeAccepted,
     this.response,
     this.requireManualDecision,
   });

@@ -48,7 +48,7 @@ void run(EnmeshedRuntime runtime) {
         expect(sLocalRequest.status, LocalRequestStatus.Draft);
         expect(sLocalRequest.content.items.length, 1);
         expect(sLocalRequest.content.items.first, isA<ReadAttributeRequestItem>());
-        expect(sLocalRequest.content.items.first.mustBeAccepted, false);
+        expect((sLocalRequest.content.items.first as ReadAttributeRequestItem).mustBeAccepted, false);
       });
 
       test('sender: send the outgoing Request via Message', () async {
@@ -83,7 +83,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.canAccept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
@@ -98,7 +98,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.accept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
@@ -161,7 +161,7 @@ void run(EnmeshedRuntime runtime) {
         expect(sLocalRequest.status, LocalRequestStatus.Draft);
         expect(sLocalRequest.content.items.length, 1);
         expect(sLocalRequest.content.items.first, isA<ReadAttributeRequestItem>());
-        expect(sLocalRequest.content.items.first.mustBeAccepted, false);
+        expect((sLocalRequest.content.items.first as ReadAttributeRequestItem).mustBeAccepted, false);
       });
 
       test('sender: send the outgoing Request via Message', () async {
@@ -285,7 +285,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.canAccept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
@@ -300,7 +300,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.accept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );

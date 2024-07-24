@@ -62,7 +62,7 @@ Future<void> deleteContactsFavorites({required Session session}) async {
 Future<List<IdentityDVO>> getActiveContacts({required Session session}) async {
   final contacts = await getContacts(session: session);
 
-  return contacts.where((e) => e.relationship != null && e.relationship!.status == RelationshipStatus.Active.name).toList();
+  return contacts.where((e) => e.relationship != null && e.relationship!.status == RelationshipStatus.Active).toList();
 }
 
 Future<List<IdentityDVO>> getContacts({required Session session}) async {
