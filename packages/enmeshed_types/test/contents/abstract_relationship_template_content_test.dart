@@ -8,7 +8,7 @@ void main() {
         '@type': 'RelationshipTemplateContent',
         'onNewRelationship': const Request(items: []).toJson(),
       };
-      final relationshipRequestContent = AbstractRelationshipTemplateContent.fromJson(json);
+      final relationshipRequestContent = RelationshipTemplateContentDerivation.fromJson(json);
       expect(relationshipRequestContent, isA<RelationshipTemplateContent>());
     });
 
@@ -17,7 +17,7 @@ void main() {
         '@type': 'unknownType',
         'internalJson': 'anInternalJson',
       };
-      final relationshipRequestContent = AbstractRelationshipTemplateContent.fromJson(json);
+      final relationshipRequestContent = RelationshipTemplateContentDerivation.fromJson(json);
       expect(relationshipRequestContent, isA<ArbitraryRelationshipTemplateContent>());
     });
   });

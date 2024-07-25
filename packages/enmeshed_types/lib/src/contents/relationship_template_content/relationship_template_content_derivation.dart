@@ -3,13 +3,15 @@ import 'dart:collection';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import 'arbitraty_json.dart';
-import 'contents.dart';
+import '../arbitraty_json.dart';
+import '../contents.dart';
 
-abstract class AbstractRelationshipTemplateContent extends Equatable {
-  const AbstractRelationshipTemplateContent();
+part 'relationship_template_content.dart';
 
-  factory AbstractRelationshipTemplateContent.fromJson(Map json) {
+abstract class RelationshipTemplateContentDerivation extends Equatable {
+  const RelationshipTemplateContentDerivation();
+
+  factory RelationshipTemplateContentDerivation.fromJson(Map json) {
     final type = json['@type'];
     if (type == 'RelationshipTemplateContent') {
       return RelationshipTemplateContent.fromJson(json);
@@ -25,7 +27,7 @@ abstract class AbstractRelationshipTemplateContent extends Equatable {
   List<Object?> get props;
 }
 
-class ArbitraryRelationshipTemplateContent extends AbstractRelationshipTemplateContent with MapMixin<String, dynamic>, ArbitraryJSON {
+class ArbitraryRelationshipTemplateContent extends RelationshipTemplateContentDerivation with MapMixin<String, dynamic>, ArbitraryJSON {
   @override
   final Map<String, dynamic> internalJson;
 
