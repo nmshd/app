@@ -12,7 +12,8 @@ abstract class RelationshipCreationContentDerivation extends Equatable {
   const RelationshipCreationContentDerivation();
 
   factory RelationshipCreationContentDerivation.fromJson(Map json) {
-    if (json.containsKey('response')) {
+    final type = json['@type'];
+    if (type == 'RelationshipCreationContent') {
       return RelationshipCreationContent.fromJson(json);
     }
 
