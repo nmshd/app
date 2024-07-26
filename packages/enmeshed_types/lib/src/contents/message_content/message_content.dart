@@ -5,10 +5,12 @@ import 'package:meta/meta.dart';
 
 import '../arbitraty_json.dart';
 import '../notification.dart';
+import '../request.dart';
 import '../response.dart';
 
 part 'mail.dart';
 part 'message_content_notification.dart';
+part 'message_content_request.dart';
 part 'response_wrapper.dart';
 
 abstract class MessageContent extends Equatable {
@@ -21,7 +23,7 @@ abstract class MessageContent extends Equatable {
       'Mail' => Mail.fromJson(json),
       'ResponseWrapper' => ResponseWrapper.fromJson(json),
       'Notification' => MessageContentNotification.fromJson(json),
-      'Request' => ArbitraryMessageContent(json),
+      'Request' => MessageContentRequest.fromJson(json),
       'ArbitraryMessageContent' => ArbitraryMessageContent(json),
       _ => throw Exception('Unknown type: $type')
     };
