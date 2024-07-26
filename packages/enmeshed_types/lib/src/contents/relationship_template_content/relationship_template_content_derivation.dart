@@ -1,9 +1,7 @@
-import 'dart:collection';
-
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../arbitraty_json.dart';
+import '../arbitrary_content_json.dart';
 import '../contents.dart';
 
 part 'relationship_template_content.dart';
@@ -28,12 +26,17 @@ abstract class RelationshipTemplateContentDerivation extends Equatable {
   List<Object?> get props;
 }
 
-class ArbitraryRelationshipTemplateContent extends RelationshipTemplateContentDerivation with MapMixin<String, dynamic>, ArbitraryJSON {
+class ArbitraryRelationshipTemplateContent extends RelationshipTemplateContentDerivation with ArbitraryContentJSON {
   @override
-  final Map<String, dynamic> internalJson;
+  final Map<String, dynamic> value;
 
-  ArbitraryRelationshipTemplateContent(Map internalJson) : internalJson = Map<String, dynamic>.from(internalJson);
+  ArbitraryRelationshipTemplateContent(Map value) : value = Map<String, dynamic>.from(value);
+
+  factory ArbitraryRelationshipTemplateContent.fromJson(Map json) => ArbitraryRelationshipTemplateContent(json['value']);
 
   @override
-  List<Object?> get props => [internalJson];
+  Map<String, dynamic> toJson() => {'@type': 'ArbitraryRelationshipTemplateContent', 'value': value};
+
+  @override
+  List<Object?> get props => [value];
 }

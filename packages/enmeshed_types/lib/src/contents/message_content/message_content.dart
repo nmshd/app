@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../arbitraty_json.dart';
+import '../arbitrary_content_json.dart';
 import '../notification.dart';
 import '../request.dart';
 import '../response.dart';
@@ -36,12 +36,17 @@ abstract class MessageContent extends Equatable {
   List<Object?> get props;
 }
 
-class ArbitraryMessageContent extends MessageContent with MapMixin<String, dynamic>, ArbitraryJSON {
+class ArbitraryMessageContent extends MessageContent with MapMixin<String, dynamic>, ArbitraryContentJSON {
   @override
-  final Map<String, dynamic> internalJson;
+  final Map<String, dynamic> value;
 
-  ArbitraryMessageContent(Map internalJson) : internalJson = Map<String, dynamic>.from(internalJson);
+  ArbitraryMessageContent(Map internalJson) : value = Map<String, dynamic>.from(internalJson);
+
+  factory ArbitraryMessageContent.fromJson(Map json) => ArbitraryMessageContent(json['value']);
 
   @override
-  List<Object?> get props => [internalJson];
+  Map<String, dynamic> toJson() => {'@type': 'ArbitraryMessageContent', 'value': value};
+
+  @override
+  List<Object?> get props => [value];
 }
