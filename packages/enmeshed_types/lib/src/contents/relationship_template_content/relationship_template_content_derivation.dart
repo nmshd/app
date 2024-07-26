@@ -13,11 +13,12 @@ abstract class RelationshipTemplateContentDerivation extends Equatable {
 
   factory RelationshipTemplateContentDerivation.fromJson(Map json) {
     final type = json['@type'];
-    if (type == 'RelationshipTemplateContent') {
-      return RelationshipTemplateContent.fromJson(json);
-    }
 
-    return ArbitraryRelationshipTemplateContent(json);
+    return switch (type) {
+      'RelationshipTemplateContent' => RelationshipTemplateContent.fromJson(json),
+      'ArbitraryRelationshipTemplateContent' => ArbitraryRelationshipTemplateContent(json),
+      _ => throw Exception('Unknown type: $type')
+    };
   }
 
   Map<String, dynamic> toJson();
