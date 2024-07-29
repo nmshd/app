@@ -53,13 +53,13 @@ void run(EnmeshedRuntime runtime) {
     test('send a Message from session1 to session2', () async {
       final result = await session1.transportServices.messages.sendMessage(
         recipients: [session2Address],
-        content: {
+        content: Mail.fromJson({
           '@type': 'Mail',
           'body': 'b',
-          'cc': [],
+          'cc': const [],
           'subject': 'a',
           'to': [session2Address],
-        },
+        }),
         attachments: [fileId],
       );
 
@@ -159,7 +159,7 @@ void run(EnmeshedRuntime runtime) {
       test('read', () async {
         final result = await session1.transportServices.messages.sendMessage(
           recipients: [session2Address],
-          content: Mail(to: [session2Address], subject: 'subject', body: 'body').toJson(),
+          content: Mail(to: [session2Address], subject: 'subject', body: 'body'),
           attachments: [fileId],
         );
         final message = result.value;
@@ -175,7 +175,7 @@ void run(EnmeshedRuntime runtime) {
       test('unread', () async {
         final result = await session1.transportServices.messages.sendMessage(
           recipients: [session2Address],
-          content: Mail(to: [session2Address], subject: 'subject', body: 'body').toJson(),
+          content: Mail(to: [session2Address], subject: 'subject', body: 'body'),
           attachments: [fileId],
         );
         final message = result.value;
@@ -196,12 +196,12 @@ void run(EnmeshedRuntime runtime) {
     test('should throw correct error for empty "to" in the Message', () async {
       final result = await session1.transportServices.messages.sendMessage(
         recipients: [fakeAddress],
-        content: {
+        content: Mail.fromJson(const {
           '@type': 'Mail',
           'subject': 'aSubject',
           'to': [],
           'body': 'aBody',
-        },
+        }),
       );
 
       expect(result, isFailing('error.runtime.requestDeserialization'));
@@ -210,11 +210,11 @@ void run(EnmeshedRuntime runtime) {
     test('should throw correct error for missing "to" in the Message', () async {
       final result = await session1.transportServices.messages.sendMessage(
         recipients: [fakeAddress],
-        content: {
+        content: Mail.fromJson(const {
           '@type': 'Mail',
           'subject': 'aSubject',
           'body': 'aBody',
-        },
+        }),
       );
 
       expect(result, isFailing('error.runtime.requestDeserialization'));
@@ -249,8 +249,8 @@ void run(EnmeshedRuntime runtime) {
       final relationshipToRecipient1 = await session1.transportServices.relationships.getRelationshipByAddress(address: addressRecipient1);
       final relationshipToRecipient2 = await session1.transportServices.relationships.getRelationshipByAddress(address: addressRecipient2);
 
-      await session1.transportServices.messages.sendMessage(recipients: [addressRecipient1], content: {});
-      await session1.transportServices.messages.sendMessage(recipients: [addressRecipient2], content: {});
+      await session1.transportServices.messages.sendMessage(recipients: [addressRecipient1], content: emptyMessageContent);
+      await session1.transportServices.messages.sendMessage(recipients: [addressRecipient2], content: emptyMessageContent);
 
       final messagesToRecipient1 = await session1.transportServices.messages.getMessages(query: {
         'recipients.relationshipId': QueryValue.string(relationshipToRecipient1.value.id),
