@@ -15,8 +15,8 @@ abstract class RelationshipCreationContentDerivation extends Equatable {
     final type = json['@type'];
 
     return switch (type) {
-      'RelationshipTemplateContent' => RelationshipCreationContent.fromJson(json),
-      'ArbitraryRelationshipTemplateContent' => ArbitraryRelationshipCreationContent(json),
+      'RelationshipCreationContent' => RelationshipCreationContent.fromJson(json),
+      'ArbitraryRelationshipCreationContent' => ArbitraryRelationshipCreationContent(json),
       _ => throw Exception('Unknown type: $type')
     };
   }
