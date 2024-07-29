@@ -24,7 +24,7 @@ abstract class MessageContent extends Equatable {
       'ResponseWrapper' => ResponseWrapper.fromJson(json),
       'Notification' => MessageContentNotification.fromJson(json),
       'Request' => MessageContentRequest.fromJson(json),
-      'ArbitraryMessageContent' => ArbitraryMessageContent(json),
+      'ArbitraryMessageContent' => ArbitraryMessageContent.fromJson(json),
       _ => throw Exception('Unknown type: $type')
     };
   }
