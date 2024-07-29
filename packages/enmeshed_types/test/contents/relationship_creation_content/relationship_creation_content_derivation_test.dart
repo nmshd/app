@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('RelationshipCreationContent fromJson', () {
+  group('RelationshipCreationContentDerivation fromJson', () {
     test('parsed valid RelationshipCreationContent', () {
       final relationshipCreationContentJson = {
         '@type': 'RelationshipCreationContent',
@@ -15,21 +15,21 @@ void main() {
     test('parsed valid ArbitraryRelationshipCreationContent', () {
       final arbitraryRelationshipCreationContentJson = {
         '@type': 'ArbitraryRelationshipCreationContent',
-        'value': 'value',
+        'value': {'key': 'value'},
       };
       final arbitraryRelationshipCreationContent = RelationshipCreationContentDerivation.fromJson(arbitraryRelationshipCreationContentJson);
       expect(arbitraryRelationshipCreationContent, isA<ArbitraryRelationshipCreationContent>());
     });
 
-    group('RelationshipCreationContent fromJson with exception', () {
+    group('RelationshipCreationContentDerivation fromJson with exception', () {
       test('throws exception when @type is missing', () {
         final json = {};
-        expect(() => RelationshipCreationContent.fromJson(json), throwsA(isA<Exception>()));
+        expect(() => RelationshipCreationContentDerivation.fromJson(json), throwsA(isA<Exception>()));
       });
 
       test('throws exception when type is unknown', () {
         final json = {'@type': 'UnknownType'};
-        expect(() => RelationshipCreationContent.fromJson(json), throwsA(isA<Exception>()));
+        expect(() => RelationshipCreationContentDerivation.fromJson(json), throwsA(isA<Exception>()));
       });
     });
   });

@@ -23,7 +23,7 @@ void main() {
         'value': {'key': 'value'}
       };
       expect(
-        RelationshipCreationContent.fromJson(json),
+        ArbitraryRelationshipCreationContent.fromJson(json),
         equals(ArbitraryRelationshipCreationContent(const {'key': 'value'})),
       );
     });

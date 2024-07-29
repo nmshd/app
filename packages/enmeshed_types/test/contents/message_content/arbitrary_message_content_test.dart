@@ -23,7 +23,7 @@ void main() {
         'value': {'key': 'value'}
       };
       expect(
-        MessageContent.fromJson(json),
+        ArbitraryMessageContent.fromJson(json),
         equals(ArbitraryMessageContent(const {'key': 'value'})),
       );
     });
