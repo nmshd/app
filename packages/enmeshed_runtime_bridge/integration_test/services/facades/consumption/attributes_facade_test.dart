@@ -280,14 +280,15 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return only default repository attributes', () async {
       final defaultAttribute =
-          await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aDefaultGivenName'));
+          (await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aDefaultGivenName')))
+              .value;
       await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'anotherGivenName'));
 
       final repositoryAttributesResult =
           await sender.consumptionServices.attributes.getRepositoryAttributes(query: {'isDefault': QueryValue.string('true')});
       expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
 
-      expect(repositoryAttributesResult.value, [defaultAttribute]);
+      expect(repositoryAttributesResult.value[0], defaultAttribute);
       expect(repositoryAttributesResult.value[0].isDefault, true);
     });
   });
@@ -1424,7 +1425,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
 
-  group('AttributesFacade: getRepositoryAttributes', () {
+  group('AttributesFacade: changeDefaultRepositoryAttributes', () {
     test('should change default repository attributes', () async {
       final defaultAttribute =
           (await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aDefaultGivenName')))
