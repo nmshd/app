@@ -391,29 +391,29 @@ class AttributesFacade {
   }
 
   Future<Result<SucceedRelationshipAttributeAndNotifyPeerResponse>> succeedRelationshipAttributeAndNotifyPeer({
-  required String predecessorId,
-  required RelationshipAttributeValue value,
-  String? validFrom,
-  String? validTo,
+    required String predecessorId,
+    required RelationshipAttributeValue value,
+    String? validFrom,
+    String? validTo,
   }) async {
-  final result = await _evaluator.evaluateJavaScript(
-  '''const result = await session.consumptionServices.attributes.succeedRelationshipAttributeAndNotifyPeer(request)
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.succeedRelationshipAttributeAndNotifyPeer(request)
   if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
   return { value: result.value }''',
-  arguments: {
-    'request': {
-      'predecessorId': predecessorId,
-      'successorContent': {
-        'value': value.toJson(),
-        if (validFrom != null) 'validFrom': validFrom,
-        if (validTo != null) 'validTo': validTo,
-      }
-    },
-  },
-  );
+      arguments: {
+        'request': {
+          'predecessorId': predecessorId,
+          'successorContent': {
+            'value': value.toJson(),
+            if (validFrom != null) 'validFrom': validFrom,
+            if (validTo != null) 'validTo': validTo,
+          }
+        },
+      },
+    );
 
-  final json = result.valueToMap();
-  return Result.fromJson(json, (value) => SucceedRelationshipAttributeAndNotifyPeerResponse.fromJson(value));
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => SucceedRelationshipAttributeAndNotifyPeerResponse.fromJson(value));
   }
 
   Future<Result<LocalAttributeDTO>> changeDefaultRepositoryAttribute({
