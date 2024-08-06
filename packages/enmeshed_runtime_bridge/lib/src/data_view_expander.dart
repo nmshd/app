@@ -357,16 +357,6 @@ class DataViewExpander {
     return IdentityDVO.fromJson(value);
   }
 
-  Future<IdentityDVO> expandIdentityForAddress(String address) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandIdentityForAddress(address)',
-      arguments: {'address': address},
-    );
-
-    final value = result.valueToMap();
-    return IdentityDVO.fromJson(value);
-  }
-
   Future<IdentityDVO> expandIdentityDTO(IdentityDTO identity) async {
     final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandIdentityDTO(identity)',
