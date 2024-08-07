@@ -29,7 +29,7 @@ class ShouldDeleteProfile extends StatelessWidget {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (_) => cancel(),
+      onPopInvokedWithResult: (_, __) => cancel(),
       child: Padding(
         padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
         child: Column(
