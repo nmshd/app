@@ -4,8 +4,8 @@ publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: ">=3.4.0 <4.0.0"
-  flutter: ">=3.22.0"
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
 
 dependencies:
   collection: any
@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   get_it: ^7.7.0
-  shared_preferences: ^2.2.3
+  shared_preferences: ^2.3.1
   window_size:
     git:
       url: https://github.com/google/flutter-desktop-embedding.git

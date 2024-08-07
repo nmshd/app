@@ -91,7 +91,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
               _subjectController.text.isEmpty &&
               _messageController.text.isEmpty &&
               _attachments.isEmpty,
-          onPopInvoked: (didPop) async {
+          onPopInvokedWithResult: (didPop, _) async {
             if (didPop) return;
 
             await showDialog<void>(

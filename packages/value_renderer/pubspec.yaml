@@ -3,21 +3,21 @@ description: A new Flutter package project.
 version: 1.0.0
 
 environment:
-  sdk: ">=3.4.0 <4.0.0"
-  flutter: ">=3.22.0"
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
 
 dependencies:
-  collection: ^1.18.0
+  collection: any
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
-  flutter_i18n: ^0.35.1
+  flutter_i18n: ^0.36.2
   flutter_localizations:
     sdk: flutter
   get_it: ^7.7.0
-  i18n_translated_text: ^1.0.1
+  i18n_translated_text: ^1.0.2
   intl: any
-  logger: ^2.3.0
+  logger: ^2.4.0
 
 dev_dependencies:
   flutter_lints: ^4.0.0
