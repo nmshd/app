@@ -14,8 +14,8 @@
     "@js-soft/logging-abstractions": "^1.0.1",
     "@js-soft/native-abstractions": "^1.2.2",
     "@js-soft/ts-utils": "^2.3.3",
-    "@nmshd/app-runtime": "5.0.0-alpha.15",
-    "@nmshd/runtime": "5.0.0-alpha.15",
+    "@nmshd/app-runtime": "5.0.0-alpha.17",
+    "@nmshd/runtime": "5.0.0-alpha.17",
     "js-logger": "^1.6.1",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21"
