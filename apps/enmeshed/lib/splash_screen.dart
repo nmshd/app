@@ -95,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
     await runtime.triggerAppReadyEvent();
 
-    await runtime.registerUIBridge(EnmeshedUIBridge(logger: logger, router: router));
+    await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router));
 
     final appLinks = AppLinks();
     appLinks.uriLinkStream.listen((Uri? uri) {

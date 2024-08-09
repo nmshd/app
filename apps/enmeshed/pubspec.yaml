@@ -67,9 +67,9 @@ flutter:
         - package: vector_graphics_compiler
 
   fonts:
-    - family: EnmeshedIcons
+    - family: AppIcons
       fonts:
-        - asset: assets/fonts/EnmeshedIcons.ttf
+        - asset: assets/fonts/AppIcons.ttf
 
 # dart run flutter_launcher_icons
 flutter_icons:
