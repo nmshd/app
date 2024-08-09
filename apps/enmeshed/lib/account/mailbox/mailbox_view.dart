@@ -5,8 +5,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../account_tab_controller.dart';
 import '/core/core.dart';
+import '../account_tab_controller.dart';
 import 'mailbox_filter_controller.dart';
 import 'mailbox_filter_option.dart';
 import 'modals/select_mailbox_filters.dart';
@@ -170,21 +170,17 @@ class _MailboxViewState extends State<MailboxView> {
       ].any((element) => element.contains(keyword.toLowerCase()));
     }
 
-    return List<MessageDVO>.of(messages).where((element) => containsKeyword(element, keyword)).map(
-          (item) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Gaps.h16,
-              MessageDVORenderer(
-                message: item,
-                accountId: widget.accountId,
-                controller: controller,
-                query: keyword,
-              ),
-            ],
+    return List<MessageDVO>.of(messages)
+        .where((element) => containsKeyword(element, keyword))
+        .map(
+          (item) => MessageDVORenderer(
+            message: item,
+            accountId: widget.accountId,
+            controller: controller,
+            query: keyword,
           ),
-        );
+        )
+        .separated(() => const Divider(height: 2));
   }
 
   Future<void> _onOpenFilterPressed() async {
@@ -285,7 +281,7 @@ class _MessageListView extends StatelessWidget {
               separatorBuilder: (context, index) {
                 if (createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt), context: context) ==
                     createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt), context: context)) {
-                  return ColoredBox(color: Theme.of(context).colorScheme.onPrimary, child: const Divider(indent: 16));
+                  return const Divider(indent: 16);
                 }
 
                 return Container(

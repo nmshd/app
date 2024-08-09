@@ -75,47 +75,16 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ColoredBox(
-            color: Theme.of(context).colorScheme.surface,
-            child: TabBar(
-              controller: _tabController,
-              indicatorSize: TabBarIndicatorSize.tab,
-              tabs: [
-                Tab(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.qr_code),
-                      Gaps.w8,
-                      Flexible(
-                        child: Text(
-                          context.l10n.devices_code_useQrCode,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Tab(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.code),
-                      Gaps.w8,
-                      Flexible(
-                        child: Text(
-                          context.l10n.devices_code_useUrl,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          TabBar(
+            controller: _tabController,
+            indicatorSize: TabBarIndicatorSize.tab,
+            tabs: [
+              Tab(child: Text(context.l10n.devices_code_useQrCode, style: Theme.of(context).textTheme.titleSmall)),
+              Tab(child: Text(context.l10n.devices_code_useUrl, style: Theme.of(context).textTheme.titleSmall)),
+            ],
           ),
           SizedBox(
-            height: 270,
+            height: 300,
             child: TabBarView(
               controller: _tabController,
               children: [
@@ -124,7 +93,6 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
               ],
             ),
           ),
-          Gaps.h16,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: isExpired
@@ -199,27 +167,28 @@ class _DeviceOnboardingQRCode extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Center(child: Text(context.l10n.devices_code_qrDescription)),
+          Text(textAlign: TextAlign.center, context.l10n.devices_code_qrDescription),
           Gaps.h16,
           Stack(
             children: [
               Center(
                 child: QrImageView(
                   data: link,
+                  semanticsLabel: context.l10n.devices_code_qrSemanticsLabel,
                   eyeStyle: QrEyeStyle(
                     eyeShape: QrEyeShape.square,
-                    color: isExpired ? Theme.of(context).colorScheme.outline : Theme.of(context).colorScheme.scrim,
+                    color: isExpired ? Theme.of(context).colorScheme.onSurface.withOpacity(0.2) : Theme.of(context).colorScheme.scrim,
                   ),
                   dataModuleStyle: QrDataModuleStyle(
                     dataModuleShape: QrDataModuleShape.square,
-                    color: isExpired ? Theme.of(context).colorScheme.outline : Theme.of(context).colorScheme.scrim,
+                    color: isExpired ? Theme.of(context).colorScheme.onSurface.withOpacity(0.2) : Theme.of(context).colorScheme.scrim,
                   ),
-                  size: 185,
+                  size: 200,
                 ),
               ),
               if (isExpired)
                 SizedBox(
-                  height: 185,
+                  height: 200,
                   child: Center(
                     child: FilledButton.icon(
                       onPressed: getDeviceToken,
@@ -252,37 +221,33 @@ class _DeviceOnboardingUrl extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Center(child: Text(context.l10n.devices_code_urlDescription)),
+          Text(textAlign: TextAlign.center, context.l10n.devices_code_urlDescription),
           Gaps.h16,
-          Container(
-            height: isExpired ? 185 : null,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
-              borderRadius: const BorderRadius.all(Radius.circular(16)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: isExpired
-                  ? Center(
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+            child: isExpired
+                ? SizedBox(
+                    height: 200,
+                    child: Center(
                       child: FilledButton.icon(
                         onPressed: getDeviceToken,
                         icon: const Icon(Icons.refresh),
                         label: Text(context.l10n.devices_code_generateUrl),
                       ),
-                    )
-                  : Column(
-                      children: [
-                        Text(link),
-                        Gaps.h16,
-                        FilledButton.icon(
-                          onPressed: () => Clipboard.setData(ClipboardData(text: link)),
-                          icon: const Icon(Icons.file_copy),
-                          label: Text(context.l10n.devices_code_copy),
-                        ),
-                      ],
                     ),
-            ),
+                  )
+                : Column(
+                    children: [
+                      Gaps.h32,
+                      Text(link),
+                      Gaps.h24,
+                      OutlinedButton.icon(
+                        onPressed: () => Clipboard.setData(ClipboardData(text: link)),
+                        icon: const Icon(Icons.file_copy_outlined),
+                        label: Text(context.l10n.devices_code_copy),
+                      ),
+                    ],
+                  ),
           ),
         ],
       ),

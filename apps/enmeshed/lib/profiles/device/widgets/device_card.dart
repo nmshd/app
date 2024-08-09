@@ -20,11 +20,9 @@ class DeviceCard extends StatelessWidget {
         await reloadDevices();
       },
       child: Card(
-        surfaceTintColor: Theme.of(context).colorScheme.onPrimary,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: Theme.of(context).colorScheme.outline),
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-        ),
+        elevation: 2,
+        color: device.isCurrentDevice ? Theme.of(context).colorScheme.secondaryContainer : Theme.of(context).colorScheme.surfaceContainerHighest,
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Padding(
           padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
           child: Row(
@@ -37,7 +35,7 @@ class DeviceCard extends StatelessWidget {
                       device.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     if (device.description != null && device.description!.isNotEmpty)
                       Text(

@@ -48,8 +48,13 @@ class _DataDetailsScreenState extends State<DataDetailsScreen> {
             Expanded(
               child: ListView.separated(
                 itemCount: _attributes!.length,
-                itemBuilder: (context, index) => _AttributeItem(attribute: _attributes![index], accountId: widget.accountId),
-                separatorBuilder: (context, index) => ColoredBox(color: Theme.of(context).colorScheme.onPrimary, child: const Divider(indent: 16)),
+                itemBuilder: (context, index) => _AttributeItem(
+                  attribute: _attributes![index],
+                  sameTypeAttributes: _attributes!,
+                  accountId: widget.accountId,
+                  reload: () => _loadAttributes(syncBefore: true),
+                ),
+                separatorBuilder: (context, index) => const Divider(indent: 16),
               ),
             ),
           ],
@@ -83,6 +88,8 @@ class _DataDetailsScreenState extends State<DataDetailsScreen> {
       return;
     }
 
+    if (result.value.isEmpty && mounted) context.pop();
+
     final attributes = await session.expander.expandLocalAttributeDTOs(result.value);
 
     if (mounted) setState(() => _attributes = attributes);
@@ -99,11 +106,14 @@ class _CreateAttribute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(context.l10n.personalData_details_addEntry),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Text(context.l10n.personalData_details_manageEntries),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -129,9 +139,11 @@ class _CreateAttribute extends StatelessWidget {
 
 class _AttributeItem extends StatelessWidget {
   final LocalAttributeDVO attribute;
+  final List<LocalAttributeDVO> sameTypeAttributes;
   final String accountId;
+  final VoidCallback reload;
 
-  const _AttributeItem({required this.attribute, required this.accountId});
+  const _AttributeItem({required this.attribute, required this.accountId, required this.sameTypeAttributes, required this.reload});
 
   @override
   Widget build(BuildContext context) {
@@ -148,12 +160,40 @@ class _AttributeItem extends StatelessWidget {
               expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
               openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: file),
             ),
-            IconButton(
-              icon: const Icon(Icons.info_outlined),
-              onPressed: () => context.push(
-                '/account/$accountId/my-data/details/${attribute.id}',
-                extra: attribute is RepositoryAttributeDVO ? attribute : null,
-              ),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.mode_edit_outline_outlined),
+                  onPressed: () => showSucceedAttributeModal(
+                    context: context,
+                    accountId: accountId,
+                    attribute: attribute,
+                    sameTypeAttributes: sameTypeAttributes,
+                    onAttributeSucceeded: () {
+                      reload();
+                      showSuccessSnackbar(context: context, text: context.l10n.personalData_details_attributeSuccessfullySucceeded);
+                    },
+                  ),
+                ),
+                Gaps.w24,
+                IconButton(
+                  icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                  onPressed: () => showDeleteAttributeModal(
+                    context: context,
+                    accountId: accountId,
+                    attribute: attribute,
+                    onAttributeDeleted: () {
+                      reload();
+                      showSuccessSnackbar(context: context, text: context.l10n.personalData_details_attributeSuccessfullyDeleted);
+                    },
+                  ),
+                ),
+                Gaps.w24,
+                IconButton(
+                  icon: const Icon(Icons.info_outline),
+                  onPressed: () => context.push('/account/$accountId/my-data/details/${attribute.id}'),
+                ),
+              ],
             ),
           ],
         ),

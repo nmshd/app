@@ -49,7 +49,7 @@ class _ContactExchangedAttributesScreenState extends State<ContactExchangedAttri
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text(context.l10n.contactDetail_informationOverview),
+          title: Text(context.l10n.contactDetail_sharedInformation),
           notificationPredicate: (notification) => notification.depth == 1,
           bottom: TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
@@ -87,7 +87,7 @@ class _ContactExchangedAttributesScreenState extends State<ContactExchangedAttri
                       onRefresh: () => _loadSentPeerAttribute(syncBefore: true),
                       child: _AttributeListView(
                         attributes: _sentAttributes!,
-                        headerText: context.l10n.contactDetail_sentAttributesDescription(_contactName!),
+                        headerText: context.l10n.contactDetail_overviewSharedAttributes(_contactName!),
                         emptyText: context.l10n.contactDetail_noSharedAttributes,
                         accountId: widget.accountId,
                       ),
@@ -152,19 +152,41 @@ class _AttributeListView extends StatelessWidget {
     return ListView.separated(
       itemCount: attributes.length + 1,
       separatorBuilder: (context, index) => index == 0 ? const SizedBox.shrink() : const Divider(),
-      itemBuilder: (context, index) => index == 0
-          ? Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(headerText, textAlign: TextAlign.left),
-            )
-          : Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: AttributeRenderer.localAttribute(
-                attribute: attributes[index - 1],
-                expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-                openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: file),
-              ),
-            ),
+      itemBuilder: (context, index) {
+        if (index == 0) return Padding(padding: const EdgeInsets.all(16), child: Text(headerText));
+
+        final attribute = attributes[index - 1];
+        Text? extraLine;
+
+        if (attribute is SharedToPeerAttributeDVO) {
+          final extraLineTextStyle = Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.error);
+
+          if (attribute.deletionStatus == DeletionStatus.DeletionRequestSent.name && attribute.sourceAttribute == null) {
+            extraLine = Text(context.l10n.contactDetail_deletionRequested, style: extraLineTextStyle);
+          }
+
+          if (attribute.deletionStatus == DeletionStatus.ToBeDeletedByPeer.name && attribute.deletionDate != null) {
+            extraLine = Text(
+              context.l10n.contactDetail_willBeDeletedOn(DateTime.parse(attribute.deletionDate!).toLocal()),
+              style: extraLineTextStyle,
+            );
+          }
+
+          if (attribute.deletionStatus == DeletionStatus.DeletionRequestRejected.name) {
+            extraLine = Text(context.l10n.contactDetail_deletionRejected, style: extraLineTextStyle);
+          }
+        }
+
+        return Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: AttributeRenderer.localAttribute(
+            attribute: attribute,
+            expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
+            openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: file),
+            extraLine: extraLine,
+          ),
+        );
+      },
     );
   }
 }

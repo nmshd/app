@@ -6,7 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../../core.dart';
+import '../../constants.dart';
+import '../../utils/utils.dart';
 
 enum ScannerAnimationDirection { forward, reverse }
 
@@ -132,20 +133,15 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
         Positioned(
           top: 56,
           right: 8,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              backgroundColor: Theme.of(context).colorScheme.primary,
-            ),
-            onPressed: _cameraController.toggleTorch,
-            child: ValueListenableBuilder(
-              valueListenable: _cameraController,
-              builder: (context, state, child) {
-                return switch (state.torchState) {
-                  TorchState.off => Icon(Icons.flashlight_off, color: Theme.of(context).colorScheme.onPrimary, size: 18),
-                  TorchState.on => Icon(Icons.flashlight_on, color: context.customColors.decorativeContainer, size: 18),
-                  _ => const SizedBox.shrink(),
-                };
+          child: ValueListenableBuilder(
+            valueListenable: _cameraController,
+            builder: (context, state, child) => IconButton(
+              style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
+              onPressed: state.torchState == TorchState.unavailable ? null : _cameraController.toggleTorch,
+              icon: switch (state.torchState) {
+                TorchState.off || TorchState.unavailable => Icon(Icons.flashlight_off, color: Theme.of(context).colorScheme.onPrimary, size: 18),
+                TorchState.on => Icon(Icons.flashlight_on, color: context.customColors.decorativeContainer, size: 18),
+                TorchState.auto => Icon(Icons.flash_auto, color: Theme.of(context).colorScheme.onPrimary, size: 18),
               },
             ),
           ),

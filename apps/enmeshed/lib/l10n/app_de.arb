@@ -13,80 +13,89 @@
   "reject": "Ablehnen",
   "accept": "Akzeptieren",
   "edit": "Bearbeiten",
-  "account": "Konto",
+  "update": "Aktualisieren",
   "help": "Hilfe",
   "save": "Speichern",
   "delete": "Löschen",
   "back": "Zurück",
   "reset": "Zurücksetzen",
   "noEntries": "Keine Ergebnisse",
-  "mandatoryField": "*Pflichtfeld",
+  "mandatoryField": "* Pflichtfeld",
+  "termsAndConditions": "Nutzungsbedingungen",
   "legalNotice": "Rechtliche Hinweise",
   "dataProtection": "Datenschutzerklärung",
   "imprint": "Impressum",
   "safetyInformation": "Sicherheitshinweis",
   "error": "Fehler",
-  "errorDialog_description": "Ein Fehler ist aufgetreten. Bitte versuche es später erneut.",
-  "error_image": "Es konnte kein Bild ausgewählt werden",
+  "errorDialog_description": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
+  "error_image": "Es konnte kein Bild ausgewählt werden.",
   "error_upload_file": "Die Datei konnte nicht hochgeladen werden.",
   "error_download_file": "Die Datei konnte nicht heruntergeladen werden.",
-  "error_createAccount": "Der Account konnte nicht erstellt werden. Bitte versuche es später erneut.",
-  "error_createDevice": "Das Gerät konnte nicht erstellt werden. Bitte versuche es später erneut.",
+  "error_createAccount": "Ihr Profil konnte nicht erstellt werden. Bitte versuchen Sie es später erneut.",
+  "error_createDevice": "Das Gerät konnte nicht erstellt werden. Bitte versuchen Sie es später erneut.",
   "error_couldNotOpenLink": "Der Link konnte nicht geöffnet werden.",
   "error_createAttribute": "Es konnte keine neue Information angelegt werden.",
+  "error_succeedAttribute": "Der Eintrag konnte nicht aktualisiert werden.",
+  "error_deleteAttribute": "Der Eintrag konnte nicht gelöscht werden.",
   "favorites": "Favoriten",
   "tryAgain": "Erneut versuchen",
   "title": "Titel",
   "name": "Name",
   "notImplemented": "Diese Funktion ist noch nicht implementiert.",
-  "scanner_scanQR": "QR-Code Scannen",
-  "scanner_enterUrl": "URL eingeben",
-  "scanner_invalidCode": "Der Code ist ungültig. Versuche es mit einem anderen.",
-  "scanner_lineUpQrCode": "Richte den QR-Code mit dem Rahmen aus.",
-  "scanner_scanQrOrEnterUrl": "Scanne einen QR-Code oder gib alternativ eine URL ein.",
-  "scanner_urlValidationError": "Die URL konnte nicht verifiziert werden. Kontrolliere auf Tippfehler.",
-  "scanner_enterUrl_title": "URL eingeben",
-  "scanner_enterUrl_description": "Gib eine URL ein um eine Aktion auszuführen.",
+  "scanner_scanQR": "QR-Code scannen",
+  "scanner_enterUrl": "URL-Link eingeben",
+  "scanner_invalidCode": "Der Code ist ungültig",
+  "scanner_invalidCode_tryAnother": "Versuchen Sie es mit einem anderen.",
+  "scanner_lineUpQrCode": "Richten Sie den QR-Code am Rahmen aus.",
+  "scanner_scanQrOrEnterUrl": "Scannen Sie einen QR-Code oder geben Sie alternativ eine URL-Link ein.",
+  "scanner_urlValidationError": "Der eingegebene URL-Link ist ungültig. Bitte überprüfen Sie Ihre Eingabe.",
+  "scanner_enterUrl_title": "URL-Link eingeben",
+  "scanner_enterUrl_description": "Geben Sie den URL-Link ein um eine Aktion auszuführen.",
   "scanner_enterUrl_button": "Fertig",
   "scanner_failedStartingScanner_title": "Der Scanner konnte nicht gestartet werden",
-  "scanner_failedStartingScanner_description": "Bitte überprüfe, ob die Berechtigung zum Zugriff auf die Kamera erteilt wurde und ob dein Gerät über eine Kamera verfügt.\nAlternativ kannst du auch eine URL manuell eingeben.",
+  "scanner_failedStartingScanner_description": "Bitte überprüfen Sie, ob die Berechtigung zum Zugriff auf die Kamera erteilt wurde und ob Ihr Gerät über eine Kamera verfügt.\nAlternativ können Sie auch einen URL-Link manuell eingeben.",
   "onboarding_welcome": "Willkommen in der Enmeshed App",
-  "onboarding_description": "Deine Zentrale für personenbezogene Daten und Datenaustausch rund um deinen Bildungs- und Lebensweg.",
+  "onboarding_description": "Ihre Zentrale für personenbezogene Daten und Datenaustausch rund um ihren Bildungs- und Lebensweg.",
   "onboarding_letsStart": "Los geht’s",
-  "onboarding_info_titlePage1": "Eine Ablage für Alles",
-  "onboarding_info_titlePage2": "Hinzufügen von Kontakten",
-  "onboarding_info_titlePage3": "Teile deine Informationen per Knopfdruck",
-  "onboarding_info_descriptionPage1": "Empfange, speichere und verwalte hier deine persönlichen Daten und Dokumente, wie zum Beispiel Zeugnisse und Zertifikate, sicher und lokal.",
-  "onboarding_info_descriptionPage2": "Verbinde dich mit Kontakten mithilfe eines QR-Codes und mit einem Klick ...",
-  "onboarding_info_descriptionPage3": "... kannst du deine gespeicherten Informationen sowie Zertifikate und Dokumente mit ausgewählten Kontakten teilen. Sicher und verschlüsselt.",
-  "onboarding_existingIdentity": "Verknüpfe ein vorhandenes Konto",
-  "onboarding_existingIdentity_description": "Scanne einen QR-Code mit dem du ein vorhandenes Konto verknüpfen möchtest.",
-  "onboarding_createNewAccount": "Neues Konto anlegen",
-  "onboarding_createNewAccount_description": "Falls Du neu bist, kannst Du hier ein neues Konto auch ohne QR-Code anlegen.",
-  "onboarding_createNewAccount_button": "Konto anlegen",
-  "onboarding_chooseOption": "Um in die App einzusteigen, stehen Dir zwei Möglichkeiten zur Verfügung.",
-  "onboarding_createIdentity": "Erstelle Dein Konto",
+  "onboarding_info_titlePage1": "Dokumente und Daten verwalten",
+  "onboarding_info_titlePage2": "Kontakte organisieren",
+  "onboarding_info_titlePage3": "Informationen teilen",
+  "onboarding_info_descriptionPage1": "Empfangen, speichern und verwalten Sie hier persönliche Daten und Dokumente, wie zum Beispiel Zeugnisse und Zertifikate.",
+  "onboarding_info_descriptionPage2": "Verbinden Sie sich einfach per QR-Code mit Ihren Kontakten.",
+  "onboarding_info_descriptionPage3": "Entscheiden Sie selbst, welche gespeicherten persönlichen Daten und Dokumente Sie mit Ihren Kontakten teilen.",
+  "onboarding_existingIdentity": "Bestehendes Profil verknüpfen",
+  "onboarding_existingIdentity_description": "Scannen Sie mit diesem Gerät den QR-Code des bestehenden Profils, um es hier zu laden.",
+  "onboarding_createNewAccount": "Neues Profil erstellen",
+  "onboarding_createNewAccount_description": "Zum ersten Mal hier?\nLegen Sie ein neues Profil an.",
+  "onboarding_createNewAccount_button": "Profil anlegen",
+  "onboarding_chooseOption": "Sie benötigen ein Profil, um die\nEnmeshed-App nutzen zu können.\nHierfür gibt es zwei Möglichkeiten.",
+  "onboarding_createIdentity": "Erstellen Sie Ihr Profil",
   "onboarding_defaultIdentityName": "Profil",
-  "onboarding_creatingAccount": "Konto wird erstellt",
+  "onboarding_creatingAccount": "Ihr Profil wird erstellt",
   "onboarding_alreadyExist_title": "Das Profil existiert bereits!",
-  "onboarding_alreadyExist_description": "Bitte scanne den QR-Code oder verwende die URL auf einem anderen Gerät!",
+  "onboarding_alreadyExist_description": "Bitte scannen Sie den QR-Code oder verwenden Sie den URL-Link auf einem anderen Gerät!",
   "onboarding_dataPrivacy_start": "Ich habe die ",
   "onboarding_dataPrivacy_link": "Datenschutzerklärung",
   "onboarding_dataPrivacy_end": " gelesen und akzeptiere diese.",
-  "onboarding_connectWithUrl_title": "Mit URL verknüpfen",
-  "onboarding_connectWithUrl_description": "Gib eine URL ein, um dein Konto zu verknüpfen.",
+  "onboarding_termsOfUse_start": "Ich habe die ",
+  "onboarding_termsOfUse_link": "Nutzungsbedingungen",
+  "onboarding_termsOfUse_end": " gelesen und akzeptiere diese.",
+  "onboarding_connectWithUrl_title": "Mit URL-Link verknüpfen",
+  "onboarding_connectWithUrl_description": "Geben Sie den URL-Link ein, um Ihr Konto zu verknüpfen.",
   "onboarding_linkAccount": "Konto verknüpfen",
   "onboarding_receiveInformation": "Informationen werden empfangen",
-  "onboarding_yourConsent": "Deine Zustimmung",
-  "onboarding_consentParagraph1": "Bevor wir loslegen können, lies dir bitte die folgenden Bedingungen aufmerksam durch. Du musst den Bedingungen zustimmen, um die Enmeshed App zu benutzen.",
-  "onboarding_consentParagraph2": "Die Enmeshed App wird von der Firma j&s-soft GmbH betrieben. Nähere Informationen zur Verarbeitung deiner personenbezogenen Daten enthält die Datenschutzerklärung, die Du zur Kenntnis nehmen solltest, bevor Du die App gebrauchst. Herausstellen wollen wir vorab Folgendes.",
-  "onboarding_consentParagraph3": "Für die sinnvolle Nutzung der Enmeshed App besteht eine dauerhafte Verbindung zum sog. “Backbone” (Datenspeicher). Eine rein lokale Verwendung deiner Daten auf dem mobilen Endgerät ist nicht vorgesehen.",
-  "onboarding_consentParagraph4": "Durch die Verwendung der App - inkl. Empfang von Push-Nachrichten auf dein mobiles Endgerät sowie die Analyse bewegter Datenvolumen - signalisierst du dein Einverständnis in die jeweils erforderliche Verarbeitung deiner personenbezogenen Daten.",
-  "onboarding_enterProfileName": "Gib deinem Profil einen Namen",
+  "onboarding_yourConsent": "Ihre Zustimmung",
+  "onboarding_yourConsent_acceptAndContinue": "Akzeptieren und weiter",
+  "onboarding_consentParagraph1": "Bevor es losgeht: Bitte lesen Sie unsere Nutzungsbedingungen. Sie müssen den Bedingungen zustimmen, um die Enmeshed-App nutzen zu können:",
+  "onboarding_consentParagraph2": "Die Enmeshed App wird von der Firma j&s-soft GmbH betrieben. Nähere Informationen zur Verarbeitung Ihrer personenbezogenen Daten enthält die Datenschutzerklärung. Diese sollten Sie zur Kenntnis nehmen, bevor Sie die App nutzen. Hinweis:",
+  "onboarding_consentParagraph3": "Für die sinnvolle Nutzung der App besteht eine dauerhafte Verbindung zum sogenannten “Backbone” (Datenspeicher). Eine rein lokale Verwendung Ihrer Daten auf dem mobilen Endgerät ist nicht vorgesehen.",
+  "onboarding_consentParagraph4": "Durch Ihre aktive Teilnahme in der Testphase - inklusive Empfang von Push-Nachrichten auf Ihr mobiles Endgerät sowie die Analyse bewegter Datenvolumen - erklären Sie sich mit der jeweils erforderlichen Verarbeitung Ihrer personenbezogenen Daten einverstanden.",
+  "onboarding_enterProfileName": "Profilname vergeben",
   "onboarding_acceptProfileName": "Übernehmen",
-  "home_news": "Neuigkeiten",
+  "home_title": "Enmeshed-App",
+  "home_news": "Service-Informationen",
   "home_contactRequests": "Kontaktanfragen",
-  "home_noNewContactRequests": "Keine neuen Kontaktanfragen",
+  "home_noNewContactRequests": "Keine zu entscheidenden Anfragen.",
   "home_seeAll": "Alle ansehen",
   "home_newFunction": "Neue Funktion",
   "home_generalInformation": "Allgemine Information",
@@ -94,38 +103,41 @@
   "home_notNow": "Jetzt nicht",
   "home_discoverNow": "Jetzt entdecken",
   "home_complete": "Abschließen",
-  "home_scanQR": "Scanne einen QR-Code",
+  "home_scanQR": "QR-Code scannen",
   "home_addContact": "Kontakt hinzufügen",
-  "home_addContactImageSemanticsLabel": "Illustration eines Schulgebäudes mit einem Schild davor, dass einen QR-Code zeigt",
+  "home_addContactImageSemanticsLabel": "Illustration eines Schulgebäudes mit einem Schild davor, das einen QR-Code zeigt",
   "home_loadProfile": "Profil laden",
   "home_loadProfileImageSemanticsLabel": "Illustration einer Person mit Handy, dessen Bildschirm einen QR-Code zeigt",
-  "home_messages": "Nachrichten",
-  "home_noNewMessages": "Keine neuen Nachrichten",
-  "home_completeProfile": "Vervollständige dein Profil",
+  "home_messages": "Neue Nachrichten",
+  "home_noNewMessages": "Keine neuen Nachrichten.\nSie sind auf dem neuesten Stand.",
+  "home_completeProfile": "Erste Schritte",
+  "home_completeProfileDescription": "Vier Schritte, die Ihnen helfen, die Enmeshed-App optimal zu nutzen:",
+  "home_completeProfileCloseIconSemanticsLabel": "Karte ausblenden",
   "home_of": "von",
   "home_completed": "vervollständigt",
-  "home_profileCreated": "Profil angelegt",
-  "home_personalInformationStored": "Identitätsdaten hinterlegt",
-  "home_addressInformationStored": "Adressdaten hinterlegt",
-  "home_communicationInformationStored": "Kommunikationsdaten hinterlegt",
+  "home_createProfile": "Profil erstellen",
+  "home_initialPersonalInformation": "Erste persönliche Informationen erfassen",
+  "home_initialContact": "Erste Kontakte verknüpfen",
+  "home_initialDocuments": "Erste Dokumente laden",
+  "drawer_hints": "Hinweise wieder anschalten",
   "drawer_manageProfiles": "Profile verwalten",
   "drawer_backupData": "Daten sichern",
   "drawer_news": "Neuigkeiten",
   "drawer_informationAndHelp": "Informationen und Hilfe",
   "drawer_helpAndFaq": "Hilfe und FAQs",
-  "profiles_copyAddressToClipboardLabel": "Die individuelle Profil-Adresse in die Zwischenablage kopieren.",
-  "profiles_copiedAddressToClipboard": "Die individuelle Profil-Adresse wurde in die Zwischenablage kopiert.",
+  "profiles_copyAddressToClipboardLabel": "Die Profil-Adresse in die Zwischenablage kopieren.",
+  "profiles_copiedAddressToClipboard": "Die Profil-Adresse wurde in die Zwischenablage kopiert.",
   "profiles_settings_title": "Einstellungen",
-  "profiles_settings_subtitle": "Verwalte deine verbundenen Geräte und Profil-Einstellungen.",
+  "profiles_settings_subtitle": "Verwalten Sie hier Ihre verbundenen Geräte und Profileinstellungen oder sichern Sie Ihre Daten.",
   "profiles_settings_editProfile": "Profil bearbeiten oder löschen",
   "profiles_settings_connectedDevices": "Verknüpfte Geräte verwalten",
   "profiles_createNew": "Neues Profil anlegen",
   "profiles_lastUsed": "Zuletzt verwendet",
-  "profiles_createNewForProcessingQrDescription": "Erstelle ein neues Profil um den gescannten QR-Code oder Link zu verarbeiten.",
+  "profiles_createNewForProcessingQrDescription": "Erstellen Sie ein neues Profil um den gescannten QR-Code oder URL-Link zu verarbeiten.",
   "profiles_otherProfiles": "Andere Profile",
-  "profiles_moreProfiles": "Weitere Profile",
+  "profiles_additionalProfiles": "Weitere Profile",
   "profiles_add": "Hinzufügen",
-  "profiles_noAdditionalProfiles": "Du kannst verschiedene Profile für unterschiedliche Rollen oder auch für andere Personen erstellen und einfach dazwischen wechseln.",
+  "profiles_noAdditionalProfiles": "Sie können verschiedene Profile für unterschiedliche Rollen oder andere Personen erstellen und zwischen diesen wechseln.",
   "profiles_switchedToProfile": "Zum Profil \"{profileName}\" gewechselt.",
   "@profiles_switchedToProfile": {
     "placeholders": {
@@ -141,10 +153,10 @@
   "profile_delete_cancel": "Nein, abbrechen",
   "profile_delete_confirm": "Ja, löschen",
   "profile_delete_inProgress": "Das Profil wird gelöscht.",
-  "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wähle aus mit welchem Profil du jetzt fortfahren möchtest.",
-  "profile_delete_success_noProfilesAvailable": "Das Profil wurde gelöscht. Alle deine Daten wurden aus der App entfernt.",
+  "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wählen Sie aus mit welchem Profil Sie jetzt fortfahren möchtest.",
+  "profile_delete_success_noProfilesAvailable": "Das Profil wurde gelöscht. Alle Ihre Daten wurden aus der App entfernt.",
   "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Willst du das Profil \"{profileName}\" wirklich löschen? Es wird permanent von diesem Gerät gelöscht.",
+  "profile_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" wirklich löschen? Es wird permanent von diesem Gerät gelöscht.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -152,9 +164,9 @@
       }
     }
   },
-  "profile_delete_confirmation_lastDevice": "Da dein Profil nur auf diesem Gerät existiert, wird es unwiderruflich gelöscht.",
-  "profile_delete_confirmation_devicesLeft": "Du kannst auf deinen folgenden verknüpften Geräten weiterhin auf deine Profilddaten zugreifen:",
-  "profile_delete_error": "Beim Löschen des Profils ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+  "profile_delete_confirmation_lastDevice": "Da Ihr Profil nur auf diesem Gerät existiert, wird es unwiderruflich gelöscht.",
+  "profile_delete_confirmation_devicesLeft": "Sie können auf Ihren folgenden verknüpften Geräten weiterhin auf Ihre Profilddaten zugreifen:",
+  "profile_delete_error": "Beim Löschen des Profils ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
   "profile_delete_error_cancel": "Abbrechen",
   "profile_delete_error_retry": "Nochmal versuchen",
   "profile_create": "Anlegen",
@@ -162,7 +174,7 @@
   "profile_deletePhoto": "Profilbild löschen",
   "profile_editPhoto": "Profilbild ändern",
   "devices_title": "Geräte verwalten",
-  "devices_description": "Hier siehst Du, mit welchen Geräten Deine Informationen von deinem Profil \"{profileName}\" geteilt werden.",
+  "devices_description": "Mit folgenden Geräten wird Ihr Profil \"{profileName}\" geteilt. Wenn Sie die Synchronisation mit einem der Geräte beenden möchten, entfernen Sie dieses aus der Liste.",
   "@devices_description": {
     "placeholders": {
       "profileName": {
@@ -171,44 +183,83 @@
     }
   },
   "devices_otherDevices": "Weitere Geräte",
+  "devices_empty": "Dieses Profil mit anderen Geräten teilen",
+  "devices_empty_description": "Installieren Sie zuerst die Enmeshed-App auf Ihrem neuen Gerät. Verknüpfen Sie diese dann mit einem bestehenden Profil.",
   "devices_edit": "Gerät bearbeiten",
   "devices_edit_description": "Beschreibung",
   "devices_create": "Gerät hinzufügen",
-  "devices_create_inProgress": "Dein Gerät wird erstellt.",
-  "devices_connect": "Gerät verbinden",
+  "devices_create_inProgress": "Ihr Gerät wird erstellt.",
+  "devices_add": "Gerät hinzufügen",
   "devices_connected": "Gerät verbunden",
-  "devices_code_qrDescription": "Bitte scanne folgenden QR-Code auf dem neuen Gerät ab.",
-  "devices_code_urlDescription": "Verwende diese URL, um dein neues Gerät zu verbinden.",
+  "devices_code_qrSemanticsLabel": "QR-Code zum einscannen",
+  "devices_code_qrDescription": "Scannen Sie den QR-Code mit der\nEnmeshed-App auf dem neuen Gerät, um es zu verbinden.",
+  "devices_code_urlDescription": "Verwenden Sie diesen URL-Link in der\nEnmeshed-App auf dem neuen Gerät, um es zu verbinden.",
   "devices_code_useQrCode": "QR-Code verwenden",
-  "devices_code_useUrl": "URL verwenden",
+  "devices_code_useUrl": "URL-Link verwenden",
   "devices_code_qrExpired": "Dieser QR-Code ist abgelaufen.",
-  "devices_code_urlExpired": "Diese URL ist abgelaufen.",
+  "devices_code_urlExpired": "Dieser URL-Link ist abgelaufen.",
   "devices_code_generateQr": "Neuen QR-Code generieren",
-  "devices_code_generateUrl": "Neue URL generieren",
-  "devices_code_expiry": "Dieser Code ist 5 Minuten lang gültig.",
-  "devices_code_copy": "URL kopieren",
-  "devices_delete_description": "Möchtest du das Gerät \"{deviceName}\" wirklich löschen?",
-  "@devices_delete_description": {
+  "devices_code_generateUrl": "Neuen URL-Link generieren",
+  "devices_code_expiry": "Dieser QR-Code ist für 5 Minuten gültig.",
+  "devices_code_copy": "URL-Link kopieren",
+  "devices_delete": "Ja, löschen",
+  "devices_delete_cancel": "Nein, abbrechen",
+  "devices_delete_fromApp": "Möchtest du das Gerät \"{deviceName}\" aus der Liste Ihrer Geräte löschen?",
+  "@devices_delete_fromApp": {
     "placeholders": {
       "deviceName": {
         "type": "String"
       }
     }
   },
-  "devices_otherDeviceOnboardedSuccess": "Dein Gerät wurde erfolgreich verbunden.",
-  "devices_onboardingSuccessButton": "Okay!",
+  "devices_otherDeviceOnboardedSuccess": "Ihr Gerät wurde erfolgreich verbunden.",
+  "devices_onboardingSuccessButton": "Okay",
+  "deviceInfo_warningSemanticsLabel": "Warnhinweis",
+  "deviceInfo_hintSemanticsLabel": "Hinweis",
   "deviceInfo_title": "Geräteinformationen",
   "deviceInfo_thisDevice": "Dieses Gerät",
   "deviceInfo_deviceNotConnected": "Gerät ist nicht verbunden.",
   "deviceInfo_offboarded": "Gerät ist nicht mehr verbunden.",
   "deviceInfo_removeDevice": "Gerät entfernen",
-  "deviceInfo_connectDeviceViaQr": "Verbinde dein Gerät über den QR-Code",
-  "deviceInfo_firstConnection": "Zuerst verbunden am",
-  "deviceInfo_notConnected": "Nicht verbunden",
-  "deviceInfo_delete_inProgress": "Dein Gerät wird gelöscht.",
+  "deviceInfo_removeDevice_goBack": "Gehen Sie zurück zur \"Profilverwaltung\".",
+  "deviceInfo_removeDevice_profileManagment": "Gehen Sie zur \"Profilverwaltung\".",
+  "deviceInfo_removeDevice_chooseDelete": "Wählen Sie \"Profil löschen\".",
+  "deviceInfo_removeDevice_deleteProfile": "Löschen Sie das Profil.",
+  "deviceInfo_removeDevice_allDataDeleted": "Dabei werden alle Ihre Daten, Kontakte und Dokumente unwiederbringlich gelöscht.",
+  "deviceInfo_removeCurrentDevice": "Profil von diesem Gerät entfernen",
+  "deviceInfo_removeRemainingDevice_title": "Sie können das Gerät nicht von Ihrem Profil trennen, da es das einzige verbundene ist. So löschen Sie Ihr Profil:",
+  "deviceInfo_removeConnectedDevice_title": "So entfernen Sie das Gerät aus der Liste der verbundenen Geräte:",
+  "deviceInfo_removeDevice_successful": "Das Gerät \"{deviceName}\" wurde aus der Liste Ihrer Geräte entfernt.",
+  "@devices_removeDevice_successful": {
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceInfo_history": "Historie",
+  "deviceInfo_firstConnection": "zuerst verbunden am",
+  "deviceInfo_notConnected": "nicht verbunden",
+  "deviceInfo_delete_inProgress": "Ihr Gerät wird gelöscht.",
+  "deviceInfo_showQrCode": "QR-Code zum Verbinden anzeigen",
+  "deviceInfo_connectDevice_title": "So verknüpfen Sie das Gerät mit Ihrem Profil:",
+  "deviceInfo_connectDevice_startConnecting": "Starten Sie dort die Verknüpfung mit einem bestehenden Profil.",
+  "deviceInfo_connectDevice_scan": "Scannen Sie den hier angezeigten QR-Code ein.",
+  "deviceInfo_openApp": "Nehmen Sie das Gerät \"{deviceName}\" zur Hand und öffnen Sie die Enmeshed-App.",
+  "@deviceInfo_openApp": {
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      }
+    }
+  },
   "contact_information": "Kontaktinformationen",
+  "contact_information_messages": "Nachrichten",
+  "contact_information_noMessages": "Keine Nachrichten vorhanden.",
+  "contact_information_sharedFiles": "Geteilte Dateien",
   "contact_request": "Kontaktanfrage",
-  "contacts_empty": "Keine Kontakte vorhanden.",
+  "contacts_empty": "Kontakte hinzufügen",
+  "contacts_emptyDescription": "Verbinden Sie sich mit Kontakten, um Daten oder Dokumente zu teilen oder zu empfangen.",
   "contacts_pending": "Der Kontakt hat die Beziehungsanfrage noch nicht akzeptiert.",
   "contactDetail_connectedSince": "Kontakt seit {since}",
   "@contactDetail_connectedSince": {
@@ -219,21 +270,21 @@
     }
   },
   "contactDetail_entry": "Eintrag",
-  "contactDetail_addEntry": "Eintrag hinzufügen",
-  "contactDetail_selectOrCreateEntryMessage": "Teile einen bereits angelegten Eintrag mit deinem Kontakt oder lege einen neuen dafür an.",
-  "contactDetail_selectEntryMessage": "Teile einen bereits angelegten Eintrag.",
+  "contactDetail_addEntry": "Hinzufügen",
+  "contactDetail_selectOrCreateEntryMessage": "Teilen Sie einen bereits angelegten Eintrag mit Ihrem Kontakt oder legen Sie einen neuen dafür an.",
+  "contactDetail_selectEntryMessage": "Teilen Sie einen bereits angelegten Eintrag.",
   "contactDetail_sendMessage": "Nachricht senden",
   "contactDetail_requestCertificate": "Zertifikat anfordern",
   "contactDetail_requestCertificate_subject": "Betreff",
   "contactDetail_requestCertificate_text": "Text",
   "contactDetail_requestCertificate_send": "Senden",
   "contactDetail_requestCertificate_inProgress": "Das Zertifikat wird angefordert.",
-  "contactDetail_requestCertificate_success": "Das Zertifikat wurde angefordert.",
+  "contactDetail_requestCertificate_success": "Ihre Anforderung für ein Zertifikat wurde übermittelt. Sie finden die Nachricht in Ihrem Postausgang.",
   "contactDetail_requestCertificate_successOk": "Okay!",
-  "contactDetail_requestCertificate_error": "Das Zertifikat konnte nicht angefragt werden. Stelle sicher, dass dein Gerät mit dem Internet verbunden ist.",
-  "contactDetail_sharedAttributes": "Geteilt durch mich",
-  "contactDetail_receivedAttributes": "Geteilt mit mir",
-  "contactDetail_informationOverview": "Informationsübersicht",
+  "contactDetail_requestCertificate_error": "Das Zertifikat konnte nicht angefragt werden. Stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.",
+  "contactDetail_sharedAttributes": "Von mir geteilt",
+  "contactDetail_receivedAttributes": "Mit mir geteilt",
+  "contactDetail_sharedInformation": "Geteilte Informationen",
   "contactDetail_noReceivedAttributes": "Der Kontakt teilt keine Informationen mit dir",
   "contactDetail_noSharedAttributes": "Der Kontakt erhält keine Informtionen von dir",
   "contactDetail_receivedAttributesDescription": "Empfangene Daten von {contactName} können hier eingesehen werden",
@@ -244,15 +295,26 @@
       }
     }
   },
-  "contactDetail_sentAttributesDescription": "Gesendete Daten an {contactName} können hier eingesehen werden",
-  "@contactDetail_sentAttributesDescription": {
+  "contactDetail_overviewSharedAttributes": "Übersicht aller mit {contactName} geteilten Informationen",
+  "@contactDetail_overviewSharedAttributes": {
     "placeholders": {
       "contactName": {
         "type": "String"
       }
     }
   },
-  "requests_empty": "Keine offenen Kontaktanfragen.",
+  "contactDetail_deletionRequested": "Löschung angefragt",
+  "contactDetail_deletionRejected": "Löschung abgelehnt",
+  "contactDetail_willBeDeletedOn": "Wird gelöscht am {date}",
+  "@contactDetail_willBeDeletedOn": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
+  "requests_empty": "Keine zu entscheidenden Anfragen.",
   "myData_createEntryForAttributeType": "Anlegen",
   "myData_noEntryForAttributeType": "Kein Eintrag",
   "myData_allData": "Alle Daten",
@@ -261,7 +323,7 @@
   "myData_communicationData": "Kommunikationsdaten",
   "myData_initialCreation": "Anlegen",
   "myData_createInformation": "Information anlegen",
-  "myData_chooseInformationType": "Bitte wähle einen Informationstyp aus!",
+  "myData_chooseInformationType": "Wählen Sie einen Informationstyp aus!",
   "myData_createAttribute_title": "{attribute} anlegen",
   "@myData_createAttribute_title": {
     "placeholders": {
@@ -271,22 +333,22 @@
     }
   },
   "myData_initialCreation_personalData": "Identitätsdaten anlegen",
-  "myData_initialCreation_personalData_description": "Bitte gib Deine grundlegenden persönlichen Informationen ein, um sie mit Deinen Kontakten teilen zu können.",
+  "myData_initialCreation_personalData_description": "Geben Sie Ihre grundlegenden persönlichen Informationen ein, um diese mit Ihren Kontakten teilen zu können.",
   "myData_initialCreation_communicationData": "Kommunikationsdaten anlegen",
-  "myData_initialCreation_communicationData_description": "Bitte gib Deine Kommunikationsdaten ein, um sie mit Deinen Kontakten teilen zu können.",
+  "myData_initialCreation_communicationData_description": "Bitte geben Sie Ihre Kommunikationsdaten ein, um sie mit Ihren Kontakten teilen zu können.",
   "myData_initialCreation_personalData_infoGender": "Das Geschlecht ist das biologische, medizinische oder öffentliche Geschlecht einer natürlichen Person.",
-  "myData_initialCreation_personalData_infoCitizenship": "Die Staatsangehörigkeit gibt an, welches Land dich derzeit als Bürger anerkennt. Dies bezieht sich auf das Land, dessen Pass du besitzt.",
+  "myData_initialCreation_personalData_infoCitizenship": "Die Staatsangehörigkeit gibt an, welches Land Sie derzeit als Bürger anerkennt. Dies bezieht sich auf das Land, dessen Pass Sie besitzen.",
   "myData_initialCreation_communicationData_infoPhoneNumber": "Eine Telefonnummer kann sowohl ein Festnetzanschluss als auch eine Mobilfunknummer sein.",
-  "myData_initialCreation_communicationData_infoWebsite": "Eine Webseite kann jede Form eines öffentlichen Profils sein, beispielsweise LinkedIn oder XING.",
+  "myData_initialCreation_communicationData_infoWebsite": "Eine Webseite kann jede Form eines öffentlichen Profils sein, beispielsweise auch auf LinkedIn oder Instagram.",
   "myData_initialCreation_error": "Beim Anlegen der Daten ist ein Fehler aufgetreten, bitte versuche es erneut.",
-  "myData_initialCreation_addressData_title": "Neue Adresse hinzufügen",
-  "myData_initialCreation_addressData_description": "Bitte gib Deine Adressdaten ein, um sie mit Deinen Kontakten teilen zu können. Du kannst zwischen mehreren Adress-Typen wählen.",
-  "myData_initialCreation_addressData_streetAddress": "Neue Anschrift anlegen",
-  "myData_initialCreation_addressData_streetAddress_description": "Eine Anschrift ist eine Wohnadresse bestehend aus Straße, Postleitzahl und Ort",
+  "myData_initialCreation_addressData_title": "Adressdaten anlegen",
+  "myData_initialCreation_addressData_description": "Geben Sie Ihre verschiedenen Adressen ein, um diese mit Ihren Kontakten teilen zu können. Sie können zwischen mehreren Adress-Typen wählen.",
+  "myData_initialCreation_addressData_streetAddress": "Eine Anschrift anlegen",
+  "myData_initialCreation_addressData_streetAddress_description": "Eine Anschrift ist eine Wohnadresse bestehend aus Straße, Postleitzahl und Ort.",
   "myData_initialCreation_addressData_deliveryBoxAddress": "Eine Packstationadresse anlegen",
-  "myData_initialCreation_addressData_deliveryBoxAddress_description": "Eine Packstation ist ein Paketautomat, bei dem Du Sendungen abholen sowie selbst einliefern kannst",
+  "myData_initialCreation_addressData_deliveryBoxAddress_description": "Eine Packstation ist ein Automat, an dem Sie Sendungen (beispielsweise Pakete) empfangen und selbst versenden können.",
   "myData_initialCreation_addressData_postOfficeBoxAddress": "Eine Postfachadresse anlegen",
-  "myData_initialCreation_addressData_postOfficeBoxAddress_description": "Ein Postfach ist ein abschließbares, vor fremden Zugriff gesichertes Fach in einer Postfiliale",
+  "myData_initialCreation_addressData_postOfficeBoxAddress_description": "Ein Postfach ist ein abschließbares Fach in einer Postfiliale. Es ist vor fremden Zugriff gesichert.",
   "myData_initialCreation_addressData_createAttribute_title": "{attribute} hinzufügen",
   "@myData_initialCreation_addressData_createAttribute_title": {
     "placeholders": {
@@ -295,7 +357,7 @@
       }
     }
   },
-  "myData_initialCreation_addressData_createAttribute_description": "Bitte gib Deine {attribute} ein, um sie mit Deinen Kontakten teilen zu können.",
+  "myData_initialCreation_addressData_createAttribute_description": "Geben Sie eine {attribute} ein, um diese mit Ihren Kontakten teilen zu können.",
   "@myData_initialCreation_addressData_createAttribute_description": {
     "placeholders": {
       "attribute": {
@@ -303,50 +365,132 @@
       }
     }
   },
-  "personalData_details_addEntry": "Füge neue Einträge hinzu.",
-  "no_data_available": "Keine Daten hinterlegt",
-  "attributeDetails_createdOn": "angelegt {date}",
-  "@attributeDetails_createdOn": {
+  "personalData_filteredData_description": "Hier können Sie Ihre {attribute} hinzufügen, ändern oder löschen.",
+  "@personalData_filteredData_description": {
     "placeholders": {
-      "date": {
+      "attribute": {
         "type": "String"
       }
     }
   },
-  "attributeDetails_info": "Diese Information ist in deinen persönlichen Identitätsdaten gespeichert. Du entscheidest, mit wem du sie teilen möchtest.",
+  "personalData_details_manageEntries": "Hier können Sie Ihre Einträge verwalten und Details einsehen.",
+  "personalData_details_editEntry": "Eintrag bearbeiten",
+  "personalData_details_deleteEntry": "Eintrag löschen?",
+  "personalData_details_attributeSuccessfullySucceeded": "Der Eintrag wurde aktualisiert.",
+  "personalData_details_attributeSuccessfullyDeleted": "Der Eintrag wurde gelöscht.",
+  "personalData_details_confirmAttributeDeletion": "Ja, löschen",
+  "personalData_details_cancelDeletion": "Nein, abbrechen",
+  "personalData_details_warningOnSuccession": "Der neu vergebene Wert Existiert bereits. Das könnte zu Verwirrung führen.",
+  "personalData_details_errorOnSuccession": "Der neu vergebene Wert ist identisch mit dem bisherigen Wert.",
+  "personalData_details_notifyContacts": "{count, plural, =1 {Dieser Eintrag wird aktuell mit einem Kontakt geteilt. Wenn Sie diesen Eintrag bearbeiten, wird die Änderung auch an den Kontakt übermittelt, mit dem Sie diesen Eintrag geteilt haben.} other {Dieser Eintrag wird aktuell mit {count} Kontakten geteilt. Wenn Sie diesen Eintrag bearbeiten, wird die Änderung auch an alle Kontakte übermittelt, mit denen Sie diesen Eintrag geteilt haben.}}",
+  "@personalData_details_notifyContacts": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "personalData_details_deleteDescription": "Möchten Sie den Eintrag {entry} aus Ihren Daten löschen?",
+  "@personalData_details_deleteDescription": {
+    "placeholders": {
+      "entry": {
+        "type": "String"
+      }
+    }
+  },
+  "personalData_details_deleteDescriptionShared": "{count, plural, =1{Dieser Eintrag wird aktuell mit einem Kontakt geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei dem Kontakt gelöscht, mit dem Sie ihn teilen.} other{Dieser Eintrag wird aktuell mit {count} Kontakten geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei den Kontakten gelöscht, mit denen Sie ihn teilen.}}",
+  "@personalData_details_deleteDescriptionShared": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "no_data_available": "Keine Daten hinterlegt",
+  "attributeDetails_createdOn": "{dateType, select, today {angelegt heute, {time}} yesterday {angelegt gestern} other {angelegt am {date}}}",
+  "@attributeDetails_createdOn": {
+    "placeholders": {
+      "dateType": {
+        "type": "String"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "attributeDetails_succeededAt": "{dateType, select, today {letzte Änderung heute, {time}} yesterday {letzte Änderung gestern} other {letzte Änderung am {date}}}",
+  "@attributeDetails_succeededAt": {
+    "placeholders": {
+      "dateType": {
+        "type": "String"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "attributeDetails_sharedAt": "{dateType, select, today {heute, {time}} yesterday {gestern} other {am {date}}}",
+  "@attributeDetails_sharedAt": {
+    "placeholders": {
+      "dateType": {
+        "type": "String"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "attributeDetails_info": "Diese Information ist in Ihren persönlichen Daten gespeichert. Sie entscheiden, mit wem Sie diese teilen möchten.",
   "attributeDetails_sharedWith": "Geteilt mit",
   "attributeDetails_sharedWithNobody": "Mit niemandem geteilt",
-  "attributeDetails_today": "heute",
-  "attributeDetails_yesterday": "gestern",
-  "attributeDetails_on": "am",
-  "files": "Dateien",
+  "files": "Dokumente und Dateien",
   "files_noFilesAvailable": "Keine Dateien vorhanden.",
+  "files_noResults": "Keine Ergebnisse",
+  "files_noResultsDescription": "Für den eingegeben Suchbegriff konnten keine Ergebnisse gefunden werden.",
   "files_uploadInProgress": "Die Datei wird hochgeladen.",
   "files_uploadFile": "Datei hochladen",
   "files_selectFile": "Datei auswählen",
-  "files_expiryDate": "Ablaufdatum",
+  "files_createdAt": "Erstellt",
+  "files_owner": "Eigentümer",
   "files_titleEmptyError": "Bitte gebe einen Titel ein.",
-  "files_selectExpiryError": "bitte auswählen",
-  "files_fileInformation": "Datei-Informationen",
-  "files_filesize": "Dateigröße",
-  "files_filename": "Dateiname",
-  "files_download": "Herunterladen",
-  "files_openFile": "Datei öffnen",
+  "files_sortBy": "Sortieren nach",
+  "files_creationDate": "Erstellungsdatum",
+  "files_fileType": "Typ",
+  "files_fileSize": "Größe",
+  "files_sortedByDate": "Sortiert nach Erstellungsdatum",
+  "files_sortedByName": "Sortiert nach Name",
+  "files_sortedByType": "Sortiert nach Typ",
+  "files_sortedBySize": "Sortiert nach Größe",
   "filter": "Filter",
   "apply_filter": "Filtern",
   "deviceOnboarding_title": "Gerät hinzufügen",
   "deviceOnboarding_desciption": "Der Scan des QR Codes, um ein neues Gerät hinzuzufügen, war erfolgreich.",
   "deviceOnboarding_deviceName": "Gerätename: ",
   "deviceOnboarding_deviceDescription": "Gerätebeschreibung: ",
-  "deviceOnboarding_confirmation_text": "Möchtest Du das Gerät jetzt hinzufügen?",
+  "deviceOnboarding_confirmation_text": "Möchten Sie das Gerät jetzt hinzufügen?",
   "deviceOnboarding_confirm": "Gerät hinzufügen",
   "deviceOnboarding_inProgress": "Gerät wird hinzugefügt",
-  "qrSafetyInformation": "Der QR-Code gewährt Zugang zu sensiblen Informationen. Schütze deine Daten und nutze diese Funktion nur an vertrauenswürdigen Orten.",
-  "qrSafetyInformation_preparation": "Bevor du den QR-Code scannst, stelle sicher...",
-  "qrSafetyInformation_environment": "dass du dich in einer sicheren Umgebung befindest.",
-  "qrSafetyInformation_access": "dass niemand unbefugt Einblick auf deinen Bildschirm hat.",
+  "qrSafetyInformation": "Der QR-Code gewährt Zugang zu sensiblen Informationen. Schützen Sie Ihre Daten, indem Sie diese Funktion nur an vertrauenswürdigen Orten nutzen.",
+  "qrSafetyInformation_preparation": "Bevor Sie den QR-Code scannen, stellen Sie sicher, ...",
+  "qrSafetyInformation_environment": "dass Sie sich in einer sicheren Netzwerkumgebung befinden.",
+  "qrSafetyInformation_access": "dass niemand unbefugt auf Ihren Bildschirm blicken kann.",
   "qrSafetyInformation_show": "QR-Code anzeigen",
-  "mailbox_empty": "Dein Postfach ist leer.",
+  "mailbox_empty": "Keine Nachrichten vorhanden.",
   "mailbox_technicalMessage": "Technische Nachricht",
   "mailbox_incoming": "Posteingang",
   "mailbox_outgoing": "Gesendet",
@@ -359,14 +503,13 @@
   "mailbox_subject": "Betreff",
   "mailbox_writeMessage": "Nachricht",
   "mailbox_error": "Die Nachricht konnte nicht gesendet werden.",
-  "mailbox_quitDialogTitle": "Nachrichtenerstellung abbrechen?",
-  "mailbox_quitDialogDescription": "Alle Änderungen gehen verloren.",
+  "mailbox_quitDialogTitle": "Nachricht verwerfen?",
+  "mailbox_quitDialogDescription": "Wenn Sie jetzt zurückgehen, gehen alle Ihre Eingaben verloren.",
   "mailbox_noButton": "Nein",
   "mailbox_yesButton": "Ja",
-  "mailbox_selectFromExistingFiles": "Aus vorhandenen Dateien auswählen.",
-  "mailbox_addFile": "Datei hinzufügen",
   "mailbox_sending": "Nachricht wird versendet...",
-  "mailbox_attachments": "{count, plural, =1{Anhang} other{{count} Anhänge}}",
+  "mailbox_attachments_button": "Anhänge",
+  "mailbox_attachments": "{count, plural, =1{1 Anhang} other{{count} Anhänge}}",
   "@mailbox_attachments": {
     "placeholders": {
       "count": {
@@ -374,18 +517,50 @@
       }
     }
   },
-  "mailbox_choose_contact": "Wähle einen Kontakt",
-  "mailbox_add": "Hinzufügen",
-  "mailbox_filter_actionRequired": "Handlung erforderlich",
+  "mailbox_attachments_total": "gesamt",
+  "mailbox_attachments_showMore": "Zeige {count} mehr ...",
+  "@mailbox_attachments_showMore": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "mailbox_attachments_showLess": "Zeige weniger ...",
+  "mailbox_selectAttachments_title": "Anhänge auswählen",
+  "mailbox_selectAttachments_description": "Wählen Sie einen oder mehrere Anhänge oder laden Sie neue Dateien hoch.",
+  "mailbox_choose_contact": "Empfänger auswählen",
+  "mailbox_choose_contact_description": "Wählen Sie aus, an wen die Nachricht gesendet werden soll.",
+  "mailbox_filter_actionRequired": "Offene Aufgaben",
   "mailbox_filter_header": "Nachrichten filtern",
-  "mailbox_filter_unread": "ungelesen",
-  "mailbox_filter_withAttachment": "Mit Anlagen",
-  "mailbox_filter_byContacts": "Nach Kontakten",
+  "mailbox_filter_unread": "Neu",
+  "mailbox_filter_withAttachment": "Anlage",
+  "mailbox_filter_byContacts": "Nach Kontakt",
   "mailbox_filtered_noResults": "Zu den von Ihnen gesetzten Filtern liegen keine Nachrichten vor",
   "request_accepting": "Die Anfrage wird akzeptiert.",
   "request_rejecting": "Die Anfrage wird abgelehnt.",
   "mailbox_noSubject": "Kein Betreff",
   "fileChooser_title": "Datei auswählen",
   "fileChooser_uploadFile": "Datei hochladen",
-  "fileChooser_noFilesFound": "Keine Dateien gefunden, du kannst eine neue Datei hochladen."
+  "fileChooser_noFilesFound": "Keine Dateien gefunden, Sie können eine neue Datei hochladen.",
+  "instructions_addContact_title": "Kontakt hinzufügen",
+  "instructions_addContact_subtitle": "So fügen Sie Kontakte hinzu",
+  "instructions_addContact_scanQrCode": "Scannen Sie den QR-Code, der vom Kontakt bereitgestellt wird.",
+  "instructions_addContact_requestedData": "Sie erhalten eine Liste mit Informationen, die der Kontakt abrufen möchte. Die Freigabe einige dieser Informationen ist erforderlich, um den Kontakt herzustellen, während andere Angaben optional sind.",
+  "instructions_addContact_chooseData": "Wählen Sie aus, welche Informationen Sie freigeben möchten.",
+  "instructions_addContact_afterConfirmation": "Nach Ihrer Bestätigung werden die ausgewählten Informationen für den Kontakt freigegeben. Der Kontakt wird Ihrem Profil hinzugefügt.",
+  "instructions_addContact_information": "Sie haben jederzeit zwei Möglichkeiten einzusehen, was Sie mit wem teilen.",
+  "instructions_addContact_informationDetails": "1. Auf der Detailseite des Kontaktes: Hinter dem Tab \"Geteilte Informationen\".\n2. Auf der Detailseite Ihrer Daten: Hinter dem Info-Icon des jeweiligen Eintrags.",
+  "instructions_loadProfile_title": "Bestehendes Profil laden",
+  "instructions_loadProfile_subtitle": "So laden Sie ein bestehendes Profil auf Ihr neues Gerät",
+  "instructions_loadProfile_getDevice": "Sie benötigen das Gerät, auf dem das Profil angelegt ist, welches Sie hier laden möchten.",
+  "instructions_loadProfile_createNewDevice": "Legen Sie auf diesem Gerät in der Profilverwaltung im Bereich \"Einstellungen\", unter \"Verknüpfte Geräte verwalten\" ein neues Gerät an.",
+  "instructions_loadProfile_displayedQRCode": "Dann wird Ihnen ein QR-Code angezeigt.",
+  "instructions_loadProfile_scanQRCode": "Scannen Sie diesen QR-Code mit dem neuen Gerät.",
+  "instructions_loadProfile_confirmation": "Nach der Bestätigung haben Sie von beiden Geräten aus vollen Zugriff auf das Profil.",
+  "instructions_loadProfile_information": "Sie möchten ein Profil nicht mehr über verschiedene Geräte synchronisieren?",
+  "instructions_loadProfile_informationDetails": "In der Profilverwaltung können Sie jederzeit die mit dem Profil verbundenen Geräte sehen und verwalten.",
+  "instructions_notShowAgain": "Diese Erklärung nicht erneut anzeigen",
+  "instructions_scanQrCode": "QR-Code scannen",
+  "instructions_activated": "Alle Erklärungen und Hinweise sind wieder angeschaltet und werden bei Bedarf eingeblendet."
 }

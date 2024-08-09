@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '/core/core.dart';
 import '../mailbox_filter_controller.dart';
 import '../mailbox_filter_option.dart';
-import '/core/core.dart';
 
 Future<Set<FilterOption>?> showSelectMailboxFiltersModal({
   required List<IdentityDVO> contacts,
@@ -16,7 +16,6 @@ Future<Set<FilterOption>?> showSelectMailboxFiltersModal({
     useRootNavigator: true,
     context: context,
     isScrollControlled: true,
-    backgroundColor: Theme.of(context).colorScheme.onPrimary,
     elevation: 0,
     builder: (context) => FractionallySizedBox(
       heightFactor: 0.75,
@@ -59,7 +58,7 @@ class _SelectFilterOptionsModalState extends State<_SelectFilterOptionsModal> {
             context.l10n.mailbox_filter_header,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           trailing: IconButton(
             onPressed: () => context.pop(),
@@ -107,7 +106,7 @@ class _SelectFilterOptionsModalState extends State<_SelectFilterOptionsModal> {
         ListTile(title: Text(context.l10n.mailbox_filter_byContacts, style: Theme.of(context).textTheme.titleMedium)),
         Expanded(
           child: widget.contacts.isEmpty
-              ? EmptyListIndicator(icon: Icons.mail_outline, text: context.l10n.mailbox_empty, wrapInListView: true)
+              ? EmptyListIndicator(icon: Icons.contacts, text: context.l10n.contacts_empty, wrapInListView: true)
               : ListView.separated(
                   itemCount: widget.contacts.length,
                   separatorBuilder: (BuildContext context, int index) => const Divider(height: 1, indent: 16),
@@ -158,15 +157,14 @@ class _ModalSheetFooter extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  TextButton(
+                  OutlinedButton(
                     onPressed: resetFilters,
                     child: Text(
                       context.l10n.reset,
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
                     ),
                   ),
                   Gaps.w4,
-                  OutlinedButton(
+                  FilledButton(
                     onPressed: applyFilters,
                     child: Text(context.l10n.apply_filter),
                   ),

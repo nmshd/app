@@ -1023,7 +1023,7 @@
         "Draft": "Entwurf",
         "Error": "Fehlerhaft",
         "Expired": "Abgelaufen",
-        "ManualDecisionRequired": "Entscheidung muss getroffen werden",
+        "ManualDecisionRequired": "Offene Aufgabe",
         "Open": "Auf Antwort warten"
       },
       "unknown": {
@@ -1137,7 +1137,7 @@
         "acceptedName": "Das angefragte Attribut wurde bereits geteilt."
       },
       "AttributeSuccessionAcceptResponseItem": {
-        "acceptedName": "Das angefragte Attribute wurde bearbeitet."
+        "acceptedName": "Das angefragte Attribut wurde bearbeitet."
       },
       "CreateAttributeAcceptResponseItem": {
         "acceptedName": "Das Attribut wurde erstellt."
@@ -1178,7 +1178,7 @@
       "minValue": "Der Wert muss größer oder gleich {value} sein",
       "invalidInput": "Ungültige Eingabe",
       "invalidFormat": "Ungültiges Format",
-      "noDateSelected": "Kein Datum ausgewählt", 
+      "noDateSelected": "Kein Datum ausgewählt",
       "houseNoNumericCharacter": "Der Wert muss mindestens eine Ziffer enthalten"
     }
   },
