@@ -255,13 +255,12 @@ extension _GetValueRendererInputValueExtension on ValueRendererInputValue {
         (toJson() as Map<String, dynamic>).entries.map(
               (e) => MapEntry(
                 e.key,
-                switch ((e.value as ValueRendererInputValue).runtimeType) {
+                switch (e.value as ValueRendererInputValue) {
                   final ValueRendererInputValueString value => value,
                   final ValueRendererInputValueNum value => value,
                   final ValueRendererInputValueBool value => value,
                   final ValueRendererInputValueMap value => value,
                   final ValueRendererInputValueDateTime value => value,
-                  _ => throw Exception('Invalid type for ValueRendererInputValue: ${(e.value as ValueRendererInputValue).runtimeType}'),
                 },
               ),
             ),
