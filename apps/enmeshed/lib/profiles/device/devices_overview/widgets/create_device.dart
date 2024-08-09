@@ -63,7 +63,7 @@ class _CreateDeviceState extends State<CreateDevice> {
             maxLength: MaxLength.deviceName,
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              labelText: context.l10n.name,
+              labelText: '${context.l10n.name}*',
               border: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
@@ -99,8 +99,7 @@ class _CreateDeviceState extends State<CreateDevice> {
             alignment: Alignment.centerRight,
             child: FilledButton(
               onPressed: _confirmEnabled ? _save : null,
-              style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-              child: Text(context.l10n.save),
+              child: Text(context.l10n.next),
             ),
           ),
         ],

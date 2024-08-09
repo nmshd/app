@@ -125,7 +125,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
                               )
                             : null,
                         expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                        chooseFile: () => openFileChooser(context, widget.accountId),
+                        chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
                         openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
                       ),
                       _getExplanationForAttribute(widget.valueTypes[index], context),
@@ -146,10 +146,9 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(onPressed: _isLoading ? null : widget.resetType ?? () => context.pop(), child: Text(context.l10n.cancel)),
+                OutlinedButton(onPressed: _isLoading ? null : widget.resetType ?? () => context.pop(), child: Text(context.l10n.cancel)),
                 Gaps.w4,
                 FilledButton(
-                  style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
                   onPressed: _saveEnabled && !_isLoading ? _createAttributes : null,
                   child: Text(context.l10n.save),
                 ),
@@ -248,25 +247,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
         GetIt.I.get<Logger>().e(createAttributeResult.error.message);
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              showCloseIcon: true,
-              content: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Icon(Icons.error_rounded, color: Theme.of(context).colorScheme.error),
-                  ),
-                  Expanded(
-                    child: Text(
-                      context.l10n.myData_initialCreation_error,
-                      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
+          showErrorSnackbar(context: context, text: context.l10n.myData_initialCreation_error);
           context.pop();
         }
         return;

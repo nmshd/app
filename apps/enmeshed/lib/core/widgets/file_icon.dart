@@ -14,6 +14,7 @@ class FileIcon extends StatelessWidget {
       switch (path.extension(filename)) {
         '.pdf' => Icons.picture_as_pdf,
         '.jpg' || '.jpeg' || '.png' => Icons.image,
+        '.doc' || '.docx' || '.txt' => Icons.description,
         _ => Icons.question_mark,
       },
       color: color,

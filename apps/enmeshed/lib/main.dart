@@ -143,6 +143,18 @@ final _router = GoRouter(
           path: 'scan',
           builder: (context, state) => ScanScreen(accountId: state.pathParameters['accountId']),
         ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: 'instructions/:instructionsType',
+          builder: (context, state) {
+            final instructionsType = InstructionsType.values.firstWhere((e) => e.name == state.pathParameters['instructionsType']!);
+
+            return InstructionsScreen(
+              instructionsType: instructionsType,
+              accountId: state.pathParameters['accountId']!,
+            );
+          },
+        ),
         ShellRoute(
           navigatorKey: _shellNavigatorKey,
           parentNavigatorKey: _rootNavigatorKey,
@@ -152,7 +164,7 @@ final _router = GoRouter(
             accountId: state.pathParameters['accountId']!,
             location: state.fullPath!,
             mailboxFilterController: _mailboxFilterController,
-            showSecondTab: state.uri.queryParameters['showSecondTab'] == 'true' || state.uri.pathSegments.contains('contact-request'),
+            showSecondTab: state.uri.queryParameters['showSecondTab'] == 'true',
             child: child,
           ),
           routes: [
@@ -226,18 +238,18 @@ final _router = GoRouter(
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
                   path: 'files',
-                  builder: (context, state) => FilesScreen(accountId: state.pathParameters['accountId']!),
+                  builder: (context, state) => FilesScreen(
+                    accountId: state.pathParameters['accountId']!,
+                    initialCreation: state.uri.queryParameters['initialCreation'] == 'true',
+                  ),
                   routes: [
                     GoRoute(
                       parentNavigatorKey: _rootNavigatorKey,
                       path: ':fileId',
-                      pageBuilder: (context, state) => ModalPage(
-                        builder: (context) => FileDetailScreen(
-                          accountId: state.pathParameters['accountId']!,
-                          fileId: state.pathParameters['fileId']!,
-                          preLoadedFile: state.extra is FileDVO ? state.extra! as FileDVO : null,
-                        ),
-                        isScrollControlled: true,
+                      builder: (context, state) => FileDetailScreen(
+                        accountId: state.pathParameters['accountId']!,
+                        fileId: state.pathParameters['fileId']!,
+                        preLoadedFile: state.extra is FileDVO ? state.extra! as FileDVO : null,
                       ),
                     ),
                   ],
@@ -253,7 +265,6 @@ final _router = GoRouter(
                   builder: (context, state) => AttributeDetailScreen(
                     accountId: state.pathParameters['accountId']!,
                     attributeId: state.pathParameters['attributeId']!,
-                    attribute: state.extra is RepositoryAttributeDVO ? state.extra! as RepositoryAttributeDVO : null,
                   ),
                 ),
                 GoRoute(
@@ -341,16 +352,6 @@ final _router = GoRouter(
                     contact: state.extra != null ? state.extra! as IdentityDVO : null,
                     accountId: state.pathParameters['accountId']!,
                   ),
-                  routes: [
-                    GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
-                      path: 'select-attachments',
-                      builder: (context, state) => SelectAttachmentsScreen(
-                        accountId: state.pathParameters['accountId']!,
-                        previouslySelectedAttachments: state.extra is List ? List<FileDVO>.from(state.extra! as List) : [],
-                      ),
-                    ),
-                  ],
                 ),
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,

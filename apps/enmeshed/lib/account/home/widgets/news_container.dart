@@ -72,7 +72,7 @@ class _NewsContainerState extends State<NewsContainer> {
           child: Column(
             children: [
               SizedBox(
-                height: 68,
+                height: 80,
                 width: double.infinity,
                 child: PageView(
                   controller: _pageController,
@@ -87,9 +87,7 @@ class _NewsContainerState extends State<NewsContainer> {
                 effect: SlideEffect(dotHeight: 8, dotWidth: 8, activeDotColor: Theme.of(context).colorScheme.primary),
                 onDotClicked: (index) => _pageController.animateToPage(index, duration: const Duration(milliseconds: 300), curve: Curves.easeIn),
               ),
-              Gaps.h16,
-              const Divider(height: 0),
-              Gaps.h16,
+              const Divider(height: 32),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

@@ -204,7 +204,7 @@ Future<void> showCreateAttributeModal({
                     controller: controller,
                     valueType: valueType,
                     expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-                    chooseFile: () => openFileChooser(context, accountId),
+                    chooseFile: () => openFileChooser(context: context, accountId: accountId),
                     openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: file),
                   ),
                 ],

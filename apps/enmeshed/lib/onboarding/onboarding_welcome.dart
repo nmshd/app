@@ -14,7 +14,7 @@ class OnboardingWelcome extends StatelessWidget {
 
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(left: 16, right: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 16),
+        padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 16),
         child: Column(
           children: [
             Expanded(
@@ -50,13 +50,7 @@ class OnboardingWelcome extends StatelessWidget {
                 ),
               ),
             ),
-            FilledButton(
-              onPressed: goToOnboardingInformation,
-              style: FilledButton.styleFrom(
-                minimumSize: const Size(double.infinity, 40),
-              ),
-              child: Text(context.l10n.onboarding_letsStart),
-            ),
+            FilledButton(onPressed: goToOnboardingInformation, child: Text(context.l10n.onboarding_letsStart)),
           ],
         ),
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 import '/core/core.dart';
 import 'info_container.dart';
@@ -22,7 +21,7 @@ class AddContactOrDeviceContainer extends StatelessWidget {
           children: [
             _AddContact(accountId: accountId),
             Gaps.w16,
-            _AddDevice(),
+            _AddDevice(accountId: accountId),
           ],
         ),
       ],
@@ -31,21 +30,24 @@ class AddContactOrDeviceContainer extends StatelessWidget {
 }
 
 class _AddDevice extends StatelessWidget {
+  final String accountId;
+
+  const _AddDevice({required this.accountId});
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        // TODO(jkoenig134): go to an explanation page before
-        onTap: () => context.push('/scan'),
+        onTap: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: InstructionsType.loadProfile, context: context),
         child: InfoContainer(
           padding: const EdgeInsets.all(4),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                'assets/load_profile.svg',
-                semanticsLabel: context.l10n.home_loadProfileImageSemanticsLabel,
+              VectorGraphic(
+                loader: const AssetBytesLoader('assets/svg/load_profile.svg'),
                 height: 112,
+                semanticsLabel: context.l10n.home_loadProfileImageSemanticsLabel,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
@@ -72,17 +74,16 @@ class _AddContact extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        // TODO(jkoenig134): go to an explanation page before
-        onTap: () => context.push('/account/$accountId/scan'),
+        onTap: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: InstructionsType.addContact, context: context),
         child: InfoContainer(
           padding: const EdgeInsets.all(4),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                'assets/add_contact.svg',
-                semanticsLabel: context.l10n.home_addContactImageSemanticsLabel,
+              VectorGraphic(
+                loader: const AssetBytesLoader('assets/svg/add_contact.svg'),
                 height: 112,
+                semanticsLabel: context.l10n.home_addContactImageSemanticsLabel,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),

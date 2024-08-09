@@ -39,15 +39,28 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.all(16),
           child: _MessageInformationHeader(account: _account!, message: _message!),
         ),
-        if (_message!.attachments.isNotEmpty)
+        const Divider(height: 2),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: switch (_message!) {
+            final RequestMessageDVO requestMessage => TranslatedText(
+                requestMessage.request.statusText,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            _ => TranslatedText(_message!.name, style: Theme.of(context).textTheme.bodyLarge),
+          },
+        ),
+        if (_message!.attachments.isNotEmpty) ...[
+          const Divider(height: 2),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: _MessageAttachments(accountId: _account!.id, attachments: _message!.attachments),
+            padding: const EdgeInsets.all(16),
+            child: AttachmentsList(accountId: _account!.id, attachments: _message!.attachments),
           ),
-        Gaps.h8,
+        ],
+        const Divider(height: 2),
         switch (_message!) {
           final MailDVO mail => _MailInformation(message: mail),
           final RequestMessageDVO requestMessage => _RequestInformation(message: requestMessage, account: _account!),
@@ -98,16 +111,7 @@ class _MessageInformationHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        switch (message) {
-          final RequestMessageDVO requestMessage => TranslatedText(
-              requestMessage.request.statusText,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          _ => TranslatedText(message.name, style: Theme.of(context).textTheme.titleMedium),
-        },
-        Gaps.h8,
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ContactCircleAvatar(contactName: message.createdBy.isSelf ? message.recipients[0].name : message.createdBy.name, radius: 24),
             Gaps.w16,
@@ -115,60 +119,43 @@ class _MessageInformationHeader extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(message.createdBy.isSelf ? context.l10n.mailbox_to : context.l10n.mailbox_from),
-                  Text(
-                    message.createdBy.isSelf ? message.recipients[0].name : message.createdBy.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          message.createdBy.isSelf ? context.l10n.mailbox_to : context.l10n.mailbox_from,
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ),
+                      Text(
+                        createdDayText(itemCreatedAt: messageCreated, context: context),
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(createdDayText(itemCreatedAt: messageCreated, context: context), overflow: TextOverflow.ellipsis),
-                  Text(DateFormat('HH:mm', Localizations.localeOf(context).languageCode).format(messageCreated)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          message.createdBy.isSelf ? message.recipients[0].name : message.createdBy.name,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                      Text(
+                        DateFormat('HH:mm', Localizations.localeOf(context).languageCode).format(messageCreated),
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ],
         ),
-      ],
-    );
-  }
-}
-
-class _MessageAttachments extends StatelessWidget {
-  final String accountId;
-  final List<FileDVO> attachments;
-
-  const _MessageAttachments({required this.accountId, required this.attachments});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: Theme.of(context).textTheme.bodySmall,
-            children: [
-              TextSpan(text: context.l10n.mailbox_attachments(attachments.length)),
-              const TextSpan(text: ' - '),
-              TextSpan(
-                text: bytesText(
-                  bytes: attachments.fold(0, (filesizeSum, e) => filesizeSum + e.filesize),
-                  context: context,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Gaps.h8,
-        AttachmentsList(accountId: accountId, attachments: attachments),
       ],
     );
   }
@@ -184,8 +171,11 @@ class _MailInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Text(message.body.replaceAll(CustomRegExp.html, ''), style: Theme.of(context).textTheme.bodyLarge),
+      padding: const EdgeInsets.all(16),
+      child: Text(
+        message.body.replaceAll(CustomRegExp.html, ''),
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
     );
   }
 }
@@ -210,7 +200,7 @@ class _RequestInformationState extends State<_RequestInformation> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.all(8),
         child: RequestDVORenderer(
           accountId: widget.account.id,
           requestId: widget.message.request.id,

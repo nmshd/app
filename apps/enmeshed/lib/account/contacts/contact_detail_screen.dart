@@ -104,7 +104,10 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                         ),
                       ),
                       if (context.isFeatureEnabled('DELETE_RELATIONSHIP'))
-                        IconButton(onPressed: () => showNotImplementedDialog(context), icon: const Icon(Icons.delete)),
+                        IconButton(
+                          onPressed: () => showNotImplementedDialog(context),
+                          icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                        ),
                       if (_loadingFavoriteContact)
                         const IconButton(onPressed: null, icon: CircularProgressIndicator())
                       else
@@ -160,33 +163,32 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: Text(
-                  context.l10n.contactDetail_informationOverview,
+                  context.l10n.contactDetail_sharedInformation,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
-              ColoredBox(
-                color: Theme.of(context).colorScheme.onPrimary,
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(context.l10n.contactDetail_receivedAttributes),
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () => context.push('/account/${widget.accountId}/contacts/${widget.contactId}/exchangedData'),
-                    ),
-                    const Divider(height: 0),
-                    ListTile(
-                      title: Text(context.l10n.contactDetail_sharedAttributes),
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () => context.push('/account/${widget.accountId}/contacts/${widget.contactId}/exchangedData?showSharedAttributes=true'),
-                    ),
-                  ],
-                ),
+              Column(
+                children: [
+                  ListTile(
+                    title: Text(context.l10n.contactDetail_receivedAttributes),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => context.push('/account/${widget.accountId}/contacts/${widget.contactId}/exchangedData'),
+                  ),
+                  const Divider(height: 2),
+                  ListTile(
+                    title: Text(context.l10n.contactDetail_sharedAttributes),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => context.push('/account/${widget.accountId}/contacts/${widget.contactId}/exchangedData?showSharedAttributes=true'),
+                  ),
+                ],
               ),
               MessagesContainer(
                 accountId: widget.accountId,
                 messages: _incomingMessages!,
                 unreadMessagesCount: _unreadMessagesCount,
                 seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId),
+                title: context.l10n.contact_information_messages,
+                noMessagesText: context.l10n.contact_information_noMessages,
                 hideAvatar: true,
               ),
               ContactSharedFiles(
