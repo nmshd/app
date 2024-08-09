@@ -90,7 +90,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(accountId: widget.accountId, accountName: _account?.name ?? ''),
+      drawer: AppDrawer(accountId: widget.accountId, accountName: _account?.name ?? '', activateHints: _activateHints),
       appBar: AppBar(
         title: Text(_title),
         actions: [
@@ -212,14 +212,17 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     throw Exception();
   }
 
-  String get _title =>
-      switch (_selectedIndex) { 0 => context.l10n.home, 1 => context.l10n.contacts, 2 => context.l10n.myData, 3 => context.l10n.mailbox, _ => '' };
+  String get _title => switch (_selectedIndex) {
+        0 => context.l10n.home_title,
+        1 => context.l10n.contacts,
+        2 => context.l10n.myData,
+        3 => context.l10n.mailbox,
+        _ => ''
+      };
 
   List<Widget>? get _actions => switch (_selectedIndex) {
         1 => [
             SearchAnchor(
-              viewBackgroundColor: Theme.of(context).colorScheme.onPrimary,
-              viewSurfaceTintColor: Theme.of(context).colorScheme.onPrimary,
               builder: (BuildContext context, SearchController controller) {
                 return IconButton(
                   icon: const Icon(Icons.search),
@@ -231,13 +234,15 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
             ),
             IconButton(
               icon: const Icon(Icons.person_add),
-              onPressed: () => context.push('/account/${widget.accountId}/scan'),
+              onPressed: () => goToInstructionsOrScanScreen(
+                accountId: widget.accountId,
+                instructionsType: InstructionsType.addContact,
+                context: context,
+              ),
             ),
           ],
         3 => [
             SearchAnchor(
-              viewBackgroundColor: Theme.of(context).colorScheme.onPrimary,
-              viewSurfaceTintColor: Theme.of(context).colorScheme.onPrimary,
               builder: (BuildContext context, SearchController controller) {
                 return IconButton(
                   icon: const Icon(Icons.search),
@@ -283,5 +288,21 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     if (!mounted) return;
 
     setState(() => _unreadMessagesCount = messages.length);
+  }
+
+  Future<void> _activateHints() async {
+    final addContactResult = await createHintsSetting(accountId: widget.accountId, key: 'hints.${InstructionsType.addContact}', value: true);
+    final loadProfileResult = await createHintsSetting(accountId: widget.accountId, key: 'hints.${InstructionsType.loadProfile}', value: true);
+
+    if (!mounted) return;
+
+    context.pop();
+
+    if (addContactResult.isError || loadProfileResult.isError) {
+      showErrorSnackbar(context: context, text: context.l10n.errorDialog_description);
+      return;
+    }
+
+    showSuccessSnackbar(context: context, text: context.l10n.instructions_activated);
   }
 }

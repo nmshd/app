@@ -1,6 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 import '/core/core.dart';
 
@@ -35,10 +35,7 @@ class ShouldDeleteProfile extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              'assets/pictures/profile_deletion/confirm_deletion.svg',
-              height: 160,
-            ),
+            const VectorGraphic(loader: AssetBytesLoader('assets/svg/confirm_deletion.svg'), height: 160),
             Gaps.h24,
             Text(context.l10n.profile_delete_confirmation(profileName)),
             Gaps.h16,

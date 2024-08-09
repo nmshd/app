@@ -8,6 +8,8 @@ class MessagesContainer extends StatelessWidget {
   final List<MessageDVO> messages;
   final int unreadMessagesCount;
   final VoidCallback seeAllMessages;
+  final String title;
+  final String noMessagesText;
   final bool hideAvatar;
 
   const MessagesContainer({
@@ -15,6 +17,8 @@ class MessagesContainer extends StatelessWidget {
     required this.messages,
     required this.unreadMessagesCount,
     required this.seeAllMessages,
+    required this.title,
+    required this.noMessagesText,
     this.hideAvatar = false,
     super.key,
   });
@@ -23,18 +27,29 @@ class MessagesContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _MessagesHeader(accountId: accountId, unreadMessagesCount: unreadMessagesCount, seeAllMessages: seeAllMessages),
+        _MessagesHeader(
+          accountId: accountId,
+          unreadMessagesCount: unreadMessagesCount,
+          seeAllMessages: seeAllMessages,
+          title: title,
+        ),
         Gaps.h8,
         if (messages.isNotEmpty)
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => ColoredBox(color: Theme.of(context).colorScheme.onPrimary, child: const Divider(indent: 16)),
-            itemBuilder: (context, index) => MessageDVORenderer(message: messages[index], accountId: accountId, hideAvatar: hideAvatar),
+            separatorBuilder: (context, index) => const Divider(indent: 16),
+            itemBuilder: (context, index) {
+              return MessageDVORenderer(
+                message: messages[index],
+                accountId: accountId,
+                hideAvatar: hideAvatar,
+              );
+            },
             itemCount: messages.length,
           )
         else
-          EmptyListIndicator(icon: Icons.mail_outline, text: context.l10n.home_noNewMessages),
+          EmptyListIndicator(icon: Icons.mail_outline, text: noMessagesText),
       ],
     );
   }
@@ -44,8 +59,14 @@ class _MessagesHeader extends StatelessWidget {
   final String accountId;
   final int unreadMessagesCount;
   final VoidCallback seeAllMessages;
+  final String title;
 
-  const _MessagesHeader({required this.accountId, required this.unreadMessagesCount, required this.seeAllMessages});
+  const _MessagesHeader({
+    required this.accountId,
+    required this.unreadMessagesCount,
+    required this.seeAllMessages,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +77,7 @@ class _MessagesHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(context.l10n.home_messages, style: Theme.of(context).textTheme.titleLarge),
+              Text(title, style: Theme.of(context).textTheme.titleLarge),
               Gaps.w8,
               Visibility(
                 visible: unreadMessagesCount > 0,

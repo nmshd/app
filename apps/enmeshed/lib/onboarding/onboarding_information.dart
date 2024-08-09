@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 import '/core/core.dart';
 import 'widgets/red_shrinked_divider.dart';
@@ -40,7 +40,7 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
       _OnboardingPage(
         title: context.l10n.onboarding_info_titlePage1,
         description: context.l10n.onboarding_info_descriptionPage1,
-        imagePath: 'assets/onboarding1.svg',
+        imagePath: 'assets/svg/onboarding1.svg',
         leftTriangleColor: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
         rightTriangleColor: Theme.of(context).colorScheme.primary.withOpacity(0.04),
         bottomColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
@@ -48,7 +48,7 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
       _OnboardingPage(
         title: context.l10n.onboarding_info_titlePage2,
         description: context.l10n.onboarding_info_descriptionPage2,
-        imagePath: 'assets/onboarding2.svg',
+        imagePath: 'assets/svg/onboarding2.svg',
         leftTriangleColor: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
         rightTriangleColor: Theme.of(context).colorScheme.primary.withOpacity(0.04),
         bottomColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
@@ -56,7 +56,7 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
       _OnboardingPage(
         title: context.l10n.onboarding_info_titlePage3,
         description: context.l10n.onboarding_info_descriptionPage3,
-        imagePath: 'assets/onboarding3.svg',
+        imagePath: 'assets/svg/onboarding3.svg',
         leftTriangleColor: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
         rightTriangleColor: Theme.of(context).colorScheme.primary.withOpacity(0.04),
         bottomColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
@@ -149,7 +149,7 @@ class _OnboardingPage extends StatefulWidget {
 class _OnboardingPageState extends State<_OnboardingPage> {
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary);
+    final textStyle = Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary);
     final screenHeight = MediaQuery.sizeOf(context).height;
     final screenWidth = MediaQuery.sizeOf(context).width;
     final textWidth = _calculateTextWidth(widget.title, textStyle, screenWidth - 48);
@@ -167,7 +167,10 @@ class _OnboardingPageState extends State<_OnboardingPage> {
         SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: screenHeight / 2, child: SvgPicture.asset(widget.imagePath)),
+              SizedBox(
+                height: screenHeight / 2,
+                child: VectorGraphic(loader: AssetBytesLoader(widget.imagePath)),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(

@@ -3,7 +3,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:renderers/renderers.dart';
 
 import '/core/core.dart';
@@ -12,12 +11,9 @@ class AttributeDetailScreen extends StatefulWidget {
   final String accountId;
   final String attributeId;
 
-  final RepositoryAttributeDVO? attribute;
-
   const AttributeDetailScreen({
     required this.accountId,
     required this.attributeId,
-    this.attribute,
     super.key,
   });
 
@@ -29,6 +25,7 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
   late final Session _session;
 
   RepositoryAttributeDVO? _attribute;
+  String? _firstVersionCreationDate;
   late List<({IdentityDVO contact, LocalAttributeDVO sharedAttribute})> _sharedWith;
 
   @override
@@ -37,11 +34,7 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
 
     _session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    if (widget.attribute != null) {
-      _loadSharedWith(widget.attribute!);
-    } else {
-      _reload();
-    }
+    _reload();
   }
 
   @override
@@ -49,6 +42,9 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
     final appBar = AppBar(title: Text(_attribute != null ? context.i18nTranslate(_attribute!.name) : ''));
 
     if (_attribute == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+
+    final lastEditingDate = _firstVersionCreationDate != null ? _attribute!.createdAt : null;
+    final creationDate = _firstVersionCreationDate != null ? _firstVersionCreationDate! : _attribute!.createdAt;
 
     return Scaffold(
       appBar: appBar,
@@ -69,10 +65,25 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
                       expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                       openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
                     ),
+                    if (lastEditingDate != null) ...[
+                      Gaps.h8,
+                      Text(
+                        context.l10n.attributeDetails_succeededAt(
+                          _getDateType(DateTime.parse(lastEditingDate).toLocal()),
+                          DateTime.parse(lastEditingDate).toLocal(),
+                          DateTime.parse(lastEditingDate).toLocal(),
+                        ),
+                        style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      ),
+                    ],
                     Gaps.h8,
                     Text(
-                      context.l10n.attributeDetails_createdOn(_formatDateTime(_attribute!.createdAt)),
-                      style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      context.l10n.attributeDetails_createdOn(
+                        _getDateType(DateTime.parse(creationDate).toLocal()),
+                        DateTime.parse(creationDate).toLocal(),
+                        DateTime.parse(creationDate).toLocal(),
+                      ),
+                      style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                     ),
                   ],
                 ),
@@ -102,7 +113,13 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
 
                           return ContactItem(
                             contact: contact,
-                            subtitle: Text(_formatDateTime(sharedAttribute.createdAt)),
+                            subtitle: Text(
+                              context.l10n.attributeDetails_sharedAt(
+                                _getDateType(DateTime.parse(sharedAttribute.createdAt).toLocal()),
+                                DateTime.parse(sharedAttribute.createdAt).toLocal(),
+                                DateTime.parse(sharedAttribute.createdAt).toLocal(),
+                              ),
+                            ),
                             onTap: () => context.go('/account/${widget.accountId}/contacts/${contact.id}'),
                             trailing: const Icon(Icons.chevron_right),
                           );
@@ -120,9 +137,12 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
   Future<void> _reload({bool syncBefore = false}) async {
     if (syncBefore) await _session.transportServices.account.syncDatawallet();
 
-    final attributeResult = await _session.consumptionServices.attributes.getAttribute(attributeId: widget.attributeId);
-    if (attributeResult.isError) return;
-    final attribute = await _session.expander.expandLocalAttributeDTO(attributeResult.value);
+    final versionsResult = await _session.consumptionServices.attributes.getVersionsOfAttribute(attributeId: widget.attributeId);
+    if (versionsResult.isError) return;
+    final versions = versionsResult.value..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+
+    final attribute = await _session.expander.expandLocalAttributeDTO(versions.last);
+
     if (attribute is! RepositoryAttributeDVO) {
       if (!mounted) return;
 
@@ -146,10 +166,12 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
       );
     }
 
-    await _loadSharedWith(attribute);
+    final firstVersionCreationDate = versions.length > 1 ? versions.first.createdAt : null;
+
+    await _loadSharedWith(attribute, firstVersionCreationDate);
   }
 
-  Future<void> _loadSharedWith(RepositoryAttributeDVO attribute) async {
+  Future<void> _loadSharedWith(RepositoryAttributeDVO attribute, String? firstVersionCreationDate) async {
     final sharedWith = await Future.wait(
       attribute.sharedWith.map(
         (e) async => (
@@ -163,23 +185,22 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
 
     setState(() {
       _attribute = attribute;
+      _firstVersionCreationDate = firstVersionCreationDate;
       _sharedWith = sharedWith;
     });
   }
 
-  String _formatDateTime(String dateTimeString) {
-    final dateTime = DateTime.parse(dateTimeString);
+  String _getDateType(DateTime dateTime) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
-    final locale = Localizations.localeOf(context);
 
     if (dateTime.year == today.year && dateTime.month == today.month && dateTime.day == today.day) {
-      return '${context.l10n.attributeDetails_today}, ${DateFormat.jm(locale.languageCode).format(dateTime.toLocal())}';
+      return 'today';
     } else if (dateTime.year == yesterday.year && dateTime.month == yesterday.month && dateTime.day == yesterday.day) {
-      return context.l10n.attributeDetails_yesterday;
+      return 'yesterday';
     } else {
-      return '${context.l10n.attributeDetails_on} ${DateFormat.yMd(locale.languageCode).format(dateTime.toLocal())}';
+      return 'other';
     }
   }
 }

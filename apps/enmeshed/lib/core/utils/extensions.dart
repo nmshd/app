@@ -37,3 +37,16 @@ extension FeatureFlagging on BuildContext {
 
   bool get showTechnicalMessages => isFeatureEnabled('SHOW_TECHNICAL_MESSAGES');
 }
+
+extension Separated<T extends Widget> on Iterable<T> {
+  List<Widget> separated(Widget Function() separator) {
+    final widgets = <Widget>[];
+
+    for (final widget in indexed) {
+      widgets.add(widget.$2);
+      if (widget.$1 != length - 1) widgets.add(separator());
+    }
+
+    return widgets;
+  }
+}

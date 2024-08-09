@@ -17,11 +17,9 @@ class RequestDVORenderer extends StatefulWidget {
   final String accountId;
   final String requestId;
   final bool isIncoming;
-
-  final LocalRequestDVO? requestDVO;
-
   final String acceptRequestText;
   final VoidCallback onAfterAccept;
+  final LocalRequestDVO? requestDVO;
 
   const RequestDVORenderer({
     required this.accountId,
@@ -29,8 +27,8 @@ class RequestDVORenderer extends StatefulWidget {
     required this.isIncoming,
     required this.acceptRequestText,
     required this.onAfterAccept,
-    super.key,
     this.requestDVO,
+    super.key,
   });
 
   @override
@@ -39,14 +37,13 @@ class RequestDVORenderer extends StatefulWidget {
 
 class _RequestDVORendererState extends State<RequestDVORenderer> {
   late RequestRendererController _controller;
+
   LocalRequestDVO? _request;
-
-  bool _loading = false;
-
   DecideRequestParameters? _decideRequestParameters;
   RequestValidationResultDTO? _validationResult;
-
   GetIdentityInfoResponse? _identityInfo;
+
+  bool _loading = false;
 
   @override
   void initState() {
@@ -93,7 +90,9 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
   @override
   Widget build(BuildContext context) {
-    if (_request == null || _identityInfo == null) return const Center(child: CircularProgressIndicator());
+    if (_request == null || _identityInfo == null) {
+      return const Center(child: SizedBox(height: 150, width: 159, child: CircularProgressIndicator(strokeWidth: 12)));
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +106,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
               currentAddress: _identityInfo!.address,
               openAttributeSwitcher: _openAttributeSwitcher,
               expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-              chooseFile: () => openFileChooser(context, widget.accountId),
+              chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
               openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
             ),
           ),
@@ -117,7 +116,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton.icon(
-                icon: const Icon(Icons.delete, size: 16),
+                icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error, size: 16),
                 label: Text(context.l10n.reject, style: const TextStyle(fontWeight: FontWeight.bold)),
                 onPressed: _loading && _request != null ? null : _rejectRequest,
               ),
@@ -149,9 +148,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     final identityInfo = await session.transportServices.account.getIdentityInfo();
     if (identityInfo.isError) return;
 
-    setState(() {
-      _identityInfo = identityInfo.value;
-    });
+    setState(() => _identityInfo = identityInfo.value);
   }
 
   void _setController(Session session, LocalRequestDVO request) {

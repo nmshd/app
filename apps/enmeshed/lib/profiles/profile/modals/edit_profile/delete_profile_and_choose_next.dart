@@ -5,8 +5,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
-import '../../widgets/profile_card.dart';
 import '/core/core.dart';
+import '../../widgets/profile_card.dart';
 
 class DeleteProfileAndChooseNext extends StatefulWidget {
   final LocalAccountDTO localAccount;

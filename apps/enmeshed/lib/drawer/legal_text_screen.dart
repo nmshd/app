@@ -11,11 +11,7 @@ class LegalTextScreen extends StatefulWidget {
   final String filePath;
   final String title;
 
-  const LegalTextScreen({
-    required this.filePath,
-    required this.title,
-    super.key,
-  });
+  const LegalTextScreen({required this.filePath, required this.title, super.key});
 
   @override
   State<LegalTextScreen> createState() => _LegalTextScreenState();

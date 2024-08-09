@@ -39,25 +39,7 @@ Future<void> showRequestCertificateModal({required BuildContext context, require
             onDone: () => pageIndexNotifier.value = 2,
             onError: () {
               pageIndexNotifier.value = 0;
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  showCloseIcon: true,
-                  content: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: Icon(Icons.error_rounded, color: Theme.of(context).colorScheme.error),
-                      ),
-                      Expanded(
-                        child: Text(
-                          context.l10n.contactDetail_requestCertificate_error,
-                          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              showErrorSnackbar(context: context, text: context.l10n.contactDetail_requestCertificate_error);
             },
           ),
         ),

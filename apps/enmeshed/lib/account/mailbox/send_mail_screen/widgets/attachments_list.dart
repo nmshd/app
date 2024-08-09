@@ -1,20 +1,21 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:path/path.dart' as path;
 
 import '/core/core.dart';
 
 class AttachmentsList extends StatefulWidget {
   final List<FileDVO> attachments;
-  final void Function(int)? removeFile;
+  final void Function(FileDVO)? removeFile;
   final String accountId;
+  final Widget? trailing;
 
   const AttachmentsList({
     required this.attachments,
     required this.accountId,
     super.key,
     this.removeFile,
+    this.trailing,
   });
 
   @override
@@ -22,88 +23,83 @@ class AttachmentsList extends StatefulWidget {
 }
 
 class _AttachmentsListState extends State<AttachmentsList> {
-  final _scrollController = ScrollController();
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-
-    super.dispose();
-  }
+  bool _showAll = false;
+  Iterable<FileDVO> get _visibleAttachments => _showAll ? widget.attachments : widget.attachments.take(5);
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: _scrollController,
-      thumbVisibility: true,
-      scrollbarOrientation: ScrollbarOrientation.bottom,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: SizedBox(
-          height: 45,
-          child: ListView.separated(
-            controller: _scrollController,
-            scrollDirection: Axis.horizontal,
-            itemCount: widget.attachments.length,
-            itemBuilder: (context, index) => _AttachmentItem(
-              attachment: widget.attachments[index],
-              accountId: widget.accountId,
-              removeFile: widget.removeFile != null ? () => widget.removeFile!(index) : null,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.attachments.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(left: 12),
+            child: Text.rich(
+              TextSpan(
+                style: Theme.of(context).textTheme.bodySmall,
+                children: [
+                  TextSpan(text: context.l10n.mailbox_attachments(widget.attachments.length)),
+                  const TextSpan(text: ' - '),
+                  TextSpan(
+                    text: bytesText(
+                      bytes: widget.attachments.fold(0, (filesizeSum, e) => filesizeSum + e.filesize),
+                      context: context,
+                    ),
+                  ),
+                  const TextSpan(text: ' '),
+                  TextSpan(text: context.l10n.mailbox_attachments_total),
+                ],
+              ),
+              textAlign: TextAlign.center,
             ),
-            separatorBuilder: (context, index) => Gaps.w8,
           ),
+        Gaps.h8,
+        Wrap(
+          spacing: 8,
+          children: _visibleAttachments
+              .map(
+                (e) => _AttachmentItem(
+                  attachment: e,
+                  accountId: widget.accountId,
+                  onDeleted: widget.removeFile != null ? () => widget.removeFile!(e) : null,
+                ),
+              )
+              .toList(),
         ),
-      ),
+        Row(
+          children: [
+            if (widget.attachments.length > 5)
+              TextButton(
+                onPressed: () => setState(() => _showAll = !_showAll),
+                child: Text(
+                  _showAll ? context.l10n.mailbox_attachments_showLess : context.l10n.mailbox_attachments_showMore(widget.attachments.length - 5),
+                ),
+              ),
+            const Spacer(),
+            if (widget.trailing != null) widget.trailing!,
+          ],
+        ),
+      ],
     );
   }
 }
 
 class _AttachmentItem extends StatelessWidget {
   final FileDVO attachment;
-  final String accountId;
-  final void Function()? removeFile;
 
-  const _AttachmentItem({required this.attachment, required this.accountId, required this.removeFile});
+  final String accountId;
+  final VoidCallback? onDeleted;
+
+  const _AttachmentItem({required this.attachment, required this.accountId, required this.onDeleted});
 
   @override
   Widget build(BuildContext context) {
-    var ext = path.extension(attachment.filename);
-    if (ext.isNotEmpty) ext = ext.substring(1, ext.length);
-
-    return Container(
-      padding: const EdgeInsets.only(left: 8, right: 16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onPrimary,
-        border: Border.all(width: 0.5),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: GestureDetector(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            FileIcon(filename: attachment.filename, color: Theme.of(context).colorScheme.primary),
-            Gaps.w8,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  attachment.filename,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  '${ext.isNotEmpty ? '$ext - ' : ''}${bytesText(bytes: attachment.filesize, context: context)}',
-                  style: Theme.of(context).textTheme.labelLarge,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            if (removeFile != null) IconButton(icon: const Icon(Icons.cancel_outlined), iconSize: 22, onPressed: removeFile),
-          ],
-        ),
-        onTap: () => context.push('/account/$accountId/my-data/files/${attachment.id}', extra: attachment),
-      ),
+    return RawChip(
+      avatar: FileIcon(filename: attachment.filename, color: Theme.of(context).colorScheme.primary),
+      label: Text(attachment.title),
+      onDeleted: onDeleted,
+      deleteIcon: const Icon(Icons.close, size: 18),
+      onPressed: () => context.push('/account/$accountId/my-data/files/${attachment.id}', extra: attachment),
     );
   }
 }
