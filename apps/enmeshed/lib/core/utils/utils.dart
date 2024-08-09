@@ -1,7 +1,7 @@
+export 'app_icons/app_icons.dart';
 export 'attribute_utils.dart';
 export 'contact_utils.dart';
 export 'dialogs.dart';
-export 'enmeshed_icons/enmeshed_icons.dart';
 export 'extensions.dart';
 export 'file_utils.dart';
 export 'message_utils.dart';

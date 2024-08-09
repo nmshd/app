@@ -149,7 +149,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(EnmeshedIcons.requestCertificate, size: 16),
+                              const Icon(AppIcons.requestCertificate, size: 16),
                               Gaps.w8,
                               Text(context.l10n.contactDetail_requestCertificate),
                             ],
