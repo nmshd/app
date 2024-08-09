@@ -6,7 +6,7 @@ void main() {
     test('is correctly converted', () {
       const thirdPartyRelationshipAttributeQuery = ThirdPartyRelationshipAttributeQuery(
         key: 'ProprietaryInteger',
-        owner: 'anOwner',
+        owner: ThirdPartyRelationshipAttributeQueryOwner.thirdParty,
         thirdParty: ['anAddress'],
       );
       final relationshipJson = thirdPartyRelationshipAttributeQuery.toJson();
@@ -15,7 +15,7 @@ void main() {
         equals({
           '@type': 'ThirdPartyRelationshipAttributeQuery',
           'key': 'ProprietaryInteger',
-          'owner': 'anOwner',
+          'owner': 'thirdParty',
           'thirdParty': ['anAddress'],
         }),
       );
@@ -24,7 +24,7 @@ void main() {
     test('is correctly converted with properties "validFrom" and "validTo"', () {
       const thirdPartyRelationshipAttributeQuery = ThirdPartyRelationshipAttributeQuery(
         key: 'ProprietaryInteger',
-        owner: 'anOwner',
+        owner: ThirdPartyRelationshipAttributeQueryOwner.empty,
         thirdParty: ['anAddress'],
         validFrom: '1970',
         validTo: '1980',
@@ -35,7 +35,7 @@ void main() {
         equals({
           '@type': 'ThirdPartyRelationshipAttributeQuery',
           'key': 'ProprietaryInteger',
-          'owner': 'anOwner',
+          'owner': '',
           'thirdParty': ['anAddress'],
           'validFrom': '1970',
           'validTo': '1980',
@@ -48,14 +48,14 @@ void main() {
     test('is correctly converted', () {
       final json = {
         'key': 'ProprietaryInteger',
-        'owner': 'anOwner',
+        'owner': 'thirdParty',
         'thirdParty': ['anAddress'],
       };
       expect(
         ThirdPartyRelationshipAttributeQuery.fromJson(json),
         equals(const ThirdPartyRelationshipAttributeQuery(
           key: 'ProprietaryInteger',
-          owner: 'anOwner',
+          owner: ThirdPartyRelationshipAttributeQueryOwner.thirdParty,
           thirdParty: ['anAddress'],
         )),
       );
@@ -64,7 +64,7 @@ void main() {
     test('is correctly converted with properties "validFrom" and "validTo"', () {
       final json = {
         'key': 'ProprietaryInteger',
-        'owner': 'anOwner',
+        'owner': '',
         'thirdParty': ['anAddress'],
         'validFrom': '1970',
         'validTo': '1980',
@@ -73,7 +73,7 @@ void main() {
         ThirdPartyRelationshipAttributeQuery.fromJson(json),
         equals(const ThirdPartyRelationshipAttributeQuery(
           key: 'ProprietaryInteger',
-          owner: 'anOwner',
+          owner: ThirdPartyRelationshipAttributeQueryOwner.empty,
           thirdParty: ['anAddress'],
           validFrom: '1970',
           validTo: '1980',

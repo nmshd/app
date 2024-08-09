@@ -6,7 +6,6 @@ void main() {
     test('parsed valid RequestItemGroup', () {
       final requestItemGroupJson = {
         '@type': 'RequestItemGroup',
-        'mustBeAccepted': true,
         'items': [],
       };
       final requestItemGroup = RequestItem.fromJson(requestItemGroupJson);
@@ -76,17 +75,20 @@ void main() {
 }
 
 class MockRequestItem extends RequestItem {
+  final bool mustBeAccepted;
+
   const MockRequestItem({
     super.title,
     super.description,
     super.metadata,
-    required super.mustBeAccepted,
+    required this.mustBeAccepted,
   });
 
   @override
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
+      'mustBeAccepted': mustBeAccepted,
     };
   }
 }

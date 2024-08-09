@@ -13,6 +13,7 @@ class LocalAttributeDTO extends Equatable {
   final String? succeededBy;
   final LocalAttributeShareInfo? shareInfo;
   final LocalAttributeDeletionInfo? deletionInfo;
+  final bool? isDefault;
 
   const LocalAttributeDTO({
     required this.id,
@@ -23,6 +24,7 @@ class LocalAttributeDTO extends Equatable {
     this.succeededBy,
     this.shareInfo,
     this.deletionInfo,
+    this.isDefault,
   });
 
   RelationshipAttribute get contentAsRelationshipAttribute {
@@ -45,6 +47,7 @@ class LocalAttributeDTO extends Equatable {
       succeededBy: json['succeededBy'],
       shareInfo: LocalAttributeShareInfo.fromJsonNullable(json['shareInfo']),
       deletionInfo: LocalAttributeDeletionInfo.fromJsonNullable(json['deletionInfo']),
+      isDefault: json['isDefault'],
     );
   }
 
@@ -57,8 +60,9 @@ class LocalAttributeDTO extends Equatable {
         if (succeededBy != null) 'succeededBy': succeededBy,
         if (shareInfo != null) 'shareInfo': shareInfo?.toJson(),
         if (deletionInfo != null) 'deletionInfo': deletionInfo?.toJson(),
+        if (isDefault != null) 'isDefault': isDefault,
       };
 
   @override
-  List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo, deletionInfo];
+  List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo, deletionInfo, isDefault];
 }

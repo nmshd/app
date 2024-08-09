@@ -33,7 +33,7 @@ void main() {
       final thirdPartyRelationshipAttributeJson = {
         '@type': 'ThirdPartyRelationshipAttributeQuery',
         'key': 'ProprietaryInteger',
-        'owner': 'anAddress',
+        'owner': '',
         'thirdParty': ['aThirdPartyAddress'],
       };
       final thirdPartyRelationshipAttributeQuery = AttributeQuery.fromJson(thirdPartyRelationshipAttributeJson);

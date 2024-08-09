@@ -192,7 +192,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('Message errors', () {
-    const fakeAddress = 'id1PNvUP4jHD74qo6usnWNoaFGFf33MXZi6c';
+    const fakeAddress = 'did:e:a-domain:dids:fef1992c5e529adc413288';
     test('should throw correct error for empty "to" in the Message', () async {
       final result = await session1.transportServices.messages.sendMessage(
         recipients: [fakeAddress],

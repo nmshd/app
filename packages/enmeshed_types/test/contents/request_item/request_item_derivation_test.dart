@@ -10,8 +10,8 @@ void main() {
         'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
       };
 
-      final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
-      expect(requestItemGroup, isA<ReadAttributeRequestItem>());
+      final requestItem = RequestItemDerivation.fromJson(requestItemJson);
+      expect(requestItem, isA<ReadAttributeRequestItem>());
     });
 
     test('parsed valid CreateAttributeRequestItem', () {
@@ -21,8 +21,8 @@ void main() {
         'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
 
-      final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
-      expect(requestItemGroup, isA<CreateAttributeRequestItem>());
+      final requestItem = RequestItemDerivation.fromJson(requestItemJson);
+      expect(requestItem, isA<CreateAttributeRequestItem>());
     });
 
     test('parsed valid ShareAttributeRequestItem', () {
@@ -33,8 +33,8 @@ void main() {
         'sourceAttributeId': 'aSourceAttributeId',
       };
 
-      final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
-      expect(requestItemGroup, isA<ShareAttributeRequestItem>());
+      final requestItem = RequestItemDerivation.fromJson(requestItemJson);
+      expect(requestItem, isA<ShareAttributeRequestItem>());
     });
 
     test('parsed valid ProposeAttributeRequestItem', () {
@@ -45,8 +45,8 @@ void main() {
         'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
       };
 
-      final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
-      expect(requestItemGroup, isA<ProposeAttributeRequestItem>());
+      final requestItem = RequestItemDerivation.fromJson(requestItemJson);
+      expect(requestItem, isA<ProposeAttributeRequestItem>());
     });
 
     test('parsed valid ConsentRequestItem', () {
@@ -56,8 +56,8 @@ void main() {
         'consent': 'aConsent',
       };
 
-      final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
-      expect(requestItemGroup, isA<ConsentRequestItem>());
+      final requestItem = RequestItemDerivation.fromJson(requestItemJson);
+      expect(requestItem, isA<ConsentRequestItem>());
     });
 
     test('parsed valid AuthenticationRequestItem', () {
@@ -66,8 +66,8 @@ void main() {
         'mustBeAccepted': true,
       };
 
-      final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
-      expect(requestItemGroup, isA<AuthenticationRequestItem>());
+      final requestItem = RequestItemDerivation.fromJson(requestItemJson);
+      expect(requestItem, isA<AuthenticationRequestItem>());
     });
 
     test('parsed valid RegisterAttributeListenerRequestItem', () {
@@ -77,8 +77,8 @@ void main() {
         'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
       };
 
-      final requestItemGroup = RequestItemDerivation.fromJson(requestItemJson);
-      expect(requestItemGroup, isA<RegisterAttributeListenerRequestItem>());
+      final requestItem = RequestItemDerivation.fromJson(requestItemJson);
+      expect(requestItem, isA<RegisterAttributeListenerRequestItem>());
     });
   });
 

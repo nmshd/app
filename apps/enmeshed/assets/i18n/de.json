@@ -1054,21 +1054,6 @@
       "Rejected": "Abgelehnte Kontaktanfrage",
       "Revoked": "Zurückgezogene Kontaktanfrage"
     },
-    "relationshipChange": {
-      "Accepted": "Akzeptierte Anfrage",
-      "Creation": "Eingehen einer Beziehung",
-      "Pending": "Offene Anfrage",
-      "Rejected": "Abgelehnte Anfrage",
-      "request": {
-        "name": "Anfrage zum Ändern einer Beziehung"
-      },
-      "response": {
-        "name": "Antwort zum Ändern einer Beziehung"
-      },
-      "Revoked": "Zurückgezogene Anfrage",
-      "Termination": "Auflösen einer Beziehung",
-      "TerminationCancellation": "Wiederaufnahme einer Beziehung"
-    },
     "requestItem": {
       "AuthenticationRequestItem": {
         "name": "Hat eine Bestätigung angefordert"

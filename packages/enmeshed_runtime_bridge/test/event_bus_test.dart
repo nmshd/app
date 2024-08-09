@@ -6,19 +6,19 @@ import 'package:test/test.dart';
 class EventA extends Event {
   String text;
 
-  EventA(this.text, {super.eventTargetAddress = 'id1'});
+  EventA(this.text, {super.eventTargetAddress = 'did:e:a-domain:dids:anidentity'});
 }
 
 class EventB extends Event {
   String text;
 
-  EventB(this.text, {super.eventTargetAddress = 'id1'});
+  EventB(this.text, {super.eventTargetAddress = 'did:e:a-domain:dids:anidentity'});
 }
 
 class EventWithMap extends Event {
   Map myMap;
 
-  EventWithMap(this.myMap, {super.eventTargetAddress = 'id1'});
+  EventWithMap(this.myMap, {super.eventTargetAddress = 'did:e:a-domain:dids:anidentity'});
 }
 
 void main() {
@@ -88,10 +88,10 @@ void main() {
 
     test('filters the eventTargetAddress', () async {
       final eventBus = EventBus();
-      final Future f = eventBus.on<Event>(eventTargetAddress: 'id2').toList();
+      final Future f = eventBus.on<Event>(eventTargetAddress: 'did:e:a-domain:dids:anotheridentity').toList();
 
-      eventBus.publish(EventA('a1', eventTargetAddress: 'id1'));
-      eventBus.publish(EventA('a1', eventTargetAddress: 'id2'));
+      eventBus.publish(EventA('a1', eventTargetAddress: 'did:e:a-domain:dids:anidentity'));
+      eventBus.publish(EventA('a1', eventTargetAddress: 'did:e:a-domain:dids:anotheridentity'));
       eventBus.close();
 
       final events = await f;

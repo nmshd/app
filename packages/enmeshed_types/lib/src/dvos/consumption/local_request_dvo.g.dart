@@ -141,5 +141,5 @@ Map<String, dynamic> _$LocalResponseSourceDVOToJson(LocalResponseSourceDVO insta
 
 const _$LocalResponseSourceTypeEnumMap = {
   LocalResponseSourceType.Message: 'Message',
-  LocalResponseSourceType.RelationshipChange: 'RelationshipChange',
+  LocalResponseSourceType.Relationship: 'Relationship',
 };

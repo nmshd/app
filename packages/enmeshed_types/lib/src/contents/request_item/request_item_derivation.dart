@@ -1,13 +1,14 @@
 part of 'request_item.dart';
 
 abstract class RequestItemDerivation extends RequestItem {
+  final bool mustBeAccepted;
   final bool? requireManualDecision;
 
   const RequestItemDerivation({
     super.title,
     super.description,
     super.metadata,
-    required super.mustBeAccepted,
+    required this.mustBeAccepted,
     this.requireManualDecision,
   });
 
@@ -31,9 +32,10 @@ abstract class RequestItemDerivation extends RequestItem {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
+        'mustBeAccepted': mustBeAccepted,
         if (requireManualDecision != null) 'requireManualDecision': requireManualDecision,
       };
 
   @override
-  List<Object?> get props => [super.props, requireManualDecision];
+  List<Object?> get props => [super.props, requireManualDecision, mustBeAccepted];
 }

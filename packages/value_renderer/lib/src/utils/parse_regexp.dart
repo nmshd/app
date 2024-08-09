@@ -1,15 +1,19 @@
 RegExp parseRegExp(String pattern) {
-  final bool hasSlashes = pattern.startsWith('/') || pattern.endsWith('/');
-  final bool hasFlag = pattern.endsWith('/i');
+  final hasStartingSlash = pattern.startsWith('/');
+  final hasEndingSlash = pattern.endsWith('/');
+  final hasFlag = pattern.endsWith('/i');
 
-  final String parsedPattern = pattern
-      .substring(
-        hasSlashes ? 1 : 0,
-        hasFlag ? pattern.length - 2 : pattern.length,
-      )
-      .replaceAll('/', '');
+  var outputString = pattern;
+
+  if (hasStartingSlash) outputString = outputString.substring(1);
+
+  if (hasEndingSlash) {
+    outputString = outputString.substring(0, outputString.length - 1);
+  } else if (hasFlag) {
+    outputString = outputString.substring(0, outputString.length - 2);
+  }
 
   final bool isCaseSensitive = !hasFlag;
 
-  return RegExp(parsedPattern, caseSensitive: isCaseSensitive);
+  return RegExp(outputString, caseSensitive: isCaseSensitive);
 }

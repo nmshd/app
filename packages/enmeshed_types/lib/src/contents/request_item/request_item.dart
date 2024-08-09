@@ -19,13 +19,11 @@ abstract class RequestItem extends Equatable {
   final String? title;
   final String? description;
   final Map<String, dynamic>? metadata;
-  final bool mustBeAccepted;
 
   const RequestItem({
     this.title,
     this.description,
     this.metadata,
-    required this.mustBeAccepted,
   });
 
   factory RequestItem.fromJson(Map json) {
@@ -43,10 +41,9 @@ abstract class RequestItem extends Equatable {
         if (title != null) 'title': title,
         if (description != null) 'description': description,
         if (metadata != null) 'metadata': metadata,
-        'mustBeAccepted': mustBeAccepted,
       };
 
   @mustCallSuper
   @override
-  List<Object?> get props => [title, description, metadata, mustBeAccepted];
+  List<Object?> get props => [title, description, metadata];
 }

@@ -110,5 +110,15 @@ void run(EnmeshedRuntime runtime) {
 
     // deleteDevice is implemented but has to be handled with caution
     test('deleteDevice', skip: true, () async {});
+
+    test('setCommunicationLanguage', () async {
+      final result = await session.transportServices.devices.setCommunicationLanguage(communicationLanguage: 'fr');
+      expect(result, isSuccessful());
+    });
+
+    test('setCommunicationLanguage with false input', () async {
+      final result = await session.transportServices.devices.setCommunicationLanguage(communicationLanguage: 'fra');
+      expect(result, isFailingVoidResult('error.runtime.validation.invalidPropertyValue'));
+    });
   });
 }

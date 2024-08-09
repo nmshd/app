@@ -189,7 +189,7 @@ class _CurrentProfileHeader extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  '${(selectedAccount.address!).substring(0, 15)}...',
+                  selectedAccount.address!,
                   style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.primary),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

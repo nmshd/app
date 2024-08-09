@@ -222,32 +222,6 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
-  Future<Result<SucceedRelationshipAttributeAndNotifyPeerResponse>> succeedRelationshipAttributeAndNotifyPeer({
-    required String predecessorId,
-    required RelationshipAttributeValue value,
-    String? validFrom,
-    String? validTo,
-  }) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.succeedRelationshipAttributeAndNotifyPeer(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'predecessorId': predecessorId,
-          'successorContent': {
-            'value': value.toJson(),
-            if (validFrom != null) 'validFrom': validFrom,
-            if (validTo != null) 'validTo': validTo,
-          }
-        },
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => SucceedRelationshipAttributeAndNotifyPeerResponse.fromJson(value));
-  }
-
   Future<Result<List<LocalAttributeDTO>>> executeThirdPartyRelationshipAttributeQuery({
     required ThirdPartyRelationshipAttributeQuery query,
   }) async {
@@ -348,6 +322,26 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => LocalRequestDTO.fromJson(value));
   }
 
+  Future<Result<NotifyPeerAboutRepositoryAttributeSuccessionResponse>> notifyPeerAboutRepositoryAttributeSuccession({
+    required String attributeId,
+    required String peer,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'attributeId': attributeId,
+          'peer': peer,
+        },
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => NotifyPeerAboutRepositoryAttributeSuccessionResponse.fromJson(value));
+  }
+
   Future<Result<LocalRequestDTO>> createAndShareRelationshipAttribute({
     required RelationshipAttributeValue value,
     required String key,
@@ -396,24 +390,48 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => LocalRequestDTO.fromJson(value));
   }
 
-  Future<Result<NotifyPeerAboutRepositoryAttributeSuccessionResponse>> notifyPeerAboutRepositoryAttributeSuccession({
-    required String attributeId,
-    required String peer,
+  Future<Result<SucceedRelationshipAttributeAndNotifyPeerResponse>> succeedRelationshipAttributeAndNotifyPeer({
+    required String predecessorId,
+    required RelationshipAttributeValue value,
+    String? validFrom,
+    String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
+      '''const result = await session.consumptionServices.attributes.succeedRelationshipAttributeAndNotifyPeer(request)
+  if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+  return { value: result.value }''',
       arguments: {
         'request': {
-          'attributeId': attributeId,
-          'peer': peer,
+          'predecessorId': predecessorId,
+          'successorContent': {
+            'value': value.toJson(),
+            if (validFrom != null) 'validFrom': validFrom,
+            if (validTo != null) 'validTo': validTo,
+          }
         },
       },
     );
 
     final json = result.valueToMap();
-    return Result.fromJson(json, (value) => NotifyPeerAboutRepositoryAttributeSuccessionResponse.fromJson(value));
+    return Result.fromJson(json, (value) => SucceedRelationshipAttributeAndNotifyPeerResponse.fromJson(value));
+  }
+
+  Future<Result<LocalAttributeDTO>> changeDefaultRepositoryAttribute({
+    required String attributeId,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.changeDefaultRepositoryAttribute(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'attributeId': attributeId,
+        },
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
   Future<Result<DeleteOwnSharedAttributeAndNotifyPeerResponse>> deleteOwnSharedAttributeAndNotifyPeer({

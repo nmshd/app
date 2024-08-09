@@ -1,9 +1,9 @@
-import 'package:enmeshed_types/src/dvos/data_view_object.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
+import '../data_view_object.dart';
 
 part 'response_item_dvos.g.dart';
 

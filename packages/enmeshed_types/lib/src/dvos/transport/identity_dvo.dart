@@ -10,7 +10,6 @@ part 'identity_dvo.g.dart';
 @JsonSerializable(includeIfNull: false)
 class IdentityDVO extends DataViewObject with EquatableMixin {
   final String? publicKey;
-  final String realm;
   final String initials;
   final bool isSelf;
   final bool hasRelationship;
@@ -26,7 +25,6 @@ class IdentityDVO extends DataViewObject with EquatableMixin {
     super.error,
     super.warning,
     this.publicKey,
-    required this.realm,
     required this.initials,
     required this.isSelf,
     required this.hasRelationship,
@@ -47,7 +45,6 @@ class IdentityDVO extends DataViewObject with EquatableMixin {
         error,
         warning,
         publicKey,
-        realm,
         initials,
         isSelf,
         hasRelationship,

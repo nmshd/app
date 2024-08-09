@@ -94,6 +94,7 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
 class RepositoryAttributeDVO extends IdentityAttributeDVO {
   final List<SharedToPeerAttributeDVO> sharedWith;
   final List<String>? tags;
+  final bool? isDefault;
 
   const RepositoryAttributeDVO({
     required super.id,
@@ -116,6 +117,7 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
     super.succeeds,
     super.succeededBy,
     required this.sharedWith,
+    this.isDefault,
   }) : super(type: 'RepositoryAttributeDVO');
 
   factory RepositoryAttributeDVO.fromJson(Map json) => _$RepositoryAttributeDVOFromJson(Map<String, dynamic>.from(json));
