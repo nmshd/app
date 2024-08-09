@@ -39,7 +39,7 @@ void run(EnmeshedRuntime runtime) {
 
       transportService2Address = (await transportServices2.account.getIdentityInfo()).value.address;
 
-      final result = await transportServices1.messages.sendMessage(recipients: [transportService2Address], content: {'arbitraryValue': true});
+      final result = await transportServices1.messages.sendMessage(recipients: [transportService2Address], content: emptyMessageContent);
       messageId = result.value.id;
 
       final mailResult = await transportServices1.messages.sendMessage(
@@ -49,7 +49,7 @@ void run(EnmeshedRuntime runtime) {
           cc: const [],
           subject: 'Mail Subject',
           to: [transportService2Address],
-        ).toJson(),
+        ),
         attachments: [fileId],
       );
       mailId = mailResult.value.id;

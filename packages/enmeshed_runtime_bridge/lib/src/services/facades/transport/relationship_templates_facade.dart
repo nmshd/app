@@ -10,7 +10,7 @@ class RelationshipTemplatesFacade {
 
   Future<Result<RelationshipTemplateDTO>> createOwnRelationshipTemplate({
     required String expiresAt,
-    required Map<String, dynamic> content,
+    required RelationshipTemplateContentDerivation content,
     int? maxNumberOfAllocations,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
@@ -20,7 +20,7 @@ class RelationshipTemplatesFacade {
       arguments: {
         'request': {
           'expiresAt': expiresAt,
-          'content': content,
+          'content': content.toJson(),
           if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
         },
       },

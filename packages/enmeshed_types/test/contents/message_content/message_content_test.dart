@@ -26,12 +26,16 @@ void main() {
       expect(messageContent, isA<ResponseWrapper>());
     });
 
-    test('parsed valid ArbitraryMessageContent when given an unknown @type', () {
-      final arbitraryMessageContentJson = {
-        '@type': 'unknownType',
-      };
-      final messageContent = MessageContent.fromJson(arbitraryMessageContentJson);
-      expect(messageContent, isA<ArbitraryMessageContent>());
+    group('MessageContent fromJson with exception', () {
+      test('throws exception when @type is missing', () {
+        final json = {};
+        expect(() => MessageContent.fromJson(json), throwsA(isA<Exception>()));
+      });
+
+      test('throws exception when type is unknown', () {
+        final json = {'@type': 'UnknownType'};
+        expect(() => MessageContent.fromJson(json), throwsA(isA<Exception>()));
+      });
     });
   });
 }

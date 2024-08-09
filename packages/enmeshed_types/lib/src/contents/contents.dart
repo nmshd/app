@@ -1,5 +1,4 @@
 export 'abstract_attribute.dart';
-export 'abstract_relationship_template_content.dart';
 export 'attribute_query/attribute_query.dart';
 export 'attribute_values/attribute_values.dart';
 export 'identity_attribute.dart';
@@ -8,7 +7,7 @@ export 'notification.dart';
 export 'notification_item/notification_item.dart';
 export 'relationship_attribute.dart';
 export 'relationship_creation_content/relationship_creation_content_derivation.dart';
-export 'relationship_template_content.dart';
+export 'relationship_template_content/relationship_template_content_derivation.dart';
 export 'render_hints.dart';
 export 'request.dart';
 export 'request_item/request_item.dart';

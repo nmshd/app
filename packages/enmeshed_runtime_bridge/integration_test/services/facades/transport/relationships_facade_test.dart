@@ -86,7 +86,7 @@ void run(EnmeshedRuntime runtime) {
     test('should create a relationship', () async {
       final responseTemplate = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: generateExpiryString(),
-        content: {},
+        content: emptyRelationshipTemplateContent,
       );
 
       final item = await session1.transportServices.account.loadItemFromTruncatedReference(
@@ -95,7 +95,7 @@ void run(EnmeshedRuntime runtime) {
 
       final relationshipResult = await session1.transportServices.relationships.createRelationship(
         templateId: item.value.relationshipTemplateValue.id,
-        creationContent: {},
+        creationContent: emptyRelationshipCreationContent,
       );
 
       expect(relationshipResult, isSuccessful<RelationshipDTO>());
@@ -104,7 +104,7 @@ void run(EnmeshedRuntime runtime) {
     test('returns error if templator has active IdentityDeletionProcess', () async {
       final responseTemplate = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: generateExpiryString(),
-        content: {},
+        content: emptyRelationshipTemplateContent,
       );
 
       final item = await session1.transportServices.account.loadItemFromTruncatedReference(
@@ -115,7 +115,7 @@ void run(EnmeshedRuntime runtime) {
 
       final result = await session1.transportServices.relationships.createRelationship(
         templateId: item.value.relationshipTemplateValue.id,
-        creationContent: {},
+        creationContent: emptyRelationshipCreationContent,
       );
 
       expect(result, isFailing('error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate'));

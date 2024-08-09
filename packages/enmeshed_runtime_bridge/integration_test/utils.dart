@@ -15,10 +15,16 @@ extension ToRuntimeIsoString on DateTime {
   }
 }
 
+final ArbitraryMessageContent emptyMessageContent = ArbitraryMessageContent(const {});
+
+final ArbitraryRelationshipCreationContent emptyRelationshipCreationContent = ArbitraryRelationshipCreationContent(const {});
+
+final ArbitraryRelationshipTemplateContent emptyRelationshipTemplateContent = ArbitraryRelationshipTemplateContent(const {});
+
 Future<RelationshipDTO> establishRelationship({required Session requestor, required Session templator}) async {
   final createTemplateResult = await templator.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
     expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
-    content: {},
+    content: emptyRelationshipTemplateContent,
   );
 
   final item = await requestor.transportServices.account.loadItemFromTruncatedReference(
@@ -29,7 +35,7 @@ Future<RelationshipDTO> establishRelationship({required Session requestor, requi
 
   final relationship = await requestor.transportServices.relationships.createRelationship(
     templateId: template.id,
-    creationContent: {'a': 'b'},
+    creationContent: emptyRelationshipCreationContent,
   );
 
   return relationship.value;
@@ -144,7 +150,7 @@ Future<RelationshipDTO> ensureTerminatedRelationship(Session session1, Session s
 Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session session1, Session session2) async {
   final createTemplateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
     expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
-    content: {},
+    content: emptyRelationshipTemplateContent,
   );
   final connectorLoadTemplateResult = await session2.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
     reference: createTemplateResult.value.truncatedReference,
@@ -153,7 +159,7 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
 
   final createRelationshipResult = await session2.transportServices.relationships.createRelationship(
     templateId: connectorLoadTemplateResult.value.id,
-    creationContent: {'a': 'b'},
+    creationContent: emptyRelationshipCreationContent,
   );
   assert(createRelationshipResult.isSuccess);
 
@@ -239,7 +245,8 @@ Future<void> exchangeAndAcceptRequestByMessage(
   final createRequestResult = await sender.consumptionServices.outgoingRequests.create(content: request, peer: recipientAddress);
   assert(createRequestResult.isSuccess);
 
-  await sender.transportServices.messages.sendMessage(recipients: [recipientAddress], content: createRequestResult.value.content.toJson());
+  await sender.transportServices.messages
+      .sendMessage(recipients: [recipientAddress], content: MessageContentRequest(request: createRequestResult.value.content));
   await syncUntilHasMessage(recipient);
 
   await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
@@ -358,7 +365,8 @@ Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttrib
       await recipient.consumptionServices.outgoingRequests.create(content: Request(items: [requestItem]), peer: senderAddress);
   assert(localRequestDTOResult.isSuccess);
 
-  await recipient.transportServices.messages.sendMessage(recipients: [senderAddress], content: localRequestDTOResult.value.content.toJson());
+  await recipient.transportServices.messages
+      .sendMessage(recipients: [senderAddress], content: MessageContentRequest(request: localRequestDTOResult.value.content));
   await syncUntilHasMessage(sender);
 
   await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
