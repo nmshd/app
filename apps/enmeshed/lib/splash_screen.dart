@@ -14,7 +14,6 @@ import 'package:push/push.dart';
 import 'package:renderers/renderers.dart';
 
 import 'core/core.dart';
-import 'flavors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -43,8 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Hero(
               tag: 'logo',
               child: Image.asset(switch (Theme.of(context).brightness) {
-                Brightness.light => 'assets/enmeshed_logo_light_cut.png',
-                Brightness.dark => 'assets/enmeshed_logo_dark_cut.png',
+                Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
+                Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
               }),
             ),
           ),
@@ -75,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final runtime = EnmeshedRuntime(
       logger: logger,
       runtimeConfig: (
-        applicationId: F.appFlavor.applicationId,
+        applicationId: 'eu.enmeshed.app',
         baseUrl: const String.fromEnvironment('app_baseUrl'),
         clientId: const String.fromEnvironment('app_clientId'),
         clientSecret: const String.fromEnvironment('app_clientSecret'),

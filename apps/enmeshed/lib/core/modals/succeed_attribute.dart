@@ -256,11 +256,11 @@ extension _GetValueRendererInputValueExtension on ValueRendererInputValue {
               (e) => MapEntry(
                 e.key,
                 switch ((e.value as ValueRendererInputValue).runtimeType) {
-                  ValueRendererInputValueString => (e.value as ValueRendererInputValueString).value,
-                  ValueRendererInputValueNum => (e.value as ValueRendererInputValueNum).value,
-                  ValueRendererInputValueBool => (e.value as ValueRendererInputValueBool).value,
-                  ValueRendererInputValueMap => (e.value as ValueRendererInputValueMap).value,
-                  ValueRendererInputValueDateTime => (e.value as ValueRendererInputValueDateTime).value,
+                  final ValueRendererInputValueString value => value,
+                  final ValueRendererInputValueNum value => value,
+                  final ValueRendererInputValueBool value => value,
+                  final ValueRendererInputValueMap value => value,
+                  final ValueRendererInputValueDateTime value => value,
                   _ => throw Exception('Invalid type for ValueRendererInputValue: ${(e.value as ValueRendererInputValue).runtimeType}'),
                 },
               ),
