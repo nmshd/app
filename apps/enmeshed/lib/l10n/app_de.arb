@@ -105,7 +105,7 @@
   "home_complete": "Abschließen",
   "home_scanQR": "QR-Code scannen",
   "home_addContact": "Kontakt hinzufügen",
-  "home_addContactImageSemanticsLabel": "Illustration eines Schulgebäudes mit einem Schild davor, dass einen QR-Code zeigt",
+  "home_addContactImageSemanticsLabel": "Illustration eines Schulgebäudes mit einem Schild davor, das einen QR-Code zeigt",
   "home_loadProfile": "Profil laden",
   "home_loadProfileImageSemanticsLabel": "Illustration einer Person mit Handy, dessen Bildschirm einen QR-Code zeigt",
   "home_messages": "Neue Nachrichten",

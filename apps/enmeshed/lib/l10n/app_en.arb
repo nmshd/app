@@ -55,7 +55,7 @@
   "scanner_failedStartingScanner_title": "Failed to start scanner",
   "scanner_failedStartingScanner_description": "Please check whether authorisation to access the camera has been granted and whether your device has a camera.\nAlternatively, you can also enter a URL link manually.",
   "onboarding_welcome": "Welcome to the\nEnmeshed app",
-  "onboarding_description": "Your personal learning journey companion.",
+  "onboarding_description": "Your centre for personal data and data exchange relating to your education and life.",
   "onboarding_letsStart": "Let's start",
   "onboarding_info_titlePage1": "Manage documents and data",
   "onboarding_info_titlePage2": "Manage contacts",
