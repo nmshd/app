@@ -1023,7 +1023,7 @@
         "Draft": "Entwurf",
         "Error": "Fehlerhaft",
         "Expired": "Abgelaufen",
-        "ManualDecisionRequired": "Entscheidung muss getroffen werden",
+        "ManualDecisionRequired": "Offene Aufgabe",
         "Open": "Auf Antwort warten"
       },
       "unknown": {
@@ -1133,19 +1133,10 @@
       "AcceptResponseItem": {
         "acceptedName": "Das Element wurde akzeptiert."
       },
-      "AttributeAlreadySharedAcceptResponseItem": {
-        "acceptedName": "Das angefragte Attribut wurde bereits geteilt."
-      },
-      "AttributeSuccessionAcceptResponseItem": {
-        "acceptedName": "Das angefragte Attribute wurde bearbeitet."
-      },
       "CreateAttributeAcceptResponseItem": {
         "acceptedName": "Das Attribut wurde erstellt."
       },
       "error": "Fehlerhaftes Element",
-      "FreeTextAcceptResponseItem": {
-        "acceptedName": "Der Freitext wurde akzeptiert."
-      },
       "ProposeAttributeAcceptResponseItem": {
         "acceptedName": "Das vorgeschlagene Attribut wurde empfangen."
       },
@@ -1178,7 +1169,7 @@
       "minValue": "Der Wert muss größer oder gleich {value} sein",
       "invalidInput": "Ungültige Eingabe",
       "invalidFormat": "Ungültiges Format",
-      "noDateSelected": "Kein Datum ausgewählt", 
+      "noDateSelected": "Kein Datum ausgewählt",
       "houseNoNumericCharacter": "Der Wert muss mindestens eine Ziffer enthalten"
     }
   },

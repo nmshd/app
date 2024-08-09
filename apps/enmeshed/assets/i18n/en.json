@@ -1023,7 +1023,7 @@
         "Draft": "Draft",
         "Error": "Error",
         "Expired": "Expired",
-        "ManualDecisionRequired": "Decision Required",
+        "ManualDecisionRequired": "Open task",
         "Open": "Waiting for Response"
       },
       "unknown": {
@@ -1133,19 +1133,10 @@
       "AcceptResponseItem": {
         "acceptedName": "The item has been accepted."
       },
-      "AttributeAlreadySharedAcceptResponseItem": {
-        "acceptedName": "The queried attribute has already been shared."
-      },
-      "AttributeSuccessionAcceptResponseItem": {
-        "acceptedName": "The queried attribute has been succeeded."
-      },
       "CreateAttributeAcceptResponseItem": {
         "acceptedName": "The attribute has been created."
       },
       "error": "Errorneous item",
-      "FreeTextAcceptResponseItem": {
-        "acceptedName": "The free text has been accepted."
-      },
       "ProposeAttributeAcceptResponseItem": {
         "acceptedName": "The proposed attribute has been received."
       },
