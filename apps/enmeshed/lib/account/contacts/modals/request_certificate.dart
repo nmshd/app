@@ -76,7 +76,7 @@ Future<void> _requestCertificate({
   }
 
   final sendMessageResult = await session.transportServices.messages.sendMessage(
-    content: createRequestResult.value.content.toJson(),
+    content: MessageContentRequest(request: createRequestResult.value.content),
     recipients: [peer],
   );
   if (sendMessageResult.isError) {

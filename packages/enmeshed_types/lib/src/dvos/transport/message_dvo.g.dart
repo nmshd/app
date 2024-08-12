@@ -26,7 +26,7 @@ MessageDVO _$MessageDVOFromJson(Map<String, dynamic> json) => MessageDVO(
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-      content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
+      content: MessageContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
       wasReadAt: json['wasReadAt'] as String?,
     );
 

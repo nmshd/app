@@ -54,7 +54,7 @@ void run(EnmeshedRuntime runtime) {
       test('sender: send the outgoing Request via Message', () async {
         final result = await sender.transportServices.messages.sendMessage(
           recipients: [(await recipient.transportServices.account.getIdentityInfo()).value.address],
-          content: sLocalRequest.content.toJson(),
+          content: MessageContentRequest(request: sLocalRequest.content),
         );
 
         expect(result, isSuccessful<MessageDTO>());
@@ -167,7 +167,7 @@ void run(EnmeshedRuntime runtime) {
       test('sender: send the outgoing Request via Message', () async {
         final result = await sender.transportServices.messages.sendMessage(
           recipients: [(await recipient.transportServices.account.getIdentityInfo()).value.address],
-          content: sLocalRequest.content.toJson(),
+          content: MessageContentRequest(request: sLocalRequest.content),
         );
 
         expect(result, isSuccessful<MessageDTO>());
@@ -254,7 +254,7 @@ void run(EnmeshedRuntime runtime) {
           expiresAt: generateExpiryString(),
           content: const RelationshipTemplateContent(
             onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
-          ).toJson(),
+          ),
         );
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());
@@ -348,7 +348,7 @@ void run(EnmeshedRuntime runtime) {
           expiresAt: generateExpiryString(),
           content: const RelationshipTemplateContent(
             onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
-          ).toJson(),
+          ),
         );
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());

@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../arbitraty_json.dart';
+import '../arbitrary_content_json.dart';
 import '../response.dart';
 
 part 'relationship_creation_content.dart';
@@ -12,11 +12,13 @@ abstract class RelationshipCreationContentDerivation extends Equatable {
   const RelationshipCreationContentDerivation();
 
   factory RelationshipCreationContentDerivation.fromJson(Map json) {
-    if (json.containsKey('response')) {
-      return RelationshipCreationContent.fromJson(json);
-    }
+    final type = json['@type'];
 
-    return ArbitraryRelationshipCreationContent(json);
+    return switch (type) {
+      'RelationshipCreationContent' => RelationshipCreationContent.fromJson(json),
+      'ArbitraryRelationshipCreationContent' => ArbitraryRelationshipCreationContent.fromJson(json),
+      _ => throw Exception('Unknown type: $type')
+    };
   }
 
   Map<String, dynamic> toJson();
@@ -26,12 +28,17 @@ abstract class RelationshipCreationContentDerivation extends Equatable {
   List<Object?> get props;
 }
 
-class ArbitraryRelationshipCreationContent extends RelationshipCreationContentDerivation with MapMixin<String, dynamic>, ArbitraryJSON {
+class ArbitraryRelationshipCreationContent extends RelationshipCreationContentDerivation with MapMixin<String, dynamic>, ArbitraryContentJSON {
   @override
-  final Map<String, dynamic> internalJson;
+  final Map<String, dynamic> value;
 
-  ArbitraryRelationshipCreationContent(Map internalJson) : internalJson = Map<String, dynamic>.from(internalJson);
+  ArbitraryRelationshipCreationContent(Map internalJson) : value = Map<String, dynamic>.from(internalJson);
+
+  factory ArbitraryRelationshipCreationContent.fromJson(Map json) => ArbitraryRelationshipCreationContent(json['value']);
 
   @override
-  List<Object?> get props => [internalJson];
+  Map<String, dynamic> toJson() => {'@type': 'ArbitraryRelationshipCreationContent', 'value': value};
+
+  @override
+  List<Object?> get props => [value];
 }
