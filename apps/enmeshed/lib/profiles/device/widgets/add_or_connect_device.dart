@@ -7,8 +7,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-import '../device.dart';
 import '/core/core.dart';
+import '../device.dart';
 
 void addDevice({
   required BuildContext context,
@@ -69,7 +69,7 @@ void _showModalSheet({
             hasTopBarLayer: false,
             leadingNavBarWidget: Padding(
               padding: const EdgeInsets.only(left: 24, top: 20),
-              child: Text(context.l10n.devices_create, style: Theme.of(context).textTheme.headlineSmall),
+              child: Text(context.l10n.devices_create, style: Theme.of(context).textTheme.titleLarge),
             ),
             trailingNavBarWidget: closeButton,
             child: CreateDevice(
@@ -101,38 +101,26 @@ void _showModalSheet({
             ),
           ),
           WoltModalSheetPage(
-            hasTopBarLayer: false,
-            leadingNavBarWidget: Padding(
-              padding: const EdgeInsets.only(left: 24),
-              child: Row(
-                children: [
-                  Icon(Icons.security, color: Theme.of(context).colorScheme.primary),
-                  Gaps.w8,
-                  Text(context.l10n.safetyInformation, style: Theme.of(context).textTheme.headlineSmall),
-                ],
-              ),
-            ),
+            hasTopBarLayer: true,
+            isTopBarLayerAlwaysVisible: true,
             trailingNavBarWidget: closeButton,
+            topBarTitle: Text(context.l10n.safetyInformation, style: Theme.of(context).textTheme.titleMedium),
             child: DeviceOnboardingSafetyNote(goToNextPage: goToNextPage),
           ),
           WoltModalSheetPage(
             hasTopBarLayer: true,
             isTopBarLayerAlwaysVisible: true,
-            topBarTitle: Text(
-              context.l10n.devices_connect,
-              style: Theme.of(context).textTheme.titleSmall,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            topBarTitle: Text(context.l10n.devices_add, style: Theme.of(context).textTheme.titleMedium),
             trailingNavBarWidget: closeButton,
             child: ValueListenableBuilder<(DeviceDTO, TokenDTO)?>(
               valueListenable: deviceAndTokenNotifier,
               builder: (context, deviceAndToken, child) {
                 if (deviceAndToken == null) {
                   return Padding(
-                    padding: const EdgeInsets.only(top: 68, left: 24, right: 24, bottom: 100),
+                    padding: const EdgeInsets.only(top: 23, left: 24, right: 24, bottom: 100),
                     child: Column(
                       children: [
+                        Icon(Icons.security, color: Theme.of(context).colorScheme.primary),
                         Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
                         Gaps.h16,
                         Text(context.l10n.error_createDevice, textAlign: TextAlign.center),
@@ -156,12 +144,7 @@ void _showModalSheet({
           WoltModalSheetPage(
             hasTopBarLayer: true,
             isTopBarLayerAlwaysVisible: true,
-            topBarTitle: Text(
-              context.l10n.devices_connected,
-              style: Theme.of(context).textTheme.titleSmall,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            topBarTitle: Text(context.l10n.devices_connected, style: Theme.of(context).textTheme.titleMedium),
             trailingNavBarWidget: closeButton,
             child: const DeviceOnboardingSuccess(),
           ),

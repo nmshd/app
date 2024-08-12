@@ -41,13 +41,15 @@ Future<void> showWrongTokenErrorDialog(BuildContext context) async {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.clear, color: Theme.of(context).colorScheme.error, size: 90),
+              Icon(Icons.error, color: Theme.of(context).colorScheme.error),
               Gaps.h16,
               Text(
                 context.l10n.scanner_invalidCode,
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
+                style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               ),
+              Gaps.h8,
+              Text(context.l10n.scanner_invalidCode_tryAnother),
               Gaps.h16,
               OutlinedButton(
                 onPressed: () => context.pop(),

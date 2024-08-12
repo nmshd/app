@@ -66,7 +66,11 @@ Future<List<IdentityDVO>> getActiveContacts({required Session session}) async {
 }
 
 Future<List<IdentityDVO>> getContacts({required Session session}) async {
-  final relationshipsResult = await session.transportServices.relationships.getRelationships();
+  final relationshipsResult = await session.transportServices.relationships.getRelationships(
+    query: {
+      'status': QueryValue.stringList([RelationshipStatus.Active.name, RelationshipStatus.Pending.name]),
+    },
+  );
   final dvos = await session.expander.expandRelationshipDTOs(relationshipsResult.value);
   dvos.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 

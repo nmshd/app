@@ -9,10 +9,12 @@ import '/core/core.dart';
 class AppDrawer extends StatelessWidget {
   final String accountName;
   final String accountId;
+  final VoidCallback activateHints;
 
   const AppDrawer({
     required this.accountName,
     required this.accountId,
+    required this.activateHints,
     super.key,
   });
 
@@ -36,6 +38,10 @@ class AppDrawer extends StatelessWidget {
                             color: Theme.of(context).colorScheme.primary,
                           ),
                     ),
+                  ),
+                  ListTile(
+                    onTap: activateHints,
+                    title: Text(context.l10n.drawer_hints, style: Theme.of(context).textTheme.labelLarge),
                   ),
                   if (context.isFeatureEnabled('NEWS'))
                     ListTile(

@@ -64,7 +64,7 @@ class _EditDeviceState extends State<EditDevice> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(context.l10n.devices_edit, style: Theme.of(context).textTheme.headlineSmall),
+              Text(context.l10n.devices_edit, style: Theme.of(context).textTheme.titleLarge),
               IconButton(
                 onPressed: _loading ? null : () => context.pop(),
                 icon: const Icon(Icons.close),
@@ -79,7 +79,7 @@ class _EditDeviceState extends State<EditDevice> {
             maxLength: MaxLength.deviceName,
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              labelText: context.l10n.name,
+              labelText: '${context.l10n.name}*',
               border: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
@@ -112,13 +112,16 @@ class _EditDeviceState extends State<EditDevice> {
             onSubmitted: (value) => _confirmEnabled ? _save() : _nameFocusNode.requestFocus(),
           ),
           Gaps.h8,
-          Align(
-            alignment: Alignment.centerRight,
-            child: FilledButton(
-              onPressed: _confirmEnabled && !_loading ? _save : null,
-              style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-              child: Text(context.l10n.save),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              OutlinedButton(onPressed: _loading ? null : () => context.pop(), child: Text(context.l10n.cancel)),
+              Gaps.w8,
+              FilledButton(
+                onPressed: _confirmEnabled && !_loading ? _save : null,
+                child: Text(context.l10n.save),
+              ),
+            ],
           ),
         ],
       ),

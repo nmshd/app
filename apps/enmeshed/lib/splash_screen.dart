@@ -42,8 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Hero(
               tag: 'logo',
               child: Image.asset(switch (Theme.of(context).brightness) {
-                Brightness.light => 'assets/enmeshed_logo_light_cut.png',
-                Brightness.dark => 'assets/enmeshed_logo_dark_cut.png',
+                Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
+                Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
               }),
             ),
           ),
@@ -95,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
     await runtime.triggerAppReadyEvent();
 
-    await runtime.registerUIBridge(EnmeshedUIBridge(logger: logger, router: router));
+    await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router));
 
     final appLinks = AppLinks();
     appLinks.uriLinkStream.listen((Uri? uri) {

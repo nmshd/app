@@ -86,7 +86,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                     ],
                   ),
                 ),
-                const Divider(height: 0),
+                const Divider(height: 2),
                 Gaps.h8,
                 _MoreProfiles(accounts: _accounts!),
               ],
@@ -260,7 +260,7 @@ class _MoreProfiles extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(context.l10n.profiles_moreProfiles, style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(context.l10n.profiles_additionalProfiles, style: const TextStyle(fontWeight: FontWeight.bold)),
               TextButton.icon(
                 onPressed: () => _onCreateProfilePressed(context),
                 icon: const Icon(Icons.add),

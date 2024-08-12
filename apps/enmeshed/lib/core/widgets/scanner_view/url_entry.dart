@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
+
 class UrlEntry extends StatefulWidget {
   final void Function({required String content}) onSubmit;
   final VoidCallback toggleScannerMode;
@@ -78,7 +80,7 @@ class _UrlEntryState extends State<UrlEntry> {
                   validator: validateUrl,
                 ),
               ),
-              SizedBox(height: size.height * 0.06875),
+              Gaps.h8,
               Align(
                 alignment: Alignment.centerRight,
                 child: FilledButton(

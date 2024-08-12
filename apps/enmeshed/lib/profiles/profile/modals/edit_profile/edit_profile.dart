@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../widgets/change_profile_picture.dart';
 import '/core/core.dart';
+import '../../widgets/change_profile_picture.dart';
 
 class EditProfile extends StatefulWidget {
   final VoidCallback setLoading;
@@ -93,7 +93,7 @@ class _EditProfileState extends State<EditProfile> {
           ),
           Gaps.h8,
           TextButton.icon(
-            icon: Icon(Icons.delete_forever_outlined, size: 18, color: Theme.of(context).colorScheme.error),
+            icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error, size: 18),
             label: Text(context.l10n.profile_delete),
             onPressed: widget.onDeletePressed,
           ),

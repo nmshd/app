@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-import '../account_tab_controller.dart';
 import '/core/core.dart';
+import '../account_tab_controller.dart';
 import 'widgets/contacts_widgets.dart';
 
 class ContactsView extends StatefulWidget {
@@ -127,29 +127,21 @@ class _ContactsViewState extends State<ContactsView> {
     final keyword = controller.value.text;
 
     return List<IdentityDVO>.of(_relationships!)
-        .where(
-          (element) => element.name.toLowerCase().contains(keyword.toLowerCase()),
-        )
+        .where((element) => element.name.toLowerCase().contains(keyword.toLowerCase()))
         .map(
-          (item) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Gaps.h16,
-              ContactItem(
-                contact: item,
-                query: keyword,
-                onTap: () {
-                  controller
-                    ..clear()
-                    ..closeView(null);
-                  FocusScope.of(context).unfocus();
+          (item) => ContactItem(
+            contact: item,
+            query: keyword,
+            onTap: () {
+              controller
+                ..clear()
+                ..closeView(null);
+              FocusScope.of(context).unfocus();
 
-                  context.push('/account/${widget.accountId}/contacts/${item.id}');
-                },
-              ),
-            ],
+              context.push('/account/${widget.accountId}/contacts/${item.id}');
+            },
           ),
-        );
+        )
+        .separated(() => const Divider(height: 2));
   }
 }

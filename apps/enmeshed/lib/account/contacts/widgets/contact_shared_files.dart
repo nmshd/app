@@ -25,7 +25,7 @@ class ContactSharedFiles extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                context.l10n.files,
+                context.l10n.contact_information_sharedFiles,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const Spacer(),
@@ -47,9 +47,13 @@ class ContactSharedFiles extends StatelessWidget {
               : ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => FileItem(accountId: accountId, file: sharedFiles!.elementAt(index)),
+                  itemBuilder: (context, index) => FileItem(
+                    accountId: accountId,
+                    file: sharedFiles!.elementAt(index),
+                    trailing: const Icon(Icons.chevron_right),
+                  ),
                   itemCount: sharedFiles!.length,
-                  separatorBuilder: (context, index) => const Divider(height: 0),
+                  separatorBuilder: (context, index) => const Divider(height: 2),
                 ),
       ],
     );

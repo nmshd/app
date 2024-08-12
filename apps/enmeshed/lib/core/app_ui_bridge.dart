@@ -6,11 +6,11 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
-class EnmeshedUIBridge extends UIBridge {
+class AppUIBridge extends UIBridge {
   final Logger logger;
   final GoRouter router;
 
-  EnmeshedUIBridge({required this.logger, required this.router});
+  AppUIBridge({required this.logger, required this.router});
 
   @override
   Future<LocalAccountDTO?> requestAccountSelection(List<LocalAccountDTO> possibleAccounts, [String? title, String? description]) async {

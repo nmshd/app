@@ -72,6 +72,10 @@ class _HomeViewState extends State<HomeView> {
         thumbVisibility: true,
         child: ListView(
           children: [
+            if (_isCompleteProfileContainerShown) ...[
+              CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
+              Gaps.h24,
+            ],
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -92,12 +96,9 @@ class _HomeViewState extends State<HomeView> {
               messages: _messages!,
               unreadMessagesCount: _unreadMessagesCount,
               seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox'),
+              title: context.l10n.home_messages,
+              noMessagesText: context.l10n.home_noNewMessages,
             ),
-            Gaps.h24,
-            if (_isCompleteProfileContainerShown) ...[
-              CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
-              Gaps.h24,
-            ],
           ],
         ),
       ),
@@ -119,7 +120,11 @@ class _HomeViewState extends State<HomeView> {
 
     final messageDVOs = await session.expander.expandMessageDTOs(messages.take(5).toList());
 
-    final isCompleteProfileContainerShown = await _isCompleteProfileContainerVisible(session);
+    final isCompleteProfileContainerShown = await getSetting(
+      accountId: widget.accountId,
+      key: 'home.completeProfileContainerShown',
+      valueKey: 'isShown',
+    );
 
     if (!mounted) return;
     setState(() {
@@ -128,21 +133,6 @@ class _HomeViewState extends State<HomeView> {
       _requests = requests;
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
     });
-  }
-
-  Future<bool> _isCompleteProfileContainerVisible(Session session) async {
-    final settingResult = await session.consumptionServices.settings.getSettingByKey('home.completeProfileContainerShown');
-    if (settingResult.isError && settingResult.error.code == 'error.runtime.recordNotFound') {
-      return true;
-    } else if (settingResult.isError) {
-      return false;
-    }
-
-    final setting = settingResult.value;
-    final isShown = setting.value['isShown'];
-    if (isShown is! bool) return true;
-
-    return setting.value['isShown'] as bool;
   }
 
   Future<void> _hideCompleteProfileContainer() async {

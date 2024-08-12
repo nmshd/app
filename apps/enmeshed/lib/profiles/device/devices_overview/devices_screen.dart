@@ -5,8 +5,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../widgets/device_widgets.dart';
 import '/core/core.dart';
+import '../widgets/device_widgets.dart';
 
 class DevicesScreen extends StatefulWidget {
   final String accountId;
@@ -42,24 +42,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      title: Text(context.l10n.devices_title),
-      actions: [
-        IconButton(
-          onPressed: () => addDevice(context: context, accountId: widget.accountId, reload: _reloadDevices),
-          icon: const Icon(EnmeshedIcons.deviceAdd),
-        ),
-      ],
-    );
+    final appBar = AppBar(title: Text(context.l10n.devices_title));
 
-    if (_devices == null || _account == null) {
-      return Scaffold(
-        appBar: appBar,
-        body: const Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
+    if (_devices == null || _account == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
 
     final currentDevice = _devices!.firstWhere((e) => e.isCurrentDevice);
     final otherDevices = _devices!.where((e) => !e.isCurrentDevice).toList();
@@ -73,7 +58,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Gaps.h16,
               Text(context.l10n.devices_description(_account!.name)),
               Gaps.h24,
               DeviceCard(
@@ -82,22 +66,36 @@ class _DevicesScreenState extends State<DevicesScreen> {
                 reloadDevices: _reloadDevices,
               ),
               Gaps.h24,
-              Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleLarge),
-              Gaps.h8,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(context.l10n.devices_otherDevices, style: Theme.of(context).textTheme.titleMedium),
+                  TextButton.icon(
+                    onPressed: () => addDevice(context: context, accountId: widget.accountId, reload: _reloadDevices),
+                    icon: const Icon(Icons.add),
+                    label: Text(context.l10n.devices_create),
+                  ),
+                ],
+              ),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: _reloadDevices,
-                  child: ListView.separated(
-                    itemCount: otherDevices.length,
-                    separatorBuilder: (_, __) => Gaps.h16,
-                    itemBuilder: (context, index) {
-                      return DeviceCard(
-                        accountId: widget.accountId,
-                        device: otherDevices[index],
-                        reloadDevices: _reloadDevices,
-                      );
-                    },
-                  ),
+                  child: otherDevices.isEmpty
+                      ? EmptyListIndicator(
+                          icon: Icons.send_to_mobile_outlined,
+                          text: context.l10n.devices_empty,
+                          wrapInListView: true,
+                          description: context.l10n.devices_empty_description,
+                        )
+                      : ListView.separated(
+                          itemCount: otherDevices.length,
+                          separatorBuilder: (_, __) => Gaps.h16,
+                          itemBuilder: (context, index) => DeviceCard(
+                            accountId: widget.accountId,
+                            device: otherDevices[index],
+                            reloadDevices: _reloadDevices,
+                          ),
+                        ),
                 ),
               ),
             ],
@@ -118,7 +116,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
     await session.transportServices.account.syncDatawallet();
 
     final devicesResult = await session.transportServices.devices.getDevices();
-    final devices = devicesResult.value;
+    final devices = devicesResult.value.where((device) => device.isOffboarded == null || !device.isOffboarded!).toList();
 
     if (mounted) setState(() => _devices = devices);
   }

@@ -26,7 +26,6 @@ class MessageDVORenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        color: Theme.of(context).colorScheme.onPrimary,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
           children: [
@@ -124,7 +123,6 @@ class _RequestMessageContent extends StatelessWidget {
     return Row(
       children: [
         Flexible(
-          fit: FlexFit.tight,
           child: TranslatedText(
             message.request.statusText,
             maxLines: 2,
@@ -136,7 +134,7 @@ class _RequestMessageContent extends StatelessWidget {
                 : Theme.of(context).textTheme.bodyLarge,
           ),
         ),
-        const Spacer(),
+        Gaps.w8,
         Icon(
           message.request.status == LocalRequestStatus.ManualDecisionRequired ? Icons.notification_important : Icons.notifications,
           color: message.request.status == LocalRequestStatus.ManualDecisionRequired

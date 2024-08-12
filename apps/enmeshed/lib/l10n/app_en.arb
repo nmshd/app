@@ -13,7 +13,7 @@
   "reject": "Reject",
   "accept": "Accept",
   "edit": "Edit",
-  "account": "Account",
+  "update": "Update",
   "help": "Help",
   "save": "Save",
   "delete": "Delete",
@@ -21,72 +21,81 @@
   "reset": "Reset",
   "noEntries": "No entries",
   "mandatoryField": "*Mandatory field",
+  "termsAndConditions": "Terms and Conditions",
   "legalNotice": "Legal Notice",
   "dataProtection": "Data Protection",
   "imprint": "Imprint",
   "safetyInformation": "Safety Information",
   "error": "Error",
   "errorDialog_description": "An error has occurred. Please try again later.",
-  "error_image": "Failed to pick image",
+  "error_image": "Failed to pick image.",
   "error_upload_file": "Failed to upload the file.",
   "error_download_file": "Failed to download the file.",
-  "error_createAccount": "Failed to create account. Please try again later.",
+  "error_createAccount": "Failed to create user profile. Please try again later.",
   "error_createDevice": "Failed to create device. Please try again later.",
   "error_couldNotOpenLink": "The link could not be opened.",
   "error_createAttribute": "No new information could be created.",
+  "error_succeedAttribute": "The entry could not be updated.",
+  "error_deleteAttribute": "The entry could not be deleted.",
   "favorites": "Favorites",
   "tryAgain": "Try again",
   "title": "Title",
   "name": "Name",
   "notImplemented": "This feature isn't implemented yet.",
   "scanner_scanQR": "Scan QR code",
-  "scanner_enterUrl": "Enter URL",
-  "scanner_invalidCode": "The code is invalid. Try another one.",
-  "scanner_lineUpQrCode": "Line up the QR code with the frame.",
-  "scanner_scanQrOrEnterUrl": "Scan a QR code or alternatively enter a URL.",
-  "scanner_urlValidationError": "The URL could not be verified. Check for typos.",
-  "scanner_enterUrl_title": "Enter URL",
-  "scanner_enterUrl_description": "Enter the URL you want to use to perform an action.",
+  "scanner_enterUrl": "Enter URL link",
+  "scanner_invalidCode": "The code is invalid",
+  "scanner_invalidCode_tryAnother": "Try another one.",
+  "scanner_lineUpQrCode": "Position QR code in the frame.",
+  "scanner_scanQrOrEnterUrl": "Scan a QR code or alternatively enter a URL link.",
+  "scanner_urlValidationError": "The URL link could not be verified. Please check your input.",
+  "scanner_enterUrl_title": "Enter URL link",
+  "scanner_enterUrl_description": "Enter the URL link you want to use to perform an action.",
   "scanner_enterUrl_button": "Done",
   "scanner_failedStartingScanner_title": "Failed to start scanner",
-  "scanner_failedStartingScanner_description": "Please make sure you granted the app permission to access your camera and if your device actually has a camera.\nAs an alternative you can also enter an URL manually.",
-  "onboarding_welcome": "Welcome to the Enmeshed App",
-  "onboarding_description": "Your central hub for personal data and data exchange related to your educational journey.",
+  "scanner_failedStartingScanner_description": "Please check whether authorisation to access the camera has been granted and whether your device has a camera.\nAlternatively, you can also enter a URL link manually.",
+  "onboarding_welcome": "Welcome to the\nEnmeshed app",
+  "onboarding_description": "Your centre for personal data and data exchange relating to your education and life.",
   "onboarding_letsStart": "Let's start",
-  "onboarding_info_titlePage1": "A wallet for everything",
-  "onboarding_info_titlePage2": "Adding contacts",
-  "onboarding_info_titlePage3": "Share your information at the push of a button",
-  "onboarding_info_descriptionPage1": "Receive, store, and manage your personal data and documents, such as diplomas and certificates, securely and locally here.",
-  "onboarding_info_descriptionPage2": "Connect with contacts using a QR code and with a click ...",
-  "onboarding_info_descriptionPage3": "... you can share your stored information as well as certificates and documents with selected contacts. Securely and encrypted.",
-  "onboarding_existingIdentity": "Link an existing account.",
-  "onboarding_existingIdentity_description": "Scan a QR code you want to link an existing account to.",
-  "onboarding_createNewAccount": "Create new account",
-  "onboarding_createNewAccount_description": "If you are new, you can create a new account here even without a QR code.",
-  "onboarding_createNewAccount_button": "Create account",
-  "onboarding_chooseOption": "There are two ways to access the app.",
-  "onboarding_createIdentity": "Create Your Account",
+  "onboarding_info_titlePage1": "Manage documents and data",
+  "onboarding_info_titlePage2": "Manage contacts",
+  "onboarding_info_titlePage3": "Share information",
+  "onboarding_info_descriptionPage1": "Receive, save and manage personal data and documents, such as diplomas and certificates.",
+  "onboarding_info_descriptionPage2": "Connect with your contacts, easily via QR code.",
+  "onboarding_info_descriptionPage3": "Decide which stored personal data and documents you want to share with your contacts.",
+  "onboarding_existingIdentity": "Link existing profile.",
+  "onboarding_existingIdentity_description": "Scan the existing profile's QR code with this device to load it.",
+  "onboarding_createNewAccount": "Create new user profile",
+  "onboarding_createNewAccount_description": "First time here?\nCreate a new profile.",
+  "onboarding_createNewAccount_button": "Create user profile",
+  "onboarding_chooseOption": "You need a user profile to be able to use the Enmeshed app.\nHere are two options for creating your user profile:",
+  "onboarding_createIdentity": "Create your user profile",
   "onboarding_defaultIdentityName": "Profile",
-  "onboarding_creatingAccount": "Creating account",
+  "onboarding_creatingAccount": "Your profile is being created",
   "onboarding_alreadyExist_title": "The profile already exists!",
-  "onboarding_alreadyExist_description": "Please scan the QR code or use the URL on another device!",
+  "onboarding_alreadyExist_description": "Please scan the QR code or use the URL link on another device!",
   "onboarding_dataPrivacy_start": "I have read the ",
   "onboarding_dataPrivacy_link": "privacy policy",
   "onboarding_dataPrivacy_end": " and accept them",
-  "onboarding_connectWithUrl_title": "Connect with URL",
-  "onboarding_connectWithUrl_description": "Enter a URL to link your account.",
+  "onboarding_termsOfUse_start": "I have read the ",
+  "onboarding_termsOfUse_link": "terms of use",
+  "onboarding_termsOfUse_end": " and accept them",
+  "onboarding_connectWithUrl_title": "Connect with URL link",
+  "onboarding_connectWithUrl_description": "Enter the URL link to connect your account.",
   "onboarding_linkAccount": "Link account",
   "onboarding_receiveInformation": "Receiving information",
   "onboarding_yourConsent": "Your consent",
-  "onboarding_consentParagraph1": "Before we can get started, please carefully read the following conditions. You must agree to the conditions to use the Enmeshed App.",
-  "onboarding_consentParagraph2": "The Enmeshed app is operated by the company j&s-soft GmbH. Detailed information on the processing of your personal data can be found in the privacy policy, which you should be aware of before using the app. We would like to highlight the following in advance.",
-  "onboarding_consentParagraph3": "For the meaningful use of the wallet, a permanent connection to the so-called “Backbone” is required. A purely local use of your data on the mobile device is not intended.",
-  "onboarding_consentParagraph4": "By using the app - including receiving push notifications on your mobile device as well as the analysis of data traffic - you signal your consent to the necessary processing of your personal data.",
-  "onboarding_enterProfileName": "Give your profile a name",
+  "onboarding_yourConsent_acceptAndContinue": "Accept and continue",
+  "onboarding_consentParagraph1": "Before you start: Please read our terms of use. You must agree to the terms and conditions in order to use the Enmeshed app:",
+  "onboarding_consentParagraph2": "The Enmeshed app is operated by the company j&s-soft GmbH. Further information on the processing of your personal data can be found in the privacy policy. You should take note of this before using the app. Note:",
+  "onboarding_consentParagraph3": "There is a permanent connection to the so-called \"Backbone\" (data storage) for the meaningful use of the app. Purely local use of your data on the mobile device is not intended.",
+  "onboarding_consentParagraph4": "By actively participating in the test phase - including receiving push messages on your mobile device and analyzing the volume of data moved - you consent to the processing of your personal data as required in each case.",
+  "onboarding_enterProfileName": "Choose a profile name",
   "onboarding_acceptProfileName": "Accept",
-  "home_news": "News",
+  "home_title": "Enmeshed app",
+  "home_news": "Service information",
   "home_contactRequests": "Contact requests",
-  "home_noNewContactRequests": "No new contact requests",
+  "home_noNewContactRequests": "No open contact requests.",
   "home_seeAll": "See all",
   "home_newFunction": "New function",
   "home_generalInformation": "General information",
@@ -94,38 +103,41 @@
   "home_notNow": "Not now",
   "home_discoverNow": "Discover now",
   "home_complete": "Complete",
-  "home_scanQR": "Scan a QR-Code",
+  "home_scanQR": "Scan a QR code",
   "home_addContact": "Add contact",
   "home_addContactImageSemanticsLabel": "Illustration of a school building with a sign in front of it that shows a QR code",
   "home_loadProfile": "Load profile",
   "home_loadProfileImageSemanticsLabel": "Illustration of a person with a cell phone whose screen shows a QR code",
-  "home_messages": "Messages",
-  "home_noNewMessages": "No new messages",
-  "home_completeProfile": "Complete your profile",
+  "home_messages": "New messages",
+  "home_noNewMessages": "No new messages. You are up to date.",
+  "home_completeProfile": "First steps",
+  "home_completeProfileDescription": "Four steps to help you get the most out of the Enmeshed app:",
+  "home_completeProfileCloseIconSemanticsLabel": "Hide card",
   "home_of": "of",
   "home_completed": "completed",
-  "home_profileCreated": "Profile created",
-  "home_personalInformationStored": "Entered Identity Data",
-  "home_addressInformationStored": "Entered Address Data",
-  "home_communicationInformationStored": "Entered Communication Data",
+  "home_createProfile": "Create profile",
+  "home_initialPersonalInformation": "Record initial personal information",
+  "home_initialContact": "Connect to initial contacts",
+  "home_initialDocuments": "Load initial documents",
+  "drawer_hints": "Activate hints again",
   "drawer_manageProfiles": "Manage profiles",
   "drawer_backupData": "Backup Data",
   "drawer_news": "News",
   "drawer_informationAndHelp": "Information and Help",
   "drawer_helpAndFaq": "Help and FAQ",
-  "profiles_copyAddressToClipboardLabel": "Copy your individual profile-address to the clipboard.",
-  "profiles_copiedAddressToClipboard": "The individual profile-address has been copied to the clipboard.",
+  "profiles_copyAddressToClipboardLabel": "Copy your profile-address to the clipboard.",
+  "profiles_copiedAddressToClipboard": "The profile-address has been copied to the clipboard.",
   "profiles_settings_title": "Settings",
-  "profiles_settings_subtitle": "Manage your connected devices and profile settings.",
+  "profiles_settings_subtitle": "Manage your connected devices and profile settings or back up your data here.",
   "profiles_settings_editProfile": "Edit or delete profile",
   "profiles_settings_connectedDevices": "Manage connected devices",
   "profiles_createNew": "Create new profile",
   "profiles_lastUsed": "Last used",
-  "profiles_createNewForProcessingQrDescription": "Create a new profile to process the scanned QR-code or Link.",
+  "profiles_createNewForProcessingQrDescription": "Create a new profile to process the scanned QR code or URL link.",
   "profiles_otherProfiles": "Other profiles",
-  "profiles_moreProfiles": "More profiles",
+  "profiles_additionalProfiles": "Additional profiles",
   "profiles_add": "Add",
-  "profiles_noAdditionalProfiles": "You can create additional profiles to manage different roles and people and to switch easily between them.",
+  "profiles_noAdditionalProfiles": "You can create different profiles for different roles or other people and switch between them.",
   "profiles_switchedToProfile": "Switched to profile \"{profileName}\".",
   "@profiles_switchedToProfile": {
     "placeholders": {
@@ -162,7 +174,7 @@
   "profile_deletePhoto": "Delete profile picture",
   "profile_editPhoto": "Edit profile picture",
   "devices_title": "Manage Devices",
-  "devices_description": "Here you can see which devices your information from your profile \"{profileName}\" is shared with.",
+  "devices_description": "Your \"{profileName}\" profile is shared with the following devices. If you want to end synchronisation with one of the devices, remove it from the list.",
   "@devices_description": {
     "placeholders": {
       "profileName": {
@@ -171,24 +183,29 @@
     }
   },
   "devices_otherDevices": "Other Devices",
+  "devices_empty": "Share this profile with other devices",
+  "devices_empty_description": "First install the Enmeshed app on the new device and then initiate the connection using an existing profile.",
   "devices_edit": "Edit Device",
   "devices_edit_description": "Description",
   "devices_create": "Create Device",
   "devices_create_inProgress": "Your device is being created.",
-  "devices_connect": "Connect device",
+  "devices_add": "Add device",
   "devices_connected": "Device connected",
-  "devices_code_qrDescription": "Please scan the following QR-Code with the new device.",
-  "devices_code_urlDescription": "Use this URL to connect your new device.",
+  "devices_code_qrSemanticsLabel": "QR code for scanning",
+  "devices_code_qrDescription": "Scan the QR code with the Enmeshed app on the new device to connect it.",
+  "devices_code_urlDescription": "Use this URL link in the Enmeshed app on the new device to connect it.",
   "devices_code_useQrCode": "Use QR code",
-  "devices_code_useUrl": "Use URL",
+  "devices_code_useUrl": "Use URL link",
   "devices_code_qrExpired": "This QR code is expired.",
-  "devices_code_urlExpired": "This URL is expired.",
+  "devices_code_urlExpired": "This URL link is expired.",
   "devices_code_generateQr": "Generate new QR code",
-  "devices_code_generateUrl": "Generate new URL",
-  "devices_code_expiry": "This Code is valid for 5 minutes.",
-  "devices_code_copy": "Copy URL",
-  "devices_delete_description": "Do you really want to delete the device \"{deviceName}\"?",
-  "@devices_delete_description": {
+  "devices_code_generateUrl": "Generate new URL link",
+  "devices_code_expiry": "This QR code is valid for 5 minutes.",
+  "devices_code_copy": "Copy URL link",
+  "devices_delete": "Yes, delete",
+  "devices_delete_cancel": "No, cancel",
+  "devices_delete_fromApp": "Do you really want to delete the device \"{deviceName}\" from the app?",
+  "@devices_delete_fromApp": {
     "placeholders": {
       "deviceName": {
         "type": "String"
@@ -196,19 +213,53 @@
     }
   },
   "devices_otherDeviceOnboardedSuccess": "Your device has been connected.",
-  "devices_onboardingSuccessButton": "Okay!",
+  "devices_onboardingSuccessButton": "Okay",
+  "deviceInfo_warningSemanticsLabel": "Warning",
+  "deviceInfo_hintSemanticsLabel": "Hint",
   "deviceInfo_title": "Device information",
   "deviceInfo_thisDevice": "This Device",
   "deviceInfo_deviceNotConnected": "Device is not connected.",
   "deviceInfo_offboarded": "Device not connected anymore.",
   "deviceInfo_removeDevice": "Remove device",
-  "deviceInfo_connectDeviceViaQr": "Connect your device via the QR code",
-  "deviceInfo_firstConnection": "First connected on",
-  "deviceInfo_notConnected": "Not connected",
+  "deviceInfo_removeDevice_goBack": "Go back to \"Profile managment\".",
+  "deviceInfo_removeDevice_profileManagment": "Go to \"Profile managment\".",
+  "deviceInfo_removeDevice_chooseDelete": "Select \"Delete profile\".",
+  "deviceInfo_removeDevice_deleteProfile": "Delete the profile.",
+  "deviceInfo_removeDevice_allDataDeleted": "All your data, contacts and documents will be irretrievably deleted.",
+  "deviceInfo_removeCurrentDevice": "Remove profile from this device",
+  "deviceInfo_removeRemainingDevice_title": "You cannot disconnect the device from your profile as it is the only connected one. How to delete your profile:",
+  "deviceInfo_removeConnectedDevice_title": "To remove the device from the list of connected devices:",
+  "deviceInfo_removeDevice_successful": "The device \"{deviceName}\" has been removed from your device list.",
+  "@devices_removeDevice_successful": {
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceInfo_history": "History",
+  "deviceInfo_firstConnection": "first connected on",
+  "deviceInfo_notConnected": "not connected",
   "deviceInfo_delete_inProgress": "Your device is being deleted.",
+  "deviceInfo_showQrCode": "Show QR code to connect",
+  "deviceInfo_connectDevice_title": "To connect the device to your profile:",
+  "deviceInfo_connectDevice_startConnecting": "Start connecting with an existing profile there.",
+  "deviceInfo_connectDevice_scan": "Scan the QR code displayed here.",
+  "deviceInfo_openApp": "Take the device \"{deviceName}\" and open the Enmeshed app.",
+  "@deviceInfo_openApp": {
+    "placeholders": {
+      "deviceName": {
+        "type": "String"
+      }
+    }
+  },
   "contact_information": "Contact information",
+  "contact_information_messages": "Messages",
+  "contact_information_noMessages": "No messages available.",
+  "contact_information_sharedFiles": "Shared Files",
   "contact_request": "Contact Request",
-  "contacts_empty": "No contacts available.",
+  "contacts_empty": "Add contacts",
+  "contacts_emptyDescription": "Connect with contacts to share or receive data and documents.",
   "contacts_pending": "The contact has not yet accepted the relationship.",
   "contactDetail_connectedSince": "Contact since {since}",
   "@contactDetail_connectedSince": {
@@ -219,7 +270,7 @@
     }
   },
   "contactDetail_entry": "Entry",
-  "contactDetail_addEntry": "Add Entry",
+  "contactDetail_addEntry": "Add",
   "contactDetail_selectOrCreateEntryMessage": "Share an entry you have already created with your contact or create a new one.",
   "contactDetail_selectEntryMessage": "Share an entry you have already created with your contact.",
   "contactDetail_sendMessage": "Send Message",
@@ -228,12 +279,12 @@
   "contactDetail_requestCertificate_text": "Text",
   "contactDetail_requestCertificate_send": "Send",
   "contactDetail_requestCertificate_inProgress": "Requesting certificate.",
-  "contactDetail_requestCertificate_success": "The certificate has been requested.",
+  "contactDetail_requestCertificate_success": "Your request for a certificate has been sent. You will find the message in your mailbox.",
   "contactDetail_requestCertificate_successOk": "Okay!",
   "contactDetail_requestCertificate_error": "The certificate could not be requested. Make sure that your device is connected to the internet.",
-  "contactDetail_sharedAttributes": "Shared from me",
+  "contactDetail_sharedAttributes": "Shared by me",
   "contactDetail_receivedAttributes": "Shared with me",
-  "contactDetail_informationOverview": "Information overview",
+  "contactDetail_sharedInformation": "Shared information",
   "contactDetail_noReceivedAttributes": "The contact does not share information with you",
   "contactDetail_noSharedAttributes": "The contact receives no information from you",
   "contactDetail_receivedAttributesDescription": "Received data from {contactName} is displayed here",
@@ -244,11 +295,22 @@
       }
     }
   },
-  "contactDetail_sentAttributesDescription": "Sent data from {contactName} is displayed here",
-  "@contactDetail_sentAttributesDescription": {
+  "contactDetail_overviewSharedAttributes": "Overview of all information shared with {contactName}",
+  "@contactDetail_overviewSharedAttributes": {
     "placeholders": {
       "contactName": {
         "type": "String"
+      }
+    }
+  },
+  "contactDetail_deletionRequested": "Deletion requested",
+  "contactDetail_deletionRejected": "Deletion rejected",
+  "contactDetail_willBeDeletedOn": "Will be deleted on {date}",
+  "@contactDetail_willBeDeletedOn": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
       }
     }
   },
@@ -261,7 +323,7 @@
   "myData_communicationData": "Communication Data",
   "myData_initialCreation": "Create",
   "myData_createInformation": "Create Information",
-  "myData_chooseInformationType": "Please select an information type!",
+  "myData_chooseInformationType": "Select an information type!",
   "myData_createAttribute_title": "Create {attribute}",
   "@myData_createAttribute_title": {
     "placeholders": {
@@ -271,22 +333,22 @@
     }
   },
   "myData_initialCreation_personalData": "Create identity data",
-  "myData_initialCreation_personalData_description": "Please enter your basic personal information, to be able to share it with your contacts.",
+  "myData_initialCreation_personalData_description": "Enter your basic personal information, to be able to share it with your contacts.",
   "myData_initialCreation_communicationData": "Create communication data",
   "myData_initialCreation_communicationData_description": "Please enter your communication data, to be able to share it with your contacts.",
   "myData_initialCreation_personalData_infoGender": "Gender is the biological, medical or public sex of a natural person.",
   "myData_initialCreation_personalData_infoCitizenship": "Citizenship indicates which country currently recognizes you as a citizen. This refers to the country whose passport you hold.",
   "myData_initialCreation_communicationData_infoPhoneNumber": "A phone number can be either a landline or a mobile phone number.",
-  "myData_initialCreation_communicationData_infoWebsite": "A website can be any form of public profile, such as LinkedIn or XING.",
+  "myData_initialCreation_communicationData_infoWebsite": "A website can be any form of public profile, for example on LinkedIn or Instagram.",
   "myData_initialCreation_error": "An error occurred while creating the data, please try again.",
-  "myData_initialCreation_addressData_title": "Add new address",
-  "myData_initialCreation_addressData_description": "Please enter your address details to be able to share them with your contacts. You can choose between several address types.",
-  "myData_initialCreation_addressData_streetAddress": "Create new address",
-  "myData_initialCreation_addressData_streetAddress_description": "An address is a residential address consisting of a street, postal code and city",
+  "myData_initialCreation_addressData_title": "Create address data",
+  "myData_initialCreation_addressData_description": "Enter your different addresses to share with your contacts. You can choose between several address types.",
+  "myData_initialCreation_addressData_streetAddress": "Create an address",
+  "myData_initialCreation_addressData_streetAddress_description": "An address is a residential address consisting of a street, postal code and city.",
   "myData_initialCreation_addressData_deliveryBoxAddress": "Create a packing station address",
-  "myData_initialCreation_addressData_deliveryBoxAddress_description": "A packing station is a parcel machine where you can pick up shipments and deliver them yourself",
+  "myData_initialCreation_addressData_deliveryBoxAddress_description": "A packing station is a machine where you can receive shipments (e.g. packages) and send them yourself.",
   "myData_initialCreation_addressData_postOfficeBoxAddress": "Create a post office box address",
-  "myData_initialCreation_addressData_postOfficeBoxAddress_description": "A post office box is a lockable compartment in a post office that is protected from unauthorized access",
+  "myData_initialCreation_addressData_postOfficeBoxAddress_description": "A post office box is a lockable compartment in a post office. It is protected against unauthorized access.",
   "myData_initialCreation_addressData_createAttribute_title": "Create {attribute}",
   "@myData_initialCreation_addressData_createAttribute_title": {
     "placeholders": {
@@ -303,50 +365,132 @@
       }
     }
   },
-  "personalData_details_addEntry": "Add new entries.",
+  "personalData_filteredData_description": "Here you can add, change or delete your {attribute}.",
+  "@personalData_filteredData_description": {
+    "placeholders": {
+      "attribute": {
+        "type": "String"
+      }
+    }
+  },
+  "personalData_details_manageEntries": "Here you can manage entries and view details.",
+  "personalData_details_editEntry": "Edit entry",
+  "personalData_details_deleteEntry": "Delete entry?",
+  "personalData_details_attributeSuccessfullySucceeded": "The entry has been updated.",
+  "personalData_details_attributeSuccessfullyDeleted": "The entry has been deleted.",
+  "personalData_details_confirmAttributeDeletion": "Yes, delete",
+  "personalData_details_cancelDeletion": "No, cancel",
+  "personalData_details_warningOnSuccession": "The newly assigned value already exists. This could lead to confusion.",
+  "personalData_details_errorOnSuccession": "The newly assigned value is identical to the previous value.",
+  "personalData_details_notifyContacts": "{count, plural, =1 {This entry is currently shared with a contact. If you edit this entry again, the change will also be sent to the contact with whom you have shared this entry.} other {This entry is currently shared with {count} contacts. If you edit this entry again, the change will also be sent to all contacts with whom you have shared this entry.}}",
+  "@personalData_details_notifyContacts": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "personalData_details_deleteDescription": "Do you want to delete the entry {entry} from your data?",
+  "@personalData_details_deleteDescription": {
+    "placeholders": {
+      "entry": {
+        "type": "String"
+      }
+    }
+  },
+  "personalData_details_deleteDescriptionShared": "{count, plural, =1{This entry is currently shared with a contact. If you delete the entry, it will also be deleted for the contact with whom you shared it.} other{This entry is currently shared with {count} contacts. If you delete the entry, it will also be deleted from the contacts with whom you share it.}}",
+  "@personalData_details_deleteDescriptionShared": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
   "no_data_available": "No data available",
-  "attributeDetails_createdOn": "created {date}",
+  "attributeDetails_createdOn": "{dateType, select, today {created today, {time}} yesterday {created yesterday} other {created on {date}}}",
   "@attributeDetails_createdOn": {
     "placeholders": {
-      "date": {
+      "dateType": {
         "type": "String"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "attributeDetails_succeededAt": "{dateType, select, today {last change today, {time}} yesterday {last change yesterday} other {last change on {date}}}",
+  "@attributeDetails_succeededAt": {
+    "placeholders": {
+      "dateType": {
+        "type": "String"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "attributeDetails_sharedAt": "{dateType, select, today {today, {time}} yesterday {yesterday} other {on {date}}}",
+  "@attributeDetails_sharedAt": {
+    "placeholders": {
+      "dateType": {
+        "type": "String"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      },
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
       }
     }
   },
   "attributeDetails_info": "This information is stored in your personal identity data. You decide who you want to share it with.",
   "attributeDetails_sharedWith": "Shared with",
   "attributeDetails_sharedWithNobody": "Shared with nobody",
-  "attributeDetails_today": "today",
-  "attributeDetails_yesterday": "yesterday",
-  "attributeDetails_on": "on",
-  "files": "Files",
+  "files": "Documents and Files",
   "files_noFilesAvailable": "No files available.",
+  "files_noResults": "No results",
+  "files_noResultsDescription": "No results could be found for the search query entered.",
   "files_uploadInProgress": "Uploading the file.",
   "files_uploadFile": "Upload File",
   "files_selectFile": "Select your file",
-  "files_expiryDate": "Expiry Date",
+  "files_createdAt": "Created",
+  "files_owner": "Owner",
   "files_titleEmptyError": "Please enter a title.",
-  "files_selectExpiryError": "please select",
-  "files_fileInformation": "File Information",
-  "files_filesize": "Filesize",
-  "files_filename": "Filename",
-  "files_download": "Download",
-  "files_openFile": "Open file",
+  "files_sortBy": "Sort by",
+  "files_creationDate": "Creation date",
+  "files_fileType": "Type",
+  "files_fileSize": "Size",
+  "files_sortedByDate": "Sorted by creation date",
+  "files_sortedByName": "Sorted by name",
+  "files_sortedByType": "Sorted by type",
+  "files_sortedBySize": "Sorted by size",
   "filter": "Filter",
   "apply_filter": "Apply filters",
   "deviceOnboarding_title": "Add device",
-  "deviceOnboarding_desciption": "The scan of your QR Code to add a new device was successful.",
+  "deviceOnboarding_desciption": "The scan of your QR code to add a new device was successful.",
   "deviceOnboarding_deviceName": "Device name: ",
   "deviceOnboarding_deviceDescription": "Device description: ",
   "deviceOnboarding_confirmation_text": "Do you want to add this device?",
   "deviceOnboarding_confirm": "Add device",
   "deviceOnboarding_inProgress": "Adding the device",
-  "qrSafetyInformation": "The QR code provides access to sensitive information. Protect your data and only use this function in trustworthy places.",
-  "qrSafetyInformation_preparation": "Before you scan the QR code, make sure...",
-  "qrSafetyInformation_environment": "you are in a safe environment.",
-  "qrSafetyInformation_access": "nobody has unauthorized access to your screen.",
-  "qrSafetyInformation_show": "Show QR-Code",
-  "mailbox_empty": "Your mailbox is empty.",
+  "qrSafetyInformation": "The QR code provides access to sensitive information. Protect your data by only using this function in trustworthy locations.",
+  "qrSafetyInformation_preparation": "Before you display the QR code, make sure...",
+  "qrSafetyInformation_environment": "that you are in a secure network environment.",
+  "qrSafetyInformation_access": " that nobody can look at your screen without authorisation.",
+  "qrSafetyInformation_show": "Show QR code",
+  "mailbox_empty": "No messages available.",
   "mailbox_technicalMessage": "Technical message",
   "mailbox_incoming": "Inbox",
   "mailbox_outgoing": "Sent",
@@ -359,14 +503,13 @@
   "mailbox_subject": "Subject",
   "mailbox_writeMessage": "Message",
   "mailbox_error": "The message could not be sent.",
-  "mailbox_quitDialogTitle": "Cancel message creation?",
-  "mailbox_quitDialogDescription": "All changes will be lost.",
+  "mailbox_quitDialogTitle": "Discard message?",
+  "mailbox_quitDialogDescription": "If you go back now, all of your input will be lost.",
   "mailbox_noButton": "No",
   "mailbox_yesButton": "Yes",
-  "mailbox_selectFromExistingFiles": "Select from existing files.",
-  "mailbox_addFile": "Add File",
   "mailbox_sending": "Sending message...",
-  "mailbox_attachments": "{count, plural, =1{Attachment} other{{count} Attachments}}",
+  "mailbox_attachments_button": "Attachments",
+  "mailbox_attachments": "{count, plural, =1{1 Attachment} other{{count} Attachments}}",
   "@mailbox_attachments": {
     "placeholders": {
       "count": {
@@ -374,18 +517,50 @@
       }
     }
   },
-  "mailbox_choose_contact": "Select a Contact",
-  "mailbox_add": "Add",
-  "mailbox_filter_actionRequired": "Action required",
+  "mailbox_attachments_total": "total",
+  "mailbox_attachments_showMore": "Show {count} more ...",
+  "@mailbox_attachments_showMore": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "mailbox_attachments_showLess": "Show less ...",
+  "mailbox_selectAttachments_title": "Select attachments",
+  "mailbox_selectAttachments_description": "Select one or more attachments or upload new files.",
+  "mailbox_choose_contact": "Select recipient",
+  "mailbox_choose_contact_description": "Select a contact to send the message to.",
+  "mailbox_filter_actionRequired": "Open tasks",
   "mailbox_filter_header": "Filter messages",
-  "mailbox_filter_unread": "unread",
-  "mailbox_filter_withAttachment": "With attachment",
-  "mailbox_filter_byContacts": "By contacts",
+  "mailbox_filter_unread": "New",
+  "mailbox_filter_withAttachment": "Attachment",
+  "mailbox_filter_byContacts": "By contact",
   "mailbox_filtered_noResults": "There are no messages for the filters you have set.",
   "request_accepting": "Accepting request.",
   "request_rejecting": "Rejecting request.",
   "mailbox_noSubject": "No Subject",
   "fileChooser_title": "Select file",
   "fileChooser_uploadFile": "Upload file",
-  "fileChooser_noFilesFound": "No files found, but you can upload a new one."
+  "fileChooser_noFilesFound": "No files found, but you can upload a new one.",
+  "instructions_addContact_title": "Add contact",
+  "instructions_addContact_subtitle": "How to add a contact",
+  "instructions_addContact_scanQrCode": "Scan the QR code provided by the contact.",
+  "instructions_addContact_requestedData": "You will receive a list of information that the contact would like to retrieve. Sharing some of this information is required to establish contact, while other information is optional.",
+  "instructions_addContact_chooseData": "Select which data you want to share.",
+  "instructions_addContact_afterConfirmation": "After confirmation, the selected information is transferred to the contact and the contact will be added to your profile.",
+  "instructions_addContact_information": "You can edit the information or revoke your consent at any time.",
+  "instructions_addContact_informationDetails": "1. On the detail page of the contact: Behind the tab \"Shared information\".\n2. On the detail page of your data: Behind the info icon of the respective entry.",
+  "instructions_loadProfile_title": "Load Existing Profile",
+  "instructions_loadProfile_subtitle": "To load an existing profile onto your new device",
+  "instructions_loadProfile_getDevice": "You need the device where you profile is currently loaded, in order to load it on this device",
+  "instructions_loadProfile_createNewDevice": "There you need to create a new device in the profile management in the \"Settings\" area, under \"Manage linked devices\".",
+  "instructions_loadProfile_displayedQRCode": "A QR code will then be displayed.",
+  "instructions_loadProfile_scanQRCode": "Scan this QR code with the new device.",
+  "instructions_loadProfile_confirmation": "Once confirmed, you will have full access to the profile from both devices.",
+  "instructions_loadProfile_information": "You no longer want to synchronize a profile across different devices?",
+  "instructions_loadProfile_informationDetails": "In the profile management, you can view and manage the devices connected to the profile at any time.",
+  "instructions_notShowAgain": "Do not show the explanation again",
+  "instructions_scanQrCode": "Scan QR code",
+  "instructions_activated": "All instructions and hints are switched on again and are displayed as required."
 }

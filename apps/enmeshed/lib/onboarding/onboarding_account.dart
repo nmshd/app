@@ -30,49 +30,41 @@ class OnboardingAccount extends StatelessWidget {
         SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              children: [
-                SizedBox(height: screenHeight * 0.14),
-                Text(
-                  context.l10n.onboarding_createIdentity,
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
-                ),
-                Gaps.h16,
-                Text(context.l10n.onboarding_chooseOption, textAlign: TextAlign.center),
-                const SizedBox(height: 72),
-                Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
-                Gaps.h16,
-                Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
-                Gaps.h24,
-                FilledButton.icon(
-                  onPressed: goToOnboardingLoading,
-                  style: FilledButton.styleFrom(fixedSize: const Size(double.infinity, 40)),
-                  label: Text(context.l10n.onboarding_createNewAccount_button),
-                  icon: Icon(Icons.person_add, color: Theme.of(context).colorScheme.onPrimary),
-                ),
-                Gaps.h24,
-                Row(
-                  children: [
-                    const Expanded(child: Divider(thickness: 1)),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(context.l10n.or),
-                    ),
-                    const Expanded(child: Divider(thickness: 1)),
-                  ],
-                ),
-                Gaps.h24,
-                Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
-                Gaps.h16,
-                Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
-                Gaps.h24,
-                FilledButton.icon(
-                  onPressed: () => _onboardingPressed(context),
-                  style: FilledButton.styleFrom(fixedSize: const Size(double.infinity, 40)),
-                  label: Text(context.l10n.scanner_scanQR),
-                  icon: Icon(Icons.qr_code, color: Theme.of(context).colorScheme.onPrimary),
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: screenHeight * 0.14),
+                  Text(
+                    context.l10n.onboarding_createIdentity,
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                  ),
+                  Gaps.h16,
+                  Text(context.l10n.onboarding_chooseOption, textAlign: TextAlign.center),
+                  const SizedBox(height: 72),
+                  Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
+                  Gaps.h16,
+                  Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
+                  Gaps.h24,
+                  FilledButton(onPressed: goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
+                  Gaps.h24,
+                  Row(
+                    children: [
+                      const Expanded(child: Divider(thickness: 1)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(context.l10n.or),
+                      ),
+                      const Expanded(child: Divider(thickness: 1)),
+                    ],
+                  ),
+                  Gaps.h24,
+                  Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
+                  Gaps.h16,
+                  Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
+                  Gaps.h24,
+                  FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
+                ],
+              ),
             ),
           ),
         ),

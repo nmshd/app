@@ -1023,7 +1023,7 @@
         "Draft": "Draft",
         "Error": "Error",
         "Expired": "Expired",
-        "ManualDecisionRequired": "Decision Required",
+        "ManualDecisionRequired": "Open task",
         "Open": "Waiting for Response"
       },
       "unknown": {

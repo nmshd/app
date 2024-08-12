@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
+import 'contact_favorite.dart';
 import 'contact_headline.dart';
 
 class ContactsOverview extends StatelessWidget {
@@ -23,89 +24,72 @@ class ContactsOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: Theme.of(context).colorScheme.surface,
-      child: RefreshIndicator(
+    if (relationships.isEmpty) {
+      return RefreshIndicator(
         onRefresh: onRefresh,
-        child: SizedBox(
-          width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height,
-          child: (relationships.isEmpty)
-              ? EmptyListIndicator(icon: Icons.contacts, text: context.l10n.contacts_empty, wrapInListView: true)
-              : ListView.separated(
-                  itemCount: relationships.length + favorites.length,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      final contact = favorites.isEmpty ? relationships[index] : favorites[index];
-                      final isFavoriteContact = favorites.any((item) => item.id == contact.id);
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ContactHeadline(
-                            contact: favorites.isEmpty ? relationships[index] : null,
-                            icon: favorites.isNotEmpty ? const Icon(Icons.star) : null,
-                          ),
-                          ContactItem(
-                            contact: contact,
-                            onTap: () => context.push('/account/$accountId/contacts/${contact.id}'),
-                            trailing: IconButton(
-                              icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
-                              color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
-                              onPressed: () => updateFavList(contact),
-                            ),
-                          ),
-                        ],
-                      );
-                    }
-
-                    if (index < favorites.length) {
-                      final contact = favorites[index];
-                      return ContactItem(
-                        contact: contact,
-                        onTap: () => context.push('/account/$accountId/contacts/${contact.id}'),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.star),
-                          color: Theme.of(context).colorScheme.primary,
-                          onPressed: () => updateFavList(contact),
-                        ),
-                      );
-                    }
-
-                    final contact = relationships[index - favorites.length];
-                    final isFavoriteContact = favorites.any((item) => item.id == contact.id);
-
-                    return ContactItem(
-                      contact: contact,
-                      onTap: () => context.push('/account/$accountId/contacts/${contact.id}'),
-                      trailing: IconButton(
-                        icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
-                        color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
-                        onPressed: () => updateFavList(contact),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    if (index - (favorites.length - 1) == 0) {
-                      return ContactHeadline(contact: relationships[0]);
-                    }
-
-                    if (index >= favorites.length &&
-                        relationships[index - favorites.length].initials[0].toLowerCase() !=
-                            relationships[index - favorites.length + 1].initials[0].toLowerCase()) {
-                      return ContactHeadline(contact: relationships[index - favorites.length + 1]);
-                    }
-
-                    return ColoredBox(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(),
-                      ),
-                    );
-                  },
-                ),
+        child: EmptyListIndicator(
+          icon: Icons.contacts,
+          text: context.l10n.contacts_empty,
+          description: context.l10n.contacts_emptyDescription,
+          wrapInListView: true,
         ),
+      );
+    }
+
+    return RefreshIndicator(
+      onRefresh: onRefresh,
+      child: CustomScrollView(
+        slivers: [
+          if (favorites.isNotEmpty)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: ContactHeadline(icon: favorites.isNotEmpty ? const Icon(Icons.star) : null),
+              ),
+            ),
+          SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return ContactFavorite(
+                  contact: favorites[index],
+                  onTap: () => context.push('/account/$accountId/contacts/${favorites[index].id}'),
+                );
+              },
+              childCount: favorites.length,
+            ),
+          ),
+          SliverList.separated(
+            itemCount: relationships.length,
+            itemBuilder: (context, index) {
+              final contact = relationships[index];
+              final isFavoriteContact = favorites.any((item) => item.id == contact.id);
+
+              return Column(
+                children: [
+                  if (index == 0) ContactHeadline(contact: relationships[0]),
+                  ContactItem(
+                    contact: contact,
+                    onTap: () => context.push('/account/$accountId/contacts/${contact.id}'),
+                    trailing: IconButton(
+                      icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
+                      color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
+                      onPressed: () => updateFavList(contact),
+                    ),
+                  ),
+                ],
+              );
+            },
+            separatorBuilder: (context, index) {
+              if (index < relationships.length &&
+                  relationships[index].initials[0].toLowerCase() != relationships[index + 1].initials[0].toLowerCase()) {
+                return ContactHeadline(contact: relationships[index + 1]);
+              }
+
+              return const Divider(indent: 16);
+            },
+          ),
+        ],
       ),
     );
   }

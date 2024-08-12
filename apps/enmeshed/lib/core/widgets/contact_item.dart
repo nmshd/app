@@ -23,21 +23,16 @@ class ContactItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      margin: EdgeInsets.zero,
-      child: ListTile(
-        enabled: contact.relationship?.status == RelationshipStatus.Active,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        tileColor: Theme.of(context).colorScheme.onPrimary,
-        leading: contact.relationship?.status == RelationshipStatus.Active
-            ? ContactCircleAvatar(contactName: contact.name, radius: iconSize / 2)
-            : Icon(Icons.pending_outlined, size: iconSize.toDouble(), color: Theme.of(context).colorScheme.outline),
-        title: HighlightText(query: query, text: contact.name),
-        subtitle: subtitle ?? (contact.relationship?.status == RelationshipStatus.Active ? null : Text(context.l10n.contacts_pending)),
-        trailing: trailing,
-        onTap: onTap,
-      ),
+    return ListTile(
+      enabled: contact.relationship?.status == RelationshipStatus.Active,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      leading: contact.relationship?.status == RelationshipStatus.Active
+          ? ContactCircleAvatar(contactName: contact.name, radius: iconSize / 2)
+          : Icon(Icons.pending_outlined, size: iconSize.toDouble(), color: Theme.of(context).colorScheme.outline),
+      title: HighlightText(query: query, text: contact.name),
+      subtitle: subtitle ?? (contact.relationship?.status == RelationshipStatus.Active ? null : Text(context.l10n.contacts_pending)),
+      trailing: trailing,
+      onTap: onTap,
     );
   }
 }
