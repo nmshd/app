@@ -32,7 +32,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
       expect(templateResult.value.expiresAt, expiresAt);
-      expect(templateResult.value.content.toJson(), content);
+      expect(templateResult.value.content, content);
     });
 
     test('should create a template with all properties', () async {
@@ -49,7 +49,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
       expect(templateResult.value.expiresAt, expiresAt);
-      expect(templateResult.value.content.toJson(), content);
+      expect(templateResult.value.content, content);
       expect(templateResult.value.maxNumberOfAllocations, maxNumberOfAllocations);
     });
   });
@@ -71,7 +71,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
       expect(templateResult.value.expiresAt, expiresAt);
-      expect(templateResult.value.content.toJson(), content);
+      expect(templateResult.value.content, content);
       expect(templateResult.value.id, responseTemplate.value.id);
       expect(templateResult.value.secretKey, responseTemplate.value.secretKey);
     });
@@ -93,7 +93,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
       expect(templateResult.value.expiresAt, expiresAt);
-      expect(templateResult.value.content.toJson(), content);
+      expect(templateResult.value.content, content);
       expect(templateResult.value.truncatedReference, responseTemplate.value.truncatedReference);
     });
   });
@@ -172,7 +172,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(template, isSuccessful<RelationshipTemplateDTO>());
       expect(template.value.expiresAt, expiresAt);
-      expect(template.value.content.toJson(), content);
+      expect(template.value.content, content);
     });
 
     test('throws an exception on empty template id', () async {
