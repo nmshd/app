@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 import 'contact_favorite.dart';
 import 'contact_headline.dart';
+import 'dismissible_contact_item.dart';
 
 class ContactsOverview extends StatelessWidget {
   final String accountId;
@@ -51,9 +52,10 @@ class ContactsOverview extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
+                final contact = favorites[index];
                 return ContactFavorite(
-                  contact: favorites[index],
-                  onTap: () => context.push('/account/$accountId/contacts/${favorites[index].id}'),
+                  contact: contact,
+                  onTap: () => context.push('/account/$accountId/contacts/${contact.id}'),
                 );
               },
               childCount: favorites.length,
@@ -67,10 +69,12 @@ class ContactsOverview extends StatelessWidget {
 
               return Column(
                 children: [
-                  if (index == 0) ContactHeadline(contact: relationships[0]),
-                  ContactItem(
+                  if (index == 0) ContactHeadline(contact: contact),
+                  DismissibleContactItem(
+                    accountId: accountId,
                     contact: contact,
                     onTap: () => context.push('/account/$accountId/contacts/${contact.id}'),
+                    onContactChanged: onRefresh,
                     trailing: IconButton(
                       icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
                       color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,

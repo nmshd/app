@@ -45,7 +45,8 @@ class _ContactsViewState extends State<ContactsView> {
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
-      ..add(runtime.eventBus.on<ContactFavoriteUpdatedEvent>().listen((_) => _reload().catchError((_) {})));
+      ..add(runtime.eventBus.on<ContactFavoriteUpdatedEvent>().listen((_) => _reload().catchError((_) {})))
+      ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _reload().catchError((_) {})));
   }
 
   @override

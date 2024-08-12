@@ -261,6 +261,18 @@
   "contacts_empty": "Add contacts",
   "contacts_emptyDescription": "Connect with contacts to share or receive data and documents.",
   "contacts_pending": "The contact has not yet accepted the relationship.",
+  "contacts_terminated": "The relationship with the contact has been terminated.",
+  "contacts_deletionProposed": "The relationship to the contact has been proposed for deletion.",
+  "contacts_delete_title": "Delete contact \"{contactName}\"?",
+  "@contacts_delete_title": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
+  "contacts_delete_description": "All shared and received information will be deleted except for documents. The contact is informed and asked to delete this information. No more messages can be sent or received.",
+  "contacts_delete_deleteContact": "Delete Contact",
   "contactDetail_connectedSince": "Contact since {since}",
   "@contactDetail_connectedSince": {
     "placeholders": {
