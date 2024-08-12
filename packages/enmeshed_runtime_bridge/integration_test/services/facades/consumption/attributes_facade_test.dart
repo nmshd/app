@@ -1427,18 +1427,21 @@ void run(EnmeshedRuntime runtime) {
 
   group('AttributesFacade: changeDefaultRepositoryAttributes', () {
     test('should change default repository attributes', () async {
-      final defaultAttribute =
-          (await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aDefaultGivenName')))
-              .value;
+      final defaultAttribute = (await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'aDefaultGivenName'),
+      ))
+          .value;
       expect(defaultAttribute.isDefault, true);
 
-      final desiredDefaultAttribute =
-          (await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aNewDefaultGivenName')))
-              .value;
+      final desiredDefaultAttribute = (await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'aNewDefaultGivenName'),
+      ))
+          .value;
       expect(desiredDefaultAttribute.isDefault, null);
 
-      final changeDefaultResult =
-          await sender.consumptionServices.attributes.changeDefaultRepositoryAttribute(attributeId: desiredDefaultAttribute.id);
+      final changeDefaultResult = await sender.consumptionServices.attributes.changeDefaultRepositoryAttribute(
+        attributeId: desiredDefaultAttribute.id,
+      );
       expect(changeDefaultResult, isSuccessful<LocalAttributeDTO>());
 
       expect(changeDefaultResult.value.id, desiredDefaultAttribute.id);
@@ -1448,35 +1451,39 @@ void run(EnmeshedRuntime runtime) {
       expect(updatedFormerDefaultAttribute.isDefault, null);
     });
 
+    test('should change default repository attribute using succession', () async {
+      final defaultAttribute = (await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'aDefaultGivenName'),
+      ))
+          .value;
+      expect(defaultAttribute.isDefault, true);
+
+      final otherAttributePredecessor = (await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'anotherGivenNamePredecessor'),
+      ))
+          .value;
+
+      final successionResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
+        predecessorId: otherAttributePredecessor.id,
+        value: const GivenNameAttributeValue(value: 'anotherGivenNameSuccessor'),
+      );
+      final updatedOtherAttributePredecessor = successionResult.value.predecessor;
+
+      final changeDefaultResult =
+          await sender.consumptionServices.attributes.changeDefaultRepositoryAttribute(attributeId: updatedOtherAttributePredecessor.id);
+      expect(changeDefaultResult, isFailing('error.runtime.attributes.hasSuccessor'));
+    });
+
     test('should return an error if the new default attribute is not a repository attributes', () async {
-      final relationshipAttribute =
-          await exchangeRelationshipAttribute(sender, recipient, const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'));
+      final relationshipAttribute = await exchangeRelationshipAttribute(
+        sender,
+        recipient,
+        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
+      );
 
       final result = await sender.consumptionServices.attributes.changeDefaultRepositoryAttribute(attributeId: relationshipAttribute.id);
       expect(result, isFailing('error.runtime.attributes.isNotRepositoryAttribute'));
     });
-  });
-
-  test('should change default repository attributes', () async {
-    final defaultAttribute =
-        (await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aDefaultGivenName')))
-            .value;
-    expect(defaultAttribute.isDefault, true);
-
-    final otherAttributePredecessor = (await sender.consumptionServices.attributes.createRepositoryAttribute(
-      value: const GivenNameAttributeValue(value: 'anotherGivenNamePredecessor'),
-    ))
-        .value;
-
-    final successionResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
-      predecessorId: otherAttributePredecessor.id,
-      value: const GivenNameAttributeValue(value: 'anotherGivenNameSuccessor'),
-    );
-    final updatedOtherAttributePredecessor = successionResult.value.predecessor;
-
-    final changeDefaultResult =
-        await sender.consumptionServices.attributes.changeDefaultRepositoryAttribute(attributeId: updatedOtherAttributePredecessor.id);
-    expect(changeDefaultResult, isFailing('error.runtime.attributes.hasSuccessor'));
   });
 
   group('AttributesFacade: deleteRepositoryAttribute', () {
