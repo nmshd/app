@@ -53,13 +53,12 @@ void run(EnmeshedRuntime runtime) {
     test('send a Message from session1 to session2', () async {
       final result = await session1.transportServices.messages.sendMessage(
         recipients: [session2Address],
-        content: Mail.fromJson({
-          '@type': 'Mail',
-          'body': 'b',
-          'cc': const [],
-          'subject': 'a',
-          'to': [session2Address],
-        }),
+        content: Mail(
+          body: 'b',
+          cc: const [],
+          subject: 'a',
+          to: [session2Address],
+        ),
         attachments: [fileId],
       );
 
@@ -196,25 +195,11 @@ void run(EnmeshedRuntime runtime) {
     test('should throw correct error for empty "to" in the Message', () async {
       final result = await session1.transportServices.messages.sendMessage(
         recipients: [fakeAddress],
-        content: Mail.fromJson(const {
-          '@type': 'Mail',
-          'subject': 'aSubject',
-          'to': [],
-          'body': 'aBody',
-        }),
-      );
-
-      expect(result, isFailing('error.runtime.requestDeserialization'));
-    });
-
-    test('should throw correct error for missing "to" in the Message', () async {
-      final result = await session1.transportServices.messages.sendMessage(
-        recipients: [fakeAddress],
-        content: Mail.fromJson(const {
-          '@type': 'Mail',
-          'subject': 'aSubject',
-          'body': 'aBody',
-        }),
+        content: const Mail(
+          subject: 'aSubject',
+          to: [],
+          body: 'aBody',
+        ),
       );
 
       expect(result, isFailing('error.runtime.requestDeserialization'));
