@@ -89,8 +89,10 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             Gaps.h24,
-            ContactRequestsContainer(accountId: widget.accountId, relationshipRequests: _requests!),
-            Gaps.h24,
+            if (context.isFeatureEnabled('SHOW_CONTACT_REQUESTS')) ...[
+              ContactRequestsContainer(accountId: widget.accountId, relationshipRequests: _requests!),
+              Gaps.h24,
+            ],
             MessagesContainer(
               accountId: widget.accountId,
               messages: _messages!,

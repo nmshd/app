@@ -1,7 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '/core/core.dart';
+import '../utils/utils.dart';
+import 'contact_circle_avatar.dart';
+import 'highlight_text.dart';
 
 class ContactItem extends StatelessWidget {
   final IdentityDVO contact;
@@ -26,11 +28,18 @@ class ContactItem extends StatelessWidget {
     return ListTile(
       enabled: contact.relationship?.status == RelationshipStatus.Active,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      leading: contact.relationship?.status == RelationshipStatus.Active
-          ? ContactCircleAvatar(contactName: contact.name, radius: iconSize / 2)
-          : Icon(Icons.pending_outlined, size: iconSize.toDouble(), color: Theme.of(context).colorScheme.outline),
+      leading: switch (contact.relationship?.status) {
+        RelationshipStatus.Pending => Icon(Icons.pending_outlined, size: iconSize.toDouble(), color: Theme.of(context).colorScheme.outline),
+        _ => ContactCircleAvatar(contactName: contact.name, radius: iconSize / 2)
+      },
       title: HighlightText(query: query, text: contact.name),
-      subtitle: subtitle ?? (contact.relationship?.status == RelationshipStatus.Active ? null : Text(context.l10n.contacts_pending)),
+      subtitle: subtitle ??
+          switch (contact.relationship?.status) {
+            RelationshipStatus.Pending => Text(context.l10n.contacts_pending),
+            RelationshipStatus.Terminated => Text(context.l10n.contacts_terminated),
+            RelationshipStatus.DeletionProposed => Text(context.l10n.contacts_deletionProposed),
+            _ => null,
+          },
       trailing: trailing,
       onTap: onTap,
     );

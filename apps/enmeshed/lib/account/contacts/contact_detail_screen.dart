@@ -78,11 +78,11 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
             await _loadShowSendCertificateButton();
             await loadSharedFiles(syncBefore: true);
           },
-          child: ListView(
-            children: [
-              ColoredBox(
-                color: Theme.of(context).colorScheme.onPrimary,
-                child: Padding(
+          child: Scrollbar(
+            thumbVisibility: true,
+            child: ListView(
+              children: [
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     children: [
@@ -109,7 +109,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                           icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
                         ),
                       if (_loadingFavoriteContact)
-                        const IconButton(onPressed: null, icon: CircularProgressIndicator())
+                        const IconButton(onPressed: null, icon: SizedBox(width: 24, height: 24, child: CircularProgressIndicator()))
                       else
                         Align(
                           child: IconButton(
@@ -121,82 +121,72 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                     ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: FilledButton(
-                        onPressed: () => context.push('/account/${widget.accountId}/mailbox/send', extra: _contact),
-                        style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.mail, size: 16),
-                            Gaps.w8,
-                            Text(context.l10n.contactDetail_sendMessage),
-                          ],
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: FilledButton.icon(
+                          onPressed: () => context.push('/account/${widget.accountId}/mailbox/send', extra: _contact),
+                          style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
+                          label: Text(context.l10n.contactDetail_sendMessage, textAlign: TextAlign.center),
+                          icon: const Icon(Icons.mail, size: 16),
                         ),
                       ),
-                    ),
-                    if (_showSendCertificateButton) ...[
-                      Gaps.w8,
-                      Expanded(
-                        child: FilledButton(
-                          onPressed: () => showRequestCertificateModal(context: context, session: _session, peer: _contact!.id),
-                          style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(AppIcons.requestCertificate, size: 16),
-                              Gaps.w8,
-                              Text(context.l10n.contactDetail_requestCertificate),
-                            ],
+                      if (_showSendCertificateButton) ...[
+                        Gaps.w8,
+                        Expanded(
+                          child: FilledButton.icon(
+                            onPressed: () => showRequestCertificateModal(context: context, session: _session, peer: _contact!.id),
+                            style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
+                            label: Text(context.l10n.contactDetail_requestCertificate, textAlign: TextAlign.center),
+                            icon: const Icon(AppIcons.requestCertificate, size: 16),
                           ),
                         ),
-                      ),
+                      ],
                     ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  child: Text(
+                    context.l10n.contactDetail_sharedInformation,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+                Column(
+                  children: [
+                    ListTile(
+                      title: Text(context.l10n.contactDetail_receivedAttributes),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => context.push('/account/${widget.accountId}/contacts/${widget.contactId}/exchangedData'),
+                    ),
+                    const Divider(height: 2),
+                    ListTile(
+                      title: Text(context.l10n.contactDetail_sharedAttributes),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => context.push('/account/${widget.accountId}/contacts/${widget.contactId}/exchangedData?showSharedAttributes=true'),
+                    ),
                   ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: Text(
-                  context.l10n.contactDetail_sharedInformation,
-                  style: Theme.of(context).textTheme.titleLarge,
+                MessagesContainer(
+                  accountId: widget.accountId,
+                  messages: _incomingMessages!,
+                  unreadMessagesCount: _unreadMessagesCount,
+                  seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId),
+                  title: context.l10n.contact_information_messages,
+                  noMessagesText: context.l10n.contact_information_noMessages,
+                  hideAvatar: true,
                 ),
-              ),
-              Column(
-                children: [
-                  ListTile(
-                    title: Text(context.l10n.contactDetail_receivedAttributes),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () => context.push('/account/${widget.accountId}/contacts/${widget.contactId}/exchangedData'),
-                  ),
-                  const Divider(height: 2),
-                  ListTile(
-                    title: Text(context.l10n.contactDetail_sharedAttributes),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () => context.push('/account/${widget.accountId}/contacts/${widget.contactId}/exchangedData?showSharedAttributes=true'),
-                  ),
-                ],
-              ),
-              MessagesContainer(
-                accountId: widget.accountId,
-                messages: _incomingMessages!,
-                unreadMessagesCount: _unreadMessagesCount,
-                seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId),
-                title: context.l10n.contact_information_messages,
-                noMessagesText: context.l10n.contact_information_noMessages,
-                hideAvatar: true,
-              ),
-              ContactSharedFiles(
-                accountId: widget.accountId,
-                contactId: widget.contactId,
-                sharedFiles: sharedFiles,
-              ),
-            ],
+                ContactSharedFiles(
+                  accountId: widget.accountId,
+                  contactId: widget.contactId,
+                  sharedFiles: sharedFiles,
+                ),
+                Gaps.h16,
+                _DeleteContact(widget.accountId, _contact!),
+              ],
+            ),
           ),
         ),
       ),
@@ -272,5 +262,46 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
         _loadingFavoriteContact = false;
       });
     }
+  }
+}
+
+class _DeleteContact extends StatelessWidget {
+  final String accountId;
+  final IdentityDVO contact;
+
+  const _DeleteContact(this.accountId, this.contact);
+
+  @override
+  Widget build(BuildContext context) {
+    return ColoredBox(
+      color: context.customColors.errorContainer!,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Flex(
+          direction: Axis.horizontal,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            OutlinedButton(
+              onPressed: () => deleteContact(
+                context: context,
+                accountId: accountId,
+                contact: contact,
+                onContactDeleted: () {
+                  if (context.mounted) context.pop();
+                },
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.delete, color: Theme.of(context).colorScheme.error),
+                  Gaps.w8,
+                  Text(context.l10n.contacts_delete_deleteContact),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
