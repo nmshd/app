@@ -13,10 +13,10 @@ part 'message_content_notification.dart';
 part 'message_content_request.dart';
 part 'response_wrapper.dart';
 
-abstract class MessageContent extends Equatable {
-  const MessageContent();
+abstract class MessageContentDerivation extends Equatable {
+  const MessageContentDerivation();
 
-  factory MessageContent.fromJson(Map json) {
+  factory MessageContentDerivation.fromJson(Map json) {
     final type = json['@type'];
 
     return switch (type) {
@@ -36,7 +36,7 @@ abstract class MessageContent extends Equatable {
   List<Object?> get props;
 }
 
-class ArbitraryMessageContent extends MessageContent with MapMixin<String, dynamic>, ArbitraryContentJSON {
+class ArbitraryMessageContent extends MessageContentDerivation with MapMixin<String, dynamic>, ArbitraryContentJSON {
   @override
   final Map<String, dynamic> value;
 

@@ -28,7 +28,7 @@ class MessageDVO extends DataViewObject {
   final MessageStatus status;
   final String statusText;
   final IdentityDVO peer;
-  final MessageContent content;
+  final MessageContentDerivation content;
   final String? wasReadAt;
 
   const MessageDVO({

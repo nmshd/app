@@ -1,8 +1,8 @@
-part of 'message_content.dart';
+part of 'message_content_derivation.dart';
 
 enum RequestSourceType { RelationshipTemplate, Message }
 
-class ResponseWrapper extends MessageContent {
+class ResponseWrapper extends MessageContentDerivation {
   final String requestId;
   final String requestSourceReference;
   final RequestSourceType requestSourceType;

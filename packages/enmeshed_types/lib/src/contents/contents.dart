@@ -2,7 +2,7 @@ export 'abstract_attribute.dart';
 export 'attribute_query/attribute_query.dart';
 export 'attribute_values/attribute_values.dart';
 export 'identity_attribute.dart';
-export 'message_content/message_content.dart';
+export 'message_content_derivation/message_content_derivation.dart';
 export 'notification.dart';
 export 'notification_item/notification_item.dart';
 export 'relationship_attribute.dart';

@@ -1,6 +1,6 @@
-part of 'message_content.dart';
+part of 'message_content_derivation.dart';
 
-class Mail extends MessageContent {
+class Mail extends MessageContentDerivation {
   final List<String> to;
   final List<String>? cc;
   final String subject;

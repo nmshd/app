@@ -10,7 +10,7 @@ void main() {
         'subject': 'aSubject',
         'body': 'aBody',
       };
-      final messageContent = MessageContent.fromJson(mailJson);
+      final messageContent = MessageContentDerivation.fromJson(mailJson);
       expect(messageContent, isA<Mail>());
     });
 
@@ -22,19 +22,19 @@ void main() {
         'requestSourceType': 'Message',
         'response': const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: []).toJson(),
       };
-      final messageContent = MessageContent.fromJson(responseWrapperJson);
+      final messageContent = MessageContentDerivation.fromJson(responseWrapperJson);
       expect(messageContent, isA<ResponseWrapper>());
     });
 
     group('MessageContent fromJson with exception', () {
       test('throws exception when @type is missing', () {
         final json = {};
-        expect(() => MessageContent.fromJson(json), throwsA(isA<Exception>()));
+        expect(() => MessageContentDerivation.fromJson(json), throwsA(isA<Exception>()));
       });
 
       test('throws exception when type is unknown', () {
         final json = {'@type': 'UnknownType'};
-        expect(() => MessageContent.fromJson(json), throwsA(isA<Exception>()));
+        expect(() => MessageContentDerivation.fromJson(json), throwsA(isA<Exception>()));
       });
     });
   });

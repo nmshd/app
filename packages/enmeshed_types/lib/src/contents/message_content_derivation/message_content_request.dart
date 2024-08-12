@@ -1,6 +1,6 @@
-part of 'message_content.dart';
+part of 'message_content_derivation.dart';
 
-class MessageContentRequest extends MessageContent {
+class MessageContentRequest extends MessageContentDerivation {
   final Request request;
 
   const MessageContentRequest({required this.request});

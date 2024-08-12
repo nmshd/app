@@ -10,7 +10,7 @@ class MessagesFacade {
 
   Future<Result<MessageDTO>> sendMessage({
     required List<String> recipients,
-    required MessageContent content,
+    required MessageContentDerivation content,
     List<String>? attachments,
   }) async {
     final result = await _evaluator.evaluateJavaScript(

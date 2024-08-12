@@ -1,6 +1,6 @@
-part of 'message_content.dart';
+part of 'message_content_derivation.dart';
 
-class MessageContentNotification extends MessageContent {
+class MessageContentNotification extends MessageContentDerivation {
   final Notification notification;
 
   const MessageContentNotification({required this.notification});
