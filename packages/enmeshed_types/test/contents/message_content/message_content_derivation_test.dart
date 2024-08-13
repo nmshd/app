@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('MessageContent fromJson', () {
+  group('MessageContentDerivation fromJson', () {
     test('parsed valid Mail', () {
       final mailJson = {
         '@type': 'Mail',
@@ -26,7 +26,7 @@ void main() {
       expect(messageContent, isA<ResponseWrapper>());
     });
 
-    group('MessageContent fromJson with exception', () {
+    group('MessageContentDerivation fromJson with exception', () {
       test('throws exception when @type is missing', () {
         final json = {};
         expect(() => MessageContentDerivation.fromJson(json), throwsA(isA<Exception>()));
