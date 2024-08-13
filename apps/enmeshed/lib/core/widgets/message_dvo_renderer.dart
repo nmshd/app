@@ -24,28 +24,20 @@ class MessageDVORenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(
-          children: [
-            if (!hideAvatar) ...[
-              ContactCircleAvatar(radius: 20, contactName: message.peer.name),
-              Gaps.w16,
-            ],
-            _MessagesContent(message: message, query: query),
-          ],
-        ),
-      ),
-      onTap: () {
-        if (controller != null) {
-          controller!.clear();
-          controller!.closeView(null);
-        }
-
-        context.push('/account/$accountId/mailbox/${message.id}');
-      },
+    return ListTile(
+      leading: ContactCircleAvatar(radius: 20, contactName: message.peer.name),
+      title: _MessagesContent(message: message, query: query),
+      onTap: () => _onTap(context),
     );
+  }
+
+  void _onTap(BuildContext context) {
+    if (controller != null) {
+      controller!.clear();
+      controller!.closeView(null);
+    }
+
+    context.push('/account/$accountId/mailbox/${message.id}');
   }
 }
 
