@@ -13,6 +13,7 @@ class FileReferenceRenderer extends StatefulWidget {
   final AttributeValue? initialValue;
   final bool mustBeFilledOut;
   final ValueHints valueHints;
+  final TextStyle valueTextStyle;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
   final Future<FileDVO?> Function() chooseFile;
@@ -24,6 +25,7 @@ class FileReferenceRenderer extends StatefulWidget {
     this.initialValue,
     required this.mustBeFilledOut,
     required this.valueHints,
+    this.valueTextStyle = const TextStyle(fontSize: 16),
     required this.expandFileReference,
     required this.openFileDetails,
     required this.chooseFile,
@@ -65,18 +67,20 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    final title = widget.fieldName != null ? TranslatedText(widget.fieldName!) : null;
+    final title = widget.fieldName != null
+        ? TranslatedText(widget.fieldName!, style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant))
+        : null;
     final subtitle = !initialLoadComplete
         ? const LinearProgressIndicator()
         : selectedFile != null
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(selectedFile!.title),
-                  Text(selectedFile!.filename),
+                  Text(selectedFile!.title, style: widget.valueTextStyle),
+                  Text(selectedFile!.filename, style: widget.valueTextStyle),
                 ],
               )
-            : const TranslatedText('i18n://valueRenderer.fileReference.noFileSelected');
+            : TranslatedText('i18n://valueRenderer.fileReference.noFileSelected', style: widget.valueTextStyle);
 
     return ListTile(
       contentPadding: EdgeInsets.zero,
