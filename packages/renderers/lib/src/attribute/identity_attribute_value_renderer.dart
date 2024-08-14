@@ -17,6 +17,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
   final TextStyle valueTextStyle;
   final Widget? extraLine;
   final Widget? trailing;
+  final String? titleOverride;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
 
@@ -28,6 +29,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
     this.valueTextStyle = const TextStyle(fontSize: 16),
     this.extraLine,
     this.trailing,
+    this.titleOverride,
     required this.expandFileReference,
     required this.openFileDetails,
   });
@@ -86,6 +88,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
 
     if (value is IdentityFileReferenceAttributeValue) {
       return FileReferenceRenderer(
+        titleOverride: titleOverride,
         fileReference: (value as IdentityFileReferenceAttributeValue).value,
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,

@@ -49,19 +49,17 @@ class _MessagesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _MessageHeader(message: message, query: query),
-          switch (message) {
-            final MailDVO mail => _MailContent(message: mail, query: query),
-            final RequestMessageDVO requestMessage => _RequestMessageContent(message: requestMessage),
-            _ => Text(context.l10n.mailbox_technicalMessage, style: Theme.of(context).textTheme.bodyLarge),
-          },
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _MessageHeader(message: message, query: query),
+        switch (message) {
+          final MailDVO mail => _MailContent(message: mail, query: query),
+          final RequestMessageDVO requestMessage => _RequestMessageContent(message: requestMessage),
+          _ => Text(context.l10n.mailbox_technicalMessage, style: Theme.of(context).textTheme.bodyLarge),
+        },
+      ],
     );
   }
 }

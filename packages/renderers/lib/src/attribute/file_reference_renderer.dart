@@ -7,6 +7,7 @@ class FileReferenceRenderer extends StatefulWidget {
   final String valueType;
   final Widget? extraLine;
   final bool showTitle;
+  final String? titleOverride;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
   final Widget? trailing;
@@ -17,6 +18,7 @@ class FileReferenceRenderer extends StatefulWidget {
     required this.valueType,
     this.extraLine,
     this.showTitle = true,
+    this.titleOverride,
     required this.expandFileReference,
     required this.openFileDetails,
     this.trailing,
@@ -56,7 +58,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
             children: [
               if (widget.showTitle)
                 TranslatedText(
-                  'i18n://dvo.attribute.name.${widget.valueType}',
+                  widget.titleOverride ?? 'i18n://dvo.attribute.name.${widget.valueType}',
                   style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               if (expandedFileReference == null)
