@@ -86,7 +86,7 @@ void run(EnmeshedRuntime runtime) {
     test('should create a relationship', () async {
       final responseTemplate = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: generateExpiryString(),
-        content: {},
+        content: emptyRelationshipTemplateContent,
       );
 
       final item = await session1.transportServices.account.loadItemFromTruncatedReference(
@@ -95,7 +95,7 @@ void run(EnmeshedRuntime runtime) {
 
       final relationshipResult = await session1.transportServices.relationships.createRelationship(
         templateId: item.value.relationshipTemplateValue.id,
-        content: {},
+        creationContent: emptyRelationshipCreationContent,
       );
 
       expect(relationshipResult, isSuccessful<RelationshipDTO>());
@@ -104,7 +104,7 @@ void run(EnmeshedRuntime runtime) {
     test('returns error if templator has active IdentityDeletionProcess', () async {
       final responseTemplate = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: generateExpiryString(),
-        content: {},
+        content: emptyRelationshipTemplateContent,
       );
 
       final item = await session1.transportServices.account.loadItemFromTruncatedReference(
@@ -115,37 +115,40 @@ void run(EnmeshedRuntime runtime) {
 
       final result = await session1.transportServices.relationships.createRelationship(
         templateId: item.value.relationshipTemplateValue.id,
-        content: {},
+        creationContent: emptyRelationshipCreationContent,
       );
 
       expect(result, isFailing('error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate'));
     });
   });
 
-  group('RelationshipsFacade: acceptRelationshipChange', () {
+  group('RelationshipsFacade: acceptRelationship', () {
     test('should accept a relationship', () async {
       final establishedRelationship = await establishRelationshipAndSync(requestor: session1, templator: session2);
 
-      final responseResult = await session2.transportServices.relationships.acceptRelationshipChange(
-        relationshipId: establishedRelationship.id,
-        changeId: establishedRelationship.changes.first.id,
-        content: {'a': 'b'},
-      );
+      final responseResult = await session2.transportServices.relationships.acceptRelationship(relationshipId: establishedRelationship.id);
 
       expect(responseResult, isSuccessful<RelationshipDTO>());
       expect(responseResult.value.id, establishedRelationship.id);
     });
   });
 
-  group('RelationshipsFacade: rejectRelationshipChange', () {
+  group('RelationshipsFacade: rejectRelationship', () {
     test('should reject a relationship', () async {
       final establishedRelationship = await establishRelationshipAndSync(requestor: session1, templator: session2);
 
-      final responseResult = await session2.transportServices.relationships.rejectRelationshipChange(
-        relationshipId: establishedRelationship.id,
-        changeId: establishedRelationship.changes.first.id,
-        content: {'a': 'b'},
-      );
+      final responseResult = await session2.transportServices.relationships.rejectRelationship(relationshipId: establishedRelationship.id);
+
+      expect(responseResult, isSuccessful<RelationshipDTO>());
+      expect(responseResult.value.id, establishedRelationship.id);
+    });
+  });
+
+  group('RelationshipsFacade: revokeRelationship', () {
+    test('should revoke a relationship', () async {
+      final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
+
+      final responseResult = await session1.transportServices.relationships.revokeRelationship(relationshipId: establishedRelationship.id);
 
       expect(responseResult, isSuccessful<RelationshipDTO>());
       expect(responseResult.value.id, establishedRelationship.id);
@@ -163,6 +166,80 @@ void run(EnmeshedRuntime runtime) {
 
       expect(responseResult, isSuccessful<List<LocalAttributeDTO>>());
       expect(responseResult.value.length, 2);
+    });
+  });
+
+  group('RelationshipsFacade: terminateRelationship', () {
+    test('should terminate a relationship', () async {
+      final establishedRelationship = await ensureActiveRelationship(session1, session2);
+
+      final responseResult = await session1.transportServices.relationships.terminateRelationship(relationshipId: establishedRelationship.id);
+
+      expect(responseResult, isSuccessful<RelationshipDTO>());
+      expect(responseResult.value.id, establishedRelationship.id);
+    });
+  });
+
+  group('RelationshipsFacade: requestRelationshipReactivation / acceptRelationshipReactivation', () {
+    test('should request the reactivation of a relationship and then accept it', () async {
+      final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
+
+      final reactivationRequestResult =
+          await session1.transportServices.relationships.requestRelationshipReactivation(relationshipId: establishedRelationship.id);
+
+      expect(reactivationRequestResult, isSuccessful<RelationshipDTO>());
+      expect(reactivationRequestResult.value.id, establishedRelationship.id);
+
+      await syncUntilHasRelationship(session2);
+      final acceptanceResult =
+          await session2.transportServices.relationships.acceptRelationshipReactivation(relationshipId: establishedRelationship.id);
+      expect(acceptanceResult, isSuccessful<RelationshipDTO>());
+      expect(acceptanceResult.value.id, establishedRelationship.id);
+    });
+  });
+
+  group('RelationshipsFacade: requestRelationshipReactivation / revokeRelationshipReactivation', () {
+    test('should request the reactivation of a relationship and then revoke it', () async {
+      final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
+
+      final reactivationRequestResult =
+          await session1.transportServices.relationships.requestRelationshipReactivation(relationshipId: establishedRelationship.id);
+
+      expect(reactivationRequestResult, isSuccessful<RelationshipDTO>());
+      expect(reactivationRequestResult.value.id, establishedRelationship.id);
+
+      final revocationResult =
+          await session1.transportServices.relationships.revokeRelationshipReactivation(relationshipId: establishedRelationship.id);
+      expect(revocationResult, isSuccessful<RelationshipDTO>());
+      expect(revocationResult.value.id, establishedRelationship.id);
+    });
+  });
+
+  group('RelationshipsFacade: requestRelationshipReactivation / rejectRelationshipReactivation', () {
+    test('should request the reactivation of a relationship and then reject it', () async {
+      final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
+
+      final reactivationRequestResult =
+          await session1.transportServices.relationships.requestRelationshipReactivation(relationshipId: establishedRelationship.id);
+
+      expect(reactivationRequestResult, isSuccessful<RelationshipDTO>());
+      expect(reactivationRequestResult.value.id, establishedRelationship.id);
+
+      await syncUntilHasRelationship(session2);
+      final rejectionResult =
+          await session2.transportServices.relationships.rejectRelationshipReactivation(relationshipId: establishedRelationship.id);
+      expect(rejectionResult, isSuccessful<RelationshipDTO>());
+      expect(rejectionResult.value.id, establishedRelationship.id);
+    });
+  });
+
+  group('RelationshipsFacade: decomposeRelationship', () {
+    test('should decompose a relationship', () async {
+      final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
+
+      final decompositionResult = await session1.transportServices.relationships.decomposeRelationship(relationshipId: establishedRelationship.id);
+
+      expect(decompositionResult, isSuccessful<void>());
     });
   });
 }

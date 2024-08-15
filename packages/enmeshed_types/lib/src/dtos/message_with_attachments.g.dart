@@ -9,7 +9,7 @@ part of 'message_with_attachments.dart';
 MessageWithAttachmentsDTO _$MessageWithAttachmentsDTOFromJson(Map<String, dynamic> json) => MessageWithAttachmentsDTO(
       id: json['id'] as String,
       isOwn: json['isOwn'] as bool,
-      content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
+      content: MessageContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
       createdBy: json['createdBy'] as String,
       createdByDevice: json['createdByDevice'] as String,
       recipients: (json['recipients'] as List<dynamic>).map((e) => RecipientDTO.fromJson(e as Map<String, dynamic>)).toList(),

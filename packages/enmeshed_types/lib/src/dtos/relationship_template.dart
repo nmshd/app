@@ -8,7 +8,7 @@ class RelationshipTemplateDTO extends Equatable {
   final String createdBy;
   final String createdByDevice;
   final String createdAt;
-  final AbstractRelationshipTemplateContent content;
+  final RelationshipTemplateContentDerivation content;
   final String? expiresAt;
   final int? maxNumberOfAllocations;
   final String secretKey;
@@ -33,7 +33,7 @@ class RelationshipTemplateDTO extends Equatable {
         createdBy: json['createdBy'],
         createdByDevice: json['createdByDevice'],
         createdAt: json['createdAt'],
-        content: AbstractRelationshipTemplateContent.fromJson(json['content']),
+        content: RelationshipTemplateContentDerivation.fromJson(json['content']),
         expiresAt: json['expiresAt'],
         maxNumberOfAllocations: json['maxNumberOfAllocations']?.toInt(),
         secretKey: json['secretKey'],

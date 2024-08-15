@@ -1,6 +1,6 @@
-import 'contents.dart';
+part of 'relationship_template_content_derivation.dart';
 
-class RelationshipTemplateContent extends AbstractRelationshipTemplateContent {
+class RelationshipTemplateContent extends RelationshipTemplateContentDerivation {
   final String? title;
   final Map<String, dynamic>? metadata;
   final Request onNewRelationship;

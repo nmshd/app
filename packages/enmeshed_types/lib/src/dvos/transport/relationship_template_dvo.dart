@@ -22,7 +22,7 @@ class RelationshipTemplateDVO extends DataViewObject {
   final RequestDVO? onNewRelationship;
   final RequestDVO? onExistingRelationship;
   final LocalRequestDVO? request;
-  final RelationshipTemplateContent content;
+  final RelationshipTemplateContentDerivation content;
 
   const RelationshipTemplateDVO({
     required super.id,

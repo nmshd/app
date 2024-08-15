@@ -10,7 +10,7 @@ class MessagesFacade {
 
   Future<Result<MessageDTO>> sendMessage({
     required List<String> recipients,
-    required Map<String, dynamic> content,
+    required MessageContentDerivation content,
     List<String>? attachments,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
@@ -20,7 +20,7 @@ class MessagesFacade {
       arguments: {
         'request': {
           'recipients': recipients,
-          'content': content,
+          'content': content.toJson(),
           if (attachments != null) 'attachments': attachments,
         },
       },

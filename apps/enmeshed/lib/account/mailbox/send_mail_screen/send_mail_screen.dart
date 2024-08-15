@@ -176,7 +176,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
 
     final messageResult = await session.transportServices.messages.sendMessage(
       recipients: [_recipient!.id],
-      content: Mail(to: [_recipient!.id], subject: _subjectController.text, body: _messageController.text).toJson(),
+      content: Mail(to: [_recipient!.id], subject: _subjectController.text, body: _messageController.text),
       attachments: _attachments.map((file) => file.id).toList(),
     );
 

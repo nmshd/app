@@ -118,3 +118,40 @@ Future<void> showDownloadFileErrorDialog(BuildContext context) async {
     },
   );
 }
+
+Future<bool> showDeleteRelationshipConfirmationDialog(BuildContext context, {required String contactName}) async {
+  return showConfirmationDialog(
+    context,
+    icon: Icon(Icons.delete_forever_outlined, color: context.customColors.error),
+    title: Text(
+      context.l10n.contacts_delete_title(contactName),
+      style: Theme.of(context).textTheme.headlineSmall,
+      textAlign: TextAlign.center,
+    ),
+    content: Text(context.l10n.contacts_delete_description, textAlign: TextAlign.center),
+    confirmText: context.l10n.delete,
+  );
+}
+
+Future<bool> showConfirmationDialog(
+  BuildContext context, {
+  required Widget title,
+  required Widget content,
+  required String confirmText,
+  Icon? icon,
+}) async {
+  final result = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      icon: icon,
+      title: title,
+      content: content,
+      actions: [
+        OutlinedButton(onPressed: () => context.pop(false), child: Text(context.l10n.cancel)),
+        FilledButton(onPressed: () => context.pop(true), child: Text(confirmText)),
+      ],
+    ),
+  );
+
+  return result ?? false;
+}

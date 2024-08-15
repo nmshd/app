@@ -27,6 +27,7 @@ RepositoryAttributeDVO _$RepositoryAttributeDVOFromJson(Map<String, dynamic> jso
       succeeds: json['succeeds'] as String?,
       succeededBy: json['succeededBy'] as String?,
       sharedWith: (json['sharedWith'] as List<dynamic>).map((e) => SharedToPeerAttributeDVO.fromJson(e as Map<String, dynamic>)).toList(),
+      isDefault: json['isDefault'] as bool?,
     );
 
 Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO instance) {
@@ -60,6 +61,7 @@ Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO insta
   writeNotNull('succeededBy', instance.succeededBy);
   val['sharedWith'] = instance.sharedWith.map((e) => e.toJson()).toList();
   writeNotNull('tags', instance.tags);
+  writeNotNull('isDefault', instance.isDefault);
   return val;
 }
 

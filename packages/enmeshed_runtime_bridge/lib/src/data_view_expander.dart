@@ -347,40 +347,10 @@ class DataViewExpander {
     return value.map((e) => RecipientDVO.fromJson(e)).toList();
   }
 
-  Future<RelationshipChangeDVO> expandRelationshipChangeDTO(RelationshipDTO relationship, RelationshipChangeDTO change) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandRelationshipChangeDTO(relationship, change)',
-      arguments: {'relationship': relationship.toJson(), 'change': change.toJson()},
-    );
-
-    final value = result.valueToMap();
-    return RelationshipChangeDVO.fromJson(value);
-  }
-
-  Future<List<RelationshipChangeDVO>> expandRelationshipChangeDTOs(RelationshipDTO relationship) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandRelationshipChangeDTOs(relationship)',
-      arguments: {'relationship': relationship.toJson()},
-    );
-
-    final value = result.valueToList();
-    return value.map((e) => RelationshipChangeDVO.fromJson(e)).toList();
-  }
-
   Future<IdentityDVO> expandRelationshipDTO(RelationshipDTO relationship) async {
     final result = await _evaluator.evaluateJavaScript(
       'return await session.expander.expandRelationshipDTO(relationship)',
       arguments: {'relationship': relationship.toJson()},
-    );
-
-    final value = result.valueToMap();
-    return IdentityDVO.fromJson(value);
-  }
-
-  Future<IdentityDVO> expandIdentityForAddress(String address) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandIdentityForAddress(address)',
-      arguments: {'address': address},
     );
 
     final value = result.valueToMap();

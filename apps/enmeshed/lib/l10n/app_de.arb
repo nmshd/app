@@ -261,6 +261,18 @@
   "contacts_empty": "Kontakte hinzufügen",
   "contacts_emptyDescription": "Verbinden Sie sich mit Kontakten, um Daten oder Dokumente zu teilen oder zu empfangen.",
   "contacts_pending": "Der Kontakt hat die Beziehungsanfrage noch nicht akzeptiert.",
+  "contacts_terminated": "Die Beziehung zum Kontakt wurde terminiert.",
+  "contacts_deletionProposed": "Die Beziehung zum Kontakt wurde zur Löschung vorgeschlagen.",
+  "contacts_delete_title": "Kontakt \"{contactName}\" löschen?",
+  "@contacts_delete_title": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
+  "contacts_delete_description": "Es werden alle geteilten und empfangene Informationen bis auf Dokumente gelöscht. Der Kontakt wird darüber Informiert und gebeten diese Informationen auch zu löschen. Es können keine Nachrichten mehr gesendet oder empfangen werden.",
+  "contacts_delete_deleteContact": "Kontakt löschen",
   "contactDetail_connectedSince": "Kontakt seit {since}",
   "@contactDetail_connectedSince": {
     "placeholders": {
