@@ -50,3 +50,9 @@ extension Separated<T extends Widget> on Iterable<T> {
     return widgets;
   }
 }
+
+extension Toggle<T> on Set<T> {
+  void toggle(T value) {
+    contains(value) ? remove(value) : add(value);
+  }
+}

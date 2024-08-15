@@ -12,7 +12,9 @@ import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-import '/core/core.dart';
+import '../constants.dart';
+import '../utils/utils.dart';
+import '../widgets/file_chooser.dart';
 
 Future<void> showSucceedAttributeModal({
   required BuildContext context,
