@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import 'file_filter_type.dart';
-import 'modals/select_filter_files.dart';
+import 'modals/select_file_filters.dart';
 
 enum _FilesSortingType { date, name, type, size }
 
