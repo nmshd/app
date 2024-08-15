@@ -178,9 +178,3 @@ class _ModalSheetFooter extends StatelessWidget {
     );
   }
 }
-
-extension _Toggle<T> on Set<T> {
-  void toggle(T value) {
-    contains(value) ? remove(value) : add(value);
-  }
-}

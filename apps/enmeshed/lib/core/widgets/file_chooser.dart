@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
+import '../widgets/widgets.dart';
 
 Future<FileDVO?> openFileChooser({
   required BuildContext context,
