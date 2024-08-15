@@ -15,17 +15,12 @@ class ContactFavorite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const iconSize = 72;
-
     return InkWell(
       onTap: onTap,
       child: Column(
         children: [
-          ContactCircleAvatar(contactName: contact.name, radius: iconSize / 2),
-          SizedBox(
-            width: iconSize.toDouble(),
-            child: Text(contact.name, overflow: TextOverflow.ellipsis),
-          ),
+          ContactCircleAvatar(contact: contact, radius: 36),
+          if (!contact.isUnknown) SizedBox(width: 72, child: Text(contact.name, overflow: TextOverflow.ellipsis)),
         ],
       ),
     );

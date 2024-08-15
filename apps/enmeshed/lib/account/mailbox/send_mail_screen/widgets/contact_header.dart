@@ -13,7 +13,7 @@ class ContactHeader extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ContactCircleAvatar(contactName: contact.name, radius: 20),
+        ContactCircleAvatar(contact: contact, radius: 20),
         Gaps.w16,
         Expanded(
           child: Column(

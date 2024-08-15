@@ -1,13 +1,10 @@
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '/core/core.dart';
-
 class ContactHeadline extends StatelessWidget {
-  final IdentityDVO? contact;
+  final String text;
   final Icon? icon;
 
-  const ContactHeadline({super.key, this.contact, this.icon});
+  const ContactHeadline({required this.text, this.icon, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +16,7 @@ class ContactHeadline extends StatelessWidget {
         children: [
           if (icon != null) Padding(padding: const EdgeInsets.only(right: 8), child: icon),
           Text(
-            contact?.initials[0].toUpperCase() ?? context.l10n.favorites,
+            text,
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ],

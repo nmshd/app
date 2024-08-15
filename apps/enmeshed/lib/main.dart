@@ -164,7 +164,6 @@ final _router = GoRouter(
             accountId: state.pathParameters['accountId']!,
             location: state.fullPath!,
             mailboxFilterController: _mailboxFilterController,
-            showSecondTab: state.uri.queryParameters['showSecondTab'] == 'true',
             child: child,
           ),
           routes: [

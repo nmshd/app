@@ -122,14 +122,27 @@ Future<void> showDownloadFileErrorDialog(BuildContext context) async {
 Future<bool> showDeleteRelationshipConfirmationDialog(BuildContext context, {required String contactName}) async {
   return showConfirmationDialog(
     context,
-    icon: Icon(Icons.delete_forever_outlined, color: context.customColors.error),
+    icon: Icon(Icons.delete_outline, color: context.customColors.error),
     title: Text(
-      context.l10n.contacts_delete_title(contactName),
+      contactName == unknownContactName ? context.l10n.contacts_delete_title_unknown : context.l10n.contacts_delete_title(contactName),
       style: Theme.of(context).textTheme.headlineSmall,
       textAlign: TextAlign.center,
     ),
     content: Text(context.l10n.contacts_delete_description, textAlign: TextAlign.center),
     confirmText: context.l10n.delete,
+  );
+}
+
+Future<bool> showRevokeRelationshipConfirmationDialog(BuildContext context, {required String contactName}) async {
+  return showConfirmationDialog(
+    context,
+    title: Text(
+      context.l10n.contacts_revoke_title,
+      style: Theme.of(context).textTheme.headlineSmall,
+      textAlign: TextAlign.center,
+    ),
+    content: Text(context.l10n.contacts_revoke_description, textAlign: TextAlign.center),
+    confirmText: context.l10n.contacts_revoke_action,
   );
 }
 

@@ -48,7 +48,9 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
       ..add(runtime.eventBus.on<MessageReceivedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<MessageSentEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _reloadMessages()))
-      ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadMessages()));
+      ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadMessages()))
+      ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reloadMessages()))
+      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadMessages()));
   }
 
   @override
@@ -64,8 +66,9 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.contact_information));
 
-    // TODO(aince42): do not check _incomingMessages for null here, instead make the component handle a null value and show a loading indicator
-    if (_contact == null || _incomingMessages == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_contact == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+
+    final contact = _contact!;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -83,72 +86,108 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
             child: ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Row(
                     children: [
-                      ContactCircleAvatar(contactName: _contact!.name, radius: 32),
-                      Gaps.w8,
+                      ContactCircleAvatar(contact: contact, radius: 32),
+                      Gaps.w16,
                       Expanded(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(_contact!.name, style: Theme.of(context).textTheme.bodyLarge),
-                            if (_contact!.date != null)
-                              Text(
-                                context.l10n.contactDetail_connectedSince(
-                                  DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(_contact!.date!).toLocal()),
+                            Text(
+                              contact.isUnknown ? context.l10n.contacts_unknown : contact.name,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            switch (contact.relationship?.status) {
+                              RelationshipStatus.Active => Text(
+                                  context.l10n.contactDetail_connectedSince(
+                                    DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(contact.date!).toLocal()),
+                                  ),
                                 ),
-                              ),
+                              RelationshipStatus.Pending => Text(
+                                  context.l10n.contactDetail_requestedAt(
+                                    DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(contact.date!).toLocal()),
+                                  ),
+                                ),
+                              _ => const SizedBox.shrink(),
+                            },
                           ],
                         ),
                       ),
-                      if (context.isFeatureEnabled('DELETE_RELATIONSHIP'))
-                        IconButton(
-                          onPressed: () => showNotImplementedDialog(context),
-                          icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                    ],
+                  ),
+                ),
+                if (contact.relationship?.status == RelationshipStatus.Pending)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: ColoredBox(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.hourglass_top, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            Gaps.w8,
+                            Text(
+                              context.l10n.contactDetail_notAcceptedYet,
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            ),
+                          ],
                         ),
+                      ),
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Wrap(
+                    spacing: 8,
+                    children: [
                       if (_loadingFavoriteContact)
                         const IconButton(onPressed: null, icon: SizedBox(width: 24, height: 24, child: CircularProgressIndicator()))
                       else
-                        Align(
-                          child: IconButton(
-                            icon: _isFavoriteContact ?? false ? const Icon(Icons.star) : const Icon(Icons.star_border),
-                            color: _isFavoriteContact ?? false ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
-                            onPressed: _isFavoriteContact == null ? null : _toggleFavoriteContact,
-                          ),
+                        IconButton(
+                          icon: _isFavoriteContact ?? false ? const Icon(Icons.star) : const Icon(Icons.star_border),
+                          color: _isFavoriteContact ?? false ? Theme.of(context).colorScheme.primary : null,
+                          onPressed: _isFavoriteContact == null ? null : _toggleFavoriteContact,
+                          tooltip: switch (_isFavoriteContact) {
+                            true => context.l10n.contactDetail_removeFromFavorites,
+                            false => context.l10n.contactDetail_addToFavorites,
+                            null => null,
+                          },
                         ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: FilledButton.icon(
+                      if (contact.relationship?.status == RelationshipStatus.Active)
+                        IconButton(
                           onPressed: () => context.push('/account/${widget.accountId}/mailbox/send', extra: _contact),
-                          style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
-                          label: Text(context.l10n.contactDetail_sendMessage, textAlign: TextAlign.center),
-                          icon: const Icon(Icons.mail, size: 16),
+                          icon: const Icon(Icons.mail_outlined),
+                          tooltip: context.l10n.contactDetail_sendMessage,
                         ),
+                      if (_showSendCertificateButton)
+                        IconButton(
+                          onPressed: () => showRequestCertificateModal(context: context, session: _session, peer: contact.id),
+                          icon: const Icon(Icons.security),
+                          tooltip: context.l10n.contactDetail_requestCertificate,
+                        ),
+                      IconButton(
+                        onPressed: () => deleteContact(
+                          context: context,
+                          accountId: widget.accountId,
+                          contact: contact,
+                          onContactDeleted: () {
+                            if (context.mounted) context.pop();
+                          },
+                        ),
+                        icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                        tooltip: context.l10n.contacts_delete_deleteContact,
                       ),
-                      if (_showSendCertificateButton) ...[
-                        Gaps.w8,
-                        Expanded(
-                          child: FilledButton.icon(
-                            onPressed: () => showRequestCertificateModal(context: context, session: _session, peer: _contact!.id),
-                            style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
-                            label: Text(context.l10n.contactDetail_requestCertificate, textAlign: TextAlign.center),
-                            icon: const Icon(AppIcons.requestCertificate, size: 16),
-                          ),
-                        ),
-                      ],
                     ],
                   ),
                 ),
+                Gaps.h16,
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Text(
                     context.l10n.contactDetail_sharedInformation,
                     style: Theme.of(context).textTheme.titleLarge,
@@ -169,22 +208,24 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                     ),
                   ],
                 ),
+                Gaps.h16,
                 MessagesContainer(
                   accountId: widget.accountId,
-                  messages: _incomingMessages!,
+                  messages: _incomingMessages,
                   unreadMessagesCount: _unreadMessagesCount,
-                  seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId),
+                  seeAllMessages: _incomingMessages != null && _incomingMessages!.isNotEmpty
+                      ? () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId)
+                      : null,
                   title: context.l10n.contact_information_messages,
                   noMessagesText: context.l10n.contact_information_noMessages,
                   hideAvatar: true,
                 ),
+                Gaps.h16,
                 ContactSharedFiles(
                   accountId: widget.accountId,
                   contactId: widget.contactId,
                   sharedFiles: sharedFiles,
                 ),
-                Gaps.h16,
-                _DeleteContact(widget.accountId, _contact!),
               ],
             ),
           ),
@@ -262,46 +303,5 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
         _loadingFavoriteContact = false;
       });
     }
-  }
-}
-
-class _DeleteContact extends StatelessWidget {
-  final String accountId;
-  final IdentityDVO contact;
-
-  const _DeleteContact(this.accountId, this.contact);
-
-  @override
-  Widget build(BuildContext context) {
-    return ColoredBox(
-      color: context.customColors.errorContainer!,
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Flex(
-          direction: Axis.horizontal,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            OutlinedButton(
-              onPressed: () => deleteContact(
-                context: context,
-                accountId: accountId,
-                contact: contact,
-                onContactDeleted: () {
-                  if (context.mounted) context.pop();
-                },
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.delete, color: Theme.of(context).colorScheme.error),
-                  Gaps.w8,
-                  Text(context.l10n.contacts_delete_deleteContact),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

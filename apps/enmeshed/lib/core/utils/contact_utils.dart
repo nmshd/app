@@ -125,14 +125,14 @@ Future<void> deleteContact({
   required IdentityDVO contact,
   required VoidCallback onContactDeleted,
 }) async {
-  final accepted = await showDeleteRelationshipConfirmationDialog(context, contactName: contact.name);
-  if (!accepted) return;
-
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
   final relationship = contact.relationship!;
 
   if (relationship.status == RelationshipStatus.Pending) {
+    final accepted = await showRevokeRelationshipConfirmationDialog(context, contactName: contact.name);
+    if (!accepted) return;
+
     final result = await session.transportServices.relationships.revokeRelationship(relationshipId: relationship.id);
     if (result.isError) {
       GetIt.I.get<Logger>().e(result.error);
@@ -141,6 +141,9 @@ Future<void> deleteContact({
 
     return;
   }
+
+  final accepted = await showDeleteRelationshipConfirmationDialog(context, contactName: contact.name);
+  if (!accepted) return;
 
   if (relationship.status == RelationshipStatus.Active) {
     final result = await session.transportServices.relationships.terminateRelationship(relationshipId: relationship.id);

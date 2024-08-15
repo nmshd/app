@@ -37,3 +37,5 @@ class MaxLength {
 
   static const int fileName = 50;
 }
+
+const unknownContactName = 'i18n://dvo.identity.unknown';

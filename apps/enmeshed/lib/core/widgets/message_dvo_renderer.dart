@@ -25,7 +25,7 @@ class MessageDVORenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: ContactCircleAvatar(radius: 20, contactName: message.peer.name),
+      leading: ContactCircleAvatar(radius: 20, contact: message.peer),
       title: _MessagesContent(message: message, query: query),
       onTap: () => _onTap(context),
     );
