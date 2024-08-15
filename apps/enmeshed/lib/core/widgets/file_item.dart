@@ -2,7 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../utils/utils.dart';
+import '../utils/file_utils.dart';
+import '../utils/strings.dart';
 import 'file_icon.dart';
 import 'highlight_text.dart';
 

@@ -11,7 +11,10 @@ import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-import '/core/core.dart';
+import '../constants.dart';
+import '../utils/utils.dart';
+import '../widgets/empty_list_indicator.dart';
+import '../widgets/file_chooser.dart';
 
 Future<void> showCreateAttributeModal({
   required BuildContext context,
