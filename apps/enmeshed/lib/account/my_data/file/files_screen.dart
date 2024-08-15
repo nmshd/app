@@ -7,6 +7,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
+import 'file_filter_type.dart';
+import 'modals/select_filter_files.dart';
 
 enum _FilesSortingType { date, name, type, size }
 
@@ -22,6 +24,8 @@ class FilesScreen extends StatefulWidget {
 
 class _FilesScreenState extends State<FilesScreen> {
   List<FileDVO>? _files;
+  List<FileDVO> _filteredFiles = [];
+  Set<FileFilterType> _activeFilters = {};
   _FilesSortingType _sortingType = _FilesSortingType.date;
   bool _isSortedAscending = false;
 
@@ -37,6 +41,20 @@ class _FilesScreenState extends State<FilesScreen> {
     final appBar = AppBar(
       title: Text(context.l10n.files),
       actions: [
+        IconButton(
+          onPressed: _files != null && _files!.isNotEmpty
+              ? () => showSelectFileFilters(
+                    context,
+                    availableFilters: _files!.map((file) => file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
+                    activeFilters: _activeFilters,
+                    onApplyFilters: (selectedFilters) {
+                      setState(() => _activeFilters = selectedFilters);
+                      _filterAndSort();
+                    },
+                  )
+              : null,
+          icon: Badge(isLabelVisible: _activeFilters.isNotEmpty, child: const Icon(Icons.filter_list)),
+        ),
         SearchAnchor(
           suggestionsBuilder: _buildSuggestions,
           builder: (BuildContext context, SearchController controller) => IconButton(
@@ -50,6 +68,16 @@ class _FilesScreenState extends State<FilesScreen> {
 
     if (_files == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
 
+    if (_files!.isEmpty) {
+      return Scaffold(
+        appBar: appBar,
+        body: RefreshIndicator(
+          onRefresh: () => _loadFiles(syncBefore: true),
+          child: EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable, wrapInListView: true),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
@@ -58,25 +86,37 @@ class _FilesScreenState extends State<FilesScreen> {
             _SortBar(
               sortingType: _sortingType,
               isSortedAscending: _isSortedAscending,
-              onSortingConditionChanged: ({required _FilesSortingType type, required bool isSortedAscending}) => _sortFiles(
-                _files!,
-                type,
-                isSortedAscending,
-              ),
+              onSortingConditionChanged: ({required _FilesSortingType type, required bool isSortedAscending}) {
+                _isSortedAscending = isSortedAscending;
+                _sortingType = type;
+
+                _filterAndSort();
+              },
             ),
+            if (_activeFilters.isNotEmpty)
+              _FilterBar(
+                activeFilters: _activeFilters,
+                onRemoveFilter: (removedFilter) {
+                  _activeFilters.remove(removedFilter);
+                  _filterAndSort();
+                },
+                onResetFilters: () {
+                  _activeFilters = {};
+                  _filterAndSort();
+                },
+              ),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () => _loadFiles(syncBefore: true),
-                child: _files!.isEmpty
-                    ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable, wrapInListView: true)
-                    : ListView.separated(
-                        itemBuilder: (context, index) {
-                          final file = _files![index];
-                          return FileItem(accountId: widget.accountId, file: file, trailing: const Icon(Icons.chevron_right));
-                        },
-                        itemCount: _files!.length,
-                        separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
-                      ),
+                child: ListView.separated(
+                  itemBuilder: (context, index) => FileItem(
+                    accountId: widget.accountId,
+                    file: _filteredFiles[index],
+                    trailing: const Icon(Icons.chevron_right),
+                  ),
+                  itemCount: _filteredFiles.length,
+                  separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
+                ),
               ),
             ),
           ],
@@ -93,19 +133,21 @@ class _FilesScreenState extends State<FilesScreen> {
     final filesResult = await session.transportServices.files.getFiles();
     final files = await session.expander.expandFileDTOs(filesResult.value);
 
-    _sortFiles(files, _sortingType, _isSortedAscending);
+    _files = files;
+    _filterAndSort();
   }
 
-  void _sortFiles(List<FileDVO> files, _FilesSortingType sortingType, bool isSortedAscending) {
-    final sortedFiles = files..sort(_compareFunction(sortingType, isSortedAscending));
-
-    if (mounted) {
-      setState(() {
-        _files = sortedFiles;
-        _isSortedAscending = isSortedAscending;
-        _sortingType = sortingType;
-      });
+  void _filterAndSort() {
+    if (_activeFilters.isEmpty) {
+      final sorted = _files!..sort(_compareFunction(_sortingType, _isSortedAscending));
+      setState(() => _filteredFiles = sorted);
+      return;
     }
+
+    final filteredFiles = _files!.where((file) => _activeFilters.contains(FileFilterType.fromMimetype(file.mimetype))).toList()
+      ..sort(_compareFunction(_sortingType, _isSortedAscending));
+
+    setState(() => _filteredFiles = filteredFiles);
   }
 
   int Function(FileDVO, FileDVO) _compareFunction(_FilesSortingType type, bool isSortedAscending) => switch (type) {
@@ -205,7 +247,7 @@ class _SortBarState extends State<_SortBar> {
   Widget build(BuildContext context) {
     return Container(
       height: 48,
-      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      color: Theme.of(context).colorScheme.surfaceContainer,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -240,9 +282,59 @@ class _SortBarState extends State<_SortBar> {
           ),
           IconButton(
             onPressed: () => widget.onSortingConditionChanged(type: widget.sortingType, isSortedAscending: !widget.isSortedAscending),
-            icon: Icon(widget.isSortedAscending ? Icons.arrow_downward : Icons.arrow_upward),
+            icon: Icon(widget.isSortedAscending ? Icons.arrow_upward : Icons.arrow_downward),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _FilterBar extends StatelessWidget {
+  final Set<FileFilterType> activeFilters;
+  final void Function(FileFilterType) onRemoveFilter;
+  final void Function() onResetFilters;
+
+  const _FilterBar({
+    required this.activeFilters,
+    required this.onRemoveFilter,
+    required this.onResetFilters,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final activeFilters = this.activeFilters.map((e) => (filter: e, label: e.toLabel(context))).toList()
+      ..sort((a, b) {
+        if (a.filter is OtherFileFilterType) return 1;
+        if (b.filter is OtherFileFilterType) return -1;
+        return a.label.compareTo(b.label);
+      });
+
+    return ColoredBox(
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+        child: Row(
+          children: [
+            Expanded(
+              child: Wrap(
+                spacing: 12,
+                children: activeFilters.map((e) {
+                  return FilterChip(
+                    label: Text(e.label),
+                    selected: true,
+                    showCheckmark: false,
+                    padding: EdgeInsets.zero,
+                    deleteIcon: const Icon(Icons.close),
+                    onDeleted: () => onRemoveFilter(e.filter),
+                    onSelected: (value) => value,
+                  );
+                }).toList(),
+              ),
+            ),
+            IconButton(onPressed: onResetFilters, icon: const Icon(Icons.close)),
+          ],
+        ),
       ),
     );
   }
