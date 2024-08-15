@@ -15,6 +15,7 @@ export 'local_response.dart';
 export 'local_response_source.dart';
 export 'message.dart';
 export 'message_with_attachments.dart';
+export 'peer_deletion_info.dart';
 export 'recipient.dart';
 export 'relationship.dart';
 export 'relationship_template.dart';
