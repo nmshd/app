@@ -17,10 +17,10 @@ Map<String, dynamic> _$LocalAttributeDeletionInfoToJson(LocalAttributeDeletionIn
     };
 
 const _$DeletionStatusEnumMap = {
-  DeletionStatus.DeletionRequestSent: 'DeletionRequestSent',
-  DeletionStatus.DeletionRequestRejected: 'DeletionRequestRejected',
-  DeletionStatus.ToBeDeleted: 'ToBeDeleted',
-  DeletionStatus.ToBeDeletedByPeer: 'ToBeDeletedByPeer',
-  DeletionStatus.DeletedByPeer: 'DeletedByPeer',
-  DeletionStatus.DeletedByOwner: 'DeletedByOwner',
+  AttributeDeletionStatus.DeletionRequestSent: 'DeletionRequestSent',
+  AttributeDeletionStatus.DeletionRequestRejected: 'DeletionRequestRejected',
+  AttributeDeletionStatus.ToBeDeleted: 'ToBeDeleted',
+  AttributeDeletionStatus.ToBeDeletedByPeer: 'ToBeDeletedByPeer',
+  AttributeDeletionStatus.DeletedByPeer: 'DeletedByPeer',
+  AttributeDeletionStatus.DeletedByOwner: 'DeletedByOwner',
 };
