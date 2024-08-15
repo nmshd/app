@@ -10,6 +10,7 @@ class EmptyListIndicator extends StatelessWidget {
   final Color? backgroundColor;
   final String? filteredText;
   final String? description;
+  final Widget? action;
 
   const EmptyListIndicator({
     required this.icon,
@@ -19,6 +20,7 @@ class EmptyListIndicator extends StatelessWidget {
     this.backgroundColor,
     this.filteredText,
     this.description,
+    this.action,
     super.key,
   }) : assert(isFiltered == false || filteredText != null, 'filteredText must be provided when isFiltered is true');
 
@@ -48,6 +50,7 @@ class EmptyListIndicator extends StatelessWidget {
               Gaps.h8,
               Text(description!, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
             ],
+            if (action != null) ...[Gaps.h12, action!],
           ],
         ),
       ),

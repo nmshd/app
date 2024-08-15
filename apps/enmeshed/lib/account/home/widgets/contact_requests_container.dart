@@ -67,7 +67,8 @@ class _ContactRequestsHeader extends StatelessWidget {
           ],
         ),
         TextButton(
-          onPressed: () => context.go('/account/$accountId/contacts?showSecondTab=true'),
+          // TODO(jkoenig134): when the contacts requests container is re-enabled this should go to the contacts page pre-filtered to show only requests
+          onPressed: () => context.go('/account/$accountId/contacts'),
           child: Text(context.l10n.home_seeAll),
         ),
       ],
@@ -112,7 +113,7 @@ class _ContactRequestItem extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ContactCircleAvatar(radius: 20, contactName: request.peer.initials),
+              ContactCircleAvatar(radius: 20, contact: request.peer),
               Gaps.w16,
               Flexible(
                 child: TranslatedText(

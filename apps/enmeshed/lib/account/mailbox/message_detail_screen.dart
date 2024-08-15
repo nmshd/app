@@ -113,7 +113,7 @@ class _MessageInformationHeader extends StatelessWidget {
       children: [
         Row(
           children: [
-            ContactCircleAvatar(contactName: message.createdBy.isSelf ? message.recipients[0].name : message.createdBy.name, radius: 24),
+            ContactCircleAvatar(contact: message.createdBy.isSelf ? message.recipients[0] : message.createdBy, radius: 24),
             Gaps.w16,
             Expanded(
               child: Column(

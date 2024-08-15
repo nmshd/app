@@ -1,18 +1,22 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
-import '/core/utils/extensions.dart';
+import '../utils/extensions.dart';
 
 class ContactCircleAvatar extends StatelessWidget {
-  final String contactName;
+  final IdentityDVO contact;
   final double radius;
   final Color? color;
 
-  const ContactCircleAvatar({required this.contactName, required this.radius, this.color, super.key});
+  const ContactCircleAvatar({required this.contact, required this.radius, this.color, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final initials = _contactNameLetters(contactName);
     final color = this.color ?? context.customColors.decorativeContainer;
+    if (contact.isUnknown) return _UnknownContactAvatar(radius: radius, color: color);
+
+    final initials = _contactNameLetters(contact.name);
 
     return CircleAvatar(
       radius: radius,
@@ -33,5 +37,26 @@ class ContactCircleAvatar extends StatelessWidget {
     }
 
     return contactName.substring(0, 2);
+  }
+}
+
+class _UnknownContactAvatar extends StatelessWidget {
+  final double radius;
+  final Color? color;
+
+  const _UnknownContactAvatar({required this.radius, this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    final color = this.color ?? context.customColors.decorativeContainer;
+
+    return ClipOval(
+      child: Container(
+        width: radius * 2,
+        height: radius * 2,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+        child: const VectorGraphic(loader: AssetBytesLoader('assets/svg/unknown_contact.svg')),
+      ),
+    );
   }
 }

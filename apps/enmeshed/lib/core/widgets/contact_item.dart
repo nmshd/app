@@ -12,6 +12,7 @@ class ContactItem extends StatelessWidget {
   final Widget? subtitle;
   final String? query;
   final int iconSize;
+  final Color? tileColor;
 
   const ContactItem({
     required this.contact,
@@ -20,24 +21,35 @@ class ContactItem extends StatelessWidget {
     this.subtitle,
     this.query,
     this.iconSize = 56,
+    this.tileColor,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      enabled: contact.relationship?.status == RelationshipStatus.Active,
+      tileColor: tileColor,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      leading: switch (contact.relationship?.status) {
-        RelationshipStatus.Pending => Icon(Icons.pending_outlined, size: iconSize.toDouble(), color: Theme.of(context).colorScheme.outline),
-        _ => ContactCircleAvatar(contactName: contact.name, radius: iconSize / 2)
-      },
-      title: HighlightText(query: query, text: contact.name),
+      leading: ContactCircleAvatar(contact: contact, radius: iconSize / 2),
+      title: HighlightText(query: query, text: contact.isUnknown ? context.l10n.contacts_unknown : contact.name),
       subtitle: subtitle ??
           switch (contact.relationship?.status) {
-            RelationshipStatus.Pending => Text(context.l10n.contacts_pending),
-            RelationshipStatus.Terminated => Text(context.l10n.contacts_terminated),
-            RelationshipStatus.DeletionProposed => Text(context.l10n.contacts_deletionProposed),
+            RelationshipStatus.Pending => Text(
+                context.l10n.contacts_pending,
+                style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+              ),
+            RelationshipStatus.Terminated => Text(
+                context.l10n.contacts_terminated,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            RelationshipStatus.DeletionProposed => Text(
+                context.l10n.contacts_deletionProposed,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            null => Text(
+                context.l10n.contacts_notYetRequested,
+                style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+              ),
             _ => null,
           },
       trailing: trailing,

@@ -260,9 +260,12 @@
   "contact_request": "Kontaktanfrage",
   "contacts_empty": "Kontakte hinzufügen",
   "contacts_emptyDescription": "Verbinden Sie sich mit Kontakten, um Daten oder Dokumente zu teilen oder zu empfangen.",
-  "contacts_pending": "Der Kontakt hat die Beziehungsanfrage noch nicht akzeptiert.",
-  "contacts_terminated": "Die Beziehung zum Kontakt wurde terminiert.",
-  "contacts_deletionProposed": "Die Beziehung zum Kontakt wurde zur Löschung vorgeschlagen.",
+  "contacts_addContact": "Kontakt hinzufügen",
+  "contacts_unknown": "Kontaktname nicht verfügbar",
+  "contacts_notYetRequested": "noch nicht angefragt",
+  "contacts_pending": "noch nicht bestätigt",
+  "contacts_terminated": "Kontakt hat die Beziehung beendet",
+  "contacts_deletionProposed": "Beziehung permanent beendet",
   "contacts_delete_title": "Kontakt \"{contactName}\" löschen?",
   "@contacts_delete_title": {
     "placeholders": {
@@ -271,7 +274,11 @@
       }
     }
   },
+  "contacts_delete_title_unknown": "Kontakt löschen?",
   "contacts_delete_description": "Es werden alle geteilten und empfangene Informationen bis auf Dokumente gelöscht. Der Kontakt wird darüber Informiert und gebeten diese Informationen auch zu löschen. Es können keine Nachrichten mehr gesendet oder empfangen werden.",
+  "contacts_revoke_title": "Kontaktanfrage zurückziehen?",
+  "contacts_revoke_description": "Es werden alle Informationen und Inhalte der Anfrage gelöscht. Es können keine Nachrichten und Dokumente gesendet oder empfangen werden.",
+  "contacts_revoke_action": "Zurückziehen",
   "contacts_delete_deleteContact": "Kontakt löschen",
   "contactDetail_connectedSince": "Kontakt seit {since}",
   "@contactDetail_connectedSince": {
@@ -281,10 +288,21 @@
       }
     }
   },
+  "contactDetail_requestedAt": "angefragt am {since}",
+  "@contactDetail_requestedAt": {
+    "placeholders": {
+      "since": {
+        "type": "String"
+      }
+    }
+  },
+  "contactDetail_notAcceptedYet": "Kontakt noch unbestätigt",
   "contactDetail_entry": "Eintrag",
   "contactDetail_addEntry": "Hinzufügen",
   "contactDetail_selectOrCreateEntryMessage": "Teilen Sie einen bereits angelegten Eintrag mit Ihrem Kontakt oder legen Sie einen neuen dafür an.",
   "contactDetail_selectEntryMessage": "Teilen Sie einen bereits angelegten Eintrag.",
+  "contactDetail_removeFromFavorites": "Aus Favoriten entfernen",
+  "contactDetail_addToFavorites": "Zu Favoriten hinzufügen",
   "contactDetail_sendMessage": "Nachricht senden",
   "contactDetail_requestCertificate": "Zertifikat anfordern",
   "contactDetail_requestCertificate_subject": "Betreff",

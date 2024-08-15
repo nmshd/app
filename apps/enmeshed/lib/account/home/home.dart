@@ -95,7 +95,7 @@ class _HomeViewState extends State<HomeView> {
             ],
             MessagesContainer(
               accountId: widget.accountId,
-              messages: _messages!,
+              messages: _messages,
               unreadMessagesCount: _unreadMessagesCount,
               seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox'),
               title: context.l10n.home_messages,
