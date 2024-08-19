@@ -137,12 +137,10 @@ class _ContactsViewState extends State<ContactsView> {
               );
             },
             separatorBuilder: (context, index) {
-              if (index < _requestsAndRelationships!.length) return const Divider(indent: 16);
-
               final currentCategory = _requestsAndRelationships![index].contact.initials[0].toLowerCase();
               final nextContact = _requestsAndRelationships![index + 1].contact;
               final nextCategory = nextContact.initials[0].toLowerCase();
-              if (currentCategory == nextCategory) return const Divider(indent: 16);
+              if (currentCategory == nextCategory) return const Divider(indent: 16, height: 2);
 
               return ContactHeadline(text: nextContact.initials[0].toUpperCase());
             },
