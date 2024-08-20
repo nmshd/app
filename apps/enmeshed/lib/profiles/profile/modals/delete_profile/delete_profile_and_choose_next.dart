@@ -11,10 +11,16 @@ import '../../widgets/profile_card.dart';
 class DeleteProfileAndChooseNext extends StatefulWidget {
   final LocalAccountDTO localAccount;
   final ValueNotifier<Future<void>?> deleteFuture;
+  final Future<void> Function()? retryFunction;
+  final String successDescription;
+  final String inProgressText;
 
   const DeleteProfileAndChooseNext({
     required this.localAccount,
     required this.deleteFuture,
+    required this.retryFunction,
+    required this.successDescription,
+    required this.inProgressText,
     super.key,
   });
 
@@ -33,7 +39,9 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
     if (widget.deleteFuture.value != null) {
       _handleFuture(widget.deleteFuture.value!);
     } else {
-      widget.deleteFuture.addListener(() => _handleFuture(widget.deleteFuture.value!));
+      widget.deleteFuture.addListener(() {
+        _handleFuture(widget.deleteFuture.value!);
+      });
     }
   }
 
@@ -45,12 +53,12 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
         (Exception(), _) => _Error(
             onRetry: () async {
               setState(() => _exception = null);
-              _handleFuture(GetIt.I.get<EnmeshedRuntime>().accountServices.deleteAccount(widget.localAccount.id));
+              if (widget.retryFunction != null) _handleFuture(widget.retryFunction!());
             },
           ),
-        (_, null) => const _Loading(),
+        (_, null) => _Loading(inProgressText: widget.inProgressText),
         (_, []) => const _Empty(),
-        (_, _) => _AccountsAvailable(accounts: _accounts!),
+        (_, _) => _AccountsAvailable(accounts: _accounts!, successDescription: widget.successDescription),
       },
     );
   }
@@ -63,7 +71,8 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
       );
 
   Future<void> _loadAccounts() async {
-    final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
+    final accounts = await getAccountsNotInDeletion();
+
     accounts.sort((a, b) => a.name.compareTo(b.name));
 
     if (mounted) setState(() => _accounts = accounts);
@@ -104,7 +113,9 @@ class _Error extends StatelessWidget {
 }
 
 class _Loading extends StatelessWidget {
-  const _Loading();
+  final String inProgressText;
+
+  const _Loading({required this.inProgressText});
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +124,7 @@ class _Loading extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(context.l10n.profile_delete_inProgress, style: Theme.of(context).textTheme.headlineSmall),
+          Text(inProgressText, style: Theme.of(context).textTheme.headlineSmall),
           Gaps.h24,
           const SizedBox(child: CircularProgressIndicator()),
         ],
@@ -150,8 +161,9 @@ class _Empty extends StatelessWidget {
 
 class _AccountsAvailable extends StatelessWidget {
   final List<LocalAccountDTO> accounts;
+  final String successDescription;
 
-  const _AccountsAvailable({required this.accounts});
+  const _AccountsAvailable({required this.accounts, required this.successDescription});
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +174,7 @@ class _AccountsAvailable extends StatelessWidget {
           children: [
             Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.successIcon),
             Gaps.h24,
-            Text(context.l10n.profile_delete_success, style: Theme.of(context).textTheme.bodyMedium),
+            Text(successDescription, style: Theme.of(context).textTheme.bodyMedium),
             Gaps.h24,
             Column(
               children: accounts

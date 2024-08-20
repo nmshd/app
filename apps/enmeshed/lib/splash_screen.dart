@@ -103,12 +103,15 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
+    final accountsNotInDeletion = await getAccountsNotInDeletion();
     if (accounts.isEmpty) {
       router.go('/onboarding');
+    } else if (accountsNotInDeletion.isEmpty) {
+      router.go('/onboarding?skipIntroduction=true');
     } else {
-      accounts.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
+      accountsNotInDeletion.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
 
-      final account = accounts.first;
+      final account = accountsNotInDeletion.first;
 
       await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
 

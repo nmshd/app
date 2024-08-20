@@ -56,58 +56,55 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: InfoContainer(
-        padding: const EdgeInsets.only(bottom: 8, left: 24),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CompleteProfileHeader(
-                  count: 4,
-                  countCompleted: [true, _isPersonalDataStored, _hasRelationship, _isFileDataStored].where((e) => e).length,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16, top: 16),
-                  child: IconButton(
-                    onPressed: widget.hideContainer,
-                    icon: Icon(Icons.close, semanticLabel: context.l10n.home_completeProfileCloseIconSemanticsLabel),
-                  ),
-                ),
-              ],
-            ),
-            Padding(padding: const EdgeInsets.only(right: 24, top: 12, bottom: 12), child: Text(context.l10n.home_completeProfileDescription)),
-            _TodoListTile.alwaysChecked(text: context.l10n.home_createProfile),
-            _TodoListTile(
-              done: _isPersonalDataStored,
-              text: context.l10n.home_initialPersonalInformation,
-              number: 2,
-              onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-personalData-creation'),
-            ),
-            _TodoListTile(
-              done: _hasRelationship,
-              number: 3,
-              text: context.l10n.home_initialContact,
-              onPressed: () => goToInstructionsOrScanScreen(
-                accountId: widget.accountId,
-                instructionsType: InstructionsType.addContact,
-                context: context,
+    return InfoContainer(
+      padding: const EdgeInsets.only(bottom: 8, left: 12),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CompleteProfileHeader(
+                count: 4,
+                countCompleted: [true, _isPersonalDataStored, _hasRelationship, _isFileDataStored].where((e) => e).length,
               ),
+              Padding(
+                padding: const EdgeInsets.only(right: 16, top: 16),
+                child: IconButton(
+                  onPressed: widget.hideContainer,
+                  icon: Icon(Icons.close, semanticLabel: context.l10n.home_completeProfileCloseIconSemanticsLabel),
+                ),
+              ),
+            ],
+          ),
+          Padding(padding: const EdgeInsets.only(right: 24, top: 12, bottom: 12), child: Text(context.l10n.home_completeProfileDescription)),
+          _TodoListTile.alwaysChecked(text: context.l10n.home_createProfile),
+          _TodoListTile(
+            done: _isPersonalDataStored,
+            text: context.l10n.home_initialPersonalInformation,
+            number: 2,
+            onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-personalData-creation'),
+          ),
+          _TodoListTile(
+            done: _hasRelationship,
+            number: 3,
+            text: context.l10n.home_initialContact,
+            onPressed: () => goToInstructionsOrScanScreen(
+              accountId: widget.accountId,
+              instructionsType: InstructionsType.addContact,
+              context: context,
             ),
-            _TodoListTile(
-              done: _isFileDataStored,
-              number: 4,
-              text: context.l10n.home_initialDocuments,
-              onPressed: () async {
-                await context.push('/account/${widget.accountId}/my-data/files?initialCreation=true');
-                await _reload();
-              },
-            ),
-          ],
-        ),
+          ),
+          _TodoListTile(
+            done: _isFileDataStored,
+            number: 4,
+            text: context.l10n.home_initialDocuments,
+            onPressed: () async {
+              await context.push('/account/${widget.accountId}/my-data/files?initialCreation=true');
+              await _reload();
+            },
+          ),
+        ],
       ),
     );
   }

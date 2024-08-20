@@ -35,6 +35,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   final List<StreamSubscription<void>> _subscriptions = [];
 
   late final TabController _tabController;
+  List<LocalAccountDTO> _accountsInDeletion = [];
 
   LocalAccountDTO? _account;
   int _numberOfOpenContactRequests = 0;
@@ -89,11 +90,14 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
             child: IconButton(
               padding: EdgeInsets.zero,
               onPressed: () => context.push('/profiles'),
-              icon: AutoLoadingProfilePicture(
-                accountId: widget.accountId,
-                profileName: _account?.name ?? '',
-                radius: 16,
-                circleAvatarColor: Theme.of(context).colorScheme.primaryContainer,
+              icon: Badge(
+                isLabelVisible: _accountsInDeletion.isNotEmpty,
+                child: AutoLoadingProfilePicture(
+                  accountId: widget.accountId,
+                  profileName: _account?.name ?? '',
+                  radius: 16,
+                  circleAvatarColor: Theme.of(context).colorScheme.primaryContainer,
+                ),
               ),
             ),
           ),
@@ -230,7 +234,13 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
 
   Future<void> _loadAccount() async {
     final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccount(widget.accountId);
-    if (mounted) setState(() => _account = account);
+    final accountsInDeletion = await getAccountsInDeletion();
+    if (mounted) {
+      setState(() {
+        _account = account;
+        _accountsInDeletion = accountsInDeletion;
+      });
+    }
   }
 
   Future<void> _reloadContactRequests() async {

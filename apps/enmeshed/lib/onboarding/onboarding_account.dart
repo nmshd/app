@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -8,10 +9,24 @@ import 'package:logger/logger.dart';
 
 import '/core/core.dart';
 
-class OnboardingAccount extends StatelessWidget {
+class OnboardingAccount extends StatefulWidget {
   final VoidCallback goToOnboardingLoading;
 
   const OnboardingAccount({required this.goToOnboardingLoading, super.key});
+
+  @override
+  State<OnboardingAccount> createState() => _OnboardingAccountState();
+}
+
+class _OnboardingAccountState extends State<OnboardingAccount> {
+  List<LocalAccountDTO> _accountsInDeletion = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadAccountsInDeletion();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +48,25 @@ class OnboardingAccount extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: screenHeight * 0.14),
-                  Text(
-                    context.l10n.onboarding_createIdentity,
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
-                  ),
-                  Gaps.h16,
-                  Text(context.l10n.onboarding_chooseOption, textAlign: TextAlign.center),
-                  const SizedBox(height: 72),
+                  if (_accountsInDeletion.isEmpty) ...[
+                    SizedBox(height: screenHeight * 0.14),
+                    Text(
+                      context.l10n.onboarding_createIdentity,
+                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                    ),
+                    Gaps.h16,
+                    Text(context.l10n.onboarding_chooseOption, textAlign: TextAlign.center),
+                    const SizedBox(height: 72),
+                  ],
+                  if (_accountsInDeletion.isNotEmpty) ...[
+                    RestoreProfileContainer(accountsInDeletion: _accountsInDeletion),
+                    Gaps.h16,
+                  ],
                   Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
                   Gaps.h16,
                   Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
                   Gaps.h24,
-                  FilledButton(onPressed: goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
+                  FilledButton(onPressed: widget.goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
                   Gaps.h24,
                   Row(
                     children: [
@@ -70,6 +91,12 @@ class OnboardingAccount extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _loadAccountsInDeletion() async {
+    final accountsInDeletion = await getAccountsInDeletion();
+
+    if (mounted) setState(() => _accountsInDeletion = accountsInDeletion);
   }
 
   void _onboardingPressed(BuildContext context) {
