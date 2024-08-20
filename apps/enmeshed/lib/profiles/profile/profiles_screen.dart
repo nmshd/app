@@ -11,7 +11,9 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
+import 'modals/delete_profile/delete_profile_or_identity_modal.dart';
 import 'modals/modals.dart';
+import 'widgets/deletion_profile_card.dart';
 import 'widgets/profile_widgets.dart';
 
 class ProfilesScreen extends StatefulWidget {
@@ -22,22 +24,36 @@ class ProfilesScreen extends StatefulWidget {
 }
 
 class _ProfilesScreenState extends State<ProfilesScreen> {
+  final List<StreamSubscription<void>> _subscriptions = [];
   late LocalAccountDTO _selectedAccount;
   File? _selectedAccountProfilePicture;
   List<LocalAccountDTO>? _accounts;
+  List<LocalAccountDTO>? _accountsInDeletion;
 
   @override
   void initState() {
     super.initState();
 
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+    _subscriptions.add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadAccounts().catchError((_) {})));
+
     _reloadAccounts();
+  }
+
+  @override
+  void dispose() {
+    for (final subscription in _subscriptions) {
+      subscription.cancel();
+    }
+
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.drawer_manageProfiles, style: Theme.of(context).textTheme.titleMedium));
 
-    if (_accounts == null) {
+    if (_accounts == null || _accountsInDeletion == null) {
       return Scaffold(
         appBar: appBar,
         body: const Center(child: CircularProgressIndicator()),
@@ -83,12 +99,21 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                           leading: const Icon(Icons.save),
                           title: Text(context.l10n.drawer_backupData),
                         ),
+                      ListTile(
+                        leading: const Icon(Icons.delete_forever_outlined),
+                        title: Text(context.l10n.profiles_settings_deleteProfile),
+                        onTap: () => showDeleteProfileOrIdentityModal(context: context, localAccount: _selectedAccount),
+                      ),
                     ],
                   ),
                 ),
                 const Divider(height: 2),
                 Gaps.h8,
                 _MoreProfiles(accounts: _accounts!),
+                if (_accountsInDeletion!.isNotEmpty) ...[
+                  Gaps.h8,
+                  _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!),
+                ],
               ],
             ),
           ),
@@ -98,7 +123,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   }
 
   Future<void> _reloadAccounts() async {
-    final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
+    final accountsInDeletion = await getAccountsInDeletion();
+    final accounts = await getAccountsNotInDeletion();
     accounts.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
     final selectedAccount = accounts.reduce(
@@ -111,6 +137,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       _selectedAccount = selectedAccount;
       _selectedAccountProfilePicture = profilePicture;
       _accounts = accounts.where((account) => account.id != selectedAccount.id).toList();
+      _accountsInDeletion = accountsInDeletion;
     });
   }
 
@@ -317,5 +344,40 @@ class _MoreProfiles extends StatelessWidget {
         ),
       );
     }
+  }
+}
+
+class _ProfilesInDeletion extends StatelessWidget {
+  final List<LocalAccountDTO> accountsInDeletion;
+
+  const _ProfilesInDeletion({required this.accountsInDeletion});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(context.l10n.identities_in_deletion, style: const TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
+        ),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) => Gaps.h16,
+          itemCount: accountsInDeletion.length,
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: DeletionProfileCard(
+              accountInDeletion: accountsInDeletion[index],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

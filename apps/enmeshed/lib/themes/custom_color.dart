@@ -17,7 +17,7 @@ CustomColors lightCustomColors = const CustomColors(
   sourceDecorative: Color(0xFFE4DC93),
   decorative: Color(0xFF676000),
   onDecorative: Color(0xFFFFFFFF),
-  decorativeContainer: Color(0xFFF1E66A),
+  decorativeContainer: Color(0xFFE4DC93),
   onDecorativeContainer: Color(0xFF1F1C00),
   sourceDecorative2: Color(0xFFEB8CDA),
   decorative2: Color(0xFF913E87),

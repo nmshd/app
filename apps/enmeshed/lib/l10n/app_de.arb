@@ -129,7 +129,8 @@
   "profiles_copiedAddressToClipboard": "Die Profil-Adresse wurde in die Zwischenablage kopiert.",
   "profiles_settings_title": "Einstellungen",
   "profiles_settings_subtitle": "Verwalten Sie hier Ihre verbundenen Geräte und Profileinstellungen oder sichern Sie Ihre Daten.",
-  "profiles_settings_editProfile": "Profil bearbeiten oder löschen",
+  "profiles_settings_editProfile": "Profil bearbeiten",
+  "profiles_settings_deleteProfile": "Profil löschen",
   "profiles_settings_connectedDevices": "Verknüpfte Geräte verwalten",
   "profiles_createNew": "Neues Profil anlegen",
   "profiles_lastUsed": "Zuletzt verwendet",
@@ -146,12 +147,63 @@
       }
     }
   },
+  "profile_or_identity_deletion": "Möchten Sie Ihr Profil nur von diesem Gerät entfernen (also das Gerät aus dem Profil abmelden) oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten löschen?",
+  "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschliesslich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen “Profil vom Gerät entfernen” und “Profil löschen”. Sie können nur Ihr gesamtes Profil löschen.",
+  "identity_delete_cancel": "Nein, abbrechen",
+  "identity_delete_confirm": "Ja, löschen",
+  "identity_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Es wird von allen Ihren verbundenen Geräten ({devices}) entfernt.",
+  "@identity_delete_confirmation": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      },
+      "devices": {
+        "type": "num"
+      }
+    }
+  },
+  "identities_in_deletion": "Profile in Löschung",
+  "identity_restore_cancel": "Nein, abbrechen",
+  "identity_restore_confirm": "Ja, aktivieren",
+  "identity_restore_description": "Möchten Sie das Profil wiederherstellen und aktiveren?",
+  "identity_restore_title": "Ihr Profil wird gelöscht",
+  "identity_reactivate_description": "Bis zum {deletionDate} können Sie ihr Profil \"{profileName}\" wiederherstellen und aktivieren.",
+  "@identity_reactivate_description": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      },
+      "deletionDate": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
+  "identity_delete_activated_and_switchedToProfile": "Profil \"{profileName}\" wieder aktiviert und ausgewählt.",
+  "@identity_delete_activated_and_switchedToProfile": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "identity_restore": "Profil aktivieren",
+  "identity_delete_at": "Löschung am {deletionDate}",
+  "@identity_delete_at": {
+    "placeholders": {
+      "deletionDate": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
   "profile_edit": "Profil bearbeiten",
   "profile_edit_inProgress": "Profil wird gespeichert",
   "profile_name": "Profilname",
   "profile_delete": "Profil löschen",
+  "profile_delete_device": "Profil vom Gerät entfernen",
   "profile_delete_cancel": "Nein, abbrechen",
-  "profile_delete_confirm": "Ja, löschen",
+  "profile_delete_confirm": "Ja, entfernen",
   "profile_delete_inProgress": "Das Profil wird gelöscht.",
   "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wählen Sie aus mit welchem Profil Sie jetzt fortfahren möchtest.",
   "profile_delete_success_noProfilesAvailable": "Das Profil wurde gelöscht. Alle Ihre Daten wurden aus der App entfernt.",

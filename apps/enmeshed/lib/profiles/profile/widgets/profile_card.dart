@@ -23,7 +23,7 @@ class ProfileCard extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleMedium,
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         shape: RoundedRectangleBorder(
           side: BorderSide(color: Theme.of(context).colorScheme.outline),
           borderRadius: const BorderRadius.all(

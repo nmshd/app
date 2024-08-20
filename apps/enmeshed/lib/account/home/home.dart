@@ -72,14 +72,14 @@ class _HomeViewState extends State<HomeView> {
         thumbVisibility: true,
         child: ListView(
           children: [
-            if (_isCompleteProfileContainerShown) ...[
-              CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
-              Gaps.h24,
-            ],
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
+                  if (_isCompleteProfileContainerShown) ...[
+                    CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
+                    Gaps.h24,
+                  ],
                   if (context.isFeatureEnabled('NEWS')) ...[
                     NewsContainer.debugPrefilled(),
                     Gaps.h24,
