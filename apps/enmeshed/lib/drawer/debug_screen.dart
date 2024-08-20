@@ -102,9 +102,9 @@ class DebugScreen extends StatelessWidget {
 
     final dir = await getApplicationDocumentsDirectory();
 
-    final dataFolder = Directory('${dir.path}/data');
-    if (dataFolder.existsSync()) {
-      await dataFolder.delete(recursive: true);
+    final databaseFolder = Directory('${dir.path}/${runtime.runtimeConfig.databaseFolder}');
+    if (databaseFolder.existsSync()) {
+      await databaseFolder.delete(recursive: true);
     }
 
     final cacheFolder = Directory('${dir.path}/cache');
