@@ -1,5 +1,11 @@
-import { NativeFileStorage } from "@js-soft/native-abstractions";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
+
+export enum NativeFileStorage {
+  Temp = "temp",
+  Home = "home",
+  Data = "data",
+  App = "app"
+}
 
 export class FileAccess {
   public async readFileAsText(

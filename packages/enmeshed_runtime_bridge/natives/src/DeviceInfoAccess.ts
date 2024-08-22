@@ -1,5 +1,5 @@
-import { INativeDeviceInfo, INativeDeviceInfoAccess, PushServices } from "@js-soft/native-abstractions";
 import { Result } from "@js-soft/ts-utils";
+import { INativeDeviceInfo, INativeDeviceInfoAccess } from "@nmshd/app-runtime";
 
 export class DeviceInfoAccess implements INativeDeviceInfoAccess {
   private _deviceInfo: INativeDeviceInfo;
@@ -18,7 +18,7 @@ export class DeviceInfoAccess implements INativeDeviceInfoAccess {
       isVirtual: false,
       languageCode: "",
       version: "",
-      pushService: PushServices.none,
+      pushService: "none",
       ...deviceInfo
     };
 

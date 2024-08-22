@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "ES2022",
     "module": "commonjs",
     "sourceMap": true,
     "declaration": true,
+    "declarationMap": true,
     "outDir": "dist",
     "strict": true,
-    "useUnknownInCatchVariables": false,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -19,10 +19,8 @@
     "strictPropertyInitialization": false,
     "downlevelIteration": true,
     "noImplicitOverride": true,
-    "lib": ["es2019", "dom"],
-    "typeRoots": ["./node_modules/@types"],
-    "types": ["luxon"],
-    "baseUrl": "."
+    "useDefineForClassFields": false,
+    "lib": ["ES2022", "DOM"]
   },
   "include": ["src/**/*.ts"]
 }
