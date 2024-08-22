@@ -43,8 +43,12 @@ export class NativeBootstrapper implements INativeBootstrapper {
     this.configAccess = new ConfigAccess(this.fileAccess, this.loggerFactory.getLogger(ConfigAccess), "config.json");
     this.databaseFactory = new DatabaseFactory(this.fileAccess, this.loggerFactory.getLogger(DatabaseFactory));
     this.notificationAccess = new NotificationAccess(this.loggerFactory, this.configAccess);
-    this.eventBus = new EventEmitter2EventBus(() => {
-      // noop
+
+    const eventBusLogger = this.loggerFactory.getLogger("EventBus");
+    this.eventBus = new EventEmitter2EventBus((error, namespace) => {
+      eventBusLogger.error(
+        `An error was thrown in an event handler of the transport event bus (namespace: '${namespace}'). Root error: ${error}`
+      );
     });
     this.deviceInfoAccess = new DeviceInfoAccess();
   }
