@@ -1,9 +1,13 @@
 import { ILokiJsDatabaseFactory } from "@js-soft/docdb-access-loki";
 import { ILoggerFactory } from "@js-soft/logging-abstractions";
-import { INativeDeviceInfoAccess, INativeNotificationAccess, NativeErrorCodes } from "@js-soft/native-abstractions";
 import { EventBus, EventEmitter2EventBus, Result } from "@js-soft/ts-utils";
 import { WebLoggerFactory } from "@js-soft/web-logger";
-import { INativeBootstrapper, INativeEnvironment } from "@nmshd/app-runtime";
+import {
+  INativeBootstrapper,
+  INativeDeviceInfoAccess,
+  INativeEnvironment,
+  INativeNotificationAccess
+} from "@nmshd/app-runtime";
 import { ConfigAccess } from "./ConfigAccess";
 import { DatabaseFactory } from "./DatabaseFactory";
 import { DeviceInfoAccess } from "./DeviceInfoAccess";
@@ -27,7 +31,7 @@ export class NativeBootstrapper implements INativeBootstrapper {
 
   public get nativeEnvironment(): INativeEnvironment {
     if (!this.initialized) {
-      throw new Error(NativeErrorCodes.BOOTSTRAP_NOT_INITIALIZED);
+      throw new Error("BOOTSTRAP_NOT_INITIALIZED");
     }
 
     return this as INativeEnvironment;
@@ -47,7 +51,7 @@ export class NativeBootstrapper implements INativeBootstrapper {
 
   public async init(): Promise<Result<void>> {
     if (this.initialized) {
-      throw new Error(NativeErrorCodes.BOOTSTRAP_ALREADY_INITIALIZED);
+      throw new Error("BOOTSTRAP_ALREADY_INITIALIZED");
     }
 
     await this.configAccess.initDefaultConfig();

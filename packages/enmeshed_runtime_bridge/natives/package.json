@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@js-soft/logging-abstractions": "^1.0.1",
-    "@js-soft/native-abstractions": "^1.2.2",
     "@js-soft/ts-utils": "^2.3.3",
     "@js-soft/web-logger": "^1.0.4",
     "@nmshd/app-runtime": "5.1.0",

@@ -1,4 +1,4 @@
-import { NativeEvent } from "@js-soft/native-abstractions";
+import { NativeEvent } from "@nmshd/app-runtime";
 
 export class AppReadyEvent extends NativeEvent {
   public static namespace = "AppReadyEvent";
