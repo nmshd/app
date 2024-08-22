@@ -1,5 +1,4 @@
 import {
-  AppReadyEvent,
   INativePushNotification,
   RemoteNotificationEvent,
   RemoteNotificationRegistrationEvent
@@ -10,6 +9,7 @@ import { AppRuntime } from "@nmshd/app-runtime";
 import * as contentLib from "@nmshd/content";
 import { RenderHints, RenderHintsJSON, ValueHints, ValueHintsJSON } from "@nmshd/content";
 import { buildInformation } from "@nmshd/runtime";
+import { AppReadyEvent } from "./AppReadyEvent";
 import { NativeBootstrapper } from "./NativeBootstrapper";
 import { UIBridge } from "./uiBridge";
 
