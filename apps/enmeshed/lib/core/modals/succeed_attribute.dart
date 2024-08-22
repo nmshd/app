@@ -247,7 +247,7 @@ Future<void> showSucceedAttributeModal({
   errorTextNotifier.dispose();
 }
 
-extension _GetValueRendererInputValueExtension on ValueRendererInputValue {
+extension on ValueRendererInputValue {
   Map<String, dynamic> getValue() {
     if (this is ValueRendererInputValueString) return {'value': (this as ValueRendererInputValueString).value};
     if (this is ValueRendererInputValueNum) return {'value': (this as ValueRendererInputValueNum).value};

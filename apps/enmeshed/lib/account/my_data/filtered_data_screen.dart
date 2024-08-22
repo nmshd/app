@@ -158,7 +158,7 @@ class _AttributeEntry extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 16),
           child: AttributeRenderer.localAttribute(
-            attribute: attributes.first,
+            attribute: attributes.firstWhere((e) => e.isDefaultRepositoryAttribute, orElse: () => attributes.first),
             showTitle: !emphasizeAttributeHeadings,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
