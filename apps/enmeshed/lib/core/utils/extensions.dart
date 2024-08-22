@@ -61,3 +61,7 @@ extension Toggle<T> on Set<T> {
     contains(value) ? remove(value) : add(value);
   }
 }
+
+extension IsDefaultRepositoryAttribute on LocalAttributeDVO {
+  bool get isDefaultRepositoryAttribute => this is RepositoryAttributeDVO && ((this as RepositoryAttributeDVO).isDefault ?? false);
+}
