@@ -283,7 +283,7 @@
   "deviceInfo_removeRemainingDevice_title": "You cannot disconnect the device from your profile as it is the only connected one. How to delete your profile:",
   "deviceInfo_removeConnectedDevice_title": "To remove the device from the list of connected devices:",
   "deviceInfo_removeDevice_successful": "The device \"{deviceName}\" has been removed from your device list.",
-  "@devices_removeDevice_successful": {
+  "@deviceInfo_removeDevice_successful": {
     "placeholders": {
       "deviceName": {
         "type": "String"
