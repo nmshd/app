@@ -283,7 +283,7 @@
   "deviceInfo_removeRemainingDevice_title": "Sie können das Gerät nicht von Ihrem Profil trennen, da es das einzige verbundene ist. So löschen Sie Ihr Profil:",
   "deviceInfo_removeConnectedDevice_title": "So entfernen Sie das Gerät aus der Liste der verbundenen Geräte:",
   "deviceInfo_removeDevice_successful": "Das Gerät \"{deviceName}\" wurde aus der Liste Ihrer Geräte entfernt.",
-  "@devices_removeDevice_successful": {
+  "@deviceInfo_removeDevice_successful": {
     "placeholders": {
       "deviceName": {
         "type": "String"
