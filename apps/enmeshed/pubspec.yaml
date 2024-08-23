@@ -58,16 +58,10 @@ flutter:
   assets:
     - path: assets/i18n/
     - path: assets/texts/
-    - path: assets/fonts/
     - path: assets/pictures/
     - path: assets/svg/
       transformers:
         - package: vector_graphics_compiler
-
-  fonts:
-    - family: AppIcons
-      fonts:
-        - asset: assets/fonts/AppIcons.ttf
 
 # dart run flutter_launcher_icons
 flutter_icons:

@@ -1,5 +1,4 @@
 export 'account_utils.dart';
-export 'app_icons/app_icons.dart';
 export 'attribute_utils.dart';
 export 'contact_utils.dart';
 export 'dialogs.dart';
