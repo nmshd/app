@@ -64,11 +64,6 @@ flutter:
       transformers:
         - package: vector_graphics_compiler
 
-  fonts:
-    - family: AppIcons
-      fonts:
-        - asset: assets/fonts/AppIcons.ttf
-
 # dart run flutter_launcher_icons
 flutter_icons:
   image_path: "assets/icon.png"
