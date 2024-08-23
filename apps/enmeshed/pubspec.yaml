@@ -58,7 +58,6 @@ flutter:
   assets:
     - path: assets/i18n/
     - path: assets/texts/
-    - path: assets/fonts/
     - path: assets/pictures/
     - path: assets/svg/
       transformers:
