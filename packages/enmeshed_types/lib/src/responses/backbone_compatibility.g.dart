@@ -8,9 +8,9 @@ part of 'backbone_compatibility.dart';
 
 CheckBackboneCompatibilityResponse _$CheckBackboneCompatibilityResponseFromJson(Map<String, dynamic> json) => CheckBackboneCompatibilityResponse(
       isCompatible: json['isCompatible'] as bool,
-      backboneVersion: json['backboneVersion'],
-      supportedMinBackboneVersion: json['supportedMinBackboneVersion'],
-      supportedMaxBackboneVersion: json['supportedMaxBackboneVersion'],
+      backboneVersion: const IntegerConverter().fromJson(json['backboneVersion']),
+      supportedMinBackboneVersion: const IntegerConverter().fromJson(json['supportedMinBackboneVersion']),
+      supportedMaxBackboneVersion: const IntegerConverter().fromJson(json['supportedMaxBackboneVersion']),
     );
 
 Map<String, dynamic> _$CheckBackboneCompatibilityResponseToJson(CheckBackboneCompatibilityResponse instance) {
@@ -24,8 +24,8 @@ Map<String, dynamic> _$CheckBackboneCompatibilityResponseToJson(CheckBackboneCom
     }
   }
 
-  writeNotNull('backboneVersion', instance.backboneVersion);
-  writeNotNull('supportedMinBackboneVersion', instance.supportedMinBackboneVersion);
-  writeNotNull('supportedMaxBackboneVersion', instance.supportedMaxBackboneVersion);
+  writeNotNull('backboneVersion', const IntegerConverter().toJson(instance.backboneVersion));
+  writeNotNull('supportedMinBackboneVersion', const IntegerConverter().toJson(instance.supportedMinBackboneVersion));
+  writeNotNull('supportedMaxBackboneVersion', const IntegerConverter().toJson(instance.supportedMaxBackboneVersion));
   return val;
 }
