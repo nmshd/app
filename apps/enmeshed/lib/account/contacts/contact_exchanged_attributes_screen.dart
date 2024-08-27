@@ -161,18 +161,18 @@ class _AttributeListView extends StatelessWidget {
         if (attribute is SharedToPeerAttributeDVO) {
           final extraLineTextStyle = Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.error);
 
-          if (attribute.deletionStatus == DeletionStatus.DeletionRequestSent.name && attribute.sourceAttribute == null) {
+          if (attribute.deletionStatus == LocalAttributeDeletionStatus.DeletionRequestSent.name && attribute.sourceAttribute == null) {
             extraLine = Text(context.l10n.contactDetail_deletionRequested, style: extraLineTextStyle);
           }
 
-          if (attribute.deletionStatus == DeletionStatus.ToBeDeletedByPeer.name && attribute.deletionDate != null) {
+          if (attribute.deletionStatus == LocalAttributeDeletionStatus.ToBeDeletedByPeer.name && attribute.deletionDate != null) {
             extraLine = Text(
               context.l10n.contactDetail_willBeDeletedOn(DateTime.parse(attribute.deletionDate!).toLocal()),
               style: extraLineTextStyle,
             );
           }
 
-          if (attribute.deletionStatus == DeletionStatus.DeletionRequestRejected.name) {
+          if (attribute.deletionStatus == LocalAttributeDeletionStatus.DeletionRequestRejected.name) {
             extraLine = Text(context.l10n.contactDetail_deletionRejected, style: extraLineTextStyle);
           }
         }
