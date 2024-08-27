@@ -5,9 +5,9 @@ part 'backbone_compatibility.g.dart';
 @JsonSerializable(includeIfNull: false)
 class CheckBackboneCompatibilityResponse {
   final bool isCompatible;
-  final int backboneVersion;
-  final int supportedMinBackboneVersion;
-  final int supportedMaxBackboneVersion;
+  final dynamic backboneVersion;
+  final dynamic supportedMinBackboneVersion;
+  final dynamic supportedMaxBackboneVersion;
 
   CheckBackboneCompatibilityResponse({
     required this.isCompatible,
