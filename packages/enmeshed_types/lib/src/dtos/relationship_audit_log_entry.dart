@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'relationship_status.dart';
+
 part 'relationship_audit_log_entry.g.dart';
 
 enum RelationshipAuditLogEntryReason {
@@ -15,8 +17,6 @@ enum RelationshipAuditLogEntryReason {
   RevocationOfReactivation,
   Decomposition
 }
-
-enum RelationshipStatus { Pending, Active, Rejected, Revoked, Terminated, DeletionProposed }
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipAuditLogEntryDTO extends Equatable {

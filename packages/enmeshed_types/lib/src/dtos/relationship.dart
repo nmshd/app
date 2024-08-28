@@ -4,6 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../contents/contents.dart';
 import 'identity.dart';
 import 'relationship_audit_log_entry.dart';
+import 'relationship_status.dart';
 import 'relationship_template.dart';
 
 part 'relationship.g.dart';
