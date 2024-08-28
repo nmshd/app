@@ -27,13 +27,14 @@ class RelationshipAuditLogEntryDTO extends Equatable {
   final RelationshipStatus? oldStatus;
   final RelationshipStatus newStatus;
 
-  const RelationshipAuditLogEntryDTO(
-      {required this.createdAt,
-      required this.createdBy,
-      required this.createdByDevice,
-      required this.reason,
-      this.oldStatus,
-      required this.newStatus});
+  const RelationshipAuditLogEntryDTO({
+    required this.createdAt,
+    required this.createdBy,
+    required this.createdByDevice,
+    required this.reason,
+    this.oldStatus,
+    required this.newStatus,
+  });
 
   factory RelationshipAuditLogEntryDTO.fromJson(Map json) => _$RelationshipAuditLogEntryDTOFromJson(Map<String, dynamic>.from(json));
 
