@@ -14,6 +14,7 @@ enum RelationshipDirection { Incoming, Outgoing }
 @JsonSerializable(includeIfNull: false)
 class RelationshipDVO extends DataViewObject with EquatableMixin {
   final RelationshipStatus status;
+  final PeerDeletionStatus? peerDeletionStatus;
   final RelationshipDirection direction;
   final String statusText;
   final bool isPinned;
@@ -35,6 +36,7 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
     super.error,
     super.warning,
     required this.status,
+    this.peerDeletionStatus,
     required this.direction,
     required this.statusText,
     required this.isPinned,

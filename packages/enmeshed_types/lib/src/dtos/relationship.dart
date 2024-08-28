@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../contents/contents.dart';
 import 'identity.dart';
+import 'peer_deletion_info.dart';
 import 'relationship_template.dart';
 
 enum RelationshipStatus { Pending, Active, Rejected, Revoked, Terminated, DeletionProposed }
@@ -25,6 +26,7 @@ class RelationshipDTO extends Equatable {
   final RelationshipStatus status;
   final String peer;
   final IdentityDTO peerIdentity;
+  final PeerDeletionInfo? peerDeletionInfo;
   final RelationshipCreationContentDerivation creationContent;
   final List<RelationshipAuditLogEntryDTO> auditLog;
 
@@ -34,6 +36,7 @@ class RelationshipDTO extends Equatable {
     required this.status,
     required this.peer,
     required this.peerIdentity,
+    this.peerDeletionInfo,
     required this.creationContent,
     required this.auditLog,
   });
@@ -44,6 +47,7 @@ class RelationshipDTO extends Equatable {
         status: RelationshipStatus.values.byName(json['status']),
         peer: json['peer'],
         peerIdentity: IdentityDTO.fromJson(json['peerIdentity']),
+        peerDeletionInfo: PeerDeletionInfo.fromJsonNullable(json['peerDeletionInfo']),
         creationContent: RelationshipCreationContentDerivation.fromJson(json['creationContent']),
         auditLog: List<RelationshipAuditLogEntryDTO>.from(json['auditLog'].map((x) => RelationshipAuditLogEntryDTO.fromJson(x))),
       );
@@ -54,12 +58,13 @@ class RelationshipDTO extends Equatable {
         'status': status.name,
         'peer': peer,
         'peerIdentity': peerIdentity.toJson(),
+        if (peerDeletionInfo != null) 'peerDeletionInfo': peerDeletionInfo?.toJson(),
         'creationContent': creationContent.toJson(),
         'auditLog': auditLog.map((e) => e.toJson()).toList(),
       };
 
   @override
-  List<Object?> get props => [id, template, status, peer, peerIdentity, creationContent, auditLog];
+  List<Object?> get props => [id, template, status, peer, peerIdentity, peerDeletionInfo, creationContent, auditLog];
 }
 
 class RelationshipAuditLogEntryDTO extends Equatable {
