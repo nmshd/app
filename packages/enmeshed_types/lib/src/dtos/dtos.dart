@@ -17,6 +17,7 @@ export 'message.dart';
 export 'message_with_attachments.dart';
 export 'recipient.dart';
 export 'relationship.dart';
+export 'relationship_audit_log_entry.dart';
 export 'relationship_template.dart';
 export 'request_validation_result.dart';
 export 'setting.dart';
