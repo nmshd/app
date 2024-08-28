@@ -36,7 +36,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
                 AutoLoadingProfilePicture(
                   accountId: accountId,
                   profileName: profileName,
-                  circleAvatarColor: context.customColors.decorativeContainer!,
+                  circleAvatarColor: context.customColors.decorativeContainer,
                   radius: 40,
                 ),
                 Gaps.w16,

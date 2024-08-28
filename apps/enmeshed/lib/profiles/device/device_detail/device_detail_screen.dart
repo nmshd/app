@@ -173,7 +173,7 @@ class _RemoveRemainingDevice extends StatelessWidget {
   Widget build(BuildContext context) {
     return _DeviceInstructions(
       title: context.l10n.deviceInfo_removeRemainingDevice_title,
-      icon: Icon(Icons.warning, color: context.customColors.warningIcon, semanticLabel: context.l10n.deviceInfo_warningSemanticsLabel),
+      icon: Icon(Icons.warning, color: context.customColors.warning, semanticLabel: context.l10n.deviceInfo_warningSemanticsLabel),
       instructions: [
         context.l10n.deviceInfo_removeDevice_goBack,
         context.l10n.deviceInfo_removeDevice_chooseDelete,

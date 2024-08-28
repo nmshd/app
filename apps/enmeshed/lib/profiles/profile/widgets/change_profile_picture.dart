@@ -53,7 +53,7 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
             radius: 40,
             image: _image,
             profileName: widget.profileName,
-            circleAvatarColor: context.customColors.decorativeContainer!,
+            circleAvatarColor: context.customColors.decorativeContainer,
           ),
         if (_loading) const CircleAvatar(radius: 40, child: CircularProgressIndicator()),
         Gaps.w16,

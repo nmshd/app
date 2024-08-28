@@ -33,7 +33,7 @@ class ProfileCard extends StatelessWidget {
         leading: AutoLoadingProfilePicture(
           accountId: account.id,
           profileName: account.name,
-          circleAvatarColor: context.customColors.decorativeContainer!,
+          circleAvatarColor: context.customColors.decorativeContainer,
         ),
       ),
     );

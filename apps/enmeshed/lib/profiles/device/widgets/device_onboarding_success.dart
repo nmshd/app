@@ -14,7 +14,7 @@ class DeviceOnboardingSuccess extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Gaps.h40,
-          Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.successIcon),
+          Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.success),
           Gaps.h24,
           Text(context.l10n.devices_otherDeviceOnboardedSuccess, style: Theme.of(context).textTheme.bodyMedium),
           Gaps.h40,

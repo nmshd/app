@@ -142,7 +142,7 @@ class _Empty extends StatelessWidget {
       padding: EdgeInsets.only(left: 24, right: 24, top: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
       child: Column(
         children: [
-          Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.successIcon),
+          Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.success),
           Gaps.h24,
           Text(context.l10n.profile_delete_success_noProfilesAvailable, style: Theme.of(context).textTheme.bodyMedium),
           const Spacer(),
@@ -172,7 +172,7 @@ class _AccountsAvailable extends StatelessWidget {
         padding: EdgeInsets.only(left: 24, right: 24, top: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
         child: Column(
           children: [
-            Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.successIcon),
+            Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.success),
             Gaps.h24,
             Text(successDescription, style: Theme.of(context).textTheme.bodyMedium),
             Gaps.h24,
@@ -206,7 +206,7 @@ class _AccountsAvailable extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
           content: Row(
             children: [
-              Icon(Icons.check_circle_rounded, color: context.customColors.successIcon),
+              Icon(Icons.check_circle_rounded, color: context.customColors.success),
               Gaps.w8,
               Expanded(child: Text(context.l10n.profiles_switchedToProfile(account.name))),
             ],

@@ -17,7 +17,7 @@ class QuitCreatingMessageDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.warning_rounded, size: 36, color: context.customColors.warningIcon),
+            Icon(Icons.warning_rounded, size: 36, color: context.customColors.warning),
             Gaps.h8,
             SizedBox(
               width: 250,
