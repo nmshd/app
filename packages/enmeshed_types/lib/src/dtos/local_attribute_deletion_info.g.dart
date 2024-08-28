@@ -7,20 +7,20 @@ part of 'local_attribute_deletion_info.dart';
 // **************************************************************************
 
 LocalAttributeDeletionInfo _$LocalAttributeDeletionInfoFromJson(Map<String, dynamic> json) => LocalAttributeDeletionInfo(
-      deletionStatus: $enumDecode(_$DeletionStatusEnumMap, json['deletionStatus']),
+      deletionStatus: $enumDecode(_$LocalAttributeDeletionStatusEnumMap, json['deletionStatus']),
       deletionDate: json['deletionDate'] as String,
     );
 
 Map<String, dynamic> _$LocalAttributeDeletionInfoToJson(LocalAttributeDeletionInfo instance) => <String, dynamic>{
-      'deletionStatus': _$DeletionStatusEnumMap[instance.deletionStatus]!,
+      'deletionStatus': _$LocalAttributeDeletionStatusEnumMap[instance.deletionStatus]!,
       'deletionDate': instance.deletionDate,
     };
 
-const _$DeletionStatusEnumMap = {
-  DeletionStatus.DeletionRequestSent: 'DeletionRequestSent',
-  DeletionStatus.DeletionRequestRejected: 'DeletionRequestRejected',
-  DeletionStatus.ToBeDeleted: 'ToBeDeleted',
-  DeletionStatus.ToBeDeletedByPeer: 'ToBeDeletedByPeer',
-  DeletionStatus.DeletedByPeer: 'DeletedByPeer',
-  DeletionStatus.DeletedByOwner: 'DeletedByOwner',
+const _$LocalAttributeDeletionStatusEnumMap = {
+  LocalAttributeDeletionStatus.DeletionRequestSent: 'DeletionRequestSent',
+  LocalAttributeDeletionStatus.DeletionRequestRejected: 'DeletionRequestRejected',
+  LocalAttributeDeletionStatus.ToBeDeleted: 'ToBeDeleted',
+  LocalAttributeDeletionStatus.ToBeDeletedByPeer: 'ToBeDeletedByPeer',
+  LocalAttributeDeletionStatus.DeletedByPeer: 'DeletedByPeer',
+  LocalAttributeDeletionStatus.DeletedByOwner: 'DeletedByOwner',
 };
