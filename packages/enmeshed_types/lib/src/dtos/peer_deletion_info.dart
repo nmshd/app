@@ -8,11 +8,9 @@ enum PeerDeletionStatus { ToBeDeleted, Deleted }
 @JsonSerializable(includeIfNull: false)
 class PeerDeletionInfo extends Equatable {
   final PeerDeletionStatus deletionStatus;
-  final String deletionDate;
 
   const PeerDeletionInfo({
     required this.deletionStatus,
-    required this.deletionDate,
   });
 
   factory PeerDeletionInfo.fromJson(Map json) => _$PeerDeletionInfoFromJson(Map<String, dynamic>.from(json));
@@ -22,5 +20,5 @@ class PeerDeletionInfo extends Equatable {
   Map<String, dynamic> toJson() => _$PeerDeletionInfoToJson(this);
 
   @override
-  List<Object?> get props => [deletionStatus, deletionDate];
+  List<Object?> get props => [deletionStatus];
 }
