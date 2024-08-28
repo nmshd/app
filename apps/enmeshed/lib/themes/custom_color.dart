@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 
 // TODO (jkoenig134): use proper colors as soon as we have the right colors for the light theme
 CustomColors lightCustomColors = const CustomColors(
-  success: Color(0xFF7AB16A),
+  success: Color(0xFF428C17),
   onSuccess: Color(0xFFFFFFFF),
-  successContainer: Color(0xFFCEEBC1),
-  onSuccessContainer: Color(0xFF0B2007),
-  warning: Color(0xFFEBA556),
+  successContainer: Color(0xFFC6EEAA),
+  onSuccessContainer: Color(0xFF082100),
+  warning: Color(0xFF8C6117),
   onWarning: Color(0xFFFFFFFF),
-  warningContainer: Color(0xFFFFDCBC),
-  onWarningContainer: Color(0xFF2C1700),
-  decorative: Color(0xFF8EE0DF),
+  warningContainer: Color(0xFFFADEBC),
+  onWarningContainer: Color(0xFF271904),
+  decorative: Color(0xFF61178C),
   onDecorative: Color(0xFFFFFFFF),
-  decorativeContainer: Color(0xFFBBECEA),
-  onDecorativeContainer: Color(0xFF002020),
-  decorative2: Color(0xFF56A9A8),
+  decorativeContainer: Color(0xFFF4D9FF),
+  onDecorativeContainer: Color(0xFF261431),
+  decorative2: Color(0xFF8EB0E9),
   onDecorative2: Color(0xFFFFFFFF),
-  decorative2Container: Color(0xFF9EF1EF),
-  onDecorative2Container: Color(0xFF002020),
+  decorative2Container: Color(0xFFD3DEFD),
+  onDecorative2Container: Color(0xFF0A1933),
 );
 
 // TODO (jkoenig134): use proper colors as soon as we have a dark theme

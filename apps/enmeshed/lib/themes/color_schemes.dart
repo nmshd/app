@@ -2,10 +2,10 @@ import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-const primarySeedColor = Color(0xFF3D86F0);
-const secondarySeedColor = Color(0xFF7D99EA);
-const tertiarySeedColor = Color(0xFFEBA556);
-const errorSeedColor = Color(0xFFEC6B54);
+const primarySeedColor = Color(0xFF17428D);
+const secondarySeedColor = Color(0xFF1A80D9);
+const tertiarySeedColor = Color(0xFFFF7600);
+const errorSeedColor = Color(0xFF8C1742);
 
 final lightColorScheme = SeedColorScheme.fromSeeds(
   primaryKey: primarySeedColor,
