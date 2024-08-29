@@ -1,10 +1,10 @@
-import 'package:enmeshed_types/src/dtos/relationship_audit_log_entry.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../contents/contents.dart';
 import 'identity.dart';
 import 'peer_deletion_info.dart';
+import 'relationship_audit_log_entry.dart';
 import 'relationship_status.dart';
 import 'relationship_template.dart';
 
