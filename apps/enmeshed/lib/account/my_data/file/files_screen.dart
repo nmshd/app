@@ -83,10 +83,22 @@ class _FilesScreenState extends State<FilesScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            _SortBar(
+            SortBar<_FilesSortingType>(
               sortingType: _sortingType,
               isSortedAscending: _isSortedAscending,
-              onSortingConditionChanged: ({required _FilesSortingType type, required bool isSortedAscending}) {
+              translate: (s) => switch (s) {
+                _FilesSortingType.date => context.l10n.files_sortedByDate,
+                _FilesSortingType.name => context.l10n.files_sortedByName,
+                _FilesSortingType.type => context.l10n.files_sortedByType,
+                _FilesSortingType.size => context.l10n.files_sortedBySize,
+              },
+              sortMenuItem: [
+                (value: _FilesSortingType.date, label: context.l10n.files_creationDate),
+                (value: _FilesSortingType.name, label: context.l10n.name),
+                (value: _FilesSortingType.type, label: context.l10n.files_fileType),
+                (value: _FilesSortingType.size, label: context.l10n.files_fileSize),
+              ],
+              onSortingConditionChanged: ({required type, required isSortedAscending}) {
                 _isSortedAscending = isSortedAscending;
                 _sortingType = type;
 
@@ -220,71 +232,6 @@ class _FilesScreenState extends State<FilesScreen> {
 
           context.push('/account/${widget.accountId}/my-data/files/${item.id}', extra: item);
         },
-      ),
-    );
-  }
-}
-
-class _SortBar extends StatefulWidget {
-  final _FilesSortingType sortingType;
-  final bool isSortedAscending;
-  final void Function({required _FilesSortingType type, required bool isSortedAscending}) onSortingConditionChanged;
-
-  const _SortBar({
-    required this.sortingType,
-    required this.isSortedAscending,
-    required this.onSortingConditionChanged,
-  });
-
-  @override
-  State<_SortBar> createState() => _SortBarState();
-}
-
-class _SortBarState extends State<_SortBar> {
-  bool _isOpened = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 48,
-      color: Theme.of(context).colorScheme.surfaceContainer,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            _isOpened
-                ? '${context.l10n.files_sortBy} ...'
-                : switch (widget.sortingType) {
-                    _FilesSortingType.date => context.l10n.files_sortedByDate,
-                    _FilesSortingType.name => context.l10n.files_sortedByName,
-                    _FilesSortingType.type => context.l10n.files_sortedByType,
-                    _FilesSortingType.size => context.l10n.files_sortedBySize,
-                  },
-          ),
-          PopupMenuButton<_FilesSortingType>(
-            icon: const Icon(Icons.sort),
-            offset: const Offset(40, 48),
-            onOpened: () => setState(() => _isOpened = true),
-            onCanceled: () => setState(() => _isOpened = false),
-            onSelected: (type) {
-              setState(() => _isOpened = false);
-
-              widget.onSortingConditionChanged(type: type, isSortedAscending: widget.isSortedAscending);
-            },
-            itemBuilder: (context) {
-              return <PopupMenuEntry<_FilesSortingType>>[
-                PopupMenuItem<_FilesSortingType>(value: _FilesSortingType.date, child: Text(context.l10n.files_creationDate)),
-                PopupMenuItem<_FilesSortingType>(value: _FilesSortingType.name, child: Text(context.l10n.name)),
-                PopupMenuItem<_FilesSortingType>(value: _FilesSortingType.type, child: Text(context.l10n.files_fileType)),
-                PopupMenuItem<_FilesSortingType>(value: _FilesSortingType.size, child: Text(context.l10n.files_fileSize)),
-              ];
-            },
-          ),
-          IconButton(
-            onPressed: () => widget.onSortingConditionChanged(type: widget.sortingType, isSortedAscending: !widget.isSortedAscending),
-            icon: Icon(widget.isSortedAscending ? Icons.arrow_upward : Icons.arrow_downward),
-          ),
-        ],
       ),
     );
   }
