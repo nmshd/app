@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO (jkoenig134): use proper colors as soon as we have the right colors for the light theme
 CustomColors lightCustomColors = const CustomColors(
   success: Color(0xFF428C17),
   onSuccess: Color(0xFFFFFFFF),
