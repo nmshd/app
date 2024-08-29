@@ -51,6 +51,18 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
         eventTargetAddress: eventTargetAddress,
         data: IdentityDeletionProcessDTO.fromJson(data),
       ),
+    'transport.peerToBeDeleted' => PeerToBeDeletedEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: RelationshipDTO.fromJson(data),
+      ),
+    'transport.peerDeletionCancelled' => PeerDeletionCancelledEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: RelationshipDTO.fromJson(data),
+      ),
+    'transport.peerDeleted' => PeerDeletedEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: RelationshipDTO.fromJson(data),
+      ),
     'consumption.ownSharedAttributeSucceeded' => OwnSharedAttributeSucceededEvent(
         eventTargetAddress: eventTargetAddress,
         predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
