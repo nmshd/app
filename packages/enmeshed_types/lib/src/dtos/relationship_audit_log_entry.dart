@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'relationship_status.dart';
+
 part 'relationship_audit_log_entry.g.dart';
 
 enum RelationshipAuditLogEntryReason {
@@ -16,8 +18,6 @@ enum RelationshipAuditLogEntryReason {
   Decomposition
 }
 
-enum RelationshipStatus { Pending, Active, Rejected, Revoked, Terminated, DeletionProposed }
-
 @JsonSerializable(includeIfNull: false)
 class RelationshipAuditLogEntryDTO extends Equatable {
   final String createdAt;
@@ -27,13 +27,14 @@ class RelationshipAuditLogEntryDTO extends Equatable {
   final RelationshipStatus? oldStatus;
   final RelationshipStatus newStatus;
 
-  const RelationshipAuditLogEntryDTO(
-      {required this.createdAt,
-      required this.createdBy,
-      required this.createdByDevice,
-      required this.reason,
-      this.oldStatus,
-      required this.newStatus});
+  const RelationshipAuditLogEntryDTO({
+    required this.createdAt,
+    required this.createdBy,
+    required this.createdByDevice,
+    required this.reason,
+    this.oldStatus,
+    required this.newStatus,
+  });
 
   factory RelationshipAuditLogEntryDTO.fromJson(Map json) => _$RelationshipAuditLogEntryDTOFromJson(Map<String, dynamic>.from(json));
 
