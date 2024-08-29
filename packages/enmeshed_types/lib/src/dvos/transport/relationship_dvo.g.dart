@@ -16,6 +16,7 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       status: $enumDecode(_$RelationshipStatusEnumMap, json['status']),
+      peerDeletionStatus: $enumDecodeNullable(_$PeerDeletionStatusEnumMap, json['peerDeletionStatus']),
       direction: $enumDecode(_$RelationshipDirectionEnumMap, json['direction']),
       statusText: json['statusText'] as String,
       isPinned: json['isPinned'] as bool,
@@ -49,6 +50,7 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   val['status'] = _$RelationshipStatusEnumMap[instance.status]!;
+  writeNotNull('peerDeletionStatus', _$PeerDeletionStatusEnumMap[instance.peerDeletionStatus]);
   val['direction'] = _$RelationshipDirectionEnumMap[instance.direction]!;
   val['statusText'] = instance.statusText;
   val['isPinned'] = instance.isPinned;
@@ -69,6 +71,11 @@ const _$RelationshipStatusEnumMap = {
   RelationshipStatus.Revoked: 'Revoked',
   RelationshipStatus.Terminated: 'Terminated',
   RelationshipStatus.DeletionProposed: 'DeletionProposed',
+};
+
+const _$PeerDeletionStatusEnumMap = {
+  PeerDeletionStatus.ToBeDeleted: 'ToBeDeleted',
+  PeerDeletionStatus.Deleted: 'Deleted',
 };
 
 const _$RelationshipDirectionEnumMap = {
