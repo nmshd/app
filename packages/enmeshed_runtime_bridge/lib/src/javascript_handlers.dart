@@ -1,13 +1,15 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
 
+import 'event_bus.dart';
+import 'events/events.dart';
 import 'filesystem_adapter.dart';
+import 'ui_bridge.dart';
 
 Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus, Logger logger) async {
   final payload = args[0];
