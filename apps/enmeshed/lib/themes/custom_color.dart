@@ -1,43 +1,13 @@
+import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
-CustomColors lightCustomColors = const CustomColors(
-  success: Color(0xFF428C17),
-  onSuccess: Color(0xFFFFFFFF),
-  successContainer: Color(0xFFC6EEAA),
-  onSuccessContainer: Color(0xFF082100),
-  warning: Color(0xFF8C6117),
-  onWarning: Color(0xFFFFFFFF),
-  warningContainer: Color(0xFFFADEBC),
-  onWarningContainer: Color(0xFF271904),
-  decorative: Color(0xFF61178C),
-  onDecorative: Color(0xFFFFFFFF),
-  decorativeContainer: Color(0xFFF4D9FF),
-  onDecorativeContainer: Color(0xFF261431),
-  decorative2: Color(0xFF8EB0E9),
-  onDecorative2: Color(0xFFFFFFFF),
-  decorative2Container: Color(0xFFD5E3FF),
-  onDecorative2Container: Color(0xFF001B3C),
-);
+const _successSeedColor = Color(0xFF428C17);
+const _warningSeedColor = Color(0xFF8C6117);
+const _decorativeSeedColor = Color(0xFF61178C);
+const _decorative2SeedColor = Color(0xFF8EB0E9);
 
-// TODO (jkoenig134): use proper colors as soon as we have a dark theme
-CustomColors darkCustomColors = const CustomColors(
-  success: Colors.white,
-  onSuccess: Colors.white,
-  successContainer: Colors.white,
-  onSuccessContainer: Colors.white,
-  warning: Colors.white,
-  onWarning: Colors.white,
-  warningContainer: Colors.white,
-  onWarningContainer: Colors.white,
-  decorative: Colors.white,
-  onDecorative: Colors.white,
-  decorativeContainer: Colors.white,
-  onDecorativeContainer: Colors.white,
-  decorative2: Colors.white,
-  onDecorative2: Colors.white,
-  decorative2Container: Colors.white,
-  onDecorative2Container: Colors.white,
-);
+final lightCustomColors = CustomColors.light(_successSeedColor, _warningSeedColor, _decorativeSeedColor, _decorative2SeedColor);
+final darkCustomColors = CustomColors.dark(_successSeedColor, _warningSeedColor, _decorativeSeedColor, _decorative2SeedColor);
 
 @immutable
 class CustomColors extends ThemeExtension<CustomColors> {
@@ -60,27 +30,80 @@ class CustomColors extends ThemeExtension<CustomColors> {
     required this.onDecorative2Container,
   });
 
+  factory CustomColors.light(
+    Color successSeedColor,
+    Color warningSeedColor,
+    Color decorativeSeedColor,
+    Color decorative2SeedColor,
+  ) {
+    final colorScheme = SeedColorScheme.fromSeeds(
+      primaryKey: successSeedColor,
+      primary: successSeedColor,
+      secondaryKey: warningSeedColor,
+      secondary: warningSeedColor,
+      tertiaryKey: decorativeSeedColor,
+      tertiary: decorativeSeedColor,
+      errorKey: decorative2SeedColor,
+      error: decorative2SeedColor,
+      tones: FlexTones.material(Brightness.light),
+    );
+
+    return CustomColors._fromColorScheme(colorScheme);
+  }
+
+  factory CustomColors.dark(
+    Color successSeedColor,
+    Color warningSeedColor,
+    Color decorativeSeedColor,
+    Color decorative2SeedColor,
+  ) {
+    final colorScheme = SeedColorScheme.fromSeeds(
+      brightness: Brightness.dark,
+      primaryKey: successSeedColor,
+      secondaryKey: warningSeedColor,
+      tertiaryKey: decorativeSeedColor,
+      errorKey: decorative2SeedColor,
+      tones: FlexTones.material(Brightness.dark),
+    );
+
+    return CustomColors._fromColorScheme(colorScheme);
+  }
+
+  factory CustomColors._fromColorScheme(ColorScheme scheme) {
+    return CustomColors(
+      success: scheme.primary,
+      onSuccess: scheme.onPrimary,
+      successContainer: scheme.primaryContainer,
+      onSuccessContainer: scheme.onPrimaryContainer,
+      warning: scheme.secondary,
+      onWarning: scheme.onSecondary,
+      warningContainer: scheme.secondaryContainer,
+      onWarningContainer: scheme.onSecondaryContainer,
+      decorative: scheme.tertiary,
+      onDecorative: scheme.onTertiary,
+      decorativeContainer: scheme.tertiaryContainer,
+      onDecorativeContainer: scheme.onTertiaryContainer,
+      decorative2: scheme.error,
+      onDecorative2: scheme.onError,
+      decorative2Container: scheme.errorContainer,
+      onDecorative2Container: scheme.onErrorContainer,
+    );
+  }
+
   final Color success;
   final Color onSuccess;
-
   final Color successContainer;
   final Color onSuccessContainer;
-
   final Color warning;
   final Color onWarning;
-
   final Color warningContainer;
   final Color onWarningContainer;
-
   final Color decorative;
   final Color onDecorative;
-
   final Color decorativeContainer;
   final Color onDecorativeContainer;
-
   final Color decorative2;
   final Color onDecorative2;
-
   final Color decorative2Container;
   final Color onDecorative2Container;
 
