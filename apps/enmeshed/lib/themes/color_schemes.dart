@@ -2,29 +2,29 @@ import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-const primarySeedColor = Color(0xFF17428D);
-const secondarySeedColor = Color(0xFF1A80D9);
-const tertiarySeedColor = Color(0xFFFF7600);
-const errorSeedColor = Color(0xFF8C1742);
+const _primarySeedColor = Color(0xFF17428D);
+const _secondarySeedColor = Color(0xFF1A80D9);
+const _tertiarySeedColor = Color(0xFFFF7600);
+const _errorSeedColor = Color(0xFF8C1742);
 
 final lightColorScheme = SeedColorScheme.fromSeeds(
-  primaryKey: primarySeedColor,
-  primary: primarySeedColor,
-  secondaryKey: secondarySeedColor,
-  secondary: secondarySeedColor,
-  tertiaryKey: tertiarySeedColor,
-  tertiary: tertiarySeedColor,
-  errorKey: errorSeedColor,
-  error: errorSeedColor,
+  primaryKey: _primarySeedColor,
+  primary: _primarySeedColor,
+  secondaryKey: _secondarySeedColor,
+  secondary: _secondarySeedColor,
+  tertiaryKey: _tertiarySeedColor,
+  tertiary: _tertiarySeedColor,
+  errorKey: _errorSeedColor,
+  error: _errorSeedColor,
   tones: FlexTones.material(Brightness.light),
 );
 
 final darkColorScheme = SeedColorScheme.fromSeeds(
   brightness: Brightness.dark,
-  primaryKey: primarySeedColor,
-  secondaryKey: secondarySeedColor,
-  tertiaryKey: tertiarySeedColor,
-  errorKey: errorSeedColor,
+  primaryKey: _primarySeedColor,
+  secondaryKey: _secondarySeedColor,
+  tertiaryKey: _tertiarySeedColor,
+  errorKey: _errorSeedColor,
   tones: FlexTones.material(Brightness.dark),
 );
 
