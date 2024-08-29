@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../contents/contents.dart';
 import 'identity.dart';
+import 'peer_deletion_info.dart';
 import 'relationship_audit_log_entry.dart';
 import 'relationship_status.dart';
 import 'relationship_template.dart';
@@ -16,6 +17,7 @@ class RelationshipDTO extends Equatable {
   final RelationshipStatus status;
   final String peer;
   final IdentityDTO peerIdentity;
+  final PeerDeletionInfo? peerDeletionInfo;
   final RelationshipCreationContentDerivation creationContent;
   final List<RelationshipAuditLogEntryDTO> auditLog;
 
@@ -25,6 +27,7 @@ class RelationshipDTO extends Equatable {
     required this.status,
     required this.peer,
     required this.peerIdentity,
+    this.peerDeletionInfo,
     required this.creationContent,
     required this.auditLog,
   });
@@ -34,5 +37,5 @@ class RelationshipDTO extends Equatable {
   Map<String, dynamic> toJson() => _$RelationshipDTOToJson(this);
 
   @override
-  List<Object?> get props => [id, template, status, peer, peerIdentity, creationContent, auditLog];
+  List<Object?> get props => [id, template, status, peer, peerIdentity, peerDeletionInfo, creationContent, auditLog];
 }
