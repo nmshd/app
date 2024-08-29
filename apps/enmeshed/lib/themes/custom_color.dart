@@ -16,8 +16,8 @@ CustomColors lightCustomColors = const CustomColors(
   onDecorativeContainer: Color(0xFF261431),
   decorative2: Color(0xFF8EB0E9),
   onDecorative2: Color(0xFFFFFFFF),
-  decorative2Container: Color(0xFFD3DEFD),
-  onDecorative2Container: Color(0xFF0A1933),
+  decorative2Container: Color(0xFFD5E3FF),
+  onDecorative2Container: Color(0xFF001B3C),
 );
 
 // TODO (jkoenig134): use proper colors as soon as we have a dark theme
