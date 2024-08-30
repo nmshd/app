@@ -386,14 +386,12 @@ class EnmeshedApp extends StatelessWidget {
         // dark mode is disabled until we have a proper dark theme
         themeMode: ThemeMode.light,
         theme: ThemeData(
-          useMaterial3: true,
           colorScheme: lightColorScheme,
           extensions: [lightCustomColors, woltThemeData],
           navigationBarTheme: lightNavigationBarTheme,
           textTheme: textTheme,
         ),
         darkTheme: ThemeData(
-          useMaterial3: true,
           colorScheme: darkColorScheme,
           extensions: [darkCustomColors, woltThemeData],
           navigationBarTheme: darkNavigationBarTheme,
