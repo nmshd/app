@@ -65,7 +65,7 @@ Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO
         padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
         content: Row(
           children: [
-            Icon(Icons.check_circle_rounded, color: context.customColors.successIcon),
+            Icon(Icons.check_circle_rounded, color: context.customColors.success),
             Gaps.w8,
             Expanded(child: Text(context.l10n.identity_delete_activated_and_switchedToProfile(account.name))),
           ],

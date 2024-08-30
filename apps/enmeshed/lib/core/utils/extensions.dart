@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../themes/custom_color.dart';
+import '../../themes/custom_colors.dart';
 import '../constants.dart';
 
 extension AppLocalizationsExtension on BuildContext {

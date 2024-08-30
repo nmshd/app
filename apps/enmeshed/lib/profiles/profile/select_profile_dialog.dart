@@ -119,7 +119,7 @@ class _ProfileListTile extends StatelessWidget {
       leading: AutoLoadingProfilePicture(
         accountId: localAccountDTO.id,
         profileName: localAccountDTO.name,
-        circleAvatarColor: context.customColors.decorativeContainer!,
+        circleAvatarColor: context.customColors.decorativeContainer,
       ),
       title: Text(localAccountDTO.name),
       subtitle: isActiveAccount ? Text(context.l10n.profiles_lastUsed) : null,

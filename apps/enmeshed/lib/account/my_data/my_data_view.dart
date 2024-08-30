@@ -56,7 +56,7 @@ class _MyDataViewState extends State<MyDataView> {
             child: AutoLoadingProfilePicture(
               accountId: widget.accountId,
               profileName: _account?.name ?? '',
-              circleAvatarColor: context.customColors.decorativeContainer!,
+              circleAvatarColor: context.customColors.decorativeContainer,
               radius: 80,
             ),
           ),

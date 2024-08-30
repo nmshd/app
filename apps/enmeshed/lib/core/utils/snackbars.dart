@@ -34,7 +34,7 @@ void showSuccessSnackbar({required BuildContext context, required String text}) 
           Container(
             width: 24,
             height: 24,
-            decoration: BoxDecoration(color: context.customColors.successIcon, shape: BoxShape.circle),
+            decoration: BoxDecoration(color: context.customColors.success, shape: BoxShape.circle),
             child: Center(child: Icon(Icons.check, color: context.customColors.onSuccess, size: 20)),
           ),
           Gaps.w8,

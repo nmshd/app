@@ -46,7 +46,7 @@ class DeletionProfileCardState extends State<DeletionProfileCard> {
         leading: AutoLoadingProfilePicture(
           accountId: widget.accountInDeletion.id,
           profileName: widget.accountInDeletion.name,
-          circleAvatarColor: context.customColors.decorativeContainer!,
+          circleAvatarColor: context.customColors.decorativeContainer,
         ),
         trailing: IconButton(
           icon: const Icon(Icons.refresh),

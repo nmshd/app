@@ -73,7 +73,7 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     const scannerWindowSize = 240.0;
-    final scanWindowColor = context.customColors.sourceError!;
+    final scanWindowColor = Theme.of(context).colorScheme.tertiary;
     final screenSize = MediaQuery.sizeOf(context);
     final scanWindowX = (screenSize.width - scannerWindowSize) / 2;
     final scanWindowY = (screenSize.height - scannerWindowSize) / 2;

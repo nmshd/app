@@ -84,7 +84,7 @@ class _NotImplementedDialog extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.warning_rounded, size: 36, color: context.customColors.warningIcon),
+                Icon(Icons.warning_rounded, size: 36, color: context.customColors.warning),
                 Gaps.h8,
                 SizedBox(
                   width: 250,
@@ -122,7 +122,7 @@ Future<void> showDownloadFileErrorDialog(BuildContext context) async {
 Future<bool> showDeleteRelationshipConfirmationDialog(BuildContext context, {required String contactName}) async {
   return showConfirmationDialog(
     context,
-    icon: Icon(Icons.delete_outline, color: context.customColors.error),
+    icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
     title: Text(
       contactName == unknownContactName ? context.l10n.contacts_delete_title_unknown : context.l10n.contacts_delete_title(contactName),
       style: Theme.of(context).textTheme.headlineSmall,

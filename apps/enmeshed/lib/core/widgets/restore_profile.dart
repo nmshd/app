@@ -47,7 +47,7 @@ class _RestoreProfileState extends State<RestoreProfile> {
           radius: 20,
           accountId: widget.accountInDeletion.id,
           profileName: widget.accountInDeletion.name,
-          circleAvatarColor: context.customColors.decorativeContainer!,
+          circleAvatarColor: context.customColors.decorativeContainer,
         ),
         Gaps.w16,
         Flexible(
