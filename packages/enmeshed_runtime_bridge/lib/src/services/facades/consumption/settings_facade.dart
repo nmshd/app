@@ -114,4 +114,20 @@ class SettingsFacade {
 
     return Result.fromJson(result.valueToMap(), (x) => SettingDTO.fromJson(x));
   }
+
+  Future<Result<SettingDTO>> upsertSettingByKey(String key, Map<String, dynamic> value) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.settings.upsertSettingByKey(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'key': key,
+          'value': value,
+        },
+      },
+    );
+
+    return Result.fromJson(result.valueToMap(), (x) => SettingDTO.fromJson(x));
+  }
 }
