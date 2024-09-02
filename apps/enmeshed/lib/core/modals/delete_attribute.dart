@@ -186,7 +186,7 @@ class _DeleteConfirmation extends StatelessWidget {
   }
 
   String _getDisplayValue(BuildContext context, AttributeValue value) {
-    return switch (value.runtimeType) {
+    return switch (value) {
       final AffiliationAttributeValue affiliation => affiliation.role,
       final BirthDateAttributeValue birthDate => _getBirtDateValue(context, birthDate),
       final BirthPlaceAttributeValue birthPlace => birthPlace.city,
