@@ -119,7 +119,7 @@ void run(EnmeshedRuntime runtime) {
       await session.consumptionServices.settings.upsertSettingByKey('a-key', {'aKey': 'aNewValue'});
 
       final result = await session.consumptionServices.settings.getSettings();
-      expect(result, isSuccessful<SettingDTO>());
+      expect(result, isSuccessful<List<SettingDTO>>());
       expect(result.value, hasLength(1));
 
       final setting = await session.consumptionServices.settings.getSettingByKey('a-key');
