@@ -17,45 +17,58 @@ void run(EnmeshedRuntime runtime) {
     session = runtime.getSession(account.id);
   });
 
-  group('SettingsFacade', () {
-    final value = {'aKey': 'a-value'};
-    late String settingId;
+  tearDown(() async {
+    final settings = await session.consumptionServices.settings.getSettings();
+    for (final setting in settings.value) {
+      await session.consumptionServices.settings.deleteSetting(setting.id);
+    }
+  });
 
+  group('SettingsFacade', () {
     test('should create a setting', () async {
+      const value = {'aKey': 'a-value'};
       final result = await session.consumptionServices.settings.createSetting(key: 'a-key', value: value);
       expect(result, isSuccessful<SettingDTO>());
 
       final setting = result.value;
-      settingId = setting.id;
 
       expect(setting.value, value);
     });
 
     test('should contain the setting in the list of settings', () async {
+      const value = {'aKey': 'a-value'};
+      final setting = (await session.consumptionServices.settings.createSetting(key: 'a-key', value: value)).value;
+
       final result = await session.consumptionServices.settings.getSettings();
       expect(result, isSuccessful<List<SettingDTO>>());
 
       final settings = result.value;
 
       expect(settings, hasLength(1));
-      expect(settings[0].id, settingId);
+      expect(settings[0].id, setting.id);
       expect(settings[0].value, value);
     });
 
     test('should edit the setting', () async {
+      const value = {'aKey': 'a-value'};
+      final setting = (await session.consumptionServices.settings.createSetting(key: 'a-key', value: value)).value;
+
       final newValue = {'aKey': 'another-Value'};
-      final updateResult = await session.consumptionServices.settings.updateSetting(settingId, newValue);
+      final updateResult = await session.consumptionServices.settings.updateSetting(setting.id, newValue);
       expect(updateResult, isSuccessful<SettingDTO>());
 
-      final result = await session.consumptionServices.settings.getSetting(settingId);
+      final result = await session.consumptionServices.settings.getSetting(setting.id);
       expect(result, isSuccessful<SettingDTO>());
 
-      final setting = result.value;
-      expect(setting.value, newValue);
+      final updatedSetting = result.value;
+      expect(updatedSetting.value, newValue);
     });
 
     test('should delete the setting', () async {
-      final deleteResult = await session.consumptionServices.settings.deleteSetting(settingId);
+      const value = {'aKey': 'a-value'};
+      final setting = (await session.consumptionServices.settings.createSetting(key: 'a-key', value: value)).value;
+
+      final deleteResult = await session.consumptionServices.settings.deleteSetting(setting.id);
       expect(deleteResult, isSuccessful());
 
       final result = await session.consumptionServices.settings.getSettings();
@@ -86,6 +99,31 @@ void run(EnmeshedRuntime runtime) {
       expect(setting.value, {
         'key': ['newValue']
       });
+    });
+
+    test('should upsert a setting by key when it does not exist yet', () async {
+      await session.consumptionServices.settings.upsertSettingByKey('a-key', {'aKey': 'a-value'});
+
+      final result = await session.consumptionServices.settings.getSettings();
+      expect(result, isSuccessful<List<SettingDTO>>());
+      expect(result.value, hasLength(1));
+
+      final setting = await session.consumptionServices.settings.getSettingByKey('a-key');
+      expect(setting.value.value, {'aKey': 'a-value'});
+    });
+
+    test('should upsert a setting by key', () async {
+      const value = {'aKey': 'a-value'};
+      await session.consumptionServices.settings.createSetting(key: 'a-key', value: value);
+
+      await session.consumptionServices.settings.upsertSettingByKey('a-key', {'aKey': 'aNewValue'});
+
+      final result = await session.consumptionServices.settings.getSettings();
+      expect(result, isSuccessful<List<SettingDTO>>());
+      expect(result.value, hasLength(1));
+
+      final setting = await session.consumptionServices.settings.getSettingByKey('a-key');
+      expect(setting.value.value, {'aKey': 'aNewValue'});
     });
   });
 }
