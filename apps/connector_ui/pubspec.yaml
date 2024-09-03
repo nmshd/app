@@ -1,7 +1,6 @@
 name: connector_ui
 description: A UI for the Enmeshed Connector.
 publish_to: "none"
-version: 0.1.0
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
