@@ -21,7 +21,6 @@
   "reset": "Reset",
   "noEntries": "No entries",
   "mandatoryField": "*Mandatory field",
-  "termsAndConditions": "Terms and Conditions",
   "legalNotice": "Legal Notice",
   "dataProtection": "Data Protection",
   "imprint": "Imprint",
@@ -79,9 +78,6 @@
   "onboarding_dataPrivacy_start": "I have read the ",
   "onboarding_dataPrivacy_link": "privacy policy",
   "onboarding_dataPrivacy_end": " and accept them",
-  "onboarding_termsOfUse_start": "I have read the ",
-  "onboarding_termsOfUse_link": "terms of use",
-  "onboarding_termsOfUse_end": " and accept them",
   "onboarding_connectWithUrl_title": "Connect with URL link",
   "onboarding_connectWithUrl_description": "Enter the URL link to connect your account.",
   "onboarding_linkAccount": "Link account",
@@ -398,7 +394,6 @@
       }
     }
   },
-  "requests_empty": "No open contact requests.",
   "myData_createEntryForAttributeType": "Create",
   "myData_noEntryForAttributeType": "No entry",
   "myData_allData": "All Data",
