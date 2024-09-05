@@ -39,7 +39,7 @@ class _FilesScreenState extends State<FilesScreen> {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      title: Text(context.l10n.files),
+      title: Text(context.l10n.files, maxLines: 2),
       actions: [
         IconButton(
           onPressed: _files != null && _files!.isNotEmpty
