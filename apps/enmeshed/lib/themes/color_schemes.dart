@@ -2,6 +2,8 @@ import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
+import 'text_styles.dart';
+
 const _primarySeedColor = Color(0xFF17428D);
 const _secondarySeedColor = Color(0xFF1A80D9);
 const _tertiarySeedColor = Color(0xFFFF7600);
@@ -37,6 +39,12 @@ NavigationBarThemeData lightNavigationBarTheme = NavigationBarThemeData(
   ),
 );
 
+AppBarTheme lightAppBarTheme = AppBarTheme(
+  titleTextStyle: textTheme.titleLarge!.copyWith(color: lightColorScheme.primary),
+  titleSpacing: 6,
+  centerTitle: false,
+);
+
 NavigationBarThemeData darkNavigationBarTheme = NavigationBarThemeData(
   indicatorColor: darkColorScheme.secondaryContainer,
   surfaceTintColor: darkColorScheme.onPrimary,
@@ -44,6 +52,12 @@ NavigationBarThemeData darkNavigationBarTheme = NavigationBarThemeData(
   iconTheme: WidgetStateProperty.resolveWith(
     (states) => IconThemeData(color: states.contains(WidgetState.selected) ? darkColorScheme.primary : darkColorScheme.onSurfaceVariant),
   ),
+);
+
+AppBarTheme darkAppBarTheme = AppBarTheme(
+  titleTextStyle: textTheme.titleLarge!.copyWith(color: darkColorScheme.primary),
+  titleSpacing: 6,
+  centerTitle: false,
 );
 
 const woltThemeData = WoltModalSheetThemeData(topBarShadowColor: Colors.transparent);

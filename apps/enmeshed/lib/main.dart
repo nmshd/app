@@ -389,12 +389,14 @@ class EnmeshedApp extends StatelessWidget {
           colorScheme: lightColorScheme,
           extensions: [lightCustomColors, woltThemeData],
           navigationBarTheme: lightNavigationBarTheme,
+          appBarTheme: lightAppBarTheme,
           textTheme: textTheme,
         ),
         darkTheme: ThemeData(
           colorScheme: darkColorScheme,
           extensions: [darkCustomColors, woltThemeData],
           navigationBarTheme: darkNavigationBarTheme,
+          appBarTheme: darkAppBarTheme,
           textTheme: textTheme,
         ),
         localizationsDelegates: [

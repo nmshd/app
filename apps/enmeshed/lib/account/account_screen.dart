@@ -82,7 +82,16 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     return Scaffold(
       drawer: AppDrawer(accountId: widget.accountId, accountName: _account?.name ?? '', activateHints: _activateHints),
       appBar: AppBar(
-        title: Text(_title),
+        title: Text(
+          switch (_selectedIndex) {
+            0 => context.l10n.home_title,
+            1 => context.l10n.contacts,
+            2 => context.l10n.myData,
+            3 => context.l10n.mailbox,
+            _ => throw Exception('Unknown index: $_selectedIndex'),
+          },
+          style: _selectedIndex == 0 ? Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary) : null,
+        ),
         actions: [
           ..._actions ?? [],
           Padding(
@@ -176,14 +185,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
 
     throw Exception();
   }
-
-  String get _title => switch (_selectedIndex) {
-        0 => context.l10n.home_title,
-        1 => context.l10n.contacts,
-        2 => context.l10n.myData,
-        3 => context.l10n.mailbox,
-        _ => ''
-      };
 
   List<Widget>? get _actions => switch (_selectedIndex) {
         1 => [
