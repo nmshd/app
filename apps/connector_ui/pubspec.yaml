@@ -1,5 +1,5 @@
 name: connector_ui
-description: A UI for the Enmeshed Connector.
+description: A UI for the enmeshed Connector.
 publish_to: "none"
 
 environment:

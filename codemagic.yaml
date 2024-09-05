@@ -65,7 +65,7 @@ workflows:
         - name: Custom MS-Teams integration publish
           script: |
             npm install -g @js-soft/codemagic-tools@1.0.2
-            jscm teams-production --platform "android" --projectName "Enmeshed"
+            jscm teams-production --platform "android" --projectName "enmeshed"
 
   ios-release:
     name: iOS Release
@@ -134,4 +134,4 @@ workflows:
         - name: Custom MS-Teams integration
           script: |
             npm install -g @js-soft/codemagic-tools@1.0.2
-            jscm teams-publish --platform "ios" --projectName "Enmeshed"
+            jscm teams-publish --platform "ios" --projectName "enmeshed"
