@@ -10,7 +10,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:push/push.dart';
 import 'package:renderers/renderers.dart';
 
 import 'core/core.dart';
@@ -87,9 +86,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     await setupPush(runtime);
 
-    // TODO(jkoenig134): we should handle this permission using the permission_handler package (always shows that the permission is permanently denied on the ios sim)
-    final isAccepted = await Push.instance.requestPermission();
-    if (!isAccepted) {
+    final status = await Permission.notification.request();
+    if (!status.isGranted) {
       logger.w('Notification permission is (permanently) denied');
     }
 

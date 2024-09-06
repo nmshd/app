@@ -127,7 +127,7 @@ class _InstructionsViewState extends State<_InstructionsView> {
   }
 
   Future<void> _onContinue() async {
-    await createHintsSetting(accountId: widget.accountId, key: 'hints.${widget.instructionsType}', value: !_hideHints);
+    await upsertHintsSetting(accountId: widget.accountId, key: 'hints.${widget.instructionsType}', value: !_hideHints);
 
     if (mounted) {
       context.pop();
