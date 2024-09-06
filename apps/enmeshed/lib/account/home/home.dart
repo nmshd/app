@@ -12,10 +12,7 @@ import 'widgets/home_widgets.dart';
 class HomeView extends StatefulWidget {
   final String accountId;
 
-  const HomeView({
-    required this.accountId,
-    super.key,
-  });
+  const HomeView({required this.accountId, super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -140,10 +137,6 @@ class _HomeViewState extends State<HomeView> {
   Future<void> _hideCompleteProfileContainer() async {
     if (mounted) setState(() => _isCompleteProfileContainerShown = false);
 
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-    await session.consumptionServices.settings.createSetting(
-      key: 'home.completeProfileContainerShown',
-      value: {'isShown': false},
-    );
+    await upsertCompleteProfileContainerSetting(accountId: widget.accountId, value: false);
   }
 }
