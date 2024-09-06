@@ -33,6 +33,16 @@ class ResponseItemRenderer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: switch (responseItem) {
+        final AttributeAlreadySharedAcceptResponseItemDVO dvo => AttributeAlreadySharedAcceptResponseItemRenderer(
+            item: dvo,
+            expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
+          ),
+        final AttributeSuccessionAcceptResponseItemDVO dvo => AttributeSuccessionAcceptResponseItemRenderer(
+            item: dvo,
+            expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
+          ),
         final ReadAttributeAcceptResponseItemDVO dvo => ReadAttributeAcceptResponseItemRenderer(
             item: dvo,
             expandFileReference: expandFileReference,

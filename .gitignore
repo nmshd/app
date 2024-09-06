@@ -9,3 +9,6 @@ config.*.json
 
 apps/connector_ui/android/local.properties
 .DS_Store
+
+.env
+.env.*
