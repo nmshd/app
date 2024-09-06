@@ -45,7 +45,7 @@ class DrawerMainPage extends StatelessWidget {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.drawer_hints, style: Theme.of(context).textTheme.labelLarge),
               ),
-              const Divider(indent: 16, endIndent: 16),
+              if (context.isFeatureEnabled('NEWS') || context.isFeatureEnabled('HELP_AND_FAQ')) const Divider(indent: 16, endIndent: 16),
               if (context.isFeatureEnabled('NEWS'))
                 ListTile(
                   onTap: () => showNotImplementedDialog(context),
