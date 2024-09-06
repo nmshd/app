@@ -1,16 +1,21 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '../widgets/instructions_screen.dart';
 
-Future<Result<SettingDTO>> createHintsSetting({required String accountId, required String key, required bool value}) async {
+Future<void> upsertHintsSetting({required String accountId, required String key, required bool value}) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
-  final settingResult = await session.consumptionServices.settings.createSetting(key: key, value: {'showHints': value});
+  await session.consumptionServices.settings.upsertSettingByKey(key, {'showHints': value});
+}
 
-  return settingResult;
+Future<void> upsertCompleteProfileContainerSetting({required String accountId, required bool value}) async {
+  final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
+  await session.consumptionServices.settings.upsertSettingByKey(
+    'home.completeProfileContainerShown',
+    {'isShown': value},
+  );
 }
 
 Future<bool> getSetting({required String accountId, required String key, required String valueKey}) async {

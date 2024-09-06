@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import 'account_tab_controller.dart';
-import 'app_drawer.dart';
+import 'app_drawer/app_drawer.dart';
 import 'mailbox/mailbox_filter_controller.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -80,7 +80,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(accountId: widget.accountId, accountName: _account?.name ?? '', activateHints: _activateHints),
+      drawer: AppDrawer(accountId: widget.accountId),
       appBar: AppBar(
         title: Text(
           switch (_selectedIndex) {
@@ -260,21 +260,5 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     if (!mounted) return;
 
     setState(() => _unreadMessagesCount = messages.length);
-  }
-
-  Future<void> _activateHints() async {
-    final addContactResult = await createHintsSetting(accountId: widget.accountId, key: 'hints.${InstructionsType.addContact}', value: true);
-    final loadProfileResult = await createHintsSetting(accountId: widget.accountId, key: 'hints.${InstructionsType.loadProfile}', value: true);
-
-    if (!mounted) return;
-
-    context.pop();
-
-    if (addContactResult.isError || loadProfileResult.isError) {
-      showErrorSnackbar(context: context, text: context.l10n.errorDialog_description);
-      return;
-    }
-
-    showSuccessSnackbar(context: context, text: context.l10n.instructions_activated);
   }
 }
