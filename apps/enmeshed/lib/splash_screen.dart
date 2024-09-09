@@ -40,8 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
             padding: const EdgeInsets.all(50),
             child: Hero(
               tag: 'logo',
-              child: GestureDetector(
-                onTap: () => _SplashEasterEgg.tap(context),
+              child: TenTapDetector(
+                onTenTap: () => context.push('/debug'),
                 child: Image.asset(switch (Theme.of(context).brightness) {
                   Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
                   Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
@@ -124,29 +124,5 @@ class _SplashScreenState extends State<SplashScreen> {
     if (initialAppLink != null) {
       await GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: initialAppLink.toString());
     }
-  }
-}
-
-class _SplashEasterEgg {
-  static int taps = 0;
-  static DateTime? lastTap;
-
-  static void tap(BuildContext context) {
-    if (lastTap == null || DateTime.now().difference(lastTap!) <= const Duration(seconds: 1)) {
-      taps++;
-    } else {
-      taps = 0;
-    }
-
-    if (taps >= 10) {
-      context.push('/debug');
-
-      taps = 0;
-      lastTap = null;
-
-      return;
-    }
-
-    lastTap = DateTime.now();
   }
 }
