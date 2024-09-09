@@ -9,5 +9,5 @@ export 'profile_picture_utils.dart';
 export 'settings_utils.dart';
 export 'snackbars.dart';
 export 'strings.dart';
-export 'ten_tap_gesture_detector.dart';
+export 'ten_tap_detector.dart';
 export 'url_launcher.dart';
