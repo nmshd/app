@@ -100,7 +100,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                           title: Text(context.l10n.drawer_backupData),
                         ),
                       ListTile(
-                        leading: const Icon(Icons.delete_forever_outlined),
+                        leading: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
                         title: Text(context.l10n.profiles_settings_deleteProfile),
                         onTap: () => showDeleteProfileOrIdentityModal(context: context, localAccount: _selectedAccount),
                       ),

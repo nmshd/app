@@ -88,7 +88,10 @@ class DrawerMainPage extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: GestureDetector(
+                child: TenTapDetector(
+                  onTenTap: () => context
+                    ..pop()
+                    ..push('/debug'),
                   child: FutureBuilder(
                     builder: (ctx, snap) => Text(
                       'App-Version\n${snap.hasData ? snap.data : '...'}',
@@ -96,7 +99,6 @@ class DrawerMainPage extends StatelessWidget {
                     ),
                     future: PackageInfo.fromPlatform().then((info) => info.version),
                   ),
-                  onTap: () => _AppDrawerEasterEgg.tap(context),
                 ),
               ),
               Expanded(
@@ -110,31 +112,5 @@ class DrawerMainPage extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class _AppDrawerEasterEgg {
-  static int taps = 0;
-  static DateTime? lastTap;
-
-  static void tap(BuildContext context) {
-    if (lastTap == null || DateTime.now().difference(lastTap!) <= const Duration(seconds: 1)) {
-      taps++;
-    } else {
-      taps = 0;
-    }
-
-    if (taps >= 10) {
-      context
-        ..pop()
-        ..push('/debug');
-
-      taps = 0;
-      lastTap = null;
-
-      return;
-    }
-
-    lastTap = DateTime.now();
   }
 }
