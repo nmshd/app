@@ -52,7 +52,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
             OutlinedButton.icon(
               onPressed: deleteIdentity,
               label: Text(context.l10n.profile_delete),
-              icon: Icon(Icons.delete_outlined, color: Theme.of(context).colorScheme.error),
+              icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
             ),
           ],
         ),
