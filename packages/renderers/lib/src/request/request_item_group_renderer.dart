@@ -35,26 +35,33 @@ class RequestItemGroupRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final requestItems = requestItemGroup.items.mapIndexed((index, item) {
-      return RequestItemRenderer(
-        item: item,
-        itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
-        controller: controller,
-        requestStatus: requestStatus,
-        openAttributeSwitcher: openAttributeSwitcher,
-        currentAddress: currentAddress,
-        expandFileReference: expandFileReference,
-        chooseFile: chooseFile,
-        openFileDetails: openFileDetails,
+      return Container(
+        color: Theme.of(context).colorScheme.surface,
+        child: RequestItemRenderer(
+          item: item,
+          itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
+          controller: controller,
+          requestStatus: requestStatus,
+          openAttributeSwitcher: openAttributeSwitcher,
+          currentAddress: currentAddress,
+          expandFileReference: expandFileReference,
+          chooseFile: chooseFile,
+          openFileDetails: openFileDetails,
+        ),
       );
     }).toList();
 
-    return ExpansionTile(
-      maintainState: true,
-      initiallyExpanded: true,
-      // TODO: render anything else than empty string when title is not defined
-      title: Text(requestItemGroup.title ?? ''),
-      subtitle: requestItemGroup.description != null ? Text(requestItemGroup.description!) : null,
-      children: requestItems,
+    return Container(
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      child: ExpansionTile(
+          maintainState: true,
+          initiallyExpanded: true,
+          shape: const LinearBorder(side: BorderSide.none),
+          // TODO: render anything else than empty string when title is not defined
+          title: Text(requestItemGroup.title ?? ''),
+          subtitle: requestItemGroup.description != null ? Text(requestItemGroup.description!) : null,
+          iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          children: requestItems),
     );
   }
 }
