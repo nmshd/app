@@ -17,11 +17,18 @@ class ContactFavorite extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Column(
-        children: [
-          ContactCircleAvatar(contact: contact, radius: 36),
-          if (!contact.isUnknown) SizedBox(width: 72, child: Text(contact.name, overflow: TextOverflow.ellipsis)),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, constraints) => ContactCircleAvatar(contact: contact, radius: constraints.biggest.height / 2),
+              ),
+            ),
+            if (!contact.isUnknown) SizedBox(width: 72, child: Text(contact.name, overflow: TextOverflow.ellipsis, maxLines: 1)),
+          ],
+        ),
       ),
     );
   }
