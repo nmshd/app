@@ -87,10 +87,10 @@ class _FilesScreenState extends State<FilesScreen> {
               sortingType: _sortingType,
               isSortedAscending: _isSortedAscending,
               translate: (s) => switch (s) {
-                _FilesSortingType.date => context.l10n.files_sortedByDate,
-                _FilesSortingType.name => context.l10n.files_sortedByName,
-                _FilesSortingType.type => context.l10n.files_sortedByType,
-                _FilesSortingType.size => context.l10n.files_sortedBySize,
+                _FilesSortingType.date => context.l10n.sortedByCreationDate,
+                _FilesSortingType.name => context.l10n.sortedByName,
+                _FilesSortingType.type => context.l10n.sortedByType,
+                _FilesSortingType.size => context.l10n.sortedBySize,
               },
               sortMenuItem: [
                 (value: _FilesSortingType.date, label: context.l10n.files_creationDate),

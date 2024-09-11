@@ -7,6 +7,7 @@ export 'file_utils.dart';
 export 'message_utils.dart';
 export 'profile_picture_utils.dart';
 export 'settings_utils.dart';
+export 'simple_timeago.dart';
 export 'snackbars.dart';
 export 'strings.dart';
 export 'ten_tap_detector.dart';
