@@ -154,7 +154,7 @@ class _ContactsViewState extends State<ContactsView> {
 
   String _contactToCategory(RequestOrRelationship requestOrRelationship) => switch (_sortingType) {
         _ContactsSortingType.date => simpleTimeago(context, requestOrRelationship.sortingDate),
-        _ContactsSortingType.name => requestOrRelationship.contact.initials[0].toUpperCase(),
+        _ContactsSortingType.name => requestOrRelationship.contact.isUnknown ? '' : requestOrRelationship.contact.initials[0].toUpperCase(),
       };
 
   Future<void> _reload({bool syncBefore = false, bool isFirstTime = false}) async {
