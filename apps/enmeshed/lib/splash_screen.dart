@@ -40,10 +40,13 @@ class _SplashScreenState extends State<SplashScreen> {
             padding: const EdgeInsets.all(50),
             child: Hero(
               tag: 'logo',
-              child: Image.asset(switch (Theme.of(context).brightness) {
-                Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
-                Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
-              }),
+              child: TenTapDetector(
+                onTenTap: () => context.push('/debug'),
+                child: Image.asset(switch (Theme.of(context).brightness) {
+                  Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
+                  Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
+                }),
+              ),
             ),
           ),
           const SizedBox(height: 50),

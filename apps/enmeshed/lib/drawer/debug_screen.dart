@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:archive/archive_io.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:feature_flags/feature_flags.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,6 +66,11 @@ class DebugScreen extends StatelessWidget {
               ),
               child: const Text('Push Debugger'),
             ),
+            const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
+            OutlinedButton(
+              onPressed: _extractAppDataAsZip,
+              child: const Text('Export App Data'),
+            ),
           ],
         ),
       ),
@@ -113,6 +120,42 @@ class DebugScreen extends StatelessWidget {
     }
 
     if (context.mounted) context.go('/onboarding');
+  }
+
+  Future<void> _extractAppDataAsZip() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+
+    final zipFile = File('${dir.path}/app_data.zip');
+
+    final encoder = ZipFileEncoder()..create(zipFile.path);
+
+    final databaseDir = Directory('${dir.path}/${runtime.runtimeConfig.databaseFolder}');
+    if (databaseDir.existsSync()) await encoder.addDirectory(databaseDir);
+
+    final cacheDir = Directory('${dir.path}/cache');
+    if (cacheDir.existsSync()) await encoder.addDirectory(cacheDir);
+
+    await encoder.addFile(File('${dir.path}/config.json'));
+
+    encoder.closeSync();
+
+    final bytes = zipFile.readAsBytesSync();
+
+    final deviceDir = await FilePicker.platform.saveFile(
+      fileName: 'app_data.zip',
+      allowedExtensions: ['zip'],
+      bytes: Platform.isIOS || Platform.isAndroid ? bytes : null,
+    );
+
+    if (Platform.isIOS || Platform.isAndroid || deviceDir == null) {
+      await zipFile.delete();
+      return;
+    }
+
+    final savedFile = File(deviceDir);
+    await savedFile.writeAsBytes(bytes);
+    await zipFile.delete();
   }
 }
 
