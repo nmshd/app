@@ -10,7 +10,7 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
-  dio: ^5.5.0+1
+  dio: ^5.7.0
   enmeshed_types: 1.0.0
   meta: any
 
