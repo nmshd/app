@@ -55,11 +55,19 @@ class RequestItemGroupRenderer extends StatelessWidget {
       color: Theme.of(context).colorScheme.surfaceContainer,
       child: ExpansionTile(
           maintainState: true,
+          minTileHeight: 75,
           initiallyExpanded: true,
           shape: const LinearBorder(side: BorderSide.none),
           // TODO: render anything else than empty string when title is not defined
           title: Text(requestItemGroup.title ?? ''),
-          subtitle: requestItemGroup.description != null ? Text(requestItemGroup.description!) : null,
+          subtitle: requestItemGroup.description != null
+              ? Text(
+                  requestItemGroup.description!,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                )
+              : null,
           iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
           children: requestItems),
     );
