@@ -24,9 +24,13 @@ final lightColorScheme = SeedColorScheme.fromSeeds(
 final darkColorScheme = SeedColorScheme.fromSeeds(
   brightness: Brightness.dark,
   primaryKey: _primarySeedColor,
+  primaryContainer: _primarySeedColor,
   secondaryKey: _secondarySeedColor,
+  secondaryContainer: _secondarySeedColor,
   tertiaryKey: _tertiarySeedColor,
+  tertiaryContainer: _tertiarySeedColor,
   errorKey: _errorSeedColor,
+  errorContainer: _errorSeedColor,
   tones: FlexTones.material(Brightness.dark),
 );
 
