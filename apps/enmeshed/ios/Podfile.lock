@@ -1,5 +1,5 @@
 PODS:
-  - app_links (0.0.1):
+  - app_links (0.0.2):
     - Flutter
   - croppy (0.0.1):
     - Flutter
@@ -99,7 +99,7 @@ PODS:
     - GTMSessionFetcher/Core (< 4.0, >= 3.3.2)
     - MLImage (= 1.0.0-beta5)
     - MLKitCommon (~> 11.0)
-  - mobile_scanner (5.2.2):
+  - mobile_scanner (5.2.3):
     - Flutter
     - GoogleMLKit/BarcodeScanning (~> 6.0.0)
   - nanopb (2.30910.0):
@@ -209,7 +209,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  app_links: e70ca16b4b0f88253b3b3660200d4a10b4ea9795
+  app_links: e7a6750a915a9e161c58d91bc610e8cd1d4d0ad0
   croppy: b6199bc8d56bd2e03cc11609d1c47ad9875c1321
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
@@ -231,7 +231,7 @@ SPEC CHECKSUMS:
   MLKitBarcodeScanning: 10ca0845a6d15f2f6e911f682a1998b68b973e8b
   MLKitCommon: afec63980417d29ffbb4790529a1b0a2291699e1
   MLKitVision: e858c5f125ecc288e4a31127928301eaba9ae0c1
-  mobile_scanner: 83ad7d6c1c04303f3277387ab9f71840070d0e9a
+  mobile_scanner: 96e91f2e1fb396bb7df8da40429ba8dfad664740
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   open_file_ios: 461db5853723763573e140de3193656f91990d9e
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
