@@ -125,5 +125,36 @@ void run(EnmeshedRuntime runtime) {
       final setting = await session.consumptionServices.settings.getSettingByKey('a-key');
       expect(setting.value.value, {'aKey': 'aNewValue'});
     });
+
+    test('should upsert a relationship setting by key', () async {
+      const value = {'aKey': 'a-value'};
+
+      const reference = 'RELaaaaaaaaaaaaaaaaa';
+
+      final upsertSettingResult = await session.consumptionServices.settings.upsertSettingByKey(
+        'a-key',
+        value,
+        reference: reference,
+        scope: SettingScope.Relationship,
+      );
+      expect(upsertSettingResult, isSuccessful<SettingDTO>());
+      expect(upsertSettingResult.value.value, value);
+      expect(upsertSettingResult.value.reference, reference);
+      expect(upsertSettingResult.value.scope, SettingScope.Relationship);
+
+      final result = await session.consumptionServices.settings.getSettings();
+      expect(result, isSuccessful<List<SettingDTO>>());
+      expect(result.value, hasLength(1));
+
+      final getSettingResult = await session.consumptionServices.settings.getSettingByKey(
+        'a-key',
+        reference: reference,
+        scope: SettingScope.Relationship,
+      );
+      final setting = getSettingResult.value;
+      expect(setting.value, value);
+      expect(setting.reference, reference);
+      expect(setting.scope, SettingScope.Relationship);
+    });
   });
 }
