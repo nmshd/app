@@ -30,7 +30,7 @@ dev_dependencies:
   test: any
 
 dependency_overrides:
-  # needed to compile with Xcode 15
+  # needed to compile with Xcode 16
   # https://github.com/pichillilorenzo/flutter_inappwebview/issues/2221#issuecomment-2348119737
   flutter_inappwebview_ios:
     git:

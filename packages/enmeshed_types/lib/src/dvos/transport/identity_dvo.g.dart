@@ -20,6 +20,7 @@ IdentityDVO _$IdentityDVOFromJson(Map<String, dynamic> json) => IdentityDVO(
       isSelf: json['isSelf'] as bool,
       hasRelationship: json['hasRelationship'] as bool,
       relationship: json['relationship'] == null ? null : RelationshipDVO.fromJson(json['relationship'] as Map<String, dynamic>),
+      originalName: json['originalName'] as String?,
     );
 
 Map<String, dynamic> _$IdentityDVOToJson(IdentityDVO instance) {
@@ -45,5 +46,6 @@ Map<String, dynamic> _$IdentityDVOToJson(IdentityDVO instance) {
   val['isSelf'] = instance.isSelf;
   val['hasRelationship'] = instance.hasRelationship;
   writeNotNull('relationship', instance.relationship?.toJson());
+  writeNotNull('originalName', instance.originalName);
   return val;
 }

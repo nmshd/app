@@ -50,7 +50,11 @@ class SettingsFacade {
     return Result.fromJson(result.valueToMap(), (x) => SettingDTO.fromJson(x));
   }
 
-  Future<Result<SettingDTO>> getSettingByKey(String key) async {
+  Future<Result<SettingDTO>> getSettingByKey(
+    String key, {
+    String? reference,
+    SettingScope? scope,
+  }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.settings.getSettingByKey(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -58,6 +62,8 @@ class SettingsFacade {
       arguments: {
         'request': {
           'key': key,
+          if (reference != null) 'reference': reference,
+          if (scope != null) 'scope': scope.name,
         },
       },
     );
@@ -115,7 +121,12 @@ class SettingsFacade {
     return Result.fromJson(result.valueToMap(), (x) => SettingDTO.fromJson(x));
   }
 
-  Future<Result<SettingDTO>> upsertSettingByKey(String key, Map<String, dynamic> value) async {
+  Future<Result<SettingDTO>> upsertSettingByKey(
+    String key,
+    Map<String, dynamic> value, {
+    String? reference,
+    SettingScope? scope,
+  }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.settings.upsertSettingByKey(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -124,6 +135,8 @@ class SettingsFacade {
         'request': {
           'key': key,
           'value': value,
+          if (reference != null) 'reference': reference,
+          if (scope != null) 'scope': scope.name,
         },
       },
     );
