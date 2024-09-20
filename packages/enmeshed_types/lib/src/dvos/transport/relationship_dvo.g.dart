@@ -29,6 +29,7 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
       ),
       nameMap: Map<String, String>.from(json['nameMap'] as Map),
       templateId: json['templateId'] as String,
+      originalName: json['originalName'] as String?,
     );
 
 Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
@@ -61,6 +62,7 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
   val['attributeMap'] = instance.attributeMap.map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList()));
   val['nameMap'] = instance.nameMap;
   val['templateId'] = instance.templateId;
+  writeNotNull('originalName', instance.originalName);
   return val;
 }
 

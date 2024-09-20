@@ -14,6 +14,7 @@ class IdentityDVO extends DataViewObject with EquatableMixin {
   final bool isSelf;
   final bool hasRelationship;
   final RelationshipDVO? relationship;
+  final String? originalName;
 
   const IdentityDVO({
     required super.id,
@@ -29,6 +30,7 @@ class IdentityDVO extends DataViewObject with EquatableMixin {
     required this.isSelf,
     required this.hasRelationship,
     this.relationship,
+    this.originalName,
   });
 
   factory IdentityDVO.fromJson(Map json) => _$IdentityDVOFromJson(Map<String, dynamic>.from(json));
