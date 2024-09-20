@@ -88,7 +88,7 @@ workflows:
         distribution_type: app_store
         bundle_identifier: eu.enmeshed.app
       flutter: stable
-      xcode: latest
+      xcode: 16.0
       cocoapods: default
     scripts:
       - name: Set up code signing settings on Xcode project
