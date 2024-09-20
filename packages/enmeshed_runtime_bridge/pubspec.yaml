@@ -11,12 +11,12 @@ environment:
   flutter: ">=3.24.0"
 
 dependencies:
-  device_info_plus: ^10.1.1
+  device_info_plus: ^10.1.2
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
   flutter_inappwebview: ^6.0.0
-  flutter_local_notifications: ^17.2.1+2
+  flutter_local_notifications: ^17.2.2
   logger: ^2.4.0
   path_provider: ^2.1.4
 
@@ -28,6 +28,15 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   test: any
+
+dependency_overrides:
+  # needed to compile with Xcode 15
+  # https://github.com/pichillilorenzo/flutter_inappwebview/issues/2221#issuecomment-2348119737
+  flutter_inappwebview_ios:
+    git:
+      url: https://github.com/pichillilorenzo/flutter_inappwebview.git
+      ref: 27fd339172572fe1b16cdcdae235b2a88f432e3c
+      path: flutter_inappwebview_ios
 
 platforms:
   android:

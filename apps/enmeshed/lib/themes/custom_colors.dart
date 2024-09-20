@@ -60,9 +60,13 @@ class CustomColors extends ThemeExtension<CustomColors> {
     final colorScheme = SeedColorScheme.fromSeeds(
       brightness: Brightness.dark,
       primaryKey: successSeedColor,
+      primaryContainer: successSeedColor,
       secondaryKey: warningSeedColor,
+      secondaryContainer: warningSeedColor,
       tertiaryKey: decorativeSeedColor,
+      tertiaryContainer: decorativeSeedColor,
       errorKey: decorative2SeedColor,
+      errorContainer: decorative2SeedColor,
       tones: FlexTones.material(Brightness.dark),
     );
 
