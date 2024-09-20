@@ -120,7 +120,7 @@ class _SplashScreenState extends State<SplashScreen> {
       router.go('/account/${account.id}');
     }
 
-    final initialAppLink = await appLinks.getInitialAppLink();
+    final initialAppLink = await appLinks.getInitialLink();
     if (initialAppLink != null) {
       await GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: initialAppLink.toString());
     }
