@@ -19,6 +19,8 @@ jobs:
         run: docker compose -f .dev/compose.backbone.yml --env-file .dev/compose.backbone.env up -d
       - name: "List all simulators"
         run: "xcrun xctrace list devices"
+      - name: "Pod repo update"
+        run: pod repo update
       - name: "Start Simulator"
         # the command "xcrun simctl boot" expects a device identifier
         # the assignment of the UDID variable consists of retrieving the ID of the simulator
