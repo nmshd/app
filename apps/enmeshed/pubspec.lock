@@ -304,10 +304,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_inappwebview
-      sha256: bdfcf87dd49e1bd036781e308cfde61e258749852ba5e337c6128670b4428fda
+      sha256: "3e9a443a18ecef966fb930c3a76ca5ab6a7aafc0c7b5e14a4a850cf107b09959"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.0+1"
+    version: "6.0.0"
   flutter_inappwebview_android:
     dependency: transitive
     description:
@@ -357,14 +357,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  flutter_inappwebview_windows:
-    dependency: transitive
-    description:
-      name: flutter_inappwebview_windows
-      sha256: "2c1c13c32835c4a0afa49aabc207cd5cf80967c00bfdfe49259d082182d7c81f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
