@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
+    namespace = "com.example.runtime_bridge_example"
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
