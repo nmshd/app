@@ -64,19 +64,10 @@ class RelationshipTemplatesEndpoint extends Endpoint {
         transformer: relationshipTemplateListTransformer,
       );
 
-  Future<ConnectorResponse<RelationshipTemplateDTO>> loadPeerRelationshipTemplateByTruncatedReference(String truncatedReference) => post(
+  Future<ConnectorResponse<RelationshipTemplateDTO>> loadPeerRelationshipTemplate(String truncatedReference) => post(
         '/api/v2/RelationshipTemplates/Peer',
         data: {
           'reference': truncatedReference,
-        },
-        transformer: relationshipTemplateTransformer,
-      );
-
-  Future<ConnectorResponse<RelationshipTemplateDTO>> loadPeerRelationshipTemplateByIdAndKey({required String id, required String secretKey}) => post(
-        '/api/v2/RelationshipTemplates/Peer',
-        data: {
-          'id': id,
-          'key': secretKey,
         },
         transformer: relationshipTemplateTransformer,
       );
