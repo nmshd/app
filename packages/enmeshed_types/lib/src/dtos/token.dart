@@ -9,7 +9,6 @@ class TokenDTO extends Equatable {
   final TokenContent content;
   final String createdAt;
   final String expiresAt;
-  final String secretKey;
   final String truncatedReference;
   final bool isEphemeral;
 
@@ -20,7 +19,6 @@ class TokenDTO extends Equatable {
     required this.content,
     required this.createdAt,
     required this.expiresAt,
-    required this.secretKey,
     required this.truncatedReference,
     required this.isEphemeral,
   });
@@ -33,7 +31,6 @@ class TokenDTO extends Equatable {
       content: TokenContent.fromJson(json['content']),
       createdAt: json['createdAt'],
       expiresAt: json['expiresAt'],
-      secretKey: json['secretKey'],
       truncatedReference: json['truncatedReference'],
       isEphemeral: json['isEphemeral'],
     );
@@ -47,12 +44,11 @@ class TokenDTO extends Equatable {
       'content': content.toJson(),
       'createdAt': createdAt,
       'expiresAt': expiresAt,
-      'secretKey': secretKey,
       'truncatedReference': truncatedReference,
       'isEphemeral': isEphemeral,
     };
   }
 
   @override
-  List<Object?> get props => [id, createdBy, createdByDevice, content, createdAt, expiresAt, secretKey, truncatedReference];
+  List<Object?> get props => [id, createdBy, createdByDevice, content, createdAt, expiresAt, truncatedReference];
 }

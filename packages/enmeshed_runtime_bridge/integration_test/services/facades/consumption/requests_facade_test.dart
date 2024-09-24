@@ -263,8 +263,9 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('recipient: load the Relationship Template with the Request', () async {
-        final result = await recipient.transportServices.relationshipTemplates
-            .loadPeerRelationshipTemplateByReference(reference: sRelationshipTemplate.truncatedReference);
+        final result = await recipient.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
+          reference: sRelationshipTemplate.truncatedReference,
+        );
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());
 
@@ -357,8 +358,9 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('recipient: load the Relationship Template with the Request', () async {
-        final result = await recipient.transportServices.relationshipTemplates
-            .loadPeerRelationshipTemplateByReference(reference: sRelationshipTemplate.truncatedReference);
+        final result = await recipient.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
+          reference: sRelationshipTemplate.truncatedReference,
+        );
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());
 

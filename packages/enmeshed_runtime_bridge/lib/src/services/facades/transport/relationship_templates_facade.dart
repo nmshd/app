@@ -30,27 +30,7 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(json, (value) => RelationshipTemplateDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipTemplateDTO>> loadPeerRelationshipTemplateByIdAndKey({
-    required String relationshipTemplateId,
-    required String secretKey,
-  }) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'id': relationshipTemplateId,
-          'secretKey': secretKey,
-        },
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => RelationshipTemplateDTO.fromJson(value));
-  }
-
-  Future<Result<RelationshipTemplateDTO>> loadPeerRelationshipTemplateByReference({
+  Future<Result<RelationshipTemplateDTO>> loadPeerRelationshipTemplate({
     required String reference,
   }) async {
     final result = await _evaluator.evaluateJavaScript(

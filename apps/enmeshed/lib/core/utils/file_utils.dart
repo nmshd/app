@@ -88,7 +88,7 @@ Future<FileDVO> expandFileReference({
 }) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
-  final fileDTO = await session.transportServices.files.getOrLoadFileByReference(reference: fileReference);
+  final fileDTO = await session.transportServices.files.getOrLoadFile(reference: fileReference);
   final expanded = await session.expander.expandFileDTO(fileDTO.value);
   return expanded;
 }

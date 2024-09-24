@@ -11,7 +11,6 @@ class FileDTO extends Equatable {
   final String mimetype;
   final bool isOwn;
   final String title;
-  final String secretKey;
   final String? description;
   final String truncatedReference;
 
@@ -26,7 +25,6 @@ class FileDTO extends Equatable {
     required this.mimetype,
     required this.isOwn,
     required this.title,
-    required this.secretKey,
     this.description,
     required this.truncatedReference,
   });
@@ -42,7 +40,6 @@ class FileDTO extends Equatable {
         mimetype: json['mimetype'],
         isOwn: json['isOwn'],
         title: json['title'],
-        secretKey: json['secretKey'],
         description: json['description'],
         truncatedReference: json['truncatedReference'],
       );
@@ -58,7 +55,6 @@ class FileDTO extends Equatable {
         'mimetype': mimetype,
         'isOwn': isOwn,
         'title': title,
-        'secretKey': secretKey,
         if (description != null) 'description': description,
         'truncatedReference': truncatedReference,
       };
@@ -75,7 +71,6 @@ class FileDTO extends Equatable {
         mimetype,
         isOwn,
         title,
-        secretKey,
         description,
         truncatedReference,
       ];
