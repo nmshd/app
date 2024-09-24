@@ -41,7 +41,7 @@ class CroppyLocalizationsDe extends CroppyLocalizations {
   String get doneLabel => 'Fertig';
 
   @override
-  String get materialFreeformAspectRatioLabel => 'Frei';
+  String get materialFreeformAspectRatioLabel => 'Freiform';
 
   @override
   String materialGetFlipLabel(LocalizationDirection direction) => '${direction == LocalizationDirection.vertical ? 'Vertikal' : 'Horizontal'} drehen';
