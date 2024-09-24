@@ -30,29 +30,7 @@ class TokensFacade {
     return Result.fromJson(value, (x) => TokenDTO.fromJson(x));
   }
 
-  Future<Result<TokenDTO>> loadPeerTokenByIdAndKey({
-    required String id,
-    required String secretKey,
-    required bool ephemeral,
-  }) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.tokens.loadPeerToken(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'id': id,
-          'secretKey': secretKey,
-          'ephemeral': ephemeral,
-        },
-      },
-    );
-
-    final value = result.valueToMap();
-    return Result.fromJson(value, (x) => TokenDTO.fromJson(x));
-  }
-
-  Future<Result<TokenDTO>> loadPeerTokenByReference({
+  Future<Result<TokenDTO>> loadPeerToken({
     required String reference,
     required bool ephemeral,
   }) async {

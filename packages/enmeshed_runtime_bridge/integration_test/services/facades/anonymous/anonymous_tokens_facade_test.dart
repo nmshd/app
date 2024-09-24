@@ -25,17 +25,8 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AnonymousTokensFacade', () {
-    test('should load a Token by id any key', () async {
-      final result = await runtime.anonymousServices.tokens.loadPeerTokenByIdAndKey(uploadedToken.id, uploadedToken.secretKey);
-      expect(result, isSuccessful<TokenDTO>());
-
-      final token = result.value;
-      expect(token.id, equals(uploadedToken.id));
-      expect(token.content, equals(uploadedToken.content));
-    });
-
-    test('should fail to load a Token by truncated reference', () async {
-      final result = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference(uploadedToken.truncatedReference);
+    test('should load a Token by truncatedReference', () async {
+      final result = await runtime.anonymousServices.tokens.loadPeerToken(uploadedToken.truncatedReference);
       expect(result, isSuccessful<TokenDTO>());
 
       final token = result.value;

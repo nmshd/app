@@ -53,52 +53,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('TokensFacade: loadPeerTokenByIdAndKey', () {
-    test('should load a Token', () async {
-      final expiry = generateExpiryString();
-
-      final token = await session1.transportServices.tokens.createOwnToken(
-        content: {'test': 'test'},
-        expiresAt: expiry,
-        ephemeral: false,
-      );
-
-      final peerToken = await session2.transportServices.tokens.loadPeerTokenByIdAndKey(
-        id: token.value.id,
-        secretKey: token.value.secretKey,
-        ephemeral: false,
-      );
-
-      expect(peerToken, isSuccessful<TokenDTO>());
-      expect(peerToken.value.content, equals({'test': 'test'}));
-      expect(peerToken.value.expiresAt, equals(expiry));
-    });
-
-    test('should load a Token ephemeral', () async {
-      final expiry = generateExpiryString();
-
-      final token = await session1.transportServices.tokens.createOwnToken(
-        content: {'test': 'test'},
-        expiresAt: expiry,
-        ephemeral: true,
-      );
-
-      final peerToken = await session2.transportServices.tokens.loadPeerTokenByIdAndKey(
-        id: token.value.id,
-        secretKey: token.value.secretKey,
-        ephemeral: true,
-      );
-
-      expect(peerToken, isSuccessful<TokenDTO>());
-      expect(peerToken.value.content, equals({'test': 'test'}));
-      expect(peerToken.value.expiresAt, equals(expiry));
-
-      final result = await session2.transportServices.tokens.getToken(token.value.id);
-      expect(result, isFailing('error.runtime.recordNotFound'));
-    });
-  });
-
-  group('TokensFacade: loadPeerTokenByReference', () {
+  group('TokensFacade: loadPeerToken', () {
     test('should load a Token', () async {
       final expiry = generateExpiryString();
 
@@ -108,7 +63,7 @@ void run(EnmeshedRuntime runtime) {
         ephemeral: true,
       );
 
-      final peerToken = await session2.transportServices.tokens.loadPeerTokenByReference(
+      final peerToken = await session2.transportServices.tokens.loadPeerToken(
         reference: token.value.truncatedReference,
         ephemeral: false,
       );
@@ -127,7 +82,7 @@ void run(EnmeshedRuntime runtime) {
         ephemeral: true,
       );
 
-      final peerToken = await session2.transportServices.tokens.loadPeerTokenByReference(
+      final peerToken = await session2.transportServices.tokens.loadPeerToken(
         reference: token.value.truncatedReference,
         ephemeral: true,
       );

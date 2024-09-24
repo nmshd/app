@@ -18,7 +18,6 @@ void main() {
             ),
           ]),
         ),
-        secretKey: 'aSecretKey',
         truncatedReference: 'aTruncatedReference',
       );
       final dtoJson = dto.toJson();
@@ -40,7 +39,6 @@ void main() {
               ],
             ),
           ).toJson(),
-          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -61,7 +59,6 @@ void main() {
             ),
           ]),
         ),
-        secretKey: 'aSecretKey',
         expiresAt: '2024',
         truncatedReference: 'aTruncatedReference',
       );
@@ -85,7 +82,6 @@ void main() {
             ),
           ).toJson(),
           'expiresAt': '2024',
-          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -107,7 +103,6 @@ void main() {
           ]),
         ),
         maxNumberOfAllocations: 1,
-        secretKey: 'aSecretKey',
         truncatedReference: 'aTruncatedReference',
       );
       final dtoJson = dto.toJson();
@@ -130,7 +125,6 @@ void main() {
             ),
           ).toJson(),
           'maxNumberOfAllocations': 1,
-          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -153,7 +147,6 @@ void main() {
         ),
         expiresAt: '2024',
         maxNumberOfAllocations: 1,
-        secretKey: 'aSecretKey',
         truncatedReference: 'aTruncatedReference',
       );
       final dtoJson = dto.toJson();
@@ -177,7 +170,6 @@ void main() {
           ).toJson(),
           'expiresAt': '2024',
           'maxNumberOfAllocations': 1,
-          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -202,7 +194,6 @@ void main() {
             ],
           ),
         ).toJson(),
-        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
@@ -221,7 +212,6 @@ void main() {
               ),
             ]),
           ),
-          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
         )),
       );
@@ -245,7 +235,6 @@ void main() {
           ),
         ).toJson(),
         'expiresAt': '2024',
-        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
@@ -265,7 +254,6 @@ void main() {
             ]),
           ),
           expiresAt: '2024',
-          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
         )),
       );
@@ -289,7 +277,6 @@ void main() {
           ),
         ).toJson(),
         'maxNumberOfAllocations': 1,
-        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
@@ -309,7 +296,6 @@ void main() {
             ]),
           ),
           maxNumberOfAllocations: 1,
-          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
         )),
       );
@@ -334,7 +320,6 @@ void main() {
         ).toJson(),
         'expiresAt': '2024',
         'maxNumberOfAllocations': 1,
-        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
@@ -355,7 +340,6 @@ void main() {
           ),
           expiresAt: '2024',
           maxNumberOfAllocations: 1,
-          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
         )),
       );

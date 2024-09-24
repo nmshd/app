@@ -110,43 +110,22 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: getOrLoadFileByIdAndKey', () {
-    test('should be able to load files by entering id and key', () async {
-      final fileResult = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: globalFile.id, secretKey: globalFile.secretKey);
-
-      expect(fileResult, isSuccessful<FileDTO>());
-      expect(fileResult.value.id, globalFile.id);
-    });
-
-    test('throws an exception if file id does not match the pattern', () async {
-      final result = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: '', secretKey: globalFile.secretKey);
-
-      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
-    });
-
-    test('throws an exception if secret key does not match the pattern', () async {
-      final result = await session.transportServices.files.getOrLoadFileByIdAndKey(fileId: globalFile.id, secretKey: '');
-
-      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
-    });
-  });
-
-  group('FilesFacade: getOrLoadFileByReference', () {
+  group('FilesFacade: getOrLoadFile', () {
     test('should be able to load files by entering reference', () async {
-      final fileResult = await session.transportServices.files.getOrLoadFileByReference(reference: globalFile.truncatedReference);
+      final fileResult = await session.transportServices.files.getOrLoadFile(reference: globalFile.truncatedReference);
 
       expect(fileResult, isSuccessful<FileDTO>());
       expect(fileResult.value.id, globalFile.id);
     });
 
     test('throws an exception if reference does not match the pattern', () async {
-      final result = await session.transportServices.files.getOrLoadFileByReference(reference: '');
+      final result = await session.transportServices.files.getOrLoadFile(reference: '');
 
       expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing reference', () async {
-      final result = await session.transportServices.files.getOrLoadFileByReference(
+      final result = await session.transportServices.files.getOrLoadFile(
         reference: 'RklMTG93cDV2Yk5JaUh6QWZ5aGp8M3xKZ2h6dXFKa003TW1Id0hyb3k3akd3dmdleXFXVEdVd3h2QWUwWlRBeXXX',
       );
 
@@ -224,7 +203,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(tokenResult, isSuccessful<TokenDTO>());
 
-      final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: tokenResult.value.truncatedReference);
+      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.truncatedReference);
 
       expect(responseResult, isSuccessful<FileDTO>());
       expect(responseResult.value.isOwn, false);
@@ -241,7 +220,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(tokenResult, isSuccessful<TokenDTO>());
 
-      final responseResult = await session2.transportServices.files.getOrLoadFileByReference(reference: tokenResult.value.truncatedReference);
+      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.truncatedReference);
       final response = responseResult.value;
 
       expect(tokenResult.value.expiresAt, expiresAt);

@@ -11,7 +11,6 @@ class RelationshipTemplateDTO extends Equatable {
   final RelationshipTemplateContentDerivation content;
   final String? expiresAt;
   final int? maxNumberOfAllocations;
-  final String secretKey;
   final String truncatedReference;
 
   const RelationshipTemplateDTO({
@@ -23,7 +22,6 @@ class RelationshipTemplateDTO extends Equatable {
     required this.content,
     this.expiresAt,
     this.maxNumberOfAllocations,
-    required this.secretKey,
     required this.truncatedReference,
   });
 
@@ -36,7 +34,6 @@ class RelationshipTemplateDTO extends Equatable {
         content: RelationshipTemplateContentDerivation.fromJson(json['content']),
         expiresAt: json['expiresAt'],
         maxNumberOfAllocations: json['maxNumberOfAllocations']?.toInt(),
-        secretKey: json['secretKey'],
         truncatedReference: json['truncatedReference'],
       );
 
@@ -49,7 +46,6 @@ class RelationshipTemplateDTO extends Equatable {
         'content': content.toJson(),
         if (expiresAt != null) 'expiresAt': expiresAt,
         if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
-        'secretKey': secretKey,
         'truncatedReference': truncatedReference,
       };
 
@@ -63,7 +59,6 @@ class RelationshipTemplateDTO extends Equatable {
         content,
         expiresAt,
         maxNumberOfAllocations,
-        secretKey,
         truncatedReference,
       ];
 }

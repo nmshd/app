@@ -54,30 +54,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByIdAndKey', () {
-    test('should allow to load template of peer by entering id and key', () async {
-      final expiresAt = generateExpiryString();
-      final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
-
-      final responseTemplate = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: content,
-      );
-
-      final templateResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByIdAndKey(
-        relationshipTemplateId: responseTemplate.value.id,
-        secretKey: responseTemplate.value.secretKey,
-      );
-
-      expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
-      expect(templateResult.value.expiresAt, expiresAt);
-      expect(templateResult.value.content, content);
-      expect(templateResult.value.id, responseTemplate.value.id);
-      expect(templateResult.value.secretKey, responseTemplate.value.secretKey);
-    });
-  });
-
-  group('RelationshipTemplatesFacade: loadPeerRelationshipTemplateByReference', () {
+  group('RelationshipTemplatesFacade: loadPeerRelationshipTemplate', () {
     test('should allow to load template of peer by entering reference', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -87,7 +64,7 @@ void run(EnmeshedRuntime runtime) {
         content: content,
       );
 
-      final templateResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
+      final templateResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
         reference: responseTemplate.value.truncatedReference,
       );
 
