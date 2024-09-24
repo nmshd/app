@@ -152,7 +152,7 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
     expiresAt: DateTime.now().add(const Duration(minutes: 5)).toRuntimeIsoString(),
     content: emptyRelationshipTemplateContent,
   );
-  final connectorLoadTemplateResult = await session2.transportServices.relationshipTemplates.loadPeerRelationshipTemplateByReference(
+  final connectorLoadTemplateResult = await session2.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
     reference: createTemplateResult.value.truncatedReference,
   );
   assert(connectorLoadTemplateResult.isSuccess);
