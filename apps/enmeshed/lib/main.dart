@@ -400,6 +400,7 @@ class EnmeshedApp extends StatelessWidget {
           textTheme: textTheme,
         ),
         localizationsDelegates: [
+          CroppyLocalizationsDelegate(),
           FlutterI18nDelegate(
             translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
             missingTranslationHandler: (key, locale) {

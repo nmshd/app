@@ -15,8 +15,8 @@ dependencies:
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
-  flutter_inappwebview: ^6.0.0
-  flutter_local_notifications: ^17.2.2
+  flutter_inappwebview: 6.0.0
+  flutter_local_notifications: ^17.2.3
   logger: ^2.4.0
   path_provider: ^2.1.4
 
