@@ -28,8 +28,6 @@ updates:
       - "dependencies"
 
   - package-ecosystem: "pub"
-    # all apps / packages as depdendabot currently does not support globs
-    # https://github.com/dependabot/dependabot-core/issues/2178
     directories:
       - "/"
       - "/apps/*"
