@@ -41,6 +41,13 @@ class _FilesScreenState extends State<FilesScreen> {
     final appBar = AppBar(
       title: Text(context.l10n.files, maxLines: 2),
       actions: [
+        SearchAnchor(
+          suggestionsBuilder: _buildSuggestions,
+          builder: (BuildContext context, SearchController controller) => IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () => controller.openView(),
+          ),
+        ),
         IconButton(
           onPressed: _files != null && _files!.isNotEmpty
               ? () => showSelectFileFilters(
@@ -54,13 +61,6 @@ class _FilesScreenState extends State<FilesScreen> {
                   )
               : null,
           icon: Badge(isLabelVisible: _activeFilters.isNotEmpty, child: const Icon(Icons.filter_list)),
-        ),
-        SearchAnchor(
-          suggestionsBuilder: _buildSuggestions,
-          builder: (BuildContext context, SearchController controller) => IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () => controller.openView(),
-          ),
         ),
         IconButton(onPressed: _uploadFile, icon: const Icon(Icons.add)),
       ],
