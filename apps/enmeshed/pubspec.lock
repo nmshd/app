@@ -283,10 +283,10 @@ packages:
     dependency: "direct main"
     description:
       name: flex_seed_scheme
-      sha256: ffd0b93ed7303ccb65c3be709c8d0cada277eadba9ec3193f2267942ea6d0c79
+      sha256: "7639d2c86268eff84a909026eb169f008064af0fb3696a651b24b0fa24a40334"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.0"
+    version: "3.4.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -312,10 +312,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_inappwebview_android
-      sha256: "3556d47c28369162b92c53243fa1f3e6672fc6c0b180d06d482f62c93fc87d56"
+      sha256: f48203a11c5eb0c23dd5a3cb3638ae678056b6ceae22819373e36c6cb4f1d46a
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   flutter_inappwebview_internal_annotations:
     dependency: transitive
     description:
@@ -337,26 +337,26 @@ packages:
     dependency: transitive
     description:
       name: flutter_inappwebview_macos
-      sha256: "55b7254e90742bdb3fbab90dce0915a9d87079bbcc85aa4db2ce57f27bf67718"
+      sha256: "68e0c3785d8d789710cda7d7efe6effa337c91bf300dd28af7efc2d358fa1a98"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   flutter_inappwebview_platform_interface:
     dependency: transitive
     description:
       name: flutter_inappwebview_platform_interface
-      sha256: "491281ff6c15b205f04e4c11df4af23245a5b2cb1aa70113f6f42a1296836559"
+      sha256: "97b4ab116d949ede20c90c7e3d15d24afaf1b706cc0af96b060770293cd6c49d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   flutter_inappwebview_web:
     dependency: transitive
     description:
       name: flutter_inappwebview_web
-      sha256: "926523a83e1a3318ef2798a5b2589b70d568ae1de53f9b011794ea90984859ad"
+      sha256: f7f97b6faa39416e4e86da1184edd4de6c27b271d036f0838ea3ff9a250a1de2
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
@@ -409,18 +409,18 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_launcher_icons
-      sha256: a38f2f1b3c373d42bf08bd17d60e20d3c73abce7727607b4d085ec7d5acaa294
+      sha256: "619817c4b65b322b5104b6bb6dfe6cda62d9729bd7ad4303ecc8b4e690a67a77"
       url: "https://pub.dev"
     source: hosted
-    version: "0.14.0"
+    version: "0.14.1"
   flutter_lints:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: "3f41d009ba7172d5ff9be5f6e6e6abb4300e263aab8866d2a0842ed2a70f8f0c"
+      sha256: "5398f14efa795ffb7a33e9b6a08798b26a180edac4ad7db3f231e40f82ce11e1"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "5.0.0"
   flutter_local_notifications:
     dependency: transitive
     description:
@@ -454,10 +454,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_markdown
-      sha256: a23c41ee57573e62fc2190a1f36a0480c4d90bde3a8a8d7126e5d5992fb53fb7
+      sha256: e17575ca576a34b46c58c91f9948891117a1bd97815d2e661813c7f90c647a78
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.3+1"
+    version: "0.7.3+2"
   flutter_native_splash:
     dependency: "direct main"
     description:
@@ -512,10 +512,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "2ddb88e9ad56ae15ee144ed10e33886777eb5ca2509a914850a5faa7b52ff459"
+      sha256: "5cf5fdcf853b0629deb35891c7af643be900c3dcaed7489009f9e7dbcfe55ab6"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.7"
+    version: "14.2.8"
   gtk:
     dependency: transitive
     description:
@@ -672,10 +672,10 @@ packages:
     dependency: transitive
     description:
       name: lints
-      sha256: "976c774dd944a42e83e2467f4cc670daef7eed6295b10b36ae8c85bcbf828235"
+      sha256: "3315600f3fb3b135be672bf4a178c55f274bebe368325ae18462c89ac1e3b413"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "5.0.0"
   logger:
     dependency: "direct main"
     description:
@@ -752,18 +752,18 @@ packages:
     dependency: "direct main"
     description:
       name: open_file
-      sha256: "3bd408a9ab3dc4f0e6a3906fe635519b2ff0dd3a3547c9a99acdf73a73949587"
+      sha256: a070625d8684aa35a35d6701b91d684592f1ea03f5a737ee0d39332526d09421
       url: "https://pub.dev"
     source: hosted
-    version: "3.5.5"
+    version: "3.5.7"
   open_file_android:
     dependency: transitive
     description:
       name: open_file_android
-      sha256: b5e1a2e9c5ea8e256b015403e94299039627c7205c2a5e6bb426c33235b6ca9a
+      sha256: eaa52421c5e10ba42eb3958d2632be0fc8b4f7e53556296064339d363caa2233
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   open_file_ios:
     dependency: transitive
     description:
@@ -1315,10 +1315,10 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: d43c1d6b787bf0afad444700ae7f4db8827f701bc61c255ac8d328c6f4d52062
+      sha256: cd3543bd5798f6ad290ea73d210f423502e71900302dde696f8bff84bf89a1cb
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   win32:
     dependency: transitive
     description:
