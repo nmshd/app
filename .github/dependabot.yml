@@ -15,7 +15,7 @@ updates:
       - "dependencies"
 
   - package-ecosystem: "npm"
-    directory: "/app/packages/enmeshed_runtime_bridge/natives"
+    directory: "/packages/enmeshed_runtime_bridge/natives"
     schedule:
       interval: "daily"
     groups:
