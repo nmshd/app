@@ -48,7 +48,7 @@ dependencies:
   wolt_modal_sheet: ^0.5.0
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.14.0
+  flutter_launcher_icons: ^0.14.1
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
