@@ -23,19 +23,20 @@ class RequestItemRenderer extends StatelessWidget {
 
   final Color? backgroundColor;
 
-  const RequestItemRenderer(
-      {super.key,
-      required this.currentAddress,
-      required this.item,
-      required this.itemIndex,
-      this.controller,
-      this.requestStatus,
-      this.isRejected = false,
-      this.openAttributeSwitcher,
-      required this.expandFileReference,
-      required this.chooseFile,
-      required this.openFileDetails,
-      this.backgroundColor});
+  const RequestItemRenderer({
+    super.key,
+    required this.currentAddress,
+    required this.item,
+    required this.itemIndex,
+    this.controller,
+    this.requestStatus,
+    this.isRejected = false,
+    this.openAttributeSwitcher,
+    required this.expandFileReference,
+    required this.chooseFile,
+    required this.openFileDetails,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
