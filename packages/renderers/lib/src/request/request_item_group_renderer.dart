@@ -49,6 +49,17 @@ class RequestItemGroupRenderer extends StatelessWidget {
       );
     }).toList();
 
+    final title = requestItemGroup.title != null
+        ? Text(requestItemGroup.title ?? '', style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface))
+        : null;
+
+    final subtitle = requestItemGroup.description != null
+        ? Text(
+            requestItemGroup.description!,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          )
+        : null;
+
     return ExpansionTile(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       collapsedBackgroundColor: Theme.of(context).colorScheme.surfaceContainer,
@@ -56,16 +67,8 @@ class RequestItemGroupRenderer extends StatelessWidget {
       initiallyExpanded: true,
       shape: const LinearBorder(side: BorderSide.none),
       // TODO: render anything else than empty string when title is not defined
-      title: Text(
-        requestItemGroup.title ?? '',
-        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface),
-      ),
-      subtitle: requestItemGroup.description != null
-          ? Text(
-              requestItemGroup.description!,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-            )
-          : null,
+      title: title ?? subtitle ?? const Text(''),
+      subtitle: requestItemGroup.title != null ? subtitle : null,
       iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
       children: requestItems,
     );
