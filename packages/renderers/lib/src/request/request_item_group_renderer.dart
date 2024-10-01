@@ -66,9 +66,8 @@ class RequestItemGroupRenderer extends StatelessWidget {
       maintainState: true,
       initiallyExpanded: true,
       shape: const LinearBorder(side: BorderSide.none),
-      // TODO: render anything else than empty string when title is not defined
       title: title ?? subtitle ?? const Text(''),
-      subtitle: requestItemGroup.title != null ? subtitle : null,
+      subtitle: title != null ? subtitle : null,
       iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
       children: requestItems,
     );
