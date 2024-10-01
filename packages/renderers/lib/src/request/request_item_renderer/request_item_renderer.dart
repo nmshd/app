@@ -21,23 +21,26 @@ class RequestItemRenderer extends StatelessWidget {
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
 
-  const RequestItemRenderer({
-    super.key,
-    required this.currentAddress,
-    required this.item,
-    required this.itemIndex,
-    this.controller,
-    this.requestStatus,
-    this.isRejected = false,
-    this.openAttributeSwitcher,
-    required this.expandFileReference,
-    required this.chooseFile,
-    required this.openFileDetails,
-  });
+  final Color? backgroundColor;
+
+  const RequestItemRenderer(
+      {super.key,
+      required this.currentAddress,
+      required this.item,
+      required this.itemIndex,
+      this.controller,
+      this.requestStatus,
+      this.isRejected = false,
+      this.openAttributeSwitcher,
+      required this.expandFileReference,
+      required this.chooseFile,
+      required this.openFileDetails,
+      this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: backgroundColor,
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: switch (item) {
         final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(

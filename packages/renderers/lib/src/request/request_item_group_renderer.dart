@@ -35,19 +35,17 @@ class RequestItemGroupRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final requestItems = requestItemGroup.items.mapIndexed((index, item) {
-      return Container(
-        color: Theme.of(context).colorScheme.surface,
-        child: RequestItemRenderer(
-          item: item,
-          itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
-          controller: controller,
-          requestStatus: requestStatus,
-          openAttributeSwitcher: openAttributeSwitcher,
-          currentAddress: currentAddress,
-          expandFileReference: expandFileReference,
-          chooseFile: chooseFile,
-          openFileDetails: openFileDetails,
-        ),
+      return RequestItemRenderer(
+        item: item,
+        itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
+        controller: controller,
+        requestStatus: requestStatus,
+        openAttributeSwitcher: openAttributeSwitcher,
+        currentAddress: currentAddress,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
+        backgroundColor: Theme.of(context).colorScheme.surface,
       );
     }).toList();
 
