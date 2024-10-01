@@ -45,15 +45,30 @@ class RequestItemGroupRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
+        backgroundColor: Theme.of(context).colorScheme.surface,
       );
     }).toList();
 
+    final title = requestItemGroup.title != null
+        ? Text(requestItemGroup.title ?? '', style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface))
+        : null;
+
+    final subtitle = requestItemGroup.description != null
+        ? Text(
+            requestItemGroup.description!,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          )
+        : null;
+
     return ExpansionTile(
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+      collapsedBackgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       maintainState: true,
       initiallyExpanded: true,
-      // TODO: render anything else than empty string when title is not defined
-      title: Text(requestItemGroup.title ?? ''),
-      subtitle: requestItemGroup.description != null ? Text(requestItemGroup.description!) : null,
+      shape: const LinearBorder(side: BorderSide.none),
+      title: title ?? subtitle ?? const Text(''),
+      subtitle: title != null ? subtitle : null,
+      iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
       children: requestItems,
     );
   }

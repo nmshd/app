@@ -10,6 +10,7 @@ RequestItemGroupDVO _$RequestItemGroupDVOFromJson(Map<String, dynamic> json) => 
       isDecidable: json['isDecidable'] as bool,
       items: (json['items'] as List<dynamic>).map((e) => RequestItemDVODerivation.fromJson(e as Map<String, dynamic>)).toList(),
       title: json['title'] as String?,
+      description: json['description'] as String?,
       response: json['response'] == null ? null : ResponseItemGroupDVO.fromJson(json['response'] as Map<String, dynamic>),
     );
 

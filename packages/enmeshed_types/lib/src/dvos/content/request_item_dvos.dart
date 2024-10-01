@@ -44,6 +44,7 @@ class RequestItemGroupDVO extends RequestItemDVO {
     required super.isDecidable,
     required this.items,
     this.title,
+    super.description,
     this.response,
   }) : super(id: 'n/a', name: 'n/a', type: 'RequestItemGroupDVO');
 
