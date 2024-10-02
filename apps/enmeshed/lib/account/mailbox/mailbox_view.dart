@@ -221,7 +221,7 @@ class _FilterChipBar extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           final option = selectedFilterOptions.elementAt(index);
 
-          return InputChip(
+          return Chip(
             label: Text(
               switch (option) {
                 ActionRequiredFilterOption() => context.l10n.mailbox_filter_actionRequired,
@@ -233,11 +233,12 @@ class _FilterChipBar extends StatelessWidget {
             ),
             shape: RoundedRectangleBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
-              side: BorderSide(
-                color: Theme.of(context).colorScheme.secondaryContainer,
-              ),
+              side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
             ),
             backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+            padding: EdgeInsets.zero,
+            labelPadding: const EdgeInsets.only(left: 8),
+            deleteIcon: const Icon(Icons.close),
             onDeleted: () => removeFilter(option),
           );
         },

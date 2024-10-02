@@ -41,6 +41,7 @@
   "tryAgain": "Try again",
   "title": "Title",
   "name": "Name",
+  "show": "Show",
   "sortBy": "Sort by",
   "sortedByCreationDate": "Sorted by creation date",
   "sortedByDate": "Sorted by date",
@@ -352,7 +353,20 @@
   "contacts_revoke_title": "Revoke contact request?",
   "contacts_revoke_description": "All information and content of the enquiry will be deleted. No messages or documents can be sent or received.",
   "contacts_revoke_action": "Revoke",
+  "contacts_filterOption_actionRequired": "Action required",
+  "contacts_filterOption_active": "Active",
+  "contacts_filterOption_pending": "Pending",
+  "contacts_filter_title": "Filter contacts",
+  "contacts_filter_byContactStatus": "Filter by contact status",
   "contacts_delete_deleteContact": "Delete Contact",
+  "contacts_require_attention": "{count, plural, =1{1 contact requires your attention.} other{{count} contacts require your attention.}}",
+  "@contacts_require_attention": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
   "contactDetail_connectedSince": "Contact since {since}",
   "@contactDetail_connectedSince": {
     "placeholders": {
