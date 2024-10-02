@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
-sealed class FilterOption {
-  const FilterOption();
+sealed class MailboxFilterOption {
+  const MailboxFilterOption();
 }
 
 @immutable
-class ActionRequiredFilterOption extends FilterOption {
+class ActionRequiredFilterOption extends MailboxFilterOption {
   const ActionRequiredFilterOption();
 
   @override
@@ -16,7 +16,7 @@ class ActionRequiredFilterOption extends FilterOption {
 }
 
 @immutable
-class UnreadFilterOption extends FilterOption {
+class UnreadFilterOption extends MailboxFilterOption {
   const UnreadFilterOption();
 
   @override
@@ -27,7 +27,7 @@ class UnreadFilterOption extends FilterOption {
 }
 
 @immutable
-class WithAttachmentFilterOption extends FilterOption {
+class WithAttachmentFilterOption extends MailboxFilterOption {
   const WithAttachmentFilterOption();
 
   @override
@@ -38,7 +38,7 @@ class WithAttachmentFilterOption extends FilterOption {
 }
 
 @immutable
-class ContactFilterOption extends FilterOption {
+class ContactFilterOption extends MailboxFilterOption {
   final String contactId;
 
   const ContactFilterOption(this.contactId);

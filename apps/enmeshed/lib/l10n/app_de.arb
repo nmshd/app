@@ -328,6 +328,7 @@
   "contact_information_messages": "Nachrichten",
   "contact_information_noMessages": "Keine Nachrichten vorhanden.",
   "contact_information_sharedFiles": "Geteilte Dateien",
+  "contact_requestDescription": "Nachfolgende Daten bzw. Anfragen möchte der neue Kontakt mit Ihnen teilen:",
   "contact_request": "Kontaktanfrage",
   "contacts_empty": "Kontakte hinzufügen",
   "contacts_emptyDescription": "Verbinden Sie sich mit Kontakten, um Daten oder Dokumente zu teilen oder zu empfangen.",

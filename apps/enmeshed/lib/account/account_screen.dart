@@ -47,8 +47,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
 
     _tabController = TabController(length: 2, vsync: this);
 
-    widget.mailboxFilterController.addListener(_reloadMailboxFilter);
-
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
       ..add(runtime.eventBus.on<ProfileEditedEvent>().listen((_) => _loadAccount().catchError((_) {})))
@@ -66,8 +64,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
 
   @override
   void dispose() {
-    widget.mailboxFilterController.removeListener(_reloadMailboxFilter);
-
     for (final subscription in _subscriptions) {
       subscription.cancel();
     }
@@ -219,9 +215,9 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
                   widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
             ),
             IconButton(
-              icon: Badge(
-                isLabelVisible: widget.mailboxFilterController.isMailboxFilterSet,
-                child: const Icon(Icons.filter_list),
+              icon: ValueListenableBuilder(
+                valueListenable: widget.mailboxFilterController,
+                builder: (context, value, child) => Badge(isLabelVisible: value.isNotEmpty, child: const Icon(Icons.filter_list)),
               ),
               onPressed: () => widget.mailboxFilterController.openMailboxFilter(),
             ),
@@ -249,8 +245,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     final requests = await incomingOpenRequestsFromRelationshipTemplate(session: session);
     if (mounted) setState(() => _numberOfOpenContactRequests = requests.length);
   }
-
-  void _reloadMailboxFilter() => WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
 
   Future<void> _loadUnreadMessages() async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);

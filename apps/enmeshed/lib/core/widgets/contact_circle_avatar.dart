@@ -50,13 +50,12 @@ class _UnknownContactAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = this.color ?? context.customColors.decorativeContainer;
 
-    return ClipOval(
-      child: Container(
-        width: radius * 2,
-        height: radius * 2,
-        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-        child: const VectorGraphic(loader: AssetBytesLoader('assets/svg/unknown_contact.svg')),
-      ),
+    return Container(
+      clipBehavior: Clip.hardEdge,
+      width: radius * 2,
+      height: radius * 2,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+      child: const VectorGraphic(loader: AssetBytesLoader('assets/svg/unknown_contact.svg')),
     );
   }
 }

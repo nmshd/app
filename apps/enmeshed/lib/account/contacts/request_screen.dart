@@ -19,18 +19,15 @@ class RequestScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(title: Text(context.l10n.contact_request)),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: RequestDVORenderer(
-            accountId: accountId,
-            requestId: requestId,
-            isIncoming: isIncoming,
-            requestDVO: requestDVO,
-            acceptRequestText: context.l10n.home_addContact,
-            onAfterAccept: () {
-              if (context.mounted) context.go('/account/$accountId/contacts');
-            },
-          ),
+        child: RequestDVORenderer(
+          accountId: accountId,
+          requestId: requestId,
+          isIncoming: isIncoming,
+          requestDVO: requestDVO,
+          acceptRequestText: context.l10n.home_addContact,
+          onAfterAccept: () {
+            if (context.mounted) context.go('/account/$accountId/contacts');
+          },
         ),
       ),
     );
