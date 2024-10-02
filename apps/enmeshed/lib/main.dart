@@ -1,3 +1,4 @@
+import 'package:croppy/croppy.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final _mailboxFilterController = MailboxFilterController();
+final _contactsFilterController = ContactsFilterController();
 
 final ValueNotifier<SuggestionsBuilder?> _suggestionsBuilder = ValueNotifier(null);
 
@@ -164,6 +166,7 @@ final _router = GoRouter(
             accountId: state.pathParameters['accountId']!,
             location: state.fullPath!,
             mailboxFilterController: _mailboxFilterController,
+            contactsFilterController: _contactsFilterController,
             child: child,
           ),
           routes: [
@@ -183,6 +186,7 @@ final _router = GoRouter(
                 child: ContactsView(
                   accountId: state.pathParameters['accountId']!,
                   setSuggestionsBuilder: (s) => _suggestionsBuilder.value = s,
+                  contactsFilterController: _contactsFilterController,
                 ),
               ),
               routes: [
@@ -400,7 +404,7 @@ class EnmeshedApp extends StatelessWidget {
           textTheme: textTheme,
         ),
         localizationsDelegates: [
-          CroppyLocalizationsDelegate(),
+          CroppyLocalizations.delegate,
           FlutterI18nDelegate(
             translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
             missingTranslationHandler: (key, locale) {

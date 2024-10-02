@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 import 'account_tab_controller.dart';
 import 'app_drawer/app_drawer.dart';
+import 'contacts/contacts_filter_controller.dart';
 import 'mailbox/mailbox_filter_controller.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class AccountScreen extends StatefulWidget {
   final ValueNotifier<SuggestionsBuilder?> suggestionsBuilder;
   final String location;
   final MailboxFilterController mailboxFilterController;
+  final ContactsFilterController contactsFilterController;
   final Widget child;
 
   const AccountScreen({
@@ -23,6 +25,7 @@ class AccountScreen extends StatefulWidget {
     required this.suggestionsBuilder,
     required this.location,
     required this.mailboxFilterController,
+    required this.contactsFilterController,
     required this.child,
     super.key,
   });
@@ -193,6 +196,13 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
               },
               suggestionsBuilder: (context, controller) =>
                   widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
+            ),
+            IconButton(
+              icon: ValueListenableBuilder(
+                valueListenable: widget.contactsFilterController,
+                builder: (context, value, child) => Badge(isLabelVisible: value.isNotEmpty, child: const Icon(Icons.filter_list)),
+              ),
+              onPressed: () => widget.contactsFilterController.openContactsFilter(),
             ),
             IconButton(
               icon: const Icon(Icons.person_add),

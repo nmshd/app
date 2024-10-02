@@ -267,14 +267,17 @@ class _FilterBar extends StatelessWidget {
               child: Wrap(
                 spacing: 12,
                 children: activeFilters.map((e) {
-                  return FilterChip(
+                  return Chip(
                     label: Text(e.label),
-                    selected: true,
-                    showCheckmark: false,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
+                    ),
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                     padding: EdgeInsets.zero,
+                    labelPadding: const EdgeInsets.only(left: 8),
                     deleteIcon: const Icon(Icons.close),
                     onDeleted: () => onRemoveFilter(e.filter),
-                    onSelected: (value) => value,
                   );
                 }).toList(),
               ),
