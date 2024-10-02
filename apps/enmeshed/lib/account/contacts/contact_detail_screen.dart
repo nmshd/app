@@ -20,7 +20,6 @@ class ContactDetailScreen extends ContactSharedFilesWidget {
 }
 
 class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactSharedFilesMixin<ContactDetailScreen> {
-  bool? _isFavoriteContact;
   bool _loadingFavoriteContact = false;
 
   late final Session _session;
@@ -31,6 +30,8 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   List<MessageDVO>? _incomingMessages;
 
   final List<StreamSubscription<void>> _subscriptions = [];
+
+  bool? get _isFavoriteContact => _contact?.relationship?.isPinned;
 
   @override
   void initState() {
@@ -236,11 +237,9 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
 
   Future<void> _loadContact() async {
     final contact = await _session.expander.expandAddress(widget.contactId);
-    final isFavorite = await isContactFavorite(relationshipId: contact.relationship!.id, session: _session);
 
     setState(() {
       _contact = contact;
-      _isFavoriteContact = isFavorite;
     });
   }
 
@@ -287,21 +286,15 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   }
 
   Future<void> _toggleFavoriteContact() async {
-    setState(() {
-      _loadingFavoriteContact = true;
-    });
+    setState(() => _loadingFavoriteContact = true);
 
-    await toggleContactFavorite(
+    await toggleContactPinned(
       relationshipId: _contact!.relationship!.id,
-      session: _session,
-      accountId: widget.accountId,
+      session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId),
     );
 
-    if (mounted) {
-      setState(() {
-        _isFavoriteContact = !_isFavoriteContact!;
-        _loadingFavoriteContact = false;
-      });
-    }
+    await _loadContact();
+
+    setState(() => _loadingFavoriteContact = false);
   }
 }

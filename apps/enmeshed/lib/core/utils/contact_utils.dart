@@ -6,60 +6,34 @@ import 'package:logger/logger.dart';
 
 import 'dialogs.dart';
 
-const _contactsFavoritesKey = 'contacts_favorites';
+const _contactSettingKey = 'contact_settings';
 
-class ContactFavoriteUpdatedEvent extends Event {
-  ContactFavoriteUpdatedEvent({required super.eventTargetAddress});
+Future<void> toggleContactPinned({required String relationshipId, required Session session}) async {
+  final settingValue = await _getContactSettings(relationshipId: relationshipId, session: session);
+
+  settingValue['isPinned'] = switch (settingValue['isPinned']) {
+    true => false,
+    false => true,
+    _ => true,
+  };
+
+  await session.consumptionServices.settings.upsertSettingByKey(
+    _contactSettingKey,
+    settingValue,
+    scope: SettingScope.Relationship,
+    reference: relationshipId,
+  );
 }
 
-Future<bool> isContactFavorite({required String relationshipId, required Session session}) async {
-  final contactsFavorites = await getContactsFavoritesSetting(session);
+Future<Map<String, dynamic>> _getContactSettings({required String relationshipId, required Session session}) async {
+  final existingSettingResult = await session.consumptionServices.settings.getSettingByKey(
+    _contactSettingKey,
+    scope: SettingScope.Relationship,
+    reference: relationshipId,
+  );
 
-  return contactsFavorites._relationshipIds.contains(relationshipId);
-}
-
-Future<void> toggleContactFavorite({required String relationshipId, required Session session, required String accountId}) async {
-  final contactsFavorites = await getContactsFavoritesSetting(session);
-  contactsFavorites.toggle(relationshipId);
-
-  await session.consumptionServices.settings.updateSetting(contactsFavorites.id!, contactsFavorites.toJson());
-
-  GetIt.I.get<EnmeshedRuntime>().eventBus.publish(ContactFavoriteUpdatedEvent(eventTargetAddress: accountId));
-}
-
-Future<void> updateContactsFavorites({required ContactsFavorites favorites, required Session session}) async {
-  final contactsFavorites = await getContactsFavoritesSetting(session);
-  final relationshipIdsJson = favorites.toJson();
-
-  await session.consumptionServices.settings.updateSetting(contactsFavorites.id!, relationshipIdsJson);
-}
-
-Future<ContactsFavorites> loadContactsFavorites({required Session session}) async {
-  final contactsFavorites = await getContactsFavoritesSetting(session);
-
-  return contactsFavorites;
-}
-
-Future<ContactsFavorites> getContactsFavoritesSetting(Session session) async {
-  var favoritesSettings = await session.consumptionServices.settings.getSettingByKey(_contactsFavoritesKey);
-
-  if (favoritesSettings.isError) {
-    final favorites = ContactsFavorites(relationshipIds: []);
-    final relationshipIdsJson = favorites.toJson();
-    favoritesSettings = await session.consumptionServices.settings.createSetting(
-      key: _contactsFavoritesKey,
-      value: relationshipIdsJson,
-    );
-  }
-
-  final contactsFavorites = ContactsFavorites.fromJson(favoritesSettings.value.value)..id = favoritesSettings.value.id;
-  return contactsFavorites;
-}
-
-Future<void> deleteContactsFavorites({required Session session}) async {
-  final favoritesSettings = await getContactsFavoritesSetting(session);
-
-  await session.consumptionServices.settings.deleteSetting(favoritesSettings.id!);
+  if (existingSettingResult.isSuccess) return existingSettingResult.value.value;
+  return {};
 }
 
 Future<List<IdentityDVO>> getActiveContacts({required Session session}) async {
@@ -83,22 +57,6 @@ Future<List<IdentityDVO>> getContacts({required Session session}) async {
   dvos.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
   return dvos;
-}
-
-class ContactsFavorites {
-  List<String> _relationshipIds;
-  String? id;
-
-  ContactsFavorites({required List<String> relationshipIds, this.id}) : _relationshipIds = relationshipIds;
-
-  factory ContactsFavorites.fromJson(Map<String, dynamic> json) => ContactsFavorites(
-        relationshipIds: List<String>.from(json['relationshipIds'] as List<dynamic>),
-      );
-
-  bool contains(String id) => _relationshipIds.contains(id);
-  void toggle(String id) => contains(id) ? _relationshipIds.remove(id) : _relationshipIds.add(id);
-
-  Map<String, dynamic> toJson() => {'relationshipIds': _relationshipIds};
 }
 
 Future<List<LocalRequestDVO>> incomingOpenRequestsFromRelationshipTemplate({required Session session}) async {
