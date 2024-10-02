@@ -47,7 +47,7 @@ class TokenDTO extends Equatable {
       'content': content.toJson(),
       'createdAt': createdAt,
       'expiresAt': expiresAt,
-      'forIdentity': forIdentity,
+      if (forIdentity != null) 'forIdentity': forIdentity,
       'truncatedReference': truncatedReference,
       'isEphemeral': isEphemeral,
     };
