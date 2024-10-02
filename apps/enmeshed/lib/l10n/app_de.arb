@@ -353,7 +353,20 @@
   "contacts_revoke_title": "Kontaktanfrage zurückziehen?",
   "contacts_revoke_description": "Es werden alle Informationen und Inhalte der Anfrage gelöscht. Es können keine Nachrichten und Dokumente gesendet oder empfangen werden.",
   "contacts_revoke_action": "Zurückziehen",
+  "contacts_filterOption_actionRequired": "Aktion erforderlich",
+  "contacts_filterOption_active": "Aktiv",
+  "contacts_filterOption_pending": "Unbestätigt",
+  "contacts_filter_title": "Kontakte filtern",
+  "contacts_filter_byContactStatus": "Filtern nach Kontakt-Status",
   "contacts_delete_deleteContact": "Kontakt löschen",
+  "contacts_require_attention": "{count, plural, =1{1 Kontakt erfordert Ihre Aufmerksamkeit.} other{{count} Kontakte erfordern Ihre Aufmerksamkeit.}}",
+  "@contacts_require_attention": {
+    "placeholders": {
+      "numberOfContacts": {
+        "type": "num"
+      }
+    }
+  },
   "contactDetail_connectedSince": "Kontakt seit {since}",
   "@contactDetail_connectedSince": {
     "placeholders": {
