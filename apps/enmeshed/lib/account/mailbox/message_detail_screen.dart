@@ -199,18 +199,16 @@ class _RequestInformationState extends State<_RequestInformation> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: RequestDVORenderer(
-          accountId: widget.account.id,
-          requestId: widget.message.request.id,
-          isIncoming: !widget.message.request.isOwn,
-          requestDVO: useRequestFromMessage ? widget.message.request : null,
-          acceptRequestText: context.l10n.accept,
-          onAfterAccept: () => setState(() {
-            useRequestFromMessage = false;
-          }),
-        ),
+      child: RequestDVORenderer(
+        accountId: widget.account.id,
+        requestId: widget.message.request.id,
+        isIncoming: !widget.message.request.isOwn,
+        requestDVO: useRequestFromMessage ? widget.message.request : null,
+        acceptRequestText: context.l10n.accept,
+        showHeader: false,
+        onAfterAccept: () => setState(() {
+          useRequestFromMessage = false;
+        }),
       ),
     );
   }
