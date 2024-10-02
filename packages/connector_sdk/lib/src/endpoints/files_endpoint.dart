@@ -60,17 +60,19 @@ class FilesEndpoint extends Endpoint {
 
   Future<ConnectorResponse<List<int>>> getQRCodeForFile(String fileId) => downloadQRCode('GET', '/api/v2/Files/$fileId');
 
-  Future<ConnectorResponse<TokenDTO>> createTokenForFile(String fileId, {String? expiresAt, bool? ephemeral}) => post(
+  Future<ConnectorResponse<TokenDTO>> createTokenForFile(String fileId, {String? expiresAt, bool? ephemeral, String? forIdentity}) => post(
         '/api/v2/Files/$fileId/Token',
         transformer: tokenTransformer,
         data: {
           if (expiresAt != null) 'expiresAt': expiresAt,
           if (ephemeral != null) 'ephemeral': ephemeral,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
       );
 
-  Future<ConnectorResponse<List<int>>> createTokenQRCodeForFile(String fileId, {String? expiresAt}) =>
+  Future<ConnectorResponse<List<int>>> createTokenQRCodeForFile(String fileId, {String? expiresAt, String? forIdentity}) =>
       downloadQRCode('POST', '/api/v2/Files/$fileId/Token', request: {
         if (expiresAt != null) 'expiresAt': expiresAt,
+        if (forIdentity != null) 'forIdentity': forIdentity,
       });
 }
