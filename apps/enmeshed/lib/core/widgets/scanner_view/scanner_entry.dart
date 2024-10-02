@@ -151,32 +151,33 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
           left: 0,
           right: 0,
           child: Container(
-            height: 160,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
               borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
             ),
-            child: Column(
-              children: [
-                Gaps.h24,
-                SizedBox(
-                  width: 203,
-                  child: Text(
-                    widget.scanQrOrEnterUrlText,
-                    style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-                    textAlign: TextAlign.center,
+            child: Padding(
+              padding: EdgeInsets.only(top: 24, bottom: math.max(MediaQuery.paddingOf(context).bottom, 24)),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 203,
+                    child: Text(
+                      widget.scanQrOrEnterUrlText,
+                      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                Gaps.h16,
-                OutlinedButton(
-                  onPressed: widget.toggleScannerMode,
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Theme.of(context).colorScheme.onPrimary),
-                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                  Gaps.h16,
+                  OutlinedButton(
+                    onPressed: widget.toggleScannerMode,
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Theme.of(context).colorScheme.onPrimary),
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    child: Text(widget.enterUrlText),
                   ),
-                  child: Text(widget.enterUrlText),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
