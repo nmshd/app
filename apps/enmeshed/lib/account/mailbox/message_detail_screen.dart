@@ -206,11 +206,7 @@ class _RequestInformationState extends State<_RequestInformation> {
         requestDVO: useRequestFromMessage ? widget.message.request : null,
         acceptRequestText: context.l10n.accept,
         showHeader: false,
-        onAfterAccept: () => setState(
-          () {
-            useRequestFromMessage = false;
-          },
-        ),
+        onAfterAccept: () => setState(() => useRequestFromMessage = false),
       ),
     );
   }
