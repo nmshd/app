@@ -55,15 +55,6 @@ dev_dependencies:
   translations_cleaner: ^0.0.5
   vector_graphics_compiler: ^1.1.11
 
-dependency_overrides:
-  # needed to compile with Xcode 16
-  # https://github.com/pichillilorenzo/flutter_inappwebview/issues/2221#issuecomment-2348119737
-  flutter_inappwebview_ios:
-    git:
-      url: https://github.com/pichillilorenzo/flutter_inappwebview.git
-      ref: 27fd339172572fe1b16cdcdae235b2a88f432e3c
-      path: flutter_inappwebview_ios
-
 flutter:
   generate: true
   uses-material-design: true
