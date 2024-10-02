@@ -1,4 +1,4 @@
-library renderers;
+library;
 
 export 'src/abstract_url_launcher.dart';
 export 'src/attribute/attribute_renderer.dart';

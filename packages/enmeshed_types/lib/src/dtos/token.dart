@@ -20,9 +20,9 @@ class TokenDTO extends Equatable {
     required this.content,
     required this.createdAt,
     required this.expiresAt,
-    required this.forIdentity,
     required this.truncatedReference,
     required this.isEphemeral,
+    this.forIdentity,
   });
 
   factory TokenDTO.fromJson(Map json) {

@@ -1,4 +1,4 @@
-library enmeshed_runtime_bridge;
+library;
 
 export 'src/enmeshed_runtime.dart' show EnmeshedRuntime, Session;
 export 'src/event_bus.dart';
