@@ -50,7 +50,6 @@ class _ContactsViewState extends State<ContactsView> {
   List<RequestOrRelationship>? _contacts;
   List<RequestOrRelationship> _filteredContacts = [];
 
-  late ContactsFavorites _contactsFavorites;
   List<IdentityDVO> _favorites = [];
 
   _ContactsSortingType _sortingType = _ContactsSortingType.name;
@@ -76,7 +75,6 @@ class _ContactsViewState extends State<ContactsView> {
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
-      ..add(runtime.eventBus.on<ContactFavoriteUpdatedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _reload().catchError((_) {})));
   }
 
@@ -168,7 +166,7 @@ class _ContactsViewState extends State<ContactsView> {
                   item: item,
                   isFavoriteContact: isFavoriteContact,
                   reload: _reload,
-                  updateFavList: _updateFavList,
+                  toggleContactFavorite: _toggleContactFavorite,
                 );
 
                 if (index != 0 ||
@@ -224,7 +222,6 @@ class _ContactsViewState extends State<ContactsView> {
     }
 
     final relationships = await getContacts(session: session);
-    final contactsFavorites = await loadContactsFavorites(session: session);
     final requests = await incomingOpenRequestsFromRelationshipTemplate(session: session);
 
     final requestsAndRelationships = [
@@ -235,8 +232,7 @@ class _ContactsViewState extends State<ContactsView> {
     if (mounted) {
       setState(() {
         _relationships = relationships;
-        _contactsFavorites = contactsFavorites;
-        _favorites = relationships.where((contact) => contactsFavorites.contains(contact.relationship!.id)).toList();
+        _favorites = relationships.where((contact) => contact.relationship?.isPinned ?? false).toList();
         _contacts = requestsAndRelationships;
       });
     }
@@ -248,15 +244,19 @@ class _ContactsViewState extends State<ContactsView> {
     }
   }
 
-  Future<void> _updateFavList(IdentityDVO identity) async {
-    final favs = _contactsFavorites..toggle(identity.relationship!.id);
-
-    // update is done in background to make the UI more responsive
-    unawaited(updateContactsFavorites(favorites: favs, session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId)));
-
+  Future<void> _toggleContactFavorite(IdentityDVO identity) async {
     setState(() {
-      _favorites = _relationships.where((contact) => favs.contains(contact.relationship!.id)).toList();
+      if (_favorites.any((favorite) => favorite.id == identity.id)) {
+        _favorites.removeWhere((favorite) => favorite.id == identity.id);
+      } else {
+        _favorites.add(identity);
+      }
     });
+
+    await toggleContactPinned(
+      relationshipId: identity.relationship!.id,
+      session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId),
+    );
   }
 
   Iterable<Widget> _buildSuggestions(BuildContext context, SearchController controller) {
@@ -335,14 +335,14 @@ class _ContactItem extends StatelessWidget {
   final RequestOrRelationship item;
   final bool isFavoriteContact;
   final VoidCallback reload;
-  final Future<void> Function(IdentityDVO identity) updateFavList;
+  final Future<void> Function(IdentityDVO identity) toggleContactFavorite;
 
   const _ContactItem({
     required this.accountId,
     required this.item,
     required this.isFavoriteContact,
     required this.reload,
-    required this.updateFavList,
+    required this.toggleContactFavorite,
   });
 
   @override
@@ -357,7 +357,7 @@ class _ContactItem extends StatelessWidget {
           : IconButton(
               icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
               color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
-              onPressed: () => updateFavList(contact),
+              onPressed: () => toggleContactFavorite(contact),
             ),
       onDeletePressed: _onDeletePressed,
     );
