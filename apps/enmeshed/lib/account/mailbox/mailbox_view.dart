@@ -34,19 +34,20 @@ class _MailboxViewState extends State<MailboxView> {
   List<MessageDVO>? _outgoingMessages;
   List<IdentityDVO>? _contacts;
 
-  Set<FilterOption> _selectedFilterOptions = {};
-
   final List<StreamSubscription<void>> _subscriptions = [];
 
   @override
   void initState() {
     super.initState();
 
-    widget.mailboxFilterController.onOpenMailboxFilter = _onOpenFilterPressed;
-    _reload(isFirstTime: true, syncBefore: true);
+    widget.mailboxFilterController.value = {
+      if (widget.filteredContactId != null) ContactFilterOption(widget.filteredContactId!),
+    };
 
-    if (widget.filteredContactId != null) _selectedFilterOptions.add(ContactFilterOption(widget.filteredContactId!));
-    widget.mailboxFilterController.updateMailboxFilterStatus(activeFilters: _selectedFilterOptions);
+    widget.mailboxFilterController.onOpenMailboxFilter = _onOpenFilterPressed;
+    widget.mailboxFilterController.addListener(_reload);
+
+    _reload(isFirstTime: true, syncBefore: true);
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
@@ -58,6 +59,8 @@ class _MailboxViewState extends State<MailboxView> {
 
   @override
   void dispose() {
+    widget.mailboxFilterController.removeListener(_reload);
+
     for (final subscription in _subscriptions) {
       subscription.cancel();
     }
@@ -73,10 +76,14 @@ class _MailboxViewState extends State<MailboxView> {
 
     return Column(
       children: [
-        if (_selectedFilterOptions.isNotEmpty)
+        if (widget.mailboxFilterController.isMailboxFilterSet)
           Align(
             alignment: Alignment.centerLeft,
-            child: _FilterChipBar(selectedFilterOptions: _selectedFilterOptions, contacts: _contacts!, removeFilter: _removeFilter),
+            child: _FilterChipBar(
+              selectedFilterOptions: widget.mailboxFilterController.value,
+              contacts: _contacts!,
+              removeFilter: (filter) => widget.mailboxFilterController.removeFilter(filter),
+            ),
           ),
         Expanded(
           child: TabBarView(
@@ -89,7 +96,7 @@ class _MailboxViewState extends State<MailboxView> {
                   messages: _incomingMessages!,
                   accountId: widget.accountId,
                   onRefresh: () => _reload(syncBefore: true),
-                  isFiltered: _selectedFilterOptions.isNotEmpty,
+                  isFiltered: widget.mailboxFilterController.isMailboxFilterSet,
                 ),
               if (_outgoingMessages == null)
                 const Center(child: CircularProgressIndicator())
@@ -98,7 +105,7 @@ class _MailboxViewState extends State<MailboxView> {
                   messages: _outgoingMessages!,
                   accountId: widget.accountId,
                   onRefresh: () => _reload(syncBefore: true),
-                  isFiltered: _selectedFilterOptions.isNotEmpty,
+                  isFiltered: widget.mailboxFilterController.isMailboxFilterSet,
                 ),
             ],
           ),
@@ -114,21 +121,21 @@ class _MailboxViewState extends State<MailboxView> {
 
     if (!mounted) return;
 
-    final filteredContactIds = _selectedFilterOptions.whereType<ContactFilterOption>().map((e) => e.contactId).toList();
+    final filteredContactIds = widget.mailboxFilterController.value.whereType<ContactFilterOption>().map((e) => e.contactId).toList();
     final query = {
       if (!context.showTechnicalMessages) 'content.@type': QueryValue.string(r'~^(Request|Mail)$'),
       if (filteredContactIds.isNotEmpty) 'participant': QueryValue.stringList(filteredContactIds),
     };
 
-    if (_selectedFilterOptions.contains(const ActionRequiredFilterOption())) {
+    if (widget.mailboxFilterController.value.contains(const ActionRequiredFilterOption())) {
       query['content.@type'] = QueryValue.string('Request');
     }
 
-    if (_selectedFilterOptions.contains(const WithAttachmentFilterOption())) {
+    if (widget.mailboxFilterController.value.contains(const WithAttachmentFilterOption())) {
       query['attachments'] = QueryValue.string('+');
     }
 
-    final isUnreadFiltered = _selectedFilterOptions.contains(const UnreadFilterOption());
+    final isUnreadFiltered = widget.mailboxFilterController.value.contains(const UnreadFilterOption());
 
     final messageResult = await session.transportServices.messages.getMessages(query: query);
     final messages = await session.expander.expandMessageDTOs(messageResult.value);
@@ -147,12 +154,6 @@ class _MailboxViewState extends State<MailboxView> {
     if (isFirstTime) {
       widget.setSuggestionsBuilder(_buildSuggestions);
     }
-  }
-
-  void _removeFilter(FilterOption filter) {
-    _selectedFilterOptions.remove(filter);
-    widget.mailboxFilterController.updateMailboxFilterStatus(activeFilters: _selectedFilterOptions);
-    _reload();
   }
 
   Iterable<Widget> _buildSuggestions(BuildContext context, SearchController controller) {
@@ -189,23 +190,19 @@ class _MailboxViewState extends State<MailboxView> {
     final options = await showSelectMailboxFiltersModal(
       contacts: _contacts!,
       mailboxFilterController: widget.mailboxFilterController,
-      selectedFilterOptions: _selectedFilterOptions,
       context: context,
     );
 
     if (options == null) return;
 
-    _selectedFilterOptions = options;
-    widget.mailboxFilterController.updateMailboxFilterStatus(activeFilters: _selectedFilterOptions);
-
-    if (mounted) await _reload();
+    widget.mailboxFilterController.value = options;
   }
 }
 
 class _FilterChipBar extends StatelessWidget {
-  final Set<FilterOption> selectedFilterOptions;
+  final Set<MailboxFilterOption> selectedFilterOptions;
   final List<IdentityDVO> contacts;
-  final void Function(FilterOption option) removeFilter;
+  final void Function(MailboxFilterOption option) removeFilter;
 
   const _FilterChipBar({
     required this.selectedFilterOptions,
