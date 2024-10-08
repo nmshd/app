@@ -17,6 +17,7 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       status: $enumDecode(_$RelationshipStatusEnumMap, json['status']),
       peerDeletionStatus: $enumDecodeNullable(_$PeerDeletionStatusEnumMap, json['peerDeletionStatus']),
+      peerDeletionDate: json['peerDeletionDate'] as String?,
       direction: $enumDecode(_$RelationshipDirectionEnumMap, json['direction']),
       statusText: json['statusText'] as String,
       isPinned: json['isPinned'] as bool,
@@ -52,6 +53,7 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
   writeNotNull('warning', instance.warning?.toJson());
   val['status'] = _$RelationshipStatusEnumMap[instance.status]!;
   writeNotNull('peerDeletionStatus', _$PeerDeletionStatusEnumMap[instance.peerDeletionStatus]);
+  writeNotNull('peerDeletionDate', instance.peerDeletionDate);
   val['direction'] = _$RelationshipDirectionEnumMap[instance.direction]!;
   val['statusText'] = instance.statusText;
   val['isPinned'] = instance.isPinned;
