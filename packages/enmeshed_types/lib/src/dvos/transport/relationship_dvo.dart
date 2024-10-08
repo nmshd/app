@@ -15,6 +15,7 @@ enum RelationshipDirection { Incoming, Outgoing }
 class RelationshipDVO extends DataViewObject with EquatableMixin {
   final RelationshipStatus status;
   final PeerDeletionStatus? peerDeletionStatus;
+  final String? peerDeletionDate;
   final RelationshipDirection direction;
   final String statusText;
   final bool isPinned;
@@ -38,6 +39,7 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
     super.warning,
     required this.status,
     this.peerDeletionStatus,
+    this.peerDeletionDate,
     required this.direction,
     required this.statusText,
     required this.isPinned,
