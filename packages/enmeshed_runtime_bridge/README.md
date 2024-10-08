@@ -1,10 +1,10 @@
-# Enmeshed Runtime Bridge
+# enmeshed Runtime Bridge
 
-A bridging layer translating from Dart coding into the Enmeshed TypeScript runtime.
+A bridging layer translating from Dart coding into the enmeshed TypeScript runtime.
 
 ## Documentation
 
-You can find the documentation for Enmeshed on [enmeshed.eu](https://enmeshed.eu).
+You can find the documentation for enmeshed on [enmeshed.eu](https://enmeshed.eu).
 
 ## License
 

@@ -53,7 +53,7 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
             radius: 40,
             image: _image,
             profileName: widget.profileName,
-            circleAvatarColor: context.customColors.decorativeContainer!,
+            circleAvatarColor: context.customColors.decorativeContainer,
           ),
         if (_loading) const CircleAvatar(radius: 40, child: CircularProgressIndicator()),
         Gaps.w16,
@@ -68,7 +68,7 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
               TextButton.icon(
                 label: Text(context.l10n.profile_deletePhoto),
                 onPressed: _loading ? null : _deleteImage,
-                icon: Icon(Icons.delete, size: 16, color: Theme.of(context).colorScheme.primary),
+                icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error, size: 16),
               ),
           ],
         ),

@@ -1,10 +1,10 @@
 # Value Renderer
 
-Providing a value renderer for Redering Enmeshed values in Flutter.
+Providing a value renderer for Redering enmeshed values in Flutter.
 
 ## Documentation
 
-You can find the documentation for Enmeshed on [enmeshed.eu](https://enmeshed.eu).
+You can find the documentation for enmeshed on [enmeshed.eu](https://enmeshed.eu).
 
 ## License
 

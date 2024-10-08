@@ -11,7 +11,7 @@ part 'message_with_attachments.g.dart';
 class MessageWithAttachmentsDTO extends Equatable {
   final String id;
   final bool isOwn;
-  final MessageContent content;
+  final MessageContentDerivation content;
   final String createdBy;
   final String createdByDevice;
   final List<RecipientDTO> recipients;

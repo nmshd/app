@@ -48,13 +48,13 @@ void run(EnmeshedRuntime runtime) {
         expect(sLocalRequest.status, LocalRequestStatus.Draft);
         expect(sLocalRequest.content.items.length, 1);
         expect(sLocalRequest.content.items.first, isA<ReadAttributeRequestItem>());
-        expect(sLocalRequest.content.items.first.mustBeAccepted, false);
+        expect((sLocalRequest.content.items.first as ReadAttributeRequestItem).mustBeAccepted, false);
       });
 
       test('sender: send the outgoing Request via Message', () async {
         final result = await sender.transportServices.messages.sendMessage(
           recipients: [(await recipient.transportServices.account.getIdentityInfo()).value.address],
-          content: sLocalRequest.content.toJson(),
+          content: MessageContentRequest(request: sLocalRequest.content),
         );
 
         expect(result, isSuccessful<MessageDTO>());
@@ -83,7 +83,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.canAccept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
@@ -98,7 +98,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.accept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
@@ -161,13 +161,13 @@ void run(EnmeshedRuntime runtime) {
         expect(sLocalRequest.status, LocalRequestStatus.Draft);
         expect(sLocalRequest.content.items.length, 1);
         expect(sLocalRequest.content.items.first, isA<ReadAttributeRequestItem>());
-        expect(sLocalRequest.content.items.first.mustBeAccepted, false);
+        expect((sLocalRequest.content.items.first as ReadAttributeRequestItem).mustBeAccepted, false);
       });
 
       test('sender: send the outgoing Request via Message', () async {
         final result = await sender.transportServices.messages.sendMessage(
           recipients: [(await recipient.transportServices.account.getIdentityInfo()).value.address],
-          content: sLocalRequest.content.toJson(),
+          content: MessageContentRequest(request: sLocalRequest.content),
         );
 
         expect(result, isSuccessful<MessageDTO>());
@@ -254,7 +254,7 @@ void run(EnmeshedRuntime runtime) {
           expiresAt: generateExpiryString(),
           content: const RelationshipTemplateContent(
             onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
-          ).toJson(),
+          ),
         );
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());
@@ -263,8 +263,9 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('recipient: load the Relationship Template with the Request', () async {
-        final result = await recipient.transportServices.relationshipTemplates
-            .loadPeerRelationshipTemplateByReference(reference: sRelationshipTemplate.truncatedReference);
+        final result = await recipient.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
+          reference: sRelationshipTemplate.truncatedReference,
+        );
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());
 
@@ -285,7 +286,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.canAccept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
@@ -300,7 +301,7 @@ void run(EnmeshedRuntime runtime) {
         final result = await recipient.consumptionServices.incomingRequests.accept(
           params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
             AcceptReadAttributeRequestItemParametersWithNewAttribute(
-              newAttribute: IdentityAttribute(owner: account1.address!, value: const CityAttributeValue(value: 'aCity')),
+              newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
             ),
           ]),
         );
@@ -348,7 +349,7 @@ void run(EnmeshedRuntime runtime) {
           expiresAt: generateExpiryString(),
           content: const RelationshipTemplateContent(
             onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
-          ).toJson(),
+          ),
         );
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());
@@ -357,8 +358,9 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('recipient: load the Relationship Template with the Request', () async {
-        final result = await recipient.transportServices.relationshipTemplates
-            .loadPeerRelationshipTemplateByReference(reference: sRelationshipTemplate.truncatedReference);
+        final result = await recipient.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
+          reference: sRelationshipTemplate.truncatedReference,
+        );
 
         expect(result, isSuccessful<RelationshipTemplateDTO>());
 

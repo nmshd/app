@@ -11,7 +11,6 @@ void main() {
         content: ArbitraryTokenContent({'aKey': 'aValue'}),
         createdAt: '2023',
         expiresAt: '2024',
-        secretKey: 'aSecretKey',
         truncatedReference: 'aTruncatedReference',
         isEphemeral: true,
       );
@@ -25,7 +24,6 @@ void main() {
           'content': ArbitraryTokenContent({'aKey': 'aValue'}).toJson(),
           'createdAt': '2023',
           'expiresAt': '2024',
-          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
           'isEphemeral': true,
         }),
@@ -42,7 +40,6 @@ void main() {
         'content': ArbitraryTokenContent({'aKey': 'aValue'}).toJson(),
         'createdAt': '2023',
         'expiresAt': '2024',
-        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
         'isEphemeral': true,
       };
@@ -55,7 +52,6 @@ void main() {
           content: ArbitraryTokenContent({'aKey': 'aValue'}),
           createdAt: '2023',
           expiresAt: '2024',
-          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
           isEphemeral: true,
         )),

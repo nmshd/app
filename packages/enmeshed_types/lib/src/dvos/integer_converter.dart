@@ -4,10 +4,14 @@ class IntegerConverter implements JsonConverter<int, dynamic> {
   const IntegerConverter();
 
   @override
-  int fromJson(dynamic json) => json.toInt();
+  int fromJson(dynamic json) => switch (json) {
+        String() => int.parse(json),
+        num() => json.toInt(),
+        _ => throw Exception('Invalid type for IntegerConverter: ${json.runtimeType}'),
+      };
 
   @override
-  dynamic toJson(int object) => object;
+  int toJson(int object) => object;
 }
 
 class OptionalIntegerConverter implements JsonConverter<int?, dynamic> {

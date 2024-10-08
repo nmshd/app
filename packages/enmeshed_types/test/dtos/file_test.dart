@@ -15,7 +15,6 @@ void main() {
         mimetype: 'aMimetype',
         isOwn: true,
         title: 'aTitle',
-        secretKey: 'aSecretKey',
         truncatedReference: 'aTruncatedReference',
       );
       final dtoJson = dto.toJson();
@@ -32,7 +31,6 @@ void main() {
           'mimetype': 'aMimetype',
           'isOwn': true,
           'title': 'aTitle',
-          'secretKey': 'aSecretKey',
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -50,7 +48,6 @@ void main() {
         mimetype: 'aMimetype',
         isOwn: true,
         title: 'aTitle',
-        secretKey: 'aSecretKey',
         description: 'aDescription',
         truncatedReference: 'aTruncatedReference',
       );
@@ -68,7 +65,6 @@ void main() {
           'mimetype': 'aMimetype',
           'isOwn': true,
           'title': 'aTitle',
-          'secretKey': 'aSecretKey',
           'description': 'aDescription',
           'truncatedReference': 'aTruncatedReference',
         }),
@@ -89,7 +85,6 @@ void main() {
         'mimetype': 'aMimetype',
         'isOwn': true,
         'title': 'aTitle',
-        'secretKey': 'aSecretKey',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
@@ -105,7 +100,6 @@ void main() {
           mimetype: 'aMimetype',
           isOwn: true,
           title: 'aTitle',
-          secretKey: 'aSecretKey',
           truncatedReference: 'aTruncatedReference',
         )),
       );
@@ -123,7 +117,6 @@ void main() {
         'mimetype': 'aMimetype',
         'isOwn': true,
         'title': 'aTitle',
-        'secretKey': 'aSecretKey',
         'description': 'aDescription',
         'truncatedReference': 'aTruncatedReference',
       };
@@ -140,7 +133,6 @@ void main() {
           mimetype: 'aMimetype',
           isOwn: true,
           title: 'aTitle',
-          secretKey: 'aSecretKey',
           description: 'aDescription',
           truncatedReference: 'aTruncatedReference',
         )),

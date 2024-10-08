@@ -59,24 +59,26 @@ class _AllDataScreenState extends State<AllDataScreen> {
                   itemBuilder: (context, index) {
                     final attribute = _attributes![index];
 
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: AttributeRenderer.localAttribute(
-                        attribute: attribute,
-                        trailing: IconButton(
-                          icon: const Icon(Icons.chevron_right),
-                          onPressed: () => context.push(
-                            '/account/${widget.accountId}/my-data/details/${attribute.id}',
-                            extra: attribute is RepositoryAttributeDVO ? attribute : null,
+                    return Ink(
+                      child: InkWell(
+                        onTap: () => context.push(
+                          '/account/${widget.accountId}/my-data/details/${attribute.id}',
+                          extra: attribute is RepositoryAttributeDVO ? attribute : null,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                          child: AttributeRenderer.localAttribute(
+                            attribute: attribute,
+                            trailing: const Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Icon(Icons.chevron_right)),
+                            expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                            openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
                           ),
                         ),
-                        expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                        openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
                       ),
                     );
                   },
                   itemCount: _attributes!.length,
-                  separatorBuilder: (context, index) => const Divider(indent: 16),
+                  separatorBuilder: (context, index) => const Divider(indent: 16, height: 2),
                 ),
         ),
       ),

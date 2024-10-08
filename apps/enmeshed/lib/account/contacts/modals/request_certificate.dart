@@ -39,25 +39,7 @@ Future<void> showRequestCertificateModal({required BuildContext context, require
             onDone: () => pageIndexNotifier.value = 2,
             onError: () {
               pageIndexNotifier.value = 0;
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  showCloseIcon: true,
-                  content: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: Icon(Icons.error_rounded, color: Theme.of(context).colorScheme.error),
-                      ),
-                      Expanded(
-                        child: Text(
-                          context.l10n.contactDetail_requestCertificate_error,
-                          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              showErrorSnackbar(context: context, text: context.l10n.contactDetail_requestCertificate_error);
             },
           ),
         ),
@@ -94,7 +76,7 @@ Future<void> _requestCertificate({
   }
 
   final sendMessageResult = await session.transportServices.messages.sendMessage(
-    content: createRequestResult.value.content.toJson(),
+    content: MessageContentRequest(request: createRequestResult.value.content),
     recipients: [peer],
   );
   if (sendMessageResult.isError) {
@@ -243,7 +225,7 @@ class _SendCertificateSuccess extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.successIcon),
+          Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.success),
           Gaps.h24,
           Text(
             context.l10n.contactDetail_requestCertificate_success,

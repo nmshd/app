@@ -10,11 +10,11 @@ part 'identity_dvo.g.dart';
 @JsonSerializable(includeIfNull: false)
 class IdentityDVO extends DataViewObject with EquatableMixin {
   final String? publicKey;
-  final String realm;
   final String initials;
   final bool isSelf;
   final bool hasRelationship;
   final RelationshipDVO? relationship;
+  final String? originalName;
 
   const IdentityDVO({
     required super.id,
@@ -26,11 +26,11 @@ class IdentityDVO extends DataViewObject with EquatableMixin {
     super.error,
     super.warning,
     this.publicKey,
-    required this.realm,
     required this.initials,
     required this.isSelf,
     required this.hasRelationship,
     this.relationship,
+    this.originalName,
   });
 
   factory IdentityDVO.fromJson(Map json) => _$IdentityDVOFromJson(Map<String, dynamic>.from(json));
@@ -47,7 +47,6 @@ class IdentityDVO extends DataViewObject with EquatableMixin {
         error,
         warning,
         publicKey,
-        realm,
         initials,
         isSelf,
         hasRelationship,

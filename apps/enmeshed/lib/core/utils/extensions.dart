@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../themes/custom_color.dart';
+import '../../themes/custom_colors.dart';
+import '../constants.dart';
 
 extension AppLocalizationsExtension on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this)!;
@@ -36,4 +37,31 @@ extension FeatureFlagging on BuildContext {
   bool isFeatureEnabled(String feature) => kDebugMode && Features.isFeatureEnabled(this, feature);
 
   bool get showTechnicalMessages => isFeatureEnabled('SHOW_TECHNICAL_MESSAGES');
+}
+
+extension Separated<T extends Widget> on Iterable<T> {
+  List<Widget> separated(Widget Function() separator) {
+    final widgets = <Widget>[];
+
+    for (final widget in indexed) {
+      widgets.add(widget.$2);
+      if (widget.$1 != length - 1) widgets.add(separator());
+    }
+
+    return widgets;
+  }
+}
+
+extension IsUnknown on IdentityDVO {
+  bool get isUnknown => name == unknownContactName;
+}
+
+extension Toggle<T> on Set<T> {
+  void toggle(T value) {
+    contains(value) ? remove(value) : add(value);
+  }
+}
+
+extension IsDefaultRepositoryAttribute on LocalAttributeDVO {
+  bool get isDefaultRepositoryAttribute => this is RepositoryAttributeDVO && ((this as RepositoryAttributeDVO).isDefault ?? false);
 }

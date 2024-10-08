@@ -21,6 +21,8 @@ class RequestItemRenderer extends StatelessWidget {
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
 
+  final Color? backgroundColor;
+
   const RequestItemRenderer({
     super.key,
     required this.currentAddress,
@@ -33,11 +35,13 @@ class RequestItemRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: backgroundColor,
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: switch (item) {
         final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(

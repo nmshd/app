@@ -12,10 +12,7 @@ import 'widgets/home_widgets.dart';
 class HomeView extends StatefulWidget {
   final String accountId;
 
-  const HomeView({
-    required this.accountId,
-    super.key,
-  });
+  const HomeView({required this.accountId, super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -76,6 +73,10 @@ class _HomeViewState extends State<HomeView> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
+                  if (_isCompleteProfileContainerShown) ...[
+                    CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
+                    Gaps.h24,
+                  ],
                   if (context.isFeatureEnabled('NEWS')) ...[
                     NewsContainer.debugPrefilled(),
                     Gaps.h24,
@@ -85,19 +86,18 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             Gaps.h24,
-            ContactRequestsContainer(accountId: widget.accountId, relationshipRequests: _requests!),
-            Gaps.h24,
-            MessagesContainer(
-              accountId: widget.accountId,
-              messages: _messages!,
-              unreadMessagesCount: _unreadMessagesCount,
-              seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox'),
-            ),
-            Gaps.h24,
-            if (_isCompleteProfileContainerShown) ...[
-              CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
+            if (context.isFeatureEnabled('SHOW_CONTACT_REQUESTS')) ...[
+              ContactRequestsContainer(accountId: widget.accountId, relationshipRequests: _requests!),
               Gaps.h24,
             ],
+            MessagesContainer(
+              accountId: widget.accountId,
+              messages: _messages,
+              unreadMessagesCount: _unreadMessagesCount,
+              seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox'),
+              title: context.l10n.home_messages,
+              noMessagesText: context.l10n.home_noNewMessages,
+            ),
           ],
         ),
       ),
@@ -119,7 +119,11 @@ class _HomeViewState extends State<HomeView> {
 
     final messageDVOs = await session.expander.expandMessageDTOs(messages.take(5).toList());
 
-    final isCompleteProfileContainerShown = await _isCompleteProfileContainerVisible(session);
+    final isCompleteProfileContainerShown = await getSetting(
+      accountId: widget.accountId,
+      key: 'home.completeProfileContainerShown',
+      valueKey: 'isShown',
+    );
 
     if (!mounted) return;
     setState(() {
@@ -130,28 +134,9 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  Future<bool> _isCompleteProfileContainerVisible(Session session) async {
-    final settingResult = await session.consumptionServices.settings.getSettingByKey('home.completeProfileContainerShown');
-    if (settingResult.isError && settingResult.error.code == 'error.runtime.recordNotFound') {
-      return true;
-    } else if (settingResult.isError) {
-      return false;
-    }
-
-    final setting = settingResult.value;
-    final isShown = setting.value['isShown'];
-    if (isShown is! bool) return true;
-
-    return setting.value['isShown'] as bool;
-  }
-
   Future<void> _hideCompleteProfileContainer() async {
     if (mounted) setState(() => _isCompleteProfileContainerShown = false);
 
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-    await session.consumptionServices.settings.createSetting(
-      key: 'home.completeProfileContainerShown',
-      value: {'isShown': false},
-    );
+    await upsertCompleteProfileContainerSetting(accountId: widget.accountId, value: false);
   }
 }

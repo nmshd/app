@@ -24,29 +24,20 @@ class MessageDVORenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        color: Theme.of(context).colorScheme.onPrimary,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(
-          children: [
-            if (!hideAvatar) ...[
-              ContactCircleAvatar(radius: 20, contactName: message.peer.name),
-              Gaps.w16,
-            ],
-            _MessagesContent(message: message, query: query),
-          ],
-        ),
-      ),
-      onTap: () {
-        if (controller != null) {
-          controller!.clear();
-          controller!.closeView(null);
-        }
-
-        context.push('/account/$accountId/mailbox/${message.id}');
-      },
+    return ListTile(
+      leading: ContactCircleAvatar(radius: 20, contact: message.peer),
+      title: _MessagesContent(message: message, query: query),
+      onTap: () => _onTap(context),
     );
+  }
+
+  void _onTap(BuildContext context) {
+    if (controller != null) {
+      controller!.clear();
+      controller!.closeView(null);
+    }
+
+    context.push('/account/$accountId/mailbox/${message.id}');
   }
 }
 
@@ -58,19 +49,17 @@ class _MessagesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _MessageHeader(message: message, query: query),
-          switch (message) {
-            final MailDVO mail => _MailContent(message: mail, query: query),
-            final RequestMessageDVO requestMessage => _RequestMessageContent(message: requestMessage),
-            _ => Text(context.l10n.mailbox_technicalMessage, style: Theme.of(context).textTheme.bodyLarge),
-          },
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _MessageHeader(message: message, query: query),
+        switch (message) {
+          final MailDVO mail => _MailContent(message: mail, query: query),
+          final RequestMessageDVO requestMessage => _RequestMessageContent(message: requestMessage),
+          _ => Text(context.l10n.mailbox_technicalMessage, style: Theme.of(context).textTheme.bodyLarge),
+        },
+      ],
     );
   }
 }
@@ -124,7 +113,6 @@ class _RequestMessageContent extends StatelessWidget {
     return Row(
       children: [
         Flexible(
-          fit: FlexFit.tight,
           child: TranslatedText(
             message.request.statusText,
             maxLines: 2,
@@ -136,7 +124,7 @@ class _RequestMessageContent extends StatelessWidget {
                 : Theme.of(context).textTheme.bodyLarge,
           ),
         ),
-        const Spacer(),
+        Gaps.w8,
         Icon(
           message.request.status == LocalRequestStatus.ManualDecisionRequired ? Icons.notification_important : Icons.notifications,
           color: message.request.status == LocalRequestStatus.ManualDecisionRequired

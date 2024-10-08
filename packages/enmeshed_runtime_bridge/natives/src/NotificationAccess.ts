@@ -1,10 +1,6 @@
 import { ILogger, ILoggerFactory } from "@js-soft/logging-abstractions";
-import {
-  INativeConfigAccess,
-  INativeNotificationAccess,
-  INativeNotificationScheduleOptions
-} from "@js-soft/native-abstractions";
 import { Result } from "@js-soft/ts-utils";
+import { INativeConfigAccess, INativeNotificationAccess, INativeNotificationScheduleOptions } from "@nmshd/app-runtime";
 
 export class NotificationAccess implements INativeNotificationAccess {
   private logger: ILogger;

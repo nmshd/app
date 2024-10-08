@@ -14,15 +14,14 @@ class DeviceOnboardingSuccess extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Gaps.h40,
-          Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.successIcon),
+          Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.success),
           Gaps.h24,
           Text(context.l10n.devices_otherDeviceOnboardedSuccess, style: Theme.of(context).textTheme.bodyMedium),
           Gaps.h40,
           Align(
             alignment: Alignment.centerRight,
-            child: FilledButton(
+            child: OutlinedButton(
               onPressed: () => context.pop(),
-              style: OutlinedButton.styleFrom(minimumSize: const Size(80, 36)),
               child: Text(context.l10n.devices_onboardingSuccessButton),
             ),
           ),

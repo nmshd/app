@@ -16,11 +16,11 @@ IdentityDVO _$IdentityDVOFromJson(Map<String, dynamic> json) => IdentityDVO(
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       publicKey: json['publicKey'] as String?,
-      realm: json['realm'] as String,
       initials: json['initials'] as String,
       isSelf: json['isSelf'] as bool,
       hasRelationship: json['hasRelationship'] as bool,
       relationship: json['relationship'] == null ? null : RelationshipDVO.fromJson(json['relationship'] as Map<String, dynamic>),
+      originalName: json['originalName'] as String?,
     );
 
 Map<String, dynamic> _$IdentityDVOToJson(IdentityDVO instance) {
@@ -42,10 +42,10 @@ Map<String, dynamic> _$IdentityDVOToJson(IdentityDVO instance) {
   writeNotNull('error', instance.error?.toJson());
   writeNotNull('warning', instance.warning?.toJson());
   writeNotNull('publicKey', instance.publicKey);
-  val['realm'] = instance.realm;
   val['initials'] = instance.initials;
   val['isSelf'] = instance.isSelf;
   val['hasRelationship'] = instance.hasRelationship;
   writeNotNull('relationship', instance.relationship?.toJson());
+  writeNotNull('originalName', instance.originalName);
   return val;
 }

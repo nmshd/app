@@ -1,15 +1,15 @@
-import {
-  AppReadyEvent,
-  INativePushNotification,
-  RemoteNotificationEvent,
-  RemoteNotificationRegistrationEvent
-} from "@js-soft/native-abstractions";
 import { Serializable } from "@js-soft/ts-serval";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
-import { AppRuntime } from "@nmshd/app-runtime";
+import {
+  AppRuntime,
+  RemoteNotification,
+  RemoteNotificationEvent,
+  RemoteNotificationRegistrationEvent
+} from "@nmshd/app-runtime";
 import * as contentLib from "@nmshd/content";
 import { RenderHints, RenderHintsJSON, ValueHints, ValueHintsJSON } from "@nmshd/content";
 import { buildInformation } from "@nmshd/runtime";
+import { AppReadyEvent } from "./AppReadyEvent";
 import { NativeBootstrapper } from "./NativeBootstrapper";
 import { UIBridge } from "./uiBridge";
 
@@ -47,7 +47,7 @@ window.setPushToken = async function (token: string) {
   await window.runtime.nativeEnvironment.configAccess.save();
 };
 
-window.triggerRemoteNotificationEvent = async function (notification: INativePushNotification) {
+window.triggerRemoteNotificationEvent = async function (notification: RemoteNotification) {
   window.runtime.nativeEnvironment.eventBus.publish(new RemoteNotificationEvent(notification));
 };
 

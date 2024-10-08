@@ -48,28 +48,32 @@ class _FilteredDataScreenState extends State<FilteredDataScreen> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => _loadAttributes(syncBefore: true),
-          child: ListView.separated(
-            itemCount: widget.valueTypes.length,
-            itemBuilder: (context, index) {
-              final valueType = widget.valueTypes[index];
-              final attributes = _attributes![valueType] ?? [];
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(context.l10n.personalData_filteredData_description(widget.title)),
+              ),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: widget.valueTypes.length,
+                  itemBuilder: (context, index) {
+                    final valueType = widget.valueTypes[index];
+                    final attributes = _attributes![valueType] ?? [];
 
-              return Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: _AttributeEntry(
-                  valueType: valueType,
-                  attributes: attributes,
-                  accountId: widget.accountId,
-                  loadAttributes: _loadAttributes,
-                  emphasizeAttributeHeadings: widget.emphasizeAttributeHeadings,
+                    return _AttributeEntry(
+                      valueType: valueType,
+                      attributes: attributes,
+                      accountId: widget.accountId,
+                      loadAttributes: _loadAttributes,
+                      emphasizeAttributeHeadings: widget.emphasizeAttributeHeadings,
+                    );
+                  },
+                  separatorBuilder: (context, index) => widget.emphasizeAttributeHeadings ? const SizedBox.shrink() : const Divider(indent: 16),
                 ),
-              );
-            },
-            separatorBuilder: (context, index) => widget.emphasizeAttributeHeadings
-                ? const SizedBox.shrink()
-                : const Divider(
-                    indent: 16,
-                  ),
+              ),
+            ],
           ),
         ),
       ),
@@ -134,49 +138,55 @@ class _AttributeEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (attributes.isEmpty) {
-      return _EmptyAttributeEntry(
-        valueType: valueType,
-        accountId: accountId,
-        onAttributeCreated: () => loadAttributes(syncBefore: true),
-        emphasizeAttributeHeadings: emphasizeAttributeHeadings,
+      return Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: _EmptyAttributeEntry(
+          valueType: valueType,
+          accountId: accountId,
+          onAttributeCreated: () => loadAttributes(syncBefore: true),
+          emphasizeAttributeHeadings: emphasizeAttributeHeadings,
+        ),
       );
     }
 
-    final renderer = AttributeRenderer.localAttribute(
-      attribute: attributes.first,
-      showTitle: !emphasizeAttributeHeadings,
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (attributes.length > 1) Flexible(child: Text('+${attributes.length - 1}')),
-          IconButton(
-            icon: const Icon(Icons.chevron_right),
-            onPressed: () async {
-              await context.push('/account/$accountId/my-data/data-details/$valueType');
-              await loadAttributes();
-            },
+    final renderer = Ink(
+      child: InkWell(
+        onTap: () async {
+          await context.push('/account/$accountId/my-data/data-details/$valueType');
+          await loadAttributes();
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: AttributeRenderer.localAttribute(
+            attribute: attributes.firstWhere((e) => e.isDefaultRepositoryAttribute, orElse: () => attributes.first),
+            showTitle: !emphasizeAttributeHeadings,
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (attributes.length > 1) Flexible(child: Text('+${attributes.length - 1}')),
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Icon(Icons.chevron_right)),
+              ],
+            ),
+            expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
+            openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: file),
+            valueTextStyle: Theme.of(context).textTheme.bodyLarge!,
           ),
-        ],
+        ),
       ),
-      expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-      openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: file),
     );
 
-    if (!emphasizeAttributeHeadings) return ColoredBox(color: Theme.of(context).colorScheme.surface, child: renderer);
+    if (!emphasizeAttributeHeadings) return renderer;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Text(context.i18nTranslate('i18n://attributes.values.$valueType._title'), style: Theme.of(context).textTheme.labelMedium),
         ),
-        ColoredBox(
-          color: Theme.of(context).colorScheme.surface,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: renderer,
-          ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: renderer,
         ),
       ],
     );

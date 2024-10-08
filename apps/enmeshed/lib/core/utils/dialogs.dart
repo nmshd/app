@@ -41,13 +41,15 @@ Future<void> showWrongTokenErrorDialog(BuildContext context) async {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.clear, color: Theme.of(context).colorScheme.error, size: 90),
+              Icon(Icons.error, color: Theme.of(context).colorScheme.error),
               Gaps.h16,
               Text(
                 context.l10n.scanner_invalidCode,
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
+                style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               ),
+              Gaps.h8,
+              Text(context.l10n.scanner_invalidCode_tryAnother),
               Gaps.h16,
               OutlinedButton(
                 onPressed: () => context.pop(),
@@ -82,7 +84,7 @@ class _NotImplementedDialog extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.warning_rounded, size: 36, color: context.customColors.warningIcon),
+                Icon(Icons.warning_rounded, size: 36, color: context.customColors.warning),
                 Gaps.h8,
                 SizedBox(
                   width: 250,
@@ -115,4 +117,54 @@ Future<void> showDownloadFileErrorDialog(BuildContext context) async {
       );
     },
   );
+}
+
+Future<bool> showDeleteRelationshipConfirmationDialog(BuildContext context, {required String contactName}) async {
+  return showConfirmationDialog(
+    context,
+    icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+    title: Text(
+      contactName == unknownContactName ? context.l10n.contacts_delete_title_unknown : context.l10n.contacts_delete_title(contactName),
+      style: Theme.of(context).textTheme.headlineSmall,
+      textAlign: TextAlign.center,
+    ),
+    content: Text(context.l10n.contacts_delete_description, textAlign: TextAlign.center),
+    confirmText: context.l10n.delete,
+  );
+}
+
+Future<bool> showRevokeRelationshipConfirmationDialog(BuildContext context, {required String contactName}) async {
+  return showConfirmationDialog(
+    context,
+    title: Text(
+      context.l10n.contacts_revoke_title,
+      style: Theme.of(context).textTheme.headlineSmall,
+      textAlign: TextAlign.center,
+    ),
+    content: Text(context.l10n.contacts_revoke_description, textAlign: TextAlign.center),
+    confirmText: context.l10n.contacts_revoke_action,
+  );
+}
+
+Future<bool> showConfirmationDialog(
+  BuildContext context, {
+  required Widget title,
+  required Widget content,
+  required String confirmText,
+  Icon? icon,
+}) async {
+  final result = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      icon: icon,
+      title: title,
+      content: content,
+      actions: [
+        OutlinedButton(onPressed: () => context.pop(false), child: Text(context.l10n.cancel)),
+        FilledButton(onPressed: () => context.pop(true), child: Text(confirmText)),
+      ],
+    ),
+  );
+
+  return result ?? false;
 }

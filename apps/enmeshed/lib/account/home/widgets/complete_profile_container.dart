@@ -22,8 +22,8 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
   final List<StreamSubscription<void>> _subscriptions = [];
 
   bool _isPersonalDataStored = false;
-  bool _isAddressDataStored = false;
-  bool _isCommunicationDataStored = false;
+  bool _hasRelationship = false;
+  bool _isFileDataStored = false;
 
   @override
   void initState() {
@@ -37,6 +37,15 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
   }
 
   @override
+  void didUpdateWidget(covariant CompleteProfileContainer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.accountId != widget.accountId) {
+      _reload();
+    }
+  }
+
+  @override
   void dispose() {
     for (final subscription in _subscriptions) {
       subscription.cancel();
@@ -47,51 +56,55 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: InfoContainer(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 12),
-                  child: CompleteProfileHeader(
-                    count: 4,
-                    countCompleted: [true, _isPersonalDataStored, _isAddressDataStored, _isCommunicationDataStored].where((e) => e).length,
-                  ),
+    return InfoContainer(
+      padding: const EdgeInsets.only(bottom: 8, left: 12),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CompleteProfileHeader(
+                count: 4,
+                countCompleted: [true, _isPersonalDataStored, _hasRelationship, _isFileDataStored].where((e) => e).length,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 16, top: 16),
+                child: IconButton(
+                  onPressed: widget.hideContainer,
+                  icon: Icon(Icons.close, semanticLabel: context.l10n.home_completeProfileCloseIconSemanticsLabel),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 4, top: 4),
-                  child: IconButton(onPressed: widget.hideContainer, icon: const Icon(Icons.close)),
-                ),
-              ],
+              ),
+            ],
+          ),
+          Padding(padding: const EdgeInsets.only(right: 24, top: 12, bottom: 12), child: Text(context.l10n.home_completeProfileDescription)),
+          _TodoListTile.alwaysChecked(text: context.l10n.home_createProfile),
+          _TodoListTile(
+            done: _isPersonalDataStored,
+            text: context.l10n.home_initialPersonalInformation,
+            number: 2,
+            onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-personalData-creation'),
+          ),
+          _TodoListTile(
+            done: _hasRelationship,
+            number: 3,
+            text: context.l10n.home_initialContact,
+            onPressed: () => goToInstructionsOrScanScreen(
+              accountId: widget.accountId,
+              instructionsType: InstructionsType.addContact,
+              context: context,
             ),
-            Gaps.h8,
-            _TodoListTile.alwaysChecked(text: context.l10n.home_profileCreated),
-            _TodoListTile(
-              done: _isPersonalDataStored,
-              text: context.l10n.home_personalInformationStored,
-              number: 2,
-              onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-personalData-creation'),
-            ),
-            _TodoListTile(
-              done: _isAddressDataStored,
-              number: 3,
-              text: context.l10n.home_addressInformationStored,
-              onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-addressData-creation'),
-            ),
-            _TodoListTile(
-              done: _isCommunicationDataStored,
-              number: 4,
-              text: context.l10n.home_communicationInformationStored,
-              onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-communicationData-creation'),
-            ),
-          ],
-        ),
+          ),
+          _TodoListTile(
+            done: _isFileDataStored,
+            number: 4,
+            text: context.l10n.home_initialDocuments,
+            onPressed: () async {
+              await context.push('/account/${widget.accountId}/my-data/files?initialCreation=true');
+              await _reload();
+            },
+          ),
+        ],
       ),
     );
   }
@@ -99,12 +112,14 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
   Future<void> _reload() async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     final existingData = await getDataExisting(session);
+    final relationships = await getContacts(session: session);
+    final filesResult = await session.transportServices.files.getFiles();
 
     if (mounted) {
       setState(() {
         _isPersonalDataStored = existingData.personalData;
-        _isAddressDataStored = existingData.addressData;
-        _isCommunicationDataStored = existingData.communicationData;
+        _hasRelationship = relationships.isNotEmpty;
+        _isFileDataStored = filesResult.value.isNotEmpty;
       });
     }
   }
@@ -134,14 +149,14 @@ class _TodoListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     if (done) {
       return ListTile(
-        contentPadding: const EdgeInsets.only(left: 16),
-        leading: Icon(Icons.check_circle_rounded, size: 36, color: Theme.of(context).colorScheme.primary),
+        contentPadding: const EdgeInsets.only(right: 16),
+        leading: const CustomSuccessIcon(containerSize: 36, iconSize: 24),
         title: Text(text),
       );
     }
 
     return ListTile(
-      contentPadding: const EdgeInsets.only(left: 16, right: 16),
+      contentPadding: const EdgeInsets.only(right: 16),
       leading: ToCompleteIcon(number: number),
       title: Text(text),
       trailing: const Icon(Icons.chevron_right),
@@ -159,14 +174,14 @@ class CompleteProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16),
+      padding: const EdgeInsets.only(top: 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(context.l10n.home_completeProfile, style: Theme.of(context).textTheme.titleMedium),
+              Text(context.l10n.home_completeProfile, style: Theme.of(context).textTheme.titleLarge),
               RichText(
                 text: TextSpan(
                   style: DefaultTextStyle.of(context).style,
@@ -200,13 +215,12 @@ class ToCompleteIcon extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
         shape: BoxShape.circle,
-        // ignore: deprecated_member_use
-        border: Border.all(color: Theme.of(context).colorScheme.surfaceVariant, width: 2),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: Center(
         child: Text(
           number.toString(),
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
       ),
     );

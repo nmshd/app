@@ -2,51 +2,49 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '/core/core.dart';
 import '../mailbox_filter_controller.dart';
 import '../mailbox_filter_option.dart';
-import '/core/core.dart';
 
-Future<Set<FilterOption>?> showSelectMailboxFiltersModal({
+Future<Set<MailboxFilterOption>?> showSelectMailboxFiltersModal({
   required List<IdentityDVO> contacts,
   required MailboxFilterController mailboxFilterController,
-  required Set<FilterOption> selectedFilterOptions,
   required BuildContext context,
 }) {
-  final options = showModalBottomSheet<Set<FilterOption>?>(
+  final options = showModalBottomSheet<Set<MailboxFilterOption>?>(
     useRootNavigator: true,
     context: context,
     isScrollControlled: true,
-    backgroundColor: Theme.of(context).colorScheme.onPrimary,
     elevation: 0,
     builder: (context) => FractionallySizedBox(
       heightFactor: 0.75,
-      child: _SelectFilterOptionsModal(
-        contacts: contacts,
-        mailboxFilterController: mailboxFilterController,
-        selectedFilterOptions: Set.from(selectedFilterOptions),
-      ),
+      child: _SelectMailboxFiltersModal(contacts: contacts, mailboxFilterController: mailboxFilterController),
     ),
   );
 
   return options;
 }
 
-class _SelectFilterOptionsModal extends StatefulWidget {
+class _SelectMailboxFiltersModal extends StatefulWidget {
   final List<IdentityDVO> contacts;
   final MailboxFilterController mailboxFilterController;
-  final Set<FilterOption> selectedFilterOptions;
 
-  const _SelectFilterOptionsModal({
-    required this.contacts,
-    required this.mailboxFilterController,
-    required this.selectedFilterOptions,
-  });
+  const _SelectMailboxFiltersModal({required this.contacts, required this.mailboxFilterController});
 
   @override
-  _SelectFilterOptionsModalState createState() => _SelectFilterOptionsModalState();
+  _SelectMailboxFiltersModalState createState() => _SelectMailboxFiltersModalState();
 }
 
-class _SelectFilterOptionsModalState extends State<_SelectFilterOptionsModal> {
+class _SelectMailboxFiltersModalState extends State<_SelectMailboxFiltersModal> {
+  late Set<MailboxFilterOption> selectedFilterOptions;
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedFilterOptions = {...widget.mailboxFilterController.value};
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -59,7 +57,7 @@ class _SelectFilterOptionsModalState extends State<_SelectFilterOptionsModal> {
             context.l10n.mailbox_filter_header,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           trailing: IconButton(
             onPressed: () => context.pop(),
@@ -76,10 +74,10 @@ class _SelectFilterOptionsModalState extends State<_SelectFilterOptionsModal> {
           leading: const Icon(Icons.notification_important),
           title: Text(context.l10n.mailbox_filter_actionRequired, maxLines: 1, overflow: TextOverflow.ellipsis),
           trailing: Checkbox(
-            value: widget.selectedFilterOptions.contains(const ActionRequiredFilterOption()),
-            onChanged: (value) => setState(() => widget.selectedFilterOptions.toggle(const ActionRequiredFilterOption())),
+            value: selectedFilterOptions.contains(const ActionRequiredFilterOption()),
+            onChanged: (value) => setState(() => selectedFilterOptions.toggle(const ActionRequiredFilterOption())),
           ),
-          onTap: () => setState(() => widget.selectedFilterOptions.toggle(const ActionRequiredFilterOption())),
+          onTap: () => setState(() => selectedFilterOptions.toggle(const ActionRequiredFilterOption())),
         ),
         const Divider(height: 1, indent: 16),
         ListTile(
@@ -87,10 +85,10 @@ class _SelectFilterOptionsModalState extends State<_SelectFilterOptionsModal> {
           leading: const Icon(Icons.attach_file),
           title: Text(context.l10n.mailbox_filter_withAttachment, maxLines: 1, overflow: TextOverflow.ellipsis),
           trailing: Checkbox(
-            value: widget.selectedFilterOptions.contains(const WithAttachmentFilterOption()),
-            onChanged: (value) => setState(() => widget.selectedFilterOptions.toggle(const WithAttachmentFilterOption())),
+            value: selectedFilterOptions.contains(const WithAttachmentFilterOption()),
+            onChanged: (value) => setState(() => selectedFilterOptions.toggle(const WithAttachmentFilterOption())),
           ),
-          onTap: () => setState(() => widget.selectedFilterOptions.toggle(const WithAttachmentFilterOption())),
+          onTap: () => setState(() => selectedFilterOptions.toggle(const WithAttachmentFilterOption())),
         ),
         const Divider(height: 1, indent: 16),
         ListTile(
@@ -98,16 +96,16 @@ class _SelectFilterOptionsModalState extends State<_SelectFilterOptionsModal> {
           leading: const Icon(Icons.mail),
           title: Text(context.l10n.mailbox_filter_unread),
           trailing: Checkbox(
-            value: widget.selectedFilterOptions.contains(const UnreadFilterOption()),
-            onChanged: (value) => setState(() => widget.selectedFilterOptions.toggle(const UnreadFilterOption())),
+            value: selectedFilterOptions.contains(const UnreadFilterOption()),
+            onChanged: (value) => setState(() => selectedFilterOptions.toggle(const UnreadFilterOption())),
           ),
-          onTap: () => setState(() => widget.selectedFilterOptions.toggle(const UnreadFilterOption())),
+          onTap: () => setState(() => selectedFilterOptions.toggle(const UnreadFilterOption())),
         ),
         Gaps.h16,
         ListTile(title: Text(context.l10n.mailbox_filter_byContacts, style: Theme.of(context).textTheme.titleMedium)),
         Expanded(
           child: widget.contacts.isEmpty
-              ? EmptyListIndicator(icon: Icons.mail_outline, text: context.l10n.mailbox_empty, wrapInListView: true)
+              ? EmptyListIndicator(icon: Icons.contacts, text: context.l10n.contacts_empty, wrapInListView: true)
               : ListView.separated(
                   itemCount: widget.contacts.length,
                   separatorBuilder: (BuildContext context, int index) => const Divider(height: 1, indent: 16),
@@ -117,18 +115,18 @@ class _SelectFilterOptionsModalState extends State<_SelectFilterOptionsModal> {
                     return ContactItem(
                       contact: contact,
                       trailing: Checkbox(
-                        value: widget.selectedFilterOptions.contains(ContactFilterOption(contact.id)),
-                        onChanged: (_) => setState(() => widget.selectedFilterOptions.toggle(ContactFilterOption(contact.id))),
+                        value: selectedFilterOptions.contains(ContactFilterOption(contact.id)),
+                        onChanged: (_) => setState(() => selectedFilterOptions.toggle(ContactFilterOption(contact.id))),
                       ),
-                      onTap: () => setState(() => widget.selectedFilterOptions.toggle(ContactFilterOption(contact.id))),
+                      onTap: () => setState(() => selectedFilterOptions.toggle(ContactFilterOption(contact.id))),
                       iconSize: 42,
                     );
                   },
                 ),
         ),
         _ModalSheetFooter(
-          applyFilters: () => context.pop(widget.selectedFilterOptions),
-          resetFilters: () => context.pop(<FilterOption>{}),
+          applyFilters: () => context.pop(selectedFilterOptions),
+          resetFilters: () => context.pop(<MailboxFilterOption>{}),
         ),
       ],
     );
@@ -158,15 +156,14 @@ class _ModalSheetFooter extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  TextButton(
+                  OutlinedButton(
                     onPressed: resetFilters,
                     child: Text(
                       context.l10n.reset,
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
                     ),
                   ),
                   Gaps.w4,
-                  OutlinedButton(
+                  FilledButton(
                     onPressed: applyFilters,
                     child: Text(context.l10n.apply_filter),
                   ),
@@ -178,11 +175,5 @@ class _ModalSheetFooter extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-extension _Toggle<T> on Set<T> {
-  void toggle(T value) {
-    contains(value) ? remove(value) : add(value);
   }
 }

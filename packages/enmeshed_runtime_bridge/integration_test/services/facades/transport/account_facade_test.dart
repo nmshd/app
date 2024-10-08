@@ -23,9 +23,8 @@ void run(EnmeshedRuntime runtime) {
       final identityInfoResult = await session.transportServices.account.getIdentityInfo();
 
       expect(identityInfoResult, isSuccessful<GetIdentityInfoResponse>());
-      expect(identityInfoResult.value.address.length, lessThanOrEqualTo(36));
-      expect(identityInfoResult.value.address.length, greaterThanOrEqualTo(35));
-      expect(identityInfoResult.value.address, contains('id1'));
+      final regExp = RegExp(r'^did:e:[a-zA-Z0-9.-]+:dids:[0-9a-f]{22}$');
+      expect(regExp.hasMatch(identityInfoResult.value.address), true);
       expect(identityInfoResult.value.publicKey.length, equals(82));
     });
   });
@@ -128,9 +127,9 @@ void run(EnmeshedRuntime runtime) {
       String relationshipTemplateTokenReference = '';
 
       setUpAll(() async {
-        final relationshipTemplate =
-            (await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(expiresAt: generateExpiryString(), content: {}))
-                .value;
+        final relationshipTemplate = (await session.transportServices.relationshipTemplates
+                .createOwnRelationshipTemplate(expiresAt: generateExpiryString(), content: emptyRelationshipTemplateContent))
+            .value;
         relationshipTemplateReference = relationshipTemplate.truncatedReference;
         relationshipTemplateTokenReference =
             (await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(templateId: relationshipTemplate.id))

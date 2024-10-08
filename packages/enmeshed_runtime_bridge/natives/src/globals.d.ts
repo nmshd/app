@@ -1,6 +1,5 @@
-import { INativePushNotification } from "@js-soft/native-abstractions";
 import { Result } from "@js-soft/ts-utils";
-import { AppRuntime } from "@nmshd/app-runtime";
+import { AppRuntime, RemoteNotification } from "@nmshd/app-runtime";
 import { RenderHintsJSON, ValueHintsJSON } from "@nmshd/content";
 
 export {};
@@ -10,7 +9,7 @@ declare global {
     flutter_inappwebview: FlutterInAppWebView;
     registerUIBridge: () => void;
     setPushToken: (token: string) => Promise<void>;
-    triggerRemoteNotificationEvent: (notification: INativePushNotification) => Promise<void>;
+    triggerRemoteNotificationEvent: (notification: RemoteNotification) => Promise<void>;
     triggerAppReadyEvent: () => Promise<void>;
     runtimeVersion: string;
     NMSHDContent: typeof import("@nmshd/content");

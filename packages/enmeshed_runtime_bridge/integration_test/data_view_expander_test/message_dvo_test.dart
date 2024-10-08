@@ -39,7 +39,7 @@ void run(EnmeshedRuntime runtime) {
 
       transportService2Address = (await transportServices2.account.getIdentityInfo()).value.address;
 
-      final result = await transportServices1.messages.sendMessage(recipients: [transportService2Address], content: {'arbitraryValue': true});
+      final result = await transportServices1.messages.sendMessage(recipients: [transportService2Address], content: emptyMessageContent);
       messageId = result.value.id;
 
       final mailResult = await transportServices1.messages.sendMessage(
@@ -49,7 +49,7 @@ void run(EnmeshedRuntime runtime) {
           cc: const [],
           subject: 'Mail Subject',
           to: [transportService2Address],
-        ).toJson(),
+        ),
         attachments: [fileId],
       );
       mailId = mailResult.value.id;
@@ -77,7 +77,7 @@ void run(EnmeshedRuntime runtime) {
       final recipient = dvo.recipients[0];
       expect(recipient.type, 'RecipientDVO');
       expect(recipient.id, dto.recipients[0].address);
-      expect(recipient.name, recipient.id.substring(3, 9)); // "Barbara"
+      expect(recipient.name, 'i18n://dvo.identity.unknown');
       expect(recipient.isSelf, false);
       expect(dvo.status, MessageStatus.Delivering);
     });
@@ -96,7 +96,7 @@ void run(EnmeshedRuntime runtime) {
       expect(dvo.isOwn, false);
       expect(dvo.createdBy.type, 'IdentityDVO');
       expect(dvo.createdBy.id, dto.createdBy);
-      expect(dvo.createdBy.name, dvo.createdBy.id.substring(3, 9)); // "Jürgen"
+      expect(dvo.createdBy.name, 'i18n://dvo.identity.unknown');
       expect(dvo.createdBy.isSelf, false);
       final recipient = dvo.recipients[0];
       expect(recipient.type, 'RecipientDVO');
@@ -132,14 +132,14 @@ void run(EnmeshedRuntime runtime) {
       final recipient = dvo.recipients[0];
       expect(recipient.type, 'RecipientDVO');
       expect(recipient.id, dto.recipients[0].address);
-      expect(recipient.name, recipient.id.substring(3, 9)); // "Barbara"
+      expect(recipient.name, 'i18n://dvo.identity.unknown');
       expect(recipient.isSelf, false);
 
       expect(dvo.to, hasLength(1));
       final to = dvo.to[0];
       expect(to.type, 'RecipientDVO');
       expect(to.id, mail.to[0]);
-      expect(to.name, to.id.substring(3, 9)); // "Barbara"
+      expect(to.name, 'i18n://dvo.identity.unknown');
       expect(to.isSelf, false);
       expect(dvo.toCount, mail.to.length);
       expect(dvo.ccCount, mail.cc!.length);
@@ -164,7 +164,7 @@ void run(EnmeshedRuntime runtime) {
       expect(dvo.isOwn, false);
       expect(dvo.createdBy.type, 'IdentityDVO');
       expect(dvo.createdBy.id, dto.createdBy);
-      expect(dvo.createdBy.name, dvo.createdBy.id.substring(3, 9)); // "Jürgen"
+      expect(dvo.createdBy.name, 'i18n://dvo.identity.unknown');
       expect(dvo.createdBy.isSelf, false);
       final recipient = dvo.recipients[0];
       expect(recipient.type, 'RecipientDVO');

@@ -22,18 +22,22 @@ class ContactSharedFiles extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              Text(
-                context.l10n.files,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const Spacer(),
-              TextButton(
-                onPressed: () => context.push('/account/$accountId/contacts/$contactId/shared-files', extra: sharedFiles),
-                child: Text(context.l10n.home_seeAll),
-              ),
-            ],
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 48),
+            child: Row(
+              children: [
+                Text(
+                  context.l10n.contact_information_sharedFiles,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const Spacer(),
+                if (sharedFiles != null && sharedFiles!.isNotEmpty)
+                  TextButton(
+                    onPressed: () => context.push('/account/$accountId/contacts/$contactId/shared-files', extra: sharedFiles),
+                    child: Text(context.l10n.home_seeAll),
+                  ),
+              ],
+            ),
           ),
         ),
         if (sharedFiles == null)
@@ -47,9 +51,13 @@ class ContactSharedFiles extends StatelessWidget {
               : ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => FileItem(accountId: accountId, file: sharedFiles!.elementAt(index)),
+                  itemBuilder: (context, index) => FileItem(
+                    accountId: accountId,
+                    file: sharedFiles!.elementAt(index),
+                    trailing: const Icon(Icons.chevron_right),
+                  ),
                   itemCount: sharedFiles!.length,
-                  separatorBuilder: (context, index) => const Divider(height: 0),
+                  separatorBuilder: (context, index) => const Divider(height: 2),
                 ),
       ],
     );

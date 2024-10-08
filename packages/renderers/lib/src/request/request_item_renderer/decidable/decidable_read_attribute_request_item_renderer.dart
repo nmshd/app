@@ -92,6 +92,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           openFileDetails: widget.openFileDetails,
         ),
       final ProcessedIQLQueryDVO query => ProcessedIQLQueryRenderer(
+          requestItemTitle: widget.item.name,
           query: query,
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: _onUpdateAttribute,

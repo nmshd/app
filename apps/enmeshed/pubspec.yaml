@@ -1,81 +1,70 @@
 name: enmeshed
-description: The official Enmeshed app.
+description: The official enmeshed app.
 publish_to: "none"
-version: 3.0.4
+version: 4.0.3
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
   flutter: ">=3.24.0"
 
 dependencies:
-  app_links: ^5.0.0
-  croppy: 1.0.1
-  dotted_border: ^2.1.0
+  app_links: ^6.3.2
+  archive: ^3.6.1
+  croppy: ^1.3.1
   enmeshed_runtime_bridge: ^1.0.0
   enmeshed_types: ^1.0.0
   feature_flags: ^0.1.4
-  file_picker: ^8.0.7
+  file_picker: ^8.1.2
+  flex_seed_scheme: ^3.4.0
   flutter:
     sdk: flutter
   flutter_i18n: ^0.36.2
   flutter_inappwebview: any
-  flutter_localizations:
-    sdk: flutter
   flutter_markdown: ^0.7.3
   flutter_native_splash: ^2.4.1
-  flutter_svg: ^2.0.10+1
-  get_it: ^7.6.7
-  go_router: ^14.2.3
+  flutter_slidable: ^3.1.1
+  get_it: ^8.0.0
+  go_router: ^14.2.7
   i18n_translated_text: ^1.0.2
-  image: ^4.1.7
+  image: ^4.2.0
   image_picker: ^1.1.2
   intl: any
-  logger: ^2.3.0
-  mime_type: ^1.0.0
-  mobile_scanner: ^5.1.1
-  open_file: ^3.3.2
-  package_info_plus: ^8.0.1
+  logger: ^2.4.0
+  mime_type: ^1.0.1
+  mobile_scanner: ^5.2.3
+  open_file: ^3.5.5
+  package_info_plus: ^8.0.2
   path: any
-  path_provider: ^2.1.3
-  permission_handler: ^11.3.0
+  path_provider: ^2.1.4
+  permission_handler: ^11.3.1
   push: ^2.3.0
   qr_flutter: ^4.1.0
   renderers: ^1.0.0
-  smooth_page_indicator: ^1.2.0+3
+  smooth_page_indicator: ^1.2.0
   timeago: ^3.7.0
-  url_launcher: ^6.2.4
+  url_launcher: ^6.3.0
   value_renderer: ^1.0.0
+  vector_graphics: ^1.1.11
   wolt_modal_sheet: ^0.5.0
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.13.1
-  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.1
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
+  translations_cleaner: ^0.0.5
+  vector_graphics_compiler: ^1.1.11
 
 flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/enmeshed_logo_light_cut.png
-    - assets/enmeshed_logo_dark_cut.png
-    - assets/add_contact.svg
-    - assets/load_profile.svg
-    - assets/onboarding1.svg
-    - assets/onboarding2.svg
-    - assets/onboarding3.svg
-    - assets/onboarding_background.png
-    - assets/i18n/de.json
-    - assets/i18n/en.json
-    - assets/texts/privacy.md
-    - assets/texts/imprint.md
-    - assets/texts/legal_notice.md
-    - assets/pictures/profile_deletion/confirm_deletion.svg
-
-  fonts:
-    - family: EnmeshedIcons
-      fonts:
-        - asset: assets/fonts/EnmeshedIcons.ttf
+    - path: assets/i18n/
+    - path: assets/texts/
+    - path: assets/pictures/
+    - path: assets/svg/
+      transformers:
+        - package: vector_graphics_compiler
 
 # dart run flutter_launcher_icons
 flutter_icons:
@@ -83,6 +72,8 @@ flutter_icons:
   android: true
   ios: true
   remove_alpha_ios: true
+  image_path_ios_dark_transparent: "assets/icon_dark.png"
+  image_path_ios_tinted_grayscale: "assets/icon_grayscale.png"
 
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
@@ -94,6 +85,12 @@ flutter_native_splash:
 
   image: "assets/icon.png"
   color: "#ffffff"
+
+  android_12:
+    image: "assets/splash.png"
+    color: "#ffffff"
+    icon_background_color: "#ffffff"
+    icon_background_color_dark: "#ffffff"
 
   android: true
   ios: true

@@ -40,21 +40,29 @@ class RelationshipTemplatesEndpoint extends Endpoint {
 
   Future<ConnectorResponse<List<int>>> getQRCodeForOwnRelationshipTemplate(String id) => downloadQRCode('GET', '/api/v2/RelationshipTemplates/$id');
 
-  Future<ConnectorResponse<TokenDTO>> createTokenForOwnRelationshipTemplate(String id, {String? expiresAt, bool? ephemeral}) => post(
+  Future<ConnectorResponse<TokenDTO>> createTokenForOwnRelationshipTemplate(
+    String id, {
+    String? expiresAt,
+    bool? ephemeral,
+    String? forIdentity,
+  }) =>
+      post(
         '/api/v2/RelationshipTemplates/Own/$id/Token',
         data: {
           if (expiresAt != null) 'expiresAt': expiresAt,
           if (ephemeral != null) 'ephemeral': ephemeral,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
         transformer: tokenTransformer,
       );
 
-  Future<ConnectorResponse<List<int>>> createTokenQRCodeForOwnRelationshipTemplate(String id, {String? expiresAt, bool? ephemeral}) => downloadQRCode(
+  Future<ConnectorResponse<List<int>>> createTokenQRCodeForOwnRelationshipTemplate(String id, {String? expiresAt, String? forIdentity}) =>
+      downloadQRCode(
         'POST',
         '/api/v2/RelationshipTemplates/Own/$id/Token',
         request: {
           if (expiresAt != null) 'expiresAt': expiresAt,
-          if (ephemeral != null) 'ephemeral': ephemeral,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
       );
 
@@ -64,19 +72,10 @@ class RelationshipTemplatesEndpoint extends Endpoint {
         transformer: relationshipTemplateListTransformer,
       );
 
-  Future<ConnectorResponse<RelationshipTemplateDTO>> loadPeerRelationshipTemplateByTruncatedReference(String truncatedReference) => post(
+  Future<ConnectorResponse<RelationshipTemplateDTO>> loadPeerRelationshipTemplate(String truncatedReference) => post(
         '/api/v2/RelationshipTemplates/Peer',
         data: {
           'reference': truncatedReference,
-        },
-        transformer: relationshipTemplateTransformer,
-      );
-
-  Future<ConnectorResponse<RelationshipTemplateDTO>> loadPeerRelationshipTemplateByIdAndKey({required String id, required String secretKey}) => post(
-        '/api/v2/RelationshipTemplates/Peer',
-        data: {
-          'id': id,
-          'key': secretKey,
         },
         transformer: relationshipTemplateTransformer,
       );

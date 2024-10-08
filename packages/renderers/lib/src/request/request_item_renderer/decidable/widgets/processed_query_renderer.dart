@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:value_renderer/value_renderer.dart';
 
-import '../../widgets/value_renderer_list_tile.dart';
 import '/src/attribute/identity_attribute_value_renderer.dart';
 import '/src/attribute/relationship_attribute_value_renderer.dart';
 import '/src/checkbox_settings.dart';
+import '../../widgets/value_renderer_list_tile.dart';
 
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
@@ -71,13 +71,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
             valueHints: query.results.first.valueHints,
             trailing: onUpdateAttribute == null
                 ? null
-                : SizedBox(
-                    width: 50,
-                    child: IconButton(
-                      onPressed: () => onUpdateAttribute!(query.valueType),
-                      icon: const Icon(Icons.chevron_right),
-                    ),
-                  ),
+                : IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
             expandFileReference: expandFileReference,
             openFileDetails: openFileDetails,
           ),
@@ -209,6 +203,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
 }
 
 class ProcessedIQLQueryRenderer extends StatelessWidget {
+  final String? requestItemTitle;
   final ProcessedIQLQueryDVO query;
   final CheckboxSettings? checkboxSettings;
   final AbstractAttribute? selectedAttribute;
@@ -221,6 +216,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
 
   const ProcessedIQLQueryRenderer({
     super.key,
+    required this.requestItemTitle,
     required this.query,
     this.checkboxSettings,
     this.selectedAttribute,
@@ -239,17 +235,18 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     if (query.results.isEmpty) {
       if (query.valueType != null && query.valueHints != null && query.renderHints != null) {
         return ValueRendererListTile(
-          fieldName: switch (query.valueType) {
-            'Affiliation' ||
-            'BirthDate' ||
-            'BirthPlace' ||
-            'DeliveryBoxAddress' ||
-            'PersonName' ||
-            'PostOfficeBoxAddress' ||
-            'StreetAddress' =>
-              'i18n://attributes.values.${query.valueType}._title',
-            _ => 'i18n://dvo.attribute.name.${query.valueType}',
-          },
+          fieldName: requestItemTitle ??
+              switch (query.valueType) {
+                'Affiliation' ||
+                'BirthDate' ||
+                'BirthPlace' ||
+                'DeliveryBoxAddress' ||
+                'PersonName' ||
+                'PostOfficeBoxAddress' ||
+                'StreetAddress' =>
+                  'i18n://attributes.values.${query.valueType}._title',
+                _ => 'i18n://dvo.attribute.name.${query.valueType}',
+              },
           renderHints: query.renderHints!,
           valueHints: query.valueHints!,
           onUpdateInput: onUpdateInput,
@@ -275,6 +272,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
         if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
           child: IdentityAttributeValueRenderer(
+            titleOverride: requestItemTitle,
             value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
             valueHints: query.results.first.valueHints,
             trailing: onUpdateAttribute == null

@@ -7,20 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../widgets/change_profile_picture.dart';
 import '/core/core.dart';
+import '../../widgets/change_profile_picture.dart';
 
 class EditProfile extends StatefulWidget {
   final VoidCallback setLoading;
   final VoidCallback onAccountEditDone;
-  final VoidCallback onDeletePressed;
   final LocalAccountDTO localAccount;
   final File? initialProfilePicture;
 
   const EditProfile({
     required this.setLoading,
     required this.onAccountEditDone,
-    required this.onDeletePressed,
     required this.localAccount,
     required this.initialProfilePicture,
     super.key,
@@ -90,12 +88,6 @@ class _EditProfileState extends State<EditProfile> {
               ),
             ),
             onSubmitted: (_) => _confirmEnabled ? _confirm() : _focusNode.requestFocus(),
-          ),
-          Gaps.h8,
-          TextButton.icon(
-            icon: Icon(Icons.delete_forever_outlined, size: 18, color: Theme.of(context).colorScheme.error),
-            label: Text(context.l10n.profile_delete),
-            onPressed: widget.onDeletePressed,
           ),
           Gaps.h24,
           Row(

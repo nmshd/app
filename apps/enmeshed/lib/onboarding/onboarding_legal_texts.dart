@@ -75,9 +75,8 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Align(
               child: FilledButton(
-                onPressed: _isPrivacyPolicyAccepted ? widget.goToOnboardingCreateAccount : null,
-                style: FilledButton.styleFrom(minimumSize: const Size(double.infinity, 40)),
-                child: Text(context.l10n.next),
+                onPressed: isLegalAgreementCompleted ? widget.goToOnboardingCreateAccount : null,
+                child: Text(context.l10n.onboarding_yourConsent_acceptAndContinue),
               ),
             ),
           ),
@@ -85,6 +84,8 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
       ),
     );
   }
+
+  bool get isLegalAgreementCompleted => _isPrivacyPolicyAccepted;
 }
 
 class _LegalTextNote extends StatelessWidget {
@@ -108,32 +109,32 @@ class _LegalTextNote extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 24),
-      child: Row(
-        children: [
-          Checkbox.adaptive(
-            value: isLegalTextAccepted,
-            onChanged: (_) => toggleIsLegalTextAccepted(),
-          ),
-          Expanded(
-            child: Text.rich(
-              TextSpan(
-                children: <TextSpan>[
-                  TextSpan(text: legalTextStart),
-                  TextSpan(
-                    text: legalTextLink,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Theme.of(context).colorScheme.primary,
+      child: InkWell(
+        onTap: toggleIsLegalTextAccepted,
+        child: Row(
+          children: [
+            Checkbox(value: isLegalTextAccepted, onChanged: (_) => toggleIsLegalTextAccepted()),
+            Expanded(
+              child: Text.rich(
+                TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(text: legalTextStart),
+                    TextSpan(
+                      text: legalTextLink,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Theme.of(context).colorScheme.primary,
+                      ),
+                      recognizer: TapGestureRecognizer()..onTap = () => context.push(path),
                     ),
-                    recognizer: TapGestureRecognizer()..onTap = () => context.push(path),
-                  ),
-                  TextSpan(text: legalTextEnd),
-                ],
+                    TextSpan(text: legalTextEnd),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

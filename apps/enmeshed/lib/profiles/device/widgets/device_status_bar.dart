@@ -15,14 +15,11 @@ class DeviceStatusBar extends StatelessWidget {
         Icon(
           isWarning ? Icons.error : Icons.check_circle_outline,
           color: isWarning ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.primary,
-          size: 16,
+          size: 24,
         ),
         Gaps.w4,
         Flexible(
-          child: Text(
-            statusText,
-            style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
-          ),
+          child: Text(statusText, style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
         ),
       ],
     );

@@ -1,5 +1,5 @@
 name: enmeshed_runtime_bridge
-description: A bridge between the Enmeshed TypeScript runtime and Dart.
+description: A bridge between the enmeshed TypeScript runtime and Dart.
 version: 1.0.0
 publish_to: none
 
@@ -11,18 +11,18 @@ environment:
   flutter: ">=3.24.0"
 
 dependencies:
-  device_info_plus: ^10.1.1
+  device_info_plus: ^10.1.2
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
-  flutter_inappwebview: ^6.0.0
-  flutter_local_notifications: ^17.2.1+2
+  flutter_inappwebview: 6.0.0
+  flutter_local_notifications: ^17.2.3
   logger: ^2.4.0
   path_provider: ^2.1.4
 
 dev_dependencies:
   connector_sdk: 1.0.0
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
   integration_test:

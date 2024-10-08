@@ -26,7 +26,7 @@ RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) => Requ
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-      content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
+      content: MessageContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
       wasReadAt: json['wasReadAt'] as String?,
       request: LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
     );
@@ -92,7 +92,7 @@ MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
       statusText: json['statusText'] as String,
       peer: IdentityDVO.fromJson(json['peer'] as Map<String, dynamic>),
-      content: MessageContent.fromJson(json['content'] as Map<String, dynamic>),
+      content: MessageContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
       wasReadAt: json['wasReadAt'] as String?,
       to: (json['to'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),
       cc: (json['cc'] as List<dynamic>).map((e) => RecipientDVO.fromJson(e as Map<String, dynamic>)).toList(),

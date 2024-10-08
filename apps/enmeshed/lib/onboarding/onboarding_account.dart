@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -8,10 +9,24 @@ import 'package:logger/logger.dart';
 
 import '/core/core.dart';
 
-class OnboardingAccount extends StatelessWidget {
+class OnboardingAccount extends StatefulWidget {
   final VoidCallback goToOnboardingLoading;
 
   const OnboardingAccount({required this.goToOnboardingLoading, super.key});
+
+  @override
+  State<OnboardingAccount> createState() => _OnboardingAccountState();
+}
+
+class _OnboardingAccountState extends State<OnboardingAccount> {
+  List<LocalAccountDTO> _accountsInDeletion = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadAccountsInDeletion();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,54 +45,58 @@ class OnboardingAccount extends StatelessWidget {
         SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              children: [
-                SizedBox(height: screenHeight * 0.14),
-                Text(
-                  context.l10n.onboarding_createIdentity,
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
-                ),
-                Gaps.h16,
-                Text(context.l10n.onboarding_chooseOption, textAlign: TextAlign.center),
-                const SizedBox(height: 72),
-                Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
-                Gaps.h16,
-                Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
-                Gaps.h24,
-                FilledButton.icon(
-                  onPressed: goToOnboardingLoading,
-                  style: FilledButton.styleFrom(fixedSize: const Size(double.infinity, 40)),
-                  label: Text(context.l10n.onboarding_createNewAccount_button),
-                  icon: Icon(Icons.person_add, color: Theme.of(context).colorScheme.onPrimary),
-                ),
-                Gaps.h24,
-                Row(
-                  children: [
-                    const Expanded(child: Divider(thickness: 1)),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(context.l10n.or),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  if (_accountsInDeletion.isEmpty) ...[
+                    SizedBox(height: screenHeight * 0.14),
+                    Text(
+                      context.l10n.onboarding_createIdentity,
+                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
                     ),
-                    const Expanded(child: Divider(thickness: 1)),
+                    Gaps.h16,
+                    Text(context.l10n.onboarding_chooseOption, textAlign: TextAlign.center),
+                    const SizedBox(height: 72),
                   ],
-                ),
-                Gaps.h24,
-                Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
-                Gaps.h16,
-                Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
-                Gaps.h24,
-                FilledButton.icon(
-                  onPressed: () => _onboardingPressed(context),
-                  style: FilledButton.styleFrom(fixedSize: const Size(double.infinity, 40)),
-                  label: Text(context.l10n.scanner_scanQR),
-                  icon: Icon(Icons.qr_code, color: Theme.of(context).colorScheme.onPrimary),
-                ),
-              ],
+                  if (_accountsInDeletion.isNotEmpty) ...[
+                    RestoreProfileContainer(accountsInDeletion: _accountsInDeletion),
+                    Gaps.h16,
+                  ],
+                  Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
+                  Gaps.h16,
+                  Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
+                  Gaps.h24,
+                  FilledButton(onPressed: widget.goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
+                  Gaps.h24,
+                  Row(
+                    children: [
+                      const Expanded(child: Divider(thickness: 1)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(context.l10n.or),
+                      ),
+                      const Expanded(child: Divider(thickness: 1)),
+                    ],
+                  ),
+                  Gaps.h24,
+                  Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
+                  Gaps.h16,
+                  Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
+                  Gaps.h24,
+                  FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
+                ],
+              ),
             ),
           ),
         ),
       ],
     );
+  }
+
+  Future<void> _loadAccountsInDeletion() async {
+    final accountsInDeletion = await getAccountsInDeletion();
+
+    if (mounted) setState(() => _accountsInDeletion = accountsInDeletion);
   }
 
   void _onboardingPressed(BuildContext context) {

@@ -1,6 +1,6 @@
 import { ILogger } from "@js-soft/logging-abstractions";
-import { INativeConfigAccess, NativeErrorCodes } from "@js-soft/native-abstractions";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
+import { INativeConfigAccess } from "@nmshd/app-runtime";
 import stringifySafe from "json-stringify-safe";
 import _ from "lodash";
 import { FileAccess } from "./FileAccess";
@@ -24,9 +24,7 @@ export class ConfigAccess implements INativeConfigAccess {
   public async initRuntimeConfig(): Promise<Result<void>> {
     const runtimeConfigExistsResult = await this.fileAccess.existsFile(this.runtimeConfigPath);
     if (runtimeConfigExistsResult.isError) {
-      return Result.fail(
-        new ApplicationError(NativeErrorCodes.CONFIG_INIT, "Unable to check if runtime config exists!")
-      );
+      return Result.fail(new ApplicationError("CONFIG_INIT", "Unable to check if runtime config exists!"));
     }
 
     if (!runtimeConfigExistsResult.value) {
@@ -36,16 +34,16 @@ export class ConfigAccess implements INativeConfigAccess {
 
     const runtimeConfigResult = await this.fileAccess.readFileAsText(this.runtimeConfigPath);
     if (runtimeConfigResult.isError) {
-      return Result.fail(new ApplicationError(NativeErrorCodes.CONFIG_INIT, "Unable to read runtime config file!"));
+      return Result.fail(new ApplicationError("CONFIG_INIT", "Unable to read runtime config file!"));
     } else if (!runtimeConfigResult.value) {
-      return Result.fail(new ApplicationError(NativeErrorCodes.CONFIG_INIT, "Unable to read runtime config file!"));
+      return Result.fail(new ApplicationError("CONFIG_INIT", "Unable to read runtime config file!"));
     }
 
     try {
       const runtimeConfig = JSON.parse(runtimeConfigResult.value);
       this.config = _.defaultsDeep(this.config, runtimeConfig);
     } catch (err) {
-      return Result.fail(new ApplicationError(NativeErrorCodes.CONFIG_INIT, "Unable to parse runtime config data!"));
+      return Result.fail(new ApplicationError("CONFIG_INIT", "Unable to parse runtime config data!"));
     }
 
     return Result.ok(undefined);

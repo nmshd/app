@@ -38,10 +38,30 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
     'transport.messageSent' => MessageSentEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.messageReceived' => MessageReceivedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.relationshipChanged' => RelationshipChangedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
+    'transport.relationshipReactivationRequested' =>
+      RelationshipReactivationRequestedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
+    'transport.relationshipReactivationCompleted' =>
+      RelationshipReactivationCompletedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
+    'transport.relationshipDecomposedBySelf' => RelationshipDecomposedBySelfEvent(
+        eventTargetAddress: eventTargetAddress,
+        relationshipId: data['relationshipId'] as String,
+      ),
     'transport.messageWasReadAtChanged' => MessageWasReadAtChangedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.identityDeletionProcessStatusChanged' => IdentityDeletionProcessStatusChangedEvent(
         eventTargetAddress: eventTargetAddress,
         data: IdentityDeletionProcessDTO.fromJson(data),
+      ),
+    'transport.peerToBeDeleted' => PeerToBeDeletedEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: RelationshipDTO.fromJson(data),
+      ),
+    'transport.peerDeletionCancelled' => PeerDeletionCancelledEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: RelationshipDTO.fromJson(data),
+      ),
+    'transport.peerDeleted' => PeerDeletedEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: RelationshipDTO.fromJson(data),
       ),
     'consumption.ownSharedAttributeSucceeded' => OwnSharedAttributeSucceededEvent(
         eventTargetAddress: eventTargetAddress,

@@ -20,7 +20,6 @@ class ContactDetailScreen extends ContactSharedFilesWidget {
 }
 
 class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactSharedFilesMixin<ContactDetailScreen> {
-  bool? _isFavoriteContact;
   bool _loadingFavoriteContact = false;
 
   late final Session _session;
@@ -31,6 +30,8 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   List<MessageDVO>? _incomingMessages;
 
   final List<StreamSubscription<void>> _subscriptions = [];
+
+  bool? get _isFavoriteContact => _contact?.relationship?.isPinned;
 
   @override
   void initState() {
@@ -48,7 +49,9 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
       ..add(runtime.eventBus.on<MessageReceivedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<MessageSentEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _reloadMessages()))
-      ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadMessages()));
+      ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadMessages()))
+      ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reloadMessages()))
+      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadMessages()));
   }
 
   @override
@@ -64,8 +67,9 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.contact_information));
 
-    // TODO(aince42): do not check _incomingMessages for null here, instead make the component handle a null value and show a loading indicator
-    if (_contact == null || _incomingMessages == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_contact == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+
+    final contact = _contact!;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -78,102 +82,126 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
             await _loadShowSendCertificateButton();
             await loadSharedFiles(syncBefore: true);
           },
-          child: ListView(
-            children: [
-              ColoredBox(
-                color: Theme.of(context).colorScheme.onPrimary,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Scrollbar(
+            thumbVisibility: true,
+            child: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Row(
                     children: [
-                      ContactCircleAvatar(contactName: _contact!.name, radius: 32),
-                      Gaps.w8,
+                      ContactCircleAvatar(contact: contact, radius: 32),
+                      Gaps.w16,
                       Expanded(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(_contact!.name, style: Theme.of(context).textTheme.bodyLarge),
-                            if (_contact!.date != null)
-                              Text(
-                                context.l10n.contactDetail_connectedSince(
-                                  DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(_contact!.date!).toLocal()),
+                            Text(
+                              contact.isUnknown ? context.l10n.contacts_unknown : contact.name,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            switch (contact.relationship?.status) {
+                              RelationshipStatus.Active => Text(
+                                  context.l10n.contactDetail_connectedSince(
+                                    DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(contact.date!).toLocal()),
+                                  ),
                                 ),
-                              ),
+                              RelationshipStatus.Pending => Text(
+                                  context.l10n.contactDetail_requestedAt(
+                                    DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(contact.date!).toLocal()),
+                                  ),
+                                ),
+                              _ => const SizedBox.shrink(),
+                            },
                           ],
                         ),
                       ),
-                      if (context.isFeatureEnabled('DELETE_RELATIONSHIP'))
-                        IconButton(onPressed: () => showNotImplementedDialog(context), icon: const Icon(Icons.delete)),
-                      if (_loadingFavoriteContact)
-                        const IconButton(onPressed: null, icon: CircularProgressIndicator())
-                      else
-                        Align(
-                          child: IconButton(
-                            icon: _isFavoriteContact ?? false ? const Icon(Icons.star) : const Icon(Icons.star_border),
-                            color: _isFavoriteContact ?? false ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
-                            onPressed: _isFavoriteContact == null ? null : _toggleFavoriteContact,
-                          ),
-                        ),
                     ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: FilledButton(
-                        onPressed: () => context.push('/account/${widget.accountId}/mailbox/send', extra: _contact),
-                        style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
+                if (contact.relationship?.status == RelationshipStatus.Pending)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: ColoredBox(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.mail, size: 16),
+                            Icon(Icons.hourglass_top, color: Theme.of(context).colorScheme.onSurfaceVariant),
                             Gaps.w8,
-                            Text(context.l10n.contactDetail_sendMessage),
+                            Text(
+                              context.l10n.contactDetail_notAcceptedYet,
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    if (_showSendCertificateButton) ...[
-                      Gaps.w8,
-                      Expanded(
-                        child: FilledButton(
-                          onPressed: () => showRequestCertificateModal(context: context, session: _session, peer: _contact!.id),
-                          style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(EnmeshedIcons.requestCertificate, size: 16),
-                              Gaps.w8,
-                              Text(context.l10n.contactDetail_requestCertificate),
-                            ],
-                          ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Wrap(
+                    spacing: 8,
+                    children: [
+                      if (_loadingFavoriteContact)
+                        const IconButton(onPressed: null, icon: SizedBox(width: 24, height: 24, child: CircularProgressIndicator()))
+                      else
+                        IconButton(
+                          icon: _isFavoriteContact ?? false ? const Icon(Icons.star) : const Icon(Icons.star_border),
+                          color: _isFavoriteContact ?? false ? Theme.of(context).colorScheme.primary : null,
+                          onPressed: _isFavoriteContact == null ? null : _toggleFavoriteContact,
+                          tooltip: switch (_isFavoriteContact) {
+                            true => context.l10n.contactDetail_removeFromFavorites,
+                            false => context.l10n.contactDetail_addToFavorites,
+                            null => null,
+                          },
                         ),
+                      if (contact.relationship?.status == RelationshipStatus.Active)
+                        IconButton(
+                          onPressed: () => context.push('/account/${widget.accountId}/mailbox/send', extra: _contact),
+                          icon: const Icon(Icons.mail_outlined),
+                          tooltip: context.l10n.contactDetail_sendMessage,
+                        ),
+                      if (_showSendCertificateButton)
+                        IconButton(
+                          onPressed: () => showRequestCertificateModal(context: context, session: _session, peer: contact.id),
+                          icon: const Icon(Icons.security),
+                          tooltip: context.l10n.contactDetail_requestCertificate,
+                        ),
+                      IconButton(
+                        onPressed: () => deleteContact(
+                          context: context,
+                          accountId: widget.accountId,
+                          contact: contact,
+                          onContactDeleted: () {
+                            if (context.mounted) context.pop();
+                          },
+                        ),
+                        icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                        tooltip: context.l10n.contacts_delete_deleteContact,
                       ),
                     ],
-                  ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: Text(
-                  context.l10n.contactDetail_informationOverview,
-                  style: Theme.of(context).textTheme.titleLarge,
+                Gaps.h16,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    context.l10n.contactDetail_sharedInformation,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
-              ),
-              ColoredBox(
-                color: Theme.of(context).colorScheme.onPrimary,
-                child: Column(
+                Column(
                   children: [
                     ListTile(
                       title: Text(context.l10n.contactDetail_receivedAttributes),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => context.push('/account/${widget.accountId}/contacts/${widget.contactId}/exchangedData'),
                     ),
-                    const Divider(height: 0),
+                    const Divider(height: 2),
                     ListTile(
                       title: Text(context.l10n.contactDetail_sharedAttributes),
                       trailing: const Icon(Icons.chevron_right),
@@ -181,20 +209,26 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                     ),
                   ],
                 ),
-              ),
-              MessagesContainer(
-                accountId: widget.accountId,
-                messages: _incomingMessages!,
-                unreadMessagesCount: _unreadMessagesCount,
-                seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId),
-                hideAvatar: true,
-              ),
-              ContactSharedFiles(
-                accountId: widget.accountId,
-                contactId: widget.contactId,
-                sharedFiles: sharedFiles,
-              ),
-            ],
+                Gaps.h16,
+                MessagesContainer(
+                  accountId: widget.accountId,
+                  messages: _incomingMessages,
+                  unreadMessagesCount: _unreadMessagesCount,
+                  seeAllMessages: _incomingMessages != null && _incomingMessages!.isNotEmpty
+                      ? () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId)
+                      : null,
+                  title: context.l10n.contact_information_messages,
+                  noMessagesText: context.l10n.contact_information_noMessages,
+                  hideAvatar: true,
+                ),
+                Gaps.h16,
+                ContactSharedFiles(
+                  accountId: widget.accountId,
+                  contactId: widget.contactId,
+                  sharedFiles: sharedFiles,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -203,11 +237,9 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
 
   Future<void> _loadContact() async {
     final contact = await _session.expander.expandAddress(widget.contactId);
-    final isFavorite = await isContactFavorite(relationshipId: contact.relationship!.id, session: _session);
 
     setState(() {
       _contact = contact;
-      _isFavoriteContact = isFavorite;
     });
   }
 
@@ -254,21 +286,15 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   }
 
   Future<void> _toggleFavoriteContact() async {
-    setState(() {
-      _loadingFavoriteContact = true;
-    });
+    setState(() => _loadingFavoriteContact = true);
 
-    await toggleContactFavorite(
+    await toggleContactPinned(
       relationshipId: _contact!.relationship!.id,
-      session: _session,
-      accountId: widget.accountId,
+      session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId),
     );
 
-    if (mounted) {
-      setState(() {
-        _isFavoriteContact = !_isFavoriteContact!;
-        _loadingFavoriteContact = false;
-      });
-    }
+    await _loadContact();
+
+    setState(() => _loadingFavoriteContact = false);
   }
 }

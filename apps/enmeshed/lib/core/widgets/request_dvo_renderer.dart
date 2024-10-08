@@ -9,19 +9,20 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 
+import '../constants.dart';
 import '../modals/create_attribute.dart';
 import '../utils/utils.dart';
+import 'contact_circle_avatar.dart';
 import 'file_chooser.dart';
 
 class RequestDVORenderer extends StatefulWidget {
   final String accountId;
   final String requestId;
   final bool isIncoming;
-
-  final LocalRequestDVO? requestDVO;
-
   final String acceptRequestText;
   final VoidCallback onAfterAccept;
+  final bool showHeader;
+  final LocalRequestDVO? requestDVO;
 
   const RequestDVORenderer({
     required this.accountId,
@@ -29,8 +30,9 @@ class RequestDVORenderer extends StatefulWidget {
     required this.isIncoming,
     required this.acceptRequestText,
     required this.onAfterAccept,
-    super.key,
+    this.showHeader = true,
     this.requestDVO,
+    super.key,
   });
 
   @override
@@ -39,14 +41,13 @@ class RequestDVORenderer extends StatefulWidget {
 
 class _RequestDVORendererState extends State<RequestDVORenderer> {
   late RequestRendererController _controller;
+
   LocalRequestDVO? _request;
-
-  bool _loading = false;
-
   DecideRequestParameters? _decideRequestParameters;
   RequestValidationResultDTO? _validationResult;
-
   GetIdentityInfoResponse? _identityInfo;
+
+  bool _loading = false;
 
   @override
   void initState() {
@@ -93,40 +94,70 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
   @override
   Widget build(BuildContext context) {
-    if (_request == null || _identityInfo == null) return const Center(child: CircularProgressIndicator());
+    if (_request == null || _identityInfo == null) {
+      return const Center(child: SizedBox(height: 150, width: 159, child: CircularProgressIndicator(strokeWidth: 12)));
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: SingleChildScrollView(
-            child: RequestRenderer(
-              request: _request!,
-              controller: _controller,
-              validationResult: _validationResult,
-              currentAddress: _identityInfo!.address,
-              openAttributeSwitcher: _openAttributeSwitcher,
-              expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-              chooseFile: () => openFileChooser(context, widget.accountId),
-              openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (widget.showHeader) ...[
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(context.l10n.contact_requestDescription),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Row(
+                      children: [
+                        ContactCircleAvatar(contact: _request!.peer, radius: 31),
+                        Gaps.w16,
+                        Expanded(child: Text(_request!.peer.isUnknown ? context.l10n.contacts_unknown : _request!.peer.name)),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(context.l10n.mandatoryField),
+                  ),
+                ],
+                RequestRenderer(
+                  request: _request!,
+                  controller: _controller,
+                  validationResult: _validationResult,
+                  currentAddress: _identityInfo!.address,
+                  openAttributeSwitcher: _openAttributeSwitcher,
+                  expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                  chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
+                  openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
+                ),
+              ],
             ),
           ),
         ),
         if (_request!.isDecidable)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton.icon(
-                icon: const Icon(Icons.delete, size: 16),
-                label: Text(context.l10n.reject, style: const TextStyle(fontWeight: FontWeight.bold)),
-                onPressed: _loading && _request != null ? null : _rejectRequest,
-              ),
-              FilledButton(
-                style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                onPressed: _canAccept ? _acceptRequest : null,
-                child: Text(widget.acceptRequestText),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton.icon(
+                  icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error, size: 16),
+                  label: Text(context.l10n.reject, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: _loading && _request != null ? null : _rejectRequest,
+                ),
+                FilledButton(
+                  style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
+                  onPressed: _canAccept ? _acceptRequest : null,
+                  child: Text(widget.acceptRequestText),
+                ),
+              ],
+            ),
           ),
       ],
     );
@@ -149,9 +180,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     final identityInfo = await session.transportServices.account.getIdentityInfo();
     if (identityInfo.isError) return;
 
-    setState(() {
-      _identityInfo = identityInfo.value;
-    });
+    setState(() => _identityInfo = identityInfo.value);
   }
 
   void _setController(Session session, LocalRequestDVO request) {

@@ -1,5 +1,5 @@
 name: connector_sdk
-description: A Dart SDK for the Enmeshed Connector.
+description: A Dart SDK for the enmeshed Connector.
 version: 1.0.0
 publish_to: none
 
@@ -10,9 +10,9 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
-  dio: ^5.5.0+1
+  dio: ^5.7.0
   enmeshed_types: 1.0.0
   meta: any
 
 dev_dependencies:
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0

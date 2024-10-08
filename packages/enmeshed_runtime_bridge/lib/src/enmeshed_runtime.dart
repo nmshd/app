@@ -22,6 +22,7 @@ typedef RuntimeConfig = ({
   String clientSecret,
   String applicationId,
   bool useAppleSandbox,
+  String databaseFolder,
 });
 
 class EnmeshedRuntime {
@@ -164,6 +165,7 @@ class EnmeshedRuntime {
           'platformClientSecret': runtimeConfig.clientSecret,
         },
         'pushToken': null,
+        'databaseFolder': runtimeConfig.databaseFolder,
       },
     );
 

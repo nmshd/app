@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../dtos/relationship_change.dart';
+import '../../contents/contents.dart';
+import '../../dtos/dtos.dart';
 import '../common/common.dart';
 import '../consumption/local_attribute_dvo.dart';
 import '../data_view_object.dart';
-import '../integer_converter.dart';
 
 part 'relationship_dvo.g.dart';
 
@@ -13,18 +13,20 @@ enum RelationshipDirection { Incoming, Outgoing }
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipDVO extends DataViewObject with EquatableMixin {
-  final String status;
+  final RelationshipStatus status;
+  final PeerDeletionStatus? peerDeletionStatus;
+  final String? peerDeletionDate;
   final RelationshipDirection direction;
   final String statusText;
   final bool isPinned;
   final RelationshipTheme? theme;
-  final List<RelationshipChangeDVO> changes;
-  @IntegerConverter()
-  final int changeCount;
+  final RelationshipCreationContentDerivation creationContent;
+  final List<RelationshipAuditLogEntryDTO> auditLog;
   final List<LocalAttributeDVO> items;
   final Map<String, List<LocalAttributeDVO>> attributeMap;
   final Map<String, String> nameMap;
   final String templateId;
+  final String? originalName;
 
   const RelationshipDVO({
     required super.id,
@@ -36,16 +38,19 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
     super.error,
     super.warning,
     required this.status,
+    this.peerDeletionStatus,
+    this.peerDeletionDate,
     required this.direction,
     required this.statusText,
     required this.isPinned,
     this.theme,
-    required this.changes,
-    required this.changeCount,
+    required this.creationContent,
+    required this.auditLog,
     required this.items,
     required this.attributeMap,
     required this.nameMap,
     required this.templateId,
+    this.originalName,
   });
 
   factory RelationshipDVO.fromJson(Map json) => _$RelationshipDVOFromJson(Map<String, dynamic>.from(json));
@@ -72,88 +77,4 @@ class RelationshipTheme {
 
   factory RelationshipTheme.fromJson(Map json) => _$RelationshipThemeFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipThemeToJson(this);
-}
-
-@JsonSerializable(includeIfNull: false)
-class RelationshipChangeDVO extends DataViewObject {
-  final RelationshipChangeRequestDVO request;
-  final RelationshipChangeResponseDVO? response;
-  final RelationshipChangeStatus status;
-  final String statusText;
-  final RelationshipChangeType changeType;
-  final String changeTypeText;
-  final bool isOwn;
-
-  const RelationshipChangeDVO({
-    required super.id,
-    required super.name,
-    super.description,
-    super.image,
-    required super.type,
-    super.date,
-    super.error,
-    super.warning,
-    required this.request,
-    this.response,
-    required this.status,
-    required this.statusText,
-    required this.changeType,
-    required this.changeTypeText,
-    required this.isOwn,
-  });
-
-  factory RelationshipChangeDVO.fromJson(Map json) => _$RelationshipChangeDVOFromJson(Map<String, dynamic>.from(json));
-  Map<String, dynamic> toJson() => _$RelationshipChangeDVOToJson(this);
-}
-
-@JsonSerializable(includeIfNull: false)
-class RelationshipChangeRequestDVO extends DataViewObject {
-  final String createdBy;
-  final String createdByDevice;
-  final String createdAt;
-  final Map<String, dynamic>? content;
-
-  const RelationshipChangeRequestDVO({
-    required super.id,
-    required super.name,
-    super.description,
-    super.image,
-    required super.type,
-    super.date,
-    super.error,
-    super.warning,
-    required this.createdBy,
-    required this.createdByDevice,
-    required this.createdAt,
-    this.content,
-  });
-
-  factory RelationshipChangeRequestDVO.fromJson(Map json) => _$RelationshipChangeRequestDVOFromJson(Map<String, dynamic>.from(json));
-  Map<String, dynamic> toJson() => _$RelationshipChangeRequestDVOToJson(this);
-}
-
-@JsonSerializable(includeIfNull: false)
-class RelationshipChangeResponseDVO extends DataViewObject {
-  final String createdBy;
-  final String createdByDevice;
-  final String createdAt;
-  final Map<String, dynamic>? content;
-
-  const RelationshipChangeResponseDVO({
-    required super.id,
-    required super.name,
-    super.description,
-    super.image,
-    required super.type,
-    super.date,
-    super.error,
-    super.warning,
-    required this.createdBy,
-    required this.createdByDevice,
-    required this.createdAt,
-    this.content,
-  });
-
-  factory RelationshipChangeResponseDVO.fromJson(Map json) => _$RelationshipChangeResponseDVOFromJson(Map<String, dynamic>.from(json));
-  Map<String, dynamic> toJson() => _$RelationshipChangeResponseDVOToJson(this);
 }

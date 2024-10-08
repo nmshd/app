@@ -1023,7 +1023,7 @@
         "Draft": "Entwurf",
         "Error": "Fehlerhaft",
         "Expired": "Abgelaufen",
-        "ManualDecisionRequired": "Entscheidung muss getroffen werden",
+        "ManualDecisionRequired": "Offene Aufgabe",
         "Open": "Auf Antwort warten"
       },
       "unknown": {
@@ -1053,21 +1053,6 @@
       "Outgoing": "Ausgehende Kontaktanfrage",
       "Rejected": "Abgelehnte Kontaktanfrage",
       "Revoked": "Zurückgezogene Kontaktanfrage"
-    },
-    "relationshipChange": {
-      "Accepted": "Akzeptierte Anfrage",
-      "Creation": "Eingehen einer Beziehung",
-      "Pending": "Offene Anfrage",
-      "Rejected": "Abgelehnte Anfrage",
-      "request": {
-        "name": "Anfrage zum Ändern einer Beziehung"
-      },
-      "response": {
-        "name": "Antwort zum Ändern einer Beziehung"
-      },
-      "Revoked": "Zurückgezogene Anfrage",
-      "Termination": "Auflösen einer Beziehung",
-      "TerminationCancellation": "Wiederaufnahme einer Beziehung"
     },
     "requestItem": {
       "AuthenticationRequestItem": {
@@ -1137,7 +1122,7 @@
         "acceptedName": "Das angefragte Attribut wurde bereits geteilt."
       },
       "AttributeSuccessionAcceptResponseItem": {
-        "acceptedName": "Das angefragte Attribute wurde bearbeitet."
+        "acceptedName": "Das angefragte Attribut wurde bearbeitet."
       },
       "CreateAttributeAcceptResponseItem": {
         "acceptedName": "Das Attribut wurde erstellt."
@@ -1178,7 +1163,7 @@
       "minValue": "Der Wert muss größer oder gleich {value} sein",
       "invalidInput": "Ungültige Eingabe",
       "invalidFormat": "Ungültiges Format",
-      "noDateSelected": "Kein Datum ausgewählt", 
+      "noDateSelected": "Kein Datum ausgewählt",
       "houseNoNumericCharacter": "Der Wert muss mindestens eine Ziffer enthalten"
     }
   },

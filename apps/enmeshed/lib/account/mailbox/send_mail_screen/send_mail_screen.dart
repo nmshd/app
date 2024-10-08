@@ -23,7 +23,7 @@ class SendMailScreen extends StatefulWidget {
 class _SendMailScreenState extends State<SendMailScreen> {
   IdentityDVO? _recipient;
   List<IdentityDVO>? _relationships;
-  List<FileDVO> _attachments = [];
+  final List<FileDVO> _attachments = [];
   bool _sendingMail = false;
 
   final _subjectController = TextEditingController();
@@ -61,7 +61,6 @@ class _SendMailScreenState extends State<SendMailScreen> {
   Widget build(BuildContext context) {
     if (_relationships == null) {
       return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         appBar: AppBar(
           title: Text(context.l10n.mailbox_new_message),
         ),
@@ -70,18 +69,9 @@ class _SendMailScreenState extends State<SendMailScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.onPrimary,
       appBar: AppBar(
         title: Text(context.l10n.mailbox_new_message),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.attach_file),
-            onPressed: () async {
-              FocusScope.of(context).unfocus();
-              final selectedAttachments = await context.push('/account/${widget.accountId}/mailbox/send/select-attachments', extra: _attachments);
-              _attachments = selectedAttachments != null ? selectedAttachments as List<FileDVO> : [];
-            },
-          ),
           IconButton(icon: const Icon(Icons.send), onPressed: _canSendMail && !_sendingMail ? _sendMessage : null),
         ],
       ),
@@ -109,53 +99,45 @@ class _SendMailScreenState extends State<SendMailScreen> {
                     accountId: widget.accountId,
                     contact: widget.contact ?? _recipient,
                     relationships: _relationships,
-                    removeContact: widget.contact == null ? _updateChoosenContact : null,
+                    showRemoveContact: widget.contact == null,
                     selectContact: _updateChoosenContact,
                   ),
-                  const Divider(height: 0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: TextField(
-                      controller: _subjectController,
-                      focusNode: _subjectFocusNode,
-                      textCapitalization: TextCapitalization.sentences,
-                      maxLines: null,
-                      decoration: InputDecoration.collapsed(
-                        hintText: context.l10n.mailbox_subject,
-                        hintStyle: _subjectFocusNode.hasFocus
-                            ? Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.primary)
-                            : Theme.of(context).textTheme.bodyLarge,
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                      ),
-                    ),
+                  const Divider(height: 2),
+                  TextField(
+                    controller: _subjectController,
+                    focusNode: _subjectFocusNode,
+                    textCapitalization: TextCapitalization.sentences,
+                    maxLines: null,
+                    decoration: InputDecoration.collapsed(
+                      hintText: context.l10n.mailbox_subject,
+                      hintStyle: _subjectFocusNode.hasFocus
+                          ? Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary)
+                          : Theme.of(context).textTheme.bodyLarge,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                    ).copyWith(contentPadding: const EdgeInsets.all(16)),
                   ),
-                  const Divider(height: 0),
-                  if (_attachments.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                      child: AttachmentsList(
-                        attachments: _attachments,
-                        accountId: widget.accountId,
-                        removeFile: (index) => setState(() => _attachments.removeAt(index)),
-                      ),
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: TextField(
-                      controller: _messageController,
-                      focusNode: _messageFocusNode,
-                      scrollPhysics: const NeverScrollableScrollPhysics(),
-                      maxLines: null,
-                      keyboardType: TextInputType.multiline,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration.collapsed(
-                        hintText: context.l10n.mailbox_writeMessage,
-                        hintStyle: _messageFocusNode.hasFocus
-                            ? Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.primary)
-                            : Theme.of(context).textTheme.bodyLarge,
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                      ),
-                    ),
+                  const Divider(height: 2),
+                  _SelectedAttachments(
+                    attachments: _attachments,
+                    onSelectedAttachmentsChanged: () => setState(() {}),
+                    removeAttachment: (file) => setState(() => _attachments.remove(file)),
+                    accountId: widget.accountId,
+                  ),
+                  const Divider(height: 2),
+                  TextField(
+                    controller: _messageController,
+                    focusNode: _messageFocusNode,
+                    scrollPhysics: const NeverScrollableScrollPhysics(),
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
+                    textCapitalization: TextCapitalization.sentences,
+                    decoration: InputDecoration.collapsed(
+                      hintText: context.l10n.mailbox_writeMessage,
+                      hintStyle: _messageFocusNode.hasFocus
+                          ? Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary)
+                          : Theme.of(context).textTheme.bodyLarge,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                    ).copyWith(contentPadding: const EdgeInsets.all(16)),
                   ),
                 ],
               ),
@@ -194,7 +176,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
 
     final messageResult = await session.transportServices.messages.sendMessage(
       recipients: [_recipient!.id],
-      content: Mail(to: [_recipient!.id], subject: _subjectController.text, body: _messageController.text).toJson(),
+      content: Mail(to: [_recipient!.id], subject: _subjectController.text, body: _messageController.text),
       attachments: _attachments.map((file) => file.id).toList(),
     );
 
@@ -222,5 +204,60 @@ class _SendMailScreenState extends State<SendMailScreen> {
         },
       );
     }
+  }
+}
+
+class _SelectedAttachments extends StatelessWidget {
+  final List<FileDVO> attachments;
+  final VoidCallback onSelectedAttachmentsChanged;
+  final void Function(FileDVO) removeAttachment;
+  final String accountId;
+
+  const _SelectedAttachments({
+    required this.attachments,
+    required this.onSelectedAttachmentsChanged,
+    required this.removeAttachment,
+    required this.accountId,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (attachments.isEmpty) {
+      return Ink(
+        child: InkWell(
+          onTap: () => _updateAttachments(context),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(context.l10n.mailbox_attachments_button, style: Theme.of(context).textTheme.bodyLarge),
+          ),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: AttachmentsList(
+        attachments: attachments,
+        accountId: accountId,
+        removeFile: removeAttachment,
+        trailing: IconButton(
+          icon: const Icon(Icons.attach_file),
+          onPressed: () => _updateAttachments(context),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _updateAttachments(BuildContext context) async {
+    FocusScope.of(context).unfocus();
+
+    await openFileChooser(
+      context: context,
+      accountId: accountId,
+      selectedFiles: attachments,
+      onSelectedAttachmentsChanged: onSelectedAttachmentsChanged,
+      title: context.l10n.mailbox_selectAttachments_title,
+      description: context.l10n.mailbox_selectAttachments_description,
+    );
   }
 }

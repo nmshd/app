@@ -10,7 +10,7 @@ class DeviceOnboardingSafetyNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 8, left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+      padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -21,12 +21,19 @@ class DeviceOnboardingSafetyNote extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: Text(context.l10n.qrSafetyInformation),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.security, color: Theme.of(context).colorScheme.secondary, size: 40),
+                  Gaps.w8,
+                  Expanded(child: Text(context.l10n.qrSafetyInformation)),
+                ],
+              ),
             ),
           ),
-          Gaps.h16,
+          Gaps.h32,
           Text(context.l10n.qrSafetyInformation_preparation),
-          Gaps.h16,
+          Gaps.h12,
           Row(
             children: [
               Icon(Icons.verified_user, color: Theme.of(context).colorScheme.primary),
@@ -34,7 +41,7 @@ class DeviceOnboardingSafetyNote extends StatelessWidget {
               Flexible(child: Text(context.l10n.qrSafetyInformation_environment)),
             ],
           ),
-          Gaps.h16,
+          Gaps.h12,
           Row(
             children: [
               Icon(Icons.verified_user, color: Theme.of(context).colorScheme.primary),
@@ -42,12 +49,12 @@ class DeviceOnboardingSafetyNote extends StatelessWidget {
               Flexible(child: Text(context.l10n.qrSafetyInformation_access)),
             ],
           ),
-          Gaps.h32,
+          Gaps.h40,
           Align(
             alignment: Alignment.centerRight,
             child: FilledButton(
               onPressed: goToNextPage,
-              style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
+              style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 24)),
               child: Text(context.l10n.qrSafetyInformation_show),
             ),
           ),

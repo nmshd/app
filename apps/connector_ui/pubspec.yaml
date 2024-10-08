@@ -1,7 +1,6 @@
 name: connector_ui
-description: A UI for the Enmeshed Connector.
+description: A UI for the enmeshed Connector.
 publish_to: "none"
-version: 0.1.0
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
@@ -13,16 +12,16 @@ dependencies:
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
-  get_it: ^7.7.0
-  shared_preferences: ^2.3.1
+  get_it: ^8.0.0
+  shared_preferences: ^2.3.2
   window_size:
     git:
       url: https://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.13.1
-  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.1
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
 

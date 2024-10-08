@@ -22,6 +22,7 @@ Future<EnmeshedRuntime> setup() async {
       clientSecret: const String.fromEnvironment('app_clientSecret'),
       applicationId: 'eu.enmeshed.test',
       useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
+      databaseFolder: './database',
     ),
     logger: Logger(printer: SimplePrinter(colors: false), level: Level.warning),
     eventBus: eventBus,

@@ -20,7 +20,6 @@ class FileDVO extends DataViewObject with EquatableMixin {
   final String mimetype;
   final bool isOwn;
   final String title;
-  final String secretKey;
   final String truncatedReference;
 
   const FileDVO({
@@ -41,7 +40,6 @@ class FileDVO extends DataViewObject with EquatableMixin {
     required this.mimetype,
     required this.isOwn,
     required this.title,
-    required this.secretKey,
     required this.truncatedReference,
   });
 
@@ -67,7 +65,6 @@ class FileDVO extends DataViewObject with EquatableMixin {
         mimetype,
         isOwn,
         title,
-        secretKey,
         truncatedReference,
       ];
 }
