@@ -16,12 +16,19 @@ class TokensEndpoint extends Endpoint {
         transformer: tokenListTransformer,
       );
 
-  Future<ConnectorResponse<TokenDTO>> createOwnToken({required String expiresAt, required Map<String, dynamic> content, bool? ephemeral}) => post(
+  Future<ConnectorResponse<TokenDTO>> createOwnToken({
+    required String expiresAt,
+    required Map<String, dynamic> content,
+    bool? ephemeral,
+    String? forIdentity,
+  }) =>
+      post(
         '/api/v2/Tokens/Own',
         data: {
           'expiresAt': expiresAt,
           'content': content,
           if (ephemeral != null) 'ephemeral': ephemeral,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
         transformer: tokenTransformer,
       );
