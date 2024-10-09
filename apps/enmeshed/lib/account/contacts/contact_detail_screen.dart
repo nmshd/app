@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
+import 'modals/rename_contact.dart';
 import 'modals/request_certificate.dart';
 import 'widgets/contact_shared_files.dart';
 import 'widgets/contact_shared_files_mixin.dart';
@@ -39,7 +40,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
 
     _session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    _loadContact().then((_) {
+    _reloadContact().then((_) {
       _loadShowSendCertificateButton();
       _reloadMessages();
     });
@@ -77,7 +78,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
-            await _loadContact();
+            await _reloadContact();
             await _reloadMessages();
             await _loadShowSendCertificateButton();
             await loadSharedFiles(syncBefore: true);
@@ -159,6 +160,11 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                             null => null,
                           },
                         ),
+                      IconButton(
+                        onPressed: _renameContact,
+                        icon: const Icon(Icons.edit_outlined),
+                        tooltip: context.l10n.contactDetail_editContact,
+                      ),
                       if (contact.relationship?.status == RelationshipStatus.Active)
                         IconButton(
                           onPressed: () => context.push('/account/${widget.accountId}/mailbox/send', extra: _contact),
@@ -235,8 +241,10 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
     );
   }
 
-  Future<void> _loadContact() async {
+  Future<void> _reloadContact() async {
     final contact = await _session.expander.expandAddress(widget.contactId);
+
+    if (!mounted) return;
 
     setState(() {
       _contact = contact;
@@ -293,8 +301,25 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
       session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId),
     );
 
-    await _loadContact();
+    await _reloadContact();
 
     setState(() => _loadingFavoriteContact = false);
+  }
+
+  Future<void> _renameContact() async {
+    if (_contact == null) return;
+
+    final contact = _contact!;
+
+    var newName = await showRenameContactModal(context: context, contact: contact);
+    if (newName == null) return;
+
+    if (newName == contact.name) return;
+    if (newName == contact.originalName) newName = null;
+
+    await setContactName(relationshipId: contact.relationship!.id, session: _session, accountId: widget.accountId, contactName: newName);
+    await _reloadContact();
+
+    if (mounted) showSuccessSnackbar(context: context, text: context.l10n.contactDetail_editContact_displayNameChangedMessage);
   }
 }

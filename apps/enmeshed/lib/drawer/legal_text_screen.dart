@@ -58,7 +58,7 @@ class _LegalTextScreenState extends State<LegalTextScreen> {
       await launchUrl(uri);
     } else {
       GetIt.I.get<Logger>().e('Could not launch $uri');
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.error_couldNotOpenLink)));
+      if (mounted) showErrorSnackbar(context: context, text: context.l10n.error_couldNotOpenLink);
     }
   }
 

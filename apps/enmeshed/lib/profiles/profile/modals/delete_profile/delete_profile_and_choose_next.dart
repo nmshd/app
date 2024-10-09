@@ -199,20 +199,6 @@ class _AccountsAvailable extends StatelessWidget {
     if (context.mounted) context.go('/account/${account.id}');
     await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
 
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          showCloseIcon: true,
-          padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
-          content: Row(
-            children: [
-              Icon(Icons.check_circle_rounded, color: context.customColors.success),
-              Gaps.w8,
-              Expanded(child: Text(context.l10n.profiles_switchedToProfile(account.name))),
-            ],
-          ),
-        ),
-      );
-    }
+    if (context.mounted) showSuccessSnackbar(context: context, text: context.l10n.profiles_switchedToProfile(account.name), showCloseIcon: true);
   }
 }

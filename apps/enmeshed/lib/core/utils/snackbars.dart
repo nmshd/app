@@ -6,12 +6,13 @@ import '../constants.dart';
 void showErrorSnackbar({required BuildContext context, required String text}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      behavior: SnackBarBehavior.floating,
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       content: Row(
         children: [
           Container(
-            padding: EdgeInsets.zero,
             width: 24,
             height: 24,
             decoration: BoxDecoration(color: Theme.of(context).colorScheme.error, shape: BoxShape.circle),
@@ -25,10 +26,16 @@ void showErrorSnackbar({required BuildContext context, required String text}) {
   );
 }
 
-void showSuccessSnackbar({required BuildContext context, required String text}) {
+void showSuccessSnackbar({required BuildContext context, required String text, bool showCloseIcon = false}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      padding: showCloseIcon //
+          ? const EdgeInsets.only(left: 16, right: 8, top: 14, bottom: 14)
+          : const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      behavior: SnackBarBehavior.floating,
+      elevation: 3,
+      showCloseIcon: showCloseIcon,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       content: Row(
         children: [
           Container(
