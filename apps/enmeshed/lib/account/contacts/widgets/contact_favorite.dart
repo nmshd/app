@@ -26,7 +26,11 @@ class ContactFavorite extends StatelessWidget {
                 builder: (context, constraints) => ContactCircleAvatar(contact: contact, radius: constraints.biggest.height / 2),
               ),
             ),
-            if (!contact.isUnknown) SizedBox(width: 72, child: Text(contact.name, overflow: TextOverflow.ellipsis, maxLines: 1)),
+            if (!contact.isUnknown)
+              SizedBox(
+                width: 72,
+                child: Text(contact.name, overflow: TextOverflow.ellipsis, maxLines: 1, textAlign: TextAlign.center),
+              ),
           ],
         ),
       ),

@@ -8,6 +8,25 @@ import 'dialogs.dart';
 
 const _contactSettingKey = 'contact_settings';
 
+class ContactNameUpdatedEvent extends Event {
+  ContactNameUpdatedEvent({required super.eventTargetAddress});
+}
+
+Future<void> setContactName({required String relationshipId, required Session session, required String accountId, String? contactName}) async {
+  final settingValue = await _getContactSettings(relationshipId: relationshipId, session: session);
+
+  settingValue['userTitle'] = contactName;
+
+  await session.consumptionServices.settings.upsertSettingByKey(
+    _contactSettingKey,
+    settingValue,
+    scope: SettingScope.Relationship,
+    reference: relationshipId,
+  );
+
+  GetIt.I.get<EnmeshedRuntime>().eventBus.publish(ContactNameUpdatedEvent(eventTargetAddress: accountId));
+}
+
 Future<void> toggleContactPinned({required String relationshipId, required Session session}) async {
   final settingValue = await _getContactSettings(relationshipId: relationshipId, session: session);
 
