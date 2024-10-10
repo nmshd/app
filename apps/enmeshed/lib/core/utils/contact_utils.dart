@@ -116,6 +116,7 @@ Future<void> deleteContact({
       return;
     }
 
+    onContactDeleted();
     return;
   }
 
@@ -135,5 +136,6 @@ Future<void> deleteContact({
     GetIt.I.get<Logger>().e(result.error);
     return;
   }
+
   onContactDeleted();
 }
