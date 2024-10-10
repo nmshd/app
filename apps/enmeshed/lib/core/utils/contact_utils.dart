@@ -135,5 +135,6 @@ Future<void> deleteContact({
     GetIt.I.get<Logger>().e(result.error);
     return;
   }
+
   onContactDeleted();
 }
