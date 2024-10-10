@@ -116,6 +116,7 @@ Future<void> deleteContact({
       return;
     }
 
+    onContactDeleted();
     return;
   }
 
