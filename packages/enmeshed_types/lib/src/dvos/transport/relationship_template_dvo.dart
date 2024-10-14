@@ -23,6 +23,7 @@ class RelationshipTemplateDVO extends DataViewObject {
   final RequestDVO? onExistingRelationship;
   final LocalRequestDVO? request;
   final RelationshipTemplateContentDerivation content;
+  final String? forIdentity;
 
   const RelationshipTemplateDVO({
     required super.id,
@@ -43,6 +44,7 @@ class RelationshipTemplateDVO extends DataViewObject {
     this.onExistingRelationship,
     this.request,
     required this.content,
+    this.forIdentity,
   });
 
   factory RelationshipTemplateDVO.fromJson(Map json) => switch (json['type']) {

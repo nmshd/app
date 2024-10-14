@@ -12,6 +12,7 @@ class RelationshipTemplateDTO extends Equatable {
   final String? expiresAt;
   final int? maxNumberOfAllocations;
   final String truncatedReference;
+  final String? forIdentity;
 
   const RelationshipTemplateDTO({
     required this.id,
@@ -23,6 +24,7 @@ class RelationshipTemplateDTO extends Equatable {
     this.expiresAt,
     this.maxNumberOfAllocations,
     required this.truncatedReference,
+    this.forIdentity,
   });
 
   factory RelationshipTemplateDTO.fromJson(Map json) => RelationshipTemplateDTO(
@@ -35,6 +37,7 @@ class RelationshipTemplateDTO extends Equatable {
         expiresAt: json['expiresAt'],
         maxNumberOfAllocations: json['maxNumberOfAllocations']?.toInt(),
         truncatedReference: json['truncatedReference'],
+        forIdentity: json['forIdentity'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,6 +50,7 @@ class RelationshipTemplateDTO extends Equatable {
         if (expiresAt != null) 'expiresAt': expiresAt,
         if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
         'truncatedReference': truncatedReference,
+        if (forIdentity != null) 'forIdentity': forIdentity,
       };
 
   @override
@@ -60,5 +64,6 @@ class RelationshipTemplateDTO extends Equatable {
         expiresAt,
         maxNumberOfAllocations,
         truncatedReference,
+        forIdentity,
       ];
 }

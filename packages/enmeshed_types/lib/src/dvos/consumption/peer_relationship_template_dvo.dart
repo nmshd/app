@@ -29,6 +29,7 @@ class PeerRelationshipTemplateDVO extends RelationshipTemplateDVO {
     super.onExistingRelationship,
     super.request,
     required super.content,
+    super.forIdentity,
   }) : super(type: 'PeerRelationshipTemplateDVO');
 
   factory PeerRelationshipTemplateDVO.fromJson(Map json) => _$PeerRelationshipTemplateDVOFromJson(Map<String, dynamic>.from(json));
