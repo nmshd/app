@@ -12,6 +12,7 @@ class RelationshipTemplatesFacade {
     required String expiresAt,
     required RelationshipTemplateContentDerivation content,
     int? maxNumberOfAllocations,
+    String? forIdentity,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(request)
@@ -22,6 +23,7 @@ class RelationshipTemplatesFacade {
           'expiresAt': expiresAt,
           'content': content.toJson(),
           if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
       },
     );
