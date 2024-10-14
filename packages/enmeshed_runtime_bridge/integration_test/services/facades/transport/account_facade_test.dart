@@ -127,14 +127,17 @@ void run(EnmeshedRuntime runtime) {
       String relationshipTemplateTokenReference = '';
 
       setUpAll(() async {
-        final relationshipTemplate = (await session.transportServices.relationshipTemplates
-                .createOwnRelationshipTemplate(expiresAt: generateExpiryString(), content: emptyRelationshipTemplateContent))
+        final relationshipTemplate = (await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+          expiresAt: generateExpiryString(),
+          content: emptyRelationshipTemplateContent,
+        ))
             .value;
         relationshipTemplateReference = relationshipTemplate.truncatedReference;
-        relationshipTemplateTokenReference =
-            (await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(templateId: relationshipTemplate.id))
-                .value
-                .truncatedReference;
+        relationshipTemplateTokenReference = (await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+          templateId: relationshipTemplate.id,
+        ))
+            .value
+            .truncatedReference;
       });
 
       test('should load the RelationshipTemplate with the truncated reference', () async {
