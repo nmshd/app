@@ -105,6 +105,7 @@ class RelationshipTemplatesFacade {
   Future<Result<CreateQRCodeResponse>> createTokenQRCodeForOwnTemplate({
     required String templateId,
     String? expiresAt,
+    String? forIdentity,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(request)
@@ -114,6 +115,7 @@ class RelationshipTemplatesFacade {
         'request': {
           'templateId': templateId,
           if (expiresAt != null) 'expiresAt': expiresAt,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
       },
     );
@@ -126,6 +128,7 @@ class RelationshipTemplatesFacade {
     required String templateId,
     String? expiresAt,
     bool? ephemeral,
+    String? forIdentity,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(request)
@@ -136,6 +139,7 @@ class RelationshipTemplatesFacade {
           'templateId': templateId,
           if (expiresAt != null) 'expiresAt': expiresAt,
           if (ephemeral != null) 'ephemeral': ephemeral,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
       },
     );
