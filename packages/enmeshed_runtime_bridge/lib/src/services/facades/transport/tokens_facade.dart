@@ -12,6 +12,7 @@ class TokensFacade {
     required Map<String, dynamic> content,
     required String expiresAt,
     required bool ephemeral,
+    String? forIdentity,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.createOwnToken(request)
@@ -22,6 +23,7 @@ class TokensFacade {
           'content': content,
           'expiresAt': expiresAt,
           'ephemeral': ephemeral,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
       },
     );
