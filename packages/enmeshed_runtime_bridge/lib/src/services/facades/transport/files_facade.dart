@@ -129,6 +129,7 @@ class FilesFacade {
     required String fileId,
     String? expiresAt,
     bool? ephemeral,
+    String? forIdentity,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.createTokenForFile(request)
@@ -139,6 +140,7 @@ class FilesFacade {
           'fileId': fileId,
           if (expiresAt != null) 'expiresAt': expiresAt,
           if (ephemeral != null) 'ephemeral': ephemeral,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
       },
     );
@@ -150,6 +152,7 @@ class FilesFacade {
   Future<Result<CreateQRCodeResponse>> createTokenQRCodeForFile({
     required String fileId,
     String? expiresAt,
+    String? forIdentity,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.createTokenQRCodeForFile(request)
@@ -159,6 +162,7 @@ class FilesFacade {
         'request': {
           'fileId': fileId,
           if (expiresAt != null) 'expiresAt': expiresAt,
+          if (forIdentity != null) 'forIdentity': forIdentity,
         },
       },
     );
