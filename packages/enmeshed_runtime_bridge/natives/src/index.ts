@@ -1,6 +1,7 @@
 import { Serializable } from "@js-soft/ts-serval";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
 import {
+  AppReadyEvent,
   AppRuntime,
   RemoteNotification,
   RemoteNotificationEvent,
@@ -9,7 +10,6 @@ import {
 import * as contentLib from "@nmshd/content";
 import { RenderHints, RenderHintsJSON, ValueHints, ValueHintsJSON } from "@nmshd/content";
 import { buildInformation } from "@nmshd/runtime";
-import { AppReadyEvent } from "./AppReadyEvent";
 import { NativeBootstrapper } from "./NativeBootstrapper";
 import { UIBridge } from "./uiBridge";
 
