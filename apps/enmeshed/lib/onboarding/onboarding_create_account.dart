@@ -62,11 +62,9 @@ class _OnboardingCreateAccountState extends State<OnboardingCreateAccount> {
       ],
     );
 
-    if (mounted) {
-      await _createNewIdentity(
-        newProfileName != null && newProfileName.isNotEmpty ? newProfileName : defaultProfileName,
-      );
-    }
+    if (newProfileName == null) return widget.goToOnboardingAccount();
+
+    await _createNewIdentity(newProfileName);
   }
 
   Future<void> _createNewIdentity(String accountName) async {
