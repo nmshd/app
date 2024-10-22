@@ -42,8 +42,6 @@ class _OnboardingCreateAccountState extends State<OnboardingCreateAccount> {
   }
 
   Future<void> _showEnterProfileNameModal() async {
-    final defaultProfileName = '${context.l10n.onboarding_defaultIdentityName} 1';
-
     final newProfileName = await WoltModalSheet.show<String?>(
       context: context,
       barrierDismissible: true,
@@ -59,7 +57,7 @@ class _OnboardingCreateAccountState extends State<OnboardingCreateAccount> {
             padding: const EdgeInsets.only(right: 8),
             child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
           ),
-          child: _EnterProfileNameDialog(defaultProfileName: defaultProfileName),
+          child: const _EnterProfileNameDialog(),
         ),
       ],
     );
@@ -99,9 +97,7 @@ class _OnboardingCreateAccountState extends State<OnboardingCreateAccount> {
 }
 
 class _EnterProfileNameDialog extends StatefulWidget {
-  final String defaultProfileName;
-
-  const _EnterProfileNameDialog({required this.defaultProfileName});
+  const _EnterProfileNameDialog();
 
   @override
   State<_EnterProfileNameDialog> createState() => _EnterProfileNameDialogState();
@@ -119,6 +115,8 @@ class _EnterProfileNameDialogState extends State<_EnterProfileNameDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final defaultProfileName = '${context.l10n.onboarding_defaultIdentityName} 1';
+
     return Padding(
       padding: const EdgeInsets.only(top: 16, bottom: 24, left: 24, right: 24),
       child: Column(
@@ -129,7 +127,7 @@ class _EnterProfileNameDialogState extends State<_EnterProfileNameDialog> {
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.never,
-              hintText: widget.defaultProfileName,
+              hintText: defaultProfileName,
               suffixIcon: IconButton(
                 onPressed: _controller.clear,
                 icon: const Icon(Icons.cancel_outlined),
