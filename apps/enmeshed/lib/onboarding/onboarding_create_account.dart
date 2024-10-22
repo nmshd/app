@@ -144,7 +144,7 @@ class _EnterProfileNameDialogState extends State<_EnterProfileNameDialog> {
           Align(
             alignment: Alignment.centerRight,
             child: FilledButton(
-              onPressed: () => context.pop(_controller.text),
+              onPressed: () => context.pop(_controller.text.isEmpty ? defaultProfileName : _controller.text),
               style: FilledButton.styleFrom(minimumSize: const Size(100, 36)),
               child: Text(context.l10n.onboarding_acceptProfileName),
             ),
