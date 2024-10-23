@@ -25,7 +25,7 @@ class MessageDVORenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: ContactCircleAvatar(radius: 20, contact: message.peer),
+      leading: hideAvatar ? null : ContactCircleAvatar(radius: 20, contact: message.peer),
       title: _MessagesContent(message: message, query: query),
       onTap: () => _onTap(context),
     );
@@ -144,11 +144,13 @@ class _MessageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final contactName = message.peer.name == unknownContactName ? context.l10n.contacts_unknown : message.peer.name;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         HighlightText(
-          text: message.peer.name,
+          text: contactName,
           query: query,
           textStyle: message.wasReadAt == null && !message.isOwn
               ? Theme.of(context).textTheme.labelMedium!.copyWith(
