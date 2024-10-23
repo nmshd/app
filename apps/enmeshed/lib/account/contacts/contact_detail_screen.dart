@@ -40,10 +40,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
 
     _session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    _reloadContact().then((_) {
-      _loadShowSendCertificateButton();
-      _reloadMessages();
-    });
+    _reload();
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     _subscriptions
@@ -52,7 +49,8 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reloadMessages()))
-      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadMessages()));
+      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadMessages()))
+      ..add(runtime.eventBus.on<ContactNameUpdatedEvent>().listen((_) => _reload().catchError((_) {})));
   }
 
   @override
@@ -239,6 +237,13 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
         ),
       ),
     );
+  }
+
+  Future<void> _reload() async {
+    await _reloadContact();
+
+    unawaited(_loadShowSendCertificateButton());
+    unawaited(_reloadMessages());
   }
 
   Future<void> _reloadContact() async {
