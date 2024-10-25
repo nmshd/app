@@ -89,7 +89,7 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
         eventTargetAddress: eventTargetAddress,
         data: LocalAttributeDTO.fromJson(data),
       ),
-    'consumption.thirdPartyOwnedRelationshipAttributeDeletedByPeer' => ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent(
+    'consumption.thirdPartyRelationshipAttributeDeletedByPeer' => ThirdPartyRelationshipAttributeDeletedByPeerEvent(
         eventTargetAddress: eventTargetAddress,
         data: LocalAttributeDTO.fromJson(data),
       ),

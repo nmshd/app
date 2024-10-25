@@ -2,10 +2,10 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import '../event.dart';
 
-class ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent extends Event {
+class ThirdPartyRelationshipAttributeDeletedByPeerEvent extends Event {
   final LocalAttributeDTO data;
 
-  const ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent({
+  const ThirdPartyRelationshipAttributeDeletedByPeerEvent({
     required this.data,
     required super.eventTargetAddress,
   });

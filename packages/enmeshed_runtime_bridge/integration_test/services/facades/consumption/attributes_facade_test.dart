@@ -1780,7 +1780,7 @@ void run(EnmeshedRuntime runtime) {
 
       final timeBeforeUpdate = DateTime.now();
       await syncUntilHasMessageWithNotification(recipient, notificationId);
-      await eventBus.waitForEvent<ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent>(
+      await eventBus.waitForEvent<ThirdPartyRelationshipAttributeDeletedByPeerEvent>(
           eventTargetAddress: recipientAddress, predicate: (e) => e.data.id == senderThirdPartyOwnedRelationshipAttribute.id);
       final timeAfterUpdate = DateTime.now();
 
@@ -1826,7 +1826,7 @@ void run(EnmeshedRuntime runtime) {
 
       final timeBeforeUpdate = DateTime.now();
       await syncUntilHasMessageWithNotification(sender, notificationId);
-      await eventBus.waitForEvent<ThirdPartyOwnedRelationshipAttributeDeletedByPeerEvent>(
+      await eventBus.waitForEvent<ThirdPartyRelationshipAttributeDeletedByPeerEvent>(
           eventTargetAddress: senderAddress, predicate: (e) => e.data.id == senderThirdPartyOwnedRelationshipAttribute.id);
       final timeAfterUpdate = DateTime.now();
 
