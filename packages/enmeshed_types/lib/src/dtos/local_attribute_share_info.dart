@@ -9,12 +9,14 @@ class LocalAttributeShareInfo extends Equatable {
   final String? notificationReference;
   final String peer;
   final String? sourceAttribute;
+  final String? thirdPartyAddress;
 
   const LocalAttributeShareInfo({
     this.requestReference,
     this.notificationReference,
     required this.peer,
     this.sourceAttribute,
+    this.thirdPartyAddress,
   });
 
   factory LocalAttributeShareInfo.fromJson(Map json) => _$LocalAttributeShareInfoFromJson(Map<String, dynamic>.from(json));
@@ -24,5 +26,5 @@ class LocalAttributeShareInfo extends Equatable {
   Map<String, dynamic> toJson() => _$LocalAttributeShareInfoToJson(this);
 
   @override
-  List<Object?> get props => [requestReference, notificationReference, peer, sourceAttribute];
+  List<Object?> get props => [requestReference, notificationReference, peer, sourceAttribute, thirdPartyAddress];
 }

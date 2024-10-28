@@ -8,6 +8,7 @@ void main() {
         mustBeAccepted: true,
         attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
         sourceAttributeId: 'aSourceAttributeId',
+        thirdPartyAddress: 'aThirdPartyAddress',
       );
       final requestItemJson = shareAttributeRequestItem.toJson();
       expect(
@@ -17,6 +18,7 @@ void main() {
           'mustBeAccepted': true,
           'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
           'sourceAttributeId': 'aSourceAttributeId',
+          'thirdPartyAddress': 'aThirdPartyAddress',
         }),
       );
     });
@@ -134,6 +136,7 @@ void main() {
         'mustBeAccepted': true,
         'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'sourceAttributeId': 'aSourceAttributeId',
+        'thirdPartyAddress': 'aThirdPartyAddress',
       };
       expect(
         ShareAttributeRequestItem.fromJson(json),
@@ -141,6 +144,7 @@ void main() {
           mustBeAccepted: true,
           attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
           sourceAttributeId: 'aSourceAttributeId',
+          thirdPartyAddress: 'aThirdPartyAddress',
         )),
       );
     });

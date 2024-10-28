@@ -147,6 +147,7 @@ ReadAttributeAcceptResponseItemDVO _$ReadAttributeAcceptResponseItemDVOFromJson(
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       attributeId: json['attributeId'] as String,
       attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+      thirdPartyAddress: json['thirdPartyAddress'] as String?,
     );
 
 Map<String, dynamic> _$ReadAttributeAcceptResponseItemDVOToJson(ReadAttributeAcceptResponseItemDVO instance) {
@@ -169,6 +170,7 @@ Map<String, dynamic> _$ReadAttributeAcceptResponseItemDVOToJson(ReadAttributeAcc
   writeNotNull('warning', instance.warning?.toJson());
   val['attributeId'] = instance.attributeId;
   val['attribute'] = instance.attribute.toJson();
+  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
   return val;
 }
 

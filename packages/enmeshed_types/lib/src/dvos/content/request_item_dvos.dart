@@ -202,6 +202,7 @@ class DeleteAttributeRequestItemDVO extends RequestItemDVODerivation {
 class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
   final DraftIdentityAttributeDVO attribute;
   final String sourceAttributeId;
+  final String? thirdPartyAddress;
 
   const ShareAttributeRequestItemDVO({
     required super.id,
@@ -217,6 +218,7 @@ class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
     super.requireManualDecision,
     required this.attribute,
     required this.sourceAttributeId,
+    this.thirdPartyAddress,
   }) : super(type: 'ShareAttributeRequestItemDVO');
 
   factory ShareAttributeRequestItemDVO.fromJson(Map json) => _$ShareAttributeRequestItemDVOFromJson(Map<String, dynamic>.from(json));

@@ -221,6 +221,7 @@ OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dy
       requestReference: json['requestReference'] as String?,
       notificationReference: json['notificationReference'] as String?,
       sourceAttribute: json['sourceAttribute'] as String?,
+      thirdPartyAddress: json['thirdPartyAddress'] as String?,
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
       deletionDate: json['deletionDate'] as String?,
@@ -261,6 +262,7 @@ Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttribut
   writeNotNull('requestReference', instance.requestReference);
   writeNotNull('notificationReference', instance.notificationReference);
   writeNotNull('sourceAttribute', instance.sourceAttribute);
+  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
   val['confidentiality'] = instance.confidentiality;
   val['isTechnical'] = instance.isTechnical;
   writeNotNull('deletionDate', instance.deletionDate);
@@ -292,6 +294,7 @@ PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, 
       requestReference: json['requestReference'] as String?,
       notificationReference: json['notificationReference'] as String?,
       sourceAttribute: json['sourceAttribute'] as String?,
+      thirdPartyAddress: json['thirdPartyAddress'] as String?,
       confidentiality: json['confidentiality'] as String,
       isTechnical: json['isTechnical'] as bool,
       deletionDate: json['deletionDate'] as String?,
@@ -332,6 +335,7 @@ Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttrib
   writeNotNull('requestReference', instance.requestReference);
   writeNotNull('notificationReference', instance.notificationReference);
   writeNotNull('sourceAttribute', instance.sourceAttribute);
+  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
   val['confidentiality'] = instance.confidentiality;
   val['isTechnical'] = instance.isTechnical;
   writeNotNull('deletionDate', instance.deletionDate);

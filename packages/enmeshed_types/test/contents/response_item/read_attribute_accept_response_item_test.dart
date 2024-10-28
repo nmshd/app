@@ -7,6 +7,7 @@ void main() {
       const responseItem = ReadAttributeAcceptResponseItem(
         attributeId: 'anAttributeId',
         attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        thirdPartyAddress: 'aThirdParty',
       );
       final responseItemJson = responseItem.toJson();
       expect(
@@ -16,6 +17,7 @@ void main() {
           'result': 'Accepted',
           'attributeId': 'anAttributeId',
           'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+          'thirdPartyAddress': 'aThirdParty',
         }),
       );
     });
@@ -26,12 +28,14 @@ void main() {
       final json = {
         'attributeId': 'anAttributeId',
         'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
+        'thirdPartyAddress': 'aThirdParty',
       };
       expect(
         ReadAttributeAcceptResponseItem.fromJson(json),
         equals(const ReadAttributeAcceptResponseItem(
           attributeId: 'anAttributeId',
           attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          thirdPartyAddress: 'aThirdParty',
         )),
       );
     });

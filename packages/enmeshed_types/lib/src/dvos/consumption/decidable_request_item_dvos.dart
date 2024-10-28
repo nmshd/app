@@ -130,6 +130,7 @@ class DecidableDeleteAttributeRequestItemDVO extends DecidableRequestItemDVODeri
 class DecidableShareAttributeRequestItemDVO extends DecidableRequestItemDVODerivation {
   final String sourceAttributeId;
   final DraftAttributeDVO attribute;
+  final String? thirdPartyAddress;
 
   const DecidableShareAttributeRequestItemDVO({
     required super.id,
@@ -143,6 +144,7 @@ class DecidableShareAttributeRequestItemDVO extends DecidableRequestItemDVODeriv
     super.requireManualDecision,
     required this.sourceAttributeId,
     required this.attribute,
+    this.thirdPartyAddress,
   }) : super(type: 'DecidableShareAttributeRequestItemDVO', isDecidable: true);
 
   factory DecidableShareAttributeRequestItemDVO.fromJson(Map json) =>
