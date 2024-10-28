@@ -395,8 +395,7 @@ Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttrib
     predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
   );
 
-  final senderOwnSharedAttributeResult =
-      await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyRelationshipAttributeId);
+  final senderOwnSharedAttributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyRelationshipAttributeId);
   return senderOwnSharedAttributeResult.value;
 }
 
