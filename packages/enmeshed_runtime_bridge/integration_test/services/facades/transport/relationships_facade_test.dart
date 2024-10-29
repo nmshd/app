@@ -93,6 +93,14 @@ void run(EnmeshedRuntime runtime) {
         reference: responseTemplate.value.truncatedReference,
       );
 
+      final canCreateRelationshipResult = await session1.transportServices.relationships.canCreateRelationship(
+        templateId: item.value.relationshipTemplateValue.id,
+        creationContent: emptyRelationshipCreationContent,
+      );
+
+      expect(canCreateRelationshipResult, isSuccessful<CanCreateRelationshipResponse>());
+      expect(canCreateRelationshipResult.value.isSuccess, true);
+
       final relationshipResult = await session1.transportServices.relationships.createRelationship(
         templateId: item.value.relationshipTemplateValue.id,
         creationContent: emptyRelationshipCreationContent,

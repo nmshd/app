@@ -6,6 +6,17 @@ import 'transformers.dart';
 class RelationshipsEndpoint extends Endpoint {
   RelationshipsEndpoint(super.dio);
 
+  Future<ConnectorResponse<CanCreateRelationshipResponse>> canCreateRelationship(
+          {required String templateId, required Map<String, dynamic> creationContent}) =>
+      put(
+        '/api/v2/Relationships/CanCreate',
+        data: {
+          'templateId': templateId,
+          'content': creationContent,
+        },
+        transformer: (v) => v,
+      );
+
   Future<ConnectorResponse<RelationshipDTO>> createRelationship({required String templateId, required Map<String, dynamic> creationContent}) => post(
         '/api/v2/Relationships',
         data: {
