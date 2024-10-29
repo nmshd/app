@@ -97,7 +97,7 @@
   "onboarding_yourConsent": "Your consent",
   "onboarding_yourConsent_acceptAndContinue": "Accept and continue",
   "onboarding_consentParagraph1": "Before you start: Please read our terms of use. You must agree to the terms and conditions in order to use the enmeshed app:",
-  "onboarding_consentParagraph2": "The enmeshed app is operated by the company j&s-soft GmbH. Further information on the processing of your personal data can be found in the privacy policy. You should take note of this before using the app. Note:",
+  "onboarding_consentParagraph2": "The enmeshed app is operated by the company j&s-soft AG. Further information on the processing of your personal data can be found in the privacy policy. You should take note of this before using the app. Note:",
   "onboarding_consentParagraph3": "There is a permanent connection to the so-called \"Backbone\" (data storage) for the meaningful use of the app. Purely local use of your data on the mobile device is not intended.",
   "onboarding_consentParagraph4": "By actively participating in the test phase - including receiving push messages on your mobile device and analyzing the volume of data moved - you consent to the processing of your personal data as required in each case.",
   "onboarding_enterProfileName": "Choose a profile name",
