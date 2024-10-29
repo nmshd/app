@@ -1,6 +1,6 @@
 Herausgeber:  
 Verantwortlich für die technische Veröffentlichung der Wallet-App  
-j&s-soft GmbH  
+j&s-soft AG  
 Max-Jarecki-Str. 21  
 69115 Heidelberg  
 [info@js-soft.com](mailto:info@js-soft.com)  
