@@ -12,4 +12,4 @@ Umsatzsteuer-Identifikationsnummer:
 DE229831469
 
 Registergericht:  
-HRB 337601, Amtsgericht Mannheim
+HRB 752407, Amtsgericht Mannheim
