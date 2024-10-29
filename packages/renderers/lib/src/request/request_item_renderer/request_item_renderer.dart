@@ -20,6 +20,7 @@ class RequestItemRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
+  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
 
   final Color? backgroundColor;
 
@@ -36,6 +37,7 @@ class RequestItemRenderer extends StatelessWidget {
     required this.chooseFile,
     required this.openFileDetails,
     this.backgroundColor,
+    required this.openCreateAttribute,
   });
 
   @override
@@ -53,6 +55,7 @@ class RequestItemRenderer extends StatelessWidget {
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
+            openCreateAttribute: openCreateAttribute,
           ),
         final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
             controller: controller,

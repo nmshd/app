@@ -17,6 +17,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
+  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,
@@ -28,6 +29,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
+    required this.openCreateAttribute,
   });
 
   @override
@@ -71,6 +73,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
           openFileDetails: widget.openFileDetails,
+          openCreateAttribute: widget.openCreateAttribute,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
           query: query,

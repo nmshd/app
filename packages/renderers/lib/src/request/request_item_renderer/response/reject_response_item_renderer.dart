@@ -12,6 +12,7 @@ class RejectResponseItemRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
+  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
 
   const RejectResponseItemRenderer({
     super.key,
@@ -21,6 +22,7 @@ class RejectResponseItemRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
+    required this.openCreateAttribute,
   });
 
   @override
@@ -33,6 +35,7 @@ class RejectResponseItemRenderer extends StatelessWidget {
       expandFileReference: expandFileReference,
       chooseFile: chooseFile,
       openFileDetails: openFileDetails,
+      openCreateAttribute: openCreateAttribute,
     );
   }
 }
