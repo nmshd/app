@@ -8,7 +8,7 @@ import '/src/attribute/relationship_attribute_value_renderer.dart';
 import '/src/checkbox_settings.dart';
 import '../../widgets/value_renderer_list_tile.dart';
 
-class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
+class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
   final ProcessedIdentityAttributeQueryDVO query;
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
@@ -19,6 +19,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
+  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -31,13 +32,53 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
+    required this.openCreateAttribute,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final selectedAttribute = this.selectedAttribute;
+  State<ProcessedIdentityAttributeQueryRenderer> createState() => _ProcessedIdentityAttributeQueryRendererState();
+}
 
-    if (query.results.isEmpty) {
+class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdentityAttributeQueryRenderer> {
+  IdentityAttributeDVO? _identityValue;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.query.results.isNotEmpty) _identityValue = widget.query.results.first;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedAttribute = widget.selectedAttribute;
+
+    if (_identityValue == null) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.query.valueType,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            TextButton.icon(
+              icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
+              label: Text('Anlegen'),
+              onPressed: () async {
+                final value = await widget.openCreateAttribute(widget.query.valueType);
+
+                if (value != null) {
+                  setState(() => _identityValue = value);
+                }
+              },
+            ),
+          ],
+        ),
+      );
+
+      /*
       return ValueRendererListTile(
         fieldName: switch (query.valueType) {
           'Affiliation' ||
@@ -59,21 +100,22 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
-      );
+      );*/
     }
 
     return Row(
       children: [
-        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+        if (widget.checkboxSettings != null)
+          Checkbox(value: widget.checkboxSettings!.isChecked, onChanged: widget.checkboxSettings!.onUpdateCheckbox),
         Expanded(
           child: IdentityAttributeValueRenderer(
-            value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
-            valueHints: query.results.first.valueHints,
-            trailing: onUpdateAttribute == null
+            value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : _identityValue!.value as IdentityAttributeValue,
+            valueHints: _identityValue!.valueHints,
+            trailing: widget.onUpdateAttribute == null
                 ? null
-                : IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
-            expandFileReference: expandFileReference,
-            openFileDetails: openFileDetails,
+                : IconButton(onPressed: () => widget.onUpdateAttribute!(_identityValue!.valueType), icon: const Icon(Icons.chevron_right)),
+            expandFileReference: widget.expandFileReference,
+            openFileDetails: widget.openFileDetails,
           ),
         ),
       ],
