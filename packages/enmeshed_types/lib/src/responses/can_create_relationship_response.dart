@@ -10,11 +10,11 @@ sealed class CanCreateRelationshipResponse {
   });
 
   factory CanCreateRelationshipResponse.fromJson(Map<String, dynamic> json) {
-    if (CanCreateRelationshipResponse is CanCreateRelationshipSuccessResponse) {
+    if (json['isSuccess']) {
       return CanCreateRelationshipSuccessResponse.fromJson(json);
     }
 
-    if (CanCreateRelationshipResponse is CanCreateRelationshipFailureResponse) {
+    if (!json['isSuccess'] && json['code'] && json['message']) {
       return CanCreateRelationshipFailureResponse.fromJson(json);
     }
 
