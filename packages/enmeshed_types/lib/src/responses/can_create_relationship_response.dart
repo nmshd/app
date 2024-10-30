@@ -14,7 +14,7 @@ sealed class CanCreateRelationshipResponse {
       return CanCreateRelationshipSuccessResponse.fromJson(json);
     }
 
-    if (!json['isSuccess'] && json['code'] && json['message']) {
+    if (!json['isSuccess'] && json['code'] is String && json['message'] is String) {
       return CanCreateRelationshipFailureResponse.fromJson(json);
     }
 
