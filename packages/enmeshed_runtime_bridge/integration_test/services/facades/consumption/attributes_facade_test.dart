@@ -279,9 +279,10 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return only default repository attributes', () async {
-      final defaultAttribute =
-          (await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aDefaultGivenName')))
-              .value;
+      final defaultAttribute = (await sender.consumptionServices.attributes.createRepositoryAttribute(
+        value: const GivenNameAttributeValue(value: 'aDefaultGivenName'),
+      ))
+          .value;
       await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'anotherGivenName'));
 
       final repositoryAttributesResult =
@@ -456,11 +457,18 @@ void run(EnmeshedRuntime runtime) {
         value: const GivenNameAttributeValue(value: 'Third Name'),
       );
 
-      final attributeVersion1 = (await sender.consumptionServices.attributes.getAttribute(attributeId: identityAttribute.id)).value;
-      final attributeVersion2 =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: succeededAttribute1Result.value.successor.id)).value;
-      final attributeVersion3 =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: succeededAttribute2Result.value.successor.id)).value;
+      final attributeVersion1 = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: identityAttribute.id,
+      ))
+          .value;
+      final attributeVersion2 = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: succeededAttribute1Result.value.successor.id,
+      ))
+          .value;
+      final attributeVersion3 = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: succeededAttribute2Result.value.successor.id,
+      ))
+          .value;
 
       final attributeVersions = [attributeVersion1, attributeVersion2, attributeVersion3];
 
@@ -916,7 +924,15 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
+        sender,
+        recipient,
+        senderAddress,
+        recipientAddress,
+        thirdPartyAddress,
+        requestItem,
+        senderOwnSharedRelationshipAttribute.id,
+        eventBus,
+      );
 
       final result = await sender.consumptionServices.attributes.getSharedVersionsOfAttribute(attributeId: senderOwnSharedRelationshipAttribute.id);
 
@@ -1469,8 +1485,9 @@ void run(EnmeshedRuntime runtime) {
       );
       final updatedOtherAttributePredecessor = successionResult.value.predecessor;
 
-      final changeDefaultResult =
-          await sender.consumptionServices.attributes.changeDefaultRepositoryAttribute(attributeId: updatedOtherAttributePredecessor.id);
+      final changeDefaultResult = await sender.consumptionServices.attributes.changeDefaultRepositoryAttribute(
+        attributeId: updatedOtherAttributePredecessor.id,
+      );
       expect(changeDefaultResult, isFailing('error.runtime.attributes.hasSuccessor'));
     });
 
@@ -1534,11 +1551,14 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final senderOwnSharedIdentityAttribute =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: recipientPeerSharedIdentityAttribute.id)).value;
+      final senderOwnSharedIdentityAttribute = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: recipientPeerSharedIdentityAttribute.id,
+      ))
+          .value;
 
-      final deletionResult =
-          await sender.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(attributeId: senderOwnSharedIdentityAttribute.id);
+      final deletionResult = await sender.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(
+        attributeId: senderOwnSharedIdentityAttribute.id,
+      );
       expect(deletionResult, isSuccessful<DeleteOwnSharedAttributeAndNotifyPeerResponse>());
     });
 
@@ -1555,8 +1575,9 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final deletionResult =
-          await sender.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(attributeId: senderOwnSharedRelationshipAttribute.id);
+      final deletionResult = await sender.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(
+        attributeId: senderOwnSharedRelationshipAttribute.id,
+      );
       expect(deletionResult, isSuccessful<DeleteOwnSharedAttributeAndNotifyPeerResponse>());
     });
 
@@ -1573,18 +1594,23 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final deletionResult =
-          await sender.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(attributeId: senderOwnSharedRelationshipAttribute.id);
+      final deletionResult = await sender.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(
+        attributeId: senderOwnSharedRelationshipAttribute.id,
+      );
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
       await syncUntilHasMessageWithNotification(recipient, notificationId);
       await eventBus.waitForEvent<OwnSharedAttributeDeletedByOwnerEvent>(
-          eventTargetAddress: recipientAddress, predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id);
+        eventTargetAddress: recipientAddress,
+        predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id,
+      );
       final timeAfterUpdate = DateTime.now();
 
-      final recipientPeerSharedRelationshipAttribute =
-          (await recipient.consumptionServices.attributes.getAttribute(attributeId: senderOwnSharedRelationshipAttribute.id)).value;
+      final recipientPeerSharedRelationshipAttribute = (await recipient.consumptionServices.attributes.getAttribute(
+        attributeId: senderOwnSharedRelationshipAttribute.id,
+      ))
+          .value;
       expect(recipientPeerSharedRelationshipAttribute.deletionInfo!.deletionStatus, LocalAttributeDeletionStatus.DeletedByOwner);
       expect(DateTime.parse(recipientPeerSharedRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
       expect(DateTime.parse(recipientPeerSharedRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
@@ -1614,8 +1640,9 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final deletionResult = await recipient.consumptionServices.attributes
-          .deletePeerSharedAttributeAndNotifyOwner(attributeId: recipientPeerSharedIdentityAttribute.id);
+      final deletionResult = await recipient.consumptionServices.attributes.deletePeerSharedAttributeAndNotifyOwner(
+        attributeId: recipientPeerSharedIdentityAttribute.id,
+      );
       expect(deletionResult, isSuccessful<DeletePeerSharedAttributeAndNotifyOwnerResponse>());
     });
 
@@ -1632,11 +1659,14 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final recipientOwnSharedRelationshipAttribute =
-          (await recipient.consumptionServices.attributes.getAttribute(attributeId: senderOwnSharedRelationshipAttribute.id)).value;
+      final recipientOwnSharedRelationshipAttribute = (await recipient.consumptionServices.attributes.getAttribute(
+        attributeId: senderOwnSharedRelationshipAttribute.id,
+      ))
+          .value;
 
-      final deletionResult = await recipient.consumptionServices.attributes
-          .deletePeerSharedAttributeAndNotifyOwner(attributeId: recipientOwnSharedRelationshipAttribute.id);
+      final deletionResult = await recipient.consumptionServices.attributes.deletePeerSharedAttributeAndNotifyOwner(
+        attributeId: recipientOwnSharedRelationshipAttribute.id,
+      );
       expect(deletionResult, isSuccessful<DeletePeerSharedAttributeAndNotifyOwnerResponse>());
     });
 
@@ -1654,18 +1684,23 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final deletionResult = await recipient.consumptionServices.attributes
-          .deletePeerSharedAttributeAndNotifyOwner(attributeId: senderOwnSharedRelationshipAttribute.id);
+      final deletionResult = await recipient.consumptionServices.attributes.deletePeerSharedAttributeAndNotifyOwner(
+        attributeId: senderOwnSharedRelationshipAttribute.id,
+      );
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
       await syncUntilHasMessageWithNotification(sender, notificationId);
       await eventBus.waitForEvent<PeerSharedAttributeDeletedByPeerEvent>(
-          eventTargetAddress: senderAddress, predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id);
+        eventTargetAddress: senderAddress,
+        predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id,
+      );
       final timeAfterUpdate = DateTime.now();
 
-      final updatedSenderOwnSharedRelationshipAttribute =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: senderOwnSharedRelationshipAttribute.id)).value;
+      final updatedSenderOwnSharedRelationshipAttribute = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: senderOwnSharedRelationshipAttribute.id,
+      ))
+          .value;
       expect(updatedSenderOwnSharedRelationshipAttribute.deletionInfo!.deletionStatus, LocalAttributeDeletionStatus.DeletedByPeer);
       expect(DateTime.parse(updatedSenderOwnSharedRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
       expect(DateTime.parse(updatedSenderOwnSharedRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
@@ -1689,8 +1724,10 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final senderOwnSharedRelationshipAttribute =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyRelationshipAttribute.id)).value;
+      final senderOwnSharedRelationshipAttribute = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: thirdPartyRelationshipAttribute.id,
+      ))
+          .value;
 
       final query = ThirdPartyRelationshipAttributeQuery(
         key: 'aKey',
@@ -1700,10 +1737,19 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
+        sender,
+        recipient,
+        senderAddress,
+        recipientAddress,
+        thirdPartyAddress,
+        requestItem,
+        senderOwnSharedRelationshipAttribute.id,
+        eventBus,
+      );
 
-      final deletionResult = await sender.consumptionServices.attributes
-          .deleteThirdPartyRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyRelationshipAttribute.id);
+      final deletionResult = await sender.consumptionServices.attributes.deleteThirdPartyRelationshipAttributeAndNotifyPeer(
+        attributeId: senderThirdPartyRelationshipAttribute.id,
+      );
       expect(deletionResult, isSuccessful<DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse>());
     }, timeout: const Timeout(Duration(seconds: 60)));
 
@@ -1723,8 +1769,10 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final senderOwnSharedRelationshipAttribute =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyRelationshipAttribute.id)).value;
+      final senderOwnSharedRelationshipAttribute = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: thirdPartyRelationshipAttribute.id,
+      ))
+          .value;
 
       final query = ThirdPartyRelationshipAttributeQuery(
         key: 'aKey',
@@ -1734,13 +1782,24 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
+        sender,
+        recipient,
+        senderAddress,
+        recipientAddress,
+        thirdPartyAddress,
+        requestItem,
+        senderOwnSharedRelationshipAttribute.id,
+        eventBus,
+      );
 
-      final recipientThirdPartyRelationshipAttribute =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: senderThirdPartyRelationshipAttribute.id)).value;
+      final recipientThirdPartyRelationshipAttribute = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: senderThirdPartyRelationshipAttribute.id,
+      ))
+          .value;
 
-      final deletionResult = await recipient.consumptionServices.attributes
-          .deleteThirdPartyRelationshipAttributeAndNotifyPeer(attributeId: recipientThirdPartyRelationshipAttribute.id);
+      final deletionResult = await recipient.consumptionServices.attributes.deleteThirdPartyRelationshipAttributeAndNotifyPeer(
+        attributeId: recipientThirdPartyRelationshipAttribute.id,
+      );
       expect(deletionResult, isSuccessful<DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse>());
     });
 
@@ -1760,8 +1819,10 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final senderOwnSharedRelationshipAttribute =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyRelationshipAttribute.id)).value;
+      final senderOwnSharedRelationshipAttribute = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: thirdPartyRelationshipAttribute.id,
+      ))
+          .value;
 
       final query = ThirdPartyRelationshipAttributeQuery(
         key: 'aKey',
@@ -1771,21 +1832,34 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
+        sender,
+        recipient,
+        senderAddress,
+        recipientAddress,
+        thirdPartyAddress,
+        requestItem,
+        senderOwnSharedRelationshipAttribute.id,
+        eventBus,
+      );
 
-      final deletionResult = await sender.consumptionServices.attributes
-          .deleteThirdPartyRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyRelationshipAttribute.id);
+      final deletionResult = await sender.consumptionServices.attributes.deleteThirdPartyRelationshipAttributeAndNotifyPeer(
+        attributeId: senderThirdPartyRelationshipAttribute.id,
+      );
       expect(deletionResult, isSuccessful<DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse>());
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
       await syncUntilHasMessageWithNotification(recipient, notificationId);
       await eventBus.waitForEvent<ThirdPartyRelationshipAttributeDeletedByPeerEvent>(
-          eventTargetAddress: recipientAddress, predicate: (e) => e.data.id == senderThirdPartyRelationshipAttribute.id);
+        eventTargetAddress: recipientAddress,
+        predicate: (e) => e.data.id == senderThirdPartyRelationshipAttribute.id,
+      );
       final timeAfterUpdate = DateTime.now();
 
-      final recipientThirdPartyRelationshipAttribute =
-          (await recipient.consumptionServices.attributes.getAttribute(attributeId: senderThirdPartyRelationshipAttribute.id)).value;
+      final recipientThirdPartyRelationshipAttribute = (await recipient.consumptionServices.attributes.getAttribute(
+        attributeId: senderThirdPartyRelationshipAttribute.id,
+      ))
+          .value;
       expect(recipientThirdPartyRelationshipAttribute.deletionInfo!.deletionStatus, LocalAttributeDeletionStatus.DeletedByPeer);
       expect(DateTime.parse(recipientThirdPartyRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
       expect(DateTime.parse(recipientThirdPartyRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
@@ -1807,8 +1881,10 @@ void run(EnmeshedRuntime runtime) {
         eventBus,
       );
 
-      final senderOwnSharedRelationshipAttribute =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyRelationshipAttribute.id)).value;
+      final senderOwnSharedRelationshipAttribute = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: thirdPartyRelationshipAttribute.id,
+      ))
+          .value;
 
       final query = ThirdPartyRelationshipAttributeQuery(
         key: 'aKey',
@@ -1818,20 +1894,33 @@ void run(EnmeshedRuntime runtime) {
       final requestItem = ReadAttributeRequestItem(mustBeAccepted: true, query: query);
 
       final senderThirdPartyRelationshipAttribute = await executeFullRequestAndShareThirdPartyRelationshipAttributeFlow(
-          sender, recipient, senderAddress, recipientAddress, thirdPartyAddress, requestItem, senderOwnSharedRelationshipAttribute.id, eventBus);
+        sender,
+        recipient,
+        senderAddress,
+        recipientAddress,
+        thirdPartyAddress,
+        requestItem,
+        senderOwnSharedRelationshipAttribute.id,
+        eventBus,
+      );
 
-      final deletionResult = await recipient.consumptionServices.attributes
-          .deleteThirdPartyRelationshipAttributeAndNotifyPeer(attributeId: senderThirdPartyRelationshipAttribute.id);
+      final deletionResult = await recipient.consumptionServices.attributes.deleteThirdPartyRelationshipAttributeAndNotifyPeer(
+        attributeId: senderThirdPartyRelationshipAttribute.id,
+      );
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
       await syncUntilHasMessageWithNotification(sender, notificationId);
       await eventBus.waitForEvent<ThirdPartyRelationshipAttributeDeletedByPeerEvent>(
-          eventTargetAddress: senderAddress, predicate: (e) => e.data.id == senderThirdPartyRelationshipAttribute.id);
+        eventTargetAddress: senderAddress,
+        predicate: (e) => e.data.id == senderThirdPartyRelationshipAttribute.id,
+      );
       final timeAfterUpdate = DateTime.now();
 
-      final updatedSenderThirdPartyRelationshipAttribute =
-          (await sender.consumptionServices.attributes.getAttribute(attributeId: senderThirdPartyRelationshipAttribute.id)).value;
+      final updatedSenderThirdPartyRelationshipAttribute = (await sender.consumptionServices.attributes.getAttribute(
+        attributeId: senderThirdPartyRelationshipAttribute.id,
+      ))
+          .value;
       expect(updatedSenderThirdPartyRelationshipAttribute.deletionInfo!.deletionStatus, LocalAttributeDeletionStatus.DeletedByPeer);
       expect(DateTime.parse(updatedSenderThirdPartyRelationshipAttribute.deletionInfo!.deletionDate).isAfter(timeBeforeUpdate), true);
       expect(DateTime.parse(updatedSenderThirdPartyRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
