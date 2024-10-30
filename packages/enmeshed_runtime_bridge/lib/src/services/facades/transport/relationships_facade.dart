@@ -60,6 +60,26 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
+  Future<Result<CanCreateRelationshipResponse>> canCreateRelationship({
+    required String templateId,
+    required RelationshipCreationContentDerivation creationContent,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.relationships.canCreateRelationship(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'templateId': templateId,
+          'creationContent': creationContent.toJson(),
+        },
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => CanCreateRelationshipResponse.fromJson(value));
+  }
+
   Future<Result<RelationshipDTO>> createRelationship({
     required String templateId,
     required RelationshipCreationContentDerivation creationContent,

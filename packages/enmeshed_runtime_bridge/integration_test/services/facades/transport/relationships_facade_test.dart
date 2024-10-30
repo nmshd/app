@@ -93,6 +93,14 @@ void run(EnmeshedRuntime runtime) {
         reference: responseTemplate.value.truncatedReference,
       );
 
+      final canCreateRelationshipResult = await session1.transportServices.relationships.canCreateRelationship(
+        templateId: item.value.relationshipTemplateValue.id,
+        creationContent: emptyRelationshipCreationContent,
+      );
+
+      expect(canCreateRelationshipResult, isSuccessful<CanCreateRelationshipResponse>());
+      expect(canCreateRelationshipResult.value.isSuccess, true);
+
       final relationshipResult = await session1.transportServices.relationships.createRelationship(
         templateId: item.value.relationshipTemplateValue.id,
         creationContent: emptyRelationshipCreationContent,
@@ -112,6 +120,18 @@ void run(EnmeshedRuntime runtime) {
       );
 
       await session2.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
+
+      final canCreateResult = await session1.transportServices.relationships.canCreateRelationship(
+        templateId: item.value.relationshipTemplateValue.id,
+        creationContent: emptyRelationshipCreationContent,
+      );
+
+      expect(canCreateResult, isSuccessful<CanCreateRelationshipResponse>());
+      expect(canCreateResult.value.isSuccess, false);
+      expect((canCreateResult.value as CanCreateRelationshipFailureResponse).code,
+          'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate');
+      expect((canCreateResult.value as CanCreateRelationshipFailureResponse).message,
+          'The Identity who created the RelationshipTemplate is currently in the process of deleting itself. Thus, it is not possible to establish a Relationship to it.');
 
       final result = await session1.transportServices.relationships.createRelationship(
         templateId: item.value.relationshipTemplateValue.id,
