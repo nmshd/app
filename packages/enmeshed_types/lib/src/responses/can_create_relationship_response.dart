@@ -26,7 +26,7 @@ sealed class CanCreateRelationshipResponse {
 
 @JsonSerializable(includeIfNull: false)
 class CanCreateRelationshipSuccessResponse extends CanCreateRelationshipResponse {
-  CanCreateRelationshipSuccessResponse({super.isSuccess = true});
+  CanCreateRelationshipSuccessResponse() : super(isSuccess: true);
 
   factory CanCreateRelationshipSuccessResponse.fromJson(Map<String, dynamic> json) => _$CanCreateRelationshipSuccessResponseFromJson(json);
 
@@ -39,7 +39,7 @@ class CanCreateRelationshipFailureResponse extends CanCreateRelationshipResponse
   final String code;
   final String message;
 
-  CanCreateRelationshipFailureResponse({super.isSuccess = false, required this.code, required this.message});
+  CanCreateRelationshipFailureResponse({required this.code, required this.message}) : super(isSuccess: false);
 
   factory CanCreateRelationshipFailureResponse.fromJson(Map<String, dynamic> json) => _$CanCreateRelationshipFailureResponseFromJson(json);
 
