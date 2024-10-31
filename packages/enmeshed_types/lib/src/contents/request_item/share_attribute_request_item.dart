@@ -3,6 +3,7 @@ part of 'request_item.dart';
 class ShareAttributeRequestItem extends RequestItemDerivation {
   final AbstractAttribute attribute;
   final String sourceAttributeId;
+  final String? thirdPartyAddress;
 
   const ShareAttributeRequestItem({
     super.title,
@@ -12,6 +13,7 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
     super.requireManualDecision,
     required this.attribute,
     required this.sourceAttributeId,
+    this.thirdPartyAddress,
   });
 
   factory ShareAttributeRequestItem.fromJson(Map json) {
@@ -23,6 +25,7 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
       requireManualDecision: json['requireManualDecision'],
       attribute: AbstractAttribute.fromJson(json['attribute']),
       sourceAttributeId: json['sourceAttributeId'],
+      thirdPartyAddress: json['thirdPartyAddress'],
     );
   }
 
@@ -32,8 +35,9 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
         '@type': 'ShareAttributeRequestItem',
         'attribute': attribute.toJson(),
         'sourceAttributeId': sourceAttributeId,
+        if (thirdPartyAddress != null) 'thirdPartyAddress': thirdPartyAddress,
       };
 
   @override
-  List<Object?> get props => [super.props, attribute, sourceAttributeId];
+  List<Object?> get props => [super.props, attribute, sourceAttributeId, thirdPartyAddress];
 }

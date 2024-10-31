@@ -11,6 +11,7 @@ void main() {
           ReadAttributeAcceptResponseItem(
             attributeId: 'anAttributeId',
             attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            thirdPartyAddress: 'aThirdParty',
           ),
         ],
       );
@@ -25,6 +26,7 @@ void main() {
             const ReadAttributeAcceptResponseItem(
               attributeId: 'anAttributeId',
               attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+              thirdPartyAddress: 'aThirdParty',
             ).toJson(),
           ],
         }),
@@ -77,6 +79,7 @@ void main() {
           const ReadAttributeAcceptResponseItem(
             attributeId: 'anAttributeId',
             attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            thirdPartyAddress: 'aThirdParty',
           ).toJson(),
         ],
       };
@@ -86,6 +89,7 @@ void main() {
           ReadAttributeAcceptResponseItem(
             attributeId: 'anAttributeId',
             attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            thirdPartyAddress: 'aThirdParty',
           ),
         ])),
       );
