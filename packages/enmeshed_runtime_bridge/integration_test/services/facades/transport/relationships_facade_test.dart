@@ -128,10 +128,14 @@ void run(EnmeshedRuntime runtime) {
 
       expect(canCreateResult, isSuccessful<CanCreateRelationshipResponse>());
       expect(canCreateResult.value.isSuccess, false);
-      expect((canCreateResult.value as CanCreateRelationshipFailureResponse).code,
-          'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate');
-      expect((canCreateResult.value as CanCreateRelationshipFailureResponse).message,
-          'The Identity who created the RelationshipTemplate is currently in the process of deleting itself. Thus, it is not possible to establish a Relationship to it.');
+      expect(
+        (canCreateResult.value as CanCreateRelationshipFailureResponse).code,
+        'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate',
+      );
+      expect(
+        (canCreateResult.value as CanCreateRelationshipFailureResponse).message,
+        'The Identity who created the RelationshipTemplate is currently in the process of deleting itself. Thus, it is not possible to establish a Relationship to it.',
+      );
 
       final result = await session1.transportServices.relationships.createRelationship(
         templateId: item.value.relationshipTemplateValue.id,
