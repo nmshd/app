@@ -11,6 +11,7 @@ LocalAttributeShareInfo _$LocalAttributeShareInfoFromJson(Map<String, dynamic> j
       notificationReference: json['notificationReference'] as String?,
       peer: json['peer'] as String,
       sourceAttribute: json['sourceAttribute'] as String?,
+      thirdPartyAddress: json['thirdPartyAddress'] as String?,
     );
 
 Map<String, dynamic> _$LocalAttributeShareInfoToJson(LocalAttributeShareInfo instance) {
@@ -26,5 +27,6 @@ Map<String, dynamic> _$LocalAttributeShareInfoToJson(LocalAttributeShareInfo ins
   writeNotNull('notificationReference', instance.notificationReference);
   val['peer'] = instance.peer;
   writeNotNull('sourceAttribute', instance.sourceAttribute);
+  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
   return val;
 }

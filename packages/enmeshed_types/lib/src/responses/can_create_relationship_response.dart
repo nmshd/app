@@ -9,17 +9,11 @@ sealed class CanCreateRelationshipResponse {
     required this.isSuccess,
   });
 
-  factory CanCreateRelationshipResponse.fromJson(Map<String, dynamic> json) {
-    if (json['isSuccess']) {
-      return CanCreateRelationshipSuccessResponse.fromJson(json);
-    }
-
-    if (!json['isSuccess'] && json['code'] is String && json['message'] is String) {
-      return CanCreateRelationshipFailureResponse.fromJson(json);
-    }
-
-    throw Exception('A CanCreateRelationshipResponse is either a CreateRelationshipSuccessResponse or a CreateRelationshipFailureResponse.');
-  }
+  factory CanCreateRelationshipResponse.fromJson(Map<String, dynamic> json) => switch (json['isSuccess']) {
+        true => CanCreateRelationshipSuccessResponse.fromJson(json),
+        false => CanCreateRelationshipFailureResponse.fromJson(json),
+        _ => throw Exception('A CanCreateRelationshipResponse is either a CreateRelationshipSuccessResponse or a CreateRelationshipFailureResponse.'),
+      };
 
   Map<String, dynamic> toJson();
 }
