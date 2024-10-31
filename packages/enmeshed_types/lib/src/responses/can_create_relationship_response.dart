@@ -5,9 +5,7 @@ part 'can_create_relationship_response.g.dart';
 sealed class CanCreateRelationshipResponse {
   final bool isSuccess;
 
-  CanCreateRelationshipResponse({
-    required this.isSuccess,
-  });
+  CanCreateRelationshipResponse({required this.isSuccess});
 
   factory CanCreateRelationshipResponse.fromJson(Map<String, dynamic> json) => switch (json['isSuccess']) {
         true => CanCreateRelationshipSuccessResponse.fromJson(json),
