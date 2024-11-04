@@ -11,6 +11,7 @@ void main() async => run(await setup());
 void run(EnmeshedRuntime runtime) {
   late Session session1;
   late Session session2;
+  late String addressSession2;
 
   setUpAll(() async {
     final account1 = await runtime.accountServices.createAccount(name: 'relationshipTemplateFacade Test 1');
@@ -18,6 +19,7 @@ void run(EnmeshedRuntime runtime) {
 
     final account2 = await runtime.accountServices.createAccount(name: 'relationshipTemplateFacade Test 2');
     session2 = runtime.getSession(account2.id);
+    addressSession2 = (await session2.transportServices.account.getIdentityInfo()).value.address;
   });
 
   group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
@@ -45,12 +47,14 @@ void run(EnmeshedRuntime runtime) {
         expiresAt: expiresAt,
         content: content,
         maxNumberOfAllocations: maxNumberOfAllocations,
+        forIdentity: addressSession2,
       );
 
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
       expect(templateResult.value.expiresAt, expiresAt);
       expect(templateResult.value.content, content);
       expect(templateResult.value.maxNumberOfAllocations, maxNumberOfAllocations);
+      expect(templateResult.value.forIdentity, addressSession2);
     });
   });
 
@@ -76,60 +80,78 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('RelationshipTemplatesFacade: getRelationshipTemplates', () {
-    test('should return the correct amount of own relationship templates', () async {
-      final expiresAt = generateExpiryString();
-      final currentTemplates = await session1.transportServices.relationshipTemplates.getRelationshipTemplates();
+    late String expiryDate = generateExpiryString();
 
-      expect(currentTemplates, isSuccessful<List<RelationshipTemplateDTO>>());
-
-      await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'}),
-        maxNumberOfAllocations: 1,
-      );
-
-      final allTemplates = await session1.transportServices.relationshipTemplates.getRelationshipTemplates();
-
-      expect(allTemplates, isSuccessful<List<RelationshipTemplateDTO>>());
-      expect(allTemplates.value.length, greaterThan(currentTemplates.value.length));
-    });
-
-    test('should return the correct amount of own relationship templates with all properties', () async {
-      final expiresAt = generateExpiryString();
-      final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
+    setUpAll(() async {
+      expiryDate = generateExpiryString();
+      final templateContent = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
 
       await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: content,
+        expiresAt: expiryDate,
+        content: templateContent,
         maxNumberOfAllocations: 1,
       );
 
       await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: generateExpiryString(),
-        content: content,
+        content: templateContent,
         maxNumberOfAllocations: 2,
       );
 
-      final templatesWithQueryExpiresAt = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
-        query: {'expiresAt': QueryValue.string(expiresAt)},
+      final addressSession2 = (await session2.transportServices.account.getIdentityInfo()).value.address;
+      await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+        expiresAt: generateExpiryString(),
+        content: templateContent,
+        forIdentity: addressSession2,
+      );
+    });
+
+    test('should return the correct amount of own relationship templates', () async {
+      final currentTemplates = await session1.transportServices.relationshipTemplates.getRelationshipTemplates();
+      expect(currentTemplates, isSuccessful<List<RelationshipTemplateDTO>>());
+
+      await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+        expiresAt: generateExpiryString(),
+        content: ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'}),
+        maxNumberOfAllocations: 1,
       );
 
-      expect(templatesWithQueryExpiresAt, isSuccessful<List<RelationshipTemplateDTO>>());
+      final allTemplates = await session1.transportServices.relationshipTemplates.getRelationshipTemplates();
+      expect(allTemplates, isSuccessful<List<RelationshipTemplateDTO>>());
 
-      final templatesWithNoResponse = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
+      expect(allTemplates.value.length, greaterThan(currentTemplates.value.length));
+    });
+
+    test('should return the correct amount of own relationship templates querying expiresAt', () async {
+      final getRelationshipTemplatesResult = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
+        query: {'expiresAt': QueryValue.string(expiryDate)},
+      );
+      expect(getRelationshipTemplatesResult, isSuccessful<List<RelationshipTemplateDTO>>());
+      expect(getRelationshipTemplatesResult.value.length, 1);
+    });
+
+    test('should return no relationship templates if the query does not match any', () async {
+      final getRelationshipTemplatesResult = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'expiresAt': QueryValue.string('2023')},
       );
+      expect(getRelationshipTemplatesResult, isSuccessful<List<RelationshipTemplateDTO>>());
+      expect(getRelationshipTemplatesResult.value.length, 0);
+    });
 
-      expect(templatesWithNoResponse, isSuccessful<List<RelationshipTemplateDTO>>());
-
-      final templatesWithQueryMnoa = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
+    test('should return the correct amount of own relationship templates querying maxNumberOfAllocations', () async {
+      final getRelationshipTemplatesResult = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
         query: {'maxNumberOfAllocations': QueryValue.string('1')},
       );
+      expect(getRelationshipTemplatesResult, isSuccessful<List<RelationshipTemplateDTO>>());
+      expect(getRelationshipTemplatesResult.value.where((e) => e.maxNumberOfAllocations != 1).length, 0);
+    });
 
-      expect(templatesWithQueryMnoa, isSuccessful<List<RelationshipTemplateDTO>>());
-      expect(templatesWithQueryExpiresAt.value.length, 1);
-      expect(templatesWithNoResponse.value.length, 0);
-      expect(templatesWithQueryMnoa.value.where((e) => e.maxNumberOfAllocations != 1).length, 0);
+    test('should return the correct amount of own relationship templates querying forIdentity', () async {
+      final getRelationshipTemplatesResult = await session1.transportServices.relationshipTemplates.getRelationshipTemplates(
+        query: {'forIdentity': QueryValue.string(addressSession2)},
+      );
+      expect(getRelationshipTemplatesResult, isSuccessful<List<RelationshipTemplateDTO>>());
+      expect(getRelationshipTemplatesResult.value.where((e) => e.forIdentity != addressSession2).length, 0);
     });
   });
 
