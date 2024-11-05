@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../contents/contents.dart';
 import '../common/common.dart';
-import '../content/mail_dvos.dart';
+import '../content/message_dvos.dart';
 import '../data_view_object.dart';
 import '../integer_converter.dart';
 import 'file_dvo.dart';
@@ -58,6 +58,7 @@ class MessageDVO extends DataViewObject {
   factory MessageDVO.fromJson(Map json) => switch (json['type']) {
         'MessageDVO' => _$MessageDVOFromJson(Map<String, dynamic>.from(json)),
         'RequestMessageDVO' => RequestMessageDVO.fromJson(json),
+        'RequestMessageErrorDVO' => RequestMessageErrorDVO.fromJson(json),
         'MailDVO' => MailDVO.fromJson(json),
         _ => throw Exception('Unknown type: ${json['type']}'),
       };
