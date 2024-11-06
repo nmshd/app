@@ -3,6 +3,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../request_item_index.dart';
+import '../../request_renderer.dart';
 import 'response_item_renderer.dart';
 
 class ResponseItemGroupRenderer extends StatelessWidget {
@@ -14,7 +15,7 @@ class ResponseItemGroupRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
+  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const ResponseItemGroupRenderer({
     super.key,

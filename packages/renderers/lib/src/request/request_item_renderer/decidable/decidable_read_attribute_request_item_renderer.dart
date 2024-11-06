@@ -17,7 +17,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
+  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const DecidableReadAttributeRequestItemRenderer({
     super.key,

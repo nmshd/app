@@ -1,11 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 import '/src/attribute/identity_attribute_value_renderer.dart';
 import '/src/attribute/relationship_attribute_value_renderer.dart';
 import '/src/checkbox_settings.dart';
+import '../../../request_renderer.dart';
 import '../../widgets/value_renderer_list_tile.dart';
 
 class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
@@ -19,7 +21,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
+  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -41,26 +43,104 @@ class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
 
 class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdentityAttributeQueryRenderer> {
   IdentityAttributeDVO? _identityValue;
+  final ValueRendererController _controller = ValueRendererController();
 
   @override
   void initState() {
     super.initState();
 
     if (widget.query.results.isNotEmpty) _identityValue = widget.query.results.first;
+
+    _controller.addListener(() {
+      final value = _controller.value;
+
+      if (value is ValueRendererValidationError) {
+        widget.onUpdateInput(
+          inputValue: null,
+          valueType: widget.query.valueType,
+          isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
+        );
+
+        return;
+      }
+
+      widget.onUpdateInput(
+        inputValue: _controller.value,
+        valueType: widget.query.valueType,
+        isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final selectedAttribute = widget.selectedAttribute;
 
+    final translatedFieldName =
+        widget.query.valueType.startsWith('i18n://') ? FlutterI18n.translate(context, widget.query.valueType.substring(7)) : widget.query.valueType;
+
     if (_identityValue == null) {
+      /* return ValueRendererListTile(
+          fieldName: switch (widget.query.valueType) {
+            'Affiliation' ||
+            'BirthDate' ||
+            'BirthPlace' ||
+            'DeliveryBoxAddress' ||
+            'PersonName' ||
+            'PostOfficeBoxAddress' ||
+            'StreetAddress' =>
+              'i18n://attributes.values.${widget.query.valueType}._title',
+            _ => 'i18n://dvo.attribute.name.${widget.query.valueType}',
+          },
+          renderHints: widget.query.renderHints,
+          valueHints: widget.query.valueHints,
+          onUpdateInput: widget.onUpdateInput,
+          valueType: widget.query.valueType,
+          checkboxSettings: widget.checkboxSettings,
+          mustBeAccepted: widget.mustBeAccepted,
+          expandFileReference: widget.expandFileReference,
+          chooseFile: widget.chooseFile,
+          openFileDetails: widget.openFileDetails,
+          openCreateAttribute: (text) async {
+            final value = await widget.openCreateAttribute(widget.query.valueType);
+
+            if (text != null) {
+              final x = ValueRendererInputValueString(text);
+              _controller.value = x;
+            }
+
+            if (value != null) {
+              /* widget.onUpdateInput(
+                    inputValue: ValueRendererInputValueString(value.value.toString()),
+                    valueType: value.valueType,
+                    isComplex: value.renderHints.editType == RenderHintsEditType.Complex ? true : false,
+                  ); */
+              //widget.getChoices;
+
+              //final v = value.content as IdentityAttribute;
+              //final s = v.value as GivenNameAttributeValue;
+
+              //_controller.value = ValueRendererInputValueString(value.content.toJson()['value']['value']);
+
+              setState(() {
+                _identityValue = value;
+              });
+            }
+          }); */
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              widget.query.valueType,
+              translatedFieldName,
               style: Theme.of(context).textTheme.labelMedium,
             ),
             TextButton.icon(
@@ -70,7 +150,12 @@ class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdent
                 final value = await widget.openCreateAttribute(widget.query.valueType);
 
                 if (value != null) {
-                  setState(() => _identityValue = value);
+                  if (mounted)
+                    setState(() {
+                      _identityValue = value.attribute;
+                    });
+
+                  _controller.value = ValueRendererInputValueString(value.value.toString());
                 }
               },
             ),

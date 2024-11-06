@@ -2,6 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
 import '../../request_item_index.dart';
+import '../../request_renderer.dart';
 import '../request_item_renderer.dart';
 
 class RejectResponseItemRenderer extends StatelessWidget {
@@ -12,7 +13,7 @@ class RejectResponseItemRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
+  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const RejectResponseItemRenderer({
     super.key,

@@ -4,6 +4,7 @@ import 'package:renderers/src/request/request_item_renderer/decidable/decidable_
 
 import '../open_attribute_switcher_function.dart';
 import '../request_item_index.dart';
+import '../request_renderer.dart';
 import '../request_renderer_controller.dart';
 import 'decidable/decidable.dart';
 import 'request_item_renderers.dart';
@@ -20,7 +21,7 @@ class RequestItemRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
+  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   final Color? backgroundColor;
 

@@ -1,11 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:renderers/renderers.dart';
 
-import 'open_attribute_switcher_function.dart';
 import 'request_item_index.dart';
 import 'request_item_renderer/request_item_renderer.dart';
-import 'request_renderer_controller.dart';
 
 class RequestItemGroupRenderer extends StatelessWidget {
   final String currentAddress;
@@ -18,7 +17,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
+  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const RequestItemGroupRenderer({
     super.key,

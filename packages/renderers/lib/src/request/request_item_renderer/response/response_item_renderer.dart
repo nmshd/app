@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../request_item_index.dart';
+import '../../request_renderer.dart';
 import 'error_response_item_renderer.dart';
 import 'reject_response_item_renderer.dart';
 import 'response.dart';
@@ -16,7 +17,7 @@ class ResponseItemRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<IdentityAttributeDVO?> Function(String) openCreateAttribute;
+  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const ResponseItemRenderer({
     super.key,
