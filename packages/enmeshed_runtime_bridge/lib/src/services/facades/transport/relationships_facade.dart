@@ -62,7 +62,7 @@ class RelationshipsFacade {
 
   Future<Result<CanCreateRelationshipResponse>> canCreateRelationship({
     required String templateId,
-    required RelationshipCreationContentDerivation creationContent,
+    RelationshipCreationContentDerivation? creationContent,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.canCreateRelationship(request)
@@ -71,7 +71,7 @@ class RelationshipsFacade {
       arguments: {
         'request': {
           'templateId': templateId,
-          'creationContent': creationContent.toJson(),
+          if (creationContent != null) 'creationContent': creationContent.toJson(),
         },
       },
     );
