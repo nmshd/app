@@ -17,7 +17,9 @@ import 'widgets/deletion_profile_card.dart';
 import 'widgets/profile_widgets.dart';
 
 class ProfilesScreen extends StatefulWidget {
-  const ProfilesScreen({super.key});
+  final String? selectedAccountReference;
+
+  const ProfilesScreen({required this.selectedAccountReference, super.key});
 
   @override
   State<ProfilesScreen> createState() => _ProfilesScreenState();
@@ -127,9 +129,9 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     final accounts = await getAccountsNotInDeletion();
     accounts.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
-    final selectedAccount = accounts.reduce(
-      (value, element) => (value.lastAccessedAt ?? '').compareTo(element.lastAccessedAt ?? '') == 1 ? value : element,
-    );
+    final selectedAccount = widget.selectedAccountReference != null
+        ? accounts.firstWhere((a) => a.id == widget.selectedAccountReference || a.address == widget.selectedAccountReference)
+        : accounts.reduce((value, element) => (value.lastAccessedAt ?? '').compareTo(element.lastAccessedAt ?? '') == 1 ? value : element);
 
     final profilePicture = await loadProfilePicture(accountReference: selectedAccount.id);
 

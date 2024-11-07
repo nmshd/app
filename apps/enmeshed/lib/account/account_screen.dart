@@ -98,7 +98,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
             padding: const EdgeInsets.only(right: 8),
             child: IconButton(
               padding: EdgeInsets.zero,
-              onPressed: () => context.push('/profiles'),
+              onPressed: () => context.push('/profiles?selectedAccountReference=${widget.accountId}'),
               icon: Badge(
                 isLabelVisible: _accountsInDeletion.isNotEmpty,
                 child: AutoLoadingProfilePicture(
