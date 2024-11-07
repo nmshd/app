@@ -95,7 +95,6 @@ void run(EnmeshedRuntime runtime) {
 
       final canCreateRelationshipResult = await session1.transportServices.relationships.canCreateRelationship(
         templateId: item.value.relationshipTemplateValue.id,
-        creationContent: emptyRelationshipCreationContent,
       );
 
       expect(canCreateRelationshipResult, isSuccessful<CanCreateRelationshipResponse>());
