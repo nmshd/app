@@ -8,7 +8,7 @@ class RelationshipsEndpoint extends Endpoint {
 
   Future<ConnectorResponse<CanCreateRelationshipResponse>> canCreateRelationship({
     required String templateId,
-    required Map<String, dynamic> creationContent,
+    Map<String, dynamic>? creationContent,
   }) =>
       put(
         '/api/v2/Relationships/CanCreate',
