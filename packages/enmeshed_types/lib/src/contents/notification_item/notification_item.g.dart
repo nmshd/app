@@ -39,14 +39,14 @@ Map<String, dynamic> _$PeerSharedAttributeDeletedByPeerNotificationItemToJson(Pe
       'attributeId': instance.attributeId,
     };
 
-ThirdPartyOwnedRelationshipAttributeDeletedByPeerNotificationItem _$ThirdPartyOwnedRelationshipAttributeDeletedByPeerNotificationItemFromJson(
+ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem _$ThirdPartyRelationshipAttributeDeletedByPeerNotificationItemFromJson(
         Map<String, dynamic> json) =>
-    ThirdPartyOwnedRelationshipAttributeDeletedByPeerNotificationItem(
+    ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem(
       attributeId: json['attributeId'] as String,
     );
 
-Map<String, dynamic> _$ThirdPartyOwnedRelationshipAttributeDeletedByPeerNotificationItemToJson(
-        ThirdPartyOwnedRelationshipAttributeDeletedByPeerNotificationItem instance) =>
+Map<String, dynamic> _$ThirdPartyRelationshipAttributeDeletedByPeerNotificationItemToJson(
+        ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem instance) =>
     <String, dynamic>{
       'attributeId': instance.attributeId,
     };

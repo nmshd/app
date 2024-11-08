@@ -58,6 +58,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(runtime.eventBus.on<MessageReceivedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
+      ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})));
 
     _loadAccount();
@@ -97,7 +98,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
             padding: const EdgeInsets.only(right: 8),
             child: IconButton(
               padding: EdgeInsets.zero,
-              onPressed: () => context.push('/profiles'),
+              onPressed: () => context.push('/profiles?selectedAccountReference=${widget.accountId}'),
               icon: Badge(
                 isLabelVisible: _accountsInDeletion.isNotEmpty,
                 child: AutoLoadingProfilePicture(

@@ -388,15 +388,14 @@ Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttrib
     predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
   );
 
-  final thirdPartyOwnedRelationshipAttributeId = responseMessage.content.toJson()['response']['items'][0]['attributeId'];
+  final thirdPartyRelationshipAttributeId = responseMessage.content.toJson()['response']['items'][0]['attributeId'];
 
   await eventBus.waitForEvent<OutgoingRequestStatusChangedEvent>(
     eventTargetAddress: recipientAddress,
     predicate: (e) => e.newStatus == LocalRequestStatus.Completed,
   );
 
-  final senderOwnSharedAttributeResult =
-      await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyOwnedRelationshipAttributeId);
+  final senderOwnSharedAttributeResult = await sender.consumptionServices.attributes.getAttribute(attributeId: thirdPartyRelationshipAttributeId);
   return senderOwnSharedAttributeResult.value;
 }
 

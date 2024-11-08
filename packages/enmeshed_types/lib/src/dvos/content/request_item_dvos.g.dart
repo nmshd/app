@@ -225,6 +225,7 @@ ShareAttributeRequestItemDVO _$ShareAttributeRequestItemDVOFromJson(Map<String, 
       requireManualDecision: json['requireManualDecision'] as bool?,
       attribute: DraftIdentityAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
       sourceAttributeId: json['sourceAttributeId'] as String,
+      thirdPartyAddress: json['thirdPartyAddress'] as String?,
     );
 
 Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestItemDVO instance) {
@@ -251,6 +252,7 @@ Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestI
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['attribute'] = instance.attribute.toJson();
   val['sourceAttributeId'] = instance.sourceAttributeId;
+  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
   return val;
 }
 
@@ -588,6 +590,7 @@ DecidableShareAttributeRequestItemDVO _$DecidableShareAttributeRequestItemDVOFro
       requireManualDecision: json['requireManualDecision'] as bool?,
       sourceAttributeId: json['sourceAttributeId'] as String,
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+      thirdPartyAddress: json['thirdPartyAddress'] as String?,
     );
 
 Map<String, dynamic> _$DecidableShareAttributeRequestItemDVOToJson(DecidableShareAttributeRequestItemDVO instance) {
@@ -612,6 +615,7 @@ Map<String, dynamic> _$DecidableShareAttributeRequestItemDVOToJson(DecidableShar
   writeNotNull('requireManualDecision', instance.requireManualDecision);
   val['sourceAttributeId'] = instance.sourceAttributeId;
   val['attribute'] = instance.attribute.toJson();
+  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
   return val;
 }
 

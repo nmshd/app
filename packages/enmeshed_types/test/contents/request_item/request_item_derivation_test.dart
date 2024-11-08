@@ -31,6 +31,7 @@ void main() {
         'mustBeAccepted': true,
         'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson(),
         'sourceAttributeId': 'aSourceAttributeId',
+        'thirdPartyAddress': 'aThirdPartyAddress',
       };
 
       final requestItem = RequestItemDerivation.fromJson(requestItemJson);

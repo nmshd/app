@@ -7,7 +7,7 @@ part 'notification_item.g.dart';
 part 'peer_shared_attribute_succeeded_notification_item.dart';
 part 'own_shared_attribute_deleted_by_owner_notification_item.dart';
 part 'peer_shared_attribute_deleted_by_peer_notification_item.dart';
-part 'third_party_owned_relationship_attribute_deleted_by_peer_notification_item.dart';
+part 'third_party_relationship_attribute_deleted_by_peer_notification_item.dart';
 
 abstract class NotificationItem extends Equatable {
   const NotificationItem();
@@ -16,8 +16,7 @@ abstract class NotificationItem extends Equatable {
         'PeerSharedAttributeSucceededNotificationItem' => PeerSharedAttributeSucceededNotificationItem.fromJson(json),
         'OwnSharedAttributeDeletedByOwnerNotificationItem' => OwnSharedAttributeDeletedByOwnerNotificationItem.fromJson(json),
         'PeerSharedAttributeDeletedByPeerNotificationItem' => PeerSharedAttributeDeletedByPeerNotificationItem.fromJson(json),
-        'ThirdPartyOwnedRelationshipAttributeDeletedByPeerNotificationItem' =>
-          ThirdPartyOwnedRelationshipAttributeDeletedByPeerNotificationItem.fromJson(json),
+        'ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem' => ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem.fromJson(json),
         final String type => GenericNotificationItem(type: type, data: Map<String, dynamic>.from(json)),
         _ => throw ArgumentError('Unknown type: ${json['@type']}'),
       };

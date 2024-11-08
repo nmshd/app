@@ -59,7 +59,7 @@ final _router = GoRouter(
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/profiles',
-      builder: (context, state) => const ProfilesScreen(),
+      builder: (context, state) => ProfilesScreen(selectedAccountReference: state.uri.queryParameters['selectedAccountReference']),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

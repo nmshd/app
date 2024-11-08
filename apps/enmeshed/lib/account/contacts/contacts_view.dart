@@ -112,7 +112,7 @@ class _ContactsViewState extends State<ContactsView> {
           if (_favorites.isNotEmpty && !widget.contactsFilterController.isContactsFilterSet) ...[
             SliverToBoxAdapter(child: ContactHeadline(text: context.l10n.favorites, icon: const Icon(Icons.star))),
             SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.75),
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final contact = _favorites[index];

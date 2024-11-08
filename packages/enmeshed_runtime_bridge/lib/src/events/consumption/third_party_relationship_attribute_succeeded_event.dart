@@ -2,11 +2,11 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 import '../event.dart';
 
-class ThirdPartyOwnedRelationshipAttributeSucceededEvent extends Event {
+class ThirdPartyRelationshipAttributeSucceededEvent extends Event {
   final LocalAttributeDTO predecessor;
   final LocalAttributeDTO successor;
 
-  const ThirdPartyOwnedRelationshipAttributeSucceededEvent({
+  const ThirdPartyRelationshipAttributeSucceededEvent({
     required this.predecessor,
     required this.successor,
     required super.eventTargetAddress,

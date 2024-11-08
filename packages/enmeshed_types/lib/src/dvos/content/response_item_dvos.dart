@@ -144,6 +144,7 @@ class AcceptResponseItemDVO extends ResponseItemDVODerivation {
 class ReadAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
   final LocalAttributeDVO attribute;
+  final String? thirdPartyAddress;
 
   const ReadAttributeAcceptResponseItemDVO({
     required super.id,
@@ -156,6 +157,7 @@ class ReadAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
     super.warning,
     required this.attributeId,
     required this.attribute,
+    this.thirdPartyAddress,
   });
 
   factory ReadAttributeAcceptResponseItemDVO.fromJson(Map json) => _$ReadAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
