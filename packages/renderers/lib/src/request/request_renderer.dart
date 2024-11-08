@@ -9,7 +9,7 @@ import 'request_item_renderer/request_item_renderer.dart';
 import 'request_item_renderer/response/response.dart';
 import 'request_renderer_controller.dart';
 
-typedef AttributeWithValue = ({IdentityAttributeDVO? attribute, ValueRendererInputValue value});
+typedef AttributeWithValue = ({IdentityAttributeDVO? attribute, ValueRendererInputValue? value});
 
 class RequestRenderer extends StatelessWidget {
   final RequestRendererController? controller;
