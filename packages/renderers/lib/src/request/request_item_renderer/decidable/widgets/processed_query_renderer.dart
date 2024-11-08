@@ -1,6 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:value_renderer/value_renderer.dart';
 
@@ -43,97 +42,54 @@ class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
 
 class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdentityAttributeQueryRenderer> {
   IdentityAttributeDVO? _identityValue;
-  final ValueRendererController _controller = ValueRendererController();
 
   @override
   void initState() {
     super.initState();
 
     if (widget.query.results.isNotEmpty) _identityValue = widget.query.results.first;
-
-    _controller.addListener(() {
-      final value = _controller.value;
-
-      if (value is ValueRendererValidationError) {
-        widget.onUpdateInput(
-          inputValue: null,
-          valueType: widget.query.valueType,
-          isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
-        );
-
-        return;
-      }
-
-      widget.onUpdateInput(
-        inputValue: _controller.value,
-        valueType: widget.query.valueType,
-        isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
-      );
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final selectedAttribute = widget.selectedAttribute;
 
-    final translatedFieldName =
-        widget.query.valueType.startsWith('i18n://') ? FlutterI18n.translate(context, widget.query.valueType.substring(7)) : widget.query.valueType;
-
     if (_identityValue == null) {
-      /* return ValueRendererListTile(
-          fieldName: switch (widget.query.valueType) {
-            'Affiliation' ||
-            'BirthDate' ||
-            'BirthPlace' ||
-            'DeliveryBoxAddress' ||
-            'PersonName' ||
-            'PostOfficeBoxAddress' ||
-            'StreetAddress' =>
-              'i18n://attributes.values.${widget.query.valueType}._title',
-            _ => 'i18n://dvo.attribute.name.${widget.query.valueType}',
-          },
-          renderHints: widget.query.renderHints,
-          valueHints: widget.query.valueHints,
-          onUpdateInput: widget.onUpdateInput,
-          valueType: widget.query.valueType,
-          checkboxSettings: widget.checkboxSettings,
-          mustBeAccepted: widget.mustBeAccepted,
-          expandFileReference: widget.expandFileReference,
-          chooseFile: widget.chooseFile,
-          openFileDetails: widget.openFileDetails,
-          openCreateAttribute: (text) async {
-            final value = await widget.openCreateAttribute(widget.query.valueType);
+      return Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 8),
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          visualDensity: VisualDensity.compact,
+          tileColor: Theme.of(context).colorScheme.surface,
+          title: TranslatedText(
+            'i18n://dvo.attribute.name.${widget.query.valueType}',
+            style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          ),
+          subtitle: Text(
+            'Kein Eintrag',
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+          ),
+          trailing: TextButton.icon(
+            icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
+            label: Text('Anlegen'),
+            onPressed: () async {
+              final attributeWithValue = await widget.openCreateAttribute(widget.query.valueType);
 
-            if (text != null) {
-              final x = ValueRendererInputValueString(text);
-              _controller.value = x;
-            }
+              if (attributeWithValue != null) {
+                widget.onUpdateInput(
+                  inputValue: attributeWithValue.value,
+                  valueType: widget.query.valueType,
+                  isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
+                );
 
-            if (value != null) {
-              /* widget.onUpdateInput(
-                    inputValue: ValueRendererInputValueString(value.value.toString()),
-                    valueType: value.valueType,
-                    isComplex: value.renderHints.editType == RenderHintsEditType.Complex ? true : false,
-                  ); */
-              //widget.getChoices;
-
-              //final v = value.content as IdentityAttribute;
-              //final s = v.value as GivenNameAttributeValue;
-
-              //_controller.value = ValueRendererInputValueString(value.content.toJson()['value']['value']);
-
-              setState(() {
-                _identityValue = value;
-              });
-            }
-          }); */
+                if (mounted) setState(() => _identityValue = attributeWithValue.attribute);
+              }
+            },
+          ),
+        ),
+      );
+      /*
+      
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
@@ -147,44 +103,21 @@ class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdent
               icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
               label: Text('Anlegen'),
               onPressed: () async {
-                final value = await widget.openCreateAttribute(widget.query.valueType);
+                final attributeWithValue = await widget.openCreateAttribute(widget.query.valueType);
 
-                if (value != null) {
-                  if (mounted)
-                    setState(() {
-                      _identityValue = value.attribute;
-                    });
+                if (attributeWithValue != null) {
+                  widget.onUpdateInput(
+                    inputValue: attributeWithValue.value,
+                    valueType: widget.query.valueType,
+                    isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
+                  );
 
-                  _controller.value = ValueRendererInputValueString(value.value.toString());
+                  if (mounted) setState(() => _identityValue = attributeWithValue.attribute);
                 }
               },
             ),
           ],
         ),
-      );
-
-      /*
-      return ValueRendererListTile(
-        fieldName: switch (query.valueType) {
-          'Affiliation' ||
-          'BirthDate' ||
-          'BirthPlace' ||
-          'DeliveryBoxAddress' ||
-          'PersonName' ||
-          'PostOfficeBoxAddress' ||
-          'StreetAddress' =>
-            'i18n://attributes.values.${query.valueType}._title',
-          _ => 'i18n://dvo.attribute.name.${query.valueType}',
-        },
-        renderHints: query.renderHints,
-        valueHints: query.valueHints,
-        onUpdateInput: onUpdateInput,
-        valueType: query.valueType,
-        checkboxSettings: checkboxSettings,
-        mustBeAccepted: mustBeAccepted,
-        expandFileReference: expandFileReference,
-        chooseFile: chooseFile,
-        openFileDetails: openFileDetails,
       );*/
     }
 
@@ -198,7 +131,16 @@ class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdent
             valueHints: _identityValue!.valueHints,
             trailing: widget.onUpdateAttribute == null
                 ? null
-                : IconButton(onPressed: () => widget.onUpdateAttribute!(_identityValue!.valueType), icon: const Icon(Icons.chevron_right)),
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.query.results.length > 1) Flexible(child: Text('+${widget.query.results.length - 1}')),
+                      IconButton(
+                        onPressed: () => widget.onUpdateAttribute!(_identityValue!.valueType),
+                        icon: const Icon(Icons.chevron_right),
+                      )
+                    ],
+                  ),
             expandFileReference: widget.expandFileReference,
             openFileDetails: widget.openFileDetails,
           ),
