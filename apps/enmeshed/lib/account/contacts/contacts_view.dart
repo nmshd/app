@@ -236,9 +236,9 @@ class _ContactsViewState extends State<ContactsView> {
         _favorites = relationships.where((contact) => contact.relationship?.isPinned ?? false).toList();
         _contacts = requestsAndRelationships;
       });
-    }
 
-    _filterAndSort();
+      _filterAndSort();
+    }
 
     if (isFirstTime) {
       widget.setSuggestionsBuilder(_buildSuggestions);

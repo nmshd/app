@@ -135,7 +135,7 @@ void _showModalSheet({
                   accountReference: accountId,
                   onDeviceOnboarded: () async {
                     await reload();
-                    goToNextPage();
+                    pageIndexNotifier.value = 4;
                   },
                 );
               },
