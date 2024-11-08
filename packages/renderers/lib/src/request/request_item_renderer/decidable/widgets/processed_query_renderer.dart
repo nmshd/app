@@ -55,70 +55,22 @@ class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdent
     final selectedAttribute = widget.selectedAttribute;
 
     if (_identityValue == null) {
-      return Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 8),
-        child: ListTile(
-          contentPadding: EdgeInsets.zero,
-          visualDensity: VisualDensity.compact,
-          tileColor: Theme.of(context).colorScheme.surface,
-          title: TranslatedText(
-            'i18n://dvo.attribute.name.${widget.query.valueType}',
-            style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-          ),
-          subtitle: Text(
-            'Kein Eintrag',
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
-          ),
-          trailing: TextButton.icon(
-            icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
-            label: Text('Anlegen'),
-            onPressed: () async {
-              final attributeWithValue = await widget.openCreateAttribute(widget.query.valueType);
+      return _EmptyAttribute(
+        valueType: widget.query.valueType,
+        onCreateAttribute: () async {
+          final attributeWithValue = await widget.openCreateAttribute(widget.query.valueType);
 
-              if (attributeWithValue != null) {
-                widget.onUpdateInput(
-                  inputValue: attributeWithValue.value,
-                  valueType: widget.query.valueType,
-                  isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
-                );
+          if (attributeWithValue != null) {
+            widget.onUpdateInput(
+              inputValue: attributeWithValue.value,
+              valueType: widget.query.valueType,
+              isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
+            );
 
-                if (mounted) setState(() => _identityValue = attributeWithValue.attribute);
-              }
-            },
-          ),
-        ),
+            if (mounted) setState(() => _identityValue = attributeWithValue.attribute);
+          }
+        },
       );
-      /*
-      
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              translatedFieldName,
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            TextButton.icon(
-              icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
-              label: Text('Anlegen'),
-              onPressed: () async {
-                final attributeWithValue = await widget.openCreateAttribute(widget.query.valueType);
-
-                if (attributeWithValue != null) {
-                  widget.onUpdateInput(
-                    inputValue: attributeWithValue.value,
-                    valueType: widget.query.valueType,
-                    isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
-                  );
-
-                  if (mounted) setState(() => _identityValue = attributeWithValue.attribute);
-                }
-              },
-            ),
-          ],
-        ),
-      );*/
     }
 
     return Row(
@@ -146,6 +98,35 @@ class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdent
           ),
         ),
       ],
+    );
+  }
+}
+
+class _EmptyAttribute extends StatelessWidget {
+  final String valueType;
+  final VoidCallback onCreateAttribute;
+
+  const _EmptyAttribute({super.key, required this.valueType, required this.onCreateAttribute});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 8),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        visualDensity: VisualDensity.compact,
+        tileColor: Theme.of(context).colorScheme.surface,
+        title: TranslatedText(
+          'i18n://dvo.attribute.name.$valueType',
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        ),
+        subtitle: Text(
+          'Kein Eintrag',
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+        ),
+        trailing: TextButton.icon(
+            icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20), label: Text('Anlegen'), onPressed: onCreateAttribute),
+      ),
     );
   }
 }
