@@ -24,6 +24,8 @@ sealed class LocalAttributeDVO extends DataViewObject {
   final String? succeeds;
   final String? succeededBy;
 
+  final List<String>? tags;
+
   const LocalAttributeDVO({
     required super.id,
     required super.name,
@@ -45,6 +47,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
     required this.createdAt,
     this.succeeds,
     this.succeededBy,
+    required this.tags,
   });
 
   factory LocalAttributeDVO.fromJson(Map json) => switch (json['type']) {
@@ -79,6 +82,7 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
     required super.createdAt,
     super.succeeds,
     super.succeededBy,
+    super.tags,
   }) : super(isOwn: true);
 
   factory IdentityAttributeDVO.fromJson(Map json) => switch (json['type']) {
@@ -93,7 +97,6 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
 @JsonSerializable(includeIfNull: false)
 class RepositoryAttributeDVO extends IdentityAttributeDVO {
   final List<SharedToPeerAttributeDVO> sharedWith;
-  final List<String>? tags;
   final bool? isDefault;
 
   const RepositoryAttributeDVO({
@@ -106,7 +109,7 @@ class RepositoryAttributeDVO extends IdentityAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    this.tags,
+    super.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -131,7 +134,6 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
   final String? requestReference;
   final String? notificationReference;
   final String? sourceAttribute;
-  final List<String>? tags;
   final String? deletionDate;
   final String? deletionStatus;
 
@@ -145,7 +147,7 @@ class SharedToPeerAttributeDVO extends IdentityAttributeDVO {
     super.warning,
     required super.content,
     required super.owner,
-    this.tags,
+    super.tags,
     required super.value,
     required super.valueType,
     required super.renderHints,
@@ -173,7 +175,6 @@ class PeerAttributeDVO extends LocalAttributeDVO {
   final String peer;
   final String? requestReference;
   final String? notificationReference;
-  final List<String>? tags;
   final String? deletionDate;
   final String? deletionStatus;
 
@@ -199,7 +200,7 @@ class PeerAttributeDVO extends LocalAttributeDVO {
     required this.peer,
     this.requestReference,
     this.notificationReference,
-    this.tags,
+    super.tags,
     this.deletionDate,
     this.deletionStatus,
   }) : super(type: 'PeerAttributeDVO', isOwn: false);
@@ -252,7 +253,7 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
     required this.isTechnical,
     this.deletionDate,
     this.deletionStatus,
-  });
+  }) : super(tags: null);
 
   factory RelationshipAttributeDVO.fromJson(Map json) => switch (json['type']) {
         'OwnRelationshipAttributeDVO' => OwnRelationshipAttributeDVO.fromJson(json),
