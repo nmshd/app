@@ -47,7 +47,7 @@ sealed class LocalAttributeDVO extends DataViewObject {
     required this.createdAt,
     this.succeeds,
     this.succeededBy,
-    required this.tags,
+    this.tags,
   });
 
   factory LocalAttributeDVO.fromJson(Map json) => switch (json['type']) {
