@@ -9,10 +9,10 @@ import 'request_item_renderer/response/response.dart';
 import 'request_renderer_controller.dart';
 
 class RequestRenderer extends StatelessWidget {
+  final GlobalKey<FormState> formKey;
   final RequestRendererController? controller;
   final String currentAddress;
   final LocalRequestDVO request;
-  final RequestValidationResultDTO? validationResult;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
 
   final Future<FileDVO> Function(String) expandFileReference;
@@ -21,9 +21,9 @@ class RequestRenderer extends StatelessWidget {
 
   const RequestRenderer({
     super.key,
+    required this.formKey,
     required this.request,
     required this.currentAddress,
-    this.validationResult,
     this.controller,
     this.openAttributeSwitcher,
     required this.expandFileReference,
@@ -94,6 +94,10 @@ class RequestRenderer extends StatelessWidget {
       );
     }).toList();
 
-    return Column(children: requestItems);
+    return Form(
+      key: formKey,
+      autovalidateMode: AutovalidateMode.onUnfocus,
+      child: Column(children: requestItems),
+    );
   }
 }
