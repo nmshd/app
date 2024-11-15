@@ -15,14 +15,15 @@ enum RelationshipAuditLogEntryReason {
   AcceptanceOfReactivation,
   RejectionOfReactivation,
   RevocationOfReactivation,
-  Decomposition
+  Decomposition,
+  DecompositionDueToIdentityDeletion
 }
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipAuditLogEntryDTO extends Equatable {
   final String createdAt;
   final String createdBy;
-  final String createdByDevice;
+  final String? createdByDevice;
   final RelationshipAuditLogEntryReason reason;
   final RelationshipStatus? oldStatus;
   final RelationshipStatus newStatus;
@@ -30,7 +31,7 @@ class RelationshipAuditLogEntryDTO extends Equatable {
   const RelationshipAuditLogEntryDTO({
     required this.createdAt,
     required this.createdBy,
-    required this.createdByDevice,
+    this.createdByDevice,
     required this.reason,
     this.oldStatus,
     required this.newStatus,
