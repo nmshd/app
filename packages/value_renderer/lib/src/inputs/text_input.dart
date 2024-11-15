@@ -9,7 +9,7 @@ import 'styles/input_decoration.dart';
 
 class TextInput extends StatefulWidget {
   final bool mustBeFilledOut;
-  final AutovalidateMode autovalidateMode;
+  final AutovalidateMode? autovalidateMode;
   final ValueRendererController? controller;
   final InputDecoration? decoration;
   final String? fieldName;
@@ -22,7 +22,7 @@ class TextInput extends StatefulWidget {
 
   const TextInput({
     required this.mustBeFilledOut,
-    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.autovalidateMode,
     this.controller,
     this.decoration,
     this.fieldName,
@@ -49,8 +49,12 @@ class TextInputState extends State<TextInput> {
     _controller = TextEditingController(text: initialValue?.value);
 
     if (widget.controller != null) {
-      _controller.addListener(() => widget.controller!.value =
-          validateInput(_controller.text) == null ? ValueRendererInputValueString(_controller.text) : ValueRendererValidationError());
+      _controller.addListener(() {
+        widget.controller!.value = validateInput(_controller.text) == null
+            ? //
+            ValueRendererInputValueString(_controller.text)
+            : ValueRendererValidationError();
+      });
       if (initialValue != null) {
         widget.controller!.value = ValueRendererInputValueString(widget.initialValue!.value);
       }
@@ -70,7 +74,6 @@ class TextInputState extends State<TextInput> {
       onChanged: widget.onChanged,
       maxLength: widget.max,
       controller: _controller,
-      autovalidateMode: widget.autovalidateMode,
       validator: (value) => validateInput(value),
       decoration: widget.decoration != null
           ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
