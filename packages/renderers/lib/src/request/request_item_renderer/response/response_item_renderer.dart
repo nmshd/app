@@ -17,7 +17,6 @@ class ResponseItemRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const ResponseItemRenderer({
     super.key,
@@ -28,7 +27,6 @@ class ResponseItemRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
-    required this.openCreateAttribute,
   });
 
   @override
@@ -74,7 +72,6 @@ class ResponseItemRenderer extends StatelessWidget {
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
-            openCreateAttribute: openCreateAttribute,
           ),
         final ErrorResponseItemDVO dvo => ErrorResponseItemRenderer(item: dvo),
         final AcceptResponseItemDVO _ => AcceptResponseItemRenderer(
@@ -84,7 +81,6 @@ class ResponseItemRenderer extends StatelessWidget {
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
-            openCreateAttribute: openCreateAttribute,
           ),
         _ => throw Exception("Invalid type '${responseItem.type}'"),
       },

@@ -21,7 +21,6 @@ class RequestRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const RequestRenderer({
     super.key,
@@ -33,7 +32,6 @@ class RequestRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
-    required this.openCreateAttribute,
   });
 
   @override
@@ -52,7 +50,6 @@ class RequestRenderer extends StatelessWidget {
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
-            openCreateAttribute: openCreateAttribute,
           );
         }
 
@@ -64,7 +61,6 @@ class RequestRenderer extends StatelessWidget {
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
-          openCreateAttribute: openCreateAttribute,
         );
       }).toList();
 
@@ -85,7 +81,6 @@ class RequestRenderer extends StatelessWidget {
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
-          openCreateAttribute: openCreateAttribute,
         );
       }
 
@@ -99,7 +94,6 @@ class RequestRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
-        openCreateAttribute: openCreateAttribute,
       );
     }).toList();
 

@@ -2,7 +2,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../request_item_index.dart';
-import '../../request_renderer.dart';
 import '../request_item_renderer.dart';
 
 class AcceptResponseItemRenderer extends StatelessWidget {
@@ -13,7 +12,6 @@ class AcceptResponseItemRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const AcceptResponseItemRenderer({
     super.key,
@@ -23,7 +21,6 @@ class AcceptResponseItemRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
-    required this.openCreateAttribute,
   });
 
   @override
@@ -35,7 +32,6 @@ class AcceptResponseItemRenderer extends StatelessWidget {
       expandFileReference: expandFileReference,
       chooseFile: chooseFile,
       openFileDetails: openFileDetails,
-      openCreateAttribute: openCreateAttribute,
     );
   }
 }

@@ -1,26 +1,22 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
-import 'package:value_renderer/value_renderer.dart';
 
 import '/src/attribute/identity_attribute_value_renderer.dart';
 import '/src/attribute/relationship_attribute_value_renderer.dart';
 import '/src/checkbox_settings.dart';
-import '../../../request_renderer.dart';
 import '../../widgets/value_renderer_list_tile.dart';
 
-class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
+class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
-  final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
   final bool mustBeAccepted;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final void Function(FileDVO) openFileDetails;
-  final Future<AttributeWithValue?> Function(String) openCreateAttribute;
 
   const ProcessedIdentityAttributeQueryRenderer({
     super.key,
@@ -28,73 +24,44 @@ class ProcessedIdentityAttributeQueryRenderer extends StatefulWidget {
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
-    required this.onUpdateInput,
     required this.mustBeAccepted,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
-    required this.openCreateAttribute,
   });
 
   @override
-  State<ProcessedIdentityAttributeQueryRenderer> createState() => _ProcessedIdentityAttributeQueryRendererState();
-}
-
-class _ProcessedIdentityAttributeQueryRendererState extends State<ProcessedIdentityAttributeQueryRenderer> {
-  IdentityAttributeDVO? _identityValue;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.query.results.isNotEmpty) _identityValue = widget.query.results.first;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final selectedAttribute = widget.selectedAttribute;
-
-    if (_identityValue == null) {
+    if (query.results.isEmpty) {
       return _EmptyAttribute(
-        valueType: widget.query.valueType,
+        valueType: query.valueType,
         onCreateAttribute: () async {
-          final attributeWithValue = await widget.openCreateAttribute(widget.query.valueType);
-
-          if (attributeWithValue != null) {
-            widget.onUpdateInput(
-              inputValue: attributeWithValue.value,
-              valueType: widget.query.valueType,
-              isComplex: widget.query.renderHints.editType == RenderHintsEditType.Complex ? true : false,
-            );
-
-            if (mounted) setState(() => _identityValue = attributeWithValue.attribute);
-          }
+          onUpdateAttribute!(query.valueType);
         },
       );
     }
 
     return Row(
       children: [
-        if (widget.checkboxSettings != null)
-          Checkbox(value: widget.checkboxSettings!.isChecked, onChanged: widget.checkboxSettings!.onUpdateCheckbox),
+        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
           child: IdentityAttributeValueRenderer(
-            value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : _identityValue!.value as IdentityAttributeValue,
-            valueHints: _identityValue!.valueHints,
-            trailing: widget.onUpdateAttribute == null
+            value: selectedAttribute != null ? (selectedAttribute as IdentityAttribute).value : query.results.first.value as IdentityAttributeValue,
+            valueHints: query.valueHints,
+            trailing: onUpdateAttribute == null
                 ? null
                 : Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (widget.query.results.length > 1) Flexible(child: Text('+${widget.query.results.length - 1}')),
+                      if (query.results.length > 1) Flexible(child: Text('+${query.results.length - 1}')),
                       IconButton(
-                        onPressed: () => widget.onUpdateAttribute!(_identityValue!.valueType),
+                        onPressed: () => onUpdateAttribute!(query.valueType),
                         icon: const Icon(Icons.chevron_right),
                       )
                     ],
                   ),
-            expandFileReference: widget.expandFileReference,
-            openFileDetails: widget.openFileDetails,
+            expandFileReference: expandFileReference,
+            openFileDetails: openFileDetails,
           ),
         ),
       ],
@@ -136,7 +103,6 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final AbstractAttribute? selectedAttribute;
   final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
-  final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
   final bool mustBeAccepted;
 
   final Future<FileDVO> Function(String) expandFileReference;
@@ -149,7 +115,6 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
-    required this.onUpdateInput,
     required this.mustBeAccepted,
     required this.expandFileReference,
     required this.chooseFile,
@@ -161,18 +126,18 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     final selectedAttribute = this.selectedAttribute;
 
     if (query.results.isEmpty) {
-      return ValueRendererListTile(
-        fieldName: query.name,
-        renderHints: query.renderHints,
-        valueHints: query.valueHints,
-        checkboxSettings: checkboxSettings,
-        onUpdateInput: onUpdateInput,
-        valueType: query.valueType,
-        mustBeAccepted: mustBeAccepted,
-        expandFileReference: expandFileReference,
-        chooseFile: chooseFile,
-        openFileDetails: openFileDetails,
-      );
+      // TODO: Use EmptyAttribute widget
+      // return ValueRendererListTile(
+      //   fieldName: query.name,
+      //   renderHints: query.renderHints,
+      //   valueHints: query.valueHints,
+      //   checkboxSettings: checkboxSettings,
+      //   valueType: query.valueType,
+      //   mustBeAccepted: mustBeAccepted,
+      //   expandFileReference: expandFileReference,
+      //   chooseFile: chooseFile,
+      //   openFileDetails: openFileDetails,
+      // );
     }
 
     return Row(
@@ -257,11 +222,10 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
   final ProcessedIQLQueryDVO query;
   final CheckboxSettings? checkboxSettings;
   final AbstractAttribute? selectedAttribute;
-  final Future<void> Function([String? valueType])? onUpdateAttribute;
+  final Future<void> Function([String? valueType, String? value])? onUpdateAttribute;
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final bool mustBeAccepted;
-  final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
   final void Function(FileDVO) openFileDetails;
 
   const ProcessedIQLQueryRenderer({
@@ -274,7 +238,6 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.mustBeAccepted,
-    required this.onUpdateInput,
     required this.openFileDetails,
   });
 
@@ -284,29 +247,51 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
 
     if (query.results.isEmpty) {
       if (query.valueType != null && query.valueHints != null && query.renderHints != null) {
-        return ValueRendererListTile(
-          fieldName: requestItemTitle ??
-              switch (query.valueType) {
-                'Affiliation' ||
-                'BirthDate' ||
-                'BirthPlace' ||
-                'DeliveryBoxAddress' ||
-                'PersonName' ||
-                'PostOfficeBoxAddress' ||
-                'StreetAddress' =>
-                  'i18n://attributes.values.${query.valueType}._title',
-                _ => 'i18n://dvo.attribute.name.${query.valueType}',
-              },
-          renderHints: query.renderHints!,
-          valueHints: query.valueHints!,
-          onUpdateInput: onUpdateInput,
-          valueType: query.valueType!,
-          checkboxSettings: checkboxSettings,
-          mustBeAccepted: mustBeAccepted,
-          expandFileReference: expandFileReference,
-          chooseFile: chooseFile,
-          openFileDetails: openFileDetails,
-        );
+        if (query.valueType == 'IdentityFileReference') {
+          return ValueRendererListTile(
+            fieldName: requestItemTitle!,
+            valueType: query.valueType!,
+            mustBeAccepted: mustBeAccepted,
+            onUpdateAttribute: onUpdateAttribute!,
+            renderHints: query.renderHints!,
+            valueHints: query.valueHints!,
+            expandFileReference: (truncatedReference) => expandFileReference(truncatedReference),
+            chooseFile: chooseFile,
+            openFileDetails: openFileDetails,
+          );
+        } else {
+          // TODO: use EmptyAttribute widget
+          // why the hell are we using iql queries??
+          // return ValueRendererListTile(
+          //   fieldName: requestItemTitle ??
+          //       switch (query.valueType) {
+          //         'Affiliation' ||
+          //         'BirthDate' ||
+          //         'BirthPlace' ||
+          //         'DeliveryBoxAddress' ||
+          //         'PersonName' ||
+          //         'PostOfficeBoxAddress' ||
+          //         'StreetAddress' =>
+          //           'i18n://attributes.values.${query.valueType}._title',
+          //         _ => 'i18n://dvo.attribute.name.${query.valueType}',
+          //       },
+          //   renderHints: query.renderHints!,
+          //   valueHints: query.valueHints!,
+          //   // onUpdateInput: onUpdateAttribute!,
+          //   valueType: query.valueType!,
+          //   checkboxSettings: checkboxSettings,
+          //   mustBeAccepted: mustBeAccepted,
+          //   expandFileReference: expandFileReference,
+          //   chooseFile: chooseFile,
+          //   openFileDetails: openFileDetails,
+          // );
+          return _EmptyAttribute(
+            valueType: query.valueType!,
+            onCreateAttribute: () async {
+              onUpdateAttribute!(query.valueType);
+            },
+          );
+        }
       } else {
         return Row(
           children: [
