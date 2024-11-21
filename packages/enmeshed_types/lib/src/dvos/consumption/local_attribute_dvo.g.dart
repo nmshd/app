@@ -59,8 +59,8 @@ Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO insta
   val['createdAt'] = instance.createdAt;
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
-  val['sharedWith'] = instance.sharedWith.map((e) => e.toJson()).toList();
   writeNotNull('tags', instance.tags);
+  val['sharedWith'] = instance.sharedWith.map((e) => e.toJson()).toList();
   writeNotNull('isDefault', instance.isDefault);
   return val;
 }
@@ -122,11 +122,11 @@ Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO i
   val['createdAt'] = instance.createdAt;
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
+  writeNotNull('tags', instance.tags);
   val['peer'] = instance.peer;
   writeNotNull('requestReference', instance.requestReference);
   writeNotNull('notificationReference', instance.notificationReference);
   writeNotNull('sourceAttribute', instance.sourceAttribute);
-  writeNotNull('tags', instance.tags);
   writeNotNull('deletionDate', instance.deletionDate);
   writeNotNull('deletionStatus', instance.deletionStatus);
   return val;
@@ -188,10 +188,10 @@ Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
   val['createdAt'] = instance.createdAt;
   writeNotNull('succeeds', instance.succeeds);
   writeNotNull('succeededBy', instance.succeededBy);
+  writeNotNull('tags', instance.tags);
   val['peer'] = instance.peer;
   writeNotNull('requestReference', instance.requestReference);
   writeNotNull('notificationReference', instance.notificationReference);
-  writeNotNull('tags', instance.tags);
   writeNotNull('deletionDate', instance.deletionDate);
   writeNotNull('deletionStatus', instance.deletionStatus);
   return val;

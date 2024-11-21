@@ -13,7 +13,7 @@ class DropdownSelectInput extends StatefulWidget {
   final List<ValueHintsValue> values;
   final bool mustBeFilledOut;
   final RenderHintsTechnicalType technicalType;
-  final AutovalidateMode autovalidateMode;
+  final AutovalidateMode? autovalidateMode;
   final RenderHintsDataType? dataType;
   final ValueRendererController? controller;
   final InputDecoration? decoration;
@@ -25,7 +25,7 @@ class DropdownSelectInput extends StatefulWidget {
     required this.values,
     required this.mustBeFilledOut,
     required this.technicalType,
-    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.autovalidateMode,
     this.dataType,
     this.controller,
     this.decoration,
