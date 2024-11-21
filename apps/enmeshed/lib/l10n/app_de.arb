@@ -439,9 +439,12 @@
   "myData_createEntryForAttributeType": "Anlegen",
   "myData_noEntryForAttributeType": "Kein Eintrag",
   "myData_allData": "Alle Daten",
-  "myData_personalData": "Identitätsdaten",
-  "myData_addressData": "Adressdaten",
-  "myData_communicationData": "Kommunikationsdaten",
+  "myData_personalData": "Über mich",
+  "myData_personalData_description": "Hier können Sie Ihre persönlichen Informationen hinzufügen, ändern oder löschen.",
+  "myData_addressData": "Adressen",
+  "myData_addressData_description": "Hier können Sie Ihre Adressen hinzufügen, ändern oder löschen.",
+  "myData_communicationData": "Kommunikation",
+  "myData_communicationData_description": "Hier können Sie Ihre Kommunikationsdaten hinzufügen, ändern oder löschen.",
   "myData_initialCreation": "Anlegen",
   "myData_createInformation": "Information anlegen",
   "myData_chooseInformationType": "Wählen Sie einen Informationstyp aus!",
@@ -453,7 +456,7 @@
       }
     }
   },
-  "myData_initialCreation_personalData": "Identitätsdaten anlegen",
+  "myData_initialCreation_personalData": "Persönliche Informationen anlegen",
   "myData_initialCreation_personalData_description": "Geben Sie Ihre grundlegenden persönlichen Informationen ein, um diese mit Ihren Kontakten teilen zu können.",
   "myData_initialCreation_communicationData": "Kommunikationsdaten anlegen",
   "myData_initialCreation_communicationData_description": "Bitte geben Sie Ihre Kommunikationsdaten ein, um sie mit Ihren Kontakten teilen zu können.",
@@ -462,7 +465,7 @@
   "myData_initialCreation_communicationData_infoPhoneNumber": "Eine Telefonnummer kann sowohl ein Festnetzanschluss als auch eine Mobilfunknummer sein.",
   "myData_initialCreation_communicationData_infoWebsite": "Eine Webseite kann jede Form eines öffentlichen Profils sein, beispielsweise auch auf LinkedIn oder Instagram.",
   "myData_initialCreation_error": "Beim Anlegen der Daten ist ein Fehler aufgetreten, bitte versuche es erneut.",
-  "myData_initialCreation_addressData_title": "Adressdaten anlegen",
+  "myData_initialCreation_addressData_title": "Adressen anlegen",
   "myData_initialCreation_addressData_description": "Geben Sie Ihre verschiedenen Adressen ein, um diese mit Ihren Kontakten teilen zu können. Sie können zwischen mehreren Adress-Typen wählen.",
   "myData_initialCreation_addressData_streetAddress": "Eine Anschrift anlegen",
   "myData_initialCreation_addressData_streetAddress_description": "Eine Anschrift ist eine Wohnadresse bestehend aus Straße, Postleitzahl und Ort.",
@@ -480,14 +483,6 @@
   },
   "myData_initialCreation_addressData_createAttribute_description": "Geben Sie eine {attribute} ein, um diese mit Ihren Kontakten teilen zu können.",
   "@myData_initialCreation_addressData_createAttribute_description": {
-    "placeholders": {
-      "attribute": {
-        "type": "String"
-      }
-    }
-  },
-  "personalData_filteredData_description": "Hier können Sie Ihre {attribute} hinzufügen, ändern oder löschen.",
-  "@personalData_filteredData_description": {
     "placeholders": {
       "attribute": {
         "type": "String"
