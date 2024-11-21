@@ -439,9 +439,12 @@
   "myData_createEntryForAttributeType": "Create",
   "myData_noEntryForAttributeType": "No entry",
   "myData_allData": "All Data",
-  "myData_personalData": "Identity Data",
-  "myData_addressData": "Address Data",
-  "myData_communicationData": "Communication Data",
+  "myData_personalData": "About Me",
+  "myData_personalData_description": "Here you can add, change or delete your personal information.",
+  "myData_addressData": "Addresses",
+  "myData_addressData_description": "Here you can add, change or delete your addresses.",
+  "myData_communicationData": "Communication",
+  "myData_communicationData_description": "Here you can add, change or delete your communication data.",
   "myData_initialCreation": "Create",
   "myData_createInformation": "Create Information",
   "myData_chooseInformationType": "Select an information type!",
@@ -453,7 +456,7 @@
       }
     }
   },
-  "myData_initialCreation_personalData": "Create identity data",
+  "myData_initialCreation_personalData": "Create personal information",
   "myData_initialCreation_personalData_description": "Enter your basic personal information, to be able to share it with your contacts.",
   "myData_initialCreation_communicationData": "Create communication data",
   "myData_initialCreation_communicationData_description": "Please enter your communication data, to be able to share it with your contacts.",
@@ -462,7 +465,7 @@
   "myData_initialCreation_communicationData_infoPhoneNumber": "A phone number can be either a landline or a mobile phone number.",
   "myData_initialCreation_communicationData_infoWebsite": "A website can be any form of public profile, for example on LinkedIn or Instagram.",
   "myData_initialCreation_error": "An error occurred while creating the data, please try again.",
-  "myData_initialCreation_addressData_title": "Create address data",
+  "myData_initialCreation_addressData_title": "Create addresses",
   "myData_initialCreation_addressData_description": "Enter your different addresses to share with your contacts. You can choose between several address types.",
   "myData_initialCreation_addressData_streetAddress": "Create an address",
   "myData_initialCreation_addressData_streetAddress_description": "An address is a residential address consisting of a street, postal code and city.",
@@ -480,14 +483,6 @@
   },
   "myData_initialCreation_addressData_createAttribute_description": "Please enter your {attribute} to be able to share it with your contacts.",
   "@myData_initialCreation_addressData_createAttribute_description": {
-    "placeholders": {
-      "attribute": {
-        "type": "String"
-      }
-    }
-  },
-  "personalData_filteredData_description": "Here you can add, change or delete your {attribute}.",
-  "@personalData_filteredData_description": {
     "placeholders": {
       "attribute": {
         "type": "String"
