@@ -12,12 +12,14 @@ import '/core/core.dart';
 class FilteredDataScreen extends StatefulWidget {
   final String accountId;
   final String title;
+  final String description;
   final List<String> valueTypes;
   final bool emphasizeAttributeHeadings;
 
   const FilteredDataScreen({
     required this.accountId,
     required this.title,
+    required this.description,
     required this.valueTypes,
     this.emphasizeAttributeHeadings = false,
     super.key,
@@ -53,7 +55,7 @@ class _FilteredDataScreenState extends State<FilteredDataScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: Text(context.l10n.personalData_filteredData_description(widget.title)),
+                child: Text(widget.description),
               ),
               Expanded(
                 child: ListView.separated(

@@ -276,6 +276,7 @@ final _router = GoRouter(
                   builder: (context, state) => FilteredDataScreen(
                     accountId: state.pathParameters['accountId']!,
                     title: context.l10n.myData_personalData,
+                    description: context.l10n.myData_personalData_description,
                     valueTypes: personalDataInitialAttributeTypes,
                   ),
                 ),
@@ -285,6 +286,7 @@ final _router = GoRouter(
                   builder: (context, state) => FilteredDataScreen(
                     accountId: state.pathParameters['accountId']!,
                     title: context.l10n.myData_addressData,
+                    description: context.l10n.myData_addressData_description,
                     valueTypes: addressDataInitialAttributeTypes,
                     emphasizeAttributeHeadings: true,
                   ),
@@ -322,6 +324,7 @@ final _router = GoRouter(
                   builder: (context, state) => FilteredDataScreen(
                     accountId: state.pathParameters['accountId']!,
                     title: context.l10n.myData_communicationData,
+                    description: context.l10n.myData_communicationData_description,
                     valueTypes: communcationDataInitialAttributeTypes,
                   ),
                 ),
