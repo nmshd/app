@@ -37,20 +37,20 @@ class MyHomePage extends StatefulWidget {
 
 const defaultQrData =
     'nmshd://tr#TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4gU3VzcGVuZGlzc2Ugdm9sdXRwYXQgZWxpdCBhIG1hc3NhIGx1Y3R1cyBtYXR0aXMuIERvbmVjIHF1aXMgdmVoaWN1bGEgc2FwaWVuLCBhIGVsZW1lbnR1bSBlbmltLiBNb3JiaSBldSBzYXBpZW4gbWFzc2EuIER1aXMgbWFnbmEgc2VtLCBlZmZpY2l0dXIgdmVsIG1vbGxpcyB2aXRhZSwgZmV1Z2lhdCBpZCB2ZWxpdC4gSW4gc2l0IGFtZXQgbWF1cmlzIG1ldHVzLiBNYXVyaXMgYXQgaWFjdWxpcyBxdWFtLiBBbGlxdWFtIGVyYXQgdm9sdXRwYXQuIEN1cmFiaXR1ciB2YXJpdXMgZXVpc21vZCBhdWd1ZSwgcXVpcyBtb2xlc3RpZSBudW5jIHVsdHJpY2VzIHZpdGFlLiBDdXJhYml0dXIganVzdG8gcHVydXMsIGF1Y3RvciBzY2VsZXJpc3F1ZSBhbnRlIGV1LCB2aXZlcnJhIHN1c2NpcGl0IGxvcmVtLiBOdW5jIGlwc3VtIHR1cnBpcywgaW1wZXJkaWV0IGVnZXQgdml2ZXJyYSBlZ2V0LCBjb25zZXF1YXQgc2VkIGRpYW0uIEluIG5pc2wgbGVjdHVzLCBzY2VsZXJpc3F1ZSBzaXQgYW1ldCB2ZWxpdCBpZCwgZnJpbmdpbGxhIGFjY3Vtc2FuIGxvcmVtLiBDcmFzIGx1Y3R1cyBsYWNpbmlhIG5pYmggc2l0IGFtZXQgaW50ZXJkdW0uIE51bGxhbSBlZ2VzdGFzIGV1aXNtb2QgbnVsbGEgdmVsIHVsdHJpY2VzLg==';
-const headerTitle = 'Wiederherstellungskit für\nIhre Mein Bildungsraum-Daten';
+const headerTitle = 'Wiederherstellungskit für\nIhre Enmeshed-Daten';
 const keepSafeText =
-    'Bitte bewahren Sie dieses Wiederherstellungs-Kit an einem für Dritte unzugänglichen Ort auf. Sobald Sie das selbst gewählte Master Passwort hier notiert haben ist ein Zugriff auf Ihre Mein Bildungsraum-Daten möglich.';
+    'Bitte bewahren Sie dieses Wiederherstellungs-Kit an einem für Dritte unzugänglichen Ort auf. Sobald Sie das selbst gewählte Master Passwort hier notiert haben ist ein Zugriff auf Ihre Enmeshed-Daten möglich.';
 const infoText1 =
     'Drucken Sie dieses Dokument aus oder speichern Sie es an einem sicheren Ort, beispielsweise einem weiteren Mobilgerät oder Ihrem Computer.';
 const infoText2 =
     'Schreiben Sie in das untenstehende Feld das Passwort, das Sie bei der Erstellung des Kits vergeben haben. Zur Wiederherstellung Ihrer verschlüsselten Daten benötigen Sie den QR Code und das von Ihnen vergebene Passwort.';
-const idLabel = 'Mein Bildungsraum ID';
-const id = 'did:e:nmshd-bkb.meinbildungsraum.de:dids:4fe203de633a66b56730e3';
+const idLabel = 'Enmeshed ID';
+const id = 'did:e:nmshd-bkb.enmeshed.de:dids:4fe203de633a66b56730e3';
 const passwordLabel = 'Passwort';
 const qrDescription =
-    'Wenn Sie Ihr Endgerät verloren haben sollten oder keinen Zugriff mehr darauf haben, scannen Sie einfach den QR Code mit einem neuen Endgerät um wieder Zugang zu Ihren Mein Bildungsraum-Daten zu erhalten.';
+    'Wenn Sie Ihr Endgerät verloren haben sollten oder keinen Zugriff mehr darauf haben, scannen Sie einfach den QR Code mit einem neuen Endgerät um wieder Zugang zu Ihren Enmeshed-Daten zu erhalten.';
 const needHelpTitle = 'Benötigen Sie Hilfe?';
-const needHelpText = 'Wenden Sie sich an den Mein Bildungsraum-Support: support@meinbildungsraum.de';
+const needHelpText = 'Wenden Sie sich an den Enmeshed-Support: support@enmeshed.de';
 const headerTitleHexColor = '#CD5038';
 const backgroundHexColor = '#D0E6F3';
 const defaultTextHexColor = '#004F79';
