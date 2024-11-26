@@ -61,7 +61,10 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(title: Text(widget.title), leading: BackButton(onPressed: widget.resetType ?? () => context.pop()));
+    final appBar = AppBar(
+      title: Text(widget.title, maxLines: 2),
+      leading: BackButton(onPressed: widget.resetType ?? () => context.pop()),
+    );
 
     if (!_controllersInitialized || !_rendererHintsLoaded) {
       return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
