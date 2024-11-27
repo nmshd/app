@@ -12,6 +12,7 @@
   "close": "Schließen",
   "reject": "Ablehnen",
   "accept": "Akzeptieren",
+  "confirm": "Bestätigen",
   "edit": "Bearbeiten",
   "update": "Aktualisieren",
   "help": "Hilfe",
@@ -330,6 +331,16 @@
   "contact_information_noMessages": "Keine Nachrichten vorhanden.",
   "contact_information_sharedFiles": "Geteilte Dateien",
   "contact_requestDescription": "Nachfolgende Daten bzw. Anfragen möchte der neue Kontakt mit Ihnen teilen:",
+  "contact_request_validationError": "{count, plural, =1{1 Fehlermeldung} other{{count} Fehlermeldungen}}",
+  "@contact_request_validationError": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "contact_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Kontaktanfrage abzuschließen.",
+  "message_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Aufgabe abzuschließen.",
   "contact_request": "Kontaktanfrage",
   "contacts_empty": "Kontakte hinzufügen",
   "contacts_emptyDescription": "Verbinden Sie sich mit Kontakten, um Daten oder Dokumente zu teilen oder zu empfangen.",

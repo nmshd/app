@@ -11,6 +11,7 @@ import 'package:renderers/renderers.dart';
 
 import '../constants.dart';
 import '../modals/create_attribute.dart';
+import '../types/types.dart';
 import '../utils/utils.dart';
 import 'contact_circle_avatar.dart';
 import 'file_chooser.dart';
@@ -20,18 +21,22 @@ class RequestDVORenderer extends StatefulWidget {
   final String requestId;
   final bool isIncoming;
   final String acceptRequestText;
+  final String validationErrorDescription;
   final VoidCallback onAfterAccept;
   final bool showHeader;
   final LocalRequestDVO? requestDVO;
+  final String? description;
 
   const RequestDVORenderer({
     required this.accountId,
     required this.requestId,
     required this.isIncoming,
     required this.acceptRequestText,
+    required this.validationErrorDescription,
     required this.onAfterAccept,
     this.showHeader = true,
     this.requestDVO,
+    this.description,
     super.key,
   });
 
@@ -40,10 +45,12 @@ class RequestDVORenderer extends StatefulWidget {
 }
 
 class _RequestDVORendererState extends State<RequestDVORenderer> {
+  final _formKey = GlobalKey<FormState>();
+
+  final _scrollController = ScrollController();
   late RequestRendererController _controller;
 
   LocalRequestDVO? _request;
-  DecideRequestParameters? _decideRequestParameters;
   RequestValidationResultDTO? _validationResult;
   GetIdentityInfoResponse? _identityInfo;
 
@@ -67,6 +74,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     _controller.dispose();
 
     super.dispose();
@@ -99,71 +107,79 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (widget.showHeader) ...[
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Text(context.l10n.contact_requestDescription),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Row(
-                      children: [
-                        ContactCircleAvatar(contact: _request!.peer, radius: 31),
-                        Gaps.w16,
-                        Expanded(child: Text(_request!.peer.isUnknown ? context.l10n.contacts_unknown : _request!.peer.name)),
-                      ],
+          child: Scrollbar(
+            controller: _scrollController,
+            thumbVisibility: true,
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (widget.showHeader) ...[
+                    if (widget.description != null)
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(widget.description!),
+                      ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Row(
+                        children: [
+                          ContactCircleAvatar(contact: _request!.peer, radius: 31),
+                          Gaps.w16,
+                          Expanded(
+                            child: Text(
+                              _request!.peer.isUnknown ? context.l10n.contacts_unknown : _request!.peer.name,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Text(context.l10n.mandatoryField),
+                  ],
+                  if (_validationResult != null && !_validationResult!.isSuccess)
+                    _RequestRenderErrorContainer(
+                      errorCount: _validationResult!.countOfValidationErrors,
+                      validationErrorDescription: widget.validationErrorDescription,
+                    ),
+                  if (_request!.isDecidable)
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(context.l10n.mandatoryField),
+                    ),
+                  RequestRenderer(
+                    formKey: _formKey,
+                    request: _request!,
+                    controller: _controller,
+                    currentAddress: _identityInfo!.address,
+                    openAttributeSwitcher: _openAttributeSwitcher,
+                    expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                    chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
+                    openFileDetails: (file) =>
+                        context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                   ),
                 ],
-                RequestRenderer(
-                  formKey: GlobalKey<FormState>(),
-                  request: _request!,
-                  controller: _controller,
-                  currentAddress: _identityInfo!.address,
-                  openAttributeSwitcher: _openAttributeSwitcher,
-                  expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                  chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                  openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
-                ),
-              ],
+              ),
             ),
           ),
         ),
         if (_request!.isDecidable)
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton.icon(
-                  icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error, size: 16),
-                  label: Text(context.l10n.reject, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: _loading && _request != null ? null : _rejectRequest,
-                ),
-                FilledButton(
-                  style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                  onPressed: _canAccept ? _acceptRequest : null,
-                  child: Text(widget.acceptRequestText),
-                ),
+                OutlinedButton(onPressed: _loading && _request != null ? null : _rejectRequest, child: Text(context.l10n.reject)),
+                Gaps.w8,
+                FilledButton(onPressed: _acceptRequest, child: Text(widget.acceptRequestText)),
               ],
             ),
           ),
       ],
     );
   }
-
-  bool get _canAccept => !_loading && (_validationResult?.isSuccess ?? false) && _decideRequestParameters != null;
 
   Future<void> _loadRequest(Session session) async {
     final requestDto = widget.isIncoming
@@ -183,31 +199,32 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     setState(() => _identityInfo = identityInfo.value);
   }
 
-  void _setController(Session session, LocalRequestDVO request) {
-    _controller = RequestRendererController(request: request)
-      ..addListener(() {
-        WidgetsBinding.instance.addPostFrameCallback((_) async {
-          final params = _controller.value;
-
-          final result = await session.consumptionServices.incomingRequests.canAccept(params: params);
-          if (result.isError) return GetIt.I.get<Logger>().e(result.error);
-
-          setState(() {
-            _validationResult = result.value;
-            _decideRequestParameters = params;
-          });
-        });
-      });
-  }
+  void _setController(Session session, LocalRequestDVO request) => _controller = RequestRendererController(request: request);
 
   Future<void> _acceptRequest() async {
+    if (_loading) return;
+
+    final params = _controller.value;
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final result = await session.consumptionServices.incomingRequests.canAccept(params: params);
+    if (result.isError) return GetIt.I.get<Logger>().e(result.error);
+
+    setState(() => _validationResult = result.value);
+
+    if (!result.value.isSuccess) {
+      _formKey.currentState?.validate();
+      await _scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+      return;
+    }
+
+    if (!mounted) return;
+
     setState(() => _loading = true);
 
     unawaited(showLoadingDialog(context, context.l10n.request_accepting));
 
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-    final result = await session.consumptionServices.incomingRequests.accept(params: _decideRequestParameters!);
-    if (result.isError) {
+    final acceptResult = await session.consumptionServices.incomingRequests.accept(params: params);
+    if (acceptResult.isError) {
       GetIt.I.get<Logger>().e('Can not accept request: ${result.error}');
 
       if (mounted) context.pop();
@@ -415,5 +432,59 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
         ],
       ),
     );
+  }
+}
+
+class _RequestRenderErrorContainer extends StatelessWidget {
+  final int errorCount;
+  final String validationErrorDescription;
+
+  const _RequestRenderErrorContainer({required this.errorCount, required this.validationErrorDescription});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.errorContainer,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.error, color: Theme.of(context).colorScheme.error),
+              Gaps.w8,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.l10n.contact_request_validationError(errorCount),
+                      style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
+                    ),
+                    Gaps.h8,
+                    Text(
+                      validationErrorDescription,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onErrorContainer),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+extension on RequestValidationResultDTO {
+  int get countOfValidationErrors {
+    if (items.isEmpty) return isSuccess ? 0 : 1;
+
+    return items.map((item) => item.countOfValidationErrors).reduce((a, b) => a + b);
   }
 }

@@ -25,9 +25,11 @@ class RequestScreen extends StatelessWidget {
           isIncoming: isIncoming,
           requestDVO: requestDVO,
           acceptRequestText: context.l10n.home_addContact,
+          validationErrorDescription: context.l10n.contact_request_validationErrorDescription,
           onAfterAccept: () {
             if (context.mounted) context.go('/account/$accountId/contacts');
           },
+          description: context.l10n.contact_requestDescription,
         ),
       ),
     );
