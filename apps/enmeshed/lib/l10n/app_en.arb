@@ -12,6 +12,7 @@
   "close": "Close",
   "reject": "Reject",
   "accept": "Accept",
+  "confirm": "Confirm",
   "edit": "Edit",
   "update": "Update",
   "help": "Help",
@@ -330,6 +331,16 @@
   "contact_information_noMessages": "No messages available.",
   "contact_information_sharedFiles": "Shared Files",
   "contact_requestDescription": "The new contact would like to share the following data or requests with you:",
+  "contact_request_validationError": "{count, plural, =1{1 Error message} other{{count} Error messages}}",
+  "@contact_request_validationError": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "contact_request_validationErrorDescription": "Please correct all fields marked with an error to complete the contact request.",
+  "message_request_validationErrorDescription": "Please correct all fields marked with an error to complete the task.",
   "contact_request": "Contact Request",
   "contacts_empty": "Add contacts",
   "contacts_emptyDescription": "Connect with contacts to share or receive data and documents.",

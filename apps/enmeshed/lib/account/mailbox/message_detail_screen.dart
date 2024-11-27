@@ -205,6 +205,7 @@ class _RequestInformationState extends State<_RequestInformation> {
         isIncoming: !widget.message.request.isOwn,
         requestDVO: useRequestFromMessage ? widget.message.request : null,
         acceptRequestText: context.l10n.accept,
+        validationErrorDescription: context.l10n.message_request_validationErrorDescription,
         showHeader: false,
         onAfterAccept: () => setState(() => useRequestFromMessage = false),
       ),
