@@ -1,4 +1,4 @@
-# identity recovery kit
+# Identity Recovery Kit Generator
 
 A Dart package to easily generate a ‘Identity Recovery Kit’ PDF for secure identity recovery.
 
