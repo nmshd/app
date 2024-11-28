@@ -181,23 +181,18 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Address hex color'),
             ),
             const SizedBox(height: 12),
-            Row(
-              children: [
-                const Text('QR error correction level:'),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: SegmentedButton(
-                    segments: const [
-                      ButtonSegment(value: QRErrorCorrectionLevel.L, label: Text('Low')),
-                      ButtonSegment(value: QRErrorCorrectionLevel.M, label: Text('Medium')),
-                      ButtonSegment(value: QRErrorCorrectionLevel.Q, label: Text('Quartile')),
-                      ButtonSegment(value: QRErrorCorrectionLevel.H, label: Text('High')),
-                    ],
-                    selected: {_selectedErrorCorrectionLevel},
-                    onSelectionChanged: (value) => setState(() => _selectedErrorCorrectionLevel = value.first),
-                  ),
-                ),
+            const Text('QR error correction level:'),
+            const SizedBox(height: 6),
+            SegmentedButton(
+              segments: const [
+                ButtonSegment(value: QRErrorCorrectionLevel.L, label: Text('Low')),
+                ButtonSegment(value: QRErrorCorrectionLevel.M, label: Text('Medium')),
+                ButtonSegment(value: QRErrorCorrectionLevel.Q, label: Text('Quartile')),
+                ButtonSegment(value: QRErrorCorrectionLevel.H, label: Text('High')),
               ],
+              showSelectedIcon: false,
+              selected: {_selectedErrorCorrectionLevel},
+              onSelectionChanged: (value) => setState(() => _selectedErrorCorrectionLevel = value.first),
             ),
             const SizedBox(height: 36),
             Row(
