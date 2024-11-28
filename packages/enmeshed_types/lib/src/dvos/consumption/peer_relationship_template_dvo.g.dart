@@ -26,6 +26,7 @@ PeerRelationshipTemplateDVO _$PeerRelationshipTemplateDVOFromJson(Map<String, dy
       request: json['request'] == null ? null : LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
       content: RelationshipTemplateContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
       forIdentity: json['forIdentity'] as String?,
+      passwordProtection: json['passwordProtection'] == null ? null : PasswordProtection.fromJson(json['passwordProtection'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PeerRelationshipTemplateDVOToJson(PeerRelationshipTemplateDVO instance) {
@@ -57,5 +58,6 @@ Map<String, dynamic> _$PeerRelationshipTemplateDVOToJson(PeerRelationshipTemplat
   writeNotNull('request', instance.request?.toJson());
   val['content'] = instance.content.toJson();
   writeNotNull('forIdentity', instance.forIdentity);
+  writeNotNull('passwordProtection', instance.passwordProtection?.toJson());
   return val;
 }
