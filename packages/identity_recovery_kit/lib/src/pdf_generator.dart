@@ -63,9 +63,9 @@ class PdfGenerator {
                         children: [
                           _buildInfoText(keepSafeText, defaultTextHexColor),
                           pw.SizedBox(height: _getSize(50)),
-                          _buildNumberText1(infoText1, defaultTextHexColor),
+                          _buildNumberedText(1, infoText1, defaultTextHexColor),
                           pw.SizedBox(height: _getSize(50)),
-                          _buildNumberText2(infoText2, defaultTextHexColor),
+                          _buildNumberedText(2, infoText2, defaultTextHexColor),
                           pw.SizedBox(height: _getSize(126)),
                           _buildIdContainer(addressLabel, address, borderHexColor, labelHexColor, addressHexColor),
                           pw.SizedBox(height: _getSize(50)),
@@ -112,24 +112,13 @@ class PdfGenerator {
     return pw.Text(keepSafeText, style: pw.TextStyle(fontSize: _getFontSize(36), color: PdfColor.fromHex(defaultTextColor)));
   }
 
-  static pw.Row _buildNumberText1(String infoText1, String defaultTextColor) {
+  static pw.Row _buildNumberedText(int number, String infoText, String defaultTextColor) {
     return pw.Row(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      crossAxisAlignment: pw.CrossAxisAlignment.center,
       children: [
-        pw.Text('1.', style: pw.TextStyle(fontSize: _getFontSize(84), color: PdfColor.fromHex(defaultTextColor))),
+        pw.Text('$number.', style: pw.TextStyle(fontSize: _getFontSize(84), color: PdfColor.fromHex(defaultTextColor))),
         pw.SizedBox(width: _getSize(37)),
-        pw.Expanded(child: pw.Text(infoText1, style: pw.TextStyle(fontSize: _getFontSize(36), color: PdfColor.fromHex(defaultTextColor)))),
-      ],
-    );
-  }
-
-  static pw.Row _buildNumberText2(String infoText2, String defaultTextColor) {
-    return pw.Row(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.Text('2.', style: pw.TextStyle(fontSize: _getFontSize(84), color: PdfColor.fromHex(defaultTextColor))),
-        pw.SizedBox(width: _getSize(37)),
-        pw.Expanded(child: pw.Text(infoText2, style: pw.TextStyle(fontSize: _getFontSize(36), color: PdfColor.fromHex(defaultTextColor)))),
+        pw.Expanded(child: pw.Text(infoText, style: pw.TextStyle(fontSize: _getFontSize(36), color: PdfColor.fromHex(defaultTextColor)))),
       ],
     );
   }
