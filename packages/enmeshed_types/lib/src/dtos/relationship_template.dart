@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../common/password_protection.dart';
+import '../common/common.dart';
 import '../contents/contents.dart';
 
 class RelationshipTemplateDTO extends Equatable {

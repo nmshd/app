@@ -10,5 +10,12 @@ class PasswordProtection {
   const PasswordProtection({required this.password, this.passwordIsPin});
 
   factory PasswordProtection.fromJson(Map json) => _$PasswordProtectionFromJson(Map<String, dynamic>.from(json));
-  Map<String, dynamic> toJson() => _$PasswordProtectionToJson(this);
+  Map<String, dynamic> toJson() {
+    final json = _$PasswordProtectionToJson(this);
+
+    // properly handle the the runtime only accepts null or true which dart isn't able to display
+    if (passwordIsPin == false) json.remove('passwordIsPin');
+
+    return json;
+  }
 }

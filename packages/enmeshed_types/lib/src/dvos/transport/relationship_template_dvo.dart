@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../common/password_protection.dart';
+import '../../common/common.dart';
 import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
