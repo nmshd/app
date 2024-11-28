@@ -27,12 +27,13 @@ class PdfGenerator {
     required String labelHexColor,
     required String addressHexColor,
     QRErrorCorrectionLevel? errorCorrectionLevel,
+    int qrPixelSize = 20,
   }) async {
     final pdf = pw.Document();
 
     final logoImage = pw.MemoryImage(logoBytes);
 
-    final qrImage = await generateQrCode(truncatedReference, errorCorrectionLevel: errorCorrectionLevel ?? QRErrorCorrectionLevel.L);
+    final qrImage = await generateQrCode(truncatedReference, errorCorrectionLevel: errorCorrectionLevel, pixelSize: qrPixelSize);
 
     pdf.addPage(
       pw.Page(

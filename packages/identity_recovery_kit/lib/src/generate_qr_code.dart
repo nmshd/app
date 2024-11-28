@@ -7,13 +7,13 @@ import 'package:qr_flutter/qr_flutter.dart';
 Future<pw.MemoryImage> generateQrCode(
   String data, {
   int pixelSize = 10,
-  QRErrorCorrectionLevel errorCorrectionLevel = QRErrorCorrectionLevel.L,
+  QRErrorCorrectionLevel? errorCorrectionLevel,
   ui.Color backgroundColor = const ui.Color(0xFFFFFFFF),
   ui.Color paintColor = const ui.Color(0xFF000000),
 }) async {
   final qrCode = QrCode.fromData(
     data: data,
-    errorCorrectLevel: switch (errorCorrectionLevel) {
+    errorCorrectLevel: switch (errorCorrectionLevel ?? QRErrorCorrectionLevel.L) {
       QRErrorCorrectionLevel.L => QrErrorCorrectLevel.L,
       QRErrorCorrectionLevel.M => QrErrorCorrectLevel.M,
       QRErrorCorrectionLevel.Q => QrErrorCorrectLevel.Q,
