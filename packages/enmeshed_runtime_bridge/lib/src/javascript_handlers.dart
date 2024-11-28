@@ -25,7 +25,7 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
   final data = payload['data'] as Map<String, dynamic>?;
   if (data == null) {
     final event = switch (namespace) {
-      'app.datawalletSynchronized' => DatawalletSynchronizedEvent(eventTargetAddress: eventTargetAddress),
+      'transport.datawalletSynchronized' => DatawalletSynchronizedEvent(eventTargetAddress: eventTargetAddress),
       _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: {}),
     };
 
