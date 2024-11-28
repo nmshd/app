@@ -5,6 +5,20 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'generate_qr_code.dart';
 
+typedef QRSettings = ({QRErrorCorrectionLevel? errorCorrectionLevel, int? qrPixelSize});
+typedef PdfTexts = ({
+  String headerTitle,
+  String keepSafeText,
+  String infoText1,
+  String infoText2,
+  String addressLabel,
+  String address,
+  String passwordLabel,
+  String qrDescription,
+  String needHelpTitle,
+  String needHelpText,
+});
+
 class PdfGenerator {
   final PdfColor headerTitleColor;
   final PdfColor backgroundColor;
@@ -13,6 +27,10 @@ class PdfGenerator {
   final PdfColor labelColor;
   final PdfColor addressColor;
 
+  final PdfTexts pdfTexts;
+
+  final QRSettings? qrSettings;
+
   PdfGenerator({
     required String headerTitleHexColor,
     required String backgroundHexColor,
@@ -20,6 +38,8 @@ class PdfGenerator {
     required String borderHexColor,
     required String labelHexColor,
     required String addressHexColor,
+    required this.pdfTexts,
+    this.qrSettings,
   })  : headerTitleColor = PdfColor.fromHex(headerTitleHexColor),
         backgroundColor = PdfColor.fromHex(backgroundHexColor),
         defaultTextColor = PdfColor.fromHex(defaultTextHexColor),
@@ -31,75 +51,73 @@ class PdfGenerator {
     required Uint8List logoBytes,
     required String spacerSvgImage,
     required String truncatedReference,
-    required String headerTitle,
-    required String keepSafeText,
-    required String infoText1,
-    required String infoText2,
-    required String addressLabel,
-    required String address,
-    required String passwordLabel,
-    required String qrDescription,
-    required String needHelpTitle,
-    required String needHelpText,
-    QRErrorCorrectionLevel? errorCorrectionLevel,
-    int qrPixelSize = 20,
   }) async {
     final pdf = pw.Document();
 
     final logoImage = pw.MemoryImage(logoBytes);
 
-    final qrImage = await generateQrCode(truncatedReference, errorCorrectionLevel: errorCorrectionLevel, pixelSize: qrPixelSize);
-
-    pdf.addPage(
-      pw.Page(
-        margin: pw.EdgeInsets.all(_getSize(150)),
-        build: (context) {
-          return pw.Column(
-            children: [
-              _buildHeader(headerTitle, logoImage),
-              pw.SizedBox(height: _getSize(151)),
-              pw.SvgImage(svg: spacerSvgImage),
-              pw.Expanded(
-                child: pw.Stack(
-                  children: [
-                    pw.Container(
-                      width: double.infinity,
-                      decoration: pw.BoxDecoration(
-                        color: backgroundColor,
-                        borderRadius: pw.BorderRadius.only(
-                          bottomLeft: pw.Radius.circular(_getSize(40)),
-                          bottomRight: pw.Radius.circular(_getSize(40)),
-                        ),
-                      ),
-                    ),
-                    pw.Padding(
-                      padding: pw.EdgeInsets.only(top: _getSize(126), bottom: _getSize(150), left: _getSize(100), right: _getSize(100)),
-                      child: pw.Column(
-                        children: [
-                          _buildInfoText(keepSafeText),
-                          pw.SizedBox(height: _getSize(50)),
-                          _buildNumberedText(1, infoText1),
-                          pw.SizedBox(height: _getSize(50)),
-                          _buildNumberedText(2, infoText2),
-                          pw.SizedBox(height: _getSize(126)),
-                          _buildIdContainer(addressLabel, address),
-                          pw.SizedBox(height: _getSize(50)),
-                          _buildPasswordContainer(passwordLabel),
-                          pw.SizedBox(height: _getSize(150)),
-                          _buildQrRow(qrImage, qrDescription, needHelpTitle, needHelpText),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+    final qrImage = await generateQrCode(
+      truncatedReference,
+      errorCorrectionLevel: qrSettings?.errorCorrectionLevel,
+      pixelSize: qrSettings?.qrPixelSize,
     );
 
+    pdf.addPage(_buildPage(logoImage: logoImage, spacerSvgImage: spacerSvgImage, qrImage: pw.MemoryImage(qrImage.bytes)));
+
     return pdf.save();
+  }
+
+  pw.Page _buildPage({
+    required pw.MemoryImage logoImage,
+    required String spacerSvgImage,
+    required pw.MemoryImage qrImage,
+  }) {
+    return pw.Page(
+      margin: pw.EdgeInsets.all(_getSize(150)),
+      build: (context) {
+        return pw.Column(
+          children: [
+            _buildHeader(logoImage),
+            pw.SizedBox(height: _getSize(151)),
+            pw.SvgImage(svg: spacerSvgImage),
+            pw.Expanded(
+              child: pw.Stack(
+                children: [
+                  pw.Container(
+                    width: double.infinity,
+                    decoration: pw.BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: pw.BorderRadius.only(
+                        bottomLeft: pw.Radius.circular(_getSize(40)),
+                        bottomRight: pw.Radius.circular(_getSize(40)),
+                      ),
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: pw.EdgeInsets.only(top: _getSize(126), bottom: _getSize(150), left: _getSize(100), right: _getSize(100)),
+                    child: pw.Column(
+                      children: [
+                        _buildInfoText(),
+                        pw.SizedBox(height: _getSize(50)),
+                        _buildNumberedText(1, pdfTexts.infoText1),
+                        pw.SizedBox(height: _getSize(50)),
+                        _buildNumberedText(2, pdfTexts.infoText2),
+                        pw.SizedBox(height: _getSize(126)),
+                        _buildIdContainer(),
+                        pw.SizedBox(height: _getSize(50)),
+                        _buildPasswordContainer(),
+                        pw.SizedBox(height: _getSize(150)),
+                        _buildQrRow(qrImage),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   double _getSize(double size) => (841.89 * size) / 2970;
@@ -107,14 +125,14 @@ class PdfGenerator {
   double _getFontSize(double size) => size / 3.692308;
   double _getFontContainer(double size) => size / 3.44;
 
-  pw.Row _buildHeader(String headerTitle, pw.MemoryImage logoImage) {
+  pw.Row _buildHeader(pw.MemoryImage logoImage) {
     return pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
       children: [
         pw.SizedBox(
           width: _getSize(800),
           child: pw.Expanded(
-            child: pw.Text(headerTitle, style: pw.TextStyle(fontSize: _getFontSizeTitle(72), color: headerTitleColor)),
+            child: pw.Text(pdfTexts.headerTitle, style: pw.TextStyle(fontSize: _getFontSizeTitle(72), color: headerTitleColor)),
           ),
         ),
         pw.SizedBox(width: _getSize(100)),
@@ -123,8 +141,8 @@ class PdfGenerator {
     );
   }
 
-  pw.Text _buildInfoText(String keepSafeText) {
-    return pw.Text(keepSafeText, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor));
+  pw.Text _buildInfoText() {
+    return pw.Text(pdfTexts.keepSafeText, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor));
   }
 
   pw.Row _buildNumberedText(int number, String infoText) {
@@ -138,20 +156,22 @@ class PdfGenerator {
     );
   }
 
-  pw.Container _buildIdContainer(String addressLabel, String address) {
+  pw.Container _buildIdContainer() {
     return _buildTextContainer(
       child: pw.Row(
         mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
-          pw.Text('$addressLabel: ', style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: labelColor)),
-          pw.Text(address, style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: addressColor)),
+          pw.Text('${pdfTexts.addressLabel}: ', style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: labelColor)),
+          pw.Text(pdfTexts.address, style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: addressColor)),
         ],
       ),
     );
   }
 
-  pw.Container _buildPasswordContainer(String passwordKey) {
-    return _buildTextContainer(child: pw.Text('$passwordKey:', style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: labelColor)));
+  pw.Container _buildPasswordContainer() {
+    return _buildTextContainer(
+      child: pw.Text('${pdfTexts.passwordLabel}:', style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: labelColor)),
+    );
   }
 
   pw.Container _buildTextContainer({required pw.Widget child}) {
@@ -167,12 +187,7 @@ class PdfGenerator {
     );
   }
 
-  pw.Row _buildQrRow(
-    pw.MemoryImage qrImage,
-    String qrDescription,
-    String needHelpTitle,
-    String needHelpText,
-  ) {
+  pw.Row _buildQrRow(pw.MemoryImage qrImage) {
     return pw.Row(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -181,7 +196,7 @@ class PdfGenerator {
           width: _getSize(485),
           child: pw.Padding(
             padding: pw.EdgeInsets.only(top: _getSize(52)),
-            child: pw.Text(qrDescription, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor)),
+            child: pw.Text(pdfTexts.qrDescription, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor)),
           ),
         ),
         _buildQr(qrImage),
@@ -193,11 +208,11 @@ class PdfGenerator {
             children: [
               pw.SizedBox(height: _getSize(52)),
               pw.Text(
-                needHelpTitle,
+                pdfTexts.needHelpTitle,
                 style: pw.TextStyle(fontSize: _getFontSize(36), fontWeight: pw.FontWeight.bold, color: defaultTextColor),
               ),
               pw.SizedBox(height: _getSize(36)),
-              pw.Text(needHelpText, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor)),
+              pw.Text(pdfTexts.needHelpText, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor)),
             ],
           ),
         ),
