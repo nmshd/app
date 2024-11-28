@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:identity_recovery_kit/src/qr_error_correction_level.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -25,12 +26,13 @@ class PdfGenerator {
     required String borderHexColor,
     required String labelHexColor,
     required String addressHexColor,
+    QRErrorCorrectionLevel? errorCorrectionLevel,
   }) async {
     final pdf = pw.Document();
 
     final logoImage = pw.MemoryImage(logoBytes);
 
-    final qrImage = await generateQrCode(truncatedReference);
+    final qrImage = await generateQrCode(truncatedReference, errorCorrectionLevel: errorCorrectionLevel ?? QRErrorCorrectionLevel.L);
 
     pdf.addPage(
       pw.Page(
