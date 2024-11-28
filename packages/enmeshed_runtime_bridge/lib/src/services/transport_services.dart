@@ -10,6 +10,7 @@ class TransportServices {
   final TokensFacade tokens;
   final DevicesFacade devices;
   final IdentityDeletionProcessesFacade identityDeletionProcesses;
+  final PublicRelationshipTemplateReferencesFacade publicRelationshipTemplateReferences;
 
   TransportServices(AbstractEvaluator evaluator)
       : messages = MessagesFacade(evaluator),
@@ -19,5 +20,6 @@ class TransportServices {
         account = AccountFacade(evaluator),
         tokens = TokensFacade(evaluator),
         devices = DevicesFacade(evaluator),
-        identityDeletionProcesses = IdentityDeletionProcessesFacade(evaluator);
+        identityDeletionProcesses = IdentityDeletionProcessesFacade(evaluator),
+        publicRelationshipTemplateReferences = PublicRelationshipTemplateReferencesFacade(evaluator);
 }
