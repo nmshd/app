@@ -1,9 +1,8 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:qr_flutter/qr_flutter.dart';
+
+import 'generate_qr_code.dart';
 
 class PdfGenerator {
   static Future<Uint8List> generate({
@@ -14,8 +13,8 @@ class PdfGenerator {
     required String keepSafeText,
     required String infoText1,
     required String infoText2,
-    required String idLabel,
-    required String id,
+    required String addressLabel,
+    required String address,
     required String passwordLabel,
     required String qrDescription,
     required String needHelpTitle,
@@ -25,14 +24,13 @@ class PdfGenerator {
     required String defaultTextHexColor,
     required String borderHexColor,
     required String labelHexColor,
-    required String idHexColor,
+    required String addressHexColor,
   }) async {
     final pdf = pw.Document();
 
     final logoImage = pw.MemoryImage(logoBytes);
 
-    final qrCodeBytes = await _generateQrCode(truncatedReference);
-    final qrImage = pw.MemoryImage(qrCodeBytes);
+    final qrImage = await generateQrCode(truncatedReference);
 
     pdf.addPage(
       pw.Page(
@@ -66,7 +64,7 @@ class PdfGenerator {
                           pw.SizedBox(height: _getSize(50)),
                           _buildNumberText2(infoText2, defaultTextHexColor),
                           pw.SizedBox(height: _getSize(126)),
-                          _buildIdContainer(idLabel, id, borderHexColor, labelHexColor, idHexColor),
+                          _buildIdContainer(addressLabel, address, borderHexColor, labelHexColor, addressHexColor),
                           pw.SizedBox(height: _getSize(50)),
                           _buildPasswordContainer(passwordLabel, borderHexColor, labelHexColor),
                           pw.SizedBox(height: _getSize(150)),
@@ -95,7 +93,13 @@ class PdfGenerator {
     return pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
       children: [
-        pw.Text(headerTitle, style: pw.TextStyle(fontSize: _getFontSizeTitle(72), color: PdfColor.fromHex(headerTitleColor))),
+        pw.SizedBox(
+          width: _getSize(800),
+          child: pw.Expanded(
+            child: pw.Text(headerTitle, style: pw.TextStyle(fontSize: _getFontSizeTitle(72), color: PdfColor.fromHex(headerTitleColor))),
+          ),
+        ),
+        pw.SizedBox(width: _getSize(100)),
         pw.Align(alignment: pw.Alignment.topRight, child: pw.Image(logoImage, width: _getSize(764), height: _getSize(173))),
       ],
     );
@@ -127,7 +131,7 @@ class PdfGenerator {
     );
   }
 
-  static pw.Container _buildIdContainer(String idKey, String id, String borderColor, String labelColor, String idColor) {
+  static pw.Container _buildIdContainer(String addressLabel, String address, String borderColor, String labelColor, String addressColor) {
     return pw.Container(
       padding: pw.EdgeInsets.all(_getSize(35)),
       width: double.infinity,
@@ -139,8 +143,8 @@ class PdfGenerator {
       child: pw.Row(
         mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
-          pw.Text('$idKey: ', style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: PdfColor.fromHex(labelColor))),
-          pw.Text(id, style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: PdfColor.fromHex(idColor))),
+          pw.Text('$addressLabel: ', style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: PdfColor.fromHex(labelColor))),
+          pw.Text(address, style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: PdfColor.fromHex(addressColor))),
         ],
       ),
     );
@@ -216,46 +220,5 @@ class PdfGenerator {
         ),
       ),
     );
-  }
-
-  static Future<Uint8List> _generateQrCode(String data) async {
-    final qrCode = QrCode.fromData(
-      data: data,
-      errorCorrectLevel: QrErrorCorrectLevel.L,
-    );
-
-    final qrImage = QrImage(qrCode);
-    const pixelSize = 10;
-    final size = qrImage.moduleCount * pixelSize;
-
-    final pictureRecorder = ui.PictureRecorder();
-    final canvas = ui.Canvas(pictureRecorder);
-
-    final backgroundPaint = ui.Paint()..color = const ui.Color(0xFFFFFFFF);
-    canvas.drawRect(ui.Rect.fromLTWH(0, 0, size.toDouble(), size.toDouble()), backgroundPaint);
-
-    final paint = ui.Paint()..color = const ui.Color(0xFF000000); // Schwarz
-
-    for (int x = 0; x < qrImage.moduleCount; x++) {
-      for (int y = 0; y < qrImage.moduleCount; y++) {
-        if (qrImage.isDark(y, x)) {
-          canvas.drawRect(
-            ui.Rect.fromLTWH(
-              x * pixelSize.toDouble(),
-              y * pixelSize.toDouble(),
-              pixelSize.toDouble(),
-              pixelSize.toDouble(),
-            ),
-            paint,
-          );
-        }
-      }
-    }
-
-    final picture = pictureRecorder.endRecording();
-    final image = await picture.toImage(size, size);
-
-    final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-    return byteData!.buffer.asUint8List();
   }
 }
