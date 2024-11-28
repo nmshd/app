@@ -30,7 +30,15 @@ class DebugScreen extends StatelessWidget {
           children: [
             FutureBuilder(
               builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Address: ', text: s.data!.value.address),
-              future: GetIt.I.get<EnmeshedRuntime>().currentSession.transportServices.account.getIdentityInfo(),
+              future: () async {
+                final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
+                final lastUsedAccount = accounts.reduce(
+                  (value, element) => (value.lastAccessedAt ?? '').compareTo(element.lastAccessedAt ?? '') == 1 ? value : element,
+                );
+                final session = GetIt.I.get<EnmeshedRuntime>().getSession(lastUsedAccount.id);
+
+                return session.transportServices.account.getIdentityInfo();
+              }(),
             ),
             FutureBuilder(
               builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Push Token: ', text: s.data!),
