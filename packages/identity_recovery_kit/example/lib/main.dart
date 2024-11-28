@@ -238,7 +238,14 @@ class _MyHomePageState extends State<MyHomePage> {
     final logoImageData = await rootBundle.load('assets/logo.png');
     final logoBytes = logoImageData.buffer.asUint8List();
 
-    final generatedPdf = await PdfGenerator.generate(
+    final generatedPdf = await PdfGenerator(
+      headerTitleHexColor: _headerTitleHexColorController.text,
+      backgroundHexColor: _backgroundHexColorController.text,
+      defaultTextHexColor: _defaultTextHexColorController.text,
+      borderHexColor: _borderHexColorController.text,
+      labelHexColor: _labelHexColorController.text,
+      addressHexColor: _addressHexColorController.text,
+    ).generate(
       logoBytes: logoBytes,
       spacerSvgImage: spacerSvgImage,
       truncatedReference: _truncatedReferenceController.text,
@@ -252,12 +259,6 @@ class _MyHomePageState extends State<MyHomePage> {
       qrDescription: _qrDescriptionController.text,
       needHelpTitle: _needHelpTitleController.text,
       needHelpText: _needHelpTextController.text,
-      headerTitleHexColor: _headerTitleHexColorController.text,
-      backgroundHexColor: _backgroundHexColorController.text,
-      defaultTextHexColor: _defaultTextHexColorController.text,
-      borderHexColor: _borderHexColorController.text,
-      labelHexColor: _labelHexColorController.text,
-      addressHexColor: _addressHexColorController.text,
       errorCorrectionLevel: _selectedErrorCorrectionLevel,
     );
 
