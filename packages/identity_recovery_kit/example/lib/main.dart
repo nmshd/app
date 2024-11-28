@@ -76,6 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _labelHexColorController = TextEditingController();
   final TextEditingController _addressHexColorController = TextEditingController();
 
+  QRErrorCorrectionLevel _selectedErrorCorrectionLevel = QRErrorCorrectionLevel.L;
+
   @override
   void dispose() {
     super.dispose();
@@ -178,47 +180,33 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: _addressHexColorController,
               decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Address hex color'),
             ),
-            const SizedBox(height: 36),
-            ElevatedButton(
-              onPressed: () async {
-                final spacerSvgImage = await rootBundle.loadString('assets/triangle.svg');
-                final logoImageData = await rootBundle.load('assets/logo.png');
-                final logoBytes = logoImageData.buffer.asUint8List();
-
-                final generatedPdf = await PdfGenerator.generate(
-                  logoBytes: logoBytes,
-                  spacerSvgImage: spacerSvgImage,
-                  truncatedReference: _truncatedReferenceController.text,
-                  headerTitle: _headerTitleController.text,
-                  keepSafeText: _keepSafeTextController.text,
-                  infoText1: _infoText1Controller.text,
-                  infoText2: _infoText2Controller.text,
-                  addressLabel: _addressLabelController.text,
-                  address: _addressController.text,
-                  passwordLabel: _passwordLabelController.text,
-                  qrDescription: _qrDescriptionController.text,
-                  needHelpTitle: _needHelpTitleController.text,
-                  needHelpText: _needHelpTextController.text,
-                  headerTitleHexColor: _headerTitleHexColorController.text,
-                  backgroundHexColor: _backgroundHexColorController.text,
-                  defaultTextHexColor: _defaultTextHexColorController.text,
-                  borderHexColor: _borderHexColorController.text,
-                  labelHexColor: _labelHexColorController.text,
-                  addressHexColor: _addressHexColorController.text,
-                );
-
-                final directory = await getTemporaryDirectory();
-                final filePath = '${directory.path}/Identity Recovery Kit.pdf';
-
-                final file = File(filePath);
-                await file.writeAsBytes(generatedPdf);
-
-                await OpenFile.open(filePath);
-              },
-              child: const Text('Generate PDF'),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                const Text('QR error correction level:'),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: SegmentedButton(
+                    segments: const [
+                      ButtonSegment(value: QRErrorCorrectionLevel.L, label: Text('Low')),
+                      ButtonSegment(value: QRErrorCorrectionLevel.M, label: Text('Medium')),
+                      ButtonSegment(value: QRErrorCorrectionLevel.Q, label: Text('Quartile')),
+                      ButtonSegment(value: QRErrorCorrectionLevel.H, label: Text('High')),
+                    ],
+                    selected: {_selectedErrorCorrectionLevel},
+                    onSelectionChanged: (value) => setState(() => _selectedErrorCorrectionLevel = value.first),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 36),
-            TextButton(onPressed: () => setState(_setDefaultValues), child: const Text('Set default data'))
+            Row(
+              children: [
+                OutlinedButton(onPressed: () => setState(_setDefaultValues), child: const Text('Set default data')),
+                const SizedBox(width: 12),
+                FilledButton(onPressed: _generatePDF, child: const Text('Generate PDF')),
+              ],
+            ),
           ],
         ),
       ),
@@ -243,5 +231,42 @@ class _MyHomePageState extends State<MyHomePage> {
     _borderHexColorController.text = borderHexColor;
     _labelHexColorController.text = labelHexColor;
     _addressHexColorController.text = addressHexColor;
+  }
+
+  void _generatePDF() async {
+    final spacerSvgImage = await rootBundle.loadString('assets/triangle.svg');
+    final logoImageData = await rootBundle.load('assets/logo.png');
+    final logoBytes = logoImageData.buffer.asUint8List();
+
+    final generatedPdf = await PdfGenerator.generate(
+      logoBytes: logoBytes,
+      spacerSvgImage: spacerSvgImage,
+      truncatedReference: _truncatedReferenceController.text,
+      headerTitle: _headerTitleController.text,
+      keepSafeText: _keepSafeTextController.text,
+      infoText1: _infoText1Controller.text,
+      infoText2: _infoText2Controller.text,
+      addressLabel: _addressLabelController.text,
+      address: _addressController.text,
+      passwordLabel: _passwordLabelController.text,
+      qrDescription: _qrDescriptionController.text,
+      needHelpTitle: _needHelpTitleController.text,
+      needHelpText: _needHelpTextController.text,
+      headerTitleHexColor: _headerTitleHexColorController.text,
+      backgroundHexColor: _backgroundHexColorController.text,
+      defaultTextHexColor: _defaultTextHexColorController.text,
+      borderHexColor: _borderHexColorController.text,
+      labelHexColor: _labelHexColorController.text,
+      addressHexColor: _addressHexColorController.text,
+      errorCorrectionLevel: _selectedErrorCorrectionLevel,
+    );
+
+    final directory = await getTemporaryDirectory();
+    final filePath = '${directory.path}/Identity Recovery Kit.pdf';
+
+    final file = File(filePath);
+    await file.writeAsBytes(generatedPdf);
+
+    await OpenFile.open(filePath);
   }
 }
