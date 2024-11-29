@@ -241,8 +241,10 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       };
 
   Future<void> _loadAccount() async {
-    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccount(widget.accountId);
-    final accountsInDeletion = await getAccountsInDeletion();
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+
+    final account = await runtime.accountServices.getAccount(widget.accountId);
+    final accountsInDeletion = await runtime.accountServices.getAccountsInDeletion();
     if (mounted) {
       setState(() {
         _account = account;

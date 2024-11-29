@@ -125,8 +125,10 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   }
 
   Future<void> _reloadAccounts() async {
-    final accountsInDeletion = await getAccountsInDeletion();
-    final accounts = await getAccountsNotInDeletion();
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+
+    final accountsInDeletion = await runtime.accountServices.getAccountsInDeletion();
+    final accounts = await runtime.accountServices.getAccountsNotInDeletion();
     accounts.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
     final selectedAccount = widget.selectedAccountReference != null

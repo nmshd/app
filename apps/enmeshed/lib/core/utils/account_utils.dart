@@ -7,16 +7,6 @@ import 'package:logger/logger.dart';
 
 import '../core.dart';
 
-Future<List<LocalAccountDTO>> getAccountsInDeletion() async {
-  final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-  return accounts.where((e) => e.deletionDate != null).toList();
-}
-
-Future<List<LocalAccountDTO>> getAccountsNotInDeletion() async {
-  final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-  return accounts.where((e) => e.deletionDate == null).toList();
-}
-
 Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO account) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(account.id);
 

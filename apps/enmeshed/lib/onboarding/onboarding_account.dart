@@ -94,7 +94,8 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
   }
 
   Future<void> _loadAccountsInDeletion() async {
-    final accountsInDeletion = await getAccountsInDeletion();
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+    final accountsInDeletion = await runtime.accountServices.getAccountsInDeletion();
 
     if (mounted) setState(() => _accountsInDeletion = accountsInDeletion);
   }
