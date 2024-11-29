@@ -110,7 +110,6 @@ class RelationshipTemplatesFacade {
     required String templateId,
     String? expiresAt,
     String? forIdentity,
-    PasswordProtection? passwordProtection,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(request)
@@ -121,7 +120,6 @@ class RelationshipTemplatesFacade {
           'templateId': templateId,
           if (expiresAt != null) 'expiresAt': expiresAt,
           if (forIdentity != null) 'forIdentity': forIdentity,
-          if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
     );
@@ -135,7 +133,6 @@ class RelationshipTemplatesFacade {
     String? expiresAt,
     bool? ephemeral,
     String? forIdentity,
-    PasswordProtection? passwordProtection,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(request)
@@ -147,7 +144,6 @@ class RelationshipTemplatesFacade {
           if (expiresAt != null) 'expiresAt': expiresAt,
           if (ephemeral != null) 'ephemeral': ephemeral,
           if (forIdentity != null) 'forIdentity': forIdentity,
-          if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
     );
