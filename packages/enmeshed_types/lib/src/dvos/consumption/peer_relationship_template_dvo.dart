@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../common/common.dart';
 import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../content/content.dart';
@@ -30,6 +31,7 @@ class PeerRelationshipTemplateDVO extends RelationshipTemplateDVO {
     super.request,
     required super.content,
     super.forIdentity,
+    super.passwordProtection,
   }) : super(type: 'PeerRelationshipTemplateDVO');
 
   factory PeerRelationshipTemplateDVO.fromJson(Map json) => _$PeerRelationshipTemplateDVOFromJson(Map<String, dynamic>.from(json));

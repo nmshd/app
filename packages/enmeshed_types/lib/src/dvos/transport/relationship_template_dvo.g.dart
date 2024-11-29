@@ -27,6 +27,7 @@ RelationshipTemplateDVO _$RelationshipTemplateDVOFromJson(Map<String, dynamic> j
       request: json['request'] == null ? null : LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
       content: RelationshipTemplateContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
       forIdentity: json['forIdentity'] as String?,
+      passwordProtection: json['passwordProtection'] == null ? null : PasswordProtection.fromJson(json['passwordProtection'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO instance) {
@@ -58,5 +59,6 @@ Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO ins
   writeNotNull('request', instance.request?.toJson());
   val['content'] = instance.content.toJson();
   writeNotNull('forIdentity', instance.forIdentity);
+  writeNotNull('passwordProtection', instance.passwordProtection?.toJson());
   return val;
 }

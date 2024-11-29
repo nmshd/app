@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../common/common.dart';
 import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
@@ -24,6 +25,7 @@ class RelationshipTemplateDVO extends DataViewObject {
   final LocalRequestDVO? request;
   final RelationshipTemplateContentDerivation content;
   final String? forIdentity;
+  final PasswordProtection? passwordProtection;
 
   const RelationshipTemplateDVO({
     required super.id,
@@ -45,6 +47,7 @@ class RelationshipTemplateDVO extends DataViewObject {
     this.request,
     required this.content,
     this.forIdentity,
+    this.passwordProtection,
   });
 
   factory RelationshipTemplateDVO.fromJson(Map json) => switch (json['type']) {

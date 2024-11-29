@@ -13,6 +13,7 @@ class RelationshipTemplatesFacade {
     required RelationshipTemplateContentDerivation content,
     int? maxNumberOfAllocations,
     String? forIdentity,
+    PasswordProtection? passwordProtection,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(request)
@@ -24,6 +25,7 @@ class RelationshipTemplatesFacade {
           'content': content.toJson(),
           if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
           if (forIdentity != null) 'forIdentity': forIdentity,
+          if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
     );
@@ -34,6 +36,7 @@ class RelationshipTemplatesFacade {
 
   Future<Result<RelationshipTemplateDTO>> loadPeerRelationshipTemplate({
     required String reference,
+    String? password,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(request)
@@ -42,6 +45,7 @@ class RelationshipTemplatesFacade {
       arguments: {
         'request': {
           'reference': reference,
+          if (password != null) 'password': password,
         },
       },
     );

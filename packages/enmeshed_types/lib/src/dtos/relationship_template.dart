@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../common/common.dart';
 import '../contents/contents.dart';
 
 class RelationshipTemplateDTO extends Equatable {
@@ -13,6 +14,7 @@ class RelationshipTemplateDTO extends Equatable {
   final int? maxNumberOfAllocations;
   final String truncatedReference;
   final String? forIdentity;
+  final PasswordProtection? passwordProtection;
 
   const RelationshipTemplateDTO({
     required this.id,
@@ -25,6 +27,7 @@ class RelationshipTemplateDTO extends Equatable {
     this.maxNumberOfAllocations,
     required this.truncatedReference,
     this.forIdentity,
+    this.passwordProtection,
   });
 
   factory RelationshipTemplateDTO.fromJson(Map json) => RelationshipTemplateDTO(
@@ -38,6 +41,7 @@ class RelationshipTemplateDTO extends Equatable {
         maxNumberOfAllocations: json['maxNumberOfAllocations']?.toInt(),
         truncatedReference: json['truncatedReference'],
         forIdentity: json['forIdentity'],
+        passwordProtection: json['passwordProtection'] != null ? PasswordProtection.fromJson(json['passwordProtection']) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -51,6 +55,7 @@ class RelationshipTemplateDTO extends Equatable {
         if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
         'truncatedReference': truncatedReference,
         if (forIdentity != null) 'forIdentity': forIdentity,
+        if (passwordProtection != null) 'passwordProtection': passwordProtection!.toJson(),
       };
 
   @override
@@ -65,5 +70,6 @@ class RelationshipTemplateDTO extends Equatable {
         maxNumberOfAllocations,
         truncatedReference,
         forIdentity,
+        passwordProtection,
       ];
 }

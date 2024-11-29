@@ -83,7 +83,7 @@ class FilesFacade {
     required String filename,
     required String mimetype,
     String? expiresAt,
-    required String title,
+    String? title,
     String? description,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
@@ -97,7 +97,7 @@ class FilesFacade {
           'filename': filename,
           'mimetype': mimetype,
           if (expiresAt != null) 'expiresAt': expiresAt,
-          'title': title,
+          if (title != null) 'title': title,
           if (description != null) 'description': description,
         },
       },

@@ -25,7 +25,7 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
   final data = payload['data'] as Map<String, dynamic>?;
   if (data == null) {
     final event = switch (namespace) {
-      'app.datawalletSynchronized' => DatawalletSynchronizedEvent(eventTargetAddress: eventTargetAddress),
+      'transport.datawalletSynchronized' => DatawalletSynchronizedEvent(eventTargetAddress: eventTargetAddress),
       _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: {}),
     };
 
@@ -117,6 +117,10 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
         eventTargetAddress: eventTargetAddress,
         messages: List<MessageDTO>.from((data['messages'] as List<dynamic>).map((e) => MessageDTO.fromJson(e))),
         relationships: List<RelationshipDTO>.from((data['relationships'] as List<dynamic>).map((e) => RelationshipDTO.fromJson(e))),
+      ),
+    'app.localAccountDeletionDateChanged' => LocalAccountDeletionDateChangedEvent(
+        eventTargetAddress: eventTargetAddress,
+        data: LocalAccountDTO.fromJson(data),
       ),
     'runtime.accountSelected' => AccountSelectedEvent(
         eventTargetAddress: eventTargetAddress,
