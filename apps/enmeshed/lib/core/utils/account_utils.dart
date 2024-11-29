@@ -7,41 +7,14 @@ import 'package:logger/logger.dart';
 
 import '../core.dart';
 
-Future<bool> isAccountInDeletion(LocalAccountDTO account) async {
-  final session = GetIt.I.get<EnmeshedRuntime>().getSession(account.id);
-  final activeIdentityDeletionResult = await session.transportServices.identityDeletionProcesses.getActiveIdentityDeletionProcess();
-
-  if (activeIdentityDeletionResult.isError) return false;
-
-  return true;
-}
-
-Future<String> getAccountDeletionDate(LocalAccountDTO account) async {
-  final session = GetIt.I.get<EnmeshedRuntime>().getSession(account.id);
-  final activeIdentityDeletionResult = await session.transportServices.identityDeletionProcesses.getActiveIdentityDeletionProcess();
-  return activeIdentityDeletionResult.value.gracePeriodEndsAt!;
-}
-
 Future<List<LocalAccountDTO>> getAccountsInDeletion() async {
-  final accountsInDeletion = <LocalAccountDTO>[];
   final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-  for (final account in accounts) {
-    if (await isAccountInDeletion(account)) {
-      accountsInDeletion.add(account);
-    }
-  }
-  return accountsInDeletion;
+  return accounts.where((e) => e.deletionDate != null).toList();
 }
 
 Future<List<LocalAccountDTO>> getAccountsNotInDeletion() async {
-  final accountsNotInDeletion = <LocalAccountDTO>[];
   final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-  for (final account in accounts) {
-    if (!(await isAccountInDeletion(account))) {
-      accountsNotInDeletion.add(account);
-    }
-  }
-  return accountsNotInDeletion;
+  return accounts.where((e) => e.deletionDate == null).toList();
 }
 
 Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO account) async {
