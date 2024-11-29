@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'password_protection.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class PasswordProtection {
+class PasswordProtection extends Equatable {
   final String password;
   final bool? passwordIsPin;
 
@@ -18,4 +19,7 @@ class PasswordProtection {
 
     return json;
   }
+
+  @override
+  List<Object?> get props => [password, passwordIsPin];
 }

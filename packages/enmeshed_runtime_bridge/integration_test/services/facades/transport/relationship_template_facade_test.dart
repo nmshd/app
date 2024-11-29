@@ -289,4 +289,48 @@ void run(EnmeshedRuntime runtime) {
       expect(tokenResult.value.isEphemeral, true);
     });
   });
+
+  group('RelationshipTemplatesFacade: Password Protection', () {
+    final relationshipTemplateContent = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
+
+    final passwordProtections = [
+      PasswordProtection(password: 'aPassword'),
+      PasswordProtection(password: '1234', passwordIsPin: true),
+    ];
+
+    for (final passwordProtection in passwordProtections) {
+      test(
+          'should create a password protected template with password \'${passwordProtection.password}\' and passwordIsPin \'${passwordProtection.passwordIsPin}\'',
+          () async {
+        final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+          expiresAt: generateExpiryString(),
+          content: relationshipTemplateContent,
+          passwordProtection: passwordProtection,
+        );
+
+        expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
+        expect(templateResult.value.passwordProtection, passwordProtection);
+      });
+
+      test(
+          'should exchange a password protected template with password \'${passwordProtection.password}\' and passwordIsPin \'${passwordProtection.passwordIsPin}\'',
+          () async {
+        final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+          expiresAt: generateExpiryString(),
+          content: relationshipTemplateContent,
+          passwordProtection: passwordProtection,
+        );
+
+        expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
+
+        final loadResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
+          reference: templateResult.value.truncatedReference,
+          password: passwordProtection.password,
+        );
+
+        expect(loadResult, isSuccessful<RelationshipTemplateDTO>());
+        expect(loadResult.value.passwordProtection, passwordProtection);
+      });
+    }
+  });
 }
