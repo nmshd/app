@@ -373,7 +373,7 @@
   "contacts_require_attention": "{count, plural, =1{1 Kontakt erfordert Ihre Aufmerksamkeit.} other{{count} Kontakte erfordern Ihre Aufmerksamkeit.}}",
   "@contacts_require_attention": {
     "placeholders": {
-      "numberOfContacts": {
+      "count": {
         "type": "num"
       }
     }
