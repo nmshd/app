@@ -256,6 +256,22 @@ class JsToUIBridge {
       },
     );
 
+    _controller.addJavaScriptHandler(
+      handlerName: 'uibridge_enterPassword',
+      callback: (args) async {
+        final passwordType = UIBridgePasswordType.values.byName(args[0] as String);
+        final pinLength = switch (args[1]) {
+          null => null,
+          final num i => i.toInt(),
+          final String s => int.parse(s),
+          _ => throw Exception('Invalid pin length: $args[1]'),
+        };
+
+        final password = await uiBridge.enterPassword(passwordType: passwordType, pinLength: pinLength);
+        return password;
+      },
+    );
+
     _isRegistered = true;
   }
 }
