@@ -43,7 +43,7 @@ abstract class UIBridge {
     String? description,
   ]);
 
-  Future<String> enterPassword({
+  Future<String?> enterPassword({
     required UIBridgePasswordType passwordType,
     int? pinLength,
   });
