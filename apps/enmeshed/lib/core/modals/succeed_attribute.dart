@@ -115,8 +115,10 @@ Future<void> showSucceedAttributeModal({
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
-    final succeedAttributeResult =
-        await session.consumptionServices.attributes.succeedRepositoryAttribute(predecessorId: attribute.id, value: attributeValue!);
+    final succeedAttributeResult = await session.consumptionServices.attributes.succeedRepositoryAttribute(
+      predecessorId: attribute.id,
+      value: attributeValue!,
+    );
 
     if (succeedAttributeResult.isSuccess) {
       successorId = succeedAttributeResult.value.successor.id;
