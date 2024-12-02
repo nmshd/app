@@ -6,16 +6,16 @@ import 'package:vector_graphics/vector_graphics.dart';
 import '/core/core.dart';
 
 Future<void> showRestoreIdentityModal({required LocalAccountDTO accountInDeletion, required BuildContext context}) async {
-  final deletionDate = await getAccountDeletionDate(accountInDeletion);
-
   if (!context.mounted) return;
+
+  assert(accountInDeletion.deletionDate != null);
 
   await showModalBottomSheet<void>(
     context: context,
     showDragHandle: false,
     builder: (context) => _RestoreIdentity(
       accountInDeletion: accountInDeletion,
-      deletionDate: deletionDate,
+      deletionDate: accountInDeletion.deletionDate!,
     ),
   );
 }

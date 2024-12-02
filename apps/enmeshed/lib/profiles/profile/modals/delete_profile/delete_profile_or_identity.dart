@@ -27,7 +27,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
       canPop: false,
       onPopInvokedWithResult: (_, __) => cancel(),
       child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+        padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

@@ -104,8 +104,8 @@ class _SplashScreenState extends State<SplashScreen> {
       if (uri != null) GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: uri.toString());
     });
 
-    final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-    final accountsNotInDeletion = await getAccountsNotInDeletion();
+    final accounts = await runtime.accountServices.getAccounts();
+    final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
     if (accounts.isEmpty) {
       router.go('/onboarding');
     } else if (accountsNotInDeletion.isEmpty) {
