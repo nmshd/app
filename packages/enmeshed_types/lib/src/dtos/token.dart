@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../common/common.dart';
 import '../contents/contents.dart';
 
 class TokenDTO extends Equatable {
@@ -12,6 +13,7 @@ class TokenDTO extends Equatable {
   final String? forIdentity;
   final String truncatedReference;
   final bool isEphemeral;
+  final PasswordProtection? passwordProtection;
 
   const TokenDTO({
     required this.id,
@@ -23,6 +25,7 @@ class TokenDTO extends Equatable {
     required this.truncatedReference,
     required this.isEphemeral,
     this.forIdentity,
+    this.passwordProtection,
   });
 
   factory TokenDTO.fromJson(Map json) {
@@ -36,6 +39,7 @@ class TokenDTO extends Equatable {
       forIdentity: json['forIdentity'],
       truncatedReference: json['truncatedReference'],
       isEphemeral: json['isEphemeral'],
+      passwordProtection: json['passwordProtection'] != null ? PasswordProtection.fromJson(json['passwordProtection']) : null,
     );
   }
 
@@ -50,9 +54,21 @@ class TokenDTO extends Equatable {
       if (forIdentity != null) 'forIdentity': forIdentity,
       'truncatedReference': truncatedReference,
       'isEphemeral': isEphemeral,
+      if (passwordProtection != null) 'passwordProtection': passwordProtection!.toJson(),
     };
   }
 
   @override
-  List<Object?> get props => [id, createdBy, createdByDevice, content, createdAt, expiresAt, forIdentity, truncatedReference];
+  List<Object?> get props => [
+        id,
+        createdBy,
+        createdByDevice,
+        content,
+        createdAt,
+        expiresAt,
+        forIdentity,
+        truncatedReference,
+        isEphemeral,
+        passwordProtection,
+      ];
 }

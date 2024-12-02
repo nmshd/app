@@ -26,6 +26,7 @@ class FilesFacade {
 
   Future<Result<FileDTO>> getOrLoadFile({
     required String reference,
+    String? password,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.getOrLoadFile(request)
@@ -34,6 +35,7 @@ class FilesFacade {
       arguments: {
         'request': {
           'reference': reference,
+          if (password != null) 'password': password,
         },
       },
     );
@@ -130,6 +132,7 @@ class FilesFacade {
     String? expiresAt,
     bool? ephemeral,
     String? forIdentity,
+    PasswordProtection? passwordProtection,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.createTokenForFile(request)
@@ -141,6 +144,7 @@ class FilesFacade {
           if (expiresAt != null) 'expiresAt': expiresAt,
           if (ephemeral != null) 'ephemeral': ephemeral,
           if (forIdentity != null) 'forIdentity': forIdentity,
+          if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
     );
@@ -153,6 +157,7 @@ class FilesFacade {
     required String fileId,
     String? expiresAt,
     String? forIdentity,
+    PasswordProtection? passwordProtection,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.createTokenQRCodeForFile(request)
@@ -163,6 +168,7 @@ class FilesFacade {
           'fileId': fileId,
           if (expiresAt != null) 'expiresAt': expiresAt,
           if (forIdentity != null) 'forIdentity': forIdentity,
+          if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
     );
