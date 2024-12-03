@@ -693,5 +693,15 @@
   "instructions_loadProfile_information": "You no longer want to synchronize a profile across different devices?",
   "instructions_loadProfile_informationDetails": "In the profile management, you can view and manage the devices connected to the profile at any time.",
   "instructions_notShowAgain": "Do not show the explanation again",
-  "instructions_scanQrCode": "Scan QR code"
+  "instructions_scanQrCode": "Scan QR code",
+  "passwordProtection_enterPassword": "Enter password",
+  "passwordProtection_enterPin": "Enter PIN",
+  "passwordProtection_passwordEmpty": "Please enter a password.",
+  "passwordProtection_referenceIsPasswordProtected": "This QR-Code or Link is password protected. Please enter the password to proceed.",
+  "passwordProtection_referenceIsPinProtected": "This QR-Code or Link is protected with a {count, select, 4{four digits} 5{five digits} 6{six digits} other{complex}} PIN. Please enter the PIN to proceed.",
+  "@passwordProtection_referenceIsPinProtected": {
+    "placeholders": {
+      "count": {}
+    }
+  }
 }
