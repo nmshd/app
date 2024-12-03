@@ -39,6 +39,7 @@ class _UploadFileState extends State<UploadFile> {
 
   File? _selectedFile;
   bool _loading = false;
+  bool _isFileTooLarge = false;
 
   @override
   void initState() {
@@ -81,6 +82,7 @@ class _UploadFileState extends State<UploadFile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (_selectedFile != null) _FileSelected(file: _selectedFile!) else _NoFileSelected(selectFile: _selectFile),
+                      if (_isFileTooLarge) const _FileSizeError(),
                       Text(context.l10n.mandatoryField),
                       Gaps.h24,
                       TextFormField(
@@ -140,7 +142,13 @@ class _UploadFileState extends State<UploadFile> {
 
     if (result == null) return;
 
-    setState(() => _selectedFile = File(result.files.single.path!));
+    final file = File(result.files.single.path!);
+    final fileSize = await file.length();
+
+    setState(() {
+      _selectedFile = file;
+      _isFileTooLarge = fileSize > 10 * 1024 * 1024;
+    });
   }
 
   Future<void> _submit() async {
@@ -200,7 +208,7 @@ class _UploadFileState extends State<UploadFile> {
     return null;
   }
 
-  bool validateEverything() => _selectedFile != null && isTitleValid;
+  bool validateEverything() => _selectedFile != null && isTitleValid && !_isFileTooLarge;
 }
 
 class _FileSelected extends StatefulWidget {
@@ -306,6 +314,34 @@ class _NoFileSelected extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _FileSizeError extends StatelessWidget {
+  const _FileSizeError();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: Theme.of(context).colorScheme.error),
+        padding: const EdgeInsets.all(2),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.error, size: 20, color: Theme.of(context).colorScheme.onError),
+            Gaps.w4,
+            Expanded(
+              child: Text(
+                context.l10n.files_sizeTooLarge,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onError, letterSpacing: 0.4),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
