@@ -36,7 +36,7 @@ class _VoidResultFailingMatcher extends Matcher {
 
   @override
   Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
-    if (item is! Result) return mismatchDescription.add('is not a Result');
+    if (item is! VoidResult) return mismatchDescription.add('is not a Result');
     if (item.isSuccess) return mismatchDescription.add('is not failing');
 
     return mismatchDescription.add("has error code '${item.error.code}' but expected '$code'");
