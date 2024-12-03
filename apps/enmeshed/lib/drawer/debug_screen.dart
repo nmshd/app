@@ -24,7 +24,7 @@ class DebugScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('DEBUG')),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -78,6 +78,43 @@ class DebugScreen extends StatelessWidget {
             OutlinedButton(
               onPressed: _extractAppDataAsZip,
               child: const Text('Export App Data'),
+            ),
+            const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
+            Text('Enter Password Popups', style: Theme.of(context).textTheme.titleLarge),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 0,
+                alignment: WrapAlignment.center,
+                children: [
+                  for (int i = 4; i <= 16; i++)
+                    OutlinedButton(
+                      onPressed: () async {
+                        final pin = await context.push(
+                          '/enter-password-popup',
+                          extra: (passwordType: UIBridgePasswordType.pin, pinLength: i),
+                        );
+
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Pin Code: $pin')));
+                      },
+                      child: Text('PIN$i'),
+                    ),
+                  OutlinedButton(
+                    onPressed: () async {
+                      final password = await context.push(
+                        '/enter-password-popup',
+                        extra: (passwordType: UIBridgePasswordType.password, pinLength: null),
+                      );
+
+                      if (!context.mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
+                    },
+                    child: Text('PW'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
