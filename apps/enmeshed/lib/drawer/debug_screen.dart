@@ -65,7 +65,7 @@ class DebugScreen extends StatelessWidget {
                           );
 
                           if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Pin Code: $pin')));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
                         },
                         child: Text('PIN$i'),
                       ),
