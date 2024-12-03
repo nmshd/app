@@ -259,7 +259,12 @@ class JsToUIBridge {
     _controller.addJavaScriptHandler(
       handlerName: 'uibridge_enterPassword',
       callback: (args) async {
-        final passwordType = UIBridgePasswordType.values.byName(args[0] as String);
+        final passwordType = switch (args[0]) {
+          'pin' => UIBridgePasswordType.pin,
+          'pw' => UIBridgePasswordType.password,
+          _ => throw Exception('Invalid password type: ${args[0]}'),
+        };
+
         final pinLength = switch (args[1]) {
           null => null,
           final num i => i.toInt(),
