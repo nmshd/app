@@ -595,6 +595,7 @@
   "files_selectFile": "Select your file",
   "files_createdAt": "Created",
   "files_owner": "Owner",
+  "files_sizeTooLarge": "The selected file exceeds the maximum size of 10 MB.",
   "files_titleEmptyError": "Please enter a title.",
   "files_filter_title": "Filter files",
   "files_filter_byFileType": "Filter by file type",
