@@ -595,6 +595,7 @@
   "files_selectFile": "Datei auswählen",
   "files_createdAt": "Erstellt",
   "files_owner": "Eigentümer",
+  "files_sizeTooLarge": "Die ausgewählte Datei überschreitet die maximale Größe von 10 MB.",
   "files_titleEmptyError": "Bitte gebe einen Titel ein.",
   "files_filter_title": "Dateien filtern",
   "files_filter_byFileType": "Filtern nach Datei-Typ",
