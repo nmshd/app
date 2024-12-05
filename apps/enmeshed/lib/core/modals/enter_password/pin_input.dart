@@ -54,7 +54,7 @@ class _PinInputState extends State<PinInput> {
           border: const OutlineInputBorder(),
           suffixIcon: IconButton(
             onPressed: () => setState(() => obscureText = !obscureText),
-            icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
+            icon: Icon(obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined),
           ),
         ),
         style: Theme.of(context).textTheme.headlineSmall,
