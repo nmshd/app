@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -39,13 +40,37 @@ class ScanScreen extends StatelessWidget {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
     final account = accountId != null ? await runtime.accountServices.getAccount(accountId!) : null;
+    if (!context.mounted) return;
+
+    await _processString(content: content, context: context, runtime: runtime, account: account);
+
+    resume();
+  }
+
+  Future<void> _processString({
+    required String content,
+    required BuildContext context,
+    required EnmeshedRuntime runtime,
+    required LocalAccountDTO? account,
+  }) async {
     final result = await runtime.stringProcessor.processURL(url: content, account: account);
 
-    if (result.isError) {
-      GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
+    if (result.isError) GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
 
-      if (context.mounted) await showWrongTokenErrorDialog(context);
+    if (result.isError && context.mounted) {
+      if (result.isSuccess) return;
+
+      switch (result.error.code) {
+        case 'error.appStringProcessor.passwordNotProvided':
+          break;
+        case 'error.runtime.recordNotFound':
+          // this could mean that the password is wrong, retry
+          await _processString(content: content, context: context, runtime: runtime, account: account);
+          break;
+        default:
+          await showWrongTokenErrorDialog(context);
+          break;
+      }
     }
-    resume();
   }
 }

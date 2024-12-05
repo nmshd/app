@@ -13,8 +13,11 @@ void main() {
     });
 
     test('is correctly converted with property "description"', () {
-      const relationshipAttributeValue =
-          ProprietaryFileReferenceAttributeValue(title: 'aTitle', description: 'aDescription', value: 'aFileReference');
+      const relationshipAttributeValue = ProprietaryFileReferenceAttributeValue(
+        title: 'aTitle',
+        description: 'aDescription',
+        value: 'aFileReference',
+      );
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,

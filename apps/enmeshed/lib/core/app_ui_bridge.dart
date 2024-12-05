@@ -72,4 +72,18 @@ class AppUIBridge extends UIBridge {
 
     router.go('/account/${account.id}/contacts/contact-request/${request.id}', extra: request);
   }
+
+  @override
+  Future<String?> enterPassword({required UIBridgePasswordType passwordType, int? pinLength}) async {
+    final extra = (passwordType: passwordType, pinLength: pinLength);
+    final password = await router.push('/enter-password-popup', extra: extra);
+    if (password is String) {
+      logger.d('enterPassword entered $password');
+      return password;
+    }
+
+    logger.d('enterPassword no password entered');
+
+    return null;
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:croppy/croppy.dart';
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +74,17 @@ final _router = GoRouter(
             title: extra.title,
             description: extra.description,
           );
+        },
+      ),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/enter-password-popup',
+      pageBuilder: (context, state) => ModalPage(
+        isScrollControlled: true,
+        builder: (context) {
+          final extra = state.extra! as ({UIBridgePasswordType passwordType, int? pinLength});
+          return EnterPasswordModal(passwordType: extra.passwordType, pinLength: extra.pinLength);
         },
       ),
     ),

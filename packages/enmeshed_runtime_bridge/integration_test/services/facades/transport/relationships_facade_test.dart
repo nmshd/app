@@ -207,15 +207,17 @@ void run(EnmeshedRuntime runtime) {
     test('should request the reactivation of a relationship and then accept it', () async {
       final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
 
-      final reactivationRequestResult =
-          await session1.transportServices.relationships.requestRelationshipReactivation(relationshipId: establishedRelationship.id);
+      final reactivationRequestResult = await session1.transportServices.relationships.requestRelationshipReactivation(
+        relationshipId: establishedRelationship.id,
+      );
 
       expect(reactivationRequestResult, isSuccessful<RelationshipDTO>());
       expect(reactivationRequestResult.value.id, establishedRelationship.id);
 
       await syncUntilHasRelationship(session2);
-      final acceptanceResult =
-          await session2.transportServices.relationships.acceptRelationshipReactivation(relationshipId: establishedRelationship.id);
+      final acceptanceResult = await session2.transportServices.relationships.acceptRelationshipReactivation(
+        relationshipId: establishedRelationship.id,
+      );
       expect(acceptanceResult, isSuccessful<RelationshipDTO>());
       expect(acceptanceResult.value.id, establishedRelationship.id);
     });
@@ -225,14 +227,16 @@ void run(EnmeshedRuntime runtime) {
     test('should request the reactivation of a relationship and then revoke it', () async {
       final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
 
-      final reactivationRequestResult =
-          await session1.transportServices.relationships.requestRelationshipReactivation(relationshipId: establishedRelationship.id);
+      final reactivationRequestResult = await session1.transportServices.relationships.requestRelationshipReactivation(
+        relationshipId: establishedRelationship.id,
+      );
 
       expect(reactivationRequestResult, isSuccessful<RelationshipDTO>());
       expect(reactivationRequestResult.value.id, establishedRelationship.id);
 
-      final revocationResult =
-          await session1.transportServices.relationships.revokeRelationshipReactivation(relationshipId: establishedRelationship.id);
+      final revocationResult = await session1.transportServices.relationships.revokeRelationshipReactivation(
+        relationshipId: establishedRelationship.id,
+      );
       expect(revocationResult, isSuccessful<RelationshipDTO>());
       expect(revocationResult.value.id, establishedRelationship.id);
     });
@@ -242,15 +246,17 @@ void run(EnmeshedRuntime runtime) {
     test('should request the reactivation of a relationship and then reject it', () async {
       final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
 
-      final reactivationRequestResult =
-          await session1.transportServices.relationships.requestRelationshipReactivation(relationshipId: establishedRelationship.id);
+      final reactivationRequestResult = await session1.transportServices.relationships.requestRelationshipReactivation(
+        relationshipId: establishedRelationship.id,
+      );
 
       expect(reactivationRequestResult, isSuccessful<RelationshipDTO>());
       expect(reactivationRequestResult.value.id, establishedRelationship.id);
 
       await syncUntilHasRelationship(session2);
-      final rejectionResult =
-          await session2.transportServices.relationships.rejectRelationshipReactivation(relationshipId: establishedRelationship.id);
+      final rejectionResult = await session2.transportServices.relationships.rejectRelationshipReactivation(
+        relationshipId: establishedRelationship.id,
+      );
       expect(rejectionResult, isSuccessful<RelationshipDTO>());
       expect(rejectionResult.value.id, establishedRelationship.id);
     });

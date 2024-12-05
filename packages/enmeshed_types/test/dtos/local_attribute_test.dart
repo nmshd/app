@@ -4,8 +4,11 @@ import 'package:test/test.dart';
 void main() {
   group('LocalAttributeDTO toJson', () {
     test('is correctly converted', () {
-      const dto =
-          LocalAttributeDTO(id: 'anId', createdAt: '2023', content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')));
+      const dto = LocalAttributeDTO(
+        id: 'anId',
+        createdAt: '2023',
+        content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+      );
       final dtoJson = dto.toJson();
       expect(
         dtoJson,

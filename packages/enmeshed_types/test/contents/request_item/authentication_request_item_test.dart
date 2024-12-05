@@ -49,8 +49,13 @@ void main() {
     });
 
     test('is correctly converted with properties "title", "description", "metadata" and "requireManualDecision"', () {
-      const authenticationRequestItem =
-          AuthenticationRequestItem(title: 'aTitle', description: 'aDescription', metadata: {}, mustBeAccepted: true, requireManualDecision: true);
+      const authenticationRequestItem = AuthenticationRequestItem(
+        title: 'aTitle',
+        description: 'aDescription',
+        metadata: {},
+        mustBeAccepted: true,
+        requireManualDecision: true,
+      );
       final requestItemJson = authenticationRequestItem.toJson();
       expect(
         requestItemJson,
