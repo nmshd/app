@@ -46,7 +46,7 @@ class _PasswordInputState extends State<PasswordInput> {
                 border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   onPressed: () => setState(() => _obscureText = !_obscureText),
-                  icon: Icon(_obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+                  icon: Icon(_obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined),
                 ),
               ),
               autofocus: true,
