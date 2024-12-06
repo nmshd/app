@@ -42,17 +42,19 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
-
     final choice = _getChoices().firstOrNull;
-    if (choice == null) return;
+    isChecked = widget.item.initiallyChecked(choice == null);
+
+    if (choice == null) {
+      return;
+    }
 
     _choice = choice;
 
     if (isChecked) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id),
+        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
       );
     }
   }
@@ -85,6 +87,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
           onUpdateAttribute: _onUpdateAttribute,
           selectedAttribute: _choice?.attribute,
+          mustBeAccepted: widget.item.mustBeAccepted,
           expandFileReference: widget.expandFileReference,
           openFileDetails: widget.openFileDetails,
         ),
@@ -125,13 +128,16 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   Future<void> _onUpdateAttribute([String? valueType, String? value]) async {
-    if (valueType == 'IdentityFileReference') {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: value!),
-      );
-      return;
-    }
+    // if (valueType == 'IdentityFileReference') {
+    // widget.controller?.writeAtIndex(
+    //   index: widget.itemIndex,
+    //   value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: value!),
+    // );
+    // setState(() {
+    //   _choice = {id: value};
+    // });
+    // return;
+    // }
 
     if (widget.openAttributeSwitcher == null) return;
 
@@ -168,7 +174,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     };
   }
 
-  List<({String id, AbstractAttribute attribute})> _getChoices() {
+  List<AttributeSwitcherChoice> _getChoices() {
     final results = switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
