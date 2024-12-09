@@ -698,8 +698,8 @@
   "passwordProtection_enterPassword": "Passwort eingeben",
   "passwordProtection_enterPin": "PIN eingeben",
   "passwordProtection_passwordEmpty": "Bitte geben Sie ein Passwort ein.",
-  "passwordProtection_referenceIsPasswordProtected": "Dieser QR-Code oder Link ist mit einem Passwort gesichert. Geben Sie das Passwort ein um fortzufahren.",
-  "passwordProtection_referenceIsPinProtected": "Dieser QR-Code oder Link ist mit einer {count, select, 4{vierstelligen} 5{fünfstelligen} 6{sechsstelligen} other{kompexen}} PIN gesichert. Geben Sie die PIN ein um fortzufahren.",
+  "passwordProtection_referenceIsPasswordProtected": "Dieser QR-Code oder Link ist mit einem Passwort gesichert. Geben Sie das Passwort ein, um fortzufahren.",
+  "passwordProtection_referenceIsPinProtected": "Dieser QR-Code oder Link ist mit einer {count, select, 4{vierstelligen} 5{fünfstelligen} 6{sechsstelligen} other{komplexen}} PIN gesichert. Geben Sie die PIN ein, um fortzufahren.",
   "@passwordProtection_referenceIsPinProtected": {
     "placeholders": {
       "count": {}
