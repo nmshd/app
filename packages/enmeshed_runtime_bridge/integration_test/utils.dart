@@ -361,12 +361,16 @@ Future<LocalAttributeDTO> executeFullRequestAndShareThirdPartyRelationshipAttrib
   String sourceRelationshipAttributeId,
   MockEventBus eventBus,
 ) async {
-  final localRequestDTOResult =
-      await recipient.consumptionServices.outgoingRequests.create(content: Request(items: [requestItem]), peer: senderAddress);
+  final localRequestDTOResult = await recipient.consumptionServices.outgoingRequests.create(
+    content: Request(items: [requestItem]),
+    peer: senderAddress,
+  );
   assert(localRequestDTOResult.isSuccess);
 
-  await recipient.transportServices.messages
-      .sendMessage(recipients: [senderAddress], content: MessageContentRequest(request: localRequestDTOResult.value.content));
+  await recipient.transportServices.messages.sendMessage(
+    recipients: [senderAddress],
+    content: MessageContentRequest(request: localRequestDTOResult.value.content),
+  );
   await syncUntilHasMessage(sender);
 
   await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
@@ -413,7 +417,9 @@ Future<void> waitForRecipientToReceiveNotification(
   await eventBus.waitForEvent<OwnSharedAttributeSucceededEvent>(eventTargetAddress: senderAddress, predicate: (e) => e.successor.id == successorId);
 
   await eventBus.waitForEvent<PeerSharedAttributeSucceededEvent>(
-      eventTargetAddress: recipientAddress, predicate: (e) => e.successor.id == successorId);
+    eventTargetAddress: recipientAddress,
+    predicate: (e) => e.successor.id == successorId,
+  );
 }
 
 Future<FileDTO> uploadFile(Session session) async {
@@ -458,6 +464,9 @@ class FakeUIBridge implements UIBridge {
   final showRequestCalls = List<(LocalAccountDTO, LocalRequestDVO)>.empty(growable: true);
   bool get showRequestCalled => showRequestCalls.isNotEmpty;
 
+  final enterPasswordCalls = List<(UIBridgePasswordType, int?)>.empty(growable: true);
+  bool get enterPasswordCalled => enterPasswordCalls.isNotEmpty;
+
   void reset() {
     requestAccountSelectionCalls.clear();
     showDeviceOnboardingCalls.clear();
@@ -493,4 +502,14 @@ class FakeUIBridge implements UIBridge {
 
   @override
   Future<void> showRequest(LocalAccountDTO account, LocalRequestDVO request) async => showRequestCalls.add((account, request));
+
+  @override
+  Future<String> enterPassword({required UIBridgePasswordType passwordType, int? pinLength}) async {
+    enterPasswordCalls.add((passwordType, pinLength));
+
+    return switch (passwordType) {
+      UIBridgePasswordType.pin => '0' * pinLength!,
+      UIBridgePasswordType.password => 'password',
+    };
+  }
 }

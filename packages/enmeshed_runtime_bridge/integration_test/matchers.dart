@@ -36,7 +36,7 @@ class _VoidResultFailingMatcher extends Matcher {
 
   @override
   Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
-    if (item is! Result) return mismatchDescription.add('is not a Result');
+    if (item is! VoidResult) return mismatchDescription.add('is not a Result');
     if (item.isSuccess) return mismatchDescription.add('is not failing');
 
     return mismatchDescription.add("has error code '${item.error.code}' but expected '$code'");
@@ -56,7 +56,7 @@ class _ResultSuccessfulMatcher<T> extends Matcher {
 
   @override
   Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
-    if (item is! Result) return mismatchDescription.add('is not a Result');
+    if (item is! Result) return mismatchDescription.add('is not a VoidResult');
     if (item.isError) return mismatchDescription.add("failed with code '${item.error.code}' and message '${item.error.message}'");
 
     return mismatchDescription.add('has value of type ${item.value.runtimeType}, but expected ${T.toString()}');

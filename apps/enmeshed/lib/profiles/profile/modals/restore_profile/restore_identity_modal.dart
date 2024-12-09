@@ -8,7 +8,7 @@ import '/core/core.dart';
 Future<void> showRestoreIdentityModal({required LocalAccountDTO accountInDeletion, required BuildContext context}) async {
   if (!context.mounted) return;
 
-  assert(accountInDeletion.deletionDate != null);
+  assert(accountInDeletion.deletionDate != null, 'Account deletion date must not be null');
 
   await showModalBottomSheet<void>(
     context: context,

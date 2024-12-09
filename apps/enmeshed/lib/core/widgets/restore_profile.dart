@@ -24,7 +24,7 @@ class _RestoreProfileState extends State<RestoreProfile> {
   void initState() {
     super.initState();
 
-    assert(widget.accountInDeletion.deletionDate != null);
+    assert(widget.accountInDeletion.deletionDate != null, 'Account deletion date must not be null');
 
     _scrollController = ScrollController();
   }
