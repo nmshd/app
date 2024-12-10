@@ -4,7 +4,7 @@ changelog:
       - ci
       - chore
       - dependencies
-      - refactor
+      - refactoring
       - test
   categories:
     - title: Breaking Changes
