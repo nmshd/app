@@ -24,9 +24,9 @@ class DebugScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('DEBUG')),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FutureBuilder(
               builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Address: ', text: s.data!.value.address),
@@ -44,40 +44,90 @@ class DebugScreen extends StatelessWidget {
               builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Push Token: ', text: s.data!),
               future: Push.instance.token.timeout(const Duration(seconds: 5)).catchError((_) => 'timeout', test: (e) => e is TimeoutException),
             ),
-            // the view is also accessible in release mode but feature flags and clear profile may not be available there
             if (kDebugMode) ...[
-              OutlinedButton(
-                onPressed: () => DebugFeatures.show(
-                  context,
-                  availableFeatures: [
-                    const Feature('NEWS', name: 'News'),
-                    const Feature('BACKUP_DATA', name: 'Backup Data'),
-                    const Feature('HELP_AND_FAQ', name: 'Help and FAQ'),
-                    const Feature('SHOW_TECHNICAL_MESSAGES', name: 'Show Technical Messages'),
-                    const Feature('SHOW_CONTACT_REQUESTS', name: 'Show Contact Requests'),
+              const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Text('Enter Password Popups', style: Theme.of(context).textTheme.titleLarge),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 0,
+                  children: [
+                    for (int i = 4; i <= 16; i++)
+                      OutlinedButton(
+                        onPressed: () async {
+                          final pin = await context.push(
+                            '/enter-password-popup',
+                            extra: (passwordType: UIBridgePasswordType.pin, pinLength: i),
+                          );
+
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
+                        },
+                        child: Text('PIN$i'),
+                      ),
+                    OutlinedButton(
+                      onPressed: () async {
+                        final password = await context.push(
+                          '/enter-password-popup',
+                          extra: (passwordType: UIBridgePasswordType.password, pinLength: null),
+                        );
+
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
+                      },
+                      child: Text('PW'),
+                    ),
                   ],
                 ),
-                child: const Text('Feature Flags'),
-              ),
-              const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
-              OutlinedButton(
-                onPressed: () async => _clearProfiles(context),
-                child: const Text('Clear Profiles'),
               ),
             ],
             const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
-            OutlinedButton(
-              onPressed: () => showModalBottomSheet<void>(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) => const SafeArea(minimum: EdgeInsets.only(bottom: 16), child: _PushDebugger()),
-              ),
-              child: const Text('Push Debugger'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text('Settings', style: Theme.of(context).textTheme.titleLarge),
             ),
-            const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
-            OutlinedButton(
-              onPressed: _extractAppDataAsZip,
-              child: const Text('Export App Data'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Wrap(
+                spacing: 8,
+                children: [
+                  if (kDebugMode) ...[
+                    OutlinedButton(
+                      onPressed: () => DebugFeatures.show(
+                        context,
+                        availableFeatures: [
+                          const Feature('NEWS', name: 'News'),
+                          const Feature('BACKUP_DATA', name: 'Backup Data'),
+                          const Feature('HELP_AND_FAQ', name: 'Help and FAQ'),
+                          const Feature('SHOW_TECHNICAL_MESSAGES', name: 'Show Technical Messages'),
+                          const Feature('SHOW_CONTACT_REQUESTS', name: 'Show Contact Requests'),
+                        ],
+                      ),
+                      child: const Text('Feature Flags'),
+                    ),
+                    OutlinedButton(
+                      onPressed: () async => _clearProfiles(context),
+                      child: const Text('Clear Profiles'),
+                    ),
+                  ],
+                  OutlinedButton(
+                    onPressed: () => showModalBottomSheet<void>(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => const SafeArea(minimum: EdgeInsets.only(bottom: 16), child: _PushDebugger()),
+                    ),
+                    child: const Text('Push Debugger'),
+                  ),
+                  OutlinedButton(
+                    onPressed: _extractAppDataAsZip,
+                    child: const Text('Export App Data'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -175,22 +225,32 @@ class _CopyableText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        Text(
-          text.length > 15 ? '${text.substring(0, 15)}...' : text,
-          style: text == 'timeout' ? TextStyle(color: Theme.of(context).colorScheme.error) : null,
-        ),
-        IconButton(
-          icon: const Icon(Icons.copy),
-          onPressed: text == 'timeout' ? null : () => Clipboard.setData(ClipboardData(text: text)),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Text(
+                text,
+                style: text == 'timeout' ? TextStyle(color: Theme.of(context).colorScheme.error) : null,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.copy),
+            onPressed: text == 'timeout' ? null : () => Clipboard.setData(ClipboardData(text: text)),
+          ),
+        ],
+      ),
     );
   }
 }

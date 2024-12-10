@@ -2,6 +2,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 
 typedef UIBridgeError = ({String code, String message, String? userfriendlyMessage, Map<String, dynamic>? data});
 
+enum UIBridgePasswordType { password, pin }
+
 abstract class UIBridge {
   Future<void> showMessage(
     LocalAccountDTO account,
@@ -40,4 +42,9 @@ abstract class UIBridge {
     String? title,
     String? description,
   ]);
+
+  Future<String?> enterPassword({
+    required UIBridgePasswordType passwordType,
+    int? pinLength,
+  });
 }

@@ -285,8 +285,9 @@ void run(EnmeshedRuntime runtime) {
           .value;
       await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'anotherGivenName'));
 
-      final repositoryAttributesResult =
-          await sender.consumptionServices.attributes.getRepositoryAttributes(query: {'isDefault': QueryValue.string('true')});
+      final repositoryAttributesResult = await sender.consumptionServices.attributes.getRepositoryAttributes(
+        query: {'isDefault': QueryValue.string('true')},
+      );
       expect(repositoryAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
 
       expect(repositoryAttributesResult.value[0], defaultAttribute);

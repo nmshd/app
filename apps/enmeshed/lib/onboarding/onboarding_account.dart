@@ -121,27 +121,41 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
   Future<void> _onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
     pause();
 
-    GetIt.I.get<Logger>().t('Scanned code: $content');
-
-    if (!content.startsWith('nmshd://')) {
-      await showWrongTokenErrorDialog(context);
-      resume();
-      return;
-    }
-
     unawaited(showLoadingDialog(context, context.l10n.onboarding_receiveInformation));
 
-    final truncatedReference = content.replaceAll('nmshd://qr#', '').replaceAll('nmshd://tr#', '');
-
     final runtime = GetIt.I.get<EnmeshedRuntime>();
-
-    final result = await runtime.stringProcessor.processTruncatedReference(truncatedReference: truncatedReference);
     if (!context.mounted) return;
 
-    resume();
+    await _processString(content: content, context: context, runtime: runtime);
+
+    if (!context.mounted) return;
     if (context.canPop()) context.pop();
 
-    if (result.isError) await showWrongTokenErrorDialog(context);
+    resume();
+  }
+
+  Future<void> _processString({
+    required String content,
+    required BuildContext context,
+    required EnmeshedRuntime runtime,
+  }) async {
+    final result = await runtime.stringProcessor.processURL(url: content);
+    if (result.isSuccess) return;
+
+    GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
+    if (!context.mounted) return;
+
+    switch (result.error.code) {
+      case 'error.appStringProcessor.passwordNotProvided':
+        break;
+      case 'error.runtime.recordNotFound':
+        // this could mean that the password is wrong, retry
+        await _processString(content: content, context: context, runtime: runtime);
+        break;
+      default:
+        await showWrongTokenErrorDialog(context);
+        break;
+    }
   }
 }
 

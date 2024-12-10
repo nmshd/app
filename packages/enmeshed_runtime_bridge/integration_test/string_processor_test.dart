@@ -29,14 +29,14 @@ void run(EnmeshedRuntime enmeshedRuntime) {
 
       test('should handle an invalid truncated reference in the URL', () async {
         final result = await enmeshedRuntime.stringProcessor.processURL(url: 'nmshd://qr#invalid').timeout(const Duration(seconds: 20));
-        expect(result, isFailingVoidResult('error.appruntime.startup.WrongCode'));
+        expect(result, isFailingVoidResult('error.appStringProcessor.truncatedReferenceInvalid'));
       });
     });
 
     group('processTruncatedReference', () {
       test('should handle an invalid truncated reference', () async {
         final result = await enmeshedRuntime.stringProcessor.processTruncatedReference(truncatedReference: 'invalid');
-        expect(result, isFailingVoidResult('error.appruntime.startup.WrongCode'));
+        expect(result, isFailingVoidResult('error.appStringProcessor.truncatedReferenceInvalid'));
       });
     });
   });
