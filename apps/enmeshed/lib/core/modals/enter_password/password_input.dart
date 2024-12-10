@@ -11,8 +11,7 @@ class PasswordInput extends StatefulWidget {
 }
 
 class _PasswordInputState extends State<PasswordInput> {
-  final formKey = GlobalKey<FormState>();
-
+  final _formKey = GlobalKey<FormState>();
   late final TextEditingController _controller;
   bool _obscureText = true;
 
@@ -37,7 +36,7 @@ class _PasswordInputState extends State<PasswordInput> {
       child: Column(
         children: [
           Form(
-            key: formKey,
+            key: _formKey,
             child: TextFormField(
               controller: _controller,
               validator: (value) => value!.isEmpty ? context.l10n.passwordProtection_passwordEmpty : null,
@@ -68,7 +67,7 @@ class _PasswordInputState extends State<PasswordInput> {
   }
 
   void _onPasswordEntered() {
-    if (!formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
     context.pop(_controller.text);
   }

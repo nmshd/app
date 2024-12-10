@@ -12,9 +12,9 @@ class PinInput extends StatefulWidget {
 }
 
 class _PinInputState extends State<PinInput> {
-  bool obscureText = true;
-
   final _focusNode = FocusNode();
+
+  bool _obscureText = true;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _PinInputState extends State<PinInput> {
     if (widget.pinLength >= 4 && widget.pinLength <= 6) {
       return PinCodeFields(
         length: widget.pinLength,
-        obscureText: obscureText,
+        obscureText: _obscureText,
         onComplete: context.pop,
         keyboardType: TextInputType.number,
         focusNode: _focusNode,
@@ -48,13 +48,13 @@ class _PinInputState extends State<PinInput> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: TextFormField(
-        obscureText: obscureText,
+        obscureText: _obscureText,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           suffixIcon: IconButton(
-            onPressed: () => setState(() => obscureText = !obscureText),
-            icon: Icon(obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+            onPressed: () => setState(() => _obscureText = !_obscureText),
+            icon: Icon(_obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined),
           ),
         ),
         style: Theme.of(context).textTheme.headlineSmall,
