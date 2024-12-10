@@ -54,23 +54,21 @@ class ScanScreen extends StatelessWidget {
     required LocalAccountDTO? account,
   }) async {
     final result = await runtime.stringProcessor.processURL(url: content, account: account);
+    if (result.isSuccess) return;
 
-    if (result.isError) GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
+    GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
+    if (!context.mounted) return;
 
-    if (result.isError && context.mounted) {
-      if (result.isSuccess) return;
-
-      switch (result.error.code) {
-        case 'error.appStringProcessor.passwordNotProvided':
-          break;
-        case 'error.runtime.recordNotFound':
-          // this could mean that the password is wrong, retry
-          await _processString(content: content, context: context, runtime: runtime, account: account);
-          break;
-        default:
-          await showWrongTokenErrorDialog(context);
-          break;
-      }
+    switch (result.error.code) {
+      case 'error.appStringProcessor.passwordNotProvided':
+        break;
+      case 'error.runtime.recordNotFound':
+        // this could mean that the password is wrong, retry
+        await _processString(content: content, context: context, runtime: runtime, account: account);
+        break;
+      default:
+        await showWrongTokenErrorDialog(context);
+        break;
     }
   }
 }
