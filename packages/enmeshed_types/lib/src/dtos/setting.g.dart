@@ -17,26 +17,16 @@ SettingDTO _$SettingDTOFromJson(Map<String, dynamic> json) => SettingDTO(
       succeedsAt: json['succeedsAt'] as String?,
     );
 
-Map<String, dynamic> _$SettingDTOToJson(SettingDTO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'key': instance.key,
-    'scope': _$SettingScopeEnumMap[instance.scope]!,
-    'value': instance.value,
-    'createdAt': instance.createdAt,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('reference', instance.reference);
-  writeNotNull('succeedsItem', instance.succeedsItem);
-  writeNotNull('succeedsAt', instance.succeedsAt);
-  return val;
-}
+Map<String, dynamic> _$SettingDTOToJson(SettingDTO instance) => <String, dynamic>{
+      'id': instance.id,
+      'key': instance.key,
+      'scope': _$SettingScopeEnumMap[instance.scope]!,
+      'value': instance.value,
+      'createdAt': instance.createdAt,
+      if (instance.reference case final value?) 'reference': value,
+      if (instance.succeedsItem case final value?) 'succeedsItem': value,
+      if (instance.succeedsAt case final value?) 'succeedsAt': value,
+    };
 
 const _$SettingScopeEnumMap = {
   SettingScope.Identity: 'Identity',

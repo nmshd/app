@@ -17,26 +17,16 @@ RelationshipDTO _$RelationshipDTOFromJson(Map<String, dynamic> json) => Relation
       auditLog: (json['auditLog'] as List<dynamic>).map((e) => RelationshipAuditLogEntryDTO.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
-Map<String, dynamic> _$RelationshipDTOToJson(RelationshipDTO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'template': instance.template.toJson(),
-    'status': _$RelationshipStatusEnumMap[instance.status]!,
-    'peer': instance.peer,
-    'peerIdentity': instance.peerIdentity.toJson(),
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('peerDeletionInfo', instance.peerDeletionInfo?.toJson());
-  val['creationContent'] = instance.creationContent.toJson();
-  val['auditLog'] = instance.auditLog.map((e) => e.toJson()).toList();
-  return val;
-}
+Map<String, dynamic> _$RelationshipDTOToJson(RelationshipDTO instance) => <String, dynamic>{
+      'id': instance.id,
+      'template': instance.template.toJson(),
+      'status': _$RelationshipStatusEnumMap[instance.status]!,
+      'peer': instance.peer,
+      'peerIdentity': instance.peerIdentity.toJson(),
+      if (instance.peerDeletionInfo?.toJson() case final value?) 'peerDeletionInfo': value,
+      'creationContent': instance.creationContent.toJson(),
+      'auditLog': instance.auditLog.map((e) => e.toJson()).toList(),
+    };
 
 const _$RelationshipStatusEnumMap = {
   RelationshipStatus.Pending: 'Pending',

@@ -23,33 +23,23 @@ ProcessedIdentityAttributeQueryDVO _$ProcessedIdentityAttributeQueryDVOFromJson(
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ProcessedIdentityAttributeQueryDVOToJson(ProcessedIdentityAttributeQueryDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  writeNotNull('validFrom', instance.validFrom);
-  writeNotNull('validTo', instance.validTo);
-  val['results'] = instance.results.map((e) => e.toJson()).toList();
-  writeNotNull('tags', instance.tags);
-  val['valueType'] = instance.valueType;
-  val['renderHints'] = instance.renderHints.toJson();
-  val['valueHints'] = instance.valueHints.toJson();
-  return val;
-}
+Map<String, dynamic> _$ProcessedIdentityAttributeQueryDVOToJson(ProcessedIdentityAttributeQueryDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      if (instance.validFrom case final value?) 'validFrom': value,
+      if (instance.validTo case final value?) 'validTo': value,
+      'results': instance.results.map((e) => e.toJson()).toList(),
+      if (instance.tags case final value?) 'tags': value,
+      'valueType': instance.valueType,
+      'renderHints': instance.renderHints.toJson(),
+      'valueHints': instance.valueHints.toJson(),
+    };
 
 ProcessedRelationshipAttributeQueryDVO _$ProcessedRelationshipAttributeQueryDVOFromJson(Map<String, dynamic> json) =>
     ProcessedRelationshipAttributeQueryDVO(
@@ -71,35 +61,25 @@ ProcessedRelationshipAttributeQueryDVO _$ProcessedRelationshipAttributeQueryDVOF
       valueHints: ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ProcessedRelationshipAttributeQueryDVOToJson(ProcessedRelationshipAttributeQueryDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  writeNotNull('validFrom', instance.validFrom);
-  writeNotNull('validTo', instance.validTo);
-  val['results'] = instance.results.map((e) => e.toJson()).toList();
-  val['key'] = instance.key;
-  val['owner'] = instance.owner.toJson();
-  val['attributeCreationHints'] = instance.attributeCreationHints.toJson();
-  val['valueType'] = instance.valueType;
-  val['renderHints'] = instance.renderHints.toJson();
-  val['valueHints'] = instance.valueHints.toJson();
-  return val;
-}
+Map<String, dynamic> _$ProcessedRelationshipAttributeQueryDVOToJson(ProcessedRelationshipAttributeQueryDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      if (instance.validFrom case final value?) 'validFrom': value,
+      if (instance.validTo case final value?) 'validTo': value,
+      'results': instance.results.map((e) => e.toJson()).toList(),
+      'key': instance.key,
+      'owner': instance.owner.toJson(),
+      'attributeCreationHints': instance.attributeCreationHints.toJson(),
+      'valueType': instance.valueType,
+      'renderHints': instance.renderHints.toJson(),
+      'valueHints': instance.valueHints.toJson(),
+    };
 
 ProcessedThirdPartyRelationshipAttributeQueryDVO _$ProcessedThirdPartyRelationshipAttributeQueryDVOFromJson(Map<String, dynamic> json) =>
     ProcessedThirdPartyRelationshipAttributeQueryDVO(
@@ -121,35 +101,26 @@ ProcessedThirdPartyRelationshipAttributeQueryDVO _$ProcessedThirdPartyRelationsh
       valueHints: json['valueHints'] == null ? null : ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ProcessedThirdPartyRelationshipAttributeQueryDVOToJson(ProcessedThirdPartyRelationshipAttributeQueryDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  writeNotNull('validFrom', instance.validFrom);
-  writeNotNull('validTo', instance.validTo);
-  val['results'] = instance.results.map((e) => e.toJson()).toList();
-  val['key'] = instance.key;
-  val['owner'] = instance.owner.toJson();
-  val['thirdParty'] = instance.thirdParty.map((e) => e.toJson()).toList();
-  writeNotNull('valueType', instance.valueType);
-  writeNotNull('renderHints', instance.renderHints?.toJson());
-  writeNotNull('valueHints', instance.valueHints?.toJson());
-  return val;
-}
+Map<String, dynamic> _$ProcessedThirdPartyRelationshipAttributeQueryDVOToJson(ProcessedThirdPartyRelationshipAttributeQueryDVO instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      if (instance.validFrom case final value?) 'validFrom': value,
+      if (instance.validTo case final value?) 'validTo': value,
+      'results': instance.results.map((e) => e.toJson()).toList(),
+      'key': instance.key,
+      'owner': instance.owner.toJson(),
+      'thirdParty': instance.thirdParty.map((e) => e.toJson()).toList(),
+      if (instance.valueType case final value?) 'valueType': value,
+      if (instance.renderHints?.toJson() case final value?) 'renderHints': value,
+      if (instance.valueHints?.toJson() case final value?) 'valueHints': value,
+    };
 
 ProcessedIQLQueryDVO _$ProcessedIQLQueryDVOFromJson(Map<String, dynamic> json) => ProcessedIQLQueryDVO(
       id: json['id'] as String,
@@ -168,30 +139,20 @@ ProcessedIQLQueryDVO _$ProcessedIQLQueryDVOFromJson(Map<String, dynamic> json) =
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$ProcessedIQLQueryDVOToJson(ProcessedIQLQueryDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  writeNotNull('validFrom', instance.validFrom);
-  writeNotNull('validTo', instance.validTo);
-  val['results'] = instance.results.map((e) => e.toJson()).toList();
-  writeNotNull('valueType', instance.valueType);
-  writeNotNull('renderHints', instance.renderHints?.toJson());
-  writeNotNull('valueHints', instance.valueHints?.toJson());
-  writeNotNull('tags', instance.tags);
-  return val;
-}
+Map<String, dynamic> _$ProcessedIQLQueryDVOToJson(ProcessedIQLQueryDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      if (instance.validFrom case final value?) 'validFrom': value,
+      if (instance.validTo case final value?) 'validTo': value,
+      'results': instance.results.map((e) => e.toJson()).toList(),
+      if (instance.valueType case final value?) 'valueType': value,
+      if (instance.renderHints?.toJson() case final value?) 'renderHints': value,
+      if (instance.valueHints?.toJson() case final value?) 'valueHints': value,
+      if (instance.tags case final value?) 'tags': value,
+    };

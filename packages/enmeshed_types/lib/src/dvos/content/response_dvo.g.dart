@@ -19,28 +19,18 @@ ResponseDVO _$ResponseDVOFromJson(Map<String, dynamic> json) => ResponseDVO(
       result: $enumDecode(_$ResponseResultEnumMap, json['result']),
     );
 
-Map<String, dynamic> _$ResponseDVOToJson(ResponseDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['items'] = instance.items.map((e) => e.toJson()).toList();
-  val['result'] = _$ResponseResultEnumMap[instance.result]!;
-  return val;
-}
+Map<String, dynamic> _$ResponseDVOToJson(ResponseDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'items': instance.items.map((e) => e.toJson()).toList(),
+      'result': _$ResponseResultEnumMap[instance.result]!,
+    };
 
 const _$ResponseResultEnumMap = {
   ResponseResult.Accepted: 'Accepted',

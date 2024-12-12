@@ -14,30 +14,20 @@ RequestItemGroupDVO _$RequestItemGroupDVOFromJson(Map<String, dynamic> json) => 
       response: json['response'] == null ? null : ResponseItemGroupDVO.fromJson(json['response'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RequestItemGroupDVOToJson(RequestItemGroupDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  val['items'] = instance.items.map((e) => e.toJson()).toList();
-  writeNotNull('title', instance.title);
-  writeNotNull('response', instance.response?.toJson());
-  return val;
-}
+Map<String, dynamic> _$RequestItemGroupDVOToJson(RequestItemGroupDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      'items': instance.items.map((e) => e.toJson()).toList(),
+      if (instance.title case final value?) 'title': value,
+      if (instance.response?.toJson() case final value?) 'response': value,
+    };
 
 ReadAttributeRequestItemDVO _$ReadAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => ReadAttributeRequestItemDVO(
       id: json['id'] as String,
@@ -54,31 +44,21 @@ ReadAttributeRequestItemDVO _$ReadAttributeRequestItemDVOFromJson(Map<String, dy
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(ReadAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  writeNotNull('response', instance.response?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['query'] = instance.query.toJson();
-  return val;
-}
+Map<String, dynamic> _$ReadAttributeRequestItemDVOToJson(ReadAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      if (instance.response?.toJson() case final value?) 'response': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'query': instance.query.toJson(),
+    };
 
 ProposeAttributeRequestItemDVO _$ProposeAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => ProposeAttributeRequestItemDVO(
       id: json['id'] as String,
@@ -97,33 +77,23 @@ ProposeAttributeRequestItemDVO _$ProposeAttributeRequestItemDVOFromJson(Map<Stri
       proposedValueOverruled: json['proposedValueOverruled'] as bool,
     );
 
-Map<String, dynamic> _$ProposeAttributeRequestItemDVOToJson(ProposeAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  writeNotNull('response', instance.response?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['query'] = instance.query.toJson();
-  val['attribute'] = instance.attribute.toJson();
-  val['proposedValueOverruled'] = instance.proposedValueOverruled;
-  return val;
-}
+Map<String, dynamic> _$ProposeAttributeRequestItemDVOToJson(ProposeAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      if (instance.response?.toJson() case final value?) 'response': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'query': instance.query.toJson(),
+      'attribute': instance.attribute.toJson(),
+      'proposedValueOverruled': instance.proposedValueOverruled,
+    };
 
 CreateAttributeRequestItemDVO _$CreateAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => CreateAttributeRequestItemDVO(
       id: json['id'] as String,
@@ -141,32 +111,22 @@ CreateAttributeRequestItemDVO _$CreateAttributeRequestItemDVOFromJson(Map<String
       sourceAttributeId: json['sourceAttributeId'] as String?,
     );
 
-Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(CreateAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  writeNotNull('response', instance.response?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['attribute'] = instance.attribute.toJson();
-  writeNotNull('sourceAttributeId', instance.sourceAttributeId);
-  return val;
-}
+Map<String, dynamic> _$CreateAttributeRequestItemDVOToJson(CreateAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      if (instance.response?.toJson() case final value?) 'response': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'attribute': instance.attribute.toJson(),
+      if (instance.sourceAttributeId case final value?) 'sourceAttributeId': value,
+    };
 
 DeleteAttributeRequestItemDVO _$DeleteAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => DeleteAttributeRequestItemDVO(
       id: json['id'] as String,
@@ -184,32 +144,22 @@ DeleteAttributeRequestItemDVO _$DeleteAttributeRequestItemDVOFromJson(Map<String
       attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DeleteAttributeRequestItemDVOToJson(DeleteAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  writeNotNull('response', instance.response?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute.toJson();
-  return val;
-}
+Map<String, dynamic> _$DeleteAttributeRequestItemDVOToJson(DeleteAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      if (instance.response?.toJson() case final value?) 'response': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'attributeId': instance.attributeId,
+      'attribute': instance.attribute.toJson(),
+    };
 
 ShareAttributeRequestItemDVO _$ShareAttributeRequestItemDVOFromJson(Map<String, dynamic> json) => ShareAttributeRequestItemDVO(
       id: json['id'] as String,
@@ -228,33 +178,23 @@ ShareAttributeRequestItemDVO _$ShareAttributeRequestItemDVOFromJson(Map<String, 
       thirdPartyAddress: json['thirdPartyAddress'] as String?,
     );
 
-Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  writeNotNull('response', instance.response?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['attribute'] = instance.attribute.toJson();
-  val['sourceAttributeId'] = instance.sourceAttributeId;
-  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
-  return val;
-}
+Map<String, dynamic> _$ShareAttributeRequestItemDVOToJson(ShareAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      if (instance.response?.toJson() case final value?) 'response': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'attribute': instance.attribute.toJson(),
+      'sourceAttributeId': instance.sourceAttributeId,
+      if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,
+    };
 
 AuthenticationRequestItemDVO _$AuthenticationRequestItemDVOFromJson(Map<String, dynamic> json) => AuthenticationRequestItemDVO(
       id: json['id'] as String,
@@ -270,30 +210,20 @@ AuthenticationRequestItemDVO _$AuthenticationRequestItemDVOFromJson(Map<String, 
       requireManualDecision: json['requireManualDecision'] as bool?,
     );
 
-Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  writeNotNull('response', instance.response?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  return val;
-}
+Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      if (instance.response?.toJson() case final value?) 'response': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+    };
 
 ConsentRequestItemDVO _$ConsentRequestItemDVOFromJson(Map<String, dynamic> json) => ConsentRequestItemDVO(
       id: json['id'] as String,
@@ -311,32 +241,22 @@ ConsentRequestItemDVO _$ConsentRequestItemDVOFromJson(Map<String, dynamic> json)
       link: json['link'] as String?,
     );
 
-Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  writeNotNull('response', instance.response?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['consent'] = instance.consent;
-  writeNotNull('link', instance.link);
-  return val;
-}
+Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      if (instance.response?.toJson() case final value?) 'response': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'consent': instance.consent,
+      if (instance.link case final value?) 'link': value,
+    };
 
 FreeTextRequestItemDVO _$FreeTextRequestItemDVOFromJson(Map<String, dynamic> json) => FreeTextRequestItemDVO(
       id: json['id'] as String,
@@ -353,31 +273,21 @@ FreeTextRequestItemDVO _$FreeTextRequestItemDVOFromJson(Map<String, dynamic> jso
       freeText: json['freeText'] as String,
     );
 
-Map<String, dynamic> _$FreeTextRequestItemDVOToJson(FreeTextRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  writeNotNull('response', instance.response?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['freeText'] = instance.freeText;
-  return val;
-}
+Map<String, dynamic> _$FreeTextRequestItemDVOToJson(FreeTextRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      if (instance.response?.toJson() case final value?) 'response': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'freeText': instance.freeText,
+    };
 
 RegisterAttributeListenerRequestItemDVO _$RegisterAttributeListenerRequestItemDVOFromJson(Map<String, dynamic> json) =>
     RegisterAttributeListenerRequestItemDVO(
@@ -395,31 +305,21 @@ RegisterAttributeListenerRequestItemDVO _$RegisterAttributeListenerRequestItemDV
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RegisterAttributeListenerRequestItemDVOToJson(RegisterAttributeListenerRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isDecidable'] = instance.isDecidable;
-  writeNotNull('response', instance.response?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['query'] = instance.query.toJson();
-  return val;
-}
+Map<String, dynamic> _$RegisterAttributeListenerRequestItemDVOToJson(RegisterAttributeListenerRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isDecidable': instance.isDecidable,
+      if (instance.response?.toJson() case final value?) 'response': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'query': instance.query.toJson(),
+    };
 
 DecidableReadAttributeRequestItemDVO _$DecidableReadAttributeRequestItemDVOFromJson(Map<String, dynamic> json) =>
     DecidableReadAttributeRequestItemDVO(
@@ -435,29 +335,19 @@ DecidableReadAttributeRequestItemDVO _$DecidableReadAttributeRequestItemDVOFromJ
       requireManualDecision: json['requireManualDecision'] as bool?,
     );
 
-Map<String, dynamic> _$DecidableReadAttributeRequestItemDVOToJson(DecidableReadAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['query'] = instance.query.toJson();
-  return val;
-}
+Map<String, dynamic> _$DecidableReadAttributeRequestItemDVOToJson(DecidableReadAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'query': instance.query.toJson(),
+    };
 
 DecidableProposeAttributeRequestItemDVO _$DecidableProposeAttributeRequestItemDVOFromJson(Map<String, dynamic> json) =>
     DecidableProposeAttributeRequestItemDVO(
@@ -474,30 +364,20 @@ DecidableProposeAttributeRequestItemDVO _$DecidableProposeAttributeRequestItemDV
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DecidableProposeAttributeRequestItemDVOToJson(DecidableProposeAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['query'] = instance.query.toJson();
-  val['attribute'] = instance.attribute.toJson();
-  return val;
-}
+Map<String, dynamic> _$DecidableProposeAttributeRequestItemDVOToJson(DecidableProposeAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'query': instance.query.toJson(),
+      'attribute': instance.attribute.toJson(),
+    };
 
 DecidableCreateAttributeRequestItemDVO _$DecidableCreateAttributeRequestItemDVOFromJson(Map<String, dynamic> json) =>
     DecidableCreateAttributeRequestItemDVO(
@@ -513,29 +393,19 @@ DecidableCreateAttributeRequestItemDVO _$DecidableCreateAttributeRequestItemDVOF
       attribute: DraftAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DecidableCreateAttributeRequestItemDVOToJson(DecidableCreateAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['attribute'] = instance.attribute.toJson();
-  return val;
-}
+Map<String, dynamic> _$DecidableCreateAttributeRequestItemDVOToJson(DecidableCreateAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'attribute': instance.attribute.toJson(),
+    };
 
 DecidableDeleteAttributeRequestItemDVO _$DecidableDeleteAttributeRequestItemDVOFromJson(Map<String, dynamic> json) =>
     DecidableDeleteAttributeRequestItemDVO(
@@ -552,30 +422,20 @@ DecidableDeleteAttributeRequestItemDVO _$DecidableDeleteAttributeRequestItemDVOF
       attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DecidableDeleteAttributeRequestItemDVOToJson(DecidableDeleteAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute.toJson();
-  return val;
-}
+Map<String, dynamic> _$DecidableDeleteAttributeRequestItemDVOToJson(DecidableDeleteAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'attributeId': instance.attributeId,
+      'attribute': instance.attribute.toJson(),
+    };
 
 DecidableShareAttributeRequestItemDVO _$DecidableShareAttributeRequestItemDVOFromJson(Map<String, dynamic> json) =>
     DecidableShareAttributeRequestItemDVO(
@@ -593,31 +453,21 @@ DecidableShareAttributeRequestItemDVO _$DecidableShareAttributeRequestItemDVOFro
       thirdPartyAddress: json['thirdPartyAddress'] as String?,
     );
 
-Map<String, dynamic> _$DecidableShareAttributeRequestItemDVOToJson(DecidableShareAttributeRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['sourceAttributeId'] = instance.sourceAttributeId;
-  val['attribute'] = instance.attribute.toJson();
-  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
-  return val;
-}
+Map<String, dynamic> _$DecidableShareAttributeRequestItemDVOToJson(DecidableShareAttributeRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'sourceAttributeId': instance.sourceAttributeId,
+      'attribute': instance.attribute.toJson(),
+      if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,
+    };
 
 DecidableAuthenticationRequestItemDVO _$DecidableAuthenticationRequestItemDVOFromJson(Map<String, dynamic> json) =>
     DecidableAuthenticationRequestItemDVO(
@@ -632,28 +482,18 @@ DecidableAuthenticationRequestItemDVO _$DecidableAuthenticationRequestItemDVOFro
       requireManualDecision: json['requireManualDecision'] as bool?,
     );
 
-Map<String, dynamic> _$DecidableAuthenticationRequestItemDVOToJson(DecidableAuthenticationRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  return val;
-}
+Map<String, dynamic> _$DecidableAuthenticationRequestItemDVOToJson(DecidableAuthenticationRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+    };
 
 DecidableConsentRequestItemDVO _$DecidableConsentRequestItemDVOFromJson(Map<String, dynamic> json) => DecidableConsentRequestItemDVO(
       id: json['id'] as String,
@@ -669,30 +509,20 @@ DecidableConsentRequestItemDVO _$DecidableConsentRequestItemDVOFromJson(Map<Stri
       link: json['link'] as String?,
     );
 
-Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['consent'] = instance.consent;
-  writeNotNull('link', instance.link);
-  return val;
-}
+Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'consent': instance.consent,
+      if (instance.link case final value?) 'link': value,
+    };
 
 DecidableFreeTextRequestItemDVO _$DecidableFreeTextRequestItemDVOFromJson(Map<String, dynamic> json) => DecidableFreeTextRequestItemDVO(
       id: json['id'] as String,
@@ -707,29 +537,19 @@ DecidableFreeTextRequestItemDVO _$DecidableFreeTextRequestItemDVOFromJson(Map<St
       freeText: json['freeText'] as String,
     );
 
-Map<String, dynamic> _$DecidableFreeTextRequestItemDVOToJson(DecidableFreeTextRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['freeText'] = instance.freeText;
-  return val;
-}
+Map<String, dynamic> _$DecidableFreeTextRequestItemDVOToJson(DecidableFreeTextRequestItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'freeText': instance.freeText,
+    };
 
 DecidableRegisterAttributeListenerRequestItemDVO _$DecidableRegisterAttributeListenerRequestItemDVOFromJson(Map<String, dynamic> json) =>
     DecidableRegisterAttributeListenerRequestItemDVO(
@@ -745,26 +565,17 @@ DecidableRegisterAttributeListenerRequestItemDVO _$DecidableRegisterAttributeLis
       query: AttributeQueryDVO.fromJson(json['query'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DecidableRegisterAttributeListenerRequestItemDVOToJson(DecidableRegisterAttributeListenerRequestItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['mustBeAccepted'] = instance.mustBeAccepted;
-  writeNotNull('requireManualDecision', instance.requireManualDecision);
-  val['query'] = instance.query.toJson();
-  return val;
-}
+Map<String, dynamic> _$DecidableRegisterAttributeListenerRequestItemDVOToJson(DecidableRegisterAttributeListenerRequestItemDVO instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'mustBeAccepted': instance.mustBeAccepted,
+      if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+      'query': instance.query.toJson(),
+    };

@@ -28,37 +28,27 @@ DraftIdentityAttributeDVO _$DraftIdentityAttributeDVOFromJson(Map<String, dynami
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(DraftIdentityAttributeDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['content'] = instance.content.toJson();
-  val['owner'] = instance.owner.toJson();
-  val['renderHints'] = instance.renderHints.toJson();
-  val['valueHints'] = instance.valueHints.toJson();
-  val['valueType'] = instance.valueType;
-  val['isOwn'] = instance.isOwn;
-  val['isDraft'] = instance.isDraft;
-  writeNotNull('succeeds', instance.succeeds);
-  writeNotNull('succeededBy', instance.succeededBy);
-  val['value'] = instance.value.toJson();
-  val['tags'] = instance.tags;
-  return val;
-}
+Map<String, dynamic> _$DraftIdentityAttributeDVOToJson(DraftIdentityAttributeDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'content': instance.content.toJson(),
+      'owner': instance.owner.toJson(),
+      'renderHints': instance.renderHints.toJson(),
+      'valueHints': instance.valueHints.toJson(),
+      'valueType': instance.valueType,
+      'isOwn': instance.isOwn,
+      'isDraft': instance.isDraft,
+      if (instance.succeeds case final value?) 'succeeds': value,
+      if (instance.succeededBy case final value?) 'succeededBy': value,
+      'value': instance.value.toJson(),
+      'tags': instance.tags,
+    };
 
 DraftRelationshipAttributeDVO _$DraftRelationshipAttributeDVOFromJson(Map<String, dynamic> json) => DraftRelationshipAttributeDVO(
       id: json['id'] as String,
@@ -84,36 +74,26 @@ DraftRelationshipAttributeDVO _$DraftRelationshipAttributeDVOFromJson(Map<String
       confidentiality: json['confidentiality'] as String,
     );
 
-Map<String, dynamic> _$DraftRelationshipAttributeDVOToJson(DraftRelationshipAttributeDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['content'] = instance.content.toJson();
-  val['owner'] = instance.owner.toJson();
-  val['renderHints'] = instance.renderHints.toJson();
-  val['valueHints'] = instance.valueHints.toJson();
-  val['valueType'] = instance.valueType;
-  val['isOwn'] = instance.isOwn;
-  val['isDraft'] = instance.isDraft;
-  writeNotNull('succeeds', instance.succeeds);
-  writeNotNull('succeededBy', instance.succeededBy);
-  val['value'] = instance.value.toJson();
-  val['key'] = instance.key;
-  val['isTechnical'] = instance.isTechnical;
-  val['confidentiality'] = instance.confidentiality;
-  return val;
-}
+Map<String, dynamic> _$DraftRelationshipAttributeDVOToJson(DraftRelationshipAttributeDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'content': instance.content.toJson(),
+      'owner': instance.owner.toJson(),
+      'renderHints': instance.renderHints.toJson(),
+      'valueHints': instance.valueHints.toJson(),
+      'valueType': instance.valueType,
+      'isOwn': instance.isOwn,
+      'isDraft': instance.isDraft,
+      if (instance.succeeds case final value?) 'succeeds': value,
+      if (instance.succeededBy case final value?) 'succeededBy': value,
+      'value': instance.value.toJson(),
+      'key': instance.key,
+      'isTechnical': instance.isTechnical,
+      'confidentiality': instance.confidentiality,
+    };

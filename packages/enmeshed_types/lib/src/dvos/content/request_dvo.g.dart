@@ -20,26 +20,16 @@ RequestDVO _$RequestDVOFromJson(Map<String, dynamic> json) => RequestDVO(
       response: json['response'] == null ? null : ResponseDVO.fromJson(json['response'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RequestDVOToJson(RequestDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  writeNotNull('expiresAt', instance.expiresAt);
-  val['items'] = instance.items.map((e) => e.toJson()).toList();
-  writeNotNull('response', instance.response?.toJson());
-  return val;
-}
+Map<String, dynamic> _$RequestDVOToJson(RequestDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      if (instance.expiresAt case final value?) 'expiresAt': value,
+      'items': instance.items.map((e) => e.toJson()).toList(),
+      if (instance.response?.toJson() case final value?) 'response': value,
+    };

@@ -13,6 +13,7 @@ void main() {
         type: 'aType',
         username: 'anUsername',
         isCurrentDevice: true,
+        isBackupDevice: true,
       );
       final dtoJson = dto.toJson();
       expect(
@@ -26,6 +27,7 @@ void main() {
           'type': 'aType',
           'username': 'anUsername',
           'isCurrentDevice': true,
+          'isBackupDevice': true,
         }),
       );
     });
@@ -41,6 +43,7 @@ void main() {
         type: 'aType',
         username: 'anUsername',
         isCurrentDevice: true,
+        isBackupDevice: true,
       );
       final dtoJson = dto.toJson();
       expect(
@@ -55,6 +58,7 @@ void main() {
           'type': 'aType',
           'username': 'anUsername',
           'isCurrentDevice': true,
+          'isBackupDevice': true,
         }),
       );
     });
@@ -70,6 +74,7 @@ void main() {
         type: 'aType',
         username: 'anUsername',
         isCurrentDevice: true,
+        isBackupDevice: true,
       );
       final dtoJson = dto.toJson();
       expect(
@@ -84,6 +89,7 @@ void main() {
           'type': 'aType',
           'username': 'anUsername',
           'isCurrentDevice': true,
+          'isBackupDevice': true,
         }),
       );
     });
@@ -99,6 +105,7 @@ void main() {
         type: 'aType',
         username: 'anUsername',
         isCurrentDevice: true,
+        isBackupDevice: true,
       );
       final dtoJson = dto.toJson();
       expect(
@@ -113,6 +120,7 @@ void main() {
           'type': 'aType',
           'username': 'anUsername',
           'isCurrentDevice': true,
+          'isBackupDevice': true,
         }),
       );
     });
@@ -128,6 +136,7 @@ void main() {
         type: 'aType',
         username: 'anUsername',
         isCurrentDevice: true,
+        isBackupDevice: true,
       );
       final dtoJson = dto.toJson();
       expect(
@@ -142,6 +151,7 @@ void main() {
           'type': 'aType',
           'username': 'anUsername',
           'isCurrentDevice': true,
+          'isBackupDevice': true,
         }),
       );
     });
@@ -157,6 +167,7 @@ void main() {
         type: 'aType',
         username: 'anUsername',
         isCurrentDevice: true,
+        isBackupDevice: true,
       );
       final dtoJson = dto.toJson();
       expect(
@@ -171,6 +182,7 @@ void main() {
           'type': 'aType',
           'username': 'anUsername',
           'isCurrentDevice': true,
+          'isBackupDevice': true,
         }),
       );
     });
@@ -190,6 +202,7 @@ void main() {
         type: 'aType',
         username: 'anUsername',
         isCurrentDevice: true,
+        isBackupDevice: true,
       );
       final dtoJson = dto.toJson();
       expect(
@@ -208,6 +221,7 @@ void main() {
           'type': 'aType',
           'username': 'anUsername',
           'isCurrentDevice': true,
+          'isBackupDevice': true,
         }),
       );
     });
@@ -224,6 +238,7 @@ void main() {
         'type': 'aType',
         'username': 'anUsername',
         'isCurrentDevice': true,
+        'isBackupDevice': true,
       };
       expect(
         DeviceDTO.fromJson(json),
@@ -236,6 +251,7 @@ void main() {
           type: 'aType',
           username: 'anUsername',
           isCurrentDevice: true,
+          isBackupDevice: true,
         )),
       );
     });
@@ -251,6 +267,7 @@ void main() {
         'type': 'aType',
         'username': 'anUsername',
         'isCurrentDevice': true,
+        'isBackupDevice': true,
       };
       expect(
         DeviceDTO.fromJson(json),
@@ -264,6 +281,7 @@ void main() {
           type: 'aType',
           username: 'anUsername',
           isCurrentDevice: true,
+          isBackupDevice: true,
         )),
       );
     });
@@ -279,6 +297,7 @@ void main() {
         'type': 'aType',
         'username': 'anUsername',
         'isCurrentDevice': true,
+        'isBackupDevice': true,
       };
       expect(
         DeviceDTO.fromJson(json),
@@ -292,6 +311,7 @@ void main() {
           type: 'aType',
           username: 'anUsername',
           isCurrentDevice: true,
+          isBackupDevice: true,
         )),
       );
     });
@@ -307,6 +327,7 @@ void main() {
         'type': 'aType',
         'username': 'anUsername',
         'isCurrentDevice': true,
+        'isBackupDevice': true,
       };
       expect(
         DeviceDTO.fromJson(json),
@@ -320,6 +341,7 @@ void main() {
           type: 'aType',
           username: 'anUsername',
           isCurrentDevice: true,
+          isBackupDevice: true,
         )),
       );
     });
@@ -335,6 +357,7 @@ void main() {
         'type': 'aType',
         'username': 'anUsername',
         'isCurrentDevice': true,
+        'isBackupDevice': true,
       };
       expect(
         DeviceDTO.fromJson(json),
@@ -348,6 +371,7 @@ void main() {
           type: 'aType',
           username: 'anUsername',
           isCurrentDevice: true,
+          isBackupDevice: true,
         )),
       );
     });
@@ -363,6 +387,7 @@ void main() {
         'type': 'aType',
         'username': 'anUsername',
         'isCurrentDevice': true,
+        'isBackupDevice': true,
       };
       expect(
         DeviceDTO.fromJson(json),
@@ -376,6 +401,7 @@ void main() {
           type: 'aType',
           username: 'anUsername',
           isCurrentDevice: true,
+          isBackupDevice: true,
         )),
       );
     });
@@ -395,6 +421,7 @@ void main() {
         'type': 'aType',
         'username': 'anUsername',
         'isCurrentDevice': true,
+        'isBackupDevice': true,
       };
       expect(
         DeviceDTO.fromJson(json),
@@ -412,6 +439,7 @@ void main() {
           type: 'aType',
           username: 'anUsername',
           isCurrentDevice: true,
+          isBackupDevice: true,
         )),
       );
     });

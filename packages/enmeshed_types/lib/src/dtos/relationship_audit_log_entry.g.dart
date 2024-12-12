@@ -15,24 +15,14 @@ RelationshipAuditLogEntryDTO _$RelationshipAuditLogEntryDTOFromJson(Map<String, 
       newStatus: $enumDecode(_$RelationshipStatusEnumMap, json['newStatus']),
     );
 
-Map<String, dynamic> _$RelationshipAuditLogEntryDTOToJson(RelationshipAuditLogEntryDTO instance) {
-  final val = <String, dynamic>{
-    'createdAt': instance.createdAt,
-    'createdBy': instance.createdBy,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('createdByDevice', instance.createdByDevice);
-  val['reason'] = _$RelationshipAuditLogEntryReasonEnumMap[instance.reason]!;
-  writeNotNull('oldStatus', _$RelationshipStatusEnumMap[instance.oldStatus]);
-  val['newStatus'] = _$RelationshipStatusEnumMap[instance.newStatus]!;
-  return val;
-}
+Map<String, dynamic> _$RelationshipAuditLogEntryDTOToJson(RelationshipAuditLogEntryDTO instance) => <String, dynamic>{
+      'createdAt': instance.createdAt,
+      'createdBy': instance.createdBy,
+      if (instance.createdByDevice case final value?) 'createdByDevice': value,
+      'reason': _$RelationshipAuditLogEntryReasonEnumMap[instance.reason]!,
+      if (_$RelationshipStatusEnumMap[instance.oldStatus] case final value?) 'oldStatus': value,
+      'newStatus': _$RelationshipStatusEnumMap[instance.newStatus]!,
+    };
 
 const _$RelationshipAuditLogEntryReasonEnumMap = {
   RelationshipAuditLogEntryReason.Creation: 'Creation',

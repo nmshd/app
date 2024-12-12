@@ -14,19 +14,10 @@ LocalAttributeShareInfo _$LocalAttributeShareInfoFromJson(Map<String, dynamic> j
       thirdPartyAddress: json['thirdPartyAddress'] as String?,
     );
 
-Map<String, dynamic> _$LocalAttributeShareInfoToJson(LocalAttributeShareInfo instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('requestReference', instance.requestReference);
-  writeNotNull('notificationReference', instance.notificationReference);
-  val['peer'] = instance.peer;
-  writeNotNull('sourceAttribute', instance.sourceAttribute);
-  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
-  return val;
-}
+Map<String, dynamic> _$LocalAttributeShareInfoToJson(LocalAttributeShareInfo instance) => <String, dynamic>{
+      if (instance.requestReference case final value?) 'requestReference': value,
+      if (instance.notificationReference case final value?) 'notificationReference': value,
+      'peer': instance.peer,
+      if (instance.sourceAttribute case final value?) 'sourceAttribute': value,
+      if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,
+    };

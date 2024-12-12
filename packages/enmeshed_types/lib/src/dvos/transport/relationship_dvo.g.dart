@@ -33,40 +33,30 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
       originalName: json['originalName'] as String?,
     );
 
-Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['status'] = _$RelationshipStatusEnumMap[instance.status]!;
-  writeNotNull('peerDeletionStatus', _$PeerDeletionStatusEnumMap[instance.peerDeletionStatus]);
-  writeNotNull('peerDeletionDate', instance.peerDeletionDate);
-  val['direction'] = _$RelationshipDirectionEnumMap[instance.direction]!;
-  val['statusText'] = instance.statusText;
-  val['isPinned'] = instance.isPinned;
-  writeNotNull('theme', instance.theme?.toJson());
-  val['creationContent'] = instance.creationContent.toJson();
-  val['auditLog'] = instance.auditLog.map((e) => e.toJson()).toList();
-  val['items'] = instance.items.map((e) => e.toJson()).toList();
-  val['attributeMap'] = instance.attributeMap.map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList()));
-  val['nameMap'] = instance.nameMap;
-  val['templateId'] = instance.templateId;
-  writeNotNull('originalName', instance.originalName);
-  return val;
-}
+Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'status': _$RelationshipStatusEnumMap[instance.status]!,
+      if (_$PeerDeletionStatusEnumMap[instance.peerDeletionStatus] case final value?) 'peerDeletionStatus': value,
+      if (instance.peerDeletionDate case final value?) 'peerDeletionDate': value,
+      'direction': _$RelationshipDirectionEnumMap[instance.direction]!,
+      'statusText': instance.statusText,
+      'isPinned': instance.isPinned,
+      if (instance.theme?.toJson() case final value?) 'theme': value,
+      'creationContent': instance.creationContent.toJson(),
+      'auditLog': instance.auditLog.map((e) => e.toJson()).toList(),
+      'items': instance.items.map((e) => e.toJson()).toList(),
+      'attributeMap': instance.attributeMap.map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList())),
+      'nameMap': instance.nameMap,
+      'templateId': instance.templateId,
+      if (instance.originalName case final value?) 'originalName': value,
+    };
 
 const _$RelationshipStatusEnumMap = {
   RelationshipStatus.Pending: 'Pending',
@@ -94,18 +84,9 @@ RelationshipTheme _$RelationshipThemeFromJson(Map<String, dynamic> json) => Rela
       foregroundColor: json['foregroundColor'] as String?,
     );
 
-Map<String, dynamic> _$RelationshipThemeToJson(RelationshipTheme instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('image', instance.image);
-  writeNotNull('headerImage', instance.headerImage);
-  writeNotNull('backgroundColor', instance.backgroundColor);
-  writeNotNull('foregroundColor', instance.foregroundColor);
-  return val;
-}
+Map<String, dynamic> _$RelationshipThemeToJson(RelationshipTheme instance) => <String, dynamic>{
+      if (instance.image case final value?) 'image': value,
+      if (instance.headerImage case final value?) 'headerImage': value,
+      if (instance.backgroundColor case final value?) 'backgroundColor': value,
+      if (instance.foregroundColor case final value?) 'foregroundColor': value,
+    };

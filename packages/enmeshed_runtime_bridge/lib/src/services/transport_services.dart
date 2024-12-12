@@ -10,6 +10,7 @@ class TransportServices {
   final TokensFacade tokens;
   final DevicesFacade devices;
   final IdentityDeletionProcessesFacade identityDeletionProcesses;
+  final IdentityRecoveryKitsFacade identityRecoveryKits;
   final PublicRelationshipTemplateReferencesFacade publicRelationshipTemplateReferences;
 
   TransportServices(AbstractEvaluator evaluator)
@@ -21,5 +22,6 @@ class TransportServices {
         tokens = TokensFacade(evaluator),
         devices = DevicesFacade(evaluator),
         identityDeletionProcesses = IdentityDeletionProcessesFacade(evaluator),
+        identityRecoveryKits = IdentityRecoveryKitsFacade(evaluator),
         publicRelationshipTemplateReferences = PublicRelationshipTemplateReferencesFacade(evaluator);
 }

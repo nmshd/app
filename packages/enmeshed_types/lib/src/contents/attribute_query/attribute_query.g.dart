@@ -13,22 +13,12 @@ IdentityAttributeQuery _$IdentityAttributeQueryFromJson(Map<String, dynamic> jso
       validTo: json['validTo'] as String?,
     );
 
-Map<String, dynamic> _$IdentityAttributeQueryToJson(IdentityAttributeQuery instance) {
-  final val = <String, dynamic>{
-    'valueType': instance.valueType,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('tags', instance.tags);
-  writeNotNull('validFrom', instance.validFrom);
-  writeNotNull('validTo', instance.validTo);
-  return val;
-}
+Map<String, dynamic> _$IdentityAttributeQueryToJson(IdentityAttributeQuery instance) => <String, dynamic>{
+      'valueType': instance.valueType,
+      if (instance.tags case final value?) 'tags': value,
+      if (instance.validFrom case final value?) 'validFrom': value,
+      if (instance.validTo case final value?) 'validTo': value,
+    };
 
 IQLQuery _$IQLQueryFromJson(Map<String, dynamic> json) => IQLQuery(
       queryString: json['queryString'] as String,
@@ -36,40 +26,20 @@ IQLQuery _$IQLQueryFromJson(Map<String, dynamic> json) => IQLQuery(
           json['attributeCreationHints'] == null ? null : IQLQueryCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$IQLQueryToJson(IQLQuery instance) {
-  final val = <String, dynamic>{
-    'queryString': instance.queryString,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('attributeCreationHints', instance.attributeCreationHints?.toJson());
-  return val;
-}
+Map<String, dynamic> _$IQLQueryToJson(IQLQuery instance) => <String, dynamic>{
+      'queryString': instance.queryString,
+      if (instance.attributeCreationHints?.toJson() case final value?) 'attributeCreationHints': value,
+    };
 
 IQLQueryCreationHints _$IQLQueryCreationHintsFromJson(Map<String, dynamic> json) => IQLQueryCreationHints(
       valueType: json['valueType'] as String,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$IQLQueryCreationHintsToJson(IQLQueryCreationHints instance) {
-  final val = <String, dynamic>{
-    'valueType': instance.valueType,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('tags', instance.tags);
-  return val;
-}
+Map<String, dynamic> _$IQLQueryCreationHintsToJson(IQLQueryCreationHints instance) => <String, dynamic>{
+      'valueType': instance.valueType,
+      if (instance.tags case final value?) 'tags': value,
+    };
 
 RelationshipAttributeCreationHints _$RelationshipAttributeCreationHintsFromJson(Map<String, dynamic> json) => RelationshipAttributeCreationHints(
       title: json['title'] as String,
@@ -79,23 +49,13 @@ RelationshipAttributeCreationHints _$RelationshipAttributeCreationHintsFromJson(
       confidentiality: json['confidentiality'] as String,
     );
 
-Map<String, dynamic> _$RelationshipAttributeCreationHintsToJson(RelationshipAttributeCreationHints instance) {
-  final val = <String, dynamic>{
-    'title': instance.title,
-    'valueType': instance.valueType,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('valueHints', instance.valueHints?.toJson());
-  val['confidentiality'] = instance.confidentiality;
-  return val;
-}
+Map<String, dynamic> _$RelationshipAttributeCreationHintsToJson(RelationshipAttributeCreationHints instance) => <String, dynamic>{
+      'title': instance.title,
+      'valueType': instance.valueType,
+      if (instance.description case final value?) 'description': value,
+      if (instance.valueHints?.toJson() case final value?) 'valueHints': value,
+      'confidentiality': instance.confidentiality,
+    };
 
 RelationshipAttributeQuery _$RelationshipAttributeQueryFromJson(Map<String, dynamic> json) => RelationshipAttributeQuery(
       key: json['key'] as String,
@@ -105,23 +65,13 @@ RelationshipAttributeQuery _$RelationshipAttributeQueryFromJson(Map<String, dyna
       validTo: json['validTo'] as String?,
     );
 
-Map<String, dynamic> _$RelationshipAttributeQueryToJson(RelationshipAttributeQuery instance) {
-  final val = <String, dynamic>{
-    'key': instance.key,
-    'owner': instance.owner,
-    'attributeCreationHints': instance.attributeCreationHints.toJson(),
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('validFrom', instance.validFrom);
-  writeNotNull('validTo', instance.validTo);
-  return val;
-}
+Map<String, dynamic> _$RelationshipAttributeQueryToJson(RelationshipAttributeQuery instance) => <String, dynamic>{
+      'key': instance.key,
+      'owner': instance.owner,
+      'attributeCreationHints': instance.attributeCreationHints.toJson(),
+      if (instance.validFrom case final value?) 'validFrom': value,
+      if (instance.validTo case final value?) 'validTo': value,
+    };
 
 ThirdPartyRelationshipAttributeQuery _$ThirdPartyRelationshipAttributeQueryFromJson(Map<String, dynamic> json) =>
     ThirdPartyRelationshipAttributeQuery(
@@ -132,23 +82,13 @@ ThirdPartyRelationshipAttributeQuery _$ThirdPartyRelationshipAttributeQueryFromJ
       validTo: json['validTo'] as String?,
     );
 
-Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryToJson(ThirdPartyRelationshipAttributeQuery instance) {
-  final val = <String, dynamic>{
-    'key': instance.key,
-    'owner': _$ThirdPartyRelationshipAttributeQueryOwnerEnumMap[instance.owner]!,
-    'thirdParty': instance.thirdParty,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('validFrom', instance.validFrom);
-  writeNotNull('validTo', instance.validTo);
-  return val;
-}
+Map<String, dynamic> _$ThirdPartyRelationshipAttributeQueryToJson(ThirdPartyRelationshipAttributeQuery instance) => <String, dynamic>{
+      'key': instance.key,
+      'owner': _$ThirdPartyRelationshipAttributeQueryOwnerEnumMap[instance.owner]!,
+      'thirdParty': instance.thirdParty,
+      if (instance.validFrom case final value?) 'validFrom': value,
+      if (instance.validTo case final value?) 'validTo': value,
+    };
 
 const _$ThirdPartyRelationshipAttributeQueryOwnerEnumMap = {
   ThirdPartyRelationshipAttributeQueryOwner.thirdParty: 'thirdParty',

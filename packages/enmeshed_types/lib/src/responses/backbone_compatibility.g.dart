@@ -13,19 +13,9 @@ CheckBackboneCompatibilityResponse _$CheckBackboneCompatibilityResponseFromJson(
       supportedMaxBackboneVersion: const IntegerConverter().fromJson(json['supportedMaxBackboneVersion']),
     );
 
-Map<String, dynamic> _$CheckBackboneCompatibilityResponseToJson(CheckBackboneCompatibilityResponse instance) {
-  final val = <String, dynamic>{
-    'isCompatible': instance.isCompatible,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('backboneVersion', const IntegerConverter().toJson(instance.backboneVersion));
-  writeNotNull('supportedMinBackboneVersion', const IntegerConverter().toJson(instance.supportedMinBackboneVersion));
-  writeNotNull('supportedMaxBackboneVersion', const IntegerConverter().toJson(instance.supportedMaxBackboneVersion));
-  return val;
-}
+Map<String, dynamic> _$CheckBackboneCompatibilityResponseToJson(CheckBackboneCompatibilityResponse instance) => <String, dynamic>{
+      'isCompatible': instance.isCompatible,
+      if (const IntegerConverter().toJson(instance.backboneVersion) case final value?) 'backboneVersion': value,
+      if (const IntegerConverter().toJson(instance.supportedMinBackboneVersion) case final value?) 'supportedMinBackboneVersion': value,
+      if (const IntegerConverter().toJson(instance.supportedMaxBackboneVersion) case final value?) 'supportedMaxBackboneVersion': value,
+    };
