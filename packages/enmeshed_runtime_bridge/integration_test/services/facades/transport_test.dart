@@ -5,6 +5,7 @@ import 'transport/account_facade_test.dart' as account_facade_test;
 import 'transport/devices_facade_test.dart' as devices_facade_test;
 import 'transport/files_facade_test.dart' as files_facade_test;
 import 'transport/identity_deletion_processes_facade_test.dart' as identity_deletion_processes_facade_test;
+import 'transport/identity_recovery_kits_facade_test.dart' as identity_recovery_kits_facade_test;
 import 'transport/messages_facade_test.dart' as messages_facade_test;
 import 'transport/relationship_template_facade_test.dart' as relationship_template_facade_test;
 import 'transport/relationships_facade_test.dart' as relationships_facade_test;
@@ -17,6 +18,7 @@ void run(EnmeshedRuntime runtime) async {
   devices_facade_test.run(runtime);
   files_facade_test.run(runtime);
   identity_deletion_processes_facade_test.run(runtime);
+  identity_recovery_kits_facade_test.run(runtime);
   messages_facade_test.run(runtime);
   relationship_template_facade_test.run(runtime);
   relationships_facade_test.run(runtime);
