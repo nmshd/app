@@ -38,7 +38,7 @@ class _PinInputState extends State<PinInput> {
         responsive: false,
         borderColor: Theme.of(context).colorScheme.primary,
         activeBorderColor: Theme.of(context).colorScheme.primary,
-        activeBackgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        activeBackgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
         fieldBorderStyle: FieldBorderStyle.square,
         textStyle: Theme.of(context).textTheme.displaySmall!,
         obscureCharacter: '•',

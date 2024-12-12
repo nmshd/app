@@ -113,7 +113,6 @@ class _SendMailScreenState extends State<SendMailScreen> {
                       hintStyle: _subjectFocusNode.hasFocus
                           ? Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary)
                           : Theme.of(context).textTheme.bodyLarge,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
                     ).copyWith(contentPadding: const EdgeInsets.all(16)),
                   ),
                   const Divider(height: 2),
@@ -136,7 +135,6 @@ class _SendMailScreenState extends State<SendMailScreen> {
                       hintStyle: _messageFocusNode.hasFocus
                           ? Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary)
                           : Theme.of(context).textTheme.bodyLarge,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
                     ).copyWith(contentPadding: const EdgeInsets.all(16)),
                   ),
                 ],

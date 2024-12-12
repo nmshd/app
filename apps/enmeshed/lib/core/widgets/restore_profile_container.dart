@@ -37,9 +37,9 @@ class _RestoreProfileContainerState extends State<RestoreProfileContainer> {
         clipBehavior: Clip.hardEdge,
         child: CustomPaint(
           painter: _BackgroundPainter(
-            backgroundColor: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.05),
-            leftTriangleColor: Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.3),
-            rightTriangleColor: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.3),
+            backgroundColor: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.05),
+            leftTriangleColor: Theme.of(context).colorScheme.tertiaryContainer.withValues(alpha: 0.3),
+            rightTriangleColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.3),
           ),
           child: Padding(
             padding: const EdgeInsets.all(10),
