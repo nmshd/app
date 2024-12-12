@@ -30,40 +30,30 @@ RepositoryAttributeDVO _$RepositoryAttributeDVOFromJson(Map<String, dynamic> jso
       isDefault: json['isDefault'] as bool?,
     );
 
-Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['content'] = instance.content.toJson();
-  val['owner'] = instance.owner;
-  val['value'] = instance.value.toJson();
-  val['valueType'] = instance.valueType;
-  val['renderHints'] = instance.renderHints.toJson();
-  val['valueHints'] = instance.valueHints.toJson();
-  val['isDraft'] = instance.isDraft;
-  val['isValid'] = instance.isValid;
-  val['createdAt'] = instance.createdAt;
-  writeNotNull('succeeds', instance.succeeds);
-  writeNotNull('succeededBy', instance.succeededBy);
-  writeNotNull('tags', instance.tags);
-  val['sharedWith'] = instance.sharedWith.map((e) => e.toJson()).toList();
-  writeNotNull('isDefault', instance.isDefault);
-  return val;
-}
+Map<String, dynamic> _$RepositoryAttributeDVOToJson(RepositoryAttributeDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'content': instance.content.toJson(),
+      'owner': instance.owner,
+      'value': instance.value.toJson(),
+      'valueType': instance.valueType,
+      'renderHints': instance.renderHints.toJson(),
+      'valueHints': instance.valueHints.toJson(),
+      'isDraft': instance.isDraft,
+      'isValid': instance.isValid,
+      'createdAt': instance.createdAt,
+      if (instance.succeeds case final value?) 'succeeds': value,
+      if (instance.succeededBy case final value?) 'succeededBy': value,
+      if (instance.tags case final value?) 'tags': value,
+      'sharedWith': instance.sharedWith.map((e) => e.toJson()).toList(),
+      if (instance.isDefault case final value?) 'isDefault': value,
+    };
 
 SharedToPeerAttributeDVO _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic> json) => SharedToPeerAttributeDVO(
       id: json['id'] as String,
@@ -93,44 +83,34 @@ SharedToPeerAttributeDVO _$SharedToPeerAttributeDVOFromJson(Map<String, dynamic>
       deletionStatus: json['deletionStatus'] as String?,
     );
 
-Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['content'] = instance.content.toJson();
-  val['owner'] = instance.owner;
-  val['value'] = instance.value.toJson();
-  val['valueType'] = instance.valueType;
-  val['renderHints'] = instance.renderHints.toJson();
-  val['valueHints'] = instance.valueHints.toJson();
-  val['isDraft'] = instance.isDraft;
-  val['isValid'] = instance.isValid;
-  val['createdAt'] = instance.createdAt;
-  writeNotNull('succeeds', instance.succeeds);
-  writeNotNull('succeededBy', instance.succeededBy);
-  writeNotNull('tags', instance.tags);
-  val['peer'] = instance.peer;
-  writeNotNull('requestReference', instance.requestReference);
-  writeNotNull('notificationReference', instance.notificationReference);
-  writeNotNull('sourceAttribute', instance.sourceAttribute);
-  writeNotNull('deletionDate', instance.deletionDate);
-  writeNotNull('deletionStatus', instance.deletionStatus);
-  return val;
-}
+Map<String, dynamic> _$SharedToPeerAttributeDVOToJson(SharedToPeerAttributeDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'content': instance.content.toJson(),
+      'owner': instance.owner,
+      'value': instance.value.toJson(),
+      'valueType': instance.valueType,
+      'renderHints': instance.renderHints.toJson(),
+      'valueHints': instance.valueHints.toJson(),
+      'isDraft': instance.isDraft,
+      'isValid': instance.isValid,
+      'createdAt': instance.createdAt,
+      if (instance.succeeds case final value?) 'succeeds': value,
+      if (instance.succeededBy case final value?) 'succeededBy': value,
+      if (instance.tags case final value?) 'tags': value,
+      'peer': instance.peer,
+      if (instance.requestReference case final value?) 'requestReference': value,
+      if (instance.notificationReference case final value?) 'notificationReference': value,
+      if (instance.sourceAttribute case final value?) 'sourceAttribute': value,
+      if (instance.deletionDate case final value?) 'deletionDate': value,
+      if (instance.deletionStatus case final value?) 'deletionStatus': value,
+    };
 
 PeerAttributeDVO _$PeerAttributeDVOFromJson(Map<String, dynamic> json) => PeerAttributeDVO(
       id: json['id'] as String,
@@ -159,43 +139,33 @@ PeerAttributeDVO _$PeerAttributeDVOFromJson(Map<String, dynamic> json) => PeerAt
       deletionStatus: json['deletionStatus'] as String?,
     );
 
-Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['content'] = instance.content.toJson();
-  val['owner'] = instance.owner;
-  val['value'] = instance.value.toJson();
-  val['valueType'] = instance.valueType;
-  val['renderHints'] = instance.renderHints.toJson();
-  val['valueHints'] = instance.valueHints.toJson();
-  val['isDraft'] = instance.isDraft;
-  val['isValid'] = instance.isValid;
-  val['createdAt'] = instance.createdAt;
-  writeNotNull('succeeds', instance.succeeds);
-  writeNotNull('succeededBy', instance.succeededBy);
-  writeNotNull('tags', instance.tags);
-  val['peer'] = instance.peer;
-  writeNotNull('requestReference', instance.requestReference);
-  writeNotNull('notificationReference', instance.notificationReference);
-  writeNotNull('deletionDate', instance.deletionDate);
-  writeNotNull('deletionStatus', instance.deletionStatus);
-  return val;
-}
+Map<String, dynamic> _$PeerAttributeDVOToJson(PeerAttributeDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'content': instance.content.toJson(),
+      'owner': instance.owner,
+      'value': instance.value.toJson(),
+      'valueType': instance.valueType,
+      'renderHints': instance.renderHints.toJson(),
+      'valueHints': instance.valueHints.toJson(),
+      'isDraft': instance.isDraft,
+      'isValid': instance.isValid,
+      'createdAt': instance.createdAt,
+      if (instance.succeeds case final value?) 'succeeds': value,
+      if (instance.succeededBy case final value?) 'succeededBy': value,
+      if (instance.tags case final value?) 'tags': value,
+      'peer': instance.peer,
+      if (instance.requestReference case final value?) 'requestReference': value,
+      if (instance.notificationReference case final value?) 'notificationReference': value,
+      if (instance.deletionDate case final value?) 'deletionDate': value,
+      if (instance.deletionStatus case final value?) 'deletionStatus': value,
+    };
 
 OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dynamic> json) => OwnRelationshipAttributeDVO(
       id: json['id'] as String,
@@ -228,47 +198,37 @@ OwnRelationshipAttributeDVO _$OwnRelationshipAttributeDVOFromJson(Map<String, dy
       deletionStatus: json['deletionStatus'] as String?,
     );
 
-Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttributeDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['content'] = instance.content.toJson();
-  val['owner'] = instance.owner;
-  val['value'] = instance.value.toJson();
-  val['valueType'] = instance.valueType;
-  val['renderHints'] = instance.renderHints.toJson();
-  val['valueHints'] = instance.valueHints.toJson();
-  val['isDraft'] = instance.isDraft;
-  val['isValid'] = instance.isValid;
-  val['createdAt'] = instance.createdAt;
-  writeNotNull('succeeds', instance.succeeds);
-  writeNotNull('succeededBy', instance.succeededBy);
-  val['key'] = instance.key;
-  val['peer'] = instance.peer;
-  writeNotNull('requestReference', instance.requestReference);
-  writeNotNull('notificationReference', instance.notificationReference);
-  writeNotNull('sourceAttribute', instance.sourceAttribute);
-  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
-  val['confidentiality'] = instance.confidentiality;
-  val['isTechnical'] = instance.isTechnical;
-  writeNotNull('deletionDate', instance.deletionDate);
-  writeNotNull('deletionStatus', instance.deletionStatus);
-  return val;
-}
+Map<String, dynamic> _$OwnRelationshipAttributeDVOToJson(OwnRelationshipAttributeDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'content': instance.content.toJson(),
+      'owner': instance.owner,
+      'value': instance.value.toJson(),
+      'valueType': instance.valueType,
+      'renderHints': instance.renderHints.toJson(),
+      'valueHints': instance.valueHints.toJson(),
+      'isDraft': instance.isDraft,
+      'isValid': instance.isValid,
+      'createdAt': instance.createdAt,
+      if (instance.succeeds case final value?) 'succeeds': value,
+      if (instance.succeededBy case final value?) 'succeededBy': value,
+      'key': instance.key,
+      'peer': instance.peer,
+      if (instance.requestReference case final value?) 'requestReference': value,
+      if (instance.notificationReference case final value?) 'notificationReference': value,
+      if (instance.sourceAttribute case final value?) 'sourceAttribute': value,
+      if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,
+      'confidentiality': instance.confidentiality,
+      'isTechnical': instance.isTechnical,
+      if (instance.deletionDate case final value?) 'deletionDate': value,
+      if (instance.deletionStatus case final value?) 'deletionStatus': value,
+    };
 
 PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, dynamic> json) => PeerRelationshipAttributeDVO(
       id: json['id'] as String,
@@ -301,44 +261,34 @@ PeerRelationshipAttributeDVO _$PeerRelationshipAttributeDVOFromJson(Map<String, 
       deletionStatus: json['deletionStatus'] as String?,
     );
 
-Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttributeDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['content'] = instance.content.toJson();
-  val['owner'] = instance.owner;
-  val['value'] = instance.value.toJson();
-  val['valueType'] = instance.valueType;
-  val['renderHints'] = instance.renderHints.toJson();
-  val['valueHints'] = instance.valueHints.toJson();
-  val['isDraft'] = instance.isDraft;
-  val['isValid'] = instance.isValid;
-  val['createdAt'] = instance.createdAt;
-  writeNotNull('succeeds', instance.succeeds);
-  writeNotNull('succeededBy', instance.succeededBy);
-  val['key'] = instance.key;
-  val['peer'] = instance.peer;
-  writeNotNull('requestReference', instance.requestReference);
-  writeNotNull('notificationReference', instance.notificationReference);
-  writeNotNull('sourceAttribute', instance.sourceAttribute);
-  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
-  val['confidentiality'] = instance.confidentiality;
-  val['isTechnical'] = instance.isTechnical;
-  writeNotNull('deletionDate', instance.deletionDate);
-  writeNotNull('deletionStatus', instance.deletionStatus);
-  return val;
-}
+Map<String, dynamic> _$PeerRelationshipAttributeDVOToJson(PeerRelationshipAttributeDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'content': instance.content.toJson(),
+      'owner': instance.owner,
+      'value': instance.value.toJson(),
+      'valueType': instance.valueType,
+      'renderHints': instance.renderHints.toJson(),
+      'valueHints': instance.valueHints.toJson(),
+      'isDraft': instance.isDraft,
+      'isValid': instance.isValid,
+      'createdAt': instance.createdAt,
+      if (instance.succeeds case final value?) 'succeeds': value,
+      if (instance.succeededBy case final value?) 'succeededBy': value,
+      'key': instance.key,
+      'peer': instance.peer,
+      if (instance.requestReference case final value?) 'requestReference': value,
+      if (instance.notificationReference case final value?) 'notificationReference': value,
+      if (instance.sourceAttribute case final value?) 'sourceAttribute': value,
+      if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,
+      'confidentiality': instance.confidentiality,
+      'isTechnical': instance.isTechnical,
+      if (instance.deletionDate case final value?) 'deletionDate': value,
+      if (instance.deletionStatus case final value?) 'deletionStatus': value,
+    };

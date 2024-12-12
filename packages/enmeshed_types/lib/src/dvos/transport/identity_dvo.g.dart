@@ -23,29 +23,19 @@ IdentityDVO _$IdentityDVOFromJson(Map<String, dynamic> json) => IdentityDVO(
       originalName: json['originalName'] as String?,
     );
 
-Map<String, dynamic> _$IdentityDVOToJson(IdentityDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  writeNotNull('publicKey', instance.publicKey);
-  val['initials'] = instance.initials;
-  val['isSelf'] = instance.isSelf;
-  val['hasRelationship'] = instance.hasRelationship;
-  writeNotNull('relationship', instance.relationship?.toJson());
-  writeNotNull('originalName', instance.originalName);
-  return val;
-}
+Map<String, dynamic> _$IdentityDVOToJson(IdentityDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      if (instance.publicKey case final value?) 'publicKey': value,
+      'initials': instance.initials,
+      'isSelf': instance.isSelf,
+      'hasRelationship': instance.hasRelationship,
+      if (instance.relationship?.toJson() case final value?) 'relationship': value,
+      if (instance.originalName case final value?) 'originalName': value,
+    };

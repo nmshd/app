@@ -11,17 +11,7 @@ PasswordProtection _$PasswordProtectionFromJson(Map<String, dynamic> json) => Pa
       passwordIsPin: json['passwordIsPin'] as bool?,
     );
 
-Map<String, dynamic> _$PasswordProtectionToJson(PasswordProtection instance) {
-  final val = <String, dynamic>{
-    'password': instance.password,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('passwordIsPin', instance.passwordIsPin);
-  return val;
-}
+Map<String, dynamic> _$PasswordProtectionToJson(PasswordProtection instance) => <String, dynamic>{
+      'password': instance.password,
+      if (instance.passwordIsPin case final value?) 'passwordIsPin': value,
+    };

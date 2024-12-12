@@ -18,24 +18,14 @@ MessageDTO _$MessageDTOFromJson(Map<String, dynamic> json) => MessageDTO(
       wasReadAt: json['wasReadAt'] as String?,
     );
 
-Map<String, dynamic> _$MessageDTOToJson(MessageDTO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'isOwn': instance.isOwn,
-    'content': instance.content.toJson(),
-    'createdBy': instance.createdBy,
-    'createdByDevice': instance.createdByDevice,
-    'recipients': instance.recipients.map((e) => e.toJson()).toList(),
-    'createdAt': instance.createdAt,
-    'attachments': instance.attachments,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('wasReadAt', instance.wasReadAt);
-  return val;
-}
+Map<String, dynamic> _$MessageDTOToJson(MessageDTO instance) => <String, dynamic>{
+      'id': instance.id,
+      'isOwn': instance.isOwn,
+      'content': instance.content.toJson(),
+      'createdBy': instance.createdBy,
+      'createdByDevice': instance.createdByDevice,
+      'recipients': instance.recipients.map((e) => e.toJson()).toList(),
+      'createdAt': instance.createdAt,
+      'attachments': instance.attachments,
+      if (instance.wasReadAt case final value?) 'wasReadAt': value,
+    };
