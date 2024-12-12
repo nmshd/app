@@ -80,8 +80,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 Theme(
                   data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                   child: ExpansionTile(
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.53),
-                    collapsedBackgroundColor: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.53),
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
+                    collapsedBackgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
                     title: Text(context.l10n.profiles_settings_title),
                     subtitle: Text(context.l10n.profiles_settings_subtitle),
                     children: [
@@ -172,8 +172,8 @@ class _CurrentProfileHeader extends StatelessWidget {
         Positioned.fill(
           child: CustomPaint(
             painter: _BackgroundPainter(
-              leftTriangleColor: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.36),
-              rightTriangleColor: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.25),
+              leftTriangleColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.36),
+              rightTriangleColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.25),
             ),
           ),
         ),

@@ -247,7 +247,7 @@ class StaticScannerOverlay extends CustomPainter {
     final cutoutPath = Path()..addRRect(RRect.fromRectAndRadius(scanWindow, const Radius.circular(12)));
 
     final backgroundPaint = Paint()
-      ..color = const Color(0xFF33333D).withOpacity(0.65)
+      ..color = const Color(0xFF33333D).withValues(alpha: 0.65)
       ..style = PaintingStyle.fill
       ..blendMode = BlendMode.dstOut;
 

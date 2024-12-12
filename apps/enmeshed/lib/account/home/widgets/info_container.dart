@@ -20,7 +20,7 @@ class InfoContainer extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(12)),
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).colorScheme.outline.withOpacity(0.5),
+              color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.5),
               spreadRadius: 1,
               blurRadius: 2,
               offset: const Offset(0, 3),

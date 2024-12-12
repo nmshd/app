@@ -138,7 +138,7 @@ class _DeviceFirstConnected extends StatelessWidget {
             device.isOnboarded
                 ? DateFormat.yMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(device.createdAt).toLocal())
                 : context.l10n.deviceInfo_notConnected,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: device.isOnboarded ? textColor : textColor.withOpacity(0.25)),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: device.isOnboarded ? textColor : textColor.withValues(alpha: 0.25)),
           ),
         ],
       ),
