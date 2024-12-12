@@ -14,7 +14,7 @@ class DeletionProfileCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.zero,
       child: ListTile(
-        tileColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.10),
+        tileColor: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.10),
         title: Text(
           accountInDeletion.name,
           maxLines: 2,

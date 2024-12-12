@@ -36,9 +36,9 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
       children: [
         CustomPaint(
           painter: _BackgroundPainter(
-            leftTriangleColor: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
-            rightTriangleColor: Theme.of(context).colorScheme.primary.withOpacity(0.04),
-            topColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+            leftTriangleColor: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.04),
+            rightTriangleColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.04),
+            topColor: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.6),
           ),
           size: Size.infinite,
         ),
