@@ -409,7 +409,11 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
               color: Theme.of(context).colorScheme.onPrimary,
               boxShadow: [
                 BoxShadow(
-                    color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.5), spreadRadius: 1, blurRadius: 1, offset: const Offset(0, 1)),
+                  color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.5),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: const Offset(0, 1),
+                ),
               ],
             ),
             child: Padding(
