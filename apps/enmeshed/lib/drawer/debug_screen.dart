@@ -162,7 +162,7 @@ class DebugScreen extends StatelessWidget {
 
     final accounts = await runtime.accountServices.getAccounts();
     for (final account in accounts) {
-      await runtime.accountServices.deleteAccount(account.id);
+      await runtime.accountServices.offboardAccount(account.id);
     }
 
     final dir = await getApplicationDocumentsDirectory();
