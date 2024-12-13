@@ -1927,4 +1927,14 @@ void run(EnmeshedRuntime runtime) {
       expect(DateTime.parse(updatedSenderThirdPartyRelationshipAttribute.deletionInfo!.deletionDate).isBefore(timeAfterUpdate), true);
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
+
+  group('AttributesFacade: getAttributeTagCollection', () {
+    test('should get the tag collection', () async {
+      final result = await sender.consumptionServices.attributes.getAttributeTagCollection();
+      expect(result, isSuccessful<AttributeTagCollectionDTO>());
+
+      final tagCollection = result.value;
+      expect(tagCollection.supportedLanguages, isNotEmpty);
+    });
+  });
 }
