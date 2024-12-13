@@ -21,30 +21,20 @@ IdentityDeletionProcessDTO _$IdentityDeletionProcessDTOFromJson(Map<String, dyna
       cancelledByDevice: json['cancelledByDevice'] as String?,
     );
 
-Map<String, dynamic> _$IdentityDeletionProcessDTOToJson(IdentityDeletionProcessDTO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'status': _$IdentityDeletionProcessStatusEnumMap[instance.status]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('createdAt', instance.createdAt);
-  writeNotNull('createdByDevice', instance.createdByDevice);
-  writeNotNull('approvalPeriodEndsAt', instance.approvalPeriodEndsAt);
-  writeNotNull('rejectedAt', instance.rejectedAt);
-  writeNotNull('rejectedByDevice', instance.rejectedByDevice);
-  writeNotNull('approvedAt', instance.approvedAt);
-  writeNotNull('approvedByDevice', instance.approvedByDevice);
-  writeNotNull('gracePeriodEndsAt', instance.gracePeriodEndsAt);
-  writeNotNull('cancelledAt', instance.cancelledAt);
-  writeNotNull('cancelledByDevice', instance.cancelledByDevice);
-  return val;
-}
+Map<String, dynamic> _$IdentityDeletionProcessDTOToJson(IdentityDeletionProcessDTO instance) => <String, dynamic>{
+      'id': instance.id,
+      'status': _$IdentityDeletionProcessStatusEnumMap[instance.status]!,
+      if (instance.createdAt case final value?) 'createdAt': value,
+      if (instance.createdByDevice case final value?) 'createdByDevice': value,
+      if (instance.approvalPeriodEndsAt case final value?) 'approvalPeriodEndsAt': value,
+      if (instance.rejectedAt case final value?) 'rejectedAt': value,
+      if (instance.rejectedByDevice case final value?) 'rejectedByDevice': value,
+      if (instance.approvedAt case final value?) 'approvedAt': value,
+      if (instance.approvedByDevice case final value?) 'approvedByDevice': value,
+      if (instance.gracePeriodEndsAt case final value?) 'gracePeriodEndsAt': value,
+      if (instance.cancelledAt case final value?) 'cancelledAt': value,
+      if (instance.cancelledByDevice case final value?) 'cancelledByDevice': value,
+    };
 
 const _$IdentityDeletionProcessStatusEnumMap = {
   IdentityDeletionProcessStatus.WaitingForApproval: 'WaitingForApproval',

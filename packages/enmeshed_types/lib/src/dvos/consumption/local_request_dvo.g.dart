@@ -31,40 +31,30 @@ LocalRequestDVO _$LocalRequestDVOFromJson(Map<String, dynamic> json) => LocalReq
       items: (json['items'] as List<dynamic>).map((e) => RequestItemDVO.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
-Map<String, dynamic> _$LocalRequestDVOToJson(LocalRequestDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isOwn'] = instance.isOwn;
-  val['createdAt'] = instance.createdAt;
-  val['content'] = instance.content.toJson();
-  val['status'] = _$LocalRequestStatusEnumMap[instance.status]!;
-  val['statusText'] = instance.statusText;
-  val['directionText'] = instance.directionText;
-  val['sourceTypeText'] = instance.sourceTypeText;
-  val['createdBy'] = instance.createdBy.toJson();
-  val['peer'] = instance.peer.toJson();
-  writeNotNull('response', instance.response?.toJson());
-  writeNotNull('source', instance.source?.toJson());
-  val['decider'] = instance.decider.toJson();
-  val['isDecidable'] = instance.isDecidable;
-  val['items'] = instance.items.map((e) => e.toJson()).toList();
-  return val;
-}
+Map<String, dynamic> _$LocalRequestDVOToJson(LocalRequestDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isOwn': instance.isOwn,
+      'createdAt': instance.createdAt,
+      'content': instance.content.toJson(),
+      'status': _$LocalRequestStatusEnumMap[instance.status]!,
+      'statusText': instance.statusText,
+      'directionText': instance.directionText,
+      'sourceTypeText': instance.sourceTypeText,
+      'createdBy': instance.createdBy.toJson(),
+      'peer': instance.peer.toJson(),
+      if (instance.response?.toJson() case final value?) 'response': value,
+      if (instance.source?.toJson() case final value?) 'source': value,
+      'decider': instance.decider.toJson(),
+      'isDecidable': instance.isDecidable,
+      'items': instance.items.map((e) => e.toJson()).toList(),
+    };
 
 const _$LocalRequestStatusEnumMap = {
   LocalRequestStatus.Draft: 'Draft',
@@ -105,29 +95,19 @@ LocalResponseDVO _$LocalResponseDVOFromJson(Map<String, dynamic> json) => LocalR
       source: json['source'] == null ? null : LocalResponseSourceDVO.fromJson(json['source'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$LocalResponseDVOToJson(LocalResponseDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['createdAt'] = instance.createdAt;
-  val['content'] = instance.content.toJson();
-  writeNotNull('source', instance.source?.toJson());
-  return val;
-}
+Map<String, dynamic> _$LocalResponseDVOToJson(LocalResponseDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'createdAt': instance.createdAt,
+      'content': instance.content.toJson(),
+      if (instance.source?.toJson() case final value?) 'source': value,
+    };
 
 LocalResponseSourceDVO _$LocalResponseSourceDVOFromJson(Map<String, dynamic> json) => LocalResponseSourceDVO(
       type: $enumDecode(_$LocalResponseSourceTypeEnumMap, json['type']),

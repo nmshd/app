@@ -504,4 +504,15 @@ class AttributesFacade {
 
     return VoidResult.fromJson(result.valueToMap());
   }
+
+  Future<Result<AttributeTagCollectionDTO>> getAttributeTagCollection() async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.getAttributeTagCollection()
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => AttributeTagCollectionDTO.fromJson(value));
+  }
 }

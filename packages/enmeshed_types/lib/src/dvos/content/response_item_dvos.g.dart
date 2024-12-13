@@ -10,27 +10,17 @@ ResponseItemGroupDVO _$ResponseItemGroupDVOFromJson(Map<String, dynamic> json) =
       items: (json['items'] as List<dynamic>).map((e) => ResponseItemDVODerivation.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
-Map<String, dynamic> _$ResponseItemGroupDVOToJson(ResponseItemGroupDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['items'] = instance.items.map((e) => e.toJson()).toList();
-  return val;
-}
+Map<String, dynamic> _$ResponseItemGroupDVOToJson(ResponseItemGroupDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'items': instance.items.map((e) => e.toJson()).toList(),
+    };
 
 RejectResponseItemDVO _$RejectResponseItemDVOFromJson(Map<String, dynamic> json) => RejectResponseItemDVO(
       id: json['id'] as String,
@@ -45,28 +35,18 @@ RejectResponseItemDVO _$RejectResponseItemDVOFromJson(Map<String, dynamic> json)
       message: json['message'] as String?,
     );
 
-Map<String, dynamic> _$RejectResponseItemDVOToJson(RejectResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  writeNotNull('code', instance.code);
-  writeNotNull('message', instance.message);
-  return val;
-}
+Map<String, dynamic> _$RejectResponseItemDVOToJson(RejectResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      if (instance.code case final value?) 'code': value,
+      if (instance.message case final value?) 'message': value,
+    };
 
 ErrorResponseItemDVO _$ErrorResponseItemDVOFromJson(Map<String, dynamic> json) => ErrorResponseItemDVO(
       id: json['id'] as String,
@@ -81,28 +61,18 @@ ErrorResponseItemDVO _$ErrorResponseItemDVOFromJson(Map<String, dynamic> json) =
       message: json['message'] as String,
     );
 
-Map<String, dynamic> _$ErrorResponseItemDVOToJson(ErrorResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['code'] = instance.code;
-  val['message'] = instance.message;
-  return val;
-}
+Map<String, dynamic> _$ErrorResponseItemDVOToJson(ErrorResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'code': instance.code,
+      'message': instance.message,
+    };
 
 AcceptResponseItemDVO _$AcceptResponseItemDVOFromJson(Map<String, dynamic> json) => AcceptResponseItemDVO(
       id: json['id'] as String,
@@ -115,26 +85,16 @@ AcceptResponseItemDVO _$AcceptResponseItemDVOFromJson(Map<String, dynamic> json)
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$AcceptResponseItemDVOToJson(AcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  return val;
-}
+Map<String, dynamic> _$AcceptResponseItemDVOToJson(AcceptResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+    };
 
 ReadAttributeAcceptResponseItemDVO _$ReadAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => ReadAttributeAcceptResponseItemDVO(
       id: json['id'] as String,
@@ -150,29 +110,19 @@ ReadAttributeAcceptResponseItemDVO _$ReadAttributeAcceptResponseItemDVOFromJson(
       thirdPartyAddress: json['thirdPartyAddress'] as String?,
     );
 
-Map<String, dynamic> _$ReadAttributeAcceptResponseItemDVOToJson(ReadAttributeAcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute.toJson();
-  writeNotNull('thirdPartyAddress', instance.thirdPartyAddress);
-  return val;
-}
+Map<String, dynamic> _$ReadAttributeAcceptResponseItemDVOToJson(ReadAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'attributeId': instance.attributeId,
+      'attribute': instance.attribute.toJson(),
+      if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,
+    };
 
 ProposeAttributeAcceptResponseItemDVO _$ProposeAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     ProposeAttributeAcceptResponseItemDVO(
@@ -188,28 +138,18 @@ ProposeAttributeAcceptResponseItemDVO _$ProposeAttributeAcceptResponseItemDVOFro
       attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ProposeAttributeAcceptResponseItemDVOToJson(ProposeAttributeAcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute.toJson();
-  return val;
-}
+Map<String, dynamic> _$ProposeAttributeAcceptResponseItemDVOToJson(ProposeAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'attributeId': instance.attributeId,
+      'attribute': instance.attribute.toJson(),
+    };
 
 CreateAttributeAcceptResponseItemDVO _$CreateAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     CreateAttributeAcceptResponseItemDVO(
@@ -225,28 +165,18 @@ CreateAttributeAcceptResponseItemDVO _$CreateAttributeAcceptResponseItemDVOFromJ
       attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$CreateAttributeAcceptResponseItemDVOToJson(CreateAttributeAcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute.toJson();
-  return val;
-}
+Map<String, dynamic> _$CreateAttributeAcceptResponseItemDVOToJson(CreateAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'attributeId': instance.attributeId,
+      'attribute': instance.attribute.toJson(),
+    };
 
 DeleteAttributeAcceptResponseItemDVO _$DeleteAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     DeleteAttributeAcceptResponseItemDVO(
@@ -261,27 +191,17 @@ DeleteAttributeAcceptResponseItemDVO _$DeleteAttributeAcceptResponseItemDVOFromJ
       deletionDate: json['deletionDate'] as String,
     );
 
-Map<String, dynamic> _$DeleteAttributeAcceptResponseItemDVOToJson(DeleteAttributeAcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['deletionDate'] = instance.deletionDate;
-  return val;
-}
+Map<String, dynamic> _$DeleteAttributeAcceptResponseItemDVOToJson(DeleteAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'deletionDate': instance.deletionDate,
+    };
 
 ShareAttributeAcceptResponseItemDVO _$ShareAttributeAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => ShareAttributeAcceptResponseItemDVO(
       id: json['id'] as String,
@@ -296,28 +216,18 @@ ShareAttributeAcceptResponseItemDVO _$ShareAttributeAcceptResponseItemDVOFromJso
       attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeAcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute.toJson();
-  return val;
-}
+Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeAcceptResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'attributeId': instance.attributeId,
+      'attribute': instance.attribute.toJson(),
+    };
 
 FreeTextAcceptResponseItemDVO _$FreeTextAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => FreeTextAcceptResponseItemDVO(
       id: json['id'] as String,
@@ -331,27 +241,17 @@ FreeTextAcceptResponseItemDVO _$FreeTextAcceptResponseItemDVOFromJson(Map<String
       freeText: json['freeText'] as String,
     );
 
-Map<String, dynamic> _$FreeTextAcceptResponseItemDVOToJson(FreeTextAcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['freeText'] = instance.freeText;
-  return val;
-}
+Map<String, dynamic> _$FreeTextAcceptResponseItemDVOToJson(FreeTextAcceptResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'freeText': instance.freeText,
+    };
 
 RegisterAttributeListenerAcceptResponseItemDVO _$RegisterAttributeListenerAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     RegisterAttributeListenerAcceptResponseItemDVO(
@@ -367,28 +267,19 @@ RegisterAttributeListenerAcceptResponseItemDVO _$RegisterAttributeListenerAccept
       listener: LocalAttributeListenerDVO.fromJson(json['listener'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(RegisterAttributeListenerAcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['listenerId'] = instance.listenerId;
-  val['listener'] = instance.listener.toJson();
-  return val;
-}
+Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(RegisterAttributeListenerAcceptResponseItemDVO instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'listenerId': instance.listenerId,
+      'listener': instance.listener.toJson(),
+    };
 
 AttributeSuccessionAcceptResponseItemDVO _$AttributeSuccessionAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     AttributeSuccessionAcceptResponseItemDVO(
@@ -406,30 +297,20 @@ AttributeSuccessionAcceptResponseItemDVO _$AttributeSuccessionAcceptResponseItem
       successor: LocalAttributeDVO.fromJson(json['successor'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$AttributeSuccessionAcceptResponseItemDVOToJson(AttributeSuccessionAcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['predecessorId'] = instance.predecessorId;
-  val['successorId'] = instance.successorId;
-  val['predecessor'] = instance.predecessor.toJson();
-  val['successor'] = instance.successor.toJson();
-  return val;
-}
+Map<String, dynamic> _$AttributeSuccessionAcceptResponseItemDVOToJson(AttributeSuccessionAcceptResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'predecessorId': instance.predecessorId,
+      'successorId': instance.successorId,
+      'predecessor': instance.predecessor.toJson(),
+      'successor': instance.successor.toJson(),
+    };
 
 AttributeAlreadySharedAcceptResponseItemDVO _$AttributeAlreadySharedAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     AttributeAlreadySharedAcceptResponseItemDVO(
@@ -445,25 +326,15 @@ AttributeAlreadySharedAcceptResponseItemDVO _$AttributeAlreadySharedAcceptRespon
       attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$AttributeAlreadySharedAcceptResponseItemDVOToJson(AttributeAlreadySharedAcceptResponseItemDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['attributeId'] = instance.attributeId;
-  val['attribute'] = instance.attribute.toJson();
-  return val;
-}
+Map<String, dynamic> _$AttributeAlreadySharedAcceptResponseItemDVOToJson(AttributeAlreadySharedAcceptResponseItemDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'attributeId': instance.attributeId,
+      'attribute': instance.attribute.toJson(),
+    };

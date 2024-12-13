@@ -133,7 +133,7 @@ void run(EnmeshedRuntime runtime) {
       );
       expect(
         (canCreateResult.value as CanCreateRelationshipFailureResponse).message,
-        'The Identity who created the RelationshipTemplate is currently in the process of deleting itself. Thus, it is not possible to establish a Relationship to it.',
+        'The Identity that created the RelationshipTemplate is currently in the process of deleting itself. Thus, it is not possible to establish a Relationship to it.',
       );
 
       final result = await session1.transportServices.relationships.createRelationship(
