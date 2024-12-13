@@ -18,11 +18,11 @@ void run(EnmeshedRuntime runtime) {
 
   group('IdentityRecoveryKitsFacade', () {
     test('createIdentityRecoveryKit', () async {
-      final identityRecoveryKitResult = await session.transportServices.identityRecoveryKits.createIdentityRecoveryKit(
+      final result = await session.transportServices.identityRecoveryKits.createIdentityRecoveryKit(
         profileName: 'aProfileName',
         passwordProtection: PasswordProtection(password: 'aPassword'),
       );
-      expect(identityRecoveryKitResult, isSuccessful<TokenDTO>());
+      expect(result, isSuccessful<TokenDTO>());
     });
 
     test('checkForExistingIdentityRecoveryKit', () async {
@@ -31,9 +31,9 @@ void run(EnmeshedRuntime runtime) {
         passwordProtection: PasswordProtection(password: 'aPassword'),
       );
 
-      final checkResult = await session.transportServices.identityRecoveryKits.checkForExistingIdentityRecoveryKit();
-      expect(checkResult, isSuccessful<({bool exists})>());
-      expect(checkResult.value.exists, true);
+      final result = await session.transportServices.identityRecoveryKits.checkForExistingIdentityRecoveryKit();
+      expect(result, isSuccessful<({bool exists})>());
+      expect(result.value.exists, true);
     });
   });
 }
