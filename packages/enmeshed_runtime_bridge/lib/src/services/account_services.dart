@@ -78,11 +78,14 @@ class AccountServices {
     return account;
   }
 
+  Future<void> offboardAccount(String id) async {
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.offboardAccount(id)', arguments: {'id': id});
+
+    result.throwOnError();
+  }
+
   Future<void> deleteAccount(String id) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.deleteAccount(id)',
-      arguments: {'id': id},
-    );
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.deleteAccount(id)', arguments: {'id': id});
 
     result.throwOnError();
   }
