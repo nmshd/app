@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:feature_flags/feature_flags.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -95,12 +93,6 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                         title: Text(context.l10n.profiles_settings_connectedDevices),
                         onTap: () => context.push('/account/${_selectedAccount.id}/devices'),
                       ),
-                      if (kDebugMode && Features.isFeatureEnabled(context, 'BACKUP_DATA'))
-                        ListTile(
-                          onTap: () => showNotImplementedDialog(context),
-                          leading: const Icon(Icons.save),
-                          title: Text(context.l10n.drawer_backupData),
-                        ),
                       ListTile(
                         leading: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
                         title: Text(context.l10n.profiles_settings_deleteProfile),

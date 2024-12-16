@@ -100,9 +100,6 @@ class DebugScreen extends StatelessWidget {
                       onPressed: () => DebugFeatures.show(
                         context,
                         availableFeatures: [
-                          const Feature('NEWS', name: 'News'),
-                          const Feature('BACKUP_DATA', name: 'Backup Data'),
-                          const Feature('HELP_AND_FAQ', name: 'Help and FAQ'),
                           const Feature('SHOW_TECHNICAL_MESSAGES', name: 'Show Technical Messages'),
                           const Feature('SHOW_CONTACT_REQUESTS', name: 'Show Contact Requests'),
                         ],
