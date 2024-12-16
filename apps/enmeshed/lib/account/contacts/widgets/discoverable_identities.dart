@@ -26,23 +26,26 @@ class DiscoverableIdentities extends StatelessWidget {
             child: Text(context.l10n.contacts_selectedForYou, style: Theme.of(context).textTheme.titleMedium),
           ),
         ),
-        SizedBox(
-          height: 100 + 32,
-          child: CarouselView(
-            itemExtent: 138 + 32,
-            shrinkExtent: 138 + 32,
-            padding: EdgeInsets.all(16),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-            onTap: (index) async {
-              final reference = publicRelationshipTemplateReferences[index];
+        Padding(
+          padding: const EdgeInsets.only(left: 8, bottom: 8),
+          child: SizedBox(
+            height: 100 + 16,
+            child: CarouselView(
+              itemExtent: 138 + 16,
+              shrinkExtent: 138 + 16,
+              padding: EdgeInsets.all(8),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+              onTap: (index) async {
+                final reference = publicRelationshipTemplateReferences[index];
 
-              final runtime = GetIt.I.get<EnmeshedRuntime>();
-              final account = await runtime.accountServices.getAccount(accountId);
+                final runtime = GetIt.I.get<EnmeshedRuntime>();
+                final account = await runtime.accountServices.getAccount(accountId);
 
-              await runtime.stringProcessor.processTruncatedReference(truncatedReference: reference.truncatedReference, account: account);
-            },
-            children: publicRelationshipTemplateReferences.map((reference) => _DiscoverableIdentity(reference: reference)).toList(),
+                await runtime.stringProcessor.processTruncatedReference(truncatedReference: reference.truncatedReference, account: account);
+              },
+              children: publicRelationshipTemplateReferences.map((reference) => _DiscoverableIdentity(reference: reference)).toList(),
+            ),
           ),
         ),
       ],
