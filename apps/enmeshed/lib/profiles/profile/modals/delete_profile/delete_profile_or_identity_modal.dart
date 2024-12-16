@@ -62,8 +62,8 @@ Future<void> showDeleteProfileOrIdentityModal({
           child: ShouldDeleteProfile(
             cancel: () => pageIndexNotifier.value = 0,
             delete: () {
-              deleteFuture.value = GetIt.I.get<EnmeshedRuntime>().accountServices.deleteAccount(localAccount.id);
-              retryFunction = () => GetIt.I.get<EnmeshedRuntime>().accountServices.deleteAccount(localAccount.id);
+              deleteFuture.value = GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(localAccount.id);
+              retryFunction = () => GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(localAccount.id);
               pageIndexNotifier.value = 3;
             },
             profileName: localAccount.name,

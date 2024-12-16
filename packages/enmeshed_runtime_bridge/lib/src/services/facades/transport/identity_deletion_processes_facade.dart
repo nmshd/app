@@ -30,11 +30,16 @@ class IdentityDeletionProcessesFacade {
     return Result.fromJson(value, (x) => IdentityDeletionProcessDTO.fromJson(x));
   }
 
-  Future<Result<IdentityDeletionProcessDTO>> initiateIdentityDeletionProcess() async {
+  Future<Result<IdentityDeletionProcessDTO>> initiateIdentityDeletionProcess({double? lengthOfGracePeriodInDays}) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess()
+      '''const result = await session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
+      arguments: {
+        'request': {
+          if (lengthOfGracePeriodInDays != null) 'lengthOfGracePeriodInDays': lengthOfGracePeriodInDays,
+        },
+      },
     );
 
     final value = result.valueToMap();
