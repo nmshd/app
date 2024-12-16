@@ -102,6 +102,7 @@ class DebugScreen extends StatelessWidget {
                         availableFeatures: [
                           const Feature('SHOW_TECHNICAL_MESSAGES', name: 'Show Technical Messages'),
                           const Feature('SHOW_CONTACT_REQUESTS', name: 'Show Contact Requests'),
+                          const Feature('DELETE_IDENTITY_NOW', name: 'Delete an Identity Immediately'),
                         ],
                       ),
                       child: const Text('Feature Flags'),
