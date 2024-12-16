@@ -32,6 +32,8 @@ class DiscoverableIdentities extends StatelessWidget {
             itemExtent: 138 + 32,
             shrinkExtent: 138 + 32,
             padding: EdgeInsets.all(16),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
             onTap: (index) async {
               final reference = publicRelationshipTemplateReferences[index];
 
@@ -55,32 +57,26 @@ class _DiscoverableIdentity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card.filled(
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Center(
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: context.customColors.decorative,
-                child: Text(
-                  _contactNameLetters(reference.title),
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 15, color: context.customColors.onDecorative),
-                ),
-              ),
-              Spacer(),
-              Text(
-                reference.title,
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(height: 1),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-              ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 20,
+            backgroundColor: context.customColors.decorative,
+            child: Text(
+              _contactNameLetters(reference.title),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 15, color: context.customColors.onDecorative),
+            ),
           ),
-        ),
+          Spacer(),
+          Text(
+            reference.title,
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(height: 1),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+          ),
+        ],
       ),
     );
   }
