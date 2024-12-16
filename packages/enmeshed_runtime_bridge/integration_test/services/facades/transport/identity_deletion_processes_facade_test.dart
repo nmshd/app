@@ -101,7 +101,7 @@ void run(EnmeshedRuntime runtime) {
   group('Get IdentityDeletionProcesses', () {
     test('should get all IdentityDeletionProcesses', () async {
       // Initialize new Identities for these tests as otherwise they would be depending on the other tests
-      await runtime.accountServices.deleteAccount(account.id);
+      await runtime.accountServices.offboardAccount(account.id);
       account = await runtime.accountServices.createAccount(name: 'identityDeletionProcessesFacade Test');
       session = runtime.getSession(account.id);
 
@@ -123,7 +123,7 @@ void run(EnmeshedRuntime runtime) {
 
     test('should return an empty list trying to get all IdentityDeletionProcesses if there are none', () async {
       // Initialize new Identities for these tests as otherwise they would be depending on the other tests
-      await runtime.accountServices.deleteAccount(account.id);
+      await runtime.accountServices.offboardAccount(account.id);
       account = await runtime.accountServices.createAccount(name: 'identityDeletionProcessesFacade Test');
       session = runtime.getSession(account.id);
 
