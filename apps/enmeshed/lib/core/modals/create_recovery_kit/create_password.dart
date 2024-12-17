@@ -6,21 +6,28 @@ import '/core/utils/extensions.dart';
 import '../../constants.dart';
 import '../../widgets/widgets.dart';
 
-class CreatePassword extends StatefulWidget {
+class EnterPassword extends StatefulWidget {
   final void Function(String password) onContinue;
 
-  const CreatePassword({required this.onContinue, super.key});
+  const EnterPassword({required this.onContinue, super.key});
 
   @override
-  State<CreatePassword> createState() => _CreatePasswordState();
+  State<EnterPassword> createState() => _EnterPasswordState();
 }
 
-class _CreatePasswordState extends State<CreatePassword> {
-  final form = GlobalKey<FormState>();
+class _EnterPasswordState extends State<EnterPassword> {
+  final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-  bool _passwordVisible = true;
-  bool _confirmPasswordVisible = true;
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +41,12 @@ class _CreatePasswordState extends State<CreatePassword> {
           InformationContainer(title: context.l10n.identityRecovery_passwordAttention),
           Gaps.h36,
           Form(
-            key: form,
+            key: _formKey,
             child: Column(
               children: [
                 _PasswordTextField(
                   inputControl: _passwordController,
                   label: context.l10n.identityRecovery_password,
-                  obscureText: _passwordVisible,
-                  onIconTap: () => setState(() => _passwordVisible = !_passwordVisible),
                   validator: (value) {
                     if (value == null || value.isEmpty) return context.l10n.identityRecovery_passwordEmptyError;
                     return null;
@@ -51,11 +56,9 @@ class _CreatePasswordState extends State<CreatePassword> {
                 _PasswordTextField(
                   inputControl: _confirmPasswordController,
                   label: context.l10n.identityRecovery_passwordConfirm,
-                  obscureText: _confirmPasswordVisible,
-                  onIconTap: () => setState(() => _confirmPasswordVisible = !_confirmPasswordVisible),
                   validator: (value) {
                     if (value == null || value.isEmpty) return context.l10n.identityRecovery_passwordEmptyError;
-                    if (value != _passwordController.text) return context.l10n.identityRecovery_passwordError;
+                    if (value != _passwordController.text) return context.l10n.identityRecovery_passwordMismatch;
                     return null;
                   },
                 ),
@@ -65,7 +68,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                   child: FilledButton(
                     style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
                     onPressed: () {
-                      if (form.currentState!.validate()) widget.onContinue(_passwordController.text);
+                      if (_formKey.currentState!.validate()) widget.onContinue(_passwordController.text);
                     },
                     child: Text(context.l10n.identityRecovery_startNow),
                   ),
@@ -79,34 +82,34 @@ class _CreatePasswordState extends State<CreatePassword> {
   }
 }
 
-class _PasswordTextField extends StatelessWidget {
+class _PasswordTextField extends StatefulWidget {
   final TextEditingController inputControl;
   final String label;
-  final bool obscureText;
-  final VoidCallback onIconTap;
   final String? Function(String?) validator;
 
   const _PasswordTextField({
     required this.inputControl,
     required this.label,
-    required this.obscureText,
-    required this.onIconTap,
     required this.validator,
   });
 
   @override
+  State<_PasswordTextField> createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<_PasswordTextField> {
+  bool _obscureText = true;
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: inputControl,
-      obscureText: obscureText,
+      controller: widget.inputControl,
+      obscureText: _obscureText,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: widget.label,
         suffixIcon: IconButton(
-          icon: Icon(
-            obscureText ? Icons.visibility : Icons.visibility_off,
-            color: Theme.of(context).primaryColorDark,
-          ),
-          onPressed: onIconTap,
+          icon: Icon(_obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+          onPressed: () => setState(() => _obscureText = !_obscureText),
         ),
         border: OutlineInputBorder(
           borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -117,7 +120,7 @@ class _PasswordTextField extends StatelessWidget {
           borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
         ),
       ),
-      validator: validator,
+      validator: widget.validator,
     );
   }
 }

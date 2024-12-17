@@ -27,7 +27,7 @@ Future<void> showCreateRecoveryKitModal({required BuildContext context, required
           padding: const EdgeInsets.only(left: 24, top: 20),
           child: Text(context.l10n.identityRecovery_passwordTitle, style: Theme.of(context).textTheme.titleLarge),
         ),
-        child: CreatePassword(
+        child: EnterPassword(
           onContinue: (String enteredPassword) {
             passwordNotifier.value = enteredPassword;
             pageIndexNotifier.value++;

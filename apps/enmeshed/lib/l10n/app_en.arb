@@ -699,7 +699,7 @@
   "identityRecovery_password": "Password",
   "identityRecovery_passwordConfirm": "Confirm password",
   "identityRecovery_passwordTitle": "Create password",
-  "identityRecovery_passwordError": "Passwords do not match",
+  "identityRecovery_passwordMismatch": "Passwords do not match",
   "identityRecovery_passwordEmptyError": "This field cannot be empty",
   "identityRecovery_passwordDescription": "Please set a password now. The password will be required as soon as you need to use the recovery kit.",
   "identityRecovery_passwordAttention": "Attention: You must save the password separately to your recovery kit.",

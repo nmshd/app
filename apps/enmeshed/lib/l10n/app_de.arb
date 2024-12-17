@@ -699,7 +699,7 @@
   "identityRecovery_password": "Passwort",
   "identityRecovery_passwordConfirm": "Passwort wiederholen",
   "identityRecovery_passwordTitle": "Passwort erstellen",
-  "identityRecovery_passwordError": "Passwörter stimmen nicht überein",
+  "identityRecovery_passwordMismatch": "Passwörter stimmen nicht überein",
   "identityRecovery_passwordEmptyError": "Dieses Feld kann nicht leer sein",
   "identityRecovery_passwordDescription": "Bitte legen Sie jetzt ein Passwort fest. Das Passwort wird benötigt sobald Sie das Wiederherstellungskit einmal einsetzen müssen.",
   "identityRecovery_passwordAttention": "Achtung: Sie müssen das Passwort separat zu Ihrem Wiederherstellungskit sichern.",
