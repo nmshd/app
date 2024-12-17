@@ -12,7 +12,7 @@ import '../widgets/widgets.dart';
 Future<void> showDeleteLocalDataModal({
   required BuildContext context,
   required List<LocalAccountDTO> accountsInDeletion,
-  required VoidCallback onDeleted,
+  required VoidCallback? onDeleted,
 }) async {
   await showModalBottomSheet(
     context: context,
@@ -23,7 +23,7 @@ Future<void> showDeleteLocalDataModal({
 
 class _DeleteLocalDataModal extends StatefulWidget {
   final List<LocalAccountDTO> accountsInDeletion;
-  final VoidCallback onDeleted;
+  final VoidCallback? onDeleted;
 
   const _DeleteLocalDataModal({required this.accountsInDeletion, required this.onDeleted});
 
@@ -123,7 +123,7 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
       await runtime.accountServices.offboardAccount(account.id);
     }
 
-    widget.onDeleted();
+    widget.onDeleted?.call();
     if (mounted) context.pop();
   }
 }

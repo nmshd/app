@@ -7,9 +7,9 @@ import '../../utils/utils.dart';
 
 class DeleteDataNowCard extends StatelessWidget {
   final List<LocalAccountDTO> accountsInDeletion;
-  final VoidCallback reloadAccounts;
+  final VoidCallback? onDeleted;
 
-  const DeleteDataNowCard({super.key, required this.accountsInDeletion, required this.reloadAccounts});
+  const DeleteDataNowCard({super.key, required this.accountsInDeletion, required this.onDeleted});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class DeleteDataNowCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
               child: OutlinedButton.icon(
-                onPressed: () => showDeleteLocalDataModal(context: context, accountsInDeletion: accountsInDeletion, onDeleted: reloadAccounts),
+                onPressed: () => showDeleteLocalDataModal(context: context, accountsInDeletion: accountsInDeletion, onDeleted: onDeleted),
                 label: Text(context.l10n.profile_localDeletion_card_button),
                 icon: Icon(Icons.delete_forever_outlined),
               ),

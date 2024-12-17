@@ -358,7 +358,7 @@ class _ProfilesInDeletion extends StatelessWidget {
         ),
         if (accountsInDeletion.any((e) => e.deletionDate != null)) ...[
           Gaps.h16,
-          DeleteDataNowCard(reloadAccounts: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
+          DeleteDataNowCard(onDeleted: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
         ]
       ],
     );
