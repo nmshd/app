@@ -7,12 +7,14 @@ import '/core/core.dart';
 class ShouldDeleteIdentity extends StatelessWidget {
   final VoidCallback cancel;
   final VoidCallback delete;
+  final VoidCallback deleteNow;
   final String profileName;
   final List<DeviceDTO> devices;
 
   const ShouldDeleteIdentity({
     required this.cancel,
     required this.delete,
+    required this.deleteNow,
     required this.profileName,
     required this.devices,
     super.key,
@@ -40,6 +42,19 @@ class ShouldDeleteIdentity extends StatelessWidget {
                 FilledButton(onPressed: delete, child: Text(context.l10n.identity_delete_confirm)),
               ],
             ),
+            if (context.isFeatureEnabled('DELETE_IDENTITY_NOW')) ...[
+              Gaps.h16,
+              FilledButton.icon(
+                style: FilledButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                  textStyle: TextStyle(color: Theme.of(context).colorScheme.onError),
+                  minimumSize: Size.fromHeight(40),
+                ),
+                onPressed: deleteNow,
+                label: Text('[DEBUG] Delete Forever Now'),
+                icon: Icon(Icons.delete_forever_rounded),
+              ),
+            ],
           ],
         ),
       ),

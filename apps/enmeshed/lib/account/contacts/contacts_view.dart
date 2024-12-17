@@ -11,6 +11,7 @@ import '/core/core.dart';
 import 'contacts_filter_controller.dart';
 import 'contacts_filter_option.dart';
 import 'modals/select_contacts_filters.dart';
+import 'widgets/discoverable_identities.dart';
 import 'widgets/widgets.dart';
 
 enum _ContactsSortingType { date, name }
@@ -49,6 +50,7 @@ class _ContactsViewState extends State<ContactsView> {
 
   List<RequestOrRelationship>? _contacts;
   List<RequestOrRelationship> _filteredContacts = [];
+  List<PublicRelationshipTemplateReferenceDTO> _matchingPublicRelationshipTemplateReferences = [];
 
   List<IdentityDVO> _favorites = [];
 
@@ -102,6 +104,13 @@ class _ContactsViewState extends State<ContactsView> {
       onRefresh: _reload,
       child: CustomScrollView(
         slivers: [
+          if (_matchingPublicRelationshipTemplateReferences.isNotEmpty)
+            SliverToBoxAdapter(
+              child: DiscoverableIdentities(
+                accountId: widget.accountId,
+                publicRelationshipTemplateReferences: _matchingPublicRelationshipTemplateReferences,
+              ),
+            ),
           if (!widget.contactsFilterController.isContactsFilterSet && _getNumberOfContactsRequiringAttention() > 0)
             SliverToBoxAdapter(
               child: AttentionRequiredBanner(
@@ -230,11 +239,29 @@ class _ContactsViewState extends State<ContactsView> {
       ...requests.map((request) => (contact: request.peer, openContactRequest: request)),
     ];
 
+    final templateReferences = <PublicRelationshipTemplateReferenceDTO>[];
+    final referencesResult = await session.transportServices.publicRelationshipTemplateReferences.getPublicRelationshipTemplateReferences();
+    if (referencesResult.isSuccess && referencesResult.value.isNotEmpty) {
+      templateReferences.addAll(
+        // currently the only way to filter out already existing relationships is comparing the title with the shared contact name
+        // this is only a workaround and only practical for the PoC
+        referencesResult.value.where((e) => !relationships.any((r) => (r.originalName ?? r.name) == e.title)),
+      );
+
+      if (mounted && context.isFeatureEnabled('SHOW_ADDITIONAL_PUBLIC_RELATIONSHIP_TEMPLATE_REFERENCES')) {
+        templateReferences.addAll([
+          PublicRelationshipTemplateReferenceDTO(title: 'Uni Magdeburg', description: 'Uni Magdeburg', truncatedReference: 'none'),
+          PublicRelationshipTemplateReferenceDTO(title: 'Lernpfadfinder', description: 'Uni Magdeburg', truncatedReference: 'none'),
+        ]);
+      }
+    }
+
     if (mounted) {
       setState(() {
         _relationships = relationships;
         _favorites = relationships.where((contact) => contact.relationship?.isPinned ?? false).toList();
         _contacts = requestsAndRelationships;
+        _matchingPublicRelationshipTemplateReferences = templateReferences;
       });
 
       _filterAndSort();

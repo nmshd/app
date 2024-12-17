@@ -85,6 +85,17 @@ Future<void> showDeleteProfileOrIdentityModal({
               retryFunction = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
               pageIndexNotifier.value = 3;
             },
+            deleteNow: () {
+              final minutesInDays = 0.25 / 1440;
+
+              deleteFuture.value = session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
+                lengthOfGracePeriodInDays: minutesInDays,
+              );
+              retryFunction = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
+                    lengthOfGracePeriodInDays: minutesInDays,
+                  );
+              pageIndexNotifier.value = 3;
+            },
             profileName: localAccount.name,
             devices: devices,
           ),

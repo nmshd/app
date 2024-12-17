@@ -104,15 +104,9 @@
   "onboarding_enterProfileName": "Choose a profile name",
   "onboarding_acceptProfileName": "Accept",
   "home_title": "enmeshed",
-  "home_news": "Service information",
   "home_contactRequests": "Contact requests",
   "home_noNewContactRequests": "No open contact requests.",
   "home_seeAll": "See all",
-  "home_newFunction": "New function",
-  "home_generalInformation": "General information",
-  "home_problem": "Failure or problem",
-  "home_notNow": "Not now",
-  "home_discoverNow": "Discover now",
   "home_complete": "Complete",
   "home_scanQR": "Scan a QR code",
   "home_addContact": "Add contact",
@@ -132,9 +126,6 @@
   "home_initialDocuments": "Load initial documents",
   "home_createIdentityRecoveryKit": "Create recovery kit",
   "drawer_manageProfiles": "Manage profiles",
-  "drawer_backupData": "Backup Data",
-  "drawer_news": "News",
-  "drawer_helpAndFaq": "Help and FAQ",
   "drawer_title": "Information & help",
   "drawer_notifications": "Notifications",
   "drawer_notifications_stayInformed": "Stay informed!",
@@ -380,6 +371,7 @@
       }
     }
   },
+  "contacts_selectedForYou": "New contacts selected for you",
   "contactDetail_connectedSince": "Contact since {since}",
   "@contactDetail_connectedSince": {
     "placeholders": {
