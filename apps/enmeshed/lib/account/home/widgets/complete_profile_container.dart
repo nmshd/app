@@ -67,7 +67,12 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
             children: [
               CompleteProfileHeader(
                 count: 4,
-                countCompleted: [true, _isPersonalDataStored, _hasRelationship, _isFileDataStored].where((e) => e).length,
+                countCompleted: [
+                  _isPersonalDataStored,
+                  _hasRelationship,
+                  _isFileDataStored,
+                  _createdIdentityRecoveryKit,
+                ].where((e) => e).length,
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 16, top: 16),
@@ -79,7 +84,6 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
             ],
           ),
           Padding(padding: const EdgeInsets.only(right: 24, top: 12, bottom: 12), child: Text(context.l10n.home_completeProfileDescription)),
-          _TodoListTile.alwaysChecked(text: context.l10n.home_createProfile),
           _TodoListTile(
             done: _isPersonalDataStored,
             text: context.l10n.home_initialPersonalInformation,
@@ -110,7 +114,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
             number: 5,
             text: context.l10n.home_createIdentityRecoveryKit,
             onPressed: () async {
-              await context.push('/account/${widget.accountId}/instructions/${InstructionsType.createKit.name}');
+              await context.push('/account/${widget.accountId}/instructions/${InstructionsType.createRecoveryKit.name}');
               await _reload();
             },
           ),
@@ -151,11 +155,6 @@ class _TodoListTile extends StatelessWidget {
     required this.text,
     required this.onPressed,
   });
-
-  const _TodoListTile.alwaysChecked({required this.text})
-      : done = true,
-        onPressed = null,
-        number = 0;
 
   @override
   Widget build(BuildContext context) {
