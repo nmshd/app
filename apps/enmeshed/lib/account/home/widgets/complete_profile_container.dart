@@ -82,12 +82,12 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
           _TodoListTile(
             done: _isPersonalDataStored,
             text: context.l10n.home_initialPersonalInformation,
-            number: 2,
+            number: 1,
             onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-personalData-creation'),
           ),
           _TodoListTile(
             done: _hasRelationship,
-            number: 3,
+            number: 2,
             text: context.l10n.home_initialContact,
             onPressed: () => goToInstructionsOrScanScreen(
               accountId: widget.accountId,
@@ -97,7 +97,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
           ),
           _TodoListTile(
             done: _isFileDataStored,
-            number: 4,
+            number: 3,
             text: context.l10n.home_initialDocuments,
             onPressed: () async {
               await context.push('/account/${widget.accountId}/my-data/files?initialCreation=true');
@@ -106,7 +106,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
           ),
           _TodoListTile(
             done: _createdIdentityRecoveryKit,
-            number: 5,
+            number: 4,
             text: context.l10n.home_createIdentityRecoveryKit,
             onPressed: () async {
               await context.push('/account/${widget.accountId}/instructions/${InstructionsType.createRecoveryKit.name}');
