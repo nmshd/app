@@ -348,7 +348,57 @@ class _ProfilesInDeletion extends StatelessWidget {
             ),
           ),
         ),
+        if (accountsInDeletion.any((e) => e.deletionDate != null)) ...[
+          Gaps.h16,
+          _DeleteDataNowCard(),
+        ]
       ],
+    );
+  }
+}
+
+class _DeleteDataNowCard extends StatelessWidget {
+  const _DeleteDataNowCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      child: Card.filled(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Icon(Icons.error, color: Theme.of(context).colorScheme.error),
+                  Gaps.w8,
+                  Expanded(
+                    child: Text(
+                      'Lokale Daten sicher löschen',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Sie können das Löschen der lokalen Daten für Profile in Löschung erzwingen. Es werden alle auf diesem Gerät gespeicherten Daten umgehend gelöscht. Die Daten in der Mein Bildungsraum Plattform bleiben hiervon unberührt bis zum Ablauf der Löschfrist.',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: OutlinedButton.icon(
+                onPressed: () {},
+                label: Text('Lokale Daten jetzt löschen'),
+                icon: Icon(Icons.delete_forever_outlined),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
