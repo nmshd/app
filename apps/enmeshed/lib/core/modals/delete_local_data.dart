@@ -5,7 +5,9 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import '/core/core.dart';
+import '../constants.dart';
+import '../utils/utils.dart';
+import '../widgets/widgets.dart';
 
 Future<void> showDeleteLocalDataModal({
   required BuildContext context,
