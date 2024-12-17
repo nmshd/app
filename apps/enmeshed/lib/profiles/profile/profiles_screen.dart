@@ -11,7 +11,6 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 import 'modals/delete_profile/delete_profile_or_identity_modal.dart';
 import 'modals/modals.dart';
-import 'widgets/deletion_profile_card.dart';
 import 'widgets/profile_widgets.dart';
 
 class ProfilesScreen extends StatefulWidget {

@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 import '/core/core.dart';
-import '../widgets/deletion_profile_card.dart';
 
 Future<void> showDeleteLocalDataModal({
   required BuildContext context,
