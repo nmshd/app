@@ -64,51 +64,54 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       resizeToAvoidBottomInset: false,
       appBar: appBar,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _CurrentProfileHeader(
-                  selectedAccount: _selectedAccount,
-                  selectedAccountProfilePicture: _selectedAccountProfilePicture,
-                  editProfile: _editProfile,
-                ),
-                Theme(
-                  data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                  child: ExpansionTile(
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
-                    collapsedBackgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
-                    title: Text(context.l10n.profiles_settings_title),
-                    subtitle: Text(context.l10n.profiles_settings_subtitle),
-                    children: [
-                      ListTile(
-                        leading: const Icon(Icons.edit_outlined),
-                        title: Text(context.l10n.profiles_settings_editProfile),
-                        onTap: _editProfile,
-                      ),
-                      ListTile(
-                        leading: const Icon(Icons.devices_outlined),
-                        title: Text(context.l10n.profiles_settings_connectedDevices),
-                        onTap: () => context.push('/account/${_selectedAccount.id}/devices'),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
-                        title: Text(context.l10n.profiles_settings_deleteProfile),
-                        onTap: () => showDeleteProfileOrIdentityModal(context: context, localAccount: _selectedAccount),
-                      ),
-                    ],
+        child: Scrollbar(
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _CurrentProfileHeader(
+                    selectedAccount: _selectedAccount,
+                    selectedAccountProfilePicture: _selectedAccountProfilePicture,
+                    editProfile: _editProfile,
                   ),
-                ),
-                const Divider(height: 2),
-                Gaps.h8,
-                _MoreProfiles(accounts: _accounts!),
-                if (_accountsInDeletion!.isNotEmpty) ...[
+                  Theme(
+                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      backgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
+                      collapsedBackgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
+                      title: Text(context.l10n.profiles_settings_title),
+                      subtitle: Text(context.l10n.profiles_settings_subtitle),
+                      children: [
+                        ListTile(
+                          leading: const Icon(Icons.edit_outlined),
+                          title: Text(context.l10n.profiles_settings_editProfile),
+                          onTap: _editProfile,
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.devices_outlined),
+                          title: Text(context.l10n.profiles_settings_connectedDevices),
+                          onTap: () => context.push('/account/${_selectedAccount.id}/devices'),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                          title: Text(context.l10n.profiles_settings_deleteProfile),
+                          onTap: () => showDeleteProfileOrIdentityModal(context: context, localAccount: _selectedAccount),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(height: 2),
                   Gaps.h8,
-                  _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!),
+                  _MoreProfiles(accounts: _accounts!),
+                  if (_accountsInDeletion!.isNotEmpty) ...[
+                    Gaps.h8,
+                    _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ),
