@@ -24,6 +24,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
   bool _isPersonalDataStored = false;
   bool _hasRelationship = false;
   bool _isFileDataStored = false;
+  bool _createdIdentityRecoveryKit = false;
 
   @override
   void initState() {
@@ -104,6 +105,15 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               await _reload();
             },
           ),
+          _TodoListTile(
+            done: _createdIdentityRecoveryKit,
+            number: 5,
+            text: context.l10n.home_createIdentityRecoveryKit,
+            onPressed: () async {
+              await context.push('/account/${widget.accountId}/instructions/${InstructionsType.createKit.name}');
+              await _reload();
+            },
+          ),
         ],
       ),
     );
@@ -114,12 +124,14 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
     final existingData = await getDataExisting(session);
     final relationships = await getContacts(session: session);
     final filesResult = await session.transportServices.files.getFiles();
+    final existingIdentityRecoveryKitResult = await session.transportServices.identityRecoveryKits.checkForExistingIdentityRecoveryKit();
 
     if (mounted) {
       setState(() {
         _isPersonalDataStored = existingData.personalData;
         _hasRelationship = relationships.isNotEmpty;
         _isFileDataStored = filesResult.value.isNotEmpty;
+        _createdIdentityRecoveryKit = existingIdentityRecoveryKitResult.value.exists;
       });
     }
   }
