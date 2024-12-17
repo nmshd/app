@@ -108,7 +108,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                   _MoreProfiles(accounts: _accounts!),
                   if (_accountsInDeletion!.isNotEmpty) ...[
                     Gaps.h8,
-                    _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!),
+                    _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _reloadAccounts),
                   ],
                 ],
               ),
@@ -323,8 +323,9 @@ class _MoreProfiles extends StatelessWidget {
 
 class _ProfilesInDeletion extends StatelessWidget {
   final List<LocalAccountDTO> accountsInDeletion;
+  final VoidCallback reloadAccounts;
 
-  const _ProfilesInDeletion({required this.accountsInDeletion});
+  const _ProfilesInDeletion({required this.accountsInDeletion, required this.reloadAccounts});
 
   @override
   Widget build(BuildContext context) {
@@ -353,7 +354,7 @@ class _ProfilesInDeletion extends StatelessWidget {
         ),
         if (accountsInDeletion.any((e) => e.deletionDate != null)) ...[
           Gaps.h16,
-          _DeleteDataNowCard(),
+          _DeleteDataNowCard(reloadAccounts: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
         ]
       ],
     );
@@ -361,7 +362,10 @@ class _ProfilesInDeletion extends StatelessWidget {
 }
 
 class _DeleteDataNowCard extends StatelessWidget {
-  const _DeleteDataNowCard();
+  final List<LocalAccountDTO> accountsInDeletion;
+  final VoidCallback reloadAccounts;
+
+  const _DeleteDataNowCard({required this.accountsInDeletion, required this.reloadAccounts});
 
   @override
   Widget build(BuildContext context) {
@@ -394,7 +398,11 @@ class _DeleteDataNowCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
               child: OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () => showDeleteLocalDataModal(
+                  context: context,
+                  accountsInDeletion: accountsInDeletion,
+                  onDeleted: reloadAccounts,
+                ),
                 label: Text('Lokale Daten jetzt löschen'),
                 icon: Icon(Icons.delete_forever_outlined),
               ),
