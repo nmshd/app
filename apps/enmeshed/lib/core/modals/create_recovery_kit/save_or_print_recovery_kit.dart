@@ -131,7 +131,6 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
     final spacerSvgImage = await rootBundle.loadString('assets/svg_without_transforming/triangle.svg');
     final logoImageData = await rootBundle.load('assets/pictures/enmeshed_logo_light_cut.png');
     final logoBytes = logoImageData.buffer.asUint8List();
-    const selectedErrorCorrectionLevel = QRErrorCorrectionLevel.L;
 
     if (!mounted) return;
 
@@ -154,7 +153,7 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
         needHelpTitle: context.l10n.identityRecovery_pdfNeedHelpTitle,
         needHelpText: context.l10n.identityRecovery_pdfNeedHelpText,
       ),
-      qrSettings: (errorCorrectionLevel: selectedErrorCorrectionLevel, qrPixelSize: null),
+      qrSettings: (errorCorrectionLevel: QRErrorCorrectionLevel.L, qrPixelSize: null),
     ).generate(
       logoBytes: logoBytes,
       spacerSvgImage: spacerSvgImage,
