@@ -94,6 +94,11 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                         onTap: () => context.push('/account/${_selectedAccount.id}/devices'),
                       ),
                       ListTile(
+                        leading: const Icon(Icons.qr_code),
+                        title: Text(context.l10n.profiles_settings_createIdentityRecoveryKit),
+                        onTap: () => context.push('/account/${_selectedAccount.id}/instructions/${InstructionsType.createKit.name}'),
+                      ),
+                      ListTile(
                         leading: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
                         title: Text(context.l10n.profiles_settings_deleteProfile),
                         onTap: () => showDeleteProfileOrIdentityModal(context: context, localAccount: _selectedAccount),
