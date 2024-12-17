@@ -7,7 +7,7 @@ import '../../utils/utils.dart';
 
 class DeleteDataNowCard extends StatelessWidget {
   final List<LocalAccountDTO> accountsInDeletion;
-  final VoidCallback? onDeleted;
+  final VoidCallback onDeleted;
 
   const DeleteDataNowCard({super.key, required this.accountsInDeletion, required this.onDeleted});
 
