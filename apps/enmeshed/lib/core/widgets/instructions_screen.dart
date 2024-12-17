@@ -6,7 +6,7 @@ import 'package:vector_graphics/vector_graphics.dart';
 
 import '/core/core.dart';
 
-enum InstructionsType { addContact, loadProfile, createKit }
+enum InstructionsType { addContact, loadProfile, createRecoveryKit }
 
 class InstructionsScreen extends StatelessWidget {
   final String accountId;
@@ -48,15 +48,15 @@ class InstructionsScreen extends StatelessWidget {
             context.l10n.instructions_loadProfile_confirmation,
           ],
         ),
-      InstructionsType.createKit => _InstructionsView(
-          instructionsType: InstructionsType.createKit,
+      InstructionsType.createRecoveryKit => _InstructionsView(
+          instructionsType: InstructionsType.createRecoveryKit,
           showNumberedExplanation: false,
           accountId: accountId,
           title: context.l10n.instructions_identityRecovery_title,
           subtitle: context.l10n.instructions_identityRecovery_subtitle,
           informationTitle: context.l10n.instructions_identityRecovery_information,
           informationDescription: context.l10n.instructions_identityRecovery_informationDescription,
-          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/files.svg'), height: 160),
+          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/create_recovery_kit.svg'), height: 160),
           buttonContinueText: context.l10n.next,
           instructions: [
             context.l10n.instructions_identityRecovery_secure,
@@ -139,7 +139,7 @@ class _InstructionsViewState extends State<_InstructionsView> {
             ),
             Gaps.h16,
             _InstructionsBottom(
-              showCheckbox: widget.instructionsType != InstructionsType.createKit,
+              showCheckbox: widget.instructionsType != InstructionsType.createRecoveryKit,
               hideHints: _hideHints,
               toggleHideHints: () => setState(() => _hideHints = !_hideHints),
               onContinue: _onContinue,
@@ -152,7 +152,7 @@ class _InstructionsViewState extends State<_InstructionsView> {
   }
 
   Future<void> _onContinue() async {
-    if (widget.instructionsType == InstructionsType.createKit) {
+    if (widget.instructionsType == InstructionsType.createRecoveryKit) {
       await showCreateRecoveryKitModal(context: context, accountId: widget.accountId);
 
       return;
