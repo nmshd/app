@@ -53,7 +53,7 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Lokale Daten löschen', style: Theme.of(context).textTheme.titleLarge),
+              Text(context.l10n.profile_localDeletion_title, style: Theme.of(context).textTheme.titleLarge),
               IconButton(icon: const Icon(Icons.close), onPressed: context.pop),
             ],
           ),
@@ -66,7 +66,7 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-          child: Text('Wählen Sie, welche Profile und zugehörigen lokal gespeicherten Daten unwiderruflich von diesem Gerät gelöscht werden sollen:'),
+          child: Text(context.l10n.profile_localDeletion_selectProfiles),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
@@ -90,7 +90,7 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
             children: [
               OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
               Gaps.w8,
-              FilledButton(onPressed: _selectedAccounts.isNotEmpty ? _delete : null, child: const Text('Daten löschen')),
+              FilledButton(onPressed: _selectedAccounts.isNotEmpty ? _delete : null, child: Text(context.l10n.profile_localDeletion_acceptDeletion)),
             ],
           ),
         ),

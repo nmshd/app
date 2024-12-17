@@ -385,27 +385,19 @@ class _DeleteDataNowCard extends StatelessWidget {
                 children: [
                   Icon(Icons.error, color: Theme.of(context).colorScheme.error),
                   Gaps.w8,
-                  Expanded(
-                    child: Text(
-                      'Lokale Daten sicher löschen',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ),
+                  Expanded(child: Text(context.l10n.profile_localDeletion_title, style: Theme.of(context).textTheme.bodyMedium)),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                'Sie können das Löschen der lokalen Daten für Profile in Löschung erzwingen. Es werden alle auf diesem Gerät gespeicherten Daten umgehend gelöscht. Die Daten in der Mein Bildungsraum Plattform bleiben hiervon unberührt bis zum Ablauf der Löschfrist.',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
+              child: Text(context.l10n.profile_localDeletion_card_description, style: Theme.of(context).textTheme.bodySmall),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
               child: OutlinedButton.icon(
                 onPressed: () => showDeleteLocalDataModal(context: context, accountsInDeletion: accountsInDeletion, onDeleted: reloadAccounts),
-                label: Text('Lokale Daten jetzt löschen'),
+                label: Text(context.l10n.profile_localDeletion_card_button),
                 icon: Icon(Icons.delete_forever_outlined),
               ),
             ),
