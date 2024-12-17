@@ -349,6 +349,11 @@ class _ProfilesInDeletion extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: DeletionProfileCard(
               accountInDeletion: accountsInDeletion[index],
+              trailing: IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
+                tooltip: context.l10n.identity_restore,
+              ),
             ),
           ),
         ),
