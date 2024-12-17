@@ -358,7 +358,10 @@ class _ProfilesInDeletion extends StatelessWidget {
         ),
         if (accountsInDeletion.any((e) => e.deletionDate != null)) ...[
           Gaps.h16,
-          DeleteDataNowCard(onDeleted: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: DeleteDataNowCard(onDeleted: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
+          ),
         ]
       ],
     );
