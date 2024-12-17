@@ -369,6 +369,7 @@
       }
     }
   },
+  "contacts_selectedForYou": "New contacts selected for you",
   "contactDetail_connectedSince": "Contact since {since}",
   "@contactDetail_connectedSince": {
     "placeholders": {
