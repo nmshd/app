@@ -112,6 +112,7 @@ class _InstructionsViewState extends State<_InstructionsView> {
         ),
       ),
       body: SafeArea(
+        minimum: const EdgeInsets.only(bottom: 16),
         child: Column(
           children: [
             Expanded(
@@ -261,38 +262,35 @@ class _InstructionsBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
-      child: Column(
-        children: [
-          if (showCheckbox)
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
-              child: InkWell(
-                onTap: toggleHideHints,
-                child: Row(
-                  children: [
-                    Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()),
-                    Gaps.w16,
-                    Text(context.l10n.instructions_notShowAgain),
-                  ],
-                ),
+    return Column(
+      children: [
+        if (showCheckbox)
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
+            child: InkWell(
+              onTap: toggleHideHints,
+              child: Row(
+                children: [
+                  Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()),
+                  Gaps.w16,
+                  Text(context.l10n.instructions_notShowAgain),
+                ],
               ),
             ),
-          Gaps.h8,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-                Gaps.w8,
-                FilledButton(onPressed: onContinue, child: Text(buttonContinueText ?? context.l10n.instructions_scanQrCode)),
-              ],
-            ),
           ),
-        ],
-      ),
+        Gaps.h8,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+              Gaps.w8,
+              FilledButton(onPressed: onContinue, child: Text(buttonContinueText ?? context.l10n.instructions_scanQrCode)),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
