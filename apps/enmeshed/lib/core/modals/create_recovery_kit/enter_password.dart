@@ -7,9 +7,9 @@ import '../../constants.dart';
 import '../../widgets/widgets.dart';
 
 class EnterPassword extends StatefulWidget {
-  final void Function(String password) onContinue;
+  final void Function(String password) onPasswordEntered;
 
-  const EnterPassword({required this.onContinue, super.key});
+  const EnterPassword({required this.onPasswordEntered, super.key});
 
   @override
   State<EnterPassword> createState() => _EnterPasswordState();
@@ -66,9 +66,10 @@ class _EnterPasswordState extends State<EnterPassword> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: FilledButton(
-                    style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) widget.onContinue(_passwordController.text);
+                      if (!_formKey.currentState!.validate()) return;
+
+                      widget.onPasswordEntered(_passwordController.text);
                     },
                     child: Text(context.l10n.identityRecovery_startNow),
                   ),

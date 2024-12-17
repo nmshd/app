@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 import '/core/utils/extensions.dart';
-import 'create_password.dart';
+import 'enter_password.dart';
 import 'save_or_print_recovery_kit.dart';
 
 Future<void> showCreateRecoveryKitModal({required BuildContext context, required String accountId}) async {
@@ -28,7 +28,7 @@ Future<void> showCreateRecoveryKitModal({required BuildContext context, required
           child: Text(context.l10n.identityRecovery_passwordTitle, style: Theme.of(context).textTheme.titleLarge),
         ),
         child: EnterPassword(
-          onContinue: (String enteredPassword) {
+          onPasswordEntered: (String enteredPassword) {
             passwordNotifier.value = enteredPassword;
             pageIndexNotifier.value++;
           },
