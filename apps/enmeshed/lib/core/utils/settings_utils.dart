@@ -53,6 +53,7 @@ Future<void> goToInstructionsOrScanScreen({
       switch (instructionsType) {
         InstructionsType.addContact => '/account/$accountId/scan',
         InstructionsType.loadProfile => '/scan',
+        _ => '/scan',
       },
     );
   }

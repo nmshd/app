@@ -6,6 +6,7 @@ export 'file_chooser.dart';
 export 'file_icon.dart';
 export 'file_item.dart';
 export 'highlight_text.dart';
+export 'information_container.dart';
 export 'instructions_screen.dart';
 export 'message_dvo_renderer.dart';
 export 'messages_container.dart';
