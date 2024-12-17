@@ -1,5 +1,7 @@
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
@@ -27,19 +29,17 @@ class _DeleteLocalDataModal extends StatefulWidget {
 }
 
 class __DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
-  bool get _canDelete => false;
+  bool get _canDelete => true;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: MediaQuery.viewPaddingOf(context).bottom + 8),
+      padding: EdgeInsets.only(left: 24, right: 24, top: 8, bottom: MediaQuery.viewPaddingOf(context).bottom + 8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(16),
-            child: Text('Are you sure you want to delete all local data?'),
-          ),
+          Text('Are you sure you want to delete all local data?'),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -53,7 +53,16 @@ class __DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
     );
   }
 
-  void _delete() {
+  void _delete() async {
     if (!_canDelete) return;
+
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+
+    for (final account in widget.accountsInDeletion) {
+      await runtime.accountServices.offboardAccount(account.id);
+    }
+
+    widget.onDeleted();
+    if (mounted) context.pop();
   }
 }
