@@ -67,12 +67,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
             children: [
               CompleteProfileHeader(
                 count: 4,
-                countCompleted: [
-                  _isPersonalDataStored,
-                  _hasRelationship,
-                  _isFileDataStored,
-                  _createdIdentityRecoveryKit,
-                ].where((e) => e).length,
+                countCompleted: [_isPersonalDataStored, _hasRelationship, _isFileDataStored, _createdIdentityRecoveryKit].where((e) => e).length,
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 16, top: 16),
