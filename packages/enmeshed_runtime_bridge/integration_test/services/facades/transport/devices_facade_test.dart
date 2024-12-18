@@ -67,21 +67,21 @@ void run(EnmeshedRuntime runtime) {
       expect(onboardingInfo.value.profileName, profileName);
     });
 
-    test('getDeviceOnboardingToken', () async {
+    test('createDeviceOnboardingToken', () async {
       final device = (await session.transportServices.devices.createDevice()).value;
 
-      final onboardingTokenResult = await session.transportServices.devices.getDeviceOnboardingToken(device.id);
+      final onboardingTokenResult = await session.transportServices.devices.createDeviceOnboardingToken(device.id);
       expect(onboardingTokenResult, isSuccessful<TokenDTO>());
 
       final onboardingToken = onboardingTokenResult.value;
       expect(onboardingToken.content, const TypeMatcher<TokenContentDeviceSharedSecret>());
     });
 
-    test('getDeviceOnboardingToken with profile name', () async {
+    test('createDeviceOnboardingToken with profile name', () async {
       final device = (await session.transportServices.devices.createDevice()).value;
       const profileName = 'profileName';
 
-      final onboardingTokenResult = await session.transportServices.devices.getDeviceOnboardingToken(device.id, profileName: profileName);
+      final onboardingTokenResult = await session.transportServices.devices.createDeviceOnboardingToken(device.id, profileName: profileName);
       expect(onboardingTokenResult, isSuccessful<TokenDTO>());
 
       final onboardingToken = onboardingTokenResult.value;

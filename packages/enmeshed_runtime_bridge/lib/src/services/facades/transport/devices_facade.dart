@@ -70,9 +70,9 @@ class DevicesFacade {
     return Result.fromJson(json, (value) => DeviceSharedSecret.fromJson(value));
   }
 
-  Future<Result<TokenDTO>> getDeviceOnboardingToken(String id, {String? expiresAt, String? profileName}) async {
+  Future<Result<TokenDTO>> createDeviceOnboardingToken(String id, {String? expiresAt, String? profileName}) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.devices.getDeviceOnboardingToken(request)
+      '''const result = await session.transportServices.devices.createDeviceOnboardingToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
