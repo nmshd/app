@@ -87,8 +87,9 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
                                 ? null
                                 : Checkbox(
                                     value: _selectedAccounts.contains(account),
-                                    onChanged: (value) => setState(() => _selectedAccounts.toggle(account))),
-                            onTap: () => setState(() => _selectedAccounts.toggle(account)),
+                                    onChanged: (value) => setState(() => _selectedAccounts.toggle(account)),
+                                  ),
+                            onTap: (widget.accountsInDeletion.length < 2) ? null : () => setState(() => _selectedAccounts.toggle(account)),
                           ),
                       ],
                     ),
