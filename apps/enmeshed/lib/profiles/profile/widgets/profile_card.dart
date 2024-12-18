@@ -12,24 +12,19 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 1,
       margin: EdgeInsets.zero,
       child: ListTile(
         onTap: () => onAccountSelected(account),
-        selectedTileColor: Theme.of(context).colorScheme.primary,
-        tileColor: Theme.of(context).colorScheme.onPrimary,
+        tileColor: Theme.of(context).colorScheme.surfaceContainerLow,
         title: Text(
           account.name,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface),
         ),
         contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: Theme.of(context).colorScheme.outline),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: const BorderRadius.all(Radius.circular(12))),
         leading: AutoLoadingProfilePicture(
           accountId: account.id,
           profileName: account.name,

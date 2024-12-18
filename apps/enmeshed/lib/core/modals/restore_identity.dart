@@ -40,7 +40,7 @@ class _RestoreIdentity extends StatelessWidget {
           Gaps.h24,
           Text(context.l10n.identity_reactivate_description(accountInDeletion.name, DateTime.parse(deletionDate).toLocal())),
           Gaps.h8,
-          Text(context.l10n.identity_restore_description),
+          Align(alignment: Alignment.centerLeft, child: Text(context.l10n.identity_restore_description)),
           Gaps.h16,
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
