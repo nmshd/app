@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '/core/core.dart';
+import 'widgets/profiles_in_deletion_container.dart';
 
 class OnboardingAccount extends StatefulWidget {
   final VoidCallback goToOnboardingLoading;
@@ -30,66 +31,83 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.sizeOf(context).height;
+    final leftTriangleColor = Theme.of(context).colorScheme.secondary.withValues(alpha: 0.04);
+    final rightTriangleColor = Theme.of(context).colorScheme.primary.withValues(alpha: 0.04);
+    final topColor = Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.6);
 
-    return Stack(
-      children: [
-        CustomPaint(
-          painter: _BackgroundPainter(
-            leftTriangleColor: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.04),
-            rightTriangleColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.04),
-            topColor: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.6),
-          ),
-          size: Size.infinite,
-        ),
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  if (_accountsInDeletion.isEmpty) ...[
-                    SizedBox(height: screenHeight * 0.14),
+    return SafeArea(
+      top: false,
+      bottom: true,
+      child: Scrollbar(
+        thumbVisibility: true,
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(color: topColor, width: double.infinity, height: 64 * 2),
+              if (_accountsInDeletion.isNotEmpty) ...[
+                Container(
+                  color: topColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: ProfilesInDeletionContainer(accountsInDeletion: _accountsInDeletion, onDeleted: _loadAccountsInDeletion),
+                ),
+                Container(color: topColor, width: double.infinity, height: 48),
+              ],
+              Container(
+                color: topColor,
+                width: double.infinity,
+                child: Column(
+                  children: [
                     Text(
                       context.l10n.onboarding_createIdentity,
                       style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
                     ),
                     Gaps.h16,
                     Text(context.l10n.onboarding_chooseOption, textAlign: TextAlign.center),
-                    const SizedBox(height: 72),
-                  ],
-                  if (_accountsInDeletion.isNotEmpty) ...[
-                    RestoreProfileContainer(accountsInDeletion: _accountsInDeletion),
                     Gaps.h16,
                   ],
-                  Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
-                  Gaps.h16,
-                  Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
-                  Gaps.h24,
-                  FilledButton(onPressed: widget.goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
-                  Gaps.h24,
-                  Row(
-                    children: [
-                      const Expanded(child: Divider(thickness: 1)),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(context.l10n.or),
-                      ),
-                      const Expanded(child: Divider(thickness: 1)),
-                    ],
-                  ),
-                  Gaps.h24,
-                  Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
-                  Gaps.h16,
-                  Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
-                  Gaps.h24,
-                  FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
-                ],
+                ),
               ),
-            ),
+              CustomPaint(
+                painter: _BackgroundPainter(leftTriangleColor: leftTriangleColor, rightTriangleColor: rightTriangleColor, topColor: topColor),
+                child: SizedBox(width: double.infinity, height: 120),
+              ),
+              Container(
+                color: Theme.of(context).colorScheme.surface,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
+                    Gaps.h16,
+                    Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
+                    Gaps.h24,
+                    FilledButton(onPressed: widget.goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
+                    Gaps.h24,
+                    Row(
+                      children: [
+                        const Expanded(child: Divider(thickness: 1)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(context.l10n.or),
+                        ),
+                        const Expanded(child: Divider(thickness: 1)),
+                      ],
+                    ),
+                    Gaps.h24,
+                    Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
+                    Gaps.h16,
+                    Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
+                    Gaps.h24,
+                    FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 
@@ -172,42 +190,40 @@ class _BackgroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint1 = Paint()
+    final rightPaint = Paint()
       ..color = rightTriangleColor
       ..style = PaintingStyle.fill;
 
-    final paint2 = Paint()
+    final leftPaint = Paint()
       ..color = leftTriangleColor
       ..style = PaintingStyle.fill;
 
-    final paint3 = Paint()
+    final topPaint = Paint()
       ..color = topColor
       ..style = PaintingStyle.fill;
 
-    final path1 = Path()
-      ..moveTo(size.width, size.height * 0.3)
-      ..lineTo(size.width / 2, size.height * 0.365)
-      ..lineTo(size.width, size.height * 0.43)
+    final leftPath = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(0, size.height)
       ..close();
 
-    final path2 = Path()
-      ..moveTo(0, size.height * 0.3)
-      ..lineTo(size.width / 2, size.height * 0.365)
-      ..lineTo(0, size.height * 0.43)
-      ..close();
-
-    final path3 = Path()
-      ..moveTo(0, size.height * 0.3)
-      ..lineTo(size.width / 2, size.height * 0.365)
-      ..lineTo(size.width, size.height * 0.3)
+    final topPath = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width / 2, size.height / 2)
       ..lineTo(size.width, 0)
-      ..lineTo(0, 0)
+      ..close();
+
+    final rightPath = Path()
+      ..moveTo(size.width, 0)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(size.width, size.height)
       ..close();
 
     canvas
-      ..drawPath(path1, paint1)
-      ..drawPath(path2, paint2)
-      ..drawPath(path3, paint3);
+      ..drawPath(leftPath, leftPaint)
+      ..drawPath(topPath, topPaint)
+      ..drawPath(rightPath, rightPaint);
   }
 
   @override

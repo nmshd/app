@@ -11,7 +11,6 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 import 'modals/delete_profile/delete_profile_or_identity_modal.dart';
 import 'modals/modals.dart';
-import 'widgets/deletion_profile_card.dart';
 import 'widgets/profile_widgets.dart';
 
 class ProfilesScreen extends StatefulWidget {
@@ -64,56 +63,59 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       resizeToAvoidBottomInset: false,
       appBar: appBar,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _CurrentProfileHeader(
-                  selectedAccount: _selectedAccount,
-                  selectedAccountProfilePicture: _selectedAccountProfilePicture,
-                  editProfile: _editProfile,
-                ),
-                Theme(
-                  data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                  child: ExpansionTile(
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
-                    collapsedBackgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
-                    title: Text(context.l10n.profiles_settings_title),
-                    subtitle: Text(context.l10n.profiles_settings_subtitle),
-                    children: [
-                      ListTile(
-                        leading: const Icon(Icons.edit_outlined),
-                        title: Text(context.l10n.profiles_settings_editProfile),
-                        onTap: _editProfile,
-                      ),
-                      ListTile(
-                        leading: const Icon(Icons.devices_outlined),
-                        title: Text(context.l10n.profiles_settings_connectedDevices),
-                        onTap: () => context.push('/account/${_selectedAccount.id}/devices'),
-                      ),
-                      ListTile(
-                        leading: const Icon(Icons.qr_code),
-                        title: Text(context.l10n.profiles_settings_createIdentityRecoveryKit),
-                        onTap: () => context.push('/account/${_selectedAccount.id}/instructions/${InstructionsType.createRecoveryKit.name}'),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
-                        title: Text(context.l10n.profiles_settings_deleteProfile),
-                        onTap: () => showDeleteProfileOrIdentityModal(context: context, localAccount: _selectedAccount),
-                      ),
-                    ],
+        child: Scrollbar(
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _CurrentProfileHeader(
+                    selectedAccount: _selectedAccount,
+                    selectedAccountProfilePicture: _selectedAccountProfilePicture,
+                    editProfile: _editProfile,
                   ),
-                ),
-                const Divider(height: 2),
-                Gaps.h8,
-                _MoreProfiles(accounts: _accounts!),
-                if (_accountsInDeletion!.isNotEmpty) ...[
+                  Theme(
+                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      backgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
+                      collapsedBackgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
+                      title: Text(context.l10n.profiles_settings_title),
+                      subtitle: Text(context.l10n.profiles_settings_subtitle),
+                      children: [
+                        ListTile(
+                          leading: const Icon(Icons.edit_outlined),
+                          title: Text(context.l10n.profiles_settings_editProfile),
+                          onTap: _editProfile,
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.devices_outlined),
+                          title: Text(context.l10n.profiles_settings_connectedDevices),
+                          onTap: () => context.push('/account/${_selectedAccount.id}/devices'),
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.qr_code),
+                          title: Text(context.l10n.profiles_settings_createIdentityRecoveryKit),
+                          onTap: () => context.push('/account/${_selectedAccount.id}/instructions/${InstructionsType.createRecoveryKit.name}'),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                          title: Text(context.l10n.profiles_settings_deleteProfile),
+                          onTap: () => showDeleteProfileOrIdentityModal(context: context, localAccount: _selectedAccount),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(height: 2),
                   Gaps.h8,
-                  _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!),
+                  _MoreProfiles(accounts: _accounts!),
+                  if (_accountsInDeletion!.isNotEmpty) ...[
+                    Gaps.h8,
+                    _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _reloadAccounts),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ),
@@ -325,8 +327,9 @@ class _MoreProfiles extends StatelessWidget {
 
 class _ProfilesInDeletion extends StatelessWidget {
   final List<LocalAccountDTO> accountsInDeletion;
+  final VoidCallback reloadAccounts;
 
-  const _ProfilesInDeletion({required this.accountsInDeletion});
+  const _ProfilesInDeletion({required this.accountsInDeletion, required this.reloadAccounts});
 
   @override
   Widget build(BuildContext context) {
@@ -350,9 +353,21 @@ class _ProfilesInDeletion extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: DeletionProfileCard(
               accountInDeletion: accountsInDeletion[index],
+              trailing: IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
+                tooltip: context.l10n.identity_restore,
+              ),
             ),
           ),
         ),
+        if (accountsInDeletion.any((e) => e.deletionDate != null)) ...[
+          Gaps.h16,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: DeleteDataNowCard(onDeleted: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
+          ),
+        ]
       ],
     );
   }
