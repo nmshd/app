@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 
-import '/core/utils/utils.dart';
 import '../../constants.dart';
+import '../../utils/utils.dart';
 
 class SaveOrPrintRecoveryKit extends StatefulWidget {
   final Uint8List recoveryKit;
