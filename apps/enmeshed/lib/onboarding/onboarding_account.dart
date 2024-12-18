@@ -52,7 +52,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: ProfilesInDeletionContainer(accountsInDeletion: _accountsInDeletion, onDeleted: _loadAccountsInDeletion),
                 ),
-                Container(color: topColor, width: double.infinity, height: 24),
+                Container(color: topColor, width: double.infinity, height: 48),
               ],
               Container(
                 color: topColor,
