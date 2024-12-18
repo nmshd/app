@@ -143,7 +143,7 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
 
     final account = await runtime.accountServices.getAccount(widget.accountReference);
 
-    final token = await session.transportServices.devices.getDeviceOnboardingToken(widget.deviceId, profileName: account.name);
+    final token = await session.transportServices.devices.createDeviceOnboardingToken(widget.deviceId, profileName: account.name);
 
     setState(() => _token = token.value);
 
