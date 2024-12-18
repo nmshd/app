@@ -128,7 +128,7 @@ class _RecoveryCard extends StatelessWidget {
         ),
         title: Text(title, style: Theme.of(context).textTheme.titleMedium),
         subtitle: Text(description, style: Theme.of(context).textTheme.bodySmall),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
       ),
     );
