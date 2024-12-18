@@ -607,6 +607,7 @@
   "files_fileType_powerPoint": "PowerPoint Document",
   "files_fileType_other": "Other ...",
   "files_fileSize": "Size",
+  "files_tag": "Tag",
   "filter": "Filter",
   "apply_filter": "Apply filters",
   "deviceOnboarding_title": "Add device",
