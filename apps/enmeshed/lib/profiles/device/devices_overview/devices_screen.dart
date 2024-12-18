@@ -116,7 +116,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
     await session.transportServices.account.syncDatawallet();
 
     final devicesResult = await session.transportServices.devices.getDevices();
-    final devices = devicesResult.value.where((device) => device.isOffboarded == null || !device.isOffboarded!).toList();
+    final devices = devicesResult.value.where((device) => device.isOffboarded != true && !device.isBackupDevice).toList();
 
     if (mounted) setState(() => _devices = devices);
   }
