@@ -74,11 +74,7 @@ Future<void> showCreateRecoveryKitModal({required BuildContext context, required
           valueListenable: recoveryKitNotifier,
           builder: (context, recoveryKit, _) => recoveryKit == null
               ? Placeholder()
-              : SaveOrPrintRecoveryKit(
-                  accountId: accountId,
-                  recoveryKit: recoveryKit,
-                  onBackPressed: () => pageIndexNotifier.value = 0,
-                ),
+              : SaveOrPrintRecoveryKit(recoveryKit: recoveryKit, onBackPressed: () => pageIndexNotifier.value = 0),
         ),
       ),
     ],
