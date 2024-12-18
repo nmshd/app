@@ -29,7 +29,7 @@ Future<void> connectDevice({
 
   final account = await runtime.accountServices.getAccount(accountId);
 
-  final token = await session.transportServices.devices.getDeviceOnboardingToken(device.id, profileName: account.name);
+  final token = await session.transportServices.devices.createDeviceOnboardingToken(device.id, profileName: account.name);
 
   if (context.mounted) {
     _showModalSheet(context: context, accountId: accountId, reload: reload, pageIndex: 2, existingDeviceAndToken: (device, token.value));
