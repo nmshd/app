@@ -9,9 +9,16 @@ import '/core/core.dart';
 class FileDetailScreen extends StatefulWidget {
   final String accountId;
   final String fileId;
-  final FileDVO? preLoadedFile;
+  final FileDVO preLoadedFile;
+  final LocalAttributeDVO? fileReferenceAttribute;
 
-  const FileDetailScreen({required this.accountId, required this.fileId, required this.preLoadedFile, super.key});
+  const FileDetailScreen({
+    required this.accountId,
+    required this.fileId,
+    required this.preLoadedFile,
+    this.fileReferenceAttribute,
+    super.key,
+  });
 
   @override
   State<FileDetailScreen> createState() => _FileDetailScreenState();
@@ -19,6 +26,7 @@ class FileDetailScreen extends StatefulWidget {
 
 class _FileDetailScreenState extends State<FileDetailScreen> {
   FileDVO? _fileDVO;
+  List<String>? _tags;
   bool _isLoadingFile = false;
   bool _isOpeningFile = false;
 
@@ -27,6 +35,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     super.initState();
 
     _fileDVO = widget.preLoadedFile;
+    _tags = widget.fileReferenceAttribute?.tags;
 
     if (_fileDVO == null) _load();
   }
@@ -57,6 +66,20 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                       ),
                     ),
                     Gaps.h24,
+                    if (_tags != null)
+                      Chip(
+                        label: Text(
+                          _tags!.join(', '),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
+                        ),
+                        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                        padding: EdgeInsets.zero,
+                        labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+                      ),
                     Row(
                       children: [
                         Column(
@@ -122,7 +145,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
 
   Future<void> _load() async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-    final response = await session.transportServices.files.getFile(fileId: widget.fileId);
+    final response = await session.transportServices.files.getFile(fileId: widget.preLoadedFile.id);
     final expanded = await session.expander.expandFileDTO(response.value);
 
     setState(() => _fileDVO = expanded);

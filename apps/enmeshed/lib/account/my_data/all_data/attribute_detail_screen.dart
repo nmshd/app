@@ -63,7 +63,10 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
                       showTitle: false,
                       valueTextStyle: Theme.of(context).textTheme.titleLarge!,
                       expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                      openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
+                      openFileDetails: (file) => context.push(
+                        '/account/${widget.accountId}/my-data/files/${file.id}',
+                        extra: createFileRecord(file: file, fileReferenceAttribute: _attribute),
+                      ),
                     ),
                     if (lastEditingDate != null) ...[
                       Gaps.h8,
