@@ -157,7 +157,7 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
     ).generate(
       logoBytes: logoBytes,
       spacerSvgImage: spacerSvgImage,
-      truncatedReference: token.value.truncatedReference,
+      truncatedReference: 'nmshd://tr#${token.value.truncatedReference}',
     );
 
     if (mounted) setState(() => _pdf = generatedPdf);
