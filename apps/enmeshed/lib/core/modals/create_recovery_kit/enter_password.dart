@@ -66,11 +66,7 @@ class _EnterPasswordState extends State<EnterPassword> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: FilledButton(
-                    onPressed: () {
-                      if (!_formKey.currentState!.validate()) return;
-
-                      widget.onPasswordEntered(_passwordController.text);
-                    },
+                    onPressed: _onSubmit,
                     child: Text(context.l10n.identityRecovery_startNow),
                   ),
                 ),
@@ -80,6 +76,12 @@ class _EnterPasswordState extends State<EnterPassword> {
         ],
       ),
     );
+  }
+
+  void _onSubmit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    widget.onPasswordEntered(_passwordController.text);
   }
 }
 
