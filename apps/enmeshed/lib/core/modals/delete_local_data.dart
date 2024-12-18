@@ -73,7 +73,11 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                    child: Text(context.l10n.profile_localDeletion_selectProfiles),
+                    child: Text(
+                      widget.accountsInDeletion.length == 1
+                          ? context.l10n.profile_localDeletion_singleProfile
+                          : context.l10n.profile_localDeletion_selectProfiles,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
@@ -83,13 +87,13 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
                         for (final account in widget.accountsInDeletion)
                           DeletionProfileCard(
                             accountInDeletion: account,
-                            leading: (widget.accountsInDeletion.length < 2)
+                            leading: widget.accountsInDeletion.length == 1
                                 ? null
                                 : Checkbox(
                                     value: _selectedAccounts.contains(account),
                                     onChanged: (value) => setState(() => _selectedAccounts.toggle(account)),
                                   ),
-                            onTap: (widget.accountsInDeletion.length < 2) ? null : () => setState(() => _selectedAccounts.toggle(account)),
+                            onTap: widget.accountsInDeletion.length == 1 ? null : () => setState(() => _selectedAccounts.toggle(account)),
                           ),
                       ],
                     ),

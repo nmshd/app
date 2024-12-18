@@ -237,6 +237,7 @@
   "profile_localDeletion_card_description": "Sie können das Löschen der lokalen Daten für Profile in Löschung erzwingen. Es werden alle auf diesem Gerät gespeicherten Daten umgehend gelöscht. Die Daten in der enmeshed Plattform bleiben hiervon unberührt bis zum Ablauf der Löschfrist.",
   "profile_localDeletion_card_button": "Lokale Daten jetzt löschen",
   "profile_localDeletion_selectProfiles": "Wählen Sie, welche Profile und zugehörigen lokal gespeicherten Daten unwiderruflich von diesem Gerät gelöscht werden sollen:",
+  "profile_localDeletion_singleProfile": "Die lokal auf diesem Gerät gespeicherten Daten des folgenden Profils werden unwiderruflich gelöscht:",
   "profile_localDeletion_acceptDeletion": "Daten löschen",
   "profile_create": "Anlegen",
   "profile_create_inProgress": "Profil wird angelegt",

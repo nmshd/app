@@ -237,6 +237,7 @@
   "profile_localDeletion_card_description": "You can force the deletion of local data for profiles in Deletion. All data stored on this device will be deleted immediately. The data in the enmeshed platform remains unaffected by this until the deletion period expires.",
   "profile_localDeletion_card_button": "Delete local data now",
   "profile_localDeletion_selectProfiles": "Select which profiles and associated locally stored data are to be permanently deleted from this device:",
+  "profile_localDeletion_singleProfile": "The data of the following profile saved locally on this device will be irrevocably deleted:",
   "profile_localDeletion_acceptDeletion": "Delete data",
   "profile_create": "Create",
   "profile_create_inProgress": "Creating profile",
