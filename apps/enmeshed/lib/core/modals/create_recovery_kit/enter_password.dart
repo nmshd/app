@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '/core/utils/extensions.dart';
 import '../../constants.dart';
+import '../../utils/extensions.dart';
 import '../../widgets/widgets.dart';
 
 class EnterPassword extends StatefulWidget {
