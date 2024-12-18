@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: max(MediaQuery.paddingOf(context).bottom, 16) + 16),
+          padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: math.max(MediaQuery.paddingOf(context).bottom, 16) + 16),
           child: Column(
             children: [
               Text(context.l10n.identityRecovery_saveKitDescription),
