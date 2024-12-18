@@ -66,7 +66,7 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
           title: Text(context.l10n.drawer_hints_loadProfile, style: Theme.of(context).textTheme.labelLarge),
           value: _loadProfile!,
           onChanged: (value) async {
-            await upsertHintsSetting(accountId: widget.accountId, key: 'hints.${InstructionsType.loadProfile}', value: value);
+            await upsertHintsSetting(accountId: widget.accountId, key: 'hints.${ScannerType.loadProfile}', value: value);
             setState(() => _loadProfile = value);
           },
         ),
@@ -74,7 +74,7 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
           title: Text(context.l10n.drawer_hints_addContact, style: Theme.of(context).textTheme.labelLarge),
           value: _addContact!,
           onChanged: (value) async {
-            await upsertHintsSetting(accountId: widget.accountId, key: 'hints.${InstructionsType.addContact}', value: value);
+            await upsertHintsSetting(accountId: widget.accountId, key: 'hints.${ScannerType.addContact}', value: value);
             setState(() => _addContact = value);
           },
         ),
@@ -92,8 +92,8 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
 
   Future<void> _loadHints() async {
     final firstSteps = await getSetting(accountId: widget.accountId, key: 'home.completeProfileContainerShown', valueKey: 'isShown');
-    final addContact = await getSetting(accountId: widget.accountId, key: 'hints.${InstructionsType.addContact}', valueKey: 'showHints');
-    final loadProfile = await getSetting(accountId: widget.accountId, key: 'hints.${InstructionsType.loadProfile}', valueKey: 'showHints');
+    final addContact = await getSetting(accountId: widget.accountId, key: 'hints.${ScannerType.addContact}', valueKey: 'showHints');
+    final loadProfile = await getSetting(accountId: widget.accountId, key: 'hints.${ScannerType.loadProfile}', valueKey: 'showHints');
 
     setState(() {
       _firstSteps = firstSteps;

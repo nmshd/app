@@ -447,7 +447,7 @@ class _EmptyContactsIndicator extends StatelessWidget {
         action: TextButton(
           onPressed: () => goToInstructionsOrScanScreen(
             accountId: accountId,
-            instructionsType: InstructionsType.addContact,
+            instructionsType: ScannerType.addContact,
             context: context,
           ),
           child: Text(context.l10n.contacts_addContact),

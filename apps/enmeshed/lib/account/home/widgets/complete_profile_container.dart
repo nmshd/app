@@ -91,7 +91,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
             text: context.l10n.home_initialContact,
             onPressed: () => goToInstructionsOrScanScreen(
               accountId: widget.accountId,
-              instructionsType: InstructionsType.addContact,
+              instructionsType: ScannerType.addContact,
               context: context,
             ),
           ),
@@ -109,7 +109,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
             number: 4,
             text: context.l10n.home_createIdentityRecoveryKit,
             onPressed: () async {
-              await context.push('/account/${widget.accountId}/instructions/${InstructionsType.createRecoveryKit.name}');
+              await context.push('/account/${widget.accountId}/create-recovery-kit');
               await _reload();
             },
           ),

@@ -1,104 +1,44 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 import '/core/core.dart';
 
-enum InstructionsType { addContact, loadProfile, createRecoveryKit }
+enum ScannerType { addContact, loadProfile }
 
-class InstructionsScreen extends StatelessWidget {
+class InstructionsScreen extends StatefulWidget {
   final String accountId;
-  final InstructionsType instructionsType;
-
-  const InstructionsScreen({required this.accountId, required this.instructionsType, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return switch (instructionsType) {
-      InstructionsType.addContact => _InstructionsView(
-          instructionsType: InstructionsType.addContact,
-          accountId: accountId,
-          title: context.l10n.instructions_addContact_title,
-          subtitle: context.l10n.instructions_addContact_subtitle,
-          informationTitle: context.l10n.instructions_addContact_information,
-          informationDescription: context.l10n.instructions_addContact_informationDetails,
-          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/connect_with_contact.svg'), height: 104),
-          instructions: [
-            context.l10n.instructions_addContact_scanQrCode,
-            context.l10n.instructions_addContact_requestedData,
-            context.l10n.instructions_addContact_chooseData,
-            context.l10n.instructions_addContact_afterConfirmation,
-          ],
-        ),
-      InstructionsType.loadProfile => _InstructionsView(
-          instructionsType: InstructionsType.loadProfile,
-          accountId: accountId,
-          title: context.l10n.instructions_loadProfile_title,
-          subtitle: context.l10n.instructions_loadProfile_subtitle,
-          informationTitle: context.l10n.instructions_loadProfile_information,
-          informationDescription: context.l10n.instructions_loadProfile_informationDetails,
-          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/instructions_load_existing_profile.svg'), height: 104),
-          instructions: [
-            context.l10n.instructions_loadProfile_getDevice,
-            context.l10n.instructions_loadProfile_createNewDevice,
-            context.l10n.instructions_loadProfile_displayedQRCode,
-            context.l10n.instructions_loadProfile_scanQRCode,
-            context.l10n.instructions_loadProfile_confirmation,
-          ],
-        ),
-      InstructionsType.createRecoveryKit => _InstructionsView(
-          instructionsType: InstructionsType.createRecoveryKit,
-          showNumberedExplanation: false,
-          accountId: accountId,
-          title: context.l10n.instructions_identityRecovery_title,
-          subtitle: context.l10n.instructions_identityRecovery_subtitle,
-          informationTitle: context.l10n.instructions_identityRecovery_information,
-          informationDescription: context.l10n.instructions_identityRecovery_informationDescription,
-          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/create_recovery_kit.svg'), height: 160),
-          buttonContinueText: context.l10n.next,
-          instructions: [
-            context.l10n.instructions_identityRecovery_secure,
-            context.l10n.instructions_identityRecovery_setup,
-            context.l10n.instructions_identityRecovery_usage,
-            context.l10n.instructions_identityRecovery_kitCreation,
-          ],
-        ),
-    };
-  }
-}
-
-class _InstructionsView extends StatefulWidget {
-  final String accountId;
+  final void Function(BuildContext) onContinue;
+  final void Function()? deactivateHint;
   final String title;
   final String subtitle;
   final List<String> instructions;
   final String informationTitle;
   final String informationDescription;
   final VectorGraphic illustration;
-  final InstructionsType instructionsType;
   final bool showNumberedExplanation;
   final String? buttonContinueText;
 
-  const _InstructionsView({
+  const InstructionsScreen({
     required this.accountId,
+    required this.onContinue,
+    this.deactivateHint,
     required this.title,
     required this.subtitle,
     required this.instructions,
     required this.informationTitle,
     required this.informationDescription,
     required this.illustration,
-    required this.instructionsType,
     this.showNumberedExplanation = true,
     this.buttonContinueText,
+    super.key,
   });
 
   @override
-  State<_InstructionsView> createState() => _InstructionsViewState();
+  State<InstructionsScreen> createState() => _InstructionsScreenState();
 }
 
-class _InstructionsViewState extends State<_InstructionsView> {
+class _InstructionsScreenState extends State<InstructionsScreen> {
   bool _hideHints = false;
 
   @override
@@ -140,39 +80,19 @@ class _InstructionsViewState extends State<_InstructionsView> {
             ),
             Gaps.h16,
             _InstructionsBottom(
-              showCheckbox: widget.instructionsType != InstructionsType.createRecoveryKit,
+              showCheckbox: widget.deactivateHint != null,
               hideHints: _hideHints,
               toggleHideHints: () => setState(() => _hideHints = !_hideHints),
-              onContinue: _onContinue,
+              onContinue: () {
+                if (_hideHints) widget.deactivateHint?.call();
+                widget.onContinue(context);
+              },
               buttonContinueText: widget.buttonContinueText,
             ),
           ],
         ),
       ),
     );
-  }
-
-  Future<void> _onContinue() async {
-    if (widget.instructionsType == InstructionsType.createRecoveryKit) {
-      await showCreateRecoveryKitModal(context: context, accountId: widget.accountId);
-
-      return;
-    }
-
-    await upsertHintsSetting(accountId: widget.accountId, key: 'hints.${widget.instructionsType}', value: !_hideHints);
-
-    if (mounted) {
-      context.pop();
-      unawaited(
-        context.push(
-          switch (widget.instructionsType) {
-            InstructionsType.addContact => '/account/${widget.accountId}/scan',
-            InstructionsType.loadProfile => '/scan',
-            _ => '/scan',
-          },
-        ),
-      );
-    }
   }
 }
 
