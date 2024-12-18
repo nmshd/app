@@ -191,12 +191,14 @@ class _RecoveryCard extends StatelessWidget {
                 child: Center(child: Icon(icon, color: Theme.of(context).colorScheme.primary)),
               ),
               Gaps.w16,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: Theme.of(context).textTheme.titleMedium),
-                  Text(description, style: Theme.of(context).textTheme.bodySmall),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: Theme.of(context).textTheme.titleMedium),
+                    Text(description, style: Theme.of(context).textTheme.bodySmall),
+                  ],
+                ),
               ),
             ],
           ),
