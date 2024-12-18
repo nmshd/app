@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
@@ -65,21 +66,25 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
   }
 
   Future<void> _downloadFile() async {
-    final result = await FilePicker.platform.saveFile(
+    final selectedFile = await FilePicker.platform.saveFile(
       fileName: 'identity_recovery_kit.pdf',
       allowedExtensions: ['pdf'],
       bytes: widget.recoveryKit,
     );
 
-    if (result == null) return;
+    if (selectedFile == null) return;
 
-    if (mounted) {
-      context
-        ..pop()
-        ..pop();
-
-      showSuccessSnackbar(context: context, text: context.l10n.identityRecovery_saveKitSuccess);
+    if (!Platform.isIOS || !Platform.isAndroid) {
+      await File(selectedFile).writeAsBytes(widget.recoveryKit);
     }
+
+    if (!mounted) return;
+
+    context
+      ..pop()
+      ..pop();
+
+    showSuccessSnackbar(context: context, text: context.l10n.identityRecovery_saveKitSuccess);
   }
 
   Future<void> _printFile() async {
