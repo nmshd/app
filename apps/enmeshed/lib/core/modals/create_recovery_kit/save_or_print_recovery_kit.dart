@@ -11,11 +11,10 @@ import '/core/utils/utils.dart';
 import '../../constants.dart';
 
 class SaveOrPrintRecoveryKit extends StatefulWidget {
-  final String accountId;
   final Uint8List recoveryKit;
   final VoidCallback onBackPressed;
 
-  const SaveOrPrintRecoveryKit({required this.accountId, required this.recoveryKit, required this.onBackPressed, super.key});
+  const SaveOrPrintRecoveryKit({required this.recoveryKit, required this.onBackPressed, super.key});
 
   @override
   State<SaveOrPrintRecoveryKit> createState() => _SaveOrPrintRecoveryKitState();
