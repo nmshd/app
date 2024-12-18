@@ -10,8 +10,11 @@ class InformationContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: Theme.of(context).colorScheme.primaryContainer,
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
