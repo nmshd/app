@@ -114,35 +114,22 @@ class _RecoveryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Card(
-        elevation: 2,
-        color: Theme.of(context).colorScheme.primaryContainer,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
-          child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                child: Center(child: Icon(icon, color: Theme.of(context).colorScheme.primary)),
-              ),
-              Gaps.w16,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: Theme.of(context).textTheme.titleMedium),
-                    Text(description, style: Theme.of(context).textTheme.bodySmall),
-                  ],
-                ),
-              ),
-            ],
-          ),
+    return Card(
+      elevation: 2,
+      color: Theme.of(context).colorScheme.primaryContainer,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+      child: ListTile(
+        onTap: onTap,
+        leading: Container(
+          width: 40,
+          height: 40,
+          decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          child: Center(child: Icon(icon, color: Theme.of(context).colorScheme.primary)),
         ),
+        title: Text(title, style: Theme.of(context).textTheme.titleMedium),
+        subtitle: Text(description, style: Theme.of(context).textTheme.bodySmall),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
       ),
     );
   }
