@@ -14,6 +14,7 @@ class DeleteDataNowCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card.filled(
+      margin: EdgeInsets.zero,
       child: Column(
         children: [
           Padding(
