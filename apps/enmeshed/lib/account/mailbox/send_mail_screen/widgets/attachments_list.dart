@@ -99,7 +99,7 @@ class _AttachmentItem extends StatelessWidget {
       label: Text(attachment.title),
       onDeleted: onDeleted,
       deleteIcon: const Icon(Icons.close, size: 18),
-      onPressed: () => context.push('/account/$accountId/my-data/files/${attachment.id}', extra: attachment),
+      onPressed: () => context.push('/account/$accountId/my-data/files/${attachment.id}', extra: createFileRecord(file: attachment)),
     );
   }
 }

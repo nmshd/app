@@ -129,7 +129,10 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
                             : null,
                         expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                         chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                        openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
+                        openFileDetails: (file) => context.push(
+                          '/account/${widget.accountId}/my-data/files/${file.id}',
+                          extra: createFileRecord(file: file),
+                        ),
                       ),
                       _getExplanationForAttribute(widget.valueTypes[index], context),
                     ],
