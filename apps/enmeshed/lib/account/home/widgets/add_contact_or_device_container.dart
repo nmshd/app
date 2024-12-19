@@ -38,7 +38,7 @@ class _AddDevice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        onTap: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: InstructionsType.loadProfile, context: context),
+        onTap: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.loadProfile, context: context),
         child: InfoContainer(
           padding: const EdgeInsets.all(4),
           child: Column(
@@ -74,7 +74,7 @@ class _AddContact extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        onTap: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: InstructionsType.addContact, context: context),
+        onTap: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.addContact, context: context),
         child: InfoContainer(
           padding: const EdgeInsets.all(4),
           child: Column(
