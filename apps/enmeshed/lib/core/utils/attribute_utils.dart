@@ -7,24 +7,25 @@ import 'package:logger/logger.dart';
 
 import 'extensions.dart';
 
-Future<void> createRepositoryAttribute({
+Future<LocalAttributeDTO?> createRepositoryAttribute({
   required String accountId,
   required BuildContext context,
   required ValueNotifier<bool> createEnabledNotifier,
   required IdentityAttributeValue value,
   required VoidCallback onAttributeCreated,
+  List<String>? tags,
 }) async {
   createEnabledNotifier.value = false;
 
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
-  final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(value: value);
+  final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(value: value, tags: tags);
 
   if (createAttributeResult.isSuccess) {
     if (context.mounted) context.pop();
     onAttributeCreated();
 
-    return;
+    return createAttributeResult.value;
   }
 
   GetIt.I.get<Logger>().e('Creating new attribute failed caused by: ${createAttributeResult.error}');
@@ -42,6 +43,8 @@ Future<void> createRepositoryAttribute({
 
     createEnabledNotifier.value = true;
   }
+
+  return null;
 }
 
 final List<String> personalDataInitialAttributeTypes = [

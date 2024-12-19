@@ -182,7 +182,10 @@ class _AttributeListView extends StatelessWidget {
           child: AttributeRenderer.localAttribute(
             attribute: attribute,
             expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-            openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: file),
+            openFileDetails: (file) => context.push(
+              '/account/$accountId/my-data/files/${file.id}',
+              extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
+            ),
             extraLine: extraLine,
           ),
         );

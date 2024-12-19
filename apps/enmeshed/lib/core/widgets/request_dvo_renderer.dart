@@ -157,8 +157,10 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     openAttributeSwitcher: _openAttributeSwitcher,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                     chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                    openFileDetails: (file) =>
-                        context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                    openFileDetails: (file) => context.push(
+                      '/account/${widget.accountId}/my-data/files/${file.id}',
+                      extra: createFileRecord(file: file),
+                    ),
                   ),
                 ],
               ),
@@ -388,7 +390,10 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                               valueHints: widget.valueHints!,
                               showTitle: false,
                               expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                              openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
+                              openFileDetails: (file) => context.push(
+                                '/account/${widget.accountId}/my-data/files/${file.id}',
+                                extra: createFileRecord(file: file),
+                              ),
                             ),
                           ),
                         Radio<AttributeSwitcherChoice>(

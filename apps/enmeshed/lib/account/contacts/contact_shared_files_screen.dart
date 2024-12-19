@@ -42,7 +42,7 @@ class _ContactSharedFilesScreenState extends State<ContactSharedFilesScreen> wit
               : ListView.separated(
                   itemBuilder: (context, index) => FileItem(
                     accountId: widget.accountId,
-                    file: sharedFiles!.elementAt(index),
+                    fileRecord: createFileRecord(file: sharedFiles!.elementAt(index)),
                     trailing: const Icon(Icons.chevron_right),
                   ),
                   itemCount: sharedFiles!.length,

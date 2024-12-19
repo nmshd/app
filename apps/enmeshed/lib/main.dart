@@ -330,11 +330,15 @@ final _router = GoRouter(
                     GoRoute(
                       parentNavigatorKey: _rootNavigatorKey,
                       path: ':fileId',
-                      builder: (context, state) => FileDetailScreen(
-                        accountId: state.pathParameters['accountId']!,
-                        fileId: state.pathParameters['fileId']!,
-                        preLoadedFile: state.extra is FileDVO ? state.extra! as FileDVO : null,
-                      ),
+                      builder: (context, state) {
+                        final fileRecord = state.extra! as FileRecord;
+                        return FileDetailScreen(
+                          accountId: state.pathParameters['accountId']!,
+                          fileId: state.pathParameters['fileId']!,
+                          preLoadedFile: fileRecord.file,
+                          fileReferenceAttribute: fileRecord.fileReferenceAttribute,
+                        );
+                      },
                     ),
                   ],
                 ),
