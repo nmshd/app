@@ -95,7 +95,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                           onTap: () => context.push('/account/${_selectedAccount.id}/devices'),
                         ),
                         ListTile(
-                          leading: const Icon(Icons.qr_code),
+                          leading: const Icon(Icons.history_outlined),
                           title: Text(context.l10n.profiles_settings_createIdentityRecoveryKit),
                           onTap: () => context.push('/account/${_selectedAccount.id}/create-recovery-kit'),
                         ),
