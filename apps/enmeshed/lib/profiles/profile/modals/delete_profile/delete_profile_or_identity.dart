@@ -40,7 +40,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
                   radius: 40,
                 ),
                 Gaps.w16,
-                Text(profileName, style: Theme.of(context).textTheme.titleLarge),
+                Expanded(child: Text(profileName, style: Theme.of(context).textTheme.titleLarge)),
               ],
             ),
             Gaps.h24,

@@ -42,9 +42,7 @@ class DeletionProfileCard extends StatelessWidget {
           style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.error),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-        ),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         leading: leading == null ? profilePicture : Row(mainAxisSize: MainAxisSize.min, children: [leading!, profilePicture]),
         trailing: trailing,
       ),

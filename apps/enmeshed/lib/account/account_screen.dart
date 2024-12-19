@@ -209,7 +209,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
               icon: const Icon(Icons.person_add),
               onPressed: () => goToInstructionsOrScanScreen(
                 accountId: widget.accountId,
-                instructionsType: InstructionsType.addContact,
+                instructionsType: ScannerType.addContact,
                 context: context,
               ),
             ),

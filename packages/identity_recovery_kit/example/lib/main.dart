@@ -58,7 +58,7 @@ const labelHexColor = '#006685';
 const addressHexColor = '#0077B6';
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _truncatedReferenceController = TextEditingController();
+  final TextEditingController _backupURLController = TextEditingController();
   final TextEditingController _headerTitleController = TextEditingController();
   final TextEditingController _keepSafeTextController = TextEditingController();
   final TextEditingController _infoText1Controller = TextEditingController();
@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void dispose() {
     super.dispose();
 
-    _truncatedReferenceController.dispose();
+    _backupURLController.dispose();
   }
 
   @override
@@ -97,8 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: [
             TextField(
-              controller: _truncatedReferenceController,
-              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'QR data'),
+              controller: _backupURLController,
+              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Backup URL'),
             ),
             const SizedBox(height: 12),
             TextField(
@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _setDefaultValues() {
-    _truncatedReferenceController.text = defaultQrData;
+    _backupURLController.text = defaultQrData;
     _headerTitleController.text = headerTitle;
     _keepSafeTextController.text = keepSafeText;
     _infoText1Controller.text = infoText1;
@@ -256,7 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ).generate(
       logoBytes: logoBytes,
       spacerSvgImage: spacerSvgImage,
-      truncatedReference: _truncatedReferenceController.text,
+      backupURL: _backupURLController.text,
     );
 
     final directory = await getTemporaryDirectory();
