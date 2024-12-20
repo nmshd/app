@@ -29,7 +29,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
     _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadDevices());
 
-    _reloadDevices();
+    _reloadDevices(syncBefore: true);
     _loadAccount();
   }
 
@@ -110,10 +110,10 @@ class _DevicesScreenState extends State<DevicesScreen> {
     setState(() => _account = account);
   }
 
-  Future<void> _reloadDevices() async {
+  Future<void> _reloadDevices({bool syncBefore = false}) async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    await session.transportServices.account.syncDatawallet();
+    if (syncBefore) await session.transportServices.account.syncDatawallet();
 
     final devicesResult = await session.transportServices.devices.getDevices();
     final devices = devicesResult.value.where((device) => device.isOffboarded != true && !device.isBackupDevice).toList();
