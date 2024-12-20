@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 import '/core/core.dart';
-import 'info_container.dart';
 
 class AddContactOrDeviceContainer extends StatelessWidget {
   final String accountId;
@@ -19,9 +18,9 @@ class AddContactOrDeviceContainer extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _AddContact(accountId: accountId),
+            Expanded(child: _AddContact(accountId: accountId)),
             Gaps.w16,
-            _AddDevice(accountId: accountId),
+            Expanded(child: _AddDevice(accountId: accountId)),
           ],
         ),
       ],
@@ -36,10 +35,13 @@ class _AddDevice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GestureDetector(
+    return Card(
+      elevation: 2,
+      clipBehavior: Clip.hardEdge,
+      color: Theme.of(context).colorScheme.onPrimary,
+      child: InkWell(
         onTap: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.loadProfile, context: context),
-        child: InfoContainer(
+        child: Padding(
           padding: const EdgeInsets.all(4),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -72,10 +74,13 @@ class _AddContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GestureDetector(
+    return Card(
+      elevation: 2,
+      clipBehavior: Clip.hardEdge,
+      color: Theme.of(context).colorScheme.onPrimary,
+      child: InkWell(
         onTap: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.addContact, context: context),
-        child: InfoContainer(
+        child: Padding(
           padding: const EdgeInsets.all(4),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
