@@ -74,7 +74,7 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
 
     if (selectedFile == null) return;
 
-    if (!Platform.isIOS || !Platform.isAndroid) {
+    if (!Platform.isIOS && !Platform.isAndroid) {
       await File(selectedFile).writeAsBytes(widget.recoveryKit);
     }
 
