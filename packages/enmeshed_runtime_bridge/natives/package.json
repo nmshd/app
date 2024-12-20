@@ -26,7 +26,7 @@
     "@types/lodash": "^4.17.13",
     "@types/luxon": "^3.4.2",
     "@types/node": "^22.10.2",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.24.1",
     "luxon": "^3.5.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.2"
