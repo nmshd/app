@@ -60,7 +60,7 @@ class _PasswordInputState extends State<PasswordInput> {
               Gaps.w8,
               FilledButton(onPressed: _onPasswordEntered, child: Text(context.l10n.next)),
             ],
-          )
+          ),
         ],
       ),
     );

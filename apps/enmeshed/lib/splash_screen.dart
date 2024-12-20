@@ -42,10 +42,12 @@ class _SplashScreenState extends State<SplashScreen> {
               tag: 'logo',
               child: TenTapDetector(
                 onTenTap: () => context.push('/debug'),
-                child: Image.asset(switch (Theme.of(context).brightness) {
-                  Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
-                  Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
-                }),
+                child: Image.asset(
+                  switch (Theme.of(context).brightness) {
+                    Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
+                    Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
+                  },
+                ),
               ),
             ),
           ),

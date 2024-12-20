@@ -110,7 +110,9 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
                 OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
                 Gaps.w8,
                 FilledButton(
-                    onPressed: _selectedAccounts.isNotEmpty ? _delete : null, child: Text(context.l10n.profile_localDeletion_acceptDeletion)),
+                  onPressed: _selectedAccounts.isNotEmpty ? _delete : null,
+                  child: Text(context.l10n.profile_localDeletion_acceptDeletion),
+                ),
               ],
             ),
           ),

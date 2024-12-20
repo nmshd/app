@@ -368,7 +368,7 @@ class _ProfilesInDeletion extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: DeleteDataNowCard(onDeleted: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
           ),
-        ]
+        ],
       ],
     );
   }

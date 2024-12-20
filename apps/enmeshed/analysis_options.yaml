@@ -3,3 +3,4 @@ include: ../../analysis_options.yaml
 linter:
   rules:
     prefer_asserts_with_message: true
+    require_trailing_commas: true
