@@ -9,26 +9,26 @@ enum ScannerType { addContact, loadProfile }
 class InstructionsScreen extends StatefulWidget {
   final String accountId;
   final void Function(BuildContext) onContinue;
-  final void Function()? deactivateHint;
   final String title;
   final String subtitle;
   final List<String> instructions;
   final String informationTitle;
   final String informationDescription;
   final VectorGraphic illustration;
+  final void Function()? deactivateHint;
   final bool showNumberedExplanation;
   final String? buttonContinueText;
 
   const InstructionsScreen({
     required this.accountId,
     required this.onContinue,
-    this.deactivateHint,
     required this.title,
     required this.subtitle,
     required this.instructions,
     required this.informationTitle,
     required this.informationDescription,
     required this.illustration,
+    this.deactivateHint,
     this.showNumberedExplanation = true,
     this.buttonContinueText,
     super.key,

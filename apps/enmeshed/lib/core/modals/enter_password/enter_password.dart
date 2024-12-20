@@ -12,7 +12,7 @@ class EnterPasswordModal extends StatelessWidget {
   final UIBridgePasswordType passwordType;
   final int? pinLength;
 
-  const EnterPasswordModal({super.key, required this.passwordType, this.pinLength});
+  const EnterPasswordModal({required this.passwordType, this.pinLength, super.key});
 
   @override
   Widget build(BuildContext context) {

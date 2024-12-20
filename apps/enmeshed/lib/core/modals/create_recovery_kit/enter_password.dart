@@ -78,7 +78,7 @@ class _EnterPasswordState extends State<EnterPassword> {
     );
   }
 
-  void _onSubmit() async {
+  void _onSubmit() {
     if (!_formKey.currentState!.validate()) return;
 
     widget.onPasswordEntered(_passwordController.text);

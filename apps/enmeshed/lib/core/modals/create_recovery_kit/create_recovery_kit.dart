@@ -67,13 +67,13 @@ Future<void> showCreateRecoveryKitModal({required BuildContext context, required
           },
         ),
       ),
-      WoltModalSheetPage(hasTopBarLayer: false, child: _LoadingPage()),
+      WoltModalSheetPage(hasTopBarLayer: false, child: const _LoadingPage()),
       WoltModalSheetPage(
         hasTopBarLayer: false,
         child: ValueListenableBuilder<Uint8List?>(
           valueListenable: recoveryKitNotifier,
           builder: (context, recoveryKit, _) => recoveryKit == null
-              ? Placeholder()
+              ? const Placeholder()
               : SaveOrPrintRecoveryKit(recoveryKit: recoveryKit, onBackPressed: () => pageIndexNotifier.value = 0),
         ),
       ),

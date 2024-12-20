@@ -24,7 +24,7 @@ class ProfileCard extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface),
         ),
         contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        shape: RoundedRectangleBorder(borderRadius: const BorderRadius.all(Radius.circular(12))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         leading: AutoLoadingProfilePicture(
           accountId: account.id,
           profileName: account.name,

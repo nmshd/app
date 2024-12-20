@@ -16,7 +16,7 @@ class TenTapDetector extends StatelessWidget {
     return RawGestureDetector(
       gestures: {
         SerialTapGestureRecognizer: GestureRecognizerFactoryWithHandlers<SerialTapGestureRecognizer>(
-          () => SerialTapGestureRecognizer(),
+          SerialTapGestureRecognizer.new,
           (instance) => instance.onSerialTapDown = (details) {
             if (details.count == 10) onTenTap();
           },

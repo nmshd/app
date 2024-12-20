@@ -37,7 +37,6 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
 
     return SafeArea(
       top: false,
-      bottom: true,
       child: Scrollbar(
         thumbVisibility: true,
         child: SingleChildScrollView(
@@ -71,7 +70,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
               ),
               CustomPaint(
                 painter: _BackgroundPainter(leftTriangleColor: leftTriangleColor, rightTriangleColor: rightTriangleColor, topColor: topColor),
-                child: SizedBox(width: double.infinity, height: 120),
+                child: const SizedBox(width: double.infinity, height: 120),
               ),
               Container(
                 color: Theme.of(context).colorScheme.surface,
@@ -169,10 +168,8 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
       case 'error.runtime.recordNotFound':
         // this could mean that the password is wrong, retry
         await _processString(content: content, context: context, runtime: runtime);
-        break;
       default:
         await showWrongTokenErrorDialog(context);
-        break;
     }
   }
 }

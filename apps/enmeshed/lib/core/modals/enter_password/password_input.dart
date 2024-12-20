@@ -53,7 +53,6 @@ class _PasswordInputState extends State<PasswordInput> {
           ),
           Gaps.h24,
           Row(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),

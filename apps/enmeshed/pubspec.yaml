@@ -53,11 +53,11 @@ dependencies:
   url_launcher: ^6.3.1
   value_renderer: ^1.0.0
   vector_graphics: ^1.1.13
+  very_good_analysis: ^6.0.0
   wolt_modal_sheet: ^0.5.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1
-  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
   translations_cleaner: ^0.0.5
