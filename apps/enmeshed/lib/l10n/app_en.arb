@@ -116,6 +116,7 @@
   "home_messages": "New messages",
   "home_noNewMessages": "No new messages. You are up to date.",
   "home_completeProfile": "First steps",
+  "home_completeProfileDescription_recoverykitDisabled": "Three steps to help you get the most out of the enmeshed app:",
   "home_completeProfileDescription": "Four steps to help you get the most out of the enmeshed app:",
   "home_completeProfileCloseIconSemanticsLabel": "Hide card",
   "home_of": "of",

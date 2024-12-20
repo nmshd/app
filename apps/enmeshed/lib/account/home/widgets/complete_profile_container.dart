@@ -82,7 +82,14 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               ),
             ],
           ),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), child: Text(context.l10n.home_completeProfileDescription)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Text(
+              context.isFeatureEnabled('IDENTITY_RECOVERY_KITS')
+                  ? context.l10n.home_completeProfileDescription
+                  : context.l10n.home_completeProfileDescription_recoverykitDisabled,
+            ),
+          ),
           _TodoListTile(
             done: _isPersonalDataStored,
             text: context.l10n.home_initialPersonalInformation,
