@@ -107,6 +107,7 @@ class DebugScreen extends StatelessWidget {
                             'SHOW_ADDITIONAL_PUBLIC_RELATIONSHIP_TEMPLATE_REFERENCES',
                             name: 'Show Additional Public Relationship Template References',
                           ),
+                          const Feature('IDENTITY_RECOVERY_KITS', name: 'Identity Recovery Kits'),
                         ],
                       ),
                       child: const Text('Feature Flags'),

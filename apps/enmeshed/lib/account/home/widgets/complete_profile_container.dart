@@ -66,7 +66,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CompleteProfileHeader(
-                count: 4,
+                count: (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS')) ? 4 : 3,
                 countCompleted: [_isPersonalDataStored, _hasRelationship, _isFileDataStored, _createdIdentityRecoveryKit].where((e) => e).length,
               ),
               Padding(
@@ -104,15 +104,16 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               await _reload();
             },
           ),
-          _TodoListTile(
-            done: _createdIdentityRecoveryKit,
-            number: 4,
-            text: context.l10n.home_createIdentityRecoveryKit,
-            onPressed: () async {
-              await context.push('/account/${widget.accountId}/create-recovery-kit');
-              await _reload();
-            },
-          ),
+          if (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS'))
+            _TodoListTile(
+              done: _createdIdentityRecoveryKit,
+              number: 4,
+              text: context.l10n.home_createIdentityRecoveryKit,
+              onPressed: () async {
+                await context.push('/account/${widget.accountId}/create-identity-recovery-kit');
+                await _reload();
+              },
+            ),
         ],
       ),
     );

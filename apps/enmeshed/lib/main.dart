@@ -215,7 +215,7 @@ final _router = GoRouter(
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
-          path: 'create-recovery-kit',
+          path: 'create-identity-recovery-kit',
           builder: (context, state) {
             final accountId = state.pathParameters['accountId']!;
 
