@@ -116,6 +116,7 @@
   "home_messages": "Neue Nachrichten",
   "home_noNewMessages": "Keine neuen Nachrichten.\nSie sind auf dem neuesten Stand.",
   "home_completeProfile": "Erste Schritte",
+  "home_completeProfileDescription_recoverykitDisabled": "Drei Schritte, die Ihnen helfen, die enmeshed App optimal zu nutzen:",
   "home_completeProfileDescription": "Vier Schritte, die Ihnen helfen, die enmeshed App optimal zu nutzen:",
   "home_completeProfileCloseIconSemanticsLabel": "Karte ausblenden",
   "home_of": "von",
