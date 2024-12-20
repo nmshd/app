@@ -86,7 +86,7 @@ Future<void> showDeleteProfileOrIdentityModal({
               pageIndexNotifier.value = 3;
             },
             deleteNow: () {
-              final minutesInDays = 0.25 / 1440;
+              const minutesInDays = 0.25 / 1440;
 
               deleteFuture.value = session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
                 lengthOfGracePeriodInDays: minutesInDays,

@@ -54,7 +54,6 @@ class DebugScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Wrap(
                   spacing: 8,
-                  runSpacing: 0,
                   children: [
                     for (int i = 4; i <= 16; i++)
                       OutlinedButton(
@@ -79,7 +78,7 @@ class DebugScreen extends StatelessWidget {
                         if (!context.mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
                       },
-                      child: Text('PW'),
+                      child: const Text('PW'),
                     ),
                   ],
                 ),
@@ -107,6 +106,7 @@ class DebugScreen extends StatelessWidget {
                             'SHOW_ADDITIONAL_PUBLIC_RELATIONSHIP_TEMPLATE_REFERENCES',
                             name: 'Show Additional Public Relationship Template References',
                           ),
+                          const Feature('IDENTITY_RECOVERY_KITS', name: 'Identity Recovery Kits'),
                         ],
                       ),
                       child: const Text('Feature Flags'),

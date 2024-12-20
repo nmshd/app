@@ -13,6 +13,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:vector_graphics/vector_graphics.dart';
 
 import '/themes/themes.dart';
 import 'account/account.dart';
@@ -161,13 +162,79 @@ final _router = GoRouter(
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
-          path: 'instructions/:instructionsType',
+          path: 'instructions/${ScannerType.addContact.name}',
           builder: (context, state) {
-            final instructionsType = InstructionsType.values.firstWhere((e) => e.name == state.pathParameters['instructionsType']!);
+            final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
-              instructionsType: instructionsType,
-              accountId: state.pathParameters['accountId']!,
+              accountId: accountId,
+              deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.addContact.name}', value: false),
+              onContinue: (context) => context
+                ..pop()
+                ..push('/account/$accountId/scan'),
+              title: context.l10n.instructions_addContact_title,
+              subtitle: context.l10n.instructions_addContact_subtitle,
+              informationTitle: context.l10n.instructions_addContact_information,
+              informationDescription: context.l10n.instructions_addContact_informationDetails,
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/connect_with_contact.svg'), height: 104),
+              instructions: [
+                context.l10n.instructions_addContact_scanQrCode,
+                context.l10n.instructions_addContact_requestedData,
+                context.l10n.instructions_addContact_chooseData,
+                context.l10n.instructions_addContact_afterConfirmation,
+              ],
+            );
+          },
+        ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: 'instructions/${ScannerType.loadProfile.name}',
+          builder: (context, state) {
+            final accountId = state.pathParameters['accountId']!;
+
+            return InstructionsScreen(
+              accountId: accountId,
+              deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.loadProfile.name}', value: false),
+              onContinue: (context) => context
+                ..pop()
+                ..push('/scan'),
+              title: context.l10n.instructions_loadProfile_title,
+              subtitle: context.l10n.instructions_loadProfile_subtitle,
+              informationTitle: context.l10n.instructions_loadProfile_information,
+              informationDescription: context.l10n.instructions_loadProfile_informationDetails,
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/instructions_load_existing_profile.svg'), height: 104),
+              instructions: [
+                context.l10n.instructions_loadProfile_getDevice,
+                context.l10n.instructions_loadProfile_createNewDevice,
+                context.l10n.instructions_loadProfile_displayedQRCode,
+                context.l10n.instructions_loadProfile_scanQRCode,
+                context.l10n.instructions_loadProfile_confirmation,
+              ],
+            );
+          },
+        ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: 'create-identity-recovery-kit',
+          builder: (context, state) {
+            final accountId = state.pathParameters['accountId']!;
+
+            return InstructionsScreen(
+              showNumberedExplanation: false,
+              accountId: accountId,
+              onContinue: (context) => showCreateRecoveryKitModal(context: context, accountId: accountId),
+              title: context.l10n.identityRecovery_instructions_title,
+              subtitle: context.l10n.identityRecovery_instructions_subtitle,
+              informationTitle: context.l10n.identityRecovery_instructions_information,
+              informationDescription: context.l10n.identityRecovery_instructions_informationDescription,
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/create_recovery_kit.svg'), height: 160),
+              buttonContinueText: context.l10n.next,
+              instructions: [
+                context.l10n.identityRecovery_instructions_secure,
+                context.l10n.identityRecovery_instructions_setup,
+                context.l10n.identityRecovery_instructions_usage,
+                context.l10n.identityRecovery_instructions_kitCreation,
+              ],
             );
           },
         ),
@@ -405,13 +472,15 @@ class EnmeshedApp extends StatelessWidget {
     ]);
 
     unawaited(SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge));
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemNavigationBarDividerColor: Colors.transparent,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarContrastEnforced: false,
-      systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
+      ),
+    );
 
     return Features(
       child: MaterialApp.router(

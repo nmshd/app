@@ -65,10 +65,8 @@ class ScanScreen extends StatelessWidget {
       case 'error.runtime.recordNotFound':
         // this could mean that the password is wrong, retry
         await _processString(content: content, context: context, runtime: runtime, account: account);
-        break;
       default:
         await showWrongTokenErrorDialog(context);
-        break;
     }
   }
 }

@@ -39,7 +39,7 @@ Future<bool> getSetting({required String accountId, required String key, require
 
 Future<void> goToInstructionsOrScanScreen({
   required String accountId,
-  required InstructionsType instructionsType,
+  required ScannerType instructionsType,
   required BuildContext context,
 }) async {
   final showHints = await getSetting(accountId: accountId, key: 'hints.$instructionsType', valueKey: 'showHints');
@@ -51,8 +51,8 @@ Future<void> goToInstructionsOrScanScreen({
   } else {
     await context.push(
       switch (instructionsType) {
-        InstructionsType.addContact => '/account/$accountId/scan',
-        InstructionsType.loadProfile => '/scan',
+        ScannerType.addContact => '/account/$accountId/scan',
+        ScannerType.loadProfile => '/scan',
       },
     );
   }

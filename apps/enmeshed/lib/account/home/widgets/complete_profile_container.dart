@@ -24,6 +24,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
   bool _isPersonalDataStored = false;
   bool _hasRelationship = false;
   bool _isFileDataStored = false;
+  bool _createdIdentityRecoveryKit = false;
 
   @override
   void initState() {
@@ -65,8 +66,8 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CompleteProfileHeader(
-                count: 4,
-                countCompleted: [true, _isPersonalDataStored, _hasRelationship, _isFileDataStored].where((e) => e).length,
+                count: (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS')) ? 4 : 3,
+                countCompleted: [_isPersonalDataStored, _hasRelationship, _isFileDataStored, _createdIdentityRecoveryKit].where((e) => e).length,
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 16, top: 16),
@@ -78,32 +79,41 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
             ],
           ),
           Padding(padding: const EdgeInsets.only(right: 24, top: 12, bottom: 12), child: Text(context.l10n.home_completeProfileDescription)),
-          _TodoListTile.alwaysChecked(text: context.l10n.home_createProfile),
           _TodoListTile(
             done: _isPersonalDataStored,
             text: context.l10n.home_initialPersonalInformation,
-            number: 2,
+            number: 1,
             onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-personalData-creation'),
           ),
           _TodoListTile(
             done: _hasRelationship,
-            number: 3,
+            number: 2,
             text: context.l10n.home_initialContact,
             onPressed: () => goToInstructionsOrScanScreen(
               accountId: widget.accountId,
-              instructionsType: InstructionsType.addContact,
+              instructionsType: ScannerType.addContact,
               context: context,
             ),
           ),
           _TodoListTile(
             done: _isFileDataStored,
-            number: 4,
+            number: 3,
             text: context.l10n.home_initialDocuments,
             onPressed: () async {
               await context.push('/account/${widget.accountId}/my-data/files?initialCreation=true');
               await _reload();
             },
           ),
+          if (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS'))
+            _TodoListTile(
+              done: _createdIdentityRecoveryKit,
+              number: 4,
+              text: context.l10n.home_createIdentityRecoveryKit,
+              onPressed: () async {
+                await context.push('/account/${widget.accountId}/create-identity-recovery-kit');
+                await _reload();
+              },
+            ),
         ],
       ),
     );
@@ -114,12 +124,14 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
     final existingData = await getDataExisting(session);
     final relationships = await getContacts(session: session);
     final filesResult = await session.transportServices.files.getFiles();
+    final existingIdentityRecoveryKitResult = await session.transportServices.identityRecoveryKits.checkForExistingIdentityRecoveryKit();
 
     if (mounted) {
       setState(() {
         _isPersonalDataStored = existingData.personalData;
         _hasRelationship = relationships.isNotEmpty;
         _isFileDataStored = filesResult.value.isNotEmpty;
+        _createdIdentityRecoveryKit = existingIdentityRecoveryKitResult.value.exists;
       });
     }
   }
@@ -139,11 +151,6 @@ class _TodoListTile extends StatelessWidget {
     required this.text,
     required this.onPressed,
   });
-
-  const _TodoListTile.alwaysChecked({required this.text})
-      : done = true,
-        onPressed = null,
-        number = 0;
 
   @override
   Widget build(BuildContext context) {

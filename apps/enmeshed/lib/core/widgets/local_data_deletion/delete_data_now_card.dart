@@ -9,7 +9,7 @@ class DeleteDataNowCard extends StatelessWidget {
   final List<LocalAccountDTO> accountsInDeletion;
   final VoidCallback onDeleted;
 
-  const DeleteDataNowCard({super.key, required this.accountsInDeletion, required this.onDeleted});
+  const DeleteDataNowCard({required this.accountsInDeletion, required this.onDeleted, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class DeleteDataNowCard extends StatelessWidget {
             child: OutlinedButton.icon(
               onPressed: () => showDeleteLocalDataModal(context: context, accountsInDeletion: accountsInDeletion, onDeleted: onDeleted),
               label: Text(context.l10n.profile_localDeletion_card_button),
-              icon: Icon(Icons.delete_forever_outlined),
+              icon: const Icon(Icons.delete_forever_outlined),
             ),
           ),
         ],
