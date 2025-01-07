@@ -181,13 +181,14 @@ class _CompleteProfileHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(context.l10n.home_completeProfile, style: Theme.of(context).textTheme.titleLarge),
+            Gaps.h8,
             RichText(
               text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
+                style: Theme.of(context).textTheme.labelSmall,
                 children: [
                   TextSpan(
                     text: '$countCompleted ${context.l10n.home_of} $count ',
-                    style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                    style: TextStyle(color: count == countCompleted ? context.customColors.success : Theme.of(context).colorScheme.primary),
                   ),
                   TextSpan(text: context.l10n.home_completed),
                 ],
