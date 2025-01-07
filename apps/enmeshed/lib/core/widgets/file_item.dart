@@ -12,6 +12,7 @@ class FileItem extends StatelessWidget {
   final Widget? trailing;
   final String? query;
   final void Function()? onTap;
+  final VoidCallback? reload;
 
   const FileItem({
     required this.accountId,
@@ -19,6 +20,7 @@ class FileItem extends StatelessWidget {
     this.trailing,
     this.query,
     this.onTap,
+    this.reload,
     super.key,
   });
 
@@ -47,7 +49,11 @@ class FileItem extends StatelessWidget {
       ),
       leading: FileIcon(filename: fileRecord.file.filename),
       trailing: trailing,
-      onTap: onTap ?? () => context.push('/account/$accountId/my-data/files/${fileRecord.file.id}', extra: fileRecord),
+      onTap: onTap ??
+          () async {
+            await context.push('/account/$accountId/my-data/files/${fileRecord.file.id}', extra: fileRecord);
+            if (reload != null) reload!();
+          },
     );
   }
 }
