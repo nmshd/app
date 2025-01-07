@@ -181,6 +181,7 @@ class _CompleteProfileHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(context.l10n.home_completeProfile, style: Theme.of(context).textTheme.titleLarge),
+            Gaps.h8,
             RichText(
               text: TextSpan(
                 style: DefaultTextStyle.of(context).style,
