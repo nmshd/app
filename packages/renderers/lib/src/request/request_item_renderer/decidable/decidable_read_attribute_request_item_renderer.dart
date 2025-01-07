@@ -68,6 +68,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           onUpdateAttribute: _onUpdateAttribute,
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
+          requireManualDecision: widget.item.requireManualDecision,
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
           openFileDetails: widget.openFileDetails,

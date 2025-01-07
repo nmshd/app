@@ -14,6 +14,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final Future<void> Function([String? valueType, String? value])? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;
+  final bool? requireManualDecision;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -26,6 +27,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
     this.onUpdateAttribute,
     this.checkboxSettings,
     required this.mustBeAccepted,
+    required this.requireManualDecision,
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
@@ -95,6 +97,19 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   }
 }
 
+class _ManualDecisionRequired extends StatelessWidget {
+  const _ManualDecisionRequired();
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      activeColor: Colors.green,
+      value: false,
+      onChanged: (bool value) {},
+    );
+  }
+}
+
 class _EmptyAttribute extends StatelessWidget {
   final String valueType;
   final VoidCallback onCreateAttribute;
@@ -109,31 +124,38 @@ class _EmptyAttribute extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
-        Expanded(
-          child: ListTile(
-              onTap: onCreateAttribute,
-              contentPadding: EdgeInsets.only(right: 24),
-              visualDensity: VisualDensity.compact,
-              tileColor: Theme.of(context).colorScheme.surface,
-              title: Row(
-                children: [
-                  TranslatedText(
-                    'i18n://dvo.attribute.name.$valueType',
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        Row(
+          children: [
+            if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+            Expanded(
+              child: ListTile(
+                  onTap: onCreateAttribute,
+                  contentPadding: EdgeInsets.only(right: 24),
+                  visualDensity: VisualDensity.compact,
+                  tileColor: Theme.of(context).colorScheme.surface,
+                  title: Row(
+                    children: [
+                      TranslatedText(
+                        'i18n://dvo.attribute.name.$valueType',
+                        style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      ),
+                      if (mustBeAccepted)
+                        Text('*', style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant))
+                    ],
                   ),
-                  if (mustBeAccepted)
-                    Text('*', style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant))
-                ],
-              ),
-              subtitle: TranslatedText(
-                'i18n://requestRenderer.noEntry',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
-              ),
-              trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 24)),
-        )
+                  subtitle: TranslatedText(
+                    'i18n://requestRenderer.noEntry',
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+                  ),
+                  trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 24)),
+            ),
+          ],
+        ),
+        SizedBox(
+          
+          child: _ManualDecisionRequired())
       ],
     );
   }
