@@ -94,6 +94,12 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                           title: Text(context.l10n.profiles_settings_connectedDevices),
                           onTap: () => context.push('/account/${_selectedAccount.id}/devices'),
                         ),
+                        if (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS'))
+                          ListTile(
+                            leading: const Icon(Icons.history_outlined),
+                            title: Text(context.l10n.profiles_settings_createIdentityRecoveryKit),
+                            onTap: () => context.push('/account/${_selectedAccount.id}/create-identity-recovery-kit'),
+                          ),
                         ListTile(
                           leading: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
                           title: Text(context.l10n.profiles_settings_deleteProfile),
@@ -362,7 +368,7 @@ class _ProfilesInDeletion extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: DeleteDataNowCard(onDeleted: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
           ),
-        ]
+        ],
       ],
     );
   }

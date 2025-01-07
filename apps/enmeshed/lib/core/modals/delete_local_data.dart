@@ -14,7 +14,7 @@ Future<void> showDeleteLocalDataModal({
   required List<LocalAccountDTO> accountsInDeletion,
   required VoidCallback onDeleted,
 }) async {
-  await showModalBottomSheet(
+  await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     builder: (context) => _DeleteLocalDataModal(accountsInDeletion: accountsInDeletion, onDeleted: onDeleted),
@@ -65,9 +65,9 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Center(
+                  const Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      padding: EdgeInsets.symmetric(vertical: 16),
                       child: VectorGraphic(loader: AssetBytesLoader('assets/svg/confirm_local_data_deletion.svg'), height: 160),
                     ),
                   ),
@@ -110,7 +110,9 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
                 OutlinedButton(onPressed: context.pop, child: Text(context.l10n.cancel)),
                 Gaps.w8,
                 FilledButton(
-                    onPressed: _selectedAccounts.isNotEmpty ? _delete : null, child: Text(context.l10n.profile_localDeletion_acceptDeletion)),
+                  onPressed: _selectedAccounts.isNotEmpty ? _delete : null,
+                  child: Text(context.l10n.profile_localDeletion_acceptDeletion),
+                ),
               ],
             ),
           ),
@@ -119,7 +121,7 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
     );
   }
 
-  void _delete() async {
+  Future<void> _delete() async {
     if (!_selectedAccounts.isNotEmpty) return;
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();

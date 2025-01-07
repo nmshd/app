@@ -250,8 +250,8 @@ class _ContactsViewState extends State<ContactsView> {
 
       if (mounted && context.isFeatureEnabled('SHOW_ADDITIONAL_PUBLIC_RELATIONSHIP_TEMPLATE_REFERENCES')) {
         templateReferences.addAll([
-          PublicRelationshipTemplateReferenceDTO(title: 'Uni Magdeburg', description: 'Uni Magdeburg', truncatedReference: 'none'),
-          PublicRelationshipTemplateReferenceDTO(title: 'Lernpfadfinder', description: 'Uni Magdeburg', truncatedReference: 'none'),
+          const PublicRelationshipTemplateReferenceDTO(title: 'Uni Magdeburg', description: 'Uni Magdeburg', truncatedReference: 'none'),
+          const PublicRelationshipTemplateReferenceDTO(title: 'Lernpfadfinder', description: 'Uni Magdeburg', truncatedReference: 'none'),
         ]);
       }
     }
@@ -447,7 +447,7 @@ class _EmptyContactsIndicator extends StatelessWidget {
         action: TextButton(
           onPressed: () => goToInstructionsOrScanScreen(
             accountId: accountId,
-            instructionsType: InstructionsType.addContact,
+            instructionsType: ScannerType.addContact,
             context: context,
           ),
           child: Text(context.l10n.contacts_addContact),

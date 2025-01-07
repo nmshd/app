@@ -4,7 +4,7 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/core.dart';
+import '../../utils/extensions.dart';
 import 'password_input.dart';
 import 'pin_input.dart';
 
@@ -12,7 +12,7 @@ class EnterPasswordModal extends StatelessWidget {
   final UIBridgePasswordType passwordType;
   final int? pinLength;
 
-  const EnterPasswordModal({super.key, required this.passwordType, this.pinLength});
+  const EnterPasswordModal({required this.passwordType, this.pinLength, super.key});
 
   @override
   Widget build(BuildContext context) {

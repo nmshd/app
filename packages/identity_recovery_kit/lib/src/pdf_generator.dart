@@ -50,14 +50,14 @@ class PdfGenerator {
   Future<Uint8List> generate({
     required Uint8List logoBytes,
     required String spacerSvgImage,
-    required String truncatedReference,
+    required String backupURL,
   }) async {
     final pdf = pw.Document();
 
     final logoImage = pw.MemoryImage(logoBytes);
 
     final qrImage = await generateQrCode(
-      truncatedReference,
+      backupURL,
       errorCorrectionLevel: qrSettings?.errorCorrectionLevel,
       pixelSize: qrSettings?.qrPixelSize,
     );

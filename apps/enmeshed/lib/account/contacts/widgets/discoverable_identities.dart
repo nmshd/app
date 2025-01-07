@@ -33,7 +33,7 @@ class DiscoverableIdentities extends StatelessWidget {
             child: CarouselView(
               itemExtent: 138 + 16,
               shrinkExtent: 138 + 16,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
               onTap: (index) async {
@@ -72,7 +72,7 @@ class _DiscoverableIdentity extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 15, color: context.customColors.onDecorative),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             reference.title,
             style: Theme.of(context).textTheme.labelLarge!.copyWith(height: 1),
