@@ -1,0 +1,113 @@
+{
+  "supportedLanguages": ["de", "en"],
+  "tagsForAttributeValueTypes": {
+    "IdentityFileReference": {
+      "schulabschluss": {
+        "displayNames": {
+          "de": "Abschluss",
+          "en": "Degree"
+        },
+        "children": {
+          "realschule": {
+            "displayNames": {
+              "de": "Realschule",
+              "en": "Secondary School"
+            },
+            "children": {
+              "zeugnis": {
+                "displayNames": {
+                  "de": "Zeugnis",
+                  "en": "Diploma"
+                }
+              }
+            }
+          },
+          "gymnasium": {
+            "displayNames": {
+              "de": "Gymnasium",
+              "en": "High School"
+            },
+            "children": {
+              "zeugnis": {
+                "displayNames": {
+                  "de": "Zeugnis",
+                  "en": "Diploma"
+                }
+              },
+              "abitur": {
+                "displayNames": {
+                  "de": "Abitur",
+                  "en": "A-Level Certificate"
+                }
+              }
+            }
+          }
+        }
+      },
+      "versicherungsunterlagen": {
+        "displayNames": {
+          "de": "Versicherungsunterlagen",
+          "en": "Insurance documents"
+        },
+        "children": {
+          "haftpflichtversicherung": {
+            "displayNames": {
+              "de": "Haftpflichtversicherung",
+              "en": "Liability Insurance"
+            },
+            "children": {
+              "police": {
+                "displayNames": {
+                  "de": "Versicherungspolice",
+                  "en": "Insurance Policy"
+                }
+              }
+            }
+          },
+          "krankenversicherung": {
+            "displayNames": {
+              "de": "Krankenversicherung",
+              "en": "Health Insurance"
+            },
+            "children": {
+              "karte": {
+                "displayNames": {
+                  "de": "Versicherungskarte",
+                  "en": "Insurance Card"
+                }
+              },
+              "nachweise": {
+                "displayNames": {
+                  "de": "Nachweise",
+                  "en": "Proofs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "PhoneNumber": {
+        "notfall": {
+          "displayNames": {
+            "de": "Notfallkontakt",
+            "en": "Emergency Contact"
+          }
+        }
+      },
+      "StreetAddress": {
+        "lieferung": {
+          "displayNames": {
+            "de": "Lieferadresse",
+            "en": "Deliver Address"
+          }
+        },
+        "heimat": {
+          "displayNames": {
+            "de": "Heimatadresse",
+            "en": "Home Address"
+          }
+        }
+      }
+    }
+  }
