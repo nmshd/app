@@ -184,7 +184,7 @@ class _CompleteProfileHeader extends StatelessWidget {
             Gaps.h8,
             RichText(
               text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
+                style: Theme.of(context).textTheme.labelSmall,
                 children: [
                   TextSpan(
                     text: '$countCompleted ${context.l10n.home_of} $count ',
