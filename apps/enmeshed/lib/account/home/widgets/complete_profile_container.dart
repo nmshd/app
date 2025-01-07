@@ -188,7 +188,7 @@ class _CompleteProfileHeader extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: '$countCompleted ${context.l10n.home_of} $count ',
-                    style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                    style: TextStyle(color: count == countCompleted ? context.customColors.success : Theme.of(context).colorScheme.primary),
                   ),
                   TextSpan(text: context.l10n.home_completed),
                 ],
