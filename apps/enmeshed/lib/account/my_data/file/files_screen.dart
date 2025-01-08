@@ -127,7 +127,7 @@ class _FilesScreenState extends State<FilesScreen> {
                     accountId: widget.accountId,
                     fileRecord: _filteredFileRecords[index],
                     trailing: const Icon(Icons.chevron_right),
-                    reload: () => _loadFiles(),
+                    reload: _loadFiles,
                   ),
                   itemCount: _filteredFileRecords.length,
                   separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
@@ -263,7 +263,7 @@ class _FilesScreenState extends State<FilesScreen> {
           FocusScope.of(context).unfocus();
 
           await context.push('/account/${widget.accountId}/my-data/files/${item.file.id}', extra: item);
-          _loadFiles();
+          unawaited(_loadFiles());
         },
       ),
     );

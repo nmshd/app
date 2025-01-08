@@ -32,10 +32,10 @@ class FileDetailScreen extends StatefulWidget {
 class _FileDetailScreenState extends State<FileDetailScreen> {
   late final Session _session;
 
-  FileDVO? _fileDVO;
-  LocalAttributeDVO? _fileReferenceAttribute;
-  List<String>? _tags;
-  AttributeTagCollectionDTO? _tagCollection;
+  late FileDVO? _fileDVO;
+  late LocalAttributeDVO? _fileReferenceAttribute;
+  late List<String>? _tags;
+  late AttributeTagCollectionDTO? _tagCollection;
 
   bool _isLoadingFile = false;
   bool _isOpeningFile = false;
@@ -121,7 +121,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   }
 
   Future<void> _loadTagCollection() async {
-    // TODO: (aince) this is a temporary solution to load the tag collection
+    // TODO(aince42): this is a temporary solution to load the tag collection
     final jsonString = await rootBundle.loadString('assets/tag_example.json');
     final jsonData = json.decode(jsonString) as Map<String, dynamic>;
     final tagCollection = AttributeTagCollectionDTO.fromJson(jsonData);

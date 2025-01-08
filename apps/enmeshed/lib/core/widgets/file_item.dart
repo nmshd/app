@@ -52,7 +52,7 @@ class FileItem extends StatelessWidget {
       onTap: onTap ??
           () async {
             await context.push('/account/$accountId/my-data/files/${fileRecord.file.id}', extra: fileRecord);
-            if (reload != null) reload!();
+            reload?.call();
           },
     );
   }

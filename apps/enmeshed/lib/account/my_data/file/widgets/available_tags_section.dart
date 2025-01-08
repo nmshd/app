@@ -45,7 +45,7 @@ class AvailableTagsSection extends StatelessWidget {
               ),
             );
           }).toList(),
-        )
+        ),
       ],
     );
   }
@@ -55,7 +55,7 @@ class AvailableTagsSection extends StatelessWidget {
 
     if (selectedTags.isEmpty) return (tagsMap: currentLevel, currentPath: '');
 
-    String currentPath = '';
+    var currentPath = '';
     for (var i = 0; i < selectedTags.length; i++) {
       final tag = selectedTags[i];
 

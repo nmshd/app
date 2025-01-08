@@ -12,11 +12,17 @@ class EditFile extends StatefulWidget {
   final String accountId;
   final String fileTitle;
   final LocalAttributeDVO fileReferenceAttribute;
-  final AttributeTagCollectionDTO? tagCollection;
   final void Function({String? attributeId}) onSave;
+  final AttributeTagCollectionDTO? tagCollection;
 
-  const EditFile(
-      {required this.accountId, required this.fileTitle, required this.fileReferenceAttribute, this.tagCollection, required this.onSave, super.key});
+  const EditFile({
+    required this.accountId,
+    required this.fileTitle,
+    required this.fileReferenceAttribute,
+    required this.onSave,
+    this.tagCollection,
+    super.key,
+  });
 
   @override
   State<EditFile> createState() => _EditFileState();
@@ -64,7 +70,7 @@ class _EditFileState extends State<EditFile> {
                 controller: _titleController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  suffixIcon: IconButton(onPressed: null, icon: const Icon(Icons.cancel_outlined)),
+                  suffixIcon: const IconButton(onPressed: null, icon: Icon(Icons.cancel_outlined)),
                   labelText: context.l10n.title,
                   border: OutlineInputBorder(
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
