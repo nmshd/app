@@ -35,7 +35,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   late FileDVO? _fileDVO;
   late LocalAttributeDVO? _fileReferenceAttribute;
   late List<String>? _tags;
-  late AttributeTagCollectionDTO? _tagCollection;
+  AttributeTagCollectionDTO? _tagCollection;
 
   bool _isLoadingFile = false;
   bool _isOpeningFile = false;
