@@ -9,5 +9,6 @@ String getTagLabel(BuildContext context, AttributeTagCollectionDTO? tagCollectio
     return displayNames[currentLocale]!;
   }
 
+  // Fallback to English
   return displayNames['en']!;
 }
