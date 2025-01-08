@@ -21,7 +21,7 @@ import 'modal_loading_overlay.dart';
 
 class UploadFile extends StatefulWidget {
   final String accountId;
-  final void Function(FileDVO) onFileUploaded;
+  final Future<void> Function(FileDVO) onFileUploaded;
   final bool popOnUpload;
   final Widget? leading;
 
@@ -175,7 +175,7 @@ class _UploadFileState extends State<UploadFile> {
 
       final fileReference = await _createFileReferenceAttribute(file);
 
-      widget.onFileUploaded(file);
+      await widget.onFileUploaded(file);
 
       if (mounted && widget.popOnUpload) {
         context.pop();
