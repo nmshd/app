@@ -113,9 +113,9 @@ class _EditFileState extends State<EditFile> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Abbrechen')),
+                  TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(context.l10n.cancel)),
                   Gaps.w8,
-                  FilledButton(onPressed: _confirmEnabled ? _confirm : null, child: const Text('Speichern')),
+                  FilledButton(onPressed: _confirmEnabled ? _confirm : null, child: Text(context.l10n.save)),
                 ],
               ),
             ],
