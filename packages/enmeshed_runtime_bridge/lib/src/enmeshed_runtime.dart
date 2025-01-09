@@ -26,8 +26,6 @@ typedef RuntimeConfig = ({
 });
 
 class EnmeshedRuntime {
-  static String _assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
-
   bool _isReady = false;
 
   bool get isReady => _isReady;
@@ -114,9 +112,6 @@ class EnmeshedRuntime {
     _stringProcessor = StringProcessor(anonymousEvaluator);
   }
 
-  @visibleForTesting
-  static void setAssetsFolder(String assetsFolder) => _assetsFolder = assetsFolder;
-
   Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
 
   Future<void> selectAccount(String accountReference) async {
@@ -183,8 +178,10 @@ class EnmeshedRuntime {
   }
 
   Future<void> _loadLibs(InAppWebViewController controller) async {
-    await controller.injectJavascriptFileFromAsset(assetFilePath: '$_assetsFolder/loki.js');
-    await controller.injectJavascriptFileFromAsset(assetFilePath: '$_assetsFolder/index.js');
+    final assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
+
+    await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/loki.js');
+    await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
   }
 
   Future<EnmeshedRuntime> run() async {

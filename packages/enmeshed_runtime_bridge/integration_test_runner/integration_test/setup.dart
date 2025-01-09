@@ -10,7 +10,6 @@ Future<EnmeshedRuntime> setup() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   dummy_app.main();
 
-  EnmeshedRuntime.setAssetsFolder('assets');
   final eventBus = MockEventBus();
   // reset event bus before each test to get rid of old events
   setUp(() => eventBus.reset());
