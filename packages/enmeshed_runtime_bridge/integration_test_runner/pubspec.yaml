@@ -1,0 +1,24 @@
+name: integration_test_runner
+description: "A new Flutter project."
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  enmeshed_runtime_bridge: ^1.0.0
+  enmeshed_types: ^1.0.0
+  flutter:
+    sdk: flutter
+  logger: ^2.5.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
