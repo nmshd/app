@@ -144,7 +144,10 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
     if (!context.mounted) return;
 
     final result = await runtime.stringProcessor.processURL(url: content);
-    if (result.isSuccess) return;
+    if (result.isSuccess) {
+      resume();
+      return;
+    }
 
     GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
     if (!context.mounted) return;
