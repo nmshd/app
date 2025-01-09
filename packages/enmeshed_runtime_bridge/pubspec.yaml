@@ -21,18 +21,15 @@ dependencies:
   path_provider: ^2.1.5
 
 dev_dependencies:
-  connector_sdk: 1.0.0
   flutter_lints: ^5.0.0
   flutter_test:
-    sdk: flutter
-  integration_test:
     sdk: flutter
   test: any
 
 platforms:
   android:
   ios:
-  macos:
+  windows:
 
 flutter:
   assets:
