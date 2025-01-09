@@ -41,6 +41,7 @@ class EnterPasswordModal extends StatelessWidget {
               ],
             ),
           ),
+          Text('attempt: $attempt'),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: Text(
