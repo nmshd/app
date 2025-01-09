@@ -52,40 +52,19 @@ class AvailableTagsSection extends StatelessWidget {
 
   AvailableTagsData? _getAvailableTagsData() {
     var currentLevel = tagCollection!.tagsForAttributeValueTypes['IdentityFileReference'] ?? {};
-
     if (selectedTags.isEmpty) return (tagsMap: currentLevel, currentPath: '');
 
     var currentPath = '';
-    for (var i = 0; i < selectedTags.length; i++) {
-      final tag = selectedTags[i];
-
-      if (i == 0) {
-        if (!currentLevel.containsKey(tag)) {
-          return (tagsMap: currentLevel, currentPath: '');
-        }
-        currentPath = tag;
-        currentLevel = currentLevel[tag]!.children ?? {};
-      } else {
-        var found = false;
-        String? nextPath;
-        Map<String, AttributeTagDTO>? nextLevel;
-
-        currentLevel.forEach((key, value) {
-          if (key.split('.').last == tag && !found) {
-            nextPath = currentPath.isEmpty ? key : '$currentPath.$key';
-            nextLevel = value.children ?? {};
-            found = true;
-          }
-        });
-
-        if (!found) return (tagsMap: currentLevel, currentPath: currentPath);
-
-        currentPath = nextPath!;
-        currentLevel = nextLevel!;
+    for (final tag in selectedTags) {
+      if (!currentLevel.containsKey(tag)) {
+        return (tagsMap: currentLevel, currentPath: currentPath);
       }
-    }
 
-    if (currentLevel.isEmpty) return null;
+      currentPath = currentPath.isEmpty ? tag : '$currentPath.$tag';
+      currentLevel = currentLevel[tag]!.children ?? {};
+
+      if (currentLevel.isEmpty) return null;
+    }
 
     return (tagsMap: currentLevel, currentPath: currentPath);
   }
