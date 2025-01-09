@@ -83,6 +83,43 @@ class DebugScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Text('Enter Password Popups (Second attempt)', style: Theme.of(context).textTheme.titleLarge),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Wrap(
+                  spacing: 8,
+                  children: [
+                    for (int i = 4; i <= 16; i++)
+                      OutlinedButton(
+                        onPressed: () async {
+                          final pin = await context.push(
+                            '/enter-password-popup',
+                            extra: (passwordType: UIBridgePasswordType.pin, pinLength: i, attempt: 2),
+                          );
+
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
+                        },
+                        child: Text('PIN$i'),
+                      ),
+                    OutlinedButton(
+                      onPressed: () async {
+                        final password = await context.push(
+                          '/enter-password-popup',
+                          extra: (passwordType: UIBridgePasswordType.password, pinLength: null, attempt: 2),
+                        );
+
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
+                      },
+                      child: const Text('PW'),
+                    ),
+                  ],
+                ),
+              ),
             ],
             const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
             Padding(
