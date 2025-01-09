@@ -11,8 +11,9 @@ import 'pin_input.dart';
 class EnterPasswordModal extends StatelessWidget {
   final UIBridgePasswordType passwordType;
   final int? pinLength;
+  final int? attempt;
 
-  const EnterPasswordModal({required this.passwordType, this.pinLength, super.key});
+  const EnterPasswordModal({required this.passwordType, this.pinLength, this.attempt, super.key});
 
   @override
   Widget build(BuildContext context) {

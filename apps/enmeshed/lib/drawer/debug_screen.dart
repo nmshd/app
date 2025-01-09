@@ -60,7 +60,7 @@ class DebugScreen extends StatelessWidget {
                         onPressed: () async {
                           final pin = await context.push(
                             '/enter-password-popup',
-                            extra: (passwordType: UIBridgePasswordType.pin, pinLength: i),
+                            extra: (passwordType: UIBridgePasswordType.pin, pinLength: i, attempt: 1),
                           );
 
                           if (!context.mounted) return;
@@ -72,7 +72,7 @@ class DebugScreen extends StatelessWidget {
                       onPressed: () async {
                         final password = await context.push(
                           '/enter-password-popup',
-                          extra: (passwordType: UIBridgePasswordType.password, pinLength: null),
+                          extra: (passwordType: UIBridgePasswordType.password, pinLength: null, attempt: 1),
                         );
 
                         if (!context.mounted) return;

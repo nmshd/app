@@ -269,10 +269,17 @@ class JsToUIBridge {
           null => null,
           final num i => i.toInt(),
           final String s => int.parse(s),
-          _ => throw Exception('Invalid pin length: $args[1]'),
+          _ => throw Exception('Invalid pin length: ${args[1]}'),
         };
 
-        final password = await uiBridge.enterPassword(passwordType: passwordType, pinLength: pinLength);
+        final attempt = switch (args[2]) {
+          null => null,
+          final num i => i.toInt(),
+          final String s => int.parse(s),
+          _ => throw Exception('Invalid attempt: ${args[2]}'),
+        };
+
+        final password = await uiBridge.enterPassword(passwordType: passwordType, pinLength: pinLength, attempt: attempt);
         return password;
       },
     );
