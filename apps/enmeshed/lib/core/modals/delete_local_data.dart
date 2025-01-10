@@ -127,7 +127,14 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
     for (final account in _selectedAccounts) {
-      await runtime.accountServices.offboardAccount(account.id);
+      try {
+        await runtime.accountServices.offboardAccount(account.id);
+      } catch (_) {
+        // In cases where the identity deletion process was completed before the backbone has registered deleted devices the runtime does not
+        // automatically delete the account. If the user wants to delete the account manually in that case [offboardAccount] will throw an error.
+        // As offboardAccount is not expected to throw errors in normal cases, we can safely ignore the error here and just trigger a delete.
+        await runtime.accountServices.deleteAccount(account.id);
+      }
     }
 
     widget.onDeleted.call();

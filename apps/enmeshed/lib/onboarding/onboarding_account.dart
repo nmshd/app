@@ -143,34 +143,21 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     if (!context.mounted) return;
 
-    await _processString(content: content, context: context, runtime: runtime);
+    final result = await runtime.stringProcessor.processURL(url: content);
+    if (result.isSuccess) {
+      resume();
+      return;
+    }
+
+    GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
+    if (!context.mounted) return;
+
+    await showWrongTokenErrorDialog(context);
 
     if (!context.mounted) return;
     if (context.canPop()) context.pop();
 
     resume();
-  }
-
-  Future<void> _processString({
-    required String content,
-    required BuildContext context,
-    required EnmeshedRuntime runtime,
-  }) async {
-    final result = await runtime.stringProcessor.processURL(url: content);
-    if (result.isSuccess) return;
-
-    GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
-    if (!context.mounted) return;
-
-    switch (result.error.code) {
-      case 'error.appStringProcessor.passwordNotProvided':
-        break;
-      case 'error.runtime.recordNotFound':
-        // this could mean that the password is wrong, retry
-        await _processString(content: content, context: context, runtime: runtime);
-      default:
-        await showWrongTokenErrorDialog(context);
-    }
   }
 }
 
