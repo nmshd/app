@@ -170,6 +170,21 @@ Future<Map<String, dynamic>> _getDeviceInfo(List<dynamic> args) async {
     };
   }
 
+  if (Platform.isWindows) {
+    final deviceInfo = await deviceInfoPlugin.windowsInfo;
+
+    return {
+      'model': deviceInfo.productName,
+      'platform': 'Windows',
+      'uuid': 'ba2000',
+      'manufacturer': 'Windows',
+      'isVirtual': true,
+      'languageCode': Platform.localeName,
+      'version': deviceInfo.displayVersion,
+      'pushService': 'none',
+    };
+  }
+
   throw Exception('Unsupported platform');
 }
 
