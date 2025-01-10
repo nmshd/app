@@ -65,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await GetIt.I.reset();
 
     // TODO(jkoenig134): we should probably ask for permission when we need it
-    await Permission.camera.request();
+    if (!Platform.isWindows) await Permission.camera.request();
 
     if (Platform.isAndroid && kDebugMode) {
       await InAppWebViewController.setWebContentsDebuggingEnabled(true);
@@ -86,14 +86,18 @@ class _SplashScreenState extends State<SplashScreen> {
         databaseFolder: './database',
       ),
     );
-    GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
+    await runtime.run();
+
+    GetIt.I.registerSingleton<EnmeshedRuntime>(runtime);
     await GetIt.I.allReady();
 
-    await setupPush(runtime);
+    if (!Platform.isWindows) await setupPush(runtime);
 
-    final status = await Permission.notification.request();
-    if (!status.isGranted) {
-      logger.w('Notification permission is (permanently) denied');
+    if (!Platform.isWindows) {
+      final status = await Permission.notification.request();
+      if (!status.isGranted) {
+        logger.w('Notification permission is (permanently) denied');
+      }
     }
 
     // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
