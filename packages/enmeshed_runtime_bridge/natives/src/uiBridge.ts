@@ -72,11 +72,16 @@ export class UIBridge implements IUIBridge {
     return Result.ok(result ?? undefined);
   }
 
-  public async enterPassword(passwordType: "pw" | "pin", pinLength?: number): Promise<Result<string>> {
+  public async enterPassword(
+    passwordType: "pw" | "pin",
+    pinLength?: number,
+    attempt?: number
+  ): Promise<Result<string>> {
     const result: string | null = await window.flutter_inappwebview.callHandler(
       "uibridge_enterPassword",
       passwordType,
-      pinLength
+      pinLength,
+      attempt
     );
 
     if (result === null) {
