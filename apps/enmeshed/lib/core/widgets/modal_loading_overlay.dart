@@ -17,13 +17,13 @@ class ModalLoadingOverlay extends StatelessWidget {
             top: const Radius.circular(28),
             bottom: isDialog ? const Radius.circular(28) : Radius.zero,
           ),
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.9),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.9),
         ),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(text, style: Theme.of(context).textTheme.headlineSmall),
+              Text(text, style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
               Gaps.h24,
               const SizedBox(child: CircularProgressIndicator()),
             ],

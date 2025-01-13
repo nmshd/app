@@ -62,8 +62,8 @@ Future<void> showDeleteProfileOrIdentityModal({
           child: ShouldDeleteProfile(
             cancel: () => pageIndexNotifier.value = 0,
             delete: () {
-              deleteFuture.value = GetIt.I.get<EnmeshedRuntime>().accountServices.deleteAccount(localAccount.id);
-              retryFunction = () => GetIt.I.get<EnmeshedRuntime>().accountServices.deleteAccount(localAccount.id);
+              deleteFuture.value = GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(localAccount.id);
+              retryFunction = () => GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(localAccount.id);
               pageIndexNotifier.value = 3;
             },
             profileName: localAccount.name,
@@ -83,6 +83,17 @@ Future<void> showDeleteProfileOrIdentityModal({
             delete: () {
               deleteFuture.value = session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
               retryFunction = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
+              pageIndexNotifier.value = 3;
+            },
+            deleteNow: () {
+              const minutesInDays = 0.25 / 1440;
+
+              deleteFuture.value = session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
+                lengthOfGracePeriodInDays: minutesInDays,
+              );
+              retryFunction = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
+                    lengthOfGracePeriodInDays: minutesInDays,
+                  );
               pageIndexNotifier.value = 3;
             },
             profileName: localAccount.name,

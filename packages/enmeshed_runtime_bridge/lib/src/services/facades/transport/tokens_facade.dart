@@ -13,6 +13,7 @@ class TokensFacade {
     required String expiresAt,
     required bool ephemeral,
     String? forIdentity,
+    PasswordProtection? passwordProtection,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.createOwnToken(request)
@@ -24,6 +25,7 @@ class TokensFacade {
           'expiresAt': expiresAt,
           'ephemeral': ephemeral,
           if (forIdentity != null) 'forIdentity': forIdentity,
+          if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
     );
@@ -35,6 +37,7 @@ class TokensFacade {
   Future<Result<TokenDTO>> loadPeerToken({
     required String reference,
     required bool ephemeral,
+    String? password,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.tokens.loadPeerToken(request)
@@ -44,6 +47,7 @@ class TokensFacade {
         'request': {
           'reference': reference,
           'ephemeral': ephemeral,
+          if (password != null) 'password': password,
         },
       },
     );

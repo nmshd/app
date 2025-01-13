@@ -45,8 +45,10 @@ void main() {
     });
 
     test('is correctly converted with property "title"', () {
-      const request =
-          Request(title: 'aTitle', items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]);
+      const request = Request(
+        title: 'aTitle',
+        items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
+      );
       final requestJson = request.toJson();
       expect(
         requestJson,

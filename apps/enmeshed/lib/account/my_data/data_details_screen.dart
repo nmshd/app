@@ -170,7 +170,10 @@ class _AttributeItemState extends State<_AttributeItem> {
               attribute: widget.attribute,
               showTitle: false,
               expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-              openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file),
+              openFileDetails: (file) => context.push(
+                '/account/${widget.accountId}/my-data/files/${file.id}',
+                extra: createFileRecord(file: file, fileReferenceAttribute: widget.attribute),
+              ),
             ),
             Row(
               children: [

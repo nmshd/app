@@ -123,7 +123,7 @@ class _CreateDeviceState extends State<CreateDevice> {
 
     final account = await runtime.accountServices.getAccount(widget.accountId);
 
-    final token = await session.transportServices.devices.getDeviceOnboardingToken(device.value.id, profileName: account.name);
+    final token = await session.transportServices.devices.createDeviceOnboardingToken(device.value.id, profileName: account.name);
 
     widget.setDeviceAndToken(device.value, token.value);
   }

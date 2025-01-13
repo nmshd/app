@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
-import 'info_container.dart';
 
 class CompleteProfileContainer extends StatefulWidget {
   final VoidCallback hideContainer;
@@ -24,6 +23,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
   bool _isPersonalDataStored = false;
   bool _hasRelationship = false;
   bool _isFileDataStored = false;
+  bool _createdIdentityRecoveryKit = false;
 
   @override
   void initState() {
@@ -56,20 +56,25 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return InfoContainer(
-      padding: const EdgeInsets.only(bottom: 8, left: 12),
+    return Card(
+      color: Theme.of(context).colorScheme.onPrimary,
+      elevation: 2,
+      clipBehavior: Clip.hardEdge,
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CompleteProfileHeader(
-                count: 4,
-                countCompleted: [true, _isPersonalDataStored, _hasRelationship, _isFileDataStored].where((e) => e).length,
+              Padding(
+                padding: const EdgeInsets.only(left: 16, top: 16),
+                child: _CompleteProfileHeader(
+                  count: context.isFeatureEnabled('IDENTITY_RECOVERY_KITS') ? 4 : 3,
+                  countCompleted: [_isPersonalDataStored, _hasRelationship, _isFileDataStored, _createdIdentityRecoveryKit].where((e) => e).length,
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 16, top: 16),
+                padding: const EdgeInsets.only(right: 4, top: 8),
                 child: IconButton(
                   onPressed: widget.hideContainer,
                   icon: Icon(Icons.close, semanticLabel: context.l10n.home_completeProfileCloseIconSemanticsLabel),
@@ -77,33 +82,45 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               ),
             ],
           ),
-          Padding(padding: const EdgeInsets.only(right: 24, top: 12, bottom: 12), child: Text(context.l10n.home_completeProfileDescription)),
-          _TodoListTile.alwaysChecked(text: context.l10n.home_createProfile),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Text(
+              context.isFeatureEnabled('IDENTITY_RECOVERY_KITS')
+                  ? context.l10n.home_completeProfileDescription
+                  : context.l10n.home_completeProfileDescription_recoverykitDisabled,
+            ),
+          ),
           _TodoListTile(
             done: _isPersonalDataStored,
             text: context.l10n.home_initialPersonalInformation,
-            number: 2,
             onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-personalData-creation'),
           ),
           _TodoListTile(
             done: _hasRelationship,
-            number: 3,
             text: context.l10n.home_initialContact,
             onPressed: () => goToInstructionsOrScanScreen(
               accountId: widget.accountId,
-              instructionsType: InstructionsType.addContact,
+              instructionsType: ScannerType.addContact,
               context: context,
             ),
           ),
           _TodoListTile(
             done: _isFileDataStored,
-            number: 4,
             text: context.l10n.home_initialDocuments,
             onPressed: () async {
               await context.push('/account/${widget.accountId}/my-data/files?initialCreation=true');
               await _reload();
             },
           ),
+          if (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS'))
+            _TodoListTile(
+              done: _createdIdentityRecoveryKit,
+              text: context.l10n.home_createIdentityRecoveryKit,
+              onPressed: () async {
+                await context.push('/account/${widget.accountId}/create-identity-recovery-kit');
+                await _reload();
+              },
+            ),
         ],
       ),
     );
@@ -114,12 +131,14 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
     final existingData = await getDataExisting(session);
     final relationships = await getContacts(session: session);
     final filesResult = await session.transportServices.files.getFiles();
+    final existingIdentityRecoveryKitResult = await session.transportServices.identityRecoveryKits.checkForExistingIdentityRecoveryKit();
 
     if (mounted) {
       setState(() {
         _isPersonalDataStored = existingData.personalData;
         _hasRelationship = relationships.isNotEmpty;
         _isFileDataStored = filesResult.value.isNotEmpty;
+        _createdIdentityRecoveryKit = existingIdentityRecoveryKitResult.value.exists;
       });
     }
   }
@@ -127,102 +146,57 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
 
 class _TodoListTile extends StatelessWidget {
   final bool done;
-  final int number;
-
   final String text;
-
-  final void Function()? onPressed;
+  final void Function() onPressed;
 
   const _TodoListTile({
     required this.done,
-    required this.number,
     required this.text,
     required this.onPressed,
   });
 
-  const _TodoListTile.alwaysChecked({required this.text})
-      : done = true,
-        onPressed = null,
-        number = 0;
-
   @override
   Widget build(BuildContext context) {
-    if (done) {
-      return ListTile(
-        contentPadding: const EdgeInsets.only(right: 16),
-        leading: const CustomSuccessIcon(containerSize: 36, iconSize: 24),
-        title: Text(text),
-      );
-    }
-
     return ListTile(
-      contentPadding: const EdgeInsets.only(right: 16),
-      leading: ToCompleteIcon(number: number),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       title: Text(text),
-      trailing: const Icon(Icons.chevron_right),
-      onTap: onPressed,
+      trailing: done ? const CustomSuccessIcon(containerSize: 24, iconSize: 20) : const Icon(Icons.chevron_right),
+      onTap: done ? null : onPressed,
     );
   }
 }
 
-class CompleteProfileHeader extends StatelessWidget {
+class _CompleteProfileHeader extends StatelessWidget {
   final int count;
   final int countCompleted;
 
-  const CompleteProfileHeader({required this.count, required this.countCompleted, super.key});
+  const _CompleteProfileHeader({required this.count, required this.countCompleted});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 24),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(context.l10n.home_completeProfile, style: Theme.of(context).textTheme.titleLarge),
-              RichText(
-                text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: [
-                    TextSpan(
-                      text: '$countCompleted ${context.l10n.home_of} $count ',
-                      style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                    ),
-                    TextSpan(text: context.l10n.home_completed),
-                  ],
-                ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(context.l10n.home_completeProfile, style: Theme.of(context).textTheme.titleLarge),
+            Gaps.h8,
+            RichText(
+              text: TextSpan(
+                style: Theme.of(context).textTheme.labelSmall,
+                children: [
+                  TextSpan(
+                    text: '$countCompleted ${context.l10n.home_of} $count ',
+                    style: TextStyle(color: count == countCompleted ? context.customColors.success : Theme.of(context).colorScheme.primary),
+                  ),
+                  TextSpan(text: context.l10n.home_completed),
+                ],
               ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ToCompleteIcon extends StatelessWidget {
-  final int number;
-
-  const ToCompleteIcon({required this.number, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 36,
-      height: 36,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onPrimary,
-        shape: BoxShape.circle,
-        border: Border.all(color: Theme.of(context).colorScheme.outline),
-      ),
-      child: Center(
-        child: Text(
-          number.toString(),
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.secondary),
+            ),
+          ],
         ),
-      ),
+      ],
     );
   }
 }

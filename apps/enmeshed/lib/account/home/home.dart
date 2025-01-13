@@ -77,19 +77,11 @@ class _HomeViewState extends State<HomeView> {
                     CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
                     Gaps.h24,
                   ],
-                  if (context.isFeatureEnabled('NEWS')) ...[
-                    NewsContainer.debugPrefilled(),
-                    Gaps.h24,
-                  ],
                   AddContactOrDeviceContainer(accountId: widget.accountId),
                 ],
               ),
             ),
             Gaps.h24,
-            if (context.isFeatureEnabled('SHOW_CONTACT_REQUESTS')) ...[
-              ContactRequestsContainer(accountId: widget.accountId, relationshipRequests: _requests!),
-              Gaps.h24,
-            ],
             MessagesContainer(
               accountId: widget.accountId,
               messages: _messages,

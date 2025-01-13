@@ -27,33 +27,23 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
       truncatedReference: json['truncatedReference'] as String,
     );
 
-Map<String, dynamic> _$FileDVOToJson(FileDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['filename'] = instance.filename;
-  writeNotNull('filesize', const IntegerConverter().toJson(instance.filesize));
-  val['createdAt'] = instance.createdAt;
-  val['createdBy'] = instance.createdBy.toJson();
-  val['createdByDevice'] = instance.createdByDevice;
-  val['expiresAt'] = instance.expiresAt;
-  val['mimetype'] = instance.mimetype;
-  val['isOwn'] = instance.isOwn;
-  val['title'] = instance.title;
-  val['truncatedReference'] = instance.truncatedReference;
-  return val;
-}
+Map<String, dynamic> _$FileDVOToJson(FileDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'filename': instance.filename,
+      if (const IntegerConverter().toJson(instance.filesize) case final value?) 'filesize': value,
+      'createdAt': instance.createdAt,
+      'createdBy': instance.createdBy.toJson(),
+      'createdByDevice': instance.createdByDevice,
+      'expiresAt': instance.expiresAt,
+      'mimetype': instance.mimetype,
+      'isOwn': instance.isOwn,
+      'title': instance.title,
+      'truncatedReference': instance.truncatedReference,
+    };

@@ -133,6 +133,7 @@ class AccountFacade {
 
   Future<Result<LoadItemFromTruncatedReferenceResponse>> loadItemFromTruncatedReference({
     required String reference,
+    String? password,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.account.loadItemFromTruncatedReference(request)
@@ -141,6 +142,7 @@ class AccountFacade {
       arguments: {
         'request': {
           'reference': reference,
+          if (password != null) 'password': password,
         },
       },
     );

@@ -1,0 +1,21 @@
+name: identity_recovery_kit
+description: A package to generate pdfs for identity recovery.
+version: 1.0.0
+publish_to: none
+
+repository: https://github.com/nmshd/app
+homepage: https://enmeshed.eu
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  pdf: ^3.11.1
+  qr: ^3.0.2
+  qr_flutter: ^4.1.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0

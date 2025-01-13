@@ -5,6 +5,7 @@ import '../core.dart';
 
 class RestoreProfile extends StatefulWidget {
   final LocalAccountDTO accountInDeletion;
+
   const RestoreProfile({
     required this.accountInDeletion,
     super.key,
@@ -18,15 +19,14 @@ class _RestoreProfileState extends State<RestoreProfile> {
   late final ScrollController _scrollController;
 
   bool _isLoading = false;
-  String? _deletionDate;
 
   @override
   void initState() {
     super.initState();
 
-    _scrollController = ScrollController();
+    assert(widget.accountInDeletion.deletionDate != null, 'Account deletion date must not be null');
 
-    _getAccountDeletionDate();
+    _scrollController = ScrollController();
   }
 
   @override
@@ -38,8 +38,6 @@ class _RestoreProfileState extends State<RestoreProfile> {
 
   @override
   Widget build(BuildContext context) {
-    if (_deletionDate == null) return const Center(child: CircularProgressIndicator());
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -75,7 +73,7 @@ class _RestoreProfileState extends State<RestoreProfile> {
                     child: Text(
                       context.l10n.identity_reactivate_description(
                         widget.accountInDeletion.name,
-                        DateTime.parse(_deletionDate!).toLocal(),
+                        DateTime.parse(widget.accountInDeletion.deletionDate!).toLocal(),
                       ),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
@@ -104,11 +102,6 @@ class _RestoreProfileState extends State<RestoreProfile> {
         ),
       ],
     );
-  }
-
-  Future<void> _getAccountDeletionDate() async {
-    final accountDeletionDate = await getAccountDeletionDate(widget.accountInDeletion);
-    if (mounted) setState(() => _deletionDate = accountDeletionDate);
   }
 
   Future<void> _cancelIdentityDeletionProcess() async {

@@ -31,40 +31,30 @@ RequestMessageDVO _$RequestMessageDVOFromJson(Map<String, dynamic> json) => Requ
       request: LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['createdByDevice'] = instance.createdByDevice;
-  val['createdAt'] = instance.createdAt;
-  val['createdBy'] = instance.createdBy.toJson();
-  val['recipients'] = instance.recipients.map((e) => e.toJson()).toList();
-  val['attachments'] = instance.attachments.map((e) => e.toJson()).toList();
-  val['isOwn'] = instance.isOwn;
-  writeNotNull('recipientCount', const IntegerConverter().toJson(instance.recipientCount));
-  writeNotNull('attachmentCount', const IntegerConverter().toJson(instance.attachmentCount));
-  val['status'] = _$MessageStatusEnumMap[instance.status]!;
-  val['statusText'] = instance.statusText;
-  val['peer'] = instance.peer.toJson();
-  val['content'] = instance.content.toJson();
-  writeNotNull('wasReadAt', instance.wasReadAt);
-  val['request'] = instance.request.toJson();
-  return val;
-}
+Map<String, dynamic> _$RequestMessageDVOToJson(RequestMessageDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'createdByDevice': instance.createdByDevice,
+      'createdAt': instance.createdAt,
+      'createdBy': instance.createdBy.toJson(),
+      'recipients': instance.recipients.map((e) => e.toJson()).toList(),
+      'attachments': instance.attachments.map((e) => e.toJson()).toList(),
+      'isOwn': instance.isOwn,
+      if (const IntegerConverter().toJson(instance.recipientCount) case final value?) 'recipientCount': value,
+      if (const IntegerConverter().toJson(instance.attachmentCount) case final value?) 'attachmentCount': value,
+      'status': _$MessageStatusEnumMap[instance.status]!,
+      'statusText': instance.statusText,
+      'peer': instance.peer.toJson(),
+      'content': instance.content.toJson(),
+      if (instance.wasReadAt case final value?) 'wasReadAt': value,
+      'request': instance.request.toJson(),
+    };
 
 const _$MessageStatusEnumMap = {
   MessageStatus.Received: 'Received',
@@ -98,41 +88,31 @@ RequestMessageErrorDVO _$RequestMessageErrorDVOFromJson(Map<String, dynamic> jso
       message: json['message'] as String,
     );
 
-Map<String, dynamic> _$RequestMessageErrorDVOToJson(RequestMessageErrorDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['createdByDevice'] = instance.createdByDevice;
-  val['createdAt'] = instance.createdAt;
-  val['createdBy'] = instance.createdBy.toJson();
-  val['recipients'] = instance.recipients.map((e) => e.toJson()).toList();
-  val['attachments'] = instance.attachments.map((e) => e.toJson()).toList();
-  val['isOwn'] = instance.isOwn;
-  writeNotNull('recipientCount', const IntegerConverter().toJson(instance.recipientCount));
-  writeNotNull('attachmentCount', const IntegerConverter().toJson(instance.attachmentCount));
-  val['status'] = _$MessageStatusEnumMap[instance.status]!;
-  val['statusText'] = instance.statusText;
-  val['peer'] = instance.peer.toJson();
-  val['content'] = instance.content.toJson();
-  writeNotNull('wasReadAt', instance.wasReadAt);
-  val['code'] = instance.code;
-  val['message'] = instance.message;
-  return val;
-}
+Map<String, dynamic> _$RequestMessageErrorDVOToJson(RequestMessageErrorDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'createdByDevice': instance.createdByDevice,
+      'createdAt': instance.createdAt,
+      'createdBy': instance.createdBy.toJson(),
+      'recipients': instance.recipients.map((e) => e.toJson()).toList(),
+      'attachments': instance.attachments.map((e) => e.toJson()).toList(),
+      'isOwn': instance.isOwn,
+      if (const IntegerConverter().toJson(instance.recipientCount) case final value?) 'recipientCount': value,
+      if (const IntegerConverter().toJson(instance.attachmentCount) case final value?) 'attachmentCount': value,
+      'status': _$MessageStatusEnumMap[instance.status]!,
+      'statusText': instance.statusText,
+      'peer': instance.peer.toJson(),
+      'content': instance.content.toJson(),
+      if (instance.wasReadAt case final value?) 'wasReadAt': value,
+      'code': instance.code,
+      'message': instance.message,
+    };
 
 MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
       id: json['id'] as String,
@@ -164,42 +144,32 @@ MailDVO _$MailDVOFromJson(Map<String, dynamic> json) => MailDVO(
       ccCount: const IntegerConverter().fromJson(json['ccCount']),
     );
 
-Map<String, dynamic> _$MailDVOToJson(MailDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['createdByDevice'] = instance.createdByDevice;
-  val['createdAt'] = instance.createdAt;
-  val['createdBy'] = instance.createdBy.toJson();
-  val['recipients'] = instance.recipients.map((e) => e.toJson()).toList();
-  val['attachments'] = instance.attachments.map((e) => e.toJson()).toList();
-  val['isOwn'] = instance.isOwn;
-  writeNotNull('recipientCount', const IntegerConverter().toJson(instance.recipientCount));
-  writeNotNull('attachmentCount', const IntegerConverter().toJson(instance.attachmentCount));
-  val['status'] = _$MessageStatusEnumMap[instance.status]!;
-  val['statusText'] = instance.statusText;
-  val['peer'] = instance.peer.toJson();
-  val['content'] = instance.content.toJson();
-  writeNotNull('wasReadAt', instance.wasReadAt);
-  val['to'] = instance.to.map((e) => e.toJson()).toList();
-  val['cc'] = instance.cc.map((e) => e.toJson()).toList();
-  val['subject'] = instance.subject;
-  val['body'] = instance.body;
-  writeNotNull('toCount', const IntegerConverter().toJson(instance.toCount));
-  writeNotNull('ccCount', const IntegerConverter().toJson(instance.ccCount));
-  return val;
-}
+Map<String, dynamic> _$MailDVOToJson(MailDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'createdByDevice': instance.createdByDevice,
+      'createdAt': instance.createdAt,
+      'createdBy': instance.createdBy.toJson(),
+      'recipients': instance.recipients.map((e) => e.toJson()).toList(),
+      'attachments': instance.attachments.map((e) => e.toJson()).toList(),
+      'isOwn': instance.isOwn,
+      if (const IntegerConverter().toJson(instance.recipientCount) case final value?) 'recipientCount': value,
+      if (const IntegerConverter().toJson(instance.attachmentCount) case final value?) 'attachmentCount': value,
+      'status': _$MessageStatusEnumMap[instance.status]!,
+      'statusText': instance.statusText,
+      'peer': instance.peer.toJson(),
+      'content': instance.content.toJson(),
+      if (instance.wasReadAt case final value?) 'wasReadAt': value,
+      'to': instance.to.map((e) => e.toJson()).toList(),
+      'cc': instance.cc.map((e) => e.toJson()).toList(),
+      'subject': instance.subject,
+      'body': instance.body,
+      if (const IntegerConverter().toJson(instance.toCount) case final value?) 'toCount': value,
+      if (const IntegerConverter().toJson(instance.ccCount) case final value?) 'ccCount': value,
+    };

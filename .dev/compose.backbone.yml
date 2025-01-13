@@ -90,6 +90,7 @@ services:
     container_name: azure-storage-emulator
     hostname: azurite
     image: mcr.microsoft.com/azure-storage/azurite
+    pull_policy: always
     command: azurite -d /data/debug.log -l /data --blobHost "0.0.0.0" --queueHost "0.0.0.0"
     ports:
       - "10000:10000"

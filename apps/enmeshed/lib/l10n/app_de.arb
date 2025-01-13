@@ -12,6 +12,7 @@
   "close": "Schließen",
   "reject": "Ablehnen",
   "accept": "Akzeptieren",
+  "confirm": "Bestätigen",
   "edit": "Bearbeiten",
   "update": "Aktualisieren",
   "help": "Hilfe",
@@ -103,15 +104,7 @@
   "onboarding_enterProfileName": "Profilname vergeben",
   "onboarding_acceptProfileName": "Übernehmen",
   "home_title": "enmeshed",
-  "home_news": "Service-Informationen",
-  "home_contactRequests": "Kontaktanfragen",
-  "home_noNewContactRequests": "Keine zu entscheidenden Anfragen.",
   "home_seeAll": "Alle ansehen",
-  "home_newFunction": "Neue Funktion",
-  "home_generalInformation": "Allgemine Information",
-  "home_problem": "Ausfall oder Problem",
-  "home_notNow": "Jetzt nicht",
-  "home_discoverNow": "Jetzt entdecken",
   "home_complete": "Abschließen",
   "home_scanQR": "QR-Code scannen",
   "home_addContact": "Kontakt hinzufügen",
@@ -121,24 +114,22 @@
   "home_messages": "Neue Nachrichten",
   "home_noNewMessages": "Keine neuen Nachrichten.\nSie sind auf dem neuesten Stand.",
   "home_completeProfile": "Erste Schritte",
+  "home_completeProfileDescription_recoverykitDisabled": "Drei Schritte, die Ihnen helfen, die enmeshed App optimal zu nutzen:",
   "home_completeProfileDescription": "Vier Schritte, die Ihnen helfen, die enmeshed App optimal zu nutzen:",
   "home_completeProfileCloseIconSemanticsLabel": "Karte ausblenden",
   "home_of": "von",
   "home_completed": "vervollständigt",
-  "home_createProfile": "Profil erstellen",
   "home_initialPersonalInformation": "Erste persönliche Informationen erfassen",
   "home_initialContact": "Erste Kontakte verknüpfen",
   "home_initialDocuments": "Erste Dokumente laden",
+  "home_createIdentityRecoveryKit": "Wiederherstellungskit erstellen",
   "drawer_manageProfiles": "Profile verwalten",
-  "drawer_backupData": "Daten sichern",
-  "drawer_news": "Neuigkeiten",
-  "drawer_helpAndFaq": "Hilfe und FAQs",
   "drawer_title": "Informationen & Hilfe",
   "drawer_notifications": "Benachrichtigungen",
   "drawer_notifications_stayInformed": "Bleiben Sie informiert!",
   "drawer_notifications_getNotifications": "Hiermit erhalten Sie wichtige Informationen zu Vorgängen in Ihrem Profil bzw. Ihren Profilen. Außerdem schicken wir Mitteilungen zu neuen Services der App.",
   "drawer_notifications_activate": "Jetzt aktivieren",
-  "drawer_notifications_howToActivate": "Um Benachrichtigungen zu erhalten, gehen Sie in Ihre Systemeinstellungen und aktivieren Benachrichtigungen von der \"Mein Bildungsraum\"-App.",
+  "drawer_notifications_howToActivate": "Um Benachrichtigungen zu erhalten, gehen Sie in Ihre Systemeinstellungen und aktivieren Benachrichtigungen von der \"enmeshed\"-App.",
   "drawer_notifications_granted": "Super, Sie bleiben informiert!",
   "drawer_notifications_grantedInformation": "Sie haben Benachrichtigungen aktiviert und bleiben somit immer auf dem neusten Stand.",
   "drawer_hints": "Hinweise",
@@ -152,6 +143,7 @@
   "profiles_settings_editProfile": "Profil bearbeiten",
   "profiles_settings_deleteProfile": "Profil löschen",
   "profiles_settings_connectedDevices": "Verknüpfte Geräte verwalten",
+  "profiles_settings_createIdentityRecoveryKit": "Wiederherstellungskit erstellen",
   "profiles_createNew": "Neues Profil anlegen",
   "profiles_lastUsed": "Zuletzt verwendet",
   "profiles_createNewForProcessingQrDescription": "Erstellen Sie ein neues Profil um den gescannten QR-Code oder URL-Link zu verarbeiten.",
@@ -225,7 +217,7 @@
   "profile_delete_cancel": "Nein, abbrechen",
   "profile_delete_confirm": "Ja, entfernen",
   "profile_delete_inProgress": "Das Profil wird gelöscht.",
-  "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wählen Sie aus mit welchem Profil Sie jetzt fortfahren möchtest.",
+  "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wählen Sie aus mit welchem Profil Sie jetzt fortfahren möchten.",
   "profile_delete_success_noProfilesAvailable": "Das Profil wurde gelöscht. Alle Ihre Daten wurden aus der App entfernt.",
   "profile_delete_success_noProfilesAvailable_okay": "Okay",
   "profile_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" wirklich löschen? Es wird permanent von diesem Gerät gelöscht.",
@@ -241,6 +233,12 @@
   "profile_delete_error": "Beim Löschen des Profils ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
   "profile_delete_error_cancel": "Abbrechen",
   "profile_delete_error_retry": "Nochmal versuchen",
+  "profile_localDeletion_title": "Lokale Daten löschen",
+  "profile_localDeletion_card_description": "Sie können das Löschen der lokalen Daten für Profile in Löschung erzwingen. Es werden alle auf diesem Gerät gespeicherten Daten umgehend gelöscht. Die Daten in der enmeshed Plattform bleiben hiervon unberührt bis zum Ablauf der Löschfrist.",
+  "profile_localDeletion_card_button": "Lokale Daten jetzt löschen",
+  "profile_localDeletion_selectProfiles": "Wählen Sie, welche Profile und zugehörigen lokal gespeicherten Daten unwiderruflich von diesem Gerät gelöscht werden sollen:",
+  "profile_localDeletion_singleProfile": "Die lokal auf diesem Gerät gespeicherten Daten des folgenden Profils werden unwiderruflich gelöscht:",
+  "profile_localDeletion_acceptDeletion": "Daten löschen",
   "profile_create": "Anlegen",
   "profile_create_inProgress": "Profil wird angelegt",
   "profile_deletePhoto": "Profilbild löschen",
@@ -330,6 +328,16 @@
   "contact_information_noMessages": "Keine Nachrichten vorhanden.",
   "contact_information_sharedFiles": "Geteilte Dateien",
   "contact_requestDescription": "Nachfolgende Daten bzw. Anfragen möchte der neue Kontakt mit Ihnen teilen:",
+  "contact_request_validationError": "{count, plural, =1{1 Fehlermeldung} other{{count} Fehlermeldungen}}",
+  "@contact_request_validationError": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "contact_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Kontaktanfrage abzuschließen.",
+  "message_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Aufgabe abzuschließen.",
   "contact_request": "Kontaktanfrage",
   "contacts_empty": "Kontakte hinzufügen",
   "contacts_emptyDescription": "Verbinden Sie sich mit Kontakten, um Daten oder Dokumente zu teilen oder zu empfangen.",
@@ -362,11 +370,12 @@
   "contacts_require_attention": "{count, plural, =1{1 Kontakt erfordert Ihre Aufmerksamkeit.} other{{count} Kontakte erfordern Ihre Aufmerksamkeit.}}",
   "@contacts_require_attention": {
     "placeholders": {
-      "numberOfContacts": {
+      "count": {
         "type": "num"
       }
     }
   },
+  "contacts_selectedForYou": "Für Sie ausgewählte neue Kontakte",
   "contactDetail_connectedSince": "Kontakt seit {since}",
   "@contactDetail_connectedSince": {
     "placeholders": {
@@ -439,9 +448,12 @@
   "myData_createEntryForAttributeType": "Anlegen",
   "myData_noEntryForAttributeType": "Kein Eintrag",
   "myData_allData": "Alle Daten",
-  "myData_personalData": "Identitätsdaten",
-  "myData_addressData": "Adressdaten",
-  "myData_communicationData": "Kommunikationsdaten",
+  "myData_personalData": "Über mich",
+  "myData_personalData_description": "Hier können Sie Ihre persönlichen Informationen hinzufügen, ändern oder löschen.",
+  "myData_addressData": "Adressen",
+  "myData_addressData_description": "Hier können Sie Ihre Adressen hinzufügen, ändern oder löschen.",
+  "myData_communicationData": "Kommunikation",
+  "myData_communicationData_description": "Hier können Sie Ihre Kommunikationsdaten hinzufügen, ändern oder löschen.",
   "myData_initialCreation": "Anlegen",
   "myData_createInformation": "Information anlegen",
   "myData_chooseInformationType": "Wählen Sie einen Informationstyp aus!",
@@ -453,7 +465,7 @@
       }
     }
   },
-  "myData_initialCreation_personalData": "Identitätsdaten anlegen",
+  "myData_initialCreation_personalData": "Persönliche Informationen anlegen",
   "myData_initialCreation_personalData_description": "Geben Sie Ihre grundlegenden persönlichen Informationen ein, um diese mit Ihren Kontakten teilen zu können.",
   "myData_initialCreation_communicationData": "Kommunikationsdaten anlegen",
   "myData_initialCreation_communicationData_description": "Bitte geben Sie Ihre Kommunikationsdaten ein, um sie mit Ihren Kontakten teilen zu können.",
@@ -462,7 +474,7 @@
   "myData_initialCreation_communicationData_infoPhoneNumber": "Eine Telefonnummer kann sowohl ein Festnetzanschluss als auch eine Mobilfunknummer sein.",
   "myData_initialCreation_communicationData_infoWebsite": "Eine Webseite kann jede Form eines öffentlichen Profils sein, beispielsweise auch auf LinkedIn oder Instagram.",
   "myData_initialCreation_error": "Beim Anlegen der Daten ist ein Fehler aufgetreten, bitte versuche es erneut.",
-  "myData_initialCreation_addressData_title": "Adressdaten anlegen",
+  "myData_initialCreation_addressData_title": "Adressen anlegen",
   "myData_initialCreation_addressData_description": "Geben Sie Ihre verschiedenen Adressen ein, um diese mit Ihren Kontakten teilen zu können. Sie können zwischen mehreren Adress-Typen wählen.",
   "myData_initialCreation_addressData_streetAddress": "Eine Anschrift anlegen",
   "myData_initialCreation_addressData_streetAddress_description": "Eine Anschrift ist eine Wohnadresse bestehend aus Straße, Postleitzahl und Ort.",
@@ -480,14 +492,6 @@
   },
   "myData_initialCreation_addressData_createAttribute_description": "Geben Sie eine {attribute} ein, um diese mit Ihren Kontakten teilen zu können.",
   "@myData_initialCreation_addressData_createAttribute_description": {
-    "placeholders": {
-      "attribute": {
-        "type": "String"
-      }
-    }
-  },
-  "personalData_filteredData_description": "Hier können Sie Ihre {attribute} hinzufügen, ändern oder löschen.",
-  "@personalData_filteredData_description": {
     "placeholders": {
       "attribute": {
         "type": "String"
@@ -589,6 +593,7 @@
   "files_selectFile": "Datei auswählen",
   "files_createdAt": "Erstellt",
   "files_owner": "Eigentümer",
+  "files_sizeTooLarge": "Die ausgewählte Datei überschreitet die maximale Größe von 10 MB.",
   "files_titleEmptyError": "Bitte gebe einen Titel ein.",
   "files_filter_title": "Dateien filtern",
   "files_filter_byFileType": "Filtern nach Datei-Typ",
@@ -602,6 +607,7 @@
   "files_fileType_powerPoint": "PowerPoint-Dokumente",
   "files_fileType_other": "Andere ...",
   "files_fileSize": "Größe",
+  "files_tag": "Tag",
   "filter": "Filter",
   "apply_filter": "Filtern",
   "deviceOnboarding_title": "Gerät hinzufügen",
@@ -687,5 +693,52 @@
   "instructions_loadProfile_information": "Sie möchten ein Profil nicht mehr über verschiedene Geräte synchronisieren?",
   "instructions_loadProfile_informationDetails": "In der Profilverwaltung können Sie jederzeit die mit dem Profil verbundenen Geräte sehen und verwalten.",
   "instructions_notShowAgain": "Diese Erklärung nicht erneut anzeigen",
-  "instructions_scanQrCode": "QR-Code scannen"
+  "instructions_scanQrCode": "QR-Code scannen",
+  "identityRecovery_instructions_title": "Wiederherstellungskit erstellen",
+  "identityRecovery_instructions_subtitle": "Das Wiederherstellungskit ist der Notfallzugang zu Ihren verschlüsselten Daten",
+  "identityRecovery_instructions_information": "Mit diesem Wiederherstellungskit und dem dazugehörigen Passwort kann jede Person Ihr Profil wiederherstellen.",
+  "identityRecovery_instructions_informationDescription": "Bewahren Sie dieses Wiederherstellungskit und das dazugehörige Passwort deshalb an einem sicheren und für Dritte unzugänglichen Ort auf.",
+  "identityRecovery_instructions_secure": "Erstellen Sie ein Wiederherstellungskit und sichern Sie es mit einem Passwort, um im Notfall Ihr Profil neu einrichten zu können.",
+  "identityRecovery_instructions_setup": "Wenn Sie den Zugriff auf Ihr Smartphone verloren haben, können Sie mit dem Wiederherstellungskit Ihr Profil auf einem beliebigen Endgerät neu einrichten.",
+  "identityRecovery_instructions_usage": "Das Wiederherstellungskit ist unbegrenzt gültig. Sie müssen jedoch ein neues Wiederherstellungskit erstellen, sobald dieses einmal eingesetzt wurde.",
+  "identityRecovery_instructions_kitCreation": "Sie werden im Folgenden durch den einfachen Prozess zur Erstellung des Wiederherstellungskits geleitet. Sie erhalten am Ende ein PDF, das Sie ausdrucken oder herunterladen können. Zusätzlich erstellen Sie ein Passwort.",
+  "identityRecovery_password": "Passwort",
+  "identityRecovery_passwordConfirm": "Passwort wiederholen",
+  "identityRecovery_passwordTitle": "Passwort erstellen",
+  "identityRecovery_passwordMismatch": "Passwörter stimmen nicht überein",
+  "identityRecovery_passwordEmptyError": "Dieses Feld kann nicht leer sein",
+  "identityRecovery_passwordDescription": "Bitte legen Sie jetzt ein Passwort fest. Das Passwort wird benötigt sobald Sie das Wiederherstellungskit einmal einsetzen müssen.",
+  "identityRecovery_passwordAttention": "Achtung: Sie müssen das Passwort separat zu Ihrem Wiederherstellungskit sichern.",
+  "identityRecovery_startNow": "Jetzt loslegen",
+  "identityRecovery_generatingInProgress": "Wiederherstellungskit wird erstellt.",
+  "identityRecovery_saveKit": "Wiederherstellungskit sichern",
+  "identityRecovery_saveKitDescription": "Ihr Wiederherstellungskit ist bereit. Sie können es nun auf Ihr Gerät herunterladen oder ausdrucken.",
+  "identityRecovery_download": "Download",
+  "identityRecovery_downloadDescription": "Wiederherstellungskit als PDF speichern.",
+  "identityRecovery_print": "Drucken",
+  "identityRecovery_printDescription": "Wiederherstellungskit ausdrucken.",
+  "identityRecovery_information": "Wenn Sie das Wiederherstellungskit ausdrucken können Sie Ihr erstelltes Passwort direkt dort notieren bevor Sie es vergessen. Wenn Sie das Widerherstellungskit herunterladen stellen Sie sicher, dass Sie es auf ein weiteres Gerät sichern.",
+  "identityRecovery_pdfHeaderTitle": "Wiederherstellungskit für Ihre enmeshed-Daten",
+  "identityRecovery_pdfKeepSafeText": "Bitte bewahren Sie dieses Wiederherstellungs-Kit an einem für Dritte unzugänglichen Ort auf. Sobald Sie das selbst gewählte Master Passwort hier notiert haben ist ein Zugriff auf Ihre enmeshed-Daten möglich.",
+  "identityRecovery_pdfInfoText1": "Drucken Sie dieses Dokument aus oder speichern Sie es an einem sicheren Ort, beispielsweise einem weiteren Mobilgerät oder Ihrem Computer.",
+  "identityRecovery_pdfInfoText2": "Schreiben Sie in das untenstehende Feld das Passwort, das Sie bei der Erstellung des Kits vergeben haben. Zur Wiederherstellung Ihrer verschlüsselten Daten benötigen Sie den QR Code und das von Ihnen vergebene Passwort.",
+  "identityRecovery_pdfAddressLabel": "enmeshed ID",
+  "identityRecovery_pdfPasswordLabel": "Passwort",
+  "identityRecovery_pdfQRDescription": "Wenn Sie Ihr Endgerät verloren haben sollten oder keinen Zugriff mehr darauf haben, scannen Sie einfach den QR Code mit einem neuen Endgerät um wieder Zugang zu Ihren enmeshed-Daten zu erhalten.",
+  "identityRecovery_pdfNeedHelpTitle": "Benötigen Sie Hilfe?",
+  "identityRecovery_pdfNeedHelpText": "Benötigen Sie Hilfe? Wenden Sie sich an den enmeshed-Support: support@enmeshed.de",
+  "identityRecovery_saveKitSuccess": "Wiederherstellungskit erfolgreich gespeichert",
+  "identityRecovery_printKitSuccess": "Wiederherstellungskit erfolgreich ausgedruckt",
+  "passwordProtection_enterPassword": "Passwort eingeben",
+  "passwordProtection_enterPin": "PIN eingeben",
+  "passwordProtection_passwordEmpty": "Bitte geben Sie ein Passwort ein.",
+  "passwordProtection_referenceIsPasswordProtected": "Dieser QR-Code oder Link ist mit einem Passwort gesichert. Geben Sie das Passwort ein, um fortzufahren.",
+  "passwordProtection_referenceIsPinProtected": "Dieser QR-Code oder Link ist mit einer {count, select, 4{vierstelligen} 5{fünfstelligen} 6{sechsstelligen} other{komplexen}} PIN gesichert. Geben Sie die PIN ein, um fortzufahren.",
+  "@passwordProtection_referenceIsPinProtected": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "passwordProtection_incorrectPassword": "Sie haben ein falsches Passwort eingegeben. Versuchen Sie es erneut.",
+  "passwordProtection_incorrectPin": "Sie haben eine falsche PIN eingegeben. Versuchen Sie es erneut."
 }

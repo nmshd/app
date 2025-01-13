@@ -9,8 +9,9 @@ class AnonymousTokensFacade {
   AnonymousTokensFacade(this._evaluator);
 
   Future<Result<TokenDTO>> loadPeerToken(
-    String tokenReference,
-  ) async {
+    String tokenReference, {
+    String? password,
+  }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await runtime.anonymousServices.tokens.loadPeerToken(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -18,6 +19,7 @@ class AnonymousTokensFacade {
       arguments: {
         'request': {
           'reference': tokenReference,
+          if (password != null) 'password': password,
         },
       },
     );

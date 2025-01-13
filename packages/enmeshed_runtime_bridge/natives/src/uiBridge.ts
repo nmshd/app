@@ -1,4 +1,4 @@
-import { Result } from "@js-soft/ts-utils";
+import { ApplicationError, Result } from "@js-soft/ts-utils";
 import { IUIBridge, LocalAccountDTO, UserfriendlyApplicationError } from "@nmshd/app-runtime";
 import {
   DeviceOnboardingInfoDTO,
@@ -70,5 +70,24 @@ export class UIBridge implements IUIBridge {
     );
 
     return Result.ok(result ?? undefined);
+  }
+
+  public async enterPassword(
+    passwordType: "pw" | "pin",
+    pinLength?: number,
+    attempt?: number
+  ): Promise<Result<string>> {
+    const result: string | null = await window.flutter_inappwebview.callHandler(
+      "uibridge_enterPassword",
+      passwordType,
+      pinLength,
+      attempt
+    );
+
+    if (result === null) {
+      return Result.fail(new ApplicationError("error.user.cancelled", "The user cancelled the operation."));
+    }
+
+    return Result.ok(result);
   }
 }

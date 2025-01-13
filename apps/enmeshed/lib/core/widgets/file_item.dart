@@ -1,20 +1,26 @@
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../utils/file_utils.dart';
-import '../utils/strings.dart';
+import '../types/types.dart';
+import '../utils/utils.dart';
 import 'file_icon.dart';
 import 'highlight_text.dart';
 
 class FileItem extends StatelessWidget {
   final String accountId;
-  final FileDVO file;
+  final FileRecord fileRecord;
   final Widget? trailing;
   final String? query;
   final void Function()? onTap;
 
-  const FileItem({required this.accountId, required this.file, this.trailing, this.query, this.onTap, super.key});
+  const FileItem({
+    required this.accountId,
+    required this.fileRecord,
+    this.trailing,
+    this.query,
+    this.onTap,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +29,25 @@ class FileItem extends StatelessWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (file.name != file.filename)
+          if (fileRecord.file.name != fileRecord.file.filename)
             HighlightText(
               query: query,
-              text: file.filename,
+              text: fileRecord.file.filename,
               maxLines: 1,
               textStyle: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
-          HighlightText(query: query, text: file.name, maxLines: 1),
+          HighlightText(query: query, text: fileRecord.file.name, maxLines: 1),
         ],
       ),
       subtitle: Row(
         children: [
-          Text('${bytesText(context: context, bytes: file.filesize)}, '),
-          HighlightText(text: getFileExtension(file.filename), query: query),
+          Text('${bytesText(context: context, bytes: fileRecord.file.filesize)}, '),
+          HighlightText(text: getFileExtension(fileRecord.file.filename), query: query),
         ],
       ),
-      leading: FileIcon(filename: file.filename),
+      leading: FileIcon(filename: fileRecord.file.filename),
       trailing: trailing,
-      onTap: onTap ?? () => context.push('/account/$accountId/my-data/files/${file.id}', extra: file),
+      onTap: onTap ?? () => context.push('/account/$accountId/my-data/files/${fileRecord.file.id}', extra: fileRecord),
     );
   }
 }

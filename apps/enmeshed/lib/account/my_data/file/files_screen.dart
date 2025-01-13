@@ -5,6 +5,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
 import '/core/core.dart';
 import 'file_filter_type.dart';
@@ -23,8 +24,9 @@ class FilesScreen extends StatefulWidget {
 }
 
 class _FilesScreenState extends State<FilesScreen> {
-  List<FileDVO>? _files;
-  List<FileDVO> _filteredFiles = [];
+  List<FileRecord>? _fileRecords;
+  List<FileRecord> _filteredFileRecords = [];
+
   Set<FileFilterType> _activeFilters = {};
   _FilesSortingType _sortingType = _FilesSortingType.date;
   bool _isSortedAscending = false;
@@ -49,10 +51,10 @@ class _FilesScreenState extends State<FilesScreen> {
           ),
         ),
         IconButton(
-          onPressed: _files != null && _files!.isNotEmpty
+          onPressed: _fileRecords != null && _fileRecords!.isNotEmpty
               ? () => showSelectFileFilters(
                     context,
-                    availableFilters: _files!.map((file) => file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
+                    availableFilters: _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
                     activeFilters: _activeFilters,
                     onApplyFilters: (selectedFilters) {
                       setState(() => _activeFilters = selectedFilters);
@@ -66,9 +68,9 @@ class _FilesScreenState extends State<FilesScreen> {
       ],
     );
 
-    if (_files == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_fileRecords == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
 
-    if (_files!.isEmpty) {
+    if (_fileRecords!.isEmpty) {
       return Scaffold(
         appBar: appBar,
         body: RefreshIndicator(
@@ -123,10 +125,10 @@ class _FilesScreenState extends State<FilesScreen> {
                 child: ListView.separated(
                   itemBuilder: (context, index) => FileItem(
                     accountId: widget.accountId,
-                    file: _filteredFiles[index],
+                    fileRecord: _filteredFileRecords[index],
                     trailing: const Icon(Icons.chevron_right),
                   ),
-                  itemCount: _filteredFiles.length,
+                  itemCount: _filteredFileRecords.length,
                   separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
                 ),
               ),
@@ -138,42 +140,71 @@ class _FilesScreenState extends State<FilesScreen> {
   }
 
   Future<void> _loadFiles({bool syncBefore = false}) async {
+    final fileRecords = <FileRecord>[];
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     if (syncBefore) await session.transportServices.account.syncEverything();
 
-    final filesResult = await session.transportServices.files.getFiles();
-    final files = await session.expander.expandFileDTOs(filesResult.value);
+    final result = await session.consumptionServices.attributes.getRepositoryAttributes(
+      query: {'content.value.@type': QueryValue.string('IdentityFileReference')},
+    );
 
-    _files = files;
+    if (result.isError) {
+      GetIt.I.get<Logger>().e('Receiving FileReference Attributes failed caused by: ${result.error}');
+
+      if (!mounted) return;
+
+      await showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
+            content: Text(context.l10n.errorDialog_description),
+          );
+        },
+      );
+
+      return;
+    }
+
+    final fileReferenceAttributes = await session.expander.expandLocalAttributeDTOs(result.value);
+
+    for (final fileReferenceAttribute in fileReferenceAttributes) {
+      final fileReference = fileReferenceAttribute.value as IdentityFileReferenceAttributeValue;
+      final file = await expandFileReference(accountId: widget.accountId, fileReference: fileReference.value);
+      fileRecords.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO));
+    }
+    _fileRecords = fileRecords;
     _filterAndSort();
   }
 
   void _filterAndSort() {
     if (_activeFilters.isEmpty) {
-      final sorted = _files!..sort(_compareFunction(_sortingType, _isSortedAscending));
-      setState(() => _filteredFiles = sorted);
+      final sorted = _fileRecords!..sort(_compareFunction(_sortingType, _isSortedAscending));
+      setState(() => _filteredFileRecords = sorted);
       return;
     }
 
-    final filteredFiles = _files!.where((file) => _activeFilters.contains(FileFilterType.fromMimetype(file.mimetype))).toList()
+    final filteredFiles = _fileRecords!.where((fileRecord) => _activeFilters.contains(FileFilterType.fromMimetype(fileRecord.file.mimetype))).toList()
       ..sort(_compareFunction(_sortingType, _isSortedAscending));
 
-    setState(() => _filteredFiles = filteredFiles);
+    setState(() => _filteredFileRecords = filteredFiles);
   }
 
-  int Function(FileDVO, FileDVO) _compareFunction(_FilesSortingType type, bool isSortedAscending) => switch (type) {
-        _FilesSortingType.date => (a, b) => isSortedAscending ? a.createdAt.compareTo(b.createdAt) : b.createdAt.compareTo(a.createdAt),
+  int Function(FileRecord, FileRecord) _compareFunction(_FilesSortingType type, bool isSortedAscending) => switch (type) {
+        _FilesSortingType.date => (a, b) =>
+            isSortedAscending ? a.file.createdAt.compareTo(b.file.createdAt) : b.file.createdAt.compareTo(a.file.createdAt),
         _FilesSortingType.name => (a, b) {
-            if (isSortedAscending) return a.name.toLowerCase().compareTo(b.name.toLowerCase());
-            return b.name.toLowerCase().compareTo(a.name.toLowerCase());
+            if (isSortedAscending) return a.file.name.toLowerCase().compareTo(b.file.name.toLowerCase());
+            return b.file.name.toLowerCase().compareTo(a.file.name.toLowerCase());
           },
         _FilesSortingType.type => (a, b) {
-            final aType = a.mimetype.split('/').last;
-            final bType = b.mimetype.split('/').last;
+            final aType = a.file.mimetype.split('/').last;
+            final bType = b.file.mimetype.split('/').last;
             return isSortedAscending ? aType.compareTo(bType) : bType.compareTo(aType);
           },
-        _FilesSortingType.size => (a, b) => isSortedAscending ? a.filesize.compareTo(b.filesize) : b.filesize.compareTo(a.filesize),
+        _FilesSortingType.size => (a, b) =>
+            isSortedAscending ? a.file.filesize.compareTo(b.file.filesize) : b.file.filesize.compareTo(a.file.filesize),
       };
 
   void _uploadFile() {
@@ -187,7 +218,7 @@ class _FilesScreenState extends State<FilesScreen> {
   Iterable<Widget> _buildSuggestions(BuildContext context, SearchController controller) {
     final keyword = controller.value.text;
 
-    if (_files!.isEmpty && keyword.isEmpty) {
+    if (_fileRecords!.isEmpty && keyword.isEmpty) {
       return [
         Padding(
           padding: const EdgeInsets.only(top: 16),
@@ -204,7 +235,7 @@ class _FilesScreenState extends State<FilesScreen> {
       ].any((element) => element.contains(keyword.toLowerCase()));
     }
 
-    final matchingFiles = List<FileDVO>.of(_files!).where((element) => containsKeyword(element, keyword)).toList();
+    final matchingFiles = List<FileRecord>.of(_fileRecords!).where((element) => containsKeyword(element.file, keyword)).toList();
 
     if (matchingFiles.isEmpty) {
       return [
@@ -221,7 +252,7 @@ class _FilesScreenState extends State<FilesScreen> {
 
     return matchingFiles.map(
       (item) => FileItem(
-        file: item,
+        fileRecord: item,
         query: keyword,
         accountId: widget.accountId,
         onTap: () {
@@ -230,7 +261,7 @@ class _FilesScreenState extends State<FilesScreen> {
             ..closeView(null);
           FocusScope.of(context).unfocus();
 
-          context.push('/account/${widget.accountId}/my-data/files/${item.id}', extra: item);
+          context.push('/account/${widget.accountId}/my-data/files/${item.file.id}', extra: item);
         },
       ),
     );

@@ -1,3 +1,4 @@
+export 'attribute_tag_collection.dart';
 export 'challenge.dart';
 export 'device.dart';
 export 'device_shared_secret.dart';
@@ -16,6 +17,7 @@ export 'local_response_source.dart';
 export 'message.dart';
 export 'message_with_attachments.dart';
 export 'peer_deletion_info.dart';
+export 'public_relationship_template_reference.dart';
 export 'recipient.dart';
 export 'relationship.dart';
 export 'relationship_audit_log_entry.dart';

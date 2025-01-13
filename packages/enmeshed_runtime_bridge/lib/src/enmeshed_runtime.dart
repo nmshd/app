@@ -26,8 +26,6 @@ typedef RuntimeConfig = ({
 });
 
 class EnmeshedRuntime {
-  static String _assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
-
   bool _isReady = false;
 
   bool get isReady => _isReady;
@@ -54,9 +52,6 @@ class EnmeshedRuntime {
 
     return _stringProcessor;
   }
-
-  late final Session _currentSession;
-  Session get currentSession => _currentSession;
 
   final Logger _logger;
   final _runtimeReadyCompleter = Completer();
@@ -115,12 +110,7 @@ class EnmeshedRuntime {
     _accountServices = AccountServices(anonymousEvaluator);
     _anonymousServices = AnonymousServices(anonymousEvaluator);
     _stringProcessor = StringProcessor(anonymousEvaluator);
-
-    _currentSession = Session(Evaluator.currentSession(this));
   }
-
-  @visibleForTesting
-  static void setAssetsFolder(String assetsFolder) => _assetsFolder = assetsFolder;
 
   Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
 
@@ -188,8 +178,10 @@ class EnmeshedRuntime {
   }
 
   Future<void> _loadLibs(InAppWebViewController controller) async {
-    await controller.injectJavascriptFileFromAsset(assetFilePath: '$_assetsFolder/loki.js');
-    await controller.injectJavascriptFileFromAsset(assetFilePath: '$_assetsFolder/index.js');
+    final assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
+
+    await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/loki.js');
+    await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
   }
 
   Future<EnmeshedRuntime> run() async {
@@ -327,7 +319,7 @@ class Evaluator extends AbstractEvaluator {
   final String? _accountReference;
   final bool _isAnonymous;
 
-  String get sessionEvaluation => (_accountReference == null) ? 'runtime.currentSession' : 'await runtime.getOrCreateSession("$_accountReference")';
+  String get sessionEvaluation => (_accountReference == null) ? 'null' : 'await runtime.getOrCreateSession("$_accountReference")';
   String get sessionStorage => _isAnonymous ? '' : 'const session = $sessionEvaluation;\n';
 
   Evaluator._(this._runtime, {String? accountReference, bool isAnonymous = false})
@@ -335,7 +327,6 @@ class Evaluator extends AbstractEvaluator {
         _isAnonymous = isAnonymous;
 
   Evaluator.account(EnmeshedRuntime runtime, String accountReference) : this._(runtime, accountReference: accountReference);
-  Evaluator.currentSession(EnmeshedRuntime runtime) : this._(runtime);
   Evaluator.anonymous(EnmeshedRuntime runtime) : this._(runtime, isAnonymous: true);
 
   @override

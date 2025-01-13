@@ -47,6 +47,26 @@ class AccountServices {
     return accounts;
   }
 
+  Future<List<LocalAccountDTO>> getAccountsInDeletion() async {
+    final result = await _evaluator.evaluateJavaScript(
+      'return await runtime.accountServices.getAccountsInDeletion()',
+    );
+
+    final value = result.valueToList();
+    final accounts = value.map((e) => LocalAccountDTO.fromJson(e)).toList();
+    return accounts;
+  }
+
+  Future<List<LocalAccountDTO>> getAccountsNotInDeletion() async {
+    final result = await _evaluator.evaluateJavaScript(
+      'return await runtime.accountServices.getAccountsNotInDeletion()',
+    );
+
+    final value = result.valueToList();
+    final accounts = value.map((e) => LocalAccountDTO.fromJson(e)).toList();
+    return accounts;
+  }
+
   Future<LocalAccountDTO> getAccount(String id) async {
     final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.getAccount(id)',
@@ -58,11 +78,14 @@ class AccountServices {
     return account;
   }
 
+  Future<void> offboardAccount(String id) async {
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.offboardAccount(id)', arguments: {'id': id});
+
+    result.throwOnError();
+  }
+
   Future<void> deleteAccount(String id) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.deleteAccount(id)',
-      arguments: {'id': id},
-    );
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.deleteAccount(id)', arguments: {'id': id});
 
     result.throwOnError();
   }

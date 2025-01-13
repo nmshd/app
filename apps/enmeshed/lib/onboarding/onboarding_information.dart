@@ -41,25 +41,25 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
         title: context.l10n.onboarding_info_titlePage1,
         description: context.l10n.onboarding_info_descriptionPage1,
         imagePath: 'assets/svg/onboarding1.svg',
-        leftTriangleColor: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
-        rightTriangleColor: Theme.of(context).colorScheme.primary.withOpacity(0.04),
-        bottomColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+        leftTriangleColor: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.04),
+        rightTriangleColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.04),
+        bottomColor: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.6),
       ),
       _OnboardingPage(
         title: context.l10n.onboarding_info_titlePage2,
         description: context.l10n.onboarding_info_descriptionPage2,
         imagePath: 'assets/svg/onboarding2.svg',
-        leftTriangleColor: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
-        rightTriangleColor: Theme.of(context).colorScheme.primary.withOpacity(0.04),
-        bottomColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+        leftTriangleColor: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.04),
+        rightTriangleColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.04),
+        bottomColor: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.6),
       ),
       _OnboardingPage(
         title: context.l10n.onboarding_info_titlePage3,
         description: context.l10n.onboarding_info_descriptionPage3,
         imagePath: 'assets/svg/onboarding3.svg',
-        leftTriangleColor: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
-        rightTriangleColor: Theme.of(context).colorScheme.primary.withOpacity(0.04),
-        bottomColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+        leftTriangleColor: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.04),
+        rightTriangleColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.04),
+        bottomColor: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.6),
       ),
     ];
 
@@ -77,7 +77,7 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
           ),
           Container(
             height: 80,
-            color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+            color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.6),
             child: Padding(
               padding: EdgeInsets.only(left: 24, right: 24, top: 6, bottom: MediaQuery.viewInsetsOf(context).bottom + 30),
               child: Stack(

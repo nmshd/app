@@ -12,9 +12,9 @@ import 'package:value_renderer/value_renderer.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 import '../constants.dart';
+import '../types/types.dart';
 import '../utils/utils.dart';
-import '../widgets/empty_list_indicator.dart';
-import '../widgets/file_chooser.dart';
+import '../widgets/widgets.dart';
 
 Future<void> showCreateAttributeModal({
   required BuildContext context,
@@ -208,7 +208,10 @@ Future<void> showCreateAttributeModal({
                     valueType: valueType,
                     expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
                     chooseFile: () => openFileChooser(context: context, accountId: accountId),
-                    openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: file),
+                    openFileDetails: (file) => context.push(
+                      '/account/$accountId/my-data/files/${file.id}',
+                      extra: createFileRecord(file: file),
+                    ),
                   ),
                 ],
               ),

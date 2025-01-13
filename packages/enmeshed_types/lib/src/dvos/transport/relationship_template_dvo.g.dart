@@ -27,36 +27,28 @@ RelationshipTemplateDVO _$RelationshipTemplateDVOFromJson(Map<String, dynamic> j
       request: json['request'] == null ? null : LocalRequestDVO.fromJson(json['request'] as Map<String, dynamic>),
       content: RelationshipTemplateContentDerivation.fromJson(json['content'] as Map<String, dynamic>),
       forIdentity: json['forIdentity'] as String?,
+      passwordProtection: json['passwordProtection'] == null ? null : PasswordProtection.fromJson(json['passwordProtection'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('image', instance.image);
-  val['type'] = instance.type;
-  writeNotNull('date', instance.date);
-  writeNotNull('error', instance.error?.toJson());
-  writeNotNull('warning', instance.warning?.toJson());
-  val['isOwn'] = instance.isOwn;
-  val['createdBy'] = instance.createdBy.toJson();
-  val['createdByDevice'] = instance.createdByDevice;
-  val['createdAt'] = instance.createdAt;
-  writeNotNull('expiresAt', instance.expiresAt);
-  writeNotNull('maxNumberOfAllocations', const OptionalIntegerConverter().toJson(instance.maxNumberOfAllocations));
-  writeNotNull('onNewRelationship', instance.onNewRelationship?.toJson());
-  writeNotNull('onExistingRelationship', instance.onExistingRelationship?.toJson());
-  writeNotNull('request', instance.request?.toJson());
-  val['content'] = instance.content.toJson();
-  writeNotNull('forIdentity', instance.forIdentity);
-  return val;
-}
+Map<String, dynamic> _$RelationshipTemplateDVOToJson(RelationshipTemplateDVO instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.image case final value?) 'image': value,
+      'type': instance.type,
+      if (instance.date case final value?) 'date': value,
+      if (instance.error?.toJson() case final value?) 'error': value,
+      if (instance.warning?.toJson() case final value?) 'warning': value,
+      'isOwn': instance.isOwn,
+      'createdBy': instance.createdBy.toJson(),
+      'createdByDevice': instance.createdByDevice,
+      'createdAt': instance.createdAt,
+      if (instance.expiresAt case final value?) 'expiresAt': value,
+      if (const OptionalIntegerConverter().toJson(instance.maxNumberOfAllocations) case final value?) 'maxNumberOfAllocations': value,
+      if (instance.onNewRelationship?.toJson() case final value?) 'onNewRelationship': value,
+      if (instance.onExistingRelationship?.toJson() case final value?) 'onExistingRelationship': value,
+      if (instance.request?.toJson() case final value?) 'request': value,
+      'content': instance.content.toJson(),
+      if (instance.forIdentity case final value?) 'forIdentity': value,
+      if (instance.passwordProtection?.toJson() case final value?) 'passwordProtection': value,
+    };

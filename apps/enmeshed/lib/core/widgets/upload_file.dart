@@ -10,8 +10,11 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart' as path;
+import 'package:renderers/renderers.dart';
+import 'package:value_renderer/value_renderer.dart';
 
 import '../constants.dart';
+import '../types/types.dart';
 import '../utils/utils.dart';
 import 'file_icon.dart';
 import 'modal_loading_overlay.dart';
@@ -36,9 +39,11 @@ class UploadFile extends StatefulWidget {
 
 class _UploadFileState extends State<UploadFile> {
   late final TextEditingController _titleController;
+  final _tagController = TextEditingController();
 
   File? _selectedFile;
   bool _loading = false;
+  bool _isFileTooLarge = false;
 
   @override
   void initState() {
@@ -50,6 +55,7 @@ class _UploadFileState extends State<UploadFile> {
   @override
   void dispose() {
     _titleController.dispose();
+    _tagController.dispose();
 
     super.dispose();
   }
@@ -81,6 +87,7 @@ class _UploadFileState extends State<UploadFile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (_selectedFile != null) _FileSelected(file: _selectedFile!) else _NoFileSelected(selectFile: _selectFile),
+                      if (_isFileTooLarge) const _FileSizeError(),
                       Text(context.l10n.mandatoryField),
                       Gaps.h24,
                       TextFormField(
@@ -105,6 +112,15 @@ class _UploadFileState extends State<UploadFile> {
                             return newValue;
                           }),
                         ],
+                      ),
+                      Gaps.h8,
+                      TextField(
+                        controller: _tagController,
+                        decoration: InputDecoration(
+                          labelText: context.l10n.files_tag,
+                          border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+                          focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+                        ),
                       ),
                       Gaps.h44,
                       Row(
@@ -140,7 +156,13 @@ class _UploadFileState extends State<UploadFile> {
 
     if (result == null) return;
 
-    setState(() => _selectedFile = File(result.files.single.path!));
+    final file = File(result.files.single.path!);
+    final fileSize = await file.length();
+
+    setState(() {
+      _selectedFile = file;
+      _isFileTooLarge = fileSize > 10 * 1024 * 1024;
+    });
   }
 
   Future<void> _submit() async {
@@ -151,11 +173,16 @@ class _UploadFileState extends State<UploadFile> {
     try {
       final file = await _uploadFile(_selectedFile!, _titleController.text);
 
+      final fileReference = await _createFileReferenceAttribute(file);
+
       widget.onFileUploaded(file);
 
       if (mounted && widget.popOnUpload) {
         context.pop();
-        await context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: file);
+        await context.push(
+          '/account/${widget.accountId}/my-data/files/${file.id}',
+          extra: createFileRecord(file: file, fileReferenceAttribute: fileReference),
+        );
       }
     } on PlatformException catch (e) {
       GetIt.I.get<Logger>().e('Uploading file failed caused by: $e');
@@ -200,7 +227,34 @@ class _UploadFileState extends State<UploadFile> {
     return null;
   }
 
-  bool validateEverything() => _selectedFile != null && isTitleValid;
+  bool validateEverything() => _selectedFile != null && isTitleValid && !_isFileTooLarge;
+
+  Future<RepositoryAttributeDVO> _createFileReferenceAttribute(FileDVO file) async {
+    final createEnabledNotifier = ValueNotifier<bool>(false);
+
+    final canCreateAttribute = composeIdentityAttributeValue(
+      isComplex: false,
+      currentAddress: widget.accountId,
+      valueType: 'IdentityFileReference',
+      inputValue: ValueRendererInputValueString(file.truncatedReference),
+    );
+
+    if (canCreateAttribute != null) {
+      createEnabledNotifier.value = true;
+    }
+
+    final fileReferenceResult = await createRepositoryAttribute(
+      accountId: widget.accountId,
+      context: context,
+      createEnabledNotifier: createEnabledNotifier,
+      value: canCreateAttribute!.value,
+      onAttributeCreated: () => createEnabledNotifier.value = true,
+      tags: _tagController.text.isNotEmpty ? [_tagController.text] : null,
+    );
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    return (await session.expander.expandLocalAttributeDTO(fileReferenceResult!)) as RepositoryAttributeDVO;
+  }
 }
 
 class _FileSelected extends StatefulWidget {
@@ -306,6 +360,34 @@ class _NoFileSelected extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _FileSizeError extends StatelessWidget {
+  const _FileSizeError();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: Theme.of(context).colorScheme.error),
+        padding: const EdgeInsets.all(2),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.error, size: 20, color: Theme.of(context).colorScheme.onError),
+            Gaps.w4,
+            Expanded(
+              child: Text(
+                context.l10n.files_sizeTooLarge,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onError, letterSpacing: 0.4),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

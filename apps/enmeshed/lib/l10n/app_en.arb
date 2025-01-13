@@ -12,6 +12,7 @@
   "close": "Close",
   "reject": "Reject",
   "accept": "Accept",
+  "confirm": "Confirm",
   "edit": "Edit",
   "update": "Update",
   "help": "Help",
@@ -103,15 +104,7 @@
   "onboarding_enterProfileName": "Choose a profile name",
   "onboarding_acceptProfileName": "Accept",
   "home_title": "enmeshed",
-  "home_news": "Service information",
-  "home_contactRequests": "Contact requests",
-  "home_noNewContactRequests": "No open contact requests.",
   "home_seeAll": "See all",
-  "home_newFunction": "New function",
-  "home_generalInformation": "General information",
-  "home_problem": "Failure or problem",
-  "home_notNow": "Not now",
-  "home_discoverNow": "Discover now",
   "home_complete": "Complete",
   "home_scanQR": "Scan a QR code",
   "home_addContact": "Add contact",
@@ -121,23 +114,21 @@
   "home_messages": "New messages",
   "home_noNewMessages": "No new messages. You are up to date.",
   "home_completeProfile": "First steps",
+  "home_completeProfileDescription_recoverykitDisabled": "Three steps to help you get the most out of the enmeshed app:",
   "home_completeProfileDescription": "Four steps to help you get the most out of the enmeshed app:",
   "home_completeProfileCloseIconSemanticsLabel": "Hide card",
   "home_of": "of",
   "home_completed": "completed",
-  "home_createProfile": "Create profile",
   "home_initialPersonalInformation": "Record initial personal information",
   "home_initialContact": "Connect to initial contacts",
   "home_initialDocuments": "Load initial documents",
+  "home_createIdentityRecoveryKit": "Create recovery kit",
   "drawer_manageProfiles": "Manage profiles",
-  "drawer_backupData": "Backup Data",
-  "drawer_news": "News",
-  "drawer_helpAndFaq": "Help and FAQ",
   "drawer_title": "Information & help",
   "drawer_notifications": "Notifications",
   "drawer_notifications_stayInformed": "Stay informed!",
   "drawer_notifications_getNotifications": "This will provide you with important information about what is happening in your profile(s). We will also send you notifications about new services in the app.",
-  "drawer_notifications_howToActivate": "To receive notifications, go to your system settings and enable notifications from the \"Mein Bildungsraum\" app.",
+  "drawer_notifications_howToActivate": "To receive notifications, go to your system settings and enable notifications from the \"enmeshed\" app.",
   "drawer_notifications_activate": "Activate now",
   "drawer_notifications_granted": "Great, you stay informed!",
   "drawer_notifications_grantedInformation": "You have activated notifications so you always stay up to date.",
@@ -152,6 +143,7 @@
   "profiles_settings_editProfile": "Edit profile",
   "profiles_settings_deleteProfile": "Delete profile",
   "profiles_settings_connectedDevices": "Manage connected devices",
+  "profiles_settings_createIdentityRecoveryKit": "Create recovery kit",
   "profiles_createNew": "Create new profile",
   "profiles_lastUsed": "Last used",
   "profiles_createNewForProcessingQrDescription": "Create a new profile to process the scanned QR code or URL link.",
@@ -241,6 +233,12 @@
   "profile_delete_error": "An error occurred while deleting the profile. Please try again.",
   "profile_delete_error_cancel": "Cancel",
   "profile_delete_error_retry": "Retry",
+  "profile_localDeletion_title": "Delete local data",
+  "profile_localDeletion_card_description": "You can force the deletion of local data for profiles in Deletion. All data stored on this device will be deleted immediately. The data in the enmeshed platform remains unaffected by this until the deletion period expires.",
+  "profile_localDeletion_card_button": "Delete local data now",
+  "profile_localDeletion_selectProfiles": "Select which profiles and associated locally stored data are to be permanently deleted from this device:",
+  "profile_localDeletion_singleProfile": "The data of the following profile saved locally on this device will be irrevocably deleted:",
+  "profile_localDeletion_acceptDeletion": "Delete data",
   "profile_create": "Create",
   "profile_create_inProgress": "Creating profile",
   "profile_deletePhoto": "Delete profile picture",
@@ -330,6 +328,16 @@
   "contact_information_noMessages": "No messages available.",
   "contact_information_sharedFiles": "Shared Files",
   "contact_requestDescription": "The new contact would like to share the following data or requests with you:",
+  "contact_request_validationError": "{count, plural, =1{1 Error message} other{{count} Error messages}}",
+  "@contact_request_validationError": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "contact_request_validationErrorDescription": "Please correct all fields marked with an error to complete the contact request.",
+  "message_request_validationErrorDescription": "Please correct all fields marked with an error to complete the task.",
   "contact_request": "Contact Request",
   "contacts_empty": "Add contacts",
   "contacts_emptyDescription": "Connect with contacts to share or receive data and documents.",
@@ -367,6 +375,7 @@
       }
     }
   },
+  "contacts_selectedForYou": "New contacts selected for you",
   "contactDetail_connectedSince": "Contact since {since}",
   "@contactDetail_connectedSince": {
     "placeholders": {
@@ -439,9 +448,12 @@
   "myData_createEntryForAttributeType": "Create",
   "myData_noEntryForAttributeType": "No entry",
   "myData_allData": "All Data",
-  "myData_personalData": "Identity Data",
-  "myData_addressData": "Address Data",
-  "myData_communicationData": "Communication Data",
+  "myData_personalData": "About Me",
+  "myData_personalData_description": "Here you can add, change or delete your personal information.",
+  "myData_addressData": "Addresses",
+  "myData_addressData_description": "Here you can add, change or delete your addresses.",
+  "myData_communicationData": "Communication",
+  "myData_communicationData_description": "Here you can add, change or delete your communication data.",
   "myData_initialCreation": "Create",
   "myData_createInformation": "Create Information",
   "myData_chooseInformationType": "Select an information type!",
@@ -453,7 +465,7 @@
       }
     }
   },
-  "myData_initialCreation_personalData": "Create identity data",
+  "myData_initialCreation_personalData": "Create personal information",
   "myData_initialCreation_personalData_description": "Enter your basic personal information, to be able to share it with your contacts.",
   "myData_initialCreation_communicationData": "Create communication data",
   "myData_initialCreation_communicationData_description": "Please enter your communication data, to be able to share it with your contacts.",
@@ -462,7 +474,7 @@
   "myData_initialCreation_communicationData_infoPhoneNumber": "A phone number can be either a landline or a mobile phone number.",
   "myData_initialCreation_communicationData_infoWebsite": "A website can be any form of public profile, for example on LinkedIn or Instagram.",
   "myData_initialCreation_error": "An error occurred while creating the data, please try again.",
-  "myData_initialCreation_addressData_title": "Create address data",
+  "myData_initialCreation_addressData_title": "Create addresses",
   "myData_initialCreation_addressData_description": "Enter your different addresses to share with your contacts. You can choose between several address types.",
   "myData_initialCreation_addressData_streetAddress": "Create an address",
   "myData_initialCreation_addressData_streetAddress_description": "An address is a residential address consisting of a street, postal code and city.",
@@ -480,14 +492,6 @@
   },
   "myData_initialCreation_addressData_createAttribute_description": "Please enter your {attribute} to be able to share it with your contacts.",
   "@myData_initialCreation_addressData_createAttribute_description": {
-    "placeholders": {
-      "attribute": {
-        "type": "String"
-      }
-    }
-  },
-  "personalData_filteredData_description": "Here you can add, change or delete your {attribute}.",
-  "@personalData_filteredData_description": {
     "placeholders": {
       "attribute": {
         "type": "String"
@@ -589,6 +593,7 @@
   "files_selectFile": "Select your file",
   "files_createdAt": "Created",
   "files_owner": "Owner",
+  "files_sizeTooLarge": "The selected file exceeds the maximum size of 10 MB.",
   "files_titleEmptyError": "Please enter a title.",
   "files_filter_title": "Filter files",
   "files_filter_byFileType": "Filter by file type",
@@ -602,6 +607,7 @@
   "files_fileType_powerPoint": "PowerPoint Document",
   "files_fileType_other": "Other ...",
   "files_fileSize": "Size",
+  "files_tag": "Tag",
   "filter": "Filter",
   "apply_filter": "Apply filters",
   "deviceOnboarding_title": "Add device",
@@ -687,5 +693,52 @@
   "instructions_loadProfile_information": "You no longer want to synchronize a profile across different devices?",
   "instructions_loadProfile_informationDetails": "In the profile management, you can view and manage the devices connected to the profile at any time.",
   "instructions_notShowAgain": "Do not show the explanation again",
-  "instructions_scanQrCode": "Scan QR code"
+  "instructions_scanQrCode": "Scan QR code",
+  "identityRecovery_instructions_title": "Create recovery kit",
+  "identityRecovery_instructions_subtitle": "The recovery kit is the emergency access to your encrypted data",
+  "identityRecovery_instructions_information": "With this recovery kit and the corresponding password, anyone can restore your profile.",
+  "identityRecovery_instructions_informationDescription": "Keep this recovery kit and the corresponding password in a safe place that is inaccessible to third parties.",
+  "identityRecovery_instructions_secure": "Create a recovery kit and secure it with a password so that you can set up your profile again in an emergency.",
+  "identityRecovery_instructions_setup": "If you have lost access to your smartphone, you can use the recovery kit to set up your profile again on any device.",
+  "identityRecovery_instructions_usage": "The recovery kit is valid indefinitely. However, you must create a new recovery kit once it has been used.",
+  "identityRecovery_instructions_kitCreation": "You will be guided through the simple process of creating the recovery kit. At the end you will receive a PDF that you can print out or download. You will also create a password.",
+  "identityRecovery_password": "Password",
+  "identityRecovery_passwordConfirm": "Confirm password",
+  "identityRecovery_passwordTitle": "Create password",
+  "identityRecovery_passwordMismatch": "Passwords do not match",
+  "identityRecovery_passwordEmptyError": "This field cannot be empty",
+  "identityRecovery_passwordDescription": "Please set a password now. The password will be required as soon as you need to use the recovery kit.",
+  "identityRecovery_passwordAttention": "Attention: You must save the password separately to your recovery kit.",
+  "identityRecovery_startNow": "Get started now",
+  "identityRecovery_generatingInProgress": "Generating recovery kit.",
+  "identityRecovery_saveKit": "Save recovery kit",
+  "identityRecovery_saveKitDescription": "Your recovery kit is ready. You can now download it to your device or print it out.",
+  "identityRecovery_download": "Download",
+  "identityRecovery_downloadDescription": "Save recovery kit as PDF.",
+  "identityRecovery_print": "Print",
+  "identityRecovery_printDescription": "Print out the recovery kit.",
+  "identityRecovery_information": "If you print out the recovery kit, you can write down the password you created there before you forget it. If you download the recovery kit, make sure that you save it on another device.",
+  "identityRecovery_pdfHeaderTitle": "Recovery Kit for\nYour enmeshed Data",
+  "identityRecovery_pdfKeepSafeText": "Please store this recovery kit in a location inaccessible to others. Once you have noted down the master password you chose yourself, access to your enmeshed data will be possible.",
+  "identityRecovery_pdfInfoText1": "Print this document or save it in a secure location, such as another mobile device or your computer.",
+  "identityRecovery_pdfInfoText2": "Write the password you set when creating the kit in the field below. To restore your encrypted data, you will need the QR code and the password you created.",
+  "identityRecovery_pdfAddressLabel": "enmeshed ID",
+  "identityRecovery_pdfPasswordLabel": "Password",
+  "identityRecovery_pdfQRDescription": "If you have lost your device or no longer have access to it, simply scan the QR code with a new device to regain access to your enmeshed data.",
+  "identityRecovery_pdfNeedHelpTitle": "Need Help?",
+  "identityRecovery_pdfNeedHelpText": "Contact enmeshed support: support@enmeshed.de",
+  "identityRecovery_saveKitSuccess": "Recovery kit successfully saved",
+  "identityRecovery_printKitSuccess": "Recovery kit successfully printed",
+  "passwordProtection_enterPassword": "Enter password",
+  "passwordProtection_enterPin": "Enter PIN",
+  "passwordProtection_passwordEmpty": "Please enter a password.",
+  "passwordProtection_referenceIsPasswordProtected": "This QR code or Link is password protected. Please enter the password to proceed.",
+  "passwordProtection_referenceIsPinProtected": "This QR code or Link is protected with a {count, select, 4{four digits} 5{five digits} 6{six digits} other{complex}} PIN. Please enter the PIN to proceed.",
+  "@passwordProtection_referenceIsPinProtected": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "passwordProtection_incorrectPassword": "You have entered an incorrect password. Please try again.",
+  "passwordProtection_incorrectPin": "You have entered an incorrect PIN. Please try again."
 }

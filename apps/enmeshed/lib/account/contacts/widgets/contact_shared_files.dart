@@ -53,7 +53,7 @@ class ContactSharedFiles extends StatelessWidget {
                   shrinkWrap: true,
                   itemBuilder: (context, index) => FileItem(
                     accountId: accountId,
-                    file: sharedFiles!.elementAt(index),
+                    fileRecord: createFileRecord(file: sharedFiles!.elementAt(index)),
                     trailing: const Icon(Icons.chevron_right),
                   ),
                   itemCount: sharedFiles!.length,

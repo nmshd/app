@@ -39,13 +39,19 @@ class ScanScreen extends StatelessWidget {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
     final account = accountId != null ? await runtime.accountServices.getAccount(accountId!) : null;
+    if (!context.mounted) return;
+
     final result = await runtime.stringProcessor.processURL(url: content, account: account);
-
-    if (result.isError) {
-      GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
-
-      if (context.mounted) await showWrongTokenErrorDialog(context);
+    if (result.isSuccess) {
+      resume();
+      return;
     }
+
+    GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
+    if (!context.mounted) return;
+
+    await showWrongTokenErrorDialog(context);
+
     resume();
   }
 }

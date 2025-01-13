@@ -143,7 +143,7 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
 
     final account = await runtime.accountServices.getAccount(widget.accountReference);
 
-    final token = await session.transportServices.devices.getDeviceOnboardingToken(widget.deviceId, profileName: account.name);
+    final token = await session.transportServices.devices.createDeviceOnboardingToken(widget.deviceId, profileName: account.name);
 
     setState(() => _token = token.value);
 
@@ -177,11 +177,11 @@ class _DeviceOnboardingQRCode extends StatelessWidget {
                   semanticsLabel: context.l10n.devices_code_qrSemanticsLabel,
                   eyeStyle: QrEyeStyle(
                     eyeShape: QrEyeShape.square,
-                    color: isExpired ? Theme.of(context).colorScheme.onSurface.withOpacity(0.2) : Theme.of(context).colorScheme.scrim,
+                    color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.scrim,
                   ),
                   dataModuleStyle: QrDataModuleStyle(
                     dataModuleShape: QrDataModuleShape.square,
-                    color: isExpired ? Theme.of(context).colorScheme.onSurface.withOpacity(0.2) : Theme.of(context).colorScheme.scrim,
+                    color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.scrim,
                   ),
                   size: 200,
                 ),

@@ -71,7 +71,7 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
       );
 
   Future<void> _loadAccounts() async {
-    final accounts = await getAccountsNotInDeletion();
+    final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccountsNotInDeletion();
 
     accounts.sort((a, b) => a.name.compareTo(b.name));
 

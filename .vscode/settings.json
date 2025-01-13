@@ -25,5 +25,6 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "arb-editor.suppressedWarnings": ["missing_metadata_for_key"]
 }
