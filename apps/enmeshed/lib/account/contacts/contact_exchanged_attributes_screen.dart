@@ -102,7 +102,10 @@ class _ContactExchangedAttributesScreenState extends State<ContactExchangedAttri
   Future<void> _loadReceivedPeerAttributes({bool syncBefore = false}) async {
     if (syncBefore) await _session.transportServices.account.syncDatawallet();
 
-    final receivedAttributesResult = await _session.consumptionServices.attributes.getPeerSharedAttributes(peer: widget.contactId);
+    final receivedAttributesResult = await _session.consumptionServices.attributes.getPeerSharedAttributes(
+      peer: widget.contactId,
+      hideTechnical: true,
+    );
 
     if (receivedAttributesResult.isError) return;
     final receivedAttributes = await _session.expander.expandLocalAttributeDTOs(receivedAttributesResult.value);
@@ -115,7 +118,10 @@ class _ContactExchangedAttributesScreenState extends State<ContactExchangedAttri
   Future<void> _loadSentPeerAttribute({bool syncBefore = false}) async {
     if (syncBefore) await _session.transportServices.account.syncDatawallet();
 
-    final sentAttributesResult = await _session.consumptionServices.attributes.getOwnSharedAttributes(peer: widget.contactId);
+    final sentAttributesResult = await _session.consumptionServices.attributes.getOwnSharedAttributes(
+      peer: widget.contactId,
+      hideTechnical: true,
+    );
 
     if (sentAttributesResult.isError) return;
     final sentAttributes = await _session.expander.expandLocalAttributeDTOs(sentAttributesResult.value);
