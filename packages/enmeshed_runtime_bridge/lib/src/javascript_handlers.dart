@@ -5,6 +5,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
+import 'package:windows_notification/notification_message.dart';
+import 'package:windows_notification/windows_notification.dart';
 
 import 'event_bus.dart';
 import 'events/events.dart';
@@ -385,6 +387,16 @@ extension Filesystem on InAppWebViewController {
 
 extension LocalNotifications on InAppWebViewController {
   void addLocalNotificationsJavaScriptHandlers() {
+    if (Platform.isAndroid || Platform.isIOS || Platform.isLinux || Platform.isMacOS) {
+      _addLocalNotificationsJavaScriptHandlers();
+    } else if (Platform.isWindows) {
+      _addWindowsNotificationsJavaScriptHandlers();
+    } else {
+      throw Exception('Unsupported platform');
+    }
+  }
+
+  void _addLocalNotificationsJavaScriptHandlers() {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     addJavaScriptHandler(
@@ -419,6 +431,51 @@ extension LocalNotifications on InAppWebViewController {
       callback: (args) async {
         final notifications = await flutterLocalNotificationsPlugin.getActiveNotifications();
         return notifications.map((e) => e.id).toList();
+      },
+    );
+  }
+
+  void _addWindowsNotificationsJavaScriptHandlers() {
+    final winNotifyPlugin = WindowsNotification(applicationId: r'{D65231B0-B2F1-4857-A4CE-A8E7C6EA7D27}\WindowsPowerShell\v1.0\powershell.exe');
+
+    winNotifyPlugin.initNotificationCallBack((details) {
+      // TODO: handle notification click
+    });
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_schedule',
+      callback: (args) async {
+        final title = args[0] as String;
+        final body = args[1] as String;
+        final id = args[2] as int;
+
+        await winNotifyPlugin.showNotificationPluginTemplate(
+          NotificationMessage.fromPluginTemplate(id.toString(), title, body, group: 'nmshd'),
+        );
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_clear',
+      callback: (args) async {
+        final id = args[0] as int;
+
+        await winNotifyPlugin.removeNotificationId(id.toString(), 'nmshd');
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_clearAll',
+      callback: (args) async {
+        await winNotifyPlugin.clearNotificationHistory();
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_getAll',
+      callback: (args) {
+        // no support for listing notifications on Windows
+        return [];
       },
     );
   }
