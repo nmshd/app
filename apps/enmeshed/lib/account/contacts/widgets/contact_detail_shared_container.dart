@@ -16,10 +16,7 @@ class ContactDetailSharedContainer extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Text(
-            context.l10n.contactDetail_sharedInformation,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          child: Text(context.l10n.contactDetail_sharedInformation, style: Theme.of(context).textTheme.titleLarge),
         ),
         Column(
           children: [
