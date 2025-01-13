@@ -351,6 +351,7 @@
   "contacts_deleted": "Contact no longer exists",
   "contacts_toBeDeleted": "Will be deleted shortly",
   "contacts_terminated": "Contact terminated the relationship",
+  "contacts_deletionProposed": "Relationship permanently terminated",
   "contacts_delete_title": "Delete contact \"{contactName}\"?",
   "@contacts_delete_title": {
     "placeholders": {
