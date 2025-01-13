@@ -4,7 +4,13 @@ import 'package:vector_graphics/vector_graphics.dart';
 
 import '/core/core.dart';
 
-enum ScannerType { addContact, loadProfile }
+enum ScannerType {
+  addContact,
+  loadProfile;
+
+  @override
+  String toString() => name;
+}
 
 class InstructionsScreen extends StatefulWidget {
   final String accountId;
