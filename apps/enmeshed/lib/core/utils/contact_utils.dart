@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import '/core/utils/utils.dart';
+import 'dialogs.dart';
+import 'extensions.dart';
 
 const _contactSettingKey = 'contact_settings';
 
