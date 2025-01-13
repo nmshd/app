@@ -749,5 +749,7 @@
     "placeholders": {
       "count": {}
     }
-  }
+  },
+  "passwordProtection_incorrectPassword": "You have entered an incorrect password. Please try again.",
+  "passwordProtection_incorrectPin": "You have entered an incorrect PIN. Please try again."
 }

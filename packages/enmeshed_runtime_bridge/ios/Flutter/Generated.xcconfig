@@ -1,0 +1,15 @@
+// This is a generated file; do not edit or check into version control.
+FLUTTER_ROOT=/Users/aliince/Programmierprojekte/Tools/flutter
+FLUTTER_APPLICATION_PATH=/Users/aliince/Programmierprojekte/j&s-soft/app/packages/enmeshed_runtime_bridge
+COCOAPODS_PARALLEL_CODE_SIGN=true
+FLUTTER_TARGET=/var/folders/y1/3327xypx5fl8q54xs5k_rs6m0000gn/T/flutter_tools.v3BGM0/flutter_test_listener.ywRUvB/listener.dart
+FLUTTER_BUILD_DIR=build
+FLUTTER_BUILD_NAME=1.0.0
+FLUTTER_BUILD_NUMBER=1.0.0
+EXCLUDED_ARCHS[sdk=iphonesimulator*]=i386
+EXCLUDED_ARCHS[sdk=iphoneos*]=armv7
+DART_DEFINES=YXBwX2Jhc2VVcmw9aHR0cHM6Ly9waWxvdC5lbm1lc2hlZC5ldQ==,YXBwX2NsaWVudElkPUNMVDR2cGYzZFNRZXJsbWZvUFhh,YXBwX2NsaWVudFNlY3JldD00UzVHcUVqT2cybnNlN1BiM05vUEg2b2VIS3lqTk0=,YXBwX3VzZUFwcGxlU2FuZGJveD10cnVl,SU5URUdSQVRJT05fVEVTVF9TSE9VTERfUkVQT1JUX1JFU1VMVFNfVE9fTkFUSVZFPWZhbHNl
+DART_OBFUSCATION=false
+TRACK_WIDGET_CREATION=true
+TREE_SHAKE_ICONS=false
+PACKAGE_CONFIG=/Users/aliince/Programmierprojekte/j&s-soft/app/packages/enmeshed_runtime_bridge/.dart_tool/package_config.json
