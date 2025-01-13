@@ -3,11 +3,11 @@ import 'package:go_router/go_router.dart';
 
 import '/core/utils/utils.dart';
 
-class ContactDetailSharedContainer extends StatelessWidget {
+class ContactDetailSharedInformation extends StatelessWidget {
   final String accountId;
   final String contactId;
 
-  const ContactDetailSharedContainer({required this.accountId, required this.contactId, super.key});
+  const ContactDetailSharedInformation({required this.accountId, required this.contactId, super.key});
 
   @override
   Widget build(BuildContext context) {

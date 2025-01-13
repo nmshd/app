@@ -90,7 +90,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                   reloadContact: _reloadContact,
                 ),
                 Gaps.h16,
-                ContactDetailSharedContainer(accountId: widget.accountId, contactId: widget.contactId),
+                ContactDetailSharedInformation(accountId: widget.accountId, contactId: widget.contactId),
                 Gaps.h16,
                 MessagesContainer(
                   accountId: widget.accountId,
