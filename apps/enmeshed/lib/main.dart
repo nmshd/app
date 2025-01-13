@@ -162,13 +162,13 @@ final _router = GoRouter(
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
-          path: 'instructions/${ScannerType.addContact.name}',
+          path: 'instructions/${ScannerType.addContact}',
           builder: (context, state) {
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
               accountId: accountId,
-              deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.addContact.name}', value: false),
+              deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.addContact}', value: false),
               onContinue: (context) => context
                 ..pop()
                 ..push('/account/$accountId/scan'),
@@ -188,13 +188,13 @@ final _router = GoRouter(
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
-          path: 'instructions/${ScannerType.loadProfile.name}',
+          path: 'instructions/${ScannerType.loadProfile}',
           builder: (context, state) {
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
               accountId: accountId,
-              deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.loadProfile.name}', value: false),
+              deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.loadProfile}', value: false),
               onContinue: (context) => context
                 ..pop()
                 ..push('/scan'),
