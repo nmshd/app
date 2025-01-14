@@ -19,6 +19,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  late final ScrollController _scrollController;
+
   int _unreadMessagesCount = 0;
   List<MessageDVO>? _messages;
   List<LocalRequestDVO>? _requests;
@@ -29,6 +31,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
+
+    _scrollController = ScrollController();
 
     _reload();
 
@@ -45,6 +49,8 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
+
     for (final subscription in _subscriptions) {
       subscription.cancel();
     }
@@ -66,8 +72,10 @@ class _HomeViewState extends State<HomeView> {
     return RefreshIndicator(
       onRefresh: () => _reload(syncBefore: true),
       child: Scrollbar(
+        controller: _scrollController,
         thumbVisibility: true,
         child: ListView(
+          controller: _scrollController,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),

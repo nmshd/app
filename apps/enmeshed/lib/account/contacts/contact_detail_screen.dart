@@ -21,6 +21,8 @@ class ContactDetailScreen extends ContactSharedFilesWidget {
 }
 
 class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactSharedFilesMixin<ContactDetailScreen> {
+  late final ScrollController _scrollController;
+
   bool _loadingFavoriteContact = false;
 
   late final Session _session;
@@ -37,6 +39,8 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   @override
   void initState() {
     super.initState();
+
+    _scrollController = ScrollController();
 
     _session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
@@ -55,6 +59,8 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
 
   @override
   void dispose() {
+    _scrollController.dispose();
+
     for (final subscription in _subscriptions) {
       subscription.cancel();
     }
@@ -82,8 +88,10 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
             await loadSharedFiles(syncBefore: true);
           },
           child: Scrollbar(
+            controller: _scrollController,
             thumbVisibility: true,
             child: ListView(
+              controller: _scrollController,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
