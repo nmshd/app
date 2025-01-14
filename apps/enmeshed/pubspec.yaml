@@ -60,6 +60,10 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.1
   flutter_test:
     sdk: flutter
+  msix:
+    git:
+      url: https://github.com/h4h13/msix.git
+      ref: Fix-Flutter-3.27
   translations_cleaner: ^0.0.5
   vector_graphics_compiler: ^1.1.12
 
@@ -105,3 +109,10 @@ flutter_native_splash:
 
   android: true
   ios: true
+
+msix_config:
+  display_name: enmeshed
+  msix_version: 1.0.0.0
+  protocol_activation: nmshd
+  logo_path: assets/icon.png
+  build_windows: false
