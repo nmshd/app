@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../common/common.dart';
@@ -12,7 +13,7 @@ import 'identity_dvo.dart';
 part 'relationship_template_dvo.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class RelationshipTemplateDVO extends DataViewObject {
+class RelationshipTemplateDVO extends DataViewObject with EquatableMixin {
   final bool isOwn;
   final IdentityDVO createdBy;
   final String createdByDevice;
@@ -55,4 +56,28 @@ class RelationshipTemplateDVO extends DataViewObject {
         _ => _$RelationshipTemplateDVOFromJson(Map<String, dynamic>.from(json)),
       };
   Map<String, dynamic> toJson() => _$RelationshipTemplateDVOToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        description,
+        image,
+        type,
+        date,
+        error,
+        warning,
+        isOwn,
+        createdBy,
+        createdByDevice,
+        createdAt,
+        expiresAt,
+        maxNumberOfAllocations,
+        onNewRelationship,
+        onExistingRelationship,
+        request,
+        content,
+        forIdentity,
+        passwordProtection,
+      ];
 }
