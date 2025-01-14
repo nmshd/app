@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../request_item_index.dart';
-import '../../request_renderer.dart';
 import 'error_response_item_renderer.dart';
 import 'reject_response_item_renderer.dart';
 import 'response.dart';
