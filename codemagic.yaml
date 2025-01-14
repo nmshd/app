@@ -135,3 +135,59 @@ workflows:
           script: |
             npm install -g @js-soft/codemagic-tools@1.0.2
             jscm teams-publish --platform "ios" --projectName "enmeshed"
+
+  windows-release:
+    name: Windows Release
+    max_build_duration: 30
+    instance_type: windows_x2
+    environment:
+      groups:
+        - config-secrets
+        - webhook-secrets
+      flutter: stable
+    triggering:
+      cancel_previous_builds: false
+
+    scripts:
+      - name: Install melos
+        script: dart pub global activate melos
+
+      - name: Bootstrap repository
+        script: melos bootstrap
+
+      - name: Build appbundle with Flutter
+        script: |
+          flutter config --enable-windows-desktop
+          flutter build windows --release \
+            --build-number=$PROJECT_BUILD_NUMBER \
+            --build-name=${CM_TAG/#enmeshed-v/} \
+            --dart-define="app_baseUrl=$app_baseUrl" \
+            --dart-define="app_clientId=$app_clientId" \
+            --dart-define="app_clientSecret=$app_clientSecret"
+          cd build/windows/x64/runner/Release
+          7z a -r ../release.zip ./*
+        working_directory: apps/enmeshed
+
+      # TODO: msix to publish to Microsoft Store
+      # https://docs.codemagic.io/yaml-quick-start/building-a-flutter-app/#configure-scripts-to-build-the-app
+
+      - name: Build finished successfully
+        script: touch ~/SUCCESS
+
+    artifacts:
+      - build\windows\x64\runner\release.zip
+
+    publishing:
+      email:
+        recipients:
+          - julian.koenig@js-soft.com
+        notify:
+          success: true
+          failure: true
+
+      # TODO: this script does not support setting windows as a platform yet
+      # scripts:
+      #   - name: Custom MS-Teams integration publish
+      #     script: |
+      #       npm install -g @js-soft/codemagic-tools@1.0.2
+      #       jscm teams-production --platform "windows" --projectName "enmeshed"
