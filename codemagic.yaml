@@ -171,7 +171,7 @@ workflows:
         script: touch ~/SUCCESS
 
     artifacts:
-      - build\windows\x64\runner\release.zip
+      - apps\enmeshed\build\windows\x64\runner\release.zip
 
     publishing:
       email:
