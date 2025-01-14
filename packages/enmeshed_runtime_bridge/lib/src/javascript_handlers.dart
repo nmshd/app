@@ -176,13 +176,13 @@ Future<Map<String, dynamic>> _getDeviceInfo(List<dynamic> args) async {
     final deviceInfo = await deviceInfoPlugin.windowsInfo;
 
     return {
-      'model': deviceInfo.productName,
+      'model': '<unknown>',
       'platform': 'Windows',
-      'uuid': 'ba2000',
-      'manufacturer': 'Windows',
-      'isVirtual': true,
+      'uuid': '<unknown>',
+      'manufacturer': '<unknown>',
+      'isVirtual': false,
       'languageCode': Platform.localeName,
-      'version': deviceInfo.displayVersion,
+      'version': '${deviceInfo.displayVersion} ${deviceInfo.buildNumber}',
       'pushService': 'none',
     };
   }
