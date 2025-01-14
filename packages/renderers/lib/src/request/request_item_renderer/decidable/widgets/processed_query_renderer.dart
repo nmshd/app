@@ -53,7 +53,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
             if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(right: 24),
+                padding: EdgeInsets.only(right: 12),
                 child: IdentityAttributeValueRenderer(
                   value: selectedAttribute != null
                       ? (selectedAttribute as IdentityAttribute).value
@@ -81,19 +81,17 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Column(
-            children: [
-              if (requireManualDecision == true) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-              Divider(
-                color: Colors.grey[400],
-                thickness: 1,
-                height: 0,
-              ),
-            ],
-          ),
-        )
+        Column(
+          children: [
+            if (requireManualDecision == true) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+            SizedBox(height: 12),
+            Divider(
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              thickness: 1,
+              height: 0,
+            ),
+          ],
+        ),
       ]),
     );
   }
@@ -111,12 +109,12 @@ class _ManualDecisionRequired extends StatefulWidget {
 }
 
 class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
-  bool manualDecision = false;
+  // bool manualDecision = false;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 12),
+      padding: EdgeInsets.symmetric(horizontal: 12),
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -135,10 +133,10 @@ class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
                 },
               ),
               activeColor: Colors.green, // TODO: use color scheme
-              value: manualDecision,
+              value: widget.checkboxSettings.isManualDecided,
               onChanged: (bool value) {
                 setState(() {
-                  manualDecision = value;
+                  // widget.checkboxSettings.isManualDecided = value;
                   widget.checkboxSettings.onUpdateManualDecision!(value);
                 });
               },
@@ -202,20 +200,21 @@ class _EmptyAttribute extends StatelessWidget {
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Column(
-            children: [
-              if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-              SizedBox(height: 12),
-              Divider(
-                color: Colors.grey[400],
-                thickness: 1,
-                height: 0,
-              ),
-            ],
-          ),
-        )
+        // Padding(
+        // padding: const EdgeInsets.only(left: 12),
+        // child:
+        Column(
+          children: [
+            if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+            SizedBox(height: 12),
+            Divider(
+              color: Colors.grey[400],
+              thickness: 1,
+              height: 0,
+            ),
+          ],
+        ),
+        // )
       ],
     );
   }

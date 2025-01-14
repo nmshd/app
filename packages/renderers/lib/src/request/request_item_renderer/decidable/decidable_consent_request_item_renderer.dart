@@ -32,7 +32,7 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted);
 
     if (isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());

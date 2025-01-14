@@ -43,7 +43,8 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted, widget.item.requireManualDecision);
+    isManualDecisionAccepted = widget.item.initallyDecided;
 
     final choice = _getChoices().firstOrNull;
     if (choice == null) return;
@@ -66,6 +67,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           checkboxSettings: (
             isChecked: isChecked,
             onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+            isManualDecided: isManualDecisionAccepted,
             onUpdateManualDecision: onUpdateManualDecision
           ),
           onUpdateAttribute: _onUpdateAttribute,
@@ -81,6 +83,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           checkboxSettings: (
             isChecked: isChecked,
             onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+            isManualDecided: isManualDecisionAccepted,
             onUpdateManualDecision: onUpdateManualDecision
           ),
           onUpdateAttribute: _onUpdateAttribute,
@@ -96,6 +99,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           checkboxSettings: (
             isChecked: isChecked,
             onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+            isManualDecided: isManualDecisionAccepted,
             onUpdateManualDecision: onUpdateManualDecision
           ),
           onUpdateAttribute: _onUpdateAttribute,
@@ -111,6 +115,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           checkboxSettings: (
             isChecked: isChecked,
             onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+            isManualDecided: isManualDecisionAccepted,
             onUpdateManualDecision: onUpdateManualDecision
           ),
           onUpdateAttribute: _onUpdateAttribute,
@@ -154,12 +159,12 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     });
 
     if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null) {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: const RejectRequestItemParameters(),
-        );
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
+      );
 
-        return;
+      return;
     }
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,

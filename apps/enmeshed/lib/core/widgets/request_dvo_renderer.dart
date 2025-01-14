@@ -189,6 +189,10 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
         : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
     final request = await session.expander.expandLocalRequestDTO(requestDto.value);
 
+    // if (_request == null) {
+    //   _setController(session, request);
+    // }
+
     setState(() => _request = request);
   }
 
@@ -379,6 +383,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                             onAttributeCreated: () {},
                           );
 
+                          //TODO: no context across async gaps
                           context.pop((id: localAttribute!.id, attribute: localAttribute.content));
                         },
                       ),
@@ -417,7 +422,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                         ),
                       ),
                       // how to get from AbstractAttribute to LocalAttributeDVO?
-                      // if (item.attribute is IdentityAttribute) ...[
+                      // if (item.attribute.value is IdentityAttribute) ...[
                       //   if (item.attribute.isDefaultRepositoryAttribute) ...[
                       //     Icon(Icons.star, color: Theme.of(context).colorScheme.primary, size: 16),
                       //     Gaps.w4,

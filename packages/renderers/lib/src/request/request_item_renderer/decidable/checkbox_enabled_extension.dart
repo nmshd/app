@@ -4,6 +4,10 @@ extension CheckboxExtension on RequestItemDVODerivation {
   // checkbox only disabled if mustBeAccepted is true
   bool get checkboxEnabled => !mustBeAccepted;
 
-// Check everything initially
-  bool get initiallyChecked => true;
+  // always check the checkbox only when requireManualDicision is false
+  bool initiallyChecked(bool mustBeAccepted, [bool? requireManualDecision]) {
+    return mustBeAccepted ? true : (requireManualDecision == true ? false : true);
+  }
+
+  bool get initallyDecided => false;
 }

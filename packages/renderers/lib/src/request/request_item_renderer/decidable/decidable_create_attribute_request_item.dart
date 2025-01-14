@@ -29,12 +29,14 @@ class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
 
 class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableCreateAttributeRequestItemRenderer> {
   late bool isChecked;
+  late bool isManualDecisionAccepted;
 
   @override
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted);
+    isManualDecisionAccepted = widget.item.initallyDecided;
 
     if (isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
@@ -45,7 +47,12 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
   Widget build(BuildContext context) {
     return DraftAttributeRenderer(
       draftAttribute: widget.item.attribute,
-      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null, onUpdateManualDecision: null),
+      checkboxSettings: (
+        isChecked: isChecked,
+        onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+        isManualDecided: isManualDecisionAccepted,
+        onUpdateManualDecision: null,
+      ),
       expandFileReference: widget.expandFileReference,
       openFileDetails: widget.openFileDetails,
     );
