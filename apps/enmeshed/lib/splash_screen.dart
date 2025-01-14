@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:renderers/renderers.dart';
+import 'package:win32_registry/win32_registry.dart';
 
 import 'core/core.dart';
 
@@ -104,10 +105,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
     await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router));
 
+    await _registerWindowsSchemeForDebugMode('nmshd-dev');
+
     final appLinks = AppLinks();
-    appLinks.uriLinkStream.listen((Uri? uri) {
-      if (uri != null) GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: uri.toString());
-    });
+    appLinks.uriLinkStream.listen(_processUri);
 
     final accounts = await runtime.accountServices.getAccounts();
     final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
@@ -126,8 +127,33 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     final initialAppLink = await appLinks.getInitialLink();
-    if (initialAppLink != null) {
-      await GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: initialAppLink.toString());
+    await _processUri(initialAppLink);
+  }
+
+  Future<void> _processUri(Uri? uri) async {
+    if (uri == null) return;
+
+    final uriString = uri.toString().replaceAll('nmshd-dev://', 'nmshd://').replaceAll('qr/#', 'qr#');
+    GetIt.I.get<Logger>().i("Processing URL '$uriString'");
+
+    final result = await GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: uriString);
+    if (result.isError) {
+      GetIt.I.get<Logger>().e("Processing URL '$uriString' failed with code '${result.error.code}' and message '${result.error.message}'");
     }
   }
+}
+
+Future<void> _registerWindowsSchemeForDebugMode(String scheme) async {
+  if (!Platform.isWindows || !kDebugMode) return;
+
+  final appPath = Platform.resolvedExecutable;
+
+  final protocolRegKey = 'Software\\Classes\\$scheme';
+  const protocolRegValue = RegistryValue('URL Protocol', RegistryValueType.string, '');
+  const protocolCmdRegKey = r'shell\open\command';
+  final protocolCmdRegValue = RegistryValue('', RegistryValueType.string, '"$appPath" "%1"');
+
+  Registry.currentUser.createKey(protocolRegKey)
+    ..createValue(protocolRegValue)
+    ..createKey(protocolCmdRegKey).createValue(protocolCmdRegValue);
 }

@@ -54,6 +54,7 @@ dependencies:
   value_renderer: ^1.0.0
   vector_graphics: ^1.1.13
   very_good_analysis: ^6.0.0
+  win32_registry: ^1.1.5
   wolt_modal_sheet: ^0.5.0
 
 dev_dependencies:
