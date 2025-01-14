@@ -47,7 +47,7 @@ Future<void> goToInstructionsOrScanScreen({
   if (!context.mounted) return;
 
   if (showHints) {
-    await context.push('/account/$accountId/instructions/${instructionsType.name}');
+    await context.push('/account/$accountId/instructions/$instructionsType');
   } else {
     await context.push(
       switch (instructionsType) {
