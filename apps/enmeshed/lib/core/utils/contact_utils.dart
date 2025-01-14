@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 import 'dialogs.dart';
+import 'extensions.dart';
 
 const _contactSettingKey = 'contact_settings';
 
@@ -107,7 +108,7 @@ Future<void> deleteContact({
   final relationship = contact.relationship!;
 
   if (relationship.status == RelationshipStatus.Pending) {
-    final accepted = await showRevokeRelationshipConfirmationDialog(context, contactName: contact.name);
+    final accepted = await showRevokeRelationshipConfirmationDialog(context);
     if (!accepted) return;
 
     final result = await session.transportServices.relationships.revokeRelationship(relationshipId: relationship.id);
@@ -120,7 +121,13 @@ Future<void> deleteContact({
     return;
   }
 
-  final accepted = await showDeleteRelationshipConfirmationDialog(context, contactName: contact.name);
+  final accepted = await showDeleteRelationshipConfirmationDialog(
+    context,
+    contactName: contact.name,
+    content: relationship.status == RelationshipStatus.Active && relationship.peerDeletionStatus == null
+        ? context.l10n.contacts_delete_descriptionOnActive
+        : context.l10n.contacts_delete_description,
+  );
   if (!accepted) return;
 
   if (relationship.status == RelationshipStatus.Active) {

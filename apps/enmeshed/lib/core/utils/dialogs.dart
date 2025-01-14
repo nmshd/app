@@ -119,29 +119,26 @@ Future<void> showDownloadFileErrorDialog(BuildContext context) async {
   );
 }
 
-Future<bool> showDeleteRelationshipConfirmationDialog(BuildContext context, {required String contactName}) async {
+Future<bool> showDeleteRelationshipConfirmationDialog(BuildContext context, {required String contactName, required String content}) async {
   return showConfirmationDialog(
     context,
-    icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
     title: Text(
       contactName == unknownContactName ? context.l10n.contacts_delete_title_unknown : context.l10n.contacts_delete_title(contactName),
-      style: Theme.of(context).textTheme.headlineSmall,
-      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.onPrimaryContainer),
     ),
-    content: Text(context.l10n.contacts_delete_description, textAlign: TextAlign.center),
+    content: Text(content, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
     confirmText: context.l10n.delete,
   );
 }
 
-Future<bool> showRevokeRelationshipConfirmationDialog(BuildContext context, {required String contactName}) async {
+Future<bool> showRevokeRelationshipConfirmationDialog(BuildContext context) async {
   return showConfirmationDialog(
     context,
     title: Text(
       context.l10n.contacts_revoke_title,
-      style: Theme.of(context).textTheme.headlineSmall,
-      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.onPrimaryContainer),
     ),
-    content: Text(context.l10n.contacts_revoke_description, textAlign: TextAlign.center),
+    content: Text(context.l10n.contacts_revoke_description, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
     confirmText: context.l10n.contacts_revoke_action,
   );
 }
@@ -156,6 +153,7 @@ Future<bool> showConfirmationDialog(
   final result = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
+      insetPadding: const EdgeInsets.all(20),
       icon: icon,
       title: title,
       content: content,

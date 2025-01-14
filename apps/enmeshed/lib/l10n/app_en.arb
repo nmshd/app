@@ -344,8 +344,12 @@
   "contacts_date": "Date",
   "contacts_addContact": "Add contact",
   "contacts_unknown": "Contact name not available",
-  "contacts_notYetRequested": "not yet requested",
-  "contacts_pending": "not yet accepted",
+  "contacts_notYetRequested": "Contact request not yet sent",
+  "contacts_requestExpired": "Contact request expired",
+  "contacts_pending": "Contact has not yet been confirmed",
+  "contacts_terminatedOrDeletionProposed": "Relationship ended",
+  "contacts_deleted": "Contact no longer exists",
+  "contacts_toBeDeleted": "Will be deleted shortly",
   "contacts_terminated": "Contact terminated the relationship",
   "contacts_deletionProposed": "Relationship permanently terminated",
   "contacts_delete_title": "Delete contact \"{contactName}\"?",
@@ -357,9 +361,10 @@
     }
   },
   "contacts_delete_title_unknown": "Delete contact?",
-  "contacts_delete_description": "All shared and received information will be deleted except for documents. The contact is informed and asked to delete this information. No more messages can be sent or received.",
+  "contacts_delete_description": "All contact information will be deleted and messages can no longer be sent or received. Your documents will remain retained.",
+  "contacts_delete_descriptionOnActive": "All contact information will be deleted and messages can no longer be sent or received. Your documents will be retained. The contact will be notified of the deletion.",
   "contacts_revoke_title": "Revoke contact request?",
-  "contacts_revoke_description": "All information and content of the enquiry will be deleted. No messages or documents can be sent or received.",
+  "contacts_revoke_description": "All information and content of the request will be deleted. Documents that have already been shared are retained.",
   "contacts_revoke_action": "Revoke",
   "contacts_filterOption_actionRequired": "Action required",
   "contacts_filterOption_active": "Active",
@@ -384,15 +389,21 @@
       }
     }
   },
-  "contactDetail_requestedAt": "requested at {since}",
-  "@contactDetail_requestedAt": {
+  "contactDetail_toBeDeletedTitle": "The contact will be deleted on {date}.",
+  "@contactDetail_toBeDeletedTitle": {
     "placeholders": {
-      "since": {
-        "type": "String"
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
       }
     }
   },
-  "contactDetail_notAcceptedYet": "Contact still unconfirmed",
+  "contactDetail_deletedTitle": "The contact no longer exists or is no longer part of \"Enmeshed\".",
+  "contactDetail_terminatedTitle": "The contact has terminated the contact relationship with you.",
+  "contactDetail_terminatedDescription1": "If you also want to end the relationship, you can delete the contact.",
+  "contactDetail_description1": "You can keep the contact in your contact list, but it is no longer possible to exchange information with the contact.",
+  "contactDetail_description2": "If you keep the contact in your contact list, all messages will remain saved in your profile.",
+  "contactDetail_description3": "If you delete the contact from your contact list, all messages with the contact will be deleted from your mailbox. Documents that the contact has shared with you will be retained.",
   "contactDetail_entry": "Entry",
   "contactDetail_addEntry": "Add",
   "contactDetail_selectOrCreateEntryMessage": "Share an entry you have already created with your contact or create a new one.",
