@@ -6,4 +6,5 @@ extension CheckboxExtension on RequestItemDVODerivation {
 // Check everything initially
 
   bool initiallyChecked([bool? isEmpty]) => (isEmpty == null) ? true : (isEmpty && mustBeAccepted) || !isEmpty;
+
 }

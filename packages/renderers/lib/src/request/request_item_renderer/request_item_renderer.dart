@@ -1,5 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:renderers/src/request/request_item_renderer/decidable/decidable_free_text_request_item.dart';
 
 import '../open_attribute_switcher_function.dart';

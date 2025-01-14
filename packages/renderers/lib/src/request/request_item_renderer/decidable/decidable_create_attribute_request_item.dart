@@ -1,9 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
+import '/src/attribute/draft_attribute_renderer.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
@@ -45,7 +45,7 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
   Widget build(BuildContext context) {
     return DraftAttributeRenderer(
       draftAttribute: widget.item.attribute,
-      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null, onUpdateManualDecision: null),
       expandFileReference: widget.expandFileReference,
       openFileDetails: widget.openFileDetails,
     );

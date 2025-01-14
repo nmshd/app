@@ -45,7 +45,7 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
   Widget build(BuildContext context) {
     return DraftAttributeRenderer(
       draftAttribute: widget.item.attribute,
-      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null, onUpdateManualDecision: null),
       expandFileReference: widget.expandFileReference,
       openFileDetails: widget.openFileDetails,
     );

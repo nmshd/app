@@ -53,6 +53,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
         valueType: query.valueType,
         checkboxSettings: checkboxSettings,
         mustBeAccepted: mustBeAccepted,
+        requireManualDecision: requireManualDecision,
         onCreateAttribute: () async {
           onUpdateAttribute!(query.valueType);
         },
@@ -61,51 +62,99 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
     return InkWell(
       onTap: () => onUpdateAttribute!(query.valueType),
-      child: Row(
-        children: [
-          if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(right: 24),
-              child: IdentityAttributeValueRenderer(
-                value:
-                    selectedAttribute != null ? (selectedAttribute as IdentityAttribute).value : query.results.first.value as IdentityAttributeValue,
-                valueHints: query.valueHints,
-                trailing: onUpdateAttribute == null
-                    ? null
-                    : Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (query.results.length > 1)
-                            Flexible(
-                              child: Text('+${query.results.length - 1}'),
-                            ),
-                          const SizedBox(width: 10),
-                          Icon(
-                            Icons.chevron_right,
-                          )
-                        ],
-                      ),
-                expandFileReference: expandFileReference,
-                openFileDetails: openFileDetails,
+      child: Column(children: [
+        Row(
+          children: [
+            if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 24),
+                child: IdentityAttributeValueRenderer(
+                  value: selectedAttribute != null
+                      ? (selectedAttribute as IdentityAttribute).value
+                      : query.results.first.value as IdentityAttributeValue,
+                  valueHints: query.valueHints,
+                  trailing: onUpdateAttribute == null
+                      ? null
+                      : Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (query.results.length > 1)
+                              Flexible(
+                                child: Text('+${query.results.length - 1}'),
+                              ),
+                            const SizedBox(width: 10),
+                            Icon(
+                              Icons.chevron_right,
+                            )
+                          ],
+                        ),
+                  expandFileReference: expandFileReference,
+                  openFileDetails: openFileDetails,
+                ),
               ),
             ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              if (requireManualDecision == true)
+                _ManualDecisionRequired(
+                  checkboxSettings: checkboxSettings!,
+                ),
+            ],
           ),
-        ],
-      ),
+        )
+      ]),
     );
   }
 }
 
-class _ManualDecisionRequired extends StatelessWidget {
-  const _ManualDecisionRequired();
+class _ManualDecisionRequired extends StatefulWidget {
+  final CheckboxSettings checkboxSettings;
+
+  const _ManualDecisionRequired({
+    required this.checkboxSettings,
+  });
+
+  @override
+  State<_ManualDecisionRequired> createState() => _ManualDecisionRequiredState();
+}
+
+class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
+  bool manualDecision = false;
 
   @override
   Widget build(BuildContext context) {
-    return Switch(
-      activeColor: Colors.green,
-      value: false,
-      onChanged: (bool value) {},
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[400], // TODO: correct token
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Switch(
+            activeColor: Colors.green,
+            value: manualDecision,
+            onChanged: (bool value) {
+              setState(() {
+                manualDecision = value;
+                widget.checkboxSettings.onUpdateManualDecision!(value);
+              });
+            },
+          ),
+          SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              'Ich bestätige, dass diese Information mit dem zukünftigen Kontakt geteilt werden soll.',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -115,11 +164,13 @@ class _EmptyAttribute extends StatelessWidget {
   final VoidCallback onCreateAttribute;
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;
+  final bool? requireManualDecision;
 
   const _EmptyAttribute({
     required this.valueType,
     required this.onCreateAttribute,
     required this.mustBeAccepted,
+    this.requireManualDecision,
     this.checkboxSettings,
   });
   @override
@@ -153,9 +204,19 @@ class _EmptyAttribute extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
-          
-          child: _ManualDecisionRequired())
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+              Divider(
+                color: Colors.grey[400],
+                thickness: 1,
+                height: 0,
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
