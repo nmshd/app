@@ -88,6 +88,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           onUpdateAttribute: _onUpdateAttribute,
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
+          requireManualDecision: widget.item.requireManualDecision,
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
           openFileDetails: widget.openFileDetails,
@@ -102,6 +103,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           onUpdateAttribute: _onUpdateAttribute,
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
+          requireManualDecision: widget.item.requireManualDecision,
           expandFileReference: widget.expandFileReference,
           openFileDetails: widget.openFileDetails,
         ),
@@ -118,6 +120,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
           mustBeAccepted: widget.item.mustBeAccepted,
+          requireManualDecision: widget.item.requireManualDecision,
           openFileDetails: widget.openFileDetails,
         ),
     };
@@ -169,7 +172,6 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   Future<void> _onUpdateAttribute([String? valueType, String? value]) async {
-
     if (widget.openAttributeSwitcher == null) return;
 
     final resultValues = Set<AttributeSwitcherChoice>.from(_getChoices());

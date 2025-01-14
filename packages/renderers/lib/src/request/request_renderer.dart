@@ -1,15 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:value_renderer/value_renderer.dart';
 
 import 'open_attribute_switcher_function.dart';
 import 'request_item_group_renderer.dart';
 import 'request_item_renderer/request_item_renderer.dart';
 import 'request_item_renderer/response/response.dart';
 import 'request_renderer_controller.dart';
-
-typedef AttributeWithValue = ({IdentityAttributeDVO? attribute, ValueRendererInputValue? value});
 
 class RequestRenderer extends StatelessWidget {
   final GlobalKey<FormState> formKey;
