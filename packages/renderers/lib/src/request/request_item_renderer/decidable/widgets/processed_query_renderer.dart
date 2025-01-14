@@ -5,7 +5,6 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 import '/src/attribute/identity_attribute_value_renderer.dart';
 import '/src/attribute/relationship_attribute_value_renderer.dart';
 import '/src/checkbox_settings.dart';
-import '../../widgets/value_renderer_list_tile.dart';
 
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
@@ -34,20 +33,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (query.results.isEmpty) {
-      if (query.valueType == 'IdentityFileReference') {
-        return ValueRendererListTile(
-          fieldName: query.name,
-          valueType: query.valueType,
-          mustBeAccepted: mustBeAccepted,
-          onUpdateAttribute: onUpdateAttribute,
-          renderHints: query.renderHints,
-          valueHints: query.valueHints,
-          expandFileReference: (truncatedReference) => expandFileReference(truncatedReference),
-          chooseFile: chooseFile,
-          openFileDetails: openFileDetails,
-        );
-      }
+    if (query.results.isEmpty && selectedAttribute == null) {
       return _EmptyAttribute(
         valueType: query.valueType,
         checkboxSettings: checkboxSettings,
@@ -96,13 +82,15 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.only(left: 12),
           child: Column(
             children: [
-              if (requireManualDecision == true)
-                _ManualDecisionRequired(
-                  checkboxSettings: checkboxSettings!,
-                ),
+              if (requireManualDecision == true) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+              Divider(
+                color: Colors.grey[400],
+                thickness: 1,
+                height: 0,
+              ),
             ],
           ),
         )
@@ -127,32 +115,36 @@ class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[400], // TODO: correct token
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Switch(
-            activeColor: Colors.green,
-            value: manualDecision,
-            onChanged: (bool value) {
-              setState(() {
-                manualDecision = value;
-                widget.checkboxSettings.onUpdateManualDecision!(value);
-              });
-            },
-          ),
-          SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              'Ich bestätige, dass diese Information mit dem zukünftigen Kontakt geteilt werden soll.',
-              style: Theme.of(context).textTheme.bodySmall,
+    return Padding(
+      padding: EdgeInsets.only(right: 12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Switch(
+              activeColor: Colors.green, // TODO: use color scheme
+              // activeThumbImage: Icon(Icons.check),
+              value: manualDecision,
+              onChanged: (bool value) {
+                setState(() {
+                  manualDecision = value;
+                  widget.checkboxSettings.onUpdateManualDecision!(value);
+                });
+              },
             ),
-          )
-        ],
+            SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                'Ich bestätige, dass diese Information mit dem zukünftigen Kontakt geteilt werden soll.',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -204,10 +196,11 @@ class _EmptyAttribute extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.only(right: 12),
           child: Column(
             children: [
               if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+              SizedBox(height: 12),
               Divider(
                 color: Colors.grey[400],
                 thickness: 1,
@@ -418,7 +411,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedAttribute = this.selectedAttribute;
 
-    if (query.results.isEmpty) {
+    if (query.results.isEmpty && selectedAttribute == null) {
       return _EmptyAttribute(
         valueType: query.valueType!,
         checkboxSettings: checkboxSettings,
@@ -438,7 +431,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
               child: IdentityAttributeValueRenderer(
                 titleOverride: requestItemTitle,
                 value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
-                valueHints: query.results.first.valueHints,
+                valueHints: query.results.firstOrNull?.valueHints ?? query.valueHints!,
                 trailing: onUpdateAttribute == null
                     ? null
                     : SizedBox(
