@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
@@ -228,6 +227,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final Future<void> Function([String? valueType, String? value])? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;
+  final bool? requireManualDecision;
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
@@ -239,6 +239,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     this.selectedAttribute,
     this.onUpdateAttribute,
     this.checkboxSettings,
+    this.requireManualDecision,
     required this.mustBeAccepted,
     required this.expandFileReference,
     required this.chooseFile,
@@ -250,18 +251,6 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     final selectedAttribute = this.selectedAttribute;
 
     if (query.results.isEmpty) {
-      // TODO: Use EmptyAttribute widget
-      // return ValueRendererListTile(
-      //   fieldName: query.name,
-      //   renderHints: query.renderHints,
-      //   valueHints: query.valueHints,
-      //   checkboxSettings: checkboxSettings,
-      //   valueType: query.valueType,
-      //   mustBeAccepted: mustBeAccepted,
-      //   expandFileReference: expandFileReference,
-      //   chooseFile: chooseFile,
-      //   openFileDetails: openFileDetails,
-      // );
       return _EmptyAttribute(
         valueType: query.valueType,
         checkboxSettings: checkboxSettings,
@@ -272,23 +261,40 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
       );
     }
 
-    return Row(
+    return Column(
       children: [
-        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
-        Expanded(
-          child: RelationshipAttributeValueRenderer(
-            value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
-            trailing: onUpdateAttribute == null
-                ? null
-                : SizedBox(
-                    width: 50,
-                    child: IconButton(
-                      onPressed: () => onUpdateAttribute!(query.valueType),
-                      icon: const Icon(Icons.chevron_right),
-                    ),
-                  ),
-            expandFileReference: expandFileReference,
-            openFileDetails: openFileDetails,
+        Row(
+          children: [
+            if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+            Expanded(
+              child: RelationshipAttributeValueRenderer(
+                value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
+                trailing: onUpdateAttribute == null
+                    ? null
+                    : SizedBox(
+                        width: 50,
+                        child: IconButton(
+                          onPressed: () => onUpdateAttribute!(query.valueType),
+                          icon: const Icon(Icons.chevron_right),
+                        ),
+                      ),
+                expandFileReference: expandFileReference,
+                openFileDetails: openFileDetails,
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+              Divider(
+                color: Colors.grey[400],
+                thickness: 1,
+                height: 0,
+              ),
+            ],
           ),
         ),
       ],
@@ -304,6 +310,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
   final bool mustBeAccepted;
+  final bool? requireManualDecision;
 
   const ProcessedThirdPartyRelationshipAttributeQueryRenderer({
     super.key,
@@ -311,6 +318,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
     this.checkboxSettings,
     this.selectedAttribute,
     this.onUpdateAttribute,
+    this.requireManualDecision,
     required this.expandFileReference,
     required this.openFileDetails,
     required this.mustBeAccepted,
@@ -331,32 +339,50 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
       );
     }
 
-    return Row(
+    return Column(
       children: [
-        if (checkboxSettings != null)
-          Checkbox(value: checkboxSettings!.isChecked, onChanged: query.results.isEmpty ? null : checkboxSettings!.onUpdateCheckbox),
-        if (selectedAttribute != null || query.results.isNotEmpty)
-          Expanded(
-            child: RelationshipAttributeValueRenderer(
-              value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
-              trailing: onUpdateAttribute == null
-                  ? null
-                  : SizedBox(
-                      width: 50,
-                      child: IconButton(
-                        onPressed: () => onUpdateAttribute!(),
-                        icon: const Icon(Icons.chevron_right),
-                      ),
-                    ),
-              expandFileReference: expandFileReference,
-              openFileDetails: openFileDetails,
-            ),
-          )
-        else
-          TranslatedText(
-            'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
-            style: TextStyle(color: Theme.of(context).colorScheme.error),
+        Row(
+          children: [
+            if (checkboxSettings != null)
+              Checkbox(value: checkboxSettings!.isChecked, onChanged: query.results.isEmpty ? null : checkboxSettings!.onUpdateCheckbox),
+            if (selectedAttribute != null || query.results.isNotEmpty)
+              Expanded(
+                child: RelationshipAttributeValueRenderer(
+                  value:
+                      selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
+                  trailing: onUpdateAttribute == null
+                      ? null
+                      : SizedBox(
+                          width: 50,
+                          child: IconButton(
+                            onPressed: () => onUpdateAttribute!(),
+                            icon: const Icon(Icons.chevron_right),
+                          ),
+                        ),
+                  expandFileReference: expandFileReference,
+                  openFileDetails: openFileDetails,
+                ),
+              )
+            else
+              TranslatedText(
+                'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+              Divider(
+                color: Colors.grey[400],
+                thickness: 1,
+                height: 0,
+              ),
+            ],
           ),
+        )
       ],
     );
   }
@@ -371,6 +397,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final bool mustBeAccepted;
+  final bool? requireManualDecision;
   final void Function(FileDVO) openFileDetails;
 
   const ProcessedIQLQueryRenderer({
@@ -380,6 +407,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     this.checkboxSettings,
     this.selectedAttribute,
     this.onUpdateAttribute,
+    this.requireManualDecision,
     required this.expandFileReference,
     required this.chooseFile,
     required this.mustBeAccepted,
@@ -391,45 +419,6 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     final selectedAttribute = this.selectedAttribute;
 
     if (query.results.isEmpty) {
-      // if (query.valueType != null && query.valueHints != null && query.renderHints != null) {
-      //   if (query.valueType == 'IdentityFileReference') {
-      //     return ValueRendererListTile(
-      //       fieldName: requestItemTitle!,
-      //       valueType: query.valueType!,
-      //       mustBeAccepted: mustBeAccepted,
-      //       onUpdateAttribute: onUpdateAttribute!,
-      //       renderHints: query.renderHints!,
-      //       valueHints: query.valueHints!,
-      //       expandFileReference: (truncatedReference) => expandFileReference(truncatedReference),
-      //       chooseFile: chooseFile,
-      //       openFileDetails: openFileDetails,
-      //     );
-      //   } else {
-      // TODO: use EmptyAttribute widget
-      // why the hell are we using iql queries??
-      // return ValueRendererListTile(
-      //   fieldName: requestItemTitle ??
-      //       switch (query.valueType) {
-      //         'Affiliation' ||
-      //         'BirthDate' ||
-      //         'BirthPlace' ||
-      //         'DeliveryBoxAddress' ||
-      //         'PersonName' ||
-      //         'PostOfficeBoxAddress' ||
-      //         'StreetAddress' =>
-      //           'i18n://attributes.values.${query.valueType}._title',
-      //         _ => 'i18n://dvo.attribute.name.${query.valueType}',
-      //       },
-      //   renderHints: query.renderHints!,
-      //   valueHints: query.valueHints!,
-      //   // onUpdateInput: onUpdateAttribute!,
-      //   valueType: query.valueType!,
-      //   checkboxSettings: checkboxSettings,
-      //   mustBeAccepted: mustBeAccepted,
-      //   expandFileReference: expandFileReference,
-      //   chooseFile: chooseFile,
-      //   openFileDetails: openFileDetails,
-      // );
       return _EmptyAttribute(
         valueType: query.valueType!,
         checkboxSettings: checkboxSettings,
@@ -438,36 +427,44 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
           onUpdateAttribute!(query.valueType);
         },
       );
-      // }
-      // } else {
-      // return Row(
-      //   children: [
-      //     if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: null),
-      //     TranslatedText('i18n://dvo.attributeQuery.IQLQuery.noResults', style: TextStyle(color: Theme.of(context).colorScheme.error)),
-      //   ],
-      // );
-      // }
     }
 
-    return Row(
+    return Column(
       children: [
-        if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
-        Expanded(
-          child: IdentityAttributeValueRenderer(
-            titleOverride: requestItemTitle,
-            value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
-            valueHints: query.results.first.valueHints,
-            trailing: onUpdateAttribute == null
-                ? null
-                : SizedBox(
-                    width: 50,
-                    child: IconButton(
-                      onPressed: () => onUpdateAttribute!(query.valueType),
-                      icon: const Icon(Icons.chevron_right),
-                    ),
-                  ),
-            expandFileReference: expandFileReference,
-            openFileDetails: openFileDetails,
+        Row(
+          children: [
+            if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+            Expanded(
+              child: IdentityAttributeValueRenderer(
+                titleOverride: requestItemTitle,
+                value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
+                valueHints: query.results.first.valueHints,
+                trailing: onUpdateAttribute == null
+                    ? null
+                    : SizedBox(
+                        width: 50,
+                        child: IconButton(
+                          onPressed: () => onUpdateAttribute!(query.valueType),
+                          icon: const Icon(Icons.chevron_right),
+                        ),
+                      ),
+                expandFileReference: expandFileReference,
+                openFileDetails: openFileDetails,
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+              Divider(
+                color: Colors.grey[400],
+                thickness: 1,
+                height: 0,
+              ),
+            ],
           ),
         ),
       ],
