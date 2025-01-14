@@ -65,16 +65,19 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _init(GoRouter router) async {
     await GetIt.I.reset();
 
+    final logger = Logger(printer: SimplePrinter(colors: false));
+    GetIt.I.registerSingleton(logger);
+    GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
+
     // TODO(jkoenig134): we should probably ask for permission when we need it
-    if (!Platform.isWindows) await Permission.camera.request();
+    final cameraStatus = await Permission.camera.request();
+    if (!cameraStatus.isGranted) {
+      logger.w('Camera permission is (permanently) denied');
+    }
 
     if (Platform.isAndroid && kDebugMode) {
       await InAppWebViewController.setWebContentsDebuggingEnabled(true);
     }
-
-    final logger = Logger(printer: SimplePrinter(colors: false));
-    GetIt.I.registerSingleton(logger);
-    GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
 
     final runtime = EnmeshedRuntime(
       logger: logger,
@@ -93,11 +96,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     await setupPush(runtime);
 
-    if (!Platform.isWindows) {
-      final status = await Permission.notification.request();
-      if (!status.isGranted) {
-        logger.w('Notification permission is (permanently) denied');
-      }
+    final status = await Permission.notification.request();
+    if (!status.isGranted) {
+      logger.w('Notification permission is (permanently) denied');
     }
 
     // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
