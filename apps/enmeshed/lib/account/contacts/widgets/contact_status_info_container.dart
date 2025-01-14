@@ -33,8 +33,10 @@ class ContactStatusInfoContainer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _InfoTitle(contact: contact),
-                    Gaps.h8,
+                    if (_getInfoTitle(context) != null) ...[
+                      Text(_getInfoTitle(context)!),
+                      Gaps.h8,
+                    ],
                     Text(
                       contact.relationship?.status == RelationshipStatus.Terminated
                           ? context.l10n.contactDetail_terminatedDescription1
@@ -61,25 +63,20 @@ class ContactStatusInfoContainer extends StatelessWidget {
         contact.relationship?.status == RelationshipStatus.Terminated ||
         contact.relationship?.status == RelationshipStatus.DeletionProposed;
   }
-}
 
-class _InfoTitle extends StatelessWidget {
-  final IdentityDVO contact;
-
-  const _InfoTitle({required this.contact});
-
-  @override
-  Widget build(BuildContext context) {
+  String? _getInfoTitle(BuildContext context) {
     if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.ToBeDeleted && contact.relationship!.peerDeletionDate != null) {
-      return Text(context.l10n.contactDetail_toBeDeletedTitle(DateTime.parse(contact.relationship!.peerDeletionDate!).toLocal()));
+      return context.l10n.contactDetail_toBeDeletedTitle(DateTime.parse(contact.relationship!.peerDeletionDate!).toLocal());
     }
 
-    if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.Deleted) return Text(context.l10n.contactDetail_deletedTitle);
+    if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.Deleted) {
+      return context.l10n.contactDetail_deletedTitle;
+    }
 
     if (contact.relationship?.status == RelationshipStatus.Terminated || contact.relationship?.status == RelationshipStatus.DeletionProposed) {
-      return Text(context.l10n.contactDetail_terminatedTitle);
+      return context.l10n.contactDetail_terminatedTitle;
     }
 
-    return const SizedBox.shrink();
+    return null;
   }
 }
