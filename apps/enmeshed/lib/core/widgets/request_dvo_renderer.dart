@@ -376,7 +376,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                             context: context,
                             accountId: widget.accountId,
                             initialValueType: widget.valueType,
-                            onAttributeCreated: null,
+                            onAttributeCreated: () {},
                           );
 
                           context.pop((id: localAttribute!.id, attribute: localAttribute.content));
@@ -417,13 +417,15 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                         ),
                       ),
                       // how to get from AbstractAttribute to LocalAttributeDVO?
-                      // if (item.attribute.isDefaultRepositoryAttribute) ...[
-                      //   Icon(Icons.star, color: Theme.of(context).colorScheme.primary, size: 16),
-                      //   Gaps.w4,
-                      //   Text(
-                      //     'Bevorzugt',
-                      //     style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                      //   ),
+                      // if (item.attribute is IdentityAttribute) ...[
+                      //   if (item.attribute.isDefaultRepositoryAttribute) ...[
+                      //     Icon(Icons.star, color: Theme.of(context).colorScheme.primary, size: 16),
+                      //     Gaps.w4,
+                      //     Text(
+                      //       'Bevorzugt',
+                      //       style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      //     ),
+                      //   ],
                       // ],
                     ],
                   ),

@@ -19,7 +19,7 @@ import '../widgets/widgets.dart';
 Future<LocalAttributeDTO?> showCreateAttributeModal({
   required BuildContext context,
   required String accountId,
-  required VoidCallback? onAttributeCreated,
+  required VoidCallback onAttributeCreated,
   String? initialValueType,
 }) async {
   final controller = ValueRendererController();
@@ -142,7 +142,7 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
                                 context: context,
                                 createEnabledNotifier: createEnabledNotifier,
                                 value: identityAttribute!,
-                                onAttributeCreated: onAttributeCreated!,
+                                onAttributeCreated: onAttributeCreated,
                               ),
                             );
                           },
