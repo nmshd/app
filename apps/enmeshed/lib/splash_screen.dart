@@ -86,12 +86,11 @@ class _SplashScreenState extends State<SplashScreen> {
         databaseFolder: './database',
       ),
     );
-    await runtime.run();
+    GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
 
-    GetIt.I.registerSingleton<EnmeshedRuntime>(runtime);
     await GetIt.I.allReady();
 
-    if (!Platform.isWindows) await setupPush(runtime);
+    await setupPush(runtime);
 
     if (!Platform.isWindows) {
       final status = await Permission.notification.request();
