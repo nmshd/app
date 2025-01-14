@@ -8,33 +8,27 @@ class ContactCircleAvatar extends StatelessWidget {
   final IdentityDVO contact;
   final double radius;
   final Color? color;
+  final Widget? child;
 
-  const ContactCircleAvatar({required this.contact, required this.radius, this.color, super.key});
+  const ContactCircleAvatar({required this.contact, required this.radius, this.color, this.child, super.key});
 
   @override
   Widget build(BuildContext context) {
     final color = this.color ?? context.customColors.decorativeContainer;
     if (contact.isUnknown) return _UnknownContactAvatar(radius: radius, color: color);
 
+    final textStyle = Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: radius * 0.75, color: context.customColors.onDecorativeContainer);
     final initials = _contactNameLetters(contact.name);
 
-    return CircleAvatar(
-      radius: radius,
-      backgroundColor: color,
-      child: Text(
-        initials,
-        style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: radius * 0.75, color: context.customColors.onDecorativeContainer),
-      ),
-    );
+    return CircleAvatar(radius: radius, backgroundColor: color, child: child ?? Text(initials, style: textStyle));
   }
 
   String _contactNameLetters(String contactName) {
     if (contactName.length <= 2) return contactName;
 
     final splitted = contactName.split(RegExp('[ -]+')).where((e) => e.isNotEmpty).toList();
-    if (splitted.length > 1) {
-      return splitted[0].substring(0, 1) + splitted[1].substring(0, 1);
-    }
+
+    if (splitted.length > 1) return splitted[0].substring(0, 1) + splitted[1].substring(0, 1);
 
     return contactName.substring(0, 2);
   }
