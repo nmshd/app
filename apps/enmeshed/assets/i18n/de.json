@@ -1181,5 +1181,9 @@
       "selectFile": "Datei auswählen",
       "noFileSelected": "Keine Datei ausgewählt"
     }
+  },
+  "requestRenderer": {
+    "noEntry": "Kein Eintrag",
+    "manualDecisionRequiredDescription": "Ich bestätige, dass diese Information mit dem zukünftigen Kontakt geteilt werden soll."
   }
 }

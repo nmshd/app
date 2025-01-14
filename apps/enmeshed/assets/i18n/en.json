@@ -1181,5 +1181,10 @@
       "selectFile": "Select File",
       "noFileSelected": "No file selected"
     }
+  },
+  "requestRenderer": {
+    "noEntry": "No Entry",
+    "manualDecisionRequiredDescription": "I confirm that this information should be shared with the contact."
+
   }
 }

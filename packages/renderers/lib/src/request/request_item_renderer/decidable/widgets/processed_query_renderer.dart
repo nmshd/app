@@ -127,7 +127,6 @@ class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
           children: [
             Switch(
               activeColor: Colors.green, // TODO: use color scheme
-              // activeThumbImage: Icon(Icons.check),
               value: manualDecision,
               onChanged: (bool value) {
                 setState(() {
@@ -138,8 +137,8 @@ class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
             ),
             SizedBox(width: 8),
             Expanded(
-              child: Text(
-                'Ich bestätige, dass diese Information mit dem zukünftigen Kontakt geteilt werden soll.',
+              child: TranslatedText(
+                'i18n://requestRenderer.manualDecisionRequiredDescription',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             )

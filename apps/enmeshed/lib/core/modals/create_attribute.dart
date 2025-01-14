@@ -16,18 +16,12 @@ import '../types/types.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
 
-Future<void> showCreateAttributeModal({
+Future<LocalAttributeDTO?> showCreateAttributeModal({
   required BuildContext context,
   required String accountId,
-  required void Function({required BuildContext context, required IdentityAttributeValue value})? onCreateAttributePressed,
   required VoidCallback? onAttributeCreated,
   String? initialValueType,
 }) async {
-  assert(
-    (onCreateAttributePressed != null && onAttributeCreated == null) || (onCreateAttributePressed == null && onAttributeCreated != null),
-    'Either onCreateAttributePressed or onAttributeCreated must be provided',
-  );
-
   final controller = ValueRendererController();
   final createEnabledNotifier = ValueNotifier<bool>(false);
   final valueTypeNotifier = ValueNotifier<String?>(null);
@@ -78,9 +72,9 @@ Future<void> showCreateAttributeModal({
     child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
   );
 
-  if (!context.mounted) return;
+  if (!context.mounted) throw Exception('Context is not mounted');
 
-  await WoltModalSheet.show<void>(
+  final localAttribute = await WoltModalSheet.show<LocalAttributeDTO>(
     useSafeArea: false,
     context: context,
     pageIndexNotifier: pageIndexNotifier,
@@ -141,15 +135,17 @@ Future<void> showCreateAttributeModal({
                     style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
                     onPressed: !enabled
                         ? null
-                        : () => onAttributeCreated != null
-                            ? createRepositoryAttribute(
+                        : () async {
+                            context.pop(
+                              await createRepositoryAttribute(
                                 accountId: accountId,
                                 context: context,
                                 createEnabledNotifier: createEnabledNotifier,
                                 value: identityAttribute!,
-                                onAttributeCreated: onAttributeCreated,
-                              )
-                            : onCreateAttributePressed!(context: context, value: identityAttribute!),
+                                onAttributeCreated: onAttributeCreated!,
+                              ),
+                            );
+                          },
                     child: Text(context.l10n.save),
                   ),
                 ],
@@ -226,6 +222,7 @@ Future<void> showCreateAttributeModal({
   createEnabledNotifier.dispose();
   valueTypeNotifier.dispose();
   pageIndexNotifier.dispose();
+  return localAttribute;
 }
 
 class _EditableAttributes extends StatefulWidget {

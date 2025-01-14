@@ -280,20 +280,36 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     required AttributeSwitcherChoice? currentChoice,
     ValueHints? valueHints,
   }) async {
-    final choice = await Navigator.of(context).push<AttributeSwitcherChoice?>(
-      MaterialPageRoute(
-        builder: (ctx) => _AttributeSwitcher(
-          choices: choices,
-          currentChoice: currentChoice,
-          valueHints: valueHints,
-          valueType: valueType,
-          accountId: widget.accountId,
-          currentAddress: _identityInfo!.address,
+    if (choices.isEmpty) {
+      final localAttribute = await showCreateAttributeModal(
+        context: context,
+        accountId: widget.accountId,
+        initialValueType: valueType,
+        onAttributeCreated: () {
+          final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+          _loadRequest(session);
+        },
+      );
+      return ((id: localAttribute!.id, attribute: localAttribute.content)) as AttributeSwitcherChoice;
+    } else {
+      final choice = await Navigator.of(context).push<AttributeSwitcherChoice?>(
+        MaterialPageRoute(
+          builder: (ctx) => _AttributeSwitcher(
+            choices: choices,
+            currentChoice: currentChoice,
+            valueHints: valueHints,
+            valueType: valueType,
+            accountId: widget.accountId,
+            currentAddress: _identityInfo!.address,
+          ),
         ),
-      ),
-    );
+      );
 
-    return choice;
+      final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+      await _loadRequest(session);
+
+      return choice;
+    }
   }
 }
 
@@ -355,15 +371,16 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                       TextButton.icon(
                         icon: const Icon(Icons.add, size: 16),
                         label: Text(context.l10n.contactDetail_addEntry),
-                        onPressed: () => showCreateAttributeModal(
-                          context: context,
-                          accountId: widget.accountId,
-                          onCreateAttributePressed: ({required BuildContext context, required IdentityAttributeValue value}) => context
-                            ..pop()
-                            ..pop((id: null, attribute: IdentityAttribute(owner: widget.currentAddress, value: value))),
-                          initialValueType: widget.valueType,
-                          onAttributeCreated: null,
-                        ),
+                        onPressed: () async {
+                          final localAttribute = await showCreateAttributeModal(
+                            context: context,
+                            accountId: widget.accountId,
+                            initialValueType: widget.valueType,
+                            onAttributeCreated: null,
+                          );
+
+                          context.pop((id: localAttribute!.id, attribute: localAttribute.content));
+                        },
                       ),
                   ],
                 ),
@@ -377,34 +394,40 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
               itemBuilder: (context, index) {
                 final item = widget.choices[index];
 
-                return ColoredBox(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (widget.valueHints != null)
-                          Expanded(
-                            child: AttributeRenderer(
-                              attribute: item.attribute,
-                              valueHints: widget.valueHints!,
-                              showTitle: false,
-                              expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                              openFileDetails: (file) => context.push(
-                                '/account/${widget.accountId}/my-data/files/${file.id}',
-                                extra: createFileRecord(file: file),
-                              ),
-                            ),
-                          ),
+                return ListTile(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (widget.valueHints != null)
                         Radio<AttributeSwitcherChoice>(
                           value: item,
                           groupValue: selectedOption,
                           onChanged: (AttributeSwitcherChoice? value) => setState(() => selectedOption = value),
                         ),
-                      ],
-                    ),
-                    onTap: () => setState(() => selectedOption = item),
+                      Expanded(
+                        child: AttributeRenderer(
+                          attribute: item.attribute,
+                          valueHints: widget.valueHints!,
+                          showTitle: false,
+                          expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                          openFileDetails: (file) => context.push(
+                            '/account/${widget.accountId}/my-data/files/${file.id}',
+                            extra: createFileRecord(file: file),
+                          ),
+                        ),
+                      ),
+                      // how to get from AbstractAttribute to LocalAttributeDVO?
+                      // if (item.attribute.isDefaultRepositoryAttribute) ...[
+                      //   Icon(Icons.star, color: Theme.of(context).colorScheme.primary, size: 16),
+                      //   Gaps.w4,
+                      //   Text(
+                      //     'Bevorzugt',
+                      //     style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      //   ),
+                      // ],
+                    ],
                   ),
+                  onTap: () => setState(() => selectedOption = item),
                 );
               },
             ),
