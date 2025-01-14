@@ -156,14 +156,10 @@ workflows:
         script: melos bootstrap
 
       - name: Build appbundle with Flutter
+        # TODO: build name gen
         script: |
           flutter config --enable-windows-desktop
-          flutter build windows --release \
-            --build-number=$PROJECT_BUILD_NUMBER \
-            --build-name=${CM_TAG/#enmeshed-v/} \
-            --dart-define="app_baseUrl=$app_baseUrl" \
-            --dart-define="app_clientId=$app_clientId" \
-            --dart-define="app_clientSecret=$app_clientSecret"
+          flutter build windows --release --build-number=$PROJECT_BUILD_NUMBER --build-name=1.0.0 --dart-define="app_baseUrl=$app_baseUrl" --dart-define="app_clientId=$app_clientId" --dart-define="app_clientSecret=$app_clientSecret"
           cd build/windows/x64/runner/Release
           7z a -r ../release.zip ./*
         working_directory: apps/enmeshed
