@@ -37,7 +37,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked();
+    isChecked = widget.item.initiallyChecked;
 
     _choice = _getProposedChoice();
 

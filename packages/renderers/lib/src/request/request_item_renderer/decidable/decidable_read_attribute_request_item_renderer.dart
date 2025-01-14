@@ -43,12 +43,10 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   void initState() {
     super.initState();
 
-    final choice = _getChoices().firstOrNull;
-    isChecked = widget.item.initiallyChecked(choice == null);
+    isChecked = widget.item.initiallyChecked;
 
-    if (choice == null) {
-      return;
-    }
+    final choice = _getChoices().firstOrNull;
+    if (choice == null) return;
 
     _choice = choice;
 

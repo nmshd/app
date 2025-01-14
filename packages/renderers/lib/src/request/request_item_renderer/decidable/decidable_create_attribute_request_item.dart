@@ -34,7 +34,7 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked();
+    isChecked = widget.item.initiallyChecked;
 
     if (isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());

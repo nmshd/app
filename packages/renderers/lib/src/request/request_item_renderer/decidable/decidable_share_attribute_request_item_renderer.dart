@@ -34,7 +34,7 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked();
+    isChecked = widget.item.initiallyChecked;
 
     if (isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());

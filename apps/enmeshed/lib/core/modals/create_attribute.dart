@@ -72,7 +72,7 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
     child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
   );
 
-  if (!context.mounted) throw Exception('Context is not mounted');
+  if (!context.mounted) return null;
 
   final localAttribute = await WoltModalSheet.show<LocalAttributeDTO>(
     useSafeArea: false,

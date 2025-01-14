@@ -289,6 +289,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
           _loadRequest(session);
         },
       );
+
       return ((id: localAttribute!.id, attribute: localAttribute.content)) as AttributeSwitcherChoice;
     } else {
       final choice = await Navigator.of(context).push<AttributeSwitcherChoice?>(
