@@ -126,6 +126,14 @@ class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Switch(
+              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                (Set<WidgetState> states) {
+                  if (states.contains(WidgetState.selected)) {
+                    return Icon(Icons.check); //TODO: Julian thinks about it :)
+                  }
+                  return const Icon(Icons.close);
+                },
+              ),
               activeColor: Colors.green, // TODO: use color scheme
               value: manualDecision,
               onChanged: (bool value) {
@@ -195,7 +203,7 @@ class _EmptyAttribute extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 12),
+          padding: const EdgeInsets.only(left: 12),
           child: Column(
             children: [
               if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
@@ -277,7 +285,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.only(left: 12),
           child: Column(
             children: [
               if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
@@ -363,7 +371,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.only(left: 12),
           child: Column(
             children: [
               if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
@@ -447,7 +455,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.only(left: 12),
           child: Column(
             children: [
               if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),

@@ -133,7 +133,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       isChecked = value;
     });
 
-    if (_choice == null || !value) {
+    if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null || !value) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
         value: const RejectRequestItemParameters(),
@@ -155,15 +155,13 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       isManualDecisionAccepted = value;
     });
 
-    if (widget.item.requireManualDecision == true) {
-      if (!value) {
+    if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null) {
         widget.controller?.writeAtIndex(
           index: widget.itemIndex,
           value: const RejectRequestItemParameters(),
         );
 
         return;
-      }
     }
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,

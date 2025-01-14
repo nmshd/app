@@ -189,7 +189,6 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
         : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
     final request = await session.expander.expandLocalRequestDTO(requestDto.value);
 
-    _setController(session, request);
     setState(() => _request = request);
   }
 
