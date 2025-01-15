@@ -118,7 +118,8 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
         messages: List<MessageDTO>.from((data['messages'] as List<dynamic>).map((e) => MessageDTO.fromJson(e))),
         relationships: List<RelationshipDTO>.from((data['relationships'] as List<dynamic>).map((e) => RelationshipDTO.fromJson(e))),
         identityDeletionProcesses: List<IdentityDeletionProcessDTO>.from(
-            (data['identityDeletionProcesses'] as List<dynamic>).map((e) => IdentityDeletionProcessDTO.fromJson(e))),
+          (data['identityDeletionProcesses'] as List<dynamic>).map((e) => IdentityDeletionProcessDTO.fromJson(e)),
+        ),
       ),
     'app.localAccountDeletionDateChanged' => LocalAccountDeletionDateChangedEvent(
         eventTargetAddress: eventTargetAddress,
