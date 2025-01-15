@@ -125,4 +125,5 @@ msix_config:
   tile_icon_path: assets/icon-512.png
   icons_background_color: transparent
   build_windows: false
+  languages: en, de
   # capabilities: "internetClient,internetClientServer,privateNetworkClientServer"
