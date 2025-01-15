@@ -10,8 +10,6 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart' as path;
-import 'package:renderers/renderers.dart';
-import 'package:value_renderer/value_renderer.dart';
 
 import '../constants.dart';
 import '../types/types.dart';
@@ -232,22 +230,11 @@ class _UploadFileState extends State<UploadFile> {
   Future<RepositoryAttributeDVO> _createFileReferenceAttribute(FileDVO file) async {
     final createEnabledNotifier = ValueNotifier<bool>(false);
 
-    final canCreateAttribute = composeIdentityAttributeValue(
-      isComplex: false,
-      currentAddress: widget.accountId,
-      valueType: 'IdentityFileReference',
-      inputValue: ValueRendererInputValueString(file.truncatedReference),
-    );
-
-    if (canCreateAttribute != null) {
-      createEnabledNotifier.value = true;
-    }
-
     final fileReferenceResult = await createRepositoryAttribute(
       accountId: widget.accountId,
       context: context,
       createEnabledNotifier: createEnabledNotifier,
-      value: canCreateAttribute!.value,
+      value: IdentityFileReferenceAttributeValue(value: file.truncatedReference),
       onAttributeCreated: () => createEnabledNotifier.value = true,
       tags: _tagController.text.isNotEmpty ? [_tagController.text] : null,
     );

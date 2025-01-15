@@ -344,8 +344,12 @@
   "contacts_date": "Datum",
   "contacts_addContact": "Kontakt hinzufügen",
   "contacts_unknown": "Kontaktname nicht verfügbar",
-  "contacts_notYetRequested": "noch nicht angefragt",
-  "contacts_pending": "noch nicht bestätigt",
+  "contacts_notYetRequested": "Kontaktanfrage noch nicht abgeschickt",
+  "contacts_requestExpired": "Kontaktanfrage abgelaufen",
+  "contacts_pending": "Kontakt wurde noch nicht bestätigt",
+  "contacts_terminatedOrDeletionProposed": "Beziehung wurde beendet",
+  "contacts_deleted": "Kontakt existiert nicht mehr",
+  "contacts_toBeDeleted": "Wird in Kürze gelöscht",
   "contacts_terminated": "Kontakt hat die Beziehung beendet",
   "contacts_deletionProposed": "Beziehung permanent beendet",
   "contacts_delete_title": "Kontakt \"{contactName}\" löschen?",
@@ -357,9 +361,10 @@
     }
   },
   "contacts_delete_title_unknown": "Kontakt löschen?",
-  "contacts_delete_description": "Es werden alle geteilten und empfangene Informationen bis auf Dokumente gelöscht. Der Kontakt wird darüber Informiert und gebeten diese Informationen auch zu löschen. Es können keine Nachrichten mehr gesendet oder empfangen werden.",
+  "contacts_delete_description": "Alle Kontaktinformationen werden gelöscht und es können keine Nachrichten mehr gesendet oder empfangen werden. Ihre Dokumente bleiben erhalten.",
+  "contacts_delete_descriptionOnActive": "Alle Kontaktinformationen werden gelöscht und es können keine Nachrichten mehr gesendet oder empfangen werden. Ihre Dokumente bleiben erhalten. Der Kontakt wird über die Löschung informiert.",
   "contacts_revoke_title": "Kontaktanfrage zurückziehen?",
-  "contacts_revoke_description": "Es werden alle Informationen und Inhalte der Anfrage gelöscht. Es können keine Nachrichten und Dokumente gesendet oder empfangen werden.",
+  "contacts_revoke_description": "Es werden alle Informationen und Inhalte der Anfrage gelöscht. Bereits geteilte Dokumente bleiben erhalten.",
   "contacts_revoke_action": "Zurückziehen",
   "contacts_filterOption_actionRequired": "Aktion erforderlich",
   "contacts_filterOption_active": "Aktiv",
@@ -384,15 +389,21 @@
       }
     }
   },
-  "contactDetail_requestedAt": "angefragt am {since}",
-  "@contactDetail_requestedAt": {
+  "contactDetail_toBeDeletedTitle": "Der Kontakt wird am {date} gelöscht.",
+  "@contactDetail_toBeDeletedTitle": {
     "placeholders": {
-      "since": {
-        "type": "String"
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
       }
     }
   },
-  "contactDetail_notAcceptedYet": "Kontakt noch unbestätigt",
+  "contactDetail_deletedTitle": "Der Kontakt existiert nicht mehr oder ist nicht mehr Teil von \"Enmeshed\".",
+  "contactDetail_terminatedTitle": "Der Kontakt hat die Kontaktbeziehung zu Ihnen beendet.",
+  "contactDetail_terminatedDescription1": "Wenn Sie die Beziehung ebenfalls beenden möchten können Sie den Kontakt löschen.",
+  "contactDetail_description1": "Sie können den Kontakt in Ihrer Kontaktliste behalten, ein Austausch mit dem Kontakt ist jedoch nicht mehr möglich.",
+  "contactDetail_description2": "Wenn Sie den Kontakt in Ihrer Kontaktliste behalten bleiben sämtliche Nachrichten in Ihrem Profil gespeichert.",
+  "contactDetail_description3": "Wenn Sie den Kontakt aus Ihrer Kontaktliste löschen werden sämtliche Nachrichten mit dem Kontakt aus Ihrem Postfach gelöscht. Dokumente, die der Kontakt mit Ihnen geteilt hat bleiben erhalten.",
   "contactDetail_entry": "Eintrag",
   "contactDetail_addEntry": "Hinzufügen",
   "contactDetail_selectOrCreateEntryMessage": "Teilen Sie einen bereits angelegten Eintrag mit Ihrem Kontakt oder legen Sie einen neuen dafür an.",
@@ -745,5 +756,7 @@
     "placeholders": {
       "count": {}
     }
-  }
+  },
+  "passwordProtection_incorrectPassword": "Sie haben ein falsches Passwort eingegeben. Versuchen Sie es erneut.",
+  "passwordProtection_incorrectPin": "Sie haben eine falsche PIN eingegeben. Versuchen Sie es erneut."
 }
