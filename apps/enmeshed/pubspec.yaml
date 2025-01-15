@@ -87,6 +87,7 @@ flutter_icons:
   ios: true
   windows:
     generate: true
+    image_path: "assets/icon-512.png"
   remove_alpha_ios: true
   image_path_ios_dark_transparent: "assets/icon_dark.png"
   image_path_ios_tinted_grayscale: "assets/icon_grayscale.png"
