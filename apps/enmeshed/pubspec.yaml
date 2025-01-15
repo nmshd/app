@@ -111,9 +111,19 @@ flutter_native_splash:
   android: true
   ios: true
 
+# dart run msix:create
 msix_config:
   display_name: enmeshed
+  publisher_display_name: js-soft
+  identity_name: js-soft.enmeshed
+  publisher: CN=CB3048C3-A086-471C-AF11-83ABB7396C98
+  store: true
+  # TODO: this should be set by codemagic (<version>.0)
   msix_version: 1.0.0.0
   protocol_activation: nmshd
-  logo_path: assets/icon.png
+  logo_path: assets/icon-512.png
+  start_menu_icon_path: assets/icon-512.png
+  tile_icon_path: assets/icon-512.png
+  icons_background_color: transparent
   build_windows: false
+  # capabilities: "internetClient,internetClientServer,privateNetworkClientServer"
