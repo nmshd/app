@@ -16,8 +16,8 @@ Future<void> showDeleteProfileOrIdentityModal({
   required BuildContext context,
 }) async {
   final pageIndexNotifier = ValueNotifier<int>(0);
-  final deleteFuture = ValueNotifier<Future<void>?>(null);
-  Future<void> Function()? retryFunction;
+  final deleteFuture = ValueNotifier<Future<Result<dynamic>>?>(null);
+  final retryFunction = ValueNotifier<Future<Result<dynamic>> Function()?>(null);
 
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(localAccount.address!);
 
@@ -62,8 +62,21 @@ Future<void> showDeleteProfileOrIdentityModal({
           child: ShouldDeleteProfile(
             cancel: () => pageIndexNotifier.value = 0,
             delete: () {
-              deleteFuture.value = GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(localAccount.id);
-              retryFunction = () => GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(localAccount.id);
+              retryFunction.value = () async {
+                try {
+                  await GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(localAccount.id);
+                  return Result.success(null);
+                } catch (e) {
+                  return Result.failure(
+                    RuntimeError(
+                      message: e.toString(),
+                      code: 'identity.deletion.failed',
+                    ),
+                  );
+                }
+              };
+
+              deleteFuture.value = retryFunction.value!();
               pageIndexNotifier.value = 3;
             },
             profileName: localAccount.name,
@@ -82,7 +95,7 @@ Future<void> showDeleteProfileOrIdentityModal({
             cancel: () => pageIndexNotifier.value = 0,
             delete: () {
               deleteFuture.value = session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
-              retryFunction = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
+              retryFunction.value = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
               pageIndexNotifier.value = 3;
             },
             deleteNow: () {
@@ -91,7 +104,7 @@ Future<void> showDeleteProfileOrIdentityModal({
               deleteFuture.value = session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
                 lengthOfGracePeriodInDays: minutesInDays,
               );
-              retryFunction = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
+              retryFunction.value = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
                     lengthOfGracePeriodInDays: minutesInDays,
                   );
               pageIndexNotifier.value = 3;
