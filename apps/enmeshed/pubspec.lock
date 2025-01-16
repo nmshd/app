@@ -223,6 +223,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  enmeshed_ui_kit:
+    dependency: "direct main"
+    description:
+      path: "../../packages/enmeshed_ui_kit"
+      relative: true
+    source: path
+    version: "1.0.0"
   equatable:
     dependency: transitive
     description:
