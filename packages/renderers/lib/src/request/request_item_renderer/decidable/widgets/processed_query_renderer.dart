@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '/src/attribute/identity_attribute_value_renderer.dart';
@@ -47,52 +48,50 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 
     return InkWell(
       onTap: () => onUpdateAttribute!(query.valueType),
-      child: Column(children: [
-        Row(
-          children: [
-            if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(right: 12),
-                child: IdentityAttributeValueRenderer(
-                  value: selectedAttribute != null
-                      ? (selectedAttribute as IdentityAttribute).value
-                      : query.results.first.value as IdentityAttributeValue,
-                  valueHints: query.valueHints,
-                  trailing: onUpdateAttribute == null
-                      ? null
-                      : Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (query.results.length > 1)
-                              Flexible(
-                                child: Text('+${query.results.length - 1}'),
-                              ),
-                            const SizedBox(width: 10),
-                            Icon(
-                              Icons.chevron_right,
-                            )
-                          ],
-                        ),
-                  expandFileReference: expandFileReference,
-                  openFileDetails: openFileDetails,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Column(children: [
+          Row(
+            children: [
+              if (checkboxSettings != null)
+                IgnorePointer(child: Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox)),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(right: 12),
+                  child: IdentityAttributeValueRenderer(
+                    titleOverride: (title) => '$title${mustBeAccepted ? '*' : ''}',
+                    value: selectedAttribute != null
+                        ? (selectedAttribute as IdentityAttribute).value
+                        : query.results.first.value as IdentityAttributeValue,
+                    valueHints: query.valueHints,
+                    trailing: onUpdateAttribute == null
+                        ? null
+                        : Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (query.results.length > 1)
+                                Flexible(
+                                  child: Text('+${query.results.length - 1}'),
+                                ),
+                              const SizedBox(width: 10),
+                              Icon(
+                                Icons.chevron_right,
+                              )
+                            ],
+                          ),
+                    expandFileReference: expandFileReference,
+                    openFileDetails: openFileDetails,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            if (requireManualDecision == true) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+            ],
+          ),
+          if (requireManualDecision == true) ...[
             SizedBox(height: 12),
-            Divider(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-              thickness: 1,
-              height: 0,
-            ),
+            _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
           ],
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 }
@@ -115,40 +114,39 @@ class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Switch(
-              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
-                (Set<WidgetState> states) {
-                  if (states.contains(WidgetState.selected)) {
-                    return Icon(Icons.check); //TODO: Julian thinks about it :)
-                  }
-                  return const Icon(Icons.close);
+      child: Material(
+        clipBehavior: Clip.hardEdge,
+        borderRadius: BorderRadius.circular(4),
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        child: InkWell(
+          onTap: () {
+            setState(() => widget.checkboxSettings.onUpdateManualDecision!(!widget.checkboxSettings.isManualDecided));
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Switch(
+                thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                  (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
+                ),
+                activeColor: Colors.green, // TODO: use color scheme
+                value: widget.checkboxSettings.isManualDecided,
+                onChanged: (bool value) {
+                  setState(() {
+                    // widget.checkboxSettings.isManualDecided = value;
+                    widget.checkboxSettings.onUpdateManualDecision!(value);
+                  });
                 },
               ),
-              activeColor: Colors.green, // TODO: use color scheme
-              value: widget.checkboxSettings.isManualDecided,
-              onChanged: (bool value) {
-                setState(() {
-                  // widget.checkboxSettings.isManualDecided = value;
-                  widget.checkboxSettings.onUpdateManualDecision!(value);
-                });
-              },
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: TranslatedText(
-                'i18n://requestRenderer.manualDecisionRequiredDescription',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            )
-          ],
+              SizedBox(width: 8),
+              Expanded(
+                child: TranslatedText(
+                  'i18n://requestRenderer.manualDecisionRequiredDescription',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -171,51 +169,41 @@ class _EmptyAttribute extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
+    return InkWell(
+      onTap: onCreateAttribute,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Column(
           children: [
-            if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
-            Expanded(
-              child: ListTile(
-                  onTap: onCreateAttribute,
-                  contentPadding: EdgeInsets.only(right: 24),
-                  visualDensity: VisualDensity.compact,
-                  tileColor: Theme.of(context).colorScheme.surface,
-                  title: Row(
-                    children: [
-                      TranslatedText(
-                        'i18n://dvo.attribute.name.$valueType',
-                        style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                      ),
-                      if (mustBeAccepted)
-                        Text('*', style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant))
-                    ],
+            Row(
+              children: [
+                // TODO: long press on checkbox is absorbed by the InkWell below
+                if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
+                Expanded(
+                  child: ListTile(
+                    contentPadding: EdgeInsets.only(right: 24),
+                    visualDensity: VisualDensity.compact,
+                    tileColor: Theme.of(context).colorScheme.surface,
+                    title: Text(
+                      '${FlutterI18n.translate(context, 'dvo.attribute.name.$valueType')}${mustBeAccepted ? '*' : ''}',
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    ),
+                    subtitle: TranslatedText(
+                      'i18n://requestRenderer.noEntry',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+                    ),
+                    trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 24),
                   ),
-                  subtitle: TranslatedText(
-                    'i18n://requestRenderer.noEntry',
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
-                  ),
-                  trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 24)),
+                ),
+              ],
             ),
+            if (requireManualDecision == true) ...[
+              SizedBox(height: 12),
+              _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+            ],
           ],
         ),
-        // Padding(
-        // padding: const EdgeInsets.only(left: 12),
-        // child:
-        Column(
-          children: [
-            if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-            SizedBox(height: 12),
-            Divider(
-              color: Colors.grey[400],
-              thickness: 1,
-              height: 0,
-            ),
-          ],
-        ),
-        // )
-      ],
+      ),
     );
   }
 }
@@ -283,19 +271,10 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Column(
-            children: [
-              if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-              Divider(
-                color: Colors.grey[400],
-                thickness: 1,
-                height: 0,
-              ),
-            ],
-          ),
-        ),
+        if (requireManualDecision == true) ...[
+          SizedBox(height: 12),
+          _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+        ],
       ],
     );
   }
@@ -369,19 +348,10 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
               ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Column(
-            children: [
-              if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-              Divider(
-                color: Colors.grey[400],
-                thickness: 1,
-                height: 0,
-              ),
-            ],
-          ),
-        )
+        if (requireManualDecision == true) ...[
+          SizedBox(height: 12),
+          _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+        ],
       ],
     );
   }
@@ -418,6 +388,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     final selectedAttribute = this.selectedAttribute;
 
     if (query.results.isEmpty && selectedAttribute == null) {
+      // TODO: title override missing
       return _EmptyAttribute(
         valueType: query.valueType!,
         checkboxSettings: checkboxSettings,
@@ -435,7 +406,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
             if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
             Expanded(
               child: IdentityAttributeValueRenderer(
-                titleOverride: requestItemTitle,
+                titleOverride: (title) => '${requestItemTitle ?? title}${mustBeAccepted ? '*' : ''}',
                 value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
                 valueHints: query.results.firstOrNull?.valueHints ?? query.valueHints!,
                 trailing: onUpdateAttribute == null
@@ -453,19 +424,10 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Column(
-            children: [
-              if (requireManualDecision == true && checkboxSettings != null) _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-              Divider(
-                color: Colors.grey[400],
-                thickness: 1,
-                height: 0,
-              ),
-            ],
-          ),
-        ),
+        if (requireManualDecision == true) ...[
+          SizedBox(height: 12),
+          _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+        ],
       ],
     );
   }
