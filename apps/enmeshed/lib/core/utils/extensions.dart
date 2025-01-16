@@ -7,15 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-import '../../themes/custom_colors.dart';
 import '../constants.dart';
 
 extension AppLocalizationsExtension on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this)!;
-}
-
-extension GetCustomColors on BuildContext {
-  CustomColors get customColors => Theme.of(this).extension<CustomColors>()!;
 }
 
 extension I18nTranslationExtension on BuildContext {
