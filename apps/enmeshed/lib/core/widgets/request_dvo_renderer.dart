@@ -383,8 +383,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                             onAttributeCreated: () {},
                           );
 
-                          //TODO: no context across async gaps
-                          context.pop((id: localAttribute!.id, attribute: localAttribute.content));
+                          if (context.mounted) context.pop((id: localAttribute!.id, attribute: localAttribute.content));
                         },
                       ),
                   ],
