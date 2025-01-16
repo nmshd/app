@@ -217,6 +217,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return results.map((result) => (id: result.id, attribute: result.content)).toList();
+    return results
+        .map(
+          (result) => (
+            id: result.id,
+            attribute: result.content,
+            isDefaultRepositoryAttribute: result is RepositoryAttributeDVO ? result.isDefault : null,
+          ),
+        )
+        .toList();
   }
 }

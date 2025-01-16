@@ -137,16 +137,22 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     };
 
     return {
-      ...results.map((result) => (id: result.id, attribute: result.content)),
+      ...results.map(
+        (result) => (
+          id: result.id,
+          attribute: result.content,
+          isDefaultRepositoryAttribute: result is RepositoryAttributeDVO ? result.isDefault : null,
+        ),
+      ),
       _getProposedChoice(),
       _choice,
     }.toList();
   }
 
-  ({String? id, AbstractAttribute attribute}) _getProposedChoice() {
+  AttributeSwitcherChoice _getProposedChoice() {
     return switch (widget.item.attribute) {
-      final DraftIdentityAttributeDVO dvo => (id: null, attribute: dvo.content),
-      final DraftRelationshipAttributeDVO dvo => (id: null, attribute: dvo.content),
+      final DraftIdentityAttributeDVO dvo => (id: null, attribute: dvo.content, isDefaultRepositoryAttribute: null),
+      final DraftRelationshipAttributeDVO dvo => (id: null, attribute: dvo.content, isDefaultRepositoryAttribute: null),
     };
   }
 }
