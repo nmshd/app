@@ -1,13 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:i18n_translated_text/i18n_translated_text.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class FileReferenceRenderer extends StatefulWidget {
   final String fileReference;
   final String valueType;
   final Widget? extraLine;
   final bool showTitle;
-  final String? titleOverride;
+  final String Function(String)? titleOverride;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
   final Widget? trailing;
@@ -49,6 +49,8 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
 
   @override
   Widget build(BuildContext context) {
+    final title = FlutterI18n.translate(context, 'i18n://dvo.attribute.name.${widget.valueType}');
+
     return Row(
       children: [
         Expanded(
@@ -57,8 +59,8 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (widget.showTitle)
-                TranslatedText(
-                  widget.titleOverride ?? 'i18n://dvo.attribute.name.${widget.valueType}',
+                Text(
+                  widget.titleOverride != null ? widget.titleOverride!(title) : title,
                   style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               if (expandedFileReference == null)
