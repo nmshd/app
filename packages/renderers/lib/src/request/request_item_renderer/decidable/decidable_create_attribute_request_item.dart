@@ -45,16 +45,19 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
 
   @override
   Widget build(BuildContext context) {
-    return DraftAttributeRenderer(
-      draftAttribute: widget.item.attribute,
-      checkboxSettings: (
-        isChecked: isChecked,
-        onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
-        isManualDecided: isManualDecisionAccepted,
-        onUpdateManualDecision: null,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: DraftAttributeRenderer(
+        draftAttribute: widget.item.attribute,
+        checkboxSettings: (
+          isChecked: isChecked,
+          onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+          isManualDecided: isManualDecisionAccepted,
+          onUpdateManualDecision: null,
+        ),
+        expandFileReference: widget.expandFileReference,
+        openFileDetails: widget.openFileDetails,
       ),
-      expandFileReference: widget.expandFileReference,
-      openFileDetails: widget.openFileDetails,
     );
   }
 

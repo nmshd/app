@@ -45,16 +45,19 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
 
   @override
   Widget build(BuildContext context) {
-    return DraftAttributeRenderer(
-      draftAttribute: widget.item.attribute,
-      checkboxSettings: (
-        isChecked: isChecked,
-        onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
-        onUpdateManualDecision: null,
-        isManualDecided: isManualDecisionAccepted,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: DraftAttributeRenderer(
+        draftAttribute: widget.item.attribute,
+        checkboxSettings: (
+          isChecked: isChecked,
+          onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+          onUpdateManualDecision: null,
+          isManualDecided: isManualDecisionAccepted,
+        ),
+        expandFileReference: widget.expandFileReference,
+        openFileDetails: widget.openFileDetails,
       ),
-      expandFileReference: widget.expandFileReference,
-      openFileDetails: widget.openFileDetails,
     );
   }
 
