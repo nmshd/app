@@ -1,0 +1,17 @@
+name: enmeshed_ui_kit
+description: A Dart package exposing a set of widgets and utilities to build Enmeshed Apps.
+version: 1.0.0
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=1.17.0"
+
+dependencies:
+  flex_seed_scheme: ^3.5.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
