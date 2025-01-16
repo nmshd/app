@@ -288,32 +288,34 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
         context: context,
         accountId: widget.accountId,
         initialValueType: valueType,
-        onAttributeCreated: () {
-          final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-          _loadRequest(session);
-        },
+        onAttributeCreated: () {},
       );
 
-      return ((id: localAttribute!.id, attribute: localAttribute.content)) as AttributeSwitcherChoice;
-    } else {
-      final choice = await Navigator.of(context).push<AttributeSwitcherChoice?>(
-        MaterialPageRoute(
-          builder: (ctx) => _AttributeSwitcher(
-            choices: choices,
-            currentChoice: currentChoice,
-            valueHints: valueHints,
-            valueType: valueType,
-            accountId: widget.accountId,
-            currentAddress: _identityInfo!.address,
-          ),
-        ),
-      );
+      if (localAttribute == null) return null;
 
       final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
       await _loadRequest(session);
 
-      return choice;
+      return (id: localAttribute.id, attribute: localAttribute.content, isDefaultRepositoryAttribute: localAttribute.isDefault);
     }
+
+    final choice = await Navigator.of(context).push<AttributeSwitcherChoice?>(
+      MaterialPageRoute(
+        builder: (ctx) => _AttributeSwitcher(
+          choices: choices,
+          currentChoice: currentChoice,
+          valueHints: valueHints,
+          valueType: valueType,
+          accountId: widget.accountId,
+          currentAddress: _identityInfo!.address,
+        ),
+      ),
+    );
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    await _loadRequest(session);
+
+    return choice;
   }
 }
 
@@ -383,7 +385,11 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                             onAttributeCreated: () {},
                           );
 
-                          if (context.mounted) context.pop((id: localAttribute!.id, attribute: localAttribute.content));
+                          if (context.mounted) {
+                            context.pop<AttributeSwitcherChoice>(
+                              (id: localAttribute!.id, attribute: localAttribute.content, isDefaultRepositoryAttribute: null),
+                            );
+                          }
                         },
                       ),
                   ],
