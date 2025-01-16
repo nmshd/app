@@ -1,5 +1,6 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -10,8 +11,8 @@ import '../../widgets/profile_card.dart';
 
 class DeleteProfileAndChooseNext extends StatefulWidget {
   final LocalAccountDTO localAccount;
-  final ValueNotifier<Future<void>?> deleteFuture;
-  final Future<void> Function()? retryFunction;
+  final ValueNotifier<Future<Result<dynamic>>?> deleteFuture;
+  final ValueNotifier<Future<Result<dynamic>> Function()?> retryFunction;
   final String successDescription;
   final String inProgressText;
 
@@ -52,8 +53,11 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
       child: switch ((_exception, _accounts)) {
         (Exception(), _) => _Error(
             onRetry: () async {
+              if (widget.retryFunction.value == null) return;
+
               setState(() => _exception = null);
-              if (widget.retryFunction != null) _handleFuture(widget.retryFunction!());
+
+              await _handleFuture(widget.retryFunction.value!());
             },
           ),
         (_, null) => _Loading(inProgressText: widget.inProgressText),
@@ -63,7 +67,16 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
     );
   }
 
-  void _handleFuture(Future<void> future) => future.then((_) => _loadAccounts()).onError(
+  Future<void> _handleFuture(Future<Result<dynamic>> future) async => future.then((r) {
+        if (r.isError) {
+          GetIt.I.get<Logger>().e('Failed to delete account ${r.error.message}');
+          setState(() => _exception = Exception('Failed to delete account'));
+
+          return;
+        }
+
+        _loadAccounts();
+      }).onError(
         (error, stackTrace) {
           GetIt.I.get<Logger>().e('Failed to delete account $error');
           setState(() => _exception = Exception('Failed to delete account'));
