@@ -19,6 +19,9 @@ dependencies:
   flutter_local_notifications: ^18.0.0
   logger: ^2.4.0
   path_provider: ^2.1.5
+  cal_flutter_plugin:
+    path: ../../../rust-crypto/flutter_plugin/
+
 
 dev_dependencies:
   flutter_lints: ^5.0.0

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:enmeshed_runtime_bridge/src/crypto_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -127,6 +128,8 @@ class EnmeshedRuntime {
       handlerName: 'handleRuntimeEvent',
       callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger),
     );
+
+    controller.addJavaScriptHandler(handlerName: "handleCryptoEvent", callback: (args) => CryptoHandler().handleCall(args));
 
     controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
 
