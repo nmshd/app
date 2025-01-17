@@ -1,9 +1,5 @@
 import * as types from "../../../../../rust-crypto/ts-types/index";
 
-declare global {
-    interface Window { flutter_inappwebview: any; }
-}
-
 class TsDartBridgeError extends Error {
 
     constructor(message: string) {
@@ -28,7 +24,6 @@ function base64toUint8Array(string: string): Uint8Array {
     return uint8Array;
 }
 
-window.flutter_inappwebview = window.flutter_inappwebview || {};
 
 type HandlerArgs = {
     object_type: string,
@@ -38,8 +33,8 @@ type HandlerArgs = {
 
 let handlerName = "crypto_handler"
 
-function callHandler(handlerName: string, callArgs: HandlerArgs): any {
-    const res = window.flutter_inappwebview.callHandler(handlerName, callArgs)
+async function callHandler(handlerName: string, callArgs: HandlerArgs): Promise<any> {
+    const res = await window.flutter_inappwebview.callHandler(handlerName, JSON.stringify(callArgs))
     const parsed = JSON.parse(res)
     if (parsed.status == "ok") {
         return parsed.data
@@ -48,13 +43,13 @@ function callHandler(handlerName: string, callArgs: HandlerArgs): any {
     }
 }
 
-export let createProvider: types.CreateProviderFunc = (config, implConfig) => {
+export let createProvider: types.CreateProviderFunc = async (config, implConfig) => {
     let callArgs = {
         object_type: "bare",
         method: "create_provider",
         args: [config, implConfig]
     }
-    let handle_id =  window.flutter_inappwebview.callHandler(handlerName, callArgs);
+    let handle_id = await callHandler(handlerName, callArgs);
     let handle = new Provider();
     handle._id = handle_id;
     return handle;
@@ -66,7 +61,7 @@ export let createProviderFromName: types.CreateProviderFromNameFunc = (name, imp
         method: "create_provider_from_name",
         args: [name, implConfig]
     }
-    let handle_id =  window.flutter_inappwebview.callHandler(handlerName, callArgs);
+    let handle_id =  callHandler(handlerName, callArgs);
     let handle = new Provider();
     handle._id = handle_id;
     return handle;
@@ -82,7 +77,7 @@ export class Provider {
             method: "create_key",
             args: [keySpec]
         }
-        let handle_id =  window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        let handle_id =  callHandler(handlerName, callArgs);
         let handle = new KeyHandle();
         handle._id = handle_id;
         return handle;
@@ -95,7 +90,7 @@ export class Provider {
             method: "create_key_pair",
             args: [keySpec]
         }
-        let handle_id =  window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        let handle_id =  callHandler(handlerName, callArgs);
         let handle = new KeyPairHandle();
         handle._id = handle_id;
         return handle;
@@ -108,7 +103,7 @@ export class Provider {
             method: "load_key",
             args: [id]
         }
-        let handle_id =  window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        let handle_id =  callHandler(handlerName, callArgs);
         let handle = new KeyHandle();
         handle._id = handle_id;
         return handle;
@@ -121,7 +116,7 @@ export class Provider {
             method: "load_key_pair",
             args: [id]
         }
-        let handle_id =  window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        let handle_id =  callHandler(handlerName, callArgs);
         let handle = new KeyPairHandle();
         handle._id = handle_id;
         return handle;
@@ -135,7 +130,7 @@ export class Provider {
             method: "import_key",
             args: [spec, encoded_data]
         }
-        let handle_id =  window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        let handle_id =  callHandler(handlerName, callArgs);
         let handle = new KeyHandle();
         handle._id = handle_id;
         return handle;
@@ -150,7 +145,7 @@ export class Provider {
             method: "import_key_pair",
             args: [spec, e_public, e_private]
         }
-        let handle_id =  window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        let handle_id =  callHandler(handlerName, callArgs);
         let handle = new KeyPairHandle();
         handle._id = handle_id;
         return handle;
@@ -164,7 +159,7 @@ export class Provider {
             method: "import_public_key",
             args: [spec, e_public]
         }
-        let handle_id =  window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        let handle_id =  callHandler(handlerName, callArgs);
         let handle = new KeyPairHandle();
         handle._id = handle_id;
         return handle;
@@ -181,7 +176,7 @@ export class Provider {
             method: "get_all_keys",
             args: []
         }
-        return window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        return callHandler(handlerName, callArgs);
     }
 
     providerName(): string {
@@ -191,7 +186,7 @@ export class Provider {
             method: "provider_name",
             args: []
         }
-        return window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        return callHandler(handlerName, callArgs);
     }
 
     getCapabilities(): types.ProviderConfig {
@@ -201,7 +196,7 @@ export class Provider {
             method: "get_capabilities",
             args: []
         }
-        return window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        return callHandler(handlerName, callArgs);
     }
 }
 
@@ -220,7 +215,7 @@ export class KeyHandle {
             method: "encrypt_data",
             args: [e_data]
         }
-        const [outData, iv] = window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        const [outData, iv] = callHandler(handlerName, callArgs);
         const d_outData = base64toUint8Array(outData)
         const d_iv = base64toUint8Array(iv)
         return [d_outData, d_iv]
@@ -235,7 +230,7 @@ export class KeyHandle {
             method: "decrypt_data",
             args: [e_data, e_iv]
         }
-        const outData = window.flutter_inappwebview.callHandler(handlerName, callArgs)
+        const outData = callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
@@ -247,7 +242,7 @@ export class KeyHandle {
             method: "hmac",
             args: [e_data]
         }
-        const outData = window.flutter_inappwebview.callHandler(handlerName, callArgs)
+        const outData = callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
@@ -260,18 +255,17 @@ export class KeyHandle {
             method: "verify_hmac",
             args: [e_data, e_hmac]
         }
-        return window.flutter_inappwebview.callHandler(handlerName, callArgs)
+        return callHandler(handlerName, callArgs)
     }
 
-    delete(): undefined {
+    delete(): void {
         let callArgs = {
             object_type: "key",
             object_id: this._id,
             method: "delete",
             args: []
         }
-        window.flutter_inappwebview.callHandler(handlerName, callArgs);
-        return undefined;
+        callHandler(handlerName, callArgs);
     }
 
     extractKey(): Uint8Array {
@@ -281,8 +275,18 @@ export class KeyHandle {
             method: "extract_key",
             args: []
         }
-        const outData = window.flutter_inappwebview.callHandler(handlerName, callArgs)
+        const outData = callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
+    }
+
+    spec(): types.KeySpec {
+        let callArgs = {
+            object_type: "key",
+            object_id: this._id,
+            method: "spec",
+            args: []
+        }
+        return callHandler(handlerName, callArgs)
     }
 }
 
@@ -301,7 +305,7 @@ export class KeyPairHandle {
             method: "encrypt_data",
             args: [e_data]
         }
-        const outData = window.flutter_inappwebview.callHandler(handlerName, callArgs)
+        const outData = callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
@@ -313,7 +317,7 @@ export class KeyPairHandle {
             method: "decrypt_data",
             args: [e_data]
         }
-        const outData = window.flutter_inappwebview.callHandler(handlerName, callArgs)
+        const outData = callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
@@ -325,7 +329,7 @@ export class KeyPairHandle {
             method: "sign",
             args: [e_data]
         }
-        const outData = window.flutter_inappwebview.callHandler(handlerName, callArgs)
+        const outData = callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
@@ -338,18 +342,17 @@ export class KeyPairHandle {
             method: "verify_signature",
             args: [data, signature]
         }
-        return window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        return callHandler(handlerName, callArgs);
     }
 
-    delete(): undefined {
+    delete(): void {
         let callArgs = {
             object_type: "key_pair",
             object_id: this._id,
             method: "delete",
             args: []
         }
-        window.flutter_inappwebview.callHandler(handlerName, callArgs);
-        return undefined;
+        callHandler(handlerName, callArgs);
     }
 
     getPublicKey(): Uint8Array {
@@ -359,8 +362,18 @@ export class KeyPairHandle {
             method: "extract_public_key",
             args: []
         }
-        const outData = window.flutter_inappwebview.callHandler(handlerName, callArgs)
+        const outData = callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
+    }
+
+    spec(): types.KeyPairSpec {
+        let callArgs = {
+            object_type: "key_pair",
+            object_id: this._id,
+            method: "spec",
+            args: []
+        }
+        return callHandler(handlerName, callArgs)
     }
 }
 
@@ -371,7 +384,7 @@ export class DHExchange {
             method: "get_public_key",
             args: []
         }
-        const outData = window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        const outData = callHandler(handlerName, callArgs);
         return base64toUint8Array(outData)
     }
 
@@ -382,7 +395,7 @@ export class DHExchange {
             method: "add_external_key",
             args: [e_data]
         }
-        const outData = window.flutter_inappwebview.callHandler(handlerName, callArgs);
+        const outData = callHandler(handlerName, callArgs);
         return base64toUint8Array(outData)
     }
 
@@ -393,7 +406,7 @@ export class DHExchange {
             method: "add_external_final",
             args: [e_data]
         }
-        const handle_id = window.flutter_inappwebview.callHandler(handlerName, callArgs)
+        const handle_id = callHandler(handlerName, callArgs)
         const handle = new KeyHandle()
         handle._id = handle_id
         return handle 
