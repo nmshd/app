@@ -55,13 +55,13 @@ export let createProvider: types.CreateProviderFunc = async (config, implConfig)
     return handle;
 }
 
-export let createProviderFromName: types.CreateProviderFromNameFunc = (name, implConfig) => {
+export let createProviderFromName: types.CreateProviderFromNameFunc = async (name, implConfig) => {
     let callArgs = {
         object_type: "bare",
         method: "create_provider_from_name",
         args: [name, implConfig]
     }
-    let handle_id =  callHandler(handlerName, callArgs);
+    let handle_id = await callHandler(handlerName, callArgs);
     let handle = new Provider();
     handle._id = handle_id;
     return handle;
@@ -70,59 +70,59 @@ export let createProviderFromName: types.CreateProviderFromNameFunc = (name, imp
 export class Provider {
     _id: string;
 
-    createKey (keySpec: types.KeySpec): types.KeyHandle {
+    async createKey (keySpec: types.KeySpec): Promise<types.KeyHandle> {
         let callArgs = {
             object_type: "provider",
             object_id: this._id,
             method: "create_key",
             args: [keySpec]
         }
-        let handle_id =  callHandler(handlerName, callArgs);
+        let handle_id = await callHandler(handlerName, callArgs);
         let handle = new KeyHandle();
         handle._id = handle_id;
         return handle;
     }
 
-    createKeyPair(keySpec: types.KeyPairSpec): types.KeyPairHandle {
+    async createKeyPair(keySpec: types.KeyPairSpec): Promise<types.KeyPairHandle> {
         let callArgs = {
             object_type: "provider",
             object_id: this._id,
             method: "create_key_pair",
             args: [keySpec]
         }
-        let handle_id =  callHandler(handlerName, callArgs);
+        let handle_id = await callHandler(handlerName, callArgs);
         let handle = new KeyPairHandle();
         handle._id = handle_id;
         return handle;
     }
 
-    loadKey(id: string): types.KeyHandle {
+    async loadKey(id: string): Promise<types.KeyHandle> {
         let callArgs = {
             object_type: "provider",
             object_id: this._id,
             method: "load_key",
             args: [id]
         }
-        let handle_id =  callHandler(handlerName, callArgs);
+        let handle_id = await callHandler(handlerName, callArgs);
         let handle = new KeyHandle();
         handle._id = handle_id;
         return handle;
     }
 
-    loadKeyPair(id: string): types.KeyPairHandle {
+    async loadKeyPair(id: string): Promise<types.KeyPairHandle> {
         let callArgs = {
             object_type: "provider",
             object_id: this._id,
             method: "load_key_pair",
             args: [id]
         }
-        let handle_id =  callHandler(handlerName, callArgs);
+        let handle_id = await callHandler(handlerName, callArgs);
         let handle = new KeyPairHandle();
         handle._id = handle_id;
         return handle;
     }
 
-    importKey(spec: types.KeySpec, data: Uint8Array): types.KeyHandle {
+    async importKey(spec: types.KeySpec, data: Uint8Array): Promise<types.KeyHandle> {
         let encoded_data = uint8ArrayToBase64(data)
         let callArgs = {
             object_type: "provider",
@@ -130,13 +130,13 @@ export class Provider {
             method: "import_key",
             args: [spec, encoded_data]
         }
-        let handle_id =  callHandler(handlerName, callArgs);
+        let handle_id = await callHandler(handlerName, callArgs);
         let handle = new KeyHandle();
         handle._id = handle_id;
         return handle;
     }
 
-    importKeyPair(spec: types.KeyPairSpec, publicData: Uint8Array, privateData: Uint8Array): types.KeyPairHandle {
+    async importKeyPair(spec: types.KeyPairSpec, publicData: Uint8Array, privateData: Uint8Array): Promise<types.KeyPairHandle> {
         let e_public = uint8ArrayToBase64(publicData)
         let e_private = uint8ArrayToBase64(privateData)
         let callArgs = {
@@ -145,13 +145,13 @@ export class Provider {
             method: "import_key_pair",
             args: [spec, e_public, e_private]
         }
-        let handle_id =  callHandler(handlerName, callArgs);
+        let handle_id = await callHandler(handlerName, callArgs);
         let handle = new KeyPairHandle();
         handle._id = handle_id;
         return handle;
     }
 
-    importPublicKey(spec: types.KeyPairSpec, publicData: Uint8Array): types.KeyPairHandle {
+    async importPublicKey(spec: types.KeyPairSpec, publicData: Uint8Array): Promise<types.KeyPairHandle> {
         let e_public = uint8ArrayToBase64(publicData)
         let callArgs = {
             object_type: "provider",
@@ -159,17 +159,17 @@ export class Provider {
             method: "import_public_key",
             args: [spec, e_public]
         }
-        let handle_id =  callHandler(handlerName, callArgs);
+        let handle_id = await callHandler(handlerName, callArgs);
         let handle = new KeyPairHandle();
         handle._id = handle_id;
         return handle;
     }
 
-    startEphemeralDhExchange(): types.DHExchange {
+    async startEphemeralDhExchange(): Promise<types.DHExchange> {
         return new DHExchange();
     }
 
-    getAllKeys(): string[] {
+    async getAllKeys(): Promise<string[]> {
         let callArgs = {
             object_type: "provider",
             object_id: this._id,
@@ -179,7 +179,7 @@ export class Provider {
         return callHandler(handlerName, callArgs);
     }
 
-    providerName(): string {
+    async providerName(): Promise<string> {
         let callArgs = {
             object_type: "provider",
             object_id: this._id,
@@ -189,7 +189,7 @@ export class Provider {
         return callHandler(handlerName, callArgs);
     }
 
-    getCapabilities(): types.ProviderConfig {
+    async getCapabilities(): Promise<types.ProviderConfig> {
         let callArgs = {
             object_type: "provider",
             object_id: this._id,
@@ -203,11 +203,11 @@ export class Provider {
 export class KeyHandle {
     _id: string;
 
-    id(): string {
-        return this._id;
+    id(): Promise<string> {
+        return Promise.resolve(this._id);
     }
 
-    encryptData(data: Uint8Array): [Uint8Array, Uint8Array] {
+    async encryptData(data: Uint8Array): Promise<[Uint8Array, Uint8Array]> {
         let e_data = uint8ArrayToBase64(data)
         let callArgs = {
             object_type: "key",
@@ -215,13 +215,13 @@ export class KeyHandle {
             method: "encrypt_data",
             args: [e_data]
         }
-        const [outData, iv] = callHandler(handlerName, callArgs);
+        const [outData, iv] = await callHandler(handlerName, callArgs);
         const d_outData = base64toUint8Array(outData)
         const d_iv = base64toUint8Array(iv)
         return [d_outData, d_iv]
     }
 
-    decryptData(data: Uint8Array, iv: Uint8Array): Uint8Array {
+    async decryptData(data: Uint8Array, iv: Uint8Array): Promise<Uint8Array> {
         const e_data = uint8ArrayToBase64(data)
         const e_iv = uint8ArrayToBase64(iv)
         let callArgs = {
@@ -230,11 +230,11 @@ export class KeyHandle {
             method: "decrypt_data",
             args: [e_data, e_iv]
         }
-        const outData = callHandler(handlerName, callArgs)
+        const outData = await callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
-    hmac(data: Uint8Array): Uint8Array {
+    async hmac(data: Uint8Array): Promise<Uint8Array> {
         const e_data = uint8ArrayToBase64(data);
         let callArgs = {
             object_type: "key",
@@ -242,11 +242,11 @@ export class KeyHandle {
             method: "hmac",
             args: [e_data]
         }
-        const outData = callHandler(handlerName, callArgs)
+        const outData = await callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
-    verifyHmac(data: Uint8Array, hmac: Uint8Array): boolean {
+    async verifyHmac(data: Uint8Array, hmac: Uint8Array): Promise<boolean> {
         const e_data = uint8ArrayToBase64(data)
         const e_hmac = uint8ArrayToBase64(hmac)
         let callArgs = {
@@ -258,7 +258,7 @@ export class KeyHandle {
         return callHandler(handlerName, callArgs)
     }
 
-    delete(): void {
+    async delete(): Promise<void> {
         let callArgs = {
             object_type: "key",
             object_id: this._id,
@@ -268,18 +268,18 @@ export class KeyHandle {
         callHandler(handlerName, callArgs);
     }
 
-    extractKey(): Uint8Array {
+    async extractKey(): Promise<Uint8Array> {
         let callArgs = {
             object_type: "key",
             object_id: this._id,
             method: "extract_key",
             args: []
         }
-        const outData = callHandler(handlerName, callArgs)
+        const outData = await callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
-    spec(): types.KeySpec {
+    async spec(): Promise<types.KeySpec> {
         let callArgs = {
             object_type: "key",
             object_id: this._id,
@@ -293,11 +293,11 @@ export class KeyHandle {
 export class KeyPairHandle {
     _id: string;
 
-    id(): string {
-        return this._id;
+    id(): Promise<string> {
+        return Promise.resolve(this._id);
     }
 
-    encryptData(data: Uint8Array): Uint8Array {
+    async encryptData(data: Uint8Array): Promise<Uint8Array> {
         const e_data = uint8ArrayToBase64(data)
         let callArgs = {
             object_type: "key_pair",
@@ -305,11 +305,11 @@ export class KeyPairHandle {
             method: "encrypt_data",
             args: [e_data]
         }
-        const outData = callHandler(handlerName, callArgs)
+        const outData = await callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
-    decryptData(data: Uint8Array): Uint8Array {
+    async decryptData(data: Uint8Array): Promise<Uint8Array> {
         const e_data = uint8ArrayToBase64(data)
         let callArgs = {
             object_type: "key_pair",
@@ -317,11 +317,11 @@ export class KeyPairHandle {
             method: "decrypt_data",
             args: [e_data]
         }
-        const outData = callHandler(handlerName, callArgs)
+        const outData = await callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
-    signData(data: Uint8Array): Uint8Array {
+    async signData(data: Uint8Array): Promise<Uint8Array> {
         const e_data = uint8ArrayToBase64(data)
         let callArgs = {
             object_type: "key_pair",
@@ -329,11 +329,11 @@ export class KeyPairHandle {
             method: "sign",
             args: [e_data]
         }
-        const outData = callHandler(handlerName, callArgs)
+        const outData = await callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
-    verifySignature(data: Uint8Array, signature: Uint8Array): boolean {
+    async verifySignature(data: Uint8Array, signature: Uint8Array): Promise<boolean> {
         const e_data = uint8ArrayToBase64(data)
         const e_sign = uint8ArrayToBase64(signature)
         let callArgs = {
@@ -345,7 +345,7 @@ export class KeyPairHandle {
         return callHandler(handlerName, callArgs);
     }
 
-    delete(): void {
+    async delete(): Promise<void> {
         let callArgs = {
             object_type: "key_pair",
             object_id: this._id,
@@ -355,18 +355,18 @@ export class KeyPairHandle {
         callHandler(handlerName, callArgs);
     }
 
-    getPublicKey(): Uint8Array {
+    async getPublicKey(): Promise<Uint8Array> {
         let callArgs = {
             object_type: "key_pair",
             object_id: this._id,
             method: "extract_public_key",
             args: []
         }
-        const outData = callHandler(handlerName, callArgs)
+        const outData = await callHandler(handlerName, callArgs)
         return base64toUint8Array(outData)
     }
 
-    spec(): types.KeyPairSpec {
+    async spec(): Promise<types.KeyPairSpec> {
         let callArgs = {
             object_type: "key_pair",
             object_id: this._id,
@@ -378,35 +378,35 @@ export class KeyPairHandle {
 }
 
 export class DHExchange {
-    getPublicKey(): Uint8Array {
+    async getPublicKey(): Promise<Uint8Array> {
         let callArgs = {
             object_type: "dh_exchange",
             method: "get_public_key",
             args: []
         }
-        const outData = callHandler(handlerName, callArgs);
+        const outData = await callHandler(handlerName, callArgs);
         return base64toUint8Array(outData)
     }
 
-    addExternal(publicKey: Uint8Array): Uint8Array {
+    async addExternal(publicKey: Uint8Array): Promise<Uint8Array> {
         const e_data = uint8ArrayToBase64(publicKey)
         let callArgs = {
             object_type: "dh_exchange",
             method: "add_external_key",
             args: [e_data]
         }
-        const outData = callHandler(handlerName, callArgs);
+        const outData = await callHandler(handlerName, callArgs);
         return base64toUint8Array(outData)
     }
 
-    addExternalFinal(publicKey: Uint8Array): KeyHandle {
+    async addExternalFinal(publicKey: Uint8Array): Promise<KeyHandle> {
         const e_data = uint8ArrayToBase64(publicKey)
         let callArgs = {
             object_type: "dh_exchange",
             method: "add_external_final",
             args: [e_data]
         }
-        const handle_id = callHandler(handlerName, callArgs)
+        const handle_id = await callHandler(handlerName, callArgs)
         const handle = new KeyHandle()
         handle._id = handle_id
         return handle 
