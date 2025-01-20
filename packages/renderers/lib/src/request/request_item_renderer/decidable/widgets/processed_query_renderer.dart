@@ -159,6 +159,7 @@ class _EmptyAttribute extends StatelessWidget {
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;
   final bool? requireManualDecision;
+  final String Function(String)? titleOverride;
 
   const _EmptyAttribute({
     required this.valueType,
@@ -166,6 +167,7 @@ class _EmptyAttribute extends StatelessWidget {
     required this.mustBeAccepted,
     this.requireManualDecision,
     this.checkboxSettings,
+    this.titleOverride,
   });
   @override
   Widget build(BuildContext context) {
@@ -185,7 +187,9 @@ class _EmptyAttribute extends StatelessWidget {
                     visualDensity: VisualDensity.compact,
                     tileColor: Theme.of(context).colorScheme.surface,
                     title: Text(
-                      '${FlutterI18n.translate(context, 'dvo.attribute.name.$valueType')}${mustBeAccepted ? '*' : ''}',
+                      titleOverride != null
+                          ? titleOverride!(FlutterI18n.translate(context, 'dvo.attribute.name.$valueType'))
+                          : '${FlutterI18n.translate(context, 'dvo.attribute.name.$valueType')}${mustBeAccepted ? '*' : ''}',
                       style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                     ),
                     subtitle: TranslatedText(
@@ -388,8 +392,8 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     final selectedAttribute = this.selectedAttribute;
 
     if (query.results.isEmpty && selectedAttribute == null) {
-      // TODO: title override missing
       return _EmptyAttribute(
+        titleOverride: (title) => '${requestItemTitle ?? title}${mustBeAccepted ? '*' : ''}',
         valueType: query.valueType!,
         checkboxSettings: checkboxSettings,
         mustBeAccepted: mustBeAccepted,
