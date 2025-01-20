@@ -121,7 +121,7 @@ class _EditFileState extends State<EditFile> {
             ],
           ),
         ),
-        if (_loading) const ModalLoadingOverlay(text: 'Dokument wird gespeichert...', isDialog: false),
+        if (_loading) ModalLoadingOverlay(text: context.l10n.files_saving, isDialog: false),
       ],
     );
   }

@@ -624,6 +624,7 @@
   "files_tag": "Tag",
   "files_tags": "Tags",
   "files_editFile": "Edit file",
+  "files_saving": "File is being saved...",
   "files_selectedTags": "Selected tags:",
   "files_availableTags": "Available tags:",
   "filter": "Filter",
