@@ -1,5 +1,4 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
@@ -120,7 +119,7 @@ class _ProfileListTile extends StatelessWidget {
       leading: AutoLoadingProfilePicture(
         accountId: localAccountDTO.id,
         profileName: localAccountDTO.name,
-        circleAvatarColor: context.customColors.decorativeContainer,
+        decorative: true,
       ),
       title: Text(localAccountDTO.name),
       subtitle: isActiveAccount ? Text(context.l10n.profiles_lastUsed) : null,
