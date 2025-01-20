@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:croppy/croppy.dart';
-import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -54,7 +53,7 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
             radius: 40,
             image: _image,
             profileName: widget.profileName,
-            circleAvatarColor: context.customColors.decorativeContainer,
+            decorative: true,
           ),
         if (_loading) const CircleAvatar(radius: 40, child: CircularProgressIndicator()),
         Gaps.w16,
