@@ -37,7 +37,6 @@ class UploadFile extends StatefulWidget {
 
 class _UploadFileState extends State<UploadFile> {
   late final TextEditingController _titleController;
-  final _tagController = TextEditingController();
 
   File? _selectedFile;
   bool _loading = false;
@@ -53,7 +52,6 @@ class _UploadFileState extends State<UploadFile> {
   @override
   void dispose() {
     _titleController.dispose();
-    _tagController.dispose();
 
     super.dispose();
   }
@@ -110,15 +108,6 @@ class _UploadFileState extends State<UploadFile> {
                             return newValue;
                           }),
                         ],
-                      ),
-                      Gaps.h8,
-                      TextField(
-                        controller: _tagController,
-                        decoration: InputDecoration(
-                          labelText: context.l10n.files_tag,
-                          border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
-                          focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
-                        ),
                       ),
                       Gaps.h44,
                       Row(
@@ -236,7 +225,6 @@ class _UploadFileState extends State<UploadFile> {
       createEnabledNotifier: createEnabledNotifier,
       value: IdentityFileReferenceAttributeValue(value: file.truncatedReference),
       onAttributeCreated: () => createEnabledNotifier.value = true,
-      tags: _tagController.text.isNotEmpty ? [_tagController.text] : null,
     );
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
