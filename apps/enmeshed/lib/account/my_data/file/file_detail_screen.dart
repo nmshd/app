@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:enmeshed/account/my_data/file/widgets/selected_tag_section.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,10 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
               ),
               Gaps.h48,
               if (_fileReferenceAttribute != null) ...[
-                FileTagsContainer(tags: _tags?.first.split('+%+'), tagCollection: _tagCollection, onEditFile: _onEditFilePressed),
+                if (_tags == null)
+                  FileTagsContainer(onEditFile: _onEditFilePressed)
+                else
+                  SelectedTagSection(tagCollection: _tagCollection, selectedTagsList: _tags!.first.split('+%+')),
                 Gaps.h16,
               ],
               FileInfoContainer(createdBy: _fileDVO!.createdBy.name, createdAt: _fileDVO!.createdAt),
