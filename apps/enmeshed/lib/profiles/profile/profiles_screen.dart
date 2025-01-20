@@ -275,15 +275,15 @@ class _MoreProfiles extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.only(left: 16, right: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(context.l10n.profiles_additionalProfiles, style: const TextStyle(fontWeight: FontWeight.bold)),
-              TextButton.icon(
+              Text(context.l10n.profiles_additionalProfiles, style: Theme.of(context).textTheme.titleMedium),
+              IconButton(
                 onPressed: () => _onCreateProfilePressed(context),
                 icon: const Icon(Icons.add),
-                label: Text(context.l10n.profiles_add),
+                tooltip: context.l10n.profiles_add,
               ),
             ],
           ),
