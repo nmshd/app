@@ -1,5 +1,4 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
@@ -23,7 +22,7 @@ class DeletionProfileCard extends StatelessWidget {
     final profilePicture = AutoLoadingProfilePicture(
       accountId: accountInDeletion.id,
       profileName: accountInDeletion.name,
-      circleAvatarColor: context.customColors.decorativeContainer,
+      decorative: true,
     );
 
     return Card(
