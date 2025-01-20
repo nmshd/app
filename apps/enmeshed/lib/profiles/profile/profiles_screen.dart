@@ -338,11 +338,9 @@ class _ProfilesInDeletion extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(context.l10n.identities_in_deletion, style: const TextStyle(fontWeight: FontWeight.bold)),
-            ],
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(context.l10n.identities_in_deletion, style: Theme.of(context).textTheme.titleMedium),
           ),
         ),
         ListView.separated(
