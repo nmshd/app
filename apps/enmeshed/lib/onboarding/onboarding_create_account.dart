@@ -115,41 +115,44 @@ class _EnterProfileNameDialogState extends State<_EnterProfileNameDialog> {
   Widget build(BuildContext context) {
     final defaultProfileName = '${context.l10n.onboarding_defaultIdentityName} 1';
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 16, bottom: 24, left: 24, right: 24),
-      child: Column(
-        children: [
-          TextField(
-            maxLength: MaxLength.profileName,
-            controller: _controller,
-            textCapitalization: TextCapitalization.sentences,
-            decoration: InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              hintText: defaultProfileName,
-              suffixIcon: IconButton(
-                onPressed: _controller.clear,
-                icon: const Icon(Icons.cancel_outlined),
+    return SafeArea(
+      minimum: const EdgeInsets.only(bottom: 24),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
+        child: Column(
+          children: [
+            TextField(
+              maxLength: MaxLength.profileName,
+              controller: _controller,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                hintText: defaultProfileName,
+                suffixIcon: IconButton(
+                  onPressed: _controller.clear,
+                  icon: const Icon(Icons.cancel_outlined),
+                ),
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                ),
               ),
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              onSubmitted: (text) => context.pop(text),
+            ),
+            Gaps.h16,
+            Align(
+              alignment: Alignment.centerRight,
+              child: FilledButton(
+                onPressed: () => context.pop(_controller.text.isEmpty ? defaultProfileName : _controller.text),
+                style: FilledButton.styleFrom(minimumSize: const Size(100, 36)),
+                child: Text(context.l10n.onboarding_acceptProfileName),
               ),
             ),
-            onSubmitted: (text) => context.pop(text),
-          ),
-          Gaps.h16,
-          Align(
-            alignment: Alignment.centerRight,
-            child: FilledButton(
-              onPressed: () => context.pop(_controller.text.isEmpty ? defaultProfileName : _controller.text),
-              style: FilledButton.styleFrom(minimumSize: const Size(100, 36)),
-              child: Text(context.l10n.onboarding_acceptProfileName),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
