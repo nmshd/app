@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
@@ -177,7 +176,7 @@ Future<void> showSucceedAttributeModal({
           valueListenable: succeedEnabledNotifier,
           builder: (context, enabled, child) {
             return Padding(
-              padding: EdgeInsets.only(right: 24, bottom: max(MediaQuery.paddingOf(context).bottom, 24)),
+              padding: EdgeInsets.only(right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -204,7 +203,7 @@ Future<void> showSucceedAttributeModal({
           valueListenable: errorTextNotifier,
           builder: (context, errorText, child) {
             return Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: max(MediaQuery.paddingOf(context).bottom, 16) + 72),
+              padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 72),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
