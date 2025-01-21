@@ -1,11 +1,12 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
-import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
+
 import '/src/attribute/identity_attribute_value_renderer.dart';
 import '/src/attribute/relationship_attribute_value_renderer.dart';
 import '/src/checkbox_settings.dart';
+import 'empty_attribute.dart';
+import 'manual_decision_required.dart';
 
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
@@ -35,7 +36,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (query.results.isEmpty && selectedAttribute == null) {
-      return _EmptyAttribute(
+      return EmptyAttribute(
         valueType: query.valueType,
         checkboxSettings: checkboxSettings,
         mustBeAccepted: mustBeAccepted,
@@ -88,125 +89,9 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
           ),
           if (requireManualDecision == true) ...[
             SizedBox(height: 12),
-            _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+            ManualDecisionRequired(checkboxSettings: checkboxSettings!),
           ],
         ]),
-      ),
-    );
-  }
-}
-
-class _ManualDecisionRequired extends StatefulWidget {
-  final CheckboxSettings checkboxSettings;
-
-  const _ManualDecisionRequired({
-    required this.checkboxSettings,
-  });
-
-  @override
-  State<_ManualDecisionRequired> createState() => _ManualDecisionRequiredState();
-}
-
-class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
-  // bool manualDecision = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12),
-      child: Material(
-        clipBehavior: Clip.hardEdge,
-        borderRadius: BorderRadius.circular(4),
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-        child: InkWell(
-          onTap: () {
-            setState(() => widget.checkboxSettings.onUpdateManualDecision!(!widget.checkboxSettings.isManualDecided));
-          },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Switch(
-                thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
-                  (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
-                ),
-                activeColor: context.customColors.success,
-                value: widget.checkboxSettings.isManualDecided,
-                onChanged: (bool value) {
-                  setState(() {
-                    // widget.checkboxSettings.isManualDecided = value;
-                    widget.checkboxSettings.onUpdateManualDecision!(value);
-                  });
-                },
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                child: TranslatedText(
-                  'i18n://requestRenderer.manualDecisionRequiredDescription',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _EmptyAttribute extends StatelessWidget {
-  final String valueType;
-  final VoidCallback onCreateAttribute;
-  final CheckboxSettings? checkboxSettings;
-  final bool mustBeAccepted;
-  final bool? requireManualDecision;
-  final String Function(String)? titleOverride;
-
-  const _EmptyAttribute({
-    required this.valueType,
-    required this.onCreateAttribute,
-    required this.mustBeAccepted,
-    this.requireManualDecision,
-    this.checkboxSettings,
-    this.titleOverride,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onCreateAttribute,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                // TODO: long press on checkbox is absorbed by the InkWell below
-                if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
-                Expanded(
-                  child: ListTile(
-                    contentPadding: EdgeInsets.only(right: 24),
-                    visualDensity: VisualDensity.compact,
-                    tileColor: Theme.of(context).colorScheme.surface,
-                    title: Text(
-                      titleOverride != null
-                          ? titleOverride!(FlutterI18n.translate(context, 'dvo.attribute.name.$valueType'))
-                          : '${FlutterI18n.translate(context, 'dvo.attribute.name.$valueType')}${mustBeAccepted ? '*' : ''}',
-                      style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                    ),
-                    subtitle: TranslatedText(
-                      'i18n://requestRenderer.noEntry',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
-                    ),
-                    trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 24),
-                  ),
-                ),
-              ],
-            ),
-            if (requireManualDecision == true) ...[
-              SizedBox(height: 12),
-              _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-            ],
-          ],
-        ),
       ),
     );
   }
@@ -242,7 +127,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
     final selectedAttribute = this.selectedAttribute;
 
     if (query.results.isEmpty) {
-      return _EmptyAttribute(
+      return EmptyAttribute(
         valueType: query.valueType,
         checkboxSettings: checkboxSettings,
         mustBeAccepted: mustBeAccepted,
@@ -277,7 +162,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
         ),
         if (requireManualDecision == true) ...[
           SizedBox(height: 12),
-          _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+          ManualDecisionRequired(checkboxSettings: checkboxSettings!),
         ],
       ],
     );
@@ -311,7 +196,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
     final selectedAttribute = this.selectedAttribute;
 
     if (query.results.isEmpty) {
-      return _EmptyAttribute(
+      return EmptyAttribute(
         valueType: query.valueType!,
         checkboxSettings: checkboxSettings,
         mustBeAccepted: mustBeAccepted,
@@ -354,7 +239,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
         ),
         if (requireManualDecision == true) ...[
           SizedBox(height: 12),
-          _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+          ManualDecisionRequired(checkboxSettings: checkboxSettings!),
         ],
       ],
     );
@@ -392,7 +277,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     final selectedAttribute = this.selectedAttribute;
 
     if (query.results.isEmpty && selectedAttribute == null) {
-      return _EmptyAttribute(
+      return EmptyAttribute(
         titleOverride: (title) => '${requestItemTitle ?? title}${mustBeAccepted ? '*' : ''}',
         valueType: query.valueType!,
         checkboxSettings: checkboxSettings,
@@ -430,7 +315,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
         ),
         if (requireManualDecision == true) ...[
           SizedBox(height: 12),
-          _ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+          ManualDecisionRequired(checkboxSettings: checkboxSettings!),
         ],
       ],
     );
