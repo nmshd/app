@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
@@ -51,7 +52,12 @@ class _CreateProfileState extends State<CreateProfile> {
     return Stack(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 16, left: 24, right: 24, bottom: MediaQuery.paddingOf(context).bottom),
+          padding: EdgeInsets.only(
+            top: 16,
+            left: 24,
+            right: 24,
+            bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom),
+          ),
           child: Wrap(
             spacing: 8,
             children: [
