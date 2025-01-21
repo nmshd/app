@@ -50,7 +50,7 @@ class _SelectMailboxFiltersModalState extends State<_SelectMailboxFiltersModal> 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
+      children: [
         ListTile(
           contentPadding: const EdgeInsets.only(left: 16, right: 16, top: 8),
           title: Text(
@@ -146,16 +146,16 @@ class _ModalSheetFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
+      children: [
         Material(
           elevation: 10,
           child: Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom + 16),
+            padding: EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom),
             child: Container(
               padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
+                children: [
                   OutlinedButton(
                     onPressed: resetFilters,
                     child: Text(
