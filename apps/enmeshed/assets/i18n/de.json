@@ -1184,6 +1184,6 @@
   },
   "requestRenderer": {
     "noEntry": "Kein Eintrag",
-    "manualDecisionRequiredDescription": "Ich bestätige, dass diese Information mit dem zukünftigen Kontakt geteilt werden soll."
+    "manualDecisionRequiredDescription": "Ich bestätige, dass diese Information mit dem Kontakt geteilt werden soll."
   }
 }
