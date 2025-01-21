@@ -1,1 +1,6 @@
-typedef CheckboxSettings = ({bool isChecked, Function(bool?)? onUpdateCheckbox, bool isManualDecided, Function(bool?)? onUpdateManualDecision});
+typedef CheckboxSettings = ({
+  bool isChecked,
+  Function(bool?)? onUpdateCheckbox,
+  bool isManualDecided,
+  Function(bool?)? onUpdateManualDecision,
+});
