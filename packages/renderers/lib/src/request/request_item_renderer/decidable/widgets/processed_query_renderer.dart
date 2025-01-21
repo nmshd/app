@@ -2,7 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
-
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import '/src/attribute/identity_attribute_value_renderer.dart';
 import '/src/attribute/relationship_attribute_value_renderer.dart';
 import '/src/checkbox_settings.dart';
@@ -129,7 +129,7 @@ class _ManualDecisionRequiredState extends State<_ManualDecisionRequired> {
                 thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
                   (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
                 ),
-                activeColor: Colors.green, // TODO: use color scheme
+                activeColor: context.customColors.success,
                 value: widget.checkboxSettings.isManualDecided,
                 onChanged: (bool value) {
                   setState(() {
