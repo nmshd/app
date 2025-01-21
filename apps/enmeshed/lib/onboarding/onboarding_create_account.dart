@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 import '/core/core.dart';
 
@@ -42,24 +41,11 @@ class _OnboardingCreateAccountState extends State<OnboardingCreateAccount> {
   }
 
   Future<void> _showEnterProfileNameModal() async {
-    final newProfileName = await WoltModalSheet.show<String?>(
+    final newProfileName = await showModalBottomSheet<String?>(
       context: context,
-      barrierDismissible: true,
-      enableDrag: true,
-      useSafeArea: false,
-      pageListBuilder: (context) => [
-        WoltModalSheetPage(
-          leadingNavBarWidget: Padding(
-            padding: const EdgeInsets.only(left: 24, top: 20),
-            child: Text(context.l10n.onboarding_enterProfileName, style: Theme.of(context).textTheme.titleLarge),
-          ),
-          trailingNavBarWidget: Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
-          ),
-          child: const _EnterProfileNameDialog(),
-        ),
-      ],
+      showDragHandle: false,
+      isScrollControlled: true,
+      builder: (context) => const _EnterProfileNameDialog(),
     );
 
     if (newProfileName == null) return widget.goToOnboardingAccount();
@@ -116,43 +102,62 @@ class _EnterProfileNameDialogState extends State<_EnterProfileNameDialog> {
     final defaultProfileName = '${context.l10n.onboarding_defaultIdentityName} 1';
 
     return SafeArea(
-      minimum: const EdgeInsets.only(bottom: 24),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
-        child: Column(
-          children: [
-            TextField(
-              maxLength: MaxLength.profileName,
-              controller: _controller,
-              textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                hintText: defaultProfileName,
-                suffixIcon: IconButton(
-                  onPressed: _controller.clear,
-                  icon: const Icon(Icons.cancel_outlined),
+      minimum: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 24, top: 8, right: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(context.l10n.onboarding_enterProfileName, style: Theme.of(context).textTheme.titleLarge),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
                 ),
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                ),
-              ),
-              onSubmitted: (text) => context.pop(text),
+              ],
             ),
-            Gaps.h16,
-            Align(
-              alignment: Alignment.centerRight,
-              child: FilledButton(
-                onPressed: () => context.pop(_controller.text.isEmpty ? defaultProfileName : _controller.text),
-                style: FilledButton.styleFrom(minimumSize: const Size(100, 36)),
-                child: Text(context.l10n.onboarding_acceptProfileName),
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16, left: 24, right: 24, bottom: 8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  maxLength: MaxLength.profileName,
+                  controller: _controller,
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    hintText: defaultProfileName,
+                    suffixIcon: IconButton(
+                      onPressed: _controller.clear,
+                      icon: const Icon(Icons.cancel_outlined),
+                    ),
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                  ),
+                  onSubmitted: (text) => context.pop(text),
+                ),
+                Gaps.h16,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FilledButton(
+                    onPressed: () => context.pop(_controller.text.isEmpty ? defaultProfileName : _controller.text),
+                    style: FilledButton.styleFrom(minimumSize: const Size(100, 36)),
+                    child: Text(context.l10n.onboarding_acceptProfileName),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
