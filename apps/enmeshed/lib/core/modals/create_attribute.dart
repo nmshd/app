@@ -21,6 +21,7 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
   required String accountId,
   required VoidCallback onAttributeCreated,
   String? initialValueType,
+  List<String>? tags,
 }) async {
   final controller = ValueRendererController();
   final createEnabledNotifier = ValueNotifier<bool>(false);
@@ -143,6 +144,7 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
                                 createEnabledNotifier: createEnabledNotifier,
                                 value: identityAttribute!,
                                 onAttributeCreated: onAttributeCreated,
+                                tags: tags,
                               ),
                             );
                           },

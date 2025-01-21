@@ -180,11 +180,18 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     final valueHints = _getQueryValueHints();
 
+    final tags = switch (widget.item.query) {
+      final ProcessedIQLQueryDVO query => query.tags,
+      final IdentityAttributeQueryDVO query => query.tags,
+      _ => null,
+    };
+
     final choice = await widget.openAttributeSwitcher!(
       valueType: valueType,
       choices: resultValues.toList(),
       currentChoice: _choice,
       valueHints: valueHints,
+      tags: tags,
     );
 
     if (choice == null) return;

@@ -7,4 +7,5 @@ typedef OpenAttributeSwitcherFunction = Future<AttributeSwitcherChoice?> Functio
   required List<AttributeSwitcherChoice> choices,
   required AttributeSwitcherChoice? currentChoice,
   ValueHints? valueHints,
+  List<String>? tags,
 });

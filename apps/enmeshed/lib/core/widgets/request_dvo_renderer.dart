@@ -282,6 +282,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     required List<AttributeSwitcherChoice> choices,
     required AttributeSwitcherChoice? currentChoice,
     ValueHints? valueHints,
+    List<String>? tags,
   }) async {
     if (choices.isEmpty) {
       final localAttribute = await showCreateAttributeModal(
@@ -289,6 +290,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
         accountId: widget.accountId,
         initialValueType: valueType,
         onAttributeCreated: () {},
+        tags: tags,
       );
 
       if (localAttribute == null) return null;
