@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../value_hint_translation.dart';
@@ -11,6 +12,7 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
   final TextStyle valueTextStyle;
   final Widget? extraLine;
   final Widget? trailing;
+  final String Function(String)? titleOverride;
 
   const PostOfficeBoxAddressAttributeRenderer({
     super.key,
@@ -20,10 +22,12 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
     required this.valueTextStyle,
     this.extraLine,
     this.trailing,
+    this.titleOverride
   });
 
   @override
   Widget build(BuildContext context) {
+    final title = FlutterI18n.translate(context, 'attributes.values.${value.atType}._title');
     return Row(
       children: [
         Expanded(
@@ -31,8 +35,8 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (showTitle)
-                TranslatedText(
-                  'i18n://attributes.values.${value.atType}._title',
+                Text(
+                  titleOverride != null ? titleOverride!(title) : title,
                   style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               TranslatedText(value.recipient, style: valueTextStyle),

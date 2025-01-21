@@ -1,5 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import 'value_hint_translation.dart';
@@ -12,27 +13,32 @@ class ComplexAttributeListTile extends StatelessWidget {
   final TextStyle valueTextStyle;
   final Widget? extraLine;
   final Widget? trailing;
+  final String Function(String)? titleOverride;
 
-  const ComplexAttributeListTile({
-    super.key,
-    required this.title,
-    required this.fields,
-    required this.valueHints,
-    required this.showTitle,
-    required this.valueTextStyle,
-    this.extraLine,
-    this.trailing,
-  });
+  const ComplexAttributeListTile(
+      {super.key,
+      required this.title,
+      required this.fields,
+      required this.valueHints,
+      required this.showTitle,
+      required this.valueTextStyle,
+      this.extraLine,
+      this.trailing,
+      this.titleOverride});
 
   @override
   Widget build(BuildContext context) {
+    final title = this.title.startsWith('i18n://') ? FlutterI18n.translate(context, this.title.substring(7)) : this.title;
     final titlesTextStyle = TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (showTitle) ...[
-          TranslatedText(title, style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurfaceVariant)),
+          Text(
+            titleOverride != null ? titleOverride!(title) : title,
+            style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurfaceVariant),
+          ),
           const SizedBox(height: 8),
         ],
         Row(

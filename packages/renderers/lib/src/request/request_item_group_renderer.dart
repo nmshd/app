@@ -48,8 +48,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
         ),
-        // TODO: custom color
-        separatorBuilder: (context, _) => Divider(color: Colors.grey[400], thickness: 1, height: 0),
+        separatorBuilder: (context, _) => Divider(color: Theme.of(context).colorScheme.surfaceContainerHighest, thickness: 1, height: 0),
         itemCount: requestItemGroup.items.length,
       ),
     );
