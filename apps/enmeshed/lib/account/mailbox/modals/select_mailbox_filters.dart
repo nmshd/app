@@ -16,8 +16,8 @@ Future<Set<MailboxFilterOption>?> showSelectMailboxFiltersModal({
     context: context,
     isScrollControlled: true,
     elevation: 0,
-    builder: (context) => FractionallySizedBox(
-      heightFactor: 0.75,
+    builder: (context) => ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
       child: _SelectMailboxFiltersModal(contacts: contacts, mailboxFilterController: mailboxFilterController),
     ),
   );
@@ -103,9 +103,9 @@ class _SelectMailboxFiltersModalState extends State<_SelectMailboxFiltersModal> 
         ),
         Gaps.h16,
         ListTile(title: Text(context.l10n.mailbox_filter_byContacts, style: Theme.of(context).textTheme.titleMedium)),
-        Expanded(
+        Flexible(
           child: widget.contacts.isEmpty
-              ? EmptyListIndicator(icon: Icons.contacts, text: context.l10n.contacts_empty, wrapInListView: true)
+              ? EmptyListIndicator(icon: Icons.contacts, text: context.l10n.contacts_empty)
               : ListView.separated(
                   itemCount: widget.contacts.length,
                   separatorBuilder: (BuildContext context, int index) => const Divider(height: 1, indent: 16),
