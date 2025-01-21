@@ -14,16 +14,15 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
   final Widget? trailing;
   final String Function(String)? titleOverride;
 
-  const PostOfficeBoxAddressAttributeRenderer({
-    super.key,
-    required this.value,
-    required this.valueHints,
-    required this.showTitle,
-    required this.valueTextStyle,
-    this.extraLine,
-    this.trailing,
-    this.titleOverride
-  });
+  const PostOfficeBoxAddressAttributeRenderer(
+      {super.key,
+      required this.value,
+      required this.valueHints,
+      required this.showTitle,
+      required this.valueTextStyle,
+      this.extraLine,
+      this.trailing,
+      this.titleOverride});
 
   @override
   Widget build(BuildContext context) {
