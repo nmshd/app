@@ -49,7 +49,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    final title = FlutterI18n.translate(context, 'i18n://dvo.attribute.name.${widget.valueType}');
+    final title = FlutterI18n.translate(context, 'dvo.attribute.name.${widget.valueType}');
 
     return Row(
       children: [
