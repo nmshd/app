@@ -68,6 +68,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
                     trailing: onUpdateAttribute == null
                         ? null
                         : Row(
+                          
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               if (query.results.length > 1)

@@ -53,7 +53,11 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
             ],
           ),
         ),
-        if (trailing != null) trailing!
+        if (trailing != null)
+          Padding(
+            padding: EdgeInsets.only(right: 12),
+            child: trailing!,
+          )
       ],
     );
   }
