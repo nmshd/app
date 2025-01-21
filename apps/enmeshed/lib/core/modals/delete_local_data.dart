@@ -46,7 +46,7 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
