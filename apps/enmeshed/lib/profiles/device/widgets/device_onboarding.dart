@@ -71,7 +71,7 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
     final isExpired = DateTime.now().isAfter(expiryTime);
 
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom + 36),
+      padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -94,7 +94,7 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: isExpired
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

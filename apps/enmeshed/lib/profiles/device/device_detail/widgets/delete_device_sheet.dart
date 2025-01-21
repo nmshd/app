@@ -25,7 +25,7 @@ class _DeleteDeviceSheetState extends State<DeleteDeviceSheet> {
     return Stack(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 8, left: 24, right: 8, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+          padding: EdgeInsets.only(top: 8, left: 24, right: 8, bottom: MediaQuery.paddingOf(context).bottom),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
