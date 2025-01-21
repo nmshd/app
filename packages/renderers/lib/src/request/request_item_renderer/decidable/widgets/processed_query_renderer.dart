@@ -11,7 +11,7 @@ import 'manual_decision_required.dart';
 class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
   final ProcessedIdentityAttributeQueryDVO query;
   final AbstractAttribute? selectedAttribute;
-  final Future<void> Function([String? valueType, String? value])? onUpdateAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;
   final bool? requireManualDecision;
@@ -68,7 +68,6 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
                     trailing: onUpdateAttribute == null
                         ? null
                         : Row(
-                          
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               if (query.results.length > 1)
@@ -101,7 +100,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
 class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
   final ProcessedRelationshipAttributeQueryDVO query;
   final AbstractAttribute? selectedAttribute;
-  final Future<void> Function([String? valueType, String? value])? onUpdateAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;
   final bool? requireManualDecision;
@@ -174,7 +173,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
   final ProcessedThirdPartyRelationshipAttributeQueryDVO query;
   final CheckboxSettings? checkboxSettings;
   final AbstractAttribute? selectedAttribute;
-  final Future<void> Function()? onUpdateAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
   final bool mustBeAccepted;
@@ -202,7 +201,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
         checkboxSettings: checkboxSettings,
         mustBeAccepted: mustBeAccepted,
         onCreateAttribute: () async {
-          onUpdateAttribute!();
+          onUpdateAttribute!(query.valueType!);
         },
       );
     }
@@ -223,7 +222,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
                       : SizedBox(
                           width: 50,
                           child: IconButton(
-                            onPressed: () => onUpdateAttribute!(),
+                            onPressed: () => onUpdateAttribute!(query.valueType!),
                             icon: const Icon(Icons.chevron_right),
                           ),
                         ),
@@ -252,7 +251,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
   final ProcessedIQLQueryDVO query;
   final CheckboxSettings? checkboxSettings;
   final AbstractAttribute? selectedAttribute;
-  final Future<void> Function([String? valueType, String? value])? onUpdateAttribute;
+  final Future<void> Function(String valueType)? onUpdateAttribute;
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
   final bool mustBeAccepted;
@@ -284,7 +283,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
         checkboxSettings: checkboxSettings,
         mustBeAccepted: mustBeAccepted,
         onCreateAttribute: () async {
-          onUpdateAttribute!(query.valueType);
+          onUpdateAttribute!(query.valueType!);
         },
       );
     }
@@ -304,7 +303,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
                     : SizedBox(
                         width: 50,
                         child: IconButton(
-                          onPressed: () => onUpdateAttribute!(query.valueType),
+                          onPressed: () => onUpdateAttribute!(query.valueType!),
                           icon: const Icon(Icons.chevron_right),
                         ),
                       ),

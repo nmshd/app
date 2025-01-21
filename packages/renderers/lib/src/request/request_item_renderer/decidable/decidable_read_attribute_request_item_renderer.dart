@@ -172,7 +172,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     );
   }
 
-  Future<void> _onUpdateAttribute([String? valueType, String? value]) async {
+  Future<void> _onUpdateAttribute(String valueType) async {
     if (widget.openAttributeSwitcher == null) return;
 
     final resultValues = Set<AttributeSwitcherChoice>.from(_getChoices());
