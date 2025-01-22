@@ -473,47 +473,49 @@ class EnmeshedApp extends StatelessWidget {
     ]);
 
     unawaited(SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge));
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarColor: Colors.transparent,
         systemNavigationBarContrastEnforced: false,
         systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
+        statusBarBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
+        statusBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
       ),
-    );
-
-    return Features(
-      child: MaterialApp.router(
-        routerConfig: _router,
-        debugShowCheckedModeBanner: false,
-        // dark mode is disabled until we have a proper dark theme
-        themeMode: ThemeMode.light,
-        theme: ThemeData(
-          colorScheme: lightColorScheme,
-          extensions: [lightCustomColors, woltThemeData],
-          navigationBarTheme: lightNavigationBarTheme,
-          appBarTheme: lightAppBarTheme,
-          textTheme: textTheme,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: darkColorScheme,
-          extensions: [darkCustomColors, woltThemeData],
-          navigationBarTheme: darkNavigationBarTheme,
-          appBarTheme: darkAppBarTheme,
-          textTheme: textTheme,
-        ),
-        localizationsDelegates: [
-          CroppyLocalizations.delegate,
-          FlutterI18nDelegate(
-            translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
-            missingTranslationHandler: (key, locale) {
-              GetIt.I.get<Logger>().e('Missing Key: $key, locale: $locale');
-            },
+      child: Features(
+        child: MaterialApp.router(
+          routerConfig: _router,
+          debugShowCheckedModeBanner: false,
+          // dark mode is disabled until we have a proper dark theme
+          themeMode: ThemeMode.light,
+          theme: ThemeData(
+            colorScheme: lightColorScheme,
+            extensions: [lightCustomColors, woltThemeData],
+            navigationBarTheme: lightNavigationBarTheme,
+            appBarTheme: lightAppBarTheme,
+            textTheme: textTheme,
           ),
-          ...AppLocalizations.localizationsDelegates,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
+          darkTheme: ThemeData(
+            colorScheme: darkColorScheme,
+            extensions: [darkCustomColors, woltThemeData],
+            navigationBarTheme: darkNavigationBarTheme,
+            appBarTheme: darkAppBarTheme,
+            textTheme: textTheme,
+          ),
+          localizationsDelegates: [
+            CroppyLocalizations.delegate,
+            FlutterI18nDelegate(
+              translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
+              missingTranslationHandler: (key, locale) {
+                GetIt.I.get<Logger>().e('Missing Key: $key, locale: $locale');
+              },
+            ),
+            ...AppLocalizations.localizationsDelegates,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
       ),
     );
   }

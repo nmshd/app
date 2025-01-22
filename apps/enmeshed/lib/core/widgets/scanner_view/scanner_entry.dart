@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -81,7 +82,15 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
     final scanWindow = Rect.fromLTWH(scanWindowX, scanWindowY, scannerWindowSize, scannerWindowSize);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+      ),
       child: Stack(
         fit: StackFit.expand,
         children: [
