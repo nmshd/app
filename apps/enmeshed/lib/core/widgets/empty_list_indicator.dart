@@ -1,6 +1,7 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
 
 class EmptyListIndicator extends StatelessWidget {
   final IconData icon;

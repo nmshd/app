@@ -1,5 +1,6 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
@@ -49,7 +50,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 8, left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 42),
+          padding: const EdgeInsets.only(top: 8, left: 24, right: 24),
           child: _fileDVO == null
               ? const Center(child: CircularProgressIndicator())
               : Column(

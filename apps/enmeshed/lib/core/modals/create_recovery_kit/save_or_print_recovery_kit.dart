@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'dart:math' as math;
 
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 
-import '../../constants.dart';
 import '../../utils/utils.dart';
 
 class SaveOrPrintRecoveryKit extends StatefulWidget {
@@ -38,7 +37,7 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: math.max(MediaQuery.paddingOf(context).bottom, 16) + 16),
+          padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
           child: Column(
             children: [
               Text(context.l10n.identityRecovery_saveKitDescription),

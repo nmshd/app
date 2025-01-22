@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +13,6 @@ import 'package:logger/logger.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart' as path;
 
-import '../constants.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
 import 'file_icon.dart';
@@ -79,7 +80,12 @@ class _UploadFileState extends State<UploadFile> {
             ),
             Flexible(
               child: Padding(
-                padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom, top: 16),
+                padding: EdgeInsets.only(
+                  left: 24,
+                  right: 24,
+                  bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom) + 8,
+                  top: 16,
+                ),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +142,6 @@ class _UploadFileState extends State<UploadFile> {
                           ),
                         ],
                       ),
-                      Gaps.h24,
                     ],
                   ),
                 ),

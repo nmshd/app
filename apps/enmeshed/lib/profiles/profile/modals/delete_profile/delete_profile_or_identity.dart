@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
@@ -27,7 +28,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
       canPop: false,
       onPopInvokedWithResult: (_, __) => cancel(),
       child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+        padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

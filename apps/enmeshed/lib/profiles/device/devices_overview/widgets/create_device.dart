@@ -1,5 +1,6 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -53,7 +54,7 @@ class _CreateDeviceState extends State<CreateDevice> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 8, left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+      padding: EdgeInsets.only(top: 8, left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -95,11 +96,14 @@ class _CreateDeviceState extends State<CreateDevice> {
             onSubmitted: (value) => _confirmEnabled ? _save() : _nameFocusNode.requestFocus(),
           ),
           Gaps.h8,
-          Align(
-            alignment: Alignment.centerRight,
-            child: FilledButton(
-              onPressed: _confirmEnabled ? _save : null,
-              child: Text(context.l10n.next),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: FilledButton(
+                onPressed: _confirmEnabled ? _save : null,
+                child: Text(context.l10n.next),
+              ),
             ),
           ),
         ],

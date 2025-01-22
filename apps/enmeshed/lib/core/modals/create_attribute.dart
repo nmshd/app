@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:get_it/get_it.dart';
@@ -11,7 +13,6 @@ import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-import '../constants.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
@@ -126,7 +127,10 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
           valueListenable: createEnabledNotifier,
           builder: (context, enabled, child) {
             return Padding(
-              padding: EdgeInsets.only(right: MediaQuery.viewInsetsOf(context).right + 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 16),
+              padding: EdgeInsets.only(
+                right: 24,
+                bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom) + 16,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -169,12 +173,13 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () => pageIndexNotifier.value = 0,
                     ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
-                    child: valueType == null
-                        ? Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge)
-                        : Text(context.l10n.myData_createAttribute_title(translatedAttribute), style: Theme.of(context).textTheme.titleSmall),
-                  ),
+                  if (valueType == null)
+                    Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge)
+                  else
+                    Text(
+                      context.l10n.myData_createAttribute_title(translatedAttribute),
+                      style: initialValueType == null ? Theme.of(context).textTheme.titleSmall : Theme.of(context).textTheme.titleLarge,
+                    ),
                 ],
               ),
             );
@@ -185,13 +190,13 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
           builder: (context, valueType, child) {
             if (valueType == null) {
               return Padding(
-                padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 80),
+                padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 80),
                 child: Text(context.l10n.errorDialog_description),
               );
             }
 
             return Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 80),
+              padding: EdgeInsets.only(left: 16, right: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 80),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -251,7 +256,7 @@ class _EditableAttributesState extends State<_EditableAttributes> {
   Widget build(BuildContext context) {
     if (_editableAttributes == null) {
       return Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+        padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom),
         child: const Center(child: CircularProgressIndicator()),
       );
     }
@@ -280,7 +285,7 @@ class _EditableAttributesState extends State<_EditableAttributes> {
           ),
           separatorBuilder: (context, index) => const Divider(height: 0, indent: 16),
         ),
-        SizedBox(height: MediaQuery.viewInsetsOf(context).bottom + 24),
+        SizedBox(height: MediaQuery.viewPaddingOf(context).bottom),
       ],
     );
   }

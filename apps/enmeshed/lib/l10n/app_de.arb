@@ -138,7 +138,6 @@
   "drawer_hints_firstSteps": "Erste Schritte",
   "profiles_copyAddressToClipboardLabel": "Die Profil-Adresse in die Zwischenablage kopieren.",
   "profiles_copiedAddressToClipboard": "Die Profil-Adresse wurde in die Zwischenablage kopiert.",
-  "profiles_settings_title": "Einstellungen",
   "profiles_settings_subtitle": "Verwalten Sie hier Ihre verbundenen Geräte und Profileinstellungen oder sichern Sie Ihre Daten.",
   "profiles_settings_editProfile": "Profil bearbeiten",
   "profiles_settings_deleteProfile": "Profil löschen",

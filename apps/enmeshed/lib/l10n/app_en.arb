@@ -138,7 +138,6 @@
   "drawer_hints_firstSteps": "First steps",
   "profiles_copyAddressToClipboardLabel": "Copy your profile-address to the clipboard.",
   "profiles_copiedAddressToClipboard": "The profile-address has been copied to the clipboard.",
-  "profiles_settings_title": "Settings",
   "profiles_settings_subtitle": "Manage your connected devices and profile settings or back up your data here.",
   "profiles_settings_editProfile": "Edit profile",
   "profiles_settings_deleteProfile": "Delete profile",

@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
@@ -31,7 +32,7 @@ class ShouldDeleteProfile extends StatelessWidget {
       canPop: false,
       onPopInvokedWithResult: (_, __) => cancel(),
       child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+        padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

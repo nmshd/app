@@ -18,7 +18,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final maxWidth = MediaQuery.of(context).size.width * 0.85;
+    final maxWidth = MediaQuery.sizeOf(context).width * 0.85;
 
     return SafeArea(
       child: Drawer(

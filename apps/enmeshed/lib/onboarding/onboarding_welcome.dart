@@ -1,3 +1,4 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
@@ -13,8 +14,9 @@ class OnboardingWelcome extends StatelessWidget {
     final screenHeight = MediaQuery.sizeOf(context).height;
 
     return SafeArea(
+      minimum: const EdgeInsets.only(bottom: 24),
       child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 16),
+        padding: const EdgeInsets.only(left: 24, right: 24),
         child: Column(
           children: [
             Expanded(

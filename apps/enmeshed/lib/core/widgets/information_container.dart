@@ -1,6 +1,5 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
 
 class InformationContainer extends StatelessWidget {
   final String title;

@@ -1,10 +1,10 @@
-import 'dart:math' as math;
+import 'dart:math';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../constants.dart';
 import '../../utils/extensions.dart';
 import 'password_input.dart';
 import 'pin_input.dart';
@@ -19,7 +19,7 @@ class EnterPasswordModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: math.max(MediaQuery.viewInsetsOf(context).bottom, 24)),
+      padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
