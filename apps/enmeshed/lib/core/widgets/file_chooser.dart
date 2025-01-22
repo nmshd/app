@@ -101,7 +101,6 @@ class _FileChooserState extends State<_FileChooser> {
                   : Scrollbar(
                       thumbVisibility: true,
                       child: ListView.separated(
-                        shrinkWrap: true,
                         clipBehavior: Clip.antiAlias,
                         itemCount: _existingFiles!.length,
                         padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
