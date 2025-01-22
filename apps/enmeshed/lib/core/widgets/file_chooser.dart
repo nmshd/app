@@ -165,12 +165,7 @@ class _FileChooserState extends State<_FileChooser> {
     final files = await session.transportServices.files.getFiles();
     final expanded = await session.expander.expandFileDTOs(files.value);
     setState(() {
-      _existingFiles = [
-        ...expanded,
-        ...expanded,
-        ...expanded,
-        ...expanded,
-      ];
+      _existingFiles = expanded;
     });
   }
 }
