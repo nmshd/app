@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:get_it/get_it.dart';
@@ -12,7 +13,6 @@ import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-import '../constants.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';

@@ -1,8 +1,10 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
+import 'information_container.dart';
 
 enum ScannerType {
   addContact,
