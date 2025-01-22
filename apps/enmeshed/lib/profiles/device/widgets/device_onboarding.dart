@@ -233,9 +233,9 @@ class _DeviceOnboardingUrl extends StatelessWidget {
                       )
                     : Column(
                         mainAxisSize: MainAxisSize.min,
+                        spacing: 24,
                         children: [
-                          Text(link, maxLines: 4, overflow: TextOverflow.ellipsis),
-                          Gaps.h24,
+                          Flexible(child: Text(link, maxLines: 40, overflow: TextOverflow.ellipsis)),
                           OutlinedButton.icon(
                             onPressed: () => Clipboard.setData(ClipboardData(text: link)),
                             icon: const Icon(Icons.file_copy_outlined),
