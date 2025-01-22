@@ -49,7 +49,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 8, left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 42),
+          padding: const EdgeInsets.only(top: 8, left: 24, right: 24),
           child: _fileDVO == null
               ? const Center(child: CircularProgressIndicator())
               : Column(

@@ -71,7 +71,7 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
     final isExpired = DateTime.now().isAfter(expiryTime);
 
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom + 36),
+      padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -94,7 +94,7 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: isExpired
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,36 +168,34 @@ class _DeviceOnboardingQRCode extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(textAlign: TextAlign.center, context.l10n.devices_code_qrDescription),
-          Gaps.h16,
-          Stack(
-            children: [
-              Center(
-                child: QrImageView(
-                  data: link,
-                  semanticsLabel: context.l10n.devices_code_qrSemanticsLabel,
-                  eyeStyle: QrEyeStyle(
-                    eyeShape: QrEyeShape.square,
-                    color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.scrim,
+          Expanded(
+            child: Stack(
+              children: [
+                Center(
+                  child: QrImageView(
+                    data: link,
+                    semanticsLabel: context.l10n.devices_code_qrSemanticsLabel,
+                    eyeStyle: QrEyeStyle(
+                      eyeShape: QrEyeShape.square,
+                      color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.scrim,
+                    ),
+                    dataModuleStyle: QrDataModuleStyle(
+                      dataModuleShape: QrDataModuleShape.square,
+                      color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.scrim,
+                    ),
+                    size: 200,
                   ),
-                  dataModuleStyle: QrDataModuleStyle(
-                    dataModuleShape: QrDataModuleShape.square,
-                    color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.scrim,
-                  ),
-                  size: 200,
                 ),
-              ),
-              if (isExpired)
-                SizedBox(
-                  height: 200,
-                  child: Center(
+                if (isExpired)
+                  Center(
                     child: FilledButton.icon(
                       onPressed: getDeviceToken,
                       icon: const Icon(Icons.refresh),
                       label: Text(context.l10n.devices_code_generateQr),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -223,31 +221,30 @@ class _DeviceOnboardingUrl extends StatelessWidget {
         children: [
           Text(textAlign: TextAlign.center, context.l10n.devices_code_urlDescription),
           Gaps.h16,
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-            child: isExpired
-                ? SizedBox(
-                    height: 200,
-                    child: Center(
-                      child: FilledButton.icon(
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              child: Center(
+                child: isExpired
+                    ? FilledButton.icon(
                         onPressed: getDeviceToken,
                         icon: const Icon(Icons.refresh),
                         label: Text(context.l10n.devices_code_generateUrl),
+                      )
+                    : Column(
+                        mainAxisSize: MainAxisSize.min,
+                        spacing: 24,
+                        children: [
+                          Flexible(child: Text(link, maxLines: 40, overflow: TextOverflow.ellipsis)),
+                          OutlinedButton.icon(
+                            onPressed: () => Clipboard.setData(ClipboardData(text: link)),
+                            icon: const Icon(Icons.file_copy_outlined),
+                            label: Text(context.l10n.devices_code_copy),
+                          ),
+                        ],
                       ),
-                    ),
-                  )
-                : Column(
-                    children: [
-                      Gaps.h32,
-                      Text(link),
-                      Gaps.h24,
-                      OutlinedButton.icon(
-                        onPressed: () => Clipboard.setData(ClipboardData(text: link)),
-                        icon: const Icon(Icons.file_copy_outlined),
-                        label: Text(context.l10n.devices_code_copy),
-                      ),
-                    ],
-                  ),
+              ),
+            ),
           ),
         ],
       ),

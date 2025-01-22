@@ -56,7 +56,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+      padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.paddingOf(context).bottom),
       child: Column(
         children: [
           ChangeProfilePicture(
@@ -90,19 +90,22 @@ class _EditProfileState extends State<EditProfile> {
             onSubmitted: (_) => _confirmEnabled ? _confirm() : _focusNode.requestFocus(),
           ),
           Gaps.h24,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              OutlinedButton(
-                onPressed: () => context.pop(),
-                child: Text(context.l10n.cancel),
-              ),
-              Gaps.w8,
-              FilledButton(
-                onPressed: _confirmEnabled ? _confirm : null,
-                child: Text(context.l10n.save),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
+              spacing: 8,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                OutlinedButton(
+                  onPressed: () => context.pop(),
+                  child: Text(context.l10n.cancel),
+                ),
+                FilledButton(
+                  onPressed: _confirmEnabled ? _confirm : null,
+                  child: Text(context.l10n.save),
+                ),
+              ],
+            ),
           ),
         ],
       ),
