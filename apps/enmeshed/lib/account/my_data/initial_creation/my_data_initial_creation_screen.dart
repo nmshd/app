@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
@@ -146,19 +148,21 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
       bottomNavigationBar: Material(
         elevation: 10,
         child: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom + 16),
+          padding: EdgeInsets.only(
+            bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom),
+            right: 16,
+          ),
           child: Container(
             padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 OutlinedButton(onPressed: _isLoading ? null : widget.resetType ?? () => context.pop(), child: Text(context.l10n.cancel)),
-                Gaps.w4,
+                Gaps.w8,
                 FilledButton(
                   onPressed: _saveEnabled && !_isLoading ? _createAttributes : null,
                   child: Text(context.l10n.save),
                 ),
-                Gaps.w16,
               ],
             ),
           ),

@@ -24,150 +24,152 @@ class DebugScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('DEBUG')),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            FutureBuilder(
-              builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Address: ', text: s.data!.value.address),
-              future: () async {
-                final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
-                final lastUsedAccount = accounts.reduce(
-                  (value, element) => (value.lastAccessedAt ?? '').compareTo(element.lastAccessedAt ?? '') == 1 ? value : element,
-                );
-                final session = GetIt.I.get<EnmeshedRuntime>().getSession(lastUsedAccount.id);
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              FutureBuilder(
+                builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Address: ', text: s.data!.value.address),
+                future: () async {
+                  final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccounts();
+                  final lastUsedAccount = accounts.reduce(
+                    (value, element) => (value.lastAccessedAt ?? '').compareTo(element.lastAccessedAt ?? '') == 1 ? value : element,
+                  );
+                  final session = GetIt.I.get<EnmeshedRuntime>().getSession(lastUsedAccount.id);
 
-                return session.transportServices.account.getIdentityInfo();
-              }(),
-            ),
-            FutureBuilder(
-              builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Push Token: ', text: s.data!),
-              future: Push.instance.token.timeout(const Duration(seconds: 5)).catchError((_) => 'timeout', test: (e) => e is TimeoutException),
-            ),
-            if (kDebugMode) ...[
+                  return session.transportServices.account.getIdentityInfo();
+                }(),
+              ),
+              FutureBuilder(
+                builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Push Token: ', text: s.data!),
+                future: Push.instance.token.timeout(const Duration(seconds: 5)).catchError((_) => 'timeout', test: (e) => e is TimeoutException),
+              ),
+              if (kDebugMode) ...[
+                const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: Text('Enter Password Popups', style: Theme.of(context).textTheme.titleLarge),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: Wrap(
+                    spacing: 8,
+                    children: [
+                      for (int i = 4; i <= 16; i++)
+                        OutlinedButton(
+                          onPressed: () async {
+                            final pin = await context.push(
+                              '/enter-password-popup',
+                              extra: (passwordType: UIBridgePasswordType.pin, pinLength: i, attempt: 1),
+                            );
+
+                            if (!context.mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
+                          },
+                          child: Text('PIN$i'),
+                        ),
+                      OutlinedButton(
+                        onPressed: () async {
+                          final password = await context.push(
+                            '/enter-password-popup',
+                            extra: (passwordType: UIBridgePasswordType.password, pinLength: null, attempt: 1),
+                          );
+
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
+                        },
+                        child: const Text('PW'),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: Text('Enter Password Popups (Second attempt)', style: Theme.of(context).textTheme.titleLarge),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: Wrap(
+                    spacing: 8,
+                    children: [
+                      for (int i = 4; i <= 16; i++)
+                        OutlinedButton(
+                          onPressed: () async {
+                            final pin = await context.push(
+                              '/enter-password-popup',
+                              extra: (passwordType: UIBridgePasswordType.pin, pinLength: i, attempt: 2),
+                            );
+
+                            if (!context.mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
+                          },
+                          child: Text('PIN$i'),
+                        ),
+                      OutlinedButton(
+                        onPressed: () async {
+                          final password = await context.push(
+                            '/enter-password-popup',
+                            extra: (passwordType: UIBridgePasswordType.password, pinLength: null, attempt: 2),
+                          );
+
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
+                        },
+                        child: const Text('PW'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
               const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Text('Enter Password Popups', style: Theme.of(context).textTheme.titleLarge),
+                child: Text('Settings', style: Theme.of(context).textTheme.titleLarge),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Wrap(
                   spacing: 8,
                   children: [
-                    for (int i = 4; i <= 16; i++)
+                    if (kDebugMode) ...[
                       OutlinedButton(
-                        onPressed: () async {
-                          final pin = await context.push(
-                            '/enter-password-popup',
-                            extra: (passwordType: UIBridgePasswordType.pin, pinLength: i, attempt: 1),
-                          );
-
-                          if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
-                        },
-                        child: Text('PIN$i'),
+                        onPressed: () => DebugFeatures.show(
+                          context,
+                          availableFeatures: [
+                            const Feature('SHOW_TECHNICAL_MESSAGES', name: 'Show Technical Messages'),
+                            const Feature('DELETE_IDENTITY_NOW', name: 'Delete an Identity Immediately'),
+                            const Feature(
+                              'SHOW_ADDITIONAL_PUBLIC_RELATIONSHIP_TEMPLATE_REFERENCES',
+                              name: 'Show Additional Public Relationship Template References',
+                            ),
+                            const Feature('IDENTITY_RECOVERY_KITS', name: 'Identity Recovery Kits'),
+                          ],
+                        ),
+                        child: const Text('Feature Flags'),
                       ),
+                      OutlinedButton(
+                        onPressed: () async => _clearProfiles(context),
+                        child: const Text('Clear Profiles'),
+                      ),
+                    ],
                     OutlinedButton(
-                      onPressed: () async {
-                        final password = await context.push(
-                          '/enter-password-popup',
-                          extra: (passwordType: UIBridgePasswordType.password, pinLength: null, attempt: 1),
-                        );
-
-                        if (!context.mounted) return;
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
-                      },
-                      child: const Text('PW'),
+                      onPressed: () => showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => const SafeArea(minimum: EdgeInsets.only(bottom: 16), child: _PushDebugger()),
+                      ),
+                      child: const Text('Push Debugger'),
                     ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Text('Enter Password Popups (Second attempt)', style: Theme.of(context).textTheme.titleLarge),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Wrap(
-                  spacing: 8,
-                  children: [
-                    for (int i = 4; i <= 16; i++)
-                      OutlinedButton(
-                        onPressed: () async {
-                          final pin = await context.push(
-                            '/enter-password-popup',
-                            extra: (passwordType: UIBridgePasswordType.pin, pinLength: i, attempt: 2),
-                          );
-
-                          if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
-                        },
-                        child: Text('PIN$i'),
-                      ),
                     OutlinedButton(
-                      onPressed: () async {
-                        final password = await context.push(
-                          '/enter-password-popup',
-                          extra: (passwordType: UIBridgePasswordType.password, pinLength: null, attempt: 2),
-                        );
-
-                        if (!context.mounted) return;
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
-                      },
-                      child: const Text('PW'),
+                      onPressed: _extractAppDataAsZip,
+                      child: const Text('Export App Data'),
                     ),
                   ],
                 ),
               ),
             ],
-            const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Text('Settings', style: Theme.of(context).textTheme.titleLarge),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Wrap(
-                spacing: 8,
-                children: [
-                  if (kDebugMode) ...[
-                    OutlinedButton(
-                      onPressed: () => DebugFeatures.show(
-                        context,
-                        availableFeatures: [
-                          const Feature('SHOW_TECHNICAL_MESSAGES', name: 'Show Technical Messages'),
-                          const Feature('DELETE_IDENTITY_NOW', name: 'Delete an Identity Immediately'),
-                          const Feature(
-                            'SHOW_ADDITIONAL_PUBLIC_RELATIONSHIP_TEMPLATE_REFERENCES',
-                            name: 'Show Additional Public Relationship Template References',
-                          ),
-                          const Feature('IDENTITY_RECOVERY_KITS', name: 'Identity Recovery Kits'),
-                        ],
-                      ),
-                      child: const Text('Feature Flags'),
-                    ),
-                    OutlinedButton(
-                      onPressed: () async => _clearProfiles(context),
-                      child: const Text('Clear Profiles'),
-                    ),
-                  ],
-                  OutlinedButton(
-                    onPressed: () => showModalBottomSheet<void>(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => const SafeArea(minimum: EdgeInsets.only(bottom: 16), child: _PushDebugger()),
-                    ),
-                    child: const Text('Push Debugger'),
-                  ),
-                  OutlinedButton(
-                    onPressed: _extractAppDataAsZip,
-                    child: const Text('Export App Data'),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

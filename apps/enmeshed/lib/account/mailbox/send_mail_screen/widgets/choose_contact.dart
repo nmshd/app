@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -84,7 +82,7 @@ class _ContactsSheet extends StatelessWidget {
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsets.only(bottom: max(MediaQuery.paddingOf(context).bottom, 16)),
+              padding: EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
               child: Scrollbar(
                 thumbVisibility: true,
                 child: SingleChildScrollView(
