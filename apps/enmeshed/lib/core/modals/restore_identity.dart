@@ -1,9 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import '/core/core.dart';
+import '../utils/utils.dart';
 
 Future<void> showRestoreIdentityModal({required LocalAccountDTO accountInDeletion, required BuildContext context}) async {
   if (!context.mounted) return;

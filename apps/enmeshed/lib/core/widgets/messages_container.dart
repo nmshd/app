@@ -1,7 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
+import 'empty_list_indicator.dart';
+import 'message_dvo_renderer.dart';
 
 class MessagesContainer extends StatelessWidget {
   final String accountId;

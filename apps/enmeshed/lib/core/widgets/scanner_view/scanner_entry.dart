@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../../constants.dart';
 import '../../utils/utils.dart';
 
 enum ScannerAnimationDirection { forward, reverse }
