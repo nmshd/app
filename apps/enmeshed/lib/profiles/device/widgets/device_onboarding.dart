@@ -224,27 +224,26 @@ class _DeviceOnboardingUrl extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-              child: isExpired
-                  ? Center(
-                      child: FilledButton.icon(
+              child: Center(
+                child: isExpired
+                    ? FilledButton.icon(
                         onPressed: getDeviceToken,
                         icon: const Icon(Icons.refresh),
                         label: Text(context.l10n.devices_code_generateUrl),
+                      )
+                    : Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(link, maxLines: 4, overflow: TextOverflow.ellipsis),
+                          Gaps.h24,
+                          OutlinedButton.icon(
+                            onPressed: () => Clipboard.setData(ClipboardData(text: link)),
+                            icon: const Icon(Icons.file_copy_outlined),
+                            label: Text(context.l10n.devices_code_copy),
+                          ),
+                        ],
                       ),
-                    )
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Gaps.h32,
-                        Text(link),
-                        Gaps.h24,
-                        OutlinedButton.icon(
-                          onPressed: () => Clipboard.setData(ClipboardData(text: link)),
-                          icon: const Icon(Icons.file_copy_outlined),
-                          label: Text(context.l10n.devices_code_copy),
-                        ),
-                      ],
-                    ),
+              ),
             ),
           ),
         ],
