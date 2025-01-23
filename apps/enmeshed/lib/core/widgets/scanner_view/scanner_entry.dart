@@ -87,7 +87,7 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
         systemNavigationBarColor: Colors.transparent,
         systemNavigationBarContrastEnforced: false,
         systemNavigationBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Stack(
