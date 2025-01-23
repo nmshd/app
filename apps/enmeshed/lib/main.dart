@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:croppy/croppy.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -480,9 +481,9 @@ class EnmeshedApp extends StatelessWidget {
         systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarColor: Colors.transparent,
         systemNavigationBarContrastEnforced: false,
-        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-        statusBarBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-        statusBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
+        systemNavigationBarIconBrightness: Theme.of(context).brightness.opposite,
+        statusBarBrightness: Theme.of(context).brightness,
+        statusBarIconBrightness: Theme.of(context).brightness.opposite,
       ),
       child: Features(
         child: MaterialApp.router(
