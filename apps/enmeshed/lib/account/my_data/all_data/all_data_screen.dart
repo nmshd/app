@@ -40,7 +40,6 @@ class _AllDataScreenState extends State<AllDataScreen> {
             context: context,
             accountId: widget.accountId,
             onAttributeCreated: () => _loadAttributes(syncBefore: true),
-            onCreateAttributePressed: null,
           ),
         ),
       ],

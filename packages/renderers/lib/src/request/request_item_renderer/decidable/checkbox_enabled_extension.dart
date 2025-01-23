@@ -1,11 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
 extension CheckboxExtension on RequestItemDVODerivation {
-  bool get checkboxEnabled => switch ((requireManualDecision, mustBeAccepted)) {
-        (true, _) => true,
-        (_, true) => false,
-        _ => true,
-      };
+  // checkbox only disabled if mustBeAccepted is true
+  bool get checkboxEnabled => !mustBeAccepted;
 
-  bool get initiallyChecked => (requireManualDecision == true || !mustBeAccepted ? false : true);
+  // always check the checkbox only when requireManualDicision is false
+  bool initiallyChecked(bool mustBeAccepted, [bool? requireManualDecision]) {
+    return mustBeAccepted ? true : (requireManualDecision == true ? false : true);
+  }
+
+  bool get initallyDecided => false;
 }

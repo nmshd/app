@@ -229,7 +229,6 @@ class _EmptyAttributeEntry extends StatelessWidget {
               context: context,
               accountId: accountId,
               onAttributeCreated: onAttributeCreated,
-              onCreateAttributePressed: null,
             ),
           ),
         ],
@@ -256,7 +255,6 @@ class _EmptyAttributeEntry extends StatelessWidget {
           context: context,
           accountId: accountId,
           onAttributeCreated: onAttributeCreated,
-          onCreateAttributePressed: null,
         ),
       ),
     );

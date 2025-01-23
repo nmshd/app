@@ -1,7 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:renderers/renderers.dart';
-import 'package:value_renderer/value_renderer.dart';
 
 import '../../request_item_index.dart';
 import 'checkbox_enabled_extension.dart';
@@ -36,6 +35,7 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
 
 class _DecidableReadAttributeRequestItemRendererState extends State<DecidableReadAttributeRequestItemRenderer> {
   late bool isChecked;
+  late bool isManualDecisionAccepted;
 
   AttributeSwitcherChoice? _choice;
 
@@ -43,17 +43,18 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted, widget.item.requireManualDecision);
+    isManualDecisionAccepted = widget.item.initallyDecided;
 
     final choice = _getChoices().firstOrNull;
     if (choice == null) return;
 
     _choice = choice;
 
-    if (isChecked) {
+    if (isChecked && widget.item.requireManualDecision != true) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id),
+        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
       );
     }
   }
@@ -63,44 +64,66 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
           query: query,
-          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+          checkboxSettings: (
+            isChecked: isChecked,
+            onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+            isManualDecided: isManualDecisionAccepted,
+            onUpdateManualDecision: onUpdateManualDecision
+          ),
           onUpdateAttribute: _onUpdateAttribute,
-          onUpdateInput: _onUpdateInput,
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
+          requireManualDecision: widget.item.requireManualDecision,
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
           openFileDetails: widget.openFileDetails,
         ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
           query: query,
-          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+          checkboxSettings: (
+            isChecked: isChecked,
+            onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+            isManualDecided: isManualDecisionAccepted,
+            onUpdateManualDecision: onUpdateManualDecision
+          ),
           onUpdateAttribute: _onUpdateAttribute,
-          onUpdateInput: _onUpdateInput,
           selectedAttribute: _choice?.attribute,
           mustBeAccepted: widget.item.mustBeAccepted,
+          requireManualDecision: widget.item.requireManualDecision,
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
           openFileDetails: widget.openFileDetails,
         ),
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
           query: query,
-          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+          checkboxSettings: (
+            isChecked: isChecked,
+            onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+            isManualDecided: isManualDecisionAccepted,
+            onUpdateManualDecision: onUpdateManualDecision
+          ),
           onUpdateAttribute: _onUpdateAttribute,
           selectedAttribute: _choice?.attribute,
+          mustBeAccepted: widget.item.mustBeAccepted,
+          requireManualDecision: widget.item.requireManualDecision,
           expandFileReference: widget.expandFileReference,
           openFileDetails: widget.openFileDetails,
         ),
       final ProcessedIQLQueryDVO query => ProcessedIQLQueryRenderer(
           requestItemTitle: widget.item.name,
           query: query,
-          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+          checkboxSettings: (
+            isChecked: isChecked,
+            onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+            isManualDecided: isManualDecisionAccepted,
+            onUpdateManualDecision: onUpdateManualDecision
+          ),
           onUpdateAttribute: _onUpdateAttribute,
           selectedAttribute: _choice?.attribute,
           expandFileReference: widget.expandFileReference,
           chooseFile: widget.chooseFile,
           mustBeAccepted: widget.item.mustBeAccepted,
-          onUpdateInput: _onUpdateInput,
+          requireManualDecision: widget.item.requireManualDecision,
           openFileDetails: widget.openFileDetails,
         ),
     };
@@ -113,7 +136,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       isChecked = value;
     });
 
-    if (_choice == null || !value) {
+    if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null || !value) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
         value: const RejectRequestItemParameters(),
@@ -122,67 +145,34 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       return;
     }
 
-    final choice = _choice!;
-
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: choice.id == null
-          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
-          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: _choice!.id!),
     );
   }
 
-  void _onUpdateInput({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) {
-    if (widget.item.query is ProcessedIdentityAttributeQueryDVO || widget.item.query is ProcessedIQLQueryDVO) {
-      final IdentityAttribute? composedValue = composeIdentityAttributeValue(
-        inputValue: inputValue,
-        valueType: valueType,
-        isComplex: isComplex,
-        currentAddress: widget.currentAddress,
-        tags: widget.item.query is ProcessedIQLQueryDVO
-            ? (widget.item.query as ProcessedIQLQueryDVO).tags
-            : (widget.item.query as ProcessedIdentityAttributeQueryDVO).tags,
+  void onUpdateManualDecision(bool? value) {
+    if (value == null) return;
+
+    setState(() {
+      isManualDecisionAccepted = value;
+    });
+
+    if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const RejectRequestItemParameters(),
       );
 
-      if (composedValue != null) {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: composedValue),
-        );
-
-        if (!isChecked) setState(() => isChecked = true);
-      } else {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: const RejectRequestItemParameters(),
-        );
-      }
-    } else if (widget.item.query is ProcessedRelationshipAttributeQueryDVO) {
-      final RelationshipAttribute? composedValue = composeRelationshipAttributeValue(
-        inputValue: inputValue,
-        valueType: valueType,
-        isComplex: isComplex,
-        query: widget.item.query as ProcessedRelationshipAttributeQueryDVO,
-        currentAddress: widget.currentAddress,
-      );
-
-      if (composedValue != null) {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: composedValue),
-        );
-
-        if (!isChecked) setState(() => isChecked = true);
-      } else {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: const RejectRequestItemParameters(),
-        );
-      }
+      return;
     }
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: _choice!.id!),
+    );
   }
 
-  Future<void> _onUpdateAttribute([String? valueType]) async {
+  Future<void> _onUpdateAttribute(String valueType) async {
     if (widget.openAttributeSwitcher == null) return;
 
     final resultValues = Set<AttributeSwitcherChoice>.from(_getChoices());
@@ -190,11 +180,18 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     final valueHints = _getQueryValueHints();
 
+    final tags = switch (widget.item.query) {
+      final ProcessedIQLQueryDVO query => query.tags,
+      final IdentityAttributeQueryDVO query => query.tags,
+      _ => null,
+    };
+
     final choice = await widget.openAttributeSwitcher!(
       valueType: valueType,
       choices: resultValues.toList(),
       currentChoice: _choice,
       valueHints: valueHints,
+      tags: tags,
     );
 
     if (choice == null) return;
@@ -204,17 +201,10 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       isChecked = true;
     });
 
-    if (choice.id != null) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
-      );
-    } else {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute),
-      );
-    }
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+    );
   }
 
   ValueHints? _getQueryValueHints() {
@@ -226,7 +216,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     };
   }
 
-  List<({String id, AbstractAttribute attribute})> _getChoices() {
+  List<AttributeSwitcherChoice> _getChoices() {
     final results = switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
@@ -234,6 +224,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return results.map((result) => (id: result.id, attribute: result.content)).toList();
+    return results
+        .map(
+          (result) => (
+            id: result.id,
+            attribute: result.content,
+            isDefaultRepositoryAttribute: result is RepositoryAttributeDVO ? result.isDefault : null,
+          ),
+        )
+        .toList();
   }
 }

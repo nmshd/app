@@ -132,7 +132,6 @@ class _CreateAttribute extends StatelessWidget {
                   context: context,
                   accountId: accountId,
                   onAttributeCreated: onAttributeCreated,
-                  onCreateAttributePressed: null,
                 ),
               ),
             ],
