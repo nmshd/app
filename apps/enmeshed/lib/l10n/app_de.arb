@@ -159,7 +159,7 @@
     }
   },
   "profile_or_identity_deletion": "Möchten Sie Ihr Profil nur von diesem Gerät entfernen (also das Gerät aus dem Profil abmelden) oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten löschen?",
-  "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschliesslich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen “Profil vom Gerät entfernen” und “Profil löschen”. Sie können nur Ihr gesamtes Profil löschen.",
+  "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschließlich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen “Profil vom Gerät entfernen” und “Profil löschen”. Sie können nur Ihr gesamtes Profil löschen.",
   "identity_delete_cancel": "Nein, abbrechen",
   "identity_delete_confirm": "Ja, löschen",
   "identity_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Es wird von allen Ihren verbundenen Geräten ({devices}) entfernt.",

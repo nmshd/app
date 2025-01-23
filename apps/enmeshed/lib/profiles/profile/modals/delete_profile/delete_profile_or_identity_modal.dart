@@ -24,6 +24,13 @@ Future<void> showDeleteProfileOrIdentityModal({
   final devicesResult = await session.transportServices.devices.getDevices();
   final devices = devicesResult.isSuccess ? devicesResult.value : <DeviceDTO>[];
 
+  final onboardedDevices = devices
+      .where(
+        (element) => element.isOnboarded && element.isOffboarded != true && !element.isCurrentDevice,
+      )
+      .toList()
+    ..sort((a, b) => a.name.compareTo(b.name));
+
   if (!context.mounted) return;
 
   await WoltModalSheet.show<void>(
@@ -46,7 +53,7 @@ Future<void> showDeleteProfileOrIdentityModal({
             cancel: () => context.pop,
             profileName: localAccount.name,
             accountId: localAccount.address!,
-            devices: devices,
+            onboardedDevices: onboardedDevices,
             deleteProfile: () => pageIndexNotifier.value = 1,
             deleteIdentity: () => pageIndexNotifier.value = 2,
           ),
@@ -80,7 +87,7 @@ Future<void> showDeleteProfileOrIdentityModal({
               pageIndexNotifier.value = 3;
             },
             profileName: localAccount.name,
-            devices: devices,
+            onboardedDevices: onboardedDevices,
           ),
         ),
         WoltModalSheetPage(

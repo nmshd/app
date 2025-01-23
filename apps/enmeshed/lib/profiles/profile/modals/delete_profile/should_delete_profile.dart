@@ -9,25 +9,18 @@ class ShouldDeleteProfile extends StatelessWidget {
   final VoidCallback cancel;
   final VoidCallback delete;
   final String profileName;
-  final List<DeviceDTO> devices;
+  final List<DeviceDTO> onboardedDevices;
 
   const ShouldDeleteProfile({
     required this.cancel,
     required this.delete,
     required this.profileName,
-    required this.devices,
+    required this.onboardedDevices,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final onboardedDevices = devices
-        .where(
-          (element) => element.isOnboarded && element.isOffboarded != true && !element.isCurrentDevice,
-        )
-        .toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (_, __) => cancel(),
