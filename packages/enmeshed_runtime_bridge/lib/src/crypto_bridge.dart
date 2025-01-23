@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:cal_flutter_plugin/cal_flutter_plugin.dart' as cal;
+import 'package:cal_flutter_plugin/cal_flutter_plugin.dart';
 
 class TsDartBridgeException implements Exception {
   final String value;
@@ -28,11 +28,13 @@ class CryptoHandler {
     return _singleton;
   }
 
-  CryptoHandler._internal();
+  CryptoHandler._internal() {
+    RustLib.init();
+  }
 
-  final HashMap<String, cal.Provider> _providers = HashMap();
-  final HashMap<String, cal.KeyHandle> _keyHandles = HashMap();
-  final HashMap<String, cal.KeyPairHandle> _keyPairHandles = HashMap();
+  final HashMap<String, Provider> _providers = HashMap();
+  final HashMap<String, KeyHandle> _keyHandles = HashMap();
+  final HashMap<String, KeyPairHandle> _keyPairHandles = HashMap();
 
   Future<String> handleCall(List<dynamic> args) async {
     // the Call object is a JSON string with the following structure:
@@ -54,11 +56,16 @@ class CryptoHandler {
     //    "message" : string
     // }
 
+    print('Handling call with args: $args');
+
     if (args.length != 1) {
-      throw TsDartBridgeException('not exactly 1 arg passed to handle', args.length.toString());
+      throw TsDartBridgeException(
+          'not exactly 1 arg passed to handle', args.length.toString());
     }
     if (args[0] is! String) {
-      throw TsDartBridgeException('the argument passed to the handle is not a string', args[0].toString());
+      throw TsDartBridgeException(
+          'the argument passed to the handle is not a string',
+          args[0].toString());
     }
 
     final String callObj = args[0];
@@ -70,11 +77,15 @@ class CryptoHandler {
         'provider' => await _handleProviderCall(objMap),
         'key' => await _handleKeyCall(objMap),
         'key_pair' => await _handleKeyPairCall(objMap),
-        _ => throw TsDartBridgeException('Unkown handle type', objMap['object_type']),
+        _ => throw TsDartBridgeException(
+            'Unkown handle type', objMap['object_type']),
       };
+      print('Returning: $returnedMap');
       return jsonEncode({'status': 'ok', 'data': returnedMap});
     } on TsDartBridgeException catch (e) {
       e.addJsonContext(callObj);
+      return jsonEncode({'status': 'error', 'message': e.toString()});
+    } catch (e) {
       return jsonEncode({'status': 'error', 'message': e.toString()});
     }
   }
@@ -84,19 +95,21 @@ class CryptoHandler {
       case 'create_provider':
         final conf = decodeProviderConfig(objMap['args'][0]);
         final implConfig = decodeProviderImplConfig(objMap['args'][1]);
-        final provider = await cal.createProvider(conf: conf, implConf: implConfig);
+        final provider = await createProvider(conf: conf, implConf: implConfig);
         final providerName = await provider!.providerName();
         _providers[providerName] = provider;
         return providerName;
-      case 'get_provider_from_name':
+      case 'create_provider_from_name':
+        print('Getting provider from name: ${objMap['args'][0]}');
         final String name = objMap['args'][0];
         final implConfig = decodeProviderImplConfig(objMap['args'][1]);
-        final provider = await cal.createProviderFromName(name: name, implConf: implConfig);
+        final provider =
+            await createProviderFromName(name: name, implConf: implConfig);
         final providerName = await provider!.providerName();
         _providers[providerName] = provider;
         return providerName;
       case 'get_all_providers':
-        final providers = await cal.getAllProviders();
+        final providers = await getAllProviders();
         return providers;
       default:
         throw TsDartBridgeException('Unknown method', objMap['method']);
@@ -142,7 +155,10 @@ class CryptoHandler {
         final publicKeyData = base64Decode(publicKeyDataBase64);
         final privateKeyDataBase64 = objMap['args'][2];
         final privateKeyData = base64Decode(privateKeyDataBase64);
-        final keyPair = await provider.importKeyPair(spec: keyPairSpec, publicKey: publicKeyData, privateKey: privateKeyData);
+        final keyPair = await provider.importKeyPair(
+            spec: keyPairSpec,
+            publicKey: publicKeyData,
+            privateKey: privateKeyData);
         final keyPairId = await keyPair.id();
         _keyPairHandles[keyPairId] = keyPair;
         return keyPairId;
@@ -150,7 +166,8 @@ class CryptoHandler {
         final keySpec = decodeKeyPairSpec(objMap['args'][0]);
         final keyDataBase64 = objMap['args'][1];
         final keyData = base64Decode(keyDataBase64);
-        final key = await provider.importPublicKey(spec: keySpec, publicKey: keyData);
+        final key =
+            await provider.importPublicKey(spec: keySpec, publicKey: keyData);
         final keyId = await key.id();
         _keyPairHandles[keyId] = key;
         return keyId;
@@ -159,8 +176,8 @@ class CryptoHandler {
         final encodedKeys = keys.map((val) {
           final (id, spec) = val;
           final encodedSpec = switch (spec) {
-            final cal.Spec_KeySpec s => encodeKeySpec(s.field0),
-            final cal.Spec_KeyPairSpec s => encodeKeyPairSpec(s.field0),
+            final Spec_KeySpec s => encodeKeySpec(s.field0),
+            final Spec_KeyPairSpec s => encodeKeyPairSpec(s.field0),
           };
           return {'id': id, 'spec': encodedSpec};
         }).toList();
@@ -246,7 +263,8 @@ class CryptoHandler {
         final signatureBase64 = objMap['args'][1];
         final data = base64Decode(dataBase64);
         final signature = base64Decode(signatureBase64);
-        final verified = await keyPair.verifySignature(data: data, signature: signature);
+        final verified =
+            await keyPair.verifySignature(data: data, signature: signature);
         return verified;
       case 'delete':
         await keyPair.delete();
@@ -263,13 +281,22 @@ class CryptoHandler {
     }
   }
 
-  cal.ProviderConfig decodeProviderConfig(Map<String, dynamic> map) {
+  ProviderConfig decodeProviderConfig(Map<String, dynamic> map) {
     final maxSecurityLevel = decodeSecurityLevel(map['max_security_level']);
     final minSecurityLevel = decodeSecurityLevel(map['min_security_level']);
-    final supportedCiphers = map['supported_ciphers'].map((e) => decodeCipher(e)).toList().cast<cal.Cipher>();
-    final supportedHashes = map['supported_hashes'].map((e) => decodeCryptoHash(e)).toList().cast<cal.CryptoHash>();
-    final supportedAsymSpec = map['supported_asym_spec'].map((e) => decodeAsymmetricKeySpec(e)).toList().cast<cal.AsymmetricKeySpec>();
-    return cal.ProviderConfig(
+    final supportedCiphers = map['supported_ciphers']
+        .map((e) => decodeCipher(e))
+        .toList()
+        .cast<Cipher>();
+    final supportedHashes = map['supported_hashes']
+        .map((e) => decodeCryptoHash(e))
+        .toList()
+        .cast<CryptoHash>();
+    final supportedAsymSpec = map['supported_asym_spec']
+        .map((e) => decodeAsymmetricKeySpec(e))
+        .toList()
+        .cast<AsymmetricKeySpec>();
+    return ProviderConfig(
         maxSecurityLevel: maxSecurityLevel,
         minSecurityLevel: minSecurityLevel,
         supportedCiphers: supportedCiphers.toSet(),
@@ -277,36 +304,45 @@ class CryptoHandler {
         supportedAsymSpec: supportedAsymSpec.toSet());
   }
 
-  Map<String, Object> encodeProviderConfig(cal.ProviderConfig config) {
+  Map<String, Object> encodeProviderConfig(ProviderConfig config) {
     return {
       'max_security_level': encodeSecurityLevel(config.maxSecurityLevel),
       'min_security_level': encodeSecurityLevel(config.minSecurityLevel),
-      'supported_ciphers': config.supportedCiphers.map((e) => encodeCipher(e)).toList().cast<String>(),
-      'supported_hashes': config.supportedHashes.map((e) => encodeCryptoHash(e)).toList().cast<String>(),
-      'supported_asym_spec': config.supportedAsymSpec.map((e) => encodeAsymmetricKeySpec(e)).toList().cast<String>(),
+      'supported_ciphers': config.supportedCiphers
+          .map((e) => encodeCipher(e))
+          .toList()
+          .cast<String>(),
+      'supported_hashes': config.supportedHashes
+          .map((e) => encodeCryptoHash(e))
+          .toList()
+          .cast<String>(),
+      'supported_asym_spec': config.supportedAsymSpec
+          .map((e) => encodeAsymmetricKeySpec(e))
+          .toList()
+          .cast<String>(),
     };
   }
 
-  cal.SecurityLevel decodeSecurityLevel(String json) {
+  SecurityLevel decodeSecurityLevel(String json) {
     switch (json) {
       case 'HARDWARE':
-        return cal.SecurityLevel.hardware;
+        return SecurityLevel.hardware;
       case 'SOFTWARE':
-        return cal.SecurityLevel.software;
+        return SecurityLevel.software;
       case 'NETWORK':
-        return cal.SecurityLevel.network;
+        return SecurityLevel.network;
       default:
         throw TsDartBridgeException('Unknown security level', json);
     }
   }
 
-  String encodeSecurityLevel(cal.SecurityLevel level) {
+  String encodeSecurityLevel(SecurityLevel level) {
     switch (level) {
-      case cal.SecurityLevel.hardware:
+      case SecurityLevel.hardware:
         return 'HARDWARE';
-      case cal.SecurityLevel.software:
+      case SecurityLevel.software:
         return 'SOFTWARE';
-      case cal.SecurityLevel.network:
+      case SecurityLevel.network:
         return 'NETWORK';
       default:
         throw TsDartBridgeException('Unknown security level', level.toString());
@@ -319,38 +355,38 @@ class CryptoHandler {
 // aesCbc256,
 // chaCha20Poly1305,
 // xChaCha20Poly1305,
-  cal.Cipher decodeCipher(String json) {
+  Cipher decodeCipher(String json) {
     switch (json) {
       case 'aesGcm128':
-        return cal.Cipher.aesGcm128;
+        return Cipher.aesGcm128;
       case 'aesGcm256':
-        return cal.Cipher.aesGcm256;
+        return Cipher.aesGcm256;
       case 'aesCbc128':
-        return cal.Cipher.aesCbc128;
+        return Cipher.aesCbc128;
       case 'aesCbc256':
-        return cal.Cipher.aesCbc256;
+        return Cipher.aesCbc256;
       case 'chaCha20Poly1305':
-        return cal.Cipher.chaCha20Poly1305;
+        return Cipher.chaCha20Poly1305;
       case 'xChaCha20Poly1305':
-        return cal.Cipher.xChaCha20Poly1305;
+        return Cipher.xChaCha20Poly1305;
       default:
         throw TsDartBridgeException('Unknown cipher', json);
     }
   }
 
-  String encodeCipher(cal.Cipher cipher) {
+  String encodeCipher(Cipher cipher) {
     switch (cipher) {
-      case cal.Cipher.aesGcm128:
+      case Cipher.aesGcm128:
         return 'aesGcm128';
-      case cal.Cipher.aesGcm256:
+      case Cipher.aesGcm256:
         return 'aesGcm256';
-      case cal.Cipher.aesCbc128:
+      case Cipher.aesCbc128:
         return 'aesCbc128';
-      case cal.Cipher.aesCbc256:
+      case Cipher.aesCbc256:
         return 'aesCbc256';
-      case cal.Cipher.chaCha20Poly1305:
+      case Cipher.chaCha20Poly1305:
         return 'chaCha20Poly1305';
-      case cal.Cipher.xChaCha20Poly1305:
+      case Cipher.xChaCha20Poly1305:
         return 'xChaCha20Poly1305';
     }
   }
@@ -365,54 +401,54 @@ class CryptoHandler {
 // sha3256,
 // sha3384,
 // sha3512,
-  cal.CryptoHash decodeCryptoHash(String json) {
+  CryptoHash decodeCryptoHash(String json) {
     switch (json) {
       case 'sha2224':
-        return cal.CryptoHash.sha2224;
+        return CryptoHash.sha2224;
       case 'sha2256':
-        return cal.CryptoHash.sha2256;
+        return CryptoHash.sha2256;
       case 'sha2384':
-        return cal.CryptoHash.sha2384;
+        return CryptoHash.sha2384;
       case 'sha2512':
-        return cal.CryptoHash.sha2512;
+        return CryptoHash.sha2512;
       case 'sha2512224':
-        return cal.CryptoHash.sha2512224;
+        return CryptoHash.sha2512224;
       case 'sha2512256':
-        return cal.CryptoHash.sha2512256;
+        return CryptoHash.sha2512256;
       case 'sha3224':
-        return cal.CryptoHash.sha3224;
+        return CryptoHash.sha3224;
       case 'sha3256':
-        return cal.CryptoHash.sha3256;
+        return CryptoHash.sha3256;
       case 'sha3384':
-        return cal.CryptoHash.sha3384;
+        return CryptoHash.sha3384;
       case 'sha3512':
-        return cal.CryptoHash.sha3512;
+        return CryptoHash.sha3512;
       default:
         throw TsDartBridgeException('Unknown hash', json);
     }
   }
 
-  String encodeCryptoHash(cal.CryptoHash hash) {
+  String encodeCryptoHash(CryptoHash hash) {
     switch (hash) {
-      case cal.CryptoHash.sha2224:
+      case CryptoHash.sha2224:
         return 'sha2224';
-      case cal.CryptoHash.sha2256:
+      case CryptoHash.sha2256:
         return 'sha2256';
-      case cal.CryptoHash.sha2384:
+      case CryptoHash.sha2384:
         return 'sha2384';
-      case cal.CryptoHash.sha2512:
+      case CryptoHash.sha2512:
         return 'sha2512';
-      case cal.CryptoHash.sha2512224:
+      case CryptoHash.sha2512224:
         return 'sha2512224';
-      case cal.CryptoHash.sha2512256:
+      case CryptoHash.sha2512256:
         return 'sha2512256';
-      case cal.CryptoHash.sha3224:
+      case CryptoHash.sha3224:
         return 'sha3224';
-      case cal.CryptoHash.sha3256:
+      case CryptoHash.sha3256:
         return 'sha3256';
-      case cal.CryptoHash.sha3384:
+      case CryptoHash.sha3384:
         return 'sha3384';
-      case cal.CryptoHash.sha3512:
+      case CryptoHash.sha3512:
         return 'sha3512';
     }
   }
@@ -434,144 +470,152 @@ class CryptoHandler {
 // curve448,
 // frp256V1,
 
-  cal.AsymmetricKeySpec decodeAsymmetricKeySpec(String json) {
+  AsymmetricKeySpec decodeAsymmetricKeySpec(String json) {
     switch (json) {
       case 'rsa1024':
-        return cal.AsymmetricKeySpec.rsa1024;
+        return AsymmetricKeySpec.rsa1024;
       case 'rsa2048':
-        return cal.AsymmetricKeySpec.rsa2048;
+        return AsymmetricKeySpec.rsa2048;
       case 'rsa3072':
-        return cal.AsymmetricKeySpec.rsa3072;
+        return AsymmetricKeySpec.rsa3072;
       case 'rsa4096':
-        return cal.AsymmetricKeySpec.rsa4096;
+        return AsymmetricKeySpec.rsa4096;
       case 'rsa8192':
-        return cal.AsymmetricKeySpec.rsa8192;
+        return AsymmetricKeySpec.rsa8192;
       case 'p256':
-        return cal.AsymmetricKeySpec.p256;
+        return AsymmetricKeySpec.p256;
       case 'p384':
-        return cal.AsymmetricKeySpec.p384;
+        return AsymmetricKeySpec.p384;
       case 'p521':
-        return cal.AsymmetricKeySpec.p521;
+        return AsymmetricKeySpec.p521;
       case 'secp256K1':
-        return cal.AsymmetricKeySpec.secp256K1;
+        return AsymmetricKeySpec.secp256K1;
       case 'brainpoolP256R1':
-        return cal.AsymmetricKeySpec.brainpoolP256R1;
+        return AsymmetricKeySpec.brainpoolP256R1;
       case 'brainpoolP384R1':
-        return cal.AsymmetricKeySpec.brainpoolP384R1;
+        return AsymmetricKeySpec.brainpoolP384R1;
       case 'brainpoolP512R1':
-        return cal.AsymmetricKeySpec.brainpoolP512R1;
+        return AsymmetricKeySpec.brainpoolP512R1;
       case 'brainpoolP638':
-        return cal.AsymmetricKeySpec.brainpoolP638;
+        return AsymmetricKeySpec.brainpoolP638;
       case 'curve25519':
-        return cal.AsymmetricKeySpec.curve25519;
+        return AsymmetricKeySpec.curve25519;
       case 'curve448':
-        return cal.AsymmetricKeySpec.curve448;
+        return AsymmetricKeySpec.curve448;
       case 'frp256V1':
-        return cal.AsymmetricKeySpec.frp256V1;
+        return AsymmetricKeySpec.frp256V1;
       default:
         throw TsDartBridgeException('Unknown asymmetric key spec', json);
     }
   }
 
-  String encodeAsymmetricKeySpec(cal.AsymmetricKeySpec spec) {
+  String encodeAsymmetricKeySpec(AsymmetricKeySpec spec) {
     switch (spec) {
-      case cal.AsymmetricKeySpec.rsa1024:
+      case AsymmetricKeySpec.rsa1024:
         return 'rsa1024';
-      case cal.AsymmetricKeySpec.rsa2048:
+      case AsymmetricKeySpec.rsa2048:
         return 'rsa2048';
-      case cal.AsymmetricKeySpec.rsa3072:
+      case AsymmetricKeySpec.rsa3072:
         return 'rsa3072';
-      case cal.AsymmetricKeySpec.rsa4096:
+      case AsymmetricKeySpec.rsa4096:
         return 'rsa4096';
-      case cal.AsymmetricKeySpec.rsa8192:
+      case AsymmetricKeySpec.rsa8192:
         return 'rsa8192';
-      case cal.AsymmetricKeySpec.p256:
+      case AsymmetricKeySpec.p256:
         return 'p256';
-      case cal.AsymmetricKeySpec.p384:
+      case AsymmetricKeySpec.p384:
         return 'p384';
-      case cal.AsymmetricKeySpec.p521:
+      case AsymmetricKeySpec.p521:
         return 'p521';
-      case cal.AsymmetricKeySpec.secp256K1:
+      case AsymmetricKeySpec.secp256K1:
         return 'secp256K1';
-      case cal.AsymmetricKeySpec.brainpoolP256R1:
+      case AsymmetricKeySpec.brainpoolP256R1:
         return 'brainpoolP256R1';
-      case cal.AsymmetricKeySpec.brainpoolP384R1:
+      case AsymmetricKeySpec.brainpoolP384R1:
         return 'brainpoolP384R1';
-      case cal.AsymmetricKeySpec.brainpoolP512R1:
+      case AsymmetricKeySpec.brainpoolP512R1:
         return 'brainpoolP512R1';
-      case cal.AsymmetricKeySpec.brainpoolP638:
+      case AsymmetricKeySpec.brainpoolP638:
         return 'brainpoolP638';
-      case cal.AsymmetricKeySpec.curve25519:
+      case AsymmetricKeySpec.curve25519:
         return 'curve25519';
-      case cal.AsymmetricKeySpec.curve448:
+      case AsymmetricKeySpec.curve448:
         return 'curve448';
-      case cal.AsymmetricKeySpec.frp256V1:
+      case AsymmetricKeySpec.frp256V1:
         return 'frp256V1';
     }
   }
 
-  cal.ProviderImplConfig decodeProviderImplConfig(Map<String, dynamic> map) {
-    final additionalConfig = map['additional_config'].map((e) => decodeAdditionalConfig(e)).toList().cast<cal.AdditionalConfig>();
-    return cal.ProviderImplConfig(additionalConfig: additionalConfig);
+  ProviderImplConfig decodeProviderImplConfig(Map<String, dynamic> map) {
+    final additionalConfig = map['additional_config']
+        .map((e) => decodeAdditionalConfig(e))
+        .toList()
+        .cast<AdditionalConfig>();
+    return ProviderImplConfig(additionalConfig: additionalConfig);
   }
 
-  Map<String, dynamic> encodeProviderImplConfig(cal.ProviderImplConfig config) {
+  Map<String, dynamic> encodeProviderImplConfig(ProviderImplConfig config) {
     return {
-      'additional_config': config.additionalConfig.map((e) => encodeAdditionalConfig(e)).toList().cast<String>(),
+      'additional_config': config.additionalConfig
+          .map((e) => encodeAdditionalConfig(e))
+          .toList(),
     };
   }
 
-  cal.AdditionalConfig decodeAdditionalConfig(Map<String, dynamic> map) {
+  AdditionalConfig decodeAdditionalConfig(Map<String, dynamic> map) {
     switch (map['type']) {
       case 'FileStoreConfig':
-        return cal.AdditionalConfig.fileStoreConfig(dbDir: map['db_dir']);
+        return AdditionalConfig.fileStoreConfig(dbDir: map['db_dir']);
       case 'StorageConfigHMAC':
         final keyHandle = _keyHandles[map['key_handle']]!;
-        return cal.AdditionalConfig.storageConfigHmac(keyHandle);
+        return AdditionalConfig.storageConfigHmac(keyHandle);
       case 'StorageConfigDSA':
         final keyPairHandle = _keyPairHandles[map['key_pair_handle']]!;
-        return cal.AdditionalConfig.storageConfigDsa(keyPairHandle);
+        return AdditionalConfig.storageConfigDsa(keyPairHandle);
       case 'StorageConfigPass':
-        return cal.AdditionalConfig.storageConfigPass(map['pass']);
+        return AdditionalConfig.storageConfigPass(map['pass']);
       default:
-        throw TsDartBridgeException('Unknown additional config type', map['type']);
+        throw TsDartBridgeException(
+            'Unknown additional config type', map['type']);
     }
   }
 
-  Map<String, dynamic> encodeAdditionalConfig(cal.AdditionalConfig config) {
-    switch (config.runtimeType) {
-      case final cal.AdditionalConfig_FileStoreConfig c:
+  Map<String, dynamic> encodeAdditionalConfig(AdditionalConfig config) {
+    switch (config) {
+      case AdditionalConfig_FileStoreConfig(:final dbDir):
         return {
           'type': 'FileStoreConfig',
-          'db_dir': c.dbDir,
+          'db_dir': dbDir,
         };
-      case final cal.AdditionalConfig_StorageConfigHMAC c:
+      case AdditionalConfig_StorageConfigHMAC(:final field0):
         return {
           'type': 'StorageConfigHMAC',
-          'key_handle': c.field0,
+          'key_handle': field0,
         };
-      case final cal.AdditionalConfig_StorageConfigDSA c:
+      case AdditionalConfig_StorageConfigDSA(:final field0):
         return {
           'type': 'StorageConfigDSA',
-          'key_pair_handle': c.field0,
+          'key_pair_handle': field0,
         };
-      case final cal.AdditionalConfig_StorageConfigPass c:
+      case AdditionalConfig_StorageConfigPass(:final field0):
         return {
           'type': 'StorageConfigPass',
-          'pass': c.field0,
+          'pass': field0,
         };
       default:
-        throw TsDartBridgeException('Unknown additional config type', config.runtimeType.toString());
+        throw TsDartBridgeException(
+            'Unknown additional config type', config.runtimeType.toString());
     }
   }
 
-  cal.KeySpec decodeKeySpec(Map<String, dynamic> map) {
+  KeySpec decodeKeySpec(Map<String, dynamic> map) {
     final cipher = decodeCipher(map['cipher']);
     final signingHash = decodeCryptoHash(map['signing_hash']);
-    return cal.KeySpec(cipher: cipher, signingHash: signingHash, ephemeral: map['ephemeral']);
+    return KeySpec(
+        cipher: cipher, signingHash: signingHash, ephemeral: map['ephemeral']);
   }
 
-  Map<String, dynamic> encodeKeySpec(cal.KeySpec spec) {
+  Map<String, dynamic> encodeKeySpec(KeySpec spec) {
     return {
       'cipher': encodeCipher(spec.cipher),
       'signing_hash': encodeCryptoHash(spec.signingHash),
@@ -579,15 +623,19 @@ class CryptoHandler {
     };
   }
 
-  cal.KeyPairSpec decodeKeyPairSpec(Map<String, dynamic> map) {
+  KeyPairSpec decodeKeyPairSpec(Map<String, dynamic> map) {
     final asymSpec = decodeAsymmetricKeySpec(map['asym_spec']);
     final cipher = map['cipher'] == null ? null : decodeCipher(map['cipher']);
     final signingHash = decodeCryptoHash(map['signing_hash']);
-    return cal.KeyPairSpec(
-        asymSpec: asymSpec, cipher: cipher, signingHash: signingHash, ephemeral: map['ephemeral'], nonExportable: map['non_exportable']);
+    return KeyPairSpec(
+        asymSpec: asymSpec,
+        cipher: cipher,
+        signingHash: signingHash,
+        ephemeral: map['ephemeral'],
+        nonExportable: map['non_exportable']);
   }
 
-  Map<String, dynamic> encodeKeyPairSpec(cal.KeyPairSpec spec) {
+  Map<String, dynamic> encodeKeyPairSpec(KeyPairSpec spec) {
     return {
       'asym_spec': encodeAsymmetricKeySpec(spec.asymSpec),
       'cipher': spec.cipher == null ? null : encodeCipher(spec.cipher!),

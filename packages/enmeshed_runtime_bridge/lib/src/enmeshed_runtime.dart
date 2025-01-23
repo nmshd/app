@@ -61,7 +61,8 @@ class EnmeshedRuntime {
 
   String? _runtimeVersion;
   String get runtimeVersion {
-    if (_runtimeVersion == null) throw Exception('Runtime version not available');
+    if (_runtimeVersion == null)
+      throw Exception('Runtime version not available');
     return _runtimeVersion!;
   }
 
@@ -73,10 +74,14 @@ class EnmeshedRuntime {
   })  : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
         _runtimeReadyCallback = runtimeReadyCallback,
         eventBus = eventBus ?? EventBus() {
-    if (runtimeConfig.baseUrl.isEmpty) throw Exception('Missing runtimeConfig value: baseUrl');
-    if (runtimeConfig.clientId.isEmpty) throw Exception('Missing runtimeConfig value: clientId');
-    if (runtimeConfig.clientSecret.isEmpty) throw Exception('Missing runtimeConfig value: clientSecret');
-    if (runtimeConfig.applicationId.isEmpty) throw Exception('Missing runtimeConfig value: applicationId');
+    if (runtimeConfig.baseUrl.isEmpty)
+      throw Exception('Missing runtimeConfig value: baseUrl');
+    if (runtimeConfig.clientId.isEmpty)
+      throw Exception('Missing runtimeConfig value: clientId');
+    if (runtimeConfig.clientSecret.isEmpty)
+      throw Exception('Missing runtimeConfig value: clientSecret');
+    if (runtimeConfig.applicationId.isEmpty)
+      throw Exception('Missing runtimeConfig value: applicationId');
 
     PlatformInAppWebViewController.debugLoggingSettings.excludeFilter.addAll([
       RegExp(r'onConsoleMessage'),
@@ -113,13 +118,16 @@ class EnmeshedRuntime {
     _stringProcessor = StringProcessor(anonymousEvaluator);
   }
 
-  Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
+  Session getSession(String accountReference) =>
+      Session(Evaluator.account(this, accountReference));
 
   Future<void> selectAccount(String accountReference) async {
-    final result = await _evaluateJavaScript('await runtime.selectAccount(accountReference, password)', arguments: {
-      'accountReference': accountReference,
-      'password': '',
-    });
+    final result = await _evaluateJavaScript(
+        'await runtime.selectAccount(accountReference, password)',
+        arguments: {
+          'accountReference': accountReference,
+          'password': '',
+        });
     result.throwOnError();
   }
 
@@ -129,7 +137,9 @@ class EnmeshedRuntime {
       callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger),
     );
 
-    controller.addJavaScriptHandler(handlerName: "handleCryptoEvent", callback: (args) => CryptoHandler().handleCall(args));
+    controller.addJavaScriptHandler(
+        handlerName: "handleCryptoEvent",
+        callback: (args) => CryptoHandler().handleCall(args));
 
     controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
 
@@ -149,7 +159,9 @@ class EnmeshedRuntime {
       handlerName: 'getDefaultConfig',
       callback: (_) => {
         'applicationId': runtimeConfig.applicationId,
-        if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
+        if (Platform.isIOS || Platform.isMacOS)
+          'applePushEnvironment':
+              runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
         'transport': {
           'baseUrl': runtimeConfig.baseUrl,
           'logLevel': 'warn',
@@ -177,14 +189,19 @@ class EnmeshedRuntime {
 
     _jsToUIBridge.register(uiBridge);
 
-    if (isFirstRegistration) await _evaluateJavaScript('window.registerUIBridge()');
+    if (isFirstRegistration)
+      await _evaluateJavaScript('window.registerUIBridge()');
   }
 
   Future<void> _loadLibs(InAppWebViewController controller) async {
     final assetsFolder = 'packages/enmeshed_runtime_bridge/assets';
 
-    await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/loki.js');
-    await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
+    await controller.injectJavascriptFileFromAsset(
+        assetFilePath: '$assetsFolder/loki.js');
+    await controller.injectJavascriptFileFromAsset(
+        assetFilePath: '$assetsFolder/index.js');
+    await controller.injectJavascriptFileFromAsset(
+        assetFilePath: '$assetsFolder/cryptoBridge.js');
   }
 
   Future<EnmeshedRuntime> run() async {
@@ -218,10 +235,13 @@ class EnmeshedRuntime {
     }
 
     final result = resultOrNull;
-    if (result.value is Map<String, dynamic> || result.value is List<Map<String, dynamic>>) return result;
+    if (result.value is Map<String, dynamic> ||
+        result.value is List<Map<String, dynamic>>) return result;
 
-    if (result.value is Map) result.value = _transformValue(result.value as Map);
-    if (result.value is List) result.value = _transformList(result.value as List);
+    if (result.value is Map)
+      result.value = _transformValue(result.value as Map);
+    if (result.value is List)
+      result.value = _transformList(result.value as List);
 
     return result;
   }
@@ -262,7 +282,8 @@ class EnmeshedRuntime {
   Future<void> setPushToken(String token) async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await _evaluateJavaScript('await window.setPushToken(token)', arguments: {'token': token});
+    final result = await _evaluateJavaScript('await window.setPushToken(token)',
+        arguments: {'token': token});
     result.throwOnError();
   }
 
@@ -274,28 +295,32 @@ class EnmeshedRuntime {
   }) async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await _evaluateJavaScript('await window.triggerRemoteNotificationEvent(notification)', arguments: {
-      'notification': {
-        'content': content,
-        'id': id,
-        'foreground': foreground,
-        'limitedProcessingTime': limitedProcessingTime,
-      }
-    });
+    final result = await _evaluateJavaScript(
+        'await window.triggerRemoteNotificationEvent(notification)',
+        arguments: {
+          'notification': {
+            'content': content,
+            'id': id,
+            'foreground': foreground,
+            'limitedProcessingTime': limitedProcessingTime,
+          }
+        });
     result.throwOnError();
   }
 
   Future<void> triggerAppReadyEvent() async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await _evaluateJavaScript('await window.triggerAppReadyEvent()');
+    final result =
+        await _evaluateJavaScript('await window.triggerAppReadyEvent()');
     result.throwOnError();
   }
 
   Future<List<String>> getEditableAttributes() async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await _evaluateJavaScript('return window.NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES');
+    final result = await _evaluateJavaScript(
+        'return window.NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES');
     result.throwOnError();
 
     return List<String>.from(result.value);
@@ -322,22 +347,29 @@ class Evaluator extends AbstractEvaluator {
   final String? _accountReference;
   final bool _isAnonymous;
 
-  String get sessionEvaluation => (_accountReference == null) ? 'null' : 'await runtime.getOrCreateSession("$_accountReference")';
-  String get sessionStorage => _isAnonymous ? '' : 'const session = $sessionEvaluation;\n';
+  String get sessionEvaluation => (_accountReference == null)
+      ? 'null'
+      : 'await runtime.getOrCreateSession("$_accountReference")';
+  String get sessionStorage =>
+      _isAnonymous ? '' : 'const session = $sessionEvaluation;\n';
 
-  Evaluator._(this._runtime, {String? accountReference, bool isAnonymous = false})
+  Evaluator._(this._runtime,
+      {String? accountReference, bool isAnonymous = false})
       : _accountReference = accountReference,
         _isAnonymous = isAnonymous;
 
-  Evaluator.account(EnmeshedRuntime runtime, String accountReference) : this._(runtime, accountReference: accountReference);
-  Evaluator.anonymous(EnmeshedRuntime runtime) : this._(runtime, isAnonymous: true);
+  Evaluator.account(EnmeshedRuntime runtime, String accountReference)
+      : this._(runtime, accountReference: accountReference);
+  Evaluator.anonymous(EnmeshedRuntime runtime)
+      : this._(runtime, isAnonymous: true);
 
   @override
   Future<CallAsyncJavaScriptResult> evaluateJavaScript(
     String source, {
     Map<String, dynamic> arguments = const <String, dynamic>{},
   }) async {
-    return _runtime._evaluateJavaScript('$sessionStorage$source', arguments: arguments);
+    return _runtime._evaluateJavaScript('$sessionStorage$source',
+        arguments: arguments);
   }
 }
 

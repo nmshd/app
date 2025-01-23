@@ -25,13 +25,14 @@ function base64toUint8Array(string: string): Uint8Array {
 }
 
 
+
 type HandlerArgs = {
     object_type: string,
     method: string,
     args: any[],
 }
 
-let handlerName = "crypto_handler"
+let handlerName = "handleCryptoEvent" 
 
 async function callHandler(handlerName: string, callArgs: HandlerArgs): Promise<any> {
     const res = await window.flutter_inappwebview.callHandler(handlerName, JSON.stringify(callArgs))
@@ -43,7 +44,7 @@ async function callHandler(handlerName: string, callArgs: HandlerArgs): Promise<
     }
 }
 
-export let createProvider: types.CreateProviderFunc = async (config, implConfig) => {
+async function createProvider(config: types.ProviderConfig , implConfig: types.ProviderImplConfig): Promise<Provider> {
     let callArgs = {
         object_type: "bare",
         method: "create_provider",
@@ -55,7 +56,7 @@ export let createProvider: types.CreateProviderFunc = async (config, implConfig)
     return handle;
 }
 
-export let createProviderFromName: types.CreateProviderFromNameFunc = async (name, implConfig) => {
+async function createProviderFromName(name: string, implConfig: types.ProviderImplConfig): Promise<Provider> {
     let callArgs = {
         object_type: "bare",
         method: "create_provider_from_name",
@@ -65,6 +66,15 @@ export let createProviderFromName: types.CreateProviderFromNameFunc = async (nam
     let handle = new Provider();
     handle._id = handle_id;
     return handle;
+}
+
+async function getAllProviders(): Promise<string[]> {
+    let callArgs = {
+        object_type: "bare",
+        method: "get_all_providers",
+        args: []
+    }
+    return callHandler(handlerName, callArgs);
 }
 
 export class Provider {
@@ -412,3 +422,17 @@ export class DHExchange {
         return handle 
     }
 }
+
+type CryptoInit = {
+    createProvider: types.CreateProviderFunc,
+    createProviderFromName: types.CreateProviderFromNameFunc,
+    getAllProviders: types.GetAllProvidersFunc,
+}
+
+const cryptoInit: CryptoInit = {
+    createProvider: createProvider,
+    createProviderFromName: createProviderFromName,
+    getAllProviders: getAllProviders,
+};
+
+(window as any).cryptoInit = cryptoInit;
