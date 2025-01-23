@@ -81,7 +81,15 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
     final scanWindow = Rect.fromLTWH(scanWindowX, scanWindowY, scannerWindowSize, scannerWindowSize);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+      ),
       child: Stack(
         fit: StackFit.expand,
         children: [
