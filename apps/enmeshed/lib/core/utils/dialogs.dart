@@ -1,8 +1,8 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../constants.dart';
-import 'extensions.dart';
+import '../utils/extensions.dart';
 
 Future<void> showLoadingDialog(BuildContext context, String text) async {
   await showDialog<void>(

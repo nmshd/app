@@ -22,7 +22,7 @@ class DeletionProfileCard extends StatelessWidget {
     final profilePicture = AutoLoadingProfilePicture(
       accountId: accountInDeletion.id,
       profileName: accountInDeletion.name,
-      circleAvatarColor: context.customColors.decorativeContainer,
+      decorative: true,
     );
 
     return Card(

@@ -1,7 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
-import '../core.dart';
+import '../utils/account_utils.dart';
+import '../utils/extensions.dart';
+import 'profile_picture.dart';
 
 class RestoreProfile extends StatefulWidget {
   final LocalAccountDTO accountInDeletion;
@@ -45,7 +48,7 @@ class _RestoreProfileState extends State<RestoreProfile> {
           radius: 20,
           accountId: widget.accountInDeletion.id,
           profileName: widget.accountInDeletion.name,
-          circleAvatarColor: context.customColors.decorativeContainer,
+          decorative: true,
         ),
         Gaps.w16,
         Flexible(

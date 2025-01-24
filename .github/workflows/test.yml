@@ -13,6 +13,7 @@ jobs:
       - run: melos bootstrap
       - run: melos analyze
       - run: melos format
+      - run: melos check_translations
 
   test:
     runs-on: ubuntu-latest

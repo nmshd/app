@@ -1,5 +1,6 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -56,74 +57,89 @@ class _EditDeviceState extends State<EditDevice> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 8, left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
-      child: Wrap(
-        spacing: 8,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(context.l10n.devices_edit, style: Theme.of(context).textTheme.titleLarge),
-              IconButton(
-                onPressed: _loading ? null : () => context.pop(),
-                icon: const Icon(Icons.close),
-              ),
-            ],
-          ),
-          Gaps.h16,
-          TextField(
-            enabled: !_loading,
-            focusNode: _nameFocusNode,
-            controller: _nameController,
-            maxLength: MaxLength.deviceName,
-            textCapitalization: TextCapitalization.sentences,
-            decoration: InputDecoration(
-              labelText: '${context.l10n.name}*',
-              border: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          spacing: 8,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 8, left: 24, right: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(context.l10n.devices_edit, style: Theme.of(context).textTheme.titleLarge),
+                  IconButton(
+                    onPressed: _loading ? null : () => context.pop(),
+                    icon: const Icon(Icons.close),
+                  ),
+                ],
               ),
             ),
-            onSubmitted: (value) => value.isEmpty ? _nameFocusNode.requestFocus() : _descriptionFocusNode.requestFocus(),
-          ),
-          Gaps.h8,
-          TextField(
-            enabled: !_loading,
-            focusNode: _descriptionFocusNode,
-            controller: _descriptionController,
-            maxLength: MaxLength.deviceDescription,
-            textCapitalization: TextCapitalization.sentences,
-            decoration: InputDecoration(
-              labelText: context.l10n.devices_edit_description,
-              border: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+            Gaps.h16,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: TextField(
+                enabled: !_loading,
+                focusNode: _nameFocusNode,
+                controller: _nameController,
+                maxLength: MaxLength.deviceName,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(
+                  labelText: '${context.l10n.name}*',
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+                onSubmitted: (value) => value.isEmpty ? _nameFocusNode.requestFocus() : _descriptionFocusNode.requestFocus(),
               ),
             ),
-            onSubmitted: (value) => _confirmEnabled ? _save() : _nameFocusNode.requestFocus(),
-          ),
-          Gaps.h8,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              OutlinedButton(onPressed: _loading ? null : () => context.pop(), child: Text(context.l10n.cancel)),
-              Gaps.w8,
-              FilledButton(
-                onPressed: _confirmEnabled && !_loading ? _save : null,
-                child: Text(context.l10n.save),
+            Gaps.h8,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: TextField(
+                enabled: !_loading,
+                focusNode: _descriptionFocusNode,
+                controller: _descriptionController,
+                maxLength: MaxLength.deviceDescription,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(
+                  labelText: context.l10n.devices_edit_description,
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+                onSubmitted: (value) => _confirmEnabled ? _save() : _nameFocusNode.requestFocus(),
               ),
-            ],
-          ),
-        ],
+            ),
+            Gaps.h8,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(onPressed: _loading ? null : () => context.pop(), child: Text(context.l10n.cancel)),
+                  Gaps.w8,
+                  FilledButton(
+                    onPressed: _confirmEnabled && !_loading ? _save : null,
+                    child: Text(context.l10n.save),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

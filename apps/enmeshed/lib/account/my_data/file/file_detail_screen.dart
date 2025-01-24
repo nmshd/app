@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:enmeshed/account/my_data/file/widgets/selected_tag_section.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -61,7 +62,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
       appBar: AppBar(title: Text(_fileDVO!.title, style: Theme.of(context).textTheme.titleLarge)),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 42),
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

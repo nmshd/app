@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
@@ -8,30 +9,23 @@ class ShouldDeleteProfile extends StatelessWidget {
   final VoidCallback cancel;
   final VoidCallback delete;
   final String profileName;
-  final List<DeviceDTO> devices;
+  final List<DeviceDTO> onboardedDevices;
 
   const ShouldDeleteProfile({
     required this.cancel,
     required this.delete,
     required this.profileName,
-    required this.devices,
+    required this.onboardedDevices,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final onboardedDevices = devices
-        .where(
-          (element) => element.isOnboarded && element.isOffboarded != true && !element.isCurrentDevice,
-        )
-        .toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (_, __) => cancel(),
       child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+        padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

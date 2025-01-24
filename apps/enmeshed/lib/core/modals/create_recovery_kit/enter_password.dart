@@ -1,8 +1,6 @@
-import 'dart:math';
-
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
 import '../../utils/extensions.dart';
 import '../../widgets/widgets.dart';
 
@@ -32,7 +30,7 @@ class _EnterPasswordState extends State<EnterPassword> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, bottom: max(MediaQuery.paddingOf(context).bottom, 16)),
+      padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -62,12 +60,15 @@ class _EnterPasswordState extends State<EnterPassword> {
                     return null;
                   },
                 ),
-                Gaps.h48,
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: FilledButton(
-                    onPressed: _onSubmit,
-                    child: Text(context.l10n.identityRecovery_startNow),
+                Gaps.h40,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: FilledButton(
+                      onPressed: _onSubmit,
+                      child: Text(context.l10n.identityRecovery_startNow),
+                    ),
                   ),
                 ),
               ],

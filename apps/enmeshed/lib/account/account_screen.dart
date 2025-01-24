@@ -106,7 +106,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
                   accountId: widget.accountId,
                   profileName: _account?.name ?? '',
                   radius: 16,
-                  circleAvatarColor: Theme.of(context).colorScheme.primaryContainer,
                 ),
               ),
             ),

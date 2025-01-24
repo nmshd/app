@@ -1,3 +1,4 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
@@ -10,7 +11,7 @@ class DeviceOnboardingSafetyNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+      padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -49,13 +50,16 @@ class DeviceOnboardingSafetyNote extends StatelessWidget {
               Flexible(child: Text(context.l10n.qrSafetyInformation_access)),
             ],
           ),
-          Gaps.h40,
+          Gaps.h32,
           Align(
             alignment: Alignment.centerRight,
-            child: FilledButton(
-              onPressed: goToNextPage,
-              style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 24)),
-              child: Text(context.l10n.qrSafetyInformation_show),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: FilledButton(
+                onPressed: goToNextPage,
+                style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 24)),
+                child: Text(context.l10n.qrSafetyInformation_show),
+              ),
             ),
           ),
         ],

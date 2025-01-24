@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:get_it/get_it.dart';
@@ -12,7 +11,7 @@ import 'package:renderers/renderers.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
 
 Future<void> showDeleteAttributeModal({
   required BuildContext context,
@@ -122,7 +121,7 @@ Future<void> showDeleteAttributeModal({
           valueListenable: deleteEnabledNotifier,
           builder: (context, enabled, child) {
             return Padding(
-              padding: EdgeInsets.only(right: 24, bottom: max(MediaQuery.paddingOf(context).bottom, 24)),
+              padding: EdgeInsets.only(right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -159,7 +158,7 @@ class _DeleteConfirmation extends StatelessWidget {
     final isShared = attribute.sharedWith.isNotEmpty;
 
     return Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, bottom: max(MediaQuery.paddingOf(context).bottom, 16) + 72),
+      padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 72),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

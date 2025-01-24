@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,8 +17,8 @@ Future<Set<MailboxFilterOption>?> showSelectMailboxFiltersModal({
     context: context,
     isScrollControlled: true,
     elevation: 0,
-    builder: (context) => FractionallySizedBox(
-      heightFactor: 0.75,
+    builder: (context) => ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
       child: _SelectMailboxFiltersModal(contacts: contacts, mailboxFilterController: mailboxFilterController),
     ),
   );
@@ -36,13 +37,23 @@ class _SelectMailboxFiltersModal extends StatefulWidget {
 }
 
 class _SelectMailboxFiltersModalState extends State<_SelectMailboxFiltersModal> {
+  late final ScrollController _controller;
   late Set<MailboxFilterOption> selectedFilterOptions;
 
   @override
   void initState() {
     super.initState();
 
+    _controller = ScrollController();
+
     selectedFilterOptions = {...widget.mailboxFilterController.value};
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -50,7 +61,7 @@ class _SelectMailboxFiltersModalState extends State<_SelectMailboxFiltersModal> 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
+      children: [
         ListTile(
           contentPadding: const EdgeInsets.only(left: 16, right: 16, top: 8),
           title: Text(
@@ -68,61 +79,82 @@ class _SelectMailboxFiltersModalState extends State<_SelectMailboxFiltersModal> 
             ),
           ),
         ),
-        ListTile(title: Text(context.l10n.filter, style: Theme.of(context).textTheme.titleMedium)),
-        ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-          leading: const Icon(Icons.notification_important),
-          title: Text(context.l10n.mailbox_filter_actionRequired, maxLines: 1, overflow: TextOverflow.ellipsis),
-          trailing: Checkbox(
-            value: selectedFilterOptions.contains(const ActionRequiredFilterOption()),
-            onChanged: (value) => setState(() => selectedFilterOptions.toggle(const ActionRequiredFilterOption())),
-          ),
-          onTap: () => setState(() => selectedFilterOptions.toggle(const ActionRequiredFilterOption())),
-        ),
-        const Divider(height: 1, indent: 16),
-        ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-          leading: const Icon(Icons.attach_file),
-          title: Text(context.l10n.mailbox_filter_withAttachment, maxLines: 1, overflow: TextOverflow.ellipsis),
-          trailing: Checkbox(
-            value: selectedFilterOptions.contains(const WithAttachmentFilterOption()),
-            onChanged: (value) => setState(() => selectedFilterOptions.toggle(const WithAttachmentFilterOption())),
-          ),
-          onTap: () => setState(() => selectedFilterOptions.toggle(const WithAttachmentFilterOption())),
-        ),
-        const Divider(height: 1, indent: 16),
-        ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-          leading: const Icon(Icons.mail),
-          title: Text(context.l10n.mailbox_filter_unread),
-          trailing: Checkbox(
-            value: selectedFilterOptions.contains(const UnreadFilterOption()),
-            onChanged: (value) => setState(() => selectedFilterOptions.toggle(const UnreadFilterOption())),
-          ),
-          onTap: () => setState(() => selectedFilterOptions.toggle(const UnreadFilterOption())),
-        ),
-        Gaps.h16,
-        ListTile(title: Text(context.l10n.mailbox_filter_byContacts, style: Theme.of(context).textTheme.titleMedium)),
-        Expanded(
-          child: widget.contacts.isEmpty
-              ? EmptyListIndicator(icon: Icons.contacts, text: context.l10n.contacts_empty, wrapInListView: true)
-              : ListView.separated(
-                  itemCount: widget.contacts.length,
-                  separatorBuilder: (BuildContext context, int index) => const Divider(height: 1, indent: 16),
-                  itemBuilder: (context, index) {
-                    final contact = widget.contacts[index];
-
-                    return ContactItem(
-                      contact: contact,
+        Flexible(
+          child: MediaQuery.removePadding(
+            context: context,
+            removeBottom: true,
+            child: Scrollbar(
+              controller: _controller,
+              thumbVisibility: true,
+              interactive: true,
+              child: SingleChildScrollView(
+                controller: _controller,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(title: Text(context.l10n.filter, style: Theme.of(context).textTheme.titleMedium)),
+                    ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      leading: const Icon(Icons.notification_important),
+                      title: Text(context.l10n.mailbox_filter_actionRequired, maxLines: 1, overflow: TextOverflow.ellipsis),
                       trailing: Checkbox(
-                        value: selectedFilterOptions.contains(ContactFilterOption(contact.id)),
-                        onChanged: (_) => setState(() => selectedFilterOptions.toggle(ContactFilterOption(contact.id))),
+                        value: selectedFilterOptions.contains(const ActionRequiredFilterOption()),
+                        onChanged: (value) => setState(() => selectedFilterOptions.toggle(const ActionRequiredFilterOption())),
                       ),
-                      onTap: () => setState(() => selectedFilterOptions.toggle(ContactFilterOption(contact.id))),
-                      iconSize: 42,
-                    );
-                  },
+                      onTap: () => setState(() => selectedFilterOptions.toggle(const ActionRequiredFilterOption())),
+                    ),
+                    const Divider(height: 1, indent: 16),
+                    ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      leading: const Icon(Icons.attach_file),
+                      title: Text(context.l10n.mailbox_filter_withAttachment, maxLines: 1, overflow: TextOverflow.ellipsis),
+                      trailing: Checkbox(
+                        value: selectedFilterOptions.contains(const WithAttachmentFilterOption()),
+                        onChanged: (value) => setState(() => selectedFilterOptions.toggle(const WithAttachmentFilterOption())),
+                      ),
+                      onTap: () => setState(() => selectedFilterOptions.toggle(const WithAttachmentFilterOption())),
+                    ),
+                    const Divider(height: 1, indent: 16),
+                    ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      leading: const Icon(Icons.mail),
+                      title: Text(context.l10n.mailbox_filter_unread),
+                      trailing: Checkbox(
+                        value: selectedFilterOptions.contains(const UnreadFilterOption()),
+                        onChanged: (value) => setState(() => selectedFilterOptions.toggle(const UnreadFilterOption())),
+                      ),
+                      onTap: () => setState(() => selectedFilterOptions.toggle(const UnreadFilterOption())),
+                    ),
+                    Gaps.h16,
+                    ListTile(title: Text(context.l10n.mailbox_filter_byContacts, style: Theme.of(context).textTheme.titleMedium)),
+                    if (widget.contacts.isEmpty)
+                      EmptyListIndicator(icon: Icons.contacts, text: context.l10n.contacts_empty)
+                    else
+                      ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: widget.contacts.length,
+                        separatorBuilder: (BuildContext context, int index) => const Divider(height: 1, indent: 16),
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) {
+                          final contact = widget.contacts[index];
+
+                          return ContactItem(
+                            contact: contact,
+                            trailing: Checkbox(
+                              value: selectedFilterOptions.contains(ContactFilterOption(contact.id)),
+                              onChanged: (_) => setState(() => selectedFilterOptions.toggle(ContactFilterOption(contact.id))),
+                            ),
+                            onTap: () => setState(() => selectedFilterOptions.toggle(ContactFilterOption(contact.id))),
+                            iconSize: 42,
+                          );
+                        },
+                      ),
+                  ],
                 ),
+              ),
+            ),
+          ),
         ),
         _ModalSheetFooter(
           applyFilters: () => context.pop(selectedFilterOptions),
@@ -144,36 +176,31 @@ class _ModalSheetFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Material(
-          elevation: 10,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom + 16),
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  OutlinedButton(
-                    onPressed: resetFilters,
-                    child: Text(
-                      context.l10n.reset,
-                    ),
-                  ),
-                  Gaps.w4,
-                  FilledButton(
-                    onPressed: applyFilters,
-                    child: Text(context.l10n.apply_filter),
-                  ),
-                  Gaps.w16,
-                ],
+    return Material(
+      elevation: 10,
+      child: Padding(
+        padding: EdgeInsets.only(top: 8, bottom: MediaQuery.viewPaddingOf(context).bottom + 8),
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              OutlinedButton(
+                onPressed: resetFilters,
+                child: Text(
+                  context.l10n.reset,
+                ),
               ),
-            ),
+              Gaps.w4,
+              FilledButton(
+                onPressed: applyFilters,
+                child: Text(context.l10n.apply_filter),
+              ),
+              Gaps.w16,
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

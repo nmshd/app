@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
@@ -9,7 +10,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
   final VoidCallback deleteProfile;
   final String profileName;
   final String accountId;
-  final List<DeviceDTO> devices;
+  final List<DeviceDTO> onboardedDevices;
 
   const DeleteProfileOrIdentity({
     required this.cancel,
@@ -17,7 +18,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
     required this.deleteProfile,
     required this.profileName,
     required this.accountId,
-    required this.devices,
+    required this.onboardedDevices,
     super.key,
   });
 
@@ -27,7 +28,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
       canPop: false,
       onPopInvokedWithResult: (_, __) => cancel(),
       child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+        padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -36,7 +37,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
                 AutoLoadingProfilePicture(
                   accountId: accountId,
                   profileName: profileName,
-                  circleAvatarColor: context.customColors.decorativeContainer,
+                  decorative: true,
                   radius: 40,
                 ),
                 Gaps.w16,
@@ -45,10 +46,10 @@ class DeleteProfileOrIdentity extends StatelessWidget {
             ),
             Gaps.h24,
             Text(
-              devices.length > 1 ? context.l10n.profile_or_identity_deletion : context.l10n.profile_or_identity_deletion_oneDevice,
+              onboardedDevices.length > 1 ? context.l10n.profile_or_identity_deletion : context.l10n.profile_or_identity_deletion_oneDevice,
             ),
             Gaps.h24,
-            OutlinedButton(onPressed: devices.length > 1 ? deleteProfile : null, child: Text(context.l10n.profile_delete_device)),
+            OutlinedButton(onPressed: onboardedDevices.length > 1 ? deleteProfile : null, child: Text(context.l10n.profile_delete_device)),
             OutlinedButton.icon(
               onPressed: deleteIdentity,
               label: Text(context.l10n.profile_delete),

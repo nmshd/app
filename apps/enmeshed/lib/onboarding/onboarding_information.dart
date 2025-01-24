@@ -1,5 +1,6 @@
-import 'dart:math';
+import 'dart:math' as math;
 
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:vector_graphics/vector_graphics.dart';
@@ -76,47 +77,44 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
             ),
           ),
           Container(
-            height: 80,
             color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.6),
-            child: Padding(
-              padding: EdgeInsets.only(left: 24, right: 24, top: 6, bottom: MediaQuery.viewInsetsOf(context).bottom + 30),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Visibility(
-                    visible: _currentPageIndex < pages.length - 1,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton(
-                        onPressed: widget.goToOnboardingLegalTexts,
-                        child: Text(context.l10n.skip),
-                      ),
+            padding: EdgeInsets.only(left: 24, right: 24, top: 6, bottom: MediaQuery.viewPaddingOf(context).bottom),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Visibility(
+                  visible: _currentPageIndex < pages.length - 1,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      onPressed: widget.goToOnboardingLegalTexts,
+                      child: Text(context.l10n.skip),
                     ),
                   ),
-                  SmoothPageIndicator(
-                    controller: _pageController,
-                    count: pages.length,
-                    effect: SlideEffect(
-                      dotHeight: 10,
-                      dotWidth: 10,
-                      activeDotColor: Theme.of(context).colorScheme.primary,
-                      dotColor: Theme.of(context).colorScheme.primaryContainer,
-                    ),
-                    onDotClicked: (index) {
-                      _pageController.animateToPage(index, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                    },
+                ),
+                SmoothPageIndicator(
+                  controller: _pageController,
+                  count: pages.length,
+                  effect: SlideEffect(
+                    dotHeight: 10,
+                    dotWidth: 10,
+                    activeDotColor: Theme.of(context).colorScheme.primary,
+                    dotColor: Theme.of(context).colorScheme.primaryContainer,
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: FilledButton(
-                      onPressed: _currentPageIndex == pages.length - 1
-                          ? widget.goToOnboardingLegalTexts
-                          : () => _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn),
-                      child: Text(context.l10n.next),
-                    ),
+                  onDotClicked: (index) {
+                    _pageController.animateToPage(index, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                  },
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FilledButton(
+                    onPressed: _currentPageIndex == pages.length - 1
+                        ? widget.goToOnboardingLegalTexts
+                        : () => _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn),
+                    child: Text(context.l10n.next),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -203,12 +201,12 @@ class _OnboardingPageState extends State<_OnboardingPage> {
       if (lineWidth + wordWidth <= maxWidth) {
         lineWidth += wordWidth;
       } else {
-        maxLineWidth = max(maxLineWidth, lineWidth);
+        maxLineWidth = math.max(maxLineWidth, lineWidth);
         lineWidth = wordWidth;
       }
     }
 
-    return max(maxLineWidth, lineWidth);
+    return math.max(maxLineWidth, lineWidth);
   }
 
   double _calculateWordWidth(String text, TextStyle style) {

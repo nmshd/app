@@ -1,7 +1,9 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -32,14 +34,17 @@ class _CreateProfileState extends State<CreateProfile> {
 
   @override
   void initState() {
+    super.initState();
+
     _controller.addListener(() => setState(() {}));
     _focusNode.requestFocus();
-    super.initState();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
+
     super.dispose();
   }
 
@@ -48,7 +53,12 @@ class _CreateProfileState extends State<CreateProfile> {
     return Stack(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 16, left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 24),
+          padding: EdgeInsets.only(
+            top: 16,
+            left: 24,
+            right: 24,
+            bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom),
+          ),
           child: Wrap(
             spacing: 8,
             children: [
@@ -97,15 +107,18 @@ class _CreateProfileState extends State<CreateProfile> {
                 ),
                 onSubmitted: (_) => _confirmEnabled ? _confirm() : _focusNode.requestFocus(),
               ),
-              Gaps.h16,
-              Align(
-                alignment: Alignment.centerRight,
-                child: FilledButton(
-                  onPressed: _confirmEnabled ? _confirm : null,
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(100, 36),
+              Gaps.h8,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: FilledButton(
+                    onPressed: _confirmEnabled ? _confirm : null,
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size(100, 36),
+                    ),
+                    child: Text(context.l10n.profile_create),
                   ),
-                  child: Text(context.l10n.profile_create),
                 ),
               ),
             ],

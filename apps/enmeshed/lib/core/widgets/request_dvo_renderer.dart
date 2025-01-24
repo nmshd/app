@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,6 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 
-import '../constants.dart';
 import '../modals/create_attribute.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
@@ -422,7 +422,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
               ],
             ),
             child: Padding(
-              padding: EdgeInsets.only(right: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 24, top: 8),
+              padding: EdgeInsets.only(right: 16, bottom: MediaQuery.viewPaddingOf(context).bottom, top: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

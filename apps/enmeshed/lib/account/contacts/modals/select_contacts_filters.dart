@@ -1,3 +1,4 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -88,20 +89,23 @@ class _SelectContactFiltersState extends State<_SelectContactFilters> {
                         ),
                       ],
                     ),
-                    Gaps.h48,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        OutlinedButton(
-                          onPressed: () => context.pop(<ContactsFilterOption>{}),
-                          child: Text(context.l10n.reset),
-                        ),
-                        Gaps.w8,
-                        FilledButton(
-                          onPressed: () => context.pop(_selectedFilters),
-                          child: Text(context.l10n.apply_filter),
-                        ),
-                      ],
+                    Gaps.h40,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          OutlinedButton(
+                            onPressed: () => context.pop(<ContactsFilterOption>{}),
+                            child: Text(context.l10n.reset),
+                          ),
+                          Gaps.w8,
+                          FilledButton(
+                            onPressed: () => context.pop(_selectedFilters),
+                            child: Text(context.l10n.apply_filter),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
