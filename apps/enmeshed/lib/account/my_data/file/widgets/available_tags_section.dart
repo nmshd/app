@@ -1,8 +1,8 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
-import '/core/constants.dart';
-import '/core/utils/extensions.dart';
+import '/core/core.dart';
 import '../utils/get_tag_label.dart';
 
 typedef AvailableTagsData = ({Map<String, AttributeTagDTO> tagsMap, String currentPath});

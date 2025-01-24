@@ -1,8 +1,8 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '/core/constants.dart';
-import '/core/utils/extensions.dart';
+import '/core/core.dart';
 
 class FileInfoContainer extends StatelessWidget {
   final String createdBy;
