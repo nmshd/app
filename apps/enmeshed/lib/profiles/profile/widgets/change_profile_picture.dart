@@ -69,8 +69,8 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
             children: [
               Expanded(
                 child: FilledButton.tonalIcon(
-                  label: Text(context.l10n.profile_editPhoto),
-                  icon: Icon(Icons.image, size: 16, color: Theme.of(context).colorScheme.primary),
+                  label: Text(_image == null ? context.l10n.profile_addPhoto : context.l10n.profile_editPhoto),
+                  icon: const Icon(Icons.camera_alt_outlined, size: 16),
                   onPressed: _loading ? null : _editImage,
                 ),
               ),
@@ -79,7 +79,7 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
                   child: FilledButton.tonalIcon(
                     label: Text(context.l10n.profile_deletePhoto),
                     onPressed: _loading ? null : _deleteImage,
-                    icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error, size: 16),
+                    icon: const Icon(Icons.delete_outline, size: 16),
                   ),
                 ),
             ],
