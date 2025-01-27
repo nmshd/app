@@ -122,7 +122,9 @@ class _EditProfileState extends State<_EditProfile> {
                                 controller: _controller,
                                 maxLength: MaxLength.profileName,
                                 textCapitalization: TextCapitalization.sentences,
-                                scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                                scrollPadding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).viewInsets.bottom + DefaultTextStyle.of(context).style.fontSize! * 3,
+                                ),
                                 decoration: InputDecoration(
                                   labelText: '${context.l10n.profile_name}*',
                                   suffixIcon: IconButton(
