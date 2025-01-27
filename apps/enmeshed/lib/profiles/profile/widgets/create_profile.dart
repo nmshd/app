@@ -56,68 +56,80 @@ class _CreateProfileState extends State<CreateProfile> {
         children: [
           Scrollbar(
             child: Padding(
-              padding: EdgeInsets.only(
-                top: 20,
-                left: 24,
-                right: 24,
-                bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom),
-              ),
+              padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 8,
                   children: [
-                    Align(
-                      alignment: widget.onBackPressed != null ? Alignment.center : Alignment.centerLeft,
-                      child: Text(context.l10n.profiles_createNew, style: Theme.of(context).textTheme.titleLarge),
+                    Padding(
+                      padding: EdgeInsets.only(top: 8, left: widget.onBackPressed != null ? 8 : 24, right: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (widget.onBackPressed != null) IconButton(icon: Icon(context.adaptiveBackIcon), onPressed: widget.onBackPressed),
+                          Text(context.l10n.profiles_createNew, style: Theme.of(context).textTheme.titleLarge),
+                          IconButton(onPressed: _loading && !_confirmEnabled ? null : () => context.pop(), icon: const Icon(Icons.close)),
+                        ],
+                      ),
                     ),
                     Gaps.h16,
                     if (widget.description != null) ...[
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                         child: Text(widget.description!),
                       ),
                       Gaps.h20,
                     ],
-                    ChangeProfilePicture(
-                      profileName: _controller.text,
-                      onProfilePictureDeleted: () => _newProfilePicture = null,
-                      onProfilePictureChanged: (Uint8List byteData) => _newProfilePicture = byteData,
-                      setProfilePictureLoading: ({required bool loading}) => setState(() => _profilePictureLoading = loading),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: ChangeProfilePicture(
+                        profileName: _controller.text,
+                        onProfilePictureDeleted: () => _newProfilePicture = null,
+                        onProfilePictureChanged: (Uint8List byteData) => _newProfilePicture = byteData,
+                        setProfilePictureLoading: ({required bool loading}) => setState(() => _profilePictureLoading = loading),
+                      ),
                     ),
                     Gaps.h32,
-                    Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
+                    ),
                     Gaps.h24,
-                    TextField(
-                      focusNode: _focusNode,
-                      maxLength: MaxLength.profileName,
-                      controller: _controller,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                        labelText: '${context.l10n.profile_name}*',
-                        suffixIcon: IconButton(
-                          onPressed: _controller.clear,
-                          icon: const Icon(Icons.cancel_outlined),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: TextField(
+                        focusNode: _focusNode,
+                        maxLength: MaxLength.profileName,
+                        controller: _controller,
+                        textCapitalization: TextCapitalization.sentences,
+                        scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                        decoration: InputDecoration(
+                          labelText: '${context.l10n.profile_name}*',
+                          suffixIcon: IconButton(
+                            onPressed: _controller.clear,
+                            icon: const Icon(Icons.cancel_outlined),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
                           ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                        ),
+                        onSubmitted: (_) => _confirmEnabled ? _confirm() : _focusNode.requestFocus(),
                       ),
-                      onSubmitted: (_) => _confirmEnabled ? _confirm() : _focusNode.requestFocus(),
                     ),
                     Gaps.h8,
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: FilledButton(
@@ -134,17 +146,6 @@ class _CreateProfileState extends State<CreateProfile> {
               ),
             ),
           ),
-          Positioned(
-            top: 8,
-            right: 8,
-            child: IconButton(onPressed: _loading && !_confirmEnabled ? null : () => context.pop(), icon: const Icon(Icons.close)),
-          ),
-          if (widget.onBackPressed != null)
-            Positioned(
-              top: 8,
-              left: 8,
-              child: IconButton(icon: Icon(context.adaptiveBackIcon), onPressed: widget.onBackPressed),
-            ),
           if (_loading) ModalLoadingOverlay(text: context.l10n.profile_create_inProgress, isDialog: widget.isInDialog),
         ],
       ),
