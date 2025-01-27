@@ -1,0 +1,58 @@
+{
+  "supportedLanguages": [
+    "de",
+    "en"
+  ],
+  "tagsForAttributeValueTypes": {
+    "IdentityFileReference": {
+      "schulabschluss": {
+        "displayNames": {
+          "de": "Abschluss",
+          "en": "Degree"
+        }
+      },
+      "abitur": {
+        "displayNames": {
+          "de": "Abitur",
+          "en": "High School Diploma"
+        }
+      },
+      "fachhochschulreife": {
+        "displayNames": {
+          "de": "Fachhochschulreife",
+          "en": "University of Applied Sciences Entrance Qualification"
+        }
+      },
+      "grundschule": {
+        "displayNames": {
+          "de": "Grundschule",
+          "en": "Primary School"
+        }
+      },
+      "hauptschulabschluss": {
+        "displayNames": {
+          "de": "Hauptschulabschluss",
+          "en": "Secondary School Certificate"
+        }
+      },
+      "mittlerer_schulabschluss": {
+        "displayNames": {
+          "de": "Mittlerer Schulabschluss",
+          "en": "Intermediate School Certificate"
+        }
+      },
+      "praktikum": {
+        "displayNames": {
+          "de": "Praktikum",
+          "en": "Internship"
+        }
+      },
+      "versicherungsunterlagen": {
+        "displayNames": {
+          "de": "Versicherungsunterlagen",
+          "en": "Insurance documents"
+        }
+      }
+    }
+  }
+}
