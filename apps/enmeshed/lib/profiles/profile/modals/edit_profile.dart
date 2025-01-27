@@ -81,6 +81,7 @@ class _EditProfileState extends State<_EditProfile> {
               padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                spacing: 8,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 8, left: 24, right: 8, bottom: 8),
@@ -97,6 +98,7 @@ class _EditProfileState extends State<_EditProfile> {
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -111,17 +113,22 @@ class _EditProfileState extends State<_EditProfile> {
                             Gaps.h32,
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 24),
+                              child: Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
+                            ),
+                            Gaps.h24,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 24),
                               child: TextField(
                                 controller: _controller,
                                 maxLength: MaxLength.profileName,
                                 textCapitalization: TextCapitalization.sentences,
                                 scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                                 decoration: InputDecoration(
+                                  labelText: '${context.l10n.profile_name}*',
                                   suffixIcon: IconButton(
                                     onPressed: _controller.clear,
                                     icon: const Icon(Icons.cancel_outlined),
                                   ),
-                                  labelText: context.l10n.profile_name,
                                   border: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                                     borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
@@ -133,7 +140,6 @@ class _EditProfileState extends State<_EditProfile> {
                                 ),
                               ),
                             ),
-                            Gaps.h24,
                           ],
                         ),
                       ),
