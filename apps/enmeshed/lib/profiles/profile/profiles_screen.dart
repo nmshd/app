@@ -10,7 +10,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
-import 'modals/delete_profile/delete_profile_or_identity_modal.dart';
 import 'modals/modals.dart';
 import 'widgets/profile_widgets.dart';
 
