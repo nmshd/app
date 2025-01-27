@@ -19,7 +19,7 @@ class FileTagsContainer extends StatelessWidget {
             children: [
               Icon(Icons.warning_rounded, color: context.customColors.warning),
               Gaps.w8,
-              Text(context.l10n.files_assignTags),
+              Text(context.l10n.files_assignTagsTitle),
             ],
           ),
           Gaps.h16,

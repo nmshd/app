@@ -7,21 +7,20 @@ import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import '../widgets/available_tags_section.dart';
-import '../widgets/selected_tag_section.dart';
 
 class EditFile extends StatefulWidget {
   final String accountId;
   final String fileTitle;
   final LocalAttributeDVO fileReferenceAttribute;
   final void Function({String? attributeId}) onSave;
-  final AttributeTagCollectionDTO? tagCollection;
+  final AttributeTagCollectionDTO tagCollection;
 
   const EditFile({
     required this.accountId,
     required this.fileTitle,
     required this.fileReferenceAttribute,
     required this.onSave,
-    this.tagCollection,
+    required this.tagCollection,
     super.key,
   });
 
@@ -33,9 +32,7 @@ class _EditFileState extends State<EditFile> {
   late final TextEditingController _titleController;
   bool _loading = false;
 
-  String _selectedTags = '';
-
-  List<String> get _selectedTagsList => _selectedTags.isEmpty ? [] : _selectedTags.split('+%+');
+  List<String> _selectedTags = [];
 
   @override
   void initState() {
@@ -43,13 +40,14 @@ class _EditFileState extends State<EditFile> {
 
     _titleController = TextEditingController(text: widget.fileTitle)..addListener(() => setState(() {}));
     if (widget.fileReferenceAttribute.tags != null && widget.fileReferenceAttribute.tags!.isNotEmpty) {
-      _selectedTags = widget.fileReferenceAttribute.tags!.first;
+      _selectedTags = widget.fileReferenceAttribute.tags!;
     }
   }
 
   @override
   void dispose() {
     super.dispose();
+
     _titleController.dispose();
   }
 
@@ -83,38 +81,19 @@ class _EditFileState extends State<EditFile> {
                   ),
                 ),
               ),
+              Gaps.h24,
+              Text(context.l10n.files_assignTags, style: Theme.of(context).textTheme.titleMedium),
+              Gaps.h24,
+              AvailableTagsSection(
+                tagCollection: widget.tagCollection,
+                selectedTags: _selectedTags,
+                onTagSelected: _handleTagSelected,
+              ),
               Gaps.h40,
-              Text(context.l10n.files_tags, style: Theme.of(context).textTheme.titleMedium),
-              Gaps.h24,
-              Text(context.l10n.files_assignTagsDescription, style: Theme.of(context).textTheme.bodySmall?.copyWith(letterSpacing: 0.4)),
-              Gaps.h24,
-              if (_selectedTags.isNotEmpty) ...[
-                SelectedTagSection(
-                  tagCollection: widget.tagCollection,
-                  selectedTagsList: _selectedTagsList,
-                  onTagDeleted: (tagPath) {
-                    setState(() {
-                      final tagIndex = _selectedTagsList.indexOf(tagPath);
-                      if (tagIndex != -1) {
-                        _selectedTags = tagIndex == 0 ? '' : _selectedTagsList.take(tagIndex).join('+%+');
-                      }
-                    });
-                  },
-                ),
-              ],
-              if (widget.tagCollection != null) ...[
-                Gaps.h24,
-                AvailableTagsSection(
-                  tagCollection: widget.tagCollection,
-                  selectedTags: _selectedTagsList,
-                  onTagSelected: _handleTagSelected,
-                ),
-              ],
-              Gaps.h24,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(context.l10n.cancel)),
+                  OutlinedButton(onPressed: () => Navigator.of(context).pop(), child: Text(context.l10n.cancel)),
                   Gaps.w8,
                   FilledButton(onPressed: _confirmEnabled ? _confirm : null, child: Text(context.l10n.save)),
                 ],
@@ -137,7 +116,7 @@ class _EditFileState extends State<EditFile> {
     final succeedAttributeResult = await session.consumptionServices.attributes.succeedRepositoryAttribute(
       predecessorId: widget.fileReferenceAttribute.id,
       value: (widget.fileReferenceAttribute as RepositoryAttributeDVO).value as IdentityFileReferenceAttributeValue,
-      tags: [_selectedTags],
+      tags: _selectedTags,
     );
 
     if (succeedAttributeResult.isError) {
@@ -163,26 +142,14 @@ class _EditFileState extends State<EditFile> {
 
   void _handleTagSelected({
     required String tagPath,
-    required AttributeTagDTO tagData,
     required bool selected,
   }) {
-    if (selected) {
-      final pathParts = tagPath.split('.');
-      final lastPart = pathParts.last;
-
-      if (_selectedTagsList.isEmpty) {
-        setState(() => _selectedTags = pathParts.first);
-
-        return;
+    setState(() {
+      if (selected) {
+        _selectedTags = [..._selectedTags, tagPath];
+      } else {
+        _selectedTags = _selectedTags.where((tag) => tag != tagPath).toList();
       }
-
-      setState(() => _selectedTags = [..._selectedTagsList, lastPart].join('+%+'));
-    } else {
-      final pathParts = tagPath.split('.');
-      final lastPart = pathParts.last;
-
-      final tagIndex = _selectedTagsList.indexOf(lastPart);
-      if (tagIndex != -1) setState(() => _selectedTags = tagIndex == 0 ? '' : _selectedTagsList.take(tagIndex).join('+%+'));
-    }
+    });
   }
 }

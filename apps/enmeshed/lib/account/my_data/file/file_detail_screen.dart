@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:enmeshed/account/my_data/file/widgets/selected_tag_section.dart';
+import 'package:enmeshed/account/my_data/file/widgets/selected_tags_section.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -77,19 +77,21 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                 ),
               ),
               Gaps.h48,
-              if (_fileReferenceAttribute != null) ...[
-                if (_tags == null)
+              if (_isEditable) ...[
+                if (_tags == null || _tags!.isEmpty)
                   FileTagsContainer(onEditFile: _onEditFilePressed)
                 else
-                  SelectedTagSection(tagCollection: _tagCollection, selectedTagsList: _tags!.first.split('+%+')),
+                  SelectedTagsSection(tagCollection: _tagCollection!, selectedTagsList: _tags!),
                 Gaps.h16,
               ],
               FileInfoContainer(createdBy: _fileDVO!.createdBy.name, createdAt: _fileDVO!.createdAt),
               Gaps.h32,
               Row(
                 children: [
-                  if (_fileReferenceAttribute != null) IconButton(onPressed: _onEditFilePressed, icon: const Icon(Icons.edit_outlined, size: 24)),
-                  Gaps.w8,
+                  if (_isEditable) ...[
+                    IconButton(onPressed: _onEditFilePressed, icon: const Icon(Icons.edit_outlined, size: 24)),
+                    Gaps.w8,
+                  ],
                   IconButton(
                     onPressed: _isLoadingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
                     icon: _isLoadingFile
@@ -112,6 +114,8 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     );
   }
 
+  bool get _isEditable => _fileReferenceAttribute != null && _tagCollection != null;
+
   Future<void> _load() async {
     await _loadFile();
     await _loadTagCollection();
@@ -127,7 +131,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
 
   Future<void> _loadTagCollection() async {
     // TODO(aince42): this is a temporary solution to load the tag collection
-    final jsonString = await rootBundle.loadString('assets/tag_example.json');
+    final jsonString = await rootBundle.loadString('assets/single_level_tags_example.json');
     final jsonData = json.decode(jsonString) as Map<String, dynamic>;
     final tagCollection = AttributeTagCollectionDTO.fromJson(jsonData);
     // final tagCollection = await _session.consumptionServices.attributes.getAttributeTagCollection();
@@ -185,7 +189,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
         accountId: widget.accountId,
         fileTitle: _fileDVO!.title,
         fileReferenceAttribute: _fileReferenceAttribute!,
-        tagCollection: _tagCollection,
+        tagCollection: _tagCollection!,
         onSave: _loadTags,
       ),
     );
