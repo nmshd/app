@@ -111,13 +111,17 @@ class _Error extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.profile_delete_error_cancel)),
-              Gaps.w8,
-              FilledButton(onPressed: onRetry, child: Text(context.l10n.profile_delete_error_retry)),
-            ],
+          Align(
+            alignment: Alignment.centerRight,
+            child: Wrap(
+              alignment: WrapAlignment.end,
+              runAlignment: WrapAlignment.spaceBetween,
+              spacing: 8,
+              children: [
+                OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.profile_delete_error_cancel)),
+                FilledButton(onPressed: onRetry, child: Text(context.l10n.profile_delete_error_retry)),
+              ],
+            ),
           ),
         ],
       ),
