@@ -20,6 +20,7 @@ import '/themes/themes.dart';
 import 'account/account.dart';
 import 'core/core.dart';
 import 'drawer/drawer.dart';
+import 'error_screen.dart';
 import 'onboarding/onboarding.dart';
 import 'profiles/profiles.dart';
 import 'splash_screen.dart';
@@ -135,6 +136,11 @@ final _router = GoRouter(
           content: Text(context.l10n.errorDialog_description),
         ),
       ),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/general-error',
+      builder: (context, state) => const ErrorScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
