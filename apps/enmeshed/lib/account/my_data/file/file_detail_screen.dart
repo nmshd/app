@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:enmeshed/account/my_data/file/widgets/selected_tags_section.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 
 import '/core/core.dart';
@@ -130,13 +127,11 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   }
 
   Future<void> _loadTagCollection() async {
-    // TODO(aince42): this is a temporary solution to load the tag collection
-    final jsonString = await rootBundle.loadString('assets/single_level_tags_example.json');
-    final jsonData = json.decode(jsonString) as Map<String, dynamic>;
-    final tagCollection = AttributeTagCollectionDTO.fromJson(jsonData);
-    // final tagCollection = await _session.consumptionServices.attributes.getAttributeTagCollection();
+    final tagCollectionResult = await _session.consumptionServices.attributes.getAttributeTagCollection();
 
-    setState(() => _tagCollection = tagCollection);
+    if (tagCollectionResult.isError) return;
+
+    setState(() => _tagCollection = tagCollectionResult.value);
   }
 
   Future<void> _loadTags({String? attributeId}) async {

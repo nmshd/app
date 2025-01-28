@@ -68,7 +68,6 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - path: assets/single_level_tags_example.json
     - path: assets/i18n/
     - path: assets/texts/
     - path: assets/pictures/
