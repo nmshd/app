@@ -38,6 +38,7 @@
   "error_succeedAttribute": "The entry could not be updated.",
   "error_deleteAttribute": "The entry could not be deleted.",
   "error_changeFavoriteRepositoryAttribute": "The attribute could not be favored.",
+  "error_general": "We are sorry, but an unexpected error has occurred. If the problem persists, you are welcome to contact our support team.",
   "favorites": "Favorites",
   "tryAgain": "Try again",
   "title": "Title",
