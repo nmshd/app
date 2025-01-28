@@ -37,3 +37,20 @@ This will create a file with the same name, but `.g.dart` as ending.
 It is advisable to format the files of the package thereafter, e.g. by running `dart format . --set-exit-if-changed -l 150`.
 
 ## Moving patches to other apps
+
+- open a terminal and go to `apps/enmeshed`
+- run `git format-patch --relative -1 HEAD`, this will create a patch file in the current directory called `0001-<...>.patch`
+- move the patch file to the target app
+- run `git apply 0001-<...>.patch` in the target app directory
+- when the patch cannot be applied because of conflicts you can exclude the files that cause the conflicts by using --exclude
+
+  this can look as follows: `git apply 0001-<...>.patch --exclude=pubspec.lock --exclude=pubspec.yaml`
+
+  common files that cause conflicts are:
+
+  - `ios/Podfile`
+  - `ios/Podfile.lock`
+  - `pubspec.lock`
+  - `pubspec.yaml`
+  - `lib/l10n/app_de.arb`
+  - `lib/l10n/app_en.arb`
