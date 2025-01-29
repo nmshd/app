@@ -38,7 +38,7 @@ void run(EnmeshedRuntime runtime) {
         value: const CityAttributeValue(value: 'aRandomCityNobodyWillEverUse'),
       );
 
-      expect(attributeResult, isSuccessful<CanCreateRelationshipSuccessResponse>());
+      expect(attributeResult, isSuccessful<CanCreateRepositoryAttributeSuccessResponse>());
     });
 
     test('should return that is it not possible to create an identity attribute when a duplicate exists', () async {
@@ -48,9 +48,9 @@ void run(EnmeshedRuntime runtime) {
       expect(createResult, isSuccessful<LocalAttributeDTO>());
 
       final canCreateResult = await sender.consumptionServices.attributes.canCreateRepositoryAttribute(value: attributeValue);
-      expect(canCreateResult, isSuccessful<CanCreateRelationshipFailureResponse>());
+      expect(canCreateResult, isSuccessful<CanCreateRepositoryAttributeFailureResponse>());
 
-      final errorResponse = canCreateResult.value as CanCreateRelationshipFailureResponse;
+      final errorResponse = canCreateResult.value as CanCreateRepositoryAttributeFailureResponse;
       expect(errorResponse.code, 'error.runtime.attributes.cannotCreateDuplicateRepositoryAttribute');
     });
   });
