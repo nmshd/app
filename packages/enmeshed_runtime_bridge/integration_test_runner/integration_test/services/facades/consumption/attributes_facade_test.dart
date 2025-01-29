@@ -42,7 +42,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return that is it not possible to create an identity attribute when a duplicate exists', () async {
-      const attributeValue = CityAttributeValue(value: 'aCity');
+      const attributeValue = CityAttributeValue(value: 'aRandomCityThatWillBeCreatedAndCauseADuplicateIssue');
 
       final createResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: attributeValue);
       expect(createResult, isSuccessful<LocalAttributeDTO>());
