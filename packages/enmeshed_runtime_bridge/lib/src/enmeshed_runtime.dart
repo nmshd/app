@@ -82,7 +82,6 @@ class EnmeshedRuntime {
       RegExp(r'handleRuntimeEvent'),
       RegExp(r'runtimeReady'),
       RegExp(r'onReceivedServerTrustAuthRequest'),
-      RegExp(r'getDeviceInfo'),
       RegExp(r'getDefaultConfig'),
       RegExp(r'uibridge_'),
       RegExp(r'notifications_'),
@@ -159,7 +158,6 @@ class EnmeshedRuntime {
       },
     );
 
-    controller.addDeviceInfoJavaScriptHandler();
     controller.addLocalNotificationsJavaScriptHandlers();
   }
 
