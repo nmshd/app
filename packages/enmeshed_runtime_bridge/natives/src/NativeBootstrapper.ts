@@ -1,7 +1,7 @@
 import { ILokiJsDatabaseFactory } from "@js-soft/docdb-access-loki";
 import { ILoggerFactory } from "@js-soft/logging-abstractions";
 import { SimpleLoggerFactory } from "@js-soft/simple-logger";
-import { EventBus, Result } from "@js-soft/ts-utils";
+import { Result } from "@js-soft/ts-utils";
 import { INativeBootstrapper, INativeEnvironment, INativeNotificationAccess } from "@nmshd/app-runtime";
 import { LogLevel } from "typescript-logging";
 import { ConfigAccess } from "./ConfigAccess";
@@ -14,7 +14,6 @@ export class NativeBootstrapper implements INativeBootstrapper {
   public readonly configAccess: ConfigAccess;
   public readonly loggerFactory: ILoggerFactory;
   public readonly notificationAccess: INativeNotificationAccess;
-  public readonly eventBus: EventBus;
 
   private readonly fileAccess: FileAccess;
 

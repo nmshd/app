@@ -82,7 +82,6 @@ class EnmeshedRuntime {
       RegExp(r'handleRuntimeEvent'),
       RegExp(r'runtimeReady'),
       RegExp(r'onReceivedServerTrustAuthRequest'),
-      RegExp(r'getDeviceInfo'),
       RegExp(r'getRuntimeConfig'),
       RegExp(r'uibridge_'),
       RegExp(r'notifications_'),
