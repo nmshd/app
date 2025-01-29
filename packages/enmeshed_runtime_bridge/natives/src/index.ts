@@ -65,8 +65,14 @@ async function main() {
   await bootstrapper.init();
   const runtime = await AppRuntime.createAndStart(bootstrapper, config);
 
+  const runtimeBridgeLogger = bootstrapper.loggerFactory.getLogger("RuntimeBridge");
+
   runtime.eventBus.subscribe("**", async (event) => {
-    await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);
+    try {
+      await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);
+    } catch (error) {
+      runtimeBridgeLogger.warn("Error while passing runtime event to app", error);
+    }
   });
 
   window.runtime = runtime;
