@@ -44,16 +44,16 @@ window.setPushToken = async function (token: string) {
   if (alreadySetToken.value === token) return;
 
   window.runtime.nativeEnvironment.configAccess.set("pushToken", token);
-  window.runtime.nativeEnvironment.eventBus.publish(new RemoteNotificationRegistrationEvent(token));
+  window.runtime.eventBus.publish(new RemoteNotificationRegistrationEvent(token));
   await window.runtime.nativeEnvironment.configAccess.save();
 };
 
 window.triggerRemoteNotificationEvent = async function (notification: RemoteNotification) {
-  window.runtime.nativeEnvironment.eventBus.publish(new RemoteNotificationEvent(notification));
+  window.runtime.eventBus.publish(new RemoteNotificationEvent(notification));
 };
 
 window.triggerAppReadyEvent = async function () {
-  window.runtime.nativeEnvironment.eventBus.publish(new AppReadyEvent());
+  window.runtime.eventBus.publish(new AppReadyEvent());
 };
 
 window.runtimeVersion = buildInformation.version;

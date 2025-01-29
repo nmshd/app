@@ -147,9 +147,9 @@ class EnmeshedRuntime {
       callback: (_) => {
         'applicationId': runtimeConfig.applicationId,
         if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
+        if (Platform.isIOS || Platform.isMacOS) 'pushService': 'apns' else if (Platform.isAndroid) 'pushService': 'fcm' else 'pushService': 'none',
         'transportLibrary': {
           'baseUrl': runtimeConfig.baseUrl,
-          'datawalletEnabled': true,
           'platformClientId': runtimeConfig.clientId,
           'platformClientSecret': runtimeConfig.clientSecret,
         },
