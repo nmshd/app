@@ -141,7 +141,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   String _formatDate(BuildContext context, String date) {
     final locale = Localizations.localeOf(context);
     final parsedDate = DateTime.parse(date).toLocal();
-    return DateFormat('EEEE, d. MMMM y', locale.toString()).format(parsedDate);
+    return DateFormat.yMd(locale.languageCode).format(parsedDate);
   }
 
   Future<void> _load() async {
