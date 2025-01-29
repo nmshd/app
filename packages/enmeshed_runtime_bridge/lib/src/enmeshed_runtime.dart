@@ -162,7 +162,6 @@ class EnmeshedRuntime {
       },
     );
 
-    controller.addDeviceInfoJavaScriptHandler();
     controller.addLocalNotificationsJavaScriptHandlers();
   }
 
