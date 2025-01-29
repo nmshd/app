@@ -32,6 +32,29 @@ void run(EnmeshedRuntime runtime) {
     await ensureActiveRelationship(sender, thirdParty);
   });
 
+  group('AttributesFacade: canCreateRepositoryAttribute', () {
+    test('should return that is it possible to create an identity attribute', () async {
+      final attributeResult = await sender.consumptionServices.attributes.canCreateRepositoryAttribute(
+        value: const CityAttributeValue(value: 'aRandomCityNobodyWillEverUse'),
+      );
+
+      expect(attributeResult, isSuccessful<CanCreateRelationshipSuccessResponse>());
+    });
+
+    test('should return that is it not possible to create an identity attribute when a duplicate exists', () async {
+      const attributeValue = CityAttributeValue(value: 'aCity');
+
+      final createResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: attributeValue);
+      expect(createResult, isSuccessful<LocalAttributeDTO>());
+
+      final canCreateResult = await sender.consumptionServices.attributes.canCreateRepositoryAttribute(value: attributeValue);
+      expect(canCreateResult, isSuccessful<CanCreateRelationshipFailureResponse>());
+
+      final errorResponse = canCreateResult.value as CanCreateRelationshipFailureResponse;
+      expect(errorResponse.code, 'error.runtime.attributes.cannotCreateDuplicateRepositoryAttribute');
+    });
+  });
+
   group('AttributesFacade: createRepositoryAttribute', () {
     test('should create an identity attribute', () async {
       final attributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const CityAttributeValue(value: 'aCity'));
