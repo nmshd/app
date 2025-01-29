@@ -147,14 +147,12 @@ class EnmeshedRuntime {
       callback: (_) => {
         'applicationId': runtimeConfig.applicationId,
         if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
-        'transport': {
+        'transportLibrary': {
           'baseUrl': runtimeConfig.baseUrl,
-          'logLevel': 'warn',
           'datawalletEnabled': true,
           'platformClientId': runtimeConfig.clientId,
           'platformClientSecret': runtimeConfig.clientSecret,
         },
-        'pushToken': null,
         'databaseFolder': runtimeConfig.databaseFolder,
         if (Platform.isWindows)
           'modules': {
