@@ -83,7 +83,7 @@ class EnmeshedRuntime {
       RegExp(r'runtimeReady'),
       RegExp(r'onReceivedServerTrustAuthRequest'),
       RegExp(r'getDeviceInfo'),
-      RegExp(r'getDefaultConfig'),
+      RegExp(r'getRuntimeConfig'),
       RegExp(r'uibridge_'),
       RegExp(r'notifications_'),
       RegExp(r'.*File'),
@@ -143,7 +143,7 @@ class EnmeshedRuntime {
     );
 
     controller.addJavaScriptHandler(
-      handlerName: 'getDefaultConfig',
+      handlerName: 'getRuntimeConfig',
       callback: (_) => {
         'applicationId': runtimeConfig.applicationId,
         if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
@@ -156,6 +156,11 @@ class EnmeshedRuntime {
         },
         'pushToken': null,
         'databaseFolder': runtimeConfig.databaseFolder,
+        if (Platform.isWindows)
+          'modules': {
+            'pushNotification': {'enabled': false},
+            'sse': {'enabled': true},
+          }
       },
     );
 

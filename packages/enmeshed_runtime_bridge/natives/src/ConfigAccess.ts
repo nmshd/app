@@ -9,39 +9,34 @@ export class ConfigAccess implements INativeConfigAccess {
   public constructor(
     private fileAccess: FileAccess,
     private logger: ILogger,
-    private runtimeConfigPath: string
+    private configPath: string
   ) {}
 
   private config: any = {};
 
-  public async initDefaultConfig(): Promise<Result<void>> {
-    const result: any = await window.flutter_inappwebview.callHandler("getDefaultConfig");
-    this.config = _.defaultsDeep(this.config, result);
-
-    return Result.ok(undefined);
-  }
-
-  public async initRuntimeConfig(): Promise<Result<void>> {
-    const runtimeConfigExistsResult = await this.fileAccess.existsFile(this.runtimeConfigPath);
-    if (runtimeConfigExistsResult.isError) {
+  public async init(): Promise<Result<void>> {
+    const configExistsResult = await this.fileAccess.existsFile(this.configPath);
+    if (configExistsResult.isError) {
       return Result.fail(new ApplicationError("CONFIG_INIT", "Unable to check if runtime config exists!"));
     }
 
-    if (!runtimeConfigExistsResult.value) {
-      this.logger.info("No runtime config found!");
+    if (!configExistsResult.value) {
+      this.logger.info("No config found!");
       return Result.ok(undefined);
     }
 
-    const runtimeConfigResult = await this.fileAccess.readFileAsText(this.runtimeConfigPath);
-    if (runtimeConfigResult.isError) {
+    const configResult = await this.fileAccess.readFileAsText(this.configPath);
+    if (configResult.isError) {
       return Result.fail(new ApplicationError("CONFIG_INIT", "Unable to read runtime config file!"));
-    } else if (!runtimeConfigResult.value) {
+    } else if (!configResult.value) {
       return Result.fail(new ApplicationError("CONFIG_INIT", "Unable to read runtime config file!"));
     }
 
     try {
-      const runtimeConfig = JSON.parse(runtimeConfigResult.value);
-      this.config = _.defaultsDeep(this.config, runtimeConfig);
+      const config = JSON.parse(configResult.value);
+      this.config = _.defaultsDeep(this.config, config);
+
+      await this.save();
     } catch (err) {
       return Result.fail(new ApplicationError("CONFIG_INIT", "Unable to parse runtime config data!"));
     }
@@ -51,7 +46,7 @@ export class ConfigAccess implements INativeConfigAccess {
 
   public async save(): Promise<Result<void>> {
     const configAsString = stringifySafe(this.config);
-    const result = await this.fileAccess.writeFile(this.runtimeConfigPath, configAsString);
+    const result = await this.fileAccess.writeFile(this.configPath, configAsString);
     if (result.isError) {
       return Result.fail(new ApplicationError("CONFIG_SAVE", "Unable to save runtime config!"));
     }

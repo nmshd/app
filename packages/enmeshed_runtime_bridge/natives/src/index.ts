@@ -1,6 +1,7 @@
 import { Serializable } from "@js-soft/ts-serval";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
 import {
+  AppConfigOverwrite,
   AppReadyEvent,
   AppRuntime,
   RemoteNotification,
@@ -58,9 +59,11 @@ window.triggerAppReadyEvent = async function () {
 window.runtimeVersion = buildInformation.version;
 
 async function main() {
+  const config: AppConfigOverwrite = await window.flutter_inappwebview.callHandler("getRuntimeConfig");
+
   const bootstrapper = new NativeBootstrapper();
   await bootstrapper.init();
-  const runtime = await AppRuntime.createAndStart(bootstrapper);
+  const runtime = await AppRuntime.createAndStart(bootstrapper, config);
 
   runtime.eventBus.subscribe("**", async (event) => {
     await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);

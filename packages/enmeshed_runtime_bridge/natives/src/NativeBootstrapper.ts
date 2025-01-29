@@ -58,10 +58,7 @@ export class NativeBootstrapper implements INativeBootstrapper {
       throw new Error("BOOTSTRAP_ALREADY_INITIALIZED");
     }
 
-    await this.configAccess.initDefaultConfig();
-    await this.configAccess.initRuntimeConfig();
-    await this.configAccess.save();
-
+    await this.configAccess.init();
     await this.deviceInfoAccess.init();
     await this.notificationAccess.init();
 
