@@ -33,7 +33,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('AttributesFacade: canCreateRepositoryAttribute', () {
-    test('should return that is it possible to create an identity attribute', () async {
+    test('should return that it is possible to create an identity attribute', () async {
       final attributeResult = await sender.consumptionServices.attributes.canCreateRepositoryAttribute(
         value: const CityAttributeValue(value: 'aRandomCityNobodyWillEverUse'),
       );
@@ -41,7 +41,7 @@ void run(EnmeshedRuntime runtime) {
       expect(attributeResult, isSuccessful<CanCreateRepositoryAttributeSuccessResponse>());
     });
 
-    test('should return that is it not possible to create an identity attribute when a duplicate exists', () async {
+    test('should return that it is not possible to create an identity attribute when a duplicate exists', () async {
       const attributeValue = CityAttributeValue(value: 'aRandomCityThatWillBeCreatedAndCauseADuplicateIssue');
 
       final createResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: attributeValue);
