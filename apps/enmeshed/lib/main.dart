@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:croppy/croppy.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
@@ -27,7 +28,7 @@ import 'splash_screen.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  if (Platform.isAndroid || Platform.isIOS) FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   timeago.setLocaleMessages('de', timeago.DeMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());

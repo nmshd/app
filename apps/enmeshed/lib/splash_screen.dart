@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:renderers/renderers.dart';
+import 'package:win32_registry/win32_registry.dart';
 
 import 'core/core.dart';
 
@@ -64,71 +65,101 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _init(GoRouter router) async {
     await GetIt.I.reset();
 
+    final logger = Logger(printer: SimplePrinter(colors: false));
+    GetIt.I.registerSingleton(logger);
+    GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
+
     // TODO(jkoenig134): we should probably ask for permission when we need it
-    await Permission.camera.request();
+    final cameraStatus = await Permission.camera.request();
+    if (!cameraStatus.isGranted) {
+      logger.w('Camera permission is (permanently) denied');
+    }
 
     if (Platform.isAndroid && kDebugMode) {
       await InAppWebViewController.setWebContentsDebuggingEnabled(true);
     }
 
-    final logger = Logger(printer: SimplePrinter(colors: false));
-    GetIt.I.registerSingleton(logger);
-    GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
-
     try {
-      final runtime = EnmeshedRuntime(
-        logger: logger,
-        runtimeConfig: (
-          applicationId: 'eu.enmeshed.app',
-          baseUrl: const String.fromEnvironment('app_baseUrl'),
-          clientId: const String.fromEnvironment('app_clientId'),
-          clientSecret: const String.fromEnvironment('app_clientSecret'),
-          useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
-          databaseFolder: './database',
-        ),
-      );
-      GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
-      await GetIt.I.allReady(timeout: const Duration(seconds: 10));
 
-      await setupPush(runtime);
+    final runtime = EnmeshedRuntime(
+      logger: logger,
+      runtimeConfig: (
+        applicationId: 'eu.enmeshed.app',
+        baseUrl: const String.fromEnvironment('app_baseUrl'),
+        clientId: const String.fromEnvironment('app_clientId'),
+        clientSecret: const String.fromEnvironment('app_clientSecret'),
+        useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
+        databaseFolder: './database',
+      ),
+    );
+    GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
 
-      final status = await Permission.notification.request();
-      if (!status.isGranted) {
-        logger.w('Notification permission is (permanently) denied');
-      }
+    await GetIt.I.allReady(timeout: const Duration(seconds: 10);
 
-      // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
-      await runtime.triggerAppReadyEvent();
+    await setupPush(runtime);
 
-      await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router));
+    final status = await Permission.notification.request();
+    if (!status.isGranted) {
+      logger.w('Notification permission is (permanently) denied');
+    }
 
-      final appLinks = AppLinks();
-      appLinks.uriLinkStream.listen((Uri? uri) {
-        if (uri != null) GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: uri.toString());
-      });
+    // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
+    await runtime.triggerAppReadyEvent();
 
-      final accounts = await runtime.accountServices.getAccounts();
-      final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
-      if (accounts.isEmpty) {
-        router.go('/onboarding');
-      } else if (accountsNotInDeletion.isEmpty) {
-        router.go('/onboarding?skipIntroduction=true');
-      } else {
-        accountsNotInDeletion.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
+    await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router));
 
-        final account = accountsNotInDeletion.first;
+    await _registerWindowsSchemeForDebugMode('nmshd-dev');
 
-        await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+    final appLinks = AppLinks();
+    appLinks.uriLinkStream.listen(_processUri);
 
-        router.go('/account/${account.id}');
-      }
+    final accounts = await runtime.accountServices.getAccounts();
+    final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
+    if (accounts.isEmpty) {
+      router.go('/onboarding');
+    } else if (accountsNotInDeletion.isEmpty) {
+      router.go('/onboarding?skipIntroduction=true');
+    } else {
+      accountsNotInDeletion.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
 
-      final initialAppLink = await appLinks.getInitialLink();
-      if (initialAppLink != null) {
-        await GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: initialAppLink.toString());
-      }
+      final account = accountsNotInDeletion.first;
+
+      await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+
+      router.go('/account/${account.id}');
+    }
+
+    final initialAppLink = await appLinks.getInitialLink();
+    await _processUri(initialAppLink);
     } catch (e) {
-      router.go('/general-error');
+          router.go('/general-error');
+        }
+  }
+
+  Future<void> _processUri(Uri? uri) async {
+    if (uri == null) return;
+
+    final uriString = uri.toString().replaceAll('nmshd-dev://', 'nmshd://').replaceAll('qr/#', 'qr#');
+    GetIt.I.get<Logger>().i("Processing URL '$uriString'");
+
+    final result = await GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: uriString);
+    if (result.isError) {
+      GetIt.I.get<Logger>().e("Processing URL '$uriString' failed with code '${result.error.code}' and message '${result.error.message}'");
     }
   }
+}
+
+Future<void> _registerWindowsSchemeForDebugMode(String scheme) async {
+  if (!Platform.isWindows || !kDebugMode) return;
+
+  final appPath = Platform.resolvedExecutable;
+
+  final protocolRegKey = 'Software\\Classes\\$scheme';
+  const protocolRegValue = RegistryValue('URL Protocol', RegistryValueType.string, '');
+  const protocolCmdRegKey = r'shell\open\command';
+  final protocolCmdRegValue = RegistryValue('', RegistryValueType.string, '"$appPath" "%1"');
+
+  Registry.currentUser.createKey(protocolRegKey)
+    ..createValue(protocolRegValue)
+    ..createKey(protocolCmdRegKey).createValue(protocolCmdRegValue);
 }
