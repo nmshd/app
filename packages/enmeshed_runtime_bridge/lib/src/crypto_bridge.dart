@@ -56,16 +56,11 @@ class CryptoHandler {
     //    "message" : string
     // }
 
-    print('Handling call with args: $args');
-
     if (args.length != 1) {
-      throw TsDartBridgeException(
-          'not exactly 1 arg passed to handle', args.length.toString());
+      throw TsDartBridgeException('not exactly 1 arg passed to handle', args.length.toString());
     }
     if (args[0] is! String) {
-      throw TsDartBridgeException(
-          'the argument passed to the handle is not a string',
-          args[0].toString());
+      throw TsDartBridgeException('the argument passed to the handle is not a string', args[0].toString());
     }
 
     final String callObj = args[0];
@@ -77,10 +72,8 @@ class CryptoHandler {
         'provider' => await _handleProviderCall(objMap),
         'key' => await _handleKeyCall(objMap),
         'key_pair' => await _handleKeyPairCall(objMap),
-        _ => throw TsDartBridgeException(
-            'Unkown handle type', objMap['object_type']),
+        _ => throw TsDartBridgeException('Unkown handle type', objMap['object_type']),
       };
-      print('Returning: $returnedMap');
       return jsonEncode({'status': 'ok', 'data': returnedMap});
     } on TsDartBridgeException catch (e) {
       e.addJsonContext(callObj);
@@ -100,11 +93,9 @@ class CryptoHandler {
         _providers[providerName] = provider;
         return providerName;
       case 'create_provider_from_name':
-        print('Getting provider from name: ${objMap['args'][0]}');
         final String name = objMap['args'][0];
         final implConfig = decodeProviderImplConfig(objMap['args'][1]);
-        final provider =
-            await createProviderFromName(name: name, implConf: implConfig);
+        final provider = await createProviderFromName(name: name, implConf: implConfig);
         final providerName = await provider!.providerName();
         _providers[providerName] = provider;
         return providerName;
@@ -155,10 +146,7 @@ class CryptoHandler {
         final publicKeyData = base64Decode(publicKeyDataBase64);
         final privateKeyDataBase64 = objMap['args'][2];
         final privateKeyData = base64Decode(privateKeyDataBase64);
-        final keyPair = await provider.importKeyPair(
-            spec: keyPairSpec,
-            publicKey: publicKeyData,
-            privateKey: privateKeyData);
+        final keyPair = await provider.importKeyPair(spec: keyPairSpec, publicKey: publicKeyData, privateKey: privateKeyData);
         final keyPairId = await keyPair.id();
         _keyPairHandles[keyPairId] = keyPair;
         return keyPairId;
@@ -166,8 +154,7 @@ class CryptoHandler {
         final keySpec = decodeKeyPairSpec(objMap['args'][0]);
         final keyDataBase64 = objMap['args'][1];
         final keyData = base64Decode(keyDataBase64);
-        final key =
-            await provider.importPublicKey(spec: keySpec, publicKey: keyData);
+        final key = await provider.importPublicKey(spec: keySpec, publicKey: keyData);
         final keyId = await key.id();
         _keyPairHandles[keyId] = key;
         return keyId;
@@ -263,8 +250,7 @@ class CryptoHandler {
         final signatureBase64 = objMap['args'][1];
         final data = base64Decode(dataBase64);
         final signature = base64Decode(signatureBase64);
-        final verified =
-            await keyPair.verifySignature(data: data, signature: signature);
+        final verified = await keyPair.verifySignature(data: data, signature: signature);
         return verified;
       case 'delete':
         await keyPair.delete();
@@ -284,18 +270,9 @@ class CryptoHandler {
   ProviderConfig decodeProviderConfig(Map<String, dynamic> map) {
     final maxSecurityLevel = decodeSecurityLevel(map['max_security_level']);
     final minSecurityLevel = decodeSecurityLevel(map['min_security_level']);
-    final supportedCiphers = map['supported_ciphers']
-        .map((e) => decodeCipher(e))
-        .toList()
-        .cast<Cipher>();
-    final supportedHashes = map['supported_hashes']
-        .map((e) => decodeCryptoHash(e))
-        .toList()
-        .cast<CryptoHash>();
-    final supportedAsymSpec = map['supported_asym_spec']
-        .map((e) => decodeAsymmetricKeySpec(e))
-        .toList()
-        .cast<AsymmetricKeySpec>();
+    final supportedCiphers = map['supported_ciphers'].map((e) => decodeCipher(e)).toList().cast<Cipher>();
+    final supportedHashes = map['supported_hashes'].map((e) => decodeCryptoHash(e)).toList().cast<CryptoHash>();
+    final supportedAsymSpec = map['supported_asym_spec'].map((e) => decodeAsymmetricKeySpec(e)).toList().cast<AsymmetricKeySpec>();
     return ProviderConfig(
         maxSecurityLevel: maxSecurityLevel,
         minSecurityLevel: minSecurityLevel,
@@ -308,18 +285,9 @@ class CryptoHandler {
     return {
       'max_security_level': encodeSecurityLevel(config.maxSecurityLevel),
       'min_security_level': encodeSecurityLevel(config.minSecurityLevel),
-      'supported_ciphers': config.supportedCiphers
-          .map((e) => encodeCipher(e))
-          .toList()
-          .cast<String>(),
-      'supported_hashes': config.supportedHashes
-          .map((e) => encodeCryptoHash(e))
-          .toList()
-          .cast<String>(),
-      'supported_asym_spec': config.supportedAsymSpec
-          .map((e) => encodeAsymmetricKeySpec(e))
-          .toList()
-          .cast<String>(),
+      'supported_ciphers': config.supportedCiphers.map((e) => encodeCipher(e)).toList().cast<String>(),
+      'supported_hashes': config.supportedHashes.map((e) => encodeCryptoHash(e)).toList().cast<String>(),
+      'supported_asym_spec': config.supportedAsymSpec.map((e) => encodeAsymmetricKeySpec(e)).toList().cast<String>(),
     };
   }
 
@@ -547,18 +515,13 @@ class CryptoHandler {
   }
 
   ProviderImplConfig decodeProviderImplConfig(Map<String, dynamic> map) {
-    final additionalConfig = map['additional_config']
-        .map((e) => decodeAdditionalConfig(e))
-        .toList()
-        .cast<AdditionalConfig>();
+    final additionalConfig = map['additional_config'].map((e) => decodeAdditionalConfig(e)).toList().cast<AdditionalConfig>();
     return ProviderImplConfig(additionalConfig: additionalConfig);
   }
 
   Map<String, dynamic> encodeProviderImplConfig(ProviderImplConfig config) {
     return {
-      'additional_config': config.additionalConfig
-          .map((e) => encodeAdditionalConfig(e))
-          .toList(),
+      'additional_config': config.additionalConfig.map((e) => encodeAdditionalConfig(e)).toList(),
     };
   }
 
@@ -575,8 +538,7 @@ class CryptoHandler {
       case 'StorageConfigPass':
         return AdditionalConfig.storageConfigPass(map['pass']);
       default:
-        throw TsDartBridgeException(
-            'Unknown additional config type', map['type']);
+        throw TsDartBridgeException('Unknown additional config type', map['type']);
     }
   }
 
@@ -603,16 +565,14 @@ class CryptoHandler {
           'pass': field0,
         };
       default:
-        throw TsDartBridgeException(
-            'Unknown additional config type', config.runtimeType.toString());
+        throw TsDartBridgeException('Unknown additional config type', config.runtimeType.toString());
     }
   }
 
   KeySpec decodeKeySpec(Map<String, dynamic> map) {
     final cipher = decodeCipher(map['cipher']);
     final signingHash = decodeCryptoHash(map['signing_hash']);
-    return KeySpec(
-        cipher: cipher, signingHash: signingHash, ephemeral: map['ephemeral']);
+    return KeySpec(cipher: cipher, signingHash: signingHash, ephemeral: map['ephemeral']);
   }
 
   Map<String, dynamic> encodeKeySpec(KeySpec spec) {
@@ -628,11 +588,7 @@ class CryptoHandler {
     final cipher = map['cipher'] == null ? null : decodeCipher(map['cipher']);
     final signingHash = decodeCryptoHash(map['signing_hash']);
     return KeyPairSpec(
-        asymSpec: asymSpec,
-        cipher: cipher,
-        signingHash: signingHash,
-        ephemeral: map['ephemeral'],
-        nonExportable: map['non_exportable']);
+        asymSpec: asymSpec, cipher: cipher, signingHash: signingHash, ephemeral: map['ephemeral'], nonExportable: map['non_exportable']);
   }
 
   Map<String, dynamic> encodeKeyPairSpec(KeyPairSpec spec) {
