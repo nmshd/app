@@ -9,6 +9,8 @@ import 'package:logger/logger.dart';
 import 'package:push/push.dart';
 
 Future<void> setupPush(EnmeshedRuntime runtime) async {
+  if (Platform.isWindows) return;
+
   final logger = GetIt.I.get<Logger>();
 
   // this will timeout e.g. on the ios simulator
