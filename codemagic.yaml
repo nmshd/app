@@ -146,12 +146,12 @@ workflows:
         - webhook-secrets
       flutter: stable
     triggering:
-      events:
-        - tag
-      tag_patterns:
-        - pattern: "enmeshed-v+([0-9]).+([0-9]).+([0-9])"
-          include: true
-      cancel_previous_builds: false
+      events: []
+      #   - tag
+      # tag_patterns:
+      #   - pattern: "enmeshed-v+([0-9]).+([0-9]).+([0-9])"
+      #     include: true
+      # cancel_previous_builds: false
 
     scripts:
       - name: Install melos
