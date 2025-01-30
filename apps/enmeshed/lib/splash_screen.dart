@@ -79,8 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
       await InAppWebViewController.setWebContentsDebuggingEnabled(true);
     }
 
-    try {
-
+    //try {
     final runtime = EnmeshedRuntime(
       logger: logger,
       runtimeConfig: (
@@ -92,9 +91,12 @@ class _SplashScreenState extends State<SplashScreen> {
         databaseFolder: './database',
       ),
     );
-    GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
 
-    await GetIt.I.allReady(timeout: const Duration(seconds: 10);
+    GetIt.I.registerSingletonAsync<Result<EnmeshedRuntime>>(() async => runtime.run());
+
+    await GetIt.I.allReady();
+
+    if (!runtime.isReady) return router.go('/general-error');
 
     await setupPush(runtime);
 
@@ -131,9 +133,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     final initialAppLink = await appLinks.getInitialLink();
     await _processUri(initialAppLink);
-    } catch (e) {
-          router.go('/general-error');
-        }
+    //} catch (e) {
+    //  router.go('/general-error');
+    // }
   }
 
   Future<void> _processUri(Uri? uri) async {
