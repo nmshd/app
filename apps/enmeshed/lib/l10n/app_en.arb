@@ -241,8 +241,9 @@
   "profile_localDeletion_acceptDeletion": "Delete data",
   "profile_create": "Create",
   "profile_create_inProgress": "Creating profile",
-  "profile_deletePhoto": "Delete profile picture",
-  "profile_editPhoto": "Edit profile picture",
+  "profile_addPhoto": "Add profile picture",
+  "profile_deletePhoto": "Remove",
+  "profile_editPhoto": "Change",
   "devices_title": "Manage Devices",
   "devices_description": "Your \"{profileName}\" profile is shared with the following devices. If you want to end synchronisation with one of the devices, remove it from the list.",
   "@devices_description": {

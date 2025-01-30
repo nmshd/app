@@ -1,41 +1,65 @@
+import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
-import 'change_profile_picture.dart';
+import '../widgets/change_profile_picture.dart';
 
-class CreateProfile extends StatefulWidget {
-  final void Function(LocalAccountDTO) onProfileCreated;
-  final VoidCallback? onBackPressed;
-  final String? description;
-  final bool isInDialog;
-
-  const CreateProfile({required this.onProfileCreated, super.key, this.onBackPressed, this.description, this.isInDialog = false});
-
-  @override
-  State<CreateProfile> createState() => _CreateProfileState();
+Future<void> showEditProfileModal({
+  required void Function() onEditAccount,
+  required LocalAccountDTO localAccount,
+  required File? initialProfilePicture,
+  required BuildContext context,
+}) async {
+  await showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    builder: (builder) => _EditProfile(
+      onAccountEditDone: onEditAccount,
+      localAccount: localAccount,
+      initialProfilePicture: initialProfilePicture,
+    ),
+  );
 }
 
-class _CreateProfileState extends State<CreateProfile> {
+class _EditProfile extends StatefulWidget {
+  final VoidCallback onAccountEditDone;
+  final LocalAccountDTO localAccount;
+  final File? initialProfilePicture;
+
+  const _EditProfile({
+    required this.onAccountEditDone,
+    required this.localAccount,
+    required this.initialProfilePicture,
+  });
+
+  @override
+  State<_EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<_EditProfile> {
   bool _profilePictureLoading = false;
   bool _loading = false;
 
   final _controller = TextEditingController();
 
+  bool _deleteProfilePicture = false;
   Uint8List? _newProfilePicture;
 
   @override
   void initState() {
     super.initState();
 
-    _controller.addListener(() => setState(() {}));
+    _controller
+      ..text = widget.localAccount.name
+      ..addListener(() => setState(() {}));
   }
 
   @override
@@ -60,13 +84,12 @@ class _CreateProfileState extends State<CreateProfile> {
                 spacing: 8,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 8, left: widget.onBackPressed != null ? 8 : 24, right: 8),
+                    padding: const EdgeInsets.only(top: 8, left: 24, right: 8, bottom: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        if (widget.onBackPressed != null) IconButton(icon: Icon(context.adaptiveBackIcon), onPressed: widget.onBackPressed),
-                        Text(context.l10n.profiles_createNew, style: Theme.of(context).textTheme.titleLarge),
-                        IconButton(onPressed: _loading && !_confirmEnabled ? null : () => context.pop(), icon: const Icon(Icons.close)),
+                        Text(context.l10n.profile_edit, style: Theme.of(context).textTheme.titleLarge),
+                        IconButton(onPressed: _loading ? null : () => context.pop(), icon: const Icon(Icons.close)),
                       ],
                     ),
                   ),
@@ -77,19 +100,13 @@ class _CreateProfileState extends State<CreateProfile> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (widget.description != null) ...[
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                                child: Text(widget.description!),
-                              ),
-                              Gaps.h20,
-                            ],
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 24),
                               child: ChangeProfilePicture(
                                 profileName: _controller.text,
-                                onProfilePictureDeleted: () => _newProfilePicture = null,
-                                onProfilePictureChanged: (Uint8List byteData) => _newProfilePicture = byteData,
+                                onProfilePictureDeleted: _onProfilePictureDeleted,
+                                onProfilePictureChanged: _onProfilePictureChanged,
+                                initialProfilePicture: widget.initialProfilePicture,
                                 setProfilePictureLoading: ({required bool loading}) => setState(() => _profilePictureLoading = loading),
                               ),
                             ),
@@ -132,21 +149,25 @@ class _CreateProfileState extends State<CreateProfile> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: FilledButton(
-                        onPressed: _confirmEnabled ? _confirm : null,
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(100, 36),
+                    child: Row(
+                      spacing: 8,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () => context.pop(),
+                          child: Text(context.l10n.cancel),
                         ),
-                        child: Text(context.l10n.profile_create),
-                      ),
+                        FilledButton(
+                          onPressed: _confirmEnabled ? _confirm : null,
+                          child: Text(context.l10n.save),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-            if (_loading) ModalLoadingOverlay(text: context.l10n.profile_create_inProgress, isDialog: widget.isInDialog),
+            if (_loading) ModalLoadingOverlay(text: context.l10n.profile_edit_inProgress, isDialog: false),
           ],
         ),
       ),
@@ -155,6 +176,16 @@ class _CreateProfileState extends State<CreateProfile> {
 
   bool get _confirmEnabled => !_profilePictureLoading && _controller.text.isNotEmpty;
 
+  void _onProfilePictureDeleted() {
+    _deleteProfilePicture = true;
+    _newProfilePicture = null;
+  }
+
+  void _onProfilePictureChanged(Uint8List byteData) {
+    _newProfilePicture = byteData;
+    _deleteProfilePicture = false;
+  }
+
   Future<void> _confirm() async {
     FocusScope.of(context).unfocus();
 
@@ -162,12 +193,15 @@ class _CreateProfileState extends State<CreateProfile> {
       _loading = true;
     });
 
-    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: _controller.text);
+    await GetIt.I.get<EnmeshedRuntime>().accountServices.renameAccount(localAccountId: widget.localAccount.id, newAccountName: _controller.text);
 
-    if (_newProfilePicture != null) {
-      await saveProfilePicture(byteData: _newProfilePicture!, accountReference: account.id);
+    if (_deleteProfilePicture) {
+      await deleteProfilePictureSetting(accountReference: widget.localAccount.id);
+    } else if (_newProfilePicture != null) {
+      await saveProfilePicture(byteData: _newProfilePicture!, accountReference: widget.localAccount.id);
     }
 
-    widget.onProfileCreated(account);
+    if (mounted) context.pop();
+    widget.onAccountEditDone();
   }
 }

@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -134,46 +131,6 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
   };
 
   eventBus.publish(event);
-}
-
-extension DeviceInfo on InAppWebViewController {
-  void addDeviceInfoJavaScriptHandler() => addJavaScriptHandler(handlerName: 'getDeviceInfo', callback: _getDeviceInfo);
-}
-
-Future<Map<String, dynamic>> _getDeviceInfo(List<dynamic> args) async {
-  final deviceInfoPlugin = DeviceInfoPlugin();
-
-  if (Platform.isAndroid) {
-    final deviceInfo = await deviceInfoPlugin.androidInfo;
-
-    return {
-      'model': deviceInfo.model,
-      'platform': 'Android',
-      'uuid': deviceInfo.id,
-      'manufacturer': deviceInfo.manufacturer,
-      'isVirtual': !deviceInfo.isPhysicalDevice,
-      'languageCode': Platform.localeName,
-      'version': deviceInfo.version.release,
-      'pushService': 'fcm',
-    };
-  }
-
-  if (Platform.isIOS) {
-    final deviceInfo = await deviceInfoPlugin.iosInfo;
-
-    return {
-      'model': deviceInfo.model,
-      'platform': 'IOS',
-      'uuid': deviceInfo.identifierForVendor ?? '',
-      'manufacturer': 'Apple',
-      'isVirtual': !deviceInfo.isPhysicalDevice,
-      'languageCode': Platform.localeName,
-      'version': deviceInfo.systemVersion,
-      'pushService': 'apns',
-    };
-  }
-
-  throw Exception('Unsupported platform');
 }
 
 class JsToUIBridge {

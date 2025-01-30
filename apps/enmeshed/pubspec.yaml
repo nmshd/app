@@ -39,7 +39,7 @@ dependencies:
   logger: ^2.4.0
   mime_type: ^1.0.1
   mobile_scanner: ^6.0.2
-  open_file: ^3.5.9
+  open_file: ^3.5.10
   package_info_plus: ^8.1.0
   path: any
   path_provider: ^2.1.5

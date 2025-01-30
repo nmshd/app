@@ -241,8 +241,9 @@
   "profile_localDeletion_acceptDeletion": "Daten löschen",
   "profile_create": "Anlegen",
   "profile_create_inProgress": "Profil wird angelegt",
-  "profile_deletePhoto": "Profilbild löschen",
-  "profile_editPhoto": "Profilbild ändern",
+  "profile_addPhoto": "Profilbild hinzufügen",
+  "profile_deletePhoto": "Entfernen",
+  "profile_editPhoto": "Ändern",
   "devices_title": "Geräte verwalten",
   "devices_description": "Mit folgenden Geräten wird Ihr Profil \"{profileName}\" geteilt. Wenn Sie die Synchronisation mit einem der Geräte beenden möchten, entfernen Sie dieses aus der Liste.",
   "@devices_description": {
