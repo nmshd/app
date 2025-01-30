@@ -142,6 +142,11 @@ class EnmeshedRuntime {
     );
 
     controller.addJavaScriptHandler(
+      handlerName: 'runtimeInitFailed',
+      callback: (_) => _runtimeReadyCompleter.completeError(Exception('Runtime init failed')),
+    );
+
+    controller.addJavaScriptHandler(
       handlerName: 'getRuntimeConfig',
       callback: (_) => {
         'applicationId': runtimeConfig.applicationId,
@@ -185,11 +190,16 @@ class EnmeshedRuntime {
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
   }
 
-  Future<EnmeshedRuntime> run() async {
-    await _headlessWebView.run();
-    await _runtimeReadyCompleter.future;
+  Future<Result<EnmeshedRuntime>> run() async {
+    try {
+      await _headlessWebView.run();
+      await _runtimeReadyCompleter.future;
 
-    return this;
+
+      return Result.success(this);
+    } catch (error) {
+      return Result.failure(RuntimeError(message: error.toString(), code: 'code'));
+    }
   }
 
   Future<void> dispose() async {
