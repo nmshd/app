@@ -10,12 +10,13 @@ import 'extensions.dart';
 Future<LocalAttributeDTO?> createRepositoryAttribute({
   required String accountId,
   required BuildContext context,
-  required ValueNotifier<bool> createEnabledNotifier,
   required IdentityAttributeValue value,
   required VoidCallback onAttributeCreated,
+  ValueNotifier<bool>? createEnabledNotifier,
+  void Function(String errorCode)? onAttributeCreationFailed,
   List<String>? tags,
 }) async {
-  createEnabledNotifier.value = false;
+  if (createEnabledNotifier != null) createEnabledNotifier.value = false;
 
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
@@ -30,18 +31,22 @@ Future<LocalAttributeDTO?> createRepositoryAttribute({
 
   GetIt.I.get<Logger>().e('Creating new attribute failed caused by: ${createAttributeResult.error}');
 
-  if (context.mounted) {
-    await showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
-          content: Text(context.l10n.error_createAttribute),
-        );
-      },
-    );
+  if (onAttributeCreationFailed != null) {
+    onAttributeCreationFailed(createAttributeResult.error.code);
+  } else {
+    if (context.mounted) {
+      await showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
+            content: Text(context.l10n.error_createAttribute),
+          );
+        },
+      );
 
-    createEnabledNotifier.value = true;
+      if (createEnabledNotifier != null) createEnabledNotifier.value = true;
+    }
   }
 
   return null;
