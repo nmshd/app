@@ -28,31 +28,19 @@ class ErrorScreen extends StatelessWidget {
             Text(textAlign: TextAlign.center, context.l10n.error_general),
             Gaps.h24,
             FilledButton(
-              onPressed: () {
-                launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com?subject=Support Anfrage'), mode: LaunchMode.externalApplication);
-              },
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.secondaryContainer),
-              ),
+              onPressed: () => launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'), mode: LaunchMode.externalApplication),
+              style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.support, color: contentColor),
                   Gaps.w8,
-                  Text(
-                    'Supportseite',
-                    style: TextStyle(color: contentColor),
-                  ),
+                  Text(context.l10n.error_support, style: TextStyle(color: contentColor)),
                 ],
               ),
             ),
             Gaps.h16,
-            FilledButton(
-              onPressed: () {
-                context.go('/splash');
-              },
-              child: Text(context.l10n.tryAgain),
-            ),
+            FilledButton(onPressed: () => context.go('/splash'), child: Text(context.l10n.tryAgain)),
           ],
         ),
       ),

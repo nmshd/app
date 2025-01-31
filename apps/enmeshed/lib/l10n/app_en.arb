@@ -39,6 +39,7 @@
   "error_deleteAttribute": "The entry could not be deleted.",
   "error_changeFavoriteRepositoryAttribute": "The attribute could not be favored.",
   "error_general": "We are sorry, but an unexpected error has occurred. If the problem persists, you are welcome to contact our support team.",
+  "error_support": "Support",
   "favorites": "Favorites",
   "tryAgain": "Try again",
   "title": "Title",

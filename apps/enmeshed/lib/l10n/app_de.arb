@@ -39,6 +39,7 @@
   "error_deleteAttribute": "Der Eintrag konnte nicht gelöscht werden.",
   "error_changeFavoriteRepositoryAttribute": "Das Attribut konnte nicht favorisiert werden.",
   "error_general": "Es tut uns leid, aber es ist ein unerwarteter Fehler aufgetreten. Wenn das Problem weiterhin besteht, können Sie sich gerne an unser Support wenden.",
+  "error_support": "Support",
   "favorites": "Favoriten",
   "tryAgain": "Erneut versuchen",
   "title": "Titel",
