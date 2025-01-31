@@ -11,7 +11,6 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 import '../types/types.dart';
 import '../utils/utils.dart';
@@ -29,208 +28,343 @@ Future<void> showCreateAttributeModal({
     'Either onCreateAttributePressed or onAttributeCreated must be provided',
   );
 
-  final controller = ValueRendererController();
-  final createEnabledNotifier = ValueNotifier<bool>(false);
-  final valueTypeNotifier = ValueNotifier<String?>(null);
-  final pageIndexNotifier = ValueNotifier<int>(0);
+  await showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    builder: (builder) => _CreateAttributeContent(
+      accountId: accountId,
+      onCreateAttributePressed: onCreateAttributePressed,
+      onAttributeCreated: onAttributeCreated,
+      initialValueType: initialValueType,
+    ),
+  );
+}
 
-  IdentityAttributeValue? identityAttribute;
-  late RenderHints renderHints;
-  late ValueHints valueHints;
+class _CreateAttributeContent extends StatefulWidget {
+  final String accountId;
+  final String? initialValueType;
+  final VoidCallback? onAttributeCreated;
+  final void Function({required BuildContext context, required IdentityAttributeValue value})? onCreateAttributePressed;
 
-  if (initialValueType != null) {
-    valueTypeNotifier.value = initialValueType;
+  const _CreateAttributeContent({
+    required this.accountId,
+    required this.initialValueType,
+    required this.onAttributeCreated,
+    required this.onCreateAttributePressed,
+  });
 
-    final hintsResult = await GetIt.I.get<EnmeshedRuntime>().getHints(initialValueType);
-    final hints = hintsResult.value;
-    renderHints = hints.renderHints;
-    valueHints = hints.valueHints;
+  @override
+  State<_CreateAttributeContent> createState() => __CreateAttributeContentState();
+}
 
-    pageIndexNotifier.value++;
+class __CreateAttributeContentState extends State<_CreateAttributeContent> {
+  String? _valueType;
+
+  late RenderHints _renderHints;
+  late ValueHints _valueHints;
+  late int _pageIndex;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.initialValueType != null) _setValueTypeAndHints(widget.initialValueType!);
+
+    _pageIndex = widget.initialValueType != null ? 1 : 0;
   }
 
-  controller.addListener(() {
-    final value = controller.value;
+  @override
+  Widget build(BuildContext context) {
+    if (widget.initialValueType != null && _valueType == null) return const SizedBox.shrink();
 
-    if (valueTypeNotifier.value == null) return;
+    return AnimatedSwitcher(
+      layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
+        return AnimatedSize(
+          duration: const Duration(milliseconds: 200),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              ...previousChildren,
+              if (currentChild != null) currentChild,
+            ],
+          ),
+        );
+      },
+      duration: const Duration(milliseconds: 200),
+      reverseDuration: Duration.zero,
+      transitionBuilder: (child, animation) {
+        return SlideTransition(
+          position: animation.drive(
+            Tween(
+              begin: _pageIndex == 0 ? const Offset(-1, 0) : const Offset(1, 0),
+              end: Offset.zero,
+            ).chain(CurveTween(curve: Curves.easeInOut)),
+          ),
+          child: child,
+        );
+      },
+      child: _pageIndex == 0
+          ? _SelectValueTypePage(accountId: widget.accountId, onValueTypeSelected: _onValueTypeSelected)
+          : _CreateAttributePage(
+              accountId: widget.accountId,
+              initialValueType: widget.initialValueType,
+              valueType: _valueType!,
+              renderHints: _renderHints,
+              valueHints: _valueHints,
+              onBackPressed: () => setState(() => _pageIndex = 0),
+              onAttributeCreated: widget.onAttributeCreated,
+              onCreateAttributePressed: widget.onCreateAttributePressed,
+            ),
+    );
+  }
 
-    if (value is ValueRendererValidationError) {
-      createEnabledNotifier.value = false;
+  Future<void> _onValueTypeSelected(String valueType) async {
+    await _setValueTypeAndHints(valueType);
+
+    setState(() => _pageIndex = 1);
+  }
+
+  Future<void> _setValueTypeAndHints(String valueType) async {
+    final hintsResult = await GetIt.I.get<EnmeshedRuntime>().getHints(valueType);
+
+    if (hintsResult.isSuccess) {
+      final hints = hintsResult.value;
+
+      setState(() {
+        _valueType = valueType;
+        _renderHints = hints.renderHints;
+        _valueHints = hints.valueHints;
+      });
+
       return;
     }
 
-    final canCreateAttribute = composeIdentityAttributeValue(
-      isComplex: renderHints.editType == RenderHintsEditType.Complex,
-      currentAddress: '',
-      valueType: valueTypeNotifier.value,
-      inputValue: value as ValueRendererInputValue,
-    );
+    GetIt.I.get<Logger>().e('Getting attribute hints failed caused by: ${hintsResult.error}');
 
-    if (canCreateAttribute != null) {
-      identityAttribute = canCreateAttribute.value;
-      createEnabledNotifier.value = true;
-    } else {
-      createEnabledNotifier.value = false;
+    if (mounted) {
+      await showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
+            content: Text(context.l10n.errorDialog_description),
+          );
+        },
+      );
     }
-  });
+  }
+}
 
-  final closeButton = Padding(
-    padding: const EdgeInsets.only(right: 8),
-    child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
-  );
+class _SelectValueTypePage extends StatelessWidget {
+  final String accountId;
+  final void Function(String) onValueTypeSelected;
 
-  if (!context.mounted) return;
+  const _SelectValueTypePage({required this.accountId, required this.onValueTypeSelected});
 
-  await WoltModalSheet.show<void>(
-    useSafeArea: false,
-    context: context,
-    pageIndexNotifier: pageIndexNotifier,
-    onModalDismissedWithBarrierTap: () => context.pop(),
-    showDragHandle: false,
-    pageListBuilder: (context) => [
-      WoltModalSheetPage(
-        trailingNavBarWidget: closeButton,
-        leadingNavBarWidget: Padding(
-          padding: const EdgeInsets.only(left: 16, top: 20),
-          child: Text(context.l10n.myData_createInformation, style: Theme.of(context).textTheme.headlineSmall),
-        ),
-        isTopBarLayerAlwaysVisible: false,
-        child: _EditableAttributes(
-          accountId: accountId,
-          goToNextPage: (valueType) async {
-            final hintsResult = await GetIt.I.get<EnmeshedRuntime>().getHints(valueType);
-            valueTypeNotifier.value = valueType;
-
-            if (hintsResult.isSuccess) {
-              final hints = hintsResult.value;
-              renderHints = hints.renderHints;
-              valueHints = hints.valueHints;
-
-              pageIndexNotifier.value++;
-              return;
-            }
-
-            GetIt.I.get<Logger>().e('Getting attribute hints failed caused by: ${hintsResult.error}');
-
-            if (context.mounted) {
-              await showDialog<void>(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
-                    content: Text(context.l10n.errorDialog_description),
-                  );
-                },
-              );
-            }
-          },
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+      child: Padding(
+        padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BottomSheetHeader(title: context.l10n.myData_createInformation, canClose: true),
+            _EditableAttributes(accountId: accountId, goToNextPage: onValueTypeSelected),
+          ],
         ),
       ),
-      WoltModalSheetPage(
-        trailingNavBarWidget: closeButton,
-        stickyActionBar: ValueListenableBuilder<bool>(
-          valueListenable: createEnabledNotifier,
-          builder: (context, enabled, child) {
-            return Padding(
-              padding: EdgeInsets.only(
-                right: 24,
-                bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom) + 16,
+    );
+  }
+}
+
+class _CreateAttributePage extends StatefulWidget {
+  final String accountId;
+  final String? initialValueType;
+  final String valueType;
+  final RenderHints renderHints;
+  final ValueHints valueHints;
+  final VoidCallback onBackPressed;
+  final VoidCallback? onAttributeCreated;
+  final void Function({required BuildContext context, required IdentityAttributeValue value})? onCreateAttributePressed;
+
+  const _CreateAttributePage({
+    required this.accountId,
+    required this.initialValueType,
+    required this.valueType,
+    required this.renderHints,
+    required this.valueHints,
+    required this.onBackPressed,
+    required this.onAttributeCreated,
+    required this.onCreateAttributePressed,
+  });
+
+  @override
+  State<_CreateAttributePage> createState() => _CreateAttributePageState();
+}
+
+class _CreateAttributePageState extends State<_CreateAttributePage> {
+  final _controller = ValueRendererController();
+  final _scrollController = ScrollController();
+
+  late IdentityAttributeValue? _identityAttribute;
+  bool _confirmEnabled = false;
+  String? _errorCode;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller.addListener(() {
+      final value = _controller.value;
+
+      if (value is ValueRendererValidationError) {
+        setState(() => _confirmEnabled = false);
+        return;
+      }
+
+      final canCreateAttribute = composeIdentityAttributeValue(
+        isComplex: widget.renderHints.editType == RenderHintsEditType.Complex,
+        currentAddress: '',
+        valueType: widget.valueType,
+        inputValue: value as ValueRendererInputValue,
+      );
+
+      if (canCreateAttribute != null) {
+        _identityAttribute = canCreateAttribute.value;
+        setState(() => _confirmEnabled = true);
+      } else {
+        setState(() => _confirmEnabled = false);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _controller.dispose();
+    _scrollController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final translatedAttribute = FlutterI18n.translate(context, 'dvo.attribute.name.${widget.valueType}');
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+      child: Padding(
+        padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BottomSheetHeader(
+              onBackPressed: widget.initialValueType == null ? widget.onBackPressed : null,
+              title: context.l10n.myData_createAttribute_title(translatedAttribute),
+              canClose: true,
+            ),
+            Flexible(
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 24, right: 24, top: 8, bottom: 24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (addressDataInitialAttributeTypes.contains(widget.valueType)) ...[
+                        Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
+                        Gaps.h24,
+                      ],
+                      ValueRenderer(
+                        renderHints: widget.renderHints,
+                        valueHints: widget.valueHints,
+                        controller: _controller,
+                        valueType: widget.valueType,
+                        expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                        chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
+                        openFileDetails: (file) => context.push(
+                          '/account/${widget.accountId}/my-data/files/${file.id}',
+                          extra: createFileRecord(file: file),
+                        ),
+                      ),
+                      if (_isDuplicateEntryError(_errorCode)) const _DuplicateEntryErrorContainer(),
+                    ],
+                  ),
+                ),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
               child: Row(
+                spacing: 8,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-                  Gaps.w8,
+                  OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
                   FilledButton(
                     style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                    onPressed: !enabled
-                        ? null
-                        : () => onAttributeCreated != null
-                            ? createRepositoryAttribute(
-                                accountId: accountId,
-                                context: context,
-                                createEnabledNotifier: createEnabledNotifier,
-                                value: identityAttribute!,
-                                onAttributeCreated: onAttributeCreated,
-                              )
-                            : onCreateAttributePressed!(context: context, value: identityAttribute!),
+                    onPressed: !_confirmEnabled ? null : _onCreateAttributePressed,
                     child: Text(context.l10n.save),
                   ),
                 ],
               ),
-            );
-          },
+            ),
+          ],
         ),
-        leadingNavBarWidget: ValueListenableBuilder<String?>(
-          valueListenable: valueTypeNotifier,
-          builder: (context, valueType, child) {
-            final translatedAttribute = FlutterI18n.translate(context, 'dvo.attribute.name.$valueType');
+      ),
+    );
+  }
 
-            return Padding(
-              padding: initialValueType == null ? EdgeInsets.zero : const EdgeInsets.only(left: 24),
-              child: Row(
-                children: [
-                  if (initialValueType == null)
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => pageIndexNotifier.value = 0,
-                    ),
-                  if (valueType == null)
-                    Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge)
-                  else
-                    Text(
-                      context.l10n.myData_createAttribute_title(translatedAttribute),
-                      style: initialValueType == null ? Theme.of(context).textTheme.titleSmall : Theme.of(context).textTheme.titleLarge,
-                    ),
-                ],
-              ),
-            );
-          },
-        ),
-        child: ValueListenableBuilder<String?>(
-          valueListenable: valueTypeNotifier,
-          builder: (context, valueType, child) {
-            if (valueType == null) {
-              return Padding(
-                padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 80),
-                child: Text(context.l10n.errorDialog_description),
-              );
-            }
+  void _onCreateAttributePressed() {
+    setState(() => _confirmEnabled = false);
 
-            return Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 80),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (addressDataInitialAttributeTypes.contains(valueType)) ...[
-                    Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
-                    Gaps.h24,
-                  ],
-                  ValueRenderer(
-                    renderHints: renderHints,
-                    valueHints: valueHints,
-                    controller: controller,
-                    valueType: valueType,
-                    expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-                    chooseFile: () => openFileChooser(context: context, accountId: accountId),
-                    openFileDetails: (file) => context.push(
-                      '/account/$accountId/my-data/files/${file.id}',
-                      extra: createFileRecord(file: file),
-                    ),
+    if (widget.onAttributeCreated != null) {
+      createRepositoryAttribute(
+        accountId: widget.accountId,
+        context: context,
+        value: _identityAttribute!,
+        onAttributeCreated: widget.onAttributeCreated!,
+        onAttributeCreationFailed: (errorCode) {
+          if (_isDuplicateEntryError(errorCode)) {
+            setState(() => _errorCode = errorCode);
+            _scrollToBottom();
+
+            return;
+          } else {
+            context.pop();
+
+            showDialog<void>(
+              context: context,
+              builder: (context) => AlertDialog(
+                icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+                title: Text(context.l10n.personalData_details_errorTitleOnCreate, style: Theme.of(context).textTheme.headlineSmall),
+                content: Text(context.l10n.personalData_details_errorContentOnCreate),
+                actions: [
+                  TextButton(
+                    onPressed: () => context.pop(),
+                    child: Text(context.l10n.back),
                   ),
                 ],
               ),
             );
-          },
-        ),
-      ),
-    ],
-  );
+          }
+        },
+      );
+    } else {
+      widget.onCreateAttributePressed!(context: context, value: _identityAttribute!);
+    }
+  }
 
-  controller.dispose();
-  createEnabledNotifier.dispose();
-  valueTypeNotifier.dispose();
-  pageIndexNotifier.dispose();
+  bool _isDuplicateEntryError(String? errorCode) => errorCode != null && errorCode.contains('cannotCreateDuplicateRepositoryAttribute');
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients && _scrollController.position.hasViewportDimension) {
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+      }
+    });
+  }
 }
 
 class _EditableAttributes extends StatefulWidget {
@@ -266,28 +400,32 @@ class _EditableAttributesState extends State<_EditableAttributes> {
       return EmptyListIndicator(icon: Icons.co_present_outlined, text: context.l10n.no_data_available, wrapInListView: true);
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: Text(context.l10n.myData_chooseInformationType),
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(context.l10n.myData_chooseInformationType),
+            ),
+            Gaps.h16,
+            ListView.separated(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _editableAttributes!.length,
+              itemBuilder: (context, index) => ListTile(
+                title: Text(_editableAttributes![index].translation),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => widget.goToNextPage(_editableAttributes![index].key),
+              ),
+              separatorBuilder: (context, index) => const Divider(height: 0, indent: 16),
+            ),
+            SizedBox(height: MediaQuery.viewPaddingOf(context).bottom),
+          ],
         ),
-        Gaps.h16,
-        ListView.separated(
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: _editableAttributes!.length,
-          itemBuilder: (context, index) => ListTile(
-            title: Text(_editableAttributes![index].translation),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => widget.goToNextPage(_editableAttributes![index].key),
-          ),
-          separatorBuilder: (context, index) => const Divider(height: 0, indent: 16),
-        ),
-        SizedBox(height: MediaQuery.viewPaddingOf(context).bottom),
-      ],
+      ),
     );
   }
 
@@ -306,5 +444,35 @@ class _EditableAttributesState extends State<_EditableAttributes> {
 
     final translated = editableAttributes.map(translate).toList()..sort((a, b) => a.translation.compareTo(b.translation));
     if (mounted) setState(() => _editableAttributes = translated);
+  }
+}
+
+class _DuplicateEntryErrorContainer extends StatelessWidget {
+  const _DuplicateEntryErrorContainer();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: Container(
+        padding: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.error,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.error, color: Theme.of(context).colorScheme.onError),
+            Gaps.w4,
+            Expanded(
+              child: Text(
+                context.l10n.createAttribute_error_duplicateValue,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onError),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
