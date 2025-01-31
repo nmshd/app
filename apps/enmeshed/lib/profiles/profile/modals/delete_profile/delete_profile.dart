@@ -19,7 +19,7 @@ Future<void> showDeleteProfileOrIdentityModal({
   final devicesResult = await session.transportServices.devices.getDevices();
   final devices = devicesResult.isSuccess ? devicesResult.value : <DeviceDTO>[];
 
-  final onboardedDevices = devices
+  final otherActiveDevices = devices
       .where(
         (element) => element.isOnboarded && element.isOffboarded != true && !element.isCurrentDevice,
       )
@@ -35,7 +35,7 @@ Future<void> showDeleteProfileOrIdentityModal({
       constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
       child: _DeleteProfileOrIdentityModal(
         localAccount: localAccount,
-        onboardedDevices: onboardedDevices,
+        otherActiveDevices: otherActiveDevices,
         devices: devices,
         session: session,
       ),
@@ -45,13 +45,13 @@ Future<void> showDeleteProfileOrIdentityModal({
 
 class _DeleteProfileOrIdentityModal extends StatefulWidget {
   final LocalAccountDTO localAccount;
-  final List<DeviceDTO> onboardedDevices;
+  final List<DeviceDTO> otherActiveDevices;
   final List<DeviceDTO> devices;
   final Session session;
 
   const _DeleteProfileOrIdentityModal({
     required this.localAccount,
-    required this.onboardedDevices,
+    required this.otherActiveDevices,
     required this.devices,
     required this.session,
   });
@@ -111,7 +111,7 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
             cancel: () => context.pop,
             profileName: widget.localAccount.name,
             accountId: widget.localAccount.address!,
-            onboardedDevices: widget.onboardedDevices,
+            otherActiveDevices: widget.otherActiveDevices,
             deleteProfile: () => setState(() => _currentIndex = 1),
             deleteIdentity: () => setState(() => _currentIndex = 2),
           ),
@@ -138,7 +138,7 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
               });
             },
             profileName: widget.localAccount.name,
-            onboardedDevices: widget.onboardedDevices,
+            otherActiveDevices: widget.otherActiveDevices,
           ),
         2 => ShouldDeleteIdentity(
             cancel: () => setState(() => _currentIndex = 0),

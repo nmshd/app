@@ -9,13 +9,13 @@ class ShouldDeleteProfile extends StatelessWidget {
   final VoidCallback cancel;
   final VoidCallback delete;
   final String profileName;
-  final List<DeviceDTO> onboardedDevices;
+  final List<DeviceDTO> otherActiveDevices;
 
   const ShouldDeleteProfile({
     required this.cancel,
     required this.delete,
     required this.profileName,
-    required this.onboardedDevices,
+    required this.otherActiveDevices,
     super.key,
   });
 
@@ -44,10 +44,10 @@ class ShouldDeleteProfile extends StatelessWidget {
               Gaps.h24,
               Text(context.l10n.profile_delete_confirmation(profileName)),
               Gaps.h16,
-              if (onboardedDevices.isNotEmpty) ...[
+              if (otherActiveDevices.isNotEmpty) ...[
                 Align(alignment: Alignment.centerLeft, child: Text(context.l10n.profile_delete_confirmation_devicesLeft)),
                 Gaps.h4,
-                Wrap(spacing: 8, children: onboardedDevices.map((e) => Chip(label: Text(e.name))).toList()),
+                Wrap(spacing: 8, children: otherActiveDevices.map((e) => Chip(label: Text(e.name))).toList()),
               ] else
                 Align(alignment: Alignment.centerLeft, child: Text(context.l10n.profile_delete_confirmation_lastDevice)),
               Gaps.h16,

@@ -10,7 +10,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
   final VoidCallback deleteProfile;
   final String profileName;
   final String accountId;
-  final List<DeviceDTO> onboardedDevices;
+  final List<DeviceDTO> otherActiveDevices;
 
   const DeleteProfileOrIdentity({
     required this.cancel,
@@ -18,7 +18,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
     required this.deleteProfile,
     required this.profileName,
     required this.accountId,
-    required this.onboardedDevices,
+    required this.otherActiveDevices,
     super.key,
   });
 
@@ -56,10 +56,10 @@ class DeleteProfileOrIdentity extends StatelessWidget {
               ),
               Gaps.h24,
               Text(
-                onboardedDevices.length > 1 ? context.l10n.profile_or_identity_deletion : context.l10n.profile_or_identity_deletion_oneDevice,
+                otherActiveDevices.isNotEmpty ? context.l10n.profile_or_identity_deletion : context.l10n.profile_or_identity_deletion_oneDevice,
               ),
               Gaps.h24,
-              OutlinedButton(onPressed: onboardedDevices.length > 1 ? deleteProfile : null, child: Text(context.l10n.profile_delete_device)),
+              OutlinedButton(onPressed: otherActiveDevices.isNotEmpty ? deleteProfile : null, child: Text(context.l10n.profile_delete_device)),
               OutlinedButton.icon(
                 onPressed: deleteIdentity,
                 label: Text(context.l10n.profile_delete),
