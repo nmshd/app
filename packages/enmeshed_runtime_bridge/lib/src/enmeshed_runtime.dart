@@ -11,6 +11,7 @@ import 'event_bus.dart';
 import 'filesystem_adapter.dart';
 import 'javascript_handlers.dart';
 import 'services/facades/utilities/result.dart';
+import 'services/facades/utilities/runtime_error.dart';
 import 'services/services.dart';
 import 'string_processor.dart';
 import 'ui_bridge.dart';
@@ -190,17 +191,15 @@ class EnmeshedRuntime {
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
   }
 
-  Future<EnmeshedRuntime> run() async {
-    // try {
-    await _headlessWebView.run();
-    await _runtimeReadyCompleter.future;
+  Future<Result<EnmeshedRuntime>> run() async {
+    try {
+      await _headlessWebView.run();
+      await _runtimeReadyCompleter.future;
 
-    return this;
-
-    //return Result.success(this);
-    //} catch (error) {
-    // return Result.failure(RuntimeError(message: error.toString(), code: 'code'));
-    // }
+      return Result.success(this);
+    } catch (error) {
+      return Result.failure(RuntimeError(message: error.toString(), code: 'code'));
+    }
   }
 
   Future<void> dispose() async {
