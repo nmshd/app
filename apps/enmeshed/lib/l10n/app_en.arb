@@ -517,6 +517,8 @@
   "personalData_details_attributeSuccessfullyFavored": "The entry was successfully favored.",
   "personalData_details_confirmAttributeDeletion": "Yes, delete",
   "personalData_details_cancelDeletion": "No, cancel",
+  "personalData_details_errorTitleOnCreate": "Entry creation failed",
+  "personalData_details_errorContentOnCreate": "The entry could not be created. Enmeshed may currently be unreachable or your internet connection is restricted.",
   "personalData_details_warningOnSuccession": "The newly assigned value already exists. This could lead to confusion.",
   "personalData_details_errorOnSuccession": "The newly assigned value is identical to the previous value.",
   "personalData_details_notifyContacts": "{count, plural, =1 {This entry is currently shared with a contact. If you edit this entry again, the change will also be sent to the contact with whom you have shared this entry.} other {This entry is currently shared with {count} contacts. If you edit this entry again, the change will also be sent to all contacts with whom you have shared this entry.}}",
@@ -546,6 +548,7 @@
       }
     }
   },
+  "createAttribute_error_duplicateValue": "An entry with this value already exists. Please select a different value",
   "no_data_available": "No data available",
   "attributeDetails_createdOn": "{dateType, select, today {created today, {time}} yesterday {created yesterday} other {created on {date}}}",
   "@attributeDetails_createdOn": {
