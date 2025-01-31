@@ -528,7 +528,7 @@
       }
     }
   },
-  "personalData_details_deleteDescription": "Do you want to delete the entry {entry} from your data?",
+  "personalData_details_deleteDescription": "Do you want to delete the entry <bold>{entry}</bold> from your data?",
   "@personalData_details_deleteDescription": {
     "placeholders": {
       "entry": {
@@ -536,11 +536,14 @@
       }
     }
   },
-  "personalData_details_deleteDescriptionShared": "{count, plural, =1{This entry is currently shared with a contact. If you delete the entry, it will also be deleted for the contact with whom you shared it.} other{This entry is currently shared with {count} contacts. If you delete the entry, it will also be deleted from the contacts with whom you share it.}}",
+  "personalData_details_deleteDescriptionShared": "{count, plural, =1{The entry <bold>{entry}</bold> is currently shared with a contact. If you delete the entry, it will also be deleted for the contact with whom you shared it.} other{The entry <bold>{entry}</bold> is currently shared with {count} contacts. If you delete the entry, it will also be deleted from the contacts with whom you share it.}}",
   "@personalData_details_deleteDescriptionShared": {
     "placeholders": {
       "count": {
         "type": "num"
+      },
+      "entry": {
+        "type": "String"
       }
     }
   },
