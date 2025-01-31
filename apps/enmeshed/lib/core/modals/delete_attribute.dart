@@ -79,7 +79,7 @@ class _DeleteConfirmationState extends State<_DeleteConfirmation> {
                 : BoltStyledText(context.l10n.personalData_details_deleteDescription(_getDisplayValue(context, widget.attribute.value))),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24).add(EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom)),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24).add(EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
