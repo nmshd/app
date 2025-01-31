@@ -190,16 +190,17 @@ class EnmeshedRuntime {
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
   }
 
-  Future<Result<EnmeshedRuntime>> run() async {
-    try {
-      await _headlessWebView.run();
-      await _runtimeReadyCompleter.future;
+  Future<EnmeshedRuntime> run() async {
+    // try {
+    await _headlessWebView.run();
+    await _runtimeReadyCompleter.future;
 
+    return this;
 
-      return Result.success(this);
-    } catch (error) {
-      return Result.failure(RuntimeError(message: error.toString(), code: 'code'));
-    }
+    //return Result.success(this);
+    //} catch (error) {
+    // return Result.failure(RuntimeError(message: error.toString(), code: 'code'));
+    // }
   }
 
   Future<void> dispose() async {

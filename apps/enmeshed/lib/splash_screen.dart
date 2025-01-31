@@ -79,63 +79,65 @@ class _SplashScreenState extends State<SplashScreen> {
       await InAppWebViewController.setWebContentsDebuggingEnabled(true);
     }
 
-    //try {
-    final runtime = EnmeshedRuntime(
-      logger: logger,
-      runtimeConfig: (
-        applicationId: 'eu.enmeshed.app',
-        baseUrl: const String.fromEnvironment('app_baseUrl'),
-        clientId: const String.fromEnvironment('app_clientId'),
-        clientSecret: const String.fromEnvironment('app_clientSecret'),
-        useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
-        databaseFolder: './database',
-      ),
-    );
+    try {
+      final runtime = EnmeshedRuntime(
+        logger: logger,
+        runtimeConfig: (
+          applicationId: 'eu.enmeshed.app',
+          baseUrl: 'app_baseUrl',
+          clientId: const String.fromEnvironment('app_clientId'),
+          clientSecret: const String.fromEnvironment('app_clientSecret'),
+          useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
+          databaseFolder: './database',
+        ),
+      );
 
-    GetIt.I.registerSingletonAsync<Result<EnmeshedRuntime>>(() async => runtime.run());
+      //try {
+      GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
 
-    await GetIt.I.allReady();
+      await GetIt.I.allReady();
 
-    if (!runtime.isReady) return router.go('/general-error');
+      await setupPush(runtime);
+      //} catch (e) {
+      //  return router.go('/general-error');
+      //}
 
-    await setupPush(runtime);
+      final status = await Permission.notification.request();
+      if (!status.isGranted) {
+        logger.w('Notification permission is (permanently) denied');
+      }
 
-    final status = await Permission.notification.request();
-    if (!status.isGranted) {
-      logger.w('Notification permission is (permanently) denied');
+      // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
+      await runtime.triggerAppReadyEvent();
+
+      await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router));
+
+      await _registerWindowsSchemeForDebugMode('nmshd-dev');
+
+      final appLinks = AppLinks();
+      appLinks.uriLinkStream.listen(_processUri);
+
+      final accounts = await runtime.accountServices.getAccounts();
+      final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
+      if (accounts.isEmpty) {
+        router.go('/onboarding');
+      } else if (accountsNotInDeletion.isEmpty) {
+        router.go('/onboarding?skipIntroduction=true');
+      } else {
+        accountsNotInDeletion.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
+
+        final account = accountsNotInDeletion.first;
+
+        await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+
+        router.go('/account/${account.id}');
+      }
+
+      final initialAppLink = await appLinks.getInitialLink();
+      await _processUri(initialAppLink);
+    } catch (e) {
+      router.go('/general-error');
     }
-
-    // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
-    await runtime.triggerAppReadyEvent();
-
-    await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router));
-
-    await _registerWindowsSchemeForDebugMode('nmshd-dev');
-
-    final appLinks = AppLinks();
-    appLinks.uriLinkStream.listen(_processUri);
-
-    final accounts = await runtime.accountServices.getAccounts();
-    final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
-    if (accounts.isEmpty) {
-      router.go('/onboarding');
-    } else if (accountsNotInDeletion.isEmpty) {
-      router.go('/onboarding?skipIntroduction=true');
-    } else {
-      accountsNotInDeletion.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
-
-      final account = accountsNotInDeletion.first;
-
-      await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
-
-      router.go('/account/${account.id}');
-    }
-
-    final initialAppLink = await appLinks.getInitialLink();
-    await _processUri(initialAppLink);
-    //} catch (e) {
-    //  router.go('/general-error');
-    // }
   }
 
   Future<void> _processUri(Uri? uri) async {
