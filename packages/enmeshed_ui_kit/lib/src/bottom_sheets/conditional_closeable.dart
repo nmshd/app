@@ -12,12 +12,10 @@ class ConditionalCloseable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (canClose) return child;
-
     return PopScope(
-      canPop: false,
+      canPop: canClose,
       child: GestureDetector(
-        onVerticalDragStart: (_) {},
+        onVerticalDragStart: canClose ? null : (_) {},
         behavior: HitTestBehavior.opaque,
         child: child,
       ),
