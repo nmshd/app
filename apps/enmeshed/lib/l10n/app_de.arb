@@ -527,7 +527,7 @@
       }
     }
   },
-  "personalData_details_deleteDescription": "Möchten Sie den Eintrag {entry} aus Ihren Daten löschen?",
+  "personalData_details_deleteDescription": "Möchten Sie den Eintrag <bold>{entry}</bold> aus Ihren Daten löschen?",
   "@personalData_details_deleteDescription": {
     "placeholders": {
       "entry": {
@@ -535,11 +535,14 @@
       }
     }
   },
-  "personalData_details_deleteDescriptionShared": "{count, plural, =1{Dieser Eintrag wird aktuell mit einem Kontakt geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei dem Kontakt gelöscht, mit dem Sie ihn teilen.} other{Dieser Eintrag wird aktuell mit {count} Kontakten geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei den Kontakten gelöscht, mit denen Sie ihn teilen.}}",
+  "personalData_details_deleteDescriptionShared": "{count, plural, =1{Der Eintrag <bold>{entry}</bold> wird aktuell mit einem Kontakt geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei dem Kontakt gelöscht, mit dem Sie ihn teilen.} other{Der Eintrag <bold>{entry}</bold> wird aktuell mit {count} Kontakten geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei den Kontakten gelöscht, mit denen Sie ihn teilen.}}",
   "@personalData_details_deleteDescriptionShared": {
     "placeholders": {
       "count": {
         "type": "num"
+      },
+      "entry": {
+        "type": "String"
       }
     }
   },
