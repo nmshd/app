@@ -134,6 +134,15 @@ class _DeleteConfirmationState extends State<_DeleteConfirmation> {
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
+    for (final sharedToPeerAttribute in widget.attribute.sharedWith) {
+      final deleteAttributeResult = await session.consumptionServices.attributes.deleteOwnSharedAttributeAndNotifyPeer(
+        attributeId: sharedToPeerAttribute.id,
+      );
+      if (deleteAttributeResult.isError) {
+        GetIt.I.get<Logger>().e('Deleting shared attribute failed caused by: ${deleteAttributeResult.error}');
+      }
+    }
+
     final deleteAttributeResult = await session.consumptionServices.attributes.deleteRepositoryAttribute(attributeId: widget.attribute.id);
 
     if (deleteAttributeResult.isError) {
@@ -154,31 +163,6 @@ class _DeleteConfirmationState extends State<_DeleteConfirmation> {
       setState(() => _deleting = false);
 
       return;
-    }
-
-    for (final sharedToPeerAttribute in widget.attribute.sharedWith) {
-      final content = Request(items: [DeleteAttributeRequestItem(mustBeAccepted: true, attributeId: sharedToPeerAttribute.id)]);
-
-      final canCreateRequestResult = await session.consumptionServices.outgoingRequests.canCreate(content: content, peer: sharedToPeerAttribute.peer);
-      if (canCreateRequestResult.isError) {
-        // TODO(scoen): error handling
-        return;
-      }
-
-      final createRequestResult = await session.consumptionServices.outgoingRequests.create(content: content, peer: sharedToPeerAttribute.peer);
-      if (createRequestResult.isError) {
-        // TODO(scoen): error handling
-        return;
-      }
-
-      final sendMessageResult = await session.transportServices.messages.sendMessage(
-        content: MessageContentRequest(request: createRequestResult.value.content),
-        recipients: [sharedToPeerAttribute.peer],
-      );
-
-      if (sendMessageResult.isError) {
-        GetIt.I.get<Logger>().e('The request to the peer to delete the attribute has failed caused by: ${sendMessageResult.error}');
-      }
     }
 
     widget.onAttributeDeleted();
