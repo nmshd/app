@@ -39,8 +39,8 @@ class _RestoreIdentityState extends State<_RestoreIdentity> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: !_isRestoring,
+    return ConditionalCloseable(
+      canClose: !_isRestoring,
       child: Padding(
         padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom),
         child: Column(
