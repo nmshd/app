@@ -32,32 +32,29 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
 
   @override
   Widget build(BuildContext context) {
-    final leftTriangleColor = Theme.of(context).colorScheme.secondary.withValues(alpha: 0.04);
-    final rightTriangleColor = Theme.of(context).colorScheme.primary.withValues(alpha: 0.04);
-    final topColor = Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.6);
+    final leftTriangleColor = Theme.of(context).colorScheme.surfaceContainerLow;
+    final rightTriangleColor = Theme.of(context).colorScheme.surfaceContainerHigh;
+    final bottomColor = Theme.of(context).colorScheme.primaryContainer;
 
-    return SafeArea(
-      top: false,
-      child: Scrollbar(
-        thumbVisibility: true,
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(color: topColor, width: double.infinity, height: 64 * 2),
-              if (_accountsInDeletion.isNotEmpty) ...[
-                Container(
-                  color: topColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: ProfilesInDeletionContainer(accountsInDeletion: _accountsInDeletion, onDeleted: _loadAccountsInDeletion),
-                ),
-                Container(color: topColor, width: double.infinity, height: 48),
-              ],
-              Container(
-                color: topColor,
-                width: double.infinity,
-                child: Column(
+    return Scrollbar(
+      thumbVisibility: true,
+      child: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          child: Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (_accountsInDeletion.isNotEmpty) ...[
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: ProfilesInDeletionContainer(accountsInDeletion: _accountsInDeletion, onDeleted: _loadAccountsInDeletion),
+                  ),
+                  Gaps.h48,
+                ],
+                Column(
                   children: [
                     Text(
                       context.l10n.onboarding_createIdentity,
@@ -68,43 +65,45 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
                     Gaps.h16,
                   ],
                 ),
-              ),
-              CustomPaint(
-                painter: _BackgroundPainter(leftTriangleColor: leftTriangleColor, rightTriangleColor: rightTriangleColor, topColor: topColor),
-                child: const SizedBox(width: double.infinity, height: 120),
-              ),
-              Container(
-                color: Theme.of(context).colorScheme.surface,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
-                    Gaps.h16,
-                    Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
-                    Gaps.h24,
-                    FilledButton(onPressed: widget.goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
-                    Gaps.h24,
-                    Row(
-                      children: [
-                        const Expanded(child: Divider(thickness: 1)),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(context.l10n.or),
-                        ),
-                        const Expanded(child: Divider(thickness: 1)),
-                      ],
-                    ),
-                    Gaps.h24,
-                    Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
-                    Gaps.h16,
-                    Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
-                    Gaps.h24,
-                    FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
-                  ],
+                CustomPaint(
+                  painter: _BackgroundPainter(leftTriangleColor: leftTriangleColor, rightTriangleColor: rightTriangleColor, bottomColor: bottomColor),
+                  child: const SizedBox(width: double.infinity, height: 120),
                 ),
-              ),
-            ],
+                Container(
+                  color: bottomColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16).add(
+                    EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
+                      Gaps.h16,
+                      Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
+                      Gaps.h24,
+                      FilledButton(onPressed: widget.goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
+                      Gaps.h24,
+                      Row(
+                        children: [
+                          const Expanded(child: Divider(thickness: 1)),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(context.l10n.or),
+                          ),
+                          const Expanded(child: Divider(thickness: 1)),
+                        ],
+                      ),
+                      Gaps.h24,
+                      Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
+                      Gaps.h16,
+                      Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
+                      Gaps.h24,
+                      FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -165,12 +164,12 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
 class _BackgroundPainter extends CustomPainter {
   final Color leftTriangleColor;
   final Color rightTriangleColor;
-  final Color topColor;
+  final Color bottomColor;
 
   _BackgroundPainter({
     required this.leftTriangleColor,
     required this.rightTriangleColor,
-    required this.topColor,
+    required this.bottomColor,
   });
 
   @override
@@ -183,8 +182,8 @@ class _BackgroundPainter extends CustomPainter {
       ..color = leftTriangleColor
       ..style = PaintingStyle.fill;
 
-    final topPaint = Paint()
-      ..color = topColor
+    final bottomPaint = Paint()
+      ..color = bottomColor
       ..style = PaintingStyle.fill;
 
     final leftPath = Path()
@@ -193,10 +192,10 @@ class _BackgroundPainter extends CustomPainter {
       ..lineTo(0, size.height)
       ..close();
 
-    final topPath = Path()
-      ..moveTo(0, 0)
+    final bottomPath = Path()
+      ..moveTo(0, size.height)
       ..lineTo(size.width / 2, size.height / 2)
-      ..lineTo(size.width, 0)
+      ..lineTo(size.width, size.height)
       ..close();
 
     final rightPath = Path()
@@ -207,7 +206,7 @@ class _BackgroundPainter extends CustomPainter {
 
     canvas
       ..drawPath(leftPath, leftPaint)
-      ..drawPath(topPath, topPaint)
+      ..drawPath(bottomPath, bottomPaint)
       ..drawPath(rightPath, rightPaint);
   }
 
