@@ -136,15 +136,19 @@ class _Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, top: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 48),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(inProgressText, style: Theme.of(context).textTheme.headlineSmall),
-          Gaps.h24,
-          const SizedBox(child: CircularProgressIndicator()),
-        ],
+    return SizedBox(
+      width: double.infinity,
+      child: Padding(
+        padding: EdgeInsets.only(left: 24, right: 24, top: 60, bottom: MediaQuery.viewPaddingOf(context).bottom + 60),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(inProgressText, style: Theme.of(context).textTheme.headlineSmall),
+            Gaps.h24,
+            const SizedBox(child: CircularProgressIndicator()),
+          ],
+        ),
       ),
     );
   }
@@ -158,11 +162,12 @@ class _Empty extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: 24, right: 24, top: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 24),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.success),
           Gaps.h24,
           Text(context.l10n.profile_delete_success_noProfilesAvailable, style: Theme.of(context).textTheme.bodyMedium),
-          const Spacer(),
+          Gaps.h24,
           Align(
             alignment: Alignment.centerRight,
             child: OutlinedButton(

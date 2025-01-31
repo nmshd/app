@@ -3,7 +3,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 import '/core/core.dart';
 import 'delete_profile_and_choose_next.dart';
@@ -15,10 +14,6 @@ Future<void> showDeleteProfileOrIdentityModal({
   required LocalAccountDTO localAccount,
   required BuildContext context,
 }) async {
-  final pageIndexNotifier = ValueNotifier<int>(0);
-  final deleteFuture = ValueNotifier<Future<Result<dynamic>>?>(null);
-  final retryFunction = ValueNotifier<Future<Result<dynamic>> Function()?>(null);
-
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(localAccount.address!);
 
   final devicesResult = await session.transportServices.devices.getDevices();
@@ -33,45 +28,99 @@ Future<void> showDeleteProfileOrIdentityModal({
 
   if (!context.mounted) return;
 
-  await WoltModalSheet.show<void>(
-    useSafeArea: false,
+  await showModalBottomSheet<void>(
     context: context,
-    pageIndexNotifier: pageIndexNotifier,
-    onModalDismissedWithBarrierTap: () => pageIndexNotifier.value != 3 ? context.pop() : null,
-    showDragHandle: false,
-    pageListBuilder: (context) {
-      final closeButton = Padding(padding: const EdgeInsets.only(right: 8), child: IconButton(icon: const Icon(Icons.close), onPressed: context.pop));
-      return [
-        WoltModalSheetPage(
-          leadingNavBarWidget: Padding(
-            padding: const EdgeInsets.only(left: 24, top: 20),
-            child: Text(context.l10n.profile_delete, style: Theme.of(context).textTheme.titleLarge),
+    isScrollControlled: true,
+    builder: (context) => ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
+      child: _DeleteProfileOrIdentityModal(
+        localAccount: localAccount,
+        onboardedDevices: onboardedDevices,
+        devices: devices,
+        session: session,
+      ),
+    ),
+  );
+}
+
+class _DeleteProfileOrIdentityModal extends StatefulWidget {
+  final LocalAccountDTO localAccount;
+  final List<DeviceDTO> onboardedDevices;
+  final List<DeviceDTO> devices;
+  final Session session;
+
+  const _DeleteProfileOrIdentityModal({
+    required this.localAccount,
+    required this.onboardedDevices,
+    required this.devices,
+    required this.session,
+  });
+
+  @override
+  State<_DeleteProfileOrIdentityModal> createState() => _DeleteProfileOrIdentityModalState();
+}
+
+class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityModal> {
+  set _currentIndex(int index) {
+    _lastIndex = _index;
+    _index = index;
+  }
+
+  int _lastIndex = 0;
+  int _index = 0;
+
+  final _deleteFuture = ValueNotifier<Future<Result<dynamic>>?>(null);
+  final _retryFunction = ValueNotifier<Future<Result<dynamic>> Function()?>(null);
+
+  @override
+  void dispose() {
+    _deleteFuture.dispose();
+    _retryFunction.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
+        return AnimatedSize(
+          duration: const Duration(milliseconds: 200),
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              ...previousChildren,
+              if (currentChild != null) currentChild,
+            ],
           ),
-          trailingNavBarWidget: closeButton,
-          isTopBarLayerAlwaysVisible: true,
-          child: DeleteProfileOrIdentity(
-            cancel: () => context.pop,
-            profileName: localAccount.name,
-            accountId: localAccount.address!,
-            onboardedDevices: onboardedDevices,
-            deleteProfile: () => pageIndexNotifier.value = 1,
-            deleteIdentity: () => pageIndexNotifier.value = 2,
-          ),
+        );
+      },
+      duration: const Duration(milliseconds: 200),
+      reverseDuration: Duration.zero,
+      transitionBuilder: (child, animation) => SlideTransition(
+        position: animation.drive(
+          Tween(
+            begin: _index > _lastIndex ? const Offset(1, 0) : const Offset(-1, 0),
+            end: Offset.zero,
+          ).chain(CurveTween(curve: Curves.easeInOut)),
         ),
-        WoltModalSheetPage(
-          isTopBarLayerAlwaysVisible: true,
-          leadingNavBarWidget: Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: IconButton(icon: const Icon(Icons.arrow_back, size: 24), onPressed: () => pageIndexNotifier.value = 0),
+        child: child,
+      ),
+      child: switch (_index) {
+        0 => DeleteProfileOrIdentity(
+            cancel: () => context.pop,
+            profileName: widget.localAccount.name,
+            accountId: widget.localAccount.address!,
+            onboardedDevices: widget.onboardedDevices,
+            deleteProfile: () => setState(() => _currentIndex = 1),
+            deleteIdentity: () => setState(() => _currentIndex = 2),
           ),
-          trailingNavBarWidget: closeButton,
-          topBarTitle: Text(context.l10n.profile_delete_device, style: Theme.of(context).textTheme.titleMedium),
-          child: ShouldDeleteProfile(
-            cancel: () => pageIndexNotifier.value = 0,
+        1 => ShouldDeleteProfile(
+            cancel: () => setState(() => _currentIndex = 0),
             delete: () {
-              retryFunction.value = () async {
+              _retryFunction.value = () async {
                 try {
-                  await GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(localAccount.id);
+                  await GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(widget.localAccount.id);
                   return Result.success(null);
                 } catch (e) {
                   return Result.failure(
@@ -83,57 +132,50 @@ Future<void> showDeleteProfileOrIdentityModal({
                 }
               };
 
-              deleteFuture.value = retryFunction.value!();
-              pageIndexNotifier.value = 3;
+              _deleteFuture.value = _retryFunction.value!();
+              setState(() {
+                _currentIndex = 3;
+              });
             },
-            profileName: localAccount.name,
-            onboardedDevices: onboardedDevices,
+            profileName: widget.localAccount.name,
+            onboardedDevices: widget.onboardedDevices,
           ),
-        ),
-        WoltModalSheetPage(
-          isTopBarLayerAlwaysVisible: true,
-          leadingNavBarWidget: Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: IconButton(icon: const Icon(Icons.arrow_back, size: 24), onPressed: () => pageIndexNotifier.value = 0),
-          ),
-          trailingNavBarWidget: closeButton,
-          topBarTitle: Text(context.l10n.profile_delete, style: Theme.of(context).textTheme.titleMedium),
-          child: ShouldDeleteIdentity(
-            cancel: () => pageIndexNotifier.value = 0,
+        2 => ShouldDeleteIdentity(
+            cancel: () => setState(() => _currentIndex = 0),
             delete: () {
-              deleteFuture.value = session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
-              retryFunction.value = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
-              pageIndexNotifier.value = 3;
+              _deleteFuture.value = widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
+              _retryFunction.value = widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess;
+              setState(() {
+                _currentIndex = 3;
+              });
             },
             deleteNow: () {
               const minutesInDays = 0.25 / 1440;
 
-              deleteFuture.value = session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
+              _deleteFuture.value = widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
                 lengthOfGracePeriodInDays: minutesInDays,
               );
-              retryFunction.value = () => session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
+              _retryFunction.value = () => widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
                     lengthOfGracePeriodInDays: minutesInDays,
                   );
-              pageIndexNotifier.value = 3;
+              setState(() {
+                _currentIndex = 3;
+              });
             },
-            profileName: localAccount.name,
-            devices: devices,
+            profileName: widget.localAccount.name,
+            devices: widget.devices,
           ),
-        ),
-        NonScrollingWoltModalSheetPage(
-          enableDrag: false,
-          child: DeleteProfileAndChooseNext(
-            localAccount: localAccount,
-            deleteFuture: deleteFuture,
-            retryFunction: retryFunction,
-            inProgressText: context.l10n.profile_delete_inProgress,
-            successDescription: context.l10n.profile_delete_success,
-          ),
-        ),
-      ];
-    },
-  );
-
-  pageIndexNotifier.dispose();
-  deleteFuture.dispose();
+        _ => GestureDetector(
+            onVerticalDragStart: (_) {},
+            child: DeleteProfileAndChooseNext(
+              localAccount: widget.localAccount,
+              deleteFuture: _deleteFuture,
+              retryFunction: _retryFunction,
+              inProgressText: context.l10n.profile_delete_inProgress,
+              successDescription: context.l10n.profile_delete_success,
+            ),
+          )
+      },
+    );
+  }
 }
