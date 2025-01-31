@@ -13,7 +13,7 @@ class Notification extends Equatable {
   const Notification({required this.id, required this.items});
 
   factory Notification.fromJson(Map json) => _$NotificationFromJson(Map<String, dynamic>.from(json));
-  Map<String, dynamic> toJson() => _$NotificationToJson(this);
+  Map<String, dynamic> toJson() => {'@type': 'Notification', ..._$NotificationToJson(this)};
 
   @override
   List<Object?> get props => [id, items];
