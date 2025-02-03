@@ -80,7 +80,7 @@ class __CreateAttributeContentState extends State<_CreateAttributeContent> {
     return AnimatedSwitcher(
       layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
         return AnimatedSize(
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 300),
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -90,13 +90,13 @@ class __CreateAttributeContentState extends State<_CreateAttributeContent> {
           ),
         );
       },
-      duration: const Duration(milliseconds: 200),
-      reverseDuration: Duration.zero,
+      duration: const Duration(milliseconds: 300),
+      reverseDuration: _pageIndex == 0 ? Duration.zero : null,
       transitionBuilder: (child, animation) {
         return SlideTransition(
           position: animation.drive(
             Tween(
-              begin: _pageIndex == 0 ? const Offset(-1, 0) : const Offset(1, 0),
+              begin: child is _SelectValueTypePage ? const Offset(-1, 0) : const Offset(1, 0),
               end: Offset.zero,
             ).chain(CurveTween(curve: Curves.easeInOut)),
           ),
