@@ -316,54 +316,69 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
     );
   }
 
-  void _onCreateAttributePressed() {
+  Future<void> _onCreateAttributePressed() async {
     setState(() => _confirmEnabled = false);
 
-    if (widget.onAttributeCreated != null) {
-      createRepositoryAttribute(
-        accountId: widget.accountId,
-        context: context,
-        value: _identityAttribute!,
-        onAttributeCreated: widget.onAttributeCreated!,
-        onAttributeCreationFailed: (errorCode) {
-          if (_isDuplicateEntryError(errorCode)) {
-            setState(() => _errorCode = errorCode);
-            _scrollToBottom();
-
-            return;
-          } else {
-            context.pop();
-
-            showDialog<void>(
-              context: context,
-              builder: (context) => AlertDialog(
-                icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
-                title: Text(context.l10n.personalData_details_errorTitleOnCreate, style: Theme.of(context).textTheme.headlineSmall),
-                content: Text(context.l10n.personalData_details_errorContentOnCreate),
-                actions: [
-                  TextButton(
-                    onPressed: () => context.pop(),
-                    child: Text(context.l10n.back),
-                  ),
-                ],
-              ),
-            );
-          }
-        },
-      );
-    } else {
+    if (widget.onCreateAttributePressed != null) {
       widget.onCreateAttributePressed!(context: context, value: _identityAttribute!);
+
+      return;
     }
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(value: _identityAttribute!);
+
+    if (createAttributeResult.isSuccess) {
+      if (mounted) context.pop();
+
+      widget.onAttributeCreated!();
+
+      return;
+    }
+
+    GetIt.I.get<Logger>().e('Creating new attribute failed caused by: ${createAttributeResult.error}');
+
+    final errorCode = createAttributeResult.error.code;
+    if (_isDuplicateEntryError(errorCode)) {
+      setState(() => _errorCode = errorCode);
+      _scrollToBottom();
+
+      return;
+    }
+
+    if (!mounted) return;
+
+    context.pop();
+
+    unawaited(
+      showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+          title: Text(context.l10n.personalData_details_errorTitleOnCreate, style: Theme.of(context).textTheme.headlineSmall),
+          content: Text(context.l10n.personalData_details_errorContentOnCreate),
+          actions: [
+            TextButton(
+              onPressed: () => context.pop(),
+              child: Text(context.l10n.back),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   bool _isDuplicateEntryError(String? errorCode) => errorCode != null && errorCode.contains('cannotCreateDuplicateRepositoryAttribute');
 
   void _scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients && _scrollController.position.hasViewportDimension) {
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-      }
-    });
+    if (!_scrollController.hasClients || !_scrollController.position.hasViewportDimension) return;
+
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
   }
 }
 
