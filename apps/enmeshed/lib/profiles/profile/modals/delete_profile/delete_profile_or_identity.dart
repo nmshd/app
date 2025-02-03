@@ -69,7 +69,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
                 onPressed: otherActiveDevices.isNotEmpty ? deleteProfile : null,
                 child: Text(context.l10n.profile_delete_device),
               ),
-              Gaps.h16,
+              Gaps.h8,
               OutlinedButton(
                 style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 40)),
                 onPressed: deleteIdentity,
