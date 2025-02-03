@@ -42,28 +42,39 @@ class DeleteProfileOrIdentity extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                children: [
-                  AutoLoadingProfilePicture(
-                    accountId: accountId,
-                    profileName: profileName,
-                    decorative: true,
-                    radius: 40,
-                  ),
-                  Gaps.w16,
-                  Expanded(child: Text(profileName, style: Theme.of(context).textTheme.titleLarge)),
-                ],
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
+                child: Column(
+                  children: [
+                    Align(
+                      child: AutoLoadingProfilePicture(
+                        accountId: accountId,
+                        profileName: profileName,
+                        decorative: true,
+                        radius: 60,
+                      ),
+                    ),
+                    Gaps.h16,
+                    Text(profileName, style: Theme.of(context).textTheme.titleLarge),
+                  ],
+                ),
               ),
-              Gaps.h24,
+              Gaps.h32,
               Text(
                 otherActiveDevices.isNotEmpty ? context.l10n.profile_or_identity_deletion : context.l10n.profile_or_identity_deletion_oneDevice,
               ),
-              Gaps.h24,
-              OutlinedButton(onPressed: otherActiveDevices.isNotEmpty ? deleteProfile : null, child: Text(context.l10n.profile_delete_device)),
-              OutlinedButton.icon(
+              Gaps.h32,
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 40)),
+                onPressed: otherActiveDevices.isNotEmpty ? deleteProfile : null,
+                child: Text(context.l10n.profile_delete_device),
+              ),
+              Gaps.h16,
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 40)),
                 onPressed: deleteIdentity,
-                label: Text(context.l10n.profile_delete),
-                icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                child: Text(context.l10n.profile_delete),
               ),
             ],
           ),
