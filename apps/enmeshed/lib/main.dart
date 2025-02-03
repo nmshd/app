@@ -141,7 +141,7 @@ final _router = GoRouter(
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/general-error',
-      builder: (context, state) => const ErrorScreen(),
+      builder: (context, state) => ErrorScreen(backboneNotAvailable: state.uri.queryParameters['backboneNotAvailable'] == 'true'),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

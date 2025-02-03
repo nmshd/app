@@ -6,7 +6,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 class ErrorScreen extends StatelessWidget {
-  const ErrorScreen({super.key});
+  final bool backboneNotAvailable;
+
+  const ErrorScreen({required this.backboneNotAvailable, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,18 @@ class ErrorScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Align(
+            if (backboneNotAvailable)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(context.l10n.error_backboneNotAvailable, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center),
+              ),
+            Gaps.h16,
+            Align(
               alignment: Alignment.topCenter,
-              child: VectorGraphic(loader: AssetBytesLoader('assets/svg/error.svg'), height: 160),
+              child: VectorGraphic(
+                loader: AssetBytesLoader(backboneNotAvailable ? 'assets/svg/backbone_error.svg' : 'assets/svg/general_error.svg'),
+                height: 160,
+              ),
             ),
             Gaps.h32,
             Text(textAlign: TextAlign.center, context.l10n.error_general),
@@ -33,9 +44,9 @@ class ErrorScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.support, color: contentColor),
+                  Icon(Icons.mail_outline, color: contentColor),
                   Gaps.w8,
-                  Text(context.l10n.error_support, style: TextStyle(color: contentColor)),
+                  Text(context.l10n.error_supportButton, style: TextStyle(color: contentColor)),
                 ],
               ),
             ),
