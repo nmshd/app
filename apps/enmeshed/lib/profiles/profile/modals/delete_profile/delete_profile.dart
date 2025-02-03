@@ -2,7 +2,6 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import 'delete_profile_and_choose_next.dart';
@@ -108,7 +107,6 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
       ),
       child: switch (_index) {
         0 => DeleteProfileOrIdentity(
-            cancel: () => context.pop,
             profileName: widget.localAccount.name,
             accountId: widget.localAccount.address!,
             otherActiveDevices: widget.otherActiveDevices,

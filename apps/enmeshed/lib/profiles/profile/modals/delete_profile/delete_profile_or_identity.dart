@@ -1,11 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 
 class DeleteProfileOrIdentity extends StatelessWidget {
-  final VoidCallback cancel;
   final VoidCallback deleteIdentity;
   final VoidCallback deleteProfile;
   final String profileName;
@@ -13,7 +13,6 @@ class DeleteProfileOrIdentity extends StatelessWidget {
   final List<DeviceDTO> otherActiveDevices;
 
   const DeleteProfileOrIdentity({
-    required this.cancel,
     required this.deleteIdentity,
     required this.deleteProfile,
     required this.profileName,
@@ -33,7 +32,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(context.l10n.profile_delete, style: Theme.of(context).textTheme.titleLarge),
-              IconButton(icon: const Icon(Icons.close), onPressed: cancel),
+              IconButton(icon: const Icon(Icons.close), onPressed: context.pop),
             ],
           ),
         ),
