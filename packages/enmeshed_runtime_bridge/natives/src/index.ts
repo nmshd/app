@@ -1,6 +1,7 @@
 import { Serializable } from "@js-soft/ts-serval";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
 import {
+  AppConfigOverwrite,
   AppReadyEvent,
   AppRuntime,
   RemoteNotification,
@@ -43,27 +44,34 @@ window.setPushToken = async function (token: string) {
   if (alreadySetToken.value === token) return;
 
   window.runtime.nativeEnvironment.configAccess.set("pushToken", token);
-  window.runtime.nativeEnvironment.eventBus.publish(new RemoteNotificationRegistrationEvent(token));
+  window.runtime.eventBus.publish(new RemoteNotificationRegistrationEvent(token));
   await window.runtime.nativeEnvironment.configAccess.save();
 };
 
 window.triggerRemoteNotificationEvent = async function (notification: RemoteNotification) {
-  window.runtime.nativeEnvironment.eventBus.publish(new RemoteNotificationEvent(notification));
+  window.runtime.eventBus.publish(new RemoteNotificationEvent(notification));
 };
 
 window.triggerAppReadyEvent = async function () {
-  window.runtime.nativeEnvironment.eventBus.publish(new AppReadyEvent());
+  window.runtime.eventBus.publish(new AppReadyEvent());
 };
 
 window.runtimeVersion = buildInformation.version;
 
 async function main() {
+  const config: AppConfigOverwrite = await window.flutter_inappwebview.callHandler("getRuntimeConfig");
+
   const bootstrapper = new NativeBootstrapper();
   await bootstrapper.init();
-  const runtime = await AppRuntime.createAndStart(bootstrapper);
+  const runtime = await AppRuntime.createAndStart(bootstrapper, config);
 
+  const runtimeBridgeLogger = bootstrapper.loggerFactory.getLogger("RuntimeBridge");
   runtime.eventBus.subscribe("**", async (event) => {
-    await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);
+    try {
+      await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);
+    } catch (error) {
+      runtimeBridgeLogger.warn("Error while passing runtime event to app", error);
+    }
   });
 
   window.runtime = runtime;

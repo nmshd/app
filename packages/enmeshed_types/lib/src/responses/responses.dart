@@ -1,5 +1,6 @@
 export 'backbone_compatibility.dart';
 export 'can_create_relationship_response.dart';
+export 'can_create_repository_attribute.dart';
 export 'challenge_validation_result.dart';
 export 'create_qr_code.dart';
 export 'delete_own_shared_attribute_and_notify_peer.dart';

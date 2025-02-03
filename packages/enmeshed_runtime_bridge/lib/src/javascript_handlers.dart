@@ -1,10 +1,11 @@
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
+import 'package:windows_notification/notification_message.dart';
+import 'package:windows_notification/windows_notification.dart';
 
 import 'event_bus.dart';
 import 'events/events.dart';
@@ -134,46 +135,6 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
   };
 
   eventBus.publish(event);
-}
-
-extension DeviceInfo on InAppWebViewController {
-  void addDeviceInfoJavaScriptHandler() => addJavaScriptHandler(handlerName: 'getDeviceInfo', callback: _getDeviceInfo);
-}
-
-Future<Map<String, dynamic>> _getDeviceInfo(List<dynamic> args) async {
-  final deviceInfoPlugin = DeviceInfoPlugin();
-
-  if (Platform.isAndroid) {
-    final deviceInfo = await deviceInfoPlugin.androidInfo;
-
-    return {
-      'model': deviceInfo.model,
-      'platform': 'Android',
-      'uuid': deviceInfo.id,
-      'manufacturer': deviceInfo.manufacturer,
-      'isVirtual': !deviceInfo.isPhysicalDevice,
-      'languageCode': Platform.localeName,
-      'version': deviceInfo.version.release,
-      'pushService': 'fcm',
-    };
-  }
-
-  if (Platform.isIOS) {
-    final deviceInfo = await deviceInfoPlugin.iosInfo;
-
-    return {
-      'model': deviceInfo.model,
-      'platform': 'IOS',
-      'uuid': deviceInfo.identifierForVendor ?? '',
-      'manufacturer': 'Apple',
-      'isVirtual': !deviceInfo.isPhysicalDevice,
-      'languageCode': Platform.localeName,
-      'version': deviceInfo.systemVersion,
-      'pushService': 'apns',
-    };
-  }
-
-  throw Exception('Unsupported platform');
 }
 
 class JsToUIBridge {
@@ -373,6 +334,16 @@ extension Filesystem on InAppWebViewController {
 
 extension LocalNotifications on InAppWebViewController {
   void addLocalNotificationsJavaScriptHandlers() {
+    if (Platform.isAndroid || Platform.isIOS || Platform.isLinux || Platform.isMacOS) {
+      _addLocalNotificationsJavaScriptHandlers();
+    } else if (Platform.isWindows) {
+      _addWindowsNotificationsJavaScriptHandlers();
+    } else {
+      throw Exception('Unsupported platform');
+    }
+  }
+
+  void _addLocalNotificationsJavaScriptHandlers() {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     addJavaScriptHandler(
@@ -407,6 +378,51 @@ extension LocalNotifications on InAppWebViewController {
       callback: (args) async {
         final notifications = await flutterLocalNotificationsPlugin.getActiveNotifications();
         return notifications.map((e) => e.id).toList();
+      },
+    );
+  }
+
+  void _addWindowsNotificationsJavaScriptHandlers() {
+    final winNotifyPlugin = WindowsNotification(applicationId: null);
+
+    winNotifyPlugin.initNotificationCallBack((details) {
+      // TODO: handle notification click
+    });
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_schedule',
+      callback: (args) async {
+        final title = args[0] as String;
+        final body = args[1] as String;
+        final id = args[2] as int;
+
+        await winNotifyPlugin.showNotificationPluginTemplate(
+          NotificationMessage.fromPluginTemplate(id.toString(), title, body, group: 'nmshd'),
+        );
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_clear',
+      callback: (args) async {
+        final id = args[0] as int;
+
+        await winNotifyPlugin.removeNotificationId(id.toString(), 'nmshd');
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_clearAll',
+      callback: (args) async {
+        await winNotifyPlugin.clearNotificationHistory();
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_getAll',
+      callback: (args) {
+        // no support for listing notifications on Windows
+        return [];
       },
     );
   }

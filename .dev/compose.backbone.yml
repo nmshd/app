@@ -18,6 +18,8 @@ services:
         condition: service_started
       database-migrator:
         condition: service_completed_successfully
+      sse-server:
+        condition: service_started
     configs:
       - source: Config
         target: app/appsettings.override.json
@@ -32,6 +34,19 @@ services:
         condition: service_started
       database-migrator:
         condition: service_completed_successfully
+    configs:
+      - source: Config
+        target: app/appsettings.override.json
+
+  sse-server:
+    image: ghcr.io/nmshd/backbone-sse-server:${BACKBONE_VERSION}
+    container_name: sse-server
+    hostname: sse-server
+    ports:
+      - "8092:8080"
+    depends_on:
+      database:
+        condition: service_started
     configs:
       - source: Config
         target: app/appsettings.override.json
@@ -124,6 +139,10 @@ services:
     environment:
       Database__Provider: Postgres
       Database__ConnectionString: "Server=postgres;Database=enmeshed;User Id=devices;Password=Passw0rd;Port=5432"
+
+networks:
+  default:
+    name: backbone
 
 configs:
   Config:

@@ -10,7 +10,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
-import 'modals/delete_profile/delete_profile_or_identity_modal.dart';
 import 'modals/modals.dart';
 import 'widgets/profile_widgets.dart';
 
@@ -148,18 +147,15 @@ class _CurrentProfileHeader extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              child: Align(
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(45),
-                  onTap: editProfile,
-                  child: ProfilePicture(
-                    radius: 40,
-                    profileName: selectedAccount.name,
-                    image: selectedAccountProfilePicture != null ? FileImage(selectedAccountProfilePicture!) : null,
-                    decorative: true,
-                  ),
+            Align(
+              child: InkWell(
+                borderRadius: BorderRadius.circular(45),
+                onTap: editProfile,
+                child: ProfilePicture(
+                  radius: 60,
+                  profileName: selectedAccount.name,
+                  image: selectedAccountProfilePicture != null ? FileImage(selectedAccountProfilePicture!) : null,
+                  decorative: true,
                 ),
               ),
             ),
@@ -168,7 +164,7 @@ class _CurrentProfileHeader extends StatelessWidget {
         Container(
           width: double.infinity,
           color: Theme.of(context).colorScheme.secondaryContainer,
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               Text(
