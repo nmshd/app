@@ -157,11 +157,11 @@
       }
     }
   },
-  "profile_or_identity_deletion": "Would you like to remove your profile from this device only (i.e. log the device out of the profile) or delete your entire profile with all stored data and documents?",
-  "profile_or_identity_deletion_oneDevice": "This profile is only available via this device. For this reason, no distinction is made between \"Remove profile from device\" and \"Delete profile\". You can only delete your entire profile.",
+  "profile_or_identity_deletion": "Would you like to logout your profile from this device or delete your entire profile with all stored data and documents from the Enmeshed platform?",
+  "profile_or_identity_deletion_oneDevice": "This profile is only available via this device. Therefore, no distinction is made between removing a profile from the device and deleting a profile. You can only delete your entire profile.",
   "identity_delete_cancel": "No, cancel",
   "identity_delete_confirm": "Yes, delete",
-  "identity_delete_confirmation": "Would you like to delete the \"{profileName}\" profile and all the data, contacts and documents it contains? It will be removed from all your connected devices ({devices})",
+  "identity_delete_confirmation": "Would you like to delete the <bold>{profileName}</bold> profile and all the data, contacts and documents it contains? It will be removed from all your connected devices ({devices})",
   "@identity_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -218,7 +218,7 @@
   "profile_delete_success": "The profile has been deleted.\nPlease select another profile to continue.",
   "profile_delete_success_noProfilesAvailable": "The profile has been deleted. All your data has been removed from this device.",
   "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Do you really want to delete the profile \"{profileName}\"? It will be permanently deleted from this device.",
+  "profile_delete_confirmation": "Do you really want to delete the profile <bold>{profileName}</bold>? It will be permanently deleted from this device.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {

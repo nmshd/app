@@ -157,11 +157,11 @@
       }
     }
   },
-  "profile_or_identity_deletion": "Möchten Sie Ihr Profil nur von diesem Gerät entfernen (also das Gerät aus dem Profil abmelden) oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten löschen?",
-  "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschließlich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen “Profil vom Gerät entfernen” und “Profil löschen”. Sie können nur Ihr gesamtes Profil löschen.",
+  "profile_or_identity_deletion": "Möchten Sie Ihr Profil von diesem Gerät abmelden oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten von der Enmeshed-Plattform löschen?",
+  "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschließlich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen Profil von Gerät entfernen und Profil löschen. Sie können nur Ihr gesamtes Profil löschen.",
   "identity_delete_cancel": "Nein, abbrechen",
   "identity_delete_confirm": "Ja, löschen",
-  "identity_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Es wird von allen Ihren verbundenen Geräten ({devices}) entfernt.",
+  "identity_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Es wird von allen Ihren verbundenen Geräten ({devices}) entfernt.",
   "@identity_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -218,7 +218,7 @@
   "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wählen Sie aus mit welchem Profil Sie jetzt fortfahren möchten.",
   "profile_delete_success_noProfilesAvailable": "Das Profil wurde gelöscht. Alle Ihre Daten wurden aus der App entfernt.",
   "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" wirklich löschen? Es wird permanent von diesem Gerät gelöscht.",
+  "profile_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> wirklich löschen? Es wird permanent von diesem Gerät gelöscht.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {
