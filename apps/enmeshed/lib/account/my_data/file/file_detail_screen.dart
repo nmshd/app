@@ -31,9 +31,10 @@ class FileDetailScreen extends StatefulWidget {
 class _FileDetailScreenState extends State<FileDetailScreen> {
   late final Session _session;
 
-  late FileDVO? _fileDVO;
-  late LocalAttributeDVO? _fileReferenceAttribute;
-  late List<String>? _tags;
+  late FileDVO _fileDVO;
+
+  LocalAttributeDVO? _fileReferenceAttribute;
+  List<String>? _tags;
   AttributeTagCollectionDTO? _tagCollection;
 
   bool _isLoadingFile = false;
@@ -56,7 +57,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: Text(_fileDVO!.title, style: Theme.of(context).textTheme.titleLarge)),
+      appBar: AppBar(title: Text(_fileDVO.title, style: Theme.of(context).textTheme.titleLarge)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -66,10 +67,10 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
               Center(
                 child: Column(
                   children: [
-                    FileIcon(filename: _fileDVO!.filename, color: Theme.of(context).colorScheme.primary, size: 40),
+                    FileIcon(filename: _fileDVO.filename, color: Theme.of(context).colorScheme.primary, size: 40),
                     Gaps.h8,
-                    Text(_fileDVO!.filename, style: Theme.of(context).textTheme.labelLarge),
-                    Text('${bytesText(context: context, bytes: _fileDVO!.filesize)} - ${getFileExtension(_fileDVO!.filename)}'),
+                    Text(_fileDVO.filename, style: Theme.of(context).textTheme.labelLarge),
+                    Text('${bytesText(context: context, bytes: _fileDVO.filesize)} - ${getFileExtension(_fileDVO.filename)}'),
                   ],
                 ),
               ),
@@ -81,7 +82,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                   SelectedTagsSection(tagCollection: _tagCollection!, selectedTagsList: _tags!),
                 Gaps.h16,
               ],
-              FileInfoContainer(createdBy: _fileDVO!.createdBy.name, createdAt: _fileDVO!.createdAt),
+              FileInfoContainer(createdBy: _fileDVO.createdBy.name, createdAt: _fileDVO.createdAt),
               Gaps.h32,
               Row(
                 children: [
@@ -90,14 +91,14 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                     Gaps.w8,
                   ],
                   IconButton(
-                    onPressed: _isLoadingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
+                    onPressed: _isLoadingFile || DateTime.parse(_fileDVO.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
                     icon: _isLoadingFile
                         ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator())
                         : const Icon(Icons.file_download, size: 24),
                   ),
                   Gaps.w8,
                   IconButton(
-                    onPressed: _isOpeningFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
+                    onPressed: _isOpeningFile || DateTime.parse(_fileDVO.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
                     icon: _isOpeningFile
                         ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator())
                         : const Icon(Icons.open_with, size: 24),
@@ -152,7 +153,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     await moveFileOnDevice(
       session: session,
-      fileDVO: _fileDVO!,
+      fileDVO: _fileDVO,
       onError: () {
         if (mounted) showDownloadFileErrorDialog(context);
       },
@@ -167,7 +168,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     await openFile(
       session: session,
-      fileDVO: _fileDVO!,
+      fileDVO: _fileDVO,
       onError: () {
         if (mounted) showDownloadFileErrorDialog(context);
       },
@@ -182,7 +183,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
       isScrollControlled: true,
       builder: (_) => EditFile(
         accountId: widget.accountId,
-        fileTitle: _fileDVO!.title,
+        fileTitle: _fileDVO.title,
         fileReferenceAttribute: _fileReferenceAttribute!,
         tagCollection: _tagCollection!,
         onSave: _loadTags,
