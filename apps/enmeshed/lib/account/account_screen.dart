@@ -198,12 +198,12 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
               suggestionsBuilder: (context, controller) =>
                   widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
             ),
-            IconButton(
-              icon: ValueListenableBuilder(
-                valueListenable: widget.contactsFilterController,
-                builder: (context, value, child) => Badge(isLabelVisible: value.isNotEmpty, child: const Icon(Icons.filter_list)),
+            ValueListenableBuilder(
+              valueListenable: widget.contactsFilterController,
+              builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
+                icon: const Icon(Icons.filter_list),
+                onPressed: () => widget.contactsFilterController.openContactsFilter(),
               ),
-              onPressed: () => widget.contactsFilterController.openContactsFilter(),
             ),
             IconButton(
               icon: const Icon(Icons.person_add),
