@@ -80,6 +80,7 @@ async function main() {
 main()
   .then(() => window.flutter_inappwebview.callHandler("runtimeReady"))
   .catch((e) => {
+    console.log("Runtime init failed", e);
     window.flutter_inappwebview.callHandler("runtimeInitFailed", e.message);
   });
 
