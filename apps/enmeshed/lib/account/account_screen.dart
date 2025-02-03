@@ -96,13 +96,13 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         actions: [
           ..._actions ?? [],
           Padding(
-            padding: const EdgeInsets.only(left: 4, right: 12),
+            padding: const EdgeInsets.only(left: 6, right: 14),
             child: Badge(
               isLabelVisible: _accountsInDeletion.isNotEmpty,
               child: AutoLoadingProfilePicture(
                 accountId: widget.accountId,
                 profileName: _account?.name ?? '',
-                radius: 20,
+                radius: 18,
                 onPressed: () => context.push('/profiles?selectedAccountReference=${widget.accountId}'),
               ),
             ),
