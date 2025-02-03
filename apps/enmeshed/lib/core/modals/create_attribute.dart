@@ -31,11 +31,14 @@ Future<void> showCreateAttributeModal({
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder: (builder) => _CreateAttributeModal(
-      accountId: accountId,
-      onCreateAttributePressed: onCreateAttributePressed,
-      onAttributeCreated: onAttributeCreated,
-      initialValueType: initialValueType,
+    builder: (builder) => ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+      child: _CreateAttributeModal(
+        accountId: accountId,
+        onCreateAttributePressed: onCreateAttributePressed,
+        onAttributeCreated: onAttributeCreated,
+        initialValueType: initialValueType,
+      ),
     ),
   );
 }
@@ -153,17 +156,14 @@ class _SelectValueTypePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
-      child: Padding(
-        padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            BottomSheetHeader(title: context.l10n.myData_createInformation, canClose: true),
-            _EditableAttributes(accountId: accountId, goToNextPage: onValueTypeSelected),
-          ],
-        ),
+    return Padding(
+      padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BottomSheetHeader(title: context.l10n.myData_createInformation, canClose: true),
+          _EditableAttributes(accountId: accountId, goToNextPage: onValueTypeSelected),
+        ],
       ),
     );
   }
@@ -240,66 +240,63 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
   Widget build(BuildContext context) {
     final translatedAttribute = FlutterI18n.translate(context, 'dvo.attribute.name.${widget.valueType}');
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
-      child: Padding(
-        padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            BottomSheetHeader(
-              onBackPressed: widget.onBackPressed,
-              title: context.l10n.myData_createAttribute_title(translatedAttribute),
-              canClose: true,
-            ),
-            Flexible(
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 24, right: 24, top: 8, bottom: 24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (addressDataInitialAttributeTypes.contains(widget.valueType)) ...[
-                        Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
-                        Gaps.h24,
-                      ],
-                      ValueRenderer(
-                        renderHints: widget.renderHints,
-                        valueHints: widget.valueHints,
-                        controller: _controller,
-                        valueType: widget.valueType,
-                        expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                        chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                        openFileDetails: (file) => context.push(
-                          '/account/${widget.accountId}/my-data/files/${file.id}',
-                          extra: createFileRecord(file: file),
-                        ),
-                      ),
-                      if (_isDuplicateEntryError(_errorCode)) const _DuplicateEntryErrorContainer(),
+    return Padding(
+      padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BottomSheetHeader(
+            onBackPressed: widget.onBackPressed,
+            title: context.l10n.myData_createAttribute_title(translatedAttribute),
+            canClose: true,
+          ),
+          Flexible(
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 8, bottom: 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (addressDataInitialAttributeTypes.contains(widget.valueType)) ...[
+                      Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
+                      Gaps.h24,
                     ],
-                  ),
+                    ValueRenderer(
+                      renderHints: widget.renderHints,
+                      valueHints: widget.valueHints,
+                      controller: _controller,
+                      valueType: widget.valueType,
+                      expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                      chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
+                      openFileDetails: (file) => context.push(
+                        '/account/${widget.accountId}/my-data/files/${file.id}',
+                        extra: createFileRecord(file: file),
+                      ),
+                    ),
+                    if (_isDuplicateEntryError(_errorCode)) const _DuplicateEntryErrorContainer(),
+                  ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-              child: Row(
-                spacing: 8,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-                  FilledButton(
-                    style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                    onPressed: !_confirmEnabled ? null : _onCreateAttributePressed,
-                    child: Text(context.l10n.save),
-                  ),
-                ],
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+            child: Row(
+              spacing: 8,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                FilledButton(
+                  style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
+                  onPressed: !_confirmEnabled ? null : _onCreateAttributePressed,
+                  child: Text(context.l10n.save),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
