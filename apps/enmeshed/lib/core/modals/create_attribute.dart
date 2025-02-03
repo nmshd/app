@@ -31,7 +31,7 @@ Future<void> showCreateAttributeModal({
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder: (builder) => _CreateAttributeContent(
+    builder: (builder) => _CreateAttributeModal(
       accountId: accountId,
       onCreateAttributePressed: onCreateAttributePressed,
       onAttributeCreated: onAttributeCreated,
@@ -40,13 +40,13 @@ Future<void> showCreateAttributeModal({
   );
 }
 
-class _CreateAttributeContent extends StatefulWidget {
+class _CreateAttributeModal extends StatefulWidget {
   final String accountId;
   final String? initialValueType;
   final VoidCallback? onAttributeCreated;
   final void Function({required BuildContext context, required IdentityAttributeValue value})? onCreateAttributePressed;
 
-  const _CreateAttributeContent({
+  const _CreateAttributeModal({
     required this.accountId,
     required this.initialValueType,
     required this.onAttributeCreated,
@@ -54,23 +54,20 @@ class _CreateAttributeContent extends StatefulWidget {
   });
 
   @override
-  State<_CreateAttributeContent> createState() => __CreateAttributeContentState();
+  State<_CreateAttributeModal> createState() => _CreateAttributeModalState();
 }
 
-class __CreateAttributeContentState extends State<_CreateAttributeContent> {
+class _CreateAttributeModalState extends State<_CreateAttributeModal> {
   String? _valueType;
 
   late RenderHints _renderHints;
   late ValueHints _valueHints;
-  late int _pageIndex;
 
   @override
   void initState() {
     super.initState();
 
-    if (widget.initialValueType != null) _setValueTypeAndHints(widget.initialValueType!);
-
-    _pageIndex = widget.initialValueType != null ? 1 : 0;
+    if (widget.initialValueType != null) _onValueTypeSelected(widget.initialValueType!);
   }
 
   @override
@@ -91,7 +88,7 @@ class __CreateAttributeContentState extends State<_CreateAttributeContent> {
         );
       },
       duration: const Duration(milliseconds: 300),
-      reverseDuration: _pageIndex == 0 ? Duration.zero : null,
+      reverseDuration: _valueType == null ? Duration.zero : null,
       transitionBuilder: (child, animation) {
         return SlideTransition(
           position: animation.drive(
@@ -103,15 +100,14 @@ class __CreateAttributeContentState extends State<_CreateAttributeContent> {
           child: child,
         );
       },
-      child: _pageIndex == 0
+      child: _valueType == null
           ? _SelectValueTypePage(accountId: widget.accountId, onValueTypeSelected: _onValueTypeSelected)
           : _CreateAttributePage(
               accountId: widget.accountId,
-              initialValueType: widget.initialValueType,
               valueType: _valueType!,
               renderHints: _renderHints,
               valueHints: _valueHints,
-              onBackPressed: () => setState(() => _pageIndex = 0),
+              onBackPressed: widget.initialValueType == null ? () => setState(() => _valueType = null) : null,
               onAttributeCreated: widget.onAttributeCreated,
               onCreateAttributePressed: widget.onCreateAttributePressed,
             ),
@@ -119,12 +115,6 @@ class __CreateAttributeContentState extends State<_CreateAttributeContent> {
   }
 
   Future<void> _onValueTypeSelected(String valueType) async {
-    await _setValueTypeAndHints(valueType);
-
-    setState(() => _pageIndex = 1);
-  }
-
-  Future<void> _setValueTypeAndHints(String valueType) async {
     final hintsResult = await GetIt.I.get<EnmeshedRuntime>().getHints(valueType);
 
     if (hintsResult.isSuccess) {
@@ -181,17 +171,15 @@ class _SelectValueTypePage extends StatelessWidget {
 
 class _CreateAttributePage extends StatefulWidget {
   final String accountId;
-  final String? initialValueType;
   final String valueType;
   final RenderHints renderHints;
   final ValueHints valueHints;
-  final VoidCallback onBackPressed;
+  final VoidCallback? onBackPressed;
   final VoidCallback? onAttributeCreated;
   final void Function({required BuildContext context, required IdentityAttributeValue value})? onCreateAttributePressed;
 
   const _CreateAttributePage({
     required this.accountId,
-    required this.initialValueType,
     required this.valueType,
     required this.renderHints,
     required this.valueHints,
@@ -260,7 +248,7 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             BottomSheetHeader(
-              onBackPressed: widget.initialValueType == null ? widget.onBackPressed : null,
+              onBackPressed: widget.onBackPressed,
               title: context.l10n.myData_createAttribute_title(translatedAttribute),
               canClose: true,
             ),
