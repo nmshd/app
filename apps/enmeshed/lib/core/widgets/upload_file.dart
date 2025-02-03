@@ -233,19 +233,15 @@ class _UploadFileState extends State<UploadFile> {
   bool validateEverything() => _selectedFile != null && isTitleValid && !_isFileTooLarge;
 
   Future<RepositoryAttributeDVO> _createFileReferenceAttribute(FileDVO file) async {
-    final createEnabledNotifier = ValueNotifier<bool>(false);
-
-    final fileReferenceResult = await createRepositoryAttribute(
-      accountId: widget.accountId,
-      context: context,
-      createEnabledNotifier: createEnabledNotifier,
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(
       value: IdentityFileReferenceAttributeValue(value: file.truncatedReference),
-      onAttributeCreated: () => createEnabledNotifier.value = true,
       tags: _tagController.text.isNotEmpty ? [_tagController.text] : null,
     );
 
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-    return (await session.expander.expandLocalAttributeDTO(fileReferenceResult!)) as RepositoryAttributeDVO;
+    // TODO(jkoenig134): error handling
+
+    return (await session.expander.expandLocalAttributeDTO(createAttributeResult.value)) as RepositoryAttributeDVO;
   }
 }
 
