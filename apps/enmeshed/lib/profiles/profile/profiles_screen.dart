@@ -147,16 +147,13 @@ class _CurrentProfileHeader extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              child: InkWell(
-                borderRadius: BorderRadius.circular(45),
-                onTap: editProfile,
-                child: ProfilePicture(
-                  radius: 60,
-                  profileName: selectedAccount.name,
-                  image: selectedAccountProfilePicture != null ? FileImage(selectedAccountProfilePicture!) : null,
-                  decorative: true,
-                ),
+            Center(
+              child: ProfilePicture(
+                radius: 60,
+                profileName: selectedAccount.name,
+                image: selectedAccountProfilePicture != null ? FileImage(selectedAccountProfilePicture!) : null,
+                decorative: true,
+                onPressed: editProfile,
               ),
             ),
           ],
