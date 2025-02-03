@@ -34,7 +34,6 @@
   "error_createAccount": "Ihr Profil konnte nicht erstellt werden. Bitte versuchen Sie es später erneut.",
   "error_createDevice": "Das Gerät konnte nicht erstellt werden. Bitte versuchen Sie es später erneut.",
   "error_couldNotOpenLink": "Der Link konnte nicht geöffnet werden.",
-  "error_createAttribute": "Es konnte keine neue Information angelegt werden.",
   "error_succeedAttribute": "Der Eintrag konnte nicht aktualisiert werden.",
   "error_deleteAttribute": "Der Eintrag konnte nicht gelöscht werden.",
   "error_changeFavoriteRepositoryAttribute": "Das Attribut konnte nicht favorisiert werden.",
