@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:styled_text/styled_text.dart';
 
-class BoltStyledText extends StatelessWidget {
+class BoldStyledText extends StatelessWidget {
   final String text;
   final TextStyle? style;
 
-  const BoltStyledText(this.text, {this.style, super.key});
+  const BoldStyledText(this.text, {this.style, super.key});
 
   @override
   Widget build(BuildContext context) {
