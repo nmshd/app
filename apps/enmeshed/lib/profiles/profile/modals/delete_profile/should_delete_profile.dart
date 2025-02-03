@@ -42,7 +42,7 @@ class ShouldDeleteProfile extends StatelessWidget {
             children: [
               const VectorGraphic(loader: AssetBytesLoader('assets/svg/confirm_profile_deletion.svg'), height: 160),
               Gaps.h24,
-              Text(context.l10n.profile_delete_confirmation(profileName)),
+              BoldStyledText(context.l10n.profile_delete_confirmation(profileName)),
               Gaps.h16,
               if (otherActiveDevices.isNotEmpty) ...[
                 Align(alignment: Alignment.centerLeft, child: Text(context.l10n.profile_delete_confirmation_devicesLeft)),

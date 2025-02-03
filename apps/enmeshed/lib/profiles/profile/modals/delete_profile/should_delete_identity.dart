@@ -44,7 +44,7 @@ class ShouldDeleteIdentity extends StatelessWidget {
             children: [
               const VectorGraphic(loader: AssetBytesLoader('assets/svg/confirm_identity_deletion.svg'), height: 160),
               Gaps.h24,
-              Text(context.l10n.identity_delete_confirmation(profileName, devices.where((e) => e.isOffboarded != true).length)),
+              BoldStyledText(context.l10n.identity_delete_confirmation(profileName, devices.where((e) => e.isOffboarded != true).length)),
               Gaps.h16,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
