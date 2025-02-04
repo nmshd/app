@@ -70,6 +70,7 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
 
   final _deleteFuture = ValueNotifier<Future<Result<dynamic>>?>(null);
   final _retryFunction = ValueNotifier<Future<Result<dynamic>> Function()?>(null);
+  final _notifyDeletion = ValueNotifier<void Function(BuildContext)?>(null);
 
   @override
   void dispose() {
@@ -131,6 +132,13 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
               };
 
               _deleteFuture.value = _retryFunction.value!();
+
+              _notifyDeletion.value = (BuildContext context) => showSuccessSnackbar(
+                    context: context,
+                    text: context.l10n.profile_delete_success(widget.localAccount.name),
+                    showCloseIcon: true,
+                  );
+
               setState(() {
                 _currentIndex = 3;
               });
@@ -143,19 +151,13 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
             delete: () {
               _deleteFuture.value = widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
               _retryFunction.value = widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess;
-              setState(() {
-                _currentIndex = 3;
-              });
-            },
-            deleteNow: () {
-              const minutesInDays = 0.25 / 1440;
 
-              _deleteFuture.value = widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
-                lengthOfGracePeriodInDays: minutesInDays,
-              );
-              _retryFunction.value = () => widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess(
-                    lengthOfGracePeriodInDays: minutesInDays,
+              _notifyDeletion.value = (BuildContext context) => showSuccessSnackbar(
+                    context: context,
+                    text: context.l10n.identity_delete_success(widget.localAccount.name),
+                    showCloseIcon: true,
                   );
+
               setState(() {
                 _currentIndex = 3;
               });
@@ -167,8 +169,8 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
             localAccount: widget.localAccount,
             deleteFuture: _deleteFuture,
             retryFunction: _retryFunction,
+            notifyDeletion: _notifyDeletion,
             inProgressText: context.l10n.profile_delete_inProgress,
-            successDescription: context.l10n.profile_delete_success,
           )
       },
     );

@@ -7,20 +7,19 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '/core/core.dart';
-import '../../widgets/profile_card.dart';
 
 class DeleteProfileAndChooseNext extends StatefulWidget {
   final LocalAccountDTO localAccount;
   final ValueNotifier<Future<Result<dynamic>>?> deleteFuture;
   final ValueNotifier<Future<Result<dynamic>> Function()?> retryFunction;
-  final String successDescription;
+  final ValueNotifier<void Function(BuildContext)?> notifyDeletion;
   final String inProgressText;
 
   const DeleteProfileAndChooseNext({
     required this.localAccount,
     required this.deleteFuture,
     required this.retryFunction,
-    required this.successDescription,
+    required this.notifyDeletion,
     required this.inProgressText,
     super.key,
   });
@@ -31,7 +30,6 @@ class DeleteProfileAndChooseNext extends StatefulWidget {
 
 class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext> {
   Exception? _exception;
-  List<LocalAccountDTO>? _accounts;
 
   @override
   void initState() {
@@ -50,8 +48,8 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
   Widget build(BuildContext context) {
     return ConditionalCloseable(
       canClose: false,
-      child: switch ((_exception, _accounts)) {
-        (Exception(), _) => _Error(
+      child: switch (_exception) {
+        Exception() => _Error(
             onRetry: () async {
               if (widget.retryFunction.value == null) return;
 
@@ -60,9 +58,7 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
               await _handleFuture(widget.retryFunction.value!());
             },
           ),
-        (_, null) => _Loading(inProgressText: widget.inProgressText),
-        (_, []) => const _Empty(),
-        (_, _) => _AccountsAvailable(accounts: _accounts!, successDescription: widget.successDescription),
+        _ => _Loading(inProgressText: widget.inProgressText),
       },
     );
   }
@@ -75,7 +71,7 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
           return;
         }
 
-        _loadAccounts();
+        _onProfileDeleted();
       }).onError(
         (error, stackTrace) {
           GetIt.I.get<Logger>().e('Failed to delete account $error');
@@ -83,12 +79,26 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
         },
       );
 
-  Future<void> _loadAccounts() async {
+  Future<void> _onProfileDeleted() async {
     final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccountsNotInDeletion();
 
     accounts.sort((a, b) => a.name.compareTo(b.name));
 
-    if (mounted) setState(() => _accounts = accounts);
+    if (!mounted) return;
+
+    widget.notifyDeletion.value?.call(context);
+
+    if (accounts.isEmpty) {
+      context.go('/onboarding?skipIntroduction=true');
+      return;
+    }
+
+    final account = accounts.first;
+
+    context.go('/account/${account.id}');
+    await context.push('/profiles');
+
+    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
   }
 }
 
@@ -151,74 +161,5 @@ class _Loading extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _Empty extends StatelessWidget {
-  const _Empty();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, top: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.success),
-          Gaps.h24,
-          Text(context.l10n.profile_delete_success_noProfilesAvailable, style: Theme.of(context).textTheme.bodyMedium),
-          Gaps.h24,
-          Align(
-            alignment: Alignment.centerRight,
-            child: OutlinedButton(
-              onPressed: () => context.go('/onboarding?skipIntroduction=true'),
-              child: Text(context.l10n.profile_delete_success_noProfilesAvailable_okay),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _AccountsAvailable extends StatelessWidget {
-  final List<LocalAccountDTO> accounts;
-  final String successDescription;
-
-  const _AccountsAvailable({required this.accounts, required this.successDescription});
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, top: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 24),
-        child: Column(
-          children: [
-            Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.success),
-            Gaps.h24,
-            Text(successDescription, style: Theme.of(context).textTheme.bodyMedium),
-            Gaps.h24,
-            Column(
-              spacing: 8,
-              children: accounts.map((e) => ProfileCard(account: e, onAccountSelected: (_) => _onAccountSelected(e, context))).toList(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _onAccountSelected(LocalAccountDTO account, BuildContext context) async {
-    showSuccessSnackbar(
-      context: context,
-      // TODO: change text to "is now in deletion"
-      text: context.l10n.profiles_switchedToProfile(account.name),
-      showCloseIcon: true,
-    );
-
-    context.go('/account/${account.id}');
-    await context.push('/profiles');
-
-    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
   }
 }

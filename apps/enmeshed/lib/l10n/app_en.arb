@@ -172,6 +172,14 @@
       }
     }
   },
+  "identity_delete_success": "The profile {profileName} is now in deletion.",
+  "@identity_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
   "identities_in_deletion": "Profiles in deletion",
   "identity_restore_cancel": "No, cancel",
   "identity_restore_confirm": "Yes, activate",
@@ -215,7 +223,14 @@
   "profile_delete_cancel": "No, cancel",
   "profile_delete_confirm": "Yes, remove",
   "profile_delete_inProgress": "Deleting the profile.",
-  "profile_delete_success": "The profile has been deleted.\nPlease select another profile to continue.",
+  "profile_delete_success": "The profile {profileName} has been removed from this device.",
+  "@profile_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
   "profile_delete_confirmation": "Do you really want to remove the <bold>{profileName}</bold> profile from this device? You can no longer access it from this device.",
   "@profile_delete_confirmation": {
     "placeholders": {

@@ -172,6 +172,14 @@
       }
     }
   },
+  "identity_delete_success": "Das Profil {profileName} befindet sich nun in Löschung.",
+  "@identity_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
   "identities_in_deletion": "Profile in Löschung",
   "identity_restore_cancel": "Nein, abbrechen",
   "identity_restore_confirm": "Ja, aktivieren",
@@ -215,7 +223,14 @@
   "profile_delete_cancel": "Nein, abbrechen",
   "profile_delete_confirm": "Ja, entfernen",
   "profile_delete_inProgress": "Das Profil wird gelöscht.",
-  "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wählen Sie aus mit welchem Profil Sie jetzt fortfahren möchten.",
+  "profile_delete_success": "Das Profil {profileName} wurde von diesem Gerät entfernt.",
+  "@profile_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
   "profile_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> wirklich von diesem Gerät entfernen? Sie können von diesem Gerät nicht mehr darauf zugreifen.",
   "@profile_delete_confirmation": {
     "placeholders": {
