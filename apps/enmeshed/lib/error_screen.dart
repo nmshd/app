@@ -45,32 +45,11 @@ class ErrorScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  FilledButton(
-                    onPressed: () async {
-                      final result = await launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'));
-                      if (!result && context.mounted) {
-                        await showDialog<void>(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            insetPadding: const EdgeInsets.all(24),
-                            icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
-                            title: Text(context.l10n.error_openMailApp),
-                            content: Text(context.l10n.error_openMailApp_description, textAlign: TextAlign.center),
-                            actions: [FilledButton(onPressed: () => context.pop(true), child: Text(context.l10n.back))],
-                            actionsAlignment: MainAxisAlignment.center,
-                          ),
-                        );
-                      }
-                    },
+                  FilledButton.icon(
+                    onPressed: () => _supportButtonPressed(context),
                     style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.mail_outline, color: contentColor),
-                        Gaps.w8,
-                        Text(context.l10n.error_supportButton, style: TextStyle(color: contentColor)),
-                      ],
-                    ),
+                    label: Text(context.l10n.error_supportButton, style: TextStyle(color: contentColor)),
+                    icon: Icon(Icons.mail_outline, color: contentColor),
                   ),
                   Gaps.h16,
                   FilledButton(onPressed: () => context.go('/splash'), child: Text(context.l10n.tryAgain)),
@@ -81,5 +60,22 @@ class ErrorScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _supportButtonPressed(BuildContext context) async {
+    final result = await launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'));
+    if (!result && context.mounted) {
+      await showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          insetPadding: const EdgeInsets.all(24),
+          icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+          title: Text(context.l10n.error_openMailApp),
+          content: Text(context.l10n.error_openMailApp_description, textAlign: TextAlign.center),
+          actions: [FilledButton(onPressed: () => context.pop(true), child: Text(context.l10n.back))],
+          actionsAlignment: MainAxisAlignment.center,
+        ),
+      );
+    }
   }
 }
