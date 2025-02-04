@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class BottomSheetHeader extends StatelessWidget {
-  final VoidCallback? onBackPressed;
   final String title;
+  final VoidCallback? onBackPressed;
   final bool canClose;
 
   const BottomSheetHeader({
-    this.onBackPressed,
     required this.title,
-    required this.canClose,
+    this.onBackPressed,
+    this.canClose = true,
     super.key,
   });
 
