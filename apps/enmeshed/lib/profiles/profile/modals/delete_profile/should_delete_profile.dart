@@ -46,11 +46,30 @@ class ShouldDeleteProfile extends StatelessWidget {
               Gaps.h16,
               if (otherActiveDevices.isNotEmpty) ...[
                 Align(alignment: Alignment.centerLeft, child: Text(context.l10n.profile_delete_confirmation_devicesLeft)),
-                Gaps.h4,
-                Wrap(spacing: 8, children: otherActiveDevices.map((e) => Chip(label: Text(e.name))).toList()),
+                Gaps.h16,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Wrap(
+                    spacing: 8,
+                    children: otherActiveDevices
+                        .map(
+                          (e) => Chip(
+                            label: Text(e.name),
+                            color: WidgetStatePropertyAll(Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.12)),
+                            labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            padding: const EdgeInsets.all(4),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              side: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
               ] else
                 Align(alignment: Alignment.centerLeft, child: Text(context.l10n.profile_delete_confirmation_lastDevice)),
-              Gaps.h16,
+              Gaps.h24,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
