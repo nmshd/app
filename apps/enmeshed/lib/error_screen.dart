@@ -47,7 +47,7 @@ class ErrorScreen extends StatelessWidget {
                 children: [
                   FilledButton(
                     onPressed: () async {
-                      final result = await launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'), mode: LaunchMode.externalApplication);
+                      final result = await launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'));
                       if (!result && context.mounted) {
                         await showDialog<void>(
                           context: context,
