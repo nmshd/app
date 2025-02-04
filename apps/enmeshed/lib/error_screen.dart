@@ -49,7 +49,7 @@ class ErrorScreen extends StatelessWidget {
                     onPressed: () async {
                       final result = await launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'), mode: LaunchMode.externalApplication);
                       if (!result && context.mounted) {
-                        await showDialog<bool>(
+                        await showDialog<void>(
                           context: context,
                           builder: (context) => AlertDialog(
                             insetPadding: const EdgeInsets.all(24),
