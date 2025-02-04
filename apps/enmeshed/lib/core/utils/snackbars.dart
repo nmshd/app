@@ -43,7 +43,7 @@ void showSuccessSnackbar({required BuildContext context, required String text, b
             child: Center(child: Icon(Icons.check, color: context.customColors.onSuccess, size: 20)),
           ),
           Gaps.w8,
-          Expanded(child: Text(text)),
+          Expanded(child: BoldStyledText(text)),
         ],
       ),
     ),

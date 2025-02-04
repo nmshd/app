@@ -243,7 +243,7 @@ class _DeviceInstructions extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('$itemNumber. ', style: textStyle),
-                  Expanded(child: Text(instructions.elementAt(index), style: textStyle)),
+                  Expanded(child: BoldStyledText(instructions.elementAt(index), style: textStyle)),
                 ],
               );
             },

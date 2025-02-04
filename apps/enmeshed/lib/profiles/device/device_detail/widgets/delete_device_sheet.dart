@@ -84,7 +84,7 @@ class _DeleteDevice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(context.l10n.devices_delete_fromApp(device.name)),
+        BoldStyledText(context.l10n.devices_delete_fromApp(device.name)),
         Gaps.h48,
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
