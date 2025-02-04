@@ -34,7 +34,10 @@ class ErrorScreen extends StatelessWidget {
               ),
             ),
             Gaps.h32,
-            Text(textAlign: TextAlign.center, context.l10n.error_general),
+            Text(
+              textAlign: TextAlign.center,
+              backboneNotAvailable ? context.l10n.error_backboneNotAvailable_description : context.l10n.error_general,
+            ),
             Gaps.h32,
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
@@ -45,15 +48,16 @@ class ErrorScreen extends StatelessWidget {
                     onPressed: () async {
                       final result = await launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'), mode: LaunchMode.externalApplication);
                       if (!result && context.mounted) {
-                        // TODO(nicole-eb): update ui
-                        await showDialog<void>(
+                        await showDialog<bool>(
                           context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
-                              content: Text(context.l10n.errorDialog_description),
-                            );
-                          },
+                          builder: (context) => AlertDialog(
+                            insetPadding: const EdgeInsets.all(24),
+                            icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+                            title: Text(context.l10n.error_openMailApp),
+                            content: Text(context.l10n.error_openMailApp_description, textAlign: TextAlign.center),
+                            actions: [FilledButton(onPressed: () => context.pop(true), child: Text(context.l10n.back))],
+                            actionsAlignment: MainAxisAlignment.center,
+                          ),
                         );
                       }
                     },
