@@ -157,11 +157,11 @@
       }
     }
   },
-  "profile_or_identity_deletion": "Would you like to logout your profile from this device or delete your entire profile with all stored data and documents from the Enmeshed platform?",
+  "profile_or_identity_deletion": "Would you like to remove your profile from this device or delete your entire profile with all stored data and documents from the enmeshed platform?",
   "profile_or_identity_deletion_oneDevice": "This profile is only available via this device. Therefore, no distinction is made between removing a profile from the device and deleting a profile. You can only delete your entire profile.",
   "identity_delete_cancel": "No, cancel",
   "identity_delete_confirm": "Yes, delete",
-  "identity_delete_confirmation": "Would you like to delete the <bold>{profileName}</bold> profile and all the data, contacts and documents it contains? It will be removed from all your connected devices ({devices})",
+  "identity_delete_confirmation": "Would you like to delete the profile <bold>{profileName}</bold> and all the data, contacts and documents it contains? The profile will be marked for deletion; you can no longer reactivate the profile after the deletion period has expired. It will be removed from all your connected devices ({devices}) after the deletion period.",
   "@identity_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -216,9 +216,7 @@
   "profile_delete_confirm": "Yes, remove",
   "profile_delete_inProgress": "Deleting the profile.",
   "profile_delete_success": "The profile has been deleted.\nPlease select another profile to continue.",
-  "profile_delete_success_noProfilesAvailable": "The profile has been deleted. All your data has been removed from this device.",
-  "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Do you really want to delete the profile <bold>{profileName}</bold>? It will be permanently deleted from this device.",
+  "profile_delete_confirmation": "Do you really want to remove the <bold>{profileName}</bold> profile from this device? You can no longer access it from this device.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -227,7 +225,7 @@
     }
   },
   "profile_delete_confirmation_lastDevice": "As your profile only exists on this device, it will be irrevocably deleted.",
-  "profile_delete_confirmation_devicesLeft": "You can still access your profile data on your following connected devices:",
+  "profile_delete_confirmation_devicesLeft": "The profile remains available on the enmeshed platform and you can continue to access it from the following linked devices:",
   "profile_delete_error": "An error occurred while deleting the profile. Please try again.",
   "profile_delete_error_cancel": "Cancel",
   "profile_delete_error_retry": "Retry",
@@ -397,7 +395,7 @@
       }
     }
   },
-  "contactDetail_deletedTitle": "The contact no longer exists or is no longer part of \"Enmeshed\".",
+  "contactDetail_deletedTitle": "The contact no longer exists or is no longer part of \"enmeshed\".",
   "contactDetail_terminatedTitle": "The contact has terminated the contact relationship with you.",
   "contactDetail_terminatedDescription1": "If you also want to end the relationship, you can delete the contact.",
   "contactDetail_description1": "You can keep the contact in your contact list, but it is no longer possible to exchange information with the contact.",

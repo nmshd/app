@@ -157,11 +157,11 @@
       }
     }
   },
-  "profile_or_identity_deletion": "Möchten Sie Ihr Profil von diesem Gerät abmelden oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten von der Enmeshed-Plattform löschen?",
+  "profile_or_identity_deletion": "Möchten Sie Ihr Profil von diesem Gerät entfernen oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten von der enmeshed-Plattform löschen?",
   "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschließlich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen Profil von Gerät entfernen und Profil löschen. Sie können nur Ihr gesamtes Profil löschen.",
   "identity_delete_cancel": "Nein, abbrechen",
   "identity_delete_confirm": "Ja, löschen",
-  "identity_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Es wird von allen Ihren verbundenen Geräten ({devices}) entfernt.",
+  "identity_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Das Profil wird für die Löschung vorgemerkt, Sie können das Profil nach Ablauf der Löschfrist nicht mehr reaktivieren. Es wird nach der Löschfrist von allen Ihren verbundenen Geräten ({devices}) entfernt.",
   "@identity_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -216,9 +216,7 @@
   "profile_delete_confirm": "Ja, entfernen",
   "profile_delete_inProgress": "Das Profil wird gelöscht.",
   "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wählen Sie aus mit welchem Profil Sie jetzt fortfahren möchten.",
-  "profile_delete_success_noProfilesAvailable": "Das Profil wurde gelöscht. Alle Ihre Daten wurden aus der App entfernt.",
-  "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> wirklich löschen? Es wird permanent von diesem Gerät gelöscht.",
+  "profile_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> wirklich von diesem Gerät entfernen? Sie können von diesem Gerät nicht mehr darauf zugreifen.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -227,7 +225,7 @@
     }
   },
   "profile_delete_confirmation_lastDevice": "Da Ihr Profil nur auf diesem Gerät existiert, wird es unwiderruflich gelöscht.",
-  "profile_delete_confirmation_devicesLeft": "Sie können auf Ihren folgenden verknüpften Geräten weiterhin auf Ihre Profilddaten zugreifen:",
+  "profile_delete_confirmation_devicesLeft": "Das Profil bleibt auf der enmeshed-Plattform verfügbar und Sie können von den folgenden verknüpften Geräten weiterhin darauf zugreifen:",
   "profile_delete_error": "Beim Löschen des Profils ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
   "profile_delete_error_cancel": "Abbrechen",
   "profile_delete_error_retry": "Nochmal versuchen",
@@ -397,7 +395,7 @@
       }
     }
   },
-  "contactDetail_deletedTitle": "Der Kontakt existiert nicht mehr oder ist nicht mehr Teil von \"Enmeshed\".",
+  "contactDetail_deletedTitle": "Der Kontakt existiert nicht mehr oder ist nicht mehr Teil von \"enmeshed\".",
   "contactDetail_terminatedTitle": "Der Kontakt hat die Kontaktbeziehung zu Ihnen beendet.",
   "contactDetail_terminatedDescription1": "Wenn Sie die Beziehung ebenfalls beenden möchten können Sie den Kontakt löschen.",
   "contactDetail_description1": "Sie können den Kontakt in Ihrer Kontaktliste behalten, ein Austausch mit dem Kontakt ist jedoch nicht mehr möglich.",
