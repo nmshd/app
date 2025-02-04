@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import '/core/core.dart';
 import 'delete_profile_and_choose_next.dart';
 import 'delete_profile_or_identity.dart';
+import 'deletion_type.dart';
 import 'should_delete_identity.dart';
 import 'should_delete_profile.dart';
 
@@ -68,17 +69,7 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
   int _lastIndex = 0;
   int _index = 0;
 
-  final _deleteFuture = ValueNotifier<Future<Result<dynamic>>?>(null);
-  final _retryFunction = ValueNotifier<Future<Result<dynamic>> Function()?>(null);
-  final _notifyDeletion = ValueNotifier<void Function(BuildContext)?>(null);
-
-  @override
-  void dispose() {
-    _deleteFuture.dispose();
-    _retryFunction.dispose();
-
-    super.dispose();
-  }
+  late final DeletionType _deletionType;
 
   @override
   Widget build(BuildContext context) {
@@ -116,60 +107,26 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
           ),
         1 => ShouldDeleteProfile(
             cancel: () => setState(() => _currentIndex = 0),
-            delete: () {
-              _retryFunction.value = () async {
-                try {
-                  await GetIt.I.get<EnmeshedRuntime>().accountServices.offboardAccount(widget.localAccount.id);
-                  return Result.success(null);
-                } catch (e) {
-                  return Result.failure(
-                    RuntimeError(
-                      message: e.toString(),
-                      code: 'identity.deletion.failed',
-                    ),
-                  );
-                }
-              };
-
-              _deleteFuture.value = _retryFunction.value!();
-
-              _notifyDeletion.value = (BuildContext context) => showSuccessSnackbar(
-                    context: context,
-                    text: context.l10n.profile_delete_success(widget.localAccount.name),
-                    showCloseIcon: true,
-                  );
-
-              setState(() {
-                _currentIndex = 3;
-              });
-            },
+            delete: () => setState(() {
+              _deletionType = DeletionType.profile;
+              _currentIndex = 3;
+            }),
             profileName: widget.localAccount.name,
             otherActiveDevices: widget.otherActiveDevices,
           ),
         2 => ShouldDeleteIdentity(
             cancel: () => setState(() => _currentIndex = 0),
-            delete: () {
-              _deleteFuture.value = widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
-              _retryFunction.value = widget.session.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess;
-
-              _notifyDeletion.value = (BuildContext context) => showSuccessSnackbar(
-                    context: context,
-                    text: context.l10n.identity_delete_success(widget.localAccount.name),
-                    showCloseIcon: true,
-                  );
-
-              setState(() {
-                _currentIndex = 3;
-              });
-            },
+            delete: () => setState(() {
+              _deletionType = DeletionType.identity;
+              _currentIndex = 3;
+            }),
             profileName: widget.localAccount.name,
             devices: widget.devices,
           ),
         _ => DeleteProfileAndChooseNext(
+            session: widget.session,
             localAccount: widget.localAccount,
-            deleteFuture: _deleteFuture,
-            retryFunction: _retryFunction,
-            notifyDeletion: _notifyDeletion,
+            deletionType: _deletionType,
             inProgressText: context.l10n.profile_delete_inProgress,
           )
       },
