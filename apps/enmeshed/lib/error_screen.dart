@@ -44,6 +44,19 @@ class ErrorScreen extends StatelessWidget {
                   FilledButton(
                     onPressed: () async {
                       final result = await launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'), mode: LaunchMode.externalApplication);
+                      if (!result && context.mounted) {
+                        // TODO(nicole-eb): update ui
+                        await showDialog<void>(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
+                              content: Text(context.l10n.errorDialog_description),
+                            );
+                          },
+                        );
+                      }
+                    },
                     style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
