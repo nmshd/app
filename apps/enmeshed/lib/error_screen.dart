@@ -13,8 +13,6 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final contentColor = Theme.of(context).colorScheme.onSecondaryContainer;
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -47,9 +45,9 @@ class ErrorScreen extends StatelessWidget {
                 children: [
                   FilledButton.icon(
                     onPressed: () => _supportButtonPressed(context),
-                    style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
-                    label: Text(context.l10n.error_supportButton, style: TextStyle(color: contentColor)),
-                    icon: Icon(Icons.mail_outline, color: contentColor),
+                    style: FilledButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.secondaryContainer),
+                    label: Text(context.l10n.error_supportButton, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
+                    icon: Icon(Icons.mail_outline, color: Theme.of(context).colorScheme.onSecondaryContainer),
                   ),
                   Gaps.h16,
                   FilledButton(onPressed: () => context.go('/splash'), child: Text(context.l10n.tryAgain)),
