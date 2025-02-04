@@ -70,7 +70,7 @@ class ErrorScreen extends StatelessWidget {
           icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
           title: Text(context.l10n.error_openMailApp),
           content: Text(context.l10n.error_openMailApp_description, textAlign: TextAlign.center),
-          actions: [FilledButton(onPressed: () => context.pop(true), child: Text(context.l10n.back))],
+          actions: [FilledButton(onPressed: () => context.pop(true), child: Text(context.l10n.error_understood))],
           actionsAlignment: MainAxisAlignment.center,
         ),
       );
