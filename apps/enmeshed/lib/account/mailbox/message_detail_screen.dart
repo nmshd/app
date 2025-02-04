@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:intl/intl.dart';
+import 'package:styled_text/styled_text.dart';
+import 'package:url_launcher/url_launcher_string.dart' as url_launcher;
 
 import '/core/core.dart';
 import 'send_mail_screen/widgets/attachments_list.dart';
@@ -171,13 +173,31 @@ class _MailInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final body = message.body.replaceAll(CustomRegExp.html, '').replaceAllMapped(
+          RegExp(r'(https?:\/\/[^\s\\]+)'),
+          (match) => '<link>${match.group(1)}</link>',
+        );
+
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Text(
-        message.body.replaceAll(CustomRegExp.html, ''),
+      child: StyledText(
+        text: body,
         style: Theme.of(context).textTheme.bodyLarge,
+        tags: {
+          'link': StyledTextActionTag(
+            (link, _) => _launchUrl(link!),
+            style: const TextStyle(decoration: TextDecoration.underline),
+          ),
+        },
       ),
     );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    final canLaunch = await url_launcher.canLaunchUrlString(url);
+    if (!canLaunch) return;
+
+    await url_launcher.launchUrlString(url);
   }
 }
 
