@@ -31,7 +31,7 @@ Future<void> showDeleteProfileOrIdentityModal({
     context: context,
     isScrollControlled: true,
     builder: (context) => ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
       child: _DeleteProfileOrIdentityModal(
         localAccount: localAccount,
         otherActiveDevices: otherActiveDevices,
