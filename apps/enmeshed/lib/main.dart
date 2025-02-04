@@ -130,7 +130,7 @@ final _router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/error',
+      path: '/error-dialog',
       pageBuilder: (context, state) => DialogPage(
         builder: (context) => AlertDialog(
           title: Text(context.l10n.error),
@@ -140,7 +140,7 @@ final _router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/general-error',
+      path: '/error',
       builder: (context, state) => ErrorScreen(backboneNotAvailable: state.uri.queryParameters['backboneNotAvailable'] == 'true'),
     ),
     GoRoute(
