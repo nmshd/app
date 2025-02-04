@@ -88,15 +88,11 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                   if (_isEditable) IconButton(onPressed: _onEditFilePressed, icon: const Icon(Icons.edit_outlined, size: 24)),
                   IconButton(
                     onPressed: _isLoadingFile || DateTime.parse(_fileDVO.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
-                    icon: _isLoadingFile
-                        ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator())
-                        : const Icon(Icons.file_download, size: 24),
+                    icon: _isLoadingFile ? const _LoadingIndicator() : const Icon(Icons.file_download, size: 24),
                   ),
                   IconButton(
                     onPressed: _isOpeningFile || DateTime.parse(_fileDVO.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
-                    icon: _isOpeningFile
-                        ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator())
-                        : const Icon(Icons.open_with, size: 24),
+                    icon: _isOpeningFile ? const _LoadingIndicator() : const Icon(Icons.open_with, size: 24),
                   ),
                 ],
               ),
@@ -185,4 +181,11 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
       ),
     );
   }
+}
+
+class _LoadingIndicator extends StatelessWidget {
+  const _LoadingIndicator();
+
+  @override
+  Widget build(BuildContext context) => const SizedBox(width: 24, height: 24, child: CircularProgressIndicator());
 }
