@@ -1,9 +1,10 @@
-import 'package:enmeshed/core/utils/extensions.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vector_graphics/vector_graphics.dart';
+
+import '/core/utils/extensions.dart';
 
 class ErrorScreen extends StatelessWidget {
   final bool backboneNotAvailable;
