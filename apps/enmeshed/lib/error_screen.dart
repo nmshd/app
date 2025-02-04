@@ -15,12 +15,10 @@ class ErrorScreen extends StatelessWidget {
     final contentColor = Theme.of(context).colorScheme.onSecondaryContainer;
 
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.home_title), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (backboneNotAvailable)
               Padding(
@@ -31,27 +29,36 @@ class ErrorScreen extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: VectorGraphic(
-                loader: AssetBytesLoader(backboneNotAvailable ? 'assets/svg/backbone_error.svg' : 'assets/svg/general_error.svg'),
                 height: 160,
+                loader: AssetBytesLoader(backboneNotAvailable ? 'assets/svg/backbone_error.svg' : 'assets/svg/general_error.svg'),
               ),
             ),
             Gaps.h32,
             Text(textAlign: TextAlign.center, context.l10n.error_general),
-            Gaps.h24,
-            FilledButton(
-              onPressed: () => launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'), mode: LaunchMode.externalApplication),
-              style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            Gaps.h32,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Icon(Icons.mail_outline, color: contentColor),
-                  Gaps.w8,
-                  Text(context.l10n.error_supportButton, style: TextStyle(color: contentColor)),
+                  FilledButton(
+                    onPressed: () async {
+                      final result = await launchUrl(Uri.parse('mailto:enmeshed.support@js-soft.com'), mode: LaunchMode.externalApplication);
+                    style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.mail_outline, color: contentColor),
+                        Gaps.w8,
+                        Text(context.l10n.error_supportButton, style: TextStyle(color: contentColor)),
+                      ],
+                    ),
+                  ),
+                  Gaps.h16,
+                  FilledButton(onPressed: () => context.go('/splash'), child: Text(context.l10n.tryAgain)),
                 ],
               ),
             ),
-            Gaps.h16,
-            FilledButton(onPressed: () => context.go('/splash'), child: Text(context.l10n.tryAgain)),
           ],
         ),
       ),
