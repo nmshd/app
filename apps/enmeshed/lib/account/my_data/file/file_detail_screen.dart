@@ -1,4 +1,3 @@
-import 'package:enmeshed/account/my_data/file/widgets/selected_tags_section.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -7,8 +6,7 @@ import 'package:get_it/get_it.dart';
 
 import '/core/core.dart';
 import 'modals/edit_file.dart';
-import 'widgets/file_info_container.dart';
-import 'widgets/file_tags_container.dart';
+import 'widgets/widgets.dart';
 
 class FileDetailScreen extends StatefulWidget {
   final String accountId;
@@ -85,18 +83,15 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
               FileInfoContainer(createdBy: _fileDVO.createdBy.name, createdAt: _fileDVO.createdAt),
               Gaps.h32,
               Row(
+                spacing: 8,
                 children: [
-                  if (_isEditable) ...[
-                    IconButton(onPressed: _onEditFilePressed, icon: const Icon(Icons.edit_outlined, size: 24)),
-                    Gaps.w8,
-                  ],
+                  if (_isEditable) IconButton(onPressed: _onEditFilePressed, icon: const Icon(Icons.edit_outlined, size: 24)),
                   IconButton(
                     onPressed: _isLoadingFile || DateTime.parse(_fileDVO.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
                     icon: _isLoadingFile
                         ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator())
                         : const Icon(Icons.file_download, size: 24),
                   ),
-                  Gaps.w8,
                   IconButton(
                     onPressed: _isOpeningFile || DateTime.parse(_fileDVO.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
                     icon: _isOpeningFile
@@ -136,15 +131,15 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   }
 
   Future<void> _loadTags({String? attributeId}) async {
-    if (_fileReferenceAttribute != null) {
-      final response = await _session.consumptionServices.attributes.getAttribute(attributeId: attributeId ?? _fileReferenceAttribute!.id);
-      final expanded = await _session.expander.expandLocalAttributeDTO(response.value);
+    if (_fileReferenceAttribute == null) return;
 
-      setState(() {
-        _tags = expanded.tags;
-        _fileReferenceAttribute = expanded;
-      });
-    }
+    final response = await _session.consumptionServices.attributes.getAttribute(attributeId: attributeId ?? _fileReferenceAttribute!.id);
+    final expanded = await _session.expander.expandLocalAttributeDTO(response.value);
+
+    setState(() {
+      _tags = expanded.tags;
+      _fileReferenceAttribute = expanded;
+    });
   }
 
   Future<void> _downloadAndSaveFile() async {
