@@ -161,7 +161,7 @@ class _SelectValueTypePage extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BottomSheetHeader(title: context.l10n.myData_createInformation, canClose: true),
+          BottomSheetHeader(title: context.l10n.myData_createInformation),
           _EditableAttributes(accountId: accountId, goToNextPage: onValueTypeSelected),
         ],
       ),
@@ -248,7 +248,6 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
           BottomSheetHeader(
             onBackPressed: widget.onBackPressed,
             title: context.l10n.myData_createAttribute_title(translatedAttribute),
-            canClose: true,
           ),
           Flexible(
             child: SingleChildScrollView(

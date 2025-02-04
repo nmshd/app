@@ -70,13 +70,13 @@ class _DeleteConfirmationState extends State<_DeleteConfirmation> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: isShared
-                ? BoltStyledText(
+                ? BoldStyledText(
                     context.l10n.personalData_details_deleteDescriptionShared(
                       widget.attribute.sharedWith.length,
                       _getDisplayValue(context, widget.attribute.value),
                     ),
                   )
-                : BoltStyledText(context.l10n.personalData_details_deleteDescription(_getDisplayValue(context, widget.attribute.value))),
+                : BoldStyledText(context.l10n.personalData_details_deleteDescription(_getDisplayValue(context, widget.attribute.value))),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24).add(EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom)),

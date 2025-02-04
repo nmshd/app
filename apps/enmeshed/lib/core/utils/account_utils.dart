@@ -21,7 +21,8 @@ Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO
 
   if (context.mounted) {
     context.go('/account/${account.id}');
+    showSuccessSnackbar(context: context, text: context.l10n.identity_restore_successful(account.name), showCloseIcon: true);
 
-    showSuccessSnackbar(context: context, text: context.l10n.identity_delete_activated_and_switchedToProfile(account.name), showCloseIcon: true);
+    await context.push('/profiles');
   }
 }

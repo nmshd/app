@@ -122,7 +122,7 @@ Future<void> showDownloadFileErrorDialog(BuildContext context) async {
 Future<bool> showDeleteRelationshipConfirmationDialog(BuildContext context, {required String contactName, required String content}) async {
   return showConfirmationDialog(
     context,
-    title: Text(
+    title: BoldStyledText(
       contactName == unknownContactName ? context.l10n.contacts_delete_title_unknown : context.l10n.contacts_delete_title(contactName),
       style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.onPrimaryContainer),
     ),

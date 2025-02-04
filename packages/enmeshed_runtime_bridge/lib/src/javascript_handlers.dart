@@ -15,6 +15,9 @@ import 'ui_bridge.dart';
 Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus, Logger logger) async {
   final payload = args[0];
 
+  // do not handle events without eventTargetAddress, because they are used for internal stuff
+  if (payload['eventTargetAddress'] == null) return;
+
   final eventTargetAddress = payload['eventTargetAddress'] as String;
 
   final namespace = payload['namespace'];

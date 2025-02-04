@@ -155,7 +155,7 @@
   "profiles_additionalProfiles": "Additional profiles",
   "profiles_add": "Add",
   "profiles_noAdditionalProfiles": "You can create different profiles for different roles or other people and switch between them.",
-  "profiles_switchedToProfile": "Switched to profile \"{profileName}\".",
+  "profiles_switchedToProfile": "Switched to profile <bold>{profileName}</bold>.",
   "@profiles_switchedToProfile": {
     "placeholders": {
       "profileName": {
@@ -163,11 +163,11 @@
       }
     }
   },
-  "profile_or_identity_deletion": "Would you like to remove your profile from this device only (i.e. log the device out of the profile) or delete your entire profile with all stored data and documents?",
-  "profile_or_identity_deletion_oneDevice": "This profile is only available via this device. For this reason, no distinction is made between \"Remove profile from device\" and \"Delete profile\". You can only delete your entire profile.",
+  "profile_or_identity_deletion": "Would you like to remove your profile from this device or delete your entire profile with all stored data and documents from the enmeshed platform?",
+  "profile_or_identity_deletion_oneDevice": "This profile is only available via this device. Therefore, no distinction is made between removing a profile from the device and deleting a profile. You can only delete your entire profile.",
   "identity_delete_cancel": "No, cancel",
   "identity_delete_confirm": "Yes, delete",
-  "identity_delete_confirmation": "Would you like to delete the \"{profileName}\" profile and all the data, contacts and documents it contains? It will be removed from all your connected devices ({devices})",
+  "identity_delete_confirmation": "Would you like to delete the profile <bold>{profileName}</bold> and all the data, contacts and documents it contains? The profile will be marked for deletion; you can no longer reactivate the profile after the deletion period has expired. It will be removed from all your connected devices ({devices}) after the deletion period.",
   "@identity_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -178,25 +178,31 @@
       }
     }
   },
+  "identity_delete_success": "The profile <bold>{profileName}</bold> is now in deletion.",
+  "@identity_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
   "identities_in_deletion": "Profiles in deletion",
-  "identity_restore_cancel": "No, cancel",
-  "identity_restore_confirm": "Yes, activate",
-  "identity_restore_description": "Would you like to restore and activate the profile?",
-  "identity_restore_title": "Your Profile is in deletion.",
-  "identity_reactivate_description": "You can still restore and activate your profile \"{profileName}\" until {deletionDate}.",
-  "@identity_reactivate_description": {
+  "identity_restore_confirm": "Restore",
+  "identity_restore_title": "Restore profile",
+  "identity_restore_description": "Would you like to restore and continue using the <bold>{profileName}</bold> profile that was in deletion? This is still possible until {deletionDate}.",
+  "@identity_restore_description": {
     "placeholders": {
       "profileName": {
         "type": "String"
       },
       "deletionDate": {
         "type": "DateTime",
-        "format": "yMMMd"
+        "format": "yMd"
       }
     }
   },
-  "identity_delete_activated_and_switchedToProfile": "Profile \"{profileName}\" activated and selected.",
-  "@identity_delete_activated_and_switchedToProfile": {
+  "identity_restore_successful": "The Profile <bold>{profileName}</bold> has been successfully restored.",
+  "@identity_restore_successful": {
     "placeholders": {
       "profileName": {
         "type": "String"
@@ -221,10 +227,15 @@
   "profile_delete_cancel": "No, cancel",
   "profile_delete_confirm": "Yes, remove",
   "profile_delete_inProgress": "Deleting the profile.",
-  "profile_delete_success": "The profile has been deleted.\nPlease select another profile to continue.",
-  "profile_delete_success_noProfilesAvailable": "The profile has been deleted. All your data has been removed from this device.",
-  "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Do you really want to delete the profile \"{profileName}\"? It will be permanently deleted from this device.",
+  "profile_delete_success": "The profile <bold>{profileName}</bold> has been removed from this device.",
+  "@profile_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "profile_delete_confirmation": "Do you really want to remove the <bold>{profileName}</bold> profile from this device? You can no longer access it from this device.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -233,7 +244,7 @@
     }
   },
   "profile_delete_confirmation_lastDevice": "As your profile only exists on this device, it will be irrevocably deleted.",
-  "profile_delete_confirmation_devicesLeft": "You can still access your profile data on your following connected devices:",
+  "profile_delete_confirmation_devicesLeft": "The profile remains available on the enmeshed platform and you can continue to access it from the following linked devices:",
   "profile_delete_error": "An error occurred while deleting the profile. Please try again.",
   "profile_delete_error_cancel": "Cancel",
   "profile_delete_error_retry": "Retry",
@@ -249,7 +260,7 @@
   "profile_deletePhoto": "Remove",
   "profile_editPhoto": "Change",
   "devices_title": "Manage Devices",
-  "devices_description": "Your \"{profileName}\" profile is shared with the following devices. If you want to end synchronisation with one of the devices, remove it from the list.",
+  "devices_description": "Your <bold>{profileName}</bold> profile is shared with the following devices. If you want to end synchronisation with one of the devices, remove it from the list.",
   "@devices_description": {
     "placeholders": {
       "profileName": {
@@ -279,7 +290,7 @@
   "devices_code_copy": "Copy URL link",
   "devices_delete": "Yes, delete",
   "devices_delete_cancel": "No, cancel",
-  "devices_delete_fromApp": "Do you really want to delete the device \"{deviceName}\" from the app?",
+  "devices_delete_fromApp": "Do you really want to delete the device <bold>{deviceName}</bold> from the app?",
   "@devices_delete_fromApp": {
     "placeholders": {
       "deviceName": {
@@ -304,7 +315,7 @@
   "deviceInfo_removeCurrentDevice": "Remove profile from this device",
   "deviceInfo_removeRemainingDevice_title": "You cannot disconnect the device from your profile as it is the only connected one. How to delete your profile:",
   "deviceInfo_removeConnectedDevice_title": "To remove the device from the list of connected devices:",
-  "deviceInfo_removeDevice_successful": "The device \"{deviceName}\" has been removed from your device list.",
+  "deviceInfo_removeDevice_successful": "The device <bold>{deviceName}</bold> has been removed from your device list.",
   "@deviceInfo_removeDevice_successful": {
     "placeholders": {
       "deviceName": {
@@ -320,7 +331,7 @@
   "deviceInfo_connectDevice_title": "To connect the device to your profile:",
   "deviceInfo_connectDevice_startConnecting": "Start connecting with an existing profile there.",
   "deviceInfo_connectDevice_scan": "Scan the QR code displayed here.",
-  "deviceInfo_openApp": "Take the device \"{deviceName}\" and open the enmeshed app.",
+  "deviceInfo_openApp": "Take the device <bold>{deviceName}</bold> and open the enmeshed app.",
   "@deviceInfo_openApp": {
     "placeholders": {
       "deviceName": {
@@ -357,7 +368,7 @@
   "contacts_toBeDeleted": "Will be deleted shortly",
   "contacts_terminated": "Contact terminated the relationship",
   "contacts_deletionProposed": "Relationship permanently terminated",
-  "contacts_delete_title": "Delete contact \"{contactName}\"?",
+  "contacts_delete_title": "Delete contact <bold>{contactName}</bold>?",
   "@contacts_delete_title": {
     "placeholders": {
       "contactName": {
@@ -403,7 +414,7 @@
       }
     }
   },
-  "contactDetail_deletedTitle": "The contact no longer exists or is no longer part of \"Enmeshed\".",
+  "contactDetail_deletedTitle": "The contact no longer exists or is no longer part of \"enmeshed\".",
   "contactDetail_terminatedTitle": "The contact has terminated the contact relationship with you.",
   "contactDetail_terminatedDescription1": "If you also want to end the relationship, you can delete the contact.",
   "contactDetail_description1": "You can keep the contact in your contact list, but it is no longer possible to exchange information with the contact.",
