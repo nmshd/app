@@ -140,10 +140,7 @@ class _EditFileState extends State<EditFile> {
     if (mounted) context.pop();
   }
 
-  void _handleTagSelected({
-    required String tagPath,
-    required bool selected,
-  }) {
+  void _handleTagSelected({required String tagPath, required bool selected}) {
     setState(() {
       if (selected) {
         _selectedTags = [..._selectedTags, tagPath];
