@@ -24,17 +24,7 @@ class ShouldDeleteProfile extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(icon: const Icon(Icons.arrow_back, size: 24), onPressed: cancel),
-              Text(context.l10n.profile_delete_device, style: Theme.of(context).textTheme.titleMedium),
-              IconButton(icon: const Icon(Icons.close), onPressed: cancel),
-            ],
-          ),
-        ),
+        BottomSheetHeader(title: context.l10n.profile_delete_device, onBackPressed: cancel),
         Padding(
           padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
           child: Column(

@@ -1,7 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 
@@ -26,16 +25,7 @@ class DeleteProfileOrIdentity extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8, right: 8, left: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(context.l10n.profile_delete, style: Theme.of(context).textTheme.titleLarge),
-              IconButton(icon: const Icon(Icons.close), onPressed: context.pop),
-            ],
-          ),
-        ),
+        BottomSheetHeader(title: context.l10n.profile_delete),
         Padding(
           padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
           child: Column(

@@ -48,8 +48,8 @@ class _DeleteProfileAndChooseNextState extends State<DeleteProfileAndChooseNext>
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
+    return ConditionalCloseable(
+      canClose: false,
       child: switch ((_exception, _accounts)) {
         (Exception(), _) => _Error(
             onRetry: () async {
@@ -199,17 +199,8 @@ class _AccountsAvailable extends StatelessWidget {
             Text(successDescription, style: Theme.of(context).textTheme.bodyMedium),
             Gaps.h24,
             Column(
-              children: accounts
-                  .map(
-                    (e) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: ProfileCard(
-                        account: e,
-                        onAccountSelected: (_) => _onAccountSelected(e, context),
-                      ),
-                    ),
-                  )
-                  .toList(),
+              spacing: 8,
+              children: accounts.map((e) => ProfileCard(account: e, onAccountSelected: (_) => _onAccountSelected(e, context))).toList(),
             ),
           ],
         ),
@@ -218,9 +209,16 @@ class _AccountsAvailable extends StatelessWidget {
   }
 
   Future<void> _onAccountSelected(LocalAccountDTO account, BuildContext context) async {
-    if (context.mounted) context.go('/account/${account.id}');
-    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+    showSuccessSnackbar(
+      context: context,
+      // TODO: change text to "is now in deletion"
+      text: context.l10n.profiles_switchedToProfile(account.name),
+      showCloseIcon: true,
+    );
 
-    if (context.mounted) showSuccessSnackbar(context: context, text: context.l10n.profiles_switchedToProfile(account.name), showCloseIcon: true);
+    context.go('/account/${account.id}');
+    await context.push('/profiles');
+
+    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
   }
 }

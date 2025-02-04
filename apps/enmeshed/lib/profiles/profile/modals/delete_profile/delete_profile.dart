@@ -163,15 +163,12 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
             profileName: widget.localAccount.name,
             devices: widget.devices,
           ),
-        _ => GestureDetector(
-            onVerticalDragStart: (_) {},
-            child: DeleteProfileAndChooseNext(
-              localAccount: widget.localAccount,
-              deleteFuture: _deleteFuture,
-              retryFunction: _retryFunction,
-              inProgressText: context.l10n.profile_delete_inProgress,
-              successDescription: context.l10n.profile_delete_success,
-            ),
+        _ => DeleteProfileAndChooseNext(
+            localAccount: widget.localAccount,
+            deleteFuture: _deleteFuture,
+            retryFunction: _retryFunction,
+            inProgressText: context.l10n.profile_delete_inProgress,
+            successDescription: context.l10n.profile_delete_success,
           )
       },
     );

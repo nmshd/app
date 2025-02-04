@@ -26,17 +26,7 @@ class ShouldDeleteIdentity extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(icon: const Icon(Icons.arrow_back, size: 24), onPressed: cancel),
-              Text(context.l10n.profile_delete, style: Theme.of(context).textTheme.titleMedium),
-              IconButton(icon: const Icon(Icons.close), onPressed: cancel),
-            ],
-          ),
-        ),
+        BottomSheetHeader(title: context.l10n.profile_delete, onBackPressed: cancel),
         Padding(
           padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
           child: Column(
@@ -45,12 +35,12 @@ class ShouldDeleteIdentity extends StatelessWidget {
               const VectorGraphic(loader: AssetBytesLoader('assets/svg/confirm_identity_deletion.svg'), height: 160),
               Gaps.h24,
               BoldStyledText(context.l10n.identity_delete_confirmation(profileName, devices.where((e) => e.isOffboarded != true).length)),
-              Gaps.h16,
+              Gaps.h24,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
+                spacing: 8,
                 children: [
                   OutlinedButton(onPressed: cancel, child: Text(context.l10n.identity_delete_cancel)),
-                  Gaps.w8,
                   FilledButton(onPressed: delete, child: Text(context.l10n.identity_delete_confirm)),
                 ],
               ),
