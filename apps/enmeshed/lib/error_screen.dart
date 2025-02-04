@@ -29,13 +29,13 @@ class ErrorScreen extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: VectorGraphic(
                 height: 160,
-                loader: AssetBytesLoader(backboneNotAvailable ? 'assets/svg/backbone_error.svg' : 'assets/svg/general_error.svg'),
+                loader: AssetBytesLoader(backboneNotAvailable ? 'assets/svg/backbone_error.svg' : 'assets/svg/unexpected_error.svg'),
               ),
             ),
             Gaps.h32,
             Text(
               textAlign: TextAlign.center,
-              backboneNotAvailable ? context.l10n.error_backboneNotAvailable_description : context.l10n.error_general,
+              backboneNotAvailable ? context.l10n.error_backboneNotAvailable_description : context.l10n.error_unexpected,
             ),
             Gaps.h32,
             Padding(

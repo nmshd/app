@@ -39,7 +39,7 @@
   "error_changeFavoriteRepositoryAttribute": "The attribute could not be favored.",
   "error_backboneNotAvailable": "Backbone not available",
   "error_backboneNotAvailable_description": "No connection to the server can currently be established. If the problem persists, you are welcome to contact our support team.",
-  "error_general": "We are sorry, but an unexpected error has occurred. If the problem persists, you are welcome to contact our support team.",
+  "error_unexpected": "We are sorry, but an unexpected error has occurred. If the problem persists, you are welcome to contact our support team.",
   "error_supportButton": "Write e-mail to the support team",
   "error_openMailApp": "Error when opening the e-mail app",
   "error_openMailApp_description": "The e-mail app on your device could not be opened. Write to support using a different device.\n\nThe e-mail address is:\nenmeshed.support@js-soft.com",
