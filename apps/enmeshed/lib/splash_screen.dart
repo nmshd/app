@@ -92,10 +92,9 @@ class _SplashScreenState extends State<SplashScreen> {
     );
 
     final result = await runtime.run();
+    if (result.isError) return router.go('/error');
 
-    if (result.isError) return router.go('/general-error');
-
-    GetIt.I.registerSingleton(result.value);
+    GetIt.I.registerSingleton(runtime);
 
     await setupPush(runtime);
 
