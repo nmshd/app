@@ -69,28 +69,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Get changed files of the enmeshed_runtime_bridge package
+        id: changed-enmeshed_runtime_bridge-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: packages/enmeshed_runtime_bridge/**
       - name: Start Backbone
+        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         run: docker compose -f .dev/compose.backbone.yml --env-file .dev/compose.backbone.env up -d
       - name: Setup Java
+        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: 17
           cache: "gradle"
       - name: Setup Flutter SDK
+        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         uses: subosito/flutter-action@v2
         with:
           channel: stable
       - name: Install Dependencies
+        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         run: |
           dart pub global activate melos
           melos bootstrap
       - name: Enable KVM group perms
+        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - name: Start emulator and run tests
+        if: steps.changed-enmeshed_runtime_bridge-files.outputs.any_changed == 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
           target: playstore
