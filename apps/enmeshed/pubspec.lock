@@ -1208,7 +1208,7 @@ packages:
     source: hosted
     version: "1.3.0"
   styled_text:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: styled_text
       sha256: fd624172cf629751b4f171dd0ecf9acf02a06df3f8a81bb56c0caa4f1df706c3
