@@ -41,27 +41,35 @@ class _RestoreIdentityState extends State<_RestoreIdentity> {
   Widget build(BuildContext context) {
     return ConditionalCloseable(
       canClose: !_isRestoring,
-      child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const VectorGraphic(loader: AssetBytesLoader('assets/svg/restore_identity.svg'), height: 160),
-            Gaps.h24,
-            Text(context.l10n.identity_reactivate_description(widget.accountInDeletion.name, DateTime.parse(widget.deletionDate).toLocal())),
-            Gaps.h8,
-            Align(alignment: Alignment.centerLeft, child: Text(context.l10n.identity_restore_description)),
-            Gaps.h16,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BottomSheetHeader(title: context.l10n.identity_restore_title, canClose: !_isRestoring),
+          Padding(
+            padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                OutlinedButton(onPressed: _isRestoring ? null : context.pop, child: Text(context.l10n.identity_restore_cancel)),
-                Gaps.w8,
-                FilledButton(onPressed: _isRestoring ? null : _restore, child: Text(context.l10n.identity_restore_confirm)),
+                const VectorGraphic(loader: AssetBytesLoader('assets/svg/restore_identity.svg'), height: 160),
+                Gaps.h24,
+                BoldStyledText(
+                  context.l10n.identity_reactivate_description(widget.accountInDeletion.name, DateTime.parse(widget.deletionDate).toLocal()),
+                ),
+                Gaps.h8,
+                Align(alignment: Alignment.centerLeft, child: Text(context.l10n.identity_restore_description)),
+                Gaps.h24,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    OutlinedButton(onPressed: _isRestoring ? null : context.pop, child: Text(context.l10n.identity_restore_cancel)),
+                    Gaps.w8,
+                    FilledButton(onPressed: _isRestoring ? null : _restore, child: Text(context.l10n.identity_restore_confirm)),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

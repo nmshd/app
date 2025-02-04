@@ -59,7 +59,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(context.l10n.devices_description(_account!.name)),
+              BoldStyledText(context.l10n.devices_description(_account!.name)),
               Gaps.h24,
               DeviceCard(
                 accountId: widget.accountId,

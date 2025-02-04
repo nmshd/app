@@ -149,7 +149,7 @@
   "profiles_additionalProfiles": "Weitere Profile",
   "profiles_add": "Hinzufügen",
   "profiles_noAdditionalProfiles": "Sie können verschiedene Profile für unterschiedliche Rollen oder andere Personen erstellen und zwischen diesen wechseln.",
-  "profiles_switchedToProfile": "Zum Profil \"{profileName}\" gewechselt.",
+  "profiles_switchedToProfile": "Zum Profil <bold>{profileName}</bold> gewechselt.",
   "@profiles_switchedToProfile": {
     "placeholders": {
       "profileName": {
@@ -172,7 +172,7 @@
       }
     }
   },
-  "identity_delete_success": "Das Profil {profileName} befindet sich nun in Löschung.",
+  "identity_delete_success": "Das Profil <bold>{profileName}</bold> befindet sich nun in Löschung.",
   "@identity_delete_success": {
     "placeholders": {
       "profileName": {
@@ -184,8 +184,8 @@
   "identity_restore_cancel": "Nein, abbrechen",
   "identity_restore_confirm": "Ja, aktivieren",
   "identity_restore_description": "Möchten Sie das Profil wiederherstellen und aktiveren?",
-  "identity_restore_title": "Ihr Profil wird gelöscht",
-  "identity_reactivate_description": "Bis zum {deletionDate} können Sie ihr Profil \"{profileName}\" wiederherstellen und aktivieren.",
+  "identity_restore_title": "Profil wiederherstellen",
+  "identity_reactivate_description": "Bis zum {deletionDate} können Sie ihr Profil <bold>{profileName}</bold> wiederherstellen und aktivieren.",
   "@identity_reactivate_description": {
     "placeholders": {
       "profileName": {
@@ -197,7 +197,7 @@
       }
     }
   },
-  "identity_delete_activated_and_switchedToProfile": "Profil \"{profileName}\" wieder aktiviert und ausgewählt.",
+  "identity_delete_activated_and_switchedToProfile": "Profil <bold>{profileName}</bold> wieder aktiviert und ausgewählt.",
   "@identity_delete_activated_and_switchedToProfile": {
     "placeholders": {
       "profileName": {
@@ -223,7 +223,7 @@
   "profile_delete_cancel": "Nein, abbrechen",
   "profile_delete_confirm": "Ja, entfernen",
   "profile_delete_inProgress": "Das Profil wird gelöscht.",
-  "profile_delete_success": "Das Profil {profileName} wurde von diesem Gerät entfernt.",
+  "profile_delete_success": "Das Profil <bold>{profileName}</bold> wurde von diesem Gerät entfernt.",
   "@profile_delete_success": {
     "placeholders": {
       "profileName": {
@@ -256,7 +256,7 @@
   "profile_deletePhoto": "Entfernen",
   "profile_editPhoto": "Ändern",
   "devices_title": "Geräte verwalten",
-  "devices_description": "Mit folgenden Geräten wird Ihr Profil \"{profileName}\" geteilt. Wenn Sie die Synchronisation mit einem der Geräte beenden möchten, entfernen Sie dieses aus der Liste.",
+  "devices_description": "Mit folgenden Geräten wird Ihr Profil <bold>{profileName}</bold> geteilt. Wenn Sie die Synchronisation mit einem der Geräte beenden möchten, entfernen Sie dieses aus der Liste.",
   "@devices_description": {
     "placeholders": {
       "profileName": {
@@ -286,7 +286,7 @@
   "devices_code_copy": "URL-Link kopieren",
   "devices_delete": "Ja, löschen",
   "devices_delete_cancel": "Nein, abbrechen",
-  "devices_delete_fromApp": "Möchtest du das Gerät \"{deviceName}\" aus der Liste Ihrer Geräte löschen?",
+  "devices_delete_fromApp": "Möchtest du das Gerät <bold>{deviceName}</bold> aus der Liste Ihrer Geräte löschen?",
   "@devices_delete_fromApp": {
     "placeholders": {
       "deviceName": {
@@ -311,7 +311,7 @@
   "deviceInfo_removeCurrentDevice": "Profil von diesem Gerät entfernen",
   "deviceInfo_removeRemainingDevice_title": "Sie können das Gerät nicht von Ihrem Profil trennen, da es das einzige verbundene ist. So löschen Sie Ihr Profil:",
   "deviceInfo_removeConnectedDevice_title": "So entfernen Sie das Gerät aus der Liste der verbundenen Geräte:",
-  "deviceInfo_removeDevice_successful": "Das Gerät \"{deviceName}\" wurde aus der Liste Ihrer Geräte entfernt.",
+  "deviceInfo_removeDevice_successful": "Das Gerät <bold>{deviceName}</bold> wurde aus der Liste Ihrer Geräte entfernt.",
   "@deviceInfo_removeDevice_successful": {
     "placeholders": {
       "deviceName": {
@@ -327,7 +327,7 @@
   "deviceInfo_connectDevice_title": "So verknüpfen Sie das Gerät mit Ihrem Profil:",
   "deviceInfo_connectDevice_startConnecting": "Starten Sie dort die Verknüpfung mit einem bestehenden Profil.",
   "deviceInfo_connectDevice_scan": "Scannen Sie den hier angezeigten QR-Code ein.",
-  "deviceInfo_openApp": "Nehmen Sie das Gerät \"{deviceName}\" zur Hand und öffnen Sie die enmeshed App.",
+  "deviceInfo_openApp": "Nehmen Sie das Gerät <bold>{deviceName}</bold> zur Hand und öffnen Sie die enmeshed App.",
   "@deviceInfo_openApp": {
     "placeholders": {
       "deviceName": {
@@ -364,7 +364,7 @@
   "contacts_toBeDeleted": "Wird in Kürze gelöscht",
   "contacts_terminated": "Kontakt hat die Beziehung beendet",
   "contacts_deletionProposed": "Beziehung permanent beendet",
-  "contacts_delete_title": "Kontakt \"{contactName}\" löschen?",
+  "contacts_delete_title": "Kontakt <bold>{contactName}</bold> löschen?",
   "@contacts_delete_title": {
     "placeholders": {
       "contactName": {
