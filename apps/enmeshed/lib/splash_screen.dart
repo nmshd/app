@@ -91,10 +91,6 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
 
-    //GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
-
-    //await GetIt.I.allReady();
-
     final result = await runtime.run();
 
     if (result.isError) return router.go('/general-error');
