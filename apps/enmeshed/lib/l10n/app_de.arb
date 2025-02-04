@@ -181,24 +181,22 @@
     }
   },
   "identities_in_deletion": "Profile in Löschung",
-  "identity_restore_cancel": "Nein, abbrechen",
-  "identity_restore_confirm": "Ja, aktivieren",
-  "identity_restore_description": "Möchten Sie das Profil wiederherstellen und aktiveren?",
+  "identity_restore_confirm": "Wiederherstellen",
   "identity_restore_title": "Profil wiederherstellen",
-  "identity_reactivate_description": "Bis zum {deletionDate} können Sie ihr Profil <bold>{profileName}</bold> wiederherstellen und aktivieren.",
-  "@identity_reactivate_description": {
+  "identity_restore_description": "Möchten Sie das in Löschung befindliche Profil <bold>{profileName}</bold> wiederherstellen und weiterverwenden? Dies ist noch bis zum {deletionDate} möglich.",
+  "@identity_restore_description": {
     "placeholders": {
       "profileName": {
         "type": "String"
       },
       "deletionDate": {
         "type": "DateTime",
-        "format": "yMMMd"
+        "format": "yMd"
       }
     }
   },
-  "identity_delete_activated_and_switchedToProfile": "Profil <bold>{profileName}</bold> wieder aktiviert und ausgewählt.",
-  "@identity_delete_activated_and_switchedToProfile": {
+  "identity_restore_successful": "Das Profil <bold>{profileName}</bold> wurde erfolgreich wiederhergestellt.",
+  "@identity_restore_successful": {
     "placeholders": {
       "profileName": {
         "type": "String"
@@ -746,7 +744,7 @@
   "identityRecovery_downloadDescription": "Wiederherstellungskit als PDF speichern.",
   "identityRecovery_print": "Drucken",
   "identityRecovery_printDescription": "Wiederherstellungskit ausdrucken.",
-  "identityRecovery_information": "Wenn Sie das Wiederherstellungskit ausdrucken können Sie Ihr erstelltes Passwort direkt dort notieren bevor Sie es vergessen. Wenn Sie das Widerherstellungskit herunterladen stellen Sie sicher, dass Sie es auf ein weiteres Gerät sichern.",
+  "identityRecovery_information": "Wenn Sie das Wiederherstellungskit ausdrucken können Sie Ihr erstelltes Passwort direkt dort notieren bevor Sie es vergessen. Wenn Sie das Wiederherstellungskit herunterladen stellen Sie sicher, dass Sie es auf ein weiteres Gerät sichern.",
   "identityRecovery_pdfHeaderTitle": "Wiederherstellungskit für Ihre enmeshed-Daten",
   "identityRecovery_pdfKeepSafeText": "Bitte bewahren Sie dieses Wiederherstellungs-Kit an einem für Dritte unzugänglichen Ort auf. Sobald Sie das selbst gewählte Master Passwort hier notiert haben ist ein Zugriff auf Ihre enmeshed-Daten möglich.",
   "identityRecovery_pdfInfoText1": "Drucken Sie dieses Dokument aus oder speichern Sie es an einem sicheren Ort, beispielsweise einem weiteren Mobilgerät oder Ihrem Computer.",

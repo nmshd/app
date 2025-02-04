@@ -181,24 +181,22 @@
     }
   },
   "identities_in_deletion": "Profiles in deletion",
-  "identity_restore_cancel": "No, cancel",
-  "identity_restore_confirm": "Yes, activate",
-  "identity_restore_description": "Would you like to restore and activate the profile?",
+  "identity_restore_confirm": "Restore",
   "identity_restore_title": "Restore profile",
-  "identity_reactivate_description": "You can still restore and activate your profile <bold>{profileName}</bold> until {deletionDate}.",
-  "@identity_reactivate_description": {
+  "identity_restore_description": "Would you like to restore and continue using the <bold>{profileName}</bold> profile that was in deletion? This is still possible until {deletionDate}.",
+  "@identity_restore_description": {
     "placeholders": {
       "profileName": {
         "type": "String"
       },
       "deletionDate": {
         "type": "DateTime",
-        "format": "yMMMd"
+        "format": "yMd"
       }
     }
   },
-  "identity_delete_activated_and_switchedToProfile": "Profile <bold>{profileName}</bold> activated and selected.",
-  "@identity_delete_activated_and_switchedToProfile": {
+  "identity_restore_successful": "The Profile <bold>{profileName}</bold> has been successfully restored.",
+  "@identity_restore_successful": {
     "placeholders": {
       "profileName": {
         "type": "String"

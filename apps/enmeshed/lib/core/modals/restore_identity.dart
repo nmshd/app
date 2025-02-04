@@ -53,15 +53,13 @@ class _RestoreIdentityState extends State<_RestoreIdentity> {
                 const VectorGraphic(loader: AssetBytesLoader('assets/svg/restore_identity.svg'), height: 160),
                 Gaps.h24,
                 BoldStyledText(
-                  context.l10n.identity_reactivate_description(widget.accountInDeletion.name, DateTime.parse(widget.deletionDate).toLocal()),
+                  context.l10n.identity_restore_description(widget.accountInDeletion.name, DateTime.parse(widget.deletionDate).toLocal()),
                 ),
-                Gaps.h8,
-                Align(alignment: Alignment.centerLeft, child: Text(context.l10n.identity_restore_description)),
                 Gaps.h24,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    OutlinedButton(onPressed: _isRestoring ? null : context.pop, child: Text(context.l10n.identity_restore_cancel)),
+                    OutlinedButton(onPressed: _isRestoring ? null : context.pop, child: Text(context.l10n.cancel)),
                     Gaps.w8,
                     FilledButton(onPressed: _isRestoring ? null : _restore, child: Text(context.l10n.identity_restore_confirm)),
                   ],
