@@ -1,51 +1,5 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
-
-import 'extensions.dart';
-
-Future<LocalAttributeDTO?> createRepositoryAttribute({
-  required String accountId,
-  required BuildContext context,
-  required ValueNotifier<bool> createEnabledNotifier,
-  required IdentityAttributeValue value,
-  required VoidCallback onAttributeCreated,
-  List<String>? tags,
-}) async {
-  createEnabledNotifier.value = false;
-
-  final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
-
-  final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(value: value, tags: tags);
-
-  if (createAttributeResult.isSuccess) {
-    if (context.mounted) context.pop();
-    onAttributeCreated();
-
-    return createAttributeResult.value;
-  }
-
-  GetIt.I.get<Logger>().e('Creating new attribute failed caused by: ${createAttributeResult.error}');
-
-  if (context.mounted) {
-    await showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
-          content: Text(context.l10n.error_createAttribute),
-        );
-      },
-    );
-
-    createEnabledNotifier.value = true;
-  }
-
-  return null;
-}
 
 final List<String> personalDataInitialAttributeTypes = [
   'HonorificPrefix',
