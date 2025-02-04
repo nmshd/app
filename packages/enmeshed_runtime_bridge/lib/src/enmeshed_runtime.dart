@@ -198,7 +198,7 @@ class EnmeshedRuntime {
 
       return Result.success(this);
     } catch (error) {
-      return Result.failure(RuntimeError(message: error.toString(), code: 'code'));
+      return Result.failure(RuntimeError(message: error.toString(), code: 'error.app.runtimeInitFailed'));
     }
   }
 
