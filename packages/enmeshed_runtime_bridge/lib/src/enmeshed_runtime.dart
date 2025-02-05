@@ -1,19 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
 
 import 'data_view_expander.dart';
-import 'event_bus.dart';
 import 'filesystem_adapter.dart';
 import 'javascript_handlers.dart';
-import 'services/facades/utilities/result.dart';
 import 'services/services.dart';
 import 'string_processor.dart';
-import 'ui_bridge.dart';
 import 'webview_constants.dart' as webview_constants;
 
 typedef RuntimeConfig = ({
@@ -142,6 +140,11 @@ class EnmeshedRuntime {
     );
 
     controller.addJavaScriptHandler(
+      handlerName: 'runtimeInitFailed',
+      callback: (_) => _runtimeReadyCompleter.completeError(Exception('Runtime init failed')),
+    );
+
+    controller.addJavaScriptHandler(
       handlerName: 'getRuntimeConfig',
       callback: (_) => {
         'applicationId': runtimeConfig.applicationId,
@@ -185,11 +188,15 @@ class EnmeshedRuntime {
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
   }
 
-  Future<EnmeshedRuntime> run() async {
-    await _headlessWebView.run();
-    await _runtimeReadyCompleter.future;
+  Future<VoidResult> run() async {
+    try {
+      await _headlessWebView.run();
+      await _runtimeReadyCompleter.future;
 
-    return this;
+      return VoidResult.success();
+    } catch (error) {
+      return VoidResult.failure(RuntimeError(message: error.toString(), code: 'error.app.runtimeInitFailed'));
+    }
   }
 
   Future<void> dispose() async {

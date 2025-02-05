@@ -39,7 +39,7 @@ class AppUIBridge extends UIBridge {
   Future<void> showError(UIBridgeError error, [LocalAccountDTO? account]) async {
     logger.d('showError for account ${account?.id} error $error');
 
-    await router.push('/error');
+    await router.push('/error-dialog');
   }
 
   @override
