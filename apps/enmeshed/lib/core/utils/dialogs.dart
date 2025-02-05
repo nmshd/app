@@ -30,50 +30,6 @@ Future<void> showLoadingDialog(BuildContext context, String text) async {
   );
 }
 
-Future<void> showNotImplementedDialog(BuildContext context) async {
-  await showDialog<void>(
-    context: context,
-    builder: (_) => const _NotImplementedDialog(),
-  );
-}
-
-class _NotImplementedDialog extends StatelessWidget {
-  const _NotImplementedDialog();
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.warning_rounded, size: 36, color: context.customColors.warning),
-                Gaps.h8,
-                SizedBox(
-                  width: 250,
-                  child: Text(context.l10n.notImplemented, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyLarge),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            right: 4,
-            top: 4,
-            child: IconButton(
-              onPressed: () => context.pop(),
-              icon: const Icon(Icons.close),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 Future<void> showDownloadFileErrorDialog(BuildContext context) async {
   await showDialog<void>(
     context: context,
