@@ -21,6 +21,7 @@ import '/themes/themes.dart';
 import 'account/account.dart';
 import 'core/core.dart';
 import 'drawer/drawer.dart';
+import 'error_screen.dart';
 import 'onboarding/onboarding.dart';
 import 'profiles/profiles.dart';
 import 'splash_screen.dart';
@@ -129,13 +130,18 @@ final _router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/error',
+      path: '/error-dialog',
       pageBuilder: (context, state) => DialogPage(
         builder: (context) => AlertDialog(
           title: Text(context.l10n.error),
           content: Text(context.l10n.errorDialog_description),
         ),
       ),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/error',
+      builder: (context, state) => ErrorScreen(backboneNotAvailable: state.uri.queryParameters['backboneNotAvailable'] == 'true'),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

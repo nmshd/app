@@ -90,9 +90,11 @@ class _SplashScreenState extends State<SplashScreen> {
         databaseFolder: './database',
       ),
     );
-    GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
 
-    await GetIt.I.allReady();
+    final result = await runtime.run();
+    if (result.isError) return router.go('/error');
+
+    GetIt.I.registerSingleton(runtime);
 
     await setupPush(runtime);
 
