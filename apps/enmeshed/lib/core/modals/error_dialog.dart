@@ -11,7 +11,8 @@ class ErrorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (code == 'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported') {
+    if (code == 'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
+        code == 'error.appStringProcessor.truncatedReferenceInvalid') {
       return const _UnsupportedRelationshipTemplateErrorDialog();
     }
 

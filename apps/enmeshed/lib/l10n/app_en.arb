@@ -64,8 +64,6 @@
   "notImplemented": "This feature isn't implemented yet.",
   "scanner_scanQR": "Scan QR code",
   "scanner_enterUrl": "Enter URL link",
-  "scanner_invalidCode": "The code is invalid",
-  "scanner_invalidCode_tryAnother": "Try another one.",
   "scanner_lineUpQrCode": "Position QR code in the frame.",
   "scanner_scanQrOrEnterUrl": "Scan a QR code or alternatively enter a URL link.",
   "scanner_urlValidationError": "The URL link could not be verified. Please check your input.",

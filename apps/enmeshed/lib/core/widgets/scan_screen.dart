@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '../utils/utils.dart';
@@ -50,7 +51,7 @@ class ScanScreen extends StatelessWidget {
     GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
     if (!context.mounted) return;
 
-    await showWrongTokenErrorDialog(context);
+    await context.push('/error-dialog', extra: result.error.code);
 
     resume();
   }
