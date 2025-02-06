@@ -10,7 +10,6 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 import '../types/types.dart';
 import '../utils/utils.dart';
@@ -26,8 +25,6 @@ Future<void> showSucceedAttributeModal({
   final controller = ValueRendererController()..value = attribute.value;
   final succeedEnabledNotifier = ValueNotifier<bool>(true);
   final errorTextNotifier = ValueNotifier<String?>(null);
-
-  IdentityAttributeValue? attributeValue;
 
   if (attribute is! RepositoryAttributeDVO) {
     if (!context.mounted) return;
@@ -52,78 +49,149 @@ Future<void> showSucceedAttributeModal({
     );
   }
 
-  final renderHints = attribute.renderHints;
-  final valueHints = attribute.valueHints;
+  if (!context.mounted) return;
 
-  bool hasDataChanged(LocalAttributeDVO attributeToCheck) {
-    final attributeData = attributeToCheck.value.toJson()..removeWhere((key, value) => key == '@type');
-    final controllerData = (controller.value as ValueRendererInputValue).getValue();
+  await showModalBottomSheet<void>(
+    context: context,
+    builder: (context) => ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 600),
+      child: _SucceedAttributeModal(
+        accountId: accountId,
+        attribute: attribute,
+        onAttributeSucceeded: onAttributeSucceeded,
+        sameTypeAttributes: sameTypeAttributes,
+      ),
+    ),
+  );
 
-    return !mapEquals(attributeData, controllerData);
+  controller.dispose();
+  succeedEnabledNotifier.dispose();
+  errorTextNotifier.dispose();
+}
+
+class _SucceedAttributeModal extends StatefulWidget {
+  final String accountId;
+  final RepositoryAttributeDVO attribute;
+  final VoidCallback onAttributeSucceeded;
+  final List<LocalAttributeDVO> sameTypeAttributes;
+
+  const _SucceedAttributeModal({
+    required this.accountId,
+    required this.attribute,
+    required this.onAttributeSucceeded,
+    required this.sameTypeAttributes,
+  });
+
+  @override
+  State<_SucceedAttributeModal> createState() => _SucceedAttributeModalState();
+}
+
+class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
+  final controller = ValueRendererController();
+  bool enabled = false;
+  String? errorText;
+  IdentityAttributeValue? attributeValue;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller
+      ..value = widget.attribute
+      ..addListener(handleControllerChange);
   }
 
-  bool isAnyOtherVersionSameAsCurrent() {
-    final attributesWithoutCurrentAttribute = sameTypeAttributes.where((element) => element.id != attribute.id).toList();
-    return attributesWithoutCurrentAttribute.any((element) => !hasDataChanged(element));
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
   }
 
-  void handleControllerChange() {
-    final value = controller.value;
-
-    if (value is ValueRendererValidationError) {
-      succeedEnabledNotifier.value = false;
-      return;
-    }
-
-    final canSucceedAttribute = composeIdentityAttributeValue(
-      isComplex: renderHints.editType == RenderHintsEditType.Complex,
-      currentAddress: attribute.owner,
-      valueType: attribute.valueType,
-      inputValue: value as ValueRendererInputValue,
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        BottomSheetHeader(title: context.l10n.personalData_details_editEntry),
+        Padding(
+          padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 72),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (addressDataInitialAttributeTypes.contains(widget.attribute.valueType)) ...[
+                Text(context.l10n.mandatoryField, style: const TextStyle(fontSize: 14)),
+                Gaps.h24,
+              ],
+              ValueRenderer(
+                renderHints: widget.attribute.renderHints,
+                valueHints: widget.attribute.valueHints,
+                controller: controller,
+                initialValue: widget.attribute.value,
+                valueType: widget.attribute.valueType,
+                expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
+                openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+              ),
+              if (errorText != null) ...[
+                if (widget.attribute.renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,
+                Text(
+                  errorText!,
+                  style: TextStyle(
+                    color: errorText == context.l10n.personalData_details_errorOnSuccession ? Theme.of(context).colorScheme.error : null,
+                  ),
+                ),
+              ],
+              if (widget.attribute.sharedWith.isNotEmpty) ...[
+                Gaps.h16,
+                Text(context.l10n.personalData_details_notifyContacts(widget.attribute.sharedWith.length)),
+                Gaps.h16,
+              ],
+              Padding(
+                padding: EdgeInsets.only(right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    OutlinedButton(
+                      onPressed: () => context.pop(),
+                      child: Text(context.l10n.cancel),
+                    ),
+                    Gaps.w8,
+                    FilledButton(
+                      style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
+                      onPressed: !enabled ? null : succeedAttributeAndNotifyPeers,
+                      child: Text(context.l10n.save),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (succeedEnabledNotifier.value == false && !hasDataChanged(attribute)) {
-        errorTextNotifier.value = context.l10n.personalData_details_errorOnSuccession;
-      } else if (isAnyOtherVersionSameAsCurrent()) {
-        errorTextNotifier.value = context.l10n.personalData_details_warningOnSuccession;
-      } else {
-        errorTextNotifier.value = null;
-      }
-    });
-
-    if (canSucceedAttribute != null) {
-      attributeValue = canSucceedAttribute.value;
-      succeedEnabledNotifier.value = true;
-    } else {
-      succeedEnabledNotifier.value = false;
-    }
   }
-
-  controller.addListener(handleControllerChange);
 
   Future<void> succeedAttributeAndNotifyPeers() async {
-    if (!hasDataChanged(attribute)) {
-      succeedEnabledNotifier.value = false;
-      errorTextNotifier.value = context.l10n.personalData_details_errorOnSuccession;
+    if (!hasDataChanged(widget.attribute)) {
+      setState(() {
+        enabled = false;
+        errorText = context.l10n.personalData_details_errorOnSuccession;
+      });
+
       return;
     }
 
-    succeedEnabledNotifier.value = false;
+    setState(() => enabled = false);
 
-    String? successorId;
-
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     final succeedAttributeResult = await session.consumptionServices.attributes.succeedRepositoryAttribute(
-      predecessorId: attribute.id,
+      predecessorId: widget.attribute.id,
       value: attributeValue!,
     );
 
-    if (succeedAttributeResult.isSuccess) {
-      successorId = succeedAttributeResult.value.successor.id;
-    } else {
-      if (context.mounted) {
+    if (succeedAttributeResult.isError) {
+      if (mounted) {
         await showDialog<void>(
           context: context,
           builder: (context) {
@@ -134,13 +202,15 @@ Future<void> showSucceedAttributeModal({
           },
         );
 
-        succeedEnabledNotifier.value = true;
+        setState(() => enabled = true);
       }
 
       return;
     }
 
-    for (final sharedToPeerAttribute in attribute.sharedWith) {
+    final successorId = succeedAttributeResult.value.successor.id;
+
+    for (final sharedToPeerAttribute in widget.attribute.sharedWith) {
       final notificationResult = await session.consumptionServices.attributes.notifyPeerAboutRepositoryAttributeSuccession(
         attributeId: successorId,
         peer: sharedToPeerAttribute.peer,
@@ -151,102 +221,56 @@ Future<void> showSucceedAttributeModal({
       }
     }
 
-    if (context.mounted) context.pop();
-    onAttributeSucceeded();
+    if (mounted) context.pop();
+    widget.onAttributeSucceeded();
 
     controller.removeListener(handleControllerChange);
   }
 
-  final closeButton = Padding(
-    padding: const EdgeInsets.only(right: 8),
-    child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
-  );
+  void handleControllerChange() {
+    final value = controller.value;
 
-  if (!context.mounted) return;
-  await WoltModalSheet.show<void>(
-    useSafeArea: false,
-    context: context,
-    onModalDismissedWithDrag: () => context.pop(),
-    onModalDismissedWithBarrierTap: () => context.pop(),
-    showDragHandle: false,
-    pageListBuilder: (context) => [
-      WoltModalSheetPage(
-        trailingNavBarWidget: closeButton,
-        stickyActionBar: ValueListenableBuilder<bool>(
-          valueListenable: succeedEnabledNotifier,
-          builder: (context, enabled, child) {
-            return Padding(
-              padding: EdgeInsets.only(right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  OutlinedButton(
-                    onPressed: () => context.pop(),
-                    child: Text(context.l10n.cancel),
-                  ),
-                  Gaps.w8,
-                  FilledButton(
-                    style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                    onPressed: !enabled ? null : succeedAttributeAndNotifyPeers,
-                    child: Text(context.l10n.save),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-        leadingNavBarWidget: Padding(
-          padding: const EdgeInsets.only(left: 24, top: 20, bottom: 24),
-          child: Text(context.l10n.personalData_details_editEntry, style: Theme.of(context).textTheme.titleLarge),
-        ),
-        child: ValueListenableBuilder<String?>(
-          valueListenable: errorTextNotifier,
-          builder: (context, errorText, child) {
-            return Padding(
-              padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 72),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (addressDataInitialAttributeTypes.contains(attribute.valueType)) ...[
-                    Text(context.l10n.mandatoryField, style: const TextStyle(fontSize: 14)),
-                    Gaps.h24,
-                  ],
-                  ValueRenderer(
-                    renderHints: renderHints,
-                    valueHints: valueHints,
-                    controller: controller,
-                    initialValue: attribute.value,
-                    valueType: attribute.valueType,
-                    expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-                    chooseFile: () => openFileChooser(context: context, accountId: accountId),
-                    openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: createFileRecord(file: file)),
-                  ),
-                  if (errorText != null) ...[
-                    if (renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,
-                    Text(
-                      errorText,
-                      style: TextStyle(
-                        color: errorText == context.l10n.personalData_details_errorOnSuccession ? Theme.of(context).colorScheme.error : null,
-                      ),
-                    ),
-                  ],
-                  if (attribute.sharedWith.isNotEmpty) ...[
-                    Gaps.h16,
-                    Text(context.l10n.personalData_details_notifyContacts(attribute.sharedWith.length)),
-                    Gaps.h16,
-                  ],
-                ],
-              ),
-            );
-          },
-        ),
-      ),
-    ],
-  );
+    if (value is ValueRendererValidationError) {
+      setState(() => enabled = false);
+      return;
+    }
 
-  controller.dispose();
-  succeedEnabledNotifier.dispose();
-  errorTextNotifier.dispose();
+    final canSucceedAttribute = composeIdentityAttributeValue(
+      isComplex: widget.attribute.renderHints.editType == RenderHintsEditType.Complex,
+      currentAddress: widget.attribute.owner,
+      valueType: widget.attribute.valueType,
+      inputValue: value as ValueRendererInputValue,
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (enabled == false && !hasDataChanged(widget.attribute)) {
+        errorText = context.l10n.personalData_details_errorOnSuccession;
+      } else if (isAnyOtherVersionSameAsCurrent()) {
+        errorText = context.l10n.personalData_details_warningOnSuccession;
+      } else {
+        errorText = null;
+      }
+    });
+
+    if (canSucceedAttribute != null) {
+      attributeValue = canSucceedAttribute.value;
+      setState(() => enabled = true);
+    } else {
+      setState(() => enabled = false);
+    }
+  }
+
+  bool hasDataChanged(LocalAttributeDVO x) {
+    final attributeData = x.value.toJson()..removeWhere((key, value) => key == '@type');
+    final controllerData = (controller.value as ValueRendererInputValue).getValue();
+
+    return !mapEquals(attributeData, controllerData);
+  }
+
+  bool isAnyOtherVersionSameAsCurrent() {
+    final attributesWithoutCurrentAttribute = widget.sameTypeAttributes.where((element) => element.id != widget.attribute.id).toList();
+    return attributesWithoutCurrentAttribute.any((element) => !hasDataChanged(element));
+  }
 }
 
 extension on ValueRendererInputValue {
