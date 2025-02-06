@@ -86,6 +86,10 @@ class _HomeViewState extends State<HomeView> {
                     CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
                     Gaps.h24,
                   ],
+                    _RecoveryKitWasUsedCard(
+                      onCreate: () {},
+                      onDismissed: () => upsertHintsSetting(accountId: widget.accountId, key: 'home.recoveryKit', value: false),
+                    ),
                   AddContactOrDeviceContainer(accountId: widget.accountId),
                 ],
               ),
@@ -139,5 +143,60 @@ class _HomeViewState extends State<HomeView> {
     if (mounted) setState(() => _isCompleteProfileContainerShown = false);
 
     await upsertCompleteProfileContainerSetting(accountId: widget.accountId, value: false);
+  }
+}
+
+class _RecoveryKitWasUsedCard extends StatelessWidget {
+  final VoidCallback onDismissed;
+  final VoidCallback onCreate;
+
+  const _RecoveryKitWasUsedCard({required this.onDismissed, required this.onCreate, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card.filled(
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                children: [
+                  Icon(Icons.warning, color: context.customColors.warning),
+                  Gaps.w8,
+                  Expanded(
+                    child: Text(
+                      'Ihr Wiederherstellungskit wurde verwendet. Möchten Sie ein neues erstellen?',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              'Ihr Wiederherstellungskit wurde eingesetzt und ist abgelaufen. Erstellen Sie ein neues, um weiterhin Zugriff auf Ihre Daten zu gewährleisten. Sie können dies auch später in der Profilverwaltung ausführen.',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            Gaps.h16,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(
+                    onPressed: onDismissed,
+                    child: const Text('Hinweis schließen'),
+                  ),
+                  Gaps.w8,
+                  FilledButton(onPressed: onCreate, child: const Text('Erstellen')),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
