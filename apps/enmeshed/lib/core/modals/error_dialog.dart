@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vector_graphics/vector_graphics.dart';
 
 import '../utils/utils.dart';
 
@@ -11,73 +10,29 @@ class ErrorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (code == 'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
-        code == 'error.appStringProcessor.truncatedReferenceInvalid') {
-      return const _UnsupportedRelationshipTemplateErrorDialog();
-    }
-
-    if (code == 'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError') {
-      return const _RelationshipTemplateProcessingErrorDialog();
-    }
-
     return AlertDialog(
-      title: Text(context.l10n.error),
-      content: Text(context.l10n.errorDialog_description),
-      actions: <Widget>[FilledButton(onPressed: context.pop, child: Text(context.l10n.close))],
+      icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+      title: Text(_title(context)),
+      content: Text(_content(context), textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium),
+      actions: <Widget>[FilledButton(onPressed: context.pop, child: Text(context.l10n.error_understood))],
+      actionsAlignment: MainAxisAlignment.center,
     );
   }
-}
 
-class _UnsupportedRelationshipTemplateErrorDialog extends StatelessWidget {
-  const _UnsupportedRelationshipTemplateErrorDialog();
+  String _title(BuildContext context) => switch (code) {
+        'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
+        'error.appStringProcessor.truncatedReferenceInvalid' =>
+          context.l10n.errorDialog_invalidQRCode_title,
+        'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
+        _ => context.l10n.errorDialog_title,
+      };
 
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Ungültiger QR-Code'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        spacing: 8,
-        children: [
-          const VectorGraphic(loader: AssetBytesLoader('assets/svg/invalid_qr_code.svg')),
-          Text(
-            'Der gescannte QR-Code wird von dieser App leider nicht unterstützt.',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const Text('Falls Ihnen ein alternativer Code zur Verfügung steht, versuchen Sie es mit diesem.'),
-          const Text(
-            'Stellen Sie zusätzlich sicher, dass Sie die neueste Version der App verwenden. Gehen zum App Store und aktualisieren Sie die App, falls nötig.',
-          ),
-        ],
-      ),
-      actions: <Widget>[FilledButton(onPressed: context.pop, child: Text(context.l10n.close))],
-    );
-  }
-}
-
-class _RelationshipTemplateProcessingErrorDialog extends StatelessWidget {
-  const _RelationshipTemplateProcessingErrorDialog();
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Fehler bei der Verarbeitung des QR-Codes'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        spacing: 8,
-        children: [
-          const VectorGraphic(loader: AssetBytesLoader('assets/svg/invalid_qr_code.svg')),
-          Text(
-            'Der gescannte Code konnte leider nicht verarbeitet werden.',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const Text('Falls Ihnen ein alternativer Code zur Verfügung steht, versuchen Sie es mit diesem.'),
-          const Text(
-            'Stellen Sie zusätzlich sicher, dass Sie die neueste Version der App verwenden. Gehen zum App Store und aktualisieren Sie die App, falls nötig.',
-          ),
-        ],
-      ),
-      actions: <Widget>[FilledButton(onPressed: context.pop, child: Text(context.l10n.close))],
-    );
-  }
+  String _content(BuildContext context) => switch (code) {
+        'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
+        'error.appStringProcessor.truncatedReferenceInvalid' =>
+          context.l10n.errorDialog_invalidQRCode_description,
+        'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' =>
+          context.l10n.errorDialog_QRCodeProcessingFailed_description,
+        _ => context.l10n.errorDialog_description,
+      };
 }
