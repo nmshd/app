@@ -13,7 +13,10 @@ dependencies:
     sdk: flutter
   logger: ^2.5.0
   cal_flutter_plugin:
-    path: ../../../../rust-crypto/flutter_plugin/
+    git:
+      url: https://github.com/nmshd/rust-crypto.git
+      path: flutter_plugin/
+      ref: ca6548b
 
 dev_dependencies:
   flutter_lints: ^5.0.0
