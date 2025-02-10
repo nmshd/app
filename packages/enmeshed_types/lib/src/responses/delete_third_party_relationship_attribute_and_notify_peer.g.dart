@@ -9,11 +9,11 @@ part of 'delete_third_party_relationship_attribute_and_notify_peer.dart';
 DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse _$DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponseFromJson(
         Map<String, dynamic> json) =>
     DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse(
-      notificationId: json['notificationId'] as String,
+      notificationId: json['notificationId'] as String?,
     );
 
 Map<String, dynamic> _$DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponseToJson(
         DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse instance) =>
     <String, dynamic>{
-      'notificationId': instance.notificationId,
+      if (instance.notificationId case final value?) 'notificationId': value,
     };
