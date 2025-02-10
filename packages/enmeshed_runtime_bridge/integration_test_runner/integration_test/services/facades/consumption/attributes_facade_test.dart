@@ -1624,7 +1624,7 @@ void run(EnmeshedRuntime runtime) {
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
-      await syncUntilHasMessageWithNotification(recipient, notificationId);
+      await syncUntilHasMessageWithNotification(recipient, notificationId!);
       await eventBus.waitForEvent<OwnSharedAttributeDeletedByOwnerEvent>(
         eventTargetAddress: recipientAddress,
         predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id,
@@ -1714,7 +1714,7 @@ void run(EnmeshedRuntime runtime) {
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
-      await syncUntilHasMessageWithNotification(sender, notificationId);
+      await syncUntilHasMessageWithNotification(sender, notificationId!);
       await eventBus.waitForEvent<PeerSharedAttributeDeletedByPeerEvent>(
         eventTargetAddress: senderAddress,
         predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id,
@@ -1873,7 +1873,7 @@ void run(EnmeshedRuntime runtime) {
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
-      await syncUntilHasMessageWithNotification(recipient, notificationId);
+      await syncUntilHasMessageWithNotification(recipient, notificationId!);
       await eventBus.waitForEvent<ThirdPartyRelationshipAttributeDeletedByPeerEvent>(
         eventTargetAddress: recipientAddress,
         predicate: (e) => e.data.id == senderThirdPartyRelationshipAttribute.id,
@@ -1934,7 +1934,7 @@ void run(EnmeshedRuntime runtime) {
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
-      await syncUntilHasMessageWithNotification(sender, notificationId);
+      await syncUntilHasMessageWithNotification(sender, notificationId!);
       await eventBus.waitForEvent<ThirdPartyRelationshipAttributeDeletedByPeerEvent>(
         eventTargetAddress: senderAddress,
         predicate: (e) => e.data.id == senderThirdPartyRelationshipAttribute.id,
