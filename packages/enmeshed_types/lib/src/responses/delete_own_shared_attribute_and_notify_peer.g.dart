@@ -13,5 +13,5 @@ DeleteOwnSharedAttributeAndNotifyPeerResponse _$DeleteOwnSharedAttributeAndNotif
 
 Map<String, dynamic> _$DeleteOwnSharedAttributeAndNotifyPeerResponseToJson(DeleteOwnSharedAttributeAndNotifyPeerResponse instance) =>
     <String, dynamic>{
-      'notificationId': instance.notificationId,
+      if (instance.notificationId case final value?) 'notificationId': value,
     };

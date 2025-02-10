@@ -15,5 +15,5 @@ DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse _$DeleteThirdPartyRel
 Map<String, dynamic> _$DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponseToJson(
         DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse instance) =>
     <String, dynamic>{
-      'notificationId': instance.notificationId,
+      if (instance.notificationId case final value?) 'notificationId': value,
     };

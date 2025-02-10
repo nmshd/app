@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'delete_own_shared_attribute_and_notify_peer.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class DeleteOwnSharedAttributeAndNotifyPeerResponse {
   final String? notificationId;
 
