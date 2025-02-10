@@ -2,12 +2,12 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'delete_third_party_relationship_attribute_and_notify_peer.g.dart';
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable()
 class DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse {
-  final String notificationId;
+  final String? notificationId;
 
   DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse({
-    required this.notificationId,
+    this.notificationId,
   });
 
   factory DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse.fromJson(Map<String, dynamic> json) =>

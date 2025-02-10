@@ -8,7 +8,7 @@ part of 'delete_peer_shared_attribute_and_notify_owner.dart';
 
 DeletePeerSharedAttributeAndNotifyOwnerResponse _$DeletePeerSharedAttributeAndNotifyOwnerResponseFromJson(Map<String, dynamic> json) =>
     DeletePeerSharedAttributeAndNotifyOwnerResponse(
-      notificationId: json['notificationId'] as String,
+      notificationId: json['notificationId'] as String?,
     );
 
 Map<String, dynamic> _$DeletePeerSharedAttributeAndNotifyOwnerResponseToJson(DeletePeerSharedAttributeAndNotifyOwnerResponse instance) =>
