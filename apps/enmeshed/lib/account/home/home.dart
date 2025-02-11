@@ -26,6 +26,7 @@ class _HomeViewState extends State<HomeView> {
   List<MessageDVO>? _messages;
   List<LocalRequestDVO>? _requests;
   bool _isCompleteProfileContainerShown = false;
+  bool _showRecoveryKitWasUsedContainer = false;
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -86,10 +87,12 @@ class _HomeViewState extends State<HomeView> {
                     CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
                     Gaps.h24,
                   ],
-                    _RecoveryKitWasUsedCard(
-                      onCreate: () {},
+                  if (_showRecoveryKitWasUsedContainer)
+                    _RecoveryKitWasUsedContainer(
+                      onCreate: () => context.push('/profiles'),
                       onDismissed: () => upsertHintsSetting(accountId: widget.accountId, key: 'home.recoveryKit', value: false),
                     ),
+                  Gaps.h24,
                   AddContactOrDeviceContainer(accountId: widget.accountId),
                 ],
               ),
@@ -130,12 +133,18 @@ class _HomeViewState extends State<HomeView> {
       valueKey: 'isShown',
     );
 
+    final showRecoveryKitWasUsedContainer = await getSetting(
+      accountId: widget.accountId,
+      key: 'home.restoredIdentity',
+      valueKey: 'showContainer',
+    );
     if (!mounted) return;
     setState(() {
       _unreadMessagesCount = messages.length;
       _messages = messageDVOs;
       _requests = requests;
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
+      _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
     });
   }
 
@@ -146,16 +155,16 @@ class _HomeViewState extends State<HomeView> {
   }
 }
 
-class _RecoveryKitWasUsedCard extends StatelessWidget {
+class _RecoveryKitWasUsedContainer extends StatelessWidget {
   final VoidCallback onDismissed;
   final VoidCallback onCreate;
 
-  const _RecoveryKitWasUsedCard({required this.onDismissed, required this.onCreate, super.key});
+  const _RecoveryKitWasUsedContainer({required this.onDismissed, required this.onCreate, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Card.filled(
-      margin: EdgeInsets.zero,
+    return Container(
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
@@ -163,6 +172,7 @@ class _RecoveryKitWasUsedCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(Icons.warning, color: context.customColors.warning),
                   Gaps.w8,
