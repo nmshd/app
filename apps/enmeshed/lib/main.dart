@@ -60,6 +60,48 @@ final _router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
+      path: '/restore-from-identity-recovery-kit',
+      builder: (context, state) {
+        final extra = state.extra! as Map<String, Function>;
+
+        return InstructionsScreen(
+          onContinue: (context) => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => ScannerView(
+                onSubmit: extra['onSubmit']! as Future<void> Function({
+                  required String content,
+                  required BuildContext context,
+                  required VoidCallback pause,
+                  required VoidCallback resume,
+                }),
+                lineUpQrCodeText: context.l10n.scanner_lineUpQrCode, //--
+                scanQrOrEnterUrlText: context.l10n.restoreFromIdentityRecovery_scanner_scanQrOrEnterUrl,
+                enterUrlText: context.l10n.scanner_enterUrl, //--
+                urlTitle: context.l10n.restoreFromIdentityRecovery_scanner_connectWithUrl_title,
+                urlDescription: context.l10n.restoreFromIdentityRecovery_scanner_connectWithUrl_description,
+                urlLabelText: context.l10n.url,
+                urlValidationErrorText: context.l10n.scanner_urlValidationError,
+                urlButtonText: context.l10n.next,
+              ),
+            ),
+          ),
+          title: context.l10n.restoreFromIdentityRecovery_instructions_title,
+          subtitle: context.l10n.restoreFromIdentityRecovery_instructions_subtitle,
+          informationTitle: context.l10n.restoreFromIdentityRecovery_instructions_informationTitle,
+          informationDescription: context.l10n.restoreFromIdentityRecovery_instructions_informationDescription,
+          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/create_recovery_kit.svg'), height: 160),
+          buttonContinueText: context.l10n.onboarding_restoreProfile_button,
+          instructions: [
+            context.l10n.restoreFromIdentityRecovery_instructions_search,
+            context.l10n.restoreFromIdentityRecovery_instructions_scan,
+            context.l10n.restoreFromIdentityRecovery_instructions_password,
+            context.l10n.restoreFromIdentityRecovery_instructions_confirmation,
+          ],
+        );
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/device-onboarding',
       builder: (context, state) => DeviceOnboardingScreen(deviceSharedSecret: state.extra! as DeviceSharedSecret),
     ),
@@ -170,7 +212,6 @@ final _router = GoRouter(
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
-              accountId: accountId,
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.addContact}', value: false),
               onContinue: (context) => context
                 ..pop()
@@ -196,7 +237,6 @@ final _router = GoRouter(
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
-              accountId: accountId,
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.loadProfile}', value: false),
               onContinue: (context) => context
                 ..pop()
@@ -224,7 +264,6 @@ final _router = GoRouter(
 
             return InstructionsScreen(
               showNumberedExplanation: false,
-              accountId: accountId,
               onContinue: (context) => showCreateRecoveryKitModal(context: context, accountId: accountId),
               title: context.l10n.identityRecovery_instructions_title,
               subtitle: context.l10n.identityRecovery_instructions_subtitle,
