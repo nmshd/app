@@ -29,7 +29,7 @@ class DialogPage<T> extends Page<T> {
   Route<T> createRoute(BuildContext context) => DialogRoute<T>(
         context: context,
         settings: this,
-        builder: (context) => Dialog(child: builder(context)),
+        builder: builder,
         anchorPoint: anchorPoint,
         barrierColor: barrierColor,
         barrierDismissible: barrierDismissible,

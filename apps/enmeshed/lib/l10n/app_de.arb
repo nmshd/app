@@ -27,17 +27,28 @@
   "imprint": "Impressum",
   "safetyInformation": "Sicherheitshinweis",
   "error": "Fehler",
+  "errorDialog_title": "Fehler",
   "errorDialog_description": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
+  "errorDialog_invalidQRCode_title": "Ungültiger QR-Code",
+  "errorDialog_invalidQRCode_description": "Der gescannte QR-Code wird von dieser App nicht unterstüzt. Falls Ihnen ein alternativer QR-Code zur Verfügung steht, nutzen Sie diesen.\n\nStellen Sie sicher, dass Sie die neueste Version der App verwenden. Gehen Sie zum Store und aktualisieren Sie die App, falls nötig.",
+  "errorDialog_QRCodeProcessingFailed_title": "Fehler bei der Verarbeitung des QR-Codes",
+  "errorDialog_QRCodeProcessingFailed_description": "Der gescannte QR-Code konnte nicht verarbeitet werden. Falls Ihnen ein alternativer QR-Code zur Verfügung steht, nutzen Sie diesen.\n\nStellen Sie sicher, dass Sie die neueste Version der App verwenden. Gehen Sie zum Store und aktualisieren Sie die App, falls nötig.",
   "error_image": "Es konnte kein Bild ausgewählt werden.",
   "error_upload_file": "Die Datei konnte nicht hochgeladen werden.",
   "error_download_file": "Die Datei konnte nicht heruntergeladen werden.",
   "error_createAccount": "Ihr Profil konnte nicht erstellt werden. Bitte versuchen Sie es später erneut.",
   "error_createDevice": "Das Gerät konnte nicht erstellt werden. Bitte versuchen Sie es später erneut.",
   "error_couldNotOpenLink": "Der Link konnte nicht geöffnet werden.",
-  "error_createAttribute": "Es konnte keine neue Information angelegt werden.",
   "error_succeedAttribute": "Der Eintrag konnte nicht aktualisiert werden.",
   "error_deleteAttribute": "Der Eintrag konnte nicht gelöscht werden.",
   "error_changeFavoriteRepositoryAttribute": "Das Attribut konnte nicht favorisiert werden.",
+  "error_backboneNotAvailable": "Backbone nicht erreichbar",
+  "error_backboneNotAvailable_description": "Es kann aktuell keine Verbindung zum Server aufgebaut werden. Wenn das Problem weiterhin besteht, können Sie sich gerne an unseren Support wenden.",
+  "error_unexpected": "Es tut uns leid, aber es ist ein unerwarteter Fehler aufgetreten. Wenn das Problem weiterhin besteht, können Sie sich gerne an unseren Support wenden.",
+  "error_supportButton": "E-Mail an den Support schreiben",
+  "error_openMailApp": "Fehler beim Öffnen der E-Mail-App",
+  "error_openMailApp_description": "Die E-Mail-App auf Ihrem Gerät konnte nicht geöffnet werden. Schreiben Sie mit einem anderen Gerät an den Support.\n\nDie E-Mail-Adresse lautet:\nenmeshed.support@js-soft.com",
+  "error_understood": "Verstanden",
   "favorites": "Favoriten",
   "tryAgain": "Erneut versuchen",
   "title": "Titel",
@@ -55,11 +66,8 @@
   "sorting_group_date_thisMonth": "Dieser Monat",
   "sorting_group_date_thisYear": "Dieses Jahr",
   "sorting_group_date_older": "Älter",
-  "notImplemented": "Diese Funktion ist noch nicht implementiert.",
   "scanner_scanQR": "QR-Code scannen",
   "scanner_enterUrl": "URL-Link eingeben",
-  "scanner_invalidCode": "Der Code ist ungültig",
-  "scanner_invalidCode_tryAnother": "Versuchen Sie es mit einem anderen.",
   "scanner_lineUpQrCode": "Richten Sie den QR-Code am Rahmen aus.",
   "scanner_scanQrOrEnterUrl": "Scannen Sie einen QR-Code oder geben Sie alternativ eine URL-Link ein.",
   "scanner_urlValidationError": "Der eingegebene URL-Link ist ungültig. Bitte überprüfen Sie Ihre Eingabe.",
@@ -150,7 +158,7 @@
   "profiles_additionalProfiles": "Weitere Profile",
   "profiles_add": "Hinzufügen",
   "profiles_noAdditionalProfiles": "Sie können verschiedene Profile für unterschiedliche Rollen oder andere Personen erstellen und zwischen diesen wechseln.",
-  "profiles_switchedToProfile": "Zum Profil \"{profileName}\" gewechselt.",
+  "profiles_switchedToProfile": "Zum Profil <bold>{profileName}</bold> gewechselt.",
   "@profiles_switchedToProfile": {
     "placeholders": {
       "profileName": {
@@ -158,11 +166,11 @@
       }
     }
   },
-  "profile_or_identity_deletion": "Möchten Sie Ihr Profil nur von diesem Gerät entfernen (also das Gerät aus dem Profil abmelden) oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten löschen?",
-  "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschließlich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen “Profil vom Gerät entfernen” und “Profil löschen”. Sie können nur Ihr gesamtes Profil löschen.",
+  "profile_or_identity_deletion": "Möchten Sie Ihr Profil von diesem Gerät entfernen oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten von der enmeshed-Plattform löschen?",
+  "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschließlich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen Profil von Gerät entfernen und Profil löschen. Sie können nur Ihr gesamtes Profil löschen.",
   "identity_delete_cancel": "Nein, abbrechen",
   "identity_delete_confirm": "Ja, löschen",
-  "identity_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Es wird von allen Ihren verbundenen Geräten ({devices}) entfernt.",
+  "identity_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Das Profil wird für die Löschung vorgemerkt, Sie können das Profil nach Ablauf der Löschfrist nicht mehr reaktivieren. Es wird nach der Löschfrist von allen Ihren verbundenen Geräten ({devices}) entfernt.",
   "@identity_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -173,25 +181,31 @@
       }
     }
   },
+  "identity_delete_success": "Das Profil <bold>{profileName}</bold> befindet sich nun in Löschung.",
+  "@identity_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
   "identities_in_deletion": "Profile in Löschung",
-  "identity_restore_cancel": "Nein, abbrechen",
-  "identity_restore_confirm": "Ja, aktivieren",
-  "identity_restore_description": "Möchten Sie das Profil wiederherstellen und aktiveren?",
-  "identity_restore_title": "Ihr Profil wird gelöscht",
-  "identity_reactivate_description": "Bis zum {deletionDate} können Sie ihr Profil \"{profileName}\" wiederherstellen und aktivieren.",
-  "@identity_reactivate_description": {
+  "identity_restore_confirm": "Wiederherstellen",
+  "identity_restore_title": "Profil wiederherstellen",
+  "identity_restore_description": "Möchten Sie das in Löschung befindliche Profil <bold>{profileName}</bold> wiederherstellen und weiterverwenden? Dies ist noch bis zum {deletionDate} möglich.",
+  "@identity_restore_description": {
     "placeholders": {
       "profileName": {
         "type": "String"
       },
       "deletionDate": {
         "type": "DateTime",
-        "format": "yMMMd"
+        "format": "yMd"
       }
     }
   },
-  "identity_delete_activated_and_switchedToProfile": "Profil \"{profileName}\" wieder aktiviert und ausgewählt.",
-  "@identity_delete_activated_and_switchedToProfile": {
+  "identity_restore_successful": "Das Profil <bold>{profileName}</bold> wurde erfolgreich wiederhergestellt.",
+  "@identity_restore_successful": {
     "placeholders": {
       "profileName": {
         "type": "String"
@@ -216,10 +230,15 @@
   "profile_delete_cancel": "Nein, abbrechen",
   "profile_delete_confirm": "Ja, entfernen",
   "profile_delete_inProgress": "Das Profil wird gelöscht.",
-  "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wählen Sie aus mit welchem Profil Sie jetzt fortfahren möchten.",
-  "profile_delete_success_noProfilesAvailable": "Das Profil wurde gelöscht. Alle Ihre Daten wurden aus der App entfernt.",
-  "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" wirklich löschen? Es wird permanent von diesem Gerät gelöscht.",
+  "profile_delete_success": "Das Profil <bold>{profileName}</bold> wurde von diesem Gerät entfernt.",
+  "@profile_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "profile_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> wirklich von diesem Gerät entfernen? Sie können von diesem Gerät nicht mehr darauf zugreifen.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -228,7 +247,7 @@
     }
   },
   "profile_delete_confirmation_lastDevice": "Da Ihr Profil nur auf diesem Gerät existiert, wird es unwiderruflich gelöscht.",
-  "profile_delete_confirmation_devicesLeft": "Sie können auf Ihren folgenden verknüpften Geräten weiterhin auf Ihre Profilddaten zugreifen:",
+  "profile_delete_confirmation_devicesLeft": "Das Profil bleibt auf der enmeshed-Plattform verfügbar und Sie können von den folgenden verknüpften Geräten weiterhin darauf zugreifen:",
   "profile_delete_error": "Beim Löschen des Profils ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
   "profile_delete_error_cancel": "Abbrechen",
   "profile_delete_error_retry": "Nochmal versuchen",
@@ -240,10 +259,11 @@
   "profile_localDeletion_acceptDeletion": "Daten löschen",
   "profile_create": "Anlegen",
   "profile_create_inProgress": "Profil wird angelegt",
-  "profile_deletePhoto": "Profilbild löschen",
-  "profile_editPhoto": "Profilbild ändern",
+  "profile_addPhoto": "Profilbild hinzufügen",
+  "profile_deletePhoto": "Entfernen",
+  "profile_editPhoto": "Ändern",
   "devices_title": "Geräte verwalten",
-  "devices_description": "Mit folgenden Geräten wird Ihr Profil \"{profileName}\" geteilt. Wenn Sie die Synchronisation mit einem der Geräte beenden möchten, entfernen Sie dieses aus der Liste.",
+  "devices_description": "Mit folgenden Geräten wird Ihr Profil <bold>{profileName}</bold> geteilt. Wenn Sie die Synchronisation mit einem der Geräte beenden möchten, entfernen Sie dieses aus der Liste.",
   "@devices_description": {
     "placeholders": {
       "profileName": {
@@ -273,7 +293,7 @@
   "devices_code_copy": "URL-Link kopieren",
   "devices_delete": "Ja, löschen",
   "devices_delete_cancel": "Nein, abbrechen",
-  "devices_delete_fromApp": "Möchtest du das Gerät \"{deviceName}\" aus der Liste Ihrer Geräte löschen?",
+  "devices_delete_fromApp": "Möchtest du das Gerät <bold>{deviceName}</bold> aus der Liste Ihrer Geräte löschen?",
   "@devices_delete_fromApp": {
     "placeholders": {
       "deviceName": {
@@ -298,7 +318,7 @@
   "deviceInfo_removeCurrentDevice": "Profil von diesem Gerät entfernen",
   "deviceInfo_removeRemainingDevice_title": "Sie können das Gerät nicht von Ihrem Profil trennen, da es das einzige verbundene ist. So löschen Sie Ihr Profil:",
   "deviceInfo_removeConnectedDevice_title": "So entfernen Sie das Gerät aus der Liste der verbundenen Geräte:",
-  "deviceInfo_removeDevice_successful": "Das Gerät \"{deviceName}\" wurde aus der Liste Ihrer Geräte entfernt.",
+  "deviceInfo_removeDevice_successful": "Das Gerät <bold>{deviceName}</bold> wurde aus der Liste Ihrer Geräte entfernt.",
   "@deviceInfo_removeDevice_successful": {
     "placeholders": {
       "deviceName": {
@@ -314,7 +334,7 @@
   "deviceInfo_connectDevice_title": "So verknüpfen Sie das Gerät mit Ihrem Profil:",
   "deviceInfo_connectDevice_startConnecting": "Starten Sie dort die Verknüpfung mit einem bestehenden Profil.",
   "deviceInfo_connectDevice_scan": "Scannen Sie den hier angezeigten QR-Code ein.",
-  "deviceInfo_openApp": "Nehmen Sie das Gerät \"{deviceName}\" zur Hand und öffnen Sie die enmeshed App.",
+  "deviceInfo_openApp": "Nehmen Sie das Gerät <bold>{deviceName}</bold> zur Hand und öffnen Sie die enmeshed App.",
   "@deviceInfo_openApp": {
     "placeholders": {
       "deviceName": {
@@ -351,7 +371,7 @@
   "contacts_toBeDeleted": "Wird in Kürze gelöscht",
   "contacts_terminated": "Kontakt hat die Beziehung beendet",
   "contacts_deletionProposed": "Beziehung permanent beendet",
-  "contacts_delete_title": "Kontakt \"{contactName}\" löschen?",
+  "contacts_delete_title": "Kontakt <bold>{contactName}</bold> löschen?",
   "@contacts_delete_title": {
     "placeholders": {
       "contactName": {
@@ -397,12 +417,12 @@
       }
     }
   },
-  "contactDetail_deletedTitle": "Der Kontakt existiert nicht mehr oder ist nicht mehr Teil von \"Enmeshed\".",
+  "contactDetail_deletedTitle": "Der Kontakt existiert nicht mehr oder ist nicht mehr Teil von \"enmeshed\".",
   "contactDetail_terminatedTitle": "Der Kontakt hat die Kontaktbeziehung zu Ihnen beendet.",
-  "contactDetail_terminatedDescription1": "Wenn Sie die Beziehung ebenfalls beenden möchten können Sie den Kontakt löschen.",
+  "contactDetail_terminatedDescription1": "Wenn Sie die Beziehung ebenfalls beenden möchten, können Sie den Kontakt löschen.",
   "contactDetail_description1": "Sie können den Kontakt in Ihrer Kontaktliste behalten, ein Austausch mit dem Kontakt ist jedoch nicht mehr möglich.",
-  "contactDetail_description2": "Wenn Sie den Kontakt in Ihrer Kontaktliste behalten bleiben sämtliche Nachrichten in Ihrem Profil gespeichert.",
-  "contactDetail_description3": "Wenn Sie den Kontakt aus Ihrer Kontaktliste löschen werden sämtliche Nachrichten mit dem Kontakt aus Ihrem Postfach gelöscht. Dokumente, die der Kontakt mit Ihnen geteilt hat bleiben erhalten.",
+  "contactDetail_description2": "Wenn Sie den Kontakt in Ihrer Kontaktliste behalten, bleiben sämtliche Nachrichten in Ihrem Profil gespeichert.",
+  "contactDetail_description3": "Wenn Sie den Kontakt aus Ihrer Kontaktliste löschen, werden sämtliche Nachrichten mit dem Kontakt aus Ihrem Postfach gelöscht. Dokumente, die der Kontakt mit Ihnen geteilt hat, bleiben erhalten.",
   "contactDetail_entry": "Eintrag",
   "contactDetail_addEntry": "Hinzufügen",
   "contactDetail_selectOrCreateEntryMessage": "Teilen Sie einen bereits angelegten Eintrag mit Ihrem Kontakt oder legen Sie einen neuen dafür an.",
@@ -516,6 +536,8 @@
   "personalData_details_attributeSuccessfullyFavored": "Der Eintrag wurde erfolgreich favorisiert.",
   "personalData_details_confirmAttributeDeletion": "Ja, löschen",
   "personalData_details_cancelDeletion": "Nein, abbrechen",
+  "personalData_details_errorTitleOnCreate": "Eintrag anlegen fehlgeschlagen",
+  "personalData_details_errorContentOnCreate": "Der Eintrag konnte nicht angelegt werden. Bitte versuchen Sie es später erneut.",
   "personalData_details_warningOnSuccession": "Der neu vergebene Wert Existiert bereits. Das könnte zu Verwirrung führen.",
   "personalData_details_errorOnSuccession": "Der neu vergebene Wert ist identisch mit dem bisherigen Wert.",
   "personalData_details_notifyContacts": "{count, plural, =1 {Dieser Eintrag wird aktuell mit einem Kontakt geteilt. Wenn Sie diesen Eintrag bearbeiten, wird die Änderung auch an den Kontakt übermittelt, mit dem Sie diesen Eintrag geteilt haben.} other {Dieser Eintrag wird aktuell mit {count} Kontakten geteilt. Wenn Sie diesen Eintrag bearbeiten, wird die Änderung auch an alle Kontakte übermittelt, mit denen Sie diesen Eintrag geteilt haben.}}",
@@ -526,7 +548,7 @@
       }
     }
   },
-  "personalData_details_deleteDescription": "Möchten Sie den Eintrag {entry} aus Ihren Daten löschen?",
+  "personalData_details_deleteDescription": "Möchten Sie den Eintrag <bold>{entry}</bold> aus Ihren Daten löschen?",
   "@personalData_details_deleteDescription": {
     "placeholders": {
       "entry": {
@@ -534,14 +556,18 @@
       }
     }
   },
-  "personalData_details_deleteDescriptionShared": "{count, plural, =1{Dieser Eintrag wird aktuell mit einem Kontakt geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei dem Kontakt gelöscht, mit dem Sie ihn teilen.} other{Dieser Eintrag wird aktuell mit {count} Kontakten geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei den Kontakten gelöscht, mit denen Sie ihn teilen.}}",
+  "personalData_details_deleteDescriptionShared": "{count, plural, =1{Der Eintrag <bold>{entry}</bold> wird aktuell mit einem Kontakt geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei dem Kontakt gelöscht, mit dem Sie ihn teilen.} other{Der Eintrag <bold>{entry}</bold> wird aktuell mit {count} Kontakten geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei den Kontakten gelöscht, mit denen Sie ihn teilen.}}",
   "@personalData_details_deleteDescriptionShared": {
     "placeholders": {
       "count": {
         "type": "num"
+      },
+      "entry": {
+        "type": "String"
       }
     }
   },
+  "createAttribute_error_duplicateValue": "Es existiert bereits ein Eintrag mit diesem Wert. Bitte wählen Sie einen anderen Wert.",
   "no_data_available": "Keine Daten hinterlegt",
   "attributeDetails_createdOn": "{dateType, select, today {angelegt heute, {time}} yesterday {angelegt gestern} other {angelegt am {date}}}",
   "@attributeDetails_createdOn": {
@@ -727,7 +753,7 @@
   "identityRecovery_downloadDescription": "Wiederherstellungskit als PDF speichern.",
   "identityRecovery_print": "Drucken",
   "identityRecovery_printDescription": "Wiederherstellungskit ausdrucken.",
-  "identityRecovery_information": "Wenn Sie das Wiederherstellungskit ausdrucken können Sie Ihr erstelltes Passwort direkt dort notieren bevor Sie es vergessen. Wenn Sie das Widerherstellungskit herunterladen stellen Sie sicher, dass Sie es auf ein weiteres Gerät sichern.",
+  "identityRecovery_information": "Wenn Sie das Wiederherstellungskit ausdrucken können Sie Ihr erstelltes Passwort direkt dort notieren bevor Sie es vergessen. Wenn Sie das Wiederherstellungskit herunterladen stellen Sie sicher, dass Sie es auf ein weiteres Gerät sichern.",
   "identityRecovery_pdfHeaderTitle": "Wiederherstellungskit für Ihre enmeshed-Daten",
   "identityRecovery_pdfKeepSafeText": "Bitte bewahren Sie dieses Wiederherstellungs-Kit an einem für Dritte unzugänglichen Ort auf. Sobald Sie das selbst gewählte Master Passwort hier notiert haben ist ein Zugriff auf Ihre enmeshed-Daten möglich.",
   "identityRecovery_pdfInfoText1": "Drucken Sie dieses Dokument aus oder speichern Sie es an einem sicheren Ort, beispielsweise einem weiteren Mobilgerät oder Ihrem Computer.",

@@ -4,10 +4,10 @@ part 'delete_peer_shared_attribute_and_notify_owner.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class DeletePeerSharedAttributeAndNotifyOwnerResponse {
-  final String notificationId;
+  final String? notificationId;
 
   DeletePeerSharedAttributeAndNotifyOwnerResponse({
-    required this.notificationId,
+    this.notificationId,
   });
 
   factory DeletePeerSharedAttributeAndNotifyOwnerResponse.fromJson(Map<String, dynamic> json) =>

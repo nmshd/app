@@ -4,10 +4,10 @@ part 'delete_third_party_relationship_attribute_and_notify_peer.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse {
-  final String notificationId;
+  final String? notificationId;
 
   DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse({
-    required this.notificationId,
+    this.notificationId,
   });
 
   factory DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse.fromJson(Map<String, dynamic> json) =>

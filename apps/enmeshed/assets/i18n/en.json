@@ -896,10 +896,7 @@
         "initials": "Me",
         "name": "Me"
       },
-      "unknown": {
-        "description": "Unknown Identity",
-        "publicKey": "Unknown Public Key"
-      }
+      "unknown": "Unknown Identity"
     },
     "localRequest": {
       "incoming": {

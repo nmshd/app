@@ -47,33 +47,45 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (!_loading)
-          ProfilePicture(
-            radius: 40,
-            image: _image,
-            profileName: widget.profileName,
-            decorative: true,
-          ),
-        if (_loading) const CircleAvatar(radius: 40, child: CircularProgressIndicator()),
-        Gaps.w16,
-        Column(
-          children: [
-            TextButton.icon(
-              label: Text(context.l10n.profile_editPhoto),
-              icon: Icon(Icons.image, size: 16, color: Theme.of(context).colorScheme.primary),
-              onPressed: _loading ? null : _editImage,
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        color: Theme.of(context).colorScheme.surfaceContainer,
+      ),
+      child: Column(
+        children: [
+          if (!_loading)
+            ProfilePicture(
+              radius: 60,
+              image: _image,
+              profileName: widget.profileName,
+              decorative: true,
             ),
-            if (_image != null)
-              TextButton.icon(
-                label: Text(context.l10n.profile_deletePhoto),
-                onPressed: _loading ? null : _deleteImage,
-                icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error, size: 16),
+          if (_loading) const CircleAvatar(radius: 60, child: CircularProgressIndicator()),
+          Gaps.h16,
+          Row(
+            spacing: 8,
+            children: [
+              Expanded(
+                child: FilledButton.tonalIcon(
+                  label: Text(_image == null ? context.l10n.profile_addPhoto : context.l10n.profile_editPhoto),
+                  icon: const Icon(Icons.camera_alt_outlined, size: 16),
+                  onPressed: _loading ? null : _editImage,
+                ),
               ),
-          ],
-        ),
-      ],
+              if (_image != null)
+                Expanded(
+                  child: FilledButton.tonalIcon(
+                    label: Text(context.l10n.profile_deletePhoto),
+                    onPressed: _loading ? null : _deleteImage,
+                    icon: const Icon(Icons.delete_outline, size: 16),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

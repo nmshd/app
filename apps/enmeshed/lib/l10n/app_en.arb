@@ -27,17 +27,28 @@
   "imprint": "Imprint",
   "safetyInformation": "Safety Information",
   "error": "Error",
+  "errorDialog_title": "Error",
   "errorDialog_description": "An error has occurred. Please try again later.",
+  "errorDialog_invalidQRCode_title": "Invalid QR code",
+  "errorDialog_invalidQRCode_description": "The scanned QR code is not supported by this app. If you have an alternative QR code available, please use it.\n\nMake sure you are using the latest version of the app. Go to the store and update the app if necessary.",
+  "errorDialog_QRCodeProcessingFailed_title": "Error when processing the QR code",
+  "errorDialog_QRCodeProcessingFailed_description": "The scanned QR code could not be processed. If you have an alternative QR code available, please use it.\n\nMake sure you are using the latest version of the app. Go to the store and update the app if necessary.",
   "error_image": "Failed to pick image.",
   "error_upload_file": "Failed to upload the file.",
   "error_download_file": "Failed to download the file.",
   "error_createAccount": "Failed to create user profile. Please try again later.",
   "error_createDevice": "Failed to create device. Please try again later.",
   "error_couldNotOpenLink": "The link could not be opened.",
-  "error_createAttribute": "No new information could be created.",
   "error_succeedAttribute": "The entry could not be updated.",
   "error_deleteAttribute": "The entry could not be deleted.",
   "error_changeFavoriteRepositoryAttribute": "The attribute could not be favored.",
+  "error_backboneNotAvailable": "Backbone not available",
+  "error_backboneNotAvailable_description": "No connection to the server can currently be established. If the problem persists, you are welcome to contact our support team.",
+  "error_unexpected": "We are sorry, but an unexpected error has occurred. If the problem persists, you are welcome to contact our support team.",
+  "error_supportButton": "Write e-mail to the support team",
+  "error_openMailApp": "Error when opening the e-mail app",
+  "error_openMailApp_description": "The e-mail app on your device could not be opened. Write to support using a different device.\n\nThe e-mail address is:\nenmeshed.support@js-soft.com",
+  "error_understood": "Understood",
   "favorites": "Favorites",
   "tryAgain": "Try again",
   "title": "Title",
@@ -55,11 +66,8 @@
   "sorting_group_date_thisMonth": "This Month",
   "sorting_group_date_thisYear": "This Year",
   "sorting_group_date_older": "Older",
-  "notImplemented": "This feature isn't implemented yet.",
   "scanner_scanQR": "Scan QR code",
   "scanner_enterUrl": "Enter URL link",
-  "scanner_invalidCode": "The code is invalid",
-  "scanner_invalidCode_tryAnother": "Try another one.",
   "scanner_lineUpQrCode": "Position QR code in the frame.",
   "scanner_scanQrOrEnterUrl": "Scan a QR code or alternatively enter a URL link.",
   "scanner_urlValidationError": "The URL link could not be verified. Please check your input.",
@@ -150,7 +158,7 @@
   "profiles_additionalProfiles": "Additional profiles",
   "profiles_add": "Add",
   "profiles_noAdditionalProfiles": "You can create different profiles for different roles or other people and switch between them.",
-  "profiles_switchedToProfile": "Switched to profile \"{profileName}\".",
+  "profiles_switchedToProfile": "Switched to profile <bold>{profileName}</bold>.",
   "@profiles_switchedToProfile": {
     "placeholders": {
       "profileName": {
@@ -158,11 +166,11 @@
       }
     }
   },
-  "profile_or_identity_deletion": "Would you like to remove your profile from this device only (i.e. log the device out of the profile) or delete your entire profile with all stored data and documents?",
-  "profile_or_identity_deletion_oneDevice": "This profile is only available via this device. For this reason, no distinction is made between \"Remove profile from device\" and \"Delete profile\". You can only delete your entire profile.",
+  "profile_or_identity_deletion": "Would you like to remove your profile from this device or delete your entire profile with all stored data and documents from the enmeshed platform?",
+  "profile_or_identity_deletion_oneDevice": "This profile is only available via this device. Therefore, no distinction is made between removing a profile from the device and deleting a profile. You can only delete your entire profile.",
   "identity_delete_cancel": "No, cancel",
   "identity_delete_confirm": "Yes, delete",
-  "identity_delete_confirmation": "Would you like to delete the \"{profileName}\" profile and all the data, contacts and documents it contains? It will be removed from all your connected devices ({devices})",
+  "identity_delete_confirmation": "Would you like to delete the profile <bold>{profileName}</bold> and all the data, contacts and documents it contains? The profile will be marked for deletion; you can no longer reactivate the profile after the deletion period has expired. It will be removed from all your connected devices ({devices}) after the deletion period.",
   "@identity_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -173,25 +181,31 @@
       }
     }
   },
+  "identity_delete_success": "The profile <bold>{profileName}</bold> is now in deletion.",
+  "@identity_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
   "identities_in_deletion": "Profiles in deletion",
-  "identity_restore_cancel": "No, cancel",
-  "identity_restore_confirm": "Yes, activate",
-  "identity_restore_description": "Would you like to restore and activate the profile?",
-  "identity_restore_title": "Your Profile is in deletion.",
-  "identity_reactivate_description": "You can still restore and activate your profile \"{profileName}\" until {deletionDate}.",
-  "@identity_reactivate_description": {
+  "identity_restore_confirm": "Restore",
+  "identity_restore_title": "Restore profile",
+  "identity_restore_description": "Would you like to restore and continue using the <bold>{profileName}</bold> profile that was in deletion? This is still possible until {deletionDate}.",
+  "@identity_restore_description": {
     "placeholders": {
       "profileName": {
         "type": "String"
       },
       "deletionDate": {
         "type": "DateTime",
-        "format": "yMMMd"
+        "format": "yMd"
       }
     }
   },
-  "identity_delete_activated_and_switchedToProfile": "Profile \"{profileName}\" activated and selected.",
-  "@identity_delete_activated_and_switchedToProfile": {
+  "identity_restore_successful": "The Profile <bold>{profileName}</bold> has been successfully restored.",
+  "@identity_restore_successful": {
     "placeholders": {
       "profileName": {
         "type": "String"
@@ -216,10 +230,15 @@
   "profile_delete_cancel": "No, cancel",
   "profile_delete_confirm": "Yes, remove",
   "profile_delete_inProgress": "Deleting the profile.",
-  "profile_delete_success": "The profile has been deleted.\nPlease select another profile to continue.",
-  "profile_delete_success_noProfilesAvailable": "The profile has been deleted. All your data has been removed from this device.",
-  "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Do you really want to delete the profile \"{profileName}\"? It will be permanently deleted from this device.",
+  "profile_delete_success": "The profile <bold>{profileName}</bold> has been removed from this device.",
+  "@profile_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "profile_delete_confirmation": "Do you really want to remove the <bold>{profileName}</bold> profile from this device? You can no longer access it from this device.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -228,7 +247,7 @@
     }
   },
   "profile_delete_confirmation_lastDevice": "As your profile only exists on this device, it will be irrevocably deleted.",
-  "profile_delete_confirmation_devicesLeft": "You can still access your profile data on your following connected devices:",
+  "profile_delete_confirmation_devicesLeft": "The profile remains available on the enmeshed platform and you can continue to access it from the following linked devices:",
   "profile_delete_error": "An error occurred while deleting the profile. Please try again.",
   "profile_delete_error_cancel": "Cancel",
   "profile_delete_error_retry": "Retry",
@@ -240,10 +259,11 @@
   "profile_localDeletion_acceptDeletion": "Delete data",
   "profile_create": "Create",
   "profile_create_inProgress": "Creating profile",
-  "profile_deletePhoto": "Delete profile picture",
-  "profile_editPhoto": "Edit profile picture",
+  "profile_addPhoto": "Add profile picture",
+  "profile_deletePhoto": "Remove",
+  "profile_editPhoto": "Change",
   "devices_title": "Manage Devices",
-  "devices_description": "Your \"{profileName}\" profile is shared with the following devices. If you want to end synchronisation with one of the devices, remove it from the list.",
+  "devices_description": "Your <bold>{profileName}</bold> profile is shared with the following devices. If you want to end synchronisation with one of the devices, remove it from the list.",
   "@devices_description": {
     "placeholders": {
       "profileName": {
@@ -273,7 +293,7 @@
   "devices_code_copy": "Copy URL link",
   "devices_delete": "Yes, delete",
   "devices_delete_cancel": "No, cancel",
-  "devices_delete_fromApp": "Do you really want to delete the device \"{deviceName}\" from the app?",
+  "devices_delete_fromApp": "Do you really want to delete the device <bold>{deviceName}</bold> from the app?",
   "@devices_delete_fromApp": {
     "placeholders": {
       "deviceName": {
@@ -298,7 +318,7 @@
   "deviceInfo_removeCurrentDevice": "Remove profile from this device",
   "deviceInfo_removeRemainingDevice_title": "You cannot disconnect the device from your profile as it is the only connected one. How to delete your profile:",
   "deviceInfo_removeConnectedDevice_title": "To remove the device from the list of connected devices:",
-  "deviceInfo_removeDevice_successful": "The device \"{deviceName}\" has been removed from your device list.",
+  "deviceInfo_removeDevice_successful": "The device <bold>{deviceName}</bold> has been removed from your device list.",
   "@deviceInfo_removeDevice_successful": {
     "placeholders": {
       "deviceName": {
@@ -314,7 +334,7 @@
   "deviceInfo_connectDevice_title": "To connect the device to your profile:",
   "deviceInfo_connectDevice_startConnecting": "Start connecting with an existing profile there.",
   "deviceInfo_connectDevice_scan": "Scan the QR code displayed here.",
-  "deviceInfo_openApp": "Take the device \"{deviceName}\" and open the enmeshed app.",
+  "deviceInfo_openApp": "Take the device <bold>{deviceName}</bold> and open the enmeshed app.",
   "@deviceInfo_openApp": {
     "placeholders": {
       "deviceName": {
@@ -351,7 +371,7 @@
   "contacts_toBeDeleted": "Will be deleted shortly",
   "contacts_terminated": "Contact terminated the relationship",
   "contacts_deletionProposed": "Relationship permanently terminated",
-  "contacts_delete_title": "Delete contact \"{contactName}\"?",
+  "contacts_delete_title": "Delete contact <bold>{contactName}</bold>?",
   "@contacts_delete_title": {
     "placeholders": {
       "contactName": {
@@ -397,7 +417,7 @@
       }
     }
   },
-  "contactDetail_deletedTitle": "The contact no longer exists or is no longer part of \"Enmeshed\".",
+  "contactDetail_deletedTitle": "The contact no longer exists or is no longer part of \"enmeshed\".",
   "contactDetail_terminatedTitle": "The contact has terminated the contact relationship with you.",
   "contactDetail_terminatedDescription1": "If you also want to end the relationship, you can delete the contact.",
   "contactDetail_description1": "You can keep the contact in your contact list, but it is no longer possible to exchange information with the contact.",
@@ -516,6 +536,8 @@
   "personalData_details_attributeSuccessfullyFavored": "The entry was successfully favored.",
   "personalData_details_confirmAttributeDeletion": "Yes, delete",
   "personalData_details_cancelDeletion": "No, cancel",
+  "personalData_details_errorTitleOnCreate": "Entry creation failed",
+  "personalData_details_errorContentOnCreate": "The entry could not be created. Please try again later.",
   "personalData_details_warningOnSuccession": "The newly assigned value already exists. This could lead to confusion.",
   "personalData_details_errorOnSuccession": "The newly assigned value is identical to the previous value.",
   "personalData_details_notifyContacts": "{count, plural, =1 {This entry is currently shared with a contact. If you edit this entry again, the change will also be sent to the contact with whom you have shared this entry.} other {This entry is currently shared with {count} contacts. If you edit this entry again, the change will also be sent to all contacts with whom you have shared this entry.}}",
@@ -526,7 +548,7 @@
       }
     }
   },
-  "personalData_details_deleteDescription": "Do you want to delete the entry {entry} from your data?",
+  "personalData_details_deleteDescription": "Do you want to delete the entry <bold>{entry}</bold> from your data?",
   "@personalData_details_deleteDescription": {
     "placeholders": {
       "entry": {
@@ -534,14 +556,18 @@
       }
     }
   },
-  "personalData_details_deleteDescriptionShared": "{count, plural, =1{This entry is currently shared with a contact. If you delete the entry, it will also be deleted for the contact with whom you shared it.} other{This entry is currently shared with {count} contacts. If you delete the entry, it will also be deleted from the contacts with whom you share it.}}",
+  "personalData_details_deleteDescriptionShared": "{count, plural, =1{The entry <bold>{entry}</bold> is currently shared with a contact. If you delete the entry, it will also be deleted for the contact with whom you shared it.} other{The entry <bold>{entry}</bold> is currently shared with {count} contacts. If you delete the entry, it will also be deleted from the contacts with whom you share it.}}",
   "@personalData_details_deleteDescriptionShared": {
     "placeholders": {
       "count": {
         "type": "num"
+      },
+      "entry": {
+        "type": "String"
       }
     }
   },
+  "createAttribute_error_duplicateValue": "An entry with this value already exists. Please select a different value.",
   "no_data_available": "No data available",
   "attributeDetails_createdOn": "{dateType, select, today {created today, {time}} yesterday {created yesterday} other {created on {date}}}",
   "@attributeDetails_createdOn": {

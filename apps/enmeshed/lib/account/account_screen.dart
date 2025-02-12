@@ -96,17 +96,14 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         actions: [
           ..._actions ?? [],
           Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              onPressed: () => context.push('/profiles?selectedAccountReference=${widget.accountId}'),
-              icon: Badge(
-                isLabelVisible: _accountsInDeletion.isNotEmpty,
-                child: AutoLoadingProfilePicture(
-                  accountId: widget.accountId,
-                  profileName: _account?.name ?? '',
-                  radius: 16,
-                ),
+            padding: const EdgeInsets.only(left: 6, right: 14),
+            child: Badge(
+              isLabelVisible: _accountsInDeletion.isNotEmpty,
+              child: AutoLoadingProfilePicture(
+                accountId: widget.accountId,
+                profileName: _account?.name ?? '',
+                radius: 18,
+                onPressed: () => context.push('/profiles?selectedAccountReference=${widget.accountId}'),
               ),
             ),
           ),
@@ -198,12 +195,12 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
               suggestionsBuilder: (context, controller) =>
                   widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
             ),
-            IconButton(
-              icon: ValueListenableBuilder(
-                valueListenable: widget.contactsFilterController,
-                builder: (context, value, child) => Badge(isLabelVisible: value.isNotEmpty, child: const Icon(Icons.filter_list)),
+            ValueListenableBuilder(
+              valueListenable: widget.contactsFilterController,
+              builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
+                icon: const Icon(Icons.filter_list),
+                onPressed: () => widget.contactsFilterController.openContactsFilter(),
               ),
-              onPressed: () => widget.contactsFilterController.openContactsFilter(),
             ),
             IconButton(
               icon: const Icon(Icons.person_add),
@@ -225,12 +222,12 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
               suggestionsBuilder: (context, controller) =>
                   widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
             ),
-            IconButton(
-              icon: ValueListenableBuilder(
-                valueListenable: widget.mailboxFilterController,
-                builder: (context, value, child) => Badge(isLabelVisible: value.isNotEmpty, child: const Icon(Icons.filter_list)),
+            ValueListenableBuilder(
+              valueListenable: widget.mailboxFilterController,
+              builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
+                icon: const Icon(Icons.filter_list),
+                onPressed: () => widget.mailboxFilterController.openMailboxFilter(),
               ),
-              onPressed: () => widget.mailboxFilterController.openMailboxFilter(),
             ),
             IconButton(
               icon: const Icon(Icons.add),

@@ -39,7 +39,7 @@ dependencies:
   logger: ^2.4.0
   mime_type: ^1.0.1
   mobile_scanner: ^6.0.2
-  open_file: ^3.5.9
+  open_file: ^3.5.10
   package_info_plus: ^8.1.0
   path: any
   path_provider: ^2.1.5
@@ -50,17 +50,23 @@ dependencies:
   qr_flutter: ^4.1.0
   renderers: ^1.0.0
   smooth_page_indicator: ^1.2.0
+  styled_text: ^8.1.0
   timeago: ^3.7.0
   url_launcher: ^6.3.1
   value_renderer: ^1.0.0
   vector_graphics: ^1.1.13
   very_good_analysis: ^6.0.0
+  win32_registry: ^1.1.5
   wolt_modal_sheet: ^0.5.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1
   flutter_test:
     sdk: flutter
+  msix:
+    git:
+      url: https://github.com/h4h13/msix.git
+      ref: Fix-Flutter-3.27
   translations_cleaner: ^0.0.5
   vector_graphics_compiler: ^1.1.12
 
@@ -81,6 +87,9 @@ flutter_icons:
   image_path: "assets/icon.png"
   android: true
   ios: true
+  windows:
+    generate: true
+    image_path: "assets/icon-512.png"
   remove_alpha_ios: true
   image_path_ios_dark_transparent: "assets/icon_dark.png"
   image_path_ios_tinted_grayscale: "assets/icon_grayscale.png"
@@ -104,3 +113,19 @@ flutter_native_splash:
 
   android: true
   ios: true
+
+# dart run msix:create
+msix_config:
+  display_name: enmeshed
+  publisher_display_name: js-soft
+  identity_name: js-soft.enmeshed
+  publisher: CN=CB3048C3-A086-471C-AF11-83ABB7396C98
+  store: true
+  protocol_activation: nmshd
+  logo_path: assets/icon-512.png
+  start_menu_icon_path: assets/icon-512.png
+  tile_icon_path: assets/icon-512.png
+  icons_background_color: transparent
+  build_windows: false
+  languages: en-us, de-de
+  # capabilities: "internetClient,internetClientServer,privateNetworkClientServer"

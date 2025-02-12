@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:croppy/croppy.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
@@ -20,13 +21,14 @@ import '/themes/themes.dart';
 import 'account/account.dart';
 import 'core/core.dart';
 import 'drawer/drawer.dart';
+import 'error_screen.dart';
 import 'onboarding/onboarding.dart';
 import 'profiles/profiles.dart';
 import 'splash_screen.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  if (Platform.isAndroid || Platform.isIOS) FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   timeago.setLocaleMessages('de', timeago.DeMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
@@ -128,13 +130,13 @@ final _router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
+      path: '/error-dialog',
+      pageBuilder: (context, state) => DialogPage(builder: (context) => ErrorDialog(code: state.extra as String?)),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/error',
-      pageBuilder: (context, state) => DialogPage(
-        builder: (context) => AlertDialog(
-          title: Text(context.l10n.error),
-          content: Text(context.l10n.errorDialog_description),
-        ),
-      ),
+      builder: (context, state) => ErrorScreen(backboneNotAvailable: state.uri.queryParameters['backboneNotAvailable'] == 'true'),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

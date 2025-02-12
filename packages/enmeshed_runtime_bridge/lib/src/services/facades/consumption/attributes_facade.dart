@@ -8,6 +8,32 @@ class AttributesFacade {
   final AbstractEvaluator _evaluator;
   AttributesFacade(this._evaluator);
 
+  Future<Result<CanCreateRepositoryAttributeResponse>> canCreateRepositoryAttribute({
+    required IdentityAttributeValue value,
+    List<String>? tags,
+    String? validFrom,
+    String? validTo,
+  }) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.attributes.canCreateRepositoryAttribute(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {
+          'content': {
+            'value': value.toJson(),
+            if (tags != null) 'tags': tags,
+            if (validFrom != null) 'validFrom': validFrom,
+            if (validTo != null) 'validTo': validTo,
+          },
+        },
+      },
+    );
+
+    final json = result.valueToMap();
+    return Result.fromJson(json, (value) => CanCreateRepositoryAttributeResponse.fromJson(value));
+  }
+
   Future<Result<LocalAttributeDTO>> createRepositoryAttribute({
     required IdentityAttributeValue value,
     List<String>? tags,

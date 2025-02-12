@@ -94,6 +94,37 @@ void main() {
       );
     });
 
+    test('is correctly converted with property "profileName"', () {
+      const dto = DeviceSharedSecret(
+        id: 'anId',
+        createdAt: '2023',
+        createdByDevice: 'aCreatorDeviceId',
+        profileName: 'aProfileName',
+        secretBaseKey: 'aSecretBaseKey',
+        deviceIndex: 1,
+        synchronizationKey: 'aSynchronizationKey',
+        identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+        password: 'aPassword',
+        username: 'anUsername',
+      );
+      final dtoJson = dto.toJson();
+      expect(
+        dtoJson,
+        equals({
+          'id': 'anId',
+          'createdAt': '2023',
+          'createdByDevice': 'aCreatorDeviceId',
+          'profileName': 'aProfileName',
+          'secretBaseKey': 'aSecretBaseKey',
+          'deviceIndex': 1,
+          'synchronizationKey': 'aSynchronizationKey',
+          'identity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
+          'password': 'aPassword',
+          'username': 'anUsername',
+        }),
+      );
+    });
+
     test('is correctly converted with property "identityPrivateKey"', () {
       const dto = DeviceSharedSecret(
         id: 'anId',
@@ -125,13 +156,45 @@ void main() {
       );
     });
 
-    test('is correctly converted with properties "name", "description", and "identityPrivateKey"', () {
+    test('is correctly converted with property "isBackupDevice"', () {
+      const dto = DeviceSharedSecret(
+        id: 'anId',
+        createdAt: '2023',
+        createdByDevice: 'aCreatorDeviceId',
+        secretBaseKey: 'aSecretBaseKey',
+        deviceIndex: 1,
+        synchronizationKey: 'aSynchronizationKey',
+        identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+        password: 'aPassword',
+        username: 'anUsername',
+        isBackupDevice: true,
+      );
+      final dtoJson = dto.toJson();
+      expect(
+        dtoJson,
+        equals({
+          'id': 'anId',
+          'createdAt': '2023',
+          'createdByDevice': 'aCreatorDeviceId',
+          'secretBaseKey': 'aSecretBaseKey',
+          'deviceIndex': 1,
+          'synchronizationKey': 'aSynchronizationKey',
+          'identity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
+          'password': 'aPassword',
+          'username': 'anUsername',
+          'isBackupDevice': true,
+        }),
+      );
+    });
+
+    test('is correctly converted with all properties', () {
       const dto = DeviceSharedSecret(
         id: 'anId',
         createdAt: '2023',
         createdByDevice: 'aCreatorDeviceId',
         name: 'aName',
         description: 'aDescription',
+        profileName: 'aProfileName',
         secretBaseKey: 'aSecretBaseKey',
         deviceIndex: 1,
         synchronizationKey: 'aSynchronizationKey',
@@ -139,6 +202,7 @@ void main() {
         identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
         password: 'aPassword',
         username: 'anUsername',
+        isBackupDevice: true,
       );
       final dtoJson = dto.toJson();
       expect(
@@ -149,6 +213,7 @@ void main() {
           'createdByDevice': 'aCreatorDeviceId',
           'name': 'aName',
           'description': 'aDescription',
+          'profileName': 'aProfileName',
           'secretBaseKey': 'aSecretBaseKey',
           'deviceIndex': 1,
           'synchronizationKey': 'aSynchronizationKey',
@@ -156,6 +221,7 @@ void main() {
           'identity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
           'password': 'aPassword',
           'username': 'anUsername',
+          'isBackupDevice': true,
         }),
       );
     });
@@ -250,6 +316,36 @@ void main() {
       );
     });
 
+    test('is correctly converted with property "profileName"', () {
+      final json = {
+        'id': 'anId',
+        'createdAt': '2023',
+        'createdByDevice': 'aCreatorDeviceId',
+        'profileName': 'aProfileName',
+        'secretBaseKey': 'aSecretBaseKey',
+        'deviceIndex': 1,
+        'synchronizationKey': 'aSynchronizationKey',
+        'identity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
+        'password': 'aPassword',
+        'username': 'anUsername',
+      };
+      expect(
+        DeviceSharedSecret.fromJson(json),
+        equals(const DeviceSharedSecret(
+          id: 'anId',
+          createdAt: '2023',
+          createdByDevice: 'aCreatorDeviceId',
+          profileName: 'aProfileName',
+          secretBaseKey: 'aSecretBaseKey',
+          deviceIndex: 1,
+          synchronizationKey: 'aSynchronizationKey',
+          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+          password: 'aPassword',
+          username: 'anUsername',
+        )),
+      );
+    });
+
     test('is correctly converted with property "identityPrivateKey"', () {
       final json = {
         'id': 'anId',
@@ -280,13 +376,44 @@ void main() {
       );
     });
 
-    test('is correctly converted with properties "name", "description", and "identityPrivateKey"', () {
+    test('is correctly converted with property "isBackupDevice"', () {
+      final json = {
+        'id': 'anId',
+        'createdAt': '2023',
+        'createdByDevice': 'aCreatorDeviceId',
+        'secretBaseKey': 'aSecretBaseKey',
+        'deviceIndex': 1,
+        'synchronizationKey': 'aSynchronizationKey',
+        'identity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
+        'password': 'aPassword',
+        'username': 'anUsername',
+        'isBackupDevice': true,
+      };
+      expect(
+        DeviceSharedSecret.fromJson(json),
+        equals(const DeviceSharedSecret(
+          id: 'anId',
+          createdAt: '2023',
+          createdByDevice: 'aCreatorDeviceId',
+          secretBaseKey: 'aSecretBaseKey',
+          deviceIndex: 1,
+          synchronizationKey: 'aSynchronizationKey',
+          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+          password: 'aPassword',
+          username: 'anUsername',
+          isBackupDevice: true,
+        )),
+      );
+    });
+
+    test('is correctly converted with all properties', () {
       final json = {
         'id': 'anId',
         'createdAt': '2023',
         'createdByDevice': 'aCreatorDeviceId',
         'name': 'aName',
         'description': 'aDescription',
+        'profileName': 'aProfileName',
         'secretBaseKey': 'aSecretBaseKey',
         'deviceIndex': 1,
         'synchronizationKey': 'aSynchronizationKey',
@@ -294,6 +421,7 @@ void main() {
         'identity': const IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey').toJson(),
         'password': 'aPassword',
         'username': 'anUsername',
+        'isBackupDevice': true,
       };
       expect(
         DeviceSharedSecret.fromJson(json),
@@ -303,6 +431,7 @@ void main() {
           createdByDevice: 'aCreatorDeviceId',
           name: 'aName',
           description: 'aDescription',
+          profileName: 'aProfileName',
           secretBaseKey: 'aSecretBaseKey',
           deviceIndex: 1,
           synchronizationKey: 'aSynchronizationKey',
@@ -310,6 +439,7 @@ void main() {
           identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
           password: 'aPassword',
           username: 'anUsername',
+          isBackupDevice: true,
         )),
       );
     });

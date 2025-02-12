@@ -32,6 +32,29 @@ void run(EnmeshedRuntime runtime) {
     await ensureActiveRelationship(sender, thirdParty);
   });
 
+  group('AttributesFacade: canCreateRepositoryAttribute', () {
+    test('should return that it is possible to create an identity attribute', () async {
+      final attributeResult = await sender.consumptionServices.attributes.canCreateRepositoryAttribute(
+        value: const CityAttributeValue(value: 'aRandomCityNobodyWillEverUse'),
+      );
+
+      expect(attributeResult, isSuccessful<CanCreateRepositoryAttributeSuccessResponse>());
+    });
+
+    test('should return that it is not possible to create an identity attribute when a duplicate exists', () async {
+      const attributeValue = CityAttributeValue(value: 'aRandomCityThatWillBeCreatedAndCauseADuplicateIssue');
+
+      final createResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: attributeValue);
+      expect(createResult, isSuccessful<LocalAttributeDTO>());
+
+      final canCreateResult = await sender.consumptionServices.attributes.canCreateRepositoryAttribute(value: attributeValue);
+      expect(canCreateResult, isSuccessful<CanCreateRepositoryAttributeFailureResponse>());
+
+      final errorResponse = canCreateResult.value as CanCreateRepositoryAttributeFailureResponse;
+      expect(errorResponse.code, 'error.runtime.attributes.cannotCreateDuplicateRepositoryAttribute');
+    });
+  });
+
   group('AttributesFacade: createRepositoryAttribute', () {
     test('should create an identity attribute', () async {
       final attributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const CityAttributeValue(value: 'aCity'));
@@ -1601,7 +1624,7 @@ void run(EnmeshedRuntime runtime) {
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
-      await syncUntilHasMessageWithNotification(recipient, notificationId);
+      await syncUntilHasMessageWithNotification(recipient, notificationId!);
       await eventBus.waitForEvent<OwnSharedAttributeDeletedByOwnerEvent>(
         eventTargetAddress: recipientAddress,
         predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id,
@@ -1691,7 +1714,7 @@ void run(EnmeshedRuntime runtime) {
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
-      await syncUntilHasMessageWithNotification(sender, notificationId);
+      await syncUntilHasMessageWithNotification(sender, notificationId!);
       await eventBus.waitForEvent<PeerSharedAttributeDeletedByPeerEvent>(
         eventTargetAddress: senderAddress,
         predicate: (e) => e.data.id == senderOwnSharedRelationshipAttribute.id,
@@ -1850,7 +1873,7 @@ void run(EnmeshedRuntime runtime) {
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
-      await syncUntilHasMessageWithNotification(recipient, notificationId);
+      await syncUntilHasMessageWithNotification(recipient, notificationId!);
       await eventBus.waitForEvent<ThirdPartyRelationshipAttributeDeletedByPeerEvent>(
         eventTargetAddress: recipientAddress,
         predicate: (e) => e.data.id == senderThirdPartyRelationshipAttribute.id,
@@ -1911,7 +1934,7 @@ void run(EnmeshedRuntime runtime) {
       final notificationId = deletionResult.value.notificationId;
 
       final timeBeforeUpdate = DateTime.now();
-      await syncUntilHasMessageWithNotification(sender, notificationId);
+      await syncUntilHasMessageWithNotification(sender, notificationId!);
       await eventBus.waitForEvent<ThirdPartyRelationshipAttributeDeletedByPeerEvent>(
         eventTargetAddress: senderAddress,
         predicate: (e) => e.data.id == senderThirdPartyRelationshipAttribute.id,
