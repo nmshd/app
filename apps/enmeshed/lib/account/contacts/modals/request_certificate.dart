@@ -26,28 +26,30 @@ Future<void> showRequestCertificateModal({required BuildContext context, require
     pageIndexNotifier: pageIndexNotifier,
     onModalDismissedWithBarrierTap: () => pageIndexNotifier.value != 1 ? context.pop() : null,
     showDragHandle: false,
-    pageListBuilder: (context) => [
-      WoltModalSheetPage(
-        leadingNavBarWidget: title,
-        trailingNavBarWidget: closeButton,
-        child: _RequestCertificate(
-          send: ({required String title, required String freeText}) => _requestCertificate(
-            session: session,
-            title: title,
-            freeText: freeText,
-            peer: peer,
-            onLoad: () => pageIndexNotifier.value = 1,
-            onDone: () => pageIndexNotifier.value = 2,
-            onError: () {
-              pageIndexNotifier.value = 0;
-              showErrorSnackbar(context: context, text: context.l10n.contactDetail_requestCertificate_error);
-            },
+    pageListBuilder:
+        (context) => [
+          WoltModalSheetPage(
+            leadingNavBarWidget: title,
+            trailingNavBarWidget: closeButton,
+            child: _RequestCertificate(
+              send:
+                  ({required String title, required String freeText}) => _requestCertificate(
+                    session: session,
+                    title: title,
+                    freeText: freeText,
+                    peer: peer,
+                    onLoad: () => pageIndexNotifier.value = 1,
+                    onDone: () => pageIndexNotifier.value = 2,
+                    onError: () {
+                      pageIndexNotifier.value = 0;
+                      showErrorSnackbar(context: context, text: context.l10n.contactDetail_requestCertificate_error);
+                    },
+                  ),
+            ),
           ),
-        ),
-      ),
-      WoltModalSheetPage(enableDrag: false, child: const _SendCertificateLoading()),
-      WoltModalSheetPage(trailingNavBarWidget: closeButton, child: const _SendCertificateSuccess()),
-    ],
+          WoltModalSheetPage(enableDrag: false, child: const _SendCertificateLoading()),
+          WoltModalSheetPage(trailingNavBarWidget: closeButton, child: const _SendCertificateSuccess()),
+        ],
   );
 }
 
@@ -228,10 +230,7 @@ class _SendCertificateSuccess extends StatelessWidget {
         children: [
           Icon(Icons.check_circle_rounded, size: 160, color: context.customColors.success),
           Gaps.h24,
-          Text(
-            context.l10n.contactDetail_requestCertificate_success,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(context.l10n.contactDetail_requestCertificate_success, style: Theme.of(context).textTheme.titleMedium),
           Gaps.h40,
           Align(
             alignment: Alignment.centerRight,

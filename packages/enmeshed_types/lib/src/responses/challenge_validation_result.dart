@@ -6,10 +6,7 @@ class ChallengeValidationResult extends Equatable {
   final bool isValid;
   final RelationshipDTO? correspondingRelationship;
 
-  const ChallengeValidationResult({
-    required this.isValid,
-    this.correspondingRelationship,
-  });
+  const ChallengeValidationResult({required this.isValid, this.correspondingRelationship});
 
   factory ChallengeValidationResult.fromJson(Map json) {
     return ChallengeValidationResult(

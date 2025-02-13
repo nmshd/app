@@ -60,15 +60,15 @@ class TokenDTO extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        createdBy,
-        createdByDevice,
-        content,
-        createdAt,
-        expiresAt,
-        forIdentity,
-        truncatedReference,
-        isEphemeral,
-        passwordProtection,
-      ];
+    id,
+    createdBy,
+    createdByDevice,
+    content,
+    createdAt,
+    expiresAt,
+    forIdentity,
+    truncatedReference,
+    isEphemeral,
+    passwordProtection,
+  ];
 }

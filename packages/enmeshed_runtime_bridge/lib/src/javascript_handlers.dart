@@ -42,98 +42,84 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
     'transport.messageSent' => MessageSentEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.messageReceived' => MessageReceivedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.relationshipChanged' => RelationshipChangedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
-    'transport.relationshipReactivationRequested' =>
-      RelationshipReactivationRequestedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
-    'transport.relationshipReactivationCompleted' =>
-      RelationshipReactivationCompletedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
+    'transport.relationshipReactivationRequested' => RelationshipReactivationRequestedEvent(
+      eventTargetAddress: eventTargetAddress,
+      data: RelationshipDTO.fromJson(data),
+    ),
+    'transport.relationshipReactivationCompleted' => RelationshipReactivationCompletedEvent(
+      eventTargetAddress: eventTargetAddress,
+      data: RelationshipDTO.fromJson(data),
+    ),
     'transport.relationshipDecomposedBySelf' => RelationshipDecomposedBySelfEvent(
-        eventTargetAddress: eventTargetAddress,
-        relationshipId: data['relationshipId'] as String,
-      ),
+      eventTargetAddress: eventTargetAddress,
+      relationshipId: data['relationshipId'] as String,
+    ),
     'transport.messageWasReadAtChanged' => MessageWasReadAtChangedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.identityDeletionProcessStatusChanged' => IdentityDeletionProcessStatusChangedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: IdentityDeletionProcessDTO.fromJson(data),
-      ),
-    'transport.peerToBeDeleted' => PeerToBeDeletedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: RelationshipDTO.fromJson(data),
-      ),
-    'transport.peerDeletionCancelled' => PeerDeletionCancelledEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: RelationshipDTO.fromJson(data),
-      ),
-    'transport.peerDeleted' => PeerDeletedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: RelationshipDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: IdentityDeletionProcessDTO.fromJson(data),
+    ),
+    'transport.peerToBeDeleted' => PeerToBeDeletedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
+    'transport.peerDeletionCancelled' => PeerDeletionCancelledEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
+    'transport.peerDeleted' => PeerDeletedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
     'consumption.ownSharedAttributeSucceeded' => OwnSharedAttributeSucceededEvent(
-        eventTargetAddress: eventTargetAddress,
-        predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
-        successor: LocalAttributeDTO.fromJson(data['successor']),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
+      successor: LocalAttributeDTO.fromJson(data['successor']),
+    ),
     'consumption.peerSharedAttributeSucceeded' => PeerSharedAttributeSucceededEvent(
-        eventTargetAddress: eventTargetAddress,
-        predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
-        successor: LocalAttributeDTO.fromJson(data['successor']),
-      ),
-    'consumption.attributeCreated' => AttributeCreatedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
-    'consumption.attributeDeleted' => AttributeDeletedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
+      successor: LocalAttributeDTO.fromJson(data['successor']),
+    ),
+    'consumption.attributeCreated' => AttributeCreatedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
+    'consumption.attributeDeleted' => AttributeDeletedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
     'consumption.ownSharedAttributeDeletedByOwner' => OwnSharedAttributeDeletedByOwnerEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAttributeDTO.fromJson(data),
+    ),
     'consumption.peerSharedAttributeDeletedByPeer' => PeerSharedAttributeDeletedByPeerEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAttributeDTO.fromJson(data),
+    ),
     'consumption.thirdPartyRelationshipAttributeDeletedByPeer' => ThirdPartyRelationshipAttributeDeletedByPeerEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
-    'consumption.outgoingRequestCreated' => OutgoingRequestCreatedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalRequestDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAttributeDTO.fromJson(data),
+    ),
+    'consumption.outgoingRequestCreated' => OutgoingRequestCreatedEvent(eventTargetAddress: eventTargetAddress, data: LocalRequestDTO.fromJson(data)),
     'consumption.incomingRequestReceived' => IncomingRequestReceivedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalRequestDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalRequestDTO.fromJson(data),
+    ),
     'consumption.incomingRequestStatusChanged' => IncomingRequestStatusChangedEvent(
-        eventTargetAddress: eventTargetAddress,
-        request: LocalRequestDTO.fromJson(data['request']),
-        oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
-        newStatus: LocalRequestStatus.values.byName(data['newStatus']),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      request: LocalRequestDTO.fromJson(data['request']),
+      oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
+      newStatus: LocalRequestStatus.values.byName(data['newStatus']),
+    ),
     'consumption.outgoingRequestStatusChanged' => OutgoingRequestStatusChangedEvent(
-        eventTargetAddress: eventTargetAddress,
-        request: LocalRequestDTO.fromJson(data['request']),
-        oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
-        newStatus: LocalRequestStatus.values.byName(data['newStatus']),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      request: LocalRequestDTO.fromJson(data['request']),
+      oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
+      newStatus: LocalRequestStatus.values.byName(data['newStatus']),
+    ),
     'app.externalEventReceived' => ExternalEventReceivedEvent(
-        eventTargetAddress: eventTargetAddress,
-        messages: List<MessageDTO>.from((data['messages'] as List<dynamic>).map((e) => MessageDTO.fromJson(e))),
-        relationships: List<RelationshipDTO>.from((data['relationships'] as List<dynamic>).map((e) => RelationshipDTO.fromJson(e))),
-        identityDeletionProcesses: List<IdentityDeletionProcessDTO>.from(
-          (data['identityDeletionProcesses'] as List<dynamic>).map((e) => IdentityDeletionProcessDTO.fromJson(e)),
-        ),
+      eventTargetAddress: eventTargetAddress,
+      messages: List<MessageDTO>.from((data['messages'] as List<dynamic>).map((e) => MessageDTO.fromJson(e))),
+      relationships: List<RelationshipDTO>.from((data['relationships'] as List<dynamic>).map((e) => RelationshipDTO.fromJson(e))),
+      identityDeletionProcesses: List<IdentityDeletionProcessDTO>.from(
+        (data['identityDeletionProcesses'] as List<dynamic>).map((e) => IdentityDeletionProcessDTO.fromJson(e)),
       ),
+    ),
     'app.localAccountDeletionDateChanged' => LocalAccountDeletionDateChangedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAccountDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAccountDTO.fromJson(data),
+    ),
     'runtime.accountSelected' => AccountSelectedEvent(
-        eventTargetAddress: eventTargetAddress,
-        localAccountId: data['localAccountId'] as String,
-        address: data['address'] as String,
-      ),
+      eventTargetAddress: eventTargetAddress,
+      localAccountId: data['localAccountId'] as String,
+      address: data['address'] as String,
+    ),
     _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: data),
   };
 
@@ -198,15 +184,12 @@ class JsToUIBridge {
       callback: (args) async {
         final error = args[0] as Map<String, dynamic>;
 
-        await uiBridge.showError(
-          (
-            code: error['code'] as String,
-            message: error['message'] as String,
-            userfriendlyMessage: error['userfriendlyMessage'] as String?,
-            data: error['data'] as Map<String, dynamic>?,
-          ),
-          args[1] != null ? LocalAccountDTO.fromJson(args[1]) : null,
-        );
+        await uiBridge.showError((
+          code: error['code'] as String,
+          message: error['message'] as String,
+          userfriendlyMessage: error['userfriendlyMessage'] as String?,
+          data: error['data'] as Map<String, dynamic>?,
+        ), args[1] != null ? LocalAccountDTO.fromJson(args[1]) : null);
       },
     );
 
@@ -399,9 +382,7 @@ extension LocalNotifications on InAppWebViewController {
         final body = args[1] as String;
         final id = args[2] as int;
 
-        await winNotifyPlugin.showNotificationPluginTemplate(
-          NotificationMessage.fromPluginTemplate(id.toString(), title, body, group: 'nmshd'),
-        );
+        await winNotifyPlugin.showNotificationPluginTemplate(NotificationMessage.fromPluginTemplate(id.toString(), title, body, group: 'nmshd'));
       },
     );
 

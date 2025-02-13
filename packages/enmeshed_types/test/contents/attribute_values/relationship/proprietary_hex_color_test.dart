@@ -6,19 +6,13 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryHEXColorAttributeValue(title: 'aTitle', value: 'aHEXColor');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryHEXColor', 'title': 'aTitle', 'value': 'aHEXColor'}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryHEXColor', 'title': 'aTitle', 'value': 'aHEXColor'}));
     });
 
     test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryHEXColorAttributeValue(title: 'aTitle', description: 'aDescription', value: 'aHEXColor');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryHEXColor', 'title': 'aTitle', 'description': 'aDescription', 'value': 'aHEXColor'}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryHEXColor', 'title': 'aTitle', 'description': 'aDescription', 'value': 'aHEXColor'}));
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
@@ -54,10 +48,7 @@ void main() {
   group('ProprietaryHEXColorAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 'aHEXColor'};
-      expect(
-        ProprietaryHEXColorAttributeValue.fromJson(json),
-        equals(const ProprietaryHEXColorAttributeValue(title: 'aTitle', value: 'aHEXColor')),
-      );
+      expect(ProprietaryHEXColorAttributeValue.fromJson(json), equals(const ProprietaryHEXColorAttributeValue(title: 'aTitle', value: 'aHEXColor')));
     });
 
     test('is correctly converted with property "description"', () {
@@ -80,12 +71,9 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aHEXColor'};
       expect(
         ProprietaryHEXColorAttributeValue.fromJson(json),
-        equals(const ProprietaryHEXColorAttributeValue(
-          title: 'aTitle',
-          description: 'aDescription',
-          valueHintsOverride: ValueHints(),
-          value: 'aHEXColor',
-        )),
+        equals(
+          const ProprietaryHEXColorAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aHEXColor'),
+        ),
       );
     });
   });

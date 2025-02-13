@@ -9,9 +9,9 @@ class ConsumptionServices {
   final SettingsFacade settings;
 
   ConsumptionServices(AbstractEvaluator evaluator)
-      : attributes = AttributesFacade(evaluator),
-        attributeListeners = AttributeListenersFacade(evaluator),
-        incomingRequests = IncomingRequestsFacade(evaluator),
-        outgoingRequests = OutgoingRequestsFacade(evaluator),
-        settings = SettingsFacade(evaluator);
+    : attributes = AttributesFacade(evaluator),
+      attributeListeners = AttributeListenersFacade(evaluator),
+      incomingRequests = IncomingRequestsFacade(evaluator),
+      outgoingRequests = OutgoingRequestsFacade(evaluator),
+      settings = SettingsFacade(evaluator);
 }

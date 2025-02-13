@@ -16,7 +16,7 @@ enum RelationshipAuditLogEntryReason {
   RejectionOfReactivation,
   RevocationOfReactivation,
   Decomposition,
-  DecompositionDueToIdentityDeletion
+  DecompositionDueToIdentityDeletion,
 }
 
 @JsonSerializable(includeIfNull: false)

@@ -8,17 +8,13 @@ class AttributeListenersFacade {
   final AbstractEvaluator _evaluator;
   AttributeListenersFacade(this._evaluator);
 
-  Future<Result<LocalAttributeListenerDTO>> getAttributeListener({
-    required String listenerId,
-  }) async {
+  Future<Result<LocalAttributeListenerDTO>> getAttributeListener({required String listenerId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributeListeners.getAttributeListener(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': listenerId,
-        },
+        'request': {'id': listenerId},
       },
     );
 
@@ -27,11 +23,9 @@ class AttributeListenersFacade {
   }
 
   Future<Result<List<LocalAttributeListenerDTO>>> getAttributeListeners() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.consumptionServices.attributeListeners.getAttributeListeners()
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.consumptionServices.attributeListeners.getAttributeListeners()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final json = result.valueToMap();
     return Result.fromJson(json, (value) => List<LocalAttributeListenerDTO>.from(value.map((e) => LocalAttributeListenerDTO.fromJson(e))));

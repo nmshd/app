@@ -52,10 +52,7 @@ class _SharedPreferencesEnabledTextFieldState extends State<SharedPreferencesEna
             enabled: _enabled,
           ),
         ),
-        IconButton(
-          icon: Icon(_enabled ? Icons.lock_open : Icons.lock),
-          onPressed: toggle,
-        ),
+        IconButton(icon: Icon(_enabled ? Icons.lock_open : Icons.lock), onPressed: toggle),
       ],
     );
   }

@@ -6,19 +6,13 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryCountryAttributeValue(title: 'aTitle', value: 'aCountry');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryCountry', 'title': 'aTitle', 'value': 'aCountry'}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryCountry', 'title': 'aTitle', 'value': 'aCountry'}));
     });
 
     test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryCountryAttributeValue(title: 'aTitle', description: 'aDescription', value: 'aCountry');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryCountry', 'title': 'aTitle', 'description': 'aDescription', 'value': 'aCountry'}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryCountry', 'title': 'aTitle', 'description': 'aDescription', 'value': 'aCountry'}));
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
@@ -54,10 +48,7 @@ void main() {
   group('ProprietaryCountryAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 'aCountry'};
-      expect(
-        ProprietaryCountryAttributeValue.fromJson(json),
-        equals(const ProprietaryCountryAttributeValue(title: 'aTitle', value: 'aCountry')),
-      );
+      expect(ProprietaryCountryAttributeValue.fromJson(json), equals(const ProprietaryCountryAttributeValue(title: 'aTitle', value: 'aCountry')));
     });
 
     test('is correctly converted with property "description"', () {
@@ -80,12 +71,9 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aCountry'};
       expect(
         ProprietaryCountryAttributeValue.fromJson(json),
-        equals(const ProprietaryCountryAttributeValue(
-          title: 'aTitle',
-          description: 'aDescription',
-          valueHintsOverride: ValueHints(),
-          value: 'aCountry',
-        )),
+        equals(
+          const ProprietaryCountryAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aCountry'),
+        ),
       );
     });
   });

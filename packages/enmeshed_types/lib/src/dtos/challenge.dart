@@ -22,14 +22,14 @@ class ChallengeDTO extends Equatable {
   });
 
   factory ChallengeDTO.fromJson(Map json) => ChallengeDTO(
-        id: json['id'],
-        expiresAt: json['expiresAt'],
-        createdBy: json['createdBy'],
-        createdByDevice: json['createdByDevice'],
-        type: ChallengeType.values.byName(json['type']),
-        signature: json['signature'],
-        challengeString: json['challengeString'],
-      );
+    id: json['id'],
+    expiresAt: json['expiresAt'],
+    createdBy: json['createdBy'],
+    createdByDevice: json['createdByDevice'],
+    type: ChallengeType.values.byName(json['type']),
+    signature: json['signature'],
+    challengeString: json['challengeString'],
+  );
 
   @override
   List<Object?> get props => [id, expiresAt, createdBy, createdByDevice, type, signature, challengeString];

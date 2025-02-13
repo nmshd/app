@@ -12,12 +12,8 @@ void main() {
         relationshipTemplateJson,
         equals({
           '@type': 'RelationshipTemplateContent',
-          'onNewRelationship': const Request(items: [
-            ReadAttributeRequestItem(
-              mustBeAccepted: true,
-              query: IdentityAttributeQuery(valueType: 'City'),
-            ),
-          ]).toJson(),
+          'onNewRelationship':
+              const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
         }),
       );
     });
@@ -33,12 +29,8 @@ void main() {
         equals({
           '@type': 'RelationshipTemplateContent',
           'title': 'aTitle',
-          'onNewRelationship': const Request(items: [
-            ReadAttributeRequestItem(
-              mustBeAccepted: true,
-              query: IdentityAttributeQuery(valueType: 'City'),
-            ),
-          ]).toJson(),
+          'onNewRelationship':
+              const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
         }),
       );
     });
@@ -54,12 +46,8 @@ void main() {
         equals({
           '@type': 'RelationshipTemplateContent',
           'metadata': {},
-          'onNewRelationship': const Request(items: [
-            ReadAttributeRequestItem(
-              mustBeAccepted: true,
-              query: IdentityAttributeQuery(valueType: 'City'),
-            ),
-          ]).toJson(),
+          'onNewRelationship':
+              const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
         }),
       );
     });
@@ -74,18 +62,10 @@ void main() {
         relationshipTemplateJson,
         equals({
           '@type': 'RelationshipTemplateContent',
-          'onNewRelationship': const Request(items: [
-            ReadAttributeRequestItem(
-              mustBeAccepted: true,
-              query: IdentityAttributeQuery(valueType: 'City'),
-            ),
-          ]).toJson(),
-          'onExistingRelationship': const Request(items: [
-            ReadAttributeRequestItem(
-              mustBeAccepted: true,
-              query: IdentityAttributeQuery(valueType: 'City'),
-            ),
-          ]).toJson(),
+          'onNewRelationship':
+              const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
+          'onExistingRelationship':
+              const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
         }),
       );
     });
@@ -104,18 +84,10 @@ void main() {
           '@type': 'RelationshipTemplateContent',
           'title': 'aTitle',
           'metadata': {},
-          'onNewRelationship': const Request(items: [
-            ReadAttributeRequestItem(
-              mustBeAccepted: true,
-              query: IdentityAttributeQuery(valueType: 'City'),
-            ),
-          ]).toJson(),
-          'onExistingRelationship': const Request(items: [
-            ReadAttributeRequestItem(
-              mustBeAccepted: true,
-              query: IdentityAttributeQuery(valueType: 'City'),
-            ),
-          ]).toJson(),
+          'onNewRelationship':
+              const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
+          'onExistingRelationship':
+              const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
         }),
       );
     });
@@ -124,80 +96,70 @@ void main() {
   group('RelationshipTemplateContent fromJson', () {
     test('is correctly converted', () {
       final json = {
-        'onNewRelationship': const Request(items: [
-          ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ),
-        ]).toJson(),
+        'onNewRelationship':
+            const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
       };
       expect(
         RelationshipTemplateContent.fromJson(json),
-        equals(const RelationshipTemplateContent(
-          onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-        )),
+        equals(
+          const RelationshipTemplateContent(
+            onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
+          ),
+        ),
       );
     });
 
     test('is correctly converted with property "title"', () {
       final json = {
         'title': 'aTitle',
-        'onNewRelationship': const Request(items: [
-          ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ),
-        ]).toJson(),
+        'onNewRelationship':
+            const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
       };
       expect(
         RelationshipTemplateContent.fromJson(json),
-        equals(const RelationshipTemplateContent(
-          title: 'aTitle',
-          onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-        )),
+        equals(
+          const RelationshipTemplateContent(
+            title: 'aTitle',
+            onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
+          ),
+        ),
       );
     });
 
     test('is correctly converted with property "metadata"', () {
       final json = {
         'metadata': {'aKey': 'aValue'},
-        'onNewRelationship': const Request(items: [
-          ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ),
-        ]).toJson(),
+        'onNewRelationship':
+            const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
       };
       expect(
         RelationshipTemplateContent.fromJson(json),
-        equals(const RelationshipTemplateContent(
-          metadata: {'aKey': 'aValue'},
-          onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-        )),
+        equals(
+          const RelationshipTemplateContent(
+            metadata: {'aKey': 'aValue'},
+            onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
+          ),
+        ),
       );
     });
 
     test('is correctly converted with property "onExistingRelationship"', () {
       final json = {
-        'onNewRelationship': const Request(items: [
-          ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ),
-        ]).toJson(),
-        'onExistingRelationship': const Request(items: [
-          ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ),
-        ]).toJson(),
+        'onNewRelationship':
+            const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
+        'onExistingRelationship':
+            const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
       };
       expect(
         RelationshipTemplateContent.fromJson(json),
-        equals(const RelationshipTemplateContent(
-          onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-          onExistingRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-        )),
+        equals(
+          const RelationshipTemplateContent(
+            onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
+            onExistingRelationship: Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
+            ),
+          ),
+        ),
       );
     });
 
@@ -205,27 +167,23 @@ void main() {
       final json = {
         'title': 'aTitle',
         'metadata': {'aKey': 'aValue'},
-        'onNewRelationship': const Request(items: [
-          ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ),
-        ]).toJson(),
-        'onExistingRelationship': const Request(items: [
-          ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ),
-        ]).toJson(),
+        'onNewRelationship':
+            const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
+        'onExistingRelationship':
+            const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]).toJson(),
       };
       expect(
         RelationshipTemplateContent.fromJson(json),
-        equals(const RelationshipTemplateContent(
-          title: 'aTitle',
-          metadata: {'aKey': 'aValue'},
-          onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-          onExistingRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
-        )),
+        equals(
+          const RelationshipTemplateContent(
+            title: 'aTitle',
+            metadata: {'aKey': 'aValue'},
+            onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
+            onExistingRelationship: Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
+            ),
+          ),
+        ),
       );
     });
   });

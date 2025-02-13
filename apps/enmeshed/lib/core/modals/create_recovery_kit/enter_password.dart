@@ -65,10 +65,7 @@ class _EnterPasswordState extends State<EnterPassword> {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Align(
                     alignment: Alignment.centerRight,
-                    child: FilledButton(
-                      onPressed: _onSubmit,
-                      child: Text(context.l10n.identityRecovery_startNow),
-                    ),
+                    child: FilledButton(onPressed: _onSubmit, child: Text(context.l10n.identityRecovery_startNow)),
                   ),
                 ),
               ],
@@ -91,11 +88,7 @@ class _PasswordTextField extends StatefulWidget {
   final String label;
   final String? Function(String?) validator;
 
-  const _PasswordTextField({
-    required this.inputControl,
-    required this.label,
-    required this.validator,
-  });
+  const _PasswordTextField({required this.inputControl, required this.label, required this.validator});
 
   @override
   State<_PasswordTextField> createState() => _PasswordTextFieldState();

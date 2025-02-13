@@ -51,8 +51,6 @@ class MockResponseItemDerivation extends ResponseItemDerivation {
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      ...super.toJson(),
-    };
+    return {...super.toJson()};
   }
 }

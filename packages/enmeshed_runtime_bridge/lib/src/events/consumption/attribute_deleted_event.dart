@@ -5,8 +5,5 @@ import '../event.dart';
 class AttributeDeletedEvent extends Event {
   final LocalAttributeDTO data;
 
-  const AttributeDeletedEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const AttributeDeletedEvent({required this.data, required super.eventTargetAddress});
 }

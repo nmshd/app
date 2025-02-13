@@ -26,10 +26,7 @@ class _ContactSharedFilesScreenState extends State<ContactSharedFilesScreen> wit
     final appBar = AppBar(title: Text(context.l10n.files));
 
     if (sharedFiles == null) {
-      return Scaffold(
-        appBar: appBar,
-        body: const Center(child: CircularProgressIndicator()),
-      );
+      return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -37,17 +34,19 @@ class _ContactSharedFilesScreenState extends State<ContactSharedFilesScreen> wit
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => loadSharedFiles(syncBefore: true),
-          child: sharedFiles!.isEmpty
-              ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable, wrapInListView: true)
-              : ListView.separated(
-                  itemBuilder: (context, index) => FileItem(
-                    accountId: widget.accountId,
-                    fileRecord: createFileRecord(file: sharedFiles!.elementAt(index)),
-                    trailing: const Icon(Icons.chevron_right),
+          child:
+              sharedFiles!.isEmpty
+                  ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable, wrapInListView: true)
+                  : ListView.separated(
+                    itemBuilder:
+                        (context, index) => FileItem(
+                          accountId: widget.accountId,
+                          fileRecord: createFileRecord(file: sharedFiles!.elementAt(index)),
+                          trailing: const Icon(Icons.chevron_right),
+                        ),
+                    itemCount: sharedFiles!.length,
+                    separatorBuilder: (context, index) => const Divider(height: 2),
                   ),
-                  itemCount: sharedFiles!.length,
-                  separatorBuilder: (context, index) => const Divider(height: 2),
-                ),
         ),
       ),
     );

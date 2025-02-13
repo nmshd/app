@@ -24,11 +24,7 @@ abstract class Endpoint {
 
   @protected
   Future<ConnectorResponse<T>> get<T>(String path, {required T Function(dynamic) transformer, Map<String, dynamic>? query}) async {
-    final response = await _dio.get<Map<String, dynamic>>(
-      path,
-      queryParameters: query,
-      options: Options(headers: {'Accept': 'application/json'}),
-    );
+    final response = await _dio.get<Map<String, dynamic>>(path, queryParameters: query, options: Options(headers: {'Accept': 'application/json'}));
     return _makeResult(response, transformer);
   }
 
@@ -51,7 +47,10 @@ abstract class Endpoint {
   }
 
   ConnectorResponse<T> _makeResult<T>(Response<Map<String, dynamic>> httpResponse, T Function(dynamic) transformer, {int? expectedStatus}) {
-    expectedStatus ??= switch (httpResponse.requestOptions.method.toUpperCase()) { 'POST' => 201, _ => 200 };
+    expectedStatus ??= switch (httpResponse.requestOptions.method.toUpperCase()) {
+      'POST' => 201,
+      _ => 200,
+    };
 
     final payload = httpResponse.data;
     if (payload == null) {

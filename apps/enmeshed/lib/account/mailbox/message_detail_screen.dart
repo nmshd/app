@@ -41,45 +41,34 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
     final column = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: _MessageInformationHeader(account: _account!, message: _message!),
-        ),
+        Padding(padding: const EdgeInsets.all(16), child: _MessageInformationHeader(account: _account!, message: _message!)),
         const Divider(height: 2),
         Padding(
           padding: const EdgeInsets.all(16),
           child: switch (_message!) {
-            final RequestMessageDVO requestMessage => TranslatedText(
-                requestMessage.request.statusText,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+            final RequestMessageDVO requestMessage => TranslatedText(requestMessage.request.statusText, style: Theme.of(context).textTheme.bodyLarge),
             _ => TranslatedText(_message!.name, style: Theme.of(context).textTheme.bodyLarge),
           },
         ),
         if (_message!.attachments.isNotEmpty) ...[
           const Divider(height: 2),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: AttachmentsList(accountId: _account!.id, attachments: _message!.attachments),
-          ),
+          Padding(padding: const EdgeInsets.all(16), child: AttachmentsList(accountId: _account!.id, attachments: _message!.attachments)),
         ],
         const Divider(height: 2),
         switch (_message!) {
           final MailDVO mail => _MailInformation(message: mail),
           final RequestMessageDVO requestMessage => _RequestInformation(message: requestMessage, account: _account!),
           _ => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(context.l10n.mailbox_technicalMessage, style: Theme.of(context).textTheme.bodyLarge),
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(context.l10n.mailbox_technicalMessage, style: Theme.of(context).textTheme.bodyLarge),
+          ),
         },
       ],
     );
 
     return Scaffold(
       appBar: appBar,
-      body: SafeArea(
-        child: _message is RequestMessageDVO ? column : Scrollbar(thumbVisibility: true, child: SingleChildScrollView(child: column)),
-      ),
+      body: SafeArea(child: _message is RequestMessageDVO ? column : Scrollbar(thumbVisibility: true, child: SingleChildScrollView(child: column))),
     );
   }
 
@@ -167,28 +156,20 @@ class _MessageInformationHeader extends StatelessWidget {
 class _MailInformation extends StatelessWidget {
   final MailDVO message;
 
-  const _MailInformation({
-    required this.message,
-  });
+  const _MailInformation({required this.message});
 
   @override
   Widget build(BuildContext context) {
-    final body = message.body.replaceAll(CustomRegExp.html, '').replaceAllMapped(
-          RegExp(r'(https?:\/\/[^\s\\]+)'),
-          (match) => '<link>${match.group(1)}</link>',
-        );
+    final body = message.body
+        .replaceAll(CustomRegExp.html, '')
+        .replaceAllMapped(RegExp(r'(https?:\/\/[^\s\\]+)'), (match) => '<link>${match.group(1)}</link>');
 
     return Padding(
       padding: const EdgeInsets.all(16),
       child: StyledText(
         text: body,
         style: Theme.of(context).textTheme.bodyLarge,
-        tags: {
-          'link': StyledTextActionTag(
-            (link, _) => _launchUrl(link!),
-            style: const TextStyle(decoration: TextDecoration.underline),
-          ),
-        },
+        tags: {'link': StyledTextActionTag((link, _) => _launchUrl(link!), style: const TextStyle(decoration: TextDecoration.underline))},
       ),
     );
   }
@@ -205,10 +186,7 @@ class _RequestInformation extends StatefulWidget {
   final RequestMessageDVO message;
   final LocalAccountDTO account;
 
-  const _RequestInformation({
-    required this.message,
-    required this.account,
-  });
+  const _RequestInformation({required this.message, required this.account});
 
   @override
   State<_RequestInformation> createState() => _RequestInformationState();

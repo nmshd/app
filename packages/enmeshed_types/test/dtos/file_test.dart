@@ -89,19 +89,21 @@ void main() {
       };
       expect(
         FileDTO.fromJson(json),
-        equals(const FileDTO(
-          id: 'anId',
-          filename: 'aFilename',
-          filesize: 1,
-          createdAt: '2023',
-          createdBy: 'aCreator',
-          createdByDevice: 'aCreatorDeviceId',
-          expiresAt: '2023',
-          mimetype: 'aMimetype',
-          isOwn: true,
-          title: 'aTitle',
-          truncatedReference: 'aTruncatedReference',
-        )),
+        equals(
+          const FileDTO(
+            id: 'anId',
+            filename: 'aFilename',
+            filesize: 1,
+            createdAt: '2023',
+            createdBy: 'aCreator',
+            createdByDevice: 'aCreatorDeviceId',
+            expiresAt: '2023',
+            mimetype: 'aMimetype',
+            isOwn: true,
+            title: 'aTitle',
+            truncatedReference: 'aTruncatedReference',
+          ),
+        ),
       );
     });
 
@@ -122,20 +124,22 @@ void main() {
       };
       expect(
         FileDTO.fromJson(json),
-        equals(const FileDTO(
-          id: 'anId',
-          filename: 'aFilename',
-          filesize: 1,
-          createdAt: '2023',
-          createdBy: 'aCreator',
-          createdByDevice: 'aCreatorDeviceId',
-          expiresAt: '2023',
-          mimetype: 'aMimetype',
-          isOwn: true,
-          title: 'aTitle',
-          description: 'aDescription',
-          truncatedReference: 'aTruncatedReference',
-        )),
+        equals(
+          const FileDTO(
+            id: 'anId',
+            filename: 'aFilename',
+            filesize: 1,
+            createdAt: '2023',
+            createdBy: 'aCreator',
+            createdByDevice: 'aCreatorDeviceId',
+            expiresAt: '2023',
+            mimetype: 'aMimetype',
+            isOwn: true,
+            title: 'aTitle',
+            description: 'aDescription',
+            truncatedReference: 'aTruncatedReference',
+          ),
+        ),
       );
     });
   });

@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = IdentityFileReferenceAttributeValue(value: 'aFileReference');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'IdentityFileReference',
-          'value': 'aFileReference',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'IdentityFileReference', 'value': 'aFileReference'}));
     });
   });
 

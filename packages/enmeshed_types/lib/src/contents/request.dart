@@ -10,14 +10,7 @@ class Request extends Equatable {
   final String? description;
   final Map<String, dynamic>? metadata;
 
-  const Request({
-    this.id,
-    this.expiresAt,
-    required this.items,
-    this.title,
-    this.description,
-    this.metadata,
-  });
+  const Request({this.id, this.expiresAt, required this.items, this.title, this.description, this.metadata});
 
   factory Request.fromJson(Map json) {
     return Request(

@@ -6,10 +6,7 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryPhoneNumberAttributeValue(title: 'aTitle', value: 'aPhoneNumber');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryPhoneNumber', 'title': 'aTitle', 'value': 'aPhoneNumber'}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryPhoneNumber', 'title': 'aTitle', 'value': 'aPhoneNumber'}));
     });
 
     test('is correctly converted with property "description"', () {
@@ -84,12 +81,14 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aPhoneNumber'};
       expect(
         ProprietaryPhoneNumberAttributeValue.fromJson(json),
-        equals(const ProprietaryPhoneNumberAttributeValue(
-          title: 'aTitle',
-          description: 'aDescription',
-          valueHintsOverride: ValueHints(),
-          value: 'aPhoneNumber',
-        )),
+        equals(
+          const ProprietaryPhoneNumberAttributeValue(
+            title: 'aTitle',
+            description: 'aDescription',
+            valueHintsOverride: ValueHints(),
+            value: 'aPhoneNumber',
+          ),
+        ),
       );
     });
   });

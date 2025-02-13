@@ -6,9 +6,7 @@ part 'register_push_notification_token.g.dart';
 class RegisterPushNotificationTokenResponse {
   final String devicePushIdentifier;
 
-  RegisterPushNotificationTokenResponse({
-    required this.devicePushIdentifier,
-  });
+  RegisterPushNotificationTokenResponse({required this.devicePushIdentifier});
 
   factory RegisterPushNotificationTokenResponse.fromJson(Map<String, dynamic> json) => _$RegisterPushNotificationTokenResponseFromJson(json);
 

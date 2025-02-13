@@ -7,20 +7,18 @@ part of 'render_hints.dart';
 // **************************************************************************
 
 RenderHints _$RenderHintsFromJson(Map<String, dynamic> json) => RenderHints(
-      technicalType: $enumDecode(_$RenderHintsTechnicalTypeEnumMap, json['technicalType']),
-      editType: $enumDecode(_$RenderHintsEditTypeEnumMap, json['editType']),
-      dataType: $enumDecodeNullable(_$RenderHintsDataTypeEnumMap, json['dataType']),
-      propertyHints: (json['propertyHints'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, RenderHints.fromJson(e as Map<String, dynamic>)),
-      ),
-    );
+  technicalType: $enumDecode(_$RenderHintsTechnicalTypeEnumMap, json['technicalType']),
+  editType: $enumDecode(_$RenderHintsEditTypeEnumMap, json['editType']),
+  dataType: $enumDecodeNullable(_$RenderHintsDataTypeEnumMap, json['dataType']),
+  propertyHints: (json['propertyHints'] as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, RenderHints.fromJson(e as Map<String, dynamic>))),
+);
 
 Map<String, dynamic> _$RenderHintsToJson(RenderHints instance) => <String, dynamic>{
-      'technicalType': _$RenderHintsTechnicalTypeEnumMap[instance.technicalType]!,
-      'editType': _$RenderHintsEditTypeEnumMap[instance.editType]!,
-      if (_$RenderHintsDataTypeEnumMap[instance.dataType] case final value?) 'dataType': value,
-      if (instance.propertyHints?.map((k, e) => MapEntry(k, e.toJson())) case final value?) 'propertyHints': value,
-    };
+  'technicalType': _$RenderHintsTechnicalTypeEnumMap[instance.technicalType]!,
+  'editType': _$RenderHintsEditTypeEnumMap[instance.editType]!,
+  if (_$RenderHintsDataTypeEnumMap[instance.dataType] case final value?) 'dataType': value,
+  if (instance.propertyHints?.map((k, e) => MapEntry(k, e.toJson())) case final value?) 'propertyHints': value,
+};
 
 const _$RenderHintsTechnicalTypeEnumMap = {
   RenderHintsTechnicalType.Boolean: 'Boolean',

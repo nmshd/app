@@ -9,11 +9,7 @@ class Response extends Equatable {
   final String requestId;
   final List<ResponseItem> items;
 
-  const Response({
-    required this.result,
-    required this.requestId,
-    required this.items,
-  });
+  const Response({required this.result, required this.requestId, required this.items});
 
   factory Response.fromJson(Map json) {
     return Response(
@@ -24,11 +20,11 @@ class Response extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        '@type': 'Response',
-        'result': result.name,
-        'requestId': requestId,
-        'items': items.map((e) => e.toJson()).toList(),
-      };
+    '@type': 'Response',
+    'result': result.name,
+    'requestId': requestId,
+    'items': items.map((e) => e.toJson()).toList(),
+  };
 
   @override
   List<Object?> get props => [result, requestId, items];

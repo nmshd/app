@@ -140,12 +140,14 @@ void main() {
       };
       expect(
         ShareAttributeRequestItem.fromJson(json),
-        equals(const ShareAttributeRequestItem(
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          sourceAttributeId: 'aSourceAttributeId',
-          thirdPartyAddress: 'aThirdPartyAddress',
-        )),
+        equals(
+          const ShareAttributeRequestItem(
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            sourceAttributeId: 'aSourceAttributeId',
+            thirdPartyAddress: 'aThirdPartyAddress',
+          ),
+        ),
       );
     });
 
@@ -158,12 +160,14 @@ void main() {
       };
       expect(
         ShareAttributeRequestItem.fromJson(json),
-        equals(const ShareAttributeRequestItem(
-          title: 'aTitle',
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          sourceAttributeId: 'aSourceAttributeId',
-        )),
+        equals(
+          const ShareAttributeRequestItem(
+            title: 'aTitle',
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            sourceAttributeId: 'aSourceAttributeId',
+          ),
+        ),
       );
     });
 
@@ -176,12 +180,14 @@ void main() {
       };
       expect(
         ShareAttributeRequestItem.fromJson(json),
-        equals(const ShareAttributeRequestItem(
-          description: 'aDescription',
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          sourceAttributeId: 'aSourceAttributeId',
-        )),
+        equals(
+          const ShareAttributeRequestItem(
+            description: 'aDescription',
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            sourceAttributeId: 'aSourceAttributeId',
+          ),
+        ),
       );
     });
 
@@ -194,12 +200,14 @@ void main() {
       };
       expect(
         ShareAttributeRequestItem.fromJson(json),
-        equals(const ShareAttributeRequestItem(
-          metadata: {'aKey': 'aValue'},
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          sourceAttributeId: 'aSourceAttributeId',
-        )),
+        equals(
+          const ShareAttributeRequestItem(
+            metadata: {'aKey': 'aValue'},
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            sourceAttributeId: 'aSourceAttributeId',
+          ),
+        ),
       );
     });
 
@@ -212,12 +220,14 @@ void main() {
       };
       expect(
         ShareAttributeRequestItem.fromJson(json),
-        equals(const ShareAttributeRequestItem(
-          requireManualDecision: true,
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          sourceAttributeId: 'aSourceAttributeId',
-        )),
+        equals(
+          const ShareAttributeRequestItem(
+            requireManualDecision: true,
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            sourceAttributeId: 'aSourceAttributeId',
+          ),
+        ),
       );
     });
 
@@ -233,15 +243,17 @@ void main() {
       };
       expect(
         ShareAttributeRequestItem.fromJson(json),
-        equals(const ShareAttributeRequestItem(
-          title: 'aTitle',
-          description: 'aDescription',
-          metadata: {'aKey': 'aValue'},
-          mustBeAccepted: true,
-          requireManualDecision: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          sourceAttributeId: 'aSourceAttributeId',
-        )),
+        equals(
+          const ShareAttributeRequestItem(
+            title: 'aTitle',
+            description: 'aDescription',
+            metadata: {'aKey': 'aValue'},
+            mustBeAccepted: true,
+            requireManualDecision: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            sourceAttributeId: 'aSourceAttributeId',
+          ),
+        ),
       );
     });
   });

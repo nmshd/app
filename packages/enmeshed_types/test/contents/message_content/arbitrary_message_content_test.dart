@@ -10,7 +10,7 @@ void main() {
         messageContentJson,
         equals({
           '@type': 'ArbitraryMessageContent',
-          'value': {'key': 'value'}
+          'value': {'key': 'value'},
         }),
       );
     });
@@ -20,12 +20,9 @@ void main() {
     test('is correctly converted', () {
       final json = {
         '@type': 'ArbitraryMessageContent',
-        'value': {'key': 'value'}
+        'value': {'key': 'value'},
       };
-      expect(
-        ArbitraryMessageContent.fromJson(json),
-        equals(ArbitraryMessageContent(const {'key': 'value'})),
-      );
+      expect(ArbitraryMessageContent.fromJson(json), equals(ArbitraryMessageContent(const {'key': 'value'})));
     });
   });
 }

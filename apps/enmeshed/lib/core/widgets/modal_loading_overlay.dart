@@ -12,10 +12,7 @@ class ModalLoadingOverlay extends StatelessWidget {
     return Positioned.fill(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: const Radius.circular(28),
-            bottom: isDialog ? const Radius.circular(28) : Radius.zero,
-          ),
+          borderRadius: BorderRadius.vertical(top: const Radius.circular(28), bottom: isDialog ? const Radius.circular(28) : Radius.zero),
           color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.9),
         ),
         child: Center(

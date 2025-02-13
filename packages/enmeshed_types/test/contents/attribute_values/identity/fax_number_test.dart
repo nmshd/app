@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = FaxNumberAttributeValue(value: '0123456789');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'FaxNumber',
-          'value': '0123456789',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'FaxNumber', 'value': '0123456789'}));
     });
   });
 

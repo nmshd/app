@@ -12,12 +12,7 @@ class EditDevice extends StatefulWidget {
   final DeviceDTO device;
   final VoidCallback onDevicesChanged;
 
-  const EditDevice({
-    required this.accountId,
-    required this.device,
-    required this.onDevicesChanged,
-    super.key,
-  });
+  const EditDevice({required this.accountId, required this.device, required this.onDevicesChanged, super.key});
 
   @override
   State<EditDevice> createState() => _EditDeviceState();
@@ -70,10 +65,7 @@ class _EditDeviceState extends State<EditDevice> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(context.l10n.devices_edit, style: Theme.of(context).textTheme.titleLarge),
-                  IconButton(
-                    onPressed: _loading ? null : () => context.pop(),
-                    icon: const Icon(Icons.close),
-                  ),
+                  IconButton(onPressed: _loading ? null : () => context.pop(), icon: const Icon(Icons.close)),
                 ],
               ),
             ),
@@ -131,10 +123,7 @@ class _EditDeviceState extends State<EditDevice> {
                 children: [
                   OutlinedButton(onPressed: _loading ? null : () => context.pop(), child: Text(context.l10n.cancel)),
                   Gaps.w8,
-                  FilledButton(
-                    onPressed: _confirmEnabled && !_loading ? _save : null,
-                    child: Text(context.l10n.save),
-                  ),
+                  FilledButton(onPressed: _confirmEnabled && !_loading ? _save : null, child: Text(context.l10n.save)),
                 ],
               ),
             ),
@@ -150,11 +139,12 @@ class _EditDeviceState extends State<EditDevice> {
     final name = _nameController.text;
     final description = _descriptionController.text;
 
-    await GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId).transportServices.devices.updateDevice(
-          widget.device.id,
-          name: name,
-          description: description,
-        );
+    await GetIt.I
+        .get<EnmeshedRuntime>()
+        .getSession(widget.accountId)
+        .transportServices
+        .devices
+        .updateDevice(widget.device.id, name: name, description: description);
 
     widget.onDevicesChanged();
     if (mounted) context.pop();

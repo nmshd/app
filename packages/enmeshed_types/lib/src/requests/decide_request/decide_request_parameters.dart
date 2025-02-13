@@ -4,15 +4,9 @@ class DecideRequestParameters {
   final String requestId;
   final List<DecideRequestParametersItem> items;
 
-  const DecideRequestParameters({
-    required this.requestId,
-    required this.items,
-  });
+  const DecideRequestParameters({required this.requestId, required this.items});
 
   Map<String, dynamic> toJson() {
-    return {
-      'requestId': requestId,
-      'items': items.map((item) => item.toJson()).toList(),
-    };
+    return {'requestId': requestId, 'items': items.map((item) => item.toJson()).toList()};
   }
 }

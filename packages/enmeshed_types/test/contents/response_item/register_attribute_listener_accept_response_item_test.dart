@@ -6,10 +6,7 @@ void main() {
     test('is correctly converted', () {
       const responseItem = RegisterAttributeListenerAcceptResponseItem(listenerId: 'aListenerId');
       final responseItemJson = responseItem.toJson();
-      expect(
-        responseItemJson,
-        equals({'@type': 'RegisterAttributeListenerAcceptResponseItem', 'result': 'Accepted', 'listenerId': 'aListenerId'}),
-      );
+      expect(responseItemJson, equals({'@type': 'RegisterAttributeListenerAcceptResponseItem', 'result': 'Accepted', 'listenerId': 'aListenerId'}));
     });
   });
 

@@ -51,8 +51,8 @@ class RelationshipTemplateDVO extends DataViewObject {
   });
 
   factory RelationshipTemplateDVO.fromJson(Map json) => switch (json['type']) {
-        'PeerRelationshipTemplateDVO' => PeerRelationshipTemplateDVO.fromJson(json),
-        _ => _$RelationshipTemplateDVOFromJson(Map<String, dynamic>.from(json)),
-      };
+    'PeerRelationshipTemplateDVO' => PeerRelationshipTemplateDVO.fromJson(json),
+    _ => _$RelationshipTemplateDVOFromJson(Map<String, dynamic>.from(json)),
+  };
   Map<String, dynamic> toJson() => _$RelationshipTemplateDVOToJson(this);
 }

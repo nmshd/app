@@ -6,6 +6,6 @@ class AnonymousServices {
   final BackboneCompatibilityFacade backboneCompatibility;
 
   AnonymousServices(AbstractEvaluator evaluator)
-      : tokens = AnonymousTokensFacade(evaluator),
-        backboneCompatibility = BackboneCompatibilityFacade(evaluator);
+    : tokens = AnonymousTokensFacade(evaluator),
+      backboneCompatibility = BackboneCompatibilityFacade(evaluator);
 }

@@ -14,7 +14,7 @@ PublicRelationshipTemplateReferenceDTO _$PublicRelationshipTemplateReferenceDTOF
     );
 
 Map<String, dynamic> _$PublicRelationshipTemplateReferenceDTOToJson(PublicRelationshipTemplateReferenceDTO instance) => <String, dynamic>{
-      'title': instance.title,
-      'description': instance.description,
-      'truncatedReference': instance.truncatedReference,
-    };
+  'title': instance.title,
+  'description': instance.description,
+  'truncatedReference': instance.truncatedReference,
+};
