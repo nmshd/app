@@ -155,7 +155,7 @@ class _RecoveryKitWasUsedContainer extends StatelessWidget {
   final VoidCallback onDismissed;
   final VoidCallback onCreate;
 
-  const _RecoveryKitWasUsedContainer({required this.onDismissed, required this.onCreate, super.key});
+  const _RecoveryKitWasUsedContainer({required this.onDismissed, required this.onCreate});
 
   @override
   Widget build(BuildContext context) {
