@@ -62,24 +62,17 @@ final _router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/restore-from-identity-recovery-kit',
       builder: (context, state) {
-        final extra = state.extra! as Map<String, Function>;
-
         return InstructionsScreen(
           onContinue: (context) => Navigator.of(context).push(
             MaterialPageRoute<void>(
               builder: (_) => ScannerView(
-                onSubmit: extra['onSubmit']! as Future<void> Function({
-                  required String content,
-                  required BuildContext context,
-                  required VoidCallback pause,
-                  required VoidCallback resume,
-                }),
+                onSubmit: handleRecoveryKitScan,
                 lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
                 scanQrOrEnterUrlText: context.l10n.restoreFromIdentityRecovery_scanner_scanQrOrEnterUrl,
                 enterUrlText: context.l10n.scanner_enterUrl,
                 urlTitle: context.l10n.restoreFromIdentityRecovery_scanner_connectWithUrl_title,
                 urlDescription: context.l10n.restoreFromIdentityRecovery_scanner_connectWithUrl_description,
-                urlLabelText: context.l10n.url,
+                urlLabelText: context.l10n.restoreFromIdentityRecovery_scanner_connectWithUrl_urlLabel,
                 urlValidationErrorText: context.l10n.scanner_urlValidationError,
                 urlButtonText: context.l10n.next,
               ),

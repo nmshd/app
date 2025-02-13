@@ -100,7 +100,10 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
                       Gaps.h16,
                       FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
                       Gaps.h16,
-                      TextButton(onPressed: _onRestoreProfilePressed, child: Text(context.l10n.onboarding_restoreProfile_button)),
+                      TextButton(
+                        onPressed: () => context.push('/restore-from-identity-recovery-kit'),
+                        child: Text(context.l10n.onboarding_restoreProfile_button),
+                      ),
                     ],
                   ),
                 ),
@@ -135,63 +138,6 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
         ),
       ),
     );
-  }
-
-  void _onRestoreProfilePressed() {
-    final extra = {
-      'onSubmit': ({
-        required String content,
-        required BuildContext context,
-        required VoidCallback pause,
-        required VoidCallback resume,
-      }) async {
-        pause();
-
-        unawaited(
-          Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (_) => Scaffold(
-                backgroundColor: Colors.white,
-                body: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        context.l10n.restoreFromIdentityRecovery_loading,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      Gaps.h24,
-                      const SizedBox(height: 150, width: 150, child: CircularProgressIndicator(strokeWidth: 16)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-
-        final runtime = GetIt.I.get<EnmeshedRuntime>();
-        if (!context.mounted) return;
-
-        final result = await runtime.stringProcessor.processURL(url: content);
-        if (result.isSuccess) {
-          resume();
-          return;
-        }
-
-        GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
-        if (!context.mounted) return;
-
-        await context.push('/error-dialog', extra: result.error.code);
-
-        if (!context.mounted) return;
-        if (context.canPop()) context.pop();
-
-        resume();
-      },
-    };
-
-    context.push('/restore-from-identity-recovery-kit', extra: extra);
   }
 
   Future<void> _onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
