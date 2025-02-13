@@ -16,18 +16,18 @@ class CheckboxInput extends FormField<bool> {
     super.validator,
     InputDecoration? decoration,
   }) : super(
-          initialValue: initialValue?.value ?? false,
-          builder: (FormFieldState<bool> field) {
-            if (field.value != null) controller?.value = ValueRendererInputValueBool(field.value!);
-            return InputDecorator(
-              decoration: decoration ?? const InputDecoration(border: InputBorder.none),
-              child: CheckboxListTile(
-                title: fieldName != null ? TranslatedText(fieldName) : null,
-                value: field.value,
-                onChanged: field.didChange,
-                controlAffinity: ListTileControlAffinity.leading,
-              ),
-            );
-          },
-        );
+         initialValue: initialValue?.value ?? false,
+         builder: (FormFieldState<bool> field) {
+           if (field.value != null) controller?.value = ValueRendererInputValueBool(field.value!);
+           return InputDecorator(
+             decoration: decoration ?? const InputDecoration(border: InputBorder.none),
+             child: CheckboxListTile(
+               title: fieldName != null ? TranslatedText(fieldName) : null,
+               value: field.value,
+               onChanged: field.didChange,
+               controlAffinity: ListTileControlAffinity.leading,
+             ),
+           );
+         },
+       );
 }

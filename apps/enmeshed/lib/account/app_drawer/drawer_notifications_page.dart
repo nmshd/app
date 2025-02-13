@@ -52,10 +52,7 @@ class DrawerNotificationsPageState extends State<DrawerNotificationsPage> with W
     );
 
     if (_permissionStatus == null) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [title, const Center(child: CircularProgressIndicator())],
-      );
+      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [title, const Center(child: CircularProgressIndicator())]);
     }
 
     return Column(
@@ -129,10 +126,7 @@ class _ActivateNotifications extends StatelessWidget {
             Text(context.l10n.drawer_notifications_howToActivate, style: Theme.of(context).textTheme.titleSmall),
           ],
           Gaps.h36,
-          FilledButton(
-            onPressed: onRequestPermission,
-            child: Text(context.l10n.drawer_notifications_activate),
-          ),
+          FilledButton(onPressed: onRequestPermission, child: Text(context.l10n.drawer_notifications_activate)),
         ],
       ),
     );

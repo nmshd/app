@@ -22,36 +22,24 @@ class QuitCreatingMessageDialog extends StatelessWidget {
             Gaps.h8,
             SizedBox(
               width: 250,
-              child: Text(
-                context.l10n.mailbox_quitDialogTitle,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
+              child: Text(context.l10n.mailbox_quitDialogTitle, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall),
             ),
             Gaps.h16,
-            Text(
-              context.l10n.mailbox_quitDialogDescription,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+            Text(context.l10n.mailbox_quitDialogDescription, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium),
             Gaps.h16,
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: () => context
-                    ..pop()
-                    ..pop(),
-                  child: Text(
-                    context.l10n.mailbox_yesButton,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  onPressed:
+                      () =>
+                          context
+                            ..pop()
+                            ..pop(),
+                  child: Text(context.l10n.mailbox_yesButton, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
                 Gaps.w16,
-                FilledButton(
-                  onPressed: () => context.pop(),
-                  child: Text(context.l10n.mailbox_noButton),
-                ),
+                FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.mailbox_noButton)),
               ],
             ),
           ],

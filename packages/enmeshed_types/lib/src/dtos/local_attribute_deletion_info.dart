@@ -10,10 +10,7 @@ class LocalAttributeDeletionInfo extends Equatable {
   final LocalAttributeDeletionStatus deletionStatus;
   final String deletionDate;
 
-  const LocalAttributeDeletionInfo({
-    required this.deletionStatus,
-    required this.deletionDate,
-  });
+  const LocalAttributeDeletionInfo({required this.deletionStatus, required this.deletionDate});
 
   factory LocalAttributeDeletionInfo.fromJson(Map json) => _$LocalAttributeDeletionInfoFromJson(Map<String, dynamic>.from(json));
 

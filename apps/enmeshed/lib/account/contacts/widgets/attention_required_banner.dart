@@ -7,11 +7,7 @@ class AttentionRequiredBanner extends StatefulWidget {
   final int numberOfContactsRequiringAttention;
   final VoidCallback showContactsRequiringAttention;
 
-  const AttentionRequiredBanner({
-    required this.numberOfContactsRequiringAttention,
-    required this.showContactsRequiringAttention,
-    super.key,
-  });
+  const AttentionRequiredBanner({required this.numberOfContactsRequiringAttention, required this.showContactsRequiringAttention, super.key});
 
   @override
   State<AttentionRequiredBanner> createState() => AttentionRequiredBannerState();
@@ -23,10 +19,7 @@ class AttentionRequiredBannerState extends State<AttentionRequiredBanner> {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: const BorderRadius.all(Radius.circular(4)),
-        ),
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: const BorderRadius.all(Radius.circular(4))),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(
@@ -34,19 +27,11 @@ class AttentionRequiredBannerState extends State<AttentionRequiredBanner> {
             children: [
               Icon(Icons.info, color: Theme.of(context).colorScheme.secondary),
               Gaps.w8,
-              Expanded(
-                child: Text(
-                  context.l10n.contacts_require_attention(widget.numberOfContactsRequiringAttention),
-                  maxLines: 2,
-                ),
-              ),
+              Expanded(child: Text(context.l10n.contacts_require_attention(widget.numberOfContactsRequiringAttention), maxLines: 2)),
               Gaps.w8,
               TextButton(
                 onPressed: widget.showContactsRequiringAttention,
-                child: Text(
-                  context.l10n.show,
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
-                ),
+                child: Text(context.l10n.show, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary)),
               ),
             ],
           ),

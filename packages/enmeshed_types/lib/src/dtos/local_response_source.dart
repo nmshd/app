@@ -6,22 +6,13 @@ class LocalResponseSourceDTO extends Equatable {
   final LocalResponseSourceType type;
   final String reference;
 
-  const LocalResponseSourceDTO({
-    required this.type,
-    required this.reference,
-  });
+  const LocalResponseSourceDTO({required this.type, required this.reference});
 
   factory LocalResponseSourceDTO.fromJson(Map json) {
-    return LocalResponseSourceDTO(
-      type: LocalResponseSourceType.values.byName(json['type']),
-      reference: json['reference'],
-    );
+    return LocalResponseSourceDTO(type: LocalResponseSourceType.values.byName(json['type']), reference: json['reference']);
   }
 
-  Map<String, dynamic> toJson() => {
-        'type': type.name,
-        'reference': reference,
-      };
+  Map<String, dynamic> toJson() => {'type': type.name, 'reference': reference};
 
   @override
   List<Object?> get props => [type, reference];

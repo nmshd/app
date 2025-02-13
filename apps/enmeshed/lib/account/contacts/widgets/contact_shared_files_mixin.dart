@@ -44,11 +44,7 @@ mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
 
     if (syncBefore) await session.transportServices.account.syncEverything();
 
-    final messageResult = await session.transportServices.messages.getMessages(
-      query: {
-        'participant': QueryValue.string(widget.contactId),
-      },
-    );
+    final messageResult = await session.transportServices.messages.getMessages(query: {'participant': QueryValue.string(widget.contactId)});
 
     final messages = await session.expander.expandMessageDTOs(messageResult.value);
     messages.sort((a, b) => (b.date ?? '').compareTo(a.date ?? ''));
@@ -57,11 +53,7 @@ mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
       setState(() {
         sharedFiles = <FileDVO>{};
         for (final message in messages) {
-          sharedFiles!.addAll(
-            message.attachments.where(
-              (attachment) => !sharedFiles!.any((file) => file.id == attachment.id),
-            ),
-          );
+          sharedFiles!.addAll(message.attachments.where((attachment) => !sharedFiles!.any((file) => file.id == attachment.id)));
         }
       });
     }

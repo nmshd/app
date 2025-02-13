@@ -32,10 +32,7 @@ class MainApp extends StatelessWidget {
       darkTheme: ThemeData.dark(useMaterial3: true),
       debugShowCheckedModeBanner: false,
       initialRoute: '/login',
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        '/main': (context) => const MainScreen(),
-      },
+      routes: {'/login': (context) => const LoginScreen(), '/main': (context) => const MainScreen()},
     );
   }
 }

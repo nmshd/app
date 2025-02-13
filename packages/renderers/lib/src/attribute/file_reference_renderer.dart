@@ -64,20 +64,14 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
                   style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               if (expandedFileReference == null)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: SizedBox(width: 80, child: LinearProgressIndicator()),
-                )
+                const Padding(padding: EdgeInsets.symmetric(vertical: 16), child: SizedBox(width: 80, child: LinearProgressIndicator()))
               else
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(expandedFileReference!.title),
                     Text(expandedFileReference!.filename),
-                    if (widget.extraLine != null) ...[
-                      const SizedBox(height: 2),
-                      widget.extraLine!,
-                    ],
+                    if (widget.extraLine != null) ...[const SizedBox(height: 2), widget.extraLine!],
                   ],
                 ),
             ],

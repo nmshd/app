@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AccountTabController extends StatelessWidget {
-  const AccountTabController({
-    required this.tabController,
-    required this.child,
-    super.key,
-  });
+  const AccountTabController({required this.tabController, required this.child, super.key});
 
   final TabController tabController;
 
@@ -35,20 +31,12 @@ class AccountTabController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _TabControllerScope(
-      controller: tabController,
-      enabled: TickerMode.of(context),
-      child: child,
-    );
+    return _TabControllerScope(controller: tabController, enabled: TickerMode.of(context), child: child);
   }
 }
 
 class _TabControllerScope extends InheritedWidget {
-  const _TabControllerScope({
-    required this.controller,
-    required this.enabled,
-    required super.child,
-  });
+  const _TabControllerScope({required this.controller, required this.enabled, required super.child});
 
   final TabController controller;
   final bool enabled;

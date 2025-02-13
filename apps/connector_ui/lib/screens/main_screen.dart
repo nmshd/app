@@ -41,51 +41,51 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: Center(
         child: ListView.builder(
-          itemBuilder: (context, index) => ExpansionTile(
-            leading: relationships[index].status == RelationshipStatus.Active
-                ? const Icon(
-                    Icons.check_circle,
-                    color: Colors.lightGreen,
-                  )
-                : null,
-            title: FutureBuilder(
-              future: renderRelationship(relationships[index]),
-              builder: (context, snapshot) => snapshot.hasData ? Text(snapshot.data.toString()) : Text(relationships[index].peer),
-            ),
-            children: [
-              Text('ID: ${relationships[index].id}'),
-              Text('Peer: ${relationships[index].peer}'),
-              Text('Status: ${relationships[index].status.name}'),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ExpansionTile(
-                  title: const Text('Attributes'),
-                  children: [
-                    FutureBuilder(
-                      future: client.relationships.getAttributesForRelationship(relationships[index].id),
-                      builder: (context, snapshot) => snapshot.hasData
-                          ? Column(children: snapshot.data!.data.map((e) => Text(e.content.toString())).toList())
-                          : const Text('Loading...'),
-                    ),
-                  ],
+          itemBuilder:
+              (context, index) => ExpansionTile(
+                leading: relationships[index].status == RelationshipStatus.Active ? const Icon(Icons.check_circle, color: Colors.lightGreen) : null,
+                title: FutureBuilder(
+                  future: renderRelationship(relationships[index]),
+                  builder: (context, snapshot) => snapshot.hasData ? Text(snapshot.data.toString()) : Text(relationships[index].peer),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ExpansionTile(
-                  title: const Text('Messages'),
-                  children: [
-                    FutureBuilder(
-                      future: client.messages.getMessages({'participant': relationships[index].peer}),
-                      builder: (context, snapshot) => snapshot.hasData
-                          ? Column(children: snapshot.data!.data.map((e) => Text(e.content.toString())).toList())
-                          : const Text('Loading...'),
+                children: [
+                  Text('ID: ${relationships[index].id}'),
+                  Text('Peer: ${relationships[index].peer}'),
+                  Text('Status: ${relationships[index].status.name}'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ExpansionTile(
+                      title: const Text('Attributes'),
+                      children: [
+                        FutureBuilder(
+                          future: client.relationships.getAttributesForRelationship(relationships[index].id),
+                          builder:
+                              (context, snapshot) =>
+                                  snapshot.hasData
+                                      ? Column(children: snapshot.data!.data.map((e) => Text(e.content.toString())).toList())
+                                      : const Text('Loading...'),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ExpansionTile(
+                      title: const Text('Messages'),
+                      children: [
+                        FutureBuilder(
+                          future: client.messages.getMessages({'participant': relationships[index].peer}),
+                          builder:
+                              (context, snapshot) =>
+                                  snapshot.hasData
+                                      ? Column(children: snapshot.data!.data.map((e) => Text(e.content.toString())).toList())
+                                      : const Text('Loading...'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
           itemCount: relationships.length,
         ),
       ),
@@ -98,11 +98,7 @@ class _MainScreenState extends State<MainScreen> {
     final identityInfo = identityInfoResponse.data;
 
     if (mounted) {
-      return showDialog<void>(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) => _InfoDialog(client, identityInfo),
-      );
+      return showDialog<void>(context: context, barrierDismissible: false, builder: (BuildContext context) => _InfoDialog(client, identityInfo));
     }
   }
 
@@ -133,25 +129,22 @@ class _MainScreenState extends State<MainScreen> {
     final response = await client.relationships.getAttributesForRelationship(relationship.id);
     final relationshipAttributes = response.data.where((a) => a.content.owner == relationship.peer);
 
-    final displayName = relationshipAttributes
-        .where(
-          (a) => a.content is IdentityAttribute && (a.content as IdentityAttribute).value is DisplayNameAttributeValue,
-        )
-        .firstOrNull;
+    final displayName =
+        relationshipAttributes
+            .where((a) => a.content is IdentityAttribute && (a.content as IdentityAttribute).value is DisplayNameAttributeValue)
+            .firstOrNull;
     if (displayName != null) {
       return '${relationship.peer} (${((displayName.content as IdentityAttribute).value as DisplayNameAttributeValue).value})';
     }
 
-    final surname = relationshipAttributes
-        .where(
-          (a) => a.content is IdentityAttribute && (a.content as IdentityAttribute).value is SurnameAttributeValue,
-        )
-        .firstOrNull;
-    final givenName = relationshipAttributes
-        .where(
-          (a) => a.content is IdentityAttribute && (a.content as IdentityAttribute).value is GivenNameAttributeValue,
-        )
-        .firstOrNull;
+    final surname =
+        relationshipAttributes
+            .where((a) => a.content is IdentityAttribute && (a.content as IdentityAttribute).value is SurnameAttributeValue)
+            .firstOrNull;
+    final givenName =
+        relationshipAttributes
+            .where((a) => a.content is IdentityAttribute && (a.content as IdentityAttribute).value is GivenNameAttributeValue)
+            .firstOrNull;
     if (surname != null || givenName != null) {
       final name =
           '${((surname!.content as IdentityAttribute).value as SurnameAttributeValue).value} ${((givenName!.content as IdentityAttribute).value as GivenNameAttributeValue).value}'
@@ -181,10 +174,7 @@ class _InfoDialog extends StatelessWidget {
               const Text('Connector BaseURL: ', style: TextStyle(fontWeight: FontWeight.bold)),
               const Spacer(),
               Text(client.baseUrl),
-              IconButton(
-                icon: const Icon(Icons.copy),
-                onPressed: () => Clipboard.setData(ClipboardData(text: client.baseUrl)),
-              ),
+              IconButton(icon: const Icon(Icons.copy), onPressed: () => Clipboard.setData(ClipboardData(text: client.baseUrl))),
             ],
           ),
           Row(
@@ -192,10 +182,7 @@ class _InfoDialog extends StatelessWidget {
               const Text('Connector Address: ', style: TextStyle(fontWeight: FontWeight.bold)),
               const Spacer(),
               Text(identityInfo.address),
-              IconButton(
-                icon: const Icon(Icons.copy),
-                onPressed: () => Clipboard.setData(ClipboardData(text: identityInfo.address)),
-              ),
+              IconButton(icon: const Icon(Icons.copy), onPressed: () => Clipboard.setData(ClipboardData(text: identityInfo.address))),
             ],
           ),
           Row(
@@ -203,20 +190,12 @@ class _InfoDialog extends StatelessWidget {
               const Text('Connector Public Key: ', style: TextStyle(fontWeight: FontWeight.bold)),
               const Spacer(),
               Expanded(child: Text(identityInfo.publicKey, overflow: TextOverflow.ellipsis)),
-              IconButton(
-                icon: const Icon(Icons.copy),
-                onPressed: () => Clipboard.setData(ClipboardData(text: identityInfo.publicKey)),
-              ),
+              IconButton(icon: const Icon(Icons.copy), onPressed: () => Clipboard.setData(ClipboardData(text: identityInfo.publicKey))),
             ],
           ),
         ],
       ),
-      actions: <Widget>[
-        TextButton(
-          child: const Text('Close'),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ],
+      actions: <Widget>[TextButton(child: const Text('Close'), onPressed: () => Navigator.of(context).pop())],
     );
   }
 }

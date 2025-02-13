@@ -68,10 +68,6 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
       isChecked = value;
     });
 
-    handleCheckboxChange(
-      isChecked: isChecked,
-      controller: widget.controller,
-      itemIndex: widget.itemIndex,
-    );
+    handleCheckboxChange(isChecked: isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }
 }

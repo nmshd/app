@@ -65,14 +65,15 @@ class ErrorScreen extends StatelessWidget {
     if (!result && context.mounted) {
       await showDialog<void>(
         context: context,
-        builder: (context) => AlertDialog(
-          insetPadding: const EdgeInsets.all(24),
-          icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
-          title: Text(context.l10n.error_openMailApp),
-          content: Text(context.l10n.error_openMailApp_description, textAlign: TextAlign.center),
-          actions: [FilledButton(onPressed: () => context.pop(true), child: Text(context.l10n.error_understood))],
-          actionsAlignment: MainAxisAlignment.center,
-        ),
+        builder:
+            (context) => AlertDialog(
+              insetPadding: const EdgeInsets.all(24),
+              icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+              title: Text(context.l10n.error_openMailApp),
+              content: Text(context.l10n.error_openMailApp_description, textAlign: TextAlign.center),
+              actions: [FilledButton(onPressed: () => context.pop(true), child: Text(context.l10n.error_understood))],
+              actionsAlignment: MainAxisAlignment.center,
+            ),
       );
     }
   }

@@ -14,10 +14,7 @@ class IdentityRecoveryKitsFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'profileName': profileName,
-          'passwordProtection': passwordProtection.toJson(),
-        },
+        'request': {'profileName': profileName, 'passwordProtection': passwordProtection.toJson()},
       },
     );
 

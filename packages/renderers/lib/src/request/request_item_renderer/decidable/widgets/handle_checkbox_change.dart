@@ -10,14 +10,8 @@ void handleCheckboxChange({
   AcceptRequestItemParameters acceptRequestItemParameter = const AcceptRequestItemParameters(),
 }) {
   if (isChecked) {
-    controller?.writeAtIndex(
-      index: itemIndex,
-      value: acceptRequestItemParameter,
-    );
+    controller?.writeAtIndex(index: itemIndex, value: acceptRequestItemParameter);
   } else {
-    controller?.writeAtIndex(
-      index: itemIndex,
-      value: const RejectRequestItemParameters(),
-    );
+    controller?.writeAtIndex(index: itemIndex, value: const RejectRequestItemParameters());
   }
 }

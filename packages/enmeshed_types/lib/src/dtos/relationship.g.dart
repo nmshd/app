@@ -7,26 +7,26 @@ part of 'relationship.dart';
 // **************************************************************************
 
 RelationshipDTO _$RelationshipDTOFromJson(Map<String, dynamic> json) => RelationshipDTO(
-      id: json['id'] as String,
-      template: RelationshipTemplateDTO.fromJson(json['template'] as Map<String, dynamic>),
-      status: $enumDecode(_$RelationshipStatusEnumMap, json['status']),
-      peer: json['peer'] as String,
-      peerIdentity: IdentityDTO.fromJson(json['peerIdentity'] as Map<String, dynamic>),
-      peerDeletionInfo: json['peerDeletionInfo'] == null ? null : PeerDeletionInfo.fromJson(json['peerDeletionInfo'] as Map<String, dynamic>),
-      creationContent: RelationshipCreationContentDerivation.fromJson(json['creationContent'] as Map<String, dynamic>),
-      auditLog: (json['auditLog'] as List<dynamic>).map((e) => RelationshipAuditLogEntryDTO.fromJson(e as Map<String, dynamic>)).toList(),
-    );
+  id: json['id'] as String,
+  template: RelationshipTemplateDTO.fromJson(json['template'] as Map<String, dynamic>),
+  status: $enumDecode(_$RelationshipStatusEnumMap, json['status']),
+  peer: json['peer'] as String,
+  peerIdentity: IdentityDTO.fromJson(json['peerIdentity'] as Map<String, dynamic>),
+  peerDeletionInfo: json['peerDeletionInfo'] == null ? null : PeerDeletionInfo.fromJson(json['peerDeletionInfo'] as Map<String, dynamic>),
+  creationContent: RelationshipCreationContentDerivation.fromJson(json['creationContent'] as Map<String, dynamic>),
+  auditLog: (json['auditLog'] as List<dynamic>).map((e) => RelationshipAuditLogEntryDTO.fromJson(e as Map<String, dynamic>)).toList(),
+);
 
 Map<String, dynamic> _$RelationshipDTOToJson(RelationshipDTO instance) => <String, dynamic>{
-      'id': instance.id,
-      'template': instance.template.toJson(),
-      'status': _$RelationshipStatusEnumMap[instance.status]!,
-      'peer': instance.peer,
-      'peerIdentity': instance.peerIdentity.toJson(),
-      if (instance.peerDeletionInfo?.toJson() case final value?) 'peerDeletionInfo': value,
-      'creationContent': instance.creationContent.toJson(),
-      'auditLog': instance.auditLog.map((e) => e.toJson()).toList(),
-    };
+  'id': instance.id,
+  'template': instance.template.toJson(),
+  'status': _$RelationshipStatusEnumMap[instance.status]!,
+  'peer': instance.peer,
+  'peerIdentity': instance.peerIdentity.toJson(),
+  if (instance.peerDeletionInfo?.toJson() case final value?) 'peerDeletionInfo': value,
+  'creationContent': instance.creationContent.toJson(),
+  'auditLog': instance.auditLog.map((e) => e.toJson()).toList(),
+};
 
 const _$RelationshipStatusEnumMap = {
   RelationshipStatus.Pending: 'Pending',

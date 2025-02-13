@@ -20,11 +20,7 @@ abstract class RequestItem extends Equatable {
   final String? description;
   final Map<String, dynamic>? metadata;
 
-  const RequestItem({
-    this.title,
-    this.description,
-    this.metadata,
-  });
+  const RequestItem({this.title, this.description, this.metadata});
 
   factory RequestItem.fromJson(Map json) {
     final type = json['@type'];
@@ -38,10 +34,10 @@ abstract class RequestItem extends Equatable {
 
   @mustCallSuper
   Map<String, dynamic> toJson() => {
-        if (title != null) 'title': title,
-        if (description != null) 'description': description,
-        if (metadata != null) 'metadata': metadata,
-      };
+    if (title != null) 'title': title,
+    if (description != null) 'description': description,
+    if (metadata != null) 'metadata': metadata,
+  };
 
   @mustCallSuper
   @override

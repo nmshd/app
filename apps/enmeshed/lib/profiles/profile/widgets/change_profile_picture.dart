@@ -49,19 +49,10 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
-        color: Theme.of(context).colorScheme.surfaceContainer,
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: Theme.of(context).colorScheme.surfaceContainer),
       child: Column(
         children: [
-          if (!_loading)
-            ProfilePicture(
-              radius: 60,
-              image: _image,
-              profileName: widget.profileName,
-              decorative: true,
-            ),
+          if (!_loading) ProfilePicture(radius: 60, image: _image, profileName: widget.profileName, decorative: true),
           if (_loading) const CircleAvatar(radius: 60, child: CircularProgressIndicator()),
           Gaps.h16,
           Row(

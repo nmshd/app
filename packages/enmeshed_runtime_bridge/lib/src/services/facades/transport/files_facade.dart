@@ -14,9 +14,7 @@ class FilesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (query != null) 'query': query.toJson(),
-        },
+        'request': {if (query != null) 'query': query.toJson()},
       },
     );
 
@@ -24,19 +22,13 @@ class FilesFacade {
     return Result.fromJson(json, (value) => List<FileDTO>.from(value.map((e) => FileDTO.fromJson(e))));
   }
 
-  Future<Result<FileDTO>> getOrLoadFile({
-    required String reference,
-    String? password,
-  }) async {
+  Future<Result<FileDTO>> getOrLoadFile({required String reference, String? password}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.getOrLoadFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'reference': reference,
-          if (password != null) 'password': password,
-        },
+        'request': {'reference': reference, if (password != null) 'password': password},
       },
     );
 
@@ -44,17 +36,13 @@ class FilesFacade {
     return Result.fromJson(value, (x) => FileDTO.fromJson(x));
   }
 
-  Future<Result<DownloadFileResponse>> downloadFile({
-    required String fileId,
-  }) async {
+  Future<Result<DownloadFileResponse>> downloadFile({required String fileId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.downloadFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: { ...result.value, content: Array.from(result.value.content) } }''',
       arguments: {
-        'request': {
-          'id': fileId,
-        },
+        'request': {'id': fileId},
       },
     );
 
@@ -62,17 +50,13 @@ class FilesFacade {
     return Result.fromJson(value, (x) => DownloadFileResponse.fromJson(x));
   }
 
-  Future<Result<FileDTO>> getFile({
-    required String fileId,
-  }) async {
+  Future<Result<FileDTO>> getFile({required String fileId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.getFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': fileId,
-        },
+        'request': {'id': fileId},
       },
     );
 
@@ -109,17 +93,13 @@ class FilesFacade {
     return Result.fromJson(value, (x) => FileDTO.fromJson(x));
   }
 
-  Future<Result<CreateQRCodeResponse>> createQRCodeForFile({
-    required String fileId,
-  }) async {
+  Future<Result<CreateQRCodeResponse>> createQRCodeForFile({required String fileId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.files.createQRCodeForFile(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'fileId': fileId,
-        },
+        'request': {'fileId': fileId},
       },
     );
 

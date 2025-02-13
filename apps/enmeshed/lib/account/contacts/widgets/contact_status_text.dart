@@ -12,7 +12,8 @@ class ContactStatusText extends StatelessWidget {
   const ContactStatusText({required this.contact, required this.openContactRequest, this.style, super.key});
 
   static bool canRenderStatusText({required IdentityDVO contact, LocalRequestDVO? openContactRequest}) {
-    final hasOpenContactRequestInCorrectStatus = openContactRequest != null && //
+    final hasOpenContactRequestInCorrectStatus =
+        openContactRequest != null && //
         [LocalRequestStatus.ManualDecisionRequired, LocalRequestStatus.Expired].contains(openContactRequest.status);
 
     final hasPeerDeletionStatus = contact.relationship?.peerDeletionStatus != null;
@@ -53,13 +54,10 @@ class ContactStatusText extends StatelessWidget {
     return switch (contact.relationship?.status) {
       RelationshipStatus.Pending => Text(context.l10n.contacts_pending, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.secondary)),
       RelationshipStatus.Terminated || RelationshipStatus.DeletionProposed => Text(
-          context.l10n.contacts_terminatedOrDeletionProposed,
-          style: textStyle?.copyWith(color: Theme.of(context).colorScheme.error),
-        ),
-      null => Text(
-          context.l10n.contacts_notYetRequested,
-          style: textStyle?.copyWith(color: Theme.of(context).colorScheme.secondary),
-        ),
+        context.l10n.contacts_terminatedOrDeletionProposed,
+        style: textStyle?.copyWith(color: Theme.of(context).colorScheme.error),
+      ),
+      null => Text(context.l10n.contacts_notYetRequested, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.secondary)),
       _ => const SizedBox.shrink(),
     };
   }

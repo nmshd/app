@@ -118,11 +118,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (widget.showHeader) ...[
-                    if (widget.description != null)
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Text(widget.description!),
-                      ),
+                    if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Row(
@@ -144,11 +140,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                       errorCount: _validationResult!.countOfValidationErrors,
                       validationErrorDescription: widget.validationErrorDescription,
                     ),
-                  if (_request!.isDecidable)
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text(context.l10n.mandatoryField),
-                    ),
+                  if (_request!.isDecidable) Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.mandatoryField)),
                   RequestRenderer(
                     formKey: _formKey,
                     request: _request!,
@@ -157,10 +149,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     openAttributeSwitcher: _openAttributeSwitcher,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                     chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                    openFileDetails: (file) => context.push(
-                      '/account/${widget.accountId}/my-data/files/${file.id}',
-                      extra: createFileRecord(file: file),
-                    ),
+                    openFileDetails: (file) =>
+                        context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                   ),
                 ],
               ),
@@ -367,10 +357,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      context.l10n.myEntries,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    Text(context.l10n.myEntries, style: const TextStyle(fontWeight: FontWeight.bold)),
                     if (widget.valueType != null)
                       TextButton.icon(
                         icon: const Icon(Icons.add, size: 16),
@@ -456,10 +443,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
-                    onPressed: () => context.pop(),
-                    child: Text(context.l10n.cancel),
-                  ),
+                  TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
                   FilledButton(
                     style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
                     onPressed: () => context.pop(selectedOption),
@@ -486,10 +470,7 @@ class _RequestRenderErrorContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.errorContainer,
-          borderRadius: BorderRadius.circular(4),
-        ),
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.errorContainer, borderRadius: BorderRadius.circular(4)),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(

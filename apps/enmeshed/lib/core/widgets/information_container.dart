@@ -10,10 +10,7 @@ class InformationContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(8),
-      ),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(8)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -26,10 +23,7 @@ class InformationContainer extends StatelessWidget {
                 Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium)),
               ],
             ),
-            if (description != null) ...[
-              Gaps.h8,
-              Text(description!, style: Theme.of(context).textTheme.bodySmall),
-            ],
+            if (description != null) ...[Gaps.h8, Text(description!, style: Theme.of(context).textTheme.bodySmall)],
           ],
         ),
       ),

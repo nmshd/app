@@ -6,19 +6,13 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryIntegerAttributeValue(title: 'aTitle', value: 10);
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryInteger', 'title': 'aTitle', 'value': 10}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryInteger', 'title': 'aTitle', 'value': 10}));
     });
 
     test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryIntegerAttributeValue(title: 'aTitle', description: 'aDescription', value: 10);
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryInteger', 'title': 'aTitle', 'description': 'aDescription', 'value': 10}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryInteger', 'title': 'aTitle', 'description': 'aDescription', 'value': 10}));
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
@@ -54,10 +48,7 @@ void main() {
   group('ProprietaryIntegerAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 10};
-      expect(
-        ProprietaryIntegerAttributeValue.fromJson(json),
-        equals(const ProprietaryIntegerAttributeValue(title: 'aTitle', value: 10)),
-      );
+      expect(ProprietaryIntegerAttributeValue.fromJson(json), equals(const ProprietaryIntegerAttributeValue(title: 'aTitle', value: 10)));
     });
 
     test('is correctly converted with property "description"', () {

@@ -120,12 +120,7 @@ void main() {
   group('Request fromJson', () {
     test('is correctly converted', () {
       final json = {
-        'items': [
-          const ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ).toJson(),
-        ],
+        'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
       };
       expect(
         Request.fromJson(json),
@@ -136,12 +131,7 @@ void main() {
     test('is correctly converted with property "id"', () {
       final json = {
         'id': 'aId',
-        'items': [
-          const ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ).toJson(),
-        ],
+        'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
       };
       expect(
         Request.fromJson(json),
@@ -152,76 +142,58 @@ void main() {
     test('is correctly converted with property "expiresAt"', () {
       final json = {
         'expiresAt': '2053',
-        'items': [
-          const ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ).toJson(),
-        ],
+        'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
       };
       expect(
         Request.fromJson(json),
-        equals(const Request(
-          expiresAt: '2053',
-          items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
-        )),
+        equals(
+          const Request(expiresAt: '2053', items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
+        ),
       );
     });
 
     test('is correctly converted with property "title"', () {
       final json = {
         'title': 'aTitle',
-        'items': [
-          const ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ).toJson(),
-        ],
+        'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
       };
       expect(
         Request.fromJson(json),
-        equals(const Request(
-          title: 'aTitle',
-          items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
-        )),
+        equals(
+          const Request(title: 'aTitle', items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))]),
+        ),
       );
     });
 
     test('is correctly converted with property "description"', () {
       final json = {
         'description': 'aDescription',
-        'items': [
-          const ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ).toJson(),
-        ],
+        'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
       };
       expect(
         Request.fromJson(json),
-        equals(const Request(
-          description: 'aDescription',
-          items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
-        )),
+        equals(
+          const Request(
+            description: 'aDescription',
+            items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
+          ),
+        ),
       );
     });
 
     test('is correctly converted with property "metadata"', () {
       final json = {
         'metadata': {'aKey': 'aValue'},
-        'items': [
-          const ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ).toJson(),
-        ],
+        'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
       };
       expect(
         Request.fromJson(json),
-        equals(const Request(
-          metadata: {'aKey': 'aValue'},
-          items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
-        )),
+        equals(
+          const Request(
+            metadata: {'aKey': 'aValue'},
+            items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
+          ),
+        ),
       );
     });
 
@@ -229,26 +201,23 @@ void main() {
       final json = {
         'id': 'aId',
         'expiresAt': '2053',
-        'items': [
-          const ReadAttributeRequestItem(
-            mustBeAccepted: true,
-            query: IdentityAttributeQuery(valueType: 'City'),
-          ).toJson(),
-        ],
+        'items': [const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City')).toJson()],
         'title': 'aTitle',
         'description': 'aDescription',
         'metadata': {'aKey': 'aValue'},
       };
       expect(
         Request.fromJson(json),
-        equals(const Request(
-          id: 'aId',
-          expiresAt: '2053',
-          items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
-          title: 'aTitle',
-          description: 'aDescription',
-          metadata: {'aKey': 'aValue'},
-        )),
+        equals(
+          const Request(
+            id: 'aId',
+            expiresAt: '2053',
+            items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))],
+            title: 'aTitle',
+            description: 'aDescription',
+            metadata: {'aKey': 'aValue'},
+          ),
+        ),
       );
     });
   });

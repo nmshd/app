@@ -20,9 +20,7 @@ class Result<T> {
     return _error;
   }
 
-  Result._({T? value, RuntimeError? error})
-      : _value = value,
-        _error = error;
+  Result._({T? value, RuntimeError? error}) : _value = value, _error = error;
 
   factory Result.success(T value) => Result._(value: value);
   factory Result.failure(RuntimeError error) => Result._(error: error);

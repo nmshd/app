@@ -6,19 +6,13 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryLanguageAttributeValue(title: 'aTitle', value: 'aLanguage');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryLanguage', 'title': 'aTitle', 'value': 'aLanguage'}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryLanguage', 'title': 'aTitle', 'value': 'aLanguage'}));
     });
 
     test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryLanguageAttributeValue(title: 'aTitle', description: 'aDescription', value: 'aLanguage');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryLanguage', 'title': 'aTitle', 'description': 'aDescription', 'value': 'aLanguage'}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryLanguage', 'title': 'aTitle', 'description': 'aDescription', 'value': 'aLanguage'}));
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
@@ -54,10 +48,7 @@ void main() {
   group('ProprietaryLanguageAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 'aLanguage'};
-      expect(
-        ProprietaryLanguageAttributeValue.fromJson(json),
-        equals(const ProprietaryLanguageAttributeValue(title: 'aTitle', value: 'aLanguage')),
-      );
+      expect(ProprietaryLanguageAttributeValue.fromJson(json), equals(const ProprietaryLanguageAttributeValue(title: 'aTitle', value: 'aLanguage')));
     });
 
     test('is correctly converted with property "description"', () {
@@ -80,12 +71,9 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aLanguage'};
       expect(
         ProprietaryLanguageAttributeValue.fromJson(json),
-        equals(const ProprietaryLanguageAttributeValue(
-          title: 'aTitle',
-          description: 'aDescription',
-          valueHintsOverride: ValueHints(),
-          value: 'aLanguage',
-        )),
+        equals(
+          const ProprietaryLanguageAttributeValue(title: 'aTitle', description: 'aDescription', valueHintsOverride: ValueHints(), value: 'aLanguage'),
+        ),
       );
     });
   });

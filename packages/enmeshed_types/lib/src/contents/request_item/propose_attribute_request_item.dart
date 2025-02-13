@@ -28,11 +28,11 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
 
   @override
   Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-        '@type': 'ProposeAttributeRequestItem',
-        'query': query.toJson(),
-        'attribute': attribute.toJson(),
-      };
+    ...super.toJson(),
+    '@type': 'ProposeAttributeRequestItem',
+    'query': query.toJson(),
+    'attribute': attribute.toJson(),
+  };
 
   @override
   List<Object?> get props => [super.props, query, attribute];

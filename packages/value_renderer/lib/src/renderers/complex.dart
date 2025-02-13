@@ -46,14 +46,15 @@ class ComplexRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     if (valueType == 'BirthDate') {
       return DatepickerFormField(
-          controller: controller,
-          emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
-          initialValueAttribute: initialValue,
-          decoration: decoration,
-          fieldName: fieldName,
-          mustBeFilledOut: mustBeFilledOut,
-          dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
-          lastDate: DateTime.now());
+        controller: controller,
+        emptyFieldMessage: FlutterI18n.translate(context, 'errors.value_renderer.emptyField'),
+        initialValueAttribute: initialValue,
+        decoration: decoration,
+        fieldName: fieldName,
+        mustBeFilledOut: mustBeFilledOut,
+        dateFormat: DateFormat.yMd(Localizations.localeOf(context).languageCode),
+        lastDate: DateTime.now(),
+      );
     }
 
     if (valueType == 'StreetAddress') {
@@ -178,30 +179,31 @@ class _GenericComplexRendererState extends State<_GenericComplexRenderer> {
         ],
         if (widget.renderHints.propertyHints != null)
           Column(
-            children: widget.renderHints.propertyHints!.keys
-                .map((key) {
-                  final translatedKey = 'i18n://attributes.values.${widget.valueType}.$key.label';
+            children:
+                widget.renderHints.propertyHints!.keys
+                    .map((key) {
+                      final translatedKey = 'i18n://attributes.values.${widget.valueType}.$key.label';
 
-                  final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
-                  final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
-                  final itemRenderHints = widget.renderHints.propertyHints![key];
-                  final itemValueHints = widget.valueHints.propertyHints![key] ?? const ValueHints();
+                      final itemInitialDynamicValue = widget.initialValue?.toJson()[key];
+                      final itemInitialValue = itemInitialDynamicValue == null ? null : _ComplexAttributeValueChild(itemInitialDynamicValue);
+                      final itemRenderHints = widget.renderHints.propertyHints![key];
+                      final itemValueHints = widget.valueHints.propertyHints![key] ?? const ValueHints();
 
-                  return ValueRenderer(
-                    initialValue: itemInitialValue,
-                    renderHints: itemRenderHints!,
-                    valueHints: itemValueHints,
-                    fieldName: translatedKey,
-                    controller: controllers?[key],
-                    decoration: widget.decoration,
-                    expandFileReference: widget.expandFileReference,
-                    chooseFile: widget.chooseFile,
-                    openFileDetails: widget.openFileDetails,
-                  );
-                })
-                .indexed
-                .map((e) => e.$1 == 0 ? e.$2 : Padding(padding: const EdgeInsets.only(top: 16), child: e.$2))
-                .toList(),
+                      return ValueRenderer(
+                        initialValue: itemInitialValue,
+                        renderHints: itemRenderHints!,
+                        valueHints: itemValueHints,
+                        fieldName: translatedKey,
+                        controller: controllers?[key],
+                        decoration: widget.decoration,
+                        expandFileReference: widget.expandFileReference,
+                        chooseFile: widget.chooseFile,
+                        openFileDetails: widget.openFileDetails,
+                      );
+                    })
+                    .indexed
+                    .map((e) => e.$1 == 0 ? e.$2 : Padding(padding: const EdgeInsets.only(top: 16), child: e.$2))
+                    .toList(),
           ),
       ],
     );

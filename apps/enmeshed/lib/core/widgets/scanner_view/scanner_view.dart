@@ -41,35 +41,31 @@ class _ScannerViewState extends State<ScannerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: scannerMode == ScannerMode.scan
-          ? ScannerEntry(
-              onSubmit: _onSubmit,
-              toggleScannerMode: _toggleScannerMode,
-              lineUpQrCodeText: widget.lineUpQrCodeText,
-              scanQrOrEnterUrlText: widget.scanQrOrEnterUrlText,
-              enterUrlText: widget.enterUrlText,
-            )
-          : UrlEntry(
-              onSubmit: _onSubmit,
-              toggleScannerMode: _toggleScannerMode,
-              urlTitle: widget.urlTitle,
-              urlDescription: widget.urlDescription,
-              urlLabelText: widget.urlLabelText,
-              urlValidationErrorText: widget.urlValidationErrorText,
-              urlButtonText: widget.urlButtonText,
-            ),
+      body:
+          scannerMode == ScannerMode.scan
+              ? ScannerEntry(
+                onSubmit: _onSubmit,
+                toggleScannerMode: _toggleScannerMode,
+                lineUpQrCodeText: widget.lineUpQrCodeText,
+                scanQrOrEnterUrlText: widget.scanQrOrEnterUrlText,
+                enterUrlText: widget.enterUrlText,
+              )
+              : UrlEntry(
+                onSubmit: _onSubmit,
+                toggleScannerMode: _toggleScannerMode,
+                urlTitle: widget.urlTitle,
+                urlDescription: widget.urlDescription,
+                urlLabelText: widget.urlLabelText,
+                urlValidationErrorText: widget.urlValidationErrorText,
+                urlButtonText: widget.urlButtonText,
+              ),
     );
   }
 
   void _onSubmit({required String content}) {
     if (_paused) return;
 
-    widget.onSubmit(
-      content: content,
-      pause: () => _paused = true,
-      resume: () => _paused = false,
-      context: context,
-    );
+    widget.onSubmit(content: content, pause: () => _paused = true, resume: () => _paused = false, context: context);
   }
 
   Future<void> _toggleScannerMode() async {

@@ -7,9 +7,5 @@ class RejectRequestItemParameters implements DecideRequestItemParameters {
   const RejectRequestItemParameters({this.code, this.message});
 
   @override
-  Map<String, dynamic> toJson() => {
-        'accept': false,
-        if (code != null) 'code': code,
-        if (message != null) 'message': message,
-      };
+  Map<String, dynamic> toJson() => {'accept': false, if (code != null) 'code': code, if (message != null) 'message': message};
 }

@@ -53,16 +53,21 @@ class RequestItemGroupRenderer extends StatelessWidget {
       ),
     );
 
-    final title = requestItemGroup.title != null
-        ? Text(requestItemGroup.title ?? '', style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface))
-        : null;
+    final title =
+        requestItemGroup.title != null
+            ? Text(
+              requestItemGroup.title ?? '',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            )
+            : null;
 
-    final subtitle = requestItemGroup.description != null
-        ? Text(
-            requestItemGroup.description!,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-          )
-        : null;
+    final subtitle =
+        requestItemGroup.description != null
+            ? Text(
+              requestItemGroup.description!,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            )
+            : null;
 
     return ExpansionTile(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainer,

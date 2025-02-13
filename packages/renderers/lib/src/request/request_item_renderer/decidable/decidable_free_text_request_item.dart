@@ -13,13 +13,7 @@ class DecidableFreeTextRequestItemRenderer extends StatefulWidget {
   final RequestItemIndex itemIndex;
   final LocalRequestStatus? requestStatus;
 
-  const DecidableFreeTextRequestItemRenderer({
-    super.key,
-    required this.item,
-    this.controller,
-    required this.itemIndex,
-    this.requestStatus,
-  });
+  const DecidableFreeTextRequestItemRenderer({super.key, required this.item, this.controller, required this.itemIndex, this.requestStatus});
 
   @override
   State<DecidableFreeTextRequestItemRenderer> createState() => _DecidableFreeTextRequestItemRendererState();
@@ -44,13 +38,7 @@ class _DecidableFreeTextRequestItemRendererState extends State<DecidableFreeText
     return Row(
       children: [
         Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-        Expanded(
-          child: CustomListTile(
-            title: widget.item.name,
-            description: widget.item.description,
-            thirdLine: widget.item.freeText,
-          ),
-        ),
+        Expanded(child: CustomListTile(title: widget.item.name, description: widget.item.description, thirdLine: widget.item.freeText)),
       ],
     );
   }
@@ -62,10 +50,6 @@ class _DecidableFreeTextRequestItemRendererState extends State<DecidableFreeText
       isChecked = value;
     });
 
-    handleCheckboxChange(
-      isChecked: isChecked,
-      controller: widget.controller,
-      itemIndex: widget.itemIndex,
-    );
+    handleCheckboxChange(isChecked: isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }
 }

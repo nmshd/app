@@ -16,16 +16,16 @@ sealed class DecidableRequestItemDVODerivation extends RequestItemDVODerivation 
   });
 
   factory DecidableRequestItemDVODerivation.fromJson(Map json) => switch (json['type']) {
-        'DecidableReadAttributeRequestItemDVO' => DecidableReadAttributeRequestItemDVO.fromJson(json),
-        'DecidableProposeAttributeRequestItemDVO' => DecidableProposeAttributeRequestItemDVO.fromJson(json),
-        'DecidableCreateAttributeRequestItemDVO' => DecidableCreateAttributeRequestItemDVO.fromJson(json),
-        'DecidableShareAttributeRequestItemDVO' => DecidableShareAttributeRequestItemDVO.fromJson(json),
-        'DecidableAuthenticationRequestItemDVO' => DecidableAuthenticationRequestItemDVO.fromJson(json),
-        'DecidableConsentRequestItemDVO' => DecidableConsentRequestItemDVO.fromJson(json),
-        'DecidableFreeTextRequestItemDVO' => DecidableFreeTextRequestItemDVO.fromJson(json),
-        'DecidableRegisterAttributeListenerRequestItemDVO' => DecidableRegisterAttributeListenerRequestItemDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
-      };
+    'DecidableReadAttributeRequestItemDVO' => DecidableReadAttributeRequestItemDVO.fromJson(json),
+    'DecidableProposeAttributeRequestItemDVO' => DecidableProposeAttributeRequestItemDVO.fromJson(json),
+    'DecidableCreateAttributeRequestItemDVO' => DecidableCreateAttributeRequestItemDVO.fromJson(json),
+    'DecidableShareAttributeRequestItemDVO' => DecidableShareAttributeRequestItemDVO.fromJson(json),
+    'DecidableAuthenticationRequestItemDVO' => DecidableAuthenticationRequestItemDVO.fromJson(json),
+    'DecidableConsentRequestItemDVO' => DecidableConsentRequestItemDVO.fromJson(json),
+    'DecidableFreeTextRequestItemDVO' => DecidableFreeTextRequestItemDVO.fromJson(json),
+    'DecidableRegisterAttributeListenerRequestItemDVO' => DecidableRegisterAttributeListenerRequestItemDVO.fromJson(json),
+    _ => throw Exception("Invalid type '${json['type']}'"),
+  };
 
   @override
   Map<String, dynamic> toJson();

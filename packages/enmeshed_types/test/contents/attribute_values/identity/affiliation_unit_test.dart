@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = AffiliationUnitAttributeValue(value: 'anAffiliationUnit');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'AffiliationUnit',
-          'value': 'anAffiliationUnit',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'AffiliationUnit', 'value': 'anAffiliationUnit'}));
     });
   });
 

@@ -20,19 +20,16 @@ class ErrorDialog extends StatelessWidget {
   }
 
   String _title(BuildContext context) => switch (code) {
-        'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
-        'error.appStringProcessor.truncatedReferenceInvalid' =>
-          context.l10n.errorDialog_invalidQRCode_title,
-        'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
-        _ => context.l10n.errorDialog_title,
-      };
+    'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
+    'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_title,
+    'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
+    _ => context.l10n.errorDialog_title,
+  };
 
   String _content(BuildContext context) => switch (code) {
-        'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
-        'error.appStringProcessor.truncatedReferenceInvalid' =>
-          context.l10n.errorDialog_invalidQRCode_description,
-        'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' =>
-          context.l10n.errorDialog_QRCodeProcessingFailed_description,
-        _ => context.l10n.errorDialog_description,
-      };
+    'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
+    'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_description,
+    'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_description,
+    _ => context.l10n.errorDialog_description,
+  };
 }

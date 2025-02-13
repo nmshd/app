@@ -6,10 +6,7 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryFileReferenceAttributeValue(title: 'aTitle', value: 'aFileReference');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryFileReference', 'title': 'aTitle', 'value': 'aFileReference'}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryFileReference', 'title': 'aTitle', 'value': 'aFileReference'}));
     });
 
     test('is correctly converted with property "description"', () {
@@ -26,8 +23,11 @@ void main() {
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
-      const relationshipAttributeValue =
-          ProprietaryFileReferenceAttributeValue(title: 'aTitle', valueHintsOverride: ValueHints(), value: 'aFileReference');
+      const relationshipAttributeValue = ProprietaryFileReferenceAttributeValue(
+        title: 'aTitle',
+        valueHintsOverride: ValueHints(),
+        value: 'aFileReference',
+      );
       final relationshipJson = relationshipAttributeValue.toJson();
       expect(
         relationshipJson,
@@ -90,12 +90,14 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'aFileReference'};
       expect(
         ProprietaryFileReferenceAttributeValue.fromJson(json),
-        equals(const ProprietaryFileReferenceAttributeValue(
-          title: 'aTitle',
-          description: 'aDescription',
-          valueHintsOverride: ValueHints(),
-          value: 'aFileReference',
-        )),
+        equals(
+          const ProprietaryFileReferenceAttributeValue(
+            title: 'aTitle',
+            description: 'aDescription',
+            valueHintsOverride: ValueHints(),
+            value: 'aFileReference',
+          ),
+        ),
       );
     });
   });

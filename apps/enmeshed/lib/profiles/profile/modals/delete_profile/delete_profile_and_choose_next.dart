@@ -122,11 +122,7 @@ class _Error extends StatelessWidget {
         children: [
           Icon(Icons.cancel, size: 160, color: Theme.of(context).colorScheme.error),
           Gaps.h24,
-          Text(
-            context.l10n.profile_delete_error,
-            style: Theme.of(context).textTheme.bodyLarge,
-            textAlign: TextAlign.center,
-          ),
+          Text(context.l10n.profile_delete_error, style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.center),
           const Spacer(),
           Align(
             alignment: Alignment.centerRight,

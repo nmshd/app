@@ -6,19 +6,13 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = MockProprietaryAttributeValue(title: 'aTitle');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'MockProprietaryAttributeValue', 'title': 'aTitle'}),
-      );
+      expect(relationshipJson, equals({'@type': 'MockProprietaryAttributeValue', 'title': 'aTitle'}));
     });
 
     test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = MockProprietaryAttributeValue(title: 'aTitle', description: 'aDescription');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'MockProprietaryAttributeValue', 'title': 'aTitle', 'description': 'aDescription'}),
-      );
+      expect(relationshipJson, equals({'@type': 'MockProprietaryAttributeValue', 'title': 'aTitle', 'description': 'aDescription'}));
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
@@ -51,9 +45,5 @@ void main() {
 }
 
 class MockProprietaryAttributeValue extends ProprietaryAttributeValue {
-  const MockProprietaryAttributeValue({
-    required super.title,
-    super.description,
-    super.valueHintsOverride,
-  }) : super('MockProprietaryAttributeValue');
+  const MockProprietaryAttributeValue({required super.title, super.description, super.valueHintsOverride}) : super('MockProprietaryAttributeValue');
 }

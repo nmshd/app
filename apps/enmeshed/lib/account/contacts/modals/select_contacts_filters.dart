@@ -95,15 +95,9 @@ class _SelectContactFiltersState extends State<_SelectContactFilters> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          OutlinedButton(
-                            onPressed: () => context.pop(<ContactsFilterOption>{}),
-                            child: Text(context.l10n.reset),
-                          ),
+                          OutlinedButton(onPressed: () => context.pop(<ContactsFilterOption>{}), child: Text(context.l10n.reset)),
                           Gaps.w8,
-                          FilledButton(
-                            onPressed: () => context.pop(_selectedFilters),
-                            child: Text(context.l10n.apply_filter),
-                          ),
+                          FilledButton(onPressed: () => context.pop(_selectedFilters), child: Text(context.l10n.apply_filter)),
                         ],
                       ),
                     ),

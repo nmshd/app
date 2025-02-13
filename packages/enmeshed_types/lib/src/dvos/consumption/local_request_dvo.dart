@@ -61,10 +61,7 @@ class LocalRequestSourceDVO {
   final LocalRequestSourceType type;
   final String reference;
 
-  const LocalRequestSourceDVO({
-    required this.type,
-    required this.reference,
-  });
+  const LocalRequestSourceDVO({required this.type, required this.reference});
 
   factory LocalRequestSourceDVO.fromJson(Map json) => _$LocalRequestSourceDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$LocalRequestSourceDVOToJson(this);
@@ -99,10 +96,7 @@ class LocalResponseSourceDVO {
   final LocalResponseSourceType type;
   final String reference;
 
-  const LocalResponseSourceDVO({
-    required this.type,
-    required this.reference,
-  });
+  const LocalResponseSourceDVO({required this.type, required this.reference});
 
   factory LocalResponseSourceDVO.fromJson(Map json) => _$LocalResponseSourceDVOFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$LocalResponseSourceDVOToJson(this);

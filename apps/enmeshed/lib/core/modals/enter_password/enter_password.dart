@@ -27,31 +27,24 @@ class EnterPasswordModal extends StatelessWidget {
             padding: const EdgeInsets.only(left: 24, right: 16, top: 8),
             child: Row(
               children: [
-                Text(
-                  switch (passwordType) {
-                    UIBridgePasswordType.password => context.l10n.passwordProtection_enterPassword,
-                    UIBridgePasswordType.pin => context.l10n.passwordProtection_enterPin,
-                  },
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text(switch (passwordType) {
+                  UIBridgePasswordType.password => context.l10n.passwordProtection_enterPassword,
+                  UIBridgePasswordType.pin => context.l10n.passwordProtection_enterPin,
+                }, style: Theme.of(context).textTheme.titleLarge),
                 const Spacer(),
-                IconButton(
-                  onPressed: () => context.pop(),
-                  icon: const Icon(Icons.close),
-                ),
+                IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            child: Text(
-              switch (passwordType) {
-                UIBridgePasswordType.password => context.l10n.passwordProtection_referenceIsPasswordProtected,
-                UIBridgePasswordType.pin => context.l10n.passwordProtection_referenceIsPinProtected(
-                    switch (pinLength!) { 4 || 5 || 6 => pinLength.toString(), _ => 'other' },
-                  ),
-              },
-            ),
+            child: Text(switch (passwordType) {
+              UIBridgePasswordType.password => context.l10n.passwordProtection_referenceIsPasswordProtected,
+              UIBridgePasswordType.pin => context.l10n.passwordProtection_referenceIsPinProtected(switch (pinLength!) {
+                4 || 5 || 6 => pinLength.toString(),
+                _ => 'other',
+              }),
+            }),
           ),
           if (attempt > 1)
             Padding(
@@ -66,13 +59,10 @@ class EnterPasswordModal extends StatelessWidget {
                       Icon(Icons.error, color: Theme.of(context).colorScheme.onError),
                       Gaps.w8,
                       Expanded(
-                        child: Text(
-                          switch (passwordType) {
-                            UIBridgePasswordType.password => context.l10n.passwordProtection_incorrectPassword,
-                            UIBridgePasswordType.pin => context.l10n.passwordProtection_incorrectPin,
-                          },
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onError),
-                        ),
+                        child: Text(switch (passwordType) {
+                          UIBridgePasswordType.password => context.l10n.passwordProtection_incorrectPassword,
+                          UIBridgePasswordType.pin => context.l10n.passwordProtection_incorrectPin,
+                        }, style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onError)),
                       ),
                     ],
                   ),

@@ -11,11 +11,7 @@ import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 import '/core/core.dart';
 import '../device.dart';
 
-void addDevice({
-  required BuildContext context,
-  required String accountId,
-  required Future<void> Function() reload,
-}) {
+void addDevice({required BuildContext context, required String accountId, required Future<void> Function() reload}) {
   _showModalSheet(context: context, accountId: accountId, reload: reload);
 }
 
@@ -49,10 +45,7 @@ void _showModalSheet({
 
   final closeButton = Padding(
     padding: const EdgeInsets.only(right: 8),
-    child: IconButton(
-      icon: const Icon(Icons.close),
-      onPressed: () => context.pop(),
-    ),
+    child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
   );
 
   void goToNextPage() => pageIndexNotifier.value++;

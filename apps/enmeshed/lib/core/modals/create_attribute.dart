@@ -73,13 +73,7 @@ class _CreateAttributeModalState extends State<_CreateAttributeModal> {
       layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
         return AnimatedSize(
           duration: const Duration(milliseconds: 300),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              ...previousChildren,
-              if (currentChild != null) currentChild,
-            ],
-          ),
+          child: Stack(alignment: Alignment.center, children: [...previousChildren, if (currentChild != null) currentChild]),
         );
       },
       duration: const Duration(milliseconds: 300),
@@ -234,10 +228,7 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BottomSheetHeader(
-            onBackPressed: widget.onBackPressed,
-            title: context.l10n.myData_createAttribute_title(translatedAttribute),
-          ),
+          BottomSheetHeader(onBackPressed: widget.onBackPressed, title: context.l10n.myData_createAttribute_title(translatedAttribute)),
           Flexible(
             child: SingleChildScrollView(
               controller: _scrollController,
@@ -258,10 +249,8 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
                       valueType: widget.valueType,
                       expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                       chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                      openFileDetails: (file) => context.push(
-                        '/account/${widget.accountId}/my-data/files/${file.id}',
-                        extra: createFileRecord(file: file),
-                      ),
+                      openFileDetails:
+                          (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                     ),
                     if (_isDuplicateEntryError(_errorCode)) const _DuplicateEntryErrorContainer(),
                   ],
@@ -327,17 +316,13 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
     unawaited(
       showDialog<void>(
         context: context,
-        builder: (context) => AlertDialog(
-          icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
-          title: Text(context.l10n.personalData_details_errorTitleOnCreate, style: Theme.of(context).textTheme.headlineSmall),
-          content: Text(context.l10n.personalData_details_errorContentOnCreate),
-          actions: [
-            TextButton(
-              onPressed: () => context.pop(),
-              child: Text(context.l10n.back),
+        builder:
+            (context) => AlertDialog(
+              icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+              title: Text(context.l10n.personalData_details_errorTitleOnCreate, style: Theme.of(context).textTheme.headlineSmall),
+              content: Text(context.l10n.personalData_details_errorContentOnCreate),
+              actions: [TextButton(onPressed: () => context.pop(), child: Text(context.l10n.back))],
             ),
-          ],
-        ),
       ),
     );
   }
@@ -347,11 +332,7 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
   void _scrollToBottom() {
     if (!_scrollController.hasClients || !_scrollController.position.hasViewportDimension) return;
 
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
   }
 }
 
@@ -393,21 +374,19 @@ class _EditableAttributesState extends State<_EditableAttributes> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Text(context.l10n.myData_chooseInformationType),
-            ),
+            Padding(padding: const EdgeInsets.only(left: 16), child: Text(context.l10n.myData_chooseInformationType)),
             Gaps.h16,
             ListView.separated(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: _editableAttributes!.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text(_editableAttributes![index].translation),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => widget.goToNextPage(_editableAttributes![index].key),
-              ),
+              itemBuilder:
+                  (context, index) => ListTile(
+                    title: Text(_editableAttributes![index].translation),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => widget.goToNextPage(_editableAttributes![index].key),
+                  ),
               separatorBuilder: (context, index) => const Divider(height: 0, indent: 16),
             ),
             SizedBox(height: MediaQuery.viewPaddingOf(context).bottom),
@@ -444,10 +423,7 @@ class _DuplicateEntryErrorContainer extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16),
       child: Container(
         padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.error,
-          borderRadius: BorderRadius.circular(4),
-        ),
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.error, borderRadius: BorderRadius.circular(4)),
         child: Row(
           children: [
             Icon(Icons.error, color: Theme.of(context).colorScheme.onError),

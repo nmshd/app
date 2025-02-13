@@ -75,16 +75,17 @@ Future<bool> showConfirmationDialog(
 }) async {
   final result = await showDialog<bool>(
     context: context,
-    builder: (context) => AlertDialog(
-      insetPadding: const EdgeInsets.all(20),
-      icon: icon,
-      title: title,
-      content: content,
-      actions: [
-        OutlinedButton(onPressed: () => context.pop(false), child: Text(context.l10n.cancel)),
-        FilledButton(onPressed: () => context.pop(true), child: Text(confirmText)),
-      ],
-    ),
+    builder:
+        (context) => AlertDialog(
+          insetPadding: const EdgeInsets.all(20),
+          icon: icon,
+          title: title,
+          content: content,
+          actions: [
+            OutlinedButton(onPressed: () => context.pop(false), child: Text(context.l10n.cancel)),
+            FilledButton(onPressed: () => context.pop(true), child: Text(confirmText)),
+          ],
+        ),
   );
 
   return result ?? false;

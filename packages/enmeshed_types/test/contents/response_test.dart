@@ -34,11 +34,7 @@ void main() {
     });
 
     test('is correctly converted with a RejectResponseItem', () {
-      const response = Response(
-        result: ResponseResult.Accepted,
-        requestId: 'aRequestId',
-        items: [RejectResponseItem()],
-      );
+      const response = Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [RejectResponseItem()]);
       final responseJson = response.toJson();
       expect(
         responseJson,
@@ -85,13 +81,19 @@ void main() {
       };
       expect(
         Response.fromJson(json),
-        equals(const Response(result: ResponseResult.Accepted, requestId: 'aRequestId', items: [
-          ReadAttributeAcceptResponseItem(
-            attributeId: 'anAttributeId',
-            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-            thirdPartyAddress: 'aThirdParty',
+        equals(
+          const Response(
+            result: ResponseResult.Accepted,
+            requestId: 'aRequestId',
+            items: [
+              ReadAttributeAcceptResponseItem(
+                attributeId: 'anAttributeId',
+                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                thirdPartyAddress: 'aThirdParty',
+              ),
+            ],
           ),
-        ])),
+        ),
       );
     });
 

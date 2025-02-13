@@ -52,36 +52,39 @@ class _AllDataScreenState extends State<AllDataScreen> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => _loadAttributes(syncBefore: true),
-          child: _attributes!.isEmpty
-              ? EmptyListIndicator(icon: Icons.co_present_outlined, text: context.l10n.no_data_available, wrapInListView: true)
-              : ListView.separated(
-                  itemBuilder: (context, index) {
-                    final attribute = _attributes![index];
+          child:
+              _attributes!.isEmpty
+                  ? EmptyListIndicator(icon: Icons.co_present_outlined, text: context.l10n.no_data_available, wrapInListView: true)
+                  : ListView.separated(
+                    itemBuilder: (context, index) {
+                      final attribute = _attributes![index];
 
-                    return Ink(
-                      child: InkWell(
-                        onTap: () => context.push(
-                          '/account/${widget.accountId}/my-data/details/${attribute.id}',
-                          extra: attribute is RepositoryAttributeDVO ? attribute : null,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
-                          child: AttributeRenderer.localAttribute(
-                            attribute: attribute,
-                            trailing: const Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Icon(Icons.chevron_right)),
-                            expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                            openFileDetails: (file) => context.push(
-                              '/account/${widget.accountId}/my-data/files/${file.id}',
-                              extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
+                      return Ink(
+                        child: InkWell(
+                          onTap:
+                              () => context.push(
+                                '/account/${widget.accountId}/my-data/details/${attribute.id}',
+                                extra: attribute is RepositoryAttributeDVO ? attribute : null,
+                              ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                            child: AttributeRenderer.localAttribute(
+                              attribute: attribute,
+                              trailing: const Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Icon(Icons.chevron_right)),
+                              expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                              openFileDetails:
+                                  (file) => context.push(
+                                    '/account/${widget.accountId}/my-data/files/${file.id}',
+                                    extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
+                                  ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: _attributes!.length,
-                  separatorBuilder: (context, index) => const Divider(indent: 16, height: 2),
-                ),
+                      );
+                    },
+                    itemCount: _attributes!.length,
+                    separatorBuilder: (context, index) => const Divider(indent: 16, height: 2),
+                  ),
         ),
       ),
     );

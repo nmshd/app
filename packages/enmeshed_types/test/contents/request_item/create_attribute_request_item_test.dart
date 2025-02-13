@@ -124,10 +124,12 @@ void main() {
       };
       expect(
         CreateAttributeRequestItem.fromJson(json),
-        equals(const CreateAttributeRequestItem(
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-        )),
+        equals(
+          const CreateAttributeRequestItem(
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
 
@@ -139,11 +141,13 @@ void main() {
       };
       expect(
         CreateAttributeRequestItem.fromJson(json),
-        equals(const CreateAttributeRequestItem(
-          title: 'aTitle',
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-        )),
+        equals(
+          const CreateAttributeRequestItem(
+            title: 'aTitle',
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
 
@@ -155,11 +159,13 @@ void main() {
       };
       expect(
         CreateAttributeRequestItem.fromJson(json),
-        equals(const CreateAttributeRequestItem(
-          description: 'aDescription',
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-        )),
+        equals(
+          const CreateAttributeRequestItem(
+            description: 'aDescription',
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
 
@@ -171,11 +177,13 @@ void main() {
       };
       expect(
         CreateAttributeRequestItem.fromJson(json),
-        equals(const CreateAttributeRequestItem(
-          metadata: {'aKey': 'aValue'},
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-        )),
+        equals(
+          const CreateAttributeRequestItem(
+            metadata: {'aKey': 'aValue'},
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
 
@@ -187,11 +195,13 @@ void main() {
       };
       expect(
         CreateAttributeRequestItem.fromJson(json),
-        equals(const CreateAttributeRequestItem(
-          requireManualDecision: true,
-          mustBeAccepted: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-        )),
+        equals(
+          const CreateAttributeRequestItem(
+            requireManualDecision: true,
+            mustBeAccepted: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
 
@@ -206,14 +216,16 @@ void main() {
       };
       expect(
         CreateAttributeRequestItem.fromJson(json),
-        equals(const CreateAttributeRequestItem(
-          title: 'aTitle',
-          description: 'aDescription',
-          metadata: {'aKey': 'aValue'},
-          mustBeAccepted: true,
-          requireManualDecision: true,
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-        )),
+        equals(
+          const CreateAttributeRequestItem(
+            title: 'aTitle',
+            description: 'aDescription',
+            metadata: {'aKey': 'aValue'},
+            mustBeAccepted: true,
+            requireManualDecision: true,
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
   });

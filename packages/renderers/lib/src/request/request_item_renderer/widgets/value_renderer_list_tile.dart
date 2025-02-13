@@ -78,10 +78,7 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
       child: Row(
         children: [
           if (widget.checkboxSettings != null)
-            Checkbox(
-              value: widget.checkboxSettings!.isChecked,
-              onChanged: widget.checkboxSettings!.onUpdateCheckbox,
-            ),
+            Checkbox(value: widget.checkboxSettings!.isChecked, onChanged: widget.checkboxSettings!.onUpdateCheckbox),
           Expanded(
             child: ValueRenderer(
               fieldName: widget.fieldName,

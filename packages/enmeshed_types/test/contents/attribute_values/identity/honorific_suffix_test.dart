@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = HonorificSuffixAttributeValue(value: 'aHonorificSuffix');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'HonorificSuffix',
-          'value': 'aHonorificSuffix',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'HonorificSuffix', 'value': 'aHonorificSuffix'}));
     });
   });
 
