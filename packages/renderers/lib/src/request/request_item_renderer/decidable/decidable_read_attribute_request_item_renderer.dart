@@ -136,6 +136,14 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       isChecked = value;
     });
 
+    if (_choice == null && value) {
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: ''),
+      );
+      return;
+    }
+
     if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null || !value) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
