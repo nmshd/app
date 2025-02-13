@@ -6,25 +6,13 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = AffiliationAttributeValue(role: 'aRole', organization: 'anOrganization', unit: 'anUnit');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'Affiliation',
-          'role': 'aRole',
-          'organization': 'anOrganization',
-          'unit': 'anUnit',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'Affiliation', 'role': 'aRole', 'organization': 'anOrganization', 'unit': 'anUnit'}));
     });
   });
 
   group('AffiliationAttributeValue fromJson', () {
     test('is correctly converted', () {
-      final json = {
-        'role': 'aRole',
-        'organization': 'anOrganization',
-        'unit': 'anUnit',
-      };
+      final json = {'role': 'aRole', 'organization': 'anOrganization', 'unit': 'anUnit'};
       expect(
         AffiliationAttributeValue.fromJson(json),
         equals(const AffiliationAttributeValue(role: 'aRole', organization: 'anOrganization', unit: 'anUnit')),

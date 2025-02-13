@@ -4,10 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('AcceptResponseItem fromJson', () {
     test('parsed valid AttributeAlreadySharedAcceptResponseItem', () {
-      final responseItemJson = {
-        '@type': 'AttributeAlreadySharedAcceptResponseItem',
-        'attributeId': 'anAttributeId',
-      };
+      final responseItemJson = {'@type': 'AttributeAlreadySharedAcceptResponseItem', 'attributeId': 'anAttributeId'};
 
       final acceptResponseItem = AcceptResponseItem.fromJson(responseItemJson);
       expect(acceptResponseItem, isA<AttributeAlreadySharedAcceptResponseItem>());
@@ -98,8 +95,6 @@ class MockAcceptResponseItem extends AcceptResponseItem {
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      ...super.toJson(),
-    };
+    return {...super.toJson()};
   }
 }

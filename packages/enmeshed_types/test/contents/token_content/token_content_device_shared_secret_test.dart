@@ -19,19 +19,13 @@ void main() {
       const content = TokenContentDeviceSharedSecret(sharedSecret: sharedSecret);
 
       final json = content.toJson();
-      expect(json, {
-        '@type': 'TokenContentDeviceSharedSecret',
-        'sharedSecret': sharedSecret.toJson(),
-      });
+      expect(json, {'@type': 'TokenContentDeviceSharedSecret', 'sharedSecret': sharedSecret.toJson()});
     });
   });
 
   group('TokenContentDeviceSharedSecret fromJson', () {
     test('is correctly converted', () {
-      final json = {
-        '@type': 'TokenContentDeviceSharedSecret',
-        'sharedSecret': sharedSecret.toJson(),
-      };
+      final json = {'@type': 'TokenContentDeviceSharedSecret', 'sharedSecret': sharedSecret.toJson()};
 
       final content = TokenContent.fromJson(json);
       expect(content, isA<TokenContentDeviceSharedSecret>());

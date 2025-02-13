@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = BirthCountryAttributeValue(value: 'aBirthCountry');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'BirthCountry',
-          'value': 'aBirthCountry',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'BirthCountry', 'value': 'aBirthCountry'}));
     });
   });
 

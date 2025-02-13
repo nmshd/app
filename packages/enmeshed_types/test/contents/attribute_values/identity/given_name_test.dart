@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = GivenNameAttributeValue(value: 'aGivenName');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'GivenName',
-          'value': 'aGivenName',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'GivenName', 'value': 'aGivenName'}));
     });
   });
 

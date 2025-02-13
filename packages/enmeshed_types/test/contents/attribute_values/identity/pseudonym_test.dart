@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = PseudonymAttributeValue(value: 'aPseudonym');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'Pseudonym',
-          'value': 'aPseudonym',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'Pseudonym', 'value': 'aPseudonym'}));
     });
   });
 

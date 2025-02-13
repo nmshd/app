@@ -18,24 +18,24 @@ class PostOfficeBoxAddressAttributeValue extends IdentityAttributeValue {
   }) : super('PostOfficeBoxAddress');
 
   factory PostOfficeBoxAddressAttributeValue.fromJson(Map json) => PostOfficeBoxAddressAttributeValue(
-        recipient: json['recipient'],
-        boxId: json['boxId'],
-        zipCode: json['zipCode'],
-        city: json['city'],
-        country: json['country'],
-        state: json['state'],
-      );
+    recipient: json['recipient'],
+    boxId: json['boxId'],
+    zipCode: json['zipCode'],
+    city: json['city'],
+    country: json['country'],
+    state: json['state'],
+  );
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': super.atType,
-        'recipient': recipient,
-        'boxId': boxId,
-        'zipCode': zipCode,
-        'city': city,
-        'country': country,
-        if (state != null) 'state': state,
-      };
+    '@type': super.atType,
+    'recipient': recipient,
+    'boxId': boxId,
+    'zipCode': zipCode,
+    'city': city,
+    'country': country,
+    if (state != null) 'state': state,
+  };
 
   @override
   List<Object?> get props => [recipient, boxId, zipCode, city, country, state];

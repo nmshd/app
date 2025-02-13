@@ -5,10 +5,7 @@ void main() {
   group('ChallengeValidationResult fromJson', () {
     test('is correctly converted', () {
       final json = {'isValid': true};
-      expect(
-        ChallengeValidationResult.fromJson(json),
-        equals(const ChallengeValidationResult(isValid: true)),
-      );
+      expect(ChallengeValidationResult.fromJson(json), equals(const ChallengeValidationResult(isValid: true)));
     });
 
     test('is correctly converted with property "correspondingRelationship"', () {
@@ -31,18 +28,20 @@ void main() {
         ),
         auditLog: const [
           RelationshipAuditLogEntryDTO(
-              createdAt: '2023',
-              createdBy: 'createdBy',
-              createdByDevice: 'createdByDevice',
-              reason: RelationshipAuditLogEntryReason.Creation,
-              newStatus: RelationshipStatus.Pending),
+            createdAt: '2023',
+            createdBy: 'createdBy',
+            createdByDevice: 'createdByDevice',
+            reason: RelationshipAuditLogEntryReason.Creation,
+            newStatus: RelationshipStatus.Pending,
+          ),
           RelationshipAuditLogEntryDTO(
-              createdAt: '2023',
-              createdBy: 'peer',
-              createdByDevice: 'peerDevice',
-              reason: RelationshipAuditLogEntryReason.AcceptanceOfCreation,
-              oldStatus: RelationshipStatus.Pending,
-              newStatus: RelationshipStatus.Active)
+            createdAt: '2023',
+            createdBy: 'peer',
+            createdByDevice: 'peerDevice',
+            reason: RelationshipAuditLogEntryReason.AcceptanceOfCreation,
+            oldStatus: RelationshipStatus.Pending,
+            newStatus: RelationshipStatus.Active,
+          ),
         ],
       );
 
@@ -53,10 +52,7 @@ void main() {
         equals(ChallengeValidationResult(isValid: true, correspondingRelationship: relationshipDTO).correspondingRelationship),
       );
 
-      expect(
-        ChallengeValidationResult.fromJson(json),
-        equals(ChallengeValidationResult(isValid: true, correspondingRelationship: relationshipDTO)),
-      );
+      expect(ChallengeValidationResult.fromJson(json), equals(ChallengeValidationResult(isValid: true, correspondingRelationship: relationshipDTO)));
     });
   });
 }

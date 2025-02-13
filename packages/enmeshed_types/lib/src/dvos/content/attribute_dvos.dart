@@ -41,10 +41,10 @@ sealed class DraftAttributeDVO extends DataViewObject {
   });
 
   factory DraftAttributeDVO.fromJson(Map json) => switch (json['type']) {
-        'DraftIdentityAttributeDVO' => DraftIdentityAttributeDVO.fromJson(json),
-        'DraftRelationshipAttributeDVO' => DraftRelationshipAttributeDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
-      };
+    'DraftIdentityAttributeDVO' => DraftIdentityAttributeDVO.fromJson(json),
+    'DraftRelationshipAttributeDVO' => DraftRelationshipAttributeDVO.fromJson(json),
+    _ => throw Exception("Invalid type '${json['type']}'"),
+  };
   Map<String, dynamic> toJson();
 }
 

@@ -11,12 +11,14 @@ void main() {
         createdByDevice: 'aCreatorDeviceId',
         createdAt: '2023',
         content: RelationshipTemplateContent(
-          onNewRelationship: Request(items: [
-            CreateAttributeRequestItem(
-              mustBeAccepted: true,
-              attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-            ),
-          ]),
+          onNewRelationship: Request(
+            items: [
+              CreateAttributeRequestItem(
+                mustBeAccepted: true,
+                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+              ),
+            ],
+          ),
         ),
         truncatedReference: 'aTruncatedReference',
       );
@@ -29,16 +31,17 @@ void main() {
           'createdBy': 'aCreatorAddress',
           'createdByDevice': 'aCreatorDeviceId',
           'createdAt': '2023',
-          'content': const RelationshipTemplateContent(
-            onNewRelationship: Request(
-              items: [
-                CreateAttributeRequestItem(
-                  mustBeAccepted: true,
-                  attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          'content':
+              const RelationshipTemplateContent(
+                onNewRelationship: Request(
+                  items: [
+                    CreateAttributeRequestItem(
+                      mustBeAccepted: true,
+                      attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ).toJson(),
+              ).toJson(),
           'truncatedReference': 'aTruncatedReference',
         }),
       );
@@ -52,12 +55,14 @@ void main() {
         createdByDevice: 'aCreatorDeviceId',
         createdAt: '2023',
         content: RelationshipTemplateContent(
-          onNewRelationship: Request(items: [
-            CreateAttributeRequestItem(
-              mustBeAccepted: true,
-              attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-            ),
-          ]),
+          onNewRelationship: Request(
+            items: [
+              CreateAttributeRequestItem(
+                mustBeAccepted: true,
+                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+              ),
+            ],
+          ),
         ),
         expiresAt: '2024',
         truncatedReference: 'aTruncatedReference',
@@ -71,16 +76,17 @@ void main() {
           'createdBy': 'aCreatorAddress',
           'createdByDevice': 'aCreatorDeviceId',
           'createdAt': '2023',
-          'content': const RelationshipTemplateContent(
-            onNewRelationship: Request(
-              items: [
-                CreateAttributeRequestItem(
-                  mustBeAccepted: true,
-                  attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          'content':
+              const RelationshipTemplateContent(
+                onNewRelationship: Request(
+                  items: [
+                    CreateAttributeRequestItem(
+                      mustBeAccepted: true,
+                      attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ).toJson(),
+              ).toJson(),
           'expiresAt': '2024',
           'truncatedReference': 'aTruncatedReference',
         }),
@@ -95,12 +101,14 @@ void main() {
         createdByDevice: 'aCreatorDeviceId',
         createdAt: '2023',
         content: RelationshipTemplateContent(
-          onNewRelationship: Request(items: [
-            CreateAttributeRequestItem(
-              mustBeAccepted: true,
-              attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-            ),
-          ]),
+          onNewRelationship: Request(
+            items: [
+              CreateAttributeRequestItem(
+                mustBeAccepted: true,
+                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+              ),
+            ],
+          ),
         ),
         maxNumberOfAllocations: 1,
         truncatedReference: 'aTruncatedReference',
@@ -114,16 +122,17 @@ void main() {
           'createdBy': 'aCreatorAddress',
           'createdByDevice': 'aCreatorDeviceId',
           'createdAt': '2023',
-          'content': const RelationshipTemplateContent(
-            onNewRelationship: Request(
-              items: [
-                CreateAttributeRequestItem(
-                  mustBeAccepted: true,
-                  attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          'content':
+              const RelationshipTemplateContent(
+                onNewRelationship: Request(
+                  items: [
+                    CreateAttributeRequestItem(
+                      mustBeAccepted: true,
+                      attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ).toJson(),
+              ).toJson(),
           'maxNumberOfAllocations': 1,
           'truncatedReference': 'aTruncatedReference',
         }),
@@ -138,12 +147,14 @@ void main() {
         createdByDevice: 'aCreatorDeviceId',
         createdAt: '2023',
         content: RelationshipTemplateContent(
-          onNewRelationship: Request(items: [
-            CreateAttributeRequestItem(
-              mustBeAccepted: true,
-              attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-            ),
-          ]),
+          onNewRelationship: Request(
+            items: [
+              CreateAttributeRequestItem(
+                mustBeAccepted: true,
+                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+              ),
+            ],
+          ),
         ),
         expiresAt: '2024',
         maxNumberOfAllocations: 1,
@@ -158,16 +169,17 @@ void main() {
           'createdBy': 'aCreatorAddress',
           'createdByDevice': 'aCreatorDeviceId',
           'createdAt': '2023',
-          'content': const RelationshipTemplateContent(
-            onNewRelationship: Request(
-              items: [
-                CreateAttributeRequestItem(
-                  mustBeAccepted: true,
-                  attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          'content':
+              const RelationshipTemplateContent(
+                onNewRelationship: Request(
+                  items: [
+                    CreateAttributeRequestItem(
+                      mustBeAccepted: true,
+                      attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ).toJson(),
+              ).toJson(),
           'expiresAt': '2024',
           'maxNumberOfAllocations': 1,
           'truncatedReference': 'aTruncatedReference',
@@ -184,36 +196,41 @@ void main() {
         'createdBy': 'aCreatorAddress',
         'createdByDevice': 'aCreatorDeviceId',
         'createdAt': '2023',
-        'content': const RelationshipTemplateContent(
-          onNewRelationship: Request(
-            items: [
-              CreateAttributeRequestItem(
-                mustBeAccepted: true,
-                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        'content':
+            const RelationshipTemplateContent(
+              onNewRelationship: Request(
+                items: [
+                  CreateAttributeRequestItem(
+                    mustBeAccepted: true,
+                    attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ).toJson(),
+            ).toJson(),
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
         RelationshipTemplateDTO.fromJson(json),
-        equals(const RelationshipTemplateDTO(
-          id: 'anId',
-          isOwn: true,
-          createdBy: 'aCreatorAddress',
-          createdByDevice: 'aCreatorDeviceId',
-          createdAt: '2023',
-          content: RelationshipTemplateContent(
-            onNewRelationship: Request(items: [
-              CreateAttributeRequestItem(
-                mustBeAccepted: true,
-                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        equals(
+          const RelationshipTemplateDTO(
+            id: 'anId',
+            isOwn: true,
+            createdBy: 'aCreatorAddress',
+            createdByDevice: 'aCreatorDeviceId',
+            createdAt: '2023',
+            content: RelationshipTemplateContent(
+              onNewRelationship: Request(
+                items: [
+                  CreateAttributeRequestItem(
+                    mustBeAccepted: true,
+                    attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                  ),
+                ],
               ),
-            ]),
+            ),
+            truncatedReference: 'aTruncatedReference',
           ),
-          truncatedReference: 'aTruncatedReference',
-        )),
+        ),
       );
     });
 
@@ -224,38 +241,43 @@ void main() {
         'createdBy': 'aCreatorAddress',
         'createdByDevice': 'aCreatorDeviceId',
         'createdAt': '2023',
-        'content': const RelationshipTemplateContent(
-          onNewRelationship: Request(
-            items: [
-              CreateAttributeRequestItem(
-                mustBeAccepted: true,
-                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        'content':
+            const RelationshipTemplateContent(
+              onNewRelationship: Request(
+                items: [
+                  CreateAttributeRequestItem(
+                    mustBeAccepted: true,
+                    attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ).toJson(),
+            ).toJson(),
         'expiresAt': '2024',
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
         RelationshipTemplateDTO.fromJson(json),
-        equals(const RelationshipTemplateDTO(
-          id: 'anId',
-          isOwn: true,
-          createdBy: 'aCreatorAddress',
-          createdByDevice: 'aCreatorDeviceId',
-          createdAt: '2023',
-          content: RelationshipTemplateContent(
-            onNewRelationship: Request(items: [
-              CreateAttributeRequestItem(
-                mustBeAccepted: true,
-                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        equals(
+          const RelationshipTemplateDTO(
+            id: 'anId',
+            isOwn: true,
+            createdBy: 'aCreatorAddress',
+            createdByDevice: 'aCreatorDeviceId',
+            createdAt: '2023',
+            content: RelationshipTemplateContent(
+              onNewRelationship: Request(
+                items: [
+                  CreateAttributeRequestItem(
+                    mustBeAccepted: true,
+                    attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                  ),
+                ],
               ),
-            ]),
+            ),
+            expiresAt: '2024',
+            truncatedReference: 'aTruncatedReference',
           ),
-          expiresAt: '2024',
-          truncatedReference: 'aTruncatedReference',
-        )),
+        ),
       );
     });
 
@@ -266,38 +288,43 @@ void main() {
         'createdBy': 'aCreatorAddress',
         'createdByDevice': 'aCreatorDeviceId',
         'createdAt': '2023',
-        'content': const RelationshipTemplateContent(
-          onNewRelationship: Request(
-            items: [
-              CreateAttributeRequestItem(
-                mustBeAccepted: true,
-                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        'content':
+            const RelationshipTemplateContent(
+              onNewRelationship: Request(
+                items: [
+                  CreateAttributeRequestItem(
+                    mustBeAccepted: true,
+                    attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ).toJson(),
+            ).toJson(),
         'maxNumberOfAllocations': 1,
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
         RelationshipTemplateDTO.fromJson(json),
-        equals(const RelationshipTemplateDTO(
-          id: 'anId',
-          isOwn: true,
-          createdBy: 'aCreatorAddress',
-          createdByDevice: 'aCreatorDeviceId',
-          createdAt: '2023',
-          content: RelationshipTemplateContent(
-            onNewRelationship: Request(items: [
-              CreateAttributeRequestItem(
-                mustBeAccepted: true,
-                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        equals(
+          const RelationshipTemplateDTO(
+            id: 'anId',
+            isOwn: true,
+            createdBy: 'aCreatorAddress',
+            createdByDevice: 'aCreatorDeviceId',
+            createdAt: '2023',
+            content: RelationshipTemplateContent(
+              onNewRelationship: Request(
+                items: [
+                  CreateAttributeRequestItem(
+                    mustBeAccepted: true,
+                    attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                  ),
+                ],
               ),
-            ]),
+            ),
+            maxNumberOfAllocations: 1,
+            truncatedReference: 'aTruncatedReference',
           ),
-          maxNumberOfAllocations: 1,
-          truncatedReference: 'aTruncatedReference',
-        )),
+        ),
       );
     });
 
@@ -308,40 +335,45 @@ void main() {
         'createdBy': 'aCreatorAddress',
         'createdByDevice': 'aCreatorDeviceId',
         'createdAt': '2023',
-        'content': const RelationshipTemplateContent(
-          onNewRelationship: Request(
-            items: [
-              CreateAttributeRequestItem(
-                mustBeAccepted: true,
-                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        'content':
+            const RelationshipTemplateContent(
+              onNewRelationship: Request(
+                items: [
+                  CreateAttributeRequestItem(
+                    mustBeAccepted: true,
+                    attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ).toJson(),
+            ).toJson(),
         'expiresAt': '2024',
         'maxNumberOfAllocations': 1,
         'truncatedReference': 'aTruncatedReference',
       };
       expect(
         RelationshipTemplateDTO.fromJson(json),
-        equals(const RelationshipTemplateDTO(
-          id: 'anId',
-          isOwn: true,
-          createdBy: 'aCreatorAddress',
-          createdByDevice: 'aCreatorDeviceId',
-          createdAt: '2023',
-          content: RelationshipTemplateContent(
-            onNewRelationship: Request(items: [
-              CreateAttributeRequestItem(
-                mustBeAccepted: true,
-                attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        equals(
+          const RelationshipTemplateDTO(
+            id: 'anId',
+            isOwn: true,
+            createdBy: 'aCreatorAddress',
+            createdByDevice: 'aCreatorDeviceId',
+            createdAt: '2023',
+            content: RelationshipTemplateContent(
+              onNewRelationship: Request(
+                items: [
+                  CreateAttributeRequestItem(
+                    mustBeAccepted: true,
+                    attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+                  ),
+                ],
               ),
-            ]),
+            ),
+            expiresAt: '2024',
+            maxNumberOfAllocations: 1,
+            truncatedReference: 'aTruncatedReference',
           ),
-          expiresAt: '2024',
-          maxNumberOfAllocations: 1,
-          truncatedReference: 'aTruncatedReference',
-        )),
+        ),
       );
     });
   });

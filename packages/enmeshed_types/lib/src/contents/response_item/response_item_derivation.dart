@@ -19,9 +19,7 @@ abstract class ResponseItemDerivation extends ResponseItem {
   }
 
   @override
-  Map<String, dynamic> toJson() => {
-        'result': result.name,
-      };
+  Map<String, dynamic> toJson() => {'result': result.name};
 
   @override
   List<Object?> get props => [result];

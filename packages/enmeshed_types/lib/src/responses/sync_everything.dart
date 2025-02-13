@@ -11,11 +11,7 @@ class SyncEverythingResponse extends Equatable {
   final List<MessageDTO> messages;
   final List<IdentityDeletionProcessDTO> identityDeletionProcesses;
 
-  const SyncEverythingResponse({
-    required this.relationships,
-    required this.messages,
-    required this.identityDeletionProcesses,
-  });
+  const SyncEverythingResponse({required this.relationships, required this.messages, required this.identityDeletionProcesses});
 
   factory SyncEverythingResponse.fromJson(Map<String, dynamic> json) => _$SyncEverythingResponseFromJson(json);
 

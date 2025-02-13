@@ -120,14 +120,16 @@ void main() {
       };
       expect(
         DeliveryBoxAddressAttributeValue.fromJson(json),
-        equals(const DeliveryBoxAddressAttributeValue(
-          recipient: 'aRecipient',
-          deliveryBoxId: 'aDeliveryBoxId',
-          userId: 'anUserId',
-          zipCode: 'aZipCode',
-          city: 'aCity',
-          country: 'aCountry',
-        )),
+        equals(
+          const DeliveryBoxAddressAttributeValue(
+            recipient: 'aRecipient',
+            deliveryBoxId: 'aDeliveryBoxId',
+            userId: 'anUserId',
+            zipCode: 'aZipCode',
+            city: 'aCity',
+            country: 'aCountry',
+          ),
+        ),
       );
     });
 
@@ -143,15 +145,17 @@ void main() {
       };
       expect(
         DeliveryBoxAddressAttributeValue.fromJson(json),
-        equals(const DeliveryBoxAddressAttributeValue(
-          recipient: 'aRecipient',
-          deliveryBoxId: 'aDeliveryBoxId',
-          userId: 'anUserId',
-          zipCode: 'aZipCode',
-          city: 'aCity',
-          country: 'aCountry',
-          phoneNumber: 'aPhoneNumber',
-        )),
+        equals(
+          const DeliveryBoxAddressAttributeValue(
+            recipient: 'aRecipient',
+            deliveryBoxId: 'aDeliveryBoxId',
+            userId: 'anUserId',
+            zipCode: 'aZipCode',
+            city: 'aCity',
+            country: 'aCountry',
+            phoneNumber: 'aPhoneNumber',
+          ),
+        ),
       );
     });
 
@@ -167,15 +171,17 @@ void main() {
       };
       expect(
         DeliveryBoxAddressAttributeValue.fromJson(json),
-        equals(const DeliveryBoxAddressAttributeValue(
-          recipient: 'aRecipient',
-          deliveryBoxId: 'aDeliveryBoxId',
-          userId: 'anUserId',
-          zipCode: 'aZipCode',
-          city: 'aCity',
-          country: 'aCountry',
-          state: 'aState',
-        )),
+        equals(
+          const DeliveryBoxAddressAttributeValue(
+            recipient: 'aRecipient',
+            deliveryBoxId: 'aDeliveryBoxId',
+            userId: 'anUserId',
+            zipCode: 'aZipCode',
+            city: 'aCity',
+            country: 'aCountry',
+            state: 'aState',
+          ),
+        ),
       );
     });
 
@@ -192,16 +198,18 @@ void main() {
       };
       expect(
         DeliveryBoxAddressAttributeValue.fromJson(json),
-        equals(const DeliveryBoxAddressAttributeValue(
-          recipient: 'aRecipient',
-          deliveryBoxId: 'aDeliveryBoxId',
-          userId: 'anUserId',
-          zipCode: 'aZipCode',
-          city: 'aCity',
-          country: 'aCountry',
-          phoneNumber: 'aPhoneNumber',
-          state: 'aState',
-        )),
+        equals(
+          const DeliveryBoxAddressAttributeValue(
+            recipient: 'aRecipient',
+            deliveryBoxId: 'aDeliveryBoxId',
+            userId: 'anUserId',
+            zipCode: 'aZipCode',
+            city: 'aCity',
+            country: 'aCountry',
+            phoneNumber: 'aPhoneNumber',
+            state: 'aState',
+          ),
+        ),
       );
     });
   });

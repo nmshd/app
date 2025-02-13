@@ -20,26 +20,26 @@ class StreetAddressAttributeValue extends IdentityAttributeValue {
   }) : super('StreetAddress');
 
   factory StreetAddressAttributeValue.fromJson(Map json) => StreetAddressAttributeValue(
-        recipient: json['recipient'],
-        street: json['street'],
-        houseNumber: json['houseNo'],
-        zipCode: json['zipCode'],
-        city: json['city'],
-        country: json['country'],
-        state: json['state'],
-      );
+    recipient: json['recipient'],
+    street: json['street'],
+    houseNumber: json['houseNo'],
+    zipCode: json['zipCode'],
+    city: json['city'],
+    country: json['country'],
+    state: json['state'],
+  );
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': super.atType,
-        'recipient': recipient,
-        'street': street,
-        'houseNo': houseNumber,
-        'zipCode': zipCode,
-        'city': city,
-        'country': country,
-        if (state != null) 'state': state,
-      };
+    '@type': super.atType,
+    'recipient': recipient,
+    'street': street,
+    'houseNo': houseNumber,
+    'zipCode': zipCode,
+    'city': city,
+    'country': country,
+    if (state != null) 'state': state,
+  };
 
   @override
   List<Object?> get props => [recipient, street, zipCode, city, country, state];

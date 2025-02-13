@@ -6,9 +6,7 @@ part 'delete_third_party_relationship_attribute_and_notify_peer.g.dart';
 class DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse {
   final String? notificationId;
 
-  DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse({
-    this.notificationId,
-  });
+  DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse({this.notificationId});
 
   factory DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponse.fromJson(Map<String, dynamic> json) =>
       _$DeleteThirdPartyRelationshipAttributeAndNotifyPeerResponseFromJson(json);

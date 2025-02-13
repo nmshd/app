@@ -10,10 +10,7 @@ class ValueHintsValue extends Equatable {
   final ValueHintsDefaultValue key;
   final String displayName;
 
-  const ValueHintsValue({
-    required this.key,
-    required this.displayName,
-  });
+  const ValueHintsValue({required this.key, required this.displayName});
 
   factory ValueHintsValue.fromJson(Map json) => _$ValueHintsValueFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => {'@type': 'ValueHintsValue', ..._$ValueHintsValueToJson(this)};

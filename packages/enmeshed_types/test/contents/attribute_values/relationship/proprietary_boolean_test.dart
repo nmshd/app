@@ -6,19 +6,13 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryBooleanAttributeValue(title: 'aTitle', value: true);
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryBoolean', 'title': 'aTitle', 'value': true}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryBoolean', 'title': 'aTitle', 'value': true}));
     });
 
     test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryBooleanAttributeValue(title: 'aTitle', description: 'aDescription', value: true);
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryBoolean', 'title': 'aTitle', 'description': 'aDescription', 'value': true}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryBoolean', 'title': 'aTitle', 'description': 'aDescription', 'value': true}));
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
@@ -54,10 +48,7 @@ void main() {
   group('ProprietaryBooleanAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': true};
-      expect(
-        ProprietaryBooleanAttributeValue.fromJson(json),
-        equals(const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true)),
-      );
+      expect(ProprietaryBooleanAttributeValue.fromJson(json), equals(const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true)));
     });
 
     test('is correctly converted with property "description"', () {

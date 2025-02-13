@@ -20,14 +20,5 @@ class DataViewObject {
   @JsonKey(includeToJson: true)
   final DVOWarning? warning;
 
-  const DataViewObject({
-    required this.id,
-    required this.name,
-    this.description,
-    this.image,
-    required this.type,
-    this.date,
-    this.error,
-    this.warning,
-  });
+  const DataViewObject({required this.id, required this.name, this.description, this.image, required this.type, this.date, this.error, this.warning});
 }

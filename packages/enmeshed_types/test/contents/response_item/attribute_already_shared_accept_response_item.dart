@@ -4,31 +4,18 @@ import 'package:test/test.dart';
 void main() {
   group('AttributeAlreadySharedAcceptResponseItem toJson', () {
     test('is correctly converted', () {
-      const responseItem = AttributeAlreadySharedAcceptResponseItem(
-        attributeId: 'anAttributeId',
-      );
+      const responseItem = AttributeAlreadySharedAcceptResponseItem(attributeId: 'anAttributeId');
       final responseItemJson = responseItem.toJson();
-      expect(
-        responseItemJson,
-        equals({
-          '@type': 'AttributeAlreadySharedAcceptResponseItem',
-          'result': 'Accepted',
-          'attributeId': 'anAttributeId',
-        }),
-      );
+      expect(responseItemJson, equals({'@type': 'AttributeAlreadySharedAcceptResponseItem', 'result': 'Accepted', 'attributeId': 'anAttributeId'}));
     });
   });
 
   group('AttributeAlreadySharedAcceptResponseItem fromJson', () {
     test('is correctly converted', () {
-      final json = {
-        'attributeId': 'anAttributeId',
-      };
+      final json = {'attributeId': 'anAttributeId'};
       expect(
         AttributeAlreadySharedAcceptResponseItem.fromJson(json),
-        equals(const AttributeAlreadySharedAcceptResponseItem(
-          attributeId: 'anAttributeId',
-        )),
+        equals(const AttributeAlreadySharedAcceptResponseItem(attributeId: 'anAttributeId')),
       );
     });
   });

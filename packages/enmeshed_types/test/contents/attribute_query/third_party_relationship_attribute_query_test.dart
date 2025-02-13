@@ -53,11 +53,13 @@ void main() {
       };
       expect(
         ThirdPartyRelationshipAttributeQuery.fromJson(json),
-        equals(const ThirdPartyRelationshipAttributeQuery(
-          key: 'ProprietaryInteger',
-          owner: ThirdPartyRelationshipAttributeQueryOwner.thirdParty,
-          thirdParty: ['anAddress'],
-        )),
+        equals(
+          const ThirdPartyRelationshipAttributeQuery(
+            key: 'ProprietaryInteger',
+            owner: ThirdPartyRelationshipAttributeQueryOwner.thirdParty,
+            thirdParty: ['anAddress'],
+          ),
+        ),
       );
     });
 
@@ -71,13 +73,15 @@ void main() {
       };
       expect(
         ThirdPartyRelationshipAttributeQuery.fromJson(json),
-        equals(const ThirdPartyRelationshipAttributeQuery(
-          key: 'ProprietaryInteger',
-          owner: ThirdPartyRelationshipAttributeQueryOwner.empty,
-          thirdParty: ['anAddress'],
-          validFrom: '1970',
-          validTo: '1980',
-        )),
+        equals(
+          const ThirdPartyRelationshipAttributeQuery(
+            key: 'ProprietaryInteger',
+            owner: ThirdPartyRelationshipAttributeQueryOwner.empty,
+            thirdParty: ['anAddress'],
+            validFrom: '1970',
+            validTo: '1980',
+          ),
+        ),
       );
     });
   });

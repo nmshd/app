@@ -4,10 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('RelationshipTemplateContentDerivation fromJson', () {
     test('parsed valid RelationshipTemplateContent', () {
-      final json = {
-        '@type': 'RelationshipTemplateContent',
-        'onNewRelationship': const Request(items: []).toJson(),
-      };
+      final json = {'@type': 'RelationshipTemplateContent', 'onNewRelationship': const Request(items: []).toJson()};
       final relationshipRequestContent = RelationshipTemplateContentDerivation.fromJson(json);
       expect(relationshipRequestContent, isA<RelationshipTemplateContent>());
     });
