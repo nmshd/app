@@ -133,11 +133,7 @@ class _HomeViewState extends State<HomeView> {
       valueKey: 'isShown',
     );
 
-    final showRecoveryKitWasUsedContainer = await getSetting(
-      accountId: widget.accountId,
-      key: 'home.restoredIdentity',
-      valueKey: 'showContainer',
-    );
+    final showRecoveryKitWasUsedContainer = await getSetting(accountId: widget.accountId, key: 'home.restoredIdentity', valueKey: 'showContainer');
     if (!mounted) return;
     setState(() {
       _unreadMessagesCount = messages.length;
@@ -195,10 +191,7 @@ class _RecoveryKitWasUsedContainer extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  OutlinedButton(
-                    onPressed: onDismissed,
-                    child: const Text('Hinweis schließen'),
-                  ),
+                  OutlinedButton(onPressed: onDismissed, child: const Text('Hinweis schließen')),
                   Gaps.w8,
                   FilledButton(onPressed: onCreate, child: const Text('Erstellen')),
                 ],

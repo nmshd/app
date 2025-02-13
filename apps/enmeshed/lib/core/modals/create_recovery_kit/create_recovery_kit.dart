@@ -42,44 +42,42 @@ Future<void> showCreateRecoveryKitModal({required BuildContext context, required
     onModalDismissedWithDrag: () => context.pop(),
     onModalDismissedWithBarrierTap: () => context.pop(),
     showDragHandle: false,
-    pageListBuilder: (context) => [
-      WoltModalSheetPage(
-        trailingNavBarWidget: Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
-        ),
-        leadingNavBarWidget: Padding(
-          padding: const EdgeInsets.only(left: 24, top: 20),
-          child: Text(context.l10n.identityRecovery_passwordTitle, style: Theme.of(context).textTheme.titleLarge),
-        ),
-        child: EnterPassword(
-          onPasswordEntered: (String enteredPassword) async {
-            pageIndexNotifier.value++;
+    pageListBuilder:
+        (context) => [
+          WoltModalSheetPage(
+            trailingNavBarWidget: Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
+            ),
+            leadingNavBarWidget: Padding(
+              padding: const EdgeInsets.only(left: 24, top: 20),
+              child: Text(context.l10n.identityRecovery_passwordTitle, style: Theme.of(context).textTheme.titleLarge),
+            ),
+            child: EnterPassword(
+              onPasswordEntered: (String enteredPassword) async {
+                pageIndexNotifier.value++;
 
-            final recoveryKit = await _generatePDF(
-              session: session,
-              pdfTexts: pdfTexts,
-              account: account,
-              password: enteredPassword,
-            );
+                final recoveryKit = await _generatePDF(session: session, pdfTexts: pdfTexts, account: account, password: enteredPassword);
 
-            recoveryKitNotifier.value = recoveryKit;
-            await session.consumptionServices.settings.upsertSettingByKey('home.restoredIdentity', {'showContainer': false});
-            pageIndexNotifier.value++;
-          },
-        ),
-      ),
-      WoltModalSheetPage(hasTopBarLayer: false, child: const _LoadingPage()),
-      WoltModalSheetPage(
-        hasTopBarLayer: false,
-        child: ValueListenableBuilder<Uint8List?>(
-          valueListenable: recoveryKitNotifier,
-          builder: (context, recoveryKit, _) => recoveryKit == null
-              ? const Placeholder()
-              : SaveOrPrintRecoveryKit(recoveryKit: recoveryKit, onBackPressed: () => pageIndexNotifier.value = 0),
-        ),
-      ),
-    ],
+                recoveryKitNotifier.value = recoveryKit;
+                await session.consumptionServices.settings.upsertSettingByKey('home.restoredIdentity', {'showContainer': false});
+                pageIndexNotifier.value++;
+              },
+            ),
+          ),
+          WoltModalSheetPage(hasTopBarLayer: false, child: const _LoadingPage()),
+          WoltModalSheetPage(
+            hasTopBarLayer: false,
+            child: ValueListenableBuilder<Uint8List?>(
+              valueListenable: recoveryKitNotifier,
+              builder:
+                  (context, recoveryKit, _) =>
+                      recoveryKit == null
+                          ? const Placeholder()
+                          : SaveOrPrintRecoveryKit(recoveryKit: recoveryKit, onBackPressed: () => pageIndexNotifier.value = 0),
+            ),
+          ),
+        ],
   );
 }
 
@@ -128,11 +126,7 @@ Future<Uint8List> _generatePDF({
     addressHexColor: '#1A80D9',
     pdfTexts: pdfTexts,
     qrSettings: (errorCorrectionLevel: QRErrorCorrectionLevel.L, qrPixelSize: null),
-  ).generate(
-    logoBytes: logoBytes,
-    spacerSvgImage: spacerSvgImage,
-    backupURL: 'nmshd://tr#${token.value.truncatedReference}',
-  );
+  ).generate(logoBytes: logoBytes, spacerSvgImage: spacerSvgImage, backupURL: 'nmshd://tr#${token.value.truncatedReference}');
 
   return generatedPdf;
 }
