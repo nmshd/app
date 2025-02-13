@@ -172,28 +172,20 @@ class _RecoveryKitWasUsedContainer extends StatelessWidget {
                 children: [
                   Icon(Icons.warning, color: context.customColors.warning),
                   Gaps.w8,
-                  Expanded(
-                    child: Text(
-                      'Ihr Wiederherstellungskit wurde verwendet. Möchten Sie ein neues erstellen?',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ),
+                  Expanded(child: Text(context.l10n.home_identityRecoveryKitWasUsed, style: Theme.of(context).textTheme.bodyMedium)),
                 ],
               ),
             ),
-            Text(
-              'Ihr Wiederherstellungskit wurde eingesetzt und ist abgelaufen. Erstellen Sie ein neues, um weiterhin Zugriff auf Ihre Daten zu gewährleisten. Sie können dies auch später in der Profilverwaltung ausführen.',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            Text(context.l10n.home_identityRecoverKitWasUsed_description, style: Theme.of(context).textTheme.bodySmall),
             Gaps.h16,
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  OutlinedButton(onPressed: onDismissed, child: const Text('Hinweis schließen')),
+                  OutlinedButton(onPressed: onDismissed, child: Text(context.l10n.home_closeHint)),
                   Gaps.w8,
-                  FilledButton(onPressed: onCreate, child: const Text('Erstellen')),
+                  FilledButton(onPressed: onCreate, child: Text(context.l10n.home_create)),
                 ],
               ),
             ),
