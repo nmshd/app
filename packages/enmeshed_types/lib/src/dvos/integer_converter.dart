@@ -5,10 +5,10 @@ class IntegerConverter implements JsonConverter<int, dynamic> {
 
   @override
   int fromJson(dynamic json) => switch (json) {
-        String() => int.parse(json),
-        num() => json.toInt(),
-        _ => throw Exception('Invalid type for IntegerConverter: ${json.runtimeType}'),
-      };
+    String() => int.parse(json),
+    num() => json.toInt(),
+    _ => throw Exception('Invalid type for IntegerConverter: ${json.runtimeType}'),
+  };
 
   @override
   int toJson(int object) => object;

@@ -12,11 +12,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '/core/core.dart';
 
-Future<void> moveFileOnDevice({
-  required Session session,
-  required FileDVO fileDVO,
-  required VoidCallback onError,
-}) async {
+Future<void> moveFileOnDevice({required Session session, required FileDVO fileDVO, required VoidCallback onError}) async {
   try {
     final cachedFile = await _getCachedFile(session: session, fileDVO: fileDVO);
     if (cachedFile == null) {
@@ -46,11 +42,7 @@ Future<void> moveFileOnDevice({
   }
 }
 
-Future<void> openFile({
-  required Session session,
-  required FileDVO fileDVO,
-  required VoidCallback onError,
-}) async {
+Future<void> openFile({required Session session, required FileDVO fileDVO, required VoidCallback onError}) async {
   final cachedFile = await _getCachedFile(session: session, fileDVO: fileDVO);
   if (cachedFile == null) {
     onError();
@@ -60,10 +52,7 @@ Future<void> openFile({
   await OpenFile.open(cachedFile.path);
 }
 
-Future<File?> _getCachedFile({
-  required Session session,
-  required FileDVO fileDVO,
-}) async {
+Future<File?> _getCachedFile({required Session session, required FileDVO fileDVO}) async {
   try {
     final cacheDir = await getTemporaryDirectory();
     final cachedFile = fileDVO.getCacheFile(cacheDir);
@@ -82,10 +71,7 @@ Future<File?> _getCachedFile({
   }
 }
 
-Future<FileDVO> expandFileReference({
-  required String accountId,
-  required String fileReference,
-}) async {
+Future<FileDVO> expandFileReference({required String accountId, required String fileReference}) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
   final fileDTO = await session.transportServices.files.getOrLoadFile(reference: fileReference);

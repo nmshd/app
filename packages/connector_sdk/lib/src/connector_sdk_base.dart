@@ -18,11 +18,7 @@ class ConnectorClient {
   late final TokensEndpoint tokens;
 
   ConnectorClient(this.baseUrl, String apiKey) {
-    final dio = Dio(BaseOptions(
-      baseUrl: baseUrl,
-      headers: {'X-API-KEY': apiKey},
-      validateStatus: (_) => true,
-    ));
+    final dio = Dio(BaseOptions(baseUrl: baseUrl, headers: {'X-API-KEY': apiKey}, validateStatus: (_) => true));
 
     account = AccountEndpoint(dio);
     attributes = AttributesEndpoint(dio);

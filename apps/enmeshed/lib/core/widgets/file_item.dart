@@ -13,14 +13,7 @@ class FileItem extends StatelessWidget {
   final String? query;
   final void Function()? onTap;
 
-  const FileItem({
-    required this.accountId,
-    required this.fileRecord,
-    this.trailing,
-    this.query,
-    this.onTap,
-    super.key,
-  });
+  const FileItem({required this.accountId, required this.fileRecord, this.trailing, this.query, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {

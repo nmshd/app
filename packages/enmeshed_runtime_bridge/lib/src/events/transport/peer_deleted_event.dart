@@ -5,8 +5,5 @@ import '../event.dart';
 class PeerDeletedEvent extends Event {
   final RelationshipDTO data;
 
-  const PeerDeletedEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const PeerDeletedEvent({required this.data, required super.eventTargetAddress});
 }

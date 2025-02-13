@@ -8,12 +8,7 @@ class ContactsFilterBar extends StatelessWidget {
   final void Function(ContactsFilterOption option) removeFilter;
   final void Function() resetFilters;
 
-  const ContactsFilterBar({
-    required this.selectedFilterOptions,
-    required this.removeFilter,
-    required this.resetFilters,
-    super.key,
-  });
+  const ContactsFilterBar({required this.selectedFilterOptions, required this.removeFilter, required this.resetFilters, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +22,7 @@ class ContactsFilterBar extends StatelessWidget {
               child: Wrap(
                 spacing: 12,
                 children: [
-                  for (final option in const [
-                    ActionRequiredContactsFilterOption(),
-                    ActiveContactsFilterOption(),
-                    PendingContactsFilterOption(),
-                  ])
+                  for (final option in const [ActionRequiredContactsFilterOption(), ActiveContactsFilterOption(), PendingContactsFilterOption()])
                     if (selectedFilterOptions.contains(option)) _FilterBarFilterChip(option: option, onDeleted: () => removeFilter(option)),
                 ],
               ),
@@ -48,22 +39,16 @@ class _FilterBarFilterChip extends StatelessWidget {
   final ContactsFilterOption option;
   final VoidCallback onDeleted;
 
-  const _FilterBarFilterChip({
-    required this.option,
-    required this.onDeleted,
-  });
+  const _FilterBarFilterChip({required this.option, required this.onDeleted});
 
   @override
   Widget build(BuildContext context) {
     return Chip(
-      label: Text(
-        switch (option) {
-          ActionRequiredContactsFilterOption() => context.l10n.contacts_filterOption_actionRequired,
-          ActiveContactsFilterOption() => context.l10n.contacts_filterOption_active,
-          PendingContactsFilterOption() => context.l10n.contacts_filterOption_pending,
-        },
-        style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),
-      ),
+      label: Text(switch (option) {
+        ActionRequiredContactsFilterOption() => context.l10n.contacts_filterOption_actionRequired,
+        ActiveContactsFilterOption() => context.l10n.contacts_filterOption_active,
+        PendingContactsFilterOption() => context.l10n.contacts_filterOption_pending,
+      }, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),

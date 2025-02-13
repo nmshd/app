@@ -16,14 +16,7 @@ class MessageDVORenderer extends StatelessWidget {
   final String? query;
   final bool hideAvatar;
 
-  const MessageDVORenderer({
-    required this.message,
-    required this.accountId,
-    super.key,
-    this.controller,
-    this.query,
-    this.hideAvatar = false,
-  });
+  const MessageDVORenderer({required this.message, required this.accountId, super.key, this.controller, this.query, this.hideAvatar = false});
 
   @override
   Widget build(BuildContext context) {
@@ -82,18 +75,14 @@ class _MailContent extends StatelessWidget {
           HighlightText(
             text: message.subject,
             query: query,
-            textStyle: message.wasReadAt == null && !message.isOwn
-                ? Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.w600,
-                    )
-                : Theme.of(context).textTheme.bodyLarge,
+            textStyle:
+                message.wasReadAt == null && !message.isOwn
+                    ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+                    : Theme.of(context).textTheme.bodyLarge,
             maxLines: 1,
           )
         else
-          Text(
-            context.l10n.mailbox_noSubject,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
-          ),
+          Text(context.l10n.mailbox_noSubject, style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline)),
         if (message.body.isNotEmpty)
           HighlightText(
             text: message.body.replaceAll(CustomRegExp.html, ''),
@@ -120,19 +109,19 @@ class _RequestMessageContent extends StatelessWidget {
             message.request.statusText,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: message.wasReadAt == null && !message.isOwn
-                ? Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.w600,
-                    )
-                : Theme.of(context).textTheme.bodyLarge,
+            style:
+                message.wasReadAt == null && !message.isOwn
+                    ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+                    : Theme.of(context).textTheme.bodyLarge,
           ),
         ),
         Gaps.w8,
         Icon(
           message.request.status == LocalRequestStatus.ManualDecisionRequired ? Icons.notification_important : Icons.notifications,
-          color: message.request.status == LocalRequestStatus.ManualDecisionRequired
-              ? Theme.of(context).colorScheme.error
-              : Theme.of(context).colorScheme.outline,
+          color:
+              message.request.status == LocalRequestStatus.ManualDecisionRequired
+                  ? Theme.of(context).colorScheme.error
+                  : Theme.of(context).colorScheme.outline,
         ),
       ],
     );
@@ -155,20 +144,14 @@ class _MessageHeader extends StatelessWidget {
         HighlightText(
           text: contactName,
           query: query,
-          textStyle: message.wasReadAt == null && !message.isOwn
-              ? Theme.of(context).textTheme.labelMedium!.copyWith(
-                    fontWeight: FontWeight.w600,
-                  )
-              : Theme.of(context).textTheme.labelMedium,
+          textStyle:
+              message.wasReadAt == null && !message.isOwn
+                  ? Theme.of(context).textTheme.labelMedium!.copyWith(fontWeight: FontWeight.w600)
+                  : Theme.of(context).textTheme.labelMedium,
           maxLines: 1,
         ),
         if (message.attachments.isNotEmpty)
-          Row(
-            children: [
-              const SizedBox(width: 8),
-              Icon(Icons.attachment, size: 15, color: Theme.of(context).colorScheme.outline),
-            ],
-          ),
+          Row(children: [const SizedBox(width: 8), Icon(Icons.attachment, size: 15, color: Theme.of(context).colorScheme.outline)]),
         Flexible(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

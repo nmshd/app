@@ -36,9 +36,7 @@ class IdentityDeletionProcessesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (lengthOfGracePeriodInDays != null) 'lengthOfGracePeriodInDays': lengthOfGracePeriodInDays,
-        },
+        'request': {if (lengthOfGracePeriodInDays != null) 'lengthOfGracePeriodInDays': lengthOfGracePeriodInDays},
       },
     );
 
@@ -63,9 +61,7 @@ class IdentityDeletionProcessesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': identityDeletionProcessId,
-        },
+        'request': {'id': identityDeletionProcessId},
       },
     );
 

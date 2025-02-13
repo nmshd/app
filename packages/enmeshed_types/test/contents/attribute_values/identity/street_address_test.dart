@@ -43,15 +43,17 @@ void main() {
       };
       expect(
         StreetAddressAttributeValue.fromJson(json),
-        equals(const StreetAddressAttributeValue(
-          recipient: 'aRecipient',
-          street: 'aStreet',
-          houseNumber: 'aHouseNumber',
-          zipCode: 'aZipCode',
-          city: 'aCity',
-          country: 'aCountry',
-          state: 'aState',
-        )),
+        equals(
+          const StreetAddressAttributeValue(
+            recipient: 'aRecipient',
+            street: 'aStreet',
+            houseNumber: 'aHouseNumber',
+            zipCode: 'aZipCode',
+            city: 'aCity',
+            country: 'aCountry',
+            state: 'aState',
+          ),
+        ),
       );
     });
   });

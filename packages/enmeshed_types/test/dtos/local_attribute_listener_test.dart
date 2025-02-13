@@ -6,10 +6,7 @@ void main() {
     test('is correctly converted', () {
       const dto = LocalAttributeListenerDTO(id: 'anId', query: IdentityAttributeQuery(valueType: 'aValueType'), peer: 'aPeer');
       final dtoJson = dto.toJson();
-      expect(
-        dtoJson,
-        equals({'id': 'anId', 'query': const IdentityAttributeQuery(valueType: 'aValueType').toJson(), 'peer': 'aPeer'}),
-      );
+      expect(dtoJson, equals({'id': 'anId', 'query': const IdentityAttributeQuery(valueType: 'aValueType').toJson(), 'peer': 'aPeer'}));
     });
   });
 

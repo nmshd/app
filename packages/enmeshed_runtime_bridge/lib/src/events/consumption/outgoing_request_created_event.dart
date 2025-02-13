@@ -5,8 +5,5 @@ import '../event.dart';
 class OutgoingRequestCreatedEvent extends Event {
   final LocalRequestDTO data;
 
-  const OutgoingRequestCreatedEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const OutgoingRequestCreatedEvent({required this.data, required super.eventTargetAddress});
 }

@@ -19,10 +19,7 @@ void main() {
     test('is correctly converted', () {
       const item = AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: 'anExistingAttributeId');
       final itemJson = item.toJson();
-      expect(
-        itemJson,
-        equals({'accept': true, 'existingAttributeId': 'anExistingAttributeId'}),
-      );
+      expect(itemJson, equals({'accept': true, 'existingAttributeId': 'anExistingAttributeId'}));
     });
   });
 }

@@ -31,45 +31,45 @@ class RelationshipTemplateDTO extends Equatable {
   });
 
   factory RelationshipTemplateDTO.fromJson(Map json) => RelationshipTemplateDTO(
-        id: json['id'],
-        isOwn: json['isOwn'],
-        createdBy: json['createdBy'],
-        createdByDevice: json['createdByDevice'],
-        createdAt: json['createdAt'],
-        content: RelationshipTemplateContentDerivation.fromJson(json['content']),
-        expiresAt: json['expiresAt'],
-        maxNumberOfAllocations: json['maxNumberOfAllocations']?.toInt(),
-        truncatedReference: json['truncatedReference'],
-        forIdentity: json['forIdentity'],
-        passwordProtection: json['passwordProtection'] != null ? PasswordProtection.fromJson(json['passwordProtection']) : null,
-      );
+    id: json['id'],
+    isOwn: json['isOwn'],
+    createdBy: json['createdBy'],
+    createdByDevice: json['createdByDevice'],
+    createdAt: json['createdAt'],
+    content: RelationshipTemplateContentDerivation.fromJson(json['content']),
+    expiresAt: json['expiresAt'],
+    maxNumberOfAllocations: json['maxNumberOfAllocations']?.toInt(),
+    truncatedReference: json['truncatedReference'],
+    forIdentity: json['forIdentity'],
+    passwordProtection: json['passwordProtection'] != null ? PasswordProtection.fromJson(json['passwordProtection']) : null,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'isOwn': isOwn,
-        'createdBy': createdBy,
-        'createdByDevice': createdByDevice,
-        'createdAt': createdAt,
-        'content': content.toJson(),
-        if (expiresAt != null) 'expiresAt': expiresAt,
-        if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
-        'truncatedReference': truncatedReference,
-        if (forIdentity != null) 'forIdentity': forIdentity,
-        if (passwordProtection != null) 'passwordProtection': passwordProtection!.toJson(),
-      };
+    'id': id,
+    'isOwn': isOwn,
+    'createdBy': createdBy,
+    'createdByDevice': createdByDevice,
+    'createdAt': createdAt,
+    'content': content.toJson(),
+    if (expiresAt != null) 'expiresAt': expiresAt,
+    if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
+    'truncatedReference': truncatedReference,
+    if (forIdentity != null) 'forIdentity': forIdentity,
+    if (passwordProtection != null) 'passwordProtection': passwordProtection!.toJson(),
+  };
 
   @override
   List<Object?> get props => [
-        id,
-        isOwn,
-        createdBy,
-        createdByDevice,
-        createdAt,
-        content,
-        expiresAt,
-        maxNumberOfAllocations,
-        truncatedReference,
-        forIdentity,
-        passwordProtection,
-      ];
+    id,
+    isOwn,
+    createdBy,
+    createdByDevice,
+    createdAt,
+    content,
+    expiresAt,
+    maxNumberOfAllocations,
+    truncatedReference,
+    forIdentity,
+    passwordProtection,
+  ];
 }

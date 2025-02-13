@@ -51,21 +51,14 @@ void main() {
     });
 
     test('parsed valid ConsentRequestItem', () {
-      final requestItemJson = {
-        '@type': 'ConsentRequestItem',
-        'mustBeAccepted': true,
-        'consent': 'aConsent',
-      };
+      final requestItemJson = {'@type': 'ConsentRequestItem', 'mustBeAccepted': true, 'consent': 'aConsent'};
 
       final requestItem = RequestItemDerivation.fromJson(requestItemJson);
       expect(requestItem, isA<ConsentRequestItem>());
     });
 
     test('parsed valid AuthenticationRequestItem', () {
-      final requestItemJson = {
-        '@type': 'AuthenticationRequestItem',
-        'mustBeAccepted': true,
-      };
+      final requestItemJson = {'@type': 'AuthenticationRequestItem', 'mustBeAccepted': true};
 
       final requestItem = RequestItemDerivation.fromJson(requestItemJson);
       expect(requestItem, isA<AuthenticationRequestItem>());
@@ -85,10 +78,7 @@ void main() {
 
   group('RequestItemDerivation fromJson', () {
     test('throws exception when type is unknown', () {
-      final json = {
-        '@type': 'UnknownType',
-        'mustBeAccepted': true,
-      };
+      final json = {'@type': 'UnknownType', 'mustBeAccepted': true};
       expect(() => RequestItemDerivation.fromJson(json), throwsA(isA<Exception>()));
     });
   });
@@ -135,31 +125,17 @@ void main() {
 
       expect(
         mockRequestItemDerivation.toJson(),
-        equals({
-          'title': 'aTitle',
-          'description': 'aDescription',
-          'metadata': {},
-          'requireManualDecision': true,
-          'mustBeAccepted': true,
-        }),
+        equals({'title': 'aTitle', 'description': 'aDescription', 'metadata': {}, 'requireManualDecision': true, 'mustBeAccepted': true}),
       );
     });
   });
 }
 
 class MockRequestItemDerivation extends RequestItemDerivation {
-  const MockRequestItemDerivation({
-    super.title,
-    super.description,
-    super.metadata,
-    required super.mustBeAccepted,
-    super.requireManualDecision,
-  });
+  const MockRequestItemDerivation({super.title, super.description, super.metadata, required super.mustBeAccepted, super.requireManualDecision});
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      ...super.toJson(),
-    };
+    return {...super.toJson()};
   }
 }

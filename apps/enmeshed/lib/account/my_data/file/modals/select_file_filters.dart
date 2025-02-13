@@ -41,12 +41,12 @@ class _SelectFileFiltersState extends State<_SelectFileFilters> {
 
   @override
   Widget build(BuildContext context) {
-    final availableFilters = widget.availableFilters.map((e) => (filter: e, label: e.toLabel(context))).toList()
-      ..sort((a, b) {
-        if (a.filter is OtherFileFilterType) return 1;
-        if (b.filter is OtherFileFilterType) return -1;
-        return a.label.compareTo(b.label);
-      });
+    final availableFilters =
+        widget.availableFilters.map((e) => (filter: e, label: e.toLabel(context))).toList()..sort((a, b) {
+          if (a.filter is OtherFileFilterType) return 1;
+          if (b.filter is OtherFileFilterType) return -1;
+          return a.label.compareTo(b.label);
+        });
 
     return SafeArea(
       minimum: const EdgeInsets.only(bottom: 24),
@@ -77,20 +77,21 @@ class _SelectFileFiltersState extends State<_SelectFileFilters> {
                     Gaps.h8,
                     Wrap(
                       spacing: 10,
-                      children: availableFilters.map((e) {
-                        return FilterChip(
-                          label: Text(e.label),
-                          avatar: switch (e.filter) {
-                            PDFFileFilterType() => const Icon(Icons.picture_as_pdf),
-                            PNGFileFilterType() || JPGFileFilterType() => const Icon(Icons.image),
-                            OtherFileFilterType() => null,
-                            _ => const Icon(Icons.insert_drive_file),
-                          },
-                          showCheckmark: false,
-                          selected: _selectedFilters.contains(e.filter),
-                          onSelected: (_) => setState(() => _selectedFilters.toggle(e.filter)),
-                        );
-                      }).toList(),
+                      children:
+                          availableFilters.map((e) {
+                            return FilterChip(
+                              label: Text(e.label),
+                              avatar: switch (e.filter) {
+                                PDFFileFilterType() => const Icon(Icons.picture_as_pdf),
+                                PNGFileFilterType() || JPGFileFilterType() => const Icon(Icons.image),
+                                OtherFileFilterType() => null,
+                                _ => const Icon(Icons.insert_drive_file),
+                              },
+                              showCheckmark: false,
+                              selected: _selectedFilters.contains(e.filter),
+                              onSelected: (_) => setState(() => _selectedFilters.toggle(e.filter)),
+                            );
+                          }).toList(),
                     ),
                     Gaps.h48,
                     Row(

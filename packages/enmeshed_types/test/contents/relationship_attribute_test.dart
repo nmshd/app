@@ -106,12 +106,14 @@ void main() {
       };
       expect(
         RelationshipAttribute.fromJson(json),
-        equals(const RelationshipAttribute(
-          owner: 'anOwner',
-          value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-          key: 'aKey',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-        )),
+        equals(
+          const RelationshipAttribute(
+            owner: 'anOwner',
+            value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
+            key: 'aKey',
+            confidentiality: RelationshipAttributeConfidentiality.public,
+          ),
+        ),
       );
     });
 
@@ -126,14 +128,16 @@ void main() {
       };
       expect(
         RelationshipAttribute.fromJson(json),
-        equals(const RelationshipAttribute(
-          owner: 'anOwner',
-          validFrom: '1970',
-          validTo: '1980',
-          value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-          key: 'aKey',
-          confidentiality: RelationshipAttributeConfidentiality.public,
-        )),
+        equals(
+          const RelationshipAttribute(
+            owner: 'anOwner',
+            validFrom: '1970',
+            validTo: '1980',
+            value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
+            key: 'aKey',
+            confidentiality: RelationshipAttributeConfidentiality.public,
+          ),
+        ),
       );
     });
 
@@ -147,13 +151,15 @@ void main() {
       };
       expect(
         RelationshipAttribute.fromJson(json),
-        equals(const RelationshipAttribute(
-          owner: 'anOwner',
-          value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-          key: 'aKey',
-          isTechnical: true,
-          confidentiality: RelationshipAttributeConfidentiality.public,
-        )),
+        equals(
+          const RelationshipAttribute(
+            owner: 'anOwner',
+            value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
+            key: 'aKey',
+            isTechnical: true,
+            confidentiality: RelationshipAttributeConfidentiality.public,
+          ),
+        ),
       );
     });
 
@@ -169,15 +175,17 @@ void main() {
       };
       expect(
         RelationshipAttribute.fromJson(json),
-        equals(const RelationshipAttribute(
-          owner: 'anOwner',
-          validFrom: '1970',
-          validTo: '1980',
-          value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-          key: 'aKey',
-          isTechnical: true,
-          confidentiality: RelationshipAttributeConfidentiality.public,
-        )),
+        equals(
+          const RelationshipAttribute(
+            owner: 'anOwner',
+            validFrom: '1970',
+            validTo: '1980',
+            value: ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
+            key: 'aKey',
+            isTechnical: true,
+            confidentiality: RelationshipAttributeConfidentiality.public,
+          ),
+        ),
       );
     });
   });

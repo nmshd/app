@@ -32,11 +32,13 @@ void main() {
       };
       expect(
         ReadAttributeAcceptResponseItem.fromJson(json),
-        equals(const ReadAttributeAcceptResponseItem(
-          attributeId: 'anAttributeId',
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          thirdPartyAddress: 'aThirdParty',
-        )),
+        equals(
+          const ReadAttributeAcceptResponseItem(
+            attributeId: 'anAttributeId',
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            thirdPartyAddress: 'aThirdParty',
+          ),
+        ),
       );
     });
   });

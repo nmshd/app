@@ -4,13 +4,7 @@ abstract class RequestItemDerivation extends RequestItem {
   final bool mustBeAccepted;
   final bool? requireManualDecision;
 
-  const RequestItemDerivation({
-    super.title,
-    super.description,
-    super.metadata,
-    required this.mustBeAccepted,
-    this.requireManualDecision,
-  });
+  const RequestItemDerivation({super.title, super.description, super.metadata, required this.mustBeAccepted, this.requireManualDecision});
 
   factory RequestItemDerivation.fromJson(Map json) {
     final type = json['@type'];
@@ -25,16 +19,16 @@ abstract class RequestItemDerivation extends RequestItem {
       'RegisterAttributeListenerRequestItem' => RegisterAttributeListenerRequestItem.fromJson(json),
       'FreeTextRequestItem' => FreeTextRequestItem.fromJson(json),
       'DeleteAttributeRequestItem' => DeleteAttributeRequestItem.fromJson(json),
-      _ => throw Exception('Unknown type: $type')
+      _ => throw Exception('Unknown type: $type'),
     };
   }
 
   @override
   Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-        'mustBeAccepted': mustBeAccepted,
-        if (requireManualDecision != null) 'requireManualDecision': requireManualDecision,
-      };
+    ...super.toJson(),
+    'mustBeAccepted': mustBeAccepted,
+    if (requireManualDecision != null) 'requireManualDecision': requireManualDecision,
+  };
 
   @override
   List<Object?> get props => [super.props, requireManualDecision, mustBeAccepted];

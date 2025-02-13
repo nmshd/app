@@ -6,10 +6,7 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryEMailAddressAttributeValue(title: 'aTitle', value: 'test@test.com');
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryEMailAddress', 'title': 'aTitle', 'value': 'test@test.com'}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryEMailAddress', 'title': 'aTitle', 'value': 'test@test.com'}));
     });
 
     test('is correctly converted with property "description"', () {
@@ -84,12 +81,14 @@ void main() {
       final json = {'title': 'aTitle', 'description': 'aDescription', 'valueHintsOverride': const ValueHints().toJson(), 'value': 'test@test.com'};
       expect(
         ProprietaryEMailAddressAttributeValue.fromJson(json),
-        equals(const ProprietaryEMailAddressAttributeValue(
-          title: 'aTitle',
-          description: 'aDescription',
-          valueHintsOverride: ValueHints(),
-          value: 'test@test.com',
-        )),
+        equals(
+          const ProprietaryEMailAddressAttributeValue(
+            title: 'aTitle',
+            description: 'aDescription',
+            valueHintsOverride: ValueHints(),
+            value: 'test@test.com',
+          ),
+        ),
       );
     });
   });

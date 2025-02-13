@@ -6,19 +6,13 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = BirthPlaceAttributeValue(city: 'aCity', country: 'aCountry');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({'@type': 'BirthPlace', 'city': 'aCity', 'country': 'aCountry'}),
-      );
+      expect(identityJson, equals({'@type': 'BirthPlace', 'city': 'aCity', 'country': 'aCountry'}));
     });
 
     test('is correctly converted with property "state"', () {
       const identityAttributeValue = BirthPlaceAttributeValue(city: 'aCity', country: 'aCountry', state: 'aState');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({'@type': 'BirthPlace', 'city': 'aCity', 'country': 'aCountry', 'state': 'aState'}),
-      );
+      expect(identityJson, equals({'@type': 'BirthPlace', 'city': 'aCity', 'country': 'aCountry', 'state': 'aState'}));
     });
   });
 

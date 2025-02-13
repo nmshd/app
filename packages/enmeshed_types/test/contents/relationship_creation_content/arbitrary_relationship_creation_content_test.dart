@@ -10,7 +10,7 @@ void main() {
         relationshipCreationContentJson,
         equals({
           '@type': 'ArbitraryRelationshipCreationContent',
-          'value': {'key': 'value'}
+          'value': {'key': 'value'},
         }),
       );
     });
@@ -20,12 +20,9 @@ void main() {
     test('is correctly converted', () {
       final json = {
         '@type': 'ArbitraryRelationshipCreationContent',
-        'value': {'key': 'value'}
+        'value': {'key': 'value'},
       };
-      expect(
-        ArbitraryRelationshipCreationContent.fromJson(json),
-        equals(ArbitraryRelationshipCreationContent(const {'key': 'value'})),
-      );
+      expect(ArbitraryRelationshipCreationContent.fromJson(json), equals(ArbitraryRelationshipCreationContent(const {'key': 'value'})));
     });
   });
 }

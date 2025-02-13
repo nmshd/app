@@ -5,8 +5,5 @@ import '../event.dart';
 class IdentityDeletionProcessStatusChangedEvent extends Event {
   final IdentityDeletionProcessDTO data;
 
-  const IdentityDeletionProcessStatusChangedEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const IdentityDeletionProcessStatusChangedEvent({required this.data, required super.eventTargetAddress});
 }

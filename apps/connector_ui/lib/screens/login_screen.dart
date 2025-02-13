@@ -49,23 +49,11 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SharedPreferencesEnabledTextField(
-                label: 'Base URL',
-                controller: baseUrlController,
-                sharedPreferencesKey: 'baseurl',
-              ),
+              SharedPreferencesEnabledTextField(label: 'Base URL', controller: baseUrlController, sharedPreferencesKey: 'baseurl'),
               const SizedBox(height: 10),
-              SharedPreferencesEnabledTextField(
-                label: 'API Key',
-                controller: apiKeyController,
-                sharedPreferencesKey: 'apikey',
-                obscureText: true,
-              ),
+              SharedPreferencesEnabledTextField(label: 'API Key', controller: apiKeyController, sharedPreferencesKey: 'apikey', obscureText: true),
               const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: _loginEnabled ? login : null,
-                child: const Text('Login'),
-              ),
+              ElevatedButton(onPressed: _loginEnabled ? login : null, child: const Text('Login')),
               if (_loginProcessing || _errorMessage != null) const SizedBox(height: 10),
               if (_loginProcessing) const CircularProgressIndicator(),
               if (_errorMessage != null) Text(_errorMessage!),
@@ -94,9 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (identityInfoResult.hasError) {
-      final errorMessage = identityInfoResult.error.code == 'error.connector.unauthorized'
-          ? 'Login failed: Invalid API key'
-          : 'Login failed: ${identityInfoResult.error.code}';
+      final errorMessage =
+          identityInfoResult.error.code == 'error.connector.unauthorized'
+              ? 'Login failed: Invalid API key'
+              : 'Login failed: ${identityInfoResult.error.code}';
       setState(() {
         _errorMessage = errorMessage;
       });

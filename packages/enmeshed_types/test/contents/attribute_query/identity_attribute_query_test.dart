@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress');
       final identityJson = identityAttributeQuery.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'IdentityAttributeQuery',
-          'valueType': 'StreetAddress',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'IdentityAttributeQuery', 'valueType': 'StreetAddress'}));
     });
 
     test('is correctly converted with property "tags"', () {
@@ -31,22 +25,12 @@ void main() {
       const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1980');
       expect(
         identityAttributeQuery.toJson(),
-        equals({
-          '@type': 'IdentityAttributeQuery',
-          'valueType': 'StreetAddress',
-          'validFrom': '1970',
-          'validTo': '1980',
-        }),
+        equals({'@type': 'IdentityAttributeQuery', 'valueType': 'StreetAddress', 'validFrom': '1970', 'validTo': '1980'}),
       );
     });
 
     test('is correctly converted with properties "validFrom", "validTo" and "tags"', () {
-      const identityAttributeQuery = IdentityAttributeQuery(
-        valueType: 'StreetAddress',
-        validFrom: '1970',
-        validTo: '1980',
-        tags: ['tag1', 'tag2'],
-      );
+      const identityAttributeQuery = IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1980', tags: ['tag1', 'tag2']);
       expect(
         identityAttributeQuery.toJson(),
         equals({
@@ -76,19 +60,11 @@ void main() {
     });
 
     test('is correctly converted with properties "validFrom" and "validTo"', () {
-      final json = {
-        'valueType': 'StreetAddress',
-        'validFrom': '1970',
-        'validTo': '1970',
-      };
+      final json = {'valueType': 'StreetAddress', 'validFrom': '1970', 'validTo': '1970'};
 
       expect(
         IdentityAttributeQuery.fromJson(json),
-        equals(const IdentityAttributeQuery(
-          valueType: 'StreetAddress',
-          validFrom: '1970',
-          validTo: '1970',
-        )),
+        equals(const IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1970')),
       );
     });
 
@@ -102,12 +78,7 @@ void main() {
 
       expect(
         IdentityAttributeQuery.fromJson(json),
-        equals(const IdentityAttributeQuery(
-          valueType: 'StreetAddress',
-          validFrom: '1970',
-          validTo: '1980',
-          tags: ['tag1', 'tag2'],
-        )),
+        equals(const IdentityAttributeQuery(valueType: 'StreetAddress', validFrom: '1970', validTo: '1980', tags: ['tag1', 'tag2'])),
       );
     });
   });

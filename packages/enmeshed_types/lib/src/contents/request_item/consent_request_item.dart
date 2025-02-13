@@ -27,12 +27,7 @@ class ConsentRequestItem extends RequestItemDerivation {
   }
 
   @override
-  Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-        '@type': 'ConsentRequestItem',
-        'consent': consent,
-        if (link != null) 'link': link,
-      };
+  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'ConsentRequestItem', 'consent': consent, if (link != null) 'link': link};
 
   @override
   List<Object?> get props => [super.props, consent, link];

@@ -121,10 +121,7 @@ void main() {
       final json = {'mustBeAccepted': true, 'query': const IdentityAttributeQuery(valueType: 'City').toJson()};
       expect(
         RegisterAttributeListenerRequestItem.fromJson(json),
-        equals(const RegisterAttributeListenerRequestItem(
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(const RegisterAttributeListenerRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))),
       );
     });
 
@@ -132,11 +129,7 @@ void main() {
       final json = {'title': 'aTitle', 'mustBeAccepted': true, 'query': const IdentityAttributeQuery(valueType: 'City').toJson()};
       expect(
         RegisterAttributeListenerRequestItem.fromJson(json),
-        equals(const RegisterAttributeListenerRequestItem(
-          title: 'aTitle',
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(const RegisterAttributeListenerRequestItem(title: 'aTitle', mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))),
       );
     });
 
@@ -144,11 +137,13 @@ void main() {
       final json = {'description': 'aDescription', 'mustBeAccepted': true, 'query': const IdentityAttributeQuery(valueType: 'City').toJson()};
       expect(
         RegisterAttributeListenerRequestItem.fromJson(json),
-        equals(const RegisterAttributeListenerRequestItem(
-          description: 'aDescription',
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(
+          const RegisterAttributeListenerRequestItem(
+            description: 'aDescription',
+            mustBeAccepted: true,
+            query: IdentityAttributeQuery(valueType: 'City'),
+          ),
+        ),
       );
     });
 
@@ -160,11 +155,13 @@ void main() {
       };
       expect(
         RegisterAttributeListenerRequestItem.fromJson(json),
-        equals(const RegisterAttributeListenerRequestItem(
-          metadata: {'aKey': 'aValue'},
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(
+          const RegisterAttributeListenerRequestItem(
+            metadata: {'aKey': 'aValue'},
+            mustBeAccepted: true,
+            query: IdentityAttributeQuery(valueType: 'City'),
+          ),
+        ),
       );
     });
 
@@ -172,11 +169,13 @@ void main() {
       final json = {'requireManualDecision': true, 'mustBeAccepted': true, 'query': const IdentityAttributeQuery(valueType: 'City').toJson()};
       expect(
         RegisterAttributeListenerRequestItem.fromJson(json),
-        equals(const RegisterAttributeListenerRequestItem(
-          requireManualDecision: true,
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(
+          const RegisterAttributeListenerRequestItem(
+            requireManualDecision: true,
+            mustBeAccepted: true,
+            query: IdentityAttributeQuery(valueType: 'City'),
+          ),
+        ),
       );
     });
 
@@ -191,14 +190,16 @@ void main() {
       };
       expect(
         RegisterAttributeListenerRequestItem.fromJson(json),
-        equals(const RegisterAttributeListenerRequestItem(
-          title: 'aTitle',
-          description: 'aDescription',
-          metadata: {'aKey': 'aValue'},
-          mustBeAccepted: true,
-          requireManualDecision: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(
+          const RegisterAttributeListenerRequestItem(
+            title: 'aTitle',
+            description: 'aDescription',
+            metadata: {'aKey': 'aValue'},
+            mustBeAccepted: true,
+            requireManualDecision: true,
+            query: IdentityAttributeQuery(valueType: 'City'),
+          ),
+        ),
       );
     });
   });

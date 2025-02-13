@@ -83,16 +83,13 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     return Scaffold(
       drawer: AppDrawer(accountId: widget.accountId),
       appBar: AppBar(
-        title: Text(
-          switch (_selectedIndex) {
-            0 => context.l10n.home_title,
-            1 => context.l10n.contacts,
-            2 => context.l10n.myData,
-            3 => context.l10n.mailbox,
-            _ => throw Exception('Unknown index: $_selectedIndex'),
-          },
-          style: _selectedIndex == 0 ? Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary) : null,
-        ),
+        title: Text(switch (_selectedIndex) {
+          0 => context.l10n.home_title,
+          1 => context.l10n.contacts,
+          2 => context.l10n.myData,
+          3 => context.l10n.mailbox,
+          _ => throw Exception('Unknown index: $_selectedIndex'),
+        }, style: _selectedIndex == 0 ? Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary) : null),
         actions: [
           ..._actions ?? [],
           Padding(
@@ -108,26 +105,30 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
             ),
           ),
         ],
-        scrolledUnderElevation: switch (_selectedIndex) { 2 => 0, _ => 3 },
-        notificationPredicate: (notification) => switch (_selectedIndex) { 3 => notification.depth == 1, _ => notification.depth == 0 },
+        scrolledUnderElevation: switch (_selectedIndex) {
+          2 => 0,
+          _ => 3,
+        },
+        notificationPredicate:
+            (notification) => switch (_selectedIndex) {
+              3 => notification.depth == 1,
+              _ => notification.depth == 0,
+            },
         bottom: switch (_selectedIndex) {
           3 => TabBar(
-              controller: _tabController,
-              indicatorSize: TabBarIndicatorSize.tab,
-              tabs: [
-                Tab(child: Text(context.l10n.mailbox_incoming, style: Theme.of(context).textTheme.titleSmall)),
-                Tab(child: Text(context.l10n.mailbox_outgoing, style: Theme.of(context).textTheme.titleSmall)),
-              ],
-            ),
+            controller: _tabController,
+            indicatorSize: TabBarIndicatorSize.tab,
+            tabs: [
+              Tab(child: Text(context.l10n.mailbox_incoming, style: Theme.of(context).textTheme.titleSmall)),
+              Tab(child: Text(context.l10n.mailbox_outgoing, style: Theme.of(context).textTheme.titleSmall)),
+            ],
+          ),
           _ => null,
         },
       ),
       bottomNavigationBar: NavigationBar(
         destinations: <NavigationDestination>[
-          NavigationDestination(
-            icon: const Icon(Icons.home),
-            label: context.l10n.home,
-          ),
+          NavigationDestination(icon: const Icon(Icons.home), label: context.l10n.home),
           NavigationDestination(
             label: context.l10n.contacts,
             icon: Badge(
@@ -138,10 +139,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
               child: const Icon(Icons.contacts),
             ),
           ),
-          NavigationDestination(
-            icon: const Icon(Icons.person),
-            label: context.l10n.myData,
-          ),
+          NavigationDestination(icon: const Icon(Icons.person), label: context.l10n.myData),
           NavigationDestination(
             label: context.l10n.mailbox,
             icon: Badge(
@@ -156,15 +154,13 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         onDestinationSelected: (index) {
           if (index == _selectedIndex) return;
 
-          context.go(
-            switch (index) {
-              0 => '/account/${widget.accountId}/home',
-              1 => '/account/${widget.accountId}/contacts',
-              2 => '/account/${widget.accountId}/my-data',
-              3 => '/account/${widget.accountId}/mailbox',
-              _ => throw Exception(),
-            },
-          );
+          context.go(switch (index) {
+            0 => '/account/${widget.accountId}/home',
+            1 => '/account/${widget.accountId}/contacts',
+            2 => '/account/${widget.accountId}/my-data',
+            3 => '/account/${widget.accountId}/mailbox',
+            _ => throw Exception(),
+          });
 
           _tabController.index = 0;
         },
@@ -184,58 +180,47 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   }
 
   List<Widget>? get _actions => switch (_selectedIndex) {
-        1 => [
-            SearchAnchor(
-              builder: (BuildContext context, SearchController controller) {
-                return IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () => controller.openView(),
-                );
-              },
-              suggestionsBuilder: (context, controller) =>
-                  widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
+    1 => [
+      SearchAnchor(
+        builder: (BuildContext context, SearchController controller) {
+          return IconButton(icon: const Icon(Icons.search), onPressed: () => controller.openView());
+        },
+        suggestionsBuilder:
+            (context, controller) => widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
+      ),
+      ValueListenableBuilder(
+        valueListenable: widget.contactsFilterController,
+        builder:
+            (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
+              icon: const Icon(Icons.filter_list),
+              onPressed: () => widget.contactsFilterController.openContactsFilter(),
             ),
-            ValueListenableBuilder(
-              valueListenable: widget.contactsFilterController,
-              builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
-                icon: const Icon(Icons.filter_list),
-                onPressed: () => widget.contactsFilterController.openContactsFilter(),
-              ),
+      ),
+      IconButton(
+        icon: const Icon(Icons.person_add),
+        onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
+      ),
+    ],
+    3 => [
+      SearchAnchor(
+        builder: (BuildContext context, SearchController controller) {
+          return IconButton(icon: const Icon(Icons.search), onPressed: () => controller.openView());
+        },
+        suggestionsBuilder:
+            (context, controller) => widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
+      ),
+      ValueListenableBuilder(
+        valueListenable: widget.mailboxFilterController,
+        builder:
+            (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
+              icon: const Icon(Icons.filter_list),
+              onPressed: () => widget.mailboxFilterController.openMailboxFilter(),
             ),
-            IconButton(
-              icon: const Icon(Icons.person_add),
-              onPressed: () => goToInstructionsOrScanScreen(
-                accountId: widget.accountId,
-                instructionsType: ScannerType.addContact,
-                context: context,
-              ),
-            ),
-          ],
-        3 => [
-            SearchAnchor(
-              builder: (BuildContext context, SearchController controller) {
-                return IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () => controller.openView(),
-                );
-              },
-              suggestionsBuilder: (context, controller) =>
-                  widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
-            ),
-            ValueListenableBuilder(
-              valueListenable: widget.mailboxFilterController,
-              builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
-                icon: const Icon(Icons.filter_list),
-                onPressed: () => widget.mailboxFilterController.openMailboxFilter(),
-              ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () => context.go('/account/${widget.accountId}/mailbox/send'),
-            ),
-          ],
-        _ => null,
-      };
+      ),
+      IconButton(icon: const Icon(Icons.add), onPressed: () => context.go('/account/${widget.accountId}/mailbox/send')),
+    ],
+    _ => null,
+  };
 
   Future<void> _loadAccount() async {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
