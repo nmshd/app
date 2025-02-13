@@ -149,8 +149,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     openAttributeSwitcher: _openAttributeSwitcher,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                     chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                    openFileDetails: (file) =>
-                        context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                    openFileDetails:
+                        (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                   ),
                 ],
               ),
@@ -174,9 +174,10 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   }
 
   Future<void> _loadRequest(Session session) async {
-    final requestDto = widget.isIncoming
-        ? await session.consumptionServices.incomingRequests.getRequest(requestId: widget.requestId)
-        : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
+    final requestDto =
+        widget.isIncoming
+            ? await session.consumptionServices.incomingRequests.getRequest(requestId: widget.requestId)
+            : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
     final request = await session.expander.expandLocalRequestDTO(requestDto.value);
 
     setState(() => _request = request);
@@ -289,14 +290,15 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     final choice = await Navigator.of(context).push<AttributeSwitcherChoice?>(
       MaterialPageRoute(
-        builder: (ctx) => _AttributeSwitcher(
-          choices: choices,
-          currentChoice: currentChoice,
-          valueHints: valueHints,
-          valueType: valueType,
-          accountId: widget.accountId,
-          currentAddress: _identityInfo!.address,
-        ),
+        builder:
+            (ctx) => _AttributeSwitcher(
+              choices: choices,
+              currentChoice: currentChoice,
+              valueHints: valueHints,
+              valueType: valueType,
+              accountId: widget.accountId,
+              currentAddress: _identityInfo!.address,
+            ),
       ),
     );
 
@@ -371,9 +373,11 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                           );
 
                           if (context.mounted) {
-                            context.pop<AttributeSwitcherChoice>(
-                              (id: localAttribute!.id, attribute: localAttribute.content, isDefaultRepositoryAttribute: null),
-                            );
+                            context.pop<AttributeSwitcherChoice>((
+                              id: localAttribute!.id,
+                              attribute: localAttribute.content,
+                              isDefaultRepositoryAttribute: null,
+                            ));
                           }
                         },
                       ),
@@ -405,10 +409,8 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                           valueHints: widget.valueHints!,
                           showTitle: false,
                           expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                          openFileDetails: (file) => context.push(
-                            '/account/${widget.accountId}/my-data/files/${file.id}',
-                            extra: createFileRecord(file: file),
-                          ),
+                          openFileDetails:
+                              (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                         ),
                       ),
                       if (item.isDefaultRepositoryAttribute ?? false) ...[

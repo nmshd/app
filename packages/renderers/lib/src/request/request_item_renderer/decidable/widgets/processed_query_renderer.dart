@@ -51,47 +51,43 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
       onTap: () => onUpdateAttribute!(query.valueType),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Column(children: [
-          Row(
-            children: [
-              if (checkboxSettings != null)
-                IgnorePointer(child: Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox)),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(right: 12),
-                  child: IdentityAttributeValueRenderer(
-                    titleOverride: (title) => '$title${mustBeAccepted ? '*' : ''}',
-                    value: selectedAttribute != null
-                        ? (selectedAttribute as IdentityAttribute).value
-                        : query.results.first.value as IdentityAttributeValue,
-                    valueHints: query.valueHints,
-                    trailing: onUpdateAttribute == null
-                        ? null
-                        : Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (query.results.length > 1)
-                                Flexible(
-                                  child: Text('+${query.results.length - 1}'),
-                                ),
-                              const SizedBox(width: 10),
-                              Icon(
-                                Icons.chevron_right,
-                              )
-                            ],
-                          ),
-                    expandFileReference: expandFileReference,
-                    openFileDetails: openFileDetails,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                if (checkboxSettings != null)
+                  IgnorePointer(child: Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox)),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 12),
+                    child: IdentityAttributeValueRenderer(
+                      titleOverride: (title) => '$title${mustBeAccepted ? '*' : ''}',
+                      value:
+                          selectedAttribute != null
+                              ? (selectedAttribute as IdentityAttribute).value
+                              : query.results.first.value as IdentityAttributeValue,
+                      valueHints: query.valueHints,
+                      trailing:
+                          onUpdateAttribute == null
+                              ? null
+                              : Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  if (query.results.length > 1) Flexible(child: Text('+${query.results.length - 1}')),
+                                  const SizedBox(width: 10),
+                                  Icon(Icons.chevron_right),
+                                ],
+                              ),
+                      expandFileReference: expandFileReference,
+                      openFileDetails: openFileDetails,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          if (requireManualDecision == true) ...[
-            SizedBox(height: 12),
-            ManualDecisionRequired(checkboxSettings: checkboxSettings!),
+              ],
+            ),
+            if (requireManualDecision == true) ...[SizedBox(height: 12), ManualDecisionRequired(checkboxSettings: checkboxSettings!)],
           ],
-        ]),
+        ),
       ),
     );
   }
@@ -145,25 +141,20 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
             Expanded(
               child: RelationshipAttributeValueRenderer(
                 value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
-                trailing: onUpdateAttribute == null
-                    ? null
-                    : SizedBox(
-                        width: 50,
-                        child: IconButton(
-                          onPressed: () => onUpdateAttribute!(query.valueType),
-                          icon: const Icon(Icons.chevron_right),
+                trailing:
+                    onUpdateAttribute == null
+                        ? null
+                        : SizedBox(
+                          width: 50,
+                          child: IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
                         ),
-                      ),
                 expandFileReference: expandFileReference,
                 openFileDetails: openFileDetails,
               ),
             ),
           ],
         ),
-        if (requireManualDecision == true) ...[
-          SizedBox(height: 12),
-          ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-        ],
+        if (requireManualDecision == true) ...[SizedBox(height: 12), ManualDecisionRequired(checkboxSettings: checkboxSettings!)],
       ],
     );
   }
@@ -217,15 +208,13 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
                 child: RelationshipAttributeValueRenderer(
                   value:
                       selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
-                  trailing: onUpdateAttribute == null
-                      ? null
-                      : SizedBox(
-                          width: 50,
-                          child: IconButton(
-                            onPressed: () => onUpdateAttribute!(query.valueType!),
-                            icon: const Icon(Icons.chevron_right),
+                  trailing:
+                      onUpdateAttribute == null
+                          ? null
+                          : SizedBox(
+                            width: 50,
+                            child: IconButton(onPressed: () => onUpdateAttribute!(query.valueType!), icon: const Icon(Icons.chevron_right)),
                           ),
-                        ),
                   expandFileReference: expandFileReference,
                   openFileDetails: openFileDetails,
                 ),
@@ -237,10 +226,7 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
               ),
           ],
         ),
-        if (requireManualDecision == true) ...[
-          SizedBox(height: 12),
-          ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-        ],
+        if (requireManualDecision == true) ...[SizedBox(height: 12), ManualDecisionRequired(checkboxSettings: checkboxSettings!)],
       ],
     );
   }
@@ -298,25 +284,20 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
                 titleOverride: (title) => '${requestItemTitle ?? title}${mustBeAccepted ? '*' : ''}',
                 value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
                 valueHints: query.results.firstOrNull?.valueHints ?? query.valueHints!,
-                trailing: onUpdateAttribute == null
-                    ? null
-                    : SizedBox(
-                        width: 50,
-                        child: IconButton(
-                          onPressed: () => onUpdateAttribute!(query.valueType!),
-                          icon: const Icon(Icons.chevron_right),
+                trailing:
+                    onUpdateAttribute == null
+                        ? null
+                        : SizedBox(
+                          width: 50,
+                          child: IconButton(onPressed: () => onUpdateAttribute!(query.valueType!), icon: const Icon(Icons.chevron_right)),
                         ),
-                      ),
                 expandFileReference: expandFileReference,
                 openFileDetails: openFileDetails,
               ),
             ),
           ],
         ),
-        if (requireManualDecision == true) ...[
-          SizedBox(height: 12),
-          ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-        ],
+        if (requireManualDecision == true) ...[SizedBox(height: 12), ManualDecisionRequired(checkboxSettings: checkboxSettings!)],
       ],
     );
   }

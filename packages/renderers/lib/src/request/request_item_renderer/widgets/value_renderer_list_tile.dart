@@ -57,10 +57,7 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
         return;
       }
 
-      widget.onUpdateAttribute!(
-        widget.valueType,
-        widget.valueType == 'IdentityFileReference' ? value.value : null,
-      );
+      widget.onUpdateAttribute!(widget.valueType, widget.valueType == 'IdentityFileReference' ? value.value : null);
     });
   }
 

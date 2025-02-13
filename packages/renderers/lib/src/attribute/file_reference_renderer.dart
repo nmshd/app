@@ -81,11 +81,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
           onPressed: expandedFileReference != null ? () => widget.openFileDetails(expandedFileReference!) : null,
           icon: const Icon(Icons.info),
         ),
-        if (widget.trailing != null)
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: widget.trailing!,
-          )
+        if (widget.trailing != null) Padding(padding: EdgeInsets.only(right: 12), child: widget.trailing!),
       ],
     );
   }

@@ -26,14 +26,11 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
   return showModalBottomSheet<LocalAttributeDTO>(
     context: context,
     isScrollControlled: true,
-    builder: (builder) => ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
-      child: _CreateAttributeModal(
-        accountId: accountId,
-        onAttributeCreated: onAttributeCreated,
-        initialValueType: initialValueType,
-      ),
-    ),
+    builder:
+        (builder) => ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+          child: _CreateAttributeModal(accountId: accountId, onAttributeCreated: onAttributeCreated, initialValueType: initialValueType),
+        ),
   );
 }
 
@@ -42,11 +39,7 @@ class _CreateAttributeModal extends StatefulWidget {
   final String? initialValueType;
   final VoidCallback onAttributeCreated;
 
-  const _CreateAttributeModal({
-    required this.accountId,
-    required this.initialValueType,
-    required this.onAttributeCreated,
-  });
+  const _CreateAttributeModal({required this.accountId, required this.initialValueType, required this.onAttributeCreated});
 
   @override
   State<_CreateAttributeModal> createState() => _CreateAttributeModalState();
@@ -89,16 +82,17 @@ class _CreateAttributeModalState extends State<_CreateAttributeModal> {
           child: child,
         );
       },
-      child: _valueType == null
-          ? _SelectValueTypePage(accountId: widget.accountId, onValueTypeSelected: _onValueTypeSelected)
-          : _CreateAttributePage(
-              accountId: widget.accountId,
-              valueType: _valueType!,
-              renderHints: _renderHints,
-              valueHints: _valueHints,
-              onBackPressed: widget.initialValueType == null ? () => setState(() => _valueType = null) : null,
-              onAttributeCreated: widget.onAttributeCreated,
-            ),
+      child:
+          _valueType == null
+              ? _SelectValueTypePage(accountId: widget.accountId, onValueTypeSelected: _onValueTypeSelected)
+              : _CreateAttributePage(
+                accountId: widget.accountId,
+                valueType: _valueType!,
+                renderHints: _renderHints,
+                valueHints: _valueHints,
+                onBackPressed: widget.initialValueType == null ? () => setState(() => _valueType = null) : null,
+                onAttributeCreated: widget.onAttributeCreated,
+              ),
     );
   }
 

@@ -63,69 +63,69 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   Widget build(BuildContext context) {
     return switch (widget.item.query) {
       final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
-          query: query,
-          checkboxSettings: (
-            isChecked: isChecked,
-            onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
-            isManualDecided: isManualDecisionAccepted,
-            onUpdateManualDecision: onUpdateManualDecision
-          ),
-          onUpdateAttribute: _onUpdateAttribute,
-          selectedAttribute: _choice?.attribute,
-          mustBeAccepted: widget.item.mustBeAccepted,
-          requireManualDecision: widget.item.requireManualDecision,
-          expandFileReference: widget.expandFileReference,
-          chooseFile: widget.chooseFile,
-          openFileDetails: widget.openFileDetails,
+        query: query,
+        checkboxSettings: (
+          isChecked: isChecked,
+          onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+          isManualDecided: isManualDecisionAccepted,
+          onUpdateManualDecision: onUpdateManualDecision,
         ),
+        onUpdateAttribute: _onUpdateAttribute,
+        selectedAttribute: _choice?.attribute,
+        mustBeAccepted: widget.item.mustBeAccepted,
+        requireManualDecision: widget.item.requireManualDecision,
+        expandFileReference: widget.expandFileReference,
+        chooseFile: widget.chooseFile,
+        openFileDetails: widget.openFileDetails,
+      ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
-          query: query,
-          checkboxSettings: (
-            isChecked: isChecked,
-            onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
-            isManualDecided: isManualDecisionAccepted,
-            onUpdateManualDecision: onUpdateManualDecision
-          ),
-          onUpdateAttribute: _onUpdateAttribute,
-          selectedAttribute: _choice?.attribute,
-          mustBeAccepted: widget.item.mustBeAccepted,
-          requireManualDecision: widget.item.requireManualDecision,
-          expandFileReference: widget.expandFileReference,
-          chooseFile: widget.chooseFile,
-          openFileDetails: widget.openFileDetails,
+        query: query,
+        checkboxSettings: (
+          isChecked: isChecked,
+          onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+          isManualDecided: isManualDecisionAccepted,
+          onUpdateManualDecision: onUpdateManualDecision,
         ),
+        onUpdateAttribute: _onUpdateAttribute,
+        selectedAttribute: _choice?.attribute,
+        mustBeAccepted: widget.item.mustBeAccepted,
+        requireManualDecision: widget.item.requireManualDecision,
+        expandFileReference: widget.expandFileReference,
+        chooseFile: widget.chooseFile,
+        openFileDetails: widget.openFileDetails,
+      ),
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
-          query: query,
-          checkboxSettings: (
-            isChecked: isChecked,
-            onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
-            isManualDecided: isManualDecisionAccepted,
-            onUpdateManualDecision: onUpdateManualDecision
-          ),
-          onUpdateAttribute: _onUpdateAttribute,
-          selectedAttribute: _choice?.attribute,
-          mustBeAccepted: widget.item.mustBeAccepted,
-          requireManualDecision: widget.item.requireManualDecision,
-          expandFileReference: widget.expandFileReference,
-          openFileDetails: widget.openFileDetails,
+        query: query,
+        checkboxSettings: (
+          isChecked: isChecked,
+          onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+          isManualDecided: isManualDecisionAccepted,
+          onUpdateManualDecision: onUpdateManualDecision,
         ),
+        onUpdateAttribute: _onUpdateAttribute,
+        selectedAttribute: _choice?.attribute,
+        mustBeAccepted: widget.item.mustBeAccepted,
+        requireManualDecision: widget.item.requireManualDecision,
+        expandFileReference: widget.expandFileReference,
+        openFileDetails: widget.openFileDetails,
+      ),
       final ProcessedIQLQueryDVO query => ProcessedIQLQueryRenderer(
-          requestItemTitle: widget.item.name,
-          query: query,
-          checkboxSettings: (
-            isChecked: isChecked,
-            onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
-            isManualDecided: isManualDecisionAccepted,
-            onUpdateManualDecision: onUpdateManualDecision
-          ),
-          onUpdateAttribute: _onUpdateAttribute,
-          selectedAttribute: _choice?.attribute,
-          expandFileReference: widget.expandFileReference,
-          chooseFile: widget.chooseFile,
-          mustBeAccepted: widget.item.mustBeAccepted,
-          requireManualDecision: widget.item.requireManualDecision,
-          openFileDetails: widget.openFileDetails,
+        requestItemTitle: widget.item.name,
+        query: query,
+        checkboxSettings: (
+          isChecked: isChecked,
+          onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+          isManualDecided: isManualDecisionAccepted,
+          onUpdateManualDecision: onUpdateManualDecision,
         ),
+        onUpdateAttribute: _onUpdateAttribute,
+        selectedAttribute: _choice?.attribute,
+        expandFileReference: widget.expandFileReference,
+        chooseFile: widget.chooseFile,
+        mustBeAccepted: widget.item.mustBeAccepted,
+        requireManualDecision: widget.item.requireManualDecision,
+        openFileDetails: widget.openFileDetails,
+      ),
     };
   }
 
@@ -145,10 +145,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     }
 
     if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null || !value) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
-      );
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
 
       return;
     }
@@ -167,10 +164,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     });
 
     if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
-      );
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
 
       return;
     }

@@ -54,10 +54,7 @@ class EmptyAttribute extends StatelessWidget {
                 ),
               ],
             ),
-            if (requireManualDecision == true) ...[
-              SizedBox(height: 12),
-              ManualDecisionRequired(checkboxSettings: checkboxSettings!),
-            ],
+            if (requireManualDecision == true) ...[SizedBox(height: 12), ManualDecisionRequired(checkboxSettings: checkboxSettings!)],
           ],
         ),
       ),

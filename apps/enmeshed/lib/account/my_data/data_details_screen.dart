@@ -121,12 +121,13 @@ class _CreateAttribute extends StatelessWidget {
               TextButton.icon(
                 icon: const Icon(Icons.add, size: 16),
                 label: Text(context.l10n.contactDetail_addEntry),
-                onPressed: () => showCreateAttributeModal(
-                  initialValueType: valueType,
-                  context: context,
-                  accountId: accountId,
-                  onAttributeCreated: onAttributeCreated,
-                ),
+                onPressed:
+                    () => showCreateAttributeModal(
+                      initialValueType: valueType,
+                      context: context,
+                      accountId: accountId,
+                      onAttributeCreated: onAttributeCreated,
+                    ),
               ),
             ],
           ),

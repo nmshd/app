@@ -39,26 +39,13 @@ class CustomListTile extends StatelessWidget {
                   titleOverride != null ? titleOverride!(title) : title,
                   style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
-              if (description != null) ...[
-                const SizedBox(height: 2),
-                TranslatedText(description!, style: valueTextStyle),
-              ],
-              if (thirdLine != null) ...[
-                const SizedBox(height: 2),
-                TranslatedText(thirdLine!, style: valueTextStyle),
-              ],
-              if (extraLine != null) ...[
-                const SizedBox(height: 2),
-                extraLine!,
-              ]
+              if (description != null) ...[const SizedBox(height: 2), TranslatedText(description!, style: valueTextStyle)],
+              if (thirdLine != null) ...[const SizedBox(height: 2), TranslatedText(thirdLine!, style: valueTextStyle)],
+              if (extraLine != null) ...[const SizedBox(height: 2), extraLine!],
             ],
           ),
         ),
-        if (trailing != null)
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: trailing!,
-          )
+        if (trailing != null) Padding(padding: EdgeInsets.only(right: 12), child: trailing!),
       ],
     );
   }

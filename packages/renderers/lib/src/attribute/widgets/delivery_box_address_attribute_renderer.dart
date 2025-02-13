@@ -14,15 +14,16 @@ class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
   final Widget? trailing;
   final String Function(String)? titleOverride;
 
-  const DeliveryBoxAddressAttributeRenderer(
-      {super.key,
-      required this.value,
-      required this.valueHints,
-      required this.showTitle,
-      required this.valueTextStyle,
-      this.extraLine,
-      this.trailing,
-      this.titleOverride});
+  const DeliveryBoxAddressAttributeRenderer({
+    super.key,
+    required this.value,
+    required this.valueHints,
+    required this.showTitle,
+    required this.valueTextStyle,
+    this.extraLine,
+    this.trailing,
+    this.titleOverride,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +54,7 @@ class DeliveryBoxAddressAttributeRenderer extends StatelessWidget {
             ],
           ),
         ),
-        if (trailing != null)
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: trailing!,
-          )
+        if (trailing != null) Padding(padding: EdgeInsets.only(right: 12), child: trailing!),
       ],
     );
   }

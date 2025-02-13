@@ -14,15 +14,16 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
   final Widget? trailing;
   final String Function(String)? titleOverride;
 
-  const StreetAddressAttributeRenderer(
-      {super.key,
-      required this.value,
-      required this.valueHints,
-      required this.showTitle,
-      required this.valueTextStyle,
-      this.extraLine,
-      this.trailing,
-      this.titleOverride});
+  const StreetAddressAttributeRenderer({
+    super.key,
+    required this.value,
+    required this.valueHints,
+    required this.showTitle,
+    required this.valueTextStyle,
+    this.extraLine,
+    this.trailing,
+    this.titleOverride,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +59,7 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
             ],
           ),
         ),
-        if (trailing != null)
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: trailing!,
-          )
+        if (trailing != null) Padding(padding: EdgeInsets.only(right: 12), child: trailing!),
       ],
     );
   }

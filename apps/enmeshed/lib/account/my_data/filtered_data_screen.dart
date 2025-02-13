@@ -207,12 +207,13 @@ class _EmptyAttributeEntry extends StatelessWidget {
           TextButton.icon(
             icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
             label: Text(context.l10n.myData_createEntryForAttributeType),
-            onPressed: () => showCreateAttributeModal(
-              initialValueType: valueType,
-              context: context,
-              accountId: accountId,
-              onAttributeCreated: onAttributeCreated,
-            ),
+            onPressed:
+                () => showCreateAttributeModal(
+                  initialValueType: valueType,
+                  context: context,
+                  accountId: accountId,
+                  onAttributeCreated: onAttributeCreated,
+                ),
           ),
         ],
       );
@@ -233,12 +234,9 @@ class _EmptyAttributeEntry extends StatelessWidget {
       trailing: TextButton.icon(
         icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
         label: Text(context.l10n.myData_createEntryForAttributeType),
-        onPressed: () => showCreateAttributeModal(
-          initialValueType: valueType,
-          context: context,
-          accountId: accountId,
-          onAttributeCreated: onAttributeCreated,
-        ),
+        onPressed:
+            () =>
+                showCreateAttributeModal(initialValueType: valueType, context: context, accountId: accountId, onAttributeCreated: onAttributeCreated),
       ),
     );
   }

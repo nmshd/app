@@ -6,10 +6,7 @@ import 'package:renderers/src/checkbox_settings.dart';
 class ManualDecisionRequired extends StatefulWidget {
   final CheckboxSettings checkboxSettings;
 
-  const ManualDecisionRequired({
-    super.key,
-    required this.checkboxSettings,
-  });
+  const ManualDecisionRequired({super.key, required this.checkboxSettings});
 
   @override
   State<ManualDecisionRequired> createState() => _ManualDecisionRequiredState();
@@ -45,11 +42,8 @@ class _ManualDecisionRequiredState extends State<ManualDecisionRequired> {
               ),
               SizedBox(width: 8),
               Expanded(
-                child: TranslatedText(
-                  'i18n://requestRenderer.manualDecisionRequiredDescription',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              )
+                child: TranslatedText('i18n://requestRenderer.manualDecisionRequiredDescription', style: Theme.of(context).textTheme.bodySmall),
+              ),
             ],
           ),
         ),
