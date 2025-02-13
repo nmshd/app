@@ -21,11 +21,7 @@ Future<void> showEditProfileModal({
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder: (builder) => _EditProfile(
-      onAccountEditDone: onEditAccount,
-      localAccount: localAccount,
-      initialProfilePicture: initialProfilePicture,
-    ),
+    builder: (builder) => _EditProfile(onAccountEditDone: onEditAccount, localAccount: localAccount, initialProfilePicture: initialProfilePicture),
   );
 }
 
@@ -34,11 +30,7 @@ class _EditProfile extends StatefulWidget {
   final LocalAccountDTO localAccount;
   final File? initialProfilePicture;
 
-  const _EditProfile({
-    required this.onAccountEditDone,
-    required this.localAccount,
-    required this.initialProfilePicture,
-  });
+  const _EditProfile({required this.onAccountEditDone, required this.localAccount, required this.initialProfilePicture});
 
   @override
   State<_EditProfile> createState() => _EditProfileState();
@@ -127,10 +119,7 @@ class _EditProfileState extends State<_EditProfile> {
                                 ),
                                 decoration: InputDecoration(
                                   labelText: '${context.l10n.profile_name}*',
-                                  suffixIcon: IconButton(
-                                    onPressed: _controller.clear,
-                                    icon: const Icon(Icons.cancel_outlined),
-                                  ),
+                                  suffixIcon: IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined)),
                                   border: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                                     borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
@@ -153,14 +142,8 @@ class _EditProfileState extends State<_EditProfile> {
                       spacing: 8,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        OutlinedButton(
-                          onPressed: () => context.pop(),
-                          child: Text(context.l10n.cancel),
-                        ),
-                        FilledButton(
-                          onPressed: _confirmEnabled ? _confirm : null,
-                          child: Text(context.l10n.save),
-                        ),
+                        OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                        FilledButton(onPressed: _confirmEnabled ? _confirm : null, child: Text(context.l10n.save)),
                       ],
                     ),
                   ),

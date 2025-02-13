@@ -17,13 +17,7 @@ class DeviceOnboarding extends StatefulWidget {
   final String accountReference;
   final VoidCallback onDeviceOnboarded;
 
-  const DeviceOnboarding({
-    required this.token,
-    required this.deviceId,
-    required this.accountReference,
-    required this.onDeviceOnboarded,
-    super.key,
-  });
+  const DeviceOnboarding({required this.token, required this.deviceId, required this.accountReference, required this.onDeviceOnboarded, super.key});
 
   @override
   State<DeviceOnboarding> createState() => _DeviceOnboardingState();
@@ -96,32 +90,33 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: isExpired
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          _tabController.index == 0 ? context.l10n.devices_code_qrExpired : context.l10n.devices_code_urlExpired,
-                          maxLines: 3,
-                          style: TextStyle(color: Theme.of(context).colorScheme.error),
+            child:
+                isExpired
+                    ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            _tabController.index == 0 ? context.l10n.devices_code_qrExpired : context.l10n.devices_code_urlExpired,
+                            maxLines: 3,
+                            style: TextStyle(color: Theme.of(context).colorScheme.error),
+                          ),
                         ),
-                      ),
-                      Icon(Icons.error, size: 32, color: Theme.of(context).colorScheme.error),
-                    ],
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(child: Text(context.l10n.devices_code_expiry, maxLines: 3)),
-                      Container(
-                        height: 32,
-                        width: 32,
-                        decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16))),
-                        child: _CircleTimer(expiryTime: expiryTime),
-                      ),
-                    ],
-                  ),
+                        Icon(Icons.error, size: 32, color: Theme.of(context).colorScheme.error),
+                      ],
+                    )
+                    : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(child: Text(context.l10n.devices_code_expiry, maxLines: 3)),
+                        Container(
+                          height: 32,
+                          width: 32,
+                          decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16))),
+                          child: _CircleTimer(expiryTime: expiryTime),
+                        ),
+                      ],
+                    ),
           ),
         ],
       ),
@@ -226,24 +221,25 @@ class _DeviceOnboardingUrl extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
               child: Center(
-                child: isExpired
-                    ? FilledButton.icon(
-                        onPressed: getDeviceToken,
-                        icon: const Icon(Icons.refresh),
-                        label: Text(context.l10n.devices_code_generateUrl),
-                      )
-                    : Column(
-                        mainAxisSize: MainAxisSize.min,
-                        spacing: 24,
-                        children: [
-                          Flexible(child: Text(link, maxLines: 40, overflow: TextOverflow.ellipsis)),
-                          OutlinedButton.icon(
-                            onPressed: () => Clipboard.setData(ClipboardData(text: link)),
-                            icon: const Icon(Icons.file_copy_outlined),
-                            label: Text(context.l10n.devices_code_copy),
-                          ),
-                        ],
-                      ),
+                child:
+                    isExpired
+                        ? FilledButton.icon(
+                          onPressed: getDeviceToken,
+                          icon: const Icon(Icons.refresh),
+                          label: Text(context.l10n.devices_code_generateUrl),
+                        )
+                        : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          spacing: 24,
+                          children: [
+                            Flexible(child: Text(link, maxLines: 40, overflow: TextOverflow.ellipsis)),
+                            OutlinedButton.icon(
+                              onPressed: () => Clipboard.setData(ClipboardData(text: link)),
+                              icon: const Icon(Icons.file_copy_outlined),
+                              label: Text(context.l10n.devices_code_copy),
+                            ),
+                          ],
+                        ),
               ),
             ),
           ),
@@ -271,10 +267,7 @@ class _CircleTimerState extends State<_CircleTimer> with SingleTickerProviderSta
     super.initState();
     final duration = widget.expiryTime.difference(DateTime.now());
     final initialProgress = (_maxDuration.inSeconds - duration.inSeconds) / _maxDuration.inSeconds;
-    controller = AnimationController(
-      vsync: this,
-      duration: _maxDuration,
-    )..addListener(() => setState(() {}));
+    controller = AnimationController(vsync: this, duration: _maxDuration)..addListener(() => setState(() {}));
 
     controller
       ..value = 1 - initialProgress
@@ -292,10 +285,7 @@ class _CircleTimerState extends State<_CircleTimer> with SingleTickerProviderSta
     final backgroundColor = Theme.of(context).colorScheme.onInverseSurface;
     final color = Theme.of(context).colorScheme.primary;
 
-    return CustomPaint(
-      size: const Size(32, 32),
-      painter: _TimedCirclePainter(controller.value, color: color, backgroundColor: backgroundColor),
-    );
+    return CustomPaint(size: const Size(32, 32), painter: _TimedCirclePainter(controller.value, color: color, backgroundColor: backgroundColor));
   }
 }
 
@@ -304,21 +294,19 @@ class _TimedCirclePainter extends CustomPainter {
   final Color color;
   final Color backgroundColor;
 
-  _TimedCirclePainter(
-    this.progress, {
-    required this.color,
-    required this.backgroundColor,
-  });
+  _TimedCirclePainter(this.progress, {required this.color, required this.backgroundColor});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final circlePaint = Paint()
-      ..color = backgroundColor
-      ..style = PaintingStyle.fill;
+    final circlePaint =
+        Paint()
+          ..color = backgroundColor
+          ..style = PaintingStyle.fill;
 
-    final arcPaint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill;
+    final arcPaint =
+        Paint()
+          ..color = color
+          ..style = PaintingStyle.fill;
 
     canvas
       ..drawCircle(Offset(size.width / 2, size.height / 2), size.width / 2, circlePaint)

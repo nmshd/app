@@ -75,19 +75,19 @@ class DeviceSharedSecret extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        createdAt,
-        createdByDevice,
-        name,
-        description,
-        profileName,
-        secretBaseKey,
-        deviceIndex,
-        synchronizationKey,
-        identityPrivateKey,
-        identity,
-        password,
-        username,
-        isBackupDevice,
-      ];
+    id,
+    createdAt,
+    createdByDevice,
+    name,
+    description,
+    profileName,
+    secretBaseKey,
+    deviceIndex,
+    synchronizationKey,
+    identityPrivateKey,
+    identity,
+    password,
+    username,
+    isBackupDevice,
+  ];
 }

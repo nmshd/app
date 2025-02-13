@@ -32,24 +32,16 @@ class ContactItem extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       leading: ContactCircleAvatar(contact: contact, radius: iconSize / 2),
       title: HighlightText(query: query, text: contact.isUnknown ? context.l10n.contacts_unknown : contact.name),
-      subtitle: subtitle ??
+      subtitle:
+          subtitle ??
           switch (contact.relationship?.status) {
-            RelationshipStatus.Pending => Text(
-                context.l10n.contacts_pending,
-                style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-              ),
-            RelationshipStatus.Terminated => Text(
-                context.l10n.contacts_terminated,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
-              ),
+            RelationshipStatus.Pending => Text(context.l10n.contacts_pending, style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+            RelationshipStatus.Terminated => Text(context.l10n.contacts_terminated, style: TextStyle(color: Theme.of(context).colorScheme.error)),
             RelationshipStatus.DeletionProposed => Text(
-                context.l10n.contacts_deletionProposed,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
-              ),
-            null => Text(
-                context.l10n.contacts_notYetRequested,
-                style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-              ),
+              context.l10n.contacts_deletionProposed,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
+            null => Text(context.l10n.contacts_notYetRequested, style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
             _ => null,
           },
       trailing: trailing,

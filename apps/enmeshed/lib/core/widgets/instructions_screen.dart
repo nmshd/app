@@ -54,10 +54,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
-        title: Text(
-          widget.title,
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
-        ),
+        title: Text(widget.title, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary)),
       ),
       body: SafeArea(
         minimum: const EdgeInsets.only(bottom: 16),
@@ -117,10 +114,7 @@ class _InstructionHeader extends StatelessWidget {
       children: [
         Center(child: illustration),
         Gaps.h32,
-        Text(
-          subtitle,
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary),
-        ),
+        Text(subtitle, style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary)),
       ],
     );
   }
@@ -142,10 +136,7 @@ class _NumberedExplanation extends StatelessWidget {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '$itemNumber. ',
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
-            ),
+            Text('$itemNumber. ', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary)),
             Expanded(child: Text(instructions.elementAt(index))),
           ],
         );
@@ -198,11 +189,7 @@ class _InstructionsBottom extends StatelessWidget {
             child: InkWell(
               onTap: toggleHideHints,
               child: Row(
-                children: [
-                  Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()),
-                  Gaps.w16,
-                  Text(context.l10n.instructions_notShowAgain),
-                ],
+                children: [Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()), Gaps.w16, Text(context.l10n.instructions_notShowAgain)],
               ),
             ),
           ),

@@ -36,20 +36,14 @@ class EmptyListIndicator extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(isFiltered ? Icons.filter_alt_outlined : icon, size: 40, color: Theme.of(context).colorScheme.primary),
-          if (isFiltered) ...[
-            Gaps.h16,
-            Text(context.l10n.noEntries, style: Theme.of(context).textTheme.titleMedium),
-          ],
+          if (isFiltered) ...[Gaps.h16, Text(context.l10n.noEntries, style: Theme.of(context).textTheme.titleMedium)],
           Gaps.h16,
           Text(
             isFiltered ? filteredText! : text,
             style: description != null ? Theme.of(context).textTheme.titleMedium : Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
-          if (description != null) ...[
-            Gaps.h8,
-            Text(description!, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
-          ],
+          if (description != null) ...[Gaps.h8, Text(description!, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center)],
           if (action != null) ...[Gaps.h12, action!],
         ],
       ),

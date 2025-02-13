@@ -41,9 +41,7 @@ class _MailboxViewState extends State<MailboxView> {
   void initState() {
     super.initState();
 
-    widget.mailboxFilterController.value = {
-      if (widget.filteredContactId != null) ContactFilterOption(widget.filteredContactId!),
-    };
+    widget.mailboxFilterController.value = {if (widget.filteredContactId != null) ContactFilterOption(widget.filteredContactId!)};
 
     widget.mailboxFilterController.onOpenMailboxFilter = _onOpenFilterPressed;
     widget.mailboxFilterController.addListener(_reload);
@@ -174,14 +172,7 @@ class _MailboxViewState extends State<MailboxView> {
 
     return List<MessageDVO>.of(messages)
         .where((element) => containsKeyword(element, keyword))
-        .map(
-          (item) => MessageDVORenderer(
-            message: item,
-            accountId: widget.accountId,
-            controller: controller,
-            query: keyword,
-          ),
-        )
+        .map((item) => MessageDVORenderer(message: item, accountId: widget.accountId, controller: controller, query: keyword))
         .separated(() => const Divider(height: 2));
   }
 
@@ -205,11 +196,7 @@ class _FilterChipBar extends StatelessWidget {
   final List<IdentityDVO> contacts;
   final void Function(MailboxFilterOption option) removeFilter;
 
-  const _FilterChipBar({
-    required this.selectedFilterOptions,
-    required this.contacts,
-    required this.removeFilter,
-  });
+  const _FilterChipBar({required this.selectedFilterOptions, required this.contacts, required this.removeFilter});
 
   @override
   Widget build(BuildContext context) {
@@ -223,15 +210,12 @@ class _FilterChipBar extends StatelessWidget {
           final option = selectedFilterOptions.elementAt(index);
 
           return Chip(
-            label: Text(
-              switch (option) {
-                ActionRequiredFilterOption() => context.l10n.mailbox_filter_actionRequired,
-                UnreadFilterOption() => context.l10n.mailbox_filter_unread,
-                WithAttachmentFilterOption() => context.l10n.mailbox_filter_withAttachment,
-                final ContactFilterOption contactFilterOption => contacts.firstWhere((element) => element.id == contactFilterOption.contactId).name,
-              },
-              style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),
-            ),
+            label: Text(switch (option) {
+              ActionRequiredFilterOption() => context.l10n.mailbox_filter_actionRequired,
+              UnreadFilterOption() => context.l10n.mailbox_filter_unread,
+              WithAttachmentFilterOption() => context.l10n.mailbox_filter_withAttachment,
+              final ContactFilterOption contactFilterOption => contacts.firstWhere((element) => element.id == contactFilterOption.contactId).name,
+            }, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
             shape: RoundedRectangleBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
@@ -256,65 +240,61 @@ class _MessageListView extends StatelessWidget {
   final Future<void> Function() onRefresh;
   final bool isFiltered;
 
-  const _MessageListView({
-    required this.messages,
-    required this.accountId,
-    required this.onRefresh,
-    required this.isFiltered,
-  });
+  const _MessageListView({required this.messages, required this.accountId, required this.onRefresh, required this.isFiltered});
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: onRefresh,
-      child: (messages.isEmpty)
-          ? EmptyListIndicator(
-              icon: Icons.mail_outline,
-              text: context.l10n.mailbox_empty,
-              wrapInListView: true,
-              isFiltered: isFiltered,
-              filteredText: context.l10n.mailbox_filtered_noResults,
-            )
-          : ListView.separated(
-              itemCount: messages.length,
-              separatorBuilder: (context, index) {
-                if (createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt), context: context) ==
-                    createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt), context: context)) {
-                  return const Divider(indent: 16);
-                }
+      child:
+          (messages.isEmpty)
+              ? EmptyListIndicator(
+                icon: Icons.mail_outline,
+                text: context.l10n.mailbox_empty,
+                wrapInListView: true,
+                isFiltered: isFiltered,
+                filteredText: context.l10n.mailbox_filtered_noResults,
+              )
+              : ListView.separated(
+                itemCount: messages.length,
+                separatorBuilder: (context, index) {
+                  if (createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt), context: context) ==
+                      createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt), context: context)) {
+                    return const Divider(indent: 16);
+                  }
 
-                return Container(
-                  alignment: Alignment.centerLeft,
-                  height: 40,
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Text(
-                    createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt).toLocal(), context: context),
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                );
-              },
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        height: 40,
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Text(
-                          createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt).toLocal(), context: context),
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ),
-                      MessageDVORenderer(message: messages[index], accountId: accountId),
-                    ],
+                  return Container(
+                    alignment: Alignment.centerLeft,
+                    height: 40,
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt).toLocal(), context: context),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   );
-                }
+                },
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          height: 40,
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text(
+                            createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt).toLocal(), context: context),
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        MessageDVORenderer(message: messages[index], accountId: accountId),
+                      ],
+                    );
+                  }
 
-                return MessageDVORenderer(message: messages[index], accountId: accountId);
-              },
-            ),
+                  return MessageDVORenderer(message: messages[index], accountId: accountId);
+                },
+              ),
     );
   }
 }

@@ -45,16 +45,18 @@ void main() {
       };
       expect(
         TokenDTO.fromJson(json),
-        equals(TokenDTO(
-          id: 'anId',
-          createdBy: 'aCreator',
-          createdByDevice: 'aCreatorDeviceId',
-          content: ArbitraryTokenContent({'aKey': 'aValue'}),
-          createdAt: '2023',
-          expiresAt: '2024',
-          truncatedReference: 'aTruncatedReference',
-          isEphemeral: true,
-        )),
+        equals(
+          TokenDTO(
+            id: 'anId',
+            createdBy: 'aCreator',
+            createdByDevice: 'aCreatorDeviceId',
+            content: ArbitraryTokenContent({'aKey': 'aValue'}),
+            createdAt: '2023',
+            expiresAt: '2024',
+            truncatedReference: 'aTruncatedReference',
+            isEphemeral: true,
+          ),
+        ),
       );
     });
   });

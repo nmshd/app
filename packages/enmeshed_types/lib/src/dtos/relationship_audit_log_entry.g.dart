@@ -7,22 +7,22 @@ part of 'relationship_audit_log_entry.dart';
 // **************************************************************************
 
 RelationshipAuditLogEntryDTO _$RelationshipAuditLogEntryDTOFromJson(Map<String, dynamic> json) => RelationshipAuditLogEntryDTO(
-      createdAt: json['createdAt'] as String,
-      createdBy: json['createdBy'] as String,
-      createdByDevice: json['createdByDevice'] as String?,
-      reason: $enumDecode(_$RelationshipAuditLogEntryReasonEnumMap, json['reason']),
-      oldStatus: $enumDecodeNullable(_$RelationshipStatusEnumMap, json['oldStatus']),
-      newStatus: $enumDecode(_$RelationshipStatusEnumMap, json['newStatus']),
-    );
+  createdAt: json['createdAt'] as String,
+  createdBy: json['createdBy'] as String,
+  createdByDevice: json['createdByDevice'] as String?,
+  reason: $enumDecode(_$RelationshipAuditLogEntryReasonEnumMap, json['reason']),
+  oldStatus: $enumDecodeNullable(_$RelationshipStatusEnumMap, json['oldStatus']),
+  newStatus: $enumDecode(_$RelationshipStatusEnumMap, json['newStatus']),
+);
 
 Map<String, dynamic> _$RelationshipAuditLogEntryDTOToJson(RelationshipAuditLogEntryDTO instance) => <String, dynamic>{
-      'createdAt': instance.createdAt,
-      'createdBy': instance.createdBy,
-      if (instance.createdByDevice case final value?) 'createdByDevice': value,
-      'reason': _$RelationshipAuditLogEntryReasonEnumMap[instance.reason]!,
-      if (_$RelationshipStatusEnumMap[instance.oldStatus] case final value?) 'oldStatus': value,
-      'newStatus': _$RelationshipStatusEnumMap[instance.newStatus]!,
-    };
+  'createdAt': instance.createdAt,
+  'createdBy': instance.createdBy,
+  if (instance.createdByDevice case final value?) 'createdByDevice': value,
+  'reason': _$RelationshipAuditLogEntryReasonEnumMap[instance.reason]!,
+  if (_$RelationshipStatusEnumMap[instance.oldStatus] case final value?) 'oldStatus': value,
+  'newStatus': _$RelationshipStatusEnumMap[instance.newStatus]!,
+};
 
 const _$RelationshipAuditLogEntryReasonEnumMap = {
   RelationshipAuditLogEntryReason.Creation: 'Creation',

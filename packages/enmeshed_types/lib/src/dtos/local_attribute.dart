@@ -52,16 +52,16 @@ class LocalAttributeDTO extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        if (parentId != null) 'parentId': parentId,
-        'createdAt': createdAt,
-        'content': content.toJson(),
-        if (succeeds != null) 'succeeds': succeeds,
-        if (succeededBy != null) 'succeededBy': succeededBy,
-        if (shareInfo != null) 'shareInfo': shareInfo?.toJson(),
-        if (deletionInfo != null) 'deletionInfo': deletionInfo?.toJson(),
-        if (isDefault != null) 'isDefault': isDefault,
-      };
+    'id': id,
+    if (parentId != null) 'parentId': parentId,
+    'createdAt': createdAt,
+    'content': content.toJson(),
+    if (succeeds != null) 'succeeds': succeeds,
+    if (succeededBy != null) 'succeededBy': succeededBy,
+    if (shareInfo != null) 'shareInfo': shareInfo?.toJson(),
+    if (deletionInfo != null) 'deletionInfo': deletionInfo?.toJson(),
+    if (isDefault != null) 'isDefault': isDefault,
+  };
 
   @override
   List<Object?> get props => [id, parentId, createdAt, content, succeeds, succeededBy, shareInfo, deletionInfo, isDefault];

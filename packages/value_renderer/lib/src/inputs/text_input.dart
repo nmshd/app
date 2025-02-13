@@ -50,10 +50,11 @@ class TextInputState extends State<TextInput> {
 
     if (widget.controller != null) {
       _controller.addListener(() {
-        widget.controller!.value = validateInput(_controller.text) == null
-            ? //
-            ValueRendererInputValueString(_controller.text)
-            : ValueRendererValidationError();
+        widget.controller!.value =
+            validateInput(_controller.text) == null
+                ? //
+                ValueRendererInputValueString(_controller.text)
+                : ValueRendererValidationError();
       });
       if (initialValue != null) {
         widget.controller!.value = ValueRendererInputValueString(widget.initialValue!.value);
@@ -75,9 +76,10 @@ class TextInputState extends State<TextInput> {
       maxLength: widget.max,
       controller: _controller,
       validator: (value) => validateInput(value),
-      decoration: widget.decoration != null
-          ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
-          : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
+      decoration:
+          widget.decoration != null
+              ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
+              : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
     );
   }
 

@@ -12,12 +12,7 @@ class ContactExchangedAttributesScreen extends StatefulWidget {
   final String contactId;
   final bool showSharedAttributes;
 
-  const ContactExchangedAttributesScreen({
-    required this.accountId,
-    required this.contactId,
-    required this.showSharedAttributes,
-    super.key,
-  });
+  const ContactExchangedAttributesScreen({required this.accountId, required this.contactId, required this.showSharedAttributes, super.key});
 
   @override
   State<ContactExchangedAttributesScreen> createState() => _ContactExchangedAttributesScreenState();
@@ -54,45 +49,36 @@ class _ContactExchangedAttributesScreenState extends State<ContactExchangedAttri
           bottom: TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
-              Tab(
-                child: Text(
-                  context.l10n.contactDetail_receivedAttributes,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Tab(
-                child: Text(
-                  context.l10n.contactDetail_sharedAttributes,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
+              Tab(child: Text(context.l10n.contactDetail_receivedAttributes, style: Theme.of(context).textTheme.titleSmall)),
+              Tab(child: Text(context.l10n.contactDetail_sharedAttributes, style: Theme.of(context).textTheme.titleSmall)),
             ],
           ),
         ),
         body: SafeArea(
           child: TabBarView(
-            children: _sentAttributes == null || _receivedAttributes == null || _contactName == null
-                ? [const Center(child: CircularProgressIndicator()), const Center(child: CircularProgressIndicator())]
-                : [
-                    RefreshIndicator(
-                      onRefresh: () => _loadReceivedPeerAttributes(syncBefore: true),
-                      child: _AttributeListView(
-                        attributes: _receivedAttributes!,
-                        headerText: context.l10n.contactDetail_receivedAttributesDescription(_contactName!),
-                        emptyText: context.l10n.contactDetail_noReceivedAttributes,
-                        accountId: widget.accountId,
+            children:
+                _sentAttributes == null || _receivedAttributes == null || _contactName == null
+                    ? [const Center(child: CircularProgressIndicator()), const Center(child: CircularProgressIndicator())]
+                    : [
+                      RefreshIndicator(
+                        onRefresh: () => _loadReceivedPeerAttributes(syncBefore: true),
+                        child: _AttributeListView(
+                          attributes: _receivedAttributes!,
+                          headerText: context.l10n.contactDetail_receivedAttributesDescription(_contactName!),
+                          emptyText: context.l10n.contactDetail_noReceivedAttributes,
+                          accountId: widget.accountId,
+                        ),
                       ),
-                    ),
-                    RefreshIndicator(
-                      onRefresh: () => _loadSentPeerAttribute(syncBefore: true),
-                      child: _AttributeListView(
-                        attributes: _sentAttributes!,
-                        headerText: context.l10n.contactDetail_overviewSharedAttributes(_contactName!),
-                        emptyText: context.l10n.contactDetail_noSharedAttributes,
-                        accountId: widget.accountId,
+                      RefreshIndicator(
+                        onRefresh: () => _loadSentPeerAttribute(syncBefore: true),
+                        child: _AttributeListView(
+                          attributes: _sentAttributes!,
+                          headerText: context.l10n.contactDetail_overviewSharedAttributes(_contactName!),
+                          emptyText: context.l10n.contactDetail_noSharedAttributes,
+                          accountId: widget.accountId,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
           ),
         ),
       ),
@@ -118,10 +104,7 @@ class _ContactExchangedAttributesScreenState extends State<ContactExchangedAttri
   Future<void> _loadSentPeerAttribute({bool syncBefore = false}) async {
     if (syncBefore) await _session.transportServices.account.syncDatawallet();
 
-    final sentAttributesResult = await _session.consumptionServices.attributes.getOwnSharedAttributes(
-      peer: widget.contactId,
-      hideTechnical: true,
-    );
+    final sentAttributesResult = await _session.consumptionServices.attributes.getOwnSharedAttributes(peer: widget.contactId, hideTechnical: true);
 
     if (sentAttributesResult.isError) return;
     final sentAttributes = await _session.expander.expandLocalAttributeDTOs(sentAttributesResult.value);
@@ -144,12 +127,7 @@ class _AttributeListView extends StatelessWidget {
   final List<LocalAttributeDVO> attributes;
   final String accountId;
 
-  const _AttributeListView({
-    required this.headerText,
-    required this.emptyText,
-    required this.attributes,
-    required this.accountId,
-  });
+  const _AttributeListView({required this.headerText, required this.emptyText, required this.attributes, required this.accountId});
 
   @override
   Widget build(BuildContext context) {
@@ -188,10 +166,11 @@ class _AttributeListView extends StatelessWidget {
           child: AttributeRenderer.localAttribute(
             attribute: attribute,
             expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-            openFileDetails: (file) => context.push(
-              '/account/$accountId/my-data/files/${file.id}',
-              extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
-            ),
+            openFileDetails:
+                (file) => context.push(
+                  '/account/$accountId/my-data/files/${file.id}',
+                  extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
+                ),
             extraLine: extraLine,
           ),
         );

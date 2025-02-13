@@ -14,14 +14,14 @@ class TransportServices {
   final PublicRelationshipTemplateReferencesFacade publicRelationshipTemplateReferences;
 
   TransportServices(AbstractEvaluator evaluator)
-      : messages = MessagesFacade(evaluator),
-        relationships = RelationshipsFacade(evaluator),
-        relationshipTemplates = RelationshipTemplatesFacade(evaluator),
-        files = FilesFacade(evaluator),
-        account = AccountFacade(evaluator),
-        tokens = TokensFacade(evaluator),
-        devices = DevicesFacade(evaluator),
-        identityDeletionProcesses = IdentityDeletionProcessesFacade(evaluator),
-        identityRecoveryKits = IdentityRecoveryKitsFacade(evaluator),
-        publicRelationshipTemplateReferences = PublicRelationshipTemplateReferencesFacade(evaluator);
+    : messages = MessagesFacade(evaluator),
+      relationships = RelationshipsFacade(evaluator),
+      relationshipTemplates = RelationshipTemplatesFacade(evaluator),
+      files = FilesFacade(evaluator),
+      account = AccountFacade(evaluator),
+      tokens = TokensFacade(evaluator),
+      devices = DevicesFacade(evaluator),
+      identityDeletionProcesses = IdentityDeletionProcessesFacade(evaluator),
+      identityRecoveryKits = IdentityRecoveryKitsFacade(evaluator),
+      publicRelationshipTemplateReferences = PublicRelationshipTemplateReferencesFacade(evaluator);
 }

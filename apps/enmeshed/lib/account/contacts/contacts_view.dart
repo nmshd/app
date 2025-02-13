@@ -22,12 +22,7 @@ class ContactsView extends StatefulWidget {
   final ContactsFilterController contactsFilterController;
   final void Function(SuggestionsBuilder?) setSuggestionsBuilder;
 
-  const ContactsView({
-    required this.accountId,
-    required this.setSuggestionsBuilder,
-    required this.contactsFilterController,
-    super.key,
-  });
+  const ContactsView({required this.accountId, required this.setSuggestionsBuilder, required this.contactsFilterController, super.key});
 
   @override
   State<ContactsView> createState() => _ContactsViewState();
@@ -123,26 +118,21 @@ class _ContactsViewState extends State<ContactsView> {
             SliverToBoxAdapter(child: ContactHeadline(text: context.l10n.favorites, icon: const Icon(Icons.star))),
             SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.75),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final contact = _favorites[index];
-                  return ContactFavorite(
-                    contact: contact,
-                    onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
-                  );
-                },
-                childCount: _favorites.length,
-              ),
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final contact = _favorites[index];
+                return ContactFavorite(contact: contact, onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'));
+              }, childCount: _favorites.length),
             ),
           ],
           SliverToBoxAdapter(
             child: SortBar<_ContactsSortingType>(
               sortingType: _sortingType,
               isSortedAscending: _isSortedAscending,
-              translate: (s) => switch (s) {
-                _ContactsSortingType.name => context.l10n.sortedByName,
-                _ContactsSortingType.date => context.l10n.sortedByDate,
-              },
+              translate:
+                  (s) => switch (s) {
+                    _ContactsSortingType.name => context.l10n.sortedByName,
+                    _ContactsSortingType.date => context.l10n.sortedByDate,
+                  },
               sortMenuItem: [
                 (value: _ContactsSortingType.name, label: context.l10n.name),
                 (value: _ContactsSortingType.date, label: context.l10n.contacts_date),
@@ -186,12 +176,7 @@ class _ContactsViewState extends State<ContactsView> {
                   return contactItem;
                 }
 
-                return Column(
-                  children: [
-                    ContactHeadline(text: _contactToCategory(item)),
-                    contactItem,
-                  ],
-                );
+                return Column(children: [ContactHeadline(text: _contactToCategory(item)), contactItem]);
               },
               separatorBuilder: (context, index) {
                 final currentCategory = _contactToCategory(_filteredContacts[index]);
@@ -210,10 +195,7 @@ class _ContactsViewState extends State<ContactsView> {
   }
 
   Future<void> _onOpenFilterPressed() async {
-    final options = await showSelectContactsFiltersModal(
-      contactsFilterController: widget.contactsFilterController,
-      context: context,
-    );
+    final options = await showSelectContactsFiltersModal(contactsFilterController: widget.contactsFilterController, context: context);
 
     if (options == null) return;
 
@@ -221,9 +203,9 @@ class _ContactsViewState extends State<ContactsView> {
   }
 
   String _contactToCategory(RequestOrRelationship requestOrRelationship) => switch (_sortingType) {
-        _ContactsSortingType.date => simpleTimeago(context, requestOrRelationship.sortingDate),
-        _ContactsSortingType.name => requestOrRelationship.contact.isUnknown ? '' : requestOrRelationship.contact.initials[0].toUpperCase(),
-      };
+    _ContactsSortingType.date => simpleTimeago(context, requestOrRelationship.sortingDate),
+    _ContactsSortingType.name => requestOrRelationship.contact.isUnknown ? '' : requestOrRelationship.contact.initials[0].toUpperCase(),
+  };
 
   Future<void> _reload({bool syncBefore = false, bool isFirstTime = false}) async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
@@ -282,10 +264,7 @@ class _ContactsViewState extends State<ContactsView> {
       }
     });
 
-    await toggleContactPinned(
-      relationshipId: identity.relationship!.id,
-      session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId),
-    );
+    await toggleContactPinned(relationshipId: identity.relationship!.id, session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId));
   }
 
   Iterable<Widget> _buildSuggestions(BuildContext context, SearchController controller) {
@@ -321,18 +300,19 @@ class _ContactsViewState extends State<ContactsView> {
 
     final selectedFilterOptions = widget.contactsFilterController.value;
 
-    final filteredContacts = _contacts!.where((contact) {
-      return switch (contact.contact.relationship?.status) {
-        RelationshipStatus.Terminated => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
-        RelationshipStatus.DeletionProposed => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
-        RelationshipStatus.Active => selectedFilterOptions.contains(const ActiveContactsFilterOption()),
-        RelationshipStatus.Pending => selectedFilterOptions.contains(const PendingContactsFilterOption()),
-        RelationshipStatus.Revoked => false,
-        RelationshipStatus.Rejected => false,
-        null => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
-      };
-    }).toList()
-      ..sort(_compareFunction(_sortingType, _isSortedAscending));
+    final filteredContacts =
+        _contacts!.where((contact) {
+            return switch (contact.contact.relationship?.status) {
+              RelationshipStatus.Terminated => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
+              RelationshipStatus.DeletionProposed => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
+              RelationshipStatus.Active => selectedFilterOptions.contains(const ActiveContactsFilterOption()),
+              RelationshipStatus.Pending => selectedFilterOptions.contains(const PendingContactsFilterOption()),
+              RelationshipStatus.Revoked => false,
+              RelationshipStatus.Rejected => false,
+              null => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
+            };
+          }).toList()
+          ..sort(_compareFunction(_sortingType, _isSortedAscending));
 
     setState(() => _filteredContacts = filteredContacts);
   }
@@ -347,9 +327,10 @@ class _ContactsViewState extends State<ContactsView> {
 
       return switch (type) {
         _ContactsSortingType.date => isSortedAscending ? b.sortingDate.compareTo(a.sortingDate) : a.sortingDate.compareTo(b.sortingDate),
-        _ContactsSortingType.name => isSortedAscending
-            ? a.contact.name.toLowerCase().compareTo(b.contact.name.toLowerCase())
-            : b.contact.name.toLowerCase().compareTo(a.contact.name.toLowerCase()),
+        _ContactsSortingType.name =>
+          isSortedAscending
+              ? a.contact.name.toLowerCase().compareTo(b.contact.name.toLowerCase())
+              : b.contact.name.toLowerCase().compareTo(a.contact.name.toLowerCase()),
       };
     };
   }
@@ -381,13 +362,14 @@ class _ContactItem extends StatelessWidget {
     return DismissibleContactItem(
       contact: contact,
       onTap: () => _onTap(context),
-      trailing: item.openContactRequest != null
-          ? const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit))
-          : IconButton(
-              icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
-              color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
-              onPressed: () => toggleContactFavorite(contact),
-            ),
+      trailing:
+          item.openContactRequest != null
+              ? const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit))
+              : IconButton(
+                icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
+                color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
+                onPressed: () => toggleContactFavorite(contact),
+              ),
       onDeletePressed: _onDeletePressed,
     );
   }
@@ -446,11 +428,7 @@ class _EmptyContactsIndicator extends StatelessWidget {
         text: context.l10n.contacts_empty,
         description: context.l10n.contacts_emptyDescription,
         action: TextButton(
-          onPressed: () => goToInstructionsOrScanScreen(
-            accountId: accountId,
-            instructionsType: ScannerType.addContact,
-            context: context,
-          ),
+          onPressed: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.addContact, context: context),
           child: Text(context.l10n.contacts_addContact),
         ),
       ),

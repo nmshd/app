@@ -8,11 +8,7 @@ void main() {
       final requestItemJson = readAttributeRequestItem.toJson();
       expect(
         requestItemJson,
-        equals({
-          '@type': 'ReadAttributeRequestItem',
-          'mustBeAccepted': true,
-          'query': const IdentityAttributeQuery(valueType: 'City').toJson(),
-        }),
+        equals({'@type': 'ReadAttributeRequestItem', 'mustBeAccepted': true, 'query': const IdentityAttributeQuery(valueType: 'City').toJson()}),
       );
     });
 
@@ -53,11 +49,7 @@ void main() {
     });
 
     test('is correctly converted with property "metadata"', () {
-      const readAttributeRequestItem = ReadAttributeRequestItem(
-        metadata: {},
-        mustBeAccepted: true,
-        query: IdentityAttributeQuery(valueType: 'City'),
-      );
+      const readAttributeRequestItem = ReadAttributeRequestItem(metadata: {}, mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'));
       final requestItemJson = readAttributeRequestItem.toJson();
       expect(
         requestItemJson,
@@ -118,10 +110,7 @@ void main() {
       final json = {'mustBeAccepted': true, 'query': const IdentityAttributeQuery(valueType: 'City').toJson()};
       expect(
         ReadAttributeRequestItem.fromJson(json),
-        equals(const ReadAttributeRequestItem(
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(const ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))),
       );
     });
 
@@ -129,11 +118,7 @@ void main() {
       final json = {'title': 'aTitle', 'mustBeAccepted': true, 'query': const IdentityAttributeQuery(valueType: 'City').toJson()};
       expect(
         ReadAttributeRequestItem.fromJson(json),
-        equals(const ReadAttributeRequestItem(
-          title: 'aTitle',
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(const ReadAttributeRequestItem(title: 'aTitle', mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))),
       );
     });
 
@@ -141,11 +126,7 @@ void main() {
       final json = {'description': 'aDescription', 'mustBeAccepted': true, 'query': const IdentityAttributeQuery(valueType: 'City').toJson()};
       expect(
         ReadAttributeRequestItem.fromJson(json),
-        equals(const ReadAttributeRequestItem(
-          description: 'aDescription',
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(const ReadAttributeRequestItem(description: 'aDescription', mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))),
       );
     });
 
@@ -157,11 +138,7 @@ void main() {
       };
       expect(
         ReadAttributeRequestItem.fromJson(json),
-        equals(const ReadAttributeRequestItem(
-          metadata: {'aKey': 'aValue'},
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(const ReadAttributeRequestItem(metadata: {'aKey': 'aValue'}, mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))),
       );
     });
 
@@ -169,11 +146,7 @@ void main() {
       final json = {'requireManualDecision': true, 'mustBeAccepted': true, 'query': const IdentityAttributeQuery(valueType: 'City').toJson()};
       expect(
         ReadAttributeRequestItem.fromJson(json),
-        equals(const ReadAttributeRequestItem(
-          requireManualDecision: true,
-          mustBeAccepted: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(const ReadAttributeRequestItem(requireManualDecision: true, mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'City'))),
       );
     });
 
@@ -188,14 +161,16 @@ void main() {
       };
       expect(
         ReadAttributeRequestItem.fromJson(json),
-        equals(const ReadAttributeRequestItem(
-          title: 'aTitle',
-          description: 'aDescription',
-          metadata: {'aKey': 'aValue'},
-          mustBeAccepted: true,
-          requireManualDecision: true,
-          query: IdentityAttributeQuery(valueType: 'City'),
-        )),
+        equals(
+          const ReadAttributeRequestItem(
+            title: 'aTitle',
+            description: 'aDescription',
+            metadata: {'aKey': 'aValue'},
+            mustBeAccepted: true,
+            requireManualDecision: true,
+            query: IdentityAttributeQuery(valueType: 'City'),
+          ),
+        ),
       );
     });
   });

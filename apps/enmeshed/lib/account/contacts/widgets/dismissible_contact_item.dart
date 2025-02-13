@@ -53,9 +53,10 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
   @override
   Widget build(BuildContext context) {
     final coloringStatus = [RelationshipStatus.Terminated, RelationshipStatus.DeletionProposed];
-    final tileColor = widget.contact.relationship == null || coloringStatus.contains(widget.contact.relationship!.status)
-        ? Theme.of(context).colorScheme.primaryContainer
-        : null;
+    final tileColor =
+        widget.contact.relationship == null || coloringStatus.contains(widget.contact.relationship!.status)
+            ? Theme.of(context).colorScheme.primaryContainer
+            : null;
 
     return TapRegion(
       onTapOutside: (_) => _slidableController.close(),

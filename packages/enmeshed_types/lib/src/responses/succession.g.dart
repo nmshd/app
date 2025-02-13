@@ -21,14 +21,14 @@ Map<String, dynamic> _$NotifyPeerAboutRepositoryAttributeSuccessionResponseToJso
     };
 
 SucceedRepositoryAttributeResponse _$SucceedRepositoryAttributeResponseFromJson(Map<String, dynamic> json) => SucceedRepositoryAttributeResponse(
-      predecessor: LocalAttributeDTO.fromJson(json['predecessor'] as Map<String, dynamic>),
-      successor: LocalAttributeDTO.fromJson(json['successor'] as Map<String, dynamic>),
-    );
+  predecessor: LocalAttributeDTO.fromJson(json['predecessor'] as Map<String, dynamic>),
+  successor: LocalAttributeDTO.fromJson(json['successor'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$SucceedRepositoryAttributeResponseToJson(SucceedRepositoryAttributeResponse instance) => <String, dynamic>{
-      'predecessor': instance.predecessor.toJson(),
-      'successor': instance.successor.toJson(),
-    };
+  'predecessor': instance.predecessor.toJson(),
+  'successor': instance.successor.toJson(),
+};
 
 SucceedRelationshipAttributeAndNotifyPeerResponse _$SucceedRelationshipAttributeAndNotifyPeerResponseFromJson(Map<String, dynamic> json) =>
     SucceedRelationshipAttributeAndNotifyPeerResponse(

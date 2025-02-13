@@ -20,11 +20,9 @@ Future<void> showDeleteAttributeModal({
 }) async {
   await showModalBottomSheet<void>(
     context: context,
-    builder: (context) => _DeleteConfirmation(
-      accountId: accountId,
-      onAttributeDeleted: onAttributeDeleted,
-      attribute: attribute as RepositoryAttributeDVO,
-    ),
+    builder:
+        (context) =>
+            _DeleteConfirmation(accountId: accountId, onAttributeDeleted: onAttributeDeleted, attribute: attribute as RepositoryAttributeDVO),
   );
 }
 
@@ -33,11 +31,7 @@ class _DeleteConfirmation extends StatefulWidget {
   final VoidCallback onAttributeDeleted;
   final RepositoryAttributeDVO attribute;
 
-  const _DeleteConfirmation({
-    required this.accountId,
-    required this.onAttributeDeleted,
-    required this.attribute,
-  });
+  const _DeleteConfirmation({required this.accountId, required this.onAttributeDeleted, required this.attribute});
 
   @override
   State<_DeleteConfirmation> createState() => _DeleteConfirmationState();
@@ -56,10 +50,7 @@ class _DeleteConfirmationState extends State<_DeleteConfirmation> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          BottomSheetHeader(
-            title: context.l10n.personalData_details_deleteEntry,
-            canClose: !_deleting,
-          ),
+          BottomSheetHeader(title: context.l10n.personalData_details_deleteEntry, canClose: !_deleting),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: Align(
@@ -69,24 +60,22 @@ class _DeleteConfirmationState extends State<_DeleteConfirmation> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: isShared
-                ? BoldStyledText(
-                    context.l10n.personalData_details_deleteDescriptionShared(
-                      widget.attribute.sharedWith.length,
-                      _getDisplayValue(context, widget.attribute.value),
-                    ),
-                  )
-                : BoldStyledText(context.l10n.personalData_details_deleteDescription(_getDisplayValue(context, widget.attribute.value))),
+            child:
+                isShared
+                    ? BoldStyledText(
+                      context.l10n.personalData_details_deleteDescriptionShared(
+                        widget.attribute.sharedWith.length,
+                        _getDisplayValue(context, widget.attribute.value),
+                      ),
+                    )
+                    : BoldStyledText(context.l10n.personalData_details_deleteDescription(_getDisplayValue(context, widget.attribute.value))),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24).add(EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                OutlinedButton(
-                  onPressed: _deleting ? null : context.pop,
-                  child: Text(context.l10n.personalData_details_cancelDeletion),
-                ),
+                OutlinedButton(onPressed: _deleting ? null : context.pop, child: Text(context.l10n.personalData_details_cancelDeletion)),
                 Gaps.w8,
                 FilledButton(
                   onPressed: _deleting ? null : _deleteAttributeAndNotifyPeers,

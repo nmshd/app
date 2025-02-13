@@ -18,13 +18,14 @@ Future<FileDVO?> openFileChooser({
   final file = await showModalBottomSheet<FileDVO?>(
     context: context,
     isScrollControlled: true,
-    builder: (context) => _FileChooser(
-      accountId: accountId,
-      selectedFiles: selectedFiles,
-      onSelectedAttachmentsChanged: onSelectedAttachmentsChanged,
-      title: title,
-      description: description,
-    ),
+    builder:
+        (context) => _FileChooser(
+          accountId: accountId,
+          selectedFiles: selectedFiles,
+          onSelectedAttachmentsChanged: onSelectedAttachmentsChanged,
+          title: title,
+          description: description,
+        ),
   );
 
   return file;
@@ -83,11 +84,7 @@ class _FileChooserState extends State<_FileChooser> {
                 ],
               ),
             ),
-            if (widget.description != null)
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(widget.description!),
-              ),
+            if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: OutlinedButton(
@@ -96,41 +93,43 @@ class _FileChooserState extends State<_FileChooser> {
               ),
             ),
             Expanded(
-              child: _existingFiles!.isEmpty
-                  ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.fileChooser_noFilesFound)
-                  : Scrollbar(
-                      thumbVisibility: true,
-                      child: ListView.separated(
-                        clipBehavior: Clip.antiAlias,
-                        itemCount: _existingFiles!.length,
-                        padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
-                        itemBuilder: (context, index) {
-                          final file = _existingFiles![index];
+              child:
+                  _existingFiles!.isEmpty
+                      ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.fileChooser_noFilesFound)
+                      : Scrollbar(
+                        thumbVisibility: true,
+                        child: ListView.separated(
+                          clipBehavior: Clip.antiAlias,
+                          itemCount: _existingFiles!.length,
+                          padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
+                          itemBuilder: (context, index) {
+                            final file = _existingFiles![index];
 
-                          return ListTile(
-                            title: Text(file.title),
-                            subtitle: Text(file.filename),
-                            onTap: () {
-                              if (widget.selectedFiles == null) return context.pop(file);
+                            return ListTile(
+                              title: Text(file.title),
+                              subtitle: Text(file.filename),
+                              onTap: () {
+                                if (widget.selectedFiles == null) return context.pop(file);
 
-                              setState(() => widget.selectedFiles!.toggle(file));
-                              widget.onSelectedAttachmentsChanged?.call();
-                            },
-                            leading: FileIcon(filename: file.filename),
-                            trailing: widget.selectedFiles == null
-                                ? const Icon(Icons.chevron_right)
-                                : Checkbox(
-                                    value: widget.selectedFiles!.contains(file),
-                                    onChanged: (_) {
-                                      setState(() => widget.selectedFiles!.toggle(file));
-                                      widget.onSelectedAttachmentsChanged?.call();
-                                    },
-                                  ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const Divider(height: 0, indent: 16),
+                                setState(() => widget.selectedFiles!.toggle(file));
+                                widget.onSelectedAttachmentsChanged?.call();
+                              },
+                              leading: FileIcon(filename: file.filename),
+                              trailing:
+                                  widget.selectedFiles == null
+                                      ? const Icon(Icons.chevron_right)
+                                      : Checkbox(
+                                        value: widget.selectedFiles!.contains(file),
+                                        onChanged: (_) {
+                                          setState(() => widget.selectedFiles!.toggle(file));
+                                          widget.onSelectedAttachmentsChanged?.call();
+                                        },
+                                      ),
+                            );
+                          },
+                          separatorBuilder: (context, index) => const Divider(height: 0, indent: 16),
+                        ),
                       ),
-                    ),
             ),
           ],
         ),
@@ -151,10 +150,7 @@ class _FileChooserState extends State<_FileChooser> {
         widget.onSelectedAttachmentsChanged?.call();
       },
       popOnUpload: false,
-      leading: IconButton(
-        icon: Icon(context.adaptiveBackIcon),
-        onPressed: () => setState(() => _mode = _FileChooserMode.existing),
-      ),
+      leading: IconButton(icon: Icon(context.adaptiveBackIcon), onPressed: () => setState(() => _mode = _FileChooserMode.existing)),
     );
   }
 

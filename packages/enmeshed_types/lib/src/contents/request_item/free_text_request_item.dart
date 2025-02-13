@@ -24,11 +24,7 @@ class FreeTextRequestItem extends RequestItemDerivation {
   }
 
   @override
-  Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-        '@type': 'FreeTextRequestItem',
-        'freeText': freeText,
-      };
+  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'FreeTextRequestItem', 'freeText': freeText};
 
   @override
   List<Object?> get props => [super.props];

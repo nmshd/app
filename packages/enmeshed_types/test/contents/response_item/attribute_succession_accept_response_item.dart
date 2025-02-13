@@ -32,11 +32,13 @@ void main() {
       };
       expect(
         AttributeSuccessionAcceptResponseItem.fromJson(json),
-        equals(const AttributeSuccessionAcceptResponseItem(
-          predecessorId: 'aPredecessorId',
-          successorId: 'aSuccessorId',
-          successorContent: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-        )),
+        equals(
+          const AttributeSuccessionAcceptResponseItem(
+            predecessorId: 'aPredecessorId',
+            successorId: 'aSuccessorId',
+            successorContent: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
   });

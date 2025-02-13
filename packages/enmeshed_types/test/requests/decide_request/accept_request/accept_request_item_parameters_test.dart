@@ -6,10 +6,7 @@ void main() {
     test('is correctly converted', () {
       const acceptRequestItemParameters = AcceptRequestItemParameters();
       final json = acceptRequestItemParameters.toJson();
-      expect(
-        json,
-        equals({'accept': true}),
-      );
+      expect(json, equals({'accept': true}));
     });
   });
 }

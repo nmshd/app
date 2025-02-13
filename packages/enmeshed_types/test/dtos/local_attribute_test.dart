@@ -150,12 +150,14 @@ void main() {
       };
       expect(
         LocalAttributeDTO.fromJson(json),
-        equals(const LocalAttributeDTO(
-          id: 'anId',
-          parentId: 'aParentId',
-          createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-        )),
+        equals(
+          const LocalAttributeDTO(
+            id: 'anId',
+            parentId: 'aParentId',
+            createdAt: '2023',
+            content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
 
@@ -168,12 +170,14 @@ void main() {
       };
       expect(
         LocalAttributeDTO.fromJson(json),
-        equals(const LocalAttributeDTO(
-          id: 'anId',
-          createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          succeeds: 'succeed',
-        )),
+        equals(
+          const LocalAttributeDTO(
+            id: 'anId',
+            createdAt: '2023',
+            content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            succeeds: 'succeed',
+          ),
+        ),
       );
     });
 
@@ -186,12 +190,14 @@ void main() {
       };
       expect(
         LocalAttributeDTO.fromJson(json),
-        equals(const LocalAttributeDTO(
-          id: 'anId',
-          createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          succeededBy: 'anAddress',
-        )),
+        equals(
+          const LocalAttributeDTO(
+            id: 'anId',
+            createdAt: '2023',
+            content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            succeededBy: 'anAddress',
+          ),
+        ),
       );
     });
 
@@ -204,12 +210,14 @@ void main() {
       };
       expect(
         LocalAttributeDTO.fromJson(json),
-        equals(const LocalAttributeDTO(
-          id: 'anId',
-          createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          shareInfo: LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer'),
-        )),
+        equals(
+          const LocalAttributeDTO(
+            id: 'anId',
+            createdAt: '2023',
+            content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            shareInfo: LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer'),
+          ),
+        ),
       );
     });
 
@@ -225,15 +233,17 @@ void main() {
       };
       expect(
         LocalAttributeDTO.fromJson(json),
-        equals(const LocalAttributeDTO(
-          id: 'anId',
-          parentId: 'aParentId',
-          createdAt: '2023',
-          content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-          succeeds: 'succeed',
-          succeededBy: 'anAddress',
-          shareInfo: LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer'),
-        )),
+        equals(
+          const LocalAttributeDTO(
+            id: 'anId',
+            parentId: 'aParentId',
+            createdAt: '2023',
+            content: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+            succeeds: 'succeed',
+            succeededBy: 'anAddress',
+            shareInfo: LocalAttributeShareInfo(requestReference: 'aRequestReference', peer: 'aPeer'),
+          ),
+        ),
       );
     });
   });

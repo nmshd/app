@@ -70,10 +70,7 @@ class _ChooseExistingProfile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: TranslatedText(description ?? 'i18n://uibridge.accountSelection.description'),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: _ProfileListTile(localAccountDTO: active, isActiveAccount: true),
-          ),
+          Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: _ProfileListTile(localAccountDTO: active, isActiveAccount: true)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: Row(
@@ -95,12 +92,7 @@ class _ChooseExistingProfile extends StatelessWidget {
               shrinkWrap: true,
             ),
           ),
-          Align(
-            child: TextButton(
-              onPressed: () => context.pop(),
-              child: Text(context.l10n.cancel),
-            ),
-          ),
+          Align(child: TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel))),
         ],
       ),
     );
@@ -116,11 +108,7 @@ class _ProfileListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: AutoLoadingProfilePicture(
-        accountId: localAccountDTO.id,
-        profileName: localAccountDTO.name,
-        decorative: true,
-      ),
+      leading: AutoLoadingProfilePicture(accountId: localAccountDTO.id, profileName: localAccountDTO.name, decorative: true),
       title: Text(localAccountDTO.name),
       subtitle: isActiveAccount ? Text(context.l10n.profiles_lastUsed) : null,
       trailing: const Icon(Icons.chevron_right),

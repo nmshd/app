@@ -64,10 +64,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      title: Text(widget.title, maxLines: 2),
-      leading: BackButton(onPressed: widget.resetType ?? () => context.pop()),
-    );
+    final appBar = AppBar(title: Text(widget.title, maxLines: 2), leading: BackButton(onPressed: widget.resetType ?? () => context.pop()));
 
     if (!_controllersInitialized || !_rendererHintsLoaded) {
       return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
@@ -105,37 +102,37 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
                   child: Column(
                     children: [
                       ValueRenderer(
-                        fieldName: addressDataInitialAttributeTypes.contains(widget.valueTypes[index])
-                            ? null
-                            : 'i18n://dvo.attribute.name.${widget.valueTypes[index]}',
+                        fieldName:
+                            addressDataInitialAttributeTypes.contains(widget.valueTypes[index])
+                                ? null
+                                : 'i18n://dvo.attribute.name.${widget.valueTypes[index]}',
                         renderHints: _hintResponses[widget.valueTypes[index]]!.renderHints,
                         valueHints: _hintResponses[widget.valueTypes[index]]!.valueHints,
                         controller: _controllers[widget.valueTypes[index]],
                         valueType: widget.valueTypes[index],
-                        decoration: widget.valueTypes[index] == 'BirthDate' ||
-                                _hintResponses[widget.valueTypes[index]]!.renderHints.editType != RenderHintsEditType.Complex
-                            ? InputDecoration(
-                                counterText: '',
-                                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                hintMaxLines: 150,
-                                errorMaxLines: 150,
-                                helperMaxLines: 150,
-                                border: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
-                                ),
-                              )
-                            : null,
+                        decoration:
+                            widget.valueTypes[index] == 'BirthDate' ||
+                                    _hintResponses[widget.valueTypes[index]]!.renderHints.editType != RenderHintsEditType.Complex
+                                ? InputDecoration(
+                                  counterText: '',
+                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                  hintMaxLines: 150,
+                                  errorMaxLines: 150,
+                                  helperMaxLines: 150,
+                                  border: OutlineInputBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                    borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                    borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+                                  ),
+                                )
+                                : null,
                         expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                         chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                        openFileDetails: (file) => context.push(
-                          '/account/${widget.accountId}/my-data/files/${file.id}',
-                          extra: createFileRecord(file: file),
-                        ),
+                        openFileDetails:
+                            (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                       ),
                       _getExplanationForAttribute(widget.valueTypes[index], context),
                     ],
@@ -149,10 +146,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
       bottomNavigationBar: Material(
         elevation: 10,
         child: Padding(
-          padding: EdgeInsets.only(
-            bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom),
-            right: 16,
-          ),
+          padding: EdgeInsets.only(bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom), right: 16),
           child: Container(
             padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
             child: Row(
@@ -160,10 +154,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
               children: [
                 OutlinedButton(onPressed: _isLoading ? null : widget.resetType ?? () => context.pop(), child: Text(context.l10n.cancel)),
                 Gaps.w8,
-                FilledButton(
-                  onPressed: _saveEnabled && !_isLoading ? _createAttributes : null,
-                  child: Text(context.l10n.save),
-                ),
+                FilledButton(onPressed: _saveEnabled && !_isLoading ? _createAttributes : null, child: Text(context.l10n.save)),
               ],
             ),
           ),
@@ -176,30 +167,28 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
     for (final valueType in widget.valueTypes) {
       _controllers[valueType] = ValueRendererController();
 
-      _controllers[valueType]!.addListener(
-        () {
-          final value = _controllers[valueType]!.value;
+      _controllers[valueType]!.addListener(() {
+        final value = _controllers[valueType]!.value;
 
-          if (value is ValueRendererValidationError) {
-            if (!_valueRendererValidationErrors.contains(valueType)) _valueRendererValidationErrors.add(valueType);
+        if (value is ValueRendererValidationError) {
+          if (!_valueRendererValidationErrors.contains(valueType)) _valueRendererValidationErrors.add(valueType);
 
-            _attributeValues.remove(valueType);
-          } else if (value is ValueRendererInputValueString && value.value.isEmpty) {
-            _valueRendererValidationErrors.remove(valueType);
-            _attributeValues.remove(valueType);
-          } else {
-            _attributeValues[valueType] = composeIdentityAttributeValue(
-              isComplex: _hintResponses[valueType]?.renderHints.editType == RenderHintsEditType.Complex,
-              currentAddress: widget.accountId,
-              valueType: valueType,
-              inputValue: value as ValueRendererInputValue,
-            );
-            _valueRendererValidationErrors.remove(valueType);
-          }
+          _attributeValues.remove(valueType);
+        } else if (value is ValueRendererInputValueString && value.value.isEmpty) {
+          _valueRendererValidationErrors.remove(valueType);
+          _attributeValues.remove(valueType);
+        } else {
+          _attributeValues[valueType] = composeIdentityAttributeValue(
+            isComplex: _hintResponses[valueType]?.renderHints.editType == RenderHintsEditType.Complex,
+            currentAddress: widget.accountId,
+            valueType: valueType,
+            inputValue: value as ValueRendererInputValue,
+          );
+          _valueRendererValidationErrors.remove(valueType);
+        }
 
-          _updateSaveEnabled();
-        },
-      );
+        _updateSaveEnabled();
+      });
     }
 
     if (mounted) setState(() => _controllersInitialized = true);
@@ -215,10 +204,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
     if (_hintResponses.containsKey('Sex')) {
       _hintResponses['Sex'] = GetHintsResponse(
         valueHints: _hintResponses['Sex']!.valueHints,
-        renderHints: RenderHints(
-          editType: RenderHintsEditType.SelectLike,
-          technicalType: RenderHintsTechnicalType.String,
-        ),
+        renderHints: RenderHints(editType: RenderHintsEditType.SelectLike, technicalType: RenderHintsTechnicalType.String),
       );
     }
     if (mounted) setState(() => _rendererHintsLoaded = true);
@@ -250,9 +236,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
     for (final attributeValue in _attributeValues.entries) {
       final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-      final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(
-        value: attributeValue.value!.value,
-      );
+      final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(value: attributeValue.value!.value);
 
       if (createAttributeResult.isError) {
         GetIt.I.get<Logger>().e(createAttributeResult.error.message);
@@ -287,10 +271,7 @@ class _InfoText extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-        ),
+        child: Text(text, style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
       ),
     );
   }

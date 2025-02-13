@@ -8,11 +8,7 @@ void main() {
       final identityAttributeJson = identityAttribute.toJson();
       expect(
         identityAttributeJson,
-        equals({
-          '@type': 'IdentityAttribute',
-          'owner': 'anOwner',
-          'value': const CityAttributeValue(value: 'aCity').toJson(),
-        }),
+        equals({'@type': 'IdentityAttribute', 'owner': 'anOwner', 'value': const CityAttributeValue(value: 'aCity').toJson()}),
       );
     });
 
@@ -82,29 +78,15 @@ void main() {
       };
       expect(
         IdentityAttribute.fromJson(json),
-        equals(const IdentityAttribute(
-          owner: 'anOwner',
-          value: CityAttributeValue(value: 'aCity'),
-          tags: ['tag1', 'tag2'],
-        )),
+        equals(const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'), tags: ['tag1', 'tag2'])),
       );
     });
 
     test('is correctly converted with properties "validFrom" and "validTo"', () {
-      final json = {
-        'owner': 'anOwner',
-        'value': const CityAttributeValue(value: 'aCity').toJson(),
-        'validFrom': '1970',
-        'validTo': '1980',
-      };
+      final json = {'owner': 'anOwner', 'value': const CityAttributeValue(value: 'aCity').toJson(), 'validFrom': '1970', 'validTo': '1980'};
       expect(
         IdentityAttribute.fromJson(json),
-        equals(const IdentityAttribute(
-          owner: 'anOwner',
-          value: CityAttributeValue(value: 'aCity'),
-          validFrom: '1970',
-          validTo: '1980',
-        )),
+        equals(const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'), validFrom: '1970', validTo: '1980')),
       );
     });
 
@@ -118,13 +100,15 @@ void main() {
       };
       expect(
         IdentityAttribute.fromJson(json),
-        equals(const IdentityAttribute(
-          owner: 'anOwner',
-          value: CityAttributeValue(value: 'aCity'),
-          validFrom: '1970',
-          validTo: '1980',
-          tags: ['tag1', 'tag2'],
-        )),
+        equals(
+          const IdentityAttribute(
+            owner: 'anOwner',
+            value: CityAttributeValue(value: 'aCity'),
+            validFrom: '1970',
+            validTo: '1980',
+            tags: ['tag1', 'tag2'],
+          ),
+        ),
       );
     });
   });

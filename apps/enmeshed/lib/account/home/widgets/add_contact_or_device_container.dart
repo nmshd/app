@@ -18,11 +18,7 @@ class AddContactOrDeviceContainer extends StatelessWidget {
         Gaps.h8,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(child: _AddContact(accountId: accountId)),
-            Gaps.w16,
-            Expanded(child: _AddDevice(accountId: accountId)),
-          ],
+          children: [Expanded(child: _AddContact(accountId: accountId)), Gaps.w16, Expanded(child: _AddDevice(accountId: accountId))],
         ),
       ],
     );

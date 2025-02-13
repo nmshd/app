@@ -38,9 +38,11 @@ Future<void> showSucceedAttributeModal({
           content: Text(context.l10n.errorDialog_description, textAlign: TextAlign.center),
           actions: [
             FilledButton(
-              onPressed: () => context
-                ..pop()
-                ..pop(),
+              onPressed:
+                  () =>
+                      context
+                        ..pop()
+                        ..pop(),
               child: Text(context.l10n.back),
             ),
           ],
@@ -53,15 +55,16 @@ Future<void> showSucceedAttributeModal({
 
   await showModalBottomSheet<void>(
     context: context,
-    builder: (context) => ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 600),
-      child: _SucceedAttributeModal(
-        accountId: accountId,
-        attribute: attribute,
-        onAttributeSucceeded: onAttributeSucceeded,
-        sameTypeAttributes: sameTypeAttributes,
-      ),
-    ),
+    builder:
+        (context) => ConstrainedBox(
+          constraints: const BoxConstraints(maxHeight: 600),
+          child: _SucceedAttributeModal(
+            accountId: accountId,
+            attribute: attribute,
+            onAttributeSucceeded: onAttributeSucceeded,
+            sameTypeAttributes: sameTypeAttributes,
+          ),
+        ),
   );
 
   controller.dispose();
@@ -151,10 +154,7 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    OutlinedButton(
-                      onPressed: () => context.pop(),
-                      child: Text(context.l10n.cancel),
-                    ),
+                    OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
                     Gaps.w8,
                     FilledButton(
                       style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
@@ -281,17 +281,14 @@ extension on ValueRendererInputValue {
     if (this is ValueRendererInputValueMap) {
       return Map<String, dynamic>.fromEntries(
         (toJson() as Map<String, dynamic>).entries.map(
-              (e) => MapEntry(
-                e.key,
-                switch (e.value as ValueRendererInputValue) {
-                  final ValueRendererInputValueString value => value,
-                  final ValueRendererInputValueNum value => value,
-                  final ValueRendererInputValueBool value => value,
-                  final ValueRendererInputValueMap value => value,
-                  final ValueRendererInputValueDateTime value => value,
-                },
-              ),
-            ),
+          (e) => MapEntry(e.key, switch (e.value as ValueRendererInputValue) {
+            final ValueRendererInputValueString value => value,
+            final ValueRendererInputValueNum value => value,
+            final ValueRendererInputValueBool value => value,
+            final ValueRendererInputValueMap value => value,
+            final ValueRendererInputValueDateTime value => value,
+          }),
+        ),
       );
     }
     if (this is ValueRendererInputValueDateTime) {

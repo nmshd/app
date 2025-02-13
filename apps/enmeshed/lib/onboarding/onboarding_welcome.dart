@@ -28,12 +28,10 @@ class OnboardingWelcome extends StatelessWidget {
                       child: Center(
                         child: Hero(
                           tag: 'logo',
-                          child: Image.asset(
-                            switch (Theme.of(context).brightness) {
-                              Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
-                              Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
-                            },
-                          ),
+                          child: Image.asset(switch (Theme.of(context).brightness) {
+                            Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
+                            Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
+                          }),
                         ),
                       ),
                     ),
@@ -45,11 +43,7 @@ class OnboardingWelcome extends StatelessWidget {
                     Gaps.h32,
                     const RedShrinkedDivider(width: 108),
                     Gaps.h32,
-                    Text(
-                      context.l10n.onboarding_description,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
+                    Text(context.l10n.onboarding_description, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
                   ],
                 ),
               ),

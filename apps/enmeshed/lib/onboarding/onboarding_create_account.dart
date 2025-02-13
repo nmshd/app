@@ -113,10 +113,7 @@ class _EnterProfileNameDialogState extends State<_EnterProfileNameDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(context.l10n.onboarding_enterProfileName, style: Theme.of(context).textTheme.titleLarge),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
-                ),
+                Align(alignment: Alignment.centerRight, child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop())),
               ],
             ),
           ),
@@ -132,13 +129,8 @@ class _EnterProfileNameDialogState extends State<_EnterProfileNameDialog> {
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                     hintText: defaultProfileName,
-                    suffixIcon: IconButton(
-                      onPressed: _controller.clear,
-                      icon: const Icon(Icons.cancel_outlined),
-                    ),
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
+                    suffixIcon: IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined)),
+                    border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),

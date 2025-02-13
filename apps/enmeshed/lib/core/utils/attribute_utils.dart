@@ -11,18 +11,9 @@ final List<String> personalDataInitialAttributeTypes = [
   'CommunicationLanguage',
 ];
 
-final List<String> addressDataInitialAttributeTypes = [
-  'StreetAddress',
-  'DeliveryBoxAddress',
-  'PostOfficeBoxAddress',
-];
+final List<String> addressDataInitialAttributeTypes = ['StreetAddress', 'DeliveryBoxAddress', 'PostOfficeBoxAddress'];
 
-final List<String> communcationDataInitialAttributeTypes = <String>[
-  'PhoneNumber',
-  'FaxNumber',
-  'EMailAddress',
-  'Website',
-];
+final List<String> communcationDataInitialAttributeTypes = <String>['PhoneNumber', 'FaxNumber', 'EMailAddress', 'Website'];
 
 Future<({bool personalData, bool addressData, bool communicationData})> getDataExisting(Session session) async {
   final personalDataResult = await session.consumptionServices.attributes.getRepositoryAttributes(

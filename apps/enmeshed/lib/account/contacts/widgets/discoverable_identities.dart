@@ -10,11 +10,7 @@ class DiscoverableIdentities extends StatelessWidget {
   final String accountId;
   final List<PublicRelationshipTemplateReferenceDTO> publicRelationshipTemplateReferences;
 
-  const DiscoverableIdentities({
-    required this.accountId,
-    required this.publicRelationshipTemplateReferences,
-    super.key,
-  });
+  const DiscoverableIdentities({required this.accountId, required this.publicRelationshipTemplateReferences, super.key});
 
   @override
   Widget build(BuildContext context) {

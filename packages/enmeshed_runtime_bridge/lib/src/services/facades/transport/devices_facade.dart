@@ -14,9 +14,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': deviceId,
-        },
+        'request': {'id': deviceId},
       },
     );
 
@@ -25,11 +23,9 @@ class DevicesFacade {
   }
 
   Future<Result<List<DeviceDTO>>> getDevices() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.devices.getDevices()
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.transportServices.devices.getDevices()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final json = result.valueToMap();
     return Result.fromJson(json, (value) => List<DeviceDTO>.from(value.map((e) => DeviceDTO.fromJson(e))));
@@ -41,11 +37,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (name != null) 'name': name,
-          if (description != null) 'description': description,
-          if (isAdmin != null) 'isAdmin': isAdmin,
-        },
+        'request': {if (name != null) 'name': name, if (description != null) 'description': description, if (isAdmin != null) 'isAdmin': isAdmin},
       },
     );
 
@@ -59,10 +51,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': id,
-          if (profileName != null) 'profileName': profileName,
-        },
+        'request': {'id': id, if (profileName != null) 'profileName': profileName},
       },
     );
 
@@ -76,11 +65,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': id,
-          if (expiresAt != null) 'expiresAt': expiresAt,
-          if (profileName != null) 'profileName': profileName,
-        },
+        'request': {'id': id, if (expiresAt != null) 'expiresAt': expiresAt, if (profileName != null) 'profileName': profileName},
       },
     );
 
@@ -94,11 +79,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': id,
-          if (name != null) 'name': name,
-          if (description != null) 'description': description,
-        },
+        'request': {'id': id, if (name != null) 'name': name, if (description != null) 'description': description},
       },
     );
 
@@ -112,9 +93,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: null }''',
       arguments: {
-        'request': {
-          'id': deviceId,
-        },
+        'request': {'id': deviceId},
       },
     );
 
@@ -128,9 +107,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: null }''',
       arguments: {
-        'request': {
-          'communicationLanguage': communicationLanguage,
-        },
+        'request': {'communicationLanguage': communicationLanguage},
       },
     );
 

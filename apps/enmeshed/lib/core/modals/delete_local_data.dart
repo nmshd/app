@@ -88,12 +88,13 @@ class _DeleteLocalDataModalState extends State<_DeleteLocalDataModal> {
                         for (final account in widget.accountsInDeletion)
                           DeletionProfileCard(
                             accountInDeletion: account,
-                            leading: widget.accountsInDeletion.length == 1
-                                ? null
-                                : Checkbox(
-                                    value: _selectedAccounts.contains(account),
-                                    onChanged: (value) => setState(() => _selectedAccounts.toggle(account)),
-                                  ),
+                            leading:
+                                widget.accountsInDeletion.length == 1
+                                    ? null
+                                    : Checkbox(
+                                      value: _selectedAccounts.contains(account),
+                                      onChanged: (value) => setState(() => _selectedAccounts.toggle(account)),
+                                    ),
                             onTap: widget.accountsInDeletion.length == 1 ? null : () => setState(() => _selectedAccounts.toggle(account)),
                           ),
                       ],

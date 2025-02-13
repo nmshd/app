@@ -6,27 +6,21 @@ import 'package:renderers/src/request/request_item_renderer/authentication_reque
 
 void main() {
   group('AuthenticationRequestItemRenderer', () {
-    testWidgets(
-      'Renderer displays correct text',
-      (WidgetTester tester) async {
-        await tester.pumpWidget(MaterialApp(
+    testWidgets('Renderer displays correct text', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
           localizationsDelegates: [FlutterI18nDelegate(translationLoader: null)],
           home: const Material(
             child: AuthenticationRequestItemRenderer(
-              item: AuthenticationRequestItemDVO(
-                id: 'id',
-                name: 'authenticationRequestItem',
-                mustBeAccepted: false,
-                isDecidable: false,
-              ),
+              item: AuthenticationRequestItemDVO(id: 'id', name: 'authenticationRequestItem', mustBeAccepted: false, isDecidable: false),
             ),
           ),
-        ));
+        ),
+      );
 
-        expect(find.text('DecidableAuthenticationRequestItem'), findsOneWidget);
-        expect(find.text('authenticationRequestItem'), findsOneWidget);
-      },
-    );
+      expect(find.text('DecidableAuthenticationRequestItem'), findsOneWidget);
+      expect(find.text('authenticationRequestItem'), findsOneWidget);
+    });
   }, skip: true);
 }
 
