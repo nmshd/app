@@ -64,6 +64,7 @@ Future<void> showCreateRecoveryKitModal({required BuildContext context, required
             );
 
             recoveryKitNotifier.value = recoveryKit;
+            await session.consumptionServices.settings.upsertSettingByKey('home.restoredIdentity', {'showContainer': false});
             pageIndexNotifier.value++;
           },
         ),
