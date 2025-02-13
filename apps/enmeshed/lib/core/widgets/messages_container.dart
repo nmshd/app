@@ -39,11 +39,7 @@ class MessagesContainer extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const Divider(indent: 16),
-            itemBuilder: (context, index) => MessageDVORenderer(
-              message: messages![index],
-              accountId: accountId,
-              hideAvatar: hideAvatar,
-            ),
+            itemBuilder: (context, index) => MessageDVORenderer(message: messages![index], accountId: accountId, hideAvatar: hideAvatar),
             itemCount: messages!.length,
           )
         else
@@ -58,11 +54,7 @@ class _MessagesHeader extends StatelessWidget {
   final VoidCallback? seeAllMessages;
   final String title;
 
-  const _MessagesHeader({
-    required this.unreadMessagesCount,
-    required this.seeAllMessages,
-    required this.title,
-  });
+  const _MessagesHeader({required this.unreadMessagesCount, required this.seeAllMessages, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +66,7 @@ class _MessagesHeader extends StatelessWidget {
           children: [
             Text(title, style: Theme.of(context).textTheme.titleLarge),
             Gaps.w8,
-            if (unreadMessagesCount > 0)
-              Badge(
-                label: Text(unreadMessagesCount.toString()),
-                backgroundColor: Theme.of(context).colorScheme.error,
-              ),
+            if (unreadMessagesCount > 0) Badge(label: Text(unreadMessagesCount.toString()), backgroundColor: Theme.of(context).colorScheme.error),
             const Spacer(),
             if (seeAllMessages != null) TextButton(onPressed: seeAllMessages, child: Text(context.l10n.home_seeAll)),
           ],

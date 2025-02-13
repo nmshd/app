@@ -41,9 +41,11 @@ Future<void> showSucceedAttributeModal({
           content: Text(context.l10n.errorDialog_description, textAlign: TextAlign.center),
           actions: [
             FilledButton(
-              onPressed: () => context
-                ..pop()
-                ..pop(),
+              onPressed:
+                  () =>
+                      context
+                        ..pop()
+                        ..pop(),
               child: Text(context.l10n.back),
             ),
           ],
@@ -169,79 +171,77 @@ Future<void> showSucceedAttributeModal({
     onModalDismissedWithDrag: () => context.pop(),
     onModalDismissedWithBarrierTap: () => context.pop(),
     showDragHandle: false,
-    pageListBuilder: (context) => [
-      WoltModalSheetPage(
-        trailingNavBarWidget: closeButton,
-        stickyActionBar: ValueListenableBuilder<bool>(
-          valueListenable: succeedEnabledNotifier,
-          builder: (context, enabled, child) {
-            return Padding(
-              padding: EdgeInsets.only(right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  OutlinedButton(
-                    onPressed: () => context.pop(),
-                    child: Text(context.l10n.cancel),
-                  ),
-                  Gaps.w8,
-                  FilledButton(
-                    style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                    onPressed: !enabled ? null : succeedAttributeAndNotifyPeers,
-                    child: Text(context.l10n.save),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-        leadingNavBarWidget: Padding(
-          padding: const EdgeInsets.only(left: 24, top: 20, bottom: 24),
-          child: Text(context.l10n.personalData_details_editEntry, style: Theme.of(context).textTheme.titleLarge),
-        ),
-        child: ValueListenableBuilder<String?>(
-          valueListenable: errorTextNotifier,
-          builder: (context, errorText, child) {
-            return Padding(
-              padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 72),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (addressDataInitialAttributeTypes.contains(attribute.valueType)) ...[
-                    Text(context.l10n.mandatoryField, style: const TextStyle(fontSize: 14)),
-                    Gaps.h24,
-                  ],
-                  ValueRenderer(
-                    renderHints: renderHints,
-                    valueHints: valueHints,
-                    controller: controller,
-                    initialValue: attribute.value,
-                    valueType: attribute.valueType,
-                    expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-                    chooseFile: () => openFileChooser(context: context, accountId: accountId),
-                    openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: createFileRecord(file: file)),
-                  ),
-                  if (errorText != null) ...[
-                    if (renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,
-                    Text(
-                      errorText,
-                      style: TextStyle(
-                        color: errorText == context.l10n.personalData_details_errorOnSuccession ? Theme.of(context).colorScheme.error : null,
+    pageListBuilder:
+        (context) => [
+          WoltModalSheetPage(
+            trailingNavBarWidget: closeButton,
+            stickyActionBar: ValueListenableBuilder<bool>(
+              valueListenable: succeedEnabledNotifier,
+              builder: (context, enabled, child) {
+                return Padding(
+                  padding: EdgeInsets.only(right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                      Gaps.w8,
+                      FilledButton(
+                        style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
+                        onPressed: !enabled ? null : succeedAttributeAndNotifyPeers,
+                        child: Text(context.l10n.save),
                       ),
-                    ),
-                  ],
-                  if (attribute.sharedWith.isNotEmpty) ...[
-                    Gaps.h16,
-                    Text(context.l10n.personalData_details_notifyContacts(attribute.sharedWith.length)),
-                    Gaps.h16,
-                  ],
-                ],
-              ),
-            );
-          },
-        ),
-      ),
-    ],
+                    ],
+                  ),
+                );
+              },
+            ),
+            leadingNavBarWidget: Padding(
+              padding: const EdgeInsets.only(left: 24, top: 20, bottom: 24),
+              child: Text(context.l10n.personalData_details_editEntry, style: Theme.of(context).textTheme.titleLarge),
+            ),
+            child: ValueListenableBuilder<String?>(
+              valueListenable: errorTextNotifier,
+              builder: (context, errorText, child) {
+                return Padding(
+                  padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 72),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (addressDataInitialAttributeTypes.contains(attribute.valueType)) ...[
+                        Text(context.l10n.mandatoryField, style: const TextStyle(fontSize: 14)),
+                        Gaps.h24,
+                      ],
+                      ValueRenderer(
+                        renderHints: renderHints,
+                        valueHints: valueHints,
+                        controller: controller,
+                        initialValue: attribute.value,
+                        valueType: attribute.valueType,
+                        expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
+                        chooseFile: () => openFileChooser(context: context, accountId: accountId),
+                        openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                      ),
+                      if (errorText != null) ...[
+                        if (renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,
+                        Text(
+                          errorText,
+                          style: TextStyle(
+                            color: errorText == context.l10n.personalData_details_errorOnSuccession ? Theme.of(context).colorScheme.error : null,
+                          ),
+                        ),
+                      ],
+                      if (attribute.sharedWith.isNotEmpty) ...[
+                        Gaps.h16,
+                        Text(context.l10n.personalData_details_notifyContacts(attribute.sharedWith.length)),
+                        Gaps.h16,
+                      ],
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
   );
 
   controller.dispose();
@@ -257,17 +257,14 @@ extension on ValueRendererInputValue {
     if (this is ValueRendererInputValueMap) {
       return Map<String, dynamic>.fromEntries(
         (toJson() as Map<String, dynamic>).entries.map(
-              (e) => MapEntry(
-                e.key,
-                switch (e.value as ValueRendererInputValue) {
-                  final ValueRendererInputValueString value => value,
-                  final ValueRendererInputValueNum value => value,
-                  final ValueRendererInputValueBool value => value,
-                  final ValueRendererInputValueMap value => value,
-                  final ValueRendererInputValueDateTime value => value,
-                },
-              ),
-            ),
+          (e) => MapEntry(e.key, switch (e.value as ValueRendererInputValue) {
+            final ValueRendererInputValueString value => value,
+            final ValueRendererInputValueNum value => value,
+            final ValueRendererInputValueBool value => value,
+            final ValueRendererInputValueMap value => value,
+            final ValueRendererInputValueDateTime value => value,
+          }),
+        ),
       );
     }
     if (this is ValueRendererInputValueDateTime) {

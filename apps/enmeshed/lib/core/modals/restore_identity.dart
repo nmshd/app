@@ -14,10 +14,7 @@ Future<void> showRestoreIdentityModal({required LocalAccountDTO accountInDeletio
   await showModalBottomSheet<void>(
     context: context,
     showDragHandle: false,
-    builder: (context) => _RestoreIdentity(
-      accountInDeletion: accountInDeletion,
-      deletionDate: accountInDeletion.deletionDate!,
-    ),
+    builder: (context) => _RestoreIdentity(accountInDeletion: accountInDeletion, deletionDate: accountInDeletion.deletionDate!),
   );
 }
 
@@ -25,10 +22,7 @@ class _RestoreIdentity extends StatefulWidget {
   final LocalAccountDTO accountInDeletion;
   final String deletionDate;
 
-  const _RestoreIdentity({
-    required this.accountInDeletion,
-    required this.deletionDate,
-  });
+  const _RestoreIdentity({required this.accountInDeletion, required this.deletionDate});
 
   @override
   State<_RestoreIdentity> createState() => _RestoreIdentityState();

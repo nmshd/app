@@ -17,10 +17,11 @@ Future<Set<MailboxFilterOption>?> showSelectMailboxFiltersModal({
     context: context,
     isScrollControlled: true,
     elevation: 0,
-    builder: (context) => ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
-      child: _SelectMailboxFiltersModal(contacts: contacts, mailboxFilterController: mailboxFilterController),
-    ),
+    builder:
+        (context) => ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
+          child: _SelectMailboxFiltersModal(contacts: contacts, mailboxFilterController: mailboxFilterController),
+        ),
   );
 
   return options;
@@ -70,14 +71,7 @@ class _SelectMailboxFiltersModalState extends State<_SelectMailboxFiltersModal> 
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          trailing: IconButton(
-            onPressed: () => context.pop(),
-            icon: Icon(
-              Icons.close,
-              size: 22,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-          ),
+          trailing: IconButton(onPressed: () => context.pop(), icon: Icon(Icons.close, size: 22, color: Theme.of(context).colorScheme.onSurface)),
         ),
         Flexible(
           child: MediaQuery.removePadding(
@@ -156,10 +150,7 @@ class _SelectMailboxFiltersModalState extends State<_SelectMailboxFiltersModal> 
             ),
           ),
         ),
-        _ModalSheetFooter(
-          applyFilters: () => context.pop(selectedFilterOptions),
-          resetFilters: () => context.pop(<MailboxFilterOption>{}),
-        ),
+        _ModalSheetFooter(applyFilters: () => context.pop(selectedFilterOptions), resetFilters: () => context.pop(<MailboxFilterOption>{})),
       ],
     );
   }
@@ -169,10 +160,7 @@ class _ModalSheetFooter extends StatelessWidget {
   final VoidCallback applyFilters;
   final VoidCallback resetFilters;
 
-  const _ModalSheetFooter({
-    required this.applyFilters,
-    required this.resetFilters,
-  });
+  const _ModalSheetFooter({required this.applyFilters, required this.resetFilters});
 
   @override
   Widget build(BuildContext context) {
@@ -185,17 +173,9 @@ class _ModalSheetFooter extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              OutlinedButton(
-                onPressed: resetFilters,
-                child: Text(
-                  context.l10n.reset,
-                ),
-              ),
+              OutlinedButton(onPressed: resetFilters, child: Text(context.l10n.reset)),
               Gaps.w4,
-              FilledButton(
-                onPressed: applyFilters,
-                child: Text(context.l10n.apply_filter),
-              ),
+              FilledButton(onPressed: applyFilters, child: Text(context.l10n.apply_filter)),
               Gaps.w16,
             ],
           ),

@@ -60,34 +60,25 @@ class _SendMailScreenState extends State<SendMailScreen> {
   @override
   Widget build(BuildContext context) {
     if (_relationships == null) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(context.l10n.mailbox_new_message),
-        ),
-        body: const Center(child: CircularProgressIndicator()),
-      );
+      return Scaffold(appBar: AppBar(title: Text(context.l10n.mailbox_new_message)), body: const Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(context.l10n.mailbox_new_message),
-        actions: [
-          IconButton(icon: const Icon(Icons.send), onPressed: _canSendMail && !_sendingMail ? _sendMessage : null),
-        ],
+        actions: [IconButton(icon: const Icon(Icons.send), onPressed: _canSendMail && !_sendingMail ? _sendMessage : null)],
       ),
       body: SafeArea(
         child: PopScope(
-          canPop: (widget.contact != null || _recipient == null) &&
+          canPop:
+              (widget.contact != null || _recipient == null) &&
               _subjectController.text.isEmpty &&
               _messageController.text.isEmpty &&
               _attachments.isEmpty,
           onPopInvokedWithResult: (didPop, _) async {
             if (didPop) return;
 
-            await showDialog<void>(
-              context: context,
-              builder: (_) => QuitCreatingMessageDialog(accountId: widget.accountId),
-            );
+            await showDialog<void>(context: context, builder: (_) => QuitCreatingMessageDialog(accountId: widget.accountId));
           },
           child: Scrollbar(
             thumbVisibility: true,
@@ -110,9 +101,10 @@ class _SendMailScreenState extends State<SendMailScreen> {
                     maxLines: null,
                     decoration: InputDecoration.collapsed(
                       hintText: context.l10n.mailbox_subject,
-                      hintStyle: _subjectFocusNode.hasFocus
-                          ? Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary)
-                          : Theme.of(context).textTheme.bodyLarge,
+                      hintStyle:
+                          _subjectFocusNode.hasFocus
+                              ? Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary)
+                              : Theme.of(context).textTheme.bodyLarge,
                     ).copyWith(contentPadding: const EdgeInsets.all(16)),
                   ),
                   const Divider(height: 2),
@@ -132,9 +124,10 @@ class _SendMailScreenState extends State<SendMailScreen> {
                     textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration.collapsed(
                       hintText: context.l10n.mailbox_writeMessage,
-                      hintStyle: _messageFocusNode.hasFocus
-                          ? Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary)
-                          : Theme.of(context).textTheme.bodyLarge,
+                      hintStyle:
+                          _messageFocusNode.hasFocus
+                              ? Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary)
+                              : Theme.of(context).textTheme.bodyLarge,
                     ).copyWith(contentPadding: const EdgeInsets.all(16)),
                   ),
                 ],
@@ -238,10 +231,7 @@ class _SelectedAttachments extends StatelessWidget {
         attachments: attachments,
         accountId: accountId,
         removeFile: removeAttachment,
-        trailing: IconButton(
-          icon: const Icon(Icons.attach_file),
-          onPressed: () => _updateAttachments(context),
-        ),
+        trailing: IconButton(icon: const Icon(Icons.attach_file), onPressed: () => _updateAttachments(context)),
       ),
     );
   }

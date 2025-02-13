@@ -78,10 +78,7 @@ class _CreateProfileState extends State<CreateProfile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (widget.description != null) ...[
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                                child: Text(widget.description!),
-                              ),
+                              Padding(padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24), child: Text(widget.description!)),
                               Gaps.h20,
                             ],
                             Padding(
@@ -110,10 +107,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                 ),
                                 decoration: InputDecoration(
                                   labelText: '${context.l10n.profile_name}*',
-                                  suffixIcon: IconButton(
-                                    onPressed: _controller.clear,
-                                    icon: const Icon(Icons.cancel_outlined),
-                                  ),
+                                  suffixIcon: IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined)),
                                   border: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                                     borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
@@ -136,9 +130,7 @@ class _CreateProfileState extends State<CreateProfile> {
                       alignment: Alignment.centerRight,
                       child: FilledButton(
                         onPressed: _confirmEnabled ? _confirm : null,
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(100, 36),
-                        ),
+                        style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
                         child: Text(context.l10n.profile_create),
                       ),
                     ),

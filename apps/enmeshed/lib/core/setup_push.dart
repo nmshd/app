@@ -14,10 +14,9 @@ Future<void> setupPush(EnmeshedRuntime runtime) async {
   final logger = GetIt.I.get<Logger>();
 
   // this will timeout e.g. on the ios simulator
-  final existingToken = await Push.instance.token.timeout(const Duration(seconds: 5)).catchError(
-        (_) => 'timed out',
-        test: (e) => e is TimeoutException,
-      );
+  final existingToken = await Push.instance.token
+      .timeout(const Duration(seconds: 5))
+      .catchError((_) => 'timed out', test: (e) => e is TimeoutException);
   if (existingToken != null && existingToken != 'timed out') {
     logger.d('Push token already exists: $existingToken');
     await runtime.setPushToken(existingToken);
