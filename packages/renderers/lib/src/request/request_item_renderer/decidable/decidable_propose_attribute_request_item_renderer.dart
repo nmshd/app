@@ -60,10 +60,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
             valueHints: widget.item.attribute.valueHints,
             trailing: SizedBox(
               width: 50,
-              child: IconButton(
-                onPressed: () => onUpdateAttribute(widget.item.attribute.valueType),
-                icon: const Icon(Icons.chevron_right),
-              ),
+              child: IconButton(onPressed: () => onUpdateAttribute(widget.item.attribute.valueType), icon: const Icon(Icons.chevron_right)),
             ),
             expandFileReference: widget.expandFileReference,
             openFileDetails: widget.openFileDetails,
@@ -79,19 +76,17 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
     setState(() => isChecked = value);
 
     if (!isChecked) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
-      );
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
 
       return;
     }
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value: _choice.id != null
-          ? AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.id!)
-          : AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
+      value:
+          _choice.id != null
+              ? AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.id!)
+              : AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
     );
   }
 
@@ -136,11 +131,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return {
-      ...results.map((result) => (id: result.id, attribute: result.content)),
-      _getProposedChoice(),
-      _choice,
-    }.toList();
+    return {...results.map((result) => (id: result.id, attribute: result.content)), _getProposedChoice(), _choice}.toList();
   }
 
   ({String? id, AbstractAttribute attribute}) _getProposedChoice() {

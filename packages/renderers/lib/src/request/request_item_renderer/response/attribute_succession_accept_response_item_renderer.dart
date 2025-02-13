@@ -20,16 +20,16 @@ class AttributeSuccessionAcceptResponseItemRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (item.successor.value) {
       final IdentityAttributeValue value => IdentityAttributeValueRenderer(
-          value: value,
-          valueHints: item.successor.valueHints,
-          expandFileReference: expandFileReference,
-          openFileDetails: openFileDetails,
-        ),
+        value: value,
+        valueHints: item.successor.valueHints,
+        expandFileReference: expandFileReference,
+        openFileDetails: openFileDetails,
+      ),
       final RelationshipAttributeValue value => RelationshipAttributeValueRenderer(
-          value: value,
-          expandFileReference: expandFileReference,
-          openFileDetails: openFileDetails,
-        ),
+        value: value,
+        expandFileReference: expandFileReference,
+        openFileDetails: openFileDetails,
+      ),
       _ => throw Exception('Unknown AttributeValue: ${item.successor.valueType}'),
     };
   }

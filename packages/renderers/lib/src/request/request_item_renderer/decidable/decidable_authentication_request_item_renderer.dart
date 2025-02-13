@@ -12,12 +12,7 @@ class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
 
-  const DecidableAuthenticationRequestItemRenderer({
-    super.key,
-    required this.item,
-    this.controller,
-    required this.itemIndex,
-  });
+  const DecidableAuthenticationRequestItemRenderer({super.key, required this.item, this.controller, required this.itemIndex});
 
   @override
   State<DecidableAuthenticationRequestItemRenderer> createState() => _DecidableAuthenticationRequestItemRendererState();
@@ -42,12 +37,7 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
     return Row(
       children: [
         Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-        Expanded(
-          child: CustomListTile(
-            title: 'i18n://dvo.requestItem.DecidableAuthenticationRequestItem.name',
-            thirdLine: widget.item.name,
-          ),
-        ),
+        Expanded(child: CustomListTile(title: 'i18n://dvo.requestItem.DecidableAuthenticationRequestItem.name', thirdLine: widget.item.name)),
       ],
     );
   }
@@ -59,10 +49,6 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
       isChecked = value;
     });
 
-    handleCheckboxChange(
-      isChecked: isChecked,
-      controller: widget.controller,
-      itemIndex: widget.itemIndex,
-    );
+    handleCheckboxChange(isChecked: isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }
 }

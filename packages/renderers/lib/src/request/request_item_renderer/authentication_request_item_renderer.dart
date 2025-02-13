@@ -11,9 +11,6 @@ class AuthenticationRequestItemRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: ?!!
-    return CustomListTile(
-      title: 'i18n://dvo.requestItem.DecidableAuthenticationRequestItem.name',
-      thirdLine: item.name,
-    );
+    return CustomListTile(title: 'i18n://dvo.requestItem.DecidableAuthenticationRequestItem.name', thirdLine: item.name);
   }
 }

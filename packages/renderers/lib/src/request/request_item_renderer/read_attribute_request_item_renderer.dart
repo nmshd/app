@@ -10,9 +10,6 @@ class ReadAttributeRequestItemRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: ?!?!?!!??
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)),
-    );
+    return Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: TranslatedText(item.query.name, style: const TextStyle(fontSize: 16)));
   }
 }

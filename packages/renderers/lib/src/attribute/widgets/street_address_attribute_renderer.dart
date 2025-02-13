@@ -40,7 +40,7 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
                 children: [
                   TranslatedText(value.street, style: valueTextStyle),
                   const SizedBox(width: 4),
-                  TranslatedText(value.houseNumber, style: valueTextStyle)
+                  TranslatedText(value.houseNumber, style: valueTextStyle),
                 ],
               ),
               Row(
@@ -51,14 +51,11 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
                 ],
               ),
               TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
-              if (extraLine != null) ...[
-                const SizedBox(height: 2),
-                extraLine!,
-              ],
+              if (extraLine != null) ...[const SizedBox(height: 2), extraLine!],
             ],
           ),
         ),
-        if (trailing != null) trailing!
+        if (trailing != null) trailing!,
       ],
     );
   }
