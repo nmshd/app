@@ -36,21 +36,20 @@ class AppUIBridge extends UIBridge {
 
     final isBackupDevice = deviceOnboardingInfo.isBackupDevice ?? false;
 
-    if (isBackupDevice) {
-      final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.onboardAccount(
-            deviceOnboardingInfo,
-            name: deviceOnboardingInfo.profileName,
-          );
-
-      await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
-
-      await upsertRestoreFromIdentityRecoveryKitSetting(accountId: account.id, value: true);
-
-      router.go('/account/${account.id}');
+    if (!isBackupDevice) {
+      await router.push('/device-onboarding', extra: deviceOnboardingInfo);
       return;
     }
 
-    await router.push('/device-onboarding', extra: deviceOnboardingInfo);
+    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.onboardAccount(
+          deviceOnboardingInfo,
+          name: deviceOnboardingInfo.profileName,
+        );
+
+    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+    await upsertRestoreFromIdentityRecoveryKitSetting(accountId: account.id, value: true);
+
+    router.go('/account/${account.id}');
   }
 
   @override
