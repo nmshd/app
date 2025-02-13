@@ -67,19 +67,18 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    final title = widget.fieldName != null
-        ? TranslatedText(widget.fieldName!, style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant))
-        : null;
-    final subtitle = !initialLoadComplete
-        ? const LinearProgressIndicator()
-        : selectedFile != null
+    final title =
+        widget.fieldName != null
+            ? TranslatedText(widget.fieldName!, style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant))
+            : null;
+    final subtitle =
+        !initialLoadComplete
+            ? const LinearProgressIndicator()
+            : selectedFile != null
             ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(selectedFile!.title, style: widget.valueTextStyle),
-                  Text(selectedFile!.filename, style: widget.valueTextStyle),
-                ],
-              )
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [Text(selectedFile!.title, style: widget.valueTextStyle), Text(selectedFile!.filename, style: widget.valueTextStyle)],
+            )
             : TranslatedText('i18n://valueRenderer.fileReference.noFileSelected', style: widget.valueTextStyle);
 
     return ListTile(
@@ -89,10 +88,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          IconButton(
-            onPressed: selectedFile != null ? () => widget.openFileDetails(selectedFile!) : null,
-            icon: const Icon(Icons.info),
-          ),
+          IconButton(onPressed: selectedFile != null ? () => widget.openFileDetails(selectedFile!) : null, icon: const Icon(Icons.info)),
           TextButton(
             child: const TranslatedText('i18n://valueRenderer.fileReference.selectFile'),
             onPressed: () async {
