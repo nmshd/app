@@ -786,7 +786,9 @@
   "passwordProtection_referenceIsPinProtected": "Dieser QR-Code oder Link ist mit einer {count, select, 4{vierstelligen} 5{fünfstelligen} 6{sechsstelligen} other{komplexen}} PIN gesichert. Geben Sie die PIN ein, um fortzufahren.",
   "@passwordProtection_referenceIsPinProtected": {
     "placeholders": {
-      "count": {}
+      "count": {
+        "type": "String"
+      }
     }
   },
   "passwordProtection_incorrectPassword": "Sie haben ein falsches Passwort eingegeben. Versuchen Sie es erneut.",

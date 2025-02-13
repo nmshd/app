@@ -17,10 +17,7 @@ Future<void> upsertRestoreFromIdentityRecoveryKitSetting({required String accoun
 
 Future<void> upsertCompleteProfileContainerSetting({required String accountId, required bool value}) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
-  await session.consumptionServices.settings.upsertSettingByKey(
-    'home.completeProfileContainerShown',
-    {'isShown': value},
-  );
+  await session.consumptionServices.settings.upsertSettingByKey('home.completeProfileContainerShown', {'isShown': value});
 }
 
 Future<bool> getSetting({required String accountId, required String key, required String valueKey}) async {
@@ -42,11 +39,7 @@ Future<bool> getSetting({required String accountId, required String key, require
   return value;
 }
 
-Future<void> goToInstructionsOrScanScreen({
-  required String accountId,
-  required ScannerType instructionsType,
-  required BuildContext context,
-}) async {
+Future<void> goToInstructionsOrScanScreen({required String accountId, required ScannerType instructionsType, required BuildContext context}) async {
   final showHints = await getSetting(accountId: accountId, key: 'hints.$instructionsType', valueKey: 'showHints');
 
   if (!context.mounted) return;
@@ -54,11 +47,9 @@ Future<void> goToInstructionsOrScanScreen({
   if (showHints) {
     await context.push('/account/$accountId/instructions/$instructionsType');
   } else {
-    await context.push(
-      switch (instructionsType) {
-        ScannerType.addContact => '/account/$accountId/scan',
-        ScannerType.loadProfile => '/scan',
-      },
-    );
+    await context.push(switch (instructionsType) {
+      ScannerType.addContact => '/account/$accountId/scan',
+      ScannerType.loadProfile => '/scan',
+    });
   }
 }

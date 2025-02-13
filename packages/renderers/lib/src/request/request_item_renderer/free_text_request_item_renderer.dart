@@ -10,10 +10,6 @@ class FreeTextRequestItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(
-      title: item.name,
-      description: item.description,
-      thirdLine: item.freeText,
-    );
+    return CustomListTile(title: item.name, description: item.description, thirdLine: item.freeText);
   }
 }

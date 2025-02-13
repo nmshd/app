@@ -49,16 +49,18 @@ void main() {
       };
       expect(
         MessageDTO.fromJson(json),
-        equals(const MessageDTO(
-          id: 'anId',
-          isOwn: true,
-          content: Mail(to: ['anAddress'], subject: 'aSubject', body: 'aBody'),
-          createdBy: 'aCreatorAddress',
-          createdByDevice: 'aCreatorDeviceId',
-          recipients: [RecipientDTO(address: 'anAddress', receivedAt: null, receivedByDevice: null, relationshipId: 'aRelationshipId')],
-          createdAt: '2023',
-          attachments: ['attachment1', 'attachment2'],
-        )),
+        equals(
+          const MessageDTO(
+            id: 'anId',
+            isOwn: true,
+            content: Mail(to: ['anAddress'], subject: 'aSubject', body: 'aBody'),
+            createdBy: 'aCreatorAddress',
+            createdByDevice: 'aCreatorDeviceId',
+            recipients: [RecipientDTO(address: 'anAddress', receivedAt: null, receivedByDevice: null, relationshipId: 'aRelationshipId')],
+            createdAt: '2023',
+            attachments: ['attachment1', 'attachment2'],
+          ),
+        ),
       );
     });
   });

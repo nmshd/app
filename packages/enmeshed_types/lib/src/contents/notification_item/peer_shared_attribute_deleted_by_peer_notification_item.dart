@@ -4,17 +4,15 @@ part of 'notification_item.dart';
 class PeerSharedAttributeDeletedByPeerNotificationItem extends NotificationItem {
   final String attributeId;
 
-  const PeerSharedAttributeDeletedByPeerNotificationItem({
-    required this.attributeId,
-  });
+  const PeerSharedAttributeDeletedByPeerNotificationItem({required this.attributeId});
 
   factory PeerSharedAttributeDeletedByPeerNotificationItem.fromJson(Map json) =>
       _$PeerSharedAttributeDeletedByPeerNotificationItemFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => {
-        ..._$PeerSharedAttributeDeletedByPeerNotificationItemToJson(this),
-        '@type': 'PeerSharedAttributeDeletedByPeerNotificationItem',
-      };
+    ..._$PeerSharedAttributeDeletedByPeerNotificationItemToJson(this),
+    '@type': 'PeerSharedAttributeDeletedByPeerNotificationItem',
+  };
 
   @override
   List<Object?> get props => [attributeId];

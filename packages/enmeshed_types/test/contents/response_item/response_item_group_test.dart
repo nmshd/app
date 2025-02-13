@@ -4,9 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('ResponseItemGroup toJson', () {
     test('is correctly converted', () {
-      const responseItemGroup = ResponseItemGroup(
-        items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-      );
+      const responseItemGroup = ResponseItemGroup(items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')]);
       final responseItemGroupJson = responseItemGroup.toJson();
       expect(
         responseItemGroupJson,
@@ -25,9 +23,7 @@ void main() {
       };
       expect(
         ResponseItemGroup.fromJson(json),
-        equals(const ResponseItemGroup(
-          items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-        )),
+        equals(const ResponseItemGroup(items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')])),
       );
     });
   });

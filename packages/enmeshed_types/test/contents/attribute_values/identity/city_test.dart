@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = CityAttributeValue(value: 'aCity');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'City',
-          'value': 'aCity',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'City', 'value': 'aCity'}));
     });
   });
 

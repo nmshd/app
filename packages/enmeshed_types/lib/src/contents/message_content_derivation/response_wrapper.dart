@@ -8,12 +8,7 @@ class ResponseWrapper extends MessageContentDerivation {
   final RequestSourceType requestSourceType;
   final Response response;
 
-  const ResponseWrapper({
-    required this.requestId,
-    required this.requestSourceReference,
-    required this.requestSourceType,
-    required this.response,
-  });
+  const ResponseWrapper({required this.requestId, required this.requestSourceReference, required this.requestSourceType, required this.response});
 
   factory ResponseWrapper.fromJson(Map json) {
     return ResponseWrapper(

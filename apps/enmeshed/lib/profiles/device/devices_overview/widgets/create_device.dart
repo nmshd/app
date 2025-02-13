@@ -11,12 +11,7 @@ class CreateDevice extends StatefulWidget {
   final VoidCallback setLoading;
   final void Function(DeviceDTO device, TokenDTO token) setDeviceAndToken;
 
-  const CreateDevice({
-    required this.accountId,
-    required this.setLoading,
-    required this.setDeviceAndToken,
-    super.key,
-  });
+  const CreateDevice({required this.accountId, required this.setLoading, required this.setDeviceAndToken, super.key});
 
   @override
   State<CreateDevice> createState() => _CreateDeviceState();
@@ -100,10 +95,7 @@ class _CreateDeviceState extends State<CreateDevice> {
             padding: const EdgeInsets.all(8),
             child: Align(
               alignment: Alignment.centerRight,
-              child: FilledButton(
-                onPressed: _confirmEnabled ? _save : null,
-                child: Text(context.l10n.next),
-              ),
+              child: FilledButton(onPressed: _confirmEnabled ? _save : null, child: Text(context.l10n.next)),
             ),
           ),
         ],

@@ -9,11 +9,7 @@ abstract class AbstractAttribute extends Equatable {
   final String? validFrom;
   final String? validTo;
 
-  const AbstractAttribute({
-    required this.owner,
-    this.validFrom,
-    this.validTo,
-  });
+  const AbstractAttribute({required this.owner, this.validFrom, this.validTo});
 
   factory AbstractAttribute.fromJson(Map json) {
     final type = json['@type'];
@@ -30,11 +26,7 @@ abstract class AbstractAttribute extends Equatable {
   }
 
   @mustCallSuper
-  Map<String, dynamic> toJson() => {
-        'owner': owner,
-        if (validFrom != null) 'validFrom': validFrom,
-        if (validTo != null) 'validTo': validTo,
-      };
+  Map<String, dynamic> toJson() => {'owner': owner, if (validFrom != null) 'validFrom': validFrom, if (validTo != null) 'validTo': validTo};
 
   @mustCallSuper
   @override

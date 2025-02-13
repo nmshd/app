@@ -217,10 +217,7 @@ class DataViewExpander {
   }
 
   Future<IQLQueryDVO> expandIQLQuery(IQLQuery query) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandIQLQuery(query)',
-      arguments: {'query': query.toJson()},
-    );
+    final result = await _evaluator.evaluateJavaScript('return await session.expander.expandIQLQuery(query)', arguments: {'query': query.toJson()});
 
     final value = result.valueToMap();
     return IQLQueryDVO.fromJson(value);
@@ -289,29 +286,21 @@ class DataViewExpander {
   }
 
   Future<IdentityDVO> expandSelf() async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandSelf()',
-    );
+    final result = await _evaluator.evaluateJavaScript('return await session.expander.expandSelf()');
 
     final value = result.valueToMap();
     return IdentityDVO.fromJson(value);
   }
 
   Future<IdentityDVO> expandUnknown(String address) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandUnknown(address)',
-      arguments: {'address': address},
-    );
+    final result = await _evaluator.evaluateJavaScript('return await session.expander.expandUnknown(address)', arguments: {'address': address});
 
     final value = result.valueToMap();
     return IdentityDVO.fromJson(value);
   }
 
   Future<IdentityDVO> expandAddress(String address) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandAddress(address)',
-      arguments: {'address': address},
-    );
+    final result = await _evaluator.evaluateJavaScript('return await session.expander.expandAddress(address)', arguments: {'address': address});
 
     final value = result.valueToMap();
     return IdentityDVO.fromJson(value);
@@ -378,30 +367,21 @@ class DataViewExpander {
   }
 
   Future<FileDVO> expandFileId(String id) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandFileId(id)',
-      arguments: {'id': id},
-    );
+    final result = await _evaluator.evaluateJavaScript('return await session.expander.expandFileId(id)', arguments: {'id': id});
 
     final value = result.valueToMap();
     return FileDVO.fromJson(value);
   }
 
   Future<List<FileDVO>> expandFileIds(List<String> ids) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandFileIds(ids)',
-      arguments: {'ids': ids},
-    );
+    final result = await _evaluator.evaluateJavaScript('return await session.expander.expandFileIds(ids)', arguments: {'ids': ids});
 
     final value = result.valueToList();
     return value.map((e) => FileDVO.fromJson(e)).toList();
   }
 
   Future<FileDVO> expandFileDTO(FileDTO file) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await session.expander.expandFileDTO(file)',
-      arguments: {'file': file.toJson()},
-    );
+    final result = await _evaluator.evaluateJavaScript('return await session.expander.expandFileDTO(file)', arguments: {'file': file.toJson()});
 
     final value = result.valueToMap();
     return FileDVO.fromJson(value);

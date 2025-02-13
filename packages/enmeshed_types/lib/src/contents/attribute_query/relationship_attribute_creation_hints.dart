@@ -20,11 +20,5 @@ class RelationshipAttributeCreationHints extends Equatable {
   Map<String, dynamic> toJson() => {'@type': 'RelationshipAttributeCreationHints', ..._$RelationshipAttributeCreationHintsToJson(this)};
 
   @override
-  List<Object?> get props => [
-        title,
-        valueType,
-        description,
-        valueHints,
-        confidentiality,
-      ];
+  List<Object?> get props => [title, valueType, description, valueHints, confidentiality];
 }

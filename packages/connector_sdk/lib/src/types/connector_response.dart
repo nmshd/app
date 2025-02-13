@@ -27,10 +27,7 @@ class ConnectorResponse<T> {
   }
 
   factory ConnectorResponse.fromError(ConnectorError error) {
-    return ConnectorResponse._(
-      null,
-      error,
-    );
+    return ConnectorResponse._(null, error);
   }
 
   bool get hasError => _error != null;

@@ -5,10 +5,10 @@ import 'package:path_provider/path_provider.dart';
 
 class FilesystemAdapter {
   Future<Directory> getDirectoryForStorage(String storageName) async => switch (storageName) {
-        'data' || 'app' => await getApplicationDocumentsDirectory(),
-        'temp' => await getTemporaryDirectory(),
-        _ => throw Exception('Unknown storage name: $storageName'),
-      };
+    'data' || 'app' => await getApplicationDocumentsDirectory(),
+    'temp' => await getTemporaryDirectory(),
+    _ => throw Exception('Unknown storage name: $storageName'),
+  };
 
   Future<String> readFile(String path, String storageName) async {
     final directory = await getDirectoryForStorage(storageName);
@@ -26,19 +26,11 @@ class FilesystemAdapter {
     return content;
   }
 
-  Future<void> writeFile(
-    String path,
-    String storageName,
-    String content, [
-    bool append = false,
-  ]) async {
+  Future<void> writeFile(String path, String storageName, String content, [bool append = false]) async {
     final directory = await getDirectoryForStorage(storageName);
 
     final file = await File('${directory.path}/$path').create(recursive: true);
-    await file.writeAsString(
-      content,
-      mode: append ? FileMode.append : FileMode.write,
-    );
+    await file.writeAsString(content, mode: append ? FileMode.append : FileMode.write);
   }
 
   Future<void> deleteFile(String path, String storageName) async {

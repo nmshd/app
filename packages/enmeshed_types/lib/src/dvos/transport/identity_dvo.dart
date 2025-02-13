@@ -37,19 +37,5 @@ class IdentityDVO extends DataViewObject with EquatableMixin {
   Map<String, dynamic> toJson() => _$IdentityDVOToJson(this);
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-        description,
-        image,
-        type,
-        date,
-        error,
-        warning,
-        publicKey,
-        initials,
-        isSelf,
-        hasRelationship,
-        relationship,
-      ];
+  List<Object?> get props => [id, name, description, image, type, date, error, warning, publicKey, initials, isSelf, hasRelationship, relationship];
 }

@@ -71,9 +71,10 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
                 ),
                 Container(
                   color: bottomColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16).add(
-                    EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom),
-                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ).add(EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom)),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -86,10 +87,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
                       Row(
                         children: [
                           const Expanded(child: Divider(thickness: 1)),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Text(context.l10n.or),
-                          ),
+                          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Text(context.l10n.or)),
                           const Expanded(child: Divider(thickness: 1)),
                         ],
                       ),
@@ -125,17 +123,18 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
   void _onboardingPressed(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => ScannerView(
-          onSubmit: _onSubmit,
-          lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
-          scanQrOrEnterUrlText: context.l10n.scanner_scanQrOrEnterUrl,
-          enterUrlText: context.l10n.scanner_enterUrl,
-          urlTitle: context.l10n.onboarding_connectWithUrl_title,
-          urlDescription: context.l10n.onboarding_connectWithUrl_description,
-          urlLabelText: context.l10n.scanner_enterUrl,
-          urlValidationErrorText: context.l10n.scanner_urlValidationError,
-          urlButtonText: context.l10n.onboarding_linkAccount,
-        ),
+        builder:
+            (_) => ScannerView(
+              onSubmit: _onSubmit,
+              lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
+              scanQrOrEnterUrlText: context.l10n.scanner_scanQrOrEnterUrl,
+              enterUrlText: context.l10n.scanner_enterUrl,
+              urlTitle: context.l10n.onboarding_connectWithUrl_title,
+              urlDescription: context.l10n.onboarding_connectWithUrl_description,
+              urlLabelText: context.l10n.scanner_enterUrl,
+              urlValidationErrorText: context.l10n.scanner_urlValidationError,
+              urlButtonText: context.l10n.onboarding_linkAccount,
+            ),
       ),
     );
   }
@@ -171,43 +170,45 @@ class _BackgroundPainter extends CustomPainter {
   final Color rightTriangleColor;
   final Color bottomColor;
 
-  _BackgroundPainter({
-    required this.leftTriangleColor,
-    required this.rightTriangleColor,
-    required this.bottomColor,
-  });
+  _BackgroundPainter({required this.leftTriangleColor, required this.rightTriangleColor, required this.bottomColor});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rightPaint = Paint()
-      ..color = rightTriangleColor
-      ..style = PaintingStyle.fill;
+    final rightPaint =
+        Paint()
+          ..color = rightTriangleColor
+          ..style = PaintingStyle.fill;
 
-    final leftPaint = Paint()
-      ..color = leftTriangleColor
-      ..style = PaintingStyle.fill;
+    final leftPaint =
+        Paint()
+          ..color = leftTriangleColor
+          ..style = PaintingStyle.fill;
 
-    final bottomPaint = Paint()
-      ..color = bottomColor
-      ..style = PaintingStyle.fill;
+    final bottomPaint =
+        Paint()
+          ..color = bottomColor
+          ..style = PaintingStyle.fill;
 
-    final leftPath = Path()
-      ..moveTo(0, 0)
-      ..lineTo(size.width / 2, size.height / 2)
-      ..lineTo(0, size.height)
-      ..close();
+    final leftPath =
+        Path()
+          ..moveTo(0, 0)
+          ..lineTo(size.width / 2, size.height / 2)
+          ..lineTo(0, size.height)
+          ..close();
 
-    final bottomPath = Path()
-      ..moveTo(0, size.height)
-      ..lineTo(size.width / 2, size.height / 2)
-      ..lineTo(size.width, size.height)
-      ..close();
+    final bottomPath =
+        Path()
+          ..moveTo(0, size.height)
+          ..lineTo(size.width / 2, size.height / 2)
+          ..lineTo(size.width, size.height)
+          ..close();
 
-    final rightPath = Path()
-      ..moveTo(size.width, 0)
-      ..lineTo(size.width / 2, size.height / 2)
-      ..lineTo(size.width, size.height)
-      ..close();
+    final rightPath =
+        Path()
+          ..moveTo(size.width, 0)
+          ..lineTo(size.width / 2, size.height / 2)
+          ..lineTo(size.width, size.height)
+          ..close();
 
     canvas
       ..drawPath(leftPath, leftPaint)

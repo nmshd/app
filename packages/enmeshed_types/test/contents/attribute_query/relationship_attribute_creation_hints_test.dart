@@ -86,54 +86,40 @@ void main() {
 
   group('RelationshipAttributeCreationHints fromJson', () {
     test('is correctly converted', () {
-      final json = {
-        'title': 'aCreationHint',
-        'valueType': 'ProprietaryInteger',
-        'confidentiality': 'public',
-      };
+      final json = {'title': 'aCreationHint', 'valueType': 'ProprietaryInteger', 'confidentiality': 'public'};
       expect(
         RelationshipAttributeCreationHints.fromJson(json),
-        equals(const RelationshipAttributeCreationHints(
-          title: 'aCreationHint',
-          valueType: 'ProprietaryInteger',
-          confidentiality: 'public',
-        )),
+        equals(const RelationshipAttributeCreationHints(title: 'aCreationHint', valueType: 'ProprietaryInteger', confidentiality: 'public')),
       );
     });
 
     test('is correctly converted with property "description"', () {
-      final json = {
-        'title': 'aCreationHint',
-        'valueType': 'ProprietaryInteger',
-        'confidentiality': 'public',
-        'description': 'aCreationHint',
-      };
+      final json = {'title': 'aCreationHint', 'valueType': 'ProprietaryInteger', 'confidentiality': 'public', 'description': 'aCreationHint'};
       expect(
         RelationshipAttributeCreationHints.fromJson(json),
-        equals(const RelationshipAttributeCreationHints(
-          title: 'aCreationHint',
-          valueType: 'ProprietaryInteger',
-          confidentiality: 'public',
-          description: 'aCreationHint',
-        )),
+        equals(
+          const RelationshipAttributeCreationHints(
+            title: 'aCreationHint',
+            valueType: 'ProprietaryInteger',
+            confidentiality: 'public',
+            description: 'aCreationHint',
+          ),
+        ),
       );
     });
 
     test('is correctly converted with property "valueHints"', () {
-      final json = {
-        'title': 'aCreationHint',
-        'valueType': 'ProprietaryInteger',
-        'confidentiality': 'public',
-        'valueHints': null,
-      };
+      final json = {'title': 'aCreationHint', 'valueType': 'ProprietaryInteger', 'confidentiality': 'public', 'valueHints': null};
       expect(
         RelationshipAttributeCreationHints.fromJson(json),
-        equals(const RelationshipAttributeCreationHints(
-          title: 'aCreationHint',
-          valueType: 'ProprietaryInteger',
-          confidentiality: 'public',
-          valueHints: null,
-        )),
+        equals(
+          const RelationshipAttributeCreationHints(
+            title: 'aCreationHint',
+            valueType: 'ProprietaryInteger',
+            confidentiality: 'public',
+            valueHints: null,
+          ),
+        ),
       );
     });
 
@@ -147,13 +133,15 @@ void main() {
       };
       expect(
         RelationshipAttributeCreationHints.fromJson(json),
-        equals(const RelationshipAttributeCreationHints(
-          title: 'aCreationHint',
-          valueType: 'ProprietaryInteger',
-          confidentiality: 'public',
-          description: 'aDescription',
-          valueHints: null,
-        )),
+        equals(
+          const RelationshipAttributeCreationHints(
+            title: 'aCreationHint',
+            valueType: 'ProprietaryInteger',
+            confidentiality: 'public',
+            description: 'aDescription',
+            valueHints: null,
+          ),
+        ),
       );
     });
   });

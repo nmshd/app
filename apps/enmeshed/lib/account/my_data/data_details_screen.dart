@@ -41,20 +41,17 @@ class _DataDetailsScreenState extends State<DataDetailsScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            _CreateAttribute(
-              accountId: widget.accountId,
-              valueType: widget.valueType,
-              onAttributeCreated: () => _loadAttributes(syncBefore: true),
-            ),
+            _CreateAttribute(accountId: widget.accountId, valueType: widget.valueType, onAttributeCreated: () => _loadAttributes(syncBefore: true)),
             Expanded(
               child: ListView.separated(
                 itemCount: _attributes!.length,
-                itemBuilder: (context, index) => _AttributeItem(
-                  attribute: _attributes![index],
-                  sameTypeAttributes: _attributes!,
-                  accountId: widget.accountId,
-                  reload: () => _loadAttributes(syncBefore: true),
-                ),
+                itemBuilder:
+                    (context, index) => _AttributeItem(
+                      attribute: _attributes![index],
+                      sameTypeAttributes: _attributes!,
+                      accountId: widget.accountId,
+                      reload: () => _loadAttributes(syncBefore: true),
+                    ),
                 separatorBuilder: (context, index) => const Divider(indent: 16),
               ),
             ),
@@ -116,10 +113,7 @@ class _CreateAttribute extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(context.l10n.personalData_details_manageEntries),
-          ),
+          Padding(padding: const EdgeInsets.symmetric(vertical: 16), child: Text(context.l10n.personalData_details_manageEntries)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -127,13 +121,14 @@ class _CreateAttribute extends StatelessWidget {
               TextButton.icon(
                 icon: const Icon(Icons.add, size: 16),
                 label: Text(context.l10n.contactDetail_addEntry),
-                onPressed: () => showCreateAttributeModal(
-                  initialValueType: valueType,
-                  context: context,
-                  accountId: accountId,
-                  onAttributeCreated: onAttributeCreated,
-                  onCreateAttributePressed: null,
-                ),
+                onPressed:
+                    () => showCreateAttributeModal(
+                      initialValueType: valueType,
+                      context: context,
+                      accountId: accountId,
+                      onAttributeCreated: onAttributeCreated,
+                      onCreateAttributePressed: null,
+                    ),
               ),
             ],
           ),
@@ -171,10 +166,11 @@ class _AttributeItemState extends State<_AttributeItem> {
               attribute: widget.attribute,
               showTitle: false,
               expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-              openFileDetails: (file) => context.push(
-                '/account/${widget.accountId}/my-data/files/${file.id}',
-                extra: createFileRecord(file: file, fileReferenceAttribute: widget.attribute),
-              ),
+              openFileDetails:
+                  (file) => context.push(
+                    '/account/${widget.accountId}/my-data/files/${file.id}',
+                    extra: createFileRecord(file: file, fileReferenceAttribute: widget.attribute),
+                  ),
             ),
             Row(
               children: [
@@ -189,16 +185,17 @@ class _AttributeItemState extends State<_AttributeItem> {
                 Gaps.w24,
                 IconButton(
                   icon: const Icon(Icons.mode_edit_outline_outlined),
-                  onPressed: () => showSucceedAttributeModal(
-                    context: context,
-                    accountId: widget.accountId,
-                    attribute: widget.attribute,
-                    sameTypeAttributes: widget.sameTypeAttributes,
-                    onAttributeSucceeded: () {
-                      widget.reload();
-                      showSuccessSnackbar(context: context, text: context.l10n.personalData_details_attributeSuccessfullySucceeded);
-                    },
-                  ),
+                  onPressed:
+                      () => showSucceedAttributeModal(
+                        context: context,
+                        accountId: widget.accountId,
+                        attribute: widget.attribute,
+                        sameTypeAttributes: widget.sameTypeAttributes,
+                        onAttributeSucceeded: () {
+                          widget.reload();
+                          showSuccessSnackbar(context: context, text: context.l10n.personalData_details_attributeSuccessfullySucceeded);
+                        },
+                      ),
                 ),
                 Gaps.w24,
                 IconButton(
@@ -208,15 +205,16 @@ class _AttributeItemState extends State<_AttributeItem> {
                 Gaps.w24,
                 IconButton(
                   icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
-                  onPressed: () => showDeleteAttributeModal(
-                    context: context,
-                    accountId: widget.accountId,
-                    attribute: widget.attribute,
-                    onAttributeDeleted: () {
-                      widget.reload();
-                      showSuccessSnackbar(context: context, text: context.l10n.personalData_details_attributeSuccessfullyDeleted);
-                    },
-                  ),
+                  onPressed:
+                      () => showDeleteAttributeModal(
+                        context: context,
+                        accountId: widget.accountId,
+                        attribute: widget.attribute,
+                        onAttributeDeleted: () {
+                          widget.reload();
+                          showSuccessSnackbar(context: context, text: context.l10n.personalData_details_attributeSuccessfullyDeleted);
+                        },
+                      ),
                 ),
               ],
             ),

@@ -36,23 +36,14 @@ class DeleteProfileOrIdentity extends StatelessWidget {
                 decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
                 child: Column(
                   children: [
-                    Align(
-                      child: AutoLoadingProfilePicture(
-                        accountId: accountId,
-                        profileName: profileName,
-                        decorative: true,
-                        radius: 60,
-                      ),
-                    ),
+                    Align(child: AutoLoadingProfilePicture(accountId: accountId, profileName: profileName, decorative: true, radius: 60)),
                     Gaps.h16,
                     Text(profileName, style: Theme.of(context).textTheme.titleLarge),
                   ],
                 ),
               ),
               Gaps.h32,
-              Text(
-                otherActiveDevices.isNotEmpty ? context.l10n.profile_or_identity_deletion : context.l10n.profile_or_identity_deletion_oneDevice,
-              ),
+              Text(otherActiveDevices.isNotEmpty ? context.l10n.profile_or_identity_deletion : context.l10n.profile_or_identity_deletion_oneDevice),
               Gaps.h32,
               OutlinedButton(
                 style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 40)),

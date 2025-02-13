@@ -20,9 +20,9 @@ sealed class ResponseItemDVO extends DataViewObject {
   });
 
   factory ResponseItemDVO.fromJson(Map json) => switch (json['type']) {
-        'ResponseItemGroupDVO' => ResponseItemGroupDVO.fromJson(json),
-        _ => ResponseItemDVODerivation.fromJson(json),
-      };
+    'ResponseItemGroupDVO' => ResponseItemGroupDVO.fromJson(json),
+    _ => ResponseItemDVODerivation.fromJson(json),
+  };
   Map<String, dynamic> toJson();
 }
 
@@ -30,9 +30,7 @@ sealed class ResponseItemDVO extends DataViewObject {
 class ResponseItemGroupDVO extends ResponseItemDVO {
   final List<ResponseItemDVODerivation> items;
 
-  const ResponseItemGroupDVO({
-    required this.items,
-  }) : super(id: 'n/a', name: 'n/a', type: 'ResponseItemGroupDVO');
+  const ResponseItemGroupDVO({required this.items}) : super(id: 'n/a', name: 'n/a', type: 'ResponseItemGroupDVO');
 
   factory ResponseItemGroupDVO.fromJson(Map json) => _$ResponseItemGroupDVOFromJson(Map<String, dynamic>.from(json));
   @override
@@ -55,10 +53,10 @@ sealed class ResponseItemDVODerivation extends ResponseItemDVO {
   });
 
   factory ResponseItemDVODerivation.fromJson(Map json) => switch (json['type']) {
-        'RejectResponseItemDVO' => RejectResponseItemDVO.fromJson(json),
-        'ErrorResponseItemDVO' => ErrorResponseItemDVO.fromJson(json),
-        _ => AcceptResponseItemDVO.fromJson(json),
-      };
+    'RejectResponseItemDVO' => RejectResponseItemDVO.fromJson(json),
+    'ErrorResponseItemDVO' => ErrorResponseItemDVO.fromJson(json),
+    _ => AcceptResponseItemDVO.fromJson(json),
+  };
 
   @override
   Map<String, dynamic> toJson();
@@ -124,18 +122,18 @@ class AcceptResponseItemDVO extends ResponseItemDVODerivation {
   }) : super(result: ResponseItemResult.Accepted);
 
   factory AcceptResponseItemDVO.fromJson(Map json) => switch (json['type']) {
-        'AcceptResponseItemDVO' => _$AcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json)),
-        'ReadAttributeAcceptResponseItemDVO' => ReadAttributeAcceptResponseItemDVO.fromJson(json),
-        'ProposeAttributeAcceptResponseItemDVO' => ProposeAttributeAcceptResponseItemDVO.fromJson(json),
-        'CreateAttributeAcceptResponseItemDVO' => CreateAttributeAcceptResponseItemDVO.fromJson(json),
-        'DeleteAttributeAcceptResponseItemDVO' => DeleteAttributeAcceptResponseItemDVO.fromJson(json),
-        'ShareAttributeAcceptResponseItemDVO' => ShareAttributeAcceptResponseItemDVO.fromJson(json),
-        'FreeTextAcceptResponseItemDVO' => FreeTextAcceptResponseItemDVO.fromJson(json),
-        'RegisterAttributeListenerAcceptResponseItemDVO' => RegisterAttributeListenerAcceptResponseItemDVO.fromJson(json),
-        'AttributeSuccessionAcceptResponseItemDVO' => AttributeSuccessionAcceptResponseItemDVO.fromJson(json),
-        'AttributeAlreadySharedAcceptResponseItemDVO' => AttributeAlreadySharedAcceptResponseItemDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
-      };
+    'AcceptResponseItemDVO' => _$AcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json)),
+    'ReadAttributeAcceptResponseItemDVO' => ReadAttributeAcceptResponseItemDVO.fromJson(json),
+    'ProposeAttributeAcceptResponseItemDVO' => ProposeAttributeAcceptResponseItemDVO.fromJson(json),
+    'CreateAttributeAcceptResponseItemDVO' => CreateAttributeAcceptResponseItemDVO.fromJson(json),
+    'DeleteAttributeAcceptResponseItemDVO' => DeleteAttributeAcceptResponseItemDVO.fromJson(json),
+    'ShareAttributeAcceptResponseItemDVO' => ShareAttributeAcceptResponseItemDVO.fromJson(json),
+    'FreeTextAcceptResponseItemDVO' => FreeTextAcceptResponseItemDVO.fromJson(json),
+    'RegisterAttributeListenerAcceptResponseItemDVO' => RegisterAttributeListenerAcceptResponseItemDVO.fromJson(json),
+    'AttributeSuccessionAcceptResponseItemDVO' => AttributeSuccessionAcceptResponseItemDVO.fromJson(json),
+    'AttributeAlreadySharedAcceptResponseItemDVO' => AttributeAlreadySharedAcceptResponseItemDVO.fromJson(json),
+    _ => throw Exception("Invalid type '${json['type']}'"),
+  };
   @override
   Map<String, dynamic> toJson() => _$AcceptResponseItemDVOToJson(this);
 }

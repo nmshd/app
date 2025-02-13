@@ -10,7 +10,7 @@ void main() {
         relationshipTemplateContentJson,
         equals({
           '@type': 'ArbitraryRelationshipTemplateContent',
-          'value': {'key': 'value'}
+          'value': {'key': 'value'},
         }),
       );
     });
@@ -20,12 +20,9 @@ void main() {
     test('is correctly converted', () {
       final json = {
         '@type': 'ArbitraryRelationshipTemplateContent',
-        'value': {'key': 'value'}
+        'value': {'key': 'value'},
       };
-      expect(
-        ArbitraryRelationshipTemplateContent.fromJson(json),
-        equals(ArbitraryRelationshipTemplateContent(const {'key': 'value'})),
-      );
+      expect(ArbitraryRelationshipTemplateContent.fromJson(json), equals(ArbitraryRelationshipTemplateContent(const {'key': 'value'})));
     });
   });
 }

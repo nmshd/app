@@ -3,12 +3,7 @@ part of 'request_item.dart';
 class RequestItemGroup extends RequestItem {
   final List<RequestItemDerivation> items;
 
-  const RequestItemGroup({
-    super.title,
-    super.description,
-    super.metadata,
-    required this.items,
-  });
+  const RequestItemGroup({super.title, super.description, super.metadata, required this.items});
 
   factory RequestItemGroup.fromJson(Map json) {
     return RequestItemGroup(
@@ -20,11 +15,7 @@ class RequestItemGroup extends RequestItem {
   }
 
   @override
-  Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-        '@type': 'RequestItemGroup',
-        'items': items.map((e) => e.toJson()).toList(),
-      };
+  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'RequestItemGroup', 'items': items.map((e) => e.toJson()).toList()};
 
   @override
   List<Object?> get props => [super.props, items];

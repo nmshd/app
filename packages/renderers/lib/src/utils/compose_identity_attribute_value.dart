@@ -36,17 +36,14 @@ IdentityAttribute? composeIdentityAttributeValue({
         final ValueRendererInputValueString attribute => attribute.value,
         final ValueRendererInputValueDateTime attribute => attribute.value,
         final ValueRendererInputValueMap attribute => attribute.value,
-        _ => null
+        _ => null,
       };
 
       return MapEntry(key, attributeValue != '' ? attributeValue : null);
     });
 
     try {
-      return IdentityAttribute(
-        owner: currentAddress,
-        value: IdentityAttributeValue.fromJson({'@type': valueType, ...attributeValues}),
-      );
+      return IdentityAttribute(owner: currentAddress, value: IdentityAttributeValue.fromJson({'@type': valueType, ...attributeValues}));
     } catch (e) {
       return null;
     }
@@ -57,13 +54,10 @@ IdentityAttribute? composeIdentityAttributeValue({
     final ValueRendererInputValueNum attribute => attribute.value,
     final ValueRendererInputValueString attribute => attribute.value,
     final ValueRendererInputValueMap attribute => attribute.value,
-    _ => null
+    _ => null,
   };
 
   if (attributeValue == null) return null;
 
-  return IdentityAttribute(
-    owner: currentAddress,
-    value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': attributeValue}),
-  );
+  return IdentityAttribute(owner: currentAddress, value: IdentityAttributeValue.fromJson({'@type': valueType, 'value': attributeValue}));
 }

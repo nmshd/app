@@ -51,10 +51,7 @@ class _SelectAddressTypeView extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(context.l10n.myData_initialCreation_addressData_description),
-            ),
+            Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: Text(context.l10n.myData_initialCreation_addressData_description)),
             Gaps.h16,
             ColoredBox(
               color: Theme.of(context).colorScheme.surface,

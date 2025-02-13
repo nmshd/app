@@ -8,11 +8,7 @@ class LocalResponseDTO extends Equatable {
   final Response content;
   final LocalResponseSourceDTO? source;
 
-  const LocalResponseDTO({
-    required this.createdAt,
-    required this.content,
-    this.source,
-  });
+  const LocalResponseDTO({required this.createdAt, required this.content, this.source});
 
   factory LocalResponseDTO.fromJson(Map json) {
     return LocalResponseDTO(
@@ -24,11 +20,7 @@ class LocalResponseDTO extends Equatable {
 
   static LocalResponseDTO? fromJsonNullable(Map? json) => json != null ? LocalResponseDTO.fromJson(json) : null;
 
-  Map<String, dynamic> toJson() => {
-        'createdAt': createdAt,
-        'content': content.toJson(),
-        if (source != null) 'source': source?.toJson(),
-      };
+  Map<String, dynamic> toJson() => {'createdAt': createdAt, 'content': content.toJson(), if (source != null) 'source': source?.toJson()};
 
   @override
   List<Object?> get props => [createdAt, content, source];

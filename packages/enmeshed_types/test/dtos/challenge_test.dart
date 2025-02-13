@@ -13,13 +13,15 @@ void main() {
       };
       expect(
         ChallengeDTO.fromJson(json),
-        equals(const ChallengeDTO(
-          id: 'anId',
-          expiresAt: 'anExpiryDate',
-          type: ChallengeType.Relationship,
-          signature: 'aSignature',
-          challengeString: 'aChallengeString',
-        )),
+        equals(
+          const ChallengeDTO(
+            id: 'anId',
+            expiresAt: 'anExpiryDate',
+            type: ChallengeType.Relationship,
+            signature: 'aSignature',
+            challengeString: 'aChallengeString',
+          ),
+        ),
       );
     });
 
@@ -34,14 +36,16 @@ void main() {
       };
       expect(
         ChallengeDTO.fromJson(json),
-        equals(const ChallengeDTO(
-          id: 'anId',
-          expiresAt: 'anExpiryDate',
-          createdBy: 'aCreatorAddress',
-          type: ChallengeType.Relationship,
-          signature: 'aSignature',
-          challengeString: 'aChallengeString',
-        )),
+        equals(
+          const ChallengeDTO(
+            id: 'anId',
+            expiresAt: 'anExpiryDate',
+            createdBy: 'aCreatorAddress',
+            type: ChallengeType.Relationship,
+            signature: 'aSignature',
+            challengeString: 'aChallengeString',
+          ),
+        ),
       );
     });
 
@@ -56,14 +60,16 @@ void main() {
       };
       expect(
         ChallengeDTO.fromJson(json),
-        equals(const ChallengeDTO(
-          id: 'anId',
-          expiresAt: 'anExpiryDate',
-          createdByDevice: 'aCreatorDeviceId',
-          type: ChallengeType.Relationship,
-          signature: 'aSignature',
-          challengeString: 'aChallengeString',
-        )),
+        equals(
+          const ChallengeDTO(
+            id: 'anId',
+            expiresAt: 'anExpiryDate',
+            createdByDevice: 'aCreatorDeviceId',
+            type: ChallengeType.Relationship,
+            signature: 'aSignature',
+            challengeString: 'aChallengeString',
+          ),
+        ),
       );
     });
 
@@ -79,15 +85,17 @@ void main() {
       };
       expect(
         ChallengeDTO.fromJson(json),
-        equals(const ChallengeDTO(
-          id: 'anId',
-          expiresAt: 'anExpiryDate',
-          createdBy: 'aCreatorAddress',
-          createdByDevice: 'aCreatorDeviceId',
-          type: ChallengeType.Relationship,
-          signature: 'aSignature',
-          challengeString: 'aChallengeString',
-        )),
+        equals(
+          const ChallengeDTO(
+            id: 'anId',
+            expiresAt: 'anExpiryDate',
+            createdBy: 'aCreatorAddress',
+            createdByDevice: 'aCreatorDeviceId',
+            type: ChallengeType.Relationship,
+            signature: 'aSignature',
+            challengeString: 'aChallengeString',
+          ),
+        ),
       );
     });
   });

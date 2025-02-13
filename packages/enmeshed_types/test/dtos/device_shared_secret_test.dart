@@ -242,17 +242,19 @@ void main() {
       };
       expect(
         DeviceSharedSecret.fromJson(json),
-        equals(const DeviceSharedSecret(
-          id: 'anId',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          secretBaseKey: 'aSecretBaseKey',
-          deviceIndex: 1,
-          synchronizationKey: 'aSynchronizationKey',
-          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-          password: 'aPassword',
-          username: 'anUsername',
-        )),
+        equals(
+          const DeviceSharedSecret(
+            id: 'anId',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            secretBaseKey: 'aSecretBaseKey',
+            deviceIndex: 1,
+            synchronizationKey: 'aSynchronizationKey',
+            identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+            password: 'aPassword',
+            username: 'anUsername',
+          ),
+        ),
       );
     });
 
@@ -271,18 +273,20 @@ void main() {
       };
       expect(
         DeviceSharedSecret.fromJson(json),
-        equals(const DeviceSharedSecret(
-          id: 'anId',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          name: 'aName',
-          secretBaseKey: 'aSecretBaseKey',
-          deviceIndex: 1,
-          synchronizationKey: 'aSynchronizationKey',
-          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-          password: 'aPassword',
-          username: 'anUsername',
-        )),
+        equals(
+          const DeviceSharedSecret(
+            id: 'anId',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            name: 'aName',
+            secretBaseKey: 'aSecretBaseKey',
+            deviceIndex: 1,
+            synchronizationKey: 'aSynchronizationKey',
+            identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+            password: 'aPassword',
+            username: 'anUsername',
+          ),
+        ),
       );
     });
 
@@ -301,18 +305,20 @@ void main() {
       };
       expect(
         DeviceSharedSecret.fromJson(json),
-        equals(const DeviceSharedSecret(
-          id: 'anId',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          description: 'aDescription',
-          secretBaseKey: 'aSecretBaseKey',
-          deviceIndex: 1,
-          synchronizationKey: 'aSynchronizationKey',
-          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-          password: 'aPassword',
-          username: 'anUsername',
-        )),
+        equals(
+          const DeviceSharedSecret(
+            id: 'anId',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            description: 'aDescription',
+            secretBaseKey: 'aSecretBaseKey',
+            deviceIndex: 1,
+            synchronizationKey: 'aSynchronizationKey',
+            identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+            password: 'aPassword',
+            username: 'anUsername',
+          ),
+        ),
       );
     });
 
@@ -331,18 +337,20 @@ void main() {
       };
       expect(
         DeviceSharedSecret.fromJson(json),
-        equals(const DeviceSharedSecret(
-          id: 'anId',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          profileName: 'aProfileName',
-          secretBaseKey: 'aSecretBaseKey',
-          deviceIndex: 1,
-          synchronizationKey: 'aSynchronizationKey',
-          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-          password: 'aPassword',
-          username: 'anUsername',
-        )),
+        equals(
+          const DeviceSharedSecret(
+            id: 'anId',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            profileName: 'aProfileName',
+            secretBaseKey: 'aSecretBaseKey',
+            deviceIndex: 1,
+            synchronizationKey: 'aSynchronizationKey',
+            identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+            password: 'aPassword',
+            username: 'anUsername',
+          ),
+        ),
       );
     });
 
@@ -361,18 +369,20 @@ void main() {
       };
       expect(
         DeviceSharedSecret.fromJson(json),
-        equals(const DeviceSharedSecret(
-          id: 'anId',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          secretBaseKey: 'aSecretBaseKey',
-          deviceIndex: 1,
-          synchronizationKey: 'aSynchronizationKey',
-          identityPrivateKey: 'aPrivateKey',
-          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-          password: 'aPassword',
-          username: 'anUsername',
-        )),
+        equals(
+          const DeviceSharedSecret(
+            id: 'anId',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            secretBaseKey: 'aSecretBaseKey',
+            deviceIndex: 1,
+            synchronizationKey: 'aSynchronizationKey',
+            identityPrivateKey: 'aPrivateKey',
+            identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+            password: 'aPassword',
+            username: 'anUsername',
+          ),
+        ),
       );
     });
 
@@ -391,18 +401,20 @@ void main() {
       };
       expect(
         DeviceSharedSecret.fromJson(json),
-        equals(const DeviceSharedSecret(
-          id: 'anId',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          secretBaseKey: 'aSecretBaseKey',
-          deviceIndex: 1,
-          synchronizationKey: 'aSynchronizationKey',
-          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-          password: 'aPassword',
-          username: 'anUsername',
-          isBackupDevice: true,
-        )),
+        equals(
+          const DeviceSharedSecret(
+            id: 'anId',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            secretBaseKey: 'aSecretBaseKey',
+            deviceIndex: 1,
+            synchronizationKey: 'aSynchronizationKey',
+            identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+            password: 'aPassword',
+            username: 'anUsername',
+            isBackupDevice: true,
+          ),
+        ),
       );
     });
 
@@ -425,22 +437,24 @@ void main() {
       };
       expect(
         DeviceSharedSecret.fromJson(json),
-        equals(const DeviceSharedSecret(
-          id: 'anId',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          name: 'aName',
-          description: 'aDescription',
-          profileName: 'aProfileName',
-          secretBaseKey: 'aSecretBaseKey',
-          deviceIndex: 1,
-          synchronizationKey: 'aSynchronizationKey',
-          identityPrivateKey: 'aPrivateKey',
-          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-          password: 'aPassword',
-          username: 'anUsername',
-          isBackupDevice: true,
-        )),
+        equals(
+          const DeviceSharedSecret(
+            id: 'anId',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            name: 'aName',
+            description: 'aDescription',
+            profileName: 'aProfileName',
+            secretBaseKey: 'aSecretBaseKey',
+            deviceIndex: 1,
+            synchronizationKey: 'aSynchronizationKey',
+            identityPrivateKey: 'aPrivateKey',
+            identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+            password: 'aPassword',
+            username: 'anUsername',
+            isBackupDevice: true,
+          ),
+        ),
       );
     });
   });

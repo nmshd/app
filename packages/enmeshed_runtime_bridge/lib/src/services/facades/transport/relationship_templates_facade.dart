@@ -34,19 +34,13 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(json, (value) => RelationshipTemplateDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipTemplateDTO>> loadPeerRelationshipTemplate({
-    required String reference,
-    String? password,
-  }) async {
+  Future<Result<RelationshipTemplateDTO>> loadPeerRelationshipTemplate({required String reference, String? password}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'reference': reference,
-          if (password != null) 'password': password,
-        },
+        'request': {'reference': reference, if (password != null) 'password': password},
       },
     );
 
@@ -60,9 +54,7 @@ class RelationshipTemplatesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (query != null) 'query': query.toJson(),
-        },
+        'request': {if (query != null) 'query': query.toJson()},
       },
     );
 
@@ -70,17 +62,13 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(json, (value) => List<RelationshipTemplateDTO>.from(value.map((e) => RelationshipTemplateDTO.fromJson(e))));
   }
 
-  Future<Result<RelationshipTemplateDTO>> getRelationshipTemplate({
-    required String relationshipTemplateId,
-  }) async {
+  Future<Result<RelationshipTemplateDTO>> getRelationshipTemplate({required String relationshipTemplateId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': relationshipTemplateId,
-        },
+        'request': {'id': relationshipTemplateId},
       },
     );
 
@@ -88,17 +76,13 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(value, (x) => RelationshipTemplateDTO.fromJson(x));
   }
 
-  Future<Result<CreateQRCodeResponse>> createQRCodeForOwnTemplate({
-    required String templateId,
-  }) async {
+  Future<Result<CreateQRCodeResponse>> createQRCodeForOwnTemplate({required String templateId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.createQRCodeForOwnTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'templateId': templateId,
-        },
+        'request': {'templateId': templateId},
       },
     );
 

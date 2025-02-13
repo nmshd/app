@@ -6,10 +6,7 @@ void main() {
     test('is correctly converted', () {
       const dto = LocalResponseSourceDTO(type: LocalResponseSourceType.Message, reference: 'aReference');
       final dtoJson = dto.toJson();
-      expect(
-        dtoJson,
-        equals({'type': 'Message', 'reference': 'aReference'}),
-      );
+      expect(dtoJson, equals({'type': 'Message', 'reference': 'aReference'}));
     });
   });
 

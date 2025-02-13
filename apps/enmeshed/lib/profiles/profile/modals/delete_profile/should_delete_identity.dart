@@ -11,13 +11,7 @@ class ShouldDeleteIdentity extends StatelessWidget {
   final String profileName;
   final List<DeviceDTO> devices;
 
-  const ShouldDeleteIdentity({
-    required this.cancel,
-    required this.delete,
-    required this.profileName,
-    required this.devices,
-    super.key,
-  });
+  const ShouldDeleteIdentity({required this.cancel, required this.delete, required this.profileName, required this.devices, super.key});
 
   @override
   Widget build(BuildContext context) {

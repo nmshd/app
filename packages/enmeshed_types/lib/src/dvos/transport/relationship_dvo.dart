@@ -68,12 +68,7 @@ class RelationshipTheme {
   String? backgroundColor;
   String? foregroundColor;
 
-  RelationshipTheme({
-    this.image,
-    this.headerImage,
-    this.backgroundColor,
-    this.foregroundColor,
-  });
+  RelationshipTheme({this.image, this.headerImage, this.backgroundColor, this.foregroundColor});
 
   factory RelationshipTheme.fromJson(Map json) => _$RelationshipThemeFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipThemeToJson(this);

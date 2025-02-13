@@ -99,11 +99,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
           _TodoListTile(
             done: _hasRelationship,
             text: context.l10n.home_initialContact,
-            onPressed: () => goToInstructionsOrScanScreen(
-              accountId: widget.accountId,
-              instructionsType: ScannerType.addContact,
-              context: context,
-            ),
+            onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
           ),
           _TodoListTile(
             done: _isFileDataStored,
@@ -150,11 +146,7 @@ class _TodoListTile extends StatelessWidget {
   final String text;
   final void Function() onPressed;
 
-  const _TodoListTile({
-    required this.done,
-    required this.text,
-    required this.onPressed,
-  });
+  const _TodoListTile({required this.done, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

@@ -5,11 +5,7 @@ class DownloadFileResponse extends Equatable {
   final String filename;
   final String mimeType;
 
-  const DownloadFileResponse({
-    required this.content,
-    required this.filename,
-    required this.mimeType,
-  });
+  const DownloadFileResponse({required this.content, required this.filename, required this.mimeType});
 
   factory DownloadFileResponse.fromJson(Map json) {
     return DownloadFileResponse(
@@ -20,11 +16,7 @@ class DownloadFileResponse extends Equatable {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'content': content,
-      'filename': filename,
-      'mimetype': mimeType,
-    };
+    return {'content': content, 'filename': filename, 'mimetype': mimeType};
   }
 
   @override

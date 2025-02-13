@@ -13,13 +13,7 @@ class FileDetailScreen extends StatefulWidget {
   final FileDVO preLoadedFile;
   final LocalAttributeDVO? fileReferenceAttribute;
 
-  const FileDetailScreen({
-    required this.accountId,
-    required this.fileId,
-    required this.preLoadedFile,
-    this.fileReferenceAttribute,
-    super.key,
-  });
+  const FileDetailScreen({required this.accountId, required this.fileId, required this.preLoadedFile, this.fileReferenceAttribute, super.key});
 
   @override
   State<FileDetailScreen> createState() => _FileDetailScreenState();
@@ -45,94 +39,86 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(_fileDVO!.title, style: Theme.of(context).textTheme.titleLarge),
-      ),
+      appBar: AppBar(title: Text(_fileDVO!.title, style: Theme.of(context).textTheme.titleLarge)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 8, left: 24, right: 24),
-          child: _fileDVO == null
-              ? const Center(child: CircularProgressIndicator())
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Column(
+          child:
+              _fileDVO == null
+                  ? const Center(child: CircularProgressIndicator())
+                  : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Column(
+                          children: [
+                            FileIcon(filename: _fileDVO!.filename, color: Theme.of(context).colorScheme.primaryContainer, size: 40),
+                            Gaps.h8,
+                            Text(_fileDVO!.filename, style: Theme.of(context).textTheme.labelLarge),
+                            Text('${bytesText(context: context, bytes: _fileDVO!.filesize)} - ${getFileExtension(_fileDVO!.filename)}'),
+                          ],
+                        ),
+                      ),
+                      Gaps.h24,
+                      if (_tags != null)
+                        Chip(
+                          label: Text(_tags!.join(', '), style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: const BorderRadius.all(Radius.circular(8)),
+                            side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
+                          ),
+                          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                          padding: EdgeInsets.zero,
+                          labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+                        ),
+                      Row(
                         children: [
-                          FileIcon(filename: _fileDVO!.filename, color: Theme.of(context).colorScheme.primaryContainer, size: 40),
-                          Gaps.h8,
-                          Text(_fileDVO!.filename, style: Theme.of(context).textTheme.labelLarge),
-                          Text('${bytesText(context: context, bytes: _fileDVO!.filesize)} - ${getFileExtension(_fileDVO!.filename)}'),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${context.l10n.files_owner}: ',
+                                style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                              ),
+                              Text(
+                                '${context.l10n.files_createdAt}: ',
+                                style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                              ),
+                            ],
+                          ),
+                          Gaps.w24,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(context.i18nTranslate(_fileDVO!.createdBy.name), style: Theme.of(context).textTheme.bodyMedium),
+                              Text(context.i18nTranslate(_formatDate(context, _fileDVO!.createdAt)), style: Theme.of(context).textTheme.bodyMedium),
+                            ],
+                          ),
                         ],
                       ),
-                    ),
-                    Gaps.h24,
-                    if (_tags != null)
-                      Chip(
-                        label: Text(
-                          _tags!.join(', '),
-                          style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(8)),
-                          side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
-                        ),
-                        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                        padding: EdgeInsets.zero,
-                        labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+                      Gaps.h32,
+                      Row(
+                        children: [
+                          Gaps.w8,
+                          IconButton(
+                            onPressed: _isLoadingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
+                            icon:
+                                _isLoadingFile
+                                    ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator())
+                                    : const Icon(Icons.file_download, size: 24),
+                          ),
+                          Gaps.w8,
+                          IconButton(
+                            onPressed: _isOpeningFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
+                            icon:
+                                _isOpeningFile
+                                    ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator())
+                                    : const Icon(Icons.open_with, size: 24),
+                          ),
+                        ],
                       ),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${context.l10n.files_owner}: ',
-                              style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                            ),
-                            Text(
-                              '${context.l10n.files_createdAt}: ',
-                              style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                            ),
-                          ],
-                        ),
-                        Gaps.w24,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              context.i18nTranslate(_fileDVO!.createdBy.name),
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            Text(
-                              context.i18nTranslate(_formatDate(context, _fileDVO!.createdAt)),
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Gaps.h32,
-                    Row(
-                      children: [
-                        Gaps.w8,
-                        IconButton(
-                          onPressed: _isLoadingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
-                          icon: _isLoadingFile
-                              ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator())
-                              : const Icon(Icons.file_download, size: 24),
-                        ),
-                        Gaps.w8,
-                        IconButton(
-                          onPressed: _isOpeningFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
-                          icon: _isOpeningFile
-                              ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator())
-                              : const Icon(Icons.open_with, size: 24),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
         ),
       ),
     );

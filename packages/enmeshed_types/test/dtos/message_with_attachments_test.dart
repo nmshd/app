@@ -91,30 +91,32 @@ void main() {
       };
       expect(
         MessageWithAttachmentsDTO.fromJson(json),
-        equals(const MessageWithAttachmentsDTO(
-          id: 'anId',
-          isOwn: true,
-          content: Mail(to: ['anAddress'], subject: 'aSubject', body: 'aBody'),
-          createdBy: 'aCreatorAddress',
-          createdByDevice: 'aCreatorDeviceId',
-          recipients: [RecipientDTO(address: 'anAddress', receivedAt: null, receivedByDevice: null, relationshipId: 'aRelationshipId')],
-          createdAt: '2023',
-          attachments: [
-            FileDTO(
-              id: 'anId',
-              filename: 'aFilename',
-              filesize: 1,
-              createdAt: '2023',
-              createdBy: 'aCreator',
-              createdByDevice: 'aCreatorDeviceId',
-              expiresAt: '2023',
-              mimetype: 'aMimetype',
-              isOwn: true,
-              title: 'aTitle',
-              truncatedReference: 'aTruncatedReference',
-            ),
-          ],
-        )),
+        equals(
+          const MessageWithAttachmentsDTO(
+            id: 'anId',
+            isOwn: true,
+            content: Mail(to: ['anAddress'], subject: 'aSubject', body: 'aBody'),
+            createdBy: 'aCreatorAddress',
+            createdByDevice: 'aCreatorDeviceId',
+            recipients: [RecipientDTO(address: 'anAddress', receivedAt: null, receivedByDevice: null, relationshipId: 'aRelationshipId')],
+            createdAt: '2023',
+            attachments: [
+              FileDTO(
+                id: 'anId',
+                filename: 'aFilename',
+                filesize: 1,
+                createdAt: '2023',
+                createdBy: 'aCreator',
+                createdByDevice: 'aCreatorDeviceId',
+                expiresAt: '2023',
+                mimetype: 'aMimetype',
+                isOwn: true,
+                title: 'aTitle',
+                truncatedReference: 'aTruncatedReference',
+              ),
+            ],
+          ),
+        ),
       );
     });
   });

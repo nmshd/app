@@ -49,10 +49,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
     _selectedOption = widget.initialValue;
 
     if (widget.initialValue != null) {
-      widget.controller?.value = ControllerTypeResolver.resolveType(
-        inputValue: widget.initialValue,
-        type: widget.technicalType,
-      );
+      widget.controller?.value = ControllerTypeResolver.resolveType(inputValue: widget.initialValue, type: widget.technicalType);
     }
   }
 
@@ -64,16 +61,18 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
         DropdownButtonFormField<ValueHintsDefaultValue>(
           autovalidateMode: widget.autovalidateMode,
           value: _selectedOption,
-          decoration: widget.decoration != null
-              ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
-              : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
+          decoration:
+              widget.decoration != null
+                  ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
+                  : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
           validator: (value) => value == null && widget.mustBeFilledOut ? FlutterI18n.translate(context, 'errors.value_renderer.emptyField') : null,
           onChanged: (ValueHintsDefaultValue? newValue) {
             widget.controller?.value = ControllerTypeResolver.resolveType(
               type: widget.technicalType,
-              inputValue: newValue is ValueHintsDefaultValueString && newValue.value.startsWith('dup_')
-                  ? ValueHintsDefaultValueString(newValue.value.substring(4))
-                  : newValue,
+              inputValue:
+                  newValue is ValueHintsDefaultValueString && newValue.value.startsWith('dup_')
+                      ? ValueHintsDefaultValueString(newValue.value.substring(4))
+                      : newValue,
             );
 
             if (widget.onChanged != null) {
@@ -91,14 +90,15 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
   }
 
   List<DropdownMenuItem<ValueHintsDefaultValue>> _buildMenuItems() {
-    final translated = widget.values
-        .map(
-          (e) => (
-            key: e.key,
-            translation: e.displayName.startsWith('i18n://') ? FlutterI18n.translate(context, e.displayName.substring(7)) : e.displayName,
-          ),
-        )
-        .toList();
+    final translated =
+        widget.values
+            .map(
+              (e) => (
+                key: e.key,
+                translation: e.displayName.startsWith('i18n://') ? FlutterI18n.translate(context, e.displayName.substring(7)) : e.displayName,
+              ),
+            )
+            .toList();
 
     translated.sort((a, b) => a.translation.compareTo(b.translation));
 
@@ -123,11 +123,6 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
       ]);
     }
 
-    return translated
-        .map((e) => DropdownMenuItem<ValueHintsDefaultValue>(
-              value: e.key,
-              child: TranslatedText(e.translation),
-            ))
-        .toList();
+    return translated.map((e) => DropdownMenuItem<ValueHintsDefaultValue>(value: e.key, child: TranslatedText(e.translation))).toList();
   }
 }

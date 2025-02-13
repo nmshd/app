@@ -242,17 +242,19 @@ void main() {
       };
       expect(
         DeviceDTO.fromJson(json),
-        equals(const DeviceDTO(
-          id: 'anId',
-          isAdmin: true,
-          name: 'aName',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          type: 'aType',
-          username: 'anUsername',
-          isCurrentDevice: true,
-          isBackupDevice: true,
-        )),
+        equals(
+          const DeviceDTO(
+            id: 'anId',
+            isAdmin: true,
+            name: 'aName',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            type: 'aType',
+            username: 'anUsername',
+            isCurrentDevice: true,
+            isBackupDevice: true,
+          ),
+        ),
       );
     });
 
@@ -271,18 +273,20 @@ void main() {
       };
       expect(
         DeviceDTO.fromJson(json),
-        equals(const DeviceDTO(
-          id: 'anId',
-          isAdmin: true,
-          publicKey: 'aPublicKey',
-          name: 'aName',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          type: 'aType',
-          username: 'anUsername',
-          isCurrentDevice: true,
-          isBackupDevice: true,
-        )),
+        equals(
+          const DeviceDTO(
+            id: 'anId',
+            isAdmin: true,
+            publicKey: 'aPublicKey',
+            name: 'aName',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            type: 'aType',
+            username: 'anUsername',
+            isCurrentDevice: true,
+            isBackupDevice: true,
+          ),
+        ),
       );
     });
 
@@ -301,18 +305,20 @@ void main() {
       };
       expect(
         DeviceDTO.fromJson(json),
-        equals(const DeviceDTO(
-          id: 'anId',
-          isAdmin: true,
-          certificate: 'aCertificate',
-          name: 'aName',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          type: 'aType',
-          username: 'anUsername',
-          isCurrentDevice: true,
-          isBackupDevice: true,
-        )),
+        equals(
+          const DeviceDTO(
+            id: 'anId',
+            isAdmin: true,
+            certificate: 'aCertificate',
+            name: 'aName',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            type: 'aType',
+            username: 'anUsername',
+            isCurrentDevice: true,
+            isBackupDevice: true,
+          ),
+        ),
       );
     });
 
@@ -331,18 +337,20 @@ void main() {
       };
       expect(
         DeviceDTO.fromJson(json),
-        equals(const DeviceDTO(
-          id: 'anId',
-          isAdmin: true,
-          name: 'aName',
-          description: 'aDescription',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          type: 'aType',
-          username: 'anUsername',
-          isCurrentDevice: true,
-          isBackupDevice: true,
-        )),
+        equals(
+          const DeviceDTO(
+            id: 'anId',
+            isAdmin: true,
+            name: 'aName',
+            description: 'aDescription',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            type: 'aType',
+            username: 'anUsername',
+            isCurrentDevice: true,
+            isBackupDevice: true,
+          ),
+        ),
       );
     });
 
@@ -361,18 +369,20 @@ void main() {
       };
       expect(
         DeviceDTO.fromJson(json),
-        equals(const DeviceDTO(
-          id: 'anId',
-          isAdmin: true,
-          name: 'aName',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          operatingSystem: 'aOperatingSystem',
-          type: 'aType',
-          username: 'anUsername',
-          isCurrentDevice: true,
-          isBackupDevice: true,
-        )),
+        equals(
+          const DeviceDTO(
+            id: 'anId',
+            isAdmin: true,
+            name: 'aName',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            operatingSystem: 'aOperatingSystem',
+            type: 'aType',
+            username: 'anUsername',
+            isCurrentDevice: true,
+            isBackupDevice: true,
+          ),
+        ),
       );
     });
 
@@ -391,18 +401,20 @@ void main() {
       };
       expect(
         DeviceDTO.fromJson(json),
-        equals(const DeviceDTO(
-          id: 'anId',
-          isAdmin: true,
-          name: 'aName',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          lastLoginAt: '2023',
-          type: 'aType',
-          username: 'anUsername',
-          isCurrentDevice: true,
-          isBackupDevice: true,
-        )),
+        equals(
+          const DeviceDTO(
+            id: 'anId',
+            isAdmin: true,
+            name: 'aName',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            lastLoginAt: '2023',
+            type: 'aType',
+            username: 'anUsername',
+            isCurrentDevice: true,
+            isBackupDevice: true,
+          ),
+        ),
       );
     });
 
@@ -425,22 +437,24 @@ void main() {
       };
       expect(
         DeviceDTO.fromJson(json),
-        equals(const DeviceDTO(
-          id: 'anId',
-          isAdmin: true,
-          publicKey: 'aPublicKey',
-          certificate: 'aCertificate',
-          name: 'aName',
-          description: 'aDescription',
-          createdAt: '2023',
-          createdByDevice: 'aCreatorDeviceId',
-          operatingSystem: 'aOperatingSystem',
-          lastLoginAt: '2023',
-          type: 'aType',
-          username: 'anUsername',
-          isCurrentDevice: true,
-          isBackupDevice: true,
-        )),
+        equals(
+          const DeviceDTO(
+            id: 'anId',
+            isAdmin: true,
+            publicKey: 'aPublicKey',
+            certificate: 'aCertificate',
+            name: 'aName',
+            description: 'aDescription',
+            createdAt: '2023',
+            createdByDevice: 'aCreatorDeviceId',
+            operatingSystem: 'aOperatingSystem',
+            lastLoginAt: '2023',
+            type: 'aType',
+            username: 'anUsername',
+            isCurrentDevice: true,
+            isBackupDevice: true,
+          ),
+        ),
       );
     });
   });

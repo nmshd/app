@@ -6,9 +6,7 @@ import 'request_item_index.dart';
 class RequestRendererController extends ValueNotifier<DecideRequestParameters> {
   final DecideRequestParameters rejectParams;
 
-  RequestRendererController({required LocalRequestDVO request})
-      : rejectParams = _composeRejectItems(request),
-        super(_composeRejectItems(request));
+  RequestRendererController({required LocalRequestDVO request}) : rejectParams = _composeRejectItems(request), super(_composeRejectItems(request));
 
   void writeAtIndex({required RequestItemIndex index, required DecideRequestItemParameters value}) {
     if (index.innerIndex == null) {
@@ -26,15 +24,17 @@ class RequestRendererController extends ValueNotifier<DecideRequestParameters> {
   }
 
   static DecideRequestParameters _composeRejectItems(LocalRequestDVO request) {
-    final rejectItems = List<DecideRequestParametersItem>.from(request.items.map((e) {
-      if (e is RequestItemGroupDVO) {
-        return DecideRequestItemGroupParameters(
-          items: List<DecideRequestItemParameters>.from(e.items.map((e) => const RejectRequestItemParameters())),
-        );
-      }
+    final rejectItems = List<DecideRequestParametersItem>.from(
+      request.items.map((e) {
+        if (e is RequestItemGroupDVO) {
+          return DecideRequestItemGroupParameters(
+            items: List<DecideRequestItemParameters>.from(e.items.map((e) => const RejectRequestItemParameters())),
+          );
+        }
 
-      return const RejectRequestItemParameters();
-    }));
+        return const RejectRequestItemParameters();
+      }),
+    );
 
     return DecideRequestParameters(requestId: request.id, items: rejectItems);
   }

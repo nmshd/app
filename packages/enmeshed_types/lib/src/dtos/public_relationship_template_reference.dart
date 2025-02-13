@@ -9,11 +9,7 @@ class PublicRelationshipTemplateReferenceDTO extends Equatable {
   final String description;
   final String truncatedReference;
 
-  const PublicRelationshipTemplateReferenceDTO({
-    required this.title,
-    required this.description,
-    required this.truncatedReference,
-  });
+  const PublicRelationshipTemplateReferenceDTO({required this.title, required this.description, required this.truncatedReference});
 
   factory PublicRelationshipTemplateReferenceDTO.fromJson(Map json) {
     return _$PublicRelationshipTemplateReferenceDTOFromJson(Map<String, dynamic>.from(json));

@@ -6,9 +6,7 @@ part 'delete_own_shared_attribute_and_notify_peer.g.dart';
 class DeleteOwnSharedAttributeAndNotifyPeerResponse {
   final String? notificationId;
 
-  DeleteOwnSharedAttributeAndNotifyPeerResponse({
-    this.notificationId,
-  });
+  DeleteOwnSharedAttributeAndNotifyPeerResponse({this.notificationId});
 
   factory DeleteOwnSharedAttributeAndNotifyPeerResponse.fromJson(Map<String, dynamic> json) =>
       _$DeleteOwnSharedAttributeAndNotifyPeerResponseFromJson(json);

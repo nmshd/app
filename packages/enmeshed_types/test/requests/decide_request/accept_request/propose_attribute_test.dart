@@ -19,10 +19,7 @@ void main() {
     test('is correctly converted', () {
       const item = AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: 'anAttributeId');
       final itemJson = item.toJson();
-      expect(
-        itemJson,
-        equals({'accept': true, 'attributeId': 'anAttributeId'}),
-      );
+      expect(itemJson, equals({'accept': true, 'attributeId': 'anAttributeId'}));
     });
   });
 }

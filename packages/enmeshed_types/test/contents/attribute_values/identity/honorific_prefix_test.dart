@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = HonorificPrefixAttributeValue(value: 'aHonorificPrefix');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'HonorificPrefix',
-          'value': 'aHonorificPrefix',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'HonorificPrefix', 'value': 'aHonorificPrefix'}));
     });
   });
 

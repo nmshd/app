@@ -56,12 +56,12 @@ class MessageDVO extends DataViewObject {
   });
 
   factory MessageDVO.fromJson(Map json) => switch (json['type']) {
-        'MessageDVO' => _$MessageDVOFromJson(Map<String, dynamic>.from(json)),
-        'RequestMessageDVO' => RequestMessageDVO.fromJson(json),
-        'RequestMessageErrorDVO' => RequestMessageErrorDVO.fromJson(json),
-        'MailDVO' => MailDVO.fromJson(json),
-        _ => throw Exception('Unknown type: ${json['type']}'),
-      };
+    'MessageDVO' => _$MessageDVOFromJson(Map<String, dynamic>.from(json)),
+    'RequestMessageDVO' => RequestMessageDVO.fromJson(json),
+    'RequestMessageErrorDVO' => RequestMessageErrorDVO.fromJson(json),
+    'MailDVO' => MailDVO.fromJson(json),
+    _ => throw Exception('Unknown type: ${json['type']}'),
+  };
   Map<String, dynamic> toJson() => _$MessageDVOToJson(this);
 }
 

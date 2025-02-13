@@ -16,18 +16,19 @@ class ConsentRequestItemRenderer extends StatelessWidget {
       title: item.name,
       description: item.description,
       thirdLine: item.consent,
-      trailing: item.link != null
-          ? SizedBox(
-              width: 50,
-              child: IconButton(
-                icon: const Icon(Icons.open_in_new),
-                onPressed: () async {
-                  final url = Uri.parse(item.link!);
-                  await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
-                },
-              ),
-            )
-          : null,
+      trailing:
+          item.link != null
+              ? SizedBox(
+                width: 50,
+                child: IconButton(
+                  icon: const Icon(Icons.open_in_new),
+                  onPressed: () async {
+                    final url = Uri.parse(item.link!);
+                    await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
+                  },
+                ),
+              )
+              : null,
     );
   }
 }

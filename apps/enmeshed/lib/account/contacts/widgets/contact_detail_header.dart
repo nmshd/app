@@ -21,9 +21,10 @@ class ContactDetailHeader extends StatelessWidget {
             contact: contact,
             radius: 36,
             color: contact.relationship?.status == RelationshipStatus.Pending ? Theme.of(context).colorScheme.surfaceContainerLow : null,
-            child: contact.relationship?.status == RelationshipStatus.Pending
-                ? Icon(Icons.hourglass_top, color: Theme.of(context).colorScheme.onPrimaryFixedVariant, size: 43.2)
-                : null,
+            child:
+                contact.relationship?.status == RelationshipStatus.Pending
+                    ? Icon(Icons.hourglass_top, color: Theme.of(context).colorScheme.onPrimaryFixedVariant, size: 43.2)
+                    : null,
           ),
           Gaps.w16,
           Expanded(

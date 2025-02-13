@@ -10,11 +10,7 @@ class NotifyPeerAboutRepositoryAttributeSuccessionResponse {
   final LocalAttributeDTO successor;
   final String notificationId;
 
-  NotifyPeerAboutRepositoryAttributeSuccessionResponse({
-    required this.predecessor,
-    required this.successor,
-    required this.notificationId,
-  });
+  NotifyPeerAboutRepositoryAttributeSuccessionResponse({required this.predecessor, required this.successor, required this.notificationId});
 
   factory NotifyPeerAboutRepositoryAttributeSuccessionResponse.fromJson(Map<String, dynamic> json) =>
       _$NotifyPeerAboutRepositoryAttributeSuccessionResponseFromJson(json);
@@ -27,10 +23,7 @@ class SucceedRepositoryAttributeResponse {
   final LocalAttributeDTO predecessor;
   final LocalAttributeDTO successor;
 
-  SucceedRepositoryAttributeResponse({
-    required this.predecessor,
-    required this.successor,
-  });
+  SucceedRepositoryAttributeResponse({required this.predecessor, required this.successor});
 
   factory SucceedRepositoryAttributeResponse.fromJson(Map<String, dynamic> json) => _$SucceedRepositoryAttributeResponseFromJson(json);
 
@@ -43,11 +36,7 @@ class SucceedRelationshipAttributeAndNotifyPeerResponse {
   final LocalAttributeDTO successor;
   final String notificationId;
 
-  SucceedRelationshipAttributeAndNotifyPeerResponse({
-    required this.predecessor,
-    required this.successor,
-    required this.notificationId,
-  });
+  SucceedRelationshipAttributeAndNotifyPeerResponse({required this.predecessor, required this.successor, required this.notificationId});
 
   factory SucceedRelationshipAttributeAndNotifyPeerResponse.fromJson(Map<String, dynamic> json) =>
       _$SucceedRelationshipAttributeAndNotifyPeerResponseFromJson(json);

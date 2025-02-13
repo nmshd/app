@@ -5,8 +5,5 @@ import '../event.dart';
 class LocalAccountDeletionDateChangedEvent extends Event {
   final LocalAccountDTO data;
 
-  const LocalAccountDeletionDateChangedEvent({
-    required super.eventTargetAddress,
-    required this.data,
-  });
+  const LocalAccountDeletionDateChangedEvent({required super.eventTargetAddress, required this.data});
 }

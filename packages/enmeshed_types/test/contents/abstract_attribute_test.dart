@@ -4,11 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('AbstractAttribute fromJson', () {
     test('parsed valid IdentityAttribute', () {
-      final identityAttributeJson = {
-        '@type': 'IdentityAttribute',
-        'owner': 'anOwner',
-        'value': const CityAttributeValue(value: 'aCity').toJson(),
-      };
+      final identityAttributeJson = {'@type': 'IdentityAttribute', 'owner': 'anOwner', 'value': const CityAttributeValue(value: 'aCity').toJson()};
       final abstractAttribute = AbstractAttribute.fromJson(identityAttributeJson);
       expect(abstractAttribute, isA<IdentityAttribute>());
     });
@@ -54,16 +50,10 @@ void main() {
 }
 
 class MockAbstractAttribute extends AbstractAttribute {
-  const MockAbstractAttribute({
-    required super.owner,
-    super.validFrom,
-    super.validTo,
-  });
+  const MockAbstractAttribute({required super.owner, super.validFrom, super.validTo});
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      ...super.toJson(),
-    };
+    return {...super.toJson()};
   }
 }

@@ -29,10 +29,12 @@ void main() {
       };
       expect(
         ProposeAttributeAcceptResponseItem.fromJson(json),
-        equals(const ProposeAttributeAcceptResponseItem(
-          attributeId: 'anAttributeId',
-          attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
-        )),
+        equals(
+          const ProposeAttributeAcceptResponseItem(
+            attributeId: 'anAttributeId',
+            attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+          ),
+        ),
       );
     });
   });

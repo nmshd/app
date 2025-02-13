@@ -6,12 +6,7 @@ class Mail extends MessageContentDerivation {
   final String subject;
   final String body;
 
-  const Mail({
-    required this.to,
-    this.cc,
-    required this.subject,
-    required this.body,
-  });
+  const Mail({required this.to, this.cc, required this.subject, required this.body});
 
   factory Mail.fromJson(Map json) {
     return Mail(
@@ -24,13 +19,7 @@ class Mail extends MessageContentDerivation {
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      '@type': 'Mail',
-      'to': to,
-      if (cc != null) 'cc': cc,
-      'subject': subject,
-      'body': body,
-    };
+    return {'@type': 'Mail', 'to': to, if (cc != null) 'cc': cc, 'subject': subject, 'body': body};
   }
 
   @override

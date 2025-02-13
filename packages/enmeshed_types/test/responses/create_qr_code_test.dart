@@ -6,20 +6,14 @@ void main() {
     test('is correctly converted', () {
       const response = CreateQRCodeResponse(qrCodeBytes: 'aQRCodeBytes');
       final responseJson = response.toJson();
-      expect(
-        responseJson,
-        equals({'qrCodeBytes': 'aQRCodeBytes'}),
-      );
+      expect(responseJson, equals({'qrCodeBytes': 'aQRCodeBytes'}));
     });
   });
 
   group('CreateQRCodeResponse fromJson', () {
     test('is correctly converted', () {
       final json = {'qrCodeBytes': 'aQRCodeBytes'};
-      expect(
-        CreateQRCodeResponse.fromJson(json),
-        equals(const CreateQRCodeResponse(qrCodeBytes: 'aQRCodeBytes')),
-      );
+      expect(CreateQRCodeResponse.fromJson(json), equals(const CreateQRCodeResponse(qrCodeBytes: 'aQRCodeBytes')));
     });
   });
 }

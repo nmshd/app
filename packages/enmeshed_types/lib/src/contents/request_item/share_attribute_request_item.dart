@@ -31,12 +31,12 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
 
   @override
   Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-        '@type': 'ShareAttributeRequestItem',
-        'attribute': attribute.toJson(),
-        'sourceAttributeId': sourceAttributeId,
-        if (thirdPartyAddress != null) 'thirdPartyAddress': thirdPartyAddress,
-      };
+    ...super.toJson(),
+    '@type': 'ShareAttributeRequestItem',
+    'attribute': attribute.toJson(),
+    'sourceAttributeId': sourceAttributeId,
+    if (thirdPartyAddress != null) 'thirdPartyAddress': thirdPartyAddress,
+  };
 
   @override
   List<Object?> get props => [super.props, attribute, sourceAttributeId, thirdPartyAddress];

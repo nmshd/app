@@ -27,12 +27,12 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
   });
 
   factory ProcessedAttributeQueryDVO.fromJson(Map json) => switch (json['type']) {
-        'ProcessedIdentityAttributeQueryDVO' => ProcessedIdentityAttributeQueryDVO.fromJson(json),
-        'ProcessedRelationshipAttributeQueryDVO' => ProcessedRelationshipAttributeQueryDVO.fromJson(json),
-        'ProcessedThirdPartyRelationshipAttributeQueryDVO' => ProcessedThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
-        'ProcessedIQLQueryDVO' => ProcessedIQLQueryDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
-      };
+    'ProcessedIdentityAttributeQueryDVO' => ProcessedIdentityAttributeQueryDVO.fromJson(json),
+    'ProcessedRelationshipAttributeQueryDVO' => ProcessedRelationshipAttributeQueryDVO.fromJson(json),
+    'ProcessedThirdPartyRelationshipAttributeQueryDVO' => ProcessedThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
+    'ProcessedIQLQueryDVO' => ProcessedIQLQueryDVO.fromJson(json),
+    _ => throw Exception("Invalid type '${json['type']}'"),
+  };
   Map<String, dynamic> toJson();
 }
 

@@ -52,44 +52,29 @@ void main() {
 
   group('PostOfficeBoxAddressAttributeValue fromJson', () {
     test('is correctly converted', () {
-      final json = {
-        'recipient': 'aRecipient',
-        'boxId': 'aBoxId',
-        'zipCode': 'aZipCode',
-        'city': 'aCity',
-        'country': 'aCountry',
-      };
+      final json = {'recipient': 'aRecipient', 'boxId': 'aBoxId', 'zipCode': 'aZipCode', 'city': 'aCity', 'country': 'aCountry'};
       expect(
         PostOfficeBoxAddressAttributeValue.fromJson(json),
-        equals(const PostOfficeBoxAddressAttributeValue(
-          recipient: 'aRecipient',
-          boxId: 'aBoxId',
-          zipCode: 'aZipCode',
-          city: 'aCity',
-          country: 'aCountry',
-        )),
+        equals(
+          const PostOfficeBoxAddressAttributeValue(recipient: 'aRecipient', boxId: 'aBoxId', zipCode: 'aZipCode', city: 'aCity', country: 'aCountry'),
+        ),
       );
     });
 
     test('is correctly converted with property "state"', () {
-      final json = {
-        'recipient': 'aRecipient',
-        'boxId': 'aBoxId',
-        'zipCode': 'aZipCode',
-        'city': 'aCity',
-        'country': 'aCountry',
-        'state': 'aState',
-      };
+      final json = {'recipient': 'aRecipient', 'boxId': 'aBoxId', 'zipCode': 'aZipCode', 'city': 'aCity', 'country': 'aCountry', 'state': 'aState'};
       expect(
         PostOfficeBoxAddressAttributeValue.fromJson(json),
-        equals(const PostOfficeBoxAddressAttributeValue(
-          recipient: 'aRecipient',
-          boxId: 'aBoxId',
-          zipCode: 'aZipCode',
-          city: 'aCity',
-          country: 'aCountry',
-          state: 'aState',
-        )),
+        equals(
+          const PostOfficeBoxAddressAttributeValue(
+            recipient: 'aRecipient',
+            boxId: 'aBoxId',
+            zipCode: 'aZipCode',
+            city: 'aCity',
+            country: 'aCountry',
+            state: 'aState',
+          ),
+        ),
       );
     });
   });

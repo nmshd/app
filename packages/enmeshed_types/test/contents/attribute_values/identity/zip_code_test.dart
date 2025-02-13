@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = ZipCodeAttributeValue(value: 'aZipCode');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'ZipCode',
-          'value': 'aZipCode',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'ZipCode', 'value': 'aZipCode'}));
     });
   });
 

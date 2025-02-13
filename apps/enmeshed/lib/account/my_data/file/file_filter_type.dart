@@ -8,15 +8,14 @@ sealed class FileFilterType {
   String toLabel(BuildContext context);
 
   factory FileFilterType.fromMimetype(String mimetype) => switch (mimetype) {
-        'image/jpeg' => const JPGFileFilterType(),
-        'application/pdf' => const PDFFileFilterType(),
-        'image/png' => const PNGFileFilterType(),
-        'application/vnd.ms-powerpoint' ||
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation' =>
-          const PowerPointDocumentFileFilterType(),
-        'application/msword' || 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => const WordDocumentFileFilterType(),
-        _ => const OtherFileFilterType(),
-      };
+    'image/jpeg' => const JPGFileFilterType(),
+    'application/pdf' => const PDFFileFilterType(),
+    'image/png' => const PNGFileFilterType(),
+    'application/vnd.ms-powerpoint' ||
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => const PowerPointDocumentFileFilterType(),
+    'application/msword' || 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => const WordDocumentFileFilterType(),
+    _ => const OtherFileFilterType(),
+  };
 }
 
 @immutable

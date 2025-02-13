@@ -26,8 +26,8 @@ class DatepickerInput extends StatefulWidget {
     DateTime? lastDate,
     required this.onDateSelected,
     required this.selectedDate,
-  })  : firstDate = firstDate ?? defaultFirstDate,
-        lastDate = lastDate ?? defaultLastDate;
+  }) : firstDate = firstDate ?? defaultFirstDate,
+       lastDate = lastDate ?? defaultLastDate;
 
   @override
   State<DatepickerInput> createState() => _DatepickerInputState();
@@ -80,12 +80,7 @@ class _DatepickerInputState extends State<DatepickerInput> {
       }
     }
 
-    final pickedDate = await showDatePicker(
-      context: context,
-      initialDate: initialDateTime,
-      firstDate: widget.firstDate,
-      lastDate: widget.lastDate,
-    );
+    final pickedDate = await showDatePicker(context: context, initialDate: initialDateTime, firstDate: widget.firstDate, lastDate: widget.lastDate);
     if (pickedDate == null) return;
 
     widget.onDateSelected!(pickedDate);

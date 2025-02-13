@@ -30,12 +30,7 @@ class ScanScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _onSubmit({
-    required String content,
-    required VoidCallback pause,
-    required VoidCallback resume,
-    required BuildContext context,
-  }) async {
+  Future<void> _onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
     pause();
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
