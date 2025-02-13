@@ -11,7 +11,7 @@ class ValueRendererListTile extends StatefulWidget {
   final InputDecoration? decoration;
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
-  final void Function({String? valueType, ValueRendererInputValue? inputValue, required bool isComplex}) onUpdateInput;
+  final Future<void> Function(String valueType, String? value)? onUpdateAttribute;
   final String valueType;
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;
@@ -30,7 +30,7 @@ class ValueRendererListTile extends StatefulWidget {
     this.controller,
     required this.valueType,
     this.checkboxSettings,
-    required this.onUpdateInput,
+    required this.onUpdateAttribute,
     required this.mustBeAccepted,
     required this.expandFileReference,
     required this.chooseFile,
@@ -52,20 +52,12 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
       final value = controller.value;
 
       if (value is ValueRendererValidationError) {
-        widget.onUpdateInput(
-          inputValue: null,
-          valueType: widget.valueType,
-          isComplex: widget.renderHints.editType == RenderHintsEditType.Complex ? true : false,
-        );
+        widget.onUpdateAttribute!(widget.valueType, null);
 
         return;
       }
 
-      widget.onUpdateInput(
-        inputValue: controller.value,
-        valueType: widget.valueType,
-        isComplex: widget.renderHints.editType == RenderHintsEditType.Complex ? true : false,
-      );
+      widget.onUpdateAttribute!(widget.valueType, widget.valueType == 'IdentityFileReference' ? value.value : null);
     });
   }
 

@@ -1,9 +1,9 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
+import '/src/attribute/draft_attribute_renderer.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
@@ -29,12 +29,14 @@ class DecidableShareAttributeRequestItemRenderer extends StatefulWidget {
 
 class _DecidableShareAttributeRequestItemRendererState extends State<DecidableShareAttributeRequestItemRenderer> {
   late bool isChecked;
+  late bool isManualDecisionAccepted;
 
   @override
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted);
+    isManualDecisionAccepted = widget.item.initallyDecided;
 
     if (isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
@@ -43,11 +45,19 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
 
   @override
   Widget build(BuildContext context) {
-    return DraftAttributeRenderer(
-      draftAttribute: widget.item.attribute,
-      checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-      expandFileReference: widget.expandFileReference,
-      openFileDetails: widget.openFileDetails,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: DraftAttributeRenderer(
+        draftAttribute: widget.item.attribute,
+        checkboxSettings: (
+          isChecked: isChecked,
+          onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
+          onUpdateManualDecision: null,
+          isManualDecided: isManualDecisionAccepted,
+        ),
+        expandFileReference: widget.expandFileReference,
+        openFileDetails: widget.openFileDetails,
+      ),
     );
   }
 
