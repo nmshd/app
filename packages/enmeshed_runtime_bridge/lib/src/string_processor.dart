@@ -14,10 +14,7 @@ class StringProcessor {
       '''const result = await runtime.stringProcessor.processURL(url, account ?? undefined)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: {} }''',
-      arguments: {
-        'url': url,
-        'account': account?.toJson(),
-      },
+      arguments: {'url': url, 'account': account?.toJson()},
     );
 
     return VoidResult.fromJson(result.valueToMap());
@@ -28,10 +25,7 @@ class StringProcessor {
       '''const result = await runtime.stringProcessor.processTruncatedReference(truncatedReference, account ?? undefined)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: {} }''',
-      arguments: {
-        'truncatedReference': truncatedReference,
-        'account': account?.toJson(),
-      },
+      arguments: {'truncatedReference': truncatedReference, 'account': account?.toJson()},
     );
 
     return VoidResult.fromJson(result.valueToMap());

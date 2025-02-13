@@ -5,8 +5,5 @@ import '../event.dart';
 class MessageSentEvent extends Event {
   final MessageDTO data;
 
-  const MessageSentEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const MessageSentEvent({required this.data, required super.eventTargetAddress});
 }

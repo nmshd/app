@@ -6,9 +6,5 @@ class PeerSharedAttributeSucceededEvent extends Event {
   final LocalAttributeDTO predecessor;
   final LocalAttributeDTO successor;
 
-  PeerSharedAttributeSucceededEvent({
-    required this.predecessor,
-    required this.successor,
-    required super.eventTargetAddress,
-  });
+  PeerSharedAttributeSucceededEvent({required this.predecessor, required this.successor, required super.eventTargetAddress});
 }

@@ -6,9 +6,5 @@ class OwnSharedAttributeSucceededEvent extends Event {
   final LocalAttributeDTO predecessor;
   final LocalAttributeDTO successor;
 
-  OwnSharedAttributeSucceededEvent({
-    required this.predecessor,
-    required this.successor,
-    required super.eventTargetAddress,
-  });
+  OwnSharedAttributeSucceededEvent({required this.predecessor, required this.successor, required super.eventTargetAddress});
 }
