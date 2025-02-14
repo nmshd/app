@@ -22,10 +22,6 @@ Future<void> showSucceedAttributeModal({
   required List<LocalAttributeDVO> sameTypeAttributes,
   required VoidCallback onAttributeSucceeded,
 }) async {
-  final controller = ValueRendererController()..value = attribute.value;
-  final succeedEnabledNotifier = ValueNotifier<bool>(true);
-  final errorTextNotifier = ValueNotifier<String?>(null);
-
   if (attribute is! RepositoryAttributeDVO) {
     if (!context.mounted) return;
 
@@ -66,10 +62,6 @@ Future<void> showSucceedAttributeModal({
           ),
         ),
   );
-
-  controller.dispose();
-  succeedEnabledNotifier.dispose();
-  errorTextNotifier.dispose();
 }
 
 class _SucceedAttributeModal extends StatefulWidget {
@@ -90,23 +82,24 @@ class _SucceedAttributeModal extends StatefulWidget {
 }
 
 class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
-  final controller = ValueRendererController();
-  bool enabled = false;
-  String? errorText;
-  IdentityAttributeValue? attributeValue;
+  final _controller = ValueRendererController();
+  bool _enabled = false;
+  bool _saving = false;
+  String? _errorText;
+  late IdentityAttributeValue _attributeValue;
 
   @override
   void initState() {
     super.initState();
 
-    controller
+    _controller
       ..value = widget.attribute
-      ..addListener(handleControllerChange);
+      ..addListener(() => WidgetsBinding.instance.addPostFrameCallback((_) => _handleControllerChange()));
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
 
     super.dispose();
   }
@@ -114,10 +107,11 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        BottomSheetHeader(title: context.l10n.personalData_details_editEntry),
+        BottomSheetHeader(title: context.l10n.personalData_details_editEntry, canClose: !_saving),
         Padding(
-          padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 72),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -128,39 +122,36 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
               ValueRenderer(
                 renderHints: widget.attribute.renderHints,
                 valueHints: widget.attribute.valueHints,
-                controller: controller,
+                controller: _controller,
                 initialValue: widget.attribute.value,
                 valueType: widget.attribute.valueType,
                 expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                 chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
                 openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
               ),
-              if (errorText != null) ...[
+              if (_errorText != null) ...[
                 if (widget.attribute.renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,
                 Text(
-                  errorText!,
+                  _errorText!,
                   style: TextStyle(
-                    color: errorText == context.l10n.personalData_details_errorOnSuccession ? Theme.of(context).colorScheme.error : null,
+                    color: _errorText == context.l10n.personalData_details_errorOnSuccession ? Theme.of(context).colorScheme.error : null,
                   ),
                 ),
               ],
-              if (widget.attribute.sharedWith.isNotEmpty) ...[
-                Gaps.h16,
-                Text(context.l10n.personalData_details_notifyContacts(widget.attribute.sharedWith.length)),
-                Gaps.h16,
-              ],
+              if (widget.attribute.sharedWith.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(context.l10n.personalData_details_notifyContacts(widget.attribute.sharedWith.length)),
+                ),
+
               Padding(
-                padding: EdgeInsets.only(right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
+                padding: EdgeInsets.only(top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                    OutlinedButton(onPressed: _saving ? null : () => context.pop(), child: Text(context.l10n.cancel)),
                     Gaps.w8,
-                    FilledButton(
-                      style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                      onPressed: !enabled ? null : succeedAttributeAndNotifyPeers,
-                      child: Text(context.l10n.save),
-                    ),
+                    FilledButton(onPressed: _saving || !_enabled ? null : _onSavePressed, child: Text(context.l10n.save)),
                   ],
                 ),
               ),
@@ -171,23 +162,30 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
     );
   }
 
-  Future<void> succeedAttributeAndNotifyPeers() async {
+  Future<void> _onSavePressed() async {
     if (!hasDataChanged(widget.attribute)) {
       setState(() {
-        enabled = false;
-        errorText = context.l10n.personalData_details_errorOnSuccession;
+        _errorText = context.l10n.personalData_details_errorOnSuccession;
       });
 
       return;
     }
 
-    setState(() => enabled = false);
+    if (isAnyOtherVersionSameAsCurrent()) {
+      setState(() {
+        _errorText = context.l10n.personalData_details_warningOnSuccession;
+      });
+
+      return;
+    }
+
+    setState(() => _saving = true);
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     final succeedAttributeResult = await session.consumptionServices.attributes.succeedRepositoryAttribute(
       predecessorId: widget.attribute.id,
-      value: attributeValue!,
+      value: _attributeValue,
     );
 
     if (succeedAttributeResult.isError) {
@@ -202,7 +200,7 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
           },
         );
 
-        setState(() => enabled = true);
+        setState(() => _enabled = true);
       }
 
       return;
@@ -223,46 +221,35 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
 
     if (mounted) context.pop();
     widget.onAttributeSucceeded();
-
-    controller.removeListener(handleControllerChange);
   }
 
-  void handleControllerChange() {
-    final value = controller.value;
+  void _handleControllerChange() {
+    final value = _controller.value;
 
     if (value is ValueRendererValidationError) {
-      setState(() => enabled = false);
+      setState(() => _enabled = false);
       return;
     }
 
-    final canSucceedAttribute = composeIdentityAttributeValue(
+    setState(() {
+      _enabled = true;
+    });
+
+    final attributeValue = composeIdentityAttributeValue(
       isComplex: widget.attribute.renderHints.editType == RenderHintsEditType.Complex,
       currentAddress: widget.attribute.owner,
       valueType: widget.attribute.valueType,
       inputValue: value as ValueRendererInputValue,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (enabled == false && !hasDataChanged(widget.attribute)) {
-        errorText = context.l10n.personalData_details_errorOnSuccession;
-      } else if (isAnyOtherVersionSameAsCurrent()) {
-        errorText = context.l10n.personalData_details_warningOnSuccession;
-      } else {
-        errorText = null;
-      }
-    });
+    if (attributeValue == null) return;
 
-    if (canSucceedAttribute != null) {
-      attributeValue = canSucceedAttribute.value;
-      setState(() => enabled = true);
-    } else {
-      setState(() => enabled = false);
-    }
+    setState(() => _attributeValue = attributeValue.value);
   }
 
   bool hasDataChanged(LocalAttributeDVO x) {
     final attributeData = x.value.toJson()..removeWhere((key, value) => key == '@type');
-    final controllerData = (controller.value as ValueRendererInputValue).getValue();
+    final controllerData = (_controller.value as ValueRendererInputValue).getValue();
 
     return !mapEquals(attributeData, controllerData);
   }
