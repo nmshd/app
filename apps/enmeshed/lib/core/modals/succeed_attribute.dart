@@ -51,9 +51,10 @@ Future<void> showSucceedAttributeModal({
 
   await showModalBottomSheet<void>(
     context: context,
+    isScrollControlled: true,
     builder:
         (context) => ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 600),
+          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
           child: _SucceedAttributeModal(
             accountId: accountId,
             attribute: attribute,
@@ -145,7 +146,7 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
                 ),
 
               Padding(
-                padding: EdgeInsets.only(top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
+                padding: EdgeInsets.only(top: 8, bottom: MediaQuery.viewPaddingOf(context).bottom + 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
