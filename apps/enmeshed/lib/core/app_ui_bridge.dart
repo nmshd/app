@@ -41,10 +41,7 @@ class AppUIBridge extends UIBridge {
       return;
     }
 
-    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.onboardAccount(
-          deviceOnboardingInfo,
-          name: deviceOnboardingInfo.profileName,
-        );
+    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.onboardAccount(deviceOnboardingInfo, name: deviceOnboardingInfo.profileName);
 
     await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
     await upsertRestoreFromIdentityRecoveryKitSetting(accountId: account.id, value: true);
