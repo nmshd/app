@@ -40,13 +40,8 @@ class RequestItemGroupDVO extends RequestItemDVO {
   final String? title;
   final ResponseItemGroupDVO? response;
 
-  const RequestItemGroupDVO({
-    required super.isDecidable,
-    required this.items,
-    this.title,
-    super.description,
-    this.response,
-  }) : super(id: 'n/a', name: 'n/a', type: 'RequestItemGroupDVO');
+  const RequestItemGroupDVO({required super.isDecidable, required this.items, this.title, super.description, this.response})
+    : super(id: 'n/a', name: 'n/a', type: 'RequestItemGroupDVO');
 
   factory RequestItemGroupDVO.fromJson(Map json) => _$RequestItemGroupDVOFromJson(Map<String, dynamic>.from(json));
   @override

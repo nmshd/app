@@ -46,14 +46,11 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
               ),
               TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
               if (value.state != null) TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
-              if (extraLine != null) ...[
-                const SizedBox(height: 2),
-                extraLine!,
-              ],
+              if (extraLine != null) ...[const SizedBox(height: 2), extraLine!],
             ],
           ),
         ),
-        if (trailing != null) trailing!
+        if (trailing != null) trailing!,
       ],
     );
   }

@@ -87,9 +87,7 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
   }
 
   Future<void> _printFile() async {
-    final success = await Printing.layoutPdf(
-      onLayout: (PdfPageFormat format) async => widget.recoveryKit.buffer.asUint8List(),
-    );
+    final success = await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => widget.recoveryKit.buffer.asUint8List());
 
     if (!success) return;
 

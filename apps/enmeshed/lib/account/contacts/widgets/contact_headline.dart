@@ -13,10 +13,7 @@ class ContactHeadline extends StatelessWidget {
       child: Row(
         children: [
           if (icon != null) Padding(padding: const EdgeInsets.only(right: 8), child: icon),
-          Text(
-            text,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(text, style: Theme.of(context).textTheme.titleMedium),
         ],
       ),
     );

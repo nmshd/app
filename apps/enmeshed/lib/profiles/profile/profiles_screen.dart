@@ -53,10 +53,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     final appBar = AppBar(title: Text(context.l10n.drawer_manageProfiles, style: Theme.of(context).textTheme.titleMedium));
 
     if (_accounts == null || _accountsInDeletion == null) {
-      return Scaffold(
-        appBar: appBar,
-        body: const Center(child: CircularProgressIndicator()),
-      );
+      return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -98,9 +95,10 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     final accounts = await runtime.accountServices.getAccountsNotInDeletion();
     accounts.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
-    final selectedAccount = widget.selectedAccountReference != null
-        ? accounts.firstWhere((a) => a.id == widget.selectedAccountReference || a.address == widget.selectedAccountReference)
-        : accounts.reduce((value, element) => (value.lastAccessedAt ?? '').compareTo(element.lastAccessedAt ?? '') == 1 ? value : element);
+    final selectedAccount =
+        widget.selectedAccountReference != null
+            ? accounts.firstWhere((a) => a.id == widget.selectedAccountReference || a.address == widget.selectedAccountReference)
+            : accounts.reduce((value, element) => (value.lastAccessedAt ?? '').compareTo(element.lastAccessedAt ?? '') == 1 ? value : element);
 
     final profilePicture = await loadProfilePicture(accountReference: selectedAccount.id);
 
@@ -147,16 +145,13 @@ class _CurrentProfileHeader extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              child: InkWell(
-                borderRadius: BorderRadius.circular(45),
-                onTap: editProfile,
-                child: ProfilePicture(
-                  radius: 60,
-                  profileName: selectedAccount.name,
-                  image: selectedAccountProfilePicture != null ? FileImage(selectedAccountProfilePicture!) : null,
-                  decorative: true,
-                ),
+            Center(
+              child: ProfilePicture(
+                radius: 60,
+                profileName: selectedAccount.name,
+                image: selectedAccountProfilePicture != null ? FileImage(selectedAccountProfilePicture!) : null,
+                decorative: true,
+                onPressed: editProfile,
               ),
             ),
           ],
@@ -193,11 +188,7 @@ class _CurrentProfileHeader extends StatelessWidget {
               Gaps.h16,
               Row(
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.edit_outlined),
-                    tooltip: context.l10n.profiles_settings_editProfile,
-                    onPressed: editProfile,
-                  ),
+                  IconButton(icon: const Icon(Icons.edit_outlined), tooltip: context.l10n.profiles_settings_editProfile, onPressed: editProfile),
                   IconButton(
                     icon: const Icon(Icons.devices_outlined),
                     tooltip: context.l10n.profiles_settings_connectedDevices,
@@ -229,43 +220,45 @@ class _BackgroundPainter extends CustomPainter {
   final Color rightTriangleColor;
   final Color bottomColor;
 
-  _BackgroundPainter({
-    required this.leftTriangleColor,
-    required this.rightTriangleColor,
-    required this.bottomColor,
-  });
+  _BackgroundPainter({required this.leftTriangleColor, required this.rightTriangleColor, required this.bottomColor});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rightPaint = Paint()
-      ..color = rightTriangleColor
-      ..style = PaintingStyle.fill;
+    final rightPaint =
+        Paint()
+          ..color = rightTriangleColor
+          ..style = PaintingStyle.fill;
 
-    final leftPaint = Paint()
-      ..color = leftTriangleColor
-      ..style = PaintingStyle.fill;
+    final leftPaint =
+        Paint()
+          ..color = leftTriangleColor
+          ..style = PaintingStyle.fill;
 
-    final bottomPaint = Paint()
-      ..color = bottomColor
-      ..style = PaintingStyle.fill;
+    final bottomPaint =
+        Paint()
+          ..color = bottomColor
+          ..style = PaintingStyle.fill;
 
-    final leftPath = Path()
-      ..moveTo(0, 0)
-      ..lineTo(size.width / 2, size.height / 2)
-      ..lineTo(0, size.height)
-      ..close();
+    final leftPath =
+        Path()
+          ..moveTo(0, 0)
+          ..lineTo(size.width / 2, size.height / 2)
+          ..lineTo(0, size.height)
+          ..close();
 
-    final bottomPath = Path()
-      ..moveTo(0, size.height)
-      ..lineTo(size.width / 2, size.height / 2)
-      ..lineTo(size.width, size.height)
-      ..close();
+    final bottomPath =
+        Path()
+          ..moveTo(0, size.height)
+          ..lineTo(size.width / 2, size.height / 2)
+          ..lineTo(size.width, size.height)
+          ..close();
 
-    final rightPath = Path()
-      ..moveTo(size.width, 0)
-      ..lineTo(size.width / 2, size.height / 2)
-      ..lineTo(size.width, size.height)
-      ..close();
+    final rightPath =
+        Path()
+          ..moveTo(size.width, 0)
+          ..lineTo(size.width / 2, size.height / 2)
+          ..lineTo(size.width, size.height)
+          ..close();
 
     canvas
       ..drawPath(leftPath, leftPaint)
@@ -292,11 +285,7 @@ class _MoreProfiles extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(context.l10n.profiles_additionalProfiles, style: Theme.of(context).textTheme.titleMedium),
-              IconButton(
-                onPressed: () => _onCreateProfilePressed(context),
-                icon: const Icon(Icons.add),
-                tooltip: context.l10n.profiles_add,
-              ),
+              IconButton(onPressed: () => _onCreateProfilePressed(context), icon: const Icon(Icons.add), tooltip: context.l10n.profiles_add),
             ],
           ),
         ),
@@ -308,13 +297,11 @@ class _MoreProfiles extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => Gaps.h16,
             itemCount: accounts.length,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ProfileCard(
-                account: accounts[index],
-                onAccountSelected: (account) => _onAccountSelected(account, context),
-              ),
-            ),
+            itemBuilder:
+                (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ProfileCard(account: accounts[index], onAccountSelected: (account) => _onAccountSelected(account, context)),
+                ),
           ),
       ],
     );
@@ -360,17 +347,18 @@ class _ProfilesInDeletion extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           separatorBuilder: (context, index) => Gaps.h16,
           itemCount: accountsInDeletion.length,
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: DeletionProfileCard(
-              accountInDeletion: accountsInDeletion[index],
-              trailing: IconButton(
-                icon: const Icon(Icons.refresh),
-                onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
-                tooltip: context.l10n.identity_restore,
+          itemBuilder:
+              (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: DeletionProfileCard(
+                  accountInDeletion: accountsInDeletion[index],
+                  trailing: IconButton(
+                    icon: const Icon(Icons.refresh),
+                    onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
+                    tooltip: context.l10n.identity_restore,
+                  ),
+                ),
               ),
-            ),
-          ),
         ),
         if (accountsInDeletion.any((e) => e.deletionDate != null)) ...[
           Gaps.h16,

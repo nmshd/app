@@ -16,20 +16,21 @@ class SelectedTagsSection extends StatelessWidget {
 
     return Wrap(
       spacing: 10,
-      children: selectedTagsList.map((tagPath) {
-        final tag = availableTags[tagPath];
-        if (tag == null) return const SizedBox.shrink();
+      children:
+          selectedTagsList.map((tagPath) {
+            final tag = availableTags[tagPath];
+            if (tag == null) return const SizedBox.shrink();
 
-        return Chip(
-          label: Text(
-            getTagLabel(context, tagCollection, tag),
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer),
-          ),
-          side: BorderSide.none,
-          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-        );
-      }).toList(),
+            return Chip(
+              label: Text(
+                getTagLabel(context, tagCollection, tag),
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer),
+              ),
+              side: BorderSide.none,
+              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            );
+          }).toList(),
     );
   }
 }

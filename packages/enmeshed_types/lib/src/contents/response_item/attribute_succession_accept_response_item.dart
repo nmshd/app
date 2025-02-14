@@ -5,11 +5,7 @@ class AttributeSuccessionAcceptResponseItem extends AcceptResponseItem {
   final String successorId;
   final AbstractAttribute successorContent;
 
-  const AttributeSuccessionAcceptResponseItem({
-    required this.predecessorId,
-    required this.successorId,
-    required this.successorContent,
-  });
+  const AttributeSuccessionAcceptResponseItem({required this.predecessorId, required this.successorId, required this.successorContent});
 
   factory AttributeSuccessionAcceptResponseItem.fromJson(Map json) {
     return AttributeSuccessionAcceptResponseItem(
@@ -21,12 +17,12 @@ class AttributeSuccessionAcceptResponseItem extends AcceptResponseItem {
 
   @override
   Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-        '@type': 'AttributeSuccessionAcceptResponseItem',
-        'predecessorId': predecessorId,
-        'successorId': successorId,
-        'successorContent': successorContent.toJson(),
-      };
+    ...super.toJson(),
+    '@type': 'AttributeSuccessionAcceptResponseItem',
+    'predecessorId': predecessorId,
+    'successorId': successorId,
+    'successorContent': successorContent.toJson(),
+  };
 
   @override
   List<Object?> get props => [super.props, predecessorId, successorId, successorContent];

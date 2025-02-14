@@ -21,10 +21,7 @@ class DeviceOnboardingSuccess extends StatelessWidget {
           Gaps.h40,
           Align(
             alignment: Alignment.centerRight,
-            child: OutlinedButton(
-              onPressed: () => context.pop(),
-              child: Text(context.l10n.devices_onboardingSuccessButton),
-            ),
+            child: OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.devices_onboardingSuccessButton)),
           ),
         ],
       ),

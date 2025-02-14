@@ -5,11 +5,7 @@ class TenTapDetector extends StatelessWidget {
   final Widget child;
   final VoidCallback onTenTap;
 
-  const TenTapDetector({
-    required this.child,
-    required this.onTenTap,
-    super.key,
-  });
+  const TenTapDetector({required this.child, required this.onTenTap, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +13,10 @@ class TenTapDetector extends StatelessWidget {
       gestures: {
         SerialTapGestureRecognizer: GestureRecognizerFactoryWithHandlers<SerialTapGestureRecognizer>(
           SerialTapGestureRecognizer.new,
-          (instance) => instance.onSerialTapDown = (details) {
-            if (details.count == 10) onTenTap();
-          },
+          (instance) =>
+              instance.onSerialTapDown = (details) {
+                if (details.count == 10) onTenTap();
+              },
         ),
       },
       child: child,

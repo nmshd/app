@@ -20,7 +20,7 @@ RelationshipAttribute? composeRelationshipAttributeValue({
         final ValueRendererInputValueNum attribute => attribute.value,
         final ValueRendererInputValueString attribute => attribute.value,
         final ValueRendererInputValueMap attribute => attribute.value,
-        _ => null
+        _ => null,
       };
 
       return MapEntry(key, attributeValue != '' ? attributeValue : null);
@@ -43,7 +43,7 @@ RelationshipAttribute? composeRelationshipAttributeValue({
     final ValueRendererInputValueNum attribute => attribute.value,
     final ValueRendererInputValueString attribute => attribute.value,
     final ValueRendererInputValueMap attribute => attribute.value,
-    _ => null
+    _ => null,
   };
 
   if (attributeValue == null) return null;
@@ -52,10 +52,6 @@ RelationshipAttribute? composeRelationshipAttributeValue({
     confidentiality: RelationshipAttributeConfidentiality.values.byName(query.attributeCreationHints.confidentiality),
     key: query.key,
     owner: currentAddress,
-    value: RelationshipAttributeValue.fromJson({
-      '@type': valueType,
-      'title': query.attributeCreationHints.title,
-      'value': attributeValue,
-    }),
+    value: RelationshipAttributeValue.fromJson({'@type': valueType, 'title': query.attributeCreationHints.title, 'value': attributeValue}),
   );
 }

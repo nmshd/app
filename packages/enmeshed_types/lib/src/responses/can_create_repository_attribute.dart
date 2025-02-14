@@ -1,9 +1,7 @@
 sealed class CanCreateRepositoryAttributeResponse {
   final bool isSuccess;
 
-  CanCreateRepositoryAttributeResponse({
-    required this.isSuccess,
-  });
+  CanCreateRepositoryAttributeResponse({required this.isSuccess});
 
   factory CanCreateRepositoryAttributeResponse.fromJson(Map json) {
     return switch (json['isSuccess']) {
@@ -22,8 +20,5 @@ class CanCreateRepositoryAttributeFailureResponse extends CanCreateRepositoryAtt
   final String code;
   final String message;
 
-  CanCreateRepositoryAttributeFailureResponse({
-    required this.code,
-    required this.message,
-  }) : super(isSuccess: false);
+  CanCreateRepositoryAttributeFailureResponse({required this.code, required this.message}) : super(isSuccess: false);
 }

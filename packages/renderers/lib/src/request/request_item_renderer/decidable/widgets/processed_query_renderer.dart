@@ -46,8 +46,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
           'DeliveryBoxAddress' ||
           'PersonName' ||
           'PostOfficeBoxAddress' ||
-          'StreetAddress' =>
-            'i18n://attributes.values.${query.valueType}._title',
+          'StreetAddress' => 'i18n://attributes.values.${query.valueType}._title',
           _ => 'i18n://dvo.attribute.name.${query.valueType}',
         },
         renderHints: query.renderHints,
@@ -69,9 +68,10 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
           child: IdentityAttributeValueRenderer(
             value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
             valueHints: query.results.first.valueHints,
-            trailing: onUpdateAttribute == null
-                ? null
-                : IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
+            trailing:
+                onUpdateAttribute == null
+                    ? null
+                    : IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
             expandFileReference: expandFileReference,
             openFileDetails: openFileDetails,
           ),
@@ -131,15 +131,13 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
         Expanded(
           child: RelationshipAttributeValueRenderer(
             value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
-            trailing: onUpdateAttribute == null
-                ? null
-                : SizedBox(
-                    width: 50,
-                    child: IconButton(
-                      onPressed: () => onUpdateAttribute!(query.valueType),
-                      icon: const Icon(Icons.chevron_right),
+            trailing:
+                onUpdateAttribute == null
+                    ? null
+                    : SizedBox(
+                      width: 50,
+                      child: IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
                     ),
-                  ),
             expandFileReference: expandFileReference,
             openFileDetails: openFileDetails,
           ),
@@ -179,15 +177,10 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
           Expanded(
             child: RelationshipAttributeValueRenderer(
               value: selectedAttribute is RelationshipAttribute ? selectedAttribute.value : query.results.first.value as RelationshipAttributeValue,
-              trailing: onUpdateAttribute == null
-                  ? null
-                  : SizedBox(
-                      width: 50,
-                      child: IconButton(
-                        onPressed: () => onUpdateAttribute!(),
-                        icon: const Icon(Icons.chevron_right),
-                      ),
-                    ),
+              trailing:
+                  onUpdateAttribute == null
+                      ? null
+                      : SizedBox(width: 50, child: IconButton(onPressed: () => onUpdateAttribute!(), icon: const Icon(Icons.chevron_right))),
               expandFileReference: expandFileReference,
               openFileDetails: openFileDetails,
             ),
@@ -235,7 +228,8 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     if (query.results.isEmpty) {
       if (query.valueType != null && query.valueHints != null && query.renderHints != null) {
         return ValueRendererListTile(
-          fieldName: requestItemTitle ??
+          fieldName:
+              requestItemTitle ??
               switch (query.valueType) {
                 'Affiliation' ||
                 'BirthDate' ||
@@ -243,8 +237,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
                 'DeliveryBoxAddress' ||
                 'PersonName' ||
                 'PostOfficeBoxAddress' ||
-                'StreetAddress' =>
-                  'i18n://attributes.values.${query.valueType}._title',
+                'StreetAddress' => 'i18n://attributes.values.${query.valueType}._title',
                 _ => 'i18n://dvo.attribute.name.${query.valueType}',
               },
           renderHints: query.renderHints!,
@@ -275,15 +268,13 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
             titleOverride: requestItemTitle,
             value: selectedAttribute is IdentityAttribute ? selectedAttribute.value : query.results.first.value as IdentityAttributeValue,
             valueHints: query.results.first.valueHints,
-            trailing: onUpdateAttribute == null
-                ? null
-                : SizedBox(
-                    width: 50,
-                    child: IconButton(
-                      onPressed: () => onUpdateAttribute!(query.valueType),
-                      icon: const Icon(Icons.chevron_right),
+            trailing:
+                onUpdateAttribute == null
+                    ? null
+                    : SizedBox(
+                      width: 50,
+                      child: IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
                     ),
-                  ),
             expandFileReference: expandFileReference,
             openFileDetails: openFileDetails,
           ),

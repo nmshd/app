@@ -41,17 +41,17 @@ class IdentityDeletionProcessDTO extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        status,
-        createdAt,
-        createdByDevice,
-        approvalPeriodEndsAt,
-        rejectedAt,
-        rejectedByDevice,
-        approvedAt,
-        approvedByDevice,
-        gracePeriodEndsAt,
-        cancelledAt,
-        cancelledByDevice
-      ];
+    id,
+    status,
+    createdAt,
+    createdByDevice,
+    approvalPeriodEndsAt,
+    rejectedAt,
+    rejectedByDevice,
+    approvedAt,
+    approvedByDevice,
+    gracePeriodEndsAt,
+    cancelledAt,
+    cancelledByDevice,
+  ];
 }

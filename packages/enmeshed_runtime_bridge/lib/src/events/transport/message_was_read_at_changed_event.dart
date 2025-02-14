@@ -5,8 +5,5 @@ import '../event.dart';
 class MessageWasReadAtChangedEvent extends Event {
   final MessageDTO data;
 
-  const MessageWasReadAtChangedEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const MessageWasReadAtChangedEvent({required this.data, required super.eventTargetAddress});
 }

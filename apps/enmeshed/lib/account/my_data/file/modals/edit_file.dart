@@ -84,11 +84,7 @@ class _EditFileState extends State<EditFile> {
               Gaps.h24,
               Text(context.l10n.files_assignTags, style: Theme.of(context).textTheme.titleMedium),
               Gaps.h24,
-              AvailableTagsSection(
-                tagCollection: widget.tagCollection,
-                selectedTags: _selectedTags,
-                onTagSelected: _handleTagSelected,
-              ),
+              AvailableTagsSection(tagCollection: widget.tagCollection, selectedTags: _selectedTags, onTagSelected: _handleTagSelected),
               Gaps.h40,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

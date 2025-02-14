@@ -34,15 +34,16 @@ class DraftAttributeRenderer extends StatelessWidget {
       children: [
         if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
-          child: isRejected ?? false
-              ? CustomListTile(title: attributeContent.valueTypeAtTypeI18n)
-              : AttributeRenderer(
-                  attribute: attributeContent,
-                  trailing: trailing,
-                  valueHints: draftAttribute.valueHints,
-                  expandFileReference: expandFileReference,
-                  openFileDetails: openFileDetails,
-                ),
+          child:
+              isRejected ?? false
+                  ? CustomListTile(title: attributeContent.valueTypeAtTypeI18n)
+                  : AttributeRenderer(
+                    attribute: attributeContent,
+                    trailing: trailing,
+                    valueHints: draftAttribute.valueHints,
+                    expandFileReference: expandFileReference,
+                    openFileDetails: openFileDetails,
+                  ),
         ),
       ],
     );
@@ -51,8 +52,8 @@ class DraftAttributeRenderer extends StatelessWidget {
 
 extension _ValueTypeI18n on AbstractAttribute {
   String get valueTypeAtTypeI18n => switch (this) {
-        final IdentityAttribute item => item.value.atType,
-        final RelationshipAttribute item => item.value.atType,
-        _ => throw Exception('Unknown AbstractAttribute: $runtimeType'),
-      };
+    final IdentityAttribute item => item.value.atType,
+    final RelationshipAttribute item => item.value.atType,
+    _ => throw Exception('Unknown AbstractAttribute: $runtimeType'),
+  };
 }

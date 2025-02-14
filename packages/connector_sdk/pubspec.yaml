@@ -7,7 +7,7 @@ repository: https://github.com/nmshd/app
 homepage: https://enmeshed.eu
 
 environment:
-  sdk: "^3.6.0"
+  sdk: "^3.7.0"
 
 dependencies:
   dio: ^5.7.0

@@ -22,28 +22,28 @@ class DeliveryBoxAddressAttributeValue extends IdentityAttributeValue {
   }) : super('DeliveryBoxAddress');
 
   factory DeliveryBoxAddressAttributeValue.fromJson(Map json) => DeliveryBoxAddressAttributeValue(
-        recipient: json['recipient'],
-        deliveryBoxId: json['deliveryBoxId'],
-        userId: json['userId'],
-        zipCode: json['zipCode'],
-        city: json['city'],
-        country: json['country'],
-        phoneNumber: json['phoneNumber'],
-        state: json['state'],
-      );
+    recipient: json['recipient'],
+    deliveryBoxId: json['deliveryBoxId'],
+    userId: json['userId'],
+    zipCode: json['zipCode'],
+    city: json['city'],
+    country: json['country'],
+    phoneNumber: json['phoneNumber'],
+    state: json['state'],
+  );
 
   @override
   Map<String, dynamic> toJson() => {
-        '@type': super.atType,
-        'recipient': recipient,
-        'deliveryBoxId': deliveryBoxId,
-        'userId': userId,
-        'zipCode': zipCode,
-        'city': city,
-        'country': country,
-        if (phoneNumber != null) 'phoneNumber': phoneNumber,
-        if (state != null) 'state': state,
-      };
+    '@type': super.atType,
+    'recipient': recipient,
+    'deliveryBoxId': deliveryBoxId,
+    'userId': userId,
+    'zipCode': zipCode,
+    'city': city,
+    'country': country,
+    if (phoneNumber != null) 'phoneNumber': phoneNumber,
+    if (state != null) 'state': state,
+  };
 
   @override
   List<Object?> get props => [recipient, deliveryBoxId, userId, zipCode, city, country, phoneNumber, state];

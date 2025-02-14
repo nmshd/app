@@ -43,20 +43,15 @@ class _SplashScreenState extends State<SplashScreen> {
               tag: 'logo',
               child: TenTapDetector(
                 onTenTap: () => context.push('/debug'),
-                child: Image.asset(
-                  switch (Theme.of(context).brightness) {
-                    Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
-                    Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
-                  },
-                ),
+                child: Image.asset(switch (Theme.of(context).brightness) {
+                  Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
+                  Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
+                }),
               ),
             ),
           ),
           const SizedBox(height: 50),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50),
-            child: LinearProgressIndicator(),
-          ),
+          const Padding(padding: EdgeInsets.symmetric(horizontal: 50), child: LinearProgressIndicator()),
         ],
       ),
     );
@@ -90,9 +85,11 @@ class _SplashScreenState extends State<SplashScreen> {
         databaseFolder: './database',
       ),
     );
-    GetIt.I.registerSingletonAsync<EnmeshedRuntime>(() async => runtime.run());
 
-    await GetIt.I.allReady();
+    final result = await runtime.run();
+    if (result.isError) return router.go('/error');
+
+    GetIt.I.registerSingleton(runtime);
 
     await setupPush(runtime);
 

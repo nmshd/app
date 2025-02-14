@@ -6,10 +6,7 @@ import '../utils/get_tag_label.dart';
 class AvailableTagsSection extends StatelessWidget {
   final AttributeTagCollectionDTO tagCollection;
   final List<String> selectedTags;
-  final void Function({
-    required String tagPath,
-    required bool selected,
-  }) onTagSelected;
+  final void Function({required String tagPath, required bool selected}) onTagSelected;
 
   const AvailableTagsSection({required this.tagCollection, required this.selectedTags, required this.onTagSelected, super.key});
 
@@ -20,14 +17,15 @@ class AvailableTagsSection extends StatelessWidget {
 
     return Wrap(
       spacing: 10,
-      children: availableTags.entries.map((entry) {
-        return ChoiceChip(
-          label: Text(getTagLabel(context, tagCollection, entry.value)),
-          selected: selectedTags.contains(entry.key),
-          showCheckmark: false,
-          onSelected: (selected) => onTagSelected(tagPath: entry.key, selected: selected),
-        );
-      }).toList(),
+      children:
+          availableTags.entries.map((entry) {
+            return ChoiceChip(
+              label: Text(getTagLabel(context, tagCollection, entry.value)),
+              selected: selectedTags.contains(entry.key),
+              showCheckmark: false,
+              onSelected: (selected) => onTagSelected(tagPath: entry.key, selected: selected),
+            );
+          }).toList(),
     );
   }
 }

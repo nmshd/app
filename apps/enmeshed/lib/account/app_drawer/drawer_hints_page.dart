@@ -52,10 +52,7 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
     );
 
     if (_firstSteps == null || _addContact == null || _loadProfile == null) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [title, const Center(child: CircularProgressIndicator())],
-      );
+      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [title, const Center(child: CircularProgressIndicator())]);
     }
 
     return Column(

@@ -14,15 +14,7 @@ class FileItem extends StatelessWidget {
   final void Function()? onTap;
   final VoidCallback? reload;
 
-  const FileItem({
-    required this.accountId,
-    required this.fileRecord,
-    this.trailing,
-    this.query,
-    this.onTap,
-    this.reload,
-    super.key,
-  });
+  const FileItem({required this.accountId, required this.fileRecord, this.trailing, this.query, this.onTap, this.reload, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +41,8 @@ class FileItem extends StatelessWidget {
       ),
       leading: FileIcon(filename: fileRecord.file.filename),
       trailing: trailing,
-      onTap: onTap ??
+      onTap:
+          onTap ??
           () async {
             await context.push('/account/$accountId/my-data/files/${fileRecord.file.id}', extra: fileRecord);
             reload?.call();

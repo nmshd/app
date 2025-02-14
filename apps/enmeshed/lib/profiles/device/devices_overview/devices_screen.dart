@@ -59,13 +59,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(context.l10n.devices_description(_account!.name)),
+              BoldStyledText(context.l10n.devices_description(_account!.name)),
               Gaps.h24,
-              DeviceCard(
-                accountId: widget.accountId,
-                device: currentDevice,
-                reloadDevices: _reloadDevices,
-              ),
+              DeviceCard(accountId: widget.accountId, device: currentDevice, reloadDevices: _reloadDevices),
               Gaps.h24,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,22 +77,21 @@ class _DevicesScreenState extends State<DevicesScreen> {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: _reloadDevices,
-                  child: otherDevices.isEmpty
-                      ? EmptyListIndicator(
-                          icon: Icons.send_to_mobile_outlined,
-                          text: context.l10n.devices_empty,
-                          wrapInListView: true,
-                          description: context.l10n.devices_empty_description,
-                        )
-                      : ListView.separated(
-                          itemCount: otherDevices.length,
-                          separatorBuilder: (_, __) => Gaps.h16,
-                          itemBuilder: (context, index) => DeviceCard(
-                            accountId: widget.accountId,
-                            device: otherDevices[index],
-                            reloadDevices: _reloadDevices,
+                  child:
+                      otherDevices.isEmpty
+                          ? EmptyListIndicator(
+                            icon: Icons.send_to_mobile_outlined,
+                            text: context.l10n.devices_empty,
+                            wrapInListView: true,
+                            description: context.l10n.devices_empty_description,
+                          )
+                          : ListView.separated(
+                            itemCount: otherDevices.length,
+                            separatorBuilder: (_, __) => Gaps.h16,
+                            itemBuilder:
+                                (context, index) =>
+                                    DeviceCard(accountId: widget.accountId, device: otherDevices[index], reloadDevices: _reloadDevices),
                           ),
-                        ),
                 ),
               ),
             ],

@@ -24,11 +24,7 @@ class DeleteAttributeRequestItem extends RequestItemDerivation {
   }
 
   @override
-  Map<String, dynamic> toJson() => {
-        ...super.toJson(),
-        '@type': 'DeleteAttributeRequestItem',
-        'attributeId': attributeId,
-      };
+  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'DeleteAttributeRequestItem', 'attributeId': attributeId};
 
   @override
   String toString() => 'DeleteAttributeRequestItem(attributeId: $attributeId)';

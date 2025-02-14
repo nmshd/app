@@ -5,8 +5,5 @@ import '../event.dart';
 class OwnSharedAttributeDeletedByOwnerEvent extends Event {
   final LocalAttributeDTO data;
 
-  const OwnSharedAttributeDeletedByOwnerEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const OwnSharedAttributeDeletedByOwnerEvent({required this.data, required super.eventTargetAddress});
 }

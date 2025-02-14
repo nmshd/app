@@ -14,13 +14,7 @@ class FileDetailScreen extends StatefulWidget {
   final FileDVO preLoadedFile;
   final LocalAttributeDVO? fileReferenceAttribute;
 
-  const FileDetailScreen({
-    required this.accountId,
-    required this.fileId,
-    required this.preLoadedFile,
-    this.fileReferenceAttribute,
-    super.key,
-  });
+  const FileDetailScreen({required this.accountId, required this.fileId, required this.preLoadedFile, this.fileReferenceAttribute, super.key});
 
   @override
   State<FileDetailScreen> createState() => _FileDetailScreenState();
@@ -172,13 +166,14 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      builder: (_) => EditFile(
-        accountId: widget.accountId,
-        fileTitle: _fileDVO.title,
-        fileReferenceAttribute: _fileReferenceAttribute!,
-        tagCollection: _tagCollection!,
-        onSave: _loadTags,
-      ),
+      builder:
+          (_) => EditFile(
+            accountId: widget.accountId,
+            fileTitle: _fileDVO.title,
+            fileReferenceAttribute: _fileReferenceAttribute!,
+            tagCollection: _tagCollection!,
+            onSave: _loadTags,
+          ),
     );
   }
 }

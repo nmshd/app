@@ -15,20 +15,11 @@ class FileTagsContainer extends StatelessWidget {
       color: Theme.of(context).colorScheme.surfaceContainer,
       child: Column(
         children: [
-          Row(
-            children: [
-              Icon(Icons.warning_rounded, color: context.customColors.warning),
-              Gaps.w8,
-              Text(context.l10n.files_assignTagsTitle),
-            ],
-          ),
+          Row(children: [Icon(Icons.warning_rounded, color: context.customColors.warning), Gaps.w8, Text(context.l10n.files_assignTagsTitle)]),
           Gaps.h16,
           Text(context.l10n.files_assignTagsDescription, style: Theme.of(context).textTheme.bodySmall),
           Gaps.h24,
-          OutlinedButton(
-            onPressed: onEditFile,
-            child: Text(context.l10n.files_assignTagsButton),
-          ),
+          OutlinedButton(onPressed: onEditFile, child: Text(context.l10n.files_assignTagsButton)),
         ],
       ),
     );

@@ -54,22 +54,12 @@ class _MyDataViewState extends State<MyDataView> {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: AutoLoadingProfilePicture(
-              accountId: widget.accountId,
-              profileName: _account?.name ?? '',
-              decorative: true,
-              radius: 80,
-            ),
+            child: AutoLoadingProfilePicture(accountId: widget.accountId, profileName: _account?.name ?? '', decorative: true, radius: 80),
           ),
           Gaps.h8,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              _account?.name ?? '',
-              style: Theme.of(context).textTheme.titleLarge,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            ),
+            child: Text(_account?.name ?? '', style: Theme.of(context).textTheme.titleLarge, overflow: TextOverflow.ellipsis, maxLines: 2),
           ),
           Gaps.h32,
           ColoredBox(
@@ -79,42 +69,45 @@ class _MyDataViewState extends State<MyDataView> {
                 ListTile(
                   leading: const Icon(Icons.account_circle),
                   title: Text(context.l10n.myData_personalData),
-                  trailing: !_personalDataExisting
-                      ? TextButton.icon(
-                          style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
-                          onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-personalData-creation'),
-                          label: Text(context.l10n.myData_initialCreation),
-                          icon: const Icon(Icons.add),
-                        )
-                      : const Icon(Icons.chevron_right),
+                  trailing:
+                      !_personalDataExisting
+                          ? TextButton.icon(
+                            style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
+                            onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-personalData-creation'),
+                            label: Text(context.l10n.myData_initialCreation),
+                            icon: const Icon(Icons.add),
+                          )
+                          : const Icon(Icons.chevron_right),
                   onTap: !_personalDataExisting ? null : () => context.push('/account/${widget.accountId}/my-data/personal-data'),
                 ),
                 const Divider(indent: 16, height: 2),
                 ListTile(
                   leading: const Icon(Icons.location_city),
                   title: Text(context.l10n.myData_addressData),
-                  trailing: !_addressDataExisting
-                      ? TextButton.icon(
-                          style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
-                          onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-addressData-creation'),
-                          label: Text(context.l10n.myData_initialCreation),
-                          icon: const Icon(Icons.add),
-                        )
-                      : const Icon(Icons.chevron_right),
+                  trailing:
+                      !_addressDataExisting
+                          ? TextButton.icon(
+                            style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
+                            onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-addressData-creation'),
+                            label: Text(context.l10n.myData_initialCreation),
+                            icon: const Icon(Icons.add),
+                          )
+                          : const Icon(Icons.chevron_right),
                   onTap: !_addressDataExisting ? null : () => context.push('/account/${widget.accountId}/my-data/address-data'),
                 ),
                 const Divider(indent: 16, height: 2),
                 ListTile(
                   leading: const Icon(Icons.forum),
                   title: Text(context.l10n.myData_communicationData),
-                  trailing: !_communicationDataExisting
-                      ? TextButton.icon(
-                          style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
-                          onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-communicationData-creation'),
-                          label: Text(context.l10n.myData_initialCreation),
-                          icon: const Icon(Icons.add),
-                        )
-                      : const Icon(Icons.chevron_right),
+                  trailing:
+                      !_communicationDataExisting
+                          ? TextButton.icon(
+                            style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 8)),
+                            onPressed: () => context.push('/account/${widget.accountId}/my-data/initial-communicationData-creation'),
+                            label: Text(context.l10n.myData_initialCreation),
+                            icon: const Icon(Icons.add),
+                          )
+                          : const Icon(Icons.chevron_right),
                   onTap: !_communicationDataExisting ? null : () => context.push('/account/${widget.accountId}/my-data/communication-data'),
                 ),
                 const Divider(indent: 16, height: 2),

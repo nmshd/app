@@ -4,10 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('RequestItem fromJson', () {
     test('parsed valid RequestItemGroup', () {
-      final requestItemGroupJson = {
-        '@type': 'RequestItemGroup',
-        'items': [],
-      };
+      final requestItemGroupJson = {'@type': 'RequestItemGroup', 'items': []};
       final requestItemGroup = RequestItem.fromJson(requestItemGroupJson);
       expect(requestItemGroup, isA<RequestItemGroup>());
     });
@@ -26,17 +23,12 @@ void main() {
 
   group('RequestItem fromJson with exception', () {
     test('throws exception when @type is missing', () {
-      final json = {
-        'mustBeAccepted': true,
-      };
+      final json = {'mustBeAccepted': true};
       expect(() => RequestItem.fromJson(json), throwsA(isA<Exception>()));
     });
 
     test('throws exception when type is unknown', () {
-      final json = {
-        '@type': 'UnknownType',
-        'mustBeAccepted': true,
-      };
+      final json = {'@type': 'UnknownType', 'mustBeAccepted': true};
       expect(() => RequestItem.fromJson(json), throwsA(isA<Exception>()));
     });
   });
@@ -77,18 +69,10 @@ void main() {
 class MockRequestItem extends RequestItem {
   final bool mustBeAccepted;
 
-  const MockRequestItem({
-    super.title,
-    super.description,
-    super.metadata,
-    required this.mustBeAccepted,
-  });
+  const MockRequestItem({super.title, super.description, super.metadata, required this.mustBeAccepted});
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      ...super.toJson(),
-      'mustBeAccepted': mustBeAccepted,
-    };
+    return {...super.toJson(), 'mustBeAccepted': mustBeAccepted};
   }
 }

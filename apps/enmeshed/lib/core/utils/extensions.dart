@@ -18,9 +18,9 @@ extension I18nTranslationExtension on BuildContext {
 
 extension AdaptiveBackIconExtension on BuildContext {
   IconData get adaptiveBackIcon => switch (Theme.of(this).platform) {
-        TargetPlatform.android || TargetPlatform.fuchsia || TargetPlatform.linux || TargetPlatform.windows => Icons.arrow_back,
-        TargetPlatform.iOS || TargetPlatform.macOS => Icons.arrow_back_ios_new,
-      };
+    TargetPlatform.android || TargetPlatform.fuchsia || TargetPlatform.linux || TargetPlatform.windows => Icons.arrow_back,
+    TargetPlatform.iOS || TargetPlatform.macOS => Icons.arrow_back_ios_new,
+  };
 }
 
 extension CacheFile on FileDVO {

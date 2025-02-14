@@ -6,12 +6,9 @@ part of 'dvo_warning.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DVOWarning _$DVOWarningFromJson(Map<String, dynamic> json) => DVOWarning(
-      code: json['code'] as String,
-      message: json['message'] as String?,
-    );
+DVOWarning _$DVOWarningFromJson(Map<String, dynamic> json) => DVOWarning(code: json['code'] as String, message: json['message'] as String?);
 
 Map<String, dynamic> _$DVOWarningToJson(DVOWarning instance) => <String, dynamic>{
-      'code': instance.code,
-      if (instance.message case final value?) 'message': value,
-    };
+  'code': instance.code,
+  if (instance.message case final value?) 'message': value,
+};

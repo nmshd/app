@@ -5,8 +5,5 @@ import '../event.dart';
 class ThirdPartyRelationshipAttributeDeletedByPeerEvent extends Event {
   final LocalAttributeDTO data;
 
-  const ThirdPartyRelationshipAttributeDeletedByPeerEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const ThirdPartyRelationshipAttributeDeletedByPeerEvent({required this.data, required super.eventTargetAddress});
 }

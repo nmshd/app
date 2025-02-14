@@ -13,9 +13,8 @@ LocalAttributeDTO localAttributeTransformer(dynamic v) => LocalAttributeDTO.from
 List<LocalAttributeDTO> localAttributeListTransformer(dynamic v) => List<LocalAttributeDTO>.from(v.map(localAttributeTransformer));
 
 RelationshipTemplateDTO relationshipTemplateTransformer(dynamic v) => RelationshipTemplateDTO.fromJson(v);
-List<RelationshipTemplateDTO> relationshipTemplateListTransformer(dynamic v) => List<RelationshipTemplateDTO>.from(
-      v.map(relationshipTemplateTransformer),
-    );
+List<RelationshipTemplateDTO> relationshipTemplateListTransformer(dynamic v) =>
+    List<RelationshipTemplateDTO>.from(v.map(relationshipTemplateTransformer));
 
 LocalRequestDTO localRequestTransformer(dynamic v) => LocalRequestDTO.fromJson(v);
 List<LocalRequestDTO> localRequestListTransformer(dynamic v) => List<LocalRequestDTO>.from(v.map(localRequestTransformer));

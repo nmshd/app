@@ -4,20 +4,13 @@ import 'package:test/test.dart';
 void main() {
   group('AttributeQuery fromJson', () {
     test('parsed valid IdentityAttributeQuery', () {
-      final identityAttributeJson = {
-        '@type': 'IdentityAttributeQuery',
-        'valueType': 'StreetAddress',
-      };
+      final identityAttributeJson = {'@type': 'IdentityAttributeQuery', 'valueType': 'StreetAddress'};
       final identityAttributeQuery = AttributeQuery.fromJson(identityAttributeJson);
       expect(identityAttributeQuery, isA<IdentityAttributeQuery>());
     });
 
     test('parsed valid RelationshipAttributeQuery', () {
-      const attributeCreationHints = RelationshipAttributeCreationHints(
-        title: 'aTitle',
-        valueType: 'aValueType',
-        confidentiality: 'public',
-      );
+      const attributeCreationHints = RelationshipAttributeCreationHints(title: 'aTitle', valueType: 'aValueType', confidentiality: 'public');
 
       final relationshipAttributeJson = {
         '@type': 'RelationshipAttributeQuery',

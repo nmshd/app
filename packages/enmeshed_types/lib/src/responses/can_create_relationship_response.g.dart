@@ -12,12 +12,9 @@ CanCreateRelationshipSuccessResponse _$CanCreateRelationshipSuccessResponseFromJ
 Map<String, dynamic> _$CanCreateRelationshipSuccessResponseToJson(CanCreateRelationshipSuccessResponse instance) => <String, dynamic>{};
 
 CanCreateRelationshipFailureResponse _$CanCreateRelationshipFailureResponseFromJson(Map<String, dynamic> json) =>
-    CanCreateRelationshipFailureResponse(
-      code: json['code'] as String,
-      message: json['message'] as String,
-    );
+    CanCreateRelationshipFailureResponse(code: json['code'] as String, message: json['message'] as String);
 
 Map<String, dynamic> _$CanCreateRelationshipFailureResponseToJson(CanCreateRelationshipFailureResponse instance) => <String, dynamic>{
-      'code': instance.code,
-      'message': instance.message,
-    };
+  'code': instance.code,
+  'message': instance.message,
+};

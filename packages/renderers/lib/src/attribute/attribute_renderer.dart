@@ -34,17 +34,16 @@ class AttributeRenderer extends StatelessWidget {
     Widget? trailing,
     required Future<FileDVO> Function(String) expandFileReference,
     required void Function(FileDVO) openFileDetails,
-  }) =>
-      AttributeRenderer(
-        attribute: attribute.content,
-        valueHints: attribute.valueHints,
-        showTitle: showTitle,
-        valueTextStyle: valueTextStyle,
-        extraLine: extraLine,
-        trailing: trailing,
-        expandFileReference: expandFileReference,
-        openFileDetails: openFileDetails,
-      );
+  }) => AttributeRenderer(
+    attribute: attribute.content,
+    valueHints: attribute.valueHints,
+    showTitle: showTitle,
+    valueTextStyle: valueTextStyle,
+    extraLine: extraLine,
+    trailing: trailing,
+    expandFileReference: expandFileReference,
+    openFileDetails: openFileDetails,
+  );
 
   @override
   Widget build(BuildContext context) {

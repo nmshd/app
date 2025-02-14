@@ -10,10 +10,7 @@ class RedShrinkedDivider extends StatelessWidget {
     return Container(
       height: 3,
       width: width,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.tertiary,
-        borderRadius: BorderRadius.circular(3),
-      ),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary, borderRadius: BorderRadius.circular(3)),
     );
   }
 }

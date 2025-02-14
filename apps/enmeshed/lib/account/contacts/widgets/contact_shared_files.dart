@@ -9,12 +9,7 @@ class ContactSharedFiles extends StatelessWidget {
   final String accountId;
   final String contactId;
 
-  const ContactSharedFiles({
-    required this.sharedFiles,
-    required this.accountId,
-    required this.contactId,
-    super.key,
-  });
+  const ContactSharedFiles({required this.sharedFiles, required this.accountId, required this.contactId, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +21,7 @@ class ContactSharedFiles extends StatelessWidget {
             constraints: const BoxConstraints(minHeight: 48),
             child: Row(
               children: [
-                Text(
-                  context.l10n.contact_information_sharedFiles,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text(context.l10n.contact_information_sharedFiles, style: Theme.of(context).textTheme.titleLarge),
                 const Spacer(),
                 if (sharedFiles != null && sharedFiles!.isNotEmpty)
                   TextButton(
@@ -44,21 +36,19 @@ class ContactSharedFiles extends StatelessWidget {
           const Center(child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator()))
         else
           sharedFiles!.isEmpty
-              ? EmptyListIndicator(
-                  icon: Icons.file_copy,
-                  text: context.l10n.files_noFilesAvailable,
-                )
+              ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable)
               : ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => FileItem(
-                    accountId: accountId,
-                    fileRecord: createFileRecord(file: sharedFiles!.elementAt(index)),
-                    trailing: const Icon(Icons.chevron_right),
-                  ),
-                  itemCount: sharedFiles!.length,
-                  separatorBuilder: (context, index) => const Divider(height: 2),
-                ),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder:
+                    (context, index) => FileItem(
+                      accountId: accountId,
+                      fileRecord: createFileRecord(file: sharedFiles!.elementAt(index)),
+                      trailing: const Icon(Icons.chevron_right),
+                    ),
+                itemCount: sharedFiles!.length,
+                separatorBuilder: (context, index) => const Divider(height: 2),
+              ),
       ],
     );
   }

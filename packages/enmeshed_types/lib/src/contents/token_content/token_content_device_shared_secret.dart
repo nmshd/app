@@ -9,11 +9,8 @@ class TokenContentDeviceSharedSecret extends TokenContent {
     final sharedSecret = json['sharedSecret'];
     sharedSecret['secretBaseKey'] = _toBase64WithNoPadding(sharedSecret['secretBaseKey']);
     sharedSecret['synchronizationKey'] = _toBase64WithNoPadding(sharedSecret['synchronizationKey']);
-    sharedSecret['identityPrivateKey'] = sharedSecret['identityPrivateKey'] != null
-        ? _toBase64WithNoPadding(
-            sharedSecret['identityPrivateKey'],
-          )
-        : null;
+    sharedSecret['identityPrivateKey'] =
+        sharedSecret['identityPrivateKey'] != null ? _toBase64WithNoPadding(sharedSecret['identityPrivateKey']) : null;
     sharedSecret['identity']['publicKey'] = _toBase64WithNoPadding(sharedSecret['identity']['publicKey']);
 
     return TokenContentDeviceSharedSecret(sharedSecret: DeviceSharedSecret.fromJson(sharedSecret));

@@ -1,29 +1,20 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:logger/logger.dart';
 
 import 'data_view_expander.dart';
-import 'event_bus.dart';
 import 'filesystem_adapter.dart';
 import 'javascript_handlers.dart';
-import 'services/facades/utilities/result.dart';
 import 'services/services.dart';
 import 'string_processor.dart';
-import 'ui_bridge.dart';
 import 'webview_constants.dart' as webview_constants;
 
-typedef RuntimeConfig = ({
-  String baseUrl,
-  String clientId,
-  String clientSecret,
-  String applicationId,
-  bool useAppleSandbox,
-  String databaseFolder,
-});
+typedef RuntimeConfig = ({String baseUrl, String clientId, String clientSecret, String applicationId, bool useAppleSandbox, String databaseFolder});
 
 class EnmeshedRuntime {
   bool _isReady = false;
@@ -64,14 +55,10 @@ class EnmeshedRuntime {
     return _runtimeVersion!;
   }
 
-  EnmeshedRuntime({
-    Logger? logger,
-    VoidCallback? runtimeReadyCallback,
-    required this.runtimeConfig,
-    EventBus? eventBus,
-  })  : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
-        _runtimeReadyCallback = runtimeReadyCallback,
-        eventBus = eventBus ?? EventBus() {
+  EnmeshedRuntime({Logger? logger, VoidCallback? runtimeReadyCallback, required this.runtimeConfig, EventBus? eventBus})
+    : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
+      _runtimeReadyCallback = runtimeReadyCallback,
+      eventBus = eventBus ?? EventBus() {
     if (runtimeConfig.baseUrl.isEmpty) throw Exception('Missing runtimeConfig value: baseUrl');
     if (runtimeConfig.clientId.isEmpty) throw Exception('Missing runtimeConfig value: clientId');
     if (runtimeConfig.clientSecret.isEmpty) throw Exception('Missing runtimeConfig value: clientSecret');
@@ -114,18 +101,15 @@ class EnmeshedRuntime {
   Session getSession(String accountReference) => Session(Evaluator.account(this, accountReference));
 
   Future<void> selectAccount(String accountReference) async {
-    final result = await _evaluateJavaScript('await runtime.selectAccount(accountReference, password)', arguments: {
-      'accountReference': accountReference,
-      'password': '',
-    });
+    final result = await _evaluateJavaScript(
+      'await runtime.selectAccount(accountReference, password)',
+      arguments: {'accountReference': accountReference, 'password': ''},
+    );
     result.throwOnError();
   }
 
   Future<void> _addJavaScriptHandlers(InAppWebViewController controller) async {
-    controller.addJavaScriptHandler(
-      handlerName: 'handleRuntimeEvent',
-      callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger),
-    );
+    controller.addJavaScriptHandler(handlerName: 'handleRuntimeEvent', callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger));
 
     controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
 
@@ -142,23 +126,34 @@ class EnmeshedRuntime {
     );
 
     controller.addJavaScriptHandler(
+      handlerName: 'runtimeInitFailed',
+      callback: (_) => _runtimeReadyCompleter.completeError(Exception('Runtime init failed')),
+    );
+
+    controller.addJavaScriptHandler(
       handlerName: 'getRuntimeConfig',
-      callback: (_) => {
-        'applicationId': runtimeConfig.applicationId,
-        if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
-        if (Platform.isIOS || Platform.isMacOS) 'pushService': 'apns' else if (Platform.isAndroid) 'pushService': 'fcm' else 'pushService': 'none',
-        'transportLibrary': {
-          'baseUrl': runtimeConfig.baseUrl,
-          'platformClientId': runtimeConfig.clientId,
-          'platformClientSecret': runtimeConfig.clientSecret,
-        },
-        'databaseFolder': runtimeConfig.databaseFolder,
-        if (Platform.isWindows)
-          'modules': {
-            'pushNotification': {'enabled': false},
-            'sse': {'enabled': true},
-          }
-      },
+      callback:
+          (_) => {
+            'applicationId': runtimeConfig.applicationId,
+            if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
+            if (Platform.isIOS || Platform.isMacOS)
+              'pushService': 'apns'
+            else if (Platform.isAndroid)
+              'pushService': 'fcm'
+            else
+              'pushService': 'none',
+            'transportLibrary': {
+              'baseUrl': runtimeConfig.baseUrl,
+              'platformClientId': runtimeConfig.clientId,
+              'platformClientSecret': runtimeConfig.clientSecret,
+            },
+            'databaseFolder': runtimeConfig.databaseFolder,
+            if (Platform.isWindows)
+              'modules': {
+                'pushNotification': {'enabled': false},
+                'sse': {'enabled': true},
+              },
+          },
     );
 
     controller.addLocalNotificationsJavaScriptHandlers();
@@ -185,11 +180,15 @@ class EnmeshedRuntime {
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
   }
 
-  Future<EnmeshedRuntime> run() async {
-    await _headlessWebView.run();
-    await _runtimeReadyCompleter.future;
+  Future<VoidResult> run() async {
+    try {
+      await _headlessWebView.run();
+      await _runtimeReadyCompleter.future;
 
-    return this;
+      return VoidResult.success();
+    } catch (error) {
+      return VoidResult.failure(RuntimeError(message: error.toString(), code: 'error.app.runtimeInitFailed'));
+    }
   }
 
   Future<void> dispose() async {
@@ -198,18 +197,12 @@ class EnmeshedRuntime {
     await _headlessWebView.dispose();
   }
 
-  Future<CallAsyncJavaScriptResult> _evaluateJavaScript(
-    String source, {
-    Map<String, dynamic> arguments = const <String, dynamic>{},
-  }) async {
+  Future<CallAsyncJavaScriptResult> _evaluateJavaScript(String source, {Map<String, dynamic> arguments = const <String, dynamic>{}}) async {
     if (!_isReady) {
       throw Exception('Runtime not ready');
     }
 
-    final resultOrNull = await _controller.callAsyncJavaScript(
-      functionBody: source,
-      arguments: arguments,
-    );
+    final resultOrNull = await _controller.callAsyncJavaScript(functionBody: source, arguments: arguments);
 
     if (resultOrNull == null) {
       throw Exception('result is null');
@@ -239,11 +232,13 @@ class EnmeshedRuntime {
 
   List<dynamic> _transformList(List value) {
     return value
-        .map((e) => switch (e) {
-              final Map m => _transformValue(m),
-              final List l => _transformList(l),
-              _ => e,
-            })
+        .map(
+          (e) => switch (e) {
+            final Map m => _transformValue(m),
+            final List l => _transformList(l),
+            _ => e,
+          },
+        )
         .toList();
   }
 
@@ -272,14 +267,12 @@ class EnmeshedRuntime {
   }) async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await _evaluateJavaScript('await window.triggerRemoteNotificationEvent(notification)', arguments: {
-      'notification': {
-        'content': content,
-        'id': id,
-        'foreground': foreground,
-        'limitedProcessingTime': limitedProcessingTime,
-      }
-    });
+    final result = await _evaluateJavaScript(
+      'await window.triggerRemoteNotificationEvent(notification)',
+      arguments: {
+        'notification': {'content': content, 'id': id, 'foreground': foreground, 'limitedProcessingTime': limitedProcessingTime},
+      },
+    );
     result.throwOnError();
   }
 
@@ -304,9 +297,7 @@ class EnmeshedRuntime {
       '''const result = window.getHints(valueType)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
-      arguments: {
-        'valueType': valueType,
-      },
+      arguments: {'valueType': valueType},
     );
 
     final json = result.valueToMap();
@@ -323,18 +314,13 @@ class Evaluator extends AbstractEvaluator {
   String get sessionEvaluation => (_accountReference == null) ? 'null' : 'await runtime.getOrCreateSession("$_accountReference")';
   String get sessionStorage => _isAnonymous ? '' : 'const session = $sessionEvaluation;\n';
 
-  Evaluator._(this._runtime, {String? accountReference, bool isAnonymous = false})
-      : _accountReference = accountReference,
-        _isAnonymous = isAnonymous;
+  Evaluator._(this._runtime, {String? accountReference, bool isAnonymous = false}) : _accountReference = accountReference, _isAnonymous = isAnonymous;
 
   Evaluator.account(EnmeshedRuntime runtime, String accountReference) : this._(runtime, accountReference: accountReference);
   Evaluator.anonymous(EnmeshedRuntime runtime) : this._(runtime, isAnonymous: true);
 
   @override
-  Future<CallAsyncJavaScriptResult> evaluateJavaScript(
-    String source, {
-    Map<String, dynamic> arguments = const <String, dynamic>{},
-  }) async {
+  Future<CallAsyncJavaScriptResult> evaluateJavaScript(String source, {Map<String, dynamic> arguments = const <String, dynamic>{}}) async {
     return _runtime._evaluateJavaScript('$sessionStorage$source', arguments: arguments);
   }
 }
@@ -350,7 +336,7 @@ class Session {
   DataViewExpander get expander => _expander;
 
   Session(AbstractEvaluator evaluator)
-      : _transportServices = TransportServices(evaluator),
-        _consumptionServices = ConsumptionServices(evaluator),
-        _expander = DataViewExpander(evaluator);
+    : _transportServices = TransportServices(evaluator),
+      _consumptionServices = ConsumptionServices(evaluator),
+      _expander = DataViewExpander(evaluator);
 }

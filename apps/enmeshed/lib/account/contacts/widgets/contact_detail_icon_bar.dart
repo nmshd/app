@@ -52,11 +52,7 @@ class _ContactDetailIconBarState extends State<ContactDetailIconBar> {
                 null => null,
               },
             ),
-          IconButton(
-            onPressed: _renameContact,
-            icon: const Icon(Icons.edit_outlined),
-            tooltip: context.l10n.contactDetail_editContact,
-          ),
+          IconButton(onPressed: _renameContact, icon: const Icon(Icons.edit_outlined), tooltip: context.l10n.contactDetail_editContact),
           if (widget.contact.relationship?.status == RelationshipStatus.Active)
             IconButton(
               onPressed: () => context.push('/account/${widget.accountId}/mailbox/send', extra: widget.contact),
@@ -70,14 +66,15 @@ class _ContactDetailIconBarState extends State<ContactDetailIconBar> {
               tooltip: context.l10n.contactDetail_requestCertificate,
             ),
           IconButton(
-            onPressed: () => deleteContact(
-              context: context,
-              accountId: widget.accountId,
-              contact: widget.contact,
-              onContactDeleted: () {
-                if (context.mounted) context.pop();
-              },
-            ),
+            onPressed:
+                () => deleteContact(
+                  context: context,
+                  accountId: widget.accountId,
+                  contact: widget.contact,
+                  onContactDeleted: () {
+                    if (context.mounted) context.pop();
+                  },
+                ),
             icon: const Icon(Icons.delete_outline),
             tooltip: context.l10n.contacts_delete_deleteContact,
           ),
@@ -102,10 +99,7 @@ class _ContactDetailIconBarState extends State<ContactDetailIconBar> {
   Future<void> _toggleFavoriteContact() async {
     setState(() => _loadingFavoriteContact = true);
 
-    await toggleContactPinned(
-      relationshipId: widget.contact.relationship!.id,
-      session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId),
-    );
+    await toggleContactPinned(relationshipId: widget.contact.relationship!.id, session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId));
 
     await widget.reloadContact();
 

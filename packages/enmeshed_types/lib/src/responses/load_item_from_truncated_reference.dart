@@ -8,10 +8,7 @@ class LoadItemFromTruncatedReferenceResponse extends Equatable {
   final LoadItemFromTruncatedReferenceResponseType type;
   final Map<String, dynamic> _value;
 
-  const LoadItemFromTruncatedReferenceResponse({
-    required this.type,
-    required Map<String, dynamic> value,
-  }) : _value = value;
+  const LoadItemFromTruncatedReferenceResponse({required this.type, required Map<String, dynamic> value}) : _value = value;
 
   TokenDTO get tokenValue {
     if (type != LoadItemFromTruncatedReferenceResponseType.Token) throw Exception('Not a token');
@@ -34,16 +31,16 @@ class LoadItemFromTruncatedReferenceResponse extends Equatable {
   }
 
   dynamic get valueAsObject => switch (type) {
-        LoadItemFromTruncatedReferenceResponseType.Token => tokenValue,
-        LoadItemFromTruncatedReferenceResponseType.File => fileValue,
-        LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate => relationshipTemplateValue,
-        LoadItemFromTruncatedReferenceResponseType.DeviceOnboardingInfo => deviceOnboardingInfoValue,
-      };
+    LoadItemFromTruncatedReferenceResponseType.Token => tokenValue,
+    LoadItemFromTruncatedReferenceResponseType.File => fileValue,
+    LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate => relationshipTemplateValue,
+    LoadItemFromTruncatedReferenceResponseType.DeviceOnboardingInfo => deviceOnboardingInfoValue,
+  };
 
   factory LoadItemFromTruncatedReferenceResponse.fromJson(Map json) => LoadItemFromTruncatedReferenceResponse(
-        type: LoadItemFromTruncatedReferenceResponseType.values.byName(json['type']),
-        value: Map<String, dynamic>.from(json['value']),
-      );
+    type: LoadItemFromTruncatedReferenceResponseType.values.byName(json['type']),
+    value: Map<String, dynamic>.from(json['value']),
+  );
 
   Map<String, dynamic> toJson() => {'type': type.name, 'value': _value};
 

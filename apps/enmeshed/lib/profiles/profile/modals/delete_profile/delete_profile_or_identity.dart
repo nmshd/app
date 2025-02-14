@@ -5,59 +5,61 @@ import 'package:flutter/material.dart';
 import '/core/core.dart';
 
 class DeleteProfileOrIdentity extends StatelessWidget {
-  final VoidCallback cancel;
   final VoidCallback deleteIdentity;
   final VoidCallback deleteProfile;
   final String profileName;
   final String accountId;
-  final List<DeviceDTO> onboardedDevices;
+  final List<DeviceDTO> otherActiveDevices;
 
   const DeleteProfileOrIdentity({
-    required this.cancel,
     required this.deleteIdentity,
     required this.deleteProfile,
     required this.profileName,
     required this.accountId,
-    required this.onboardedDevices,
+    required this.otherActiveDevices,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (_, __) => cancel(),
-      child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                AutoLoadingProfilePicture(
-                  accountId: accountId,
-                  profileName: profileName,
-                  decorative: true,
-                  radius: 40,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BottomSheetHeader(title: context.l10n.profile_delete),
+        Padding(
+          padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
+                child: Column(
+                  children: [
+                    Align(child: AutoLoadingProfilePicture(accountId: accountId, profileName: profileName, decorative: true, radius: 60)),
+                    Gaps.h16,
+                    Text(profileName, style: Theme.of(context).textTheme.titleLarge),
+                  ],
                 ),
-                Gaps.w16,
-                Expanded(child: Text(profileName, style: Theme.of(context).textTheme.titleLarge)),
-              ],
-            ),
-            Gaps.h24,
-            Text(
-              onboardedDevices.length > 1 ? context.l10n.profile_or_identity_deletion : context.l10n.profile_or_identity_deletion_oneDevice,
-            ),
-            Gaps.h24,
-            OutlinedButton(onPressed: onboardedDevices.length > 1 ? deleteProfile : null, child: Text(context.l10n.profile_delete_device)),
-            OutlinedButton.icon(
-              onPressed: deleteIdentity,
-              label: Text(context.l10n.profile_delete),
-              icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
-            ),
-          ],
+              ),
+              Gaps.h32,
+              Text(otherActiveDevices.isNotEmpty ? context.l10n.profile_or_identity_deletion : context.l10n.profile_or_identity_deletion_oneDevice),
+              Gaps.h32,
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 40)),
+                onPressed: otherActiveDevices.isNotEmpty ? deleteProfile : null,
+                child: Text(context.l10n.profile_delete_device),
+              ),
+              Gaps.h8,
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(minimumSize: const Size(double.infinity, 40)),
+                onPressed: deleteIdentity,
+                child: Text(context.l10n.profile_delete),
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

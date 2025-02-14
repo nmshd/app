@@ -16,6 +16,7 @@ class DeviceSharedSecret extends Equatable {
   final IdentityDTO identity;
   final String password;
   final String username;
+  final bool? isBackupDevice;
 
   const DeviceSharedSecret({
     required this.id,
@@ -31,6 +32,7 @@ class DeviceSharedSecret extends Equatable {
     required this.identity,
     required this.password,
     required this.username,
+    this.isBackupDevice,
   });
 
   factory DeviceSharedSecret.fromJson(Map json) {
@@ -48,6 +50,7 @@ class DeviceSharedSecret extends Equatable {
       identity: IdentityDTO.fromJson(json['identity']),
       password: json['password'],
       username: json['username'],
+      isBackupDevice: json['isBackupDevice'],
     );
   }
 
@@ -66,23 +69,25 @@ class DeviceSharedSecret extends Equatable {
       'identity': identity.toJson(),
       'password': password,
       'username': username,
+      if (isBackupDevice != null) 'isBackupDevice': isBackupDevice,
     };
   }
 
   @override
   List<Object?> get props => [
-        id,
-        createdAt,
-        createdByDevice,
-        name,
-        description,
-        profileName,
-        secretBaseKey,
-        deviceIndex,
-        synchronizationKey,
-        identityPrivateKey,
-        identity,
-        password,
-        username,
-      ];
+    id,
+    createdAt,
+    createdByDevice,
+    name,
+    description,
+    profileName,
+    secretBaseKey,
+    deviceIndex,
+    synchronizationKey,
+    identityPrivateKey,
+    identity,
+    password,
+    username,
+    isBackupDevice,
+  ];
 }

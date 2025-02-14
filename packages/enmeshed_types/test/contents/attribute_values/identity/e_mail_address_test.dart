@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = EMailAddressAttributeValue(value: 'test@test.com');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'EMailAddress',
-          'value': 'test@test.com',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'EMailAddress', 'value': 'test@test.com'}));
     });
   });
 

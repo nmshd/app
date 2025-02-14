@@ -108,12 +108,14 @@ void main() {
       };
       expect(
         RequestValidationResultDTO.fromJson(json),
-        equals(const RequestValidationResultDTO(
-          isSuccess: true,
-          code: 'aCode',
-          message: 'aMessage',
-          items: [RequestValidationResultDTO(isSuccess: true, items: [])],
-        )),
+        equals(
+          const RequestValidationResultDTO(
+            isSuccess: true,
+            code: 'aCode',
+            message: 'aMessage',
+            items: [RequestValidationResultDTO(isSuccess: true, items: [])],
+          ),
+        ),
       );
     });
   });

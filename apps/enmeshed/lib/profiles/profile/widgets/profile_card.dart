@@ -25,11 +25,7 @@ class ProfileCard extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-        leading: AutoLoadingProfilePicture(
-          accountId: account.id,
-          profileName: account.name,
-          decorative: true,
-        ),
+        leading: AutoLoadingProfilePicture(accountId: account.id, profileName: account.name, decorative: true),
       ),
     );
   }

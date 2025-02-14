@@ -34,70 +34,68 @@ class RequestRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (request.response != null) {
-      final responseItems = request.response!.content.items.mapIndexed((index, item) {
-        final itemIndex = (rootIndex: index, innerIndex: null);
+      final responseItems =
+          request.response!.content.items.mapIndexed((index, item) {
+            final itemIndex = (rootIndex: index, innerIndex: null);
 
-        if (item is ResponseItemGroupDVO) {
-          final requestItemGroup = request.items[index] as RequestItemGroupDVO;
-          return ResponseItemGroupRenderer(
-            responseItemGroup: item,
-            requestItemGroup: requestItemGroup,
+            if (item is ResponseItemGroupDVO) {
+              final requestItemGroup = request.items[index] as RequestItemGroupDVO;
+              return ResponseItemGroupRenderer(
+                responseItemGroup: item,
+                requestItemGroup: requestItemGroup,
+                itemIndex: itemIndex,
+                currentAddress: currentAddress,
+                expandFileReference: expandFileReference,
+                chooseFile: chooseFile,
+                openFileDetails: openFileDetails,
+              );
+            }
+
+            return ResponseItemRenderer(
+              responseItem: item,
+              itemIndex: itemIndex,
+              requestItem: request.items[index],
+              currentAddress: currentAddress,
+              expandFileReference: expandFileReference,
+              chooseFile: chooseFile,
+              openFileDetails: openFileDetails,
+            );
+          }).toList();
+
+      return Column(children: responseItems);
+    }
+
+    final requestItems =
+        request.items.mapIndexed((index, item) {
+          final itemIndex = (rootIndex: index, innerIndex: null);
+
+          if (item is RequestItemGroupDVO) {
+            return RequestItemGroupRenderer(
+              requestItemGroup: item,
+              itemIndex: itemIndex,
+              controller: controller,
+              requestStatus: request.status,
+              openAttributeSwitcher: openAttributeSwitcher,
+              currentAddress: currentAddress,
+              expandFileReference: expandFileReference,
+              chooseFile: chooseFile,
+              openFileDetails: openFileDetails,
+            );
+          }
+
+          return RequestItemRenderer(
+            item: item,
             itemIndex: itemIndex,
+            controller: controller,
+            openAttributeSwitcher: openAttributeSwitcher,
+            requestStatus: request.status,
             currentAddress: currentAddress,
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
           );
-        }
+        }).toList();
 
-        return ResponseItemRenderer(
-          responseItem: item,
-          itemIndex: itemIndex,
-          requestItem: request.items[index],
-          currentAddress: currentAddress,
-          expandFileReference: expandFileReference,
-          chooseFile: chooseFile,
-          openFileDetails: openFileDetails,
-        );
-      }).toList();
-
-      return Column(children: responseItems);
-    }
-
-    final requestItems = request.items.mapIndexed((index, item) {
-      final itemIndex = (rootIndex: index, innerIndex: null);
-
-      if (item is RequestItemGroupDVO) {
-        return RequestItemGroupRenderer(
-          requestItemGroup: item,
-          itemIndex: itemIndex,
-          controller: controller,
-          requestStatus: request.status,
-          openAttributeSwitcher: openAttributeSwitcher,
-          currentAddress: currentAddress,
-          expandFileReference: expandFileReference,
-          chooseFile: chooseFile,
-          openFileDetails: openFileDetails,
-        );
-      }
-
-      return RequestItemRenderer(
-        item: item,
-        itemIndex: itemIndex,
-        controller: controller,
-        openAttributeSwitcher: openAttributeSwitcher,
-        requestStatus: request.status,
-        currentAddress: currentAddress,
-        expandFileReference: expandFileReference,
-        chooseFile: chooseFile,
-        openFileDetails: openFileDetails,
-      );
-    }).toList();
-
-    return Form(
-      key: formKey,
-      autovalidateMode: AutovalidateMode.onUnfocus,
-      child: Column(children: requestItems),
-    );
+    return Form(key: formKey, autovalidateMode: AutovalidateMode.onUnfocus, child: Column(children: requestItems));
   }
 }

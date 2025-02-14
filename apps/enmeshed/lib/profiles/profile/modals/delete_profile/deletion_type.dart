@@ -1,0 +1,1 @@
+enum DeletionType { profile, identity }

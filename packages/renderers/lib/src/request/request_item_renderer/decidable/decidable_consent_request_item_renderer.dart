@@ -14,12 +14,7 @@ class DecidableConsentRequestItemRenderer extends StatefulWidget {
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
 
-  const DecidableConsentRequestItemRenderer({
-    super.key,
-    required this.item,
-    this.controller,
-    required this.itemIndex,
-  });
+  const DecidableConsentRequestItemRenderer({super.key, required this.item, this.controller, required this.itemIndex});
 
   @override
   State<DecidableConsentRequestItemRenderer> createState() => _DecidableConsentRequestItemRendererState();
@@ -49,18 +44,19 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
             title: widget.item.name,
             description: widget.item.description,
             thirdLine: widget.item.consent,
-            trailing: widget.item.link != null
-                ? SizedBox(
-                    width: 50,
-                    child: IconButton(
-                      icon: const Icon(Icons.open_in_new),
-                      onPressed: () async {
-                        final url = Uri.parse(widget.item.link!);
-                        await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
-                      },
-                    ),
-                  )
-                : null,
+            trailing:
+                widget.item.link != null
+                    ? SizedBox(
+                      width: 50,
+                      child: IconButton(
+                        icon: const Icon(Icons.open_in_new),
+                        onPressed: () async {
+                          final url = Uri.parse(widget.item.link!);
+                          await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
+                        },
+                      ),
+                    )
+                    : null,
           ),
         ),
       ],
@@ -74,10 +70,6 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
       isChecked = value;
     });
 
-    handleCheckboxChange(
-      isChecked: isChecked,
-      controller: widget.controller,
-      itemIndex: widget.itemIndex,
-    );
+    handleCheckboxChange(isChecked: isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }
 }

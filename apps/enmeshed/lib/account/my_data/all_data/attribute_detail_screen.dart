@@ -12,11 +12,7 @@ class AttributeDetailScreen extends StatefulWidget {
   final String accountId;
   final String attributeId;
 
-  const AttributeDetailScreen({
-    required this.accountId,
-    required this.attributeId,
-    super.key,
-  });
+  const AttributeDetailScreen({required this.accountId, required this.attributeId, super.key});
 
   @override
   State<AttributeDetailScreen> createState() => _AttributeDetailScreenState();
@@ -64,10 +60,11 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
                       showTitle: false,
                       valueTextStyle: Theme.of(context).textTheme.titleLarge!,
                       expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                      openFileDetails: (file) => context.push(
-                        '/account/${widget.accountId}/my-data/files/${file.id}',
-                        extra: createFileRecord(file: file, fileReferenceAttribute: _attribute),
-                      ),
+                      openFileDetails:
+                          (file) => context.push(
+                            '/account/${widget.accountId}/my-data/files/${file.id}',
+                            extra: createFileRecord(file: file, fileReferenceAttribute: _attribute),
+                          ),
                     ),
                     if (lastEditingDate != null) ...[
                       Gaps.h8,
@@ -107,29 +104,30 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () => _reload(syncBefore: true),
-                child: _sharedWith.isEmpty
-                    ? EmptyListIndicator(icon: Icons.sensors_off, text: context.l10n.attributeDetails_sharedWithNobody, wrapInListView: true)
-                    : ListView.separated(
-                        itemCount: _sharedWith.length,
-                        itemBuilder: (context, index) {
-                          final contact = _sharedWith[index].contact;
-                          final sharedAttribute = _sharedWith[index].sharedAttribute;
+                child:
+                    _sharedWith.isEmpty
+                        ? EmptyListIndicator(icon: Icons.sensors_off, text: context.l10n.attributeDetails_sharedWithNobody, wrapInListView: true)
+                        : ListView.separated(
+                          itemCount: _sharedWith.length,
+                          itemBuilder: (context, index) {
+                            final contact = _sharedWith[index].contact;
+                            final sharedAttribute = _sharedWith[index].sharedAttribute;
 
-                          return ContactItem(
-                            contact: contact,
-                            subtitle: Text(
-                              context.l10n.attributeDetails_sharedAt(
-                                _getDateType(DateTime.parse(sharedAttribute.createdAt).toLocal()),
-                                DateTime.parse(sharedAttribute.createdAt).toLocal(),
-                                DateTime.parse(sharedAttribute.createdAt).toLocal(),
+                            return ContactItem(
+                              contact: contact,
+                              subtitle: Text(
+                                context.l10n.attributeDetails_sharedAt(
+                                  _getDateType(DateTime.parse(sharedAttribute.createdAt).toLocal()),
+                                  DateTime.parse(sharedAttribute.createdAt).toLocal(),
+                                  DateTime.parse(sharedAttribute.createdAt).toLocal(),
+                                ),
                               ),
-                            ),
-                            onTap: () => context.go('/account/${widget.accountId}/contacts/${contact.id}'),
-                            trailing: const Icon(Icons.chevron_right),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const Divider(indent: 16),
-                      ),
+                              onTap: () => context.go('/account/${widget.accountId}/contacts/${contact.id}'),
+                              trailing: const Icon(Icons.chevron_right),
+                            );
+                          },
+                          separatorBuilder: (context, index) => const Divider(indent: 16),
+                        ),
               ),
             ),
           ],
@@ -159,9 +157,11 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
             content: Text(context.l10n.errorDialog_description, textAlign: TextAlign.center),
             actions: [
               FilledButton(
-                onPressed: () => context
-                  ..pop()
-                  ..pop(),
+                onPressed:
+                    () =>
+                        context
+                          ..pop()
+                          ..pop(),
                 child: Text(context.l10n.back),
               ),
             ],
@@ -177,12 +177,7 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
 
   Future<void> _loadSharedWith(RepositoryAttributeDVO attribute, String? firstVersionCreationDate) async {
     final sharedWith = await Future.wait(
-      attribute.sharedWith.map(
-        (e) async => (
-          contact: await _session.expander.expandAddress(e.peer),
-          sharedAttribute: e,
-        ),
-      ),
+      attribute.sharedWith.map((e) async => (contact: await _session.expander.expandAddress(e.peer), sharedAttribute: e)),
     );
 
     if (!mounted) return;

@@ -9,48 +9,64 @@ class ShouldDeleteProfile extends StatelessWidget {
   final VoidCallback cancel;
   final VoidCallback delete;
   final String profileName;
-  final List<DeviceDTO> onboardedDevices;
+  final List<DeviceDTO> otherActiveDevices;
 
-  const ShouldDeleteProfile({
-    required this.cancel,
-    required this.delete,
-    required this.profileName,
-    required this.onboardedDevices,
-    super.key,
-  });
+  const ShouldDeleteProfile({required this.cancel, required this.delete, required this.profileName, required this.otherActiveDevices, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (_, __) => cancel(),
-      child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const VectorGraphic(loader: AssetBytesLoader('assets/svg/confirm_profile_deletion.svg'), height: 160),
-            Gaps.h24,
-            Text(context.l10n.profile_delete_confirmation(profileName)),
-            Gaps.h16,
-            if (onboardedDevices.isNotEmpty) ...[
-              Align(alignment: Alignment.centerLeft, child: Text(context.l10n.profile_delete_confirmation_devicesLeft)),
-              Gaps.h4,
-              Wrap(spacing: 8, children: onboardedDevices.map((e) => Chip(label: Text(e.name))).toList()),
-            ] else
-              Align(alignment: Alignment.centerLeft, child: Text(context.l10n.profile_delete_confirmation_lastDevice)),
-            Gaps.h16,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                OutlinedButton(onPressed: cancel, child: Text(context.l10n.profile_delete_cancel)),
-                Gaps.w8,
-                FilledButton(onPressed: delete, child: Text(context.l10n.profile_delete_confirm)),
-              ],
-            ),
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BottomSheetHeader(title: context.l10n.profile_delete_device, onBackPressed: cancel),
+        Padding(
+          padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const VectorGraphic(loader: AssetBytesLoader('assets/svg/confirm_profile_deletion.svg'), height: 160),
+              Gaps.h24,
+              BoldStyledText(context.l10n.profile_delete_confirmation(profileName)),
+              Gaps.h16,
+              if (otherActiveDevices.isNotEmpty) ...[
+                Align(alignment: Alignment.centerLeft, child: Text(context.l10n.profile_delete_confirmation_devicesLeft)),
+                Gaps.h16,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Wrap(
+                    spacing: 8,
+                    children:
+                        otherActiveDevices
+                            .map(
+                              (e) => Chip(
+                                label: Text(e.name),
+                                color: WidgetStatePropertyAll(Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.12)),
+                                labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                padding: const EdgeInsets.all(4),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  side: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                  ),
+                ),
+              ] else
+                Align(alignment: Alignment.centerLeft, child: Text(context.l10n.profile_delete_confirmation_lastDevice)),
+              Gaps.h24,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(onPressed: cancel, child: Text(context.l10n.profile_delete_cancel)),
+                  Gaps.w8,
+                  FilledButton(onPressed: delete, child: Text(context.l10n.profile_delete_confirm)),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

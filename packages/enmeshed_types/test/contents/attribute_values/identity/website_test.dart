@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = WebsiteAttributeValue(value: 'www.test.com');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'Website',
-          'value': 'www.test.com',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'Website', 'value': 'www.test.com'}));
     });
   });
 

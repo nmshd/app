@@ -24,13 +24,7 @@ class UploadFile extends StatefulWidget {
   final bool popOnUpload;
   final Widget? leading;
 
-  const UploadFile({
-    required this.accountId,
-    required this.onFileUploaded,
-    this.popOnUpload = true,
-    this.leading,
-    super.key,
-  });
+  const UploadFile({required this.accountId, required this.onFileUploaded, this.popOnUpload = true, this.leading, super.key});
 
   @override
   State<UploadFile> createState() => _UploadFileState();
@@ -119,10 +113,7 @@ class _UploadFileState extends State<UploadFile> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          OutlinedButton(
-                            onPressed: () => context.pop(),
-                            child: Text(context.l10n.cancel),
-                          ),
+                          OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
                           Gaps.w8,
                           FilledButton(
                             onPressed: validateEverything() ? _submit : null,
@@ -268,27 +259,13 @@ class _FileSelectedState extends State<_FileSelected> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FileIcon(
-              filename: widget.file.path,
-              color: Theme.of(context).colorScheme.primaryContainer,
-              size: 48,
-            ),
+            FileIcon(filename: widget.file.path, color: Theme.of(context).colorScheme.primaryContainer, size: 48),
             Gaps.h8,
-            Text(
-              path.basename(widget.file.path),
-              style: Theme.of(context).textTheme.labelLarge,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            Text(path.basename(widget.file.path), style: Theme.of(context).textTheme.labelLarge, maxLines: 1, overflow: TextOverflow.ellipsis),
             if (isLoading)
               const CircularProgressIndicator()
             else if (fileSize != null)
-              Text(
-                fileSize!,
-                style: Theme.of(context).textTheme.bodyMedium,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+              Text(fileSize!, style: Theme.of(context).textTheme.bodyMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
           ],
         ),
       ),
@@ -328,12 +305,7 @@ class _NoFileSelected extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 24),
-          child: FilledButton(
-            onPressed: selectFile,
-            child: Text(
-              context.l10n.files_selectFile,
-            ),
-          ),
+          child: FilledButton(onPressed: selectFile, child: Text(context.l10n.files_selectFile)),
         ),
       ],
     );

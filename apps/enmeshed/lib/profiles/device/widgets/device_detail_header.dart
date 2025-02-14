@@ -45,13 +45,7 @@ class DeviceDetailHeader extends StatelessWidget {
           ],
           if (!(device.isOffboarded ?? false)) ...[
             Gaps.h8,
-            _DeviceButtonBar(
-              editDevice: editDevice,
-              deleteDevice: deleteDevice,
-              reloadDevice: reloadDevice,
-              device: device,
-              accountId: accountId,
-            ),
+            _DeviceButtonBar(editDevice: editDevice, deleteDevice: deleteDevice, reloadDevice: reloadDevice, device: device, accountId: accountId),
           ],
         ],
       ),

@@ -75,10 +75,7 @@ class _ContactsSheet extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text(
-              context.l10n.mailbox_choose_contact_description,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+            child: Text(context.l10n.mailbox_choose_contact_description, style: Theme.of(context).textTheme.bodyMedium),
           ),
           Flexible(
             child: Padding(

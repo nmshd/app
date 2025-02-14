@@ -45,14 +45,14 @@ class _FilesScreenState extends State<FilesScreen> {
       actions: [
         SearchAnchor(
           suggestionsBuilder: _buildSuggestions,
-          builder: (BuildContext context, SearchController controller) => IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () => controller.openView(),
-          ),
+          builder:
+              (BuildContext context, SearchController controller) =>
+                  IconButton(icon: const Icon(Icons.search), onPressed: () => controller.openView()),
         ),
         IconButton(
-          onPressed: _fileRecords != null && _fileRecords!.isNotEmpty
-              ? () => showSelectFileFilters(
+          onPressed:
+              _fileRecords != null && _fileRecords!.isNotEmpty
+                  ? () => showSelectFileFilters(
                     context,
                     availableFilters: _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
                     activeFilters: _activeFilters,
@@ -61,7 +61,7 @@ class _FilesScreenState extends State<FilesScreen> {
                       _filterAndSort();
                     },
                   )
-              : null,
+                  : null,
           icon: Badge(isLabelVisible: _activeFilters.isNotEmpty, child: const Icon(Icons.filter_list)),
         ),
         IconButton(onPressed: _uploadFile, icon: const Icon(Icons.add)),
@@ -88,12 +88,13 @@ class _FilesScreenState extends State<FilesScreen> {
             SortBar<_FilesSortingType>(
               sortingType: _sortingType,
               isSortedAscending: _isSortedAscending,
-              translate: (s) => switch (s) {
-                _FilesSortingType.date => context.l10n.sortedByCreationDate,
-                _FilesSortingType.name => context.l10n.sortedByName,
-                _FilesSortingType.type => context.l10n.sortedByType,
-                _FilesSortingType.size => context.l10n.sortedBySize,
-              },
+              translate:
+                  (s) => switch (s) {
+                    _FilesSortingType.date => context.l10n.sortedByCreationDate,
+                    _FilesSortingType.name => context.l10n.sortedByName,
+                    _FilesSortingType.type => context.l10n.sortedByType,
+                    _FilesSortingType.size => context.l10n.sortedBySize,
+                  },
               sortMenuItem: [
                 (value: _FilesSortingType.date, label: context.l10n.files_creationDate),
                 (value: _FilesSortingType.name, label: context.l10n.name),
@@ -123,12 +124,13 @@ class _FilesScreenState extends State<FilesScreen> {
               child: RefreshIndicator(
                 onRefresh: () => _loadFiles(syncBefore: true),
                 child: ListView.separated(
-                  itemBuilder: (context, index) => FileItem(
-                    accountId: widget.accountId,
-                    fileRecord: _filteredFileRecords[index],
-                    trailing: const Icon(Icons.chevron_right),
-                    reload: _loadFiles,
-                  ),
+                  itemBuilder:
+                      (context, index) => FileItem(
+                        accountId: widget.accountId,
+                        fileRecord: _filteredFileRecords[index],
+                        trailing: const Icon(Icons.chevron_right),
+                        reload: _loadFiles,
+                      ),
                   itemCount: _filteredFileRecords.length,
                   separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
                 ),
@@ -186,27 +188,27 @@ class _FilesScreenState extends State<FilesScreen> {
       return;
     }
 
-    final filteredFiles = _fileRecords!.where((fileRecord) => _activeFilters.contains(FileFilterType.fromMimetype(fileRecord.file.mimetype))).toList()
-      ..sort(_compareFunction(_sortingType, _isSortedAscending));
+    final filteredFiles =
+        _fileRecords!.where((fileRecord) => _activeFilters.contains(FileFilterType.fromMimetype(fileRecord.file.mimetype))).toList()
+          ..sort(_compareFunction(_sortingType, _isSortedAscending));
 
     setState(() => _filteredFileRecords = filteredFiles);
   }
 
   int Function(FileRecord, FileRecord) _compareFunction(_FilesSortingType type, bool isSortedAscending) => switch (type) {
-        _FilesSortingType.date => (a, b) =>
-            isSortedAscending ? a.file.createdAt.compareTo(b.file.createdAt) : b.file.createdAt.compareTo(a.file.createdAt),
-        _FilesSortingType.name => (a, b) {
-            if (isSortedAscending) return a.file.name.toLowerCase().compareTo(b.file.name.toLowerCase());
-            return b.file.name.toLowerCase().compareTo(a.file.name.toLowerCase());
-          },
-        _FilesSortingType.type => (a, b) {
-            final aType = a.file.mimetype.split('/').last;
-            final bType = b.file.mimetype.split('/').last;
-            return isSortedAscending ? aType.compareTo(bType) : bType.compareTo(aType);
-          },
-        _FilesSortingType.size => (a, b) =>
-            isSortedAscending ? a.file.filesize.compareTo(b.file.filesize) : b.file.filesize.compareTo(a.file.filesize),
-      };
+    _FilesSortingType.date =>
+      (a, b) => isSortedAscending ? a.file.createdAt.compareTo(b.file.createdAt) : b.file.createdAt.compareTo(a.file.createdAt),
+    _FilesSortingType.name => (a, b) {
+      if (isSortedAscending) return a.file.name.toLowerCase().compareTo(b.file.name.toLowerCase());
+      return b.file.name.toLowerCase().compareTo(a.file.name.toLowerCase());
+    },
+    _FilesSortingType.type => (a, b) {
+      final aType = a.file.mimetype.split('/').last;
+      final bType = b.file.mimetype.split('/').last;
+      return isSortedAscending ? aType.compareTo(bType) : bType.compareTo(aType);
+    },
+    _FilesSortingType.size => (a, b) => isSortedAscending ? a.file.filesize.compareTo(b.file.filesize) : b.file.filesize.compareTo(a.file.filesize),
+  };
 
   void _uploadFile() {
     showModalBottomSheet<void>(
@@ -221,10 +223,7 @@ class _FilesScreenState extends State<FilesScreen> {
 
     if (_fileRecords!.isEmpty && keyword.isEmpty) {
       return [
-        Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable),
-        ),
+        Padding(padding: const EdgeInsets.only(top: 16), child: EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable)),
       ];
     }
 
@@ -275,20 +274,16 @@ class _FilterBar extends StatelessWidget {
   final void Function(FileFilterType) onRemoveFilter;
   final void Function() onResetFilters;
 
-  const _FilterBar({
-    required this.activeFilters,
-    required this.onRemoveFilter,
-    required this.onResetFilters,
-  });
+  const _FilterBar({required this.activeFilters, required this.onRemoveFilter, required this.onResetFilters});
 
   @override
   Widget build(BuildContext context) {
-    final activeFilters = this.activeFilters.map((e) => (filter: e, label: e.toLabel(context))).toList()
-      ..sort((a, b) {
-        if (a.filter is OtherFileFilterType) return 1;
-        if (b.filter is OtherFileFilterType) return -1;
-        return a.label.compareTo(b.label);
-      });
+    final activeFilters =
+        this.activeFilters.map((e) => (filter: e, label: e.toLabel(context))).toList()..sort((a, b) {
+          if (a.filter is OtherFileFilterType) return 1;
+          if (b.filter is OtherFileFilterType) return -1;
+          return a.label.compareTo(b.label);
+        });
 
     return ColoredBox(
       color: Theme.of(context).colorScheme.surfaceContainerLow,
@@ -299,20 +294,21 @@ class _FilterBar extends StatelessWidget {
             Expanded(
               child: Wrap(
                 spacing: 12,
-                children: activeFilters.map((e) {
-                  return Chip(
-                    label: Text(e.label),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
-                    ),
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                    padding: EdgeInsets.zero,
-                    labelPadding: const EdgeInsets.only(left: 8),
-                    deleteIcon: const Icon(Icons.close),
-                    onDeleted: () => onRemoveFilter(e.filter),
-                  );
-                }).toList(),
+                children:
+                    activeFilters.map((e) {
+                      return Chip(
+                        label: Text(e.label),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
+                        ),
+                        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                        padding: EdgeInsets.zero,
+                        labelPadding: const EdgeInsets.only(left: 8),
+                        deleteIcon: const Icon(Icons.close),
+                        onDeleted: () => onRemoveFilter(e.filter),
+                      );
+                    }).toList(),
               ),
             ),
             IconButton(onPressed: onResetFilters, icon: const Icon(Icons.close)),

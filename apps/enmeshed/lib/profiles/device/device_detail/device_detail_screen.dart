@@ -106,11 +106,7 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
     await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
-      builder: (_) => EditDevice(
-        accountId: widget.accountId,
-        device: _deviceDTO!,
-        onDevicesChanged: _loadDevice,
-      ),
+      builder: (_) => EditDevice(accountId: widget.accountId, device: _deviceDTO!, onDevicesChanged: _loadDevice),
     );
   }
 }
@@ -241,10 +237,7 @@ class _DeviceInstructions extends StatelessWidget {
 
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('$itemNumber. ', style: textStyle),
-                  Expanded(child: Text(instructions.elementAt(index), style: textStyle)),
-                ],
+                children: [Text('$itemNumber. ', style: textStyle), Expanded(child: BoldStyledText(instructions.elementAt(index), style: textStyle))],
               );
             },
             itemCount: instructions.length,
