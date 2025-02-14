@@ -125,8 +125,12 @@ class _FilesScreenState extends State<FilesScreen> {
                 onRefresh: () => _loadFiles(syncBefore: true),
                 child: ListView.separated(
                   itemBuilder:
-                      (context, index) =>
-                          FileItem(accountId: widget.accountId, fileRecord: _filteredFileRecords[index], trailing: const Icon(Icons.chevron_right)),
+                      (context, index) => FileItem(
+                        accountId: widget.accountId,
+                        fileRecord: _filteredFileRecords[index],
+                        trailing: const Icon(Icons.chevron_right),
+                        reload: _loadFiles,
+                      ),
                   itemCount: _filteredFileRecords.length,
                   separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
                 ),
@@ -251,13 +255,14 @@ class _FilesScreenState extends State<FilesScreen> {
         fileRecord: item,
         query: keyword,
         accountId: widget.accountId,
-        onTap: () {
+        onTap: () async {
           controller
             ..clear()
             ..closeView(null);
           FocusScope.of(context).unfocus();
 
-          context.push('/account/${widget.accountId}/my-data/files/${item.file.id}', extra: item);
+          await context.push('/account/${widget.accountId}/my-data/files/${item.file.id}', extra: item);
+          unawaited(_loadFiles());
         },
       ),
     );
