@@ -134,6 +134,7 @@ class _HomeViewState extends State<HomeView> {
     );
 
     final showRecoveryKitWasUsedContainer = await getSetting(accountId: widget.accountId, key: 'home.restoredIdentity', valueKey: 'showContainer');
+
     if (!mounted) return;
     setState(() {
       _unreadMessagesCount = messages.length;
