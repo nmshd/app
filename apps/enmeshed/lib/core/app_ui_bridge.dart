@@ -41,19 +41,55 @@ class AppUIBridge extends UIBridge {
       return;
     }
 
-    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.onboardAccount(deviceOnboardingInfo, name: deviceOnboardingInfo.profileName);
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
 
-    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
-    await upsertRestoreFromIdentityRecoveryKitSetting(accountId: account.id, value: true);
+    try {
+      final onboardedAccount = await runtime.accountServices.onboardAccount(deviceOnboardingInfo, name: deviceOnboardingInfo.profileName);
+      await runtime.selectAccount(onboardedAccount.id);
 
-    router.go('/account/${account.id}');
+      final accountsInDeletion = await runtime.accountServices.getAccountsInDeletion();
+      final isOnboardedAccountInDeletion = accountsInDeletion.any((element) => element.id == onboardedAccount.id);
+
+      if (!isOnboardedAccountInDeletion) {
+        await upsertRestoreFromIdentityRecoveryKitSetting(accountId: onboardedAccount.id, value: true);
+
+        router.go('/account/${onboardedAccount.id}');
+        return;
+      }
+
+      final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
+      if (accountsNotInDeletion.isEmpty) {
+        await router.pushReplacement('/onboarding?skipIntroduction=true');
+        return;
+      }
+
+      final account = accountsNotInDeletion.first;
+
+      await runtime.selectAccount(account.id);
+      await upsertRestoreFromIdentityRecoveryKitSetting(accountId: account.id, value: true);
+
+      router.go('/account/${account.id}');
+      await router.push('/profiles');
+    } catch (e) {
+      if (e.toString().contains('error.app-runtime.onboardedAccountAlreadyExists')) {
+        await router.push('/error-dialog', extra: 'error.app-runtime.onboardedAccountAlreadyExists');
+
+        return;
+      }
+
+      await router.push('/error-dialog', extra: 'error.runtime.recordNotFound');
+
+      await runtime.accountServices.clearAccounts();
+
+      await router.pushReplacement('/onboarding?skipIntroduction=true');
+    }
   }
 
   @override
   Future<void> showError(UIBridgeError error, [LocalAccountDTO? account]) async {
     logger.d('showError for account ${account?.id} error $error');
 
-    await router.push('/error-dialog', extra: error.code);
+    await router.push('/error-dialog', extra: {'code': error.code});
   }
 
   @override
