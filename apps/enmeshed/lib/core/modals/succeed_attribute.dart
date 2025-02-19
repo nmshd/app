@@ -84,6 +84,7 @@ class _SucceedAttributeModal extends StatefulWidget {
 }
 
 class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
+  final _scrollController = ScrollController();
   final _controller = ValueRendererController();
   bool _enabled = false;
   bool _saving = false;
@@ -101,6 +102,7 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     _controller.dispose();
 
     super.dispose();
@@ -112,51 +114,64 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
       mainAxisSize: MainAxisSize.min,
       children: [
         BottomSheetHeader(title: context.l10n.personalData_details_editEntry, canClose: !_saving),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (addressDataInitialAttributeTypes.contains(widget.attribute.valueType)) ...[
-                Text(context.l10n.mandatoryField, style: const TextStyle(fontSize: 14)),
-                Gaps.h24,
-              ],
-              ValueRenderer(
-                renderHints: widget.attribute.renderHints,
-                valueHints: widget.attribute.valueHints,
-                controller: _controller,
-                initialValue: widget.attribute.value,
-                valueType: widget.attribute.valueType,
-                expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                openFileDetails: (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
-              ),
-              if (_errorText != null) ...[
-                if (widget.attribute.renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,
-                Text(
-                  _errorText!,
-                  style: TextStyle(
-                    color: _errorText == context.l10n.personalData_details_errorOnSuccession ? Theme.of(context).colorScheme.error : null,
+        Flexible(
+          child: MediaQuery.removePadding(
+            context: context,
+            removeBottom: true,
+            child: Scrollbar(
+              thumbVisibility: true,
+              controller: _scrollController,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: SingleChildScrollView(
+                  controller: _scrollController,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (addressDataInitialAttributeTypes.contains(widget.attribute.valueType)) ...[
+                        Text(context.l10n.mandatoryField, style: const TextStyle(fontSize: 14)),
+                        Gaps.h24,
+                      ],
+                      ValueRenderer(
+                        renderHints: widget.attribute.renderHints,
+                        valueHints: widget.attribute.valueHints,
+                        controller: _controller,
+                        initialValue: widget.attribute.value,
+                        valueType: widget.attribute.valueType,
+                        expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                        chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
+                        openFileDetails:
+                            (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                      ),
+                      if (_errorText != null) ...[
+                        if (widget.attribute.renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,
+                        Text(_errorText!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                      ],
+                      if (widget.attribute.sharedWith.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: Text(context.l10n.personalData_details_notifyContacts(widget.attribute.sharedWith.length)),
+                        ),
+                    ],
                   ),
                 ),
-              ],
-              if (widget.attribute.sharedWith.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(context.l10n.personalData_details_notifyContacts(widget.attribute.sharedWith.length)),
-                ),
-
-              Padding(
-                padding: EdgeInsets.only(top: 8, bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom) + 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    OutlinedButton(onPressed: _saving ? null : () => context.pop(), child: Text(context.l10n.cancel)),
-                    Gaps.w8,
-                    FilledButton(onPressed: _saving || !_enabled ? null : _onSavePressed, child: Text(context.l10n.save)),
-                  ],
-                ),
               ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            left: 24,
+            right: 24,
+            top: 8,
+            bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom) + 8,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              OutlinedButton(onPressed: _saving ? null : () => context.pop(), child: Text(context.l10n.cancel)),
+              Gaps.w8,
+              FilledButton(onPressed: _saving || !_enabled ? null : _onSavePressed, child: Text(context.l10n.save)),
             ],
           ),
         ),
@@ -166,18 +181,12 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
 
   Future<void> _onSavePressed() async {
     if (!hasDataChanged(widget.attribute)) {
-      setState(() {
-        _errorText = context.l10n.personalData_details_errorOnSuccession;
-      });
-
+      await _setError(context.l10n.personalData_details_errorOnSuccession);
       return;
     }
 
     if (isAnyOtherVersionSameAsCurrent()) {
-      setState(() {
-        _errorText = context.l10n.personalData_details_warningOnSuccession;
-      });
-
+      await _setError(context.l10n.personalData_details_warningOnSuccession);
       return;
     }
 
@@ -191,7 +200,11 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
     );
 
     if (succeedAttributeResult.isError) {
-      if (mounted) {
+      if (!mounted) return;
+
+      if (succeedAttributeResult.error.code == 'error.consumption.attributes.successionMustChangeContent') {
+        await _setError(context.l10n.personalData_details_warningOnSuccession);
+      } else {
         await showDialog<void>(
           context: context,
           builder: (context) {
@@ -201,9 +214,9 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
             );
           },
         );
-
-        setState(() => _enabled = true);
       }
+
+      setState(() => _saving = false);
 
       return;
     }
@@ -247,6 +260,18 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
     if (attributeValue == null) return;
 
     setState(() => _attributeValue = attributeValue.value);
+  }
+
+  Future<void> _setError(String error) async {
+    setState(() {
+      _errorText = context.l10n.personalData_details_warningOnSuccession;
+    });
+
+    await _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   bool hasDataChanged(LocalAttributeDVO x) {
