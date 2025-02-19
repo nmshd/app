@@ -102,6 +102,10 @@ class CryptoHandler {
       case 'get_all_providers':
         final providers = await getAllProviders();
         return providers;
+      case 'get_provider_capabilities':
+        final implConfig = decodeProviderImplConfig(objMap['args'][0]);
+        final capabilities = await getProviderCapabilities(implConfig: implConfig);
+        return capabilities.map((e) => [e.$1, encodeProviderConfig(e.$2)]).toList();
       default:
         throw TsDartBridgeException('Unknown method', objMap['method']);
     }
@@ -242,6 +246,7 @@ class CryptoHandler {
         return base64Encode(dataOut);
       case 'sign_data':
         final dataBase64 = objMap['args'][0];
+        print('dataBase64: $dataBase64');
         final data = base64Decode(dataBase64);
         final signature = await keyPair.signData(data: data);
         return base64Encode(signature);

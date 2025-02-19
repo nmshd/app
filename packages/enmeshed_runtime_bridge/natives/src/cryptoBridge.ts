@@ -1,4 +1,4 @@
-import * as types from "../../../../../rust-crypto/ts-types/index";
+import * as types from "@nmshd/rs-crypto-types";
 
 class TsDartBridgeError extends Error {
 
@@ -24,15 +24,16 @@ async function bufferToBase64(buffer: Uint8Array): Promise<string> {
     if(buffer.constructor != Uint8Array) {
         array = new Uint8Array(buffer);
     }
+
     // use a FileReader to generate a base64 data URI:
-    const base64url = await new Promise(r => {
+    const base64url: string = await new Promise(r => {
       const reader = new FileReader()
-      reader.onload = () => r(reader.result)
+      reader.onload = () => r(reader.result as string)
       reader.readAsDataURL(new Blob([array.buffer]))
     });
     // remove the `data:...;base64,` part from the start
     return base64url.slice(base64url.indexOf(',') + 1);
-  }
+}
 
 
 
@@ -83,6 +84,15 @@ async function getAllProviders(): Promise<string[]> {
         object_type: "bare",
         method: "get_all_providers",
         args: []
+    }
+    return callHandler(handlerName, callArgs);
+}
+
+async function getProviderCapabilities(impl_config: types.ProviderImplConfig): Promise<[string, types.ProviderConfig][]> {
+    let callArgs = {
+        object_type: "bare",
+        method: "get_provider_capabilities",
+        args: [impl_config]
     }
     return callHandler(handlerName, callArgs);
 }
@@ -343,6 +353,7 @@ interface KeyPairHandle {
     verifySignature(data: Uint8Array, signature: Uint8Array): Promise<boolean>;
     delete(): Promise<void>;
     getPublicKey(): Promise<Uint8Array>;
+    extractKey(): Promise<Uint8Array>;
     spec(): Promise<types.KeyPairSpec>;
 }
 
@@ -379,7 +390,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
     },
 
     signData: async function(data: Uint8Array): Promise<Uint8Array> {
-        const e_data = bufferToBase64(data)
+        const e_data = await bufferToBase64(data)
         let callArgs = {
             object_type: "key_pair",
             object_id: this._id,
@@ -417,6 +428,17 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
             object_type: "key_pair",
             object_id: this._id,
             method: "extract_public_key",
+            args: []
+        }
+        const outData = await callHandler(handlerName, callArgs)
+        return base64toUint8Array(outData)
+    },
+
+    extractKey: async function(): Promise<Uint8Array> {
+        let callArgs = {
+            object_type: "key_pair",
+            object_id: this._id,
+            method: "extract_key",
             args: []
         }
         const outData = await callHandler(handlerName, callArgs)
@@ -474,6 +496,7 @@ type CryptoInit = {
     createProvider: types.CreateProviderFunc,
     createProviderFromName: types.CreateProviderFromNameFunc,
     getAllProviders: types.GetAllProvidersFunc,
+    getProviderCapabilities: types.GetProviderCapabilitiesFunc,
     provider: typeof newProvider,
     keyHandle: typeof newKeyHandle,
     keyPairHandle: typeof newKeyPairHandle,
@@ -483,6 +506,7 @@ const cryptoInit: CryptoInit = {
     createProvider: createProvider,
     createProviderFromName: createProviderFromName,
     getAllProviders: getAllProviders,
+    getProviderCapabilities: getProviderCapabilities,
     provider: newProvider,
     keyHandle: newKeyHandle,
     keyPairHandle: newKeyPairHandle,

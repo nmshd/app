@@ -23,7 +23,7 @@ dependencies:
     git:
       url: https://github.com/nmshd/rust-crypto.git
       path: flutter_plugin/
-      ref: ca6548b
+      ref: 33162b2
 
 
 dev_dependencies:

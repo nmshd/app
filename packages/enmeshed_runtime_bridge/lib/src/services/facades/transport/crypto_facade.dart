@@ -71,6 +71,25 @@ class CryptoFacade {
     }
     return result.toMap()['value'].cast<String>();
   }
+
+  Future<List<(String, cal.ProviderConfig)>> getProviderCapabilities(cal.ProviderImplConfig implConfig) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''
+      const providers = await window.cryptoInit.getProviderCapabilities(implConfig)
+      return providers;
+    ''',
+      arguments: {'implConfig': _handler.encodeProviderImplConfig(implConfig)},
+    );
+    if (result.toMap()['value'] == null) {
+      throw CryptoFacadeException(result.toMap()['error'].toString());
+    }
+    final List<dynamic> list = result.toMap()['value'];
+    return list.map((e) {
+      final id = e[0].toString();
+      final config = _handler.decodeProviderConfig(e[1]);
+      return (id, config);
+    }).toList();
+  }
 }
 
 class CryptoFacadeProvider {
