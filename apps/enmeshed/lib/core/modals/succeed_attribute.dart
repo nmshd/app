@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' show max;
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
@@ -146,7 +147,7 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
                 ),
 
               Padding(
-                padding: EdgeInsets.only(top: 8, bottom: MediaQuery.viewPaddingOf(context).bottom + 8),
+                padding: EdgeInsets.only(top: 8, bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom) + 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
