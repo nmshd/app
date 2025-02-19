@@ -64,7 +64,6 @@ class FilesFacade {
     return Result.fromJson(value, (x) => FileDTO.fromJson(x));
   }
 
-// TODO: test
   Future<Result<FileDTO>> uploadOwnFile({
     required List<int> content,
     required String filename,
