@@ -1,8 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'file.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class FileDTO extends Equatable {
   final String id;
   final String filename;
+  final List<String>? tags;
   final int filesize;
   final String createdAt;
   final String createdBy;
@@ -17,6 +22,7 @@ class FileDTO extends Equatable {
   const FileDTO({
     required this.id,
     required this.filename,
+    this.tags,
     required this.filesize,
     required this.createdAt,
     required this.createdBy,
@@ -29,40 +35,14 @@ class FileDTO extends Equatable {
     required this.truncatedReference,
   });
 
-  factory FileDTO.fromJson(Map json) => FileDTO(
-    id: json['id'],
-    filename: json['filename'],
-    filesize: json['filesize'].toInt(),
-    createdAt: json['createdAt'],
-    createdBy: json['createdBy'],
-    createdByDevice: json['createdByDevice'],
-    expiresAt: json['expiresAt'],
-    mimetype: json['mimetype'],
-    isOwn: json['isOwn'],
-    title: json['title'],
-    description: json['description'],
-    truncatedReference: json['truncatedReference'],
-  );
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'filename': filename,
-    'filesize': filesize,
-    'createdAt': createdAt,
-    'createdBy': createdBy,
-    'createdByDevice': createdByDevice,
-    'expiresAt': expiresAt,
-    'mimetype': mimetype,
-    'isOwn': isOwn,
-    'title': title,
-    if (description != null) 'description': description,
-    'truncatedReference': truncatedReference,
-  };
+  factory FileDTO.fromJson(Map json) => _$FileDTOFromJson(Map<String, dynamic>.from(json));
+  Map<String, dynamic> toJson() => _$FileDTOToJson(this);
 
   @override
   List<Object?> get props => [
     id,
     filename,
+    tags,
     filesize,
     createdAt,
     createdBy,
