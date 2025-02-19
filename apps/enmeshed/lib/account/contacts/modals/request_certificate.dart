@@ -186,7 +186,7 @@ class _RequestCertificateState extends State<_RequestCertificate> {
                   ),
                   Gaps.h8,
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: FilledButton(
