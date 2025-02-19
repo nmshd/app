@@ -40,18 +40,18 @@ class FileDTO extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        filename,
-        tags,
-        filesize,
-        createdAt,
-        createdBy,
-        createdByDevice,
-        expiresAt,
-        mimetype,
-        isOwn,
-        title,
-        description,
-        truncatedReference,
-      ];
+    id,
+    filename,
+    tags,
+    filesize,
+    createdAt,
+    createdBy,
+    createdByDevice,
+    expiresAt,
+    mimetype,
+    isOwn,
+    title,
+    description,
+    truncatedReference,
+  ];
 }
