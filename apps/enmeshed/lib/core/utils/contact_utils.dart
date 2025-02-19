@@ -147,3 +147,26 @@ Future<void> deleteContact({
 
   onContactDeleted();
 }
+
+Future<bool> canCreateRelationship({required String accountId, required String requestCreatedBy, required Session session}) async {
+  final templatesResult = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
+
+  if (templatesResult.isError) {
+    GetIt.I.get<Logger>().e(templatesResult.error);
+    return false;
+  }
+
+  final template = templatesResult.value.firstWhere((template) => template.createdBy == requestCreatedBy);
+
+  if (template.expiresAt != null && DateTime.parse(template.expiresAt!).isBefore(DateTime.now())) {
+    return false; //expired
+  }
+
+  final canCreateRelationshipResponse = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
+
+  if (canCreateRelationshipResponse.value.isSuccess) return true;
+
+  final failureResponse = canCreateRelationshipResponse.value as CanCreateRelationshipFailureResponse;
+
+  return false;
+}
