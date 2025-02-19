@@ -10,8 +10,8 @@ import 'package:logger/logger.dart';
 import '../utils/utils.dart';
 import 'scanner_view/scanner_view.dart';
 
-class ScanOnRestoreIdentityScreen extends StatelessWidget {
-  const ScanOnRestoreIdentityScreen({super.key});
+class ScanRecoveryKitScreen extends StatelessWidget {
+  const ScanRecoveryKitScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -59,7 +59,7 @@ final _router = GoRouter(
       path: '/restore-from-identity-recovery-kit',
       builder: (context, state) {
         return InstructionsScreen(
-          onContinue: (_) => context.push('/scan-on-restore-identity'),
+          onContinue: (_) => context.push('/scan-recovery-kit'),
           title: context.l10n.restoreFromIdentityRecovery_instructions_title,
           subtitle: context.l10n.restoreFromIdentityRecovery_instructions_subtitle,
           informationTitle: context.l10n.restoreFromIdentityRecovery_instructions_informationTitle,
@@ -75,11 +75,7 @@ final _router = GoRouter(
         );
       },
     ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: '/scan-on-restore-identity',
-      builder: (context, state) => const ScanOnRestoreIdentityScreen(),
-    ),
+    GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/scan-recovery-kit', builder: (context, state) => const ScanRecoveryKitScreen()),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/device-onboarding',
