@@ -20,6 +20,8 @@ class RequestScreen extends StatefulWidget {
 }
 
 class _RequestScreenState extends State<RequestScreen> {
+  bool _canAcceptRequest = false;
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +42,7 @@ class _RequestScreenState extends State<RequestScreen> {
           requestDVO: widget.requestDVO,
           acceptRequestText: context.l10n.home_addContact,
           validationErrorDescription: context.l10n.contact_request_validationErrorDescription,
+          canAcceptRequest: _canAcceptRequest,
           onAfterAccept: () {
             if (context.mounted) context.go('/account/${widget.accountId}/contacts');
           },
@@ -57,15 +60,38 @@ class _RequestScreenState extends State<RequestScreen> {
     if (templatesResult.isSuccess) {
       final template = templatesResult.value.firstWhere((template) => template.createdBy == widget.requestDVO!.createdBy.id);
 
+      if (template.expiresAt != null && DateTime.parse(template.expiresAt!).isBefore(DateTime.now())) {
+        print('template expired!');
+      }
+
       final canCreate = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
-      print('canCreate: ${canCreate.value.isSuccess}');
+
+      setState(() {
+        _canAcceptRequest = canCreate.value.isSuccess;
+      });
 
       final contact = await session.expander.expandAddress(template.createdBy);
 
       final status = contact.relationship?.peerDeletionStatus;
-
       final relationshipStatus = contact.relationship?.status;
 
+      if (!canCreate.value.isSuccess) {
+        await showDialog<void>(
+          context: context,
+          builder:
+              (context) => AlertDialog(
+                insetPadding: const EdgeInsets.all(24),
+                icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+                title: const Text('Anfrage kann nicht angenommen werden'),
+                content: const Text(
+                  'Diese Kontaktanfrage kann momentan nicht angenommen werden. Bitte versuche es später erneut.',
+                  textAlign: TextAlign.center,
+                ),
+                actions: [FilledButton(onPressed: () => context.pop(true), child: Text(context.l10n.error_understood))],
+                actionsAlignment: MainAxisAlignment.center,
+              ),
+        );
+      }
     }
   }
 }
