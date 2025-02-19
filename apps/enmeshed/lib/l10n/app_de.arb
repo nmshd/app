@@ -554,7 +554,7 @@
   "personalData_details_cancelDeletion": "Nein, abbrechen",
   "personalData_details_errorTitleOnCreate": "Eintrag anlegen fehlgeschlagen",
   "personalData_details_errorContentOnCreate": "Der Eintrag konnte nicht angelegt werden. Bitte versuchen Sie es später erneut.",
-  "personalData_details_warningOnSuccession": "Der neu vergebene Wert Existiert bereits. Das könnte zu Verwirrung führen.",
+  "personalData_details_warningOnSuccession": "Der neu vergebene Wert existiert bereits. Das könnte zu Verwirrung führen.",
   "personalData_details_errorOnSuccession": "Der neu vergebene Wert ist identisch mit dem bisherigen Wert.",
   "personalData_details_notifyContacts": "{count, plural, =1 {Dieser Eintrag wird aktuell mit einem Kontakt geteilt. Wenn Sie diesen Eintrag bearbeiten, wird die Änderung auch an den Kontakt übermittelt, mit dem Sie diesen Eintrag geteilt haben.} other {Dieser Eintrag wird aktuell mit {count} Kontakten geteilt. Wenn Sie diesen Eintrag bearbeiten, wird die Änderung auch an alle Kontakte übermittelt, mit denen Sie diesen Eintrag geteilt haben.}}",
   "@personalData_details_notifyContacts": {
