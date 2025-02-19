@@ -263,9 +263,7 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
   }
 
   Future<void> _setError(String error) async {
-    setState(() {
-      _errorText = context.l10n.personalData_details_warningOnSuccession;
-    });
+    setState(() => _errorText = error);
 
     await _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
