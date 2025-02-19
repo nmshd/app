@@ -83,7 +83,7 @@ void run(EnmeshedRuntime runtime) {
       expect(fileResult.value.expiresAt, expiresAt);
       expect(fileResult.value.title, 'aTitle');
       expect(fileResult.value.description, 'aDescription');
-      expect(fileResult.value.tags, 'aTag');
+      expect(fileResult.value.tags, ['aTag']);
     });
 
     test('should use default uploading own file without expiry date', () async {
