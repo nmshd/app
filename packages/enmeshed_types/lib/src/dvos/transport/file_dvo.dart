@@ -11,6 +11,7 @@ part 'file_dvo.g.dart';
 @JsonSerializable(includeIfNull: false)
 class FileDVO extends DataViewObject with EquatableMixin {
   final String filename;
+  final List<String>? tags;
   @IntegerConverter()
   final int filesize;
   final String createdAt;
@@ -32,6 +33,7 @@ class FileDVO extends DataViewObject with EquatableMixin {
     super.error,
     super.warning,
     required this.filename,
+    this.tags,
     required this.filesize,
     required this.createdAt,
     required this.createdBy,
@@ -57,6 +59,7 @@ class FileDVO extends DataViewObject with EquatableMixin {
     error,
     warning,
     filename,
+    tags,
     filesize,
     createdAt,
     createdBy,
