@@ -148,7 +148,7 @@ Future<void> deleteContact({
   onContactDeleted();
 }
 
-Future<bool> canCreateRelationship({required String accountId, required String requestCreatedBy, required Session session}) async {
+Future<bool> canAcceptRelationshipRequest({required String accountId, required String requestCreatedBy, required Session session}) async {
   final templatesResult = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
   if (templatesResult.isError) {

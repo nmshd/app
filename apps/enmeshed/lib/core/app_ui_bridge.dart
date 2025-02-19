@@ -6,6 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
+import '/core/utils/contact_utils.dart';
+
 class AppUIBridge extends UIBridge {
   final Logger logger;
   final GoRouter router;
@@ -70,7 +72,13 @@ class AppUIBridge extends UIBridge {
     logger.d('showRequest for account ${account.id} id ${request.id}');
     await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
 
-    router.go('/account/${account.id}/contacts/contact-request/${request.id}', extra: request);
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(account.id);
+
+    final canAcceptRequest = await canAcceptRelationshipRequest(accountId: account.id, requestCreatedBy: request.createdBy.id, session: session);
+
+    if (canAcceptRequest) router.go('/account/${account.id}/contacts/contact-request/${request.id}', extra: request);
+
+    await router.push('/error-dialog', extra: '');
   }
 
   @override

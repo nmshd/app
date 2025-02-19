@@ -55,43 +55,18 @@ class _RequestScreenState extends State<RequestScreen> {
   Future<void> _canAccept() async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    final templatesResult = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
+    final canAcceptRequest = await canAcceptRelationshipRequest(
+      accountId: widget.accountId,
+      requestCreatedBy: widget.requestDVO!.createdBy.id,
+      session: session,
+    );
 
-    if (templatesResult.isSuccess) {
-      final template = templatesResult.value.firstWhere((template) => template.createdBy == widget.requestDVO!.createdBy.id);
+    setState(() {
+      _canAcceptRequest = canAcceptRequest;
+    });
 
-      if (template.expiresAt != null && DateTime.parse(template.expiresAt!).isBefore(DateTime.now())) {
-        print('template expired!');
-      }
-
-      final canCreate = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
-
-      setState(() {
-        _canAcceptRequest = canCreate.value.isSuccess;
-      });
-
-      final contact = await session.expander.expandAddress(template.createdBy);
-
-      final status = contact.relationship?.peerDeletionStatus;
-      final relationshipStatus = contact.relationship?.status;
-
-      if (!canCreate.value.isSuccess) {
-        await showDialog<void>(
-          context: context,
-          builder:
-              (context) => AlertDialog(
-                insetPadding: const EdgeInsets.all(24),
-                icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
-                title: const Text('Anfrage kann nicht angenommen werden'),
-                content: const Text(
-                  'Diese Kontaktanfrage kann momentan nicht angenommen werden. Bitte versuche es später erneut.',
-                  textAlign: TextAlign.center,
-                ),
-                actions: [FilledButton(onPressed: () => context.pop(true), child: Text(context.l10n.error_understood))],
-                actionsAlignment: MainAxisAlignment.center,
-              ),
-        );
-      }
+    if (!canAcceptRequest && mounted) {
+      await context.push('/error-dialog', extra: '');
     }
   }
 }
