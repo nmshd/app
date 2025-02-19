@@ -374,16 +374,24 @@ class _ContactItem extends StatelessWidget {
     );
   }
 
-  void _onTap(BuildContext context) {
+  Future<void> _onTap(BuildContext context) async {
     final contact = item.contact;
 
     if (item.openContactRequest == null) {
-      context.push('/account/$accountId/contacts/${contact.id}');
+      await context.push('/account/$accountId/contacts/${contact.id}');
       return;
     }
 
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
     final request = item.openContactRequest!;
-    context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
+
+    final canAcceptRequest = await canAcceptRelationshipRequest(accountId: accountId, requestCreatedBy: request.createdBy.id, session: session);
+
+    if (!context.mounted) return;
+
+    if (canAcceptRequest) context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
+
+    await context.push('/error-dialog', extra: '');
   }
 
   Future<void> _onDeletePressed(BuildContext context) async {
