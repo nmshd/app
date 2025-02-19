@@ -34,7 +34,7 @@ An example is adding a property to a DVO.
 For this to work, `@JsonSerializable(includeIfNull: false)` must be written above the class declaration.
 Then, run `dart run build_runner build` from the respective package.
 This will create a file with the same name, but `.g.dart` as ending.
-It is advisable to format the files of the package thereafter, e.g. by running `dart format . --set-exit-if-changed -l 150`.
+It is advisable to format the files of the package thereafter, e.g. by running `dart format .`.
 
 ## Moving patches to other apps
 
