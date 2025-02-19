@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
