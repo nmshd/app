@@ -133,14 +133,14 @@ class _RequestCertificateState extends State<_RequestCertificate> {
       mainAxisSize: MainAxisSize.min,
       children: [
         BottomSheetHeader(title: context.l10n.contactDetail_requestCertificate),
-        Padding(
-          padding: EdgeInsets.only(
-            left: 24,
-            right: 24,
-            top: 16,
-            bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom),
-          ),
-          child: Flexible(
+        Flexible(
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 24,
+              right: 24,
+              top: 16,
+              bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom),
+            ),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
