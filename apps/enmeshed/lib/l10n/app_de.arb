@@ -441,7 +441,6 @@
   "contactDetail_requestCertificate_send": "Senden",
   "contactDetail_requestCertificate_inProgress": "Das Zertifikat wird angefordert.",
   "contactDetail_requestCertificate_success": "Ihre Anforderung für ein Zertifikat wurde übermittelt. Sie finden die Nachricht in Ihrem Postausgang.",
-  "contactDetail_requestCertificate_successOk": "Okay!",
   "contactDetail_requestCertificate_error": "Das Zertifikat konnte nicht angefragt werden. Stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.",
   "contactDetail_sharedAttributes": "Von mir geteilt",
   "contactDetail_receivedAttributes": "Mit mir geteilt",
