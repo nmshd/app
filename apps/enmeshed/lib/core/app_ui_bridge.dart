@@ -77,7 +77,7 @@ class AppUIBridge extends UIBridge {
         return;
       }
 
-      await router.push('/error-dialog', extra: 'error.runtime.recordNotFound');
+      await router.push('/error-dialog', extra: 'error.recordNotFoundOnScanRecoveryKit');
 
       await runtime.accountServices.clearAccounts();
 
