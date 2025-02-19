@@ -24,6 +24,7 @@ class RequestDVORenderer extends StatefulWidget {
   final String validationErrorDescription;
   final VoidCallback onAfterAccept;
   final bool showHeader;
+  final bool canAcceptRequest;
   final LocalRequestDVO? requestDVO;
   final String? description;
 
@@ -35,6 +36,7 @@ class RequestDVORenderer extends StatefulWidget {
     required this.validationErrorDescription,
     required this.onAfterAccept,
     this.showHeader = true,
+    this.canAcceptRequest = true,
     this.requestDVO,
     this.description,
     super.key,
@@ -165,7 +167,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
               children: [
                 OutlinedButton(onPressed: _loading && _request != null ? null : _rejectRequest, child: Text(context.l10n.reject)),
                 Gaps.w8,
-                FilledButton(onPressed: _acceptRequest, child: Text(widget.acceptRequestText)),
+                FilledButton(onPressed: widget.canAcceptRequest ? _acceptRequest : null, child: Text(widget.acceptRequestText)),
               ],
             ),
           ),
