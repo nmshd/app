@@ -17,9 +17,16 @@ void main() {
 
   group('AcceptReadAttributeRequestItemParametersWithExistingAttribute toJson', () {
     test('is correctly converted', () {
-      const item = AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: 'anExistingAttributeId');
+      const item = AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: 'anExistingAttributeId', tags: ['aTag']);
       final itemJson = item.toJson();
-      expect(itemJson, equals({'accept': true, 'existingAttributeId': 'anExistingAttributeId'}));
+      expect(
+        itemJson,
+        equals({
+          'accept': true,
+          'existingAttributeId': 'anExistingAttributeId',
+          'tags': ['aTag'],
+        }),
+      );
     });
   });
 }
