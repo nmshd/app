@@ -26,6 +26,7 @@ class InstructionsScreen extends StatefulWidget {
   final void Function()? deactivateHint;
   final bool showNumberedExplanation;
   final String? buttonContinueText;
+  final Icon? informationIcon;
 
   const InstructionsScreen({
     required this.accountId,
@@ -39,6 +40,7 @@ class InstructionsScreen extends StatefulWidget {
     this.deactivateHint,
     this.showNumberedExplanation = true,
     this.buttonContinueText,
+    this.informationIcon,
     super.key,
   });
 
@@ -59,24 +61,48 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
       body: SafeArea(
         minimum: const EdgeInsets.only(bottom: 16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
+                Gaps.h4,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    widget.title,
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                    maxLines: 2,
+                  ),
+                ),
+              ],
+            ),
+            Gaps.h24,
             Expanded(
               child: Scrollbar(
                 thumbVisibility: true,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _InstructionHeader(illustration: widget.illustration, subtitle: widget.subtitle),
-                        Gaps.h12,
+                        Gaps.h24,
                         if (widget.showNumberedExplanation)
                           _NumberedExplanation(instructions: widget.instructions)
                         else
                           _Explanation(instructions: widget.instructions),
-                        Gaps.h32,
-                        InformationContainer(title: widget.informationTitle, description: widget.informationDescription),
+                        Gaps.h8,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: InformationContainer(
+                            title: widget.informationTitle,
+                            description: widget.informationDescription,
+                            icon: widget.informationIcon,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -183,7 +209,7 @@ class _InstructionsBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (showCheckbox)
+        if (showCheckbox) ...[
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
             child: InkWell(
@@ -193,9 +219,10 @@ class _InstructionsBottom extends StatelessWidget {
               ),
             ),
           ),
-        Gaps.h8,
+          Gaps.h8,
+        ],
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+          padding: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
