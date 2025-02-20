@@ -152,29 +152,29 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
             right: 0,
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
               ),
               child: Padding(
                 padding: EdgeInsets.only(top: 24, bottom: math.max(MediaQuery.paddingOf(context).bottom, 24) + 8),
                 child: Column(
                   children: [
-                    SizedBox(
-                      width: 203,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Text(
                         widget.scanQrOrEnterUrlText,
-                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    Gaps.h16,
-                    OutlinedButton(
+                    Gaps.h40,
+                    FilledButton(
                       onPressed: widget.toggleScannerMode,
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Theme.of(context).colorScheme.onPrimary),
-                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      style: FilledButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.primary),
+                      child: Text(
+                        widget.enterUrlText,
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
                       ),
-                      child: Text(widget.enterUrlText),
                     ),
                   ],
                 ),
