@@ -26,7 +26,7 @@ class ErrorDialog extends StatelessWidget {
     'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
     'error.transport.relationships.relationshipNotYetDecomposedByPeer' => context.l10n.errorDialog_relationshipNotYetDecomposedByPeer_title,
     'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate' =>
-      context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description,
+      context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_title,
     'error.transport.relationships.relationshipTemplateIsExpired' => context.l10n.errorDialog_relationshipTemplateIsExpired_title,
     'expiredRequestFirstTime' => context.l10n.errorDialog_expiredRequestFirstTime_title,
     'expiredRequest' => context.l10n.errorDialog_expiredRequest_title,
