@@ -162,9 +162,10 @@ Future<({String? error, bool canAccept})> canAcceptRelationshipRequest({
 
   final template = templatesResult.value.firstWhere((template) => template.createdBy == requestCreatedBy);
 
+  /*
   if (template.expiresAt != null && DateTime.parse(template.expiresAt!).isBefore(DateTime.now())) {
     return false; //expired
-  }
+  }*/
 
   final canCreateRelationshipResponse = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
 
