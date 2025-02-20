@@ -70,7 +70,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               Padding(
                 padding: const EdgeInsets.only(left: 16, top: 16),
                 child: _CompleteProfileHeader(
-                  count: context.isFeatureEnabled('IDENTITY_RECOVERY_KITS') ? 4 : 3,
+                  count: 4,
                   countCompleted: [_isPersonalDataStored, _hasRelationship, _isFileDataStored, _createdIdentityRecoveryKit].where((e) => e).length,
                 ),
               ),
@@ -83,14 +83,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Text(
-              context.isFeatureEnabled('IDENTITY_RECOVERY_KITS')
-                  ? context.l10n.home_completeProfileDescription
-                  : context.l10n.home_completeProfileDescription_recoverykitDisabled,
-            ),
-          ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), child: Text(context.l10n.home_completeProfileDescription)),
           _TodoListTile(
             done: _isPersonalDataStored,
             text: context.l10n.home_initialPersonalInformation,
@@ -109,15 +102,14 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               await _reload();
             },
           ),
-          if (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS'))
-            _TodoListTile(
-              done: _createdIdentityRecoveryKit,
-              text: context.l10n.home_createIdentityRecoveryKit,
-              onPressed: () async {
-                await context.push('/account/${widget.accountId}/create-identity-recovery-kit');
-                await _reload();
-              },
-            ),
+          _TodoListTile(
+            done: _createdIdentityRecoveryKit,
+            text: context.l10n.home_createIdentityRecoveryKit,
+            onPressed: () async {
+              await context.push('/account/${widget.accountId}/create-identity-recovery-kit');
+              await _reload();
+            },
+          ),
         ],
       ),
     );

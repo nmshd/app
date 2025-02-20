@@ -23,6 +23,8 @@ class ErrorDialog extends StatelessWidget {
     'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
     'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_title,
     'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
+    'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit,
+    'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorTitleOnExistingProfile,
     _ => context.l10n.errorDialog_title,
   };
 
@@ -30,6 +32,8 @@ class ErrorDialog extends StatelessWidget {
     'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
     'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_description,
     'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_description,
+    'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit,
+    'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnExistingProfile,
     _ => context.l10n.errorDialog_description,
   };
 }

@@ -15,7 +15,6 @@ enum ScannerType {
 }
 
 class InstructionsScreen extends StatefulWidget {
-  final String accountId;
   final void Function(BuildContext) onContinue;
   final String title;
   final String subtitle;
@@ -29,7 +28,6 @@ class InstructionsScreen extends StatefulWidget {
   final Icon? informationIcon;
 
   const InstructionsScreen({
-    required this.accountId,
     required this.onContinue,
     required this.title,
     required this.subtitle,

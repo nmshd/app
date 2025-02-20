@@ -56,6 +56,28 @@ final _router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
+      path: '/restore-from-identity-recovery-kit',
+      builder: (context, state) {
+        return InstructionsScreen(
+          onContinue: (_) => context.push('/scan-recovery-kit'),
+          title: context.l10n.restoreFromIdentityRecovery_instructions_title,
+          subtitle: context.l10n.restoreFromIdentityRecovery_instructions_subtitle,
+          informationTitle: context.l10n.restoreFromIdentityRecovery_instructions_informationTitle,
+          informationDescription: context.l10n.restoreFromIdentityRecovery_instructions_informationDescription,
+          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/create_recovery_kit.svg'), height: 160),
+          buttonContinueText: context.l10n.onboarding_restoreProfile_button,
+          instructions: [
+            context.l10n.restoreFromIdentityRecovery_instructions_search,
+            context.l10n.restoreFromIdentityRecovery_instructions_scan,
+            context.l10n.restoreFromIdentityRecovery_instructions_password,
+            context.l10n.restoreFromIdentityRecovery_instructions_confirmation,
+          ],
+        );
+      },
+    ),
+    GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/scan-recovery-kit', builder: (context, state) => const ScanRecoveryKitScreen()),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/device-onboarding',
       builder: (context, state) => DeviceOnboardingScreen(deviceSharedSecret: state.extra! as DeviceSharedSecret),
     ),
@@ -145,7 +167,6 @@ final _router = GoRouter(
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
-              accountId: accountId,
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.addContact}', value: false),
               onContinue:
                   (context) =>
@@ -173,7 +194,6 @@ final _router = GoRouter(
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
-              accountId: accountId,
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.loadProfile}', value: false),
               onContinue:
                   (context) =>
@@ -203,7 +223,6 @@ final _router = GoRouter(
 
             return InstructionsScreen(
               showNumberedExplanation: false,
-              accountId: accountId,
               onContinue: (context) => showCreateRecoveryKitModal(context: context, accountId: accountId),
               title: context.l10n.identityRecovery_instructions_title,
               subtitle: context.l10n.identityRecovery_instructions_subtitle,

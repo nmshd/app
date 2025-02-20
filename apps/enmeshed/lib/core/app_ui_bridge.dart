@@ -6,6 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
+import 'utils/settings_utils.dart';
+
 class AppUIBridge extends UIBridge {
   final Logger logger;
   final GoRouter router;
@@ -32,7 +34,55 @@ class AppUIBridge extends UIBridge {
   Future<void> showDeviceOnboarding(DeviceSharedSecret deviceOnboardingInfo) async {
     logger.d('showDeviceOnboarding for device ${deviceOnboardingInfo.id}');
 
-    await router.push('/device-onboarding', extra: deviceOnboardingInfo);
+    final isBackupDevice = deviceOnboardingInfo.isBackupDevice ?? false;
+
+    if (!isBackupDevice) {
+      await router.push('/device-onboarding', extra: deviceOnboardingInfo);
+      return;
+    }
+
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+
+    try {
+      final onboardedAccount = await runtime.accountServices.onboardAccount(deviceOnboardingInfo, name: deviceOnboardingInfo.profileName);
+      await runtime.selectAccount(onboardedAccount.id);
+
+      final accountsInDeletion = await runtime.accountServices.getAccountsInDeletion();
+      final isOnboardedAccountInDeletion = accountsInDeletion.any((element) => element.id == onboardedAccount.id);
+
+      if (!isOnboardedAccountInDeletion) {
+        await upsertRestoreFromIdentityRecoveryKitSetting(accountId: onboardedAccount.id, value: true);
+
+        router.go('/account/${onboardedAccount.id}');
+        return;
+      }
+
+      final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
+      if (accountsNotInDeletion.isEmpty) {
+        await router.pushReplacement('/onboarding?skipIntroduction=true');
+        return;
+      }
+
+      final account = accountsNotInDeletion.first;
+
+      await runtime.selectAccount(account.id);
+      await upsertRestoreFromIdentityRecoveryKitSetting(accountId: account.id, value: true);
+
+      router.go('/account/${account.id}');
+      await router.push('/profiles');
+    } catch (e) {
+      if (e.toString().contains('error.app-runtime.onboardedAccountAlreadyExists')) {
+        await router.push('/error-dialog', extra: 'error.app-runtime.onboardedAccountAlreadyExists');
+
+        return;
+      }
+
+      await router.push('/error-dialog', extra: 'error.recordNotFoundOnScanRecoveryKit');
+
+      await runtime.accountServices.clearAccounts();
+
+      await router.pushReplacement('/onboarding?skipIntroduction=true');
+    }
   }
 
   @override
