@@ -74,11 +74,15 @@ class AppUIBridge extends UIBridge {
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(account.id);
 
-    final canAcceptRequest = await canAcceptRelationshipRequest(accountId: account.id, requestCreatedBy: request.createdBy.id, session: session);
+    final canAcceptRequestResponse = await canAcceptRelationshipRequest(
+      accountId: account.id,
+      requestCreatedBy: request.createdBy.id,
+      session: session,
+    );
 
-    if (canAcceptRequest) router.go('/account/${account.id}/contacts/contact-request/${request.id}', extra: request);
+    if (canAcceptRequestResponse.canAccept) return router.go('/account/${account.id}/contacts/contact-request/${request.id}', extra: request);
 
-    await router.push('/error-dialog', extra: '');
+    await router.push('/error-dialog', extra: canAcceptRequestResponse.error);
   }
 
   @override

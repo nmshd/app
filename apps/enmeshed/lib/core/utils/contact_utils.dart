@@ -148,12 +148,16 @@ Future<void> deleteContact({
   onContactDeleted();
 }
 
-Future<bool> canAcceptRelationshipRequest({required String accountId, required String requestCreatedBy, required Session session}) async {
+Future<({String? error, bool canAccept})> canAcceptRelationshipRequest({
+  required String accountId,
+  required String requestCreatedBy,
+  required Session session,
+}) async {
   final templatesResult = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
   if (templatesResult.isError) {
     GetIt.I.get<Logger>().e(templatesResult.error);
-    return false;
+    return (error: null, canAccept: false);
   }
 
   final template = templatesResult.value.firstWhere((template) => template.createdBy == requestCreatedBy);
@@ -164,9 +168,9 @@ Future<bool> canAcceptRelationshipRequest({required String accountId, required S
 
   final canCreateRelationshipResponse = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
 
-  if (canCreateRelationshipResponse.value.isSuccess) return true;
+  if (canCreateRelationshipResponse.value.isSuccess) return (error: null, canAccept: true);
 
   final failureResponse = canCreateRelationshipResponse.value as CanCreateRelationshipFailureResponse;
 
-  return false;
+  return (error: failureResponse.code, canAccept: false);
 }

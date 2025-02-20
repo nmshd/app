@@ -5,8 +5,9 @@ import '../utils/utils.dart';
 
 class ErrorDialog extends StatelessWidget {
   final String? code;
+  final String? date;
 
-  const ErrorDialog({required this.code, super.key});
+  const ErrorDialog({required this.code, this.date, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,9 @@ class ErrorDialog extends StatelessWidget {
     'error.transport.relationships.relationshipNotYetDecomposedByPeer' => context.l10n.errorDialog_relationshipNotYetDecomposedByPeer_title,
     'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate' =>
       context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description,
+    'error.transport.relationships.relationshipTemplateIsExpired' => context.l10n.errorDialog_relationshipTemplateIsExpired_title,
+    'expiredRequestFirstTime' => context.l10n.errorDialog_expiredRequestFirstTime_title,
+    'expiredRequest' => context.l10n.errorDialog_expiredRequest_title,
     _ => context.l10n.errorDialog_title,
   };
 
@@ -36,6 +40,11 @@ class ErrorDialog extends StatelessWidget {
     'error.transport.relationships.relationshipNotYetDecomposedByPeer' => context.l10n.errorDialog_relationshipNotYetDecomposedByPeer_description,
     'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate' =>
       context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description,
+    'error.transport.relationships.relationshipTemplateIsExpired' => context.l10n.errorDialog_relationshipTemplateIsExpired_description(
+      DateTime.parse(DateTime.now().toString()).toLocal(),
+    ),
+    'expiredRequestFirstTime' => context.l10n.errorDialog_expiredRequestFirstTime_description(DateTime.parse(DateTime.now().toString()).toLocal()),
+    'expiredRequest' => context.l10n.errorDialog_expiredRequest_description(DateTime.parse(DateTime.now().toString()).toLocal()),
     _ => context.l10n.errorDialog_description,
   };
 }
