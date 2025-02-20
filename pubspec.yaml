@@ -7,6 +7,50 @@ homepage: https://enmeshed.eu
 environment:
   sdk: "^3.7.0"
 
+workspace:
+  - packages/connector_sdk
+  - packages/enmeshed_runtime_bridge
+  - packages/enmeshed_runtime_bridge/integration_test_runner
+  - packages/enmeshed_types
+  - packages/enmeshed_ui_kit
+  - packages/identity_recovery_kit
+  - packages/identity_recovery_kit/example
+  - packages/renderers
+  - packages/value_renderer
+  - apps/connector_ui
+  - apps/enmeshed
+
 dev_dependencies:
   flutter_lints: ^5.0.0
-  melos: ^6.3.2
+  melos: ^7.0.0-dev.7
+
+melos:
+  ide:
+    intellij:
+      enabled: false
+
+  command:
+    format:
+      setExitIfChanged: true
+
+  scripts:
+    test:
+      # Only run the test command when the package has a test directory
+      run: melos exec --dir-exists=test --flutter -- "flutter test" && melos exec --dir-exists=test --no-flutter -- "dart test"
+      description: Run `flutter test` in all packages
+
+    integration_test:
+      run: melos exec --dir-exists=integration_test --flutter -- "flutter test --dart-define-from-file=../../config.json integration_test/suite_test.dart"
+      description: Run `integration tests` in all packages that have the folder `integration_test`
+
+    check_translations:
+      run: melos exec --dir-exists=lib/l10n --flutter -- "dart run translations_cleaner list-unused-terms --abort-on-unused"
+      description: Check translations in all packages
+
+    clean_translations:
+      run: melos exec --dir-exists=lib/l10n --flutter -- "dart run translations_cleaner clean-translations && npx prettier -w lib/l10n/*.arb --parser json"
+      description: Check translations in all packages
+
+    generate_translations:
+      run: melos exec --dir-exists=lib/l10n --flutter -- "flutter gen-l10n && dart format lib/generated/l10n"
+      description: Generate translations in all packages
