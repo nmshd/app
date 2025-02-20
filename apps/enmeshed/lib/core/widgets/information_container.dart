@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class InformationContainer extends StatelessWidget {
   final String title;
   final String? description;
+  final Icon? icon;
 
-  const InformationContainer({required this.title, this.description, super.key});
+  const InformationContainer({required this.title, this.description, this.icon, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class InformationContainer extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
+                icon ?? Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
                 Gaps.w8,
                 Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium)),
               ],
