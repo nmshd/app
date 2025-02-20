@@ -21,5 +21,18 @@ void main() {
       final itemJson = item.toJson();
       expect(itemJson, equals({'accept': true, 'existingAttributeId': 'anExistingAttributeId'}));
     });
+
+    test('is correctly converted including tags', () {
+      const item = AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: 'anExistingAttributeId', tags: ['aTag']);
+      final itemJson = item.toJson();
+      expect(
+        itemJson,
+        equals({
+          'accept': true,
+          'existingAttributeId': 'anExistingAttributeId',
+          'tags': ['aTag'],
+        }),
+      );
+    });
   });
 }
