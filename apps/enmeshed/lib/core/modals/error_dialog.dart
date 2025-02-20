@@ -23,6 +23,9 @@ class ErrorDialog extends StatelessWidget {
     'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
     'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_title,
     'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
+    'error.transport.relationships.relationshipNotYetDecomposedByPeer' => context.l10n.errorDialog_relationshipNotYetDecomposedByPeer_title,
+    'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate' =>
+      context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description,
     _ => context.l10n.errorDialog_title,
   };
 
@@ -30,6 +33,9 @@ class ErrorDialog extends StatelessWidget {
     'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
     'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_description,
     'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_description,
+    'error.transport.relationships.relationshipNotYetDecomposedByPeer' => context.l10n.errorDialog_relationshipNotYetDecomposedByPeer_description,
+    'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate' =>
+      context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description,
     _ => context.l10n.errorDialog_description,
   };
 }
