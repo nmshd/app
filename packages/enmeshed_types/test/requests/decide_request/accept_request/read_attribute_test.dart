@@ -17,6 +17,12 @@ void main() {
 
   group('AcceptReadAttributeRequestItemParametersWithExistingAttribute toJson', () {
     test('is correctly converted', () {
+      const item = AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: 'anExistingAttributeId');
+      final itemJson = item.toJson();
+      expect(itemJson, equals({'accept': true, 'existingAttributeId': 'anExistingAttributeId'}));
+    });
+
+    test('is correctly converted including tags', () {
       const item = AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: 'anExistingAttributeId', tags: ['aTag']);
       final itemJson = item.toJson();
       expect(
