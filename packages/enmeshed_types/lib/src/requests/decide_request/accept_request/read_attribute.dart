@@ -5,11 +5,12 @@ abstract class AcceptReadAttributeRequestItemParameters extends AcceptRequestIte
 
 class AcceptReadAttributeRequestItemParametersWithExistingAttribute extends AcceptRequestItemParameters {
   final String existingAttributeId;
+  final List<String>? tags;
 
-  const AcceptReadAttributeRequestItemParametersWithExistingAttribute({required this.existingAttributeId});
+  const AcceptReadAttributeRequestItemParametersWithExistingAttribute({required this.existingAttributeId, this.tags});
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), 'existingAttributeId': existingAttributeId};
+  Map<String, dynamic> toJson() => {...super.toJson(), 'existingAttributeId': existingAttributeId, 'tags': tags};
 }
 
 class AcceptReadAttributeRequestItemParametersWithNewAttribute extends AcceptRequestItemParameters {
