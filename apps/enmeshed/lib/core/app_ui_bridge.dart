@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
-import '/core/utils/contact_utils.dart';
+import 'utils/contact_utils.dart';
 
 class AppUIBridge extends UIBridge {
   final Logger logger;
@@ -41,7 +41,7 @@ class AppUIBridge extends UIBridge {
   Future<void> showError(UIBridgeError error, [LocalAccountDTO? account]) async {
     logger.d('showError for account ${account?.id} error $error');
 
-    await router.push('/error-dialog', extra: error.code);
+    await router.push('/error-dialog', extra: createErrorDetails(errorCode: error.code));
   }
 
   @override
@@ -72,17 +72,7 @@ class AppUIBridge extends UIBridge {
     logger.d('showRequest for account ${account.id} id ${request.id}');
     await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
 
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(account.id);
-
-    final canAcceptRequestResponse = await canAcceptRelationshipRequest(
-      accountId: account.id,
-      requestCreatedBy: request.createdBy.id,
-      session: session,
-    );
-
-    if (canAcceptRequestResponse.canAccept) return router.go('/account/${account.id}/contacts/contact-request/${request.id}', extra: request);
-
-    await router.push('/error-dialog', extra: canAcceptRequestResponse.error);
+    return router.go('/account/${account.id}/contacts/contact-request/${request.id}', extra: request);
   }
 
   @override

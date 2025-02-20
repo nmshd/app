@@ -9,6 +9,12 @@ import 'extensions.dart';
 
 const _contactSettingKey = 'contact_settings';
 
+typedef ErrorDetails = ({String? errorCode, VoidCallback? onButtonPressed});
+
+ErrorDetails createErrorDetails({String? errorCode, VoidCallback? onButtonPressed}) {
+  return (errorCode: errorCode, onButtonPressed: onButtonPressed);
+}
+
 class ContactNameUpdatedEvent extends Event {
   ContactNameUpdatedEvent({required super.eventTargetAddress});
 }
@@ -148,30 +154,21 @@ Future<void> deleteContact({
   onContactDeleted();
 }
 
-Future<({String? error, bool canAccept})> canAcceptRelationshipRequest({
-  required String accountId,
-  required String requestCreatedBy,
-  required Session session,
-}) async {
+Future<ErrorDetails?> canCreateRelationshipRequest({required String accountId, required String requestCreatedBy, required Session session}) async {
   final templatesResult = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
   if (templatesResult.isError) {
     GetIt.I.get<Logger>().e(templatesResult.error);
-    return (error: null, canAccept: false);
+    return createErrorDetails();
   }
 
   final template = templatesResult.value.firstWhere((template) => template.createdBy == requestCreatedBy);
 
-  /*
-  if (template.expiresAt != null && DateTime.parse(template.expiresAt!).isBefore(DateTime.now())) {
-    return false; //expired
-  }*/
-
   final canCreateRelationshipResponse = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
 
-  if (canCreateRelationshipResponse.value.isSuccess) return (error: null, canAccept: true);
+  if (canCreateRelationshipResponse.value.isSuccess) return null;
 
   final failureResponse = canCreateRelationshipResponse.value as CanCreateRelationshipFailureResponse;
 
-  return (error: failureResponse.code, canAccept: false);
+  return createErrorDetails(errorCode: failureResponse.code);
 }

@@ -385,7 +385,7 @@ class _ContactItem extends StatelessWidget {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
     final request = item.openContactRequest!;
 
-    final canAcceptRequestResponse = await canAcceptRelationshipRequest(
+    final canAcceptRequestResponse = await canCreateRelationshipRequest(
       accountId: accountId,
       requestCreatedBy: request.createdBy.id,
       session: session,
@@ -393,9 +393,12 @@ class _ContactItem extends StatelessWidget {
 
     if (!context.mounted) return;
 
-    if (canAcceptRequestResponse.canAccept) return context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
+    if (canAcceptRequestResponse == null) return context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
 
-    await context.push('/error-dialog', extra: canAcceptRequestResponse.error);
+    await context.push(
+      '/error-dialog',
+      extra: createErrorDetails(errorCode: canAcceptRequestResponse.errorCode, onButtonPressed: () => _onDeletePressed(context)),
+    );
   }
 
   Future<void> _onDeletePressed(BuildContext context) async {

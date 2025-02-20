@@ -46,7 +46,7 @@ class ScanScreen extends StatelessWidget {
     GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
     if (!context.mounted) return;
 
-    await context.push('/error-dialog', extra: result.error.code);
+    await context.push('/error-dialog', extra: createErrorDetails(errorCode: result.error.code));
 
     resume();
   }

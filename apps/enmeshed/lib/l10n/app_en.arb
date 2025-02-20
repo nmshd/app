@@ -38,35 +38,9 @@
   "errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_title": "The contact no longer exists",
   "errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description": "The contact for this QR code no longer exists or is no longer part of \"enmeshed\". You can no longer establish a contact relationship.",
   "errorDialog_relationshipTemplateIsExpired_title": "The contact request has expired",
-  "errorDialog_relationshipTemplateIsExpired_description": "The contact has set a response deadline of {date} for this unsent contact request. This deadline has now passed.",
-  "@errorDialog_relationshipTemplateIsExpired_description": {
-    "placeholders": {
-      "date": {
-        "type": "DateTime",
-        "format": "yMd"
-      }
-    }
-  },
-  "errorDialog_expiredRequestFirstTime_title": "The QR code has already expired",
-  "errorDialog_expiredRequestFirstTime_description": "This QR code was valid until {date}. Try to get a new QR code from the contact.",
-  "@errorDialog_expiredRequestFirstTime_description": {
-    "placeholders": {
-      "date": {
-        "type": "DateTime",
-        "format": "yMd"
-      }
-    }
-  },
-  "errorDialog_expiredRequest_title": "You have already scanned this QR code.",
-  "errorDialog_expiredRequest_description": "The contact has set a response deadline of {date} for this QR code. The contact request associated with this QR code has expired.",
-  "@errorDialog_expiredRequest_description": {
-    "placeholders": {
-      "date": {
-        "type": "DateTime",
-        "format": "yMd"
-      }
-    }
-  },
+  "errorDialog_relationshipTemplateIsExpired_description": "The contact has set a response deadline for this unsent contact request. This deadline has now passed.",
+  "errorDialog_expiredRequest_title": "The QR code has already expired",
+  "errorDialog_expiredRequest_description": "Try to get a new QR code from the contact.",
   "error_image": "Failed to pick image.",
   "error_upload_file": "Failed to upload the file.",
   "error_download_file": "Failed to download the file.",

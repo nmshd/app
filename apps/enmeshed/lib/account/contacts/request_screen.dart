@@ -55,18 +55,19 @@ class _RequestScreenState extends State<RequestScreen> {
   Future<void> _canAccept() async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    final canAcceptRequestResponse = await canAcceptRelationshipRequest(
+    final canAcceptRequestResponse = await canCreateRelationshipRequest(
       accountId: widget.accountId,
       requestCreatedBy: widget.requestDVO!.createdBy.id,
       session: session,
     );
 
-    setState(() => _canAcceptRequest = canAcceptRequestResponse.canAccept);
-
-    if (canAcceptRequestResponse.canAccept) return;
+    if (canAcceptRequestResponse == null) {
+      setState(() => _canAcceptRequest = true);
+      return;
+    }
 
     if (!mounted) return;
 
-    await context.push('/error-dialog', extra: canAcceptRequestResponse.error);
+    await context.push('/error-dialog', extra: createErrorDetails(errorCode: canAcceptRequestResponse.errorCode));
   }
 }
