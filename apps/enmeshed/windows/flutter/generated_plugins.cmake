@@ -9,6 +9,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   permission_handler_windows
   printing
   url_launcher_windows
+  window_size
   windows_notification
 )
 
