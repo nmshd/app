@@ -29,10 +29,6 @@ melos:
     intellij:
       enabled: false
 
-  command:
-    format:
-      setExitIfChanged: true
-
   scripts:
     test:
       # Only run the test command when the package has a test directory

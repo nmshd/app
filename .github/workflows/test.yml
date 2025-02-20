@@ -12,8 +12,8 @@ jobs:
       - run: dart pub global activate melos
       - run: melos bootstrap
       - run: melos generate_translations
-      - run: flutter analyze
-      - run: melos format
+      - run: dart analyze
+      - run: dart format . --set-exit-if-changed
       - run: melos check_translations
 
   test:
