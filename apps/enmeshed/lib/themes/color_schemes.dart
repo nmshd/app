@@ -1,6 +1,5 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 import 'text_styles.dart';
 
@@ -63,5 +62,3 @@ AppBarTheme darkAppBarTheme = AppBarTheme(
   titleSpacing: 6,
   centerTitle: false,
 );
-
-const woltThemeData = WoltModalSheetThemeData(topBarShadowColor: Colors.transparent);
