@@ -186,9 +186,11 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
             ),
           )
         else
-          TranslatedText(
-            'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
-            style: TextStyle(color: Theme.of(context).colorScheme.error),
+          Expanded(
+            child: TranslatedText(
+              'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
           ),
       ],
     );
