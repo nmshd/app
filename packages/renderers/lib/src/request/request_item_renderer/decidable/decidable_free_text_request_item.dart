@@ -29,7 +29,7 @@ class _DecidableFreeTextRequestItemRendererState extends State<DecidableFreeText
     isChecked = widget.item.initiallyChecked;
 
     if (isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptFreeTextRequestItemParameters(freeText: ''));
     }
   }
 
