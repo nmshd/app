@@ -34,3 +34,7 @@ scripts:
   clean_translations:
     run: melos exec --dir-exists=lib/l10n --flutter -- "dart run translations_cleaner clean-translations && npx prettier -w lib/l10n/*.arb --parser json"
     description: Check translations in all packages
+
+  generate_translations:
+    run: melos exec --dir-exists=lib/l10n --flutter -- "flutter gen-l10n && dart format lib/generated/l10n"
+    description: Generate translations in all packages

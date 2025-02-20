@@ -5,8 +5,9 @@ import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+
+import '../../generated/l10n/app_localizations.dart';
 
 extension AppLocalizationsExtension on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this)!;
