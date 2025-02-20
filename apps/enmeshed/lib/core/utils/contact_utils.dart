@@ -88,7 +88,11 @@ Future<List<IdentityDVO>> getContacts({required Session session}) async {
 Future<List<LocalRequestDVO>> incomingOpenRequestsFromRelationshipTemplate({required Session session}) async {
   final incomingRequestResult = await session.consumptionServices.incomingRequests.getRequests(
     query: {
-      'status': QueryValue.stringList([LocalRequestStatus.DecisionRequired.name, LocalRequestStatus.ManualDecisionRequired.name]),
+      'status': QueryValue.stringList([
+        LocalRequestStatus.DecisionRequired.name,
+        LocalRequestStatus.ManualDecisionRequired.name,
+        LocalRequestStatus.Expired.name,
+      ]),
       'source.type': QueryValue.string(LocalRequestSourceType.RelationshipTemplate.name),
     },
   );
