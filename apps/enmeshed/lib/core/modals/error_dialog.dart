@@ -19,27 +19,21 @@ class ErrorDialog extends StatelessWidget {
     );
   }
 
-  String _title(BuildContext context) {
-    return switch (code) {
-      'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
-      'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_title,
-      'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
-      'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit,
-      final String c when c.contains('error.app-runtime.onboardedAccountAlreadyExists') =>
-        context.l10n.restoreFromIdentityRecovery_errorTitleOnExistingProfile,
-      _ => context.l10n.errorDialog_title,
-    };
-  }
+  String _title(BuildContext context) => switch (code) {
+    'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
+    'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_title,
+    'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
+    'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit,
+    'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorTitleOnExistingProfile,
+    _ => context.l10n.errorDialog_title,
+  };
 
-  String _content(BuildContext context) {
-    return switch (code) {
-      'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
-      'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_description,
-      'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_description,
-      'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit,
-      final String c when c.contains('error.app-runtime.onboardedAccountAlreadyExists') =>
-        context.l10n.restoreFromIdentityRecovery_errorDescriptionOnExistingProfile,
-      _ => context.l10n.errorDialog_description,
-    };
-  }
+  String _content(BuildContext context) => switch (code) {
+    'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
+    'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_description,
+    'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_description,
+    'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit,
+    'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnExistingProfile,
+    _ => context.l10n.errorDialog_description,
+  };
 }
