@@ -52,5 +52,5 @@ melos:
       description: Generate translations in all packages
 
     update_ios:
-      run: melos exec --file-exists=ios/Podfile --flutter -- "cd ios && pod update"
+      run: melos exec --file-exists=ios/Podfile --flutter -- "flutter pub get && cd ios && pod install --repo-update"
       description: Update iOS in all packages
