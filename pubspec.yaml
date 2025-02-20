@@ -54,3 +54,7 @@ melos:
     generate_translations:
       run: melos exec --dir-exists=lib/l10n --flutter -- "flutter gen-l10n && dart format lib/generated/l10n"
       description: Generate translations in all packages
+
+    update_ios:
+      run: melos exec --file-exists=ios/Podfile --flutter -- "cd ios && pod update"
+      description: Update iOS in all packages
