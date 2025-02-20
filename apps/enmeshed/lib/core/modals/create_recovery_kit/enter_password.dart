@@ -126,6 +126,7 @@ class _EnterPasswordState extends State<EnterPassword> {
       return;
     }
 
+    FocusScope.of(context).unfocus();
     setState(() => _loading = true);
 
     widget.onPasswordEntered(_passwordController.text);
