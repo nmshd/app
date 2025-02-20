@@ -10,7 +10,7 @@ class AcceptReadAttributeRequestItemParametersWithExistingAttribute extends Acce
   const AcceptReadAttributeRequestItemParametersWithExistingAttribute({required this.existingAttributeId, this.tags});
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), 'existingAttributeId': existingAttributeId, 'tags': tags};
+  Map<String, dynamic> toJson() => {...super.toJson(), 'existingAttributeId': existingAttributeId, if (tags != null) 'tags': tags};
 }
 
 class AcceptReadAttributeRequestItemParametersWithNewAttribute extends AcceptRequestItemParameters {
