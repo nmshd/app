@@ -6,6 +6,8 @@ environment:
   sdk: ^3.6.0
   flutter: ">=1.17.0"
 
+resolution: workspace
+
 dependencies:
   flex_seed_scheme: ^3.5.0
   flutter:

@@ -6,17 +6,18 @@ version: 1.0.0+1
 environment:
   sdk: ^3.5.4
 
+resolution: workspace
+
 dependencies:
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
-  identity_recovery_kit:
-    path: ../
+  identity_recovery_kit: ^1.0.0
   open_file: ^3.5.10
   path_provider: ^2.1.5
 
 dev_dependencies:
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
 

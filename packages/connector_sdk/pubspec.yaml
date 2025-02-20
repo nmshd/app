@@ -9,6 +9,8 @@ homepage: https://enmeshed.eu
 environment:
   sdk: "^3.7.0"
 
+resolution: workspace
+
 dependencies:
   dio: ^5.7.0
   enmeshed_types: 1.0.0
