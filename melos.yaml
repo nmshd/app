@@ -36,5 +36,5 @@ scripts:
     description: Check translations in all packages
 
   generate_translations:
-    run: melos exec --dir-exists=lib/l10n --flutter -- "flutter gen-l10n"
+    run: melos exec --dir-exists=lib/l10n --flutter -- "flutter gen-l10n && dart format lib/generated/l10n"
     description: Generate translations in all packages

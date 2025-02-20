@@ -11,7 +11,7 @@ jobs:
       - uses: subosito/flutter-action@v2
       - run: dart pub global activate melos
       - run: melos bootstrap
-      - run: melos generate_translations && dart format apps/enmeshed/lib/generated/
+      - run: melos generate_translations
       - run: melos analyze
       - run: melos format
       - run: melos check_translations
