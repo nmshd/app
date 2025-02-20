@@ -46,3 +46,6 @@ app.*.map.json
 /android/app/release
 
 android-keystore.jks
+
+# generated files
+lib/generated/
