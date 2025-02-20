@@ -6,6 +6,8 @@ environment:
   sdk: "^3.7.0"
   flutter: ">=3.29.0"
 
+resolution: workspace
+
 dependencies:
   collection: any
   connector_sdk: 1.0.0

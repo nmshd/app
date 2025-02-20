@@ -6,6 +6,8 @@ version: 0.1.0
 environment:
   sdk: ^3.6.0
 
+resolution: workspace
+
 dependencies:
   enmeshed_runtime_bridge: ^1.0.0
   enmeshed_types: ^1.0.0

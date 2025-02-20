@@ -9,6 +9,8 @@ homepage: https://enmeshed.eu
 environment:
   sdk: "^3.7.0"
 
+resolution: workspace
+
 dependencies:
   equatable: ^2.0.5
   json_annotation: ^4.9.0
