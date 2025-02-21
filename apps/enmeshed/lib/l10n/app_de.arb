@@ -129,6 +129,8 @@
   "restoreFromIdentityRecovery_errorDescriptionOnExistingProfile": "Sie können das Recovery Kit nicht erneut einsetzen, das zugehörige Profil ist bereits aktiviert.",
   "restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit": "Dieses Recovery Kit kann nicht angewendet werden",
   "restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit": "Möglicherweise wurde dieses Recovery Kit bereits eingesetzt.",
+  "restoreFromIdentityRecovery_success": "Das Profil wurde erfolgreich auf dieses Gerät übertragen.",
+  "restoreFromIdentityRecovery_success_butInDeletion": "Das Profil wurde erfolgreich auf dieses Gerät übertragen, aber es befindet sich in Löschung. Sie können es wiederherstellen um es zu verwenden.",
   "home_title": "enmeshed",
   "home_seeAll": "Alle ansehen",
   "home_complete": "Abschließen",

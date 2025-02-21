@@ -6,13 +6,17 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
+import '../generated/l10n/app_localizations.dart';
+import 'globals.dart';
 import 'utils/settings_utils.dart';
+import 'utils/snackbars.dart';
 
 class AppUIBridge extends UIBridge {
   final Logger logger;
   final GoRouter router;
+  final AppLocalizations localizations;
 
-  AppUIBridge({required this.logger, required this.router});
+  AppUIBridge({required this.logger, required this.router, required this.localizations});
 
   @override
   Future<LocalAccountDTO?> requestAccountSelection(List<LocalAccountDTO> possibleAccounts, [String? title, String? description]) async {
@@ -50,12 +54,15 @@ class AppUIBridge extends UIBridge {
       onboardedAccount = await runtime.accountServices.onboardAccount(deviceOnboardingInfo, name: deviceOnboardingInfo.profileName);
     } on Exception catch (e) {
       if (e.toString().contains('error.app-runtime.onboardedAccountAlreadyExists')) {
+        router.pop();
         await router.push('/error-dialog', extra: 'error.app-runtime.onboardedAccountAlreadyExists');
 
         return;
       }
 
+      router.pop();
       await router.push('/error-dialog', extra: 'error.recordNotFoundOnScanRecoveryKit');
+      return;
     }
 
     await upsertRestoreFromIdentityRecoveryKitSetting(accountId: onboardedAccount.id, value: true);
@@ -66,16 +73,23 @@ class AppUIBridge extends UIBridge {
     if (!isOnboardedAccountInDeletion) {
       await runtime.selectAccount(onboardedAccount.id);
       router.go('/account/${onboardedAccount.id}');
+
+      snackbarKey.currentState?.showSuccessSnackbar(text: localizations.restoreFromIdentityRecovery_success);
       return;
     }
 
-    if (accountsNotInDeletion.isEmpty) return unawaited(router.pushReplacement('/onboarding?skipIntroduction=true'));
+    if (accountsNotInDeletion.isEmpty) {
+      await router.push('/onboarding?skipIntroduction=true');
+      snackbarKey.currentState?.showSuccessSnackbar(text: localizations.restoreFromIdentityRecovery_success_butInDeletion);
+      return;
+    }
 
     accountsNotInDeletion.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
     final account = accountsNotInDeletion.first;
 
     await runtime.selectAccount(account.id);
-    await upsertRestoreFromIdentityRecoveryKitSetting(accountId: account.id, value: true);
+
+    snackbarKey.currentState?.showSuccessSnackbar(text: localizations.restoreFromIdentityRecovery_success_butInDeletion);
 
     router.go('/account/${account.id}');
     await router.push('/profiles');

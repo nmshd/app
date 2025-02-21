@@ -129,6 +129,8 @@
   "restoreFromIdentityRecovery_errorDescriptionOnExistingProfile": "You cannot use the recovery kit again, the associated profile is already activated.",
   "restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit": "This recovery kit cannot be applied",
   "restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit": "Perhaps this recovery kit has already been used.",
+  "restoreFromIdentityRecovery_success": "The profile was successfully transferred to this device.",
+  "restoreFromIdentityRecovery_success_butInDeletion": "The profile was successfully transferred to this device, but it is in deletion. You can restore it to use it again.",
   "home_title": "enmeshed",
   "home_seeAll": "See all",
   "home_complete": "Complete",
