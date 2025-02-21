@@ -57,6 +57,7 @@
   "error_openMailApp": "Fehler beim Öffnen der E-Mail-App",
   "error_openMailApp_description": "Die E-Mail-App auf Ihrem Gerät konnte nicht geöffnet werden. Schreiben Sie mit einem anderen Gerät an den Support.\n\nDie E-Mail-Adresse lautet:\nenmeshed.support@js-soft.com",
   "error_understood": "Verstanden",
+  "error_deleteRequest": "Anfrage löschen",
   "favorites": "Favoriten",
   "tryAgain": "Erneut versuchen",
   "title": "Titel",

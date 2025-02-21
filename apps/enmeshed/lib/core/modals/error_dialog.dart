@@ -15,15 +15,15 @@ class ErrorDialog extends StatelessWidget {
       icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
       title: Text(_title(context)),
       content: Text(_content(context), textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium),
-      actions: <Widget>[
-        FilledButton(
-          onPressed: onButtonPressed ?? context.pop,
-          child: Text(onButtonPressed != null ? 'Anfrage löschen' : context.l10n.error_understood),
-        ),
-      ],
+      actions: <Widget>[FilledButton(onPressed: onButtonPressed ?? context.pop, child: Text(_buttonText(context)))],
       actionsAlignment: MainAxisAlignment.center,
     );
   }
+
+  String _buttonText(BuildContext context) => switch (code) {
+    'error.transport.relationships.relationshipTemplateIsExpired' => context.l10n.error_deleteRequest,
+    _ => context.l10n.error_understood,
+  };
 
   String _title(BuildContext context) => switch (code) {
     'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
