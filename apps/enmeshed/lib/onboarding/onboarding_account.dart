@@ -31,6 +31,15 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
   }
 
   @override
+  void didUpdateWidget(covariant OnboardingAccount oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // TODO: properly test this
+
+    _loadAccountsInDeletion();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final leftTriangleColor = Theme.of(context).colorScheme.surfaceContainerLow;
     final rightTriangleColor = Theme.of(context).colorScheme.surfaceContainerHigh;
