@@ -39,36 +39,16 @@ class AppUIBridge extends UIBridge {
       return;
     }
 
+    await _useRecoveryKit(deviceOnboardingInfo);
+  }
+
+  Future<void> _useRecoveryKit(DeviceSharedSecret deviceOnboardingInfo) async {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
+    late LocalAccountDTO onboardedAccount;
     try {
-      final onboardedAccount = await runtime.accountServices.onboardAccount(deviceOnboardingInfo, name: deviceOnboardingInfo.profileName);
-      await runtime.selectAccount(onboardedAccount.id);
-
-      final accountsInDeletion = await runtime.accountServices.getAccountsInDeletion();
-      final isOnboardedAccountInDeletion = accountsInDeletion.any((element) => element.id == onboardedAccount.id);
-
-      if (!isOnboardedAccountInDeletion) {
-        await upsertRestoreFromIdentityRecoveryKitSetting(accountId: onboardedAccount.id, value: true);
-
-        router.go('/account/${onboardedAccount.id}');
-        return;
-      }
-
-      final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
-      if (accountsNotInDeletion.isEmpty) {
-        await router.pushReplacement('/onboarding?skipIntroduction=true');
-        return;
-      }
-
-      final account = accountsNotInDeletion.first;
-
-      await runtime.selectAccount(account.id);
-      await upsertRestoreFromIdentityRecoveryKitSetting(accountId: account.id, value: true);
-
-      router.go('/account/${account.id}');
-      await router.push('/profiles');
-    } catch (e) {
+      onboardedAccount = await runtime.accountServices.onboardAccount(deviceOnboardingInfo, name: deviceOnboardingInfo.profileName);
+    } on Exception catch (e) {
       if (e.toString().contains('error.app-runtime.onboardedAccountAlreadyExists')) {
         await router.push('/error-dialog', extra: 'error.app-runtime.onboardedAccountAlreadyExists');
 
@@ -76,11 +56,29 @@ class AppUIBridge extends UIBridge {
       }
 
       await router.push('/error-dialog', extra: 'error.recordNotFoundOnScanRecoveryKit');
-
-      await runtime.accountServices.clearAccounts();
-
-      await router.pushReplacement('/onboarding?skipIntroduction=true');
     }
+
+    await upsertRestoreFromIdentityRecoveryKitSetting(accountId: onboardedAccount.id, value: true);
+
+    final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
+
+    final isOnboardedAccountInDeletion = !accountsNotInDeletion.any((element) => element.id == onboardedAccount.id);
+    if (!isOnboardedAccountInDeletion) {
+      await runtime.selectAccount(onboardedAccount.id);
+      router.go('/account/${onboardedAccount.id}');
+      return;
+    }
+
+    if (accountsNotInDeletion.isEmpty) return unawaited(router.pushReplacement('/onboarding?skipIntroduction=true'));
+
+    accountsNotInDeletion.sort((a, b) => b.lastAccessedAt?.compareTo(a.lastAccessedAt ?? '') ?? 0);
+    final account = accountsNotInDeletion.first;
+
+    await runtime.selectAccount(account.id);
+    await upsertRestoreFromIdentityRecoveryKitSetting(accountId: account.id, value: true);
+
+    router.go('/account/${account.id}');
+    await router.push('/profiles');
   }
 
   @override
