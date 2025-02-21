@@ -90,7 +90,10 @@ class _HomeViewState extends State<HomeView> {
                   if (_showRecoveryKitWasUsedContainer)
                     _RecoveryKitWasUsedContainer(
                       onCreate: () => context.push('/profiles'),
-                      onDismissed: () => upsertHintsSetting(accountId: widget.accountId, key: 'home.recoveryKit', value: false),
+                      onDismissed: () async {
+                        final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+                        await session.consumptionServices.settings.upsertSettingByKey('home.restoredIdentity', {'showContainer': false});
+                      },
                     ),
                   Gaps.h24,
                   AddContactOrDeviceContainer(accountId: widget.accountId),
