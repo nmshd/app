@@ -57,6 +57,8 @@ class ScanRecoveryKitScreen extends StatelessWidget {
 
     final result = await runtime.stringProcessor.processURL(url: content);
     if (result.isSuccess) {
+      if (!context.mounted) return;
+      if (context.canPop()) context.pop();
       resume();
       return;
     }
