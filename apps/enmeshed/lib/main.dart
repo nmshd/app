@@ -8,7 +8,6 @@ import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
@@ -22,6 +21,7 @@ import 'account/account.dart';
 import 'core/core.dart';
 import 'drawer/drawer.dart';
 import 'error_screen.dart';
+import 'generated/l10n/app_localizations.dart';
 import 'onboarding/onboarding.dart';
 import 'profiles/profiles.dart';
 import 'splash_screen.dart';
@@ -475,14 +475,14 @@ class EnmeshedApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           theme: ThemeData(
             colorScheme: lightColorScheme,
-            extensions: [lightCustomColors, woltThemeData],
+            extensions: [lightCustomColors],
             navigationBarTheme: lightNavigationBarTheme,
             appBarTheme: lightAppBarTheme,
             textTheme: textTheme,
           ),
           darkTheme: ThemeData(
             colorScheme: darkColorScheme,
-            extensions: [darkCustomColors, woltThemeData],
+            extensions: [darkCustomColors],
             navigationBarTheme: darkNavigationBarTheme,
             appBarTheme: darkAppBarTheme,
             textTheme: textTheme,
