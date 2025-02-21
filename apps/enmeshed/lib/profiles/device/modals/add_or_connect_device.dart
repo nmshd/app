@@ -62,14 +62,14 @@ class _AddOrConnectDeviceModal extends StatefulWidget {
 }
 
 class _AddOrConnectDeviceModalState extends State<_AddOrConnectDeviceModal> {
-  (DeviceDTO, TokenDTO)? deviceAndToken;
-  bool safetyShown = false;
+  (DeviceDTO, TokenDTO)? _deviceAndToken;
+  bool _safetyShown = false;
 
   @override
   void initState() {
     super.initState();
 
-    deviceAndToken = widget.existingDeviceAndToken;
+    _deviceAndToken = widget.existingDeviceAndToken;
   }
 
   @override
@@ -89,15 +89,15 @@ class _AddOrConnectDeviceModalState extends State<_AddOrConnectDeviceModal> {
           child: child,
         );
       },
-      child: switch ((deviceAndToken, safetyShown)) {
+      child: switch ((_deviceAndToken, _safetyShown)) {
         (null, _) => CreateDevice(
           accountId: widget.accountId,
           setDeviceAndToken: (device, token) async {
             await widget.reload();
-            setState(() => deviceAndToken = (device, token));
+            setState(() => _deviceAndToken = (device, token));
           },
         ),
-        (_, false) => DeviceOnboardingSafetyNote(goToNextPage: () => setState(() => safetyShown = true)),
+        (_, false) => DeviceOnboardingSafetyNote(goToNextPage: () => setState(() => _safetyShown = true)),
         ((final DeviceDTO device, final TokenDTO token), true) => DeviceOnboarding(
           token: token,
           deviceId: device.id,
