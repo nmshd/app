@@ -133,7 +133,12 @@ class _HomeViewState extends State<HomeView> {
       valueKey: 'isShown',
     );
 
-    final showRecoveryKitWasUsedContainer = await getSetting(accountId: widget.accountId, key: 'home.restoredIdentity', valueKey: 'showContainer');
+    final showRecoveryKitWasUsedContainer = await getSetting(
+      accountId: widget.accountId,
+      key: 'home.restoredIdentity',
+      valueKey: 'showContainer',
+      emptyRecordAllowed: true,
+    );
 
     if (!mounted) return;
     setState(() {

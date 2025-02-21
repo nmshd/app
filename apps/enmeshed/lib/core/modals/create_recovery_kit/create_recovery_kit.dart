@@ -87,6 +87,7 @@ class _CreateRecoveryKitModalState extends State<_CreateRecoveryKitModal> {
                     password: enteredPassword,
                   );
 
+                  final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.account.id);
                   await session.consumptionServices.settings.upsertSettingByKey('home.restoredIdentity', {'showContainer': false});
 
                   setState(() => _recoveryKit = recoveryKit);
