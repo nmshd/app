@@ -4,16 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
+import '../types/error_details.dart';
 import 'dialogs.dart';
 import 'extensions.dart';
 
 const _contactSettingKey = 'contact_settings';
-
-typedef ErrorDetails = ({String? errorCode, VoidCallback? onButtonPressed});
-
-ErrorDetails createErrorDetails({String? errorCode, VoidCallback? onButtonPressed}) {
-  return (errorCode: errorCode, onButtonPressed: onButtonPressed);
-}
 
 class ContactNameUpdatedEvent extends Event {
   ContactNameUpdatedEvent({required super.eventTargetAddress});

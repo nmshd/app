@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
+import '../types/error_details.dart';
 import '../utils/utils.dart';
 import 'scanner_view/scanner_view.dart';
 

@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
-import 'utils/contact_utils.dart';
+import 'types/error_details.dart';
 
 class AppUIBridge extends UIBridge {
   final Logger logger;
