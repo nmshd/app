@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '/core/core.dart';
+import '../modals/add_or_connect_device.dart';
 import '../widgets/device_widgets.dart';
 
 class DevicesScreen extends StatefulWidget {
