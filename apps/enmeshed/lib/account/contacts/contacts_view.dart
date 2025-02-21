@@ -403,7 +403,13 @@ class _ContactItem extends StatelessWidget {
 
     await context.push(
       '/error-dialog',
-      extra: createErrorDetails(errorCode: canCreateRelationshipResponse.errorCode, onButtonPressed: () => _onDeletePressed(context)),
+      extra: createErrorDetails(
+        errorCode: canCreateRelationshipResponse.errorCode,
+        onButtonPressed:
+            canCreateRelationshipResponse.errorCode == 'error.transport.relationships.relationshipTemplateIsExpired'
+                ? () => _onDeletePressed(context)
+                : null,
+      ),
     );
   }
 
