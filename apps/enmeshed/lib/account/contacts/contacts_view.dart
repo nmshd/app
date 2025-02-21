@@ -363,14 +363,20 @@ class _ContactItem extends StatelessWidget {
       contact: contact,
       onTap: () => _onTap(context),
       trailing:
-          item.openContactRequest != null
-              ? const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit))
-              : IconButton(
+          item.openContactRequest == null
+              ? IconButton(
                 icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
                 color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
                 onPressed: () => toggleContactFavorite(contact),
-              ),
+              )
+              : item.openContactRequest!.status == LocalRequestStatus.Expired
+              ? null
+              : const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit)),
       onDeletePressed: _onDeletePressed,
+      subtitle:
+          item.openContactRequest?.status == LocalRequestStatus.Expired
+              ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error))
+              : null,
     );
   }
 
