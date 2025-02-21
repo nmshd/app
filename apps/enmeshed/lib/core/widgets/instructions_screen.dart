@@ -52,29 +52,20 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
-        title: Text(widget.title, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary)),
-      ),
       body: SafeArea(
         minimum: const EdgeInsets.only(bottom: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
-                Gaps.h4,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    widget.title,
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
-                    maxLines: 2,
-                  ),
-                ),
-              ],
+            IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
+            Gaps.h4,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                widget.title,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                maxLines: 2,
+              ),
             ),
             Gaps.h24,
             Expanded(
@@ -107,7 +98,6 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                 ),
               ),
             ),
-            Gaps.h16,
             _InstructionsBottom(
               showCheckbox: widget.deactivateHint != null,
               hideHints: _hideHints,
@@ -205,32 +195,36 @@ class _InstructionsBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (showCheckbox) ...[
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
-            child: InkWell(
-              onTap: toggleHideHints,
-              child: Row(
-                children: [Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()), Gaps.w16, Text(context.l10n.instructions_notShowAgain)],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        children: [
+          if (showCheckbox) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: InkWell(
+                onTap: toggleHideHints,
+                child: Row(
+                  spacing: 16,
+                  children: [Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()), Text(context.l10n.instructions_notShowAgain)],
+                ),
               ),
             ),
+            Gaps.h8,
+          ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              spacing: 8,
+              children: [
+                OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                FilledButton(onPressed: onContinue, child: Text(buttonContinueText ?? context.l10n.instructions_scanQrCode)),
+              ],
+            ),
           ),
-          Gaps.h8,
         ],
-        Padding(
-          padding: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-              Gaps.w8,
-              FilledButton(onPressed: onContinue, child: Text(buttonContinueText ?? context.l10n.instructions_scanQrCode)),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
