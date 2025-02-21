@@ -25,7 +25,7 @@ class InstructionsScreen extends StatefulWidget {
   final void Function()? deactivateHint;
   final bool showNumberedExplanation;
   final String? buttonContinueText;
-  final Icon? informationIcon;
+  final bool informationContainerIsWarning;
 
   const InstructionsScreen({
     required this.onContinue,
@@ -38,7 +38,7 @@ class InstructionsScreen extends StatefulWidget {
     this.deactivateHint,
     this.showNumberedExplanation = true,
     this.buttonContinueText,
-    this.informationIcon,
+    this.informationContainerIsWarning = false,
     super.key,
   });
 
@@ -89,7 +89,7 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                           child: InformationContainer(
                             title: widget.informationTitle,
                             description: widget.informationDescription,
-                            icon: widget.informationIcon,
+                            warning: widget.informationContainerIsWarning,
                           ),
                         ),
                       ],
