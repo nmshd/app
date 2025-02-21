@@ -65,61 +65,67 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
     final expiryTime = DateTime.parse(_token.expiresAt).toLocal();
     final isExpired = DateTime.now().isAfter(expiryTime);
 
-    return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TabBar(
-            controller: _tabController,
-            indicatorSize: TabBarIndicatorSize.tab,
-            tabs: [
-              Tab(child: Text(context.l10n.devices_code_useQrCode, style: Theme.of(context).textTheme.titleSmall)),
-              Tab(child: Text(context.l10n.devices_code_useUrl, style: Theme.of(context).textTheme.titleSmall)),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BottomSheetHeader(title: context.l10n.devices_add),
+        Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TabBar(
+                controller: _tabController,
+                indicatorSize: TabBarIndicatorSize.tab,
+                tabs: [
+                  Tab(child: Text(context.l10n.devices_code_useQrCode, style: Theme.of(context).textTheme.titleSmall)),
+                  Tab(child: Text(context.l10n.devices_code_useUrl, style: Theme.of(context).textTheme.titleSmall)),
+                ],
+              ),
+              SizedBox(
+                height: 300,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _DeviceOnboardingQRCode(link: link, expiryTime: expiryTime, getDeviceToken: _reloadDeviceToken),
+                    _DeviceOnboardingUrl(link: link, expiryTime: expiryTime, getDeviceToken: _reloadDeviceToken),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                child:
+                    isExpired
+                        ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                _tabController.index == 0 ? context.l10n.devices_code_qrExpired : context.l10n.devices_code_urlExpired,
+                                maxLines: 3,
+                                style: TextStyle(color: Theme.of(context).colorScheme.error),
+                              ),
+                            ),
+                            Icon(Icons.error, size: 32, color: Theme.of(context).colorScheme.error),
+                          ],
+                        )
+                        : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(child: Text(context.l10n.devices_code_expiry, maxLines: 3)),
+                            Container(
+                              height: 32,
+                              width: 32,
+                              decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16))),
+                              child: _CircleTimer(expiryTime: expiryTime),
+                            ),
+                          ],
+                        ),
+              ),
             ],
           ),
-          SizedBox(
-            height: 300,
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _DeviceOnboardingQRCode(link: link, expiryTime: expiryTime, getDeviceToken: _reloadDeviceToken),
-                _DeviceOnboardingUrl(link: link, expiryTime: expiryTime, getDeviceToken: _reloadDeviceToken),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child:
-                isExpired
-                    ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            _tabController.index == 0 ? context.l10n.devices_code_qrExpired : context.l10n.devices_code_urlExpired,
-                            maxLines: 3,
-                            style: TextStyle(color: Theme.of(context).colorScheme.error),
-                          ),
-                        ),
-                        Icon(Icons.error, size: 32, color: Theme.of(context).colorScheme.error),
-                      ],
-                    )
-                    : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(child: Text(context.l10n.devices_code_expiry, maxLines: 3)),
-                        Container(
-                          height: 32,
-                          width: 32,
-                          decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16))),
-                          child: _CircleTimer(expiryTime: expiryTime),
-                        ),
-                      ],
-                    ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
