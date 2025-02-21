@@ -3,6 +3,7 @@ import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
+import '../modals/add_or_connect_device.dart';
 import 'device_widgets.dart';
 
 class DeviceDetailHeader extends StatelessWidget {

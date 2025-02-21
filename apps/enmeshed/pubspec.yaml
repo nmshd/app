@@ -57,7 +57,6 @@ dependencies:
   vector_graphics: ^1.1.13
   very_good_analysis: ^6.0.0
   win32_registry: ^1.1.5
-  wolt_modal_sheet: ^0.5.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1
