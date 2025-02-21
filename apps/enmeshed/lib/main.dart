@@ -72,6 +72,7 @@ final _router = GoRouter(
             context.l10n.restoreFromIdentityRecovery_instructions_password,
             context.l10n.restoreFromIdentityRecovery_instructions_confirmation,
           ],
+          informationContainerIsWarning: true,
         );
       },
     ),
