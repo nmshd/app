@@ -507,6 +507,7 @@ class EnmeshedApp extends StatelessWidget {
             appBarTheme: darkAppBarTheme,
             textTheme: textTheme,
           ),
+          scaffoldMessengerKey: snackbarKey,
           localizationsDelegates: [
             CroppyLocalizations.delegate,
             FlutterI18nDelegate(
