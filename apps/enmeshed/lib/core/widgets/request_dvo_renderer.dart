@@ -24,7 +24,7 @@ class RequestDVORenderer extends StatefulWidget {
   final String validationErrorDescription;
   final VoidCallback onAfterAccept;
   final bool showHeader;
-  final bool canAcceptRequest;
+  final bool checkCanCreateRelationship;
   final LocalRequestDVO? requestDVO;
   final String? description;
 
@@ -36,7 +36,7 @@ class RequestDVORenderer extends StatefulWidget {
     required this.validationErrorDescription,
     required this.onAfterAccept,
     this.showHeader = true,
-    this.canAcceptRequest = true,
+    this.checkCanCreateRelationship = false,
     this.requestDVO,
     this.description,
     super.key,
@@ -57,6 +57,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   GetIdentityInfoResponse? _identityInfo;
 
   bool _loading = false;
+  bool _canAcceptRequest = true;
 
   @override
   void initState() {
@@ -72,6 +73,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     } else {
       _setController(session, _request!);
     }
+
+    _canCreateRelationship();
   }
 
   @override
@@ -97,6 +100,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
       } else {
         _setController(session, _request!);
       }
+
+      _canCreateRelationship();
     }
 
     super.didUpdateWidget(oldWidget);
@@ -167,7 +172,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
               children: [
                 OutlinedButton(onPressed: _loading && _request != null ? null : _rejectRequest, child: Text(context.l10n.reject)),
                 Gaps.w8,
-                FilledButton(onPressed: widget.canAcceptRequest ? _acceptRequest : null, child: Text(widget.acceptRequestText)),
+                FilledButton(onPressed: _canAcceptRequest ? _onAcceptButtonPressed : null, child: Text(widget.acceptRequestText)),
               ],
             ),
           ),
@@ -195,6 +200,14 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   }
 
   void _setController(Session session, LocalRequestDVO request) => _controller = RequestRendererController(request: request);
+
+  Future<void> _onAcceptButtonPressed() async {
+    await _canCreateRelationship();
+
+    if (!_canAcceptRequest) return;
+
+    await _acceptRequest();
+  }
 
   Future<void> _acceptRequest() async {
     if (_loading) return;
@@ -288,6 +301,36 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     );
 
     return choice;
+  }
+
+  Future<void> _canCreateRelationship() async {
+    if (!widget.checkCanCreateRelationship) return;
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    final canCreateRequestResponse = await canCreateRelationshipRequest(
+      accountId: widget.accountId,
+      requestCreatedBy: widget.requestDVO!.createdBy.id,
+      session: session,
+    );
+
+    setState(() => _canAcceptRequest = canCreateRequestResponse == null);
+
+    if (canCreateRequestResponse == null) return;
+
+    if (!mounted) return;
+
+    await context.push(
+      '/error-dialog',
+      extra: createErrorDetails(
+        errorCode: canCreateRequestResponse.errorCode,
+        onButtonPressed:
+            () =>
+                context
+                  ..pop()
+                  ..pop(),
+      ),
+    );
   }
 }
 
