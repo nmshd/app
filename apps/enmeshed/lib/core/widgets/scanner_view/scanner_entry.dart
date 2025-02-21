@@ -152,7 +152,7 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
             right: 0,
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).colorScheme.primary,
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
               ),
               child: Padding(
@@ -163,18 +163,18 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Text(
                         widget.scanQrOrEnterUrlText,
-                        style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                         textAlign: TextAlign.center,
                       ),
                     ),
                     Gaps.h40,
-                    FilledButton(
+                    OutlinedButton(
                       onPressed: widget.toggleScannerMode,
-                      style: FilledButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.primary),
-                      child: Text(
-                        widget.enterUrlText,
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Theme.of(context).colorScheme.onPrimary),
+                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       ),
+                      child: Text(widget.enterUrlText),
                     ),
                   ],
                 ),
