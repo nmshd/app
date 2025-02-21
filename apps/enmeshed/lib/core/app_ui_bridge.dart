@@ -34,9 +34,7 @@ class AppUIBridge extends UIBridge {
   Future<void> showDeviceOnboarding(DeviceSharedSecret deviceOnboardingInfo) async {
     logger.d('showDeviceOnboarding for device ${deviceOnboardingInfo.id}');
 
-    final isBackupDevice = deviceOnboardingInfo.isBackupDevice ?? false;
-
-    if (!isBackupDevice) {
+    if (!deviceOnboardingInfo.isBackupDevice) {
       await router.push('/device-onboarding', extra: deviceOnboardingInfo);
       return;
     }
