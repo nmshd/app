@@ -20,11 +20,12 @@ Future<void> upsertCompleteProfileContainerSetting({required String accountId, r
   await session.consumptionServices.settings.upsertSettingByKey('home.completeProfileContainerShown', {'isShown': value});
 }
 
-Future<bool> getSetting({required String accountId, required String key, required String valueKey}) async {
+Future<bool> getSetting({required String accountId, required String key, required String valueKey, bool ignoreRecordNotFoundError = false}) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
   final settingResult = await session.consumptionServices.settings.getSettingByKey(key);
-  if (settingResult.isError && settingResult.error.code == 'error.runtime.recordNotFound') {
+
+  if (settingResult.isError && settingResult.error.code == 'error.runtime.recordNotFound' && !ignoreRecordNotFoundError) {
     return true;
   } else if (settingResult.isError) {
     return false;
