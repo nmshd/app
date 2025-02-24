@@ -34,8 +34,6 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
   void didUpdateWidget(covariant OnboardingAccount oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // TODO: properly test this
-
     _loadAccountsInDeletion();
   }
 
