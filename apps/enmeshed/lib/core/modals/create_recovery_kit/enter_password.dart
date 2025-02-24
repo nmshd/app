@@ -70,7 +70,7 @@ class _EnterPasswordState extends State<EnterPassword> {
                           children: [
                             Text(context.l10n.identityRecovery_passwordDescription),
                             Gaps.h24,
-                            InformationContainer(title: context.l10n.identityRecovery_passwordAttention),
+                            InformationContainer(title: context.l10n.identityRecovery_passwordAttention, warning: false),
                             Gaps.h36,
                             _PasswordTextField(
                               controller: _passwordController,
