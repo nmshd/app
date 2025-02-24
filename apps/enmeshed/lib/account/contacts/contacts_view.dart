@@ -391,7 +391,7 @@ class _ContactItem extends StatelessWidget {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
     final request = item.openContactRequest!;
 
-    final canCreateRelationshipResponse = await canCreateRelationshipRequest(
+    final validateRelationshipCreationResponse = await validateRelationshipCreation(
       accountId: accountId,
       requestCreatedBy: request.createdBy.id,
       session: session,
@@ -399,12 +399,12 @@ class _ContactItem extends StatelessWidget {
 
     if (!context.mounted) return;
 
-    if (canCreateRelationshipResponse == null) return context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
+    if (validateRelationshipCreationResponse.success) return context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
 
     await context.push(
       '/error-dialog',
       extra: createErrorDetails(
-        errorCode: canCreateRelationshipResponse.errorCode,
+        errorCode: validateRelationshipCreationResponse.errorCode,
         onButtonPressed:
             canCreateRelationshipResponse.errorCode == 'error.transport.relationships.relationshipTemplateIsExpired'
                 ? () => _onDeletePressed(context)
@@ -422,6 +422,7 @@ class _ContactItem extends StatelessWidget {
     }
 
     final request = item.openContactRequest!;
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
     final rejectItems = List<DecideRequestParametersItem>.from(
       request.items.map((e) {
@@ -436,7 +437,6 @@ class _ContactItem extends StatelessWidget {
 
     final rejectParams = DecideRequestParameters(requestId: request.id, items: rejectItems);
 
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
     final result = await session.consumptionServices.incomingRequests.reject(params: rejectParams);
     if (result.isError) GetIt.I.get<Logger>().e(result.error);
   }

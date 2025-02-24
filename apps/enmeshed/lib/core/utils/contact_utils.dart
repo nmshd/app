@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-import '../types/error_details.dart';
 import 'dialogs.dart';
 import 'extensions.dart';
 
@@ -153,21 +152,25 @@ Future<void> deleteContact({
   onContactDeleted();
 }
 
-Future<ErrorDetails?> canCreateRelationshipRequest({required String accountId, required String requestCreatedBy, required Session session}) async {
+Future<({bool success, String errorCode})> validateRelationshipCreation({
+  required String accountId,
+  required String requestCreatedBy,
+  required Session session,
+}) async {
   final templatesResult = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
 
   if (templatesResult.isError) {
     GetIt.I.get<Logger>().e(templatesResult.error);
-    return createErrorDetails();
+    return (success: false, errorCode: templatesResult.error.code);
   }
 
   final template = templatesResult.value.firstWhere((template) => template.createdBy == requestCreatedBy);
 
-  final canCreateRelationshipResponse = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
+  final response = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
 
-  if (canCreateRelationshipResponse.value.isSuccess) return null;
+  if (response.value.isSuccess) return (success: true, errorCode: '');
 
-  final failureResponse = canCreateRelationshipResponse.value as CanCreateRelationshipFailureResponse;
+  final failureResponse = response.value as CanCreateRelationshipFailureResponse;
 
-  return createErrorDetails(errorCode: failureResponse.code);
+  return (success: false, errorCode: failureResponse.code);
 }
