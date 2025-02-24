@@ -245,6 +245,19 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     widget.onAfterAccept();
   }
 
+  Future<void> _deleteRequest() async {
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final deleteResult = await session.consumptionServices.incomingRequests.delete(requestId: _request!.id);
+
+    if (deleteResult.isError) GetIt.I.get<Logger>().e(deleteResult.error);
+
+    if (!mounted) return;
+
+    context
+      ..pop()
+      ..pop();
+  }
+
   Future<void> _rejectRequest() async {
     setState(() => _loading = true);
 
@@ -308,27 +321,24 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
-    final canCreateRequestResponse = await canCreateRelationshipRequest(
+    final validateRelationshipCreationResponse = await validateRelationshipCreation(
       accountId: widget.accountId,
       requestCreatedBy: widget.requestDVO!.createdBy.id,
       session: session,
     );
 
-    setState(() => _canAcceptRequest = canCreateRequestResponse == null);
+    setState(() => _canAcceptRequest = validateRelationshipCreationResponse.success);
 
-    if (canCreateRequestResponse == null) return;
+    if (_canAcceptRequest) return;
 
     if (!mounted) return;
 
     await context.push(
       '/error-dialog',
       extra: createErrorDetails(
-        errorCode: canCreateRequestResponse.errorCode,
+        errorCode: validateRelationshipCreationResponse.errorCode,
         onButtonPressed:
-            () =>
-                context
-                  ..pop()
-                  ..pop(),
+            requestIsExpired(status: _request!.status, errorCode: validateRelationshipCreationResponse.errorCode) ? _deleteRequest : null,
       ),
     );
   }

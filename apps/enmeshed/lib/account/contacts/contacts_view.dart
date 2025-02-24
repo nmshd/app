@@ -359,6 +359,8 @@ class _ContactItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final contact = item.contact;
 
+    final requestExpired = requestIsExpired(status: item.openContactRequest!.status);
+
     return DismissibleContactItem(
       contact: contact,
       onTap: () => _onTap(context),
@@ -369,14 +371,11 @@ class _ContactItem extends StatelessWidget {
                 color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
                 onPressed: () => toggleContactFavorite(contact),
               )
-              : item.openContactRequest!.status == LocalRequestStatus.Expired
+              : requestExpired
               ? null
               : const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit)),
       onDeletePressed: _onDeletePressed,
-      subtitle:
-          item.openContactRequest?.status == LocalRequestStatus.Expired
-              ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error))
-              : null,
+      subtitle: requestExpired ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error)) : null,
     );
   }
 
@@ -406,8 +405,11 @@ class _ContactItem extends StatelessWidget {
       extra: createErrorDetails(
         errorCode: validateRelationshipCreationResponse.errorCode,
         onButtonPressed:
-            canCreateRelationshipResponse.errorCode == 'error.transport.relationships.relationshipTemplateIsExpired'
-                ? () => _onDeletePressed(context)
+            requestIsExpired(status: request.status, errorCode: validateRelationshipCreationResponse.errorCode)
+                ? () async {
+                  await _onDeletePressed(context);
+                  if (context.mounted) context.pop();
+                }
                 : null,
       ),
     );
@@ -423,6 +425,12 @@ class _ContactItem extends StatelessWidget {
 
     final request = item.openContactRequest!;
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
+
+    if (requestIsExpired(status: request.status)) {
+      final deleteResult = await session.consumptionServices.incomingRequests.delete(requestId: request.id);
+      if (deleteResult.isError) GetIt.I.get<Logger>().e(deleteResult.error);
+      return;
+    }
 
     final rejectItems = List<DecideRequestParametersItem>.from(
       request.items.map((e) {
