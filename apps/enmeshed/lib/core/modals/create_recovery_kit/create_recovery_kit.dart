@@ -87,6 +87,8 @@ class _CreateRecoveryKitModalState extends State<_CreateRecoveryKitModal> {
                     password: enteredPassword,
                   );
 
+                  await upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.account.id, value: false);
+
                   setState(() => _recoveryKit = recoveryKit);
                 },
               )
