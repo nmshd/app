@@ -167,36 +167,34 @@ class _RecoveryKitWasUsedContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.warning, color: context.customColors.warning),
-                  Gaps.w8,
-                  Expanded(child: Text(context.l10n.home_identityRecoveryKitWasUsed, style: Theme.of(context).textTheme.bodyMedium)),
-                ],
-              ),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.warning, color: context.customColors.warning),
+                Gaps.w8,
+                Expanded(child: Text(context.l10n.home_identityRecoveryKitWasUsed, style: Theme.of(context).textTheme.bodyMedium)),
+              ],
             ),
-            Text(context.l10n.home_identityRecoverKitWasUsed_description, style: Theme.of(context).textTheme.bodySmall),
-            Gaps.h16,
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  OutlinedButton(onPressed: onDismissed, child: Text(context.l10n.home_closeHint)),
-                  Gaps.w8,
-                  FilledButton(onPressed: onCreate, child: Text(context.l10n.home_create)),
-                ],
-              ),
+          ),
+          Text(context.l10n.home_identityRecoverKitWasUsed_description, style: Theme.of(context).textTheme.bodySmall),
+          Gaps.h16,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                OutlinedButton(onPressed: onDismissed, child: Text(context.l10n.home_closeHint)),
+                Gaps.w8,
+                FilledButton(onPressed: onCreate, child: Text(context.l10n.home_create)),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
