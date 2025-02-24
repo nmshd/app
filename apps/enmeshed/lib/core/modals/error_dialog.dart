@@ -39,10 +39,10 @@ class ErrorDialog extends StatelessWidget {
     'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit,
     'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorTitleOnExistingProfile,
     'error.transport.relationships.relationshipNotYetDecomposedByPeer' => context.l10n.errorDialog_relationshipNotYetDecomposedByPeer_title,
-        'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate' =>
-          context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_title,
-        'error.transport.relationships.relationshipTemplateIsExpired' => context.l10n.errorDialog_relationshipTemplateIsExpired_title,
-        'error.relationshipTemplateProcessedModule.requestExpired' => context.l10n.errorDialog_expiredRequest_title,
+    'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate' =>
+      context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_title,
+    'error.transport.relationships.relationshipTemplateIsExpired' => context.l10n.errorDialog_relationshipTemplateIsExpired_title,
+    'error.relationshipTemplateProcessedModule.requestExpired' => context.l10n.errorDialog_expiredRequest_title,
     _ => context.l10n.errorDialog_title,
   };
 
