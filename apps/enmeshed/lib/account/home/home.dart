@@ -82,17 +82,17 @@ class _HomeViewState extends State<HomeView> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
+                spacing: 24,
                 children: [
-                  if (_isCompleteProfileContainerShown) ...[
+                  if (_isCompleteProfileContainerShown)
                     CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
-                    Gaps.h24,
-                  ],
+
                   if (_showRecoveryKitWasUsedContainer)
                     _RecoveryKitWasUsedContainer(
                       onCreate: () => context.push('/profiles'),
                       onDismissed: () => upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.accountId, value: false),
                     ),
-                  Gaps.h24,
+
                   AddContactOrDeviceContainer(accountId: widget.accountId),
                 ],
               ),
