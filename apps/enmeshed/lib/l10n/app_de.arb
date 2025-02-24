@@ -69,7 +69,7 @@
   "scanner_scanQR": "QR-Code scannen",
   "scanner_enterUrl": "URL-Link eingeben",
   "scanner_lineUpQrCode": "Richten Sie den QR-Code am Rahmen aus.",
-  "scanner_scanQrOrEnterUrl": "Scannen Sie einen QR-Code oder geben Sie alternativ eine URL-Link ein.",
+  "scanner_scanQrOrEnterUrl": "Scannen Sie einen QR-Code oder geben Sie alternativ einen URL-Link ein.",
   "scanner_urlValidationError": "Der eingegebene URL-Link ist ungültig. Bitte überprüfen Sie Ihre Eingabe.",
   "scanner_enterUrl_title": "URL-Link eingeben",
   "scanner_enterUrl_description": "Geben Sie den URL-Link ein um eine Aktion auszuführen.",
