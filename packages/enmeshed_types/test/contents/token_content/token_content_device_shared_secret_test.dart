@@ -12,6 +12,7 @@ void main() {
     identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
     password: 'aPassword',
     username: 'anUsername',
+    isBackupDevice: true,
   );
 
   group('TokenContentDeviceSharedSecret toJson', () {
@@ -49,6 +50,7 @@ void main() {
           },
           'password': 'aPassword',
           'username': 'aUsername',
+          'isBackupDevice': true,
         },
       };
 
@@ -68,6 +70,7 @@ void main() {
             identity: IdentityDTO(address: 'anAddress', publicKey: 'eyJhIjoiYiJ9'),
             password: 'aPassword',
             username: 'aUsername',
+            isBackupDevice: true,
           ),
         ),
       );

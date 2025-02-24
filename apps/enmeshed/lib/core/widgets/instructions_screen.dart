@@ -15,7 +15,6 @@ enum ScannerType {
 }
 
 class InstructionsScreen extends StatefulWidget {
-  final String accountId;
   final void Function(BuildContext) onContinue;
   final String title;
   final String subtitle;
@@ -26,9 +25,9 @@ class InstructionsScreen extends StatefulWidget {
   final void Function()? deactivateHint;
   final bool showNumberedExplanation;
   final String? buttonContinueText;
+  final bool informationContainerIsWarning;
 
   const InstructionsScreen({
-    required this.accountId,
     required this.onContinue,
     required this.title,
     required this.subtitle,
@@ -39,6 +38,7 @@ class InstructionsScreen extends StatefulWidget {
     this.deactivateHint,
     this.showNumberedExplanation = true,
     this.buttonContinueText,
+    this.informationContainerIsWarning = false,
     super.key,
   });
 
@@ -52,38 +52,52 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
-        title: Text(widget.title, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary)),
-      ),
       body: SafeArea(
         minimum: const EdgeInsets.only(bottom: 16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
+            Gaps.h4,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                widget.title,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                maxLines: 2,
+              ),
+            ),
+            Gaps.h24,
             Expanded(
               child: Scrollbar(
                 thumbVisibility: true,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _InstructionHeader(illustration: widget.illustration, subtitle: widget.subtitle),
-                        Gaps.h12,
+                        Gaps.h24,
                         if (widget.showNumberedExplanation)
                           _NumberedExplanation(instructions: widget.instructions)
                         else
                           _Explanation(instructions: widget.instructions),
-                        Gaps.h32,
-                        InformationContainer(title: widget.informationTitle, description: widget.informationDescription),
+                        Gaps.h8,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: InformationContainer(
+                            title: widget.informationTitle,
+                            description: widget.informationDescription,
+                            warning: widget.informationContainerIsWarning,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-            Gaps.h16,
             _InstructionsBottom(
               showCheckbox: widget.deactivateHint != null,
               hideHints: _hideHints,
@@ -181,31 +195,36 @@ class _InstructionsBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (showCheckbox)
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
-            child: InkWell(
-              onTap: toggleHideHints,
-              child: Row(
-                children: [Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()), Gaps.w16, Text(context.l10n.instructions_notShowAgain)],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        children: [
+          if (showCheckbox) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: InkWell(
+                onTap: toggleHideHints,
+                child: Row(
+                  spacing: 16,
+                  children: [Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()), Text(context.l10n.instructions_notShowAgain)],
+                ),
               ),
             ),
+            Gaps.h8,
+          ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              spacing: 8,
+              children: [
+                OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                FilledButton(onPressed: onContinue, child: Text(buttonContinueText ?? context.l10n.instructions_scanQrCode)),
+              ],
+            ),
           ),
-        Gaps.h8,
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-              Gaps.w8,
-              FilledButton(onPressed: onContinue, child: Text(buttonContinueText ?? context.l10n.instructions_scanQrCode)),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
