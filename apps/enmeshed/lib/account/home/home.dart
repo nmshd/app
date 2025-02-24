@@ -140,7 +140,7 @@ class _HomeViewState extends State<HomeView> {
       accountId: widget.accountId,
       key: 'home.restoredIdentity',
       valueKey: 'showContainer',
-      emptyRecordAllowed: true,
+      ignoreRecordNotFoundError: true,
     );
 
     if (!mounted) return;
