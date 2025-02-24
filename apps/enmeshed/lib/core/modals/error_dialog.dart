@@ -1,3 +1,4 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,13 +12,19 @@ class ErrorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      icon: Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+      icon: _icon(context),
       title: Text(_title(context)),
       content: Text(_content(context), textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium),
       actions: <Widget>[FilledButton(onPressed: context.pop, child: Text(context.l10n.error_understood))],
       actionsAlignment: MainAxisAlignment.center,
     );
   }
+
+  Icon _icon(BuildContext context) => switch (code) {
+    'error.recordNotFoundOnScanRecoveryKit' ||
+    'error.app-runtime.onboardedAccountAlreadyExists' => Icon(Icons.warning_rounded, color: context.customColors.warning),
+    _ => Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+  };
 
   String _title(BuildContext context) => switch (code) {
     'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
