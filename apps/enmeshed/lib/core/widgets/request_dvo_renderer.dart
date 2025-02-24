@@ -24,7 +24,7 @@ class RequestDVORenderer extends StatefulWidget {
   final String validationErrorDescription;
   final VoidCallback onAfterAccept;
   final bool showHeader;
-  final bool checkCanCreateRelationship;
+  final bool validateCreateRelationship;
   final LocalRequestDVO? requestDVO;
   final String? description;
 
@@ -36,7 +36,7 @@ class RequestDVORenderer extends StatefulWidget {
     required this.validationErrorDescription,
     required this.onAfterAccept,
     this.showHeader = true,
-    this.checkCanCreateRelationship = false,
+    this.validateCreateRelationship = false,
     this.requestDVO,
     this.description,
     super.key,
@@ -304,7 +304,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   }
 
   Future<void> _canCreateRelationship() async {
-    if (!widget.checkCanCreateRelationship) return;
+    if (!widget.validateCreateRelationship) return;
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
