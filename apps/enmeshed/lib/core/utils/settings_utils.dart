@@ -10,6 +10,11 @@ Future<void> upsertHintsSetting({required String accountId, required String key,
   await session.consumptionServices.settings.upsertSettingByKey(key, {'showHints': value});
 }
 
+Future<void> upsertRestoreFromIdentityRecoveryKitSetting({required String accountId, required bool value}) async {
+  final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
+  await session.consumptionServices.settings.upsertSettingByKey('home.restoredIdentity', {'showContainer': value});
+}
+
 Future<void> upsertCompleteProfileContainerSetting({required String accountId, required bool value}) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
   await session.consumptionServices.settings.upsertSettingByKey('home.completeProfileContainerShown', {'isShown': value});

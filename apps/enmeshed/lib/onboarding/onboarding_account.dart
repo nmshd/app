@@ -31,6 +31,13 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
   }
 
   @override
+  void didUpdateWidget(covariant OnboardingAccount oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    _loadAccountsInDeletion();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final leftTriangleColor = Theme.of(context).colorScheme.surfaceContainerLow;
     final rightTriangleColor = Theme.of(context).colorScheme.surfaceContainerHigh;
@@ -81,7 +88,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
                       Text(context.l10n.onboarding_createNewAccount, style: Theme.of(context).textTheme.titleLarge),
                       Gaps.h16,
                       Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
-                      Gaps.h24,
+                      Gaps.h16,
                       FilledButton(onPressed: widget.goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
                       Gaps.h24,
                       Row(
@@ -95,8 +102,13 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
                       Text(context.l10n.onboarding_existingIdentity, style: Theme.of(context).textTheme.titleLarge),
                       Gaps.h16,
                       Text(context.l10n.onboarding_existingIdentity_description, textAlign: TextAlign.center),
-                      Gaps.h24,
+                      Gaps.h16,
                       FilledButton(onPressed: () => _onboardingPressed(context), child: Text(context.l10n.scanner_scanQR)),
+                      Gaps.h16,
+                      TextButton(
+                        onPressed: () => context.push('/restore-from-identity-recovery-kit'),
+                        child: Text(context.l10n.onboarding_restoreProfile_button),
+                      ),
                     ],
                   ),
                 ),
