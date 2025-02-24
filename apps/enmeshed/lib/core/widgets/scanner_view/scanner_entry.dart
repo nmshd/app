@@ -159,15 +159,15 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
                 padding: EdgeInsets.only(top: 24, bottom: math.max(MediaQuery.paddingOf(context).bottom, 24) + 8),
                 child: Column(
                   children: [
-                    SizedBox(
-                      width: 203,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Text(
                         widget.scanQrOrEnterUrlText,
                         style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    Gaps.h16,
+                    Gaps.h40,
                     OutlinedButton(
                       onPressed: widget.toggleScannerMode,
                       style: OutlinedButton.styleFrom(

@@ -14,6 +14,7 @@ export 'messages_container.dart';
 export 'modal_loading_overlay.dart';
 export 'profile_picture.dart';
 export 'request_dvo_renderer.dart';
+export 'scan_recovery_kit_screen.dart';
 export 'scan_screen.dart';
 export 'scanner_view/scanner_view.dart';
 export 'sort_bar.dart';
