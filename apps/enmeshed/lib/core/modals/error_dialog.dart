@@ -45,7 +45,7 @@ class ErrorDialog extends StatelessWidget {
     'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate' =>
       context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_title,
     'error.transport.relationships.relationshipTemplateIsExpired' => context.l10n.errorDialog_relationshipTemplateIsExpired_title,
-    'error.relationshipTemplateProcessedModule.requestExpired' => context.l10n.errorDialog_expiredRequest_title,
+    'error.relationshipTemplateProcessedModule.requestExpired' => context.l10n.errorDialog_requestExpired_title,
     _ => context.l10n.errorDialog_title,
   };
 
@@ -59,7 +59,7 @@ class ErrorDialog extends StatelessWidget {
     'error.transport.relationships.activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate' =>
       context.l10n.errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description,
     'error.transport.relationships.relationshipTemplateIsExpired' => context.l10n.errorDialog_relationshipTemplateIsExpired_description,
-    'error.relationshipTemplateProcessedModule.requestExpired' => context.l10n.errorDialog_expiredRequest_description,
+    'error.relationshipTemplateProcessedModule.requestExpired' => context.l10n.errorDialog_requestExpired_description,
     _ => context.l10n.errorDialog_description,
   };
 }
