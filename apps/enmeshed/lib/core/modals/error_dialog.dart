@@ -24,6 +24,9 @@ class ErrorDialog extends StatelessWidget {
   Icon _icon(BuildContext context) => switch (code) {
     'error.recordNotFoundOnScanRecoveryKit' ||
     'error.app-runtime.onboardedAccountAlreadyExists' => Icon(Icons.warning_rounded, color: context.customColors.warning),
+    'error.transport.relationships.relationshipNotYetDecomposedByPeer' ||
+    'error.transport.relationships.relationshipTemplateIsExpired' ||
+    'error.relationshipTemplateProcessedModule.requestExpired' => Icon(Icons.error, color: Theme.of(context).colorScheme.error),
     _ => Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
   };
 
