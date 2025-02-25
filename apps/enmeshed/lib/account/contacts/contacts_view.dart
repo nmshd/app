@@ -359,7 +359,7 @@ class _ContactItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final contact = item.contact;
 
-    final requestExpired = requestIsExpired(status: item.openContactRequest?.status);
+    final requestExpired = isRequestExpired(status: item.openContactRequest?.status);
 
     return DismissibleContactItem(
       contact: contact,
@@ -402,7 +402,7 @@ class _ContactItem extends StatelessWidget {
       extra: createErrorDetails(
         errorCode: validateRelationshipCreationResponse.errorCode,
         onButtonPressed:
-            requestIsExpired(status: request.status, errorCode: validateRelationshipCreationResponse.errorCode)
+            isRequestExpired(status: request.status, errorCode: validateRelationshipCreationResponse.errorCode)
                 ? () async {
                   await _onDeletePressed(context);
                   if (context.mounted) context.pop();
@@ -423,7 +423,7 @@ class _ContactItem extends StatelessWidget {
     final request = item.openContactRequest!;
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
-    if (requestIsExpired(status: request.status)) {
+    if (isRequestExpired(status: request.status)) {
       final deleteResult = await session.consumptionServices.incomingRequests.delete(requestId: request.id);
       if (deleteResult.isError) GetIt.I.get<Logger>().e(deleteResult.error);
       return;

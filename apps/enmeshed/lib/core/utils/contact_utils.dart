@@ -177,6 +177,6 @@ Future<({bool success, String errorCode})> validateRelationshipCreation({
   return (success: false, errorCode: failureResponse.code);
 }
 
-bool requestIsExpired({LocalRequestStatus? status, String? errorCode}) {
+bool isRequestExpired({LocalRequestStatus? status, String? errorCode}) {
   return status == LocalRequestStatus.Expired || errorCode == 'error.transport.relationships.relationshipTemplateIsExpired';
 }

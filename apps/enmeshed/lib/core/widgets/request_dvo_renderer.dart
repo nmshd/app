@@ -336,7 +336,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
       extra: createErrorDetails(
         errorCode: validateRelationshipCreationResponse.errorCode,
         onButtonPressed:
-            requestIsExpired(status: _request!.status, errorCode: validateRelationshipCreationResponse.errorCode)
+            isRequestExpired(status: _request!.status, errorCode: validateRelationshipCreationResponse.errorCode)
                 ? _deleteRequest
                 : () =>
                     context
