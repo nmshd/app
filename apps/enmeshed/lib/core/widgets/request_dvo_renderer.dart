@@ -172,7 +172,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
               children: [
                 OutlinedButton(onPressed: _loading && _request != null ? null : _rejectRequest, child: Text(context.l10n.reject)),
                 Gaps.w8,
-                FilledButton(onPressed: _canAcceptRequest ? _onAcceptButtonPressed : null, child: Text(widget.acceptRequestText)),
+                FilledButton(onPressed: _onAcceptButtonPressed, child: Text(widget.acceptRequestText)),
               ],
             ),
           ),
@@ -329,9 +329,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     setState(() => _canAcceptRequest = validateRelationshipCreationResponse.success);
 
-    if (_canAcceptRequest) return;
-
-    if (!mounted) return;
+    if (_canAcceptRequest || !mounted) return;
 
     await context.push(
       '/error-dialog',
