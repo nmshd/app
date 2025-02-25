@@ -194,12 +194,11 @@ class _CurrentProfileHeader extends StatelessWidget {
                     tooltip: context.l10n.profiles_settings_connectedDevices,
                     onPressed: () => context.push('/account/${selectedAccount.id}/devices'),
                   ),
-                  if (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS'))
-                    IconButton(
-                      icon: const Icon(Icons.history_outlined),
-                      tooltip: context.l10n.profiles_settings_createIdentityRecoveryKit,
-                      onPressed: () => context.push('/account/${selectedAccount.id}/create-identity-recovery-kit'),
-                    ),
+                  IconButton(
+                    icon: const Icon(Icons.history_outlined),
+                    tooltip: context.l10n.profiles_settings_createIdentityRecoveryKit,
+                    onPressed: () => context.push('/account/${selectedAccount.id}/create-identity-recovery-kit'),
+                  ),
                   IconButton(
                     icon: const Icon(Icons.delete_outline),
                     tooltip: context.l10n.profiles_settings_deleteProfile,

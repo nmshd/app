@@ -71,6 +71,7 @@ class FilesFacade {
     String? expiresAt,
     String? title,
     String? description,
+    List<String>? tags,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''request.content = new Uint8Array(request.content)
@@ -85,6 +86,7 @@ class FilesFacade {
           if (expiresAt != null) 'expiresAt': expiresAt,
           if (title != null) 'title': title,
           if (description != null) 'description': description,
+          if (tags != null) 'tags': tags,
         },
       },
     );

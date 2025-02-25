@@ -8,7 +8,6 @@ import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
@@ -22,6 +21,7 @@ import 'account/account.dart';
 import 'core/core.dart';
 import 'drawer/drawer.dart';
 import 'error_screen.dart';
+import 'generated/l10n/app_localizations.dart';
 import 'onboarding/onboarding.dart';
 import 'profiles/profiles.dart';
 import 'splash_screen.dart';
@@ -54,6 +54,29 @@ final _router = GoRouter(
       path: '/onboarding',
       builder: (context, state) => OnboardingScreen(skipIntroduction: state.uri.queryParameters['skipIntroduction'] == 'true'),
     ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/restore-from-identity-recovery-kit',
+      builder: (context, state) {
+        return InstructionsScreen(
+          onContinue: (_) => context.push('/scan-recovery-kit'),
+          title: context.l10n.restoreFromIdentityRecovery_instructions_title,
+          subtitle: context.l10n.restoreFromIdentityRecovery_instructions_subtitle,
+          informationTitle: context.l10n.restoreFromIdentityRecovery_instructions_informationTitle,
+          informationDescription: context.l10n.restoreFromIdentityRecovery_instructions_informationDescription,
+          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/create_recovery_kit.svg'), height: 160),
+          buttonContinueText: context.l10n.onboarding_restoreProfile_button,
+          instructions: [
+            context.l10n.restoreFromIdentityRecovery_instructions_search,
+            context.l10n.restoreFromIdentityRecovery_instructions_scan,
+            context.l10n.restoreFromIdentityRecovery_instructions_password,
+            context.l10n.restoreFromIdentityRecovery_instructions_confirmation,
+          ],
+          informationContainerIsWarning: true,
+        );
+      },
+    ),
+    GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/scan-recovery-kit', builder: (context, state) => const ScanRecoveryKitScreen()),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/device-onboarding',
@@ -145,7 +168,6 @@ final _router = GoRouter(
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
-              accountId: accountId,
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.addContact}', value: false),
               onContinue:
                   (context) =>
@@ -173,7 +195,6 @@ final _router = GoRouter(
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
-              accountId: accountId,
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.loadProfile}', value: false),
               onContinue:
                   (context) =>
@@ -203,7 +224,6 @@ final _router = GoRouter(
 
             return InstructionsScreen(
               showNumberedExplanation: false,
-              accountId: accountId,
               onContinue: (context) => showCreateRecoveryKitModal(context: context, accountId: accountId),
               title: context.l10n.identityRecovery_instructions_title,
               subtitle: context.l10n.identityRecovery_instructions_subtitle,
@@ -475,18 +495,19 @@ class EnmeshedApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           theme: ThemeData(
             colorScheme: lightColorScheme,
-            extensions: [lightCustomColors, woltThemeData],
+            extensions: [lightCustomColors],
             navigationBarTheme: lightNavigationBarTheme,
             appBarTheme: lightAppBarTheme,
             textTheme: textTheme,
           ),
           darkTheme: ThemeData(
             colorScheme: darkColorScheme,
-            extensions: [darkCustomColors, woltThemeData],
+            extensions: [darkCustomColors],
             navigationBarTheme: darkNavigationBarTheme,
             appBarTheme: darkAppBarTheme,
             textTheme: textTheme,
           ),
+          scaffoldMessengerKey: snackbarKey,
           localizationsDelegates: [
             CroppyLocalizations.delegate,
             FlutterI18nDelegate(
