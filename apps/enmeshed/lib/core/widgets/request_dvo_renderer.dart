@@ -11,6 +11,7 @@ import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 
 import '../modals/create_attribute.dart';
+import '../modals/create_relationship_error_dialog.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
 import 'contact_circle_avatar.dart';
@@ -252,12 +253,6 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     final deleteResult = await session.consumptionServices.incomingRequests.delete(requestId: _request!.id);
 
     if (deleteResult.isError) GetIt.I.get<Logger>().e(deleteResult.error);
-
-    if (!mounted) return;
-
-    context
-      ..pop()
-      ..pop();
   }
 
   Future<void> _rejectRequest() async {
@@ -325,7 +320,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     final validateRelationshipCreationResponse = await validateRelationshipCreation(
       accountId: widget.accountId,
-      requestCreatedBy: widget.requestDVO!.createdBy.id,
+      localRequestSource: widget.requestDVO!.source!,
       session: session,
     );
 
@@ -333,19 +328,17 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     if (_canAcceptRequest || !mounted) return;
 
-    await context.push(
-      '/error-dialog',
-      extra: createErrorDetails(
-        errorCode: validateRelationshipCreationResponse.errorCode,
-        onButtonPressed:
-            isRequestExpired(status: _request!.status, errorCode: validateRelationshipCreationResponse.errorCode)
-                ? _deleteRequest
-                : () =>
-                    context
-                      ..pop()
-                      ..pop(),
-      ),
+    final response = await showDialog<bool>(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => CreateRelationshipErrorDialog(errorCode: validateRelationshipCreationResponse.errorCode!),
     );
+
+    if (response != null && response) await _deleteRequest();
+
+    if (!mounted) return;
+
+    context.pop();
   }
 }
 
