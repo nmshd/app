@@ -380,7 +380,7 @@ class _ContactItem extends StatelessWidget {
     final contact = item.contact;
 
     if (item.openContactRequest == null) {
-      await context.push('/account/$accountId/contacts/${contact.id}');
+      unawaited(context.push('/account/$accountId/contacts/${contact.id}'));
       return;
     }
 
