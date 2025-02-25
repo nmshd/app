@@ -8,6 +8,7 @@ class DismissibleContactItem extends StatefulWidget {
   final IdentityDVO contact;
   final VoidCallback onTap;
   final void Function(BuildContext) onDeletePressed;
+  final bool isRequestExpired;
   final Widget? trailing;
   final Widget? subtitle;
   final String? query;
@@ -17,6 +18,7 @@ class DismissibleContactItem extends StatefulWidget {
     required this.contact,
     required this.onTap,
     required this.onDeletePressed,
+    required this.isRequestExpired,
     this.trailing,
     this.subtitle,
     this.query,
@@ -54,7 +56,10 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
   Widget build(BuildContext context) {
     final coloringStatus = [RelationshipStatus.Terminated, RelationshipStatus.DeletionProposed];
 
-    final tileColor = coloringStatus.contains(widget.contact.relationship?.status) ? Theme.of(context).colorScheme.primaryContainer : null;
+    final tileColor =
+        (widget.contact.relationship == null && !widget.isRequestExpired) || coloringStatus.contains(widget.contact.relationship?.status)
+            ? Theme.of(context).colorScheme.primaryContainer
+            : null;
 
     return TapRegion(
       onTapOutside: (_) => _slidableController.close(),
