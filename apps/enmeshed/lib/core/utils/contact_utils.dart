@@ -152,25 +152,14 @@ Future<void> deleteContact({
   onContactDeleted();
 }
 
-Future<({bool success, String errorCode})> validateRelationshipCreation({
+Future<({bool success, String? errorCode})> validateRelationshipCreation({
   required String accountId,
-  required String requestCreatedBy,
+  required LocalRequestSourceDVO localRequestSource,
   required Session session,
 }) async {
-  final templatesResult = await session.transportServices.relationshipTemplates.getRelationshipTemplates(
-    query: {'createdBy': QueryValue.string(requestCreatedBy)},
-  );
+  final response = await session.transportServices.relationships.canCreateRelationship(templateId: localRequestSource.reference);
 
-  if (templatesResult.isError) {
-    GetIt.I.get<Logger>().e(templatesResult.error);
-    return (success: false, errorCode: templatesResult.error.code);
-  }
-
-  final template = templatesResult.value.first;
-
-  final response = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
-
-  if (response.value.isSuccess) return (success: true, errorCode: '');
+  if (response.value.isSuccess) return (success: true, errorCode: null);
 
   final failureResponse = response.value as CanCreateRelationshipFailureResponse;
 
