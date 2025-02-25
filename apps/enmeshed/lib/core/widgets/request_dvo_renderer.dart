@@ -57,7 +57,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   GetIdentityInfoResponse? _identityInfo;
 
   bool _loading = false;
-  bool _canAcceptRequest = true;
+  late bool _canAcceptRequest;
 
   @override
   void initState() {
@@ -65,6 +65,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     _request = widget.requestDVO;
+
+    _canAcceptRequest = !widget.validateCreateRelationship;
 
     _updateIdentityInfo();
 
