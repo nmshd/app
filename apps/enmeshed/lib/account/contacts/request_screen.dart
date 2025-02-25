@@ -26,6 +26,7 @@ class RequestScreen extends StatelessWidget {
           requestDVO: requestDVO,
           acceptRequestText: context.l10n.home_addContact,
           validationErrorDescription: context.l10n.contact_request_validationErrorDescription,
+          validateCreateRelationship: requestDVO?.source?.type == LocalRequestSourceType.RelationshipTemplate,
           onAfterAccept: () {
             if (context.mounted) context.go('/account/$accountId/contacts');
           },

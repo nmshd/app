@@ -11,6 +11,7 @@ import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 
 import '../modals/create_attribute.dart';
+import '../modals/create_relationship_error_dialog.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
 import 'contact_circle_avatar.dart';
@@ -24,6 +25,7 @@ class RequestDVORenderer extends StatefulWidget {
   final String validationErrorDescription;
   final VoidCallback onAfterAccept;
   final bool showHeader;
+  final bool validateCreateRelationship;
   final LocalRequestDVO? requestDVO;
   final String? description;
 
@@ -35,6 +37,7 @@ class RequestDVORenderer extends StatefulWidget {
     required this.validationErrorDescription,
     required this.onAfterAccept,
     this.showHeader = true,
+    this.validateCreateRelationship = false,
     this.requestDVO,
     this.description,
     super.key,
@@ -55,6 +58,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   GetIdentityInfoResponse? _identityInfo;
 
   bool _loading = false;
+  late bool _canAcceptRequest;
 
   @override
   void initState() {
@@ -63,6 +67,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     _request = widget.requestDVO;
 
+    _canAcceptRequest = !widget.validateCreateRelationship;
+
     _updateIdentityInfo();
 
     if (_request == null) {
@@ -70,6 +76,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     } else {
       _setController(session, _request!);
     }
+
+    _canCreateRelationship();
   }
 
   @override
@@ -95,6 +103,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
       } else {
         _setController(session, _request!);
       }
+
+      _canCreateRelationship();
     }
 
     super.didUpdateWidget(oldWidget);
@@ -165,7 +175,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
               children: [
                 OutlinedButton(onPressed: _loading && _request != null ? null : _rejectRequest, child: Text(context.l10n.reject)),
                 Gaps.w8,
-                FilledButton(onPressed: _acceptRequest, child: Text(widget.acceptRequestText)),
+                FilledButton(onPressed: _onAcceptButtonPressed, child: Text(widget.acceptRequestText)),
               ],
             ),
           ),
@@ -193,6 +203,14 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   }
 
   void _setController(Session session, LocalRequestDVO request) => _controller = RequestRendererController(request: request);
+
+  Future<void> _onAcceptButtonPressed() async {
+    await _canCreateRelationship();
+
+    if (!_canAcceptRequest) return;
+
+    await _acceptRequest();
+  }
 
   Future<void> _acceptRequest() async {
     if (_loading) return;
@@ -228,6 +246,13 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     if (mounted) context.pop();
     widget.onAfterAccept();
+  }
+
+  Future<void> _deleteRequest() async {
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final deleteResult = await session.consumptionServices.incomingRequests.delete(requestId: _request!.id);
+
+    if (deleteResult.isError) GetIt.I.get<Logger>().e(deleteResult.error);
   }
 
   Future<void> _rejectRequest() async {
@@ -286,6 +311,34 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     );
 
     return choice;
+  }
+
+  Future<void> _canCreateRelationship() async {
+    if (!widget.validateCreateRelationship) return;
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+
+    final validateRelationshipCreationResponse = await validateRelationshipCreation(
+      accountId: widget.accountId,
+      localRequestSource: widget.requestDVO!.source!,
+      session: session,
+    );
+
+    setState(() => _canAcceptRequest = validateRelationshipCreationResponse.success);
+
+    if (_canAcceptRequest || !mounted) return;
+
+    final result = await showDialog<bool>(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => CreateRelationshipErrorDialog(errorCode: validateRelationshipCreationResponse.errorCode!),
+    );
+
+    if (result != null && result) await _deleteRequest();
+
+    if (!mounted) return;
+
+    context.pop();
   }
 }
 
