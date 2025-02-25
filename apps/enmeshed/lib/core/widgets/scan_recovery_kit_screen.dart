@@ -7,7 +7,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
-import '../types/error_details.dart';
 import '../utils/utils.dart';
 import 'scanner_view/scanner_view.dart';
 
@@ -67,7 +66,7 @@ class ScanRecoveryKitScreen extends StatelessWidget {
     GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
     if (!context.mounted) return;
 
-    await context.push('/error-dialog', extra: createErrorDetails(errorCode: result.error.code));
+    await context.push('/error-dialog', extra: result.error.code);
 
     if (!context.mounted) return;
     if (context.canPop()) context.pop();

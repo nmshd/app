@@ -8,7 +8,6 @@ import 'package:logger/logger.dart';
 
 import '../generated/l10n/app_localizations.dart';
 import 'globals.dart';
-import 'types/error_details.dart';
 import 'utils/settings_utils.dart';
 import 'utils/snackbars.dart';
 
@@ -56,13 +55,13 @@ class AppUIBridge extends UIBridge {
     } on Exception catch (e) {
       if (e.toString().contains('error.app-runtime.onboardedAccountAlreadyExists')) {
         router.pop();
-        await router.push('/error-dialog', extra: createErrorDetails(errorCode: 'error.app-runtime.onboardedAccountAlreadyExists'));
+        await router.push('/error-dialog', extra: 'error.app-runtime.onboardedAccountAlreadyExists');
 
         return;
       }
 
       router.pop();
-      await router.push('/error-dialog', extra: createErrorDetails(errorCode: 'error.recordNotFoundOnScanRecoveryKit'));
+      await router.push('/error-dialog', extra: 'error.recordNotFoundOnScanRecoveryKit');
       return;
     }
 
@@ -100,7 +99,7 @@ class AppUIBridge extends UIBridge {
   Future<void> showError(UIBridgeError error, [LocalAccountDTO? account]) async {
     logger.d('showError for account ${account?.id} error $error');
 
-    await router.push('/error-dialog', extra: createErrorDetails(errorCode: error.code));
+    await router.push('/error-dialog', extra: error.code);
   }
 
   @override

@@ -131,10 +131,7 @@ final _router = GoRouter(
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/error-dialog',
-      pageBuilder: (context, state) {
-        final errorDetails = state.extra! as ErrorDetails;
-        return DialogPage(builder: (context) => ErrorDialog(code: errorDetails.errorCode, onButtonPressed: errorDetails.onButtonPressed));
-      },
+      pageBuilder: (context, state) => DialogPage(builder: (context) => ErrorDialog(code: state.extra as String?)),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
