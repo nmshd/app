@@ -328,13 +328,13 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     if (_canAcceptRequest || !mounted) return;
 
-    final response = await showDialog<bool>(
+    final result = await showDialog<bool>(
       barrierDismissible: false,
       context: context,
       builder: (context) => CreateRelationshipErrorDialog(errorCode: validateRelationshipCreationResponse.errorCode!),
     );
 
-    if (response != null && response) await _deleteRequest();
+    if (result != null && result) await _deleteRequest();
 
     if (!mounted) return;
 

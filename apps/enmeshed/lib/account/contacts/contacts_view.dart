@@ -359,20 +359,21 @@ class _ContactItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final contact = item.contact;
 
-    final requestExpired = isRequestExpired(status: item.openContactRequest?.status);
+    final isRequestExpired = item.openContactRequest?.status == LocalRequestStatus.Expired;
 
     return DismissibleContactItem(
       contact: contact,
+      isRequestExpired: isRequestExpired,
       onTap: () => _onTap(context),
       trailing: _TrailingIcon(
-        requestExpired: requestExpired,
+        isRequestExpired: isRequestExpired,
         isOpenContactRequest: item.openContactRequest != null,
         isFavoriteContact: isFavoriteContact,
         onToggleFavorite: () => toggleContactFavorite(contact),
         onDeletePressed: () => _onDeletePressed(context),
       ),
       onDeletePressed: _onDeletePressed,
-      subtitle: requestExpired ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error)) : null,
+      subtitle: isRequestExpired ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error)) : null,
     );
   }
 
@@ -389,7 +390,7 @@ class _ContactItem extends StatelessWidget {
 
     final validateRelationshipCreationResponse = await validateRelationshipCreation(
       accountId: accountId,
-      requestCreatedBy: request.createdBy.id,
+      localRequestSource: request.source!,
       session: session,
     );
 
@@ -397,19 +398,14 @@ class _ContactItem extends StatelessWidget {
 
     if (validateRelationshipCreationResponse.success) return context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
 
-    await context.push(
-      '/error-dialog',
-      extra: createErrorDetails(
-        errorCode: validateRelationshipCreationResponse.errorCode,
-        onButtonPressed:
-            isRequestExpired(status: request.status, errorCode: validateRelationshipCreationResponse.errorCode)
-                ? () async {
-                  await _onDeletePressed(context);
-                  if (context.mounted) context.pop();
-                }
-                : null,
-      ),
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => CreateRelationshipErrorDialog(errorCode: validateRelationshipCreationResponse.errorCode!),
     );
+
+    if (!context.mounted) return;
+
+    if (result != null && result) await _onDeletePressed(context);
   }
 
   Future<void> _onDeletePressed(BuildContext context) async {
@@ -423,7 +419,7 @@ class _ContactItem extends StatelessWidget {
     final request = item.openContactRequest!;
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
-    if (isRequestExpired(status: request.status)) {
+    if (request.status == LocalRequestStatus.Expired) {
       final deleteResult = await session.consumptionServices.incomingRequests.delete(requestId: request.id);
       if (deleteResult.isError) GetIt.I.get<Logger>().e(deleteResult.error);
       return;
@@ -469,14 +465,14 @@ class _EmptyContactsIndicator extends StatelessWidget {
 }
 
 class _TrailingIcon extends StatelessWidget {
-  final bool requestExpired;
+  final bool isRequestExpired;
   final bool isFavoriteContact;
   final bool isOpenContactRequest;
   final VoidCallback onDeletePressed;
   final VoidCallback onToggleFavorite;
 
   const _TrailingIcon({
-    required this.requestExpired,
+    required this.isRequestExpired,
     required this.isFavoriteContact,
     required this.isOpenContactRequest,
     required this.onDeletePressed,
@@ -485,7 +481,7 @@ class _TrailingIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (requestExpired) return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
+    if (isRequestExpired) return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
 
     if (isOpenContactRequest) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
 
