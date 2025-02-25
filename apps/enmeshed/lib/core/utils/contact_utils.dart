@@ -157,14 +157,16 @@ Future<({bool success, String errorCode})> validateRelationshipCreation({
   required String requestCreatedBy,
   required Session session,
 }) async {
-  final templatesResult = await session.transportServices.relationshipTemplates.getRelationshipTemplates();
+  final templatesResult = await session.transportServices.relationshipTemplates.getRelationshipTemplates(
+    query: {'createdBy': QueryValue.string(requestCreatedBy)},
+  );
 
   if (templatesResult.isError) {
     GetIt.I.get<Logger>().e(templatesResult.error);
     return (success: false, errorCode: templatesResult.error.code);
   }
 
-  final template = templatesResult.value.firstWhere((template) => template.createdBy == requestCreatedBy);
+  final template = templatesResult.value.first;
 
   final response = await session.transportServices.relationships.canCreateRelationship(templateId: template.id);
 
