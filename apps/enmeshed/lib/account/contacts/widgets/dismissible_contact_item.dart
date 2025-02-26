@@ -8,7 +8,7 @@ class DismissibleContactItem extends StatefulWidget {
   final IdentityDVO contact;
   final VoidCallback onTap;
   final void Function(BuildContext) onDeletePressed;
-  final bool isRequestExpired;
+  final LocalRequestDVO? request;
   final Widget? trailing;
   final Widget? subtitle;
   final String? query;
@@ -18,7 +18,7 @@ class DismissibleContactItem extends StatefulWidget {
     required this.contact,
     required this.onTap,
     required this.onDeletePressed,
-    required this.isRequestExpired,
+    this.request,
     this.trailing,
     this.subtitle,
     this.query,
@@ -57,7 +57,8 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
     final coloringStatus = [RelationshipStatus.Terminated, RelationshipStatus.DeletionProposed];
 
     final tileColor =
-        (widget.contact.relationship == null && !widget.isRequestExpired) || coloringStatus.contains(widget.contact.relationship?.status)
+        (widget.contact.relationship == null && widget.request?.status != LocalRequestStatus.Expired) ||
+                coloringStatus.contains(widget.contact.relationship?.status)
             ? Theme.of(context).colorScheme.primaryContainer
             : null;
 

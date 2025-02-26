@@ -359,21 +359,22 @@ class _ContactItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final contact = item.contact;
 
-    final isRequestExpired = item.openContactRequest?.status == LocalRequestStatus.Expired;
-
     return DismissibleContactItem(
       contact: contact,
-      isRequestExpired: isRequestExpired,
+      request: item.openContactRequest,
       onTap: () => _onTap(context),
       trailing: _TrailingIcon(
-        isRequestExpired: isRequestExpired,
+        isRequestExpired: item.openContactRequest?.status == LocalRequestStatus.Expired,
         isOpenContactRequest: item.openContactRequest != null,
         isFavoriteContact: isFavoriteContact,
         onToggleFavorite: () => toggleContactFavorite(contact),
         onDeletePressed: () => _onDeletePressed(context),
       ),
       onDeletePressed: _onDeletePressed,
-      subtitle: isRequestExpired ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error)) : null,
+      subtitle:
+          item.openContactRequest?.status == LocalRequestStatus.Expired
+              ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error))
+              : null,
     );
   }
 
