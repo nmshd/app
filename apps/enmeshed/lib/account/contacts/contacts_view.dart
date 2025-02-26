@@ -421,7 +421,14 @@ class _ContactItem extends StatelessWidget {
 
     if (request.status == LocalRequestStatus.Expired) {
       final deleteResult = await session.consumptionServices.incomingRequests.delete(requestId: request.id);
-      if (deleteResult.isError) GetIt.I.get<Logger>().e(deleteResult.error);
+
+      if (deleteResult.isError) {
+        GetIt.I.get<Logger>().e(deleteResult.error);
+
+        if (!context.mounted) return;
+
+        showErrorSnackbar(context: context, text: context.l10n.error_deleteRequestFailed);
+      }
       return;
     }
 
