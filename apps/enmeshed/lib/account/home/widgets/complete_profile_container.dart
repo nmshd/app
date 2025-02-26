@@ -62,6 +62,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
       elevation: 2,
       clipBehavior: Clip.hardEdge,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
