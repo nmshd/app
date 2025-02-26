@@ -111,7 +111,7 @@ class _ActivateNotifications extends StatelessWidget {
           Text(context.l10n.drawer_notifications_getNotifications),
           if (permissionStatus.isPermanentlyDenied) ...[Gaps.h24, Text(context.l10n.drawer_notifications_howToActivate)],
           Gaps.h48,
-          FilledButton(onPressed: onRequestPermission, child: Text(context.l10n.drawer_notifications_activate)),
+          FilledButton(onPressed: onRequestPermission, child: Text(context.l10n.drawer_notifications_activateButton)),
         ],
       ),
     );
