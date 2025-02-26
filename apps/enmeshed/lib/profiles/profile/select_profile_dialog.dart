@@ -22,20 +22,21 @@ class _SelectProfileDialogState extends State<SelectProfileDialog> {
 
   @override
   Widget build(BuildContext context) {
-    if (_chooseExisting && widget.possibleAccounts.isNotEmpty) {
-      return _ChooseExistingProfile(
-        possibleAccounts: widget.possibleAccounts,
-        title: widget.title,
-        description: widget.description,
-        createNewProfilePressed: () => setState(() => _chooseExisting = false),
-      );
-    }
-
-    return CreateProfile(
-      onProfileCreated: (account) => context.pop(account),
-      onBackPressed: widget.possibleAccounts.isEmpty ? null : () => setState(() => _chooseExisting = true),
-      description: context.l10n.profiles_createNewForProcessingQrDescription,
-      isInDialog: true,
+    return Dialog(
+      child:
+          _chooseExisting && widget.possibleAccounts.isNotEmpty
+              ? _ChooseExistingProfile(
+                possibleAccounts: widget.possibleAccounts,
+                title: widget.title,
+                description: widget.description,
+                createNewProfilePressed: () => setState(() => _chooseExisting = false),
+              )
+              : CreateProfile(
+                onProfileCreated: (account) => context.pop(account),
+                onBackPressed: widget.possibleAccounts.isEmpty ? null : () => setState(() => _chooseExisting = true),
+                description: context.l10n.profiles_createNewForProcessingQrDescription,
+                isInDialog: true,
+              ),
     );
   }
 }
