@@ -1,3 +1,5 @@
+import 'dart:math' show min;
+
 import 'package:flutter/material.dart';
 
 import 'drawer_hints_page.dart';
@@ -18,7 +20,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final maxWidth = MediaQuery.sizeOf(context).width * 0.85;
+    final double maxWidth = min(MediaQuery.sizeOf(context).width * 0.85, 320);
 
     return SafeArea(
       child: Drawer(
