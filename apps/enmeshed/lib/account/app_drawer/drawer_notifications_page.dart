@@ -62,26 +62,14 @@ class DrawerNotificationsPageState extends State<DrawerNotificationsPage> with W
         Expanded(
           child: ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  _permissionStatus == PermissionStatus.granted
-                      ? context.l10n.drawer_notifications_granted
-                      : context.l10n.drawer_notifications_stayInformed,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Gaps.h16,
               const Padding(
-                padding: EdgeInsets.only(left: 16),
+                padding: EdgeInsets.only(left: 16, top: 16),
                 child: VectorGraphic(loader: AssetBytesLoader('assets/svg/notifications.svg'), height: 200),
               ),
               Gaps.h36,
+              Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.drawer_notifications_stayInformed)),
               if (_permissionStatus == PermissionStatus.granted)
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(context.l10n.drawer_notifications_grantedInformation, style: Theme.of(context).textTheme.titleSmall),
-                )
+                Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.drawer_notifications_grantedInformation))
               else
                 _ActivateNotifications(
                   permissionStatus: _permissionStatus!,
@@ -120,12 +108,9 @@ class _ActivateNotifications extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(context.l10n.drawer_notifications_getNotifications, style: Theme.of(context).textTheme.titleSmall),
-          if (permissionStatus.isPermanentlyDenied) ...[
-            Gaps.h24,
-            Text(context.l10n.drawer_notifications_howToActivate, style: Theme.of(context).textTheme.titleSmall),
-          ],
-          Gaps.h36,
+          Text(context.l10n.drawer_notifications_getNotifications),
+          if (permissionStatus.isPermanentlyDenied) ...[Gaps.h24, Text(context.l10n.drawer_notifications_howToActivate)],
+          Gaps.h48,
           FilledButton(onPressed: onRequestPermission, child: Text(context.l10n.drawer_notifications_activate)),
         ],
       ),
