@@ -64,7 +64,7 @@ class DrawerNotificationsPageState extends State<DrawerNotificationsPage> with W
             children: [
               const Padding(
                 padding: EdgeInsets.only(left: 16, top: 16),
-                child: VectorGraphic(loader: AssetBytesLoader('assets/svg/notifications.svg'), height: 200),
+                child: VectorGraphic(loader: AssetBytesLoader('assets/svg/notifications.svg'), height: 160),
               ),
               Gaps.h36,
               Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.drawer_notifications_stayInformed)),
