@@ -390,7 +390,7 @@ class _ContactItem extends StatelessWidget {
 
     final validateRelationshipCreationResponse = await validateRelationshipCreation(
       accountId: accountId,
-      localRequestSource: request.source!,
+      localRequestSource: request.source,
       session: session,
     );
 

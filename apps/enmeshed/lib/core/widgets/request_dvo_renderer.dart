@@ -320,7 +320,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
 
     final validateRelationshipCreationResponse = await validateRelationshipCreation(
       accountId: widget.accountId,
-      localRequestSource: widget.requestDVO!.source!,
+      localRequestSource: _request?.source,
       session: session,
     );
 

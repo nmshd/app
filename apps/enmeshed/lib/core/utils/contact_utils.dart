@@ -154,9 +154,11 @@ Future<void> deleteContact({
 
 Future<({bool success, String? errorCode})> validateRelationshipCreation({
   required String accountId,
-  required LocalRequestSourceDVO localRequestSource,
   required Session session,
+  LocalRequestSourceDVO? localRequestSource,
 }) async {
+  if (localRequestSource == null) return (success: true, errorCode: null);
+
   final response = await session.transportServices.relationships.canCreateRelationship(templateId: localRequestSource.reference);
 
   if (response.value.isSuccess) return (success: true, errorCode: null);
