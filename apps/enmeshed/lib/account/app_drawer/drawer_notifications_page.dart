@@ -1,5 +1,6 @@
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
@@ -48,6 +49,8 @@ class DrawerNotificationsPageState extends State<DrawerNotificationsPage> with W
           context.l10n.drawer_notifications,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.onPrimaryContainer),
         ),
+        const Spacer(),
+        IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
       ],
     );
 
