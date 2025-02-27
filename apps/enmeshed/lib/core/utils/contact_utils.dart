@@ -157,7 +157,7 @@ Future<({bool success, String? errorCode})> validateRelationshipCreation({
   required Session session,
   LocalRequestSourceDVO? localRequestSource,
 }) async {
-  if (localRequestSource == null || localRequestSource.type == LocalRequestSourceType.Message) return (success: true, errorCode: null);
+  if (localRequestSource == null || localRequestSource.type != LocalRequestSourceType.RelationshipTemplate) return (success: true, errorCode: null);
 
   final response = await session.transportServices.relationships.canCreateRelationship(templateId: localRequestSource.reference);
 
