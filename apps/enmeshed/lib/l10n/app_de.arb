@@ -165,6 +165,7 @@
   "drawer_notifications_granted": "Super, Sie bleiben informiert!",
   "drawer_notifications_grantedInformation": "Sie haben Mitteilungen in den Systemeinstellungen Ihres Gerätes aktiviert und bleiben somit immer auf dem aktuellsten Stand.",
   "drawer_hints": "Hinweise",
+  "drawer_hints_description": "Unterstützende Hinweise, die Sie an verschiedenen Stellen in der App als 'nicht mehr anzeigen' markiert hatten, können Sie wieder aktivieren.",
   "drawer_hints_loadProfile": "Bestehendes Profil laden",
   "drawer_hints_addContact": "Kontakt hinzufügen",
   "drawer_hints_firstSteps": "Erste Schritte",

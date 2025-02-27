@@ -165,6 +165,7 @@
   "drawer_notifications_granted": "Great, you stay informed!",
   "drawer_notifications_grantedInformation": "You have activated notifications in the system settings of your device and are therefore always up to date.",
   "drawer_hints": "Hints",
+  "drawer_hints_description": "You can reactivate supporting notes that you have marked as 'no longer show' in various places in the app.",
   "drawer_hints_loadProfile": "Load existing profile",
   "drawer_hints_addContact": "Add contact",
   "drawer_hints_firstSteps": "First steps",
