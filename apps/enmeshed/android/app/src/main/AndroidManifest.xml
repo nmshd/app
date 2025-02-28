@@ -3,6 +3,8 @@
     <application android:label="enmeshed"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <!-- TODO: remove this when https://github.com/flutter/flutter/pull/163754 lands in flutter stable -->
         <meta-data android:name="io.flutter.embedding.android.EnableImpeller"
             android:value="false" />
 
