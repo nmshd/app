@@ -85,7 +85,13 @@ class _ContactsSheet extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: relationships
-                        .map((contact) => ContactItem(contact: contact, onTap: () => context.pop(contact)))
+                        .map(
+                          (contact) => ContactItem(
+                            contact: contact,
+                            onTap: () => context.pop(contact),
+                            borderColor: getCircularAvatarBorderColor(context: context, contact: contact),
+                          ),
+                        )
                         .separated(() => const Divider(indent: 16)),
                   ),
                 ),
