@@ -387,6 +387,15 @@
   "contacts_addContact": "Add contact",
   "contacts_unknown": "Contact name not available",
   "contacts_notYetRequested": "Contact request not yet sent",
+  "contacts_requestWithExpiryDate": "Expires on {date}",
+  "@contacts_requestWithExpiryDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
   "contacts_requestExpired": "Contact request expired",
   "contacts_pending": "Contact has not yet been confirmed",
   "contacts_terminatedOrDeletionProposed": "Relationship ended",
