@@ -26,6 +26,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   bool _showSendCertificateButton = false;
   int _unreadMessagesCount = 0;
   List<MessageDVO>? _incomingMessages;
+  List<LocalRequestDVO>? _openRequests;
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -90,6 +91,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
               children: [
                 ContactDetailHeader(contact: contact),
                 ContactStatusInfoContainer(contact: contact),
+                if (_openRequests != null && _openRequests!.isNotEmpty) _OpenRequestsContainer(onButtonPressed: () {}),
                 ContactDetailIconBar(
                   session: _session,
                   accountId: widget.accountId,
@@ -135,8 +137,11 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
 
     if (!mounted) return;
 
+    final incomingRequestResult = await incomingOpenRequestsFromRelationshipTemplate(session: _session, peer: widget.contactId);
+
     setState(() {
       _contact = contact;
+      _openRequests = incomingRequestResult;
     });
   }
 
@@ -180,5 +185,48 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
     if (attributes.any((element) => ((element.content as RelationshipAttribute).value as ProprietaryBooleanAttributeValue).value)) {
       setState(() => _showSendCertificateButton = true);
     }
+  }
+}
+
+class _OpenRequestsContainer extends StatelessWidget {
+  final VoidCallback onButtonPressed;
+
+  const _OpenRequestsContainer({required this.onButtonPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.info, color: Theme.of(context).primaryColor),
+                  Gaps.w8,
+                  Expanded(
+                    child: Text('Sie haben eine oder mehrere Anfragen noch nicht abgeschlossen', style: Theme.of(context).textTheme.bodyMedium),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              'Der Kontakt möchte weitere Daten mit Ihnen teilen. Sie können die ausstehenden Anfragen überprüfen und annehmen.',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            Gaps.h16,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Expanded(child: FilledButton(onPressed: onButtonPressed, child: const Text('Anfragen überprüfen')))],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
