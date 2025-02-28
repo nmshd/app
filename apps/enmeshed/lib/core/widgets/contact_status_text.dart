@@ -9,7 +9,7 @@ class ContactStatusText extends StatelessWidget {
   final LocalRequestDVO? openContactRequest;
   final TextStyle? style;
 
-  const ContactStatusText({required this.contact, required this.openContactRequest, this.style, super.key});
+  const ContactStatusText({required this.contact, this.openContactRequest, this.style, super.key});
 
   static bool canRenderStatusText({required IdentityDVO contact, LocalRequestDVO? openContactRequest}) {
     final hasOpenContactRequestInCorrectStatus =
