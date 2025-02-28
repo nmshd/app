@@ -82,7 +82,11 @@ Future<List<IdentityDVO>> getContacts({required Session session}) async {
 Future<List<LocalRequestDVO>> incomingOpenRequestsFromRelationshipTemplate({required Session session}) async {
   final incomingRequestResult = await session.consumptionServices.incomingRequests.getRequests(
     query: {
-      'status': QueryValue.stringList([LocalRequestStatus.DecisionRequired.name, LocalRequestStatus.ManualDecisionRequired.name]),
+      'status': QueryValue.stringList([
+        LocalRequestStatus.DecisionRequired.name,
+        LocalRequestStatus.ManualDecisionRequired.name,
+        LocalRequestStatus.Expired.name,
+      ]),
       'source.type': QueryValue.string(LocalRequestSourceType.RelationshipTemplate.name),
     },
   );
@@ -146,4 +150,20 @@ Future<void> deleteContact({
   }
 
   onContactDeleted();
+}
+
+Future<({bool success, String? errorCode})> validateRelationshipCreation({
+  required String accountId,
+  required Session session,
+  LocalRequestSourceDVO? localRequestSource,
+}) async {
+  if (localRequestSource == null || localRequestSource.type != LocalRequestSourceType.RelationshipTemplate) return (success: true, errorCode: null);
+
+  final response = await session.transportServices.relationships.canCreateRelationship(templateId: localRequestSource.reference);
+
+  if (response.value.isSuccess) return (success: true, errorCode: null);
+
+  final failureResponse = response.value as CanCreateRelationshipFailureResponse;
+
+  return (success: false, errorCode: failureResponse.code);
 }
