@@ -497,6 +497,9 @@
       }
     }
   },
+  "contactDetail_openRequestsTitle": "You have not yet completed one or more requests",
+  "contactDetail_openRequestsDescription": "The contact would like to share more data with you. You can check and accept the pending requests.",
+  "contactDetail_checkRequests": "Check requests",
   "myData_createEntryForAttributeType": "Create",
   "myData_noEntryForAttributeType": "No entry",
   "myData_allData": "All Data",

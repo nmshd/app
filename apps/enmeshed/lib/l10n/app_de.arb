@@ -497,6 +497,9 @@
       }
     }
   },
+  "contactDetail_openRequestsTitle": "Sie haben eine oder mehrere Anfragen noch nicht abgeschlossen",
+  "contactDetail_openRequestsDescription": "Der Kontakt möchte weitere Daten mit Ihnen teilen. Sie können die ausstehenden Anfragen überprüfen und annehmen.",
+  "contactDetail_checkRequests": "Anfragen überprüfen",
   "myData_createEntryForAttributeType": "Anlegen",
   "myData_noEntryForAttributeType": "Kein Eintrag",
   "myData_allData": "Alle Daten",

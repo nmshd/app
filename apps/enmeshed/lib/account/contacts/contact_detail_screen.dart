@@ -209,20 +209,15 @@ class _OpenRequestsContainer extends StatelessWidget {
                 children: [
                   Icon(Icons.info, color: Theme.of(context).primaryColor),
                   Gaps.w8,
-                  Expanded(
-                    child: Text('Sie haben eine oder mehrere Anfragen noch nicht abgeschlossen', style: Theme.of(context).textTheme.bodyMedium),
-                  ),
+                  Expanded(child: Text(context.l10n.contactDetail_openRequestsTitle, style: Theme.of(context).textTheme.bodyMedium)),
                 ],
               ),
             ),
-            Text(
-              'Der Kontakt möchte weitere Daten mit Ihnen teilen. Sie können die ausstehenden Anfragen überprüfen und annehmen.',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            Text(context.l10n.contactDetail_openRequestsDescription, style: Theme.of(context).textTheme.bodySmall),
             Gaps.h16,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Expanded(child: FilledButton(onPressed: onButtonPressed, child: const Text('Anfragen überprüfen')))],
+              children: [Expanded(child: FilledButton(onPressed: onButtonPressed, child: Text(context.l10n.contactDetail_checkRequests)))],
             ),
           ],
         ),
