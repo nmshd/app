@@ -73,7 +73,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
           elevation: _isOpen ? 3 : 0,
           shadowColor: Theme.of(context).colorScheme.shadow,
           child: ContactItem(
-            borderColor: getCircularAvatarBorderColor(
+            circularAvatarBorderColor: getCircularAvatarBorderColor(
               context: context,
               contact: widget.item.contact,
               openContactRequest: widget.item.openContactRequest,
@@ -87,7 +87,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
             subtitle:
                 widget.item.contact.relationship?.status == RelationshipStatus.Active && widget.item.contact.relationship?.peerDeletionStatus == null
                     ? null
-                    : _SubTitle(item: widget.item),
+                    : _Subtitle(item: widget.item),
             query: widget.query,
             iconSize: widget.iconSize,
           ),
@@ -97,10 +97,10 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
   }
 }
 
-class _SubTitle extends StatelessWidget {
+class _Subtitle extends StatelessWidget {
   final RequestOrRelationship item;
 
-  const _SubTitle({required this.item});
+  const _Subtitle({required this.item});
 
   @override
   Widget build(BuildContext context) {
