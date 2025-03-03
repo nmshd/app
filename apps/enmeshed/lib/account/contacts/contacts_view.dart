@@ -371,10 +371,6 @@ class _ContactItem extends StatelessWidget {
         onDeletePressed: () => _onDeletePressed(context),
       ),
       onDeletePressed: _onDeletePressed,
-      subtitle:
-          item.openContactRequest?.status == LocalRequestStatus.Expired
-              ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error))
-              : null,
     );
   }
 

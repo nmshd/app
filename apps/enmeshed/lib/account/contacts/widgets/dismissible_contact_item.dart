@@ -56,6 +56,11 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
   Widget build(BuildContext context) {
     final coloringStatus = [RelationshipStatus.Terminated, RelationshipStatus.DeletionProposed];
 
+    final subtitle =
+        widget.request?.status == LocalRequestStatus.Expired
+            ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error))
+            : null;
+
     final tileColor =
         (widget.contact.relationship == null && widget.request?.status != LocalRequestStatus.Expired) ||
                 coloringStatus.contains(widget.contact.relationship?.status)
@@ -91,7 +96,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
               _slidableController.close();
             },
             trailing: widget.trailing,
-            subtitle: widget.subtitle,
+            subtitle: widget.subtitle ?? subtitle,
             query: widget.query,
             iconSize: widget.iconSize,
           ),
