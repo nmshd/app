@@ -17,31 +17,22 @@ class ContactCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = this.color ?? context.customColors.decorativeContainer;
-
-    if (contact.isUnknown) {
-      if (borderColor != null) {
-        return Container(
-          decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: borderColor!, width: 3)),
-          padding: const EdgeInsets.all(1),
-          child: _UnknownContactAvatar(radius: radius, color: color),
-        );
-      }
-
-      return _UnknownContactAvatar(radius: radius, color: color);
-    }
-
     final textStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: radius * 0.75, color: context.customColors.onDecorativeContainer);
-    final initials = _contactNameLetters(contact.name);
+
+    final baseAvatar =
+        contact.isUnknown
+            ? _UnknownContactAvatar(radius: radius, color: color)
+            : CircleAvatar(radius: radius, backgroundColor: color, child: child ?? Text(_contactNameLetters(contact.name), style: textStyle));
 
     if (borderColor != null) {
       return Container(
         decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: borderColor!, width: 3)),
         padding: const EdgeInsets.all(1),
-        child: CircleAvatar(radius: radius, backgroundColor: color, child: child ?? Text(initials, style: textStyle)),
+        child: baseAvatar,
       );
     }
 
-    return CircleAvatar(radius: radius, backgroundColor: color, child: child ?? Text(initials, style: textStyle));
+    return baseAvatar;
   }
 
   String _contactNameLetters(String contactName) {
