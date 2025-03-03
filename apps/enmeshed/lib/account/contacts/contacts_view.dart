@@ -377,7 +377,7 @@ class _ContactItem extends StatelessWidget {
   void _onTap(BuildContext context) {
     final contact = item.contact;
 
-    if (item.openContactRequest == null) {
+    if (item.openContactRequest == null || item.openContactRequest!.peer.hasRelationship) {
       context.push('/account/$accountId/contacts/${contact.id}');
       return;
     }
