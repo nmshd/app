@@ -104,7 +104,9 @@ class _Subtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (item.openContactRequest?.status == LocalRequestStatus.ManualDecisionRequired && item.openContactRequest?.content.expiresAt != null) {
+    final isExpiringRequest = item.openContactRequest?.status != LocalRequestStatus.Expired && item.openContactRequest?.content.expiresAt != null;
+
+    if (isExpiringRequest) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
