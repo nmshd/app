@@ -13,7 +13,7 @@ class ContactItem extends StatelessWidget {
   final Widget? subtitle;
   final String? query;
   final int iconSize;
-  final Color? borderColor;
+  final Color? circularAvatarBorderColor;
 
   const ContactItem({
     required this.contact,
@@ -22,21 +22,26 @@ class ContactItem extends StatelessWidget {
     this.subtitle,
     this.query,
     this.iconSize = 56,
-    this.borderColor,
+    this.circularAvatarBorderColor,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final contactStatusWidget =
+        (ContactStatusText.canRenderStatusText(contact: contact)
+            ? ContactStatusText(contact: contact, style: Theme.of(context).textTheme.labelMedium)
+            : null);
+
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      leading: ContactCircleAvatar(contact: contact, radius: iconSize / 2, borderColor: borderColor),
+      leading: ContactCircleAvatar(
+        contact: contact,
+        radius: iconSize / 2,
+        borderColor: circularAvatarBorderColor ?? getCircularAvatarBorderColor(context: context, contact: contact),
+      ),
       title: HighlightText(query: query, text: contact.isUnknown ? context.l10n.contacts_unknown : contact.name),
-      subtitle:
-          subtitle ??
-          (ContactStatusText.canRenderStatusText(contact: contact)
-              ? ContactStatusText(contact: contact, style: Theme.of(context).textTheme.labelMedium)
-              : null),
+      subtitle: subtitle ?? contactStatusWidget,
       trailing: trailing,
       onTap: onTap,
     );

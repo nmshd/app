@@ -271,7 +271,6 @@ class _ContactsViewState extends State<ContactsView> {
 
               context.push('/account/${widget.accountId}/contacts/${item.id}');
             },
-            borderColor: getCircularAvatarBorderColor(context: context, contact: item),
           ),
         )
         .separated(() => const Divider(height: 2));
