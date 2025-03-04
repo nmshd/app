@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../utils/utils.dart';
 import 'contact_circle_avatar.dart';
+import 'contact_status_text.dart';
 import 'highlight_text.dart';
 
 class ContactItem extends StatelessWidget {
@@ -12,7 +13,7 @@ class ContactItem extends StatelessWidget {
   final Widget? subtitle;
   final String? query;
   final int iconSize;
-  final Color? tileColor;
+  final Color? circularAvatarBorderColor;
 
   const ContactItem({
     required this.contact,
@@ -21,29 +22,26 @@ class ContactItem extends StatelessWidget {
     this.subtitle,
     this.query,
     this.iconSize = 56,
-    this.tileColor,
+    this.circularAvatarBorderColor,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final contactStatusWidget =
+        (ContactStatusText.canRenderStatusText(contact: contact)
+            ? ContactStatusText(contact: contact, style: Theme.of(context).textTheme.labelMedium)
+            : null);
+
     return ListTile(
-      tileColor: tileColor,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      leading: ContactCircleAvatar(contact: contact, radius: iconSize / 2),
+      leading: ContactCircleAvatar(
+        contact: contact,
+        radius: iconSize / 2,
+        borderColor: circularAvatarBorderColor ?? getCircularAvatarBorderColor(context: context, contact: contact),
+      ),
       title: HighlightText(query: query, text: contact.isUnknown ? context.l10n.contacts_unknown : contact.name),
-      subtitle:
-          subtitle ??
-          switch (contact.relationship?.status) {
-            RelationshipStatus.Pending => Text(context.l10n.contacts_pending, style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
-            RelationshipStatus.Terminated => Text(context.l10n.contacts_terminated, style: TextStyle(color: Theme.of(context).colorScheme.error)),
-            RelationshipStatus.DeletionProposed => Text(
-              context.l10n.contacts_deletionProposed,
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
-            null => Text(context.l10n.contacts_notYetRequested, style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
-            _ => null,
-          },
+      subtitle: subtitle ?? contactStatusWidget,
       trailing: trailing,
       onTap: onTap,
     );
