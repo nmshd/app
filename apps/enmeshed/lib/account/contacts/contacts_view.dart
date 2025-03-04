@@ -398,7 +398,7 @@ class _ContactItem extends StatelessWidget {
 
     if (!context.mounted) return;
 
-    if (result != null && result) await _onDeletePressed(context);
+    if (result ?? false) await _onDeletePressed(context);
   }
 
   Future<void> _onDeletePressed(BuildContext context) async {
