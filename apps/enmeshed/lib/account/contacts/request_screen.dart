@@ -69,7 +69,7 @@ class _RequestScreenState extends State<RequestScreen> {
       builder: (context) => CreateRelationshipErrorDialog(errorCode: validateRelationshipCreationResponse.errorCode!),
     );
 
-    if (result != null && result) await _deleteRequest();
+    if (result ?? false) await _deleteRequest();
 
     if (mounted) context.pop();
 

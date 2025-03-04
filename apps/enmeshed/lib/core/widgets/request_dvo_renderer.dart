@@ -199,7 +199,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   Future<void> _onAcceptButtonPressed() async {
     final canCreateRelationship = await widget.validateCreateRelationship?.call();
 
-    if (canCreateRelationship != null && !canCreateRelationship) return;
+    if (canCreateRelationship == false) return;
 
     await _acceptRequest();
   }
