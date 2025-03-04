@@ -155,11 +155,13 @@ Future<void> deleteContact({
 Future<({bool success, String? errorCode})> validateRelationshipCreation({
   required String accountId,
   required Session session,
-  LocalRequestSourceDVO? localRequestSource,
+  LocalRequestDVO? request,
 }) async {
-  if (localRequestSource == null || localRequestSource.type != LocalRequestSourceType.RelationshipTemplate) return (success: true, errorCode: null);
+  if (request == null || request.peer.hasRelationship || request.source?.type != LocalRequestSourceType.RelationshipTemplate) {
+    return (success: true, errorCode: null);
+  }
 
-  final response = await session.transportServices.relationships.canCreateRelationship(templateId: localRequestSource.reference);
+  final response = await session.transportServices.relationships.canCreateRelationship(templateId: request.source!.reference);
 
   if (response.value.isSuccess) return (success: true, errorCode: null);
 

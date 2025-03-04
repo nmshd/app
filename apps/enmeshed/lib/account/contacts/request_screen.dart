@@ -44,8 +44,7 @@ class _RequestScreenState extends State<RequestScreen> {
             if (context.mounted) context.go('/account/${widget.accountId}/contacts');
           },
           description: context.l10n.contact_requestDescription,
-          validateCreateRelationship:
-              widget.requestDVO?.source?.type == LocalRequestSourceType.RelationshipTemplate ? _validateCreateRelationship : null,
+          validateCreateRelationship: _validateCreateRelationship,
         ),
       ),
     );
@@ -56,7 +55,7 @@ class _RequestScreenState extends State<RequestScreen> {
 
     final validateRelationshipCreationResponse = await validateRelationshipCreation(
       accountId: widget.accountId,
-      localRequestSource: widget.requestDVO?.source,
+      request: widget.requestDVO,
       session: session,
     );
 

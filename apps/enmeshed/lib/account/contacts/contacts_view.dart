@@ -385,11 +385,7 @@ class _ContactItem extends StatelessWidget {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
     final request = item.openContactRequest!;
 
-    final validateRelationshipCreationResponse = await validateRelationshipCreation(
-      accountId: accountId,
-      localRequestSource: request.source,
-      session: session,
-    );
+    final validateRelationshipCreationResponse = await validateRelationshipCreation(accountId: accountId, request: request, session: session);
 
     if (!context.mounted) return;
 
