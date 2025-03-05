@@ -364,8 +364,7 @@ class _ContactItem extends StatelessWidget {
       request: item.openContactRequest,
       onTap: () => _onTap(context),
       trailing: _TrailingIcon(
-        isRequestExpired: item.openContactRequest?.status == LocalRequestStatus.Expired,
-        isOpenContactRequest: item.openContactRequest != null,
+        request: item.openContactRequest,
         isFavoriteContact: isFavoriteContact,
         onToggleFavorite: () => toggleContactFavorite(contact),
         onDeletePressed: () => _onDeletePressed(context),
@@ -465,25 +464,18 @@ class _EmptyContactsIndicator extends StatelessWidget {
 }
 
 class _TrailingIcon extends StatelessWidget {
-  final bool isRequestExpired;
   final bool isFavoriteContact;
-  final bool isOpenContactRequest;
   final VoidCallback onDeletePressed;
   final VoidCallback onToggleFavorite;
+  final LocalRequestDVO? request;
 
-  const _TrailingIcon({
-    required this.isRequestExpired,
-    required this.isFavoriteContact,
-    required this.isOpenContactRequest,
-    required this.onDeletePressed,
-    required this.onToggleFavorite,
-  });
+  const _TrailingIcon({required this.isFavoriteContact, required this.onDeletePressed, required this.onToggleFavorite, this.request});
 
   @override
   Widget build(BuildContext context) {
-    if (isRequestExpired) return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
+    if (request?.status == LocalRequestStatus.Expired) return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
 
-    if (isOpenContactRequest) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
+    if (request != null) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
 
     return IconButton(
       icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
