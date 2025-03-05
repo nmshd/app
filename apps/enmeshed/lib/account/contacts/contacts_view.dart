@@ -363,12 +363,8 @@ class _ContactItem extends StatelessWidget {
       contact: contact,
       request: item.openContactRequest,
       onTap: () => _onTap(context),
-      trailing: _TrailingIcon(
-        request: item.openContactRequest,
-        isFavoriteContact: isFavoriteContact,
-        onToggleFavorite: () => toggleContactFavorite(contact),
-        onDeletePressed: () => _onDeletePressed(context),
-      ),
+      isFavoriteContact: isFavoriteContact,
+      onToggleFavorite: () => toggleContactFavorite(contact),
       onDeletePressed: _onDeletePressed,
     );
   }
@@ -459,28 +455,6 @@ class _EmptyContactsIndicator extends StatelessWidget {
           child: Text(context.l10n.contacts_addContact),
         ),
       ),
-    );
-  }
-}
-
-class _TrailingIcon extends StatelessWidget {
-  final bool isFavoriteContact;
-  final VoidCallback onDeletePressed;
-  final VoidCallback onToggleFavorite;
-  final LocalRequestDVO? request;
-
-  const _TrailingIcon({required this.isFavoriteContact, required this.onDeletePressed, required this.onToggleFavorite, this.request});
-
-  @override
-  Widget build(BuildContext context) {
-    if (request?.status == LocalRequestStatus.Expired) return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
-
-    if (request != null) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
-
-    return IconButton(
-      icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
-      color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
-      onPressed: onToggleFavorite,
     );
   }
 }
