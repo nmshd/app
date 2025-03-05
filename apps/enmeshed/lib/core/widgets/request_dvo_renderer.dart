@@ -26,6 +26,7 @@ class RequestDVORenderer extends StatefulWidget {
   final bool showHeader;
   final LocalRequestDVO? requestDVO;
   final String? description;
+  final Future<bool> Function()? validateCreateRelationship;
 
   const RequestDVORenderer({
     required this.accountId,
@@ -34,6 +35,7 @@ class RequestDVORenderer extends StatefulWidget {
     required this.acceptRequestText,
     required this.validationErrorDescription,
     required this.onAfterAccept,
+    required this.validateCreateRelationship,
     this.showHeader = true,
     this.requestDVO,
     this.description,
@@ -165,7 +167,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
               children: [
                 OutlinedButton(onPressed: _loading && _request != null ? null : _rejectRequest, child: Text(context.l10n.reject)),
                 Gaps.w8,
-                FilledButton(onPressed: _acceptRequest, child: Text(widget.acceptRequestText)),
+                FilledButton(onPressed: _onAcceptButtonPressed, child: Text(widget.acceptRequestText)),
               ],
             ),
           ),
@@ -193,6 +195,14 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   }
 
   void _setController(Session session, LocalRequestDVO request) => _controller = RequestRendererController(request: request);
+
+  Future<void> _onAcceptButtonPressed() async {
+    final canCreateRelationship = await widget.validateCreateRelationship?.call();
+
+    if (canCreateRelationship == false) return;
+
+    await _acceptRequest();
+  }
 
   Future<void> _acceptRequest() async {
     if (_loading) return;
