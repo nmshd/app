@@ -34,6 +34,11 @@ class ContactStatusText extends StatelessWidget {
 
     if (openContactRequest != null) {
       final status = openContactRequest!.status;
+
+      if (contact.hasRelationship) {
+        return Text(context.l10n.contacts_openRequests, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.secondary));
+      }
+
       if (status == LocalRequestStatus.ManualDecisionRequired) {
         return Text(context.l10n.contacts_notYetRequested, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.secondary));
       }

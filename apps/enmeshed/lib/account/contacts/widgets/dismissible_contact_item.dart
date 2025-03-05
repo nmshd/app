@@ -8,6 +8,7 @@ class DismissibleContactItem extends StatefulWidget {
   final IdentityDVO contact;
   final VoidCallback onTap;
   final void Function(BuildContext) onDeletePressed;
+  final LocalRequestDVO? request;
   final Widget? trailing;
   final Widget? subtitle;
   final String? query;
@@ -17,6 +18,7 @@ class DismissibleContactItem extends StatefulWidget {
     required this.contact,
     required this.onTap,
     required this.onDeletePressed,
+    this.request,
     this.trailing,
     this.subtitle,
     this.query,
@@ -52,9 +54,19 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
 
   @override
   Widget build(BuildContext context) {
+    Text? subtitle;
+
     final coloringStatus = [RelationshipStatus.Terminated, RelationshipStatus.DeletionProposed];
+
+    if (widget.request?.status == LocalRequestStatus.Expired) {
+      subtitle = Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error));
+    } else if (widget.contact.hasRelationship && widget.request != null) {
+      subtitle = Text(context.l10n.contacts_openRequests, style: TextStyle(color: Theme.of(context).colorScheme.secondary));
+    }
+
     final tileColor =
-        widget.contact.relationship == null || coloringStatus.contains(widget.contact.relationship!.status)
+        (widget.contact.relationship == null && widget.request?.status != LocalRequestStatus.Expired) ||
+                coloringStatus.contains(widget.contact.relationship?.status)
             ? Theme.of(context).colorScheme.primaryContainer
             : null;
 
@@ -87,7 +99,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
               _slidableController.close();
             },
             trailing: widget.trailing,
-            subtitle: widget.subtitle,
+            subtitle: widget.subtitle ?? subtitle,
             query: widget.query,
             iconSize: widget.iconSize,
           ),
