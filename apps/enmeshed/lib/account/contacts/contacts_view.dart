@@ -217,10 +217,11 @@ class _ContactsViewState extends State<ContactsView> {
     final relationships = await getContacts(session: session);
     final requests = await incomingOpenRequestsFromRelationshipTemplate(session: session);
 
-    final requestsAndRelationships = [
-      ...relationships.map((contact) => (contact: contact, openContactRequest: null)),
-      ...requests.map((request) => (contact: request.peer, openContactRequest: request)),
-    ];
+    final requestsAndRelationships =
+        {
+          for (final contact in relationships) contact.id: (contact: contact, openContactRequest: null),
+          for (final request in requests) request.peer.id: (contact: request.peer, openContactRequest: request),
+        }.values.toList();
 
     final templateReferences = <PublicRelationshipTemplateReferenceDTO>[];
     final referencesResult = await session.transportServices.publicRelationshipTemplateReferences.getPublicRelationshipTemplateReferences();
