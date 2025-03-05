@@ -302,6 +302,9 @@ class _ContactsViewState extends State<ContactsView> {
 
     final filteredContacts =
         _contacts!.where((contact) {
+            if (contact.requiresAttention && selectedFilterOptions.contains(const ActionRequiredContactsFilterOption())) {
+              return true;
+            }
             return switch (contact.contact.relationship?.status) {
               RelationshipStatus.Terminated => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
               RelationshipStatus.DeletionProposed => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
