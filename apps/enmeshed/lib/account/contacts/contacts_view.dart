@@ -28,19 +28,6 @@ class ContactsView extends StatefulWidget {
   State<ContactsView> createState() => _ContactsViewState();
 }
 
-typedef RequestOrRelationship = ({IdentityDVO contact, LocalRequestDVO? openContactRequest});
-
-extension on RequestOrRelationship {
-  bool get requiresAttention {
-    if (openContactRequest != null) return true;
-
-    return switch (contact.relationship?.status) {
-      null || RelationshipStatus.Terminated || RelationshipStatus.DeletionProposed => true,
-      _ => false,
-    };
-  }
-}
-
 class _ContactsViewState extends State<ContactsView> {
   late List<IdentityDVO> _relationships;
 
@@ -360,8 +347,7 @@ class _ContactItem extends StatelessWidget {
     final contact = item.contact;
 
     return DismissibleContactItem(
-      contact: contact,
-      request: item.openContactRequest,
+      item: item,
       onTap: () => _onTap(context),
       isFavoriteContact: isFavoriteContact,
       onToggleFavorite: () => toggleContactFavorite(contact),
