@@ -9,6 +9,8 @@ class DismissibleContactItem extends StatefulWidget {
   final RequestOrRelationship item;
   final VoidCallback onTap;
   final void Function(BuildContext) onDeletePressed;
+  final bool isFavoriteContact;
+  final VoidCallback onToggleFavorite;
   final Widget? trailing;
   final String? query;
   final int iconSize;
@@ -17,6 +19,8 @@ class DismissibleContactItem extends StatefulWidget {
     required this.item,
     required this.onTap,
     required this.onDeletePressed,
+    required this.isFavoriteContact,
+    required this.onToggleFavorite,
     this.trailing,
     this.query,
     this.iconSize = 56,
@@ -83,7 +87,14 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
               widget.onTap();
               _slidableController.close();
             },
-            trailing: widget.trailing,
+            trailing:
+                widget.trailing ??
+                _TrailingIcon(
+                  request: widget.item.openContactRequest,
+                  isFavoriteContact: widget.isFavoriteContact,
+                  onToggleFavorite: widget.onToggleFavorite,
+                  onDeletePressed: () => widget.onDeletePressed,
+                ),
             subtitle:
                 widget.item.contact.relationship?.status == RelationshipStatus.Active && widget.item.contact.relationship?.peerDeletionStatus == null
                     ? null
@@ -93,6 +104,28 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
           ),
         ),
       ),
+    );
+  }
+}
+
+class _TrailingIcon extends StatelessWidget {
+  final bool isFavoriteContact;
+  final VoidCallback onDeletePressed;
+  final VoidCallback onToggleFavorite;
+  final LocalRequestDVO? request;
+
+  const _TrailingIcon({required this.isFavoriteContact, required this.onDeletePressed, required this.onToggleFavorite, this.request});
+
+  @override
+  Widget build(BuildContext context) {
+    if (request?.status == LocalRequestStatus.Expired) return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
+
+    if (request != null) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
+
+    return IconButton(
+      icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
+      color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
+      onPressed: onToggleFavorite,
     );
   }
 }

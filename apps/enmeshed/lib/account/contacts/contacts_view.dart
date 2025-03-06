@@ -349,28 +349,37 @@ class _ContactItem extends StatelessWidget {
     return DismissibleContactItem(
       item: item,
       onTap: () => _onTap(context),
-      trailing:
-          item.openContactRequest != null
-              ? const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit))
-              : IconButton(
-                icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
-                color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
-                onPressed: () => toggleContactFavorite(contact),
-              ),
+      isFavoriteContact: isFavoriteContact,
+      onToggleFavorite: () => toggleContactFavorite(contact),
       onDeletePressed: _onDeletePressed,
     );
   }
 
-  void _onTap(BuildContext context) {
+  Future<void> _onTap(BuildContext context) async {
     final contact = item.contact;
 
     if (item.openContactRequest == null) {
-      context.push('/account/$accountId/contacts/${contact.id}');
+      unawaited(context.push('/account/$accountId/contacts/${contact.id}'));
       return;
     }
 
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
     final request = item.openContactRequest!;
-    context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
+
+    final validateRelationshipCreationResponse = await validateRelationshipCreation(accountId: accountId, request: request, session: session);
+
+    if (!context.mounted) return;
+
+    if (validateRelationshipCreationResponse.success) return context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
+
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => CreateRelationshipErrorDialog(errorCode: validateRelationshipCreationResponse.errorCode!),
+    );
+
+    if (!context.mounted) return;
+
+    if (result ?? false) await _onDeletePressed(context);
   }
 
   Future<void> _onDeletePressed(BuildContext context) async {
@@ -382,6 +391,20 @@ class _ContactItem extends StatelessWidget {
     }
 
     final request = item.openContactRequest!;
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
+
+    if (request.status == LocalRequestStatus.Expired) {
+      final deleteResult = await session.consumptionServices.incomingRequests.delete(requestId: request.id);
+
+      if (deleteResult.isError) {
+        GetIt.I.get<Logger>().e(deleteResult.error);
+
+        if (!context.mounted) return;
+
+        showErrorSnackbar(context: context, text: context.l10n.error_deleteRequestFailed);
+      }
+      return;
+    }
 
     final rejectItems = List<DecideRequestParametersItem>.from(
       request.items.map((e) {
@@ -396,7 +419,6 @@ class _ContactItem extends StatelessWidget {
 
     final rejectParams = DecideRequestParameters(requestId: request.id, items: rejectItems);
 
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
     final result = await session.consumptionServices.incomingRequests.reject(params: rejectParams);
     if (result.isError) GetIt.I.get<Logger>().e(result.error);
   }
