@@ -1,5 +1,6 @@
 export 'contact_circle_avatar.dart';
 export 'contact_item.dart';
+export 'contact_status_text.dart';
 export 'custom_success_icon.dart';
 export 'empty_list_indicator.dart';
 export 'file_chooser.dart';
