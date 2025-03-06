@@ -88,11 +88,6 @@ Future<List<LocalRequestDVO>> incomingOpenRequestsFromRelationshipTemplate({requ
         LocalRequestStatus.ManualDecisionRequired.name,
         LocalRequestStatus.Expired.name,
       ]),
-      'status': QueryValue.stringList([
-        LocalRequestStatus.DecisionRequired.name,
-        LocalRequestStatus.ManualDecisionRequired.name,
-        LocalRequestStatus.Expired.name,
-      ]),
       'source.type': QueryValue.string(LocalRequestSourceType.RelationshipTemplate.name),
     },
   );
