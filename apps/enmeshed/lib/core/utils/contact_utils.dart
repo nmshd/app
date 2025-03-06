@@ -1,6 +1,5 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -169,19 +168,4 @@ Future<({bool success, String? errorCode})> validateRelationshipCreation({
   final failureResponse = response.value as CanCreateRelationshipFailureResponse;
 
   return (success: false, errorCode: failureResponse.code);
-}
-
-Color? getCircularAvatarBorderColor({required BuildContext context, required IdentityDVO contact, LocalRequestDVO? openContactRequest}) {
-  if (openContactRequest != null ||
-      contact.relationship?.peerDeletionStatus == PeerDeletionStatus.Deleted ||
-      contact.relationship?.status == RelationshipStatus.Terminated ||
-      contact.relationship?.status == RelationshipStatus.DeletionProposed) {
-    return Theme.of(context).colorScheme.error;
-  }
-
-  if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.ToBeDeleted) return context.customColors.warning;
-
-  if (contact.relationship?.status == RelationshipStatus.Pending) return Theme.of(context).colorScheme.secondary;
-
-  return null;
 }

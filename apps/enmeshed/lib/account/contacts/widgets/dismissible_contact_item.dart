@@ -77,12 +77,8 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
           elevation: _isOpen ? 3 : 0,
           shadowColor: Theme.of(context).colorScheme.shadow,
           child: ContactItem(
-            circularAvatarBorderColor: getCircularAvatarBorderColor(
-              context: context,
-              contact: widget.item.contact,
-              openContactRequest: widget.item.openContactRequest,
-            ),
             contact: widget.item.contact,
+            openContactRequest: widget.item.openContactRequest,
             onTap: () {
               widget.onTap();
               _slidableController.close();
