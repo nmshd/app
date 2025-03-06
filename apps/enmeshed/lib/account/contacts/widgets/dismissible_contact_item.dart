@@ -89,7 +89,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
                   request: widget.item.openContactRequest,
                   isFavoriteContact: widget.isFavoriteContact,
                   onToggleFavorite: widget.onToggleFavorite,
-                  onDeletePressed: () => widget.onDeletePressed,
+                  onDeletePressed: () => widget.onDeletePressed(context),
                 ),
             subtitle:
                 widget.item.contact.relationship?.status == RelationshipStatus.Active && widget.item.contact.relationship?.peerDeletionStatus == null
