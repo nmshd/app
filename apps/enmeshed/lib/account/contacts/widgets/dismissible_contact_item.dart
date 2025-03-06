@@ -8,6 +8,9 @@ class DismissibleContactItem extends StatefulWidget {
   final IdentityDVO contact;
   final VoidCallback onTap;
   final void Function(BuildContext) onDeletePressed;
+  final bool isFavoriteContact;
+  final VoidCallback onToggleFavorite;
+  final LocalRequestDVO? request;
   final Widget? trailing;
   final Widget? subtitle;
   final String? query;
@@ -17,6 +20,9 @@ class DismissibleContactItem extends StatefulWidget {
     required this.contact,
     required this.onTap,
     required this.onDeletePressed,
+    required this.isFavoriteContact,
+    required this.onToggleFavorite,
+    this.request,
     this.trailing,
     this.subtitle,
     this.query,
@@ -53,8 +59,15 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
   @override
   Widget build(BuildContext context) {
     final coloringStatus = [RelationshipStatus.Terminated, RelationshipStatus.DeletionProposed];
+
+    final subtitle =
+        widget.request?.status == LocalRequestStatus.Expired
+            ? Text(context.l10n.contacts_requestExpired, style: TextStyle(color: Theme.of(context).colorScheme.error))
+            : null;
+
     final tileColor =
-        widget.contact.relationship == null || coloringStatus.contains(widget.contact.relationship!.status)
+        (widget.contact.relationship == null && widget.request?.status != LocalRequestStatus.Expired) ||
+                coloringStatus.contains(widget.contact.relationship?.status)
             ? Theme.of(context).colorScheme.primaryContainer
             : null;
 
@@ -86,13 +99,42 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
               widget.onTap();
               _slidableController.close();
             },
-            trailing: widget.trailing,
-            subtitle: widget.subtitle,
+            trailing:
+                widget.trailing ??
+                _TrailingIcon(
+                  request: widget.request,
+                  isFavoriteContact: widget.isFavoriteContact,
+                  onToggleFavorite: widget.onToggleFavorite,
+                  onDeletePressed: () => widget.onDeletePressed,
+                ),
+            subtitle: widget.subtitle ?? subtitle,
             query: widget.query,
             iconSize: widget.iconSize,
           ),
         ),
       ),
+    );
+  }
+}
+
+class _TrailingIcon extends StatelessWidget {
+  final bool isFavoriteContact;
+  final VoidCallback onDeletePressed;
+  final VoidCallback onToggleFavorite;
+  final LocalRequestDVO? request;
+
+  const _TrailingIcon({required this.isFavoriteContact, required this.onDeletePressed, required this.onToggleFavorite, this.request});
+
+  @override
+  Widget build(BuildContext context) {
+    if (request?.status == LocalRequestStatus.Expired) return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
+
+    if (request != null) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
+
+    return IconButton(
+      icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
+      color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
+      onPressed: onToggleFavorite,
     );
   }
 }
