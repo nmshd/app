@@ -58,7 +58,7 @@ void main() {
     });
 
     test('parsed valid AuthenticationRequestItem', () {
-      final requestItemJson = {'@type': 'AuthenticationRequestItem', 'mustBeAccepted': true};
+      final requestItemJson = {'@type': 'AuthenticationRequestItem', 'title': 'aTitle', 'mustBeAccepted': true};
 
       final requestItem = RequestItemDerivation.fromJson(requestItemJson);
       expect(requestItem, isA<AuthenticationRequestItem>());
