@@ -208,6 +208,7 @@ AuthenticationRequestItemDVO _$AuthenticationRequestItemDVOFromJson(Map<String, 
   isDecidable: json['isDecidable'] as bool,
   response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
   requireManualDecision: json['requireManualDecision'] as bool?,
+  title: json['title'] as String,
 );
 
 Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestItemDVO instance) => <String, dynamic>{
@@ -223,6 +224,7 @@ Map<String, dynamic> _$AuthenticationRequestItemDVOToJson(AuthenticationRequestI
   if (instance.response?.toJson() case final value?) 'response': value,
   'mustBeAccepted': instance.mustBeAccepted,
   if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+  'title': instance.title,
 };
 
 ConsentRequestItemDVO _$ConsentRequestItemDVOFromJson(Map<String, dynamic> json) => ConsentRequestItemDVO(
@@ -480,6 +482,7 @@ DecidableAuthenticationRequestItemDVO _$DecidableAuthenticationRequestItemDVOFro
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
       requireManualDecision: json['requireManualDecision'] as bool?,
+      title: json['title'] as String,
     );
 
 Map<String, dynamic> _$DecidableAuthenticationRequestItemDVOToJson(DecidableAuthenticationRequestItemDVO instance) => <String, dynamic>{
@@ -493,6 +496,7 @@ Map<String, dynamic> _$DecidableAuthenticationRequestItemDVOToJson(DecidableAuth
   if (instance.warning?.toJson() case final value?) 'warning': value,
   'mustBeAccepted': instance.mustBeAccepted,
   if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+  'title': instance.title,
 };
 
 DecidableConsentRequestItemDVO _$DecidableConsentRequestItemDVOFromJson(Map<String, dynamic> json) => DecidableConsentRequestItemDVO(
