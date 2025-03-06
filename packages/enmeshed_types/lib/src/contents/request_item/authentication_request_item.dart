@@ -1,13 +1,17 @@
 part of 'request_item.dart';
 
 class AuthenticationRequestItem extends RequestItemDerivation {
+  @override
+  // ignore: overridden_fields
+  final String title;
+
   const AuthenticationRequestItem({
-    required String title,
+    required this.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,
     super.requireManualDecision,
-  }) : super(title: title);
+  });
 
   factory AuthenticationRequestItem.fromJson(Map json) {
     return AuthenticationRequestItem(
