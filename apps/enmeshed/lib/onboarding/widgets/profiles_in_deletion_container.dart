@@ -44,7 +44,16 @@ class _ProfilesInDeletionContainerState extends State<ProfilesInDeletionContaine
               tooltip: context.l10n.identity_restore,
             ),
           ),
-        DeleteDataNowCard(onDeleted: widget.onDeleted, accountsInDeletion: widget.accountsInDeletion),
+        ComplexInformationCard(
+          title: context.l10n.profile_localDeletion_title,
+          description: context.l10n.profile_localDeletion_card_description,
+          icon: Icon(Icons.error, color: Theme.of(context).colorScheme.error),
+          actionButtons: OutlinedButton.icon(
+            onPressed: () => showDeleteLocalDataModal(context: context, accountsInDeletion: widget.accountsInDeletion, onDeleted: widget.onDeleted),
+            label: Text(context.l10n.profile_localDeletion_card_button),
+            icon: const Icon(Icons.delete_forever_outlined),
+          ),
+        ),
       ],
     );
   }
