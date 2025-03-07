@@ -11,7 +11,6 @@ class DismissibleContactItem extends StatefulWidget {
   final bool isFavoriteContact;
   final VoidCallback onToggleFavorite;
   final LocalRequestDVO? request;
-  final LocalRequestDVO? request;
   final Widget? trailing;
   final Widget? subtitle;
   final String? query;
