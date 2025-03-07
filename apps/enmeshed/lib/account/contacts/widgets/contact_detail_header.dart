@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
-import 'widgets.dart';
 
 class ContactDetailHeader extends StatelessWidget {
   final IdentityDVO contact;
