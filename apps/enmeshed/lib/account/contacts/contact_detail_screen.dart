@@ -207,7 +207,7 @@ class _OpenRequestsContainer extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.info, color: Theme.of(context).primaryColor),
+                  Icon(Icons.info, color: Theme.of(context).colorScheme.secondary),
                   Gaps.w8,
                   Expanded(child: Text(context.l10n.contactDetail_openRequestsTitle, style: Theme.of(context).textTheme.bodyMedium)),
                 ],
