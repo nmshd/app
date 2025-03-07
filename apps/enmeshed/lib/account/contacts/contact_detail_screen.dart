@@ -91,7 +91,14 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
               children: [
                 ContactDetailHeader(contact: contact),
                 ContactStatusInfoContainer(contact: contact),
-                if (_openRequests != null && _openRequests!.isNotEmpty) _OpenRequestsContainer(onButtonPressed: () {}),
+                if (_openRequests != null && _openRequests!.isNotEmpty)
+                  _OpenRequestsContainer(
+                    onButtonPressed:
+                        () => context.push(
+                          '/account/${widget.accountId}/contacts/contact-request/${_openRequests!.first.id}',
+                          extra: _openRequests!.first,
+                        ),
+                  ),
                 ContactDetailIconBar(
                   session: _session,
                   accountId: widget.accountId,
