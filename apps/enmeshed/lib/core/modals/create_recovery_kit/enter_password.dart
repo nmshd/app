@@ -3,6 +3,7 @@ import 'dart:math' show max;
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
+import '../../cards/cards.dart';
 import '../../utils/extensions.dart';
 import '../../widgets/widgets.dart';
 
@@ -70,7 +71,11 @@ class _EnterPasswordState extends State<EnterPassword> {
                           children: [
                             Text(context.l10n.identityRecovery_passwordDescription),
                             Gaps.h24,
-                            InformationContainer(title: context.l10n.identityRecovery_passwordAttention, warning: false),
+                            InformationCard(
+                              title: context.l10n.identityRecovery_passwordAttention,
+                              icon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
+                              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                            ),
                             Gaps.h36,
                             _PasswordTextField(
                               controller: _passwordController,
