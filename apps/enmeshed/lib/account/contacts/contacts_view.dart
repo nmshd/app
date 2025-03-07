@@ -96,9 +96,16 @@ class _ContactsViewState extends State<ContactsView> {
             ),
           if (!widget.contactsFilterController.isContactsFilterSet && _getNumberOfContactsRequiringAttention() > 0)
             SliverToBoxAdapter(
-              child: AttentionRequiredBanner(
-                numberOfContactsRequiringAttention: _getNumberOfContactsRequiringAttention(),
-                showContactsRequiringAttention: () => widget.contactsFilterController.value = {const ActionRequiredContactsFilterOption()},
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: BannerCard(
+                  title: context.l10n.contacts_require_attention(_getNumberOfContactsRequiringAttention()),
+                  type: BannerCardType.info,
+                  actionButton: (
+                    onPressed: () => widget.contactsFilterController.value = {const ActionRequiredContactsFilterOption()},
+                    title: context.l10n.show,
+                  ),
+                ),
               ),
             ),
           if (_favorites.isNotEmpty && !widget.contactsFilterController.isContactsFilterSet) ...[

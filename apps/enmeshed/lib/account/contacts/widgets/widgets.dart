@@ -1,4 +1,3 @@
-export 'attention_required_banner.dart';
 export 'contact_detail_header.dart';
 export 'contact_detail_icon_bar.dart';
 export 'contact_detail_shared_information.dart';

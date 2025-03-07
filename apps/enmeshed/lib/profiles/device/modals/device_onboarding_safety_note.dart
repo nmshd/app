@@ -19,23 +19,7 @@ class DeviceOnboardingSafetyNote extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  borderRadius: const BorderRadius.all(Radius.circular(6)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(Icons.security, color: Theme.of(context).colorScheme.secondary, size: 40),
-                      Gaps.w8,
-                      Expanded(child: Text(context.l10n.qrSafetyInformation)),
-                    ],
-                  ),
-                ),
-              ),
+              InformationCard(title: context.l10n.qrSafetyInformation, backgroundColor: Theme.of(context).colorScheme.primaryContainer),
               Gaps.h32,
               Text(context.l10n.qrSafetyInformation_preparation),
               Gaps.h12,
