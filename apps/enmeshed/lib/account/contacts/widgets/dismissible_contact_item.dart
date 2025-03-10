@@ -86,7 +86,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
             trailing:
                 widget.trailing ??
                 _TrailingIcon(
-                  request: widget.item.openContactRequest,
+                  item: widget.item,
                   isFavoriteContact: widget.isFavoriteContact,
                   onToggleFavorite: widget.onToggleFavorite,
                   onDeletePressed: () => widget.onDeletePressed(context),
@@ -108,15 +108,17 @@ class _TrailingIcon extends StatelessWidget {
   final bool isFavoriteContact;
   final VoidCallback onDeletePressed;
   final VoidCallback onToggleFavorite;
-  final LocalRequestDVO? request;
+  final RequestOrRelationship item;
 
-  const _TrailingIcon({required this.isFavoriteContact, required this.onDeletePressed, required this.onToggleFavorite, this.request});
+  const _TrailingIcon({required this.isFavoriteContact, required this.onDeletePressed, required this.onToggleFavorite, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    if (request?.status == LocalRequestStatus.Expired) return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
+    if (item.openContactRequest?.status == LocalRequestStatus.Expired) {
+      return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
+    }
 
-    if (request != null) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
+    if (item.openContactRequest != null && !item.contact.hasRelationship) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
 
     return IconButton(
       icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
