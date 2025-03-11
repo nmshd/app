@@ -49,8 +49,7 @@ class ContactItem extends StatelessWidget {
   }
 
   Color? _getCircularAvatarBorderColor({required BuildContext context, required IdentityDVO contact, LocalRequestDVO? openContactRequest}) {
-    if (openContactRequest != null ||
-        contact.relationship?.peerDeletionStatus == PeerDeletionStatus.Deleted ||
+    if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.Deleted ||
         contact.relationship?.status == RelationshipStatus.Terminated ||
         contact.relationship?.status == RelationshipStatus.DeletionProposed) {
       return Theme.of(context).colorScheme.error;
@@ -58,7 +57,9 @@ class ContactItem extends StatelessWidget {
 
     if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.ToBeDeleted) return context.customColors.warning;
 
-    if (contact.relationship?.status == RelationshipStatus.Pending) return Theme.of(context).colorScheme.secondary;
+    if (contact.relationship?.status == RelationshipStatus.Pending || (openContactRequest?.peer.hasRelationship ?? false)) {
+      return Theme.of(context).colorScheme.secondary;
+    }
 
     return null;
   }
