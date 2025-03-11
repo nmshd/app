@@ -210,7 +210,6 @@ Future<LocalAttributeDTO> exchangeRelationshipAttribute(
     key: 'aKey',
     confidentiality: RelationshipAttributeConfidentiality.public,
     isTechnical: isTechnical,
-    validTo: validTo,
     peer: recipientAddress,
   );
   final request = requestResult.value;

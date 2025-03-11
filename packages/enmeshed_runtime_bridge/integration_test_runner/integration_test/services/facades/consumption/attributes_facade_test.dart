@@ -1067,7 +1067,6 @@ void run(EnmeshedRuntime runtime) {
               value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aProprietaryStringValue'),
               key: 'website',
               confidentiality: RelationshipAttributeConfidentiality.public,
-              validTo: generateExpiryString(),
             ),
           ),
         ]),
@@ -1120,7 +1119,7 @@ void run(EnmeshedRuntime runtime) {
       expect(succeededAttribute.predecessor.content.toJson()['value']['value'], attribute.content.toJson()['value']['value']);
     });
 
-    test('should succeed an identity attribute with properties "tags", "validFrom" and "validTo"', () async {
+    test('should succeed an identity attribute with properties "tags"', () async {
       final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const SurnameAttributeValue(value: 'aSurname'),
       );
@@ -1130,8 +1129,6 @@ void run(EnmeshedRuntime runtime) {
         predecessorId: attribute.id,
         value: const SurnameAttributeValue(value: 'aNewSurname'),
         tags: ['tag1', 'tag2', 'tag3'],
-        validFrom: DateTime(2023).toRuntimeIsoString(),
-        validTo: DateTime(2025).toRuntimeIsoString(),
       );
       final succeededAttribute = succeededAttributeResult.value;
 
@@ -1139,8 +1136,6 @@ void run(EnmeshedRuntime runtime) {
       expect(succeededAttribute.successor.content.toJson()['@type'], 'IdentityAttribute');
       expect(succeededAttribute.successor.content.toJson()['value']['value'], 'aNewSurname');
       expect(succeededAttribute.successor.content.toJson()['tags'], ['tag1', 'tag2', 'tag3']);
-      expect(succeededAttribute.successor.content.toJson()['validFrom'], DateTime(2023).toRuntimeIsoString());
-      expect(succeededAttribute.successor.content.toJson()['validTo'], DateTime(2025).toRuntimeIsoString());
     });
   });
 
@@ -1335,8 +1330,6 @@ void run(EnmeshedRuntime runtime) {
         confidentiality: RelationshipAttributeConfidentiality.public,
         peer: recipientAddress,
         isTechnical: true,
-        validFrom: '2023',
-        validTo: '2025',
         requestMetadata: (
           title: 'aRequestTitle',
           description: 'aRequestDescription',
@@ -1439,8 +1432,6 @@ void run(EnmeshedRuntime runtime) {
       final result = await sender.consumptionServices.attributes.succeedRelationshipAttributeAndNotifyPeer(
         predecessorId: senderOwnSharedAttribute.id,
         value: succeededAttributeValue,
-        validFrom: DateTime(2023).toRuntimeIsoString(),
-        validTo: DateTime(2025).toRuntimeIsoString(),
       );
 
       expect(result, isSuccessful<SucceedRelationshipAttributeAndNotifyPeerResponse>());
@@ -1460,8 +1451,6 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientSuccessor.succeeds, recipientPredecessor.id);
       expect(senderPredecessor.succeededBy, senderSuccessor.id);
       expect(recipientPredecessor.succeededBy, recipientSuccessor.id);
-      expect(recipientSuccessor.content.toJson()['validFrom'], DateTime(2023).toRuntimeIsoString());
-      expect(recipientSuccessor.content.toJson()['validTo'], DateTime(2025).toRuntimeIsoString());
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
 
