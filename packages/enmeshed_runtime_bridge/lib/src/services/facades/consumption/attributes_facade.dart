@@ -46,7 +46,6 @@ class AttributesFacade {
   Future<Result<List<LocalAttributeDTO>>> getPeerSharedAttributes({
     required String peer,
     Map<String, QueryValue>? query,
-    bool? onlyValid,
     bool? hideTechnical,
     bool? onlyLatestVersions,
   }) async {
@@ -57,7 +56,6 @@ class AttributesFacade {
       arguments: {
         'request': {
           'peer': peer,
-          if (onlyValid != null) 'onlyValid': onlyValid,
           if (hideTechnical != null) 'hideTechnical': hideTechnical,
           if (query != null) 'query': query.toJson(),
           if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
@@ -72,7 +70,6 @@ class AttributesFacade {
   Future<Result<List<LocalAttributeDTO>>> getOwnSharedAttributes({
     required String peer,
     Map<String, QueryValue>? query,
-    bool? onlyValid,
     bool? hideTechnical,
     bool? onlyLatestVersions,
   }) async {
@@ -83,7 +80,6 @@ class AttributesFacade {
       arguments: {
         'request': {
           'peer': peer,
-          if (onlyValid != null) 'onlyValid': onlyValid,
           if (hideTechnical != null) 'hideTechnical': hideTechnical,
           if (query != null) 'query': query.toJson(),
           if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
@@ -123,17 +119,13 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
-  Future<Result<List<LocalAttributeDTO>>> getAttributes({Map<String, QueryValue>? query, bool? onlyValid, bool? hideTechnical}) async {
+  Future<Result<List<LocalAttributeDTO>>> getAttributes({Map<String, QueryValue>? query, bool? hideTechnical}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.getAttributes(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (query != null) 'query': query.toJson(),
-          if (onlyValid != null) 'onlyValid': onlyValid,
-          if (hideTechnical != null) 'hideTechnical': hideTechnical,
-        },
+        'request': {if (query != null) 'query': query.toJson(), if (hideTechnical != null) 'hideTechnical': hideTechnical},
       },
     );
 
