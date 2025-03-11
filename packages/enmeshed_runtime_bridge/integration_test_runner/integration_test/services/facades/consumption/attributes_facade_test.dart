@@ -111,52 +111,16 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientAttributesResult.value.length, 1);
     });
 
-    test('should return just valid peer shared when onlyValid=true', () async {
-      await exchangeRelationshipAttribute(
-        sender,
-        recipient,
-        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        validTo: DateTime.now().toRuntimeIsoString(),
-      );
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(
-        peer: account1.address!,
-        onlyValid: true,
-      );
-
-      expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(recipientAttributesResult.value.length, 0);
-    });
-
-    test('should return also expired peer shared when onlyValid=false', () async {
-      await exchangeRelationshipAttribute(
-        sender,
-        recipient,
-        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        validTo: DateTime.now().toRuntimeIsoString(),
-      );
-
-      final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(
-        peer: account1.address!,
-        onlyValid: false,
-      );
-
-      expect(recipientAttributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(recipientAttributesResult.value.length, 1);
-    });
-
     test('should return a valid list of LocalAttributeDTOs with all properties', () async {
       await exchangeRelationshipAttribute(
         sender,
         recipient,
         const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        validTo: DateTime.now().toRuntimeIsoString(),
         isTechnical: true,
       );
 
       final recipientAttributesResult = await recipient.consumptionServices.attributes.getPeerSharedAttributes(
         peer: account1.address!,
-        onlyValid: true,
         hideTechnical: true,
       );
 
@@ -223,50 +187,6 @@ void run(EnmeshedRuntime runtime) {
       expect(sharedToPeerAttributeResult.value.first.shareInfo?.peer, peer);
     });
 
-    test('should return just valid own shared attributes when onlyValid=true', () async {
-      final peer = account2.address!;
-
-      await exchangeRelationshipAttribute(
-        sender,
-        recipient,
-        const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        validTo: DateTime.now().toRuntimeIsoString(),
-      );
-
-      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getOwnSharedAttributes(
-        peer: peer,
-        onlyValid: true,
-      );
-
-      expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(sharedToPeerAttributeResult.value.length, 0);
-    });
-
-    test('should return also expired own shared attributes when onlyValid=false', () async {
-      final peer = account2.address!;
-
-      final sharedproprietaryBoolean = await exchangeRelationshipAttribute(
-        sender,
-        recipient,
-        const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        validTo: DateTime.now().toRuntimeIsoString(),
-      );
-
-      final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getOwnSharedAttributes(
-        peer: peer,
-        onlyValid: false,
-      );
-
-      expect(sharedToPeerAttributeResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(sharedToPeerAttributeResult.value.length, 1);
-
-      expect(
-        sharedToPeerAttributeResult.value.first.content.toJson()['value'],
-        sharedproprietaryBoolean.contentAsRelationshipAttribute.value.toJson(),
-      );
-      expect(sharedToPeerAttributeResult.value.first.shareInfo?.peer, peer);
-    });
-
     test('should return a valid list of non technical LocalAttributeDTOs with all properties', () async {
       final peer = account2.address!;
 
@@ -274,13 +194,11 @@ void run(EnmeshedRuntime runtime) {
         sender,
         recipient,
         const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        validTo: DateTime.now().toRuntimeIsoString(),
         isTechnical: true,
       );
 
       final sharedToPeerAttributeResult = await sender.consumptionServices.attributes.getOwnSharedAttributes(
         peer: peer,
-        onlyValid: true,
         hideTechnical: true,
       );
 
@@ -397,49 +315,17 @@ void run(EnmeshedRuntime runtime) {
       expect(attributesResult.value.length, 2);
     });
 
-    test('should return just valid attributes when onlyValid=true', () async {
-      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
-      await exchangeRelationshipAttribute(
-        sender,
-        recipient,
-        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        validTo: DateTime.now().toRuntimeIsoString(),
-      );
-
-      final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: true);
-
-      expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 1);
-    });
-
-    test('should return also expired attributes when onlyValid=false', () async {
-      await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
-      await exchangeRelationshipAttribute(
-        sender,
-        recipient,
-        const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        validTo: DateTime.now().toRuntimeIsoString(),
-      );
-
-      final attributesResult = await sender.consumptionServices.attributes.getAttributes(onlyValid: false);
-
-      expect(attributesResult, isSuccessful<List<LocalAttributeDTO>>());
-      expect(attributesResult.value.length, 2);
-    });
-
     test('should return a valid list of LocalAttributeDTOs with all properties', () async {
       await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await exchangeRelationshipAttribute(
         sender,
         recipient,
         const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        validTo: DateTime.now().toRuntimeIsoString(),
         isTechnical: true,
       );
 
       final attributesResult = await sender.consumptionServices.attributes.getAttributes(
         query: {'content.value.@type': QueryValue.string('Surname')},
-        onlyValid: true,
         hideTechnical: true,
       );
 
@@ -1067,7 +953,6 @@ void run(EnmeshedRuntime runtime) {
               value: const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aProprietaryStringValue'),
               key: 'website',
               confidentiality: RelationshipAttributeConfidentiality.public,
-              validTo: generateExpiryString(),
             ),
           ),
         ]),
@@ -1120,7 +1005,7 @@ void run(EnmeshedRuntime runtime) {
       expect(succeededAttribute.predecessor.content.toJson()['value']['value'], attribute.content.toJson()['value']['value']);
     });
 
-    test('should succeed an identity attribute with properties "tags", "validFrom" and "validTo"', () async {
+    test('should succeed an identity attribute with property "tags"', () async {
       final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const SurnameAttributeValue(value: 'aSurname'),
       );
@@ -1129,18 +1014,14 @@ void run(EnmeshedRuntime runtime) {
       final succeededAttributeResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
         predecessorId: attribute.id,
         value: const SurnameAttributeValue(value: 'aNewSurname'),
-        tags: ['tag1', 'tag2', 'tag3'],
-        validFrom: DateTime(2023).toRuntimeIsoString(),
-        validTo: DateTime(2025).toRuntimeIsoString(),
+        tags: ['x+%+tag1', 'x+%+tag2', 'x+%+tag3'],
       );
       final succeededAttribute = succeededAttributeResult.value;
 
       expect(succeededAttributeResult, isSuccessful<SucceedRepositoryAttributeResponse>());
       expect(succeededAttribute.successor.content.toJson()['@type'], 'IdentityAttribute');
       expect(succeededAttribute.successor.content.toJson()['value']['value'], 'aNewSurname');
-      expect(succeededAttribute.successor.content.toJson()['tags'], ['tag1', 'tag2', 'tag3']);
-      expect(succeededAttribute.successor.content.toJson()['validFrom'], DateTime(2023).toRuntimeIsoString());
-      expect(succeededAttribute.successor.content.toJson()['validTo'], DateTime(2025).toRuntimeIsoString());
+      expect(succeededAttribute.successor.content.toJson()['tags'], ['x+%+tag1', 'x+%+tag2', 'x+%+tag3']);
     });
   });
 
@@ -1335,8 +1216,6 @@ void run(EnmeshedRuntime runtime) {
         confidentiality: RelationshipAttributeConfidentiality.public,
         peer: recipientAddress,
         isTechnical: true,
-        validFrom: '2023',
-        validTo: '2025',
         requestMetadata: (
           title: 'aRequestTitle',
           description: 'aRequestDescription',
@@ -1439,8 +1318,6 @@ void run(EnmeshedRuntime runtime) {
       final result = await sender.consumptionServices.attributes.succeedRelationshipAttributeAndNotifyPeer(
         predecessorId: senderOwnSharedAttribute.id,
         value: succeededAttributeValue,
-        validFrom: DateTime(2023).toRuntimeIsoString(),
-        validTo: DateTime(2025).toRuntimeIsoString(),
       );
 
       expect(result, isSuccessful<SucceedRelationshipAttributeAndNotifyPeerResponse>());
@@ -1460,8 +1337,6 @@ void run(EnmeshedRuntime runtime) {
       expect(recipientSuccessor.succeeds, recipientPredecessor.id);
       expect(senderPredecessor.succeededBy, senderSuccessor.id);
       expect(recipientPredecessor.succeededBy, recipientSuccessor.id);
-      expect(recipientSuccessor.content.toJson()['validFrom'], DateTime(2023).toRuntimeIsoString());
-      expect(recipientSuccessor.content.toJson()['validTo'], DateTime(2025).toRuntimeIsoString());
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
 

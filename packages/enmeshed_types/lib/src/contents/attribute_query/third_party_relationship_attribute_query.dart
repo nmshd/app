@@ -14,10 +14,8 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
   final String key;
   final ThirdPartyRelationshipAttributeQueryOwner owner;
   final List<String> thirdParty;
-  final String? validFrom;
-  final String? validTo;
 
-  const ThirdPartyRelationshipAttributeQuery({required this.key, required this.owner, required this.thirdParty, this.validFrom, this.validTo});
+  const ThirdPartyRelationshipAttributeQuery({required this.key, required this.owner, required this.thirdParty});
 
   factory ThirdPartyRelationshipAttributeQuery.fromJson(Map json) => _$ThirdPartyRelationshipAttributeQueryFromJson(Map<String, dynamic>.from(json));
 

@@ -8,9 +8,6 @@ import '../transport/transport.dart';
 part 'attribute_query_dvos.g.dart';
 
 sealed class AttributeQueryDVO extends DataViewObject {
-  final String? validFrom;
-  final String? validTo;
-
   const AttributeQueryDVO({
     required super.id,
     required super.name,
@@ -20,8 +17,6 @@ sealed class AttributeQueryDVO extends DataViewObject {
     super.date,
     super.error,
     super.warning,
-    this.validFrom,
-    this.validTo,
   });
 
   factory AttributeQueryDVO.fromJson(Map json) => switch (json['type']) {
@@ -51,8 +46,6 @@ class IdentityAttributeQueryDVO extends AttributeQueryDVO {
     super.date,
     super.error,
     super.warning,
-    super.validFrom,
-    super.validTo,
     required this.valueType,
     this.tags,
     required this.isProcessed,
@@ -84,8 +77,6 @@ class RelationshipAttributeQueryDVO extends AttributeQueryDVO {
     super.date,
     super.error,
     super.warning,
-    super.validFrom,
-    super.validTo,
     required this.valueType,
     required this.key,
     required this.owner,
@@ -116,8 +107,6 @@ class ThirdPartyRelationshipAttributeQueryDVO extends AttributeQueryDVO {
     super.date,
     super.error,
     super.warning,
-    super.validFrom,
-    super.validTo,
     required this.key,
     required this.owner,
     required this.thirdParty,
@@ -149,8 +138,6 @@ class IQLQueryDVO extends AttributeQueryDVO {
     super.date,
     super.error,
     super.warning,
-    super.validFrom,
-    super.validTo,
     required this.queryString,
     required this.isProcessed,
     this.valueType,
