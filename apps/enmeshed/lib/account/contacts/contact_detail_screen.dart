@@ -89,7 +89,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
             child: ListView(
               controller: _scrollController,
               children: [
-                ContactDetailHeader(contact: contact),
+                ContactDetailHeader(contact: contact, request: _openRequests?.firstOrNull),
                 ContactStatusInfoContainer(contact: contact),
                 if (_openRequests != null && _openRequests!.isNotEmpty)
                   _OpenRequestsContainer(
