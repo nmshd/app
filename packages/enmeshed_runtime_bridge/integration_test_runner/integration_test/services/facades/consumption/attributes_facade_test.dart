@@ -1005,7 +1005,7 @@ void run(EnmeshedRuntime runtime) {
       expect(succeededAttribute.predecessor.content.toJson()['value']['value'], attribute.content.toJson()['value']['value']);
     });
 
-    test('should succeed an identity attribute with properties "tags"', () async {
+    test('should succeed an identity attribute with property "tags"', () async {
       final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const SurnameAttributeValue(value: 'aSurname'),
       );
