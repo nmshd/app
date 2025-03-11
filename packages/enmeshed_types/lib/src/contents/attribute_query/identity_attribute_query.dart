@@ -4,10 +4,8 @@ part of 'attribute_query.dart';
 class IdentityAttributeQuery extends AttributeQuery {
   final String valueType;
   final List<String>? tags;
-  final String? validFrom;
-  final String? validTo;
 
-  const IdentityAttributeQuery({required this.valueType, this.tags, this.validFrom, this.validTo});
+  const IdentityAttributeQuery({required this.valueType, this.tags});
 
   factory IdentityAttributeQuery.fromJson(Map json) => _$IdentityAttributeQueryFromJson(Map<String, dynamic>.from(json));
   @override
