@@ -11,8 +11,6 @@ class AttributesFacade {
   Future<Result<CanCreateRepositoryAttributeResponse>> canCreateRepositoryAttribute({
     required IdentityAttributeValue value,
     List<String>? tags,
-    String? validFrom,
-    String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.canCreateRepositoryAttribute(request)
@@ -20,12 +18,7 @@ class AttributesFacade {
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {
-            'value': value.toJson(),
-            if (tags != null) 'tags': tags,
-            if (validFrom != null) 'validFrom': validFrom,
-            if (validTo != null) 'validTo': validTo,
-          },
+          'content': {'value': value.toJson(), if (tags != null) 'tags': tags},
         },
       },
     );
@@ -34,24 +27,14 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => CanCreateRepositoryAttributeResponse.fromJson(value));
   }
 
-  Future<Result<LocalAttributeDTO>> createRepositoryAttribute({
-    required IdentityAttributeValue value,
-    List<String>? tags,
-    String? validFrom,
-    String? validTo,
-  }) async {
+  Future<Result<LocalAttributeDTO>> createRepositoryAttribute({required IdentityAttributeValue value, List<String>? tags}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.createRepositoryAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {
-            'value': value.toJson(),
-            if (tags != null) 'tags': tags,
-            if (validFrom != null) 'validFrom': validFrom,
-            if (validTo != null) 'validTo': validTo,
-          },
+          'content': {'value': value.toJson(), if (tags != null) 'tags': tags},
         },
       },
     );
@@ -254,8 +237,6 @@ class AttributesFacade {
     required String predecessorId,
     required IdentityAttributeValue value,
     List<String>? tags,
-    String? validFrom,
-    String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.succeedRepositoryAttribute(request)
@@ -264,12 +245,7 @@ class AttributesFacade {
       arguments: {
         'request': {
           'predecessorId': predecessorId,
-          'successorContent': {
-            'value': value.toJson(),
-            if (tags != null) 'tags': tags,
-            if (validFrom != null) 'validFrom': validFrom,
-            if (validTo != null) 'validTo': validTo,
-          },
+          'successorContent': {'value': value.toJson(), if (tags != null) 'tags': tags},
         },
       },
     );
@@ -336,8 +312,6 @@ class AttributesFacade {
     required String key,
     required RelationshipAttributeConfidentiality confidentiality,
     bool? isTechnical,
-    String? validFrom,
-    String? validTo,
     required String peer,
     ({String? title, String? description, Map<String, dynamic>? metadata, String? expiresAt})? requestMetadata,
     ({String? title, String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
@@ -353,8 +327,6 @@ class AttributesFacade {
             'key': key,
             'confidentiality': confidentiality.name,
             if (isTechnical != null) 'isTechnical': isTechnical,
-            if (validFrom != null) 'validFrom': validFrom,
-            if (validTo != null) 'validTo': validTo,
           },
           'peer': peer,
           if (requestMetadata != null)
@@ -382,8 +354,6 @@ class AttributesFacade {
   Future<Result<SucceedRelationshipAttributeAndNotifyPeerResponse>> succeedRelationshipAttributeAndNotifyPeer({
     required String predecessorId,
     required RelationshipAttributeValue value,
-    String? validFrom,
-    String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.succeedRelationshipAttributeAndNotifyPeer(request)
@@ -392,7 +362,7 @@ class AttributesFacade {
       arguments: {
         'request': {
           'predecessorId': predecessorId,
-          'successorContent': {'value': value.toJson(), if (validFrom != null) 'validFrom': validFrom, if (validTo != null) 'validTo': validTo},
+          'successorContent': {'value': value.toJson()},
         },
       },
     );
