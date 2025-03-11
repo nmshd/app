@@ -201,7 +201,6 @@ Future<LocalAttributeDTO> exchangeRelationshipAttribute(
   Session recipient,
   RelationshipAttributeValue attributeValue, {
   bool? isTechnical,
-  String? validTo,
 }) async {
   final recipientAddress = (await recipient.transportServices.account.getIdentityInfo()).value.address;
 

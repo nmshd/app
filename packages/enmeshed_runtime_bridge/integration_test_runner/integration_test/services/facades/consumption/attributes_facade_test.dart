@@ -116,7 +116,6 @@ void run(EnmeshedRuntime runtime) {
         sender,
         recipient,
         const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        validTo: DateTime.now().toRuntimeIsoString(),
         isTechnical: true,
       );
 
@@ -195,7 +194,6 @@ void run(EnmeshedRuntime runtime) {
         sender,
         recipient,
         const ProprietaryBooleanAttributeValue(title: 'aTitle', value: true),
-        validTo: DateTime.now().toRuntimeIsoString(),
         isTechnical: true,
       );
 
@@ -323,7 +321,6 @@ void run(EnmeshedRuntime runtime) {
         sender,
         recipient,
         const ProprietaryStringAttributeValue(title: 'aTitle', value: 'aString'),
-        validTo: DateTime.now().toRuntimeIsoString(),
         isTechnical: true,
       );
 
