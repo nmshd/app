@@ -205,7 +205,7 @@ class _InstructionsBottom extends StatelessWidget {
               child: InkWell(
                 onTap: toggleHideHints,
                 child: Row(
-                  spacing: 16,
+                  spacing: 8,
                   children: [
                     Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()),
                     Expanded(child: Text(context.l10n.instructions_notShowAgain)),
