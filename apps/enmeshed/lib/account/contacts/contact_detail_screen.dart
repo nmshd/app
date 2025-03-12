@@ -93,11 +93,13 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                 ContactStatusInfoContainer(contact: contact),
                 if (_openRequests != null && _openRequests!.isNotEmpty)
                   _OpenRequestsContainer(
-                    onButtonPressed:
-                        () => context.push(
-                          '/account/${widget.accountId}/contacts/contact-request/${_openRequests!.first.id}',
-                          extra: _openRequests!.first,
-                        ),
+                    onButtonPressed: () async {
+                      await context.push(
+                        '/account/${widget.accountId}/contacts/contact-request/${_openRequests!.first.id}',
+                        extra: _openRequests!.first,
+                      );
+                      await _reloadContact();
+                    },
                   ),
                 ContactDetailIconBar(
                   session: _session,
@@ -142,13 +144,13 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   Future<void> _reloadContact() async {
     final contact = await _session.expander.expandAddress(widget.contactId);
 
-    if (!mounted) return;
+    final openRequests = await incomingOpenRequestsFromRelationshipTemplate(session: _session, peer: widget.contactId);
 
-    final incomingRequestResult = await incomingOpenRequestsFromRelationshipTemplate(session: _session, peer: widget.contactId);
+    if (!mounted) return;
 
     setState(() {
       _contact = contact;
-      _openRequests = incomingRequestResult;
+      _openRequests = openRequests;
     });
   }
 
@@ -196,7 +198,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
 }
 
 class _OpenRequestsContainer extends StatelessWidget {
-  final VoidCallback onButtonPressed;
+  final Future<void> Function() onButtonPressed;
 
   const _OpenRequestsContainer({required this.onButtonPressed});
 
