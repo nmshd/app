@@ -223,6 +223,8 @@ class ShareAttributeRequestItemDVO extends RequestItemDVODerivation {
 
 @JsonSerializable(includeIfNull: false)
 class AuthenticationRequestItemDVO extends RequestItemDVODerivation {
+  final String title;
+
   const AuthenticationRequestItemDVO({
     required super.id,
     required super.name,
@@ -235,6 +237,7 @@ class AuthenticationRequestItemDVO extends RequestItemDVODerivation {
     required super.isDecidable,
     super.response,
     super.requireManualDecision,
+    required this.title,
   }) : super(type: 'AuthenticationRequestItemDVO');
 
   factory AuthenticationRequestItemDVO.fromJson(Map json) => _$AuthenticationRequestItemDVOFromJson(Map<String, dynamic>.from(json));
