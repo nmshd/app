@@ -91,7 +91,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
               children: [
                 ContactDetailHeader(contact: contact, request: _openRequests?.firstOrNull),
                 ContactStatusInfoContainer(contact: contact),
-                if (_openRequests != null && _openRequests!.isNotEmpty)
+                if (_openRequests?.isNotEmpty ?? false)
                   _OpenRequestsContainer(
                     onButtonPressed: () async {
                       await context.push(
