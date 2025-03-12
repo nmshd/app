@@ -222,9 +222,12 @@ class _OpenRequestsContainer extends StatelessWidget {
             ),
             Text(context.l10n.contactDetail_openRequestsDescription, style: Theme.of(context).textTheme.bodySmall),
             Gaps.h16,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Expanded(child: FilledButton(onPressed: onButtonPressed, child: Text(context.l10n.contactDetail_checkRequests)))],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Expanded(child: FilledButton(onPressed: onButtonPressed, child: Text(context.l10n.contactDetail_checkRequests)))],
+              ),
             ),
           ],
         ),
