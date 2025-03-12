@@ -393,7 +393,7 @@
   "message_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Aufgabe abzuschließen.",
   "contact_request": "Kontaktanfrage",
   "contact_request_add": "Annehmen",
-  "contact_request_description": "Die Daten finden sie später bei den Kontaktinformationen im Bereich \"mit mir geteilt\"",
+  "contact_request_description": "Die Daten finden sie später bei den Kontaktinformationen im Bereich \"mit mir geteilt\".",
   "contact_request_title": "Bereitgestellte Kontaktdaten",
   "contact_request_subtitle": "Hier finden Sie alle Daten die von {contactName} mit Ihnen geteilt werden.",
   "@contact_request_subtitle": {
