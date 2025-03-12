@@ -38,12 +38,15 @@ class _RequestScreenState extends State<RequestScreen> {
           requestId: widget.requestId,
           isIncoming: widget.isIncoming,
           requestDVO: widget.requestDVO,
-          acceptRequestText: context.l10n.home_addContact,
+          acceptRequestText: (widget.requestDVO?.peer.hasRelationship ?? false) ? context.l10n.contact_request_add : context.l10n.home_addContact,
           validationErrorDescription: context.l10n.contact_request_validationErrorDescription,
           onAfterAccept: () {
             if (context.mounted) context.go('/account/${widget.accountId}/contacts');
           },
-          description: context.l10n.contact_requestDescription,
+          description:
+              (widget.requestDVO?.peer.hasRelationship ?? false)
+                  ? context.l10n.contact_withRelationshipDescription(widget.requestDVO!.peer.name)
+                  : null,
           validateCreateRelationship: _validateCreateRelationship,
         ),
       ),

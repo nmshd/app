@@ -381,7 +381,6 @@
   "contact_information_messages": "Messages",
   "contact_information_noMessages": "No messages available.",
   "contact_information_sharedFiles": "Shared Files",
-  "contact_requestDescription": "The new contact would like to share the following data or requests with you:",
   "contact_request_validationError": "{count, plural, =1{1 Error message} other{{count} Error messages}}",
   "@contact_request_validationError": {
     "placeholders": {
@@ -393,6 +392,25 @@
   "contact_request_validationErrorDescription": "Please correct all fields marked with an error to complete the contact request.",
   "message_request_validationErrorDescription": "Please correct all fields marked with an error to complete the task.",
   "contact_request": "Contact Request",
+  "contact_request_add": "Accept",
+  "contact_request_description": "You will find the data later in the contact information in the \"shared with me\" section",
+  "contact_request_title": "Contact details provided",
+  "contact_request_subtitle": "Here you will find all the data shared with you by {contactName}.",
+  "@contact_request_subtitle": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
+  "contact_withRelationshipDescription": "{contactName} would like to provide you with data.",
+  "@contact_withRelationshipDescription": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
   "contacts_empty": "Add contacts",
   "contacts_emptyDescription": "Connect with contacts to share or receive data and documents.",
   "contacts_date": "Date",

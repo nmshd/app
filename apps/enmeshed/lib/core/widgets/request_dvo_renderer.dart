@@ -120,7 +120,6 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (widget.showHeader) ...[
-                    if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Row(
@@ -135,6 +134,18 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                           ),
                         ],
                       ),
+                    ),
+                    if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
+                    ExpansionTile(
+                      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                      collapsedBackgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                      maintainState: true,
+                      initiallyExpanded: true,
+                      shape: LinearBorder.none,
+                      title: Text(context.l10n.contact_request_title),
+                      subtitle: Text(context.l10n.contact_request_subtitle(_request!.peer.name)),
+                      iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                      children: [Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.contact_request_description))],
                     ),
                   ],
                   if (_validationResult != null && !_validationResult!.isSuccess)

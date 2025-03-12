@@ -381,7 +381,6 @@
   "contact_information_messages": "Nachrichten",
   "contact_information_noMessages": "Keine Nachrichten vorhanden.",
   "contact_information_sharedFiles": "Geteilte Dateien",
-  "contact_requestDescription": "Nachfolgende Daten bzw. Anfragen möchte der neue Kontakt mit Ihnen teilen:",
   "contact_request_validationError": "{count, plural, =1{1 Fehlermeldung} other{{count} Fehlermeldungen}}",
   "@contact_request_validationError": {
     "placeholders": {
@@ -393,6 +392,25 @@
   "contact_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Kontaktanfrage abzuschließen.",
   "message_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Aufgabe abzuschließen.",
   "contact_request": "Kontaktanfrage",
+  "contact_request_add": "Annehmen",
+  "contact_request_description": "Die Daten finden sie später bei den Kontaktinformationen im Bereich \"mit mir geteilt\"",
+  "contact_request_title": "Bereitgestellte Kontaktdaten",
+  "contact_request_subtitle": "Hier finden Sie alle Daten die von {contactName} mit Ihnen geteilt werden.",
+  "@contact_request_subtitle": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
+  "contact_withRelationshipDescription": "{contactName} möchte Ihnen Daten zur Verfügung stellen.",
+  "@contact_withRelationshipDescription": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
   "contacts_empty": "Kontakte hinzufügen",
   "contacts_emptyDescription": "Verbinden Sie sich mit Kontakten, um Daten oder Dokumente zu teilen oder zu empfangen.",
   "contacts_date": "Datum",
