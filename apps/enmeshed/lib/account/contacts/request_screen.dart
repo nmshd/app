@@ -29,24 +29,25 @@ class _RequestScreenState extends State<RequestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final hasRelationship = widget.requestDVO?.peer.hasRelationship ?? false;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(title: Text(context.l10n.contact_request)),
+      appBar: AppBar(title: Text(hasRelationship ? context.l10n.contact_withRelationshipTitle : context.l10n.contact_request)),
       body: SafeArea(
         child: RequestDVORenderer(
           accountId: widget.accountId,
           requestId: widget.requestId,
           isIncoming: widget.isIncoming,
           requestDVO: widget.requestDVO,
-          acceptRequestText: (widget.requestDVO?.peer.hasRelationship ?? false) ? context.l10n.contact_request_add : context.l10n.home_addContact,
+          acceptRequestText: hasRelationship ? context.l10n.contact_request_add : context.l10n.home_addContact,
           validationErrorDescription: context.l10n.contact_request_validationErrorDescription,
           onAfterAccept: () {
-            if (context.mounted) context.go('/account/${widget.accountId}/contacts');
+            if (hasRelationship) return context.go('/account/${widget.accountId}/contacts/${widget.requestDVO!.peer.id}');
+
+            context.go('/account/${widget.accountId}/contacts');
           },
-          description:
-              (widget.requestDVO?.peer.hasRelationship ?? false)
-                  ? context.l10n.contact_withRelationshipDescription(widget.requestDVO!.peer.name)
-                  : null,
+          description: hasRelationship ? context.l10n.contact_withRelationshipDescription(widget.requestDVO!.peer.name) : null,
           validateCreateRelationship: _validateCreateRelationship,
         ),
       ),

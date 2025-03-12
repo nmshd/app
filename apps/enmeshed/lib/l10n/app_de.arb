@@ -403,6 +403,7 @@
       }
     }
   },
+  "contact_withRelationshipTitle": "Anfrage",
   "contact_withRelationshipDescription": "{contactName} möchte Ihnen Daten zur Verfügung stellen.",
   "@contact_withRelationshipDescription": {
     "placeholders": {
