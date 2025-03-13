@@ -332,6 +332,15 @@ extension LocalNotifications on InAppWebViewController {
   void _addLocalNotificationsJavaScriptHandlers() {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+    const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const initializationSettingsIOS = DarwinInitializationSettings();
+    const initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+
+    final notificationDetails = NotificationDetails(
+      android: AndroidNotificationDetails('channel_id', 'Notifications', importance: Importance.max, priority: Priority.high),
+      iOS: DarwinNotificationDetails(),
+    );
+
     addJavaScriptHandler(
       handlerName: 'notifications_schedule',
       callback: (args) async {
@@ -339,7 +348,8 @@ extension LocalNotifications on InAppWebViewController {
         final body = args[1] as String;
         final id = args[2] as int;
 
-        await flutterLocalNotificationsPlugin.show(id, title, body, null);
+        await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+        await flutterLocalNotificationsPlugin.show(id, title, body, notificationDetails);
       },
     );
 
