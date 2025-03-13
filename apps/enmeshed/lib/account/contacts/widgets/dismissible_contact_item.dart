@@ -78,7 +78,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
           shadowColor: Theme.of(context).colorScheme.shadow,
           child: ContactItem(
             contact: widget.item.contact,
-            openContactRequest: widget.item.openContactRequest,
+            openContactRequest: widget.item.openRequests.firstOrNull,
             onTap: () {
               widget.onTap();
               _slidableController.close();
@@ -114,11 +114,11 @@ class _TrailingIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (item.openContactRequest?.status == LocalRequestStatus.Expired) {
+    if (item.openRequests.firstOrNull?.status == LocalRequestStatus.Expired) {
       return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
     }
 
-    if (item.openContactRequest != null && !item.contact.hasRelationship) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
+    if (!item.contact.hasRelationship) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
 
     return IconButton(
       icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
@@ -135,7 +135,8 @@ class _Subtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isExpiringRequest = item.openContactRequest?.status != LocalRequestStatus.Expired && item.openContactRequest?.content.expiresAt != null;
+    final isExpiringRequest =
+        item.openRequests.firstOrNull?.status != LocalRequestStatus.Expired && item.openRequests.firstOrNull?.content.expiresAt != null;
 
     if (isExpiringRequest) {
       return Column(
@@ -145,19 +146,23 @@ class _Subtitle extends StatelessWidget {
             padding: const EdgeInsets.only(top: 2),
             child: ContactStatusText(
               contact: item.contact,
-              openContactRequest: item.openContactRequest,
+              openContactRequest: item.openRequests.firstOrNull,
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
           Gaps.h4,
           Text(
-            context.l10n.contacts_requestWithExpiryDate(DateTime.parse(item.openContactRequest?.content.expiresAt ?? '').toLocal()),
+            context.l10n.contacts_requestWithExpiryDate(DateTime.parse(item.openRequests.firstOrNull?.content.expiresAt ?? '').toLocal()),
             style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Theme.of(context).colorScheme.error),
           ),
         ],
       );
     }
 
-    return ContactStatusText(contact: item.contact, openContactRequest: item.openContactRequest, style: Theme.of(context).textTheme.labelMedium);
+    return ContactStatusText(
+      contact: item.contact,
+      openContactRequest: item.openRequests.firstOrNull,
+      style: Theme.of(context).textTheme.labelMedium,
+    );
   }
 }
