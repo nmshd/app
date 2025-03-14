@@ -46,7 +46,13 @@ class _HomeViewState extends State<HomeView> {
       ..add(runtime.eventBus.on<IncomingRequestReceivedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
-      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})));
+      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})))
+      ..add(
+        runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
+          if (!mounted) return;
+          logoutWhenIdentityInDeletion(context, event.data.deletionDate).catchError((_) {});
+        }),
+      );
   }
 
   @override

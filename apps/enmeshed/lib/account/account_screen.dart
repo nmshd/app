@@ -60,7 +60,13 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(runtime.eventBus.on<MessageReceivedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
-      ..add(runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})));
+      ..add(runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
+      ..add(
+        runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
+          if (!mounted) return;
+          logoutWhenIdentityInDeletion(context, event.data.deletionDate).catchError((_) {});
+        }),
+      );
 
     _loadAccount();
     _reloadContactRequests();

@@ -20,7 +20,7 @@ class DevicesScreen extends StatefulWidget {
 }
 
 class _DevicesScreenState extends State<DevicesScreen> {
-  late final StreamSubscription<void> _subscription;
+  final List<StreamSubscription<void>> _subscriptions = [];
 
   List<DeviceDTO>? _devices;
   LocalAccountDTO? _account;
@@ -29,7 +29,16 @@ class _DevicesScreenState extends State<DevicesScreen> {
   void initState() {
     super.initState();
 
-    _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadDevices());
+    final eventBus = GetIt.I.get<EnmeshedRuntime>().eventBus;
+
+    _subscriptions
+      ..add(eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadDevices()))
+      ..add(
+        eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
+          if (!mounted) return;
+          logoutWhenIdentityInDeletion(context, event.data.deletionDate).catchError((_) {});
+        }),
+      );
 
     _reloadDevices(syncBefore: true);
     _loadAccount();
@@ -37,7 +46,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
   @override
   void dispose() {
-    _subscription.cancel();
+    for (final subscription in _subscriptions) {
+      subscription.cancel();
+    }
 
     super.dispose();
   }
