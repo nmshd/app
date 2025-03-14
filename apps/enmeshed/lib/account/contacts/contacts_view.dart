@@ -204,10 +204,20 @@ class _ContactsViewState extends State<ContactsView> {
     final relationships = await getContacts(session: session);
     final requests = await incomingOpenRequestsFromRelationshipTemplate(session: session);
 
-    final requestsAndRelationships = [
-      ...relationships.map((contact) => (contact: contact, openContactRequest: null)),
-      ...requests.map((request) => (contact: request.peer, openContactRequest: request)),
-    ];
+    final requestsAndRelationships = <RequestOrRelationship>[...relationships.map((contact) => (contact: contact, openRequests: []))];
+
+    for (final request in requests) {
+      final entry = requestsAndRelationships.firstWhere(
+        (item) => item.contact.id == request.peer.id,
+        orElse: () => (contact: request.peer, openRequests: [request]),
+      );
+
+      if (requestsAndRelationships.contains(entry)) {
+        entry.openRequests.add(request);
+      } else {
+        requestsAndRelationships.add(entry);
+      }
+    }
 
     final templateReferences = <PublicRelationshipTemplateReferenceDTO>[];
     final referencesResult = await session.transportServices.publicRelationshipTemplateReferences.getPublicRelationshipTemplateReferences();
@@ -289,6 +299,9 @@ class _ContactsViewState extends State<ContactsView> {
 
     final filteredContacts =
         _contacts!.where((contact) {
+            if (contact.requiresAttention && selectedFilterOptions.contains(const ActionRequiredContactsFilterOption())) {
+              return true;
+            }
             return switch (contact.contact.relationship?.status) {
               RelationshipStatus.Terminated => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
               RelationshipStatus.DeletionProposed => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
@@ -324,7 +337,7 @@ class _ContactsViewState extends State<ContactsView> {
 }
 
 extension on RequestOrRelationship {
-  DateTime get sortingDate => DateTime.parse(openContactRequest?.createdAt ?? contact.date ?? '0000-01-01');
+  DateTime get sortingDate => DateTime.parse(openRequests.firstOrNull?.createdAt ?? contact.date ?? '0000-01-01');
 }
 
 class _ContactItem extends StatelessWidget {
@@ -358,13 +371,13 @@ class _ContactItem extends StatelessWidget {
   Future<void> _onTap(BuildContext context) async {
     final contact = item.contact;
 
-    if (item.openContactRequest == null) {
+    if (item.openRequests.isEmpty || item.contact.hasRelationship) {
       unawaited(context.push('/account/$accountId/contacts/${contact.id}'));
       return;
     }
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
-    final request = item.openContactRequest!;
+    final request = item.openRequests.first;
 
     final validateRelationshipCreationResponse = await validateRelationshipCreation(accountId: accountId, request: request, session: session);
 
@@ -385,12 +398,12 @@ class _ContactItem extends StatelessWidget {
   Future<void> _onDeletePressed(BuildContext context) async {
     final contact = item.contact;
 
-    if (item.openContactRequest == null) {
+    if (item.openRequests.isEmpty) {
       await deleteContact(context: context, accountId: accountId, contact: contact, onContactDeleted: reload);
       return;
     }
 
-    final request = item.openContactRequest!;
+    final request = item.openRequests.first;
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
     if (request.status == LocalRequestStatus.Expired) {

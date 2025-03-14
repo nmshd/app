@@ -26,6 +26,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   bool _showSendCertificateButton = false;
   int _unreadMessagesCount = 0;
   List<MessageDVO>? _incomingMessages;
+  List<LocalRequestDVO>? _openRequests;
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -88,8 +89,18 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
             child: ListView(
               controller: _scrollController,
               children: [
-                ContactDetailHeader(contact: contact),
+                ContactDetailHeader(contact: contact, request: _openRequests?.firstOrNull),
                 ContactStatusInfoContainer(contact: contact),
+                if (_openRequests?.isNotEmpty ?? false)
+                  _OpenRequestsContainer(
+                    onButtonPressed: () async {
+                      await context.push(
+                        '/account/${widget.accountId}/contacts/contact-request/${_openRequests!.first.id}',
+                        extra: _openRequests!.first,
+                      );
+                      await _reloadContact();
+                    },
+                  ),
                 ContactDetailIconBar(
                   session: _session,
                   accountId: widget.accountId,
@@ -133,10 +144,13 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   Future<void> _reloadContact() async {
     final contact = await _session.expander.expandAddress(widget.contactId);
 
+    final openRequests = await incomingOpenRequestsFromRelationshipTemplate(session: _session, peer: widget.contactId);
+
     if (!mounted) return;
 
     setState(() {
       _contact = contact;
+      _openRequests = openRequests;
     });
   }
 
@@ -180,5 +194,46 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
     if (attributes.any((element) => ((element.content as RelationshipAttribute).value as ProprietaryBooleanAttributeValue).value)) {
       setState(() => _showSendCertificateButton = true);
     }
+  }
+}
+
+class _OpenRequestsContainer extends StatelessWidget {
+  final Future<void> Function() onButtonPressed;
+
+  const _OpenRequestsContainer({required this.onButtonPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.info, color: Theme.of(context).colorScheme.secondary),
+                  Gaps.w8,
+                  Expanded(child: Text(context.l10n.contactDetail_openRequestsTitle, style: Theme.of(context).textTheme.bodyMedium)),
+                ],
+              ),
+            ),
+            Text(context.l10n.contactDetail_openRequestsDescription, style: Theme.of(context).textTheme.bodySmall),
+            Gaps.h16,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Expanded(child: FilledButton(onPressed: onButtonPressed, child: Text(context.l10n.contactDetail_checkRequests)))],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
