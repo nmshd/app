@@ -26,3 +26,24 @@ Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO
     await context.push('/profiles');
   }
 }
+
+Future<void> logoutWhenIdentityInDeletion(BuildContext context, String? deletionDate) async {
+  if (deletionDate == null) return;
+
+  final accounts = await GetIt.I.get<EnmeshedRuntime>().accountServices.getAccountsNotInDeletion();
+  accounts.sort((a, b) => a.name.compareTo(b.name));
+
+  if (!context.mounted) return;
+
+  if (accounts.isEmpty) {
+    context.go('/onboarding?skipIntroduction=true');
+    return;
+  }
+
+  final account = accounts.first;
+
+  context.go('/account/${account.id}');
+  await context.push('/profiles');
+
+  await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+}
