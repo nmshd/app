@@ -493,20 +493,10 @@ class EnmeshedApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           // dark mode is disabled until we have a proper dark theme
           themeMode: ThemeMode.light,
-          theme: ThemeData(
-            colorScheme: lightColorScheme,
-            extensions: [lightCustomColors],
-            navigationBarTheme: lightNavigationBarTheme,
-            appBarTheme: lightAppBarTheme,
-            textTheme: textTheme,
-          ),
-          darkTheme: ThemeData(
-            colorScheme: darkColorScheme,
-            extensions: [darkCustomColors],
-            navigationBarTheme: darkNavigationBarTheme,
-            appBarTheme: darkAppBarTheme,
-            textTheme: textTheme,
-          ),
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          highContrastTheme: highContrastTheme,
+          highContrastDarkTheme: highContrastDarkTheme,
           scaffoldMessengerKey: snackbarKey,
           localizationsDelegates: [
             CroppyLocalizations.delegate,
