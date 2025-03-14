@@ -81,6 +81,7 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
       'ConsentRequestItemDVO' => ConsentRequestItemDVO.fromJson(json),
       'FreeTextRequestItemDVO' => FreeTextRequestItemDVO.fromJson(json),
       'RegisterAttributeListenerRequestItemDVO' => RegisterAttributeListenerRequestItemDVO.fromJson(json),
+      'TransferFileOwnershipRequestItemDVO' => TransferFileOwnershipRequestItemDVO.fromJson(json),
       _ => throw Exception("Invalid type '${json['type']}'"),
     };
   }
@@ -315,4 +316,28 @@ class RegisterAttributeListenerRequestItemDVO extends RequestItemDVODerivation {
       _$RegisterAttributeListenerRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RegisterAttributeListenerRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class TransferFileOwnershipRequestItemDVO extends RequestItemDVODerivation {
+  final String freeText;
+
+  const TransferFileOwnershipRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
+    super.response,
+    super.requireManualDecision,
+    required this.freeText,
+  }) : super(type: 'FreeTextRequestItemDVO');
+
+  factory TransferFileOwnershipRequestItemDVO.fromJson(Map json) => _$TransferFileOwnershipRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$TransferFileOwnershipRequestItemDVOToJson(this);
 }
