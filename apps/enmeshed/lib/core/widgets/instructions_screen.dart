@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import '../cards/cards.dart';
 import '../utils/extensions.dart';
 
 enum ScannerType {
@@ -22,10 +21,10 @@ class InstructionsScreen extends StatefulWidget {
   final String informationTitle;
   final String informationDescription;
   final VectorGraphic illustration;
+  final Icon informationCardIcon;
   final void Function()? deactivateHint;
   final bool showNumberedExplanation;
   final String? buttonContinueText;
-  final Icon? informationCardIcon;
 
   const InstructionsScreen({
     required this.onContinue,
@@ -35,10 +34,10 @@ class InstructionsScreen extends StatefulWidget {
     required this.informationTitle,
     required this.informationDescription,
     required this.illustration,
+    required this.informationCardIcon,
     this.deactivateHint,
     this.showNumberedExplanation = true,
     this.buttonContinueText,
-    this.informationCardIcon,
     super.key,
   });
 
