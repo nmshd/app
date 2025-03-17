@@ -4,12 +4,9 @@ import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:push/push.dart';
-
-final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 Future<void> setupPush(EnmeshedRuntime runtime) async {
   if (Platform.isWindows) return;
