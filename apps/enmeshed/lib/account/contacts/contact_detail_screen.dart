@@ -49,7 +49,13 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadMessages()))
-      ..add(runtime.eventBus.on<ContactNameUpdatedEvent>().listen((_) => _reload().catchError((_) {})));
+      ..add(runtime.eventBus.on<ContactNameUpdatedEvent>().listen((_) => _reload().catchError((_) {})))
+      ..add(
+        runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
+          if (!mounted) return;
+          logoutWhenIdentityInDeletion(context, event.data.deletionDate).catchError((_) {});
+        }),
+      );
   }
 
   @override

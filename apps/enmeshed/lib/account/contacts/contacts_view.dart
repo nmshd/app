@@ -61,7 +61,13 @@ class _ContactsViewState extends State<ContactsView> {
       ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<ContactNameUpdatedEvent>().listen((_) => _reload().catchError((_) {})))
-      ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _reload().catchError((_) {})));
+      ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _reload().catchError((_) {})))
+      ..add(
+        runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
+          if (!mounted) return;
+          logoutWhenIdentityInDeletion(context, event.data.deletionDate).catchError((_) {});
+        }),
+      );
   }
 
   @override
