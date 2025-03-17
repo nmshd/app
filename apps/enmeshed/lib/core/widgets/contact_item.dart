@@ -59,7 +59,7 @@ class ContactItem extends StatelessWidget {
     if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.ToBeDeleted) return context.customColors.warning;
 
     if (contact.relationship?.status == RelationshipStatus.Pending) return Theme.of(context).colorScheme.secondary;
-    
+
     return Colors.transparent;
   }
 }
