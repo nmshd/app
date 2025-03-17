@@ -7,8 +7,6 @@ class ComplexInformationCard extends StatelessWidget {
   final String? description;
   final Color? backgroundColor;
   final List<Widget>? actionButtons;
-  final double? actionButtonSpacing;
-  final MainAxisAlignment? actionButtonMainAxisAlignment;
 
   const ComplexInformationCard({
     required this.title,
@@ -16,8 +14,6 @@ class ComplexInformationCard extends StatelessWidget {
     this.description,
     this.backgroundColor,
     this.actionButtons,
-    this.actionButtonSpacing = 0,
-    this.actionButtonMainAxisAlignment = MainAxisAlignment.center,
     super.key,
   });
 
@@ -39,7 +35,11 @@ class ComplexInformationCard extends StatelessWidget {
             if (actionButtons != null)
               Padding(
                 padding: const EdgeInsets.only(top: 24, bottom: 8, left: 8, right: 8),
-                child: Row(mainAxisAlignment: actionButtonMainAxisAlignment!, spacing: actionButtonSpacing!, children: actionButtons!),
+                child: Row(
+                  mainAxisAlignment: actionButtons!.length > 1 ? MainAxisAlignment.end : MainAxisAlignment.center,
+                  spacing: actionButtons!.length > 1 ? 8 : 0,
+                  children: actionButtons!,
+                ),
               ),
           ],
         ),

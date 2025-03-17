@@ -99,8 +99,6 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
                       ],
-                      actionButtonSpacing: 8,
-                      actionButtonMainAxisAlignment: MainAxisAlignment.end,
                     ),
                   AddContactOrDeviceContainer(accountId: widget.accountId),
                 ],
