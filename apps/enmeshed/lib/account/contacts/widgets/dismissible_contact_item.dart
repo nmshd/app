@@ -13,7 +13,6 @@ class DismissibleContactItem extends StatefulWidget {
   final VoidCallback onToggleFavorite;
   final Widget? trailing;
   final String? query;
-  final int iconSize;
 
   const DismissibleContactItem({
     required this.item,
@@ -23,7 +22,6 @@ class DismissibleContactItem extends StatefulWidget {
     required this.onToggleFavorite,
     this.trailing,
     this.query,
-    this.iconSize = 56,
     super.key,
   });
 
@@ -96,7 +94,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
                     ? null
                     : _Subtitle(item: widget.item),
             query: widget.query,
-            iconSize: widget.iconSize,
+            iconSize: 40,
           ),
         ),
       ),

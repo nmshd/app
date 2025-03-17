@@ -48,7 +48,7 @@ class ContactItem extends StatelessWidget {
     );
   }
 
-  Color? _getCircularAvatarBorderColor({required BuildContext context, required IdentityDVO contact, LocalRequestDVO? openContactRequest}) {
+  Color _getCircularAvatarBorderColor({required BuildContext context, required IdentityDVO contact, LocalRequestDVO? openContactRequest}) {
     if (contact.relationship?.status == RelationshipStatus.Pending || (openContactRequest?.peer.hasRelationship ?? false)) {
       return Theme.of(context).colorScheme.secondary;
     }
@@ -62,6 +62,6 @@ class ContactItem extends StatelessWidget {
 
     if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.ToBeDeleted) return context.customColors.warning;
 
-    return null;
+    return Colors.transparent;
   }
 }
