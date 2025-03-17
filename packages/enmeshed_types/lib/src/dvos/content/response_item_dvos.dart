@@ -130,6 +130,7 @@ class AcceptResponseItemDVO extends ResponseItemDVODerivation {
     'ShareAttributeAcceptResponseItemDVO' => ShareAttributeAcceptResponseItemDVO.fromJson(json),
     'FreeTextAcceptResponseItemDVO' => FreeTextAcceptResponseItemDVO.fromJson(json),
     'RegisterAttributeListenerAcceptResponseItemDVO' => RegisterAttributeListenerAcceptResponseItemDVO.fromJson(json),
+    'TransferFileOwnershipAcceptResponseItemDVO' => TransferFileOwnershipAcceptResponseItemDVO.fromJson(json),
     'AttributeSuccessionAcceptResponseItemDVO' => AttributeSuccessionAcceptResponseItemDVO.fromJson(json),
     'AttributeAlreadySharedAcceptResponseItemDVO' => AttributeAlreadySharedAcceptResponseItemDVO.fromJson(json),
     _ => throw Exception("Invalid type '${json['type']}'"),
@@ -297,6 +298,30 @@ class RegisterAttributeListenerAcceptResponseItemDVO extends AcceptResponseItemD
       _$RegisterAttributeListenerAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RegisterAttributeListenerAcceptResponseItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class TransferFileOwnershipAcceptResponseItemDVO extends AcceptResponseItemDVO {
+  final String attributeId;
+  final LocalAttributeDVO attribute;
+
+  const TransferFileOwnershipAcceptResponseItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    required super.type,
+    super.date,
+    super.error,
+    super.warning,
+    required this.attributeId,
+    required this.attribute,
+  });
+
+  factory TransferFileOwnershipAcceptResponseItemDVO.fromJson(Map json) =>
+      _$TransferFileOwnershipAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$TransferFileOwnershipAcceptResponseItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)
