@@ -16,13 +16,6 @@ Future<void> setupPush(EnmeshedRuntime runtime) async {
 
   final logger = GetIt.I.get<Logger>();
 
-  // initialize local notifications
-  const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-  const initializationSettingsIOS = DarwinInitializationSettings();
-  const initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
   // this will timeout e.g. on the ios simulator
   final existingToken = await Push.instance.token
       .timeout(const Duration(seconds: 5))

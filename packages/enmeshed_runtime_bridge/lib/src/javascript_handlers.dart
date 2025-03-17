@@ -319,9 +319,9 @@ extension Filesystem on InAppWebViewController {
 }
 
 extension LocalNotifications on InAppWebViewController {
-  void addLocalNotificationsJavaScriptHandlers() {
+  Future<void> addLocalNotificationsJavaScriptHandlers() async {
     if (Platform.isAndroid || Platform.isIOS || Platform.isLinux || Platform.isMacOS) {
-      _addLocalNotificationsJavaScriptHandlers();
+      await _addLocalNotificationsJavaScriptHandlers();
     } else if (Platform.isWindows) {
       _addWindowsNotificationsJavaScriptHandlers();
     } else {
@@ -329,8 +329,16 @@ extension LocalNotifications on InAppWebViewController {
     }
   }
 
-  void _addLocalNotificationsJavaScriptHandlers() {
+  Future<void> _addLocalNotificationsJavaScriptHandlers() async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    await flutterLocalNotificationsPlugin.initialize(
+      InitializationSettings(
+        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+        iOS: DarwinInitializationSettings(),
+        macOS: DarwinInitializationSettings(),
+      ),
+    );
 
     final notificationDetails = NotificationDetails(
       android: AndroidNotificationDetails('all_local_notifications', 'Notifications', importance: Importance.max, priority: Priority.high),

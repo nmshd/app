@@ -156,7 +156,7 @@ class EnmeshedRuntime {
           },
     );
 
-    controller.addLocalNotificationsJavaScriptHandlers();
+    await controller.addLocalNotificationsJavaScriptHandlers();
   }
 
   /// Register the [UIBridge] to communicate with the native UI.
