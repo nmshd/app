@@ -21,12 +21,12 @@ final darkLightsOutTheme = _generateColorScheme(
 final highContrastTheme = _generateColorScheme(
   tonesConstructor: FlexTones.ultraContrast,
   brightness: Brightness.light,
-  customColors: lightCustomColors,
+  customColors: lightHighContrastCustomColors,
 );
 final highContrastDarkTheme = _generateColorScheme(
   tonesConstructor: FlexTones.ultraContrast,
   brightness: Brightness.dark,
-  customColors: darkCustomColors,
+  customColors: darkHighContrastCustomColors,
 );
 
 ThemeData _generateColorScheme({
