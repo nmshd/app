@@ -42,20 +42,20 @@ class BannerCard extends StatelessWidget {
   }
 
   Color _getBackgroundColor(BuildContext context, BannerCardType type) => switch (type) {
-    BannerCardType.neutral => Theme.of(context).colorScheme.surfaceContainer,
-    BannerCardType.info => Theme.of(context).colorScheme.secondaryContainer,
-    BannerCardType.warning => context.customColors.warningContainer,
-    BannerCardType.alert || BannerCardType.error => Theme.of(context).colorScheme.errorContainer,
-    BannerCardType.success => context.customColors.successContainer,
-  };
+        BannerCardType.neutral => Theme.of(context).colorScheme.surfaceContainer,
+        BannerCardType.info => Theme.of(context).colorScheme.secondaryContainer,
+        BannerCardType.warning => context.customColors.warningContainer,
+        BannerCardType.alert || BannerCardType.error => Theme.of(context).colorScheme.errorContainer,
+        BannerCardType.success => context.customColors.successContainer,
+      };
 
   Color _getTextColor(BuildContext context, BannerCardType type) => switch (type) {
-    BannerCardType.neutral => Theme.of(context).colorScheme.onSurface,
-    BannerCardType.info => Theme.of(context).colorScheme.onSecondaryContainer,
-    BannerCardType.warning => context.customColors.onWarningContainer,
-    BannerCardType.alert || BannerCardType.error => Theme.of(context).colorScheme.onErrorContainer,
-    BannerCardType.success => context.customColors.onSuccessContainer,
-  };
+        BannerCardType.neutral => Theme.of(context).colorScheme.onSurface,
+        BannerCardType.info => Theme.of(context).colorScheme.onSecondaryContainer,
+        BannerCardType.warning => context.customColors.onWarningContainer,
+        BannerCardType.alert || BannerCardType.error => Theme.of(context).colorScheme.onErrorContainer,
+        BannerCardType.success => context.customColors.onSuccessContainer,
+      };
 }
 
 class _BannerCardIcon extends StatelessWidget {
@@ -64,10 +64,10 @@ class _BannerCardIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => switch (type) {
-    BannerCardType.neutral || BannerCardType.info => Icon(Icons.info, color: Theme.of(context).colorScheme.secondary),
-    BannerCardType.warning => Icon(Icons.warning_rounded, color: context.customColors.warning),
-    BannerCardType.alert => Icon(Icons.error, color: Theme.of(context).colorScheme.error),
-    BannerCardType.error => Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
-    BannerCardType.success => Icon(Icons.check_circle, color: context.customColors.success),
-  };
+        BannerCardType.neutral || BannerCardType.info => Icon(Icons.info, color: Theme.of(context).colorScheme.secondary),
+        BannerCardType.warning => Icon(Icons.warning_rounded, color: context.customColors.warning),
+        BannerCardType.alert => Icon(Icons.error, color: Theme.of(context).colorScheme.error),
+        BannerCardType.error => Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+        BannerCardType.success => Icon(Icons.check_circle, color: context.customColors.success),
+      };
 }
