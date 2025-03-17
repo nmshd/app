@@ -14,6 +14,7 @@ part 'register_attribute_listener_request_item.dart';
 part 'request_item_derivation.dart';
 part 'request_item_group.dart';
 part 'share_attribute_request_item.dart';
+part 'transfer_file_ownership_request_item.dart';
 
 abstract class RequestItem extends Equatable {
   final String? title;
