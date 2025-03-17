@@ -215,6 +215,7 @@ class _ContactsViewState extends State<ContactsView> {
 
     for (final request in requests) {
       final entry = requestsAndRelationships.where((item) => item.contact.id == request.peer.id).firstOrNull;
+
       if (entry != null) {
         entry.openRequests.add(request);
       } else {
