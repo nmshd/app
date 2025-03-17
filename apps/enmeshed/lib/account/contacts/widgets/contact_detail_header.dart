@@ -7,8 +7,9 @@ import '/core/core.dart';
 
 class ContactDetailHeader extends StatelessWidget {
   final IdentityDVO contact;
+  final LocalRequestDVO? request;
 
-  const ContactDetailHeader({required this.contact, super.key});
+  const ContactDetailHeader({required this.contact, this.request, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class ContactDetailHeader extends StatelessWidget {
                     ),
                     style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
-                ContactStatusText(contact: contact),
+                ContactStatusText(contact: contact, openContactRequest: request),
               ],
             ),
           ),

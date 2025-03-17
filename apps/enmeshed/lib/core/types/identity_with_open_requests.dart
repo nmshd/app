@@ -1,10 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-typedef RequestOrRelationship = ({IdentityDVO contact, LocalRequestDVO? openContactRequest});
+typedef IdentityWithOpenRequests = ({IdentityDVO contact, List<LocalRequestDVO> openRequests});
 
-extension RequestOrRelationshipExtension on RequestOrRelationship {
+extension IdentityWithOpenRequestsExtension on IdentityWithOpenRequests {
   bool get requiresAttention {
-    if (this.openContactRequest != null) return true;
+    if (this.openRequests.isNotEmpty) return true;
 
     return switch (this.contact.relationship?.status) {
       null || RelationshipStatus.Terminated || RelationshipStatus.DeletionProposed => true,
