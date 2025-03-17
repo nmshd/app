@@ -26,15 +26,12 @@ class BannerCard extends StatelessWidget {
           children: [
             _BannerCardIcon(type: type),
             Gaps.w8,
-            Expanded(child: Text(title)),
+            Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: _getTextColor(context, type)))),
             if (actionButton != null) ...[
               Gaps.w8,
               TextButton(
                 onPressed: actionButton!.onPressed,
-                child: Text(
-                  actionButton!.title,
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(color: _getActionButtonColor(context, type)),
-                ),
+                child: Text(actionButton!.title, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: _getTextColor(context, type))),
               ),
             ],
             if (onClosePressed != null) ...[Gaps.w8, IconButton(onPressed: onClosePressed, icon: const Icon(Icons.close))],
@@ -52,7 +49,7 @@ class BannerCard extends StatelessWidget {
     BannerCardType.success => context.customColors.successContainer,
   };
 
-  Color _getActionButtonColor(BuildContext context, BannerCardType type) => switch (type) {
+  Color _getTextColor(BuildContext context, BannerCardType type) => switch (type) {
     BannerCardType.neutral => Theme.of(context).colorScheme.onSurface,
     BannerCardType.info => Theme.of(context).colorScheme.onSecondaryContainer,
     BannerCardType.warning => context.customColors.onWarningContainer,

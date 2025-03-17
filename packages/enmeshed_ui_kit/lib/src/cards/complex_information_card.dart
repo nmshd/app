@@ -3,12 +3,23 @@ import 'package:flutter/material.dart';
 
 class ComplexInformationCard extends StatelessWidget {
   final String title;
+  final Icon icon;
   final String? description;
-  final Icon? icon;
   final Color? backgroundColor;
-  final Widget? actionButtons;
+  final List<Widget>? actionButtons;
+  final double? actionButtonSpacing;
+  final MainAxisAlignment? actionButtonMainAxisAlignment;
 
-  const ComplexInformationCard({required this.title, this.description, this.icon, this.backgroundColor, this.actionButtons, super.key});
+  const ComplexInformationCard({
+    required this.title,
+    required this.icon,
+    this.description,
+    this.backgroundColor,
+    this.actionButtons,
+    this.actionButtonSpacing = 0,
+    this.actionButtonMainAxisAlignment = MainAxisAlignment.center,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +31,16 @@ class ComplexInformationCard extends StatelessWidget {
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                icon ?? Icon(Icons.error, color: Theme.of(context).colorScheme.error),
-                Gaps.w8,
-                Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium)),
-              ],
+              children: [icon, Gaps.w8, Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium))],
             ),
             if (description != null) ...[
               Padding(padding: const EdgeInsets.symmetric(vertical: 16), child: Text(description!, style: Theme.of(context).textTheme.bodySmall)),
             ],
-            if (actionButtons != null) Padding(padding: const EdgeInsets.only(top: 24, bottom: 8, left: 8, right: 8), child: actionButtons),
+            if (actionButtons != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 24, bottom: 8, left: 8, right: 8),
+                child: Row(mainAxisAlignment: actionButtonMainAxisAlignment!, spacing: actionButtonSpacing!, children: actionButtons!),
+              ),
           ],
         ),
       ),
