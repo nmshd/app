@@ -214,15 +214,11 @@ class _ContactsViewState extends State<ContactsView> {
     final requestsAndRelationships = <IdentityWithOpenRequests>[...relationships.map((contact) => (contact: contact, openRequests: []))];
 
     for (final request in requests) {
-      final entry = requestsAndRelationships.firstWhere(
-        (item) => item.contact.id == request.peer.id,
-        orElse: () => (contact: request.peer, openRequests: [request]),
-      );
-
-      if (requestsAndRelationships.contains(entry)) {
+      final entry = requestsAndRelationships.where((item) => item.contact.id == request.peer.id).firstOrNull;
+      if (entry != null) {
         entry.openRequests.add(request);
       } else {
-        requestsAndRelationships.add(entry);
+        requestsAndRelationships.add((contact: request.peer, openRequests: [request]));
       }
     }
 
