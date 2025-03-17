@@ -33,7 +33,7 @@ class ContactDetailHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(contact.isUnknown ? context.l10n.contacts_unknown : contact.name, style: Theme.of(context).textTheme.titleMedium),
-                if (contact.date != null && contact.relationship?.status != RelationshipStatus.Pending && request == null)
+                if (contact.date != null && contact.relationship?.status != RelationshipStatus.Pending)
                   Text(
                     context.l10n.contactDetail_connectedSince(
                       DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(contact.date!).toLocal()),
