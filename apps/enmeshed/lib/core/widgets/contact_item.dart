@@ -30,8 +30,8 @@ class ContactItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contactStatusWidget =
-        (ContactStatusText.canRenderStatusText(contact: contact)
-            ? ContactStatusText(contact: contact, style: Theme.of(context).textTheme.labelMedium)
+        (ContactStatusText.canRenderStatusText(contact: contact, openContactRequest: openContactRequest)
+            ? ContactStatusText(contact: contact, style: Theme.of(context).textTheme.labelMedium, openContactRequest: openContactRequest)
             : null);
 
     return ListTile(
@@ -59,7 +59,7 @@ class ContactItem extends StatelessWidget {
     if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.ToBeDeleted) return context.customColors.warning;
 
     if (contact.relationship?.status == RelationshipStatus.Pending) return Theme.of(context).colorScheme.secondary;
-
+    
     return Colors.transparent;
   }
 }
