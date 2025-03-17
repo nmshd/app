@@ -6,7 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '/core/core.dart';
 
 class DismissibleContactItem extends StatefulWidget {
-  final RequestOrRelationship item;
+  final IdentityWithOpenRequests item;
   final VoidCallback onTap;
   final void Function(BuildContext) onDeletePressed;
   final bool isFavoriteContact;
@@ -108,7 +108,7 @@ class _TrailingIcon extends StatelessWidget {
   final bool isFavoriteContact;
   final VoidCallback onDeletePressed;
   final VoidCallback onToggleFavorite;
-  final RequestOrRelationship item;
+  final IdentityWithOpenRequests item;
 
   const _TrailingIcon({required this.isFavoriteContact, required this.onDeletePressed, required this.onToggleFavorite, required this.item});
 
@@ -129,7 +129,7 @@ class _TrailingIcon extends StatelessWidget {
 }
 
 class _Subtitle extends StatelessWidget {
-  final RequestOrRelationship item;
+  final IdentityWithOpenRequests item;
 
   const _Subtitle({required this.item});
 

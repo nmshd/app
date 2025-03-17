@@ -31,8 +31,8 @@ class ContactsView extends StatefulWidget {
 class _ContactsViewState extends State<ContactsView> {
   late List<IdentityDVO> _relationships;
 
-  List<RequestOrRelationship>? _contacts;
-  List<RequestOrRelationship> _filteredContacts = [];
+  List<IdentityWithOpenRequests>? _contacts;
+  List<IdentityWithOpenRequests> _filteredContacts = [];
   List<PublicRelationshipTemplateReferenceDTO> _matchingPublicRelationshipTemplateReferences = [];
 
   List<IdentityDVO> _favorites = [];
@@ -196,7 +196,7 @@ class _ContactsViewState extends State<ContactsView> {
     widget.contactsFilterController.value = options;
   }
 
-  String _contactToCategory(RequestOrRelationship requestOrRelationship) => switch (_sortingType) {
+  String _contactToCategory(IdentityWithOpenRequests requestOrRelationship) => switch (_sortingType) {
     _ContactsSortingType.date => simpleTimeago(context, requestOrRelationship.sortingDate),
     _ContactsSortingType.name => requestOrRelationship.contact.isUnknown ? '' : requestOrRelationship.contact.initials[0].toUpperCase(),
   };
@@ -211,7 +211,7 @@ class _ContactsViewState extends State<ContactsView> {
     final relationships = await getContacts(session: session);
     final requests = await incomingOpenRequestsFromRelationshipTemplate(session: session);
 
-    final requestsAndRelationships = <RequestOrRelationship>[...relationships.map((contact) => (contact: contact, openRequests: []))];
+    final requestsAndRelationships = <IdentityWithOpenRequests>[...relationships.map((contact) => (contact: contact, openRequests: []))];
 
     for (final request in requests) {
       final entry = requestsAndRelationships.firstWhere(
@@ -324,7 +324,7 @@ class _ContactsViewState extends State<ContactsView> {
     setState(() => _filteredContacts = filteredContacts);
   }
 
-  int Function(RequestOrRelationship, RequestOrRelationship) _compareFunction(_ContactsSortingType type, bool isSortedAscending) {
+  int Function(IdentityWithOpenRequests, IdentityWithOpenRequests) _compareFunction(_ContactsSortingType type, bool isSortedAscending) {
     return (a, b) {
       if (_sortingType == _ContactsSortingType.name) {
         // Sort 'i18n://dvo.identity.unknown' to the top
@@ -343,13 +343,13 @@ class _ContactsViewState extends State<ContactsView> {
   }
 }
 
-extension on RequestOrRelationship {
+extension on IdentityWithOpenRequests {
   DateTime get sortingDate => DateTime.parse(openRequests.firstOrNull?.createdAt ?? contact.date ?? '0000-01-01');
 }
 
 class _ContactItem extends StatelessWidget {
   final String accountId;
-  final RequestOrRelationship item;
+  final IdentityWithOpenRequests item;
   final bool isFavoriteContact;
   final VoidCallback reload;
   final Future<void> Function(IdentityDVO identity) toggleContactFavorite;
