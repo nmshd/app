@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 import '../utils/extensions.dart';
-import 'information_container.dart';
 
 enum ScannerType {
   addContact,
@@ -22,10 +21,10 @@ class InstructionsScreen extends StatefulWidget {
   final String informationTitle;
   final String informationDescription;
   final VectorGraphic illustration;
+  final Icon informationCardIcon;
   final void Function()? deactivateHint;
   final bool showNumberedExplanation;
   final String? buttonContinueText;
-  final bool informationContainerIsWarning;
 
   const InstructionsScreen({
     required this.onContinue,
@@ -35,10 +34,10 @@ class InstructionsScreen extends StatefulWidget {
     required this.informationTitle,
     required this.informationDescription,
     required this.illustration,
+    required this.informationCardIcon,
     this.deactivateHint,
     this.showNumberedExplanation = true,
     this.buttonContinueText,
-    this.informationContainerIsWarning = false,
     super.key,
   });
 
@@ -86,10 +85,10 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                         Gaps.h8,
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: InformationContainer(
+                          child: InformationCard(
                             title: widget.informationTitle,
                             description: widget.informationDescription,
-                            warning: widget.informationContainerIsWarning,
+                            icon: widget.informationCardIcon,
                           ),
                         ),
                       ],

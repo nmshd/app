@@ -88,11 +88,18 @@ class _HomeViewState extends State<HomeView> {
                     CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
 
                   if (_showRecoveryKitWasUsedContainer)
-                    _RecoveryKitWasUsedContainer(
-                      onCreate: () => context.push('/profiles'),
-                      onDismissed: () => upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.accountId, value: false),
+                    ComplexInformationCard(
+                      title: context.l10n.home_identityRecoveryKitWasUsed,
+                      description: context.l10n.home_identityRecoverKitWasUsed_description,
+                      icon: Icon(Icons.warning_rounded, color: context.customColors.warning),
+                      actionButtons: [
+                        OutlinedButton(
+                          onPressed: () => upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.accountId, value: false),
+                          child: Text(context.l10n.home_closeHint),
+                        ),
+                        FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
+                      ],
                     ),
-
                   AddContactOrDeviceContainer(accountId: widget.accountId),
                 ],
               ),
@@ -154,48 +161,5 @@ class _HomeViewState extends State<HomeView> {
     if (mounted) setState(() => _isCompleteProfileContainerShown = false);
 
     await upsertCompleteProfileContainerSetting(accountId: widget.accountId, value: false);
-  }
-}
-
-class _RecoveryKitWasUsedContainer extends StatelessWidget {
-  final VoidCallback onDismissed;
-  final VoidCallback onCreate;
-
-  const _RecoveryKitWasUsedContainer({required this.onDismissed, required this.onCreate});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.warning, color: context.customColors.warning),
-                Gaps.w8,
-                Expanded(child: Text(context.l10n.home_identityRecoveryKitWasUsed, style: Theme.of(context).textTheme.bodyMedium)),
-              ],
-            ),
-          ),
-          Text(context.l10n.home_identityRecoverKitWasUsed_description, style: Theme.of(context).textTheme.bodySmall),
-          Gaps.h16,
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                OutlinedButton(onPressed: onDismissed, child: Text(context.l10n.home_closeHint)),
-                Gaps.w8,
-                FilledButton(onPressed: onCreate, child: Text(context.l10n.home_create)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
