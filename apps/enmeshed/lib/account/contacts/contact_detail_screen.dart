@@ -92,14 +92,27 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                 ContactDetailHeader(contact: contact, request: _openRequests?.firstOrNull),
                 ContactStatusInfoContainer(contact: contact),
                 if (_openRequests?.isNotEmpty ?? false)
-                  _OpenRequestsContainer(
-                    onButtonPressed: () async {
-                      await context.push(
-                        '/account/${widget.accountId}/contacts/contact-request/${_openRequests!.first.id}',
-                        extra: _openRequests!.first,
-                      );
-                      await _reloadContact();
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: ComplexInformationCard(
+                      title: context.l10n.contactDetail_openRequestsTitle,
+                      icon: Icon(Icons.info, color: Theme.of(context).colorScheme.secondary),
+                      description: context.l10n.contactDetail_openRequestsDescription,
+                      actionButtons: [
+                        Expanded(
+                          child: FilledButton(
+                            onPressed: () async {
+                              await context.push(
+                                '/account/${widget.accountId}/contacts/contact-request/${_openRequests!.first.id}',
+                                extra: _openRequests!.first,
+                              );
+                              await _reloadContact();
+                            },
+                            child: Text(context.l10n.contactDetail_checkRequests),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ContactDetailIconBar(
                   session: _session,
@@ -194,46 +207,5 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
     if (attributes.any((element) => ((element.content as RelationshipAttribute).value as ProprietaryBooleanAttributeValue).value)) {
       setState(() => _showSendCertificateButton = true);
     }
-  }
-}
-
-class _OpenRequestsContainer extends StatelessWidget {
-  final Future<void> Function() onButtonPressed;
-
-  const _OpenRequestsContainer({required this.onButtonPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Container(
-        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.info, color: Theme.of(context).colorScheme.secondary),
-                  Gaps.w8,
-                  Expanded(child: Text(context.l10n.contactDetail_openRequestsTitle, style: Theme.of(context).textTheme.bodyMedium)),
-                ],
-              ),
-            ),
-            Text(context.l10n.contactDetail_openRequestsDescription, style: Theme.of(context).textTheme.bodySmall),
-            Gaps.h16,
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Expanded(child: FilledButton(onPressed: onButtonPressed, child: Text(context.l10n.contactDetail_checkRequests)))],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
