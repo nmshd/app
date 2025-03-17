@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
@@ -48,11 +49,13 @@ class _ProfilesInDeletionContainerState extends State<ProfilesInDeletionContaine
           title: context.l10n.profile_localDeletion_title,
           description: context.l10n.profile_localDeletion_card_description,
           icon: Icon(Icons.error, color: Theme.of(context).colorScheme.error),
-          actionButtons: OutlinedButton.icon(
-            onPressed: () => showDeleteLocalDataModal(context: context, accountsInDeletion: widget.accountsInDeletion, onDeleted: widget.onDeleted),
-            label: Text(context.l10n.profile_localDeletion_card_button),
-            icon: const Icon(Icons.delete_forever_outlined),
-          ),
+          actionButtons: [
+            OutlinedButton.icon(
+              onPressed: () => showDeleteLocalDataModal(context: context, accountsInDeletion: widget.accountsInDeletion, onDeleted: widget.onDeleted),
+              label: Text(context.l10n.profile_localDeletion_card_button),
+              icon: const Icon(Icons.delete_forever_outlined),
+            ),
+          ],
         ),
       ],
     );

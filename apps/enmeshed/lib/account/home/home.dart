@@ -92,17 +92,15 @@ class _HomeViewState extends State<HomeView> {
                       title: context.l10n.home_identityRecoveryKitWasUsed,
                       description: context.l10n.home_identityRecoverKitWasUsed_description,
                       icon: Icon(Icons.warning_rounded, color: context.customColors.warning),
-                      actionButtons: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          OutlinedButton(
-                            onPressed: () => upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.accountId, value: false),
-                            child: Text(context.l10n.home_closeHint),
-                          ),
-                          Gaps.w8,
-                          FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
-                        ],
-                      ),
+                      actionButtons: [
+                        OutlinedButton(
+                          onPressed: () => upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.accountId, value: false),
+                          child: Text(context.l10n.home_closeHint),
+                        ),
+                        FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
+                      ],
+                      actionButtonSpacing: 8,
+                      actionButtonMainAxisAlignment: MainAxisAlignment.end,
                     ),
                   AddContactOrDeviceContainer(accountId: widget.accountId),
                 ],
