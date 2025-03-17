@@ -270,6 +270,7 @@ class _ContactsViewState extends State<ContactsView> {
           (item) => ContactItem(
             contact: item,
             query: keyword,
+            iconSize: 40,
             onTap: () {
               controller
                 ..clear()
