@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
 import '../data_view_object.dart';
+import '../transport/file_dvo.dart';
 import 'attribute_dvos.dart';
 import 'attribute_query_dvos.dart';
 import 'response_item_dvos.dart';
@@ -320,7 +321,8 @@ class RegisterAttributeListenerRequestItemDVO extends RequestItemDVODerivation {
 
 @JsonSerializable(includeIfNull: false)
 class TransferFileOwnershipRequestItemDVO extends RequestItemDVODerivation {
-  final String freeText;
+  final String fileReference;
+  final FileDVO file;
 
   const TransferFileOwnershipRequestItemDVO({
     required super.id,
@@ -334,8 +336,9 @@ class TransferFileOwnershipRequestItemDVO extends RequestItemDVODerivation {
     required super.isDecidable,
     super.response,
     super.requireManualDecision,
-    required this.freeText,
-  }) : super(type: 'FreeTextRequestItemDVO');
+    required this.fileReference,
+    required this.file,
+  }) : super(type: 'TransferFileOwnershipRequestItemDVO');
 
   factory TransferFileOwnershipRequestItemDVO.fromJson(Map json) => _$TransferFileOwnershipRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override

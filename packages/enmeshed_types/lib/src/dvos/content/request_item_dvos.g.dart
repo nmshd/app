@@ -333,7 +333,8 @@ TransferFileOwnershipRequestItemDVO _$TransferFileOwnershipRequestItemDVOFromJso
   isDecidable: json['isDecidable'] as bool,
   response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
   requireManualDecision: json['requireManualDecision'] as bool?,
-  freeText: json['freeText'] as String,
+  fileReference: json['fileReference'] as String,
+  file: FileDVO.fromJson(json['file'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$TransferFileOwnershipRequestItemDVOToJson(TransferFileOwnershipRequestItemDVO instance) => <String, dynamic>{
@@ -349,7 +350,8 @@ Map<String, dynamic> _$TransferFileOwnershipRequestItemDVOToJson(TransferFileOwn
   if (instance.response?.toJson() case final value?) 'response': value,
   'mustBeAccepted': instance.mustBeAccepted,
   if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
-  'freeText': instance.freeText,
+  'fileReference': instance.fileReference,
+  'file': instance.file.toJson(),
 };
 
 DecidableReadAttributeRequestItemDVO _$DecidableReadAttributeRequestItemDVOFromJson(Map<String, dynamic> json) =>
@@ -622,7 +624,8 @@ DecidableTransferFileOwnershipRequestItemDVO _$DecidableTransferFileOwnershipReq
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       mustBeAccepted: json['mustBeAccepted'] as bool,
       requireManualDecision: json['requireManualDecision'] as bool?,
-      freeText: json['freeText'] as String,
+      fileReference: json['fileReference'] as String,
+      file: FileDVO.fromJson(json['file'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DecidableTransferFileOwnershipRequestItemDVOToJson(DecidableTransferFileOwnershipRequestItemDVO instance) => <String, dynamic>{
@@ -636,5 +639,6 @@ Map<String, dynamic> _$DecidableTransferFileOwnershipRequestItemDVOToJson(Decida
   if (instance.warning?.toJson() case final value?) 'warning': value,
   'mustBeAccepted': instance.mustBeAccepted,
   if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
-  'freeText': instance.freeText,
+  'fileReference': instance.fileReference,
+  'file': instance.file.toJson(),
 };

@@ -245,7 +245,8 @@ class DecidableRegisterAttributeListenerRequestItemDVO extends DecidableRequestI
 
 @JsonSerializable(includeIfNull: false)
 class DecidableTransferFileOwnershipRequestItemDVO extends DecidableRequestItemDVODerivation {
-  final String freeText;
+  final String fileReference;
+  final FileDVO file;
 
   const DecidableTransferFileOwnershipRequestItemDVO({
     required super.id,
@@ -257,7 +258,8 @@ class DecidableTransferFileOwnershipRequestItemDVO extends DecidableRequestItemD
     super.warning,
     required super.mustBeAccepted,
     super.requireManualDecision,
-    required this.freeText,
+    required this.fileReference,
+    required this.file,
   }) : super(type: 'DecidableTransferFileOwnershipRequestItemDVO', isDecidable: true);
 
   factory DecidableTransferFileOwnershipRequestItemDVO.fromJson(Map json) =>
