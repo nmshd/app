@@ -9,7 +9,7 @@ class ContactStatusText extends StatelessWidget {
   final LocalRequestDVO? openContactRequest;
   final TextStyle? style;
 
-  const ContactStatusText({required this.contact, required this.openContactRequest, this.style, super.key});
+  const ContactStatusText({required this.contact, this.openContactRequest, this.style, super.key});
 
   static bool canRenderStatusText({required IdentityDVO contact, LocalRequestDVO? openContactRequest}) {
     final hasOpenContactRequestInCorrectStatus =
@@ -32,23 +32,28 @@ class ContactStatusText extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyle = style ?? Theme.of(context).textTheme.bodyMedium;
 
-    if (openContactRequest != null) {
-      final status = openContactRequest!.status;
-      if (status == LocalRequestStatus.ManualDecisionRequired) {
-        return Text(context.l10n.contacts_notYetRequested, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.secondary));
-      }
-
-      if (status == LocalRequestStatus.Expired) {
-        return Text(context.l10n.contacts_requestExpired, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.error));
-      }
-    }
-
     if (contact.relationship?.peerDeletionStatus != null) {
       final status = contact.relationship!.peerDeletionStatus!;
       return switch (status) {
         PeerDeletionStatus.ToBeDeleted => Text(context.l10n.contacts_toBeDeleted, style: textStyle?.copyWith(color: context.customColors.warning)),
         PeerDeletionStatus.Deleted => Text(context.l10n.contacts_deleted, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.error)),
       };
+    }
+
+    if (openContactRequest != null) {
+      final status = openContactRequest!.status;
+
+      if (status == LocalRequestStatus.Expired) {
+        return Text(context.l10n.contacts_requestExpired, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.error));
+      }
+
+      if (contact.hasRelationship) {
+        return Text(context.l10n.contacts_openRequests, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.secondary));
+      }
+
+      if (status == LocalRequestStatus.ManualDecisionRequired) {
+        return Text(context.l10n.contacts_notYetRequested, style: textStyle?.copyWith(color: Theme.of(context).colorScheme.secondary));
+      }
     }
 
     return switch (contact.relationship?.status) {

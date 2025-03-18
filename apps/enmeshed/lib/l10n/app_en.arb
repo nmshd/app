@@ -33,6 +33,14 @@
   "errorDialog_invalidQRCode_description": "The scanned QR code is not supported by this app. If you have an alternative QR code available, please use it.\n\nMake sure you are using the latest version of the app. Go to the store and update the app if necessary.",
   "errorDialog_QRCodeProcessingFailed_title": "Error when processing the QR code",
   "errorDialog_QRCodeProcessingFailed_description": "The scanned QR code could not be processed. If you have an alternative QR code available, please use it.\n\nMake sure you are using the latest version of the app. Go to the store and update the app if necessary.",
+  "errorDialog_relationshipNotYetDecomposedByPeer_title": "You cannot currently enter into a new relationship with this contact.",
+  "errorDialog_relationshipNotYetDecomposedByPeer_description": "Try again at a later date",
+  "errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_title": "The contact no longer exists",
+  "errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description": "The contact for this QR code no longer exists or is no longer part of \"enmeshed\". You can no longer establish a contact relationship.",
+  "errorDialog_relationshipTemplateIsExpired_title": "The contact request has expired",
+  "errorDialog_relationshipTemplateIsExpired_description": "The contact has preset a response deadline for this QR code. The contact request associated with this QR code has expired.",
+  "errorDialog_requestExpired_title": "The QR code has already expired",
+  "errorDialog_requestExpired_description": "This QR code is no longer valid. Try to get a new QR code from the contact.",
   "error_image": "Failed to pick image.",
   "error_upload_file": "Failed to upload the file.",
   "error_download_file": "Failed to download the file.",
@@ -49,6 +57,8 @@
   "error_openMailApp": "Error when opening the e-mail app",
   "error_openMailApp_description": "The e-mail app on your device could not be opened. Write to support using a different device.\n\nThe e-mail address is:\nenmeshed.support@js-soft.com",
   "error_understood": "Understood",
+  "error_deleteRequest": "Delete request",
+  "error_deleteRequestFailed": "The contact request could not be deleted. Please try again later.",
   "favorites": "Favorites",
   "tryAgain": "Try again",
   "title": "Title",
@@ -157,13 +167,15 @@
   "drawer_manageProfiles": "Manage profiles",
   "drawer_title": "Information & help",
   "drawer_notifications": "Notifications",
+  "drawer_notifications_activate": "Enable notifications",
   "drawer_notifications_stayInformed": "Stay informed!",
-  "drawer_notifications_getNotifications": "This will provide you with important information about what is happening in your profile(s). We will also send you notifications about new services in the app.",
-  "drawer_notifications_howToActivate": "To receive notifications, go to your system settings and enable notifications from the \"enmeshed\" app.",
-  "drawer_notifications_activate": "Activate now",
+  "drawer_notifications_getNotifications": "You will receive important information about processes in your profile(s) via notifications. We also send notifications about new services in the app.",
+  "drawer_notifications_howToActivate": "To receive notifications, go to the system settings of your device and activate notifications from the \"enmeshed\" app.",
+  "drawer_notifications_activateButton": "Activate now",
   "drawer_notifications_granted": "Great, you stay informed!",
-  "drawer_notifications_grantedInformation": "You have activated notifications so you always stay up to date.",
+  "drawer_notifications_grantedInformation": "You have activated notifications in the system settings of your device and are therefore always up to date.",
   "drawer_hints": "Hints",
+  "drawer_hints_description": "You can reactivate supporting notes that you have marked as 'no longer show' in various places in the app.",
   "drawer_hints_loadProfile": "Load existing profile",
   "drawer_hints_addContact": "Add contact",
   "drawer_hints_firstSteps": "First steps",
@@ -369,7 +381,6 @@
   "contact_information_messages": "Messages",
   "contact_information_noMessages": "No messages available.",
   "contact_information_sharedFiles": "Shared Files",
-  "contact_requestDescription": "The new contact would like to share the following data or requests with you:",
   "contact_request_validationError": "{count, plural, =1{1 Error message} other{{count} Error messages}}",
   "@contact_request_validationError": {
     "placeholders": {
@@ -381,18 +392,38 @@
   "contact_request_validationErrorDescription": "Please correct all fields marked with an error to complete the contact request.",
   "message_request_validationErrorDescription": "Please correct all fields marked with an error to complete the task.",
   "contact_request": "Contact Request",
+  "contact_request_add": "Accept",
+  "contact_withRelationshipTitle": "Request",
+  "contact_withRelationshipDescription": "{contactName} would like to provide you with data.",
+  "@contact_withRelationshipDescription": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
   "contacts_empty": "Add contacts",
   "contacts_emptyDescription": "Connect with contacts to share or receive data and documents.",
   "contacts_date": "Date",
   "contacts_addContact": "Add contact",
   "contacts_unknown": "Contact name not available",
   "contacts_notYetRequested": "Contact request not yet sent",
+  "contacts_requestWithExpiryDate": "Expires on {date}",
+  "@contacts_requestWithExpiryDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
   "contacts_requestExpired": "Contact request expired",
   "contacts_pending": "Contact has not yet been confirmed",
   "contacts_terminatedOrDeletionProposed": "Relationship ended",
   "contacts_deleted": "Contact no longer exists",
   "contacts_toBeDeleted": "Will be deleted shortly",
   "contacts_terminated": "Contact terminated the relationship",
+  "contacts_openRequests": "There are open requests",
   "contacts_deletionProposed": "Relationship permanently terminated",
   "contacts_delete_title": "Delete contact <bold>{contactName}</bold>?",
   "@contacts_delete_title": {
@@ -497,6 +528,9 @@
       }
     }
   },
+  "contactDetail_openRequestsTitle": "You have not yet completed one or more requests",
+  "contactDetail_openRequestsDescription": "The contact would like to share more data with you. You can check and accept the pending requests.",
+  "contactDetail_checkRequests": "Check requests",
   "myData_createEntryForAttributeType": "Create",
   "myData_noEntryForAttributeType": "No entry",
   "myData_allData": "All Data",

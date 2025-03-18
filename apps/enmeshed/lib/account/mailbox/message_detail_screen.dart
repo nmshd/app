@@ -207,6 +207,7 @@ class _RequestInformationState extends State<_RequestInformation> {
         validationErrorDescription: context.l10n.message_request_validationErrorDescription,
         showHeader: false,
         onAfterAccept: () => setState(() => useRequestFromMessage = false),
+        validateCreateRelationship: null,
       ),
     );
   }

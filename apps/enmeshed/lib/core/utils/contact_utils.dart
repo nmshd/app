@@ -79,11 +79,16 @@ Future<List<IdentityDVO>> getContacts({required Session session}) async {
   return dvos;
 }
 
-Future<List<LocalRequestDVO>> incomingOpenRequestsFromRelationshipTemplate({required Session session}) async {
+Future<List<LocalRequestDVO>> incomingOpenRequestsFromRelationshipTemplate({required Session session, String? peer}) async {
   final incomingRequestResult = await session.consumptionServices.incomingRequests.getRequests(
     query: {
-      'status': QueryValue.stringList([LocalRequestStatus.DecisionRequired.name, LocalRequestStatus.ManualDecisionRequired.name]),
+      'status': QueryValue.stringList([
+        LocalRequestStatus.DecisionRequired.name,
+        LocalRequestStatus.ManualDecisionRequired.name,
+        LocalRequestStatus.Expired.name,
+      ]),
       'source.type': QueryValue.string(LocalRequestSourceType.RelationshipTemplate.name),
+      if (peer != null) 'peer': QueryValue.string(peer),
     },
   );
 
@@ -146,4 +151,22 @@ Future<void> deleteContact({
   }
 
   onContactDeleted();
+}
+
+Future<({bool success, String? errorCode})> validateRelationshipCreation({
+  required String accountId,
+  required Session session,
+  LocalRequestDVO? request,
+}) async {
+  if (request == null || request.peer.hasRelationship || request.source?.type != LocalRequestSourceType.RelationshipTemplate) {
+    return (success: true, errorCode: null);
+  }
+
+  final response = await session.transportServices.relationships.canCreateRelationship(templateId: request.source!.reference);
+
+  if (response.value.isSuccess) return (success: true, errorCode: null);
+
+  final failureResponse = response.value as CanCreateRelationshipFailureResponse;
+
+  return (success: false, errorCode: failureResponse.code);
 }
