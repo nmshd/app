@@ -30,6 +30,9 @@ workflows:
       - name: Bootstrap repository
         script: melos bootstrap
 
+      - name: Generate translations
+        script: melos generate_translations
+
       - name: Build appbundle with Flutter
         script: |
           BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "eu.enmeshed.app" --tracks="internal") + 1)) 
@@ -100,6 +103,9 @@ workflows:
       - name: Bootstrap repository
         script: melos bootstrap
 
+      - name: Generate translations
+        script: melos generate_translations
+
       - name: Flutter build ipa
         script: |
           flutter build ipa --release \
@@ -159,6 +165,9 @@ workflows:
 
       - name: Bootstrap repository
         script: melos bootstrap
+
+      - name: Generate translations
+        script: melos generate_translations
 
       - name: Build appbundle with Flutter
         script: |

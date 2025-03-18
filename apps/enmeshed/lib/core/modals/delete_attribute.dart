@@ -20,9 +20,12 @@ Future<void> showDeleteAttributeModal({
 }) async {
   await showModalBottomSheet<void>(
     context: context,
+    isScrollControlled: true,
     builder:
-        (context) =>
-            _DeleteConfirmation(accountId: accountId, onAttributeDeleted: onAttributeDeleted, attribute: attribute as RepositoryAttributeDVO),
+        (context) => ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+          child: _DeleteConfirmation(accountId: accountId, onAttributeDeleted: onAttributeDeleted, attribute: attribute as RepositoryAttributeDVO),
+        ),
   );
 }
 

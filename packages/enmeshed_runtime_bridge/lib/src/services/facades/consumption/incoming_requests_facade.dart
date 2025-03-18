@@ -85,4 +85,18 @@ class IncomingRequestsFacade {
     final json = result.valueToMap();
     return Result.fromJson(json, (value) => List<LocalRequestDTO>.from(value.map((e) => LocalRequestDTO.fromJson(e))));
   }
+
+  Future<VoidResult> delete({required String requestId}) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.consumptionServices.incomingRequests.delete(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { }''',
+      arguments: {
+        'request': {'requestId': requestId},
+      },
+    );
+
+    final json = result.valueToMap();
+    return VoidResult.fromJson(json);
+  }
 }

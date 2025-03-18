@@ -26,6 +26,7 @@ class _HomeViewState extends State<HomeView> {
   List<MessageDVO>? _messages;
   List<LocalRequestDVO>? _requests;
   bool _isCompleteProfileContainerShown = false;
+  bool _showRecoveryKitWasUsedContainer = false;
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -81,11 +82,24 @@ class _HomeViewState extends State<HomeView> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
+                spacing: 24,
                 children: [
-                  if (_isCompleteProfileContainerShown) ...[
+                  if (_isCompleteProfileContainerShown)
                     CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
-                    Gaps.h24,
-                  ],
+
+                  if (_showRecoveryKitWasUsedContainer)
+                    ComplexInformationCard(
+                      title: context.l10n.home_identityRecoveryKitWasUsed,
+                      description: context.l10n.home_identityRecoverKitWasUsed_description,
+                      icon: Icon(Icons.warning_rounded, color: context.customColors.warning),
+                      actionButtons: [
+                        OutlinedButton(
+                          onPressed: () => upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.accountId, value: false),
+                          child: Text(context.l10n.home_closeHint),
+                        ),
+                        FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
+                      ],
+                    ),
                   AddContactOrDeviceContainer(accountId: widget.accountId),
                 ],
               ),
@@ -126,12 +140,20 @@ class _HomeViewState extends State<HomeView> {
       valueKey: 'isShown',
     );
 
+    final showRecoveryKitWasUsedContainer = await getSetting(
+      accountId: widget.accountId,
+      key: 'home.restoredIdentity',
+      valueKey: 'showContainer',
+      ignoreRecordNotFoundError: true,
+    );
+
     if (!mounted) return;
     setState(() {
       _unreadMessagesCount = messages.length;
       _messages = messageDVOs;
       _requests = requests;
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
+      _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
     });
   }
 

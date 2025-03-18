@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 
@@ -48,6 +50,8 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
           context.l10n.drawer_hints,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.onPrimaryContainer),
         ),
+        const Spacer(),
+        IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
       ],
     );
 
@@ -59,6 +63,8 @@ class DrawerHintsPageState extends State<DrawerHintsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         title,
+        Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16), child: Text(context.l10n.drawer_hints_description)),
+        Gaps.h24,
         SwitchListTile(
           title: Text(context.l10n.drawer_hints_loadProfile, style: Theme.of(context).textTheme.labelLarge),
           value: _loadProfile!,
