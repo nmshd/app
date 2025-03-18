@@ -275,18 +275,12 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
   Future<void> _onCreateAttributePressed() async {
     setState(() => _confirmEnabled = false);
 
-    // if (widget.onCreateAttributePressed != null) {
-    //   widget.onCreateAttributePressed!(context: context, value: _identityAttribute!);
-
-    //   return;
-    // }
-
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(value: _identityAttribute!);
 
     if (createAttributeResult.isSuccess) {
-      if (mounted) context.pop();
+      if (mounted) context.pop(createAttributeResult.value);
 
       widget.onAttributeCreated();
 
