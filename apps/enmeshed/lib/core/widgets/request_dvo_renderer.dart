@@ -427,7 +427,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                         Icon(Icons.star, color: Theme.of(context).colorScheme.primary, size: 16),
                         Gaps.w4,
                         Text(
-                          'Bevorzugt',
+                          context.l10n.request_default,
                           style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                         ),
                       ],

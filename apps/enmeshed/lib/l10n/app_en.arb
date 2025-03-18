@@ -763,6 +763,7 @@
   "mailbox_filtered_noResults": "There are no messages for the filters you have set.",
   "request_accepting": "Accepting request.",
   "request_rejecting": "Rejecting request.",
+  "request_default": "Preferred",
   "mailbox_noSubject": "No Subject",
   "fileChooser_title": "Select file",
   "fileChooser_uploadFile": "Upload file",
