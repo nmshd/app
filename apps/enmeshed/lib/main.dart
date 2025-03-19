@@ -16,6 +16,7 @@ import 'package:logger/logger.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:vector_graphics/vector_graphics.dart';
 
+import '/identity_in_deletion_screen.dart';
 import '/themes/themes.dart';
 import 'account/account.dart';
 import 'core/core.dart';
@@ -137,6 +138,11 @@ final _router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/error',
       builder: (context, state) => ErrorScreen(backboneNotAvailable: state.uri.queryParameters['backboneNotAvailable'] == 'true'),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/identity-in-deletion',
+      builder: (context, state) => IdentityInDeletionScreen(accountName: state.extra! as String),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
