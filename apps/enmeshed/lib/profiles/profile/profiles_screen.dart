@@ -38,8 +38,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadAccounts().catchError((_) {})))
       ..add(
         runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
-          if (!mounted) return;
-          logoutWhenIdentityInDeletion(context, event.data.deletionDate).catchError((_) {});
+          if (!mounted || event.data.deletionDate == null) return;
+          context.go('/identity-in-deletion', extra: event.data.name);
         }),
       );
     _reloadAccounts();

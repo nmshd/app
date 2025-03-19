@@ -5,6 +5,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import '../modals/add_or_connect_device.dart';
@@ -35,8 +36,8 @@ class _DevicesScreenState extends State<DevicesScreen> {
       ..add(eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadDevices()))
       ..add(
         eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
-          if (!mounted) return;
-          logoutWhenIdentityInDeletion(context, event.data.deletionDate).catchError((_) {});
+          if (!mounted || event.data.deletionDate == null) return;
+          context.go('/identity-in-deletion', extra: event.data.name);
         }),
       );
 
