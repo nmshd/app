@@ -12,7 +12,13 @@ void main() {
           localizationsDelegates: [FlutterI18nDelegate(translationLoader: null)],
           home: const Material(
             child: AuthenticationRequestItemRenderer(
-              item: AuthenticationRequestItemDVO(id: 'id', name: 'authenticationRequestItem', mustBeAccepted: false, isDecidable: false),
+              item: AuthenticationRequestItemDVO(
+                id: 'id',
+                name: 'authenticationRequestItem',
+                mustBeAccepted: false,
+                isDecidable: false,
+                title: 'aTitle',
+              ),
             ),
           ),
         ),

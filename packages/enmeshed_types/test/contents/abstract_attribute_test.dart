@@ -38,19 +38,11 @@ void main() {
 
       expect(mockAbstractAttribute.toJson(), equals(abstractAttributeJson));
     });
-
-    test('is correctly converted with properties "validFrom" and "validTo"', () {
-      const mockAbstractAttribute = MockAbstractAttribute(owner: 'anOwner', validFrom: '1970', validTo: '1980');
-
-      final abstractAttributeJson = {'owner': 'anOwner', 'validFrom': '1970', 'validTo': '1980'};
-
-      expect(mockAbstractAttribute.toJson(), equals(abstractAttributeJson));
-    });
   });
 }
 
 class MockAbstractAttribute extends AbstractAttribute {
-  const MockAbstractAttribute({required super.owner, super.validFrom, super.validTo});
+  const MockAbstractAttribute({required super.owner});
 
   @override
   Map<String, dynamic> toJson() {

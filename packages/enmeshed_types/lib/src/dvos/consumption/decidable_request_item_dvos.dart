@@ -156,6 +156,8 @@ class DecidableShareAttributeRequestItemDVO extends DecidableRequestItemDVODeriv
 
 @JsonSerializable(includeIfNull: false)
 class DecidableAuthenticationRequestItemDVO extends DecidableRequestItemDVODerivation {
+  final String title;
+
   const DecidableAuthenticationRequestItemDVO({
     required super.id,
     required super.name,
@@ -166,6 +168,7 @@ class DecidableAuthenticationRequestItemDVO extends DecidableRequestItemDVODeriv
     super.warning,
     required super.mustBeAccepted,
     super.requireManualDecision,
+    required this.title,
   }) : super(type: 'DecidableAuthenticationRequestItemDVO', isDecidable: true);
 
   factory DecidableAuthenticationRequestItemDVO.fromJson(Map json) =>
