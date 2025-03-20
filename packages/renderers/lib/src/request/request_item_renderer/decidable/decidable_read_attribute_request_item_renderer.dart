@@ -73,7 +73,18 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
             Row(
               children: [
                 Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
-                Expanded(child: Padding(padding: EdgeInsets.only(right: 12), child: _buildQueryRenderer())),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 12),
+                    child: _ProcessedQueryRenderer(
+                      choice: _choice,
+                      item: widget.item,
+                      expandFileReference: widget.expandFileReference,
+                      openFileDetails: widget.openFileDetails,
+                      onUpdateAttribute: _onUpdateAttribute,
+                    ),
+                  ),
+                ),
               ],
             ),
             if (widget.item.requireManualDecision == true) ...[
@@ -84,79 +95,6 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         ),
       ),
     );
-  }
-
-  StatelessWidget _buildQueryRenderer() {
-    if (_choice == null) {
-      return ListTile(
-        contentPadding: EdgeInsets.only(right: 24),
-        visualDensity: VisualDensity.compact,
-        tileColor: Theme.of(context).colorScheme.surface,
-        title: Text(
-          '${FlutterI18n.translate(context, 'dvo.attribute.name.${_getQueryValueType()}')}${widget.item.mustBeAccepted ? '*' : ''}',
-          style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-        ),
-        subtitle: TranslatedText(
-          'i18n://requestRenderer.noEntry',
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
-        ),
-        trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 24),
-      );
-    }
-
-    return switch (widget.item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => IdentityAttributeValueRenderer(
-        titleOverride: (title) => '$title${widget.item.mustBeAccepted ? '*' : ''}',
-        value: _choice?.attribute != null ? (_choice?.attribute as IdentityAttribute).value : query.results.first.value as IdentityAttributeValue,
-        valueHints: query.valueHints,
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (query.results.length > 1) Flexible(child: Text('+${query.results.length - 1}')),
-            const SizedBox(width: 10),
-            Icon(Icons.chevron_right),
-          ],
-        ),
-        expandFileReference: widget.expandFileReference,
-        openFileDetails: widget.openFileDetails,
-      ),
-      final ProcessedRelationshipAttributeQueryDVO query => RelationshipAttributeValueRenderer(
-        value:
-            _choice?.attribute is RelationshipAttribute
-                ? (_choice?.attribute as RelationshipAttribute).value
-                : query.results.first.value as RelationshipAttributeValue,
-        trailing: SizedBox(width: 50, child: IconButton(onPressed: () => _onUpdateAttribute(query.valueType), icon: const Icon(Icons.chevron_right))),
-        expandFileReference: widget.expandFileReference,
-        openFileDetails: widget.openFileDetails,
-      ),
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => RelationshipAttributeValueRenderer(
-        value:
-            _choice?.attribute is RelationshipAttribute
-                ? (_choice?.attribute as RelationshipAttribute).value
-                : query.results.first.value as RelationshipAttributeValue,
-        trailing: SizedBox(
-          width: 50,
-          child: IconButton(onPressed: () => _onUpdateAttribute(query.valueType!), icon: const Icon(Icons.chevron_right)),
-        ),
-        expandFileReference: widget.expandFileReference,
-        openFileDetails: widget.openFileDetails,
-      ),
-
-      final ProcessedIQLQueryDVO query => IdentityAttributeValueRenderer(
-        titleOverride: (title) => '${widget.item.name}${widget.item.mustBeAccepted ? '*' : ''}',
-        value:
-            _choice?.attribute is IdentityAttribute
-                ? (_choice?.attribute as IdentityAttribute).value
-                : query.results.first.value as IdentityAttributeValue,
-        valueHints: query.results.firstOrNull?.valueHints ?? query.valueHints!,
-        trailing: SizedBox(
-          width: 50,
-          child: IconButton(onPressed: () => _onUpdateAttribute(query.valueType!), icon: const Icon(Icons.chevron_right)),
-        ),
-        expandFileReference: widget.expandFileReference,
-        openFileDetails: widget.openFileDetails,
-      ),
-    };
   }
 
   void _onUpdateCheckbox(bool? value) {
@@ -274,5 +212,98 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           ),
         )
         .toList();
+  }
+}
+
+class _ProcessedQueryRenderer extends StatelessWidget {
+  final AttributeSwitcherChoice? choice;
+  final DecidableReadAttributeRequestItemDVO item;
+  final Future<FileDVO> Function(String) expandFileReference;
+  final void Function(FileDVO) openFileDetails;
+  final Future<void> Function(String) onUpdateAttribute;
+
+  const _ProcessedQueryRenderer({
+    required this.choice,
+    required this.item,
+    required this.expandFileReference,
+    required this.openFileDetails,
+    required this.onUpdateAttribute,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (choice == null) {
+      return ListTile(
+        contentPadding: EdgeInsets.only(right: 24),
+        visualDensity: VisualDensity.compact,
+        tileColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          '${FlutterI18n.translate(context, 'dvo.attribute.name.${_getQueryValueType()}')}${item.mustBeAccepted ? '*' : ''}',
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        ),
+        subtitle: TranslatedText(
+          'i18n://requestRenderer.noEntry',
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+        ),
+        trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 24),
+      );
+    }
+
+    return switch (item.query) {
+      final ProcessedIdentityAttributeQueryDVO query => IdentityAttributeValueRenderer(
+        titleOverride: (title) => '$title${item.mustBeAccepted ? '*' : ''}',
+        value: choice?.attribute != null ? (choice?.attribute as IdentityAttribute).value : query.results.first.value as IdentityAttributeValue,
+        valueHints: query.valueHints,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (query.results.length > 1) Flexible(child: Text('+${query.results.length - 1}')),
+            const SizedBox(width: 10),
+            Icon(Icons.chevron_right),
+          ],
+        ),
+        expandFileReference: expandFileReference,
+        openFileDetails: openFileDetails,
+      ),
+      final ProcessedRelationshipAttributeQueryDVO query => RelationshipAttributeValueRenderer(
+        value:
+            choice?.attribute is RelationshipAttribute
+                ? (choice?.attribute as RelationshipAttribute).value
+                : query.results.first.value as RelationshipAttributeValue,
+        trailing: SizedBox(width: 50, child: IconButton(onPressed: () => onUpdateAttribute(query.valueType), icon: const Icon(Icons.chevron_right))),
+        expandFileReference: expandFileReference,
+        openFileDetails: openFileDetails,
+      ),
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => RelationshipAttributeValueRenderer(
+        value:
+            choice?.attribute is RelationshipAttribute
+                ? (choice?.attribute as RelationshipAttribute).value
+                : query.results.first.value as RelationshipAttributeValue,
+        trailing: SizedBox(width: 50, child: IconButton(onPressed: () => onUpdateAttribute(query.valueType!), icon: const Icon(Icons.chevron_right))),
+        expandFileReference: expandFileReference,
+        openFileDetails: openFileDetails,
+      ),
+
+      final ProcessedIQLQueryDVO query => IdentityAttributeValueRenderer(
+        titleOverride: (title) => '${item.name}${item.mustBeAccepted ? '*' : ''}',
+        value:
+            choice?.attribute is IdentityAttribute
+                ? (choice?.attribute as IdentityAttribute).value
+                : query.results.first.value as IdentityAttributeValue,
+        valueHints: query.results.firstOrNull?.valueHints ?? query.valueHints!,
+        trailing: SizedBox(width: 50, child: IconButton(onPressed: () => onUpdateAttribute(query.valueType!), icon: const Icon(Icons.chevron_right))),
+        expandFileReference: expandFileReference,
+        openFileDetails: openFileDetails,
+      ),
+    };
+  }
+
+  String? _getQueryValueType() {
+    return switch (item.query) {
+      final ProcessedIdentityAttributeQueryDVO query => query.valueType,
+      final ProcessedRelationshipAttributeQueryDVO query => query.valueType,
+      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueType,
+      final ProcessedIQLQueryDVO query => query.valueType,
+    };
   }
 }
