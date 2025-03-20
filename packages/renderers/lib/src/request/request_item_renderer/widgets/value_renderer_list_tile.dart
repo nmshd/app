@@ -11,7 +11,7 @@ class ValueRendererListTile extends StatefulWidget {
   final InputDecoration? decoration;
   final AttributeValue? initialValue;
   final ValueRendererController? controller;
-  final Future<void> Function(String valueType, String? value)? onUpdateAttribute;
+  final void Function(String valueType, String? value)? onUpdateAttribute;
   final String valueType;
   final CheckboxSettings? checkboxSettings;
   final bool mustBeAccepted;

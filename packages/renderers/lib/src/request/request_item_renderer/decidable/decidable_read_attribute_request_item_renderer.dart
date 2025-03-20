@@ -234,7 +234,7 @@ class _ProcessedQueryRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     if (choice == null) {
       return ListTile(
-        contentPadding: EdgeInsets.only(right: 24),
+        contentPadding: EdgeInsets.only(right: 12),
         visualDensity: VisualDensity.compact,
         tileColor: Theme.of(context).colorScheme.surface,
         title: Text(
@@ -245,7 +245,7 @@ class _ProcessedQueryRenderer extends StatelessWidget {
           'i18n://requestRenderer.noEntry',
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
         ),
-        trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 24),
+        trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
       );
     }
 
