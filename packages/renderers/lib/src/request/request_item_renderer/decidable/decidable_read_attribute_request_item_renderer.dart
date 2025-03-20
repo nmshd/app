@@ -79,6 +79,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
                     child: _ProcessedQueryRenderer(
                       choice: _choice,
                       item: widget.item,
+                      valueType: _getQueryValueType(),
                       expandFileReference: widget.expandFileReference,
                       openFileDetails: widget.openFileDetails,
                       onUpdateAttribute: _onUpdateAttribute,
@@ -218,6 +219,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 class _ProcessedQueryRenderer extends StatelessWidget {
   final AttributeSwitcherChoice? choice;
   final DecidableReadAttributeRequestItemDVO item;
+  final String? valueType;
   final Future<FileDVO> Function(String) expandFileReference;
   final void Function(FileDVO) openFileDetails;
   final Future<void> Function(String) onUpdateAttribute;
@@ -225,6 +227,7 @@ class _ProcessedQueryRenderer extends StatelessWidget {
   const _ProcessedQueryRenderer({
     required this.choice,
     required this.item,
+    required this.valueType,
     required this.expandFileReference,
     required this.openFileDetails,
     required this.onUpdateAttribute,
@@ -238,7 +241,7 @@ class _ProcessedQueryRenderer extends StatelessWidget {
         visualDensity: VisualDensity.compact,
         tileColor: Theme.of(context).colorScheme.surface,
         title: Text(
-          '${FlutterI18n.translate(context, 'dvo.attribute.name.${_getQueryValueType()}')}${item.mustBeAccepted ? '*' : ''}',
+          '${FlutterI18n.translate(context, 'dvo.attribute.name.$valueType')}${item.mustBeAccepted ? '*' : ''}',
           style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
         subtitle: TranslatedText(
@@ -295,15 +298,6 @@ class _ProcessedQueryRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         openFileDetails: openFileDetails,
       ),
-    };
-  }
-
-  String? _getQueryValueType() {
-    return switch (item.query) {
-      final ProcessedIdentityAttributeQueryDVO query => query.valueType,
-      final ProcessedRelationshipAttributeQueryDVO query => query.valueType,
-      final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueType,
-      final ProcessedIQLQueryDVO query => query.valueType,
     };
   }
 }
