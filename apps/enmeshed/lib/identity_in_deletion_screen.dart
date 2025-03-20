@@ -1,4 +1,3 @@
-import 'package:enmeshed/profiles/profile/widgets/profile_card.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -7,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
+import '/profiles/profile/widgets/profile_card.dart';
 import 'core/core.dart';
 
 class IdentityInDeletionScreen extends StatefulWidget {
@@ -61,6 +61,11 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
                     textAlign: TextAlign.center,
                     'Sie haben die Löschung dieses Profils auf einem anderen Gerät angestoßen. Es befindet sich ein weiteres Profil auf ihrem Gerät. Wählen Sie das Profil aus um fortfzuahren oder erstellen Sie ein neues Profil.\n\nWenn Sie die Löschung des Profil nicht angestoßen haben können Sie das Profil wiederherstellen.',
                   ),
+                  Gaps.h16,
+                  if (_accountsInDeletion!.isNotEmpty)
+                    _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _loadAccountsInDeletion),
+                  if (_accounts!.isNotEmpty) ...[Gaps.h8, _Profiles(accounts: _accounts!)],
+                  Gaps.h32,
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: FilledButton(
@@ -93,3 +98,69 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
   }
 }
 
+class _Profiles extends StatelessWidget {
+  final List<LocalAccountDTO> accounts;
+
+  const _Profiles({required this.accounts, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) => Gaps.h16,
+          itemCount: accounts.length,
+          itemBuilder:
+              (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ProfileCard(account: accounts[index], onAccountSelected: (account) => _onAccountSelected(account, context)),
+              ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _onAccountSelected(LocalAccountDTO account, BuildContext context) async {
+    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+
+    if (context.mounted) {
+      context.go('/account/${account.id}');
+      showSuccessSnackbar(context: context, text: context.l10n.profiles_switchedToProfile(account.name), showCloseIcon: true);
+    }
+  }
+}
+
+class _ProfilesInDeletion extends StatelessWidget {
+  final List<LocalAccountDTO> accountsInDeletion;
+  final VoidCallback reloadAccounts;
+
+  const _ProfilesInDeletion({required this.accountsInDeletion, required this.reloadAccounts});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) => Gaps.h16,
+          itemCount: accountsInDeletion.length,
+          itemBuilder:
+              (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: DeletionProfileCard(
+                  accountInDeletion: accountsInDeletion[index],
+                  trailing: IconButton(
+                    icon: const Icon(Icons.refresh),
+                    onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
+                    tooltip: context.l10n.identity_restore,
+                  ),
+                ),
+              ),
+        ),
+      ],
+    );
+  }
+}
