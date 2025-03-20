@@ -40,8 +40,6 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
 class _DecidableReadAttributeRequestItemRendererState extends State<DecidableReadAttributeRequestItemRenderer> {
   late bool isChecked;
   late bool isManualDecisionAccepted;
-  // CheckboxSettings? checkboxSettings;
-
   AttributeSwitcherChoice? _choice;
 
   @override
@@ -50,12 +48,6 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted, widget.item.requireManualDecision);
     isManualDecisionAccepted = widget.item.initallyDecided;
-    // checkboxSettings = (
-    //   // isChecked: isChecked,
-    //   // onUpdateCheckbox: widget.item.checkboxEnabled ? _onUpdateCheckbox : null,
-    //   isManualDecided: isManualDecisionAccepted,
-    //   onUpdateManualDecision: onUpdateManualDecision,
-    // );
 
     final choice = _getChoices().firstOrNull;
     if (choice == null) return;
