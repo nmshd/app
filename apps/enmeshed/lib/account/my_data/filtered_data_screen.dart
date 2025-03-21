@@ -213,7 +213,6 @@ class _EmptyAttributeEntry extends StatelessWidget {
                   context: context,
                   accountId: accountId,
                   onAttributeCreated: onAttributeCreated,
-                  onCreateAttributePressed: null,
                 ),
           ),
         ],
@@ -236,13 +235,8 @@ class _EmptyAttributeEntry extends StatelessWidget {
         icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
         label: Text(context.l10n.myData_createEntryForAttributeType),
         onPressed:
-            () => showCreateAttributeModal(
-              initialValueType: valueType,
-              context: context,
-              accountId: accountId,
-              onAttributeCreated: onAttributeCreated,
-              onCreateAttributePressed: null,
-            ),
+            () =>
+                showCreateAttributeModal(initialValueType: valueType, context: context, accountId: accountId, onAttributeCreated: onAttributeCreated),
       ),
     );
   }
