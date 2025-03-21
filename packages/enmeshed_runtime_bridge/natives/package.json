@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --keep-names --target=chrome60,firefox60,safari11,edge18 --external:https-proxy-agent --outdir=../assets --tsconfig=tsconfig.esbuild.json",
+    "build": "esbuild src/index.ts src/cryptoBridge.ts --bundle --minify --keep-names --target=chrome60,firefox60,safari11,edge18 --external:https-proxy-agent --outdir=../assets --tsconfig=tsconfig.esbuild.json",
     "build:watch": "npm run build -- --watch",
     "lint": "npm run lint:prettier && npm run lint:ts",
     "lint:prettier": "prettier --check .",
@@ -16,7 +16,7 @@
     "@js-soft/ts-utils": "^2.3.3",
     "@js-soft/web-logger": "^1.0.4",
     "@nmshd/app-runtime": "6.22.0",
-    "@nmshd/rs-crypto-types": "^0.1.0",
+    "@nmshd/rs-crypto-types": "0.5.2",
     "@nmshd/runtime": "6.22.0",
     "js-logger": "^1.6.1",
     "json-stringify-safe": "^5.0.1",

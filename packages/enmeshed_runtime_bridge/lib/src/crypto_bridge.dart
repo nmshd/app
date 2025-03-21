@@ -35,6 +35,7 @@ class CryptoHandler {
   final HashMap<String, Provider> _providers = HashMap();
   final HashMap<String, KeyHandle> _keyHandles = HashMap();
   final HashMap<String, KeyPairHandle> _keyPairHandles = HashMap();
+  final HashMap<String, DhExchange> _dhExchangeHandles = HashMap();
 
   Future<String> handleCall(List<dynamic> args) async {
     // the Call object is a JSON string with the following structure:
@@ -72,6 +73,7 @@ class CryptoHandler {
         'provider' => await _handleProviderCall(objMap),
         'key' => await _handleKeyCall(objMap),
         'key_pair' => await _handleKeyPairCall(objMap),
+        'dh_exchange' => await _handleDhExchangeCall(objMap),
         _ => throw TsDartBridgeException('Unkown handle type', objMap['object_type']),
       };
       return jsonEncode({'status': 'ok', 'data': returnedMap});
@@ -162,6 +164,12 @@ class CryptoHandler {
         final keyId = await key.id();
         _keyPairHandles[keyId] = key;
         return keyId;
+      case 'start_ephemeral_dh_exchange':
+        final keyPairSpec = decodeKeyPairSpec(objMap['args'][0]);
+        final dhExchange = await provider.startEphemeralDhExchange(spec: keyPairSpec);
+        final dhExchangeId = await dhExchange.id();
+        _dhExchangeHandles[dhExchangeId] = dhExchange;
+        return dhExchangeId;
       case 'get_all_keys':
         final keys = await provider.getAllKeys();
         final encodedKeys = keys.map((val) {
@@ -181,6 +189,33 @@ class CryptoHandler {
           return 'null';
         }
         return encodeProviderConfig(config);
+      case 'derive_key_from_password':
+        final password = objMap['args'][0];
+        final salt = base64Decode(objMap['args'][1]);
+        final spec = decodeKeySpec(objMap['args'][2]);
+        final kdf = decodeKdf(objMap['args'][3]);
+        final key = await provider.deriveKeyFromPassword(password: password, salt: salt, algorithm: spec, kdf: kdf);
+        final keyId = await key.id();
+        _keyHandles[keyId] = key;
+        return keyId;
+      case 'derive_key_from_base':
+        final base_key = base64Decode(objMap['args'][0]);
+        final key_id = objMap['args'][1];
+        final context = objMap['args'][2];
+        final spec = decodeKeySpec(objMap['args'][3]);
+        final key = await provider.deriveKeyFromBase(baseKey: base_key, keyId: key_id, context: context, spec: spec);
+        final keyId = await key.id();
+        _keyHandles[keyId] = key;
+        return keyId;
+      case 'hash':
+        final input = base64Decode(objMap['args'][0]);
+        final hash_kind = decodeCryptoHash(objMap['args'][1]);
+        final hash = await provider.hash(input: input, hash: hash_kind);
+        return base64Encode(hash);
+      case 'get_random':
+        final len = objMap['args'][0];
+        final random = await provider.getRandom(len: len);
+        return base64Encode(random);
       default:
         throw TsDartBridgeException('Unknown method', objMap['method']);
     }
@@ -257,6 +292,11 @@ class CryptoHandler {
         final signature = base64Decode(signatureBase64);
         final verified = await keyPair.verifySignature(data: data, signature: signature);
         return verified;
+      case 'start_dh_exchange':
+        final dhExchange = await keyPair.startDhExchange();
+        final dhExchangeId = await dhExchange.id();
+        _dhExchangeHandles[dhExchangeId] = dhExchange;
+        return dhExchangeId;
       case 'delete':
         await keyPair.delete();
         _keyPairHandles.remove(objMap['object_id']);
@@ -267,6 +307,45 @@ class CryptoHandler {
       case 'spec':
         final spec = await keyPair.spec();
         return encodeKeyPairSpec(spec);
+      default:
+        throw TsDartBridgeException('Unknown method', objMap['method']);
+    }
+  }
+
+  Future<Object?> _handleDhExchangeCall(Map<String, dynamic> objMap) async {
+    final dhExchange = _dhExchangeHandles[objMap['object_id']]!;
+    switch (objMap['method']) {
+      case 'get_public_key':
+        final publicKey = await dhExchange.getPublicKey();
+        return base64Encode(publicKey);
+      case 'derive_client_session_keys':
+        final dataBase64 = objMap['args'][0];
+        final data = base64Decode(dataBase64);
+        final (rx, tx) = await dhExchange.deriveClientSessionKeys(serverPk: data);
+        return [base64Encode(rx), base64Encode(tx)];
+      case 'derive_server_session_keys':
+        final dataBase64 = objMap['args'][0];
+        final data = base64Decode(dataBase64);
+        final (rx, tx) = await dhExchange.deriveServerSessionKeys(clientPk: data);
+        return [base64Encode(rx), base64Encode(tx)];
+      case 'derive_client_key_handles':
+        final dataBase64 = objMap['args'][0];
+        final data = base64Decode(dataBase64);
+        final (rxHandle, txHandle) = await dhExchange.deriveClientKeyHandles(serverPk: data);
+        final rxHandleId = await rxHandle.id();
+        final txHandleId = await txHandle.id();
+        _keyHandles[rxHandleId] = rxHandle;
+        _keyHandles[txHandleId] = txHandle;
+        return [rxHandleId, txHandleId];
+      case 'derive_server_key_handles':
+        final dataBase64 = objMap['args'][0];
+        final data = base64Decode(dataBase64);
+        final (rxHandle, txHandle) = await dhExchange.deriveServerKeyHandles(clientPk: data);
+        final rxHandleId = await rxHandle.id();
+        final txHandleId = await txHandle.id();
+        _keyHandles[rxHandleId] = rxHandle;
+        _keyHandles[txHandleId] = txHandle;
+        return [rxHandleId, txHandleId];
       default:
         throw TsDartBridgeException('Unknown method', objMap['method']);
     }
@@ -396,6 +475,8 @@ class CryptoHandler {
         return CryptoHash.sha3384;
       case 'sha3512':
         return CryptoHash.sha3512;
+      case 'blake2B':
+        return CryptoHash.blake2B;
       default:
         throw TsDartBridgeException('Unknown hash', json);
     }
@@ -423,6 +504,8 @@ class CryptoHandler {
         return 'sha3384';
       case CryptoHash.sha3512:
         return 'sha3512';
+      case CryptoHash.blake2B:
+        return 'blake2B';
     }
   }
 
@@ -604,5 +687,47 @@ class CryptoHandler {
       'ephemeral': spec.ephemeral,
       'non_exportable': spec.nonExportable,
     };
+  }
+
+  Argon2Options decodeArgon2Options(Map<String, dynamic> map) {
+    final memory = map['memory'];
+    final iterations = map['iterations'];
+    final parallelism = map['parallelism'];
+    return Argon2Options(memory: memory, iterations: iterations, parallelism: parallelism);
+  }
+
+  Map<String, dynamic> encodeArgon2Options(Argon2Options options) {
+    return {
+      'memory': options.memory,
+      'iterations': options.iterations,
+      'parallelism': options.parallelism,
+    };
+  }
+
+  KDF decodeKdf(Map<String, dynamic> map) {
+    final options = decodeArgon2Options(map['options']);
+    switch (map['type']) {
+      case 'argon2d':
+        return KDF.argon2D(options);
+      case 'argon2id':
+        return KDF.argon2Id(options);
+      default:
+        throw TsDartBridgeException('Unknown KDF', map['type']);
+    }
+  }
+
+  Map<String, dynamic> encodeKdf(KDF kdf) {
+    switch (kdf) {
+      case KDF_Argon2d(:final field0):
+        return {
+          'type': 'argon2d',
+          'options': encodeArgon2Options(field0),
+        };
+      case KDF_Argon2id(:final field0):
+        return {
+          'type': 'argon2id',
+          'options': encodeArgon2Options(field0),
+        };
+    }
   }
 }
