@@ -1,5 +1,10 @@
-part of 'request_item.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import 'request_item_derivation.dart';
+
+part 'consent_request_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class ConsentRequestItem extends RequestItemDerivation {
   final String consent;
   final String? link;
@@ -14,20 +19,13 @@ class ConsentRequestItem extends RequestItemDerivation {
     this.link,
   });
 
-  factory ConsentRequestItem.fromJson(Map json) {
-    return ConsentRequestItem(
-      title: json['title'],
-      description: json['description'],
-      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
-      mustBeAccepted: json['mustBeAccepted'],
-      requireManualDecision: json['requireManualDecision'],
-      consent: json['consent'],
-      link: json['link'],
-    );
-  }
-
+  factory ConsentRequestItem.fromJson(Map json) => _$ConsentRequestItemFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'ConsentRequestItem', 'consent': consent, if (link != null) 'link': link};
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll(_$ConsentRequestItemToJson(this));
+    return json;
+  }
 
   @override
   List<Object?> get props => [super.props, consent, link];

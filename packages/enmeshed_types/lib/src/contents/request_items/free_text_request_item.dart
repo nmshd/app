@@ -1,5 +1,10 @@
-part of 'request_item.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import 'request_item_derivation.dart';
+
+part 'free_text_request_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class FreeTextRequestItem extends RequestItemDerivation {
   final String freeText;
 
@@ -12,19 +17,13 @@ class FreeTextRequestItem extends RequestItemDerivation {
     required this.freeText,
   });
 
-  factory FreeTextRequestItem.fromJson(Map json) {
-    return FreeTextRequestItem(
-      title: json['title'],
-      description: json['description'],
-      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
-      mustBeAccepted: json['mustBeAccepted'],
-      requireManualDecision: json['requireManualDecision'],
-      freeText: json['freeText'],
-    );
-  }
-
+  factory FreeTextRequestItem.fromJson(Map json) => _$FreeTextRequestItemFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'FreeTextRequestItem', 'freeText': freeText};
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll(_$FreeTextRequestItemToJson(this));
+    return json;
+  }
 
   @override
   List<Object?> get props => [super.props];

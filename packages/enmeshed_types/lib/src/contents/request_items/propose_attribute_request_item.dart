@@ -1,5 +1,12 @@
-part of 'request_item.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import '../abstract_attribute.dart';
+import '../attribute_query/attribute_query.dart';
+import 'request_item_derivation.dart';
+
+part 'propose_attribute_request_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class ProposeAttributeRequestItem extends RequestItemDerivation {
   final AttributeQuery query;
   final AbstractAttribute attribute;
@@ -14,25 +21,13 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
     required this.attribute,
   });
 
-  factory ProposeAttributeRequestItem.fromJson(Map json) {
-    return ProposeAttributeRequestItem(
-      title: json['title'],
-      description: json['description'],
-      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
-      mustBeAccepted: json['mustBeAccepted'],
-      requireManualDecision: json['requireManualDecision'],
-      query: AttributeQuery.fromJson(json['query']),
-      attribute: AbstractAttribute.fromJson(json['attribute']),
-    );
-  }
-
+  factory ProposeAttributeRequestItem.fromJson(Map json) => _$ProposeAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson(),
-    '@type': 'ProposeAttributeRequestItem',
-    'query': query.toJson(),
-    'attribute': attribute.toJson(),
-  };
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll(_$ProposeAttributeRequestItemToJson(this));
+    return json;
+  }
 
   @override
   List<Object?> get props => [super.props, query, attribute];

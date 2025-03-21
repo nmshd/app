@@ -1,5 +1,11 @@
-part of 'request_item.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import '../attribute_query/attribute_query.dart';
+import 'request_item_derivation.dart';
+
+part 'read_attribute_request_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class ReadAttributeRequestItem extends RequestItemDerivation {
   final AttributeQuery query;
 
@@ -12,19 +18,13 @@ class ReadAttributeRequestItem extends RequestItemDerivation {
     required this.query,
   });
 
-  factory ReadAttributeRequestItem.fromJson(Map json) {
-    return ReadAttributeRequestItem(
-      title: json['title'],
-      description: json['description'],
-      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
-      mustBeAccepted: json['mustBeAccepted'],
-      requireManualDecision: json['requireManualDecision'],
-      query: AttributeQuery.fromJson(json['query']),
-    );
-  }
-
+  factory ReadAttributeRequestItem.fromJson(Map json) => _$ReadAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'ReadAttributeRequestItem', 'query': query.toJson()};
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll(_$ReadAttributeRequestItemToJson(this));
+    return json;
+  }
 
   @override
   List<Object?> get props => [super.props, query];

@@ -1,5 +1,10 @@
-part of 'request_item.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import 'request_item_derivation.dart';
+
+part 'transfer_file_ownership_request_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class TransferFileOwnershipRequestItem extends RequestItemDerivation {
   final String fileReference;
 
@@ -12,19 +17,13 @@ class TransferFileOwnershipRequestItem extends RequestItemDerivation {
     required this.fileReference,
   });
 
-  factory TransferFileOwnershipRequestItem.fromJson(Map json) {
-    return TransferFileOwnershipRequestItem(
-      title: json['title'],
-      description: json['description'],
-      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
-      mustBeAccepted: json['mustBeAccepted'],
-      requireManualDecision: json['requireManualDecision'],
-      fileReference: json['fileReference'],
-    );
-  }
-
+  factory TransferFileOwnershipRequestItem.fromJson(Map json) => _$TransferFileOwnershipRequestItemFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'TransferFileOwnershipRequestItem', 'fileReference': fileReference};
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll(_$TransferFileOwnershipRequestItemToJson(this));
+    return json;
+  }
 
   @override
   List<Object?> get props => [super.props, fileReference];

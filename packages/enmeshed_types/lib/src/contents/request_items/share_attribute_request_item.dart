@@ -1,5 +1,11 @@
-part of 'request_item.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import '../abstract_attribute.dart';
+import 'request_item_derivation.dart';
+
+part 'share_attribute_request_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class ShareAttributeRequestItem extends RequestItemDerivation {
   final AbstractAttribute attribute;
   final String sourceAttributeId;
@@ -16,27 +22,13 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
     this.thirdPartyAddress,
   });
 
-  factory ShareAttributeRequestItem.fromJson(Map json) {
-    return ShareAttributeRequestItem(
-      title: json['title'],
-      description: json['description'],
-      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
-      mustBeAccepted: json['mustBeAccepted'],
-      requireManualDecision: json['requireManualDecision'],
-      attribute: AbstractAttribute.fromJson(json['attribute']),
-      sourceAttributeId: json['sourceAttributeId'],
-      thirdPartyAddress: json['thirdPartyAddress'],
-    );
-  }
-
+  factory ShareAttributeRequestItem.fromJson(Map json) => _$ShareAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson(),
-    '@type': 'ShareAttributeRequestItem',
-    'attribute': attribute.toJson(),
-    'sourceAttributeId': sourceAttributeId,
-    if (thirdPartyAddress != null) 'thirdPartyAddress': thirdPartyAddress,
-  };
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll(_$ShareAttributeRequestItemToJson(this));
+    return json;
+  }
 
   @override
   List<Object?> get props => [super.props, attribute, sourceAttributeId, thirdPartyAddress];

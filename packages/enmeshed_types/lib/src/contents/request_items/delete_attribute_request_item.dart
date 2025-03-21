@@ -1,5 +1,10 @@
-part of 'request_item.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import 'request_item_derivation.dart';
+
+part 'delete_attribute_request_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class DeleteAttributeRequestItem extends RequestItemDerivation {
   final String attributeId;
 
@@ -12,20 +17,15 @@ class DeleteAttributeRequestItem extends RequestItemDerivation {
     required this.attributeId,
   });
 
-  factory DeleteAttributeRequestItem.fromJson(Map json) {
-    return DeleteAttributeRequestItem(
-      title: json['title'],
-      description: json['description'],
-      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
-      mustBeAccepted: json['mustBeAccepted'],
-      requireManualDecision: json['requireManualDecision'],
-      attributeId: json['attributeId'],
-    );
+  factory DeleteAttributeRequestItem.fromJson(Map json) => _$DeleteAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll(_$DeleteAttributeRequestItemToJson(this));
+    return json;
   }
 
-  @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'DeleteAttributeRequestItem', 'attributeId': attributeId};
-
+  // TODO: do we need this?
   @override
   String toString() => 'DeleteAttributeRequestItem(attributeId: $attributeId)';
 
