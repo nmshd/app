@@ -37,11 +37,12 @@ async function bufferToBase64(buffer: Uint8Array): Promise<string> {
 type HandlerArgs = {
   object_type: string;
   method: string;
-  args: any[];
+  args: unknown[];
 };
 
-let handlerName = "handleCryptoEvent";
+const handlerName = "handleCryptoEvent";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function callHandler(handlerName: string, callArgs: HandlerArgs): Promise<any> {
   const res = await window.flutter_inappwebview.callHandler(handlerName, JSON.stringify(callArgs));
   const parsed = JSON.parse(res);
@@ -53,31 +54,31 @@ async function callHandler(handlerName: string, callArgs: HandlerArgs): Promise<
 }
 
 async function createProvider(config: types.ProviderConfig, implConfig: types.ProviderImplConfig): Promise<Provider> {
-  let callArgs = {
+  const callArgs = {
     object_type: "bare",
     method: "create_provider",
     args: [config, implConfig]
   };
-  let handle_id = await callHandler(handlerName, callArgs);
-  let handle = newProvider();
+  const handle_id = await callHandler(handlerName, callArgs);
+  const handle = newProvider();
   handle._id = handle_id;
   return handle;
 }
 
 async function createProviderFromName(name: string, implConfig: types.ProviderImplConfig): Promise<Provider> {
-  let callArgs = {
+  const callArgs = {
     object_type: "bare",
     method: "create_provider_from_name",
     args: [name, implConfig]
   };
-  let handle_id = await callHandler(handlerName, callArgs);
-  let handle = newProvider();
+  const handle_id = await callHandler(handlerName, callArgs);
+  const handle = newProvider();
   handle._id = handle_id;
   return handle;
 }
 
 async function getAllProviders(): Promise<string[]> {
-  let callArgs = {
+  const callArgs = {
     object_type: "bare",
     method: "get_all_providers",
     args: []
@@ -88,7 +89,7 @@ async function getAllProviders(): Promise<string[]> {
 async function getProviderCapabilities(
   impl_config: types.ProviderImplConfig
 ): Promise<[string, types.ProviderConfig][]> {
-  let callArgs = {
+  const callArgs = {
     object_type: "bare",
     method: "get_provider_capabilities",
     args: [impl_config]
@@ -130,63 +131,63 @@ function newProvider(): Provider {
     _id: "",
 
     createKey: async function (keySpec: types.KeySpec): Promise<types.KeyHandle> {
-      let callArgs = {
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "create_key",
         args: [keySpec]
       };
-      let handle_id = await callHandler(handlerName, callArgs);
-      let handle = newKeyHandle(handle_id);
+      const handle_id = await callHandler(handlerName, callArgs);
+      const handle = newKeyHandle(handle_id);
       return handle;
     },
 
     createKeyPair: async function (keySpec: types.KeyPairSpec): Promise<types.KeyPairHandle> {
-      let callArgs = {
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "create_key_pair",
         args: [keySpec]
       };
-      let handle_id = await callHandler(handlerName, callArgs);
-      let handle = newKeyPairHandle(handle_id);
+      const handle_id = await callHandler(handlerName, callArgs);
+      const handle = newKeyPairHandle(handle_id);
       return handle;
     },
 
     loadKey: async function (id: string): Promise<types.KeyHandle> {
-      let callArgs = {
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "load_key",
         args: [id]
       };
-      let handle_id = await callHandler(handlerName, callArgs);
-      let handle = newKeyHandle(handle_id);
+      const handle_id = await callHandler(handlerName, callArgs);
+      const handle = newKeyHandle(handle_id);
       return handle;
     },
 
     loadKeyPair: async function (id: string): Promise<types.KeyPairHandle> {
-      let callArgs = {
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "load_key_pair",
         args: [id]
       };
-      let handle_id = await callHandler(handlerName, callArgs);
-      let handle = newKeyPairHandle(handle_id);
+      const handle_id = await callHandler(handlerName, callArgs);
+      const handle = newKeyPairHandle(handle_id);
       return handle;
     },
 
     importKey: async function (spec: types.KeySpec, data: Uint8Array): Promise<types.KeyHandle> {
-      let encoded_data = bufferToBase64(data);
-      let callArgs = {
+      const encoded_data = bufferToBase64(data);
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "import_key",
         args: [spec, encoded_data]
       };
-      let handle_id = await callHandler(handlerName, callArgs);
-      let handle = newKeyHandle(handle_id);
+      const handle_id = await callHandler(handlerName, callArgs);
+      const handle = newKeyHandle(handle_id);
       return handle;
     },
 
@@ -195,45 +196,45 @@ function newProvider(): Provider {
       publicData: Uint8Array,
       privateData: Uint8Array
     ): Promise<types.KeyPairHandle> {
-      let e_public = bufferToBase64(publicData);
-      let e_private = bufferToBase64(privateData);
-      let callArgs = {
+      const e_public = bufferToBase64(publicData);
+      const e_private = bufferToBase64(privateData);
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "import_key_pair",
         args: [spec, e_public, e_private]
       };
-      let handle_id = await callHandler(handlerName, callArgs);
-      let handle = newKeyPairHandle(handle_id);
+      const handle_id = await callHandler(handlerName, callArgs);
+      const handle = newKeyPairHandle(handle_id);
       return handle;
     },
 
     importPublicKey: async function (spec: types.KeyPairSpec, publicData: Uint8Array): Promise<types.KeyPairHandle> {
-      let e_public = bufferToBase64(publicData);
-      let callArgs = {
+      const e_public = bufferToBase64(publicData);
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "import_public_key",
         args: [spec, e_public]
       };
-      let handle_id = await callHandler(handlerName, callArgs);
-      let handle = newKeyPairHandle(handle_id);
+      const handle_id = await callHandler(handlerName, callArgs);
+      const handle = newKeyPairHandle(handle_id);
       return handle;
     },
 
     startEphemeralDhExchange: async function (): Promise<types.DHExchange> {
-      let callArgs = {
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "start_ephemeral_dh_exchange",
         args: []
       };
-      let handle_id = await callHandler(handlerName, callArgs);
+      const handle_id = await callHandler(handlerName, callArgs);
       return newDhKeyExchange(handle_id);
     },
 
     getAllKeys: function (): Promise<string[]> {
-      let callArgs = {
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "get_all_keys",
@@ -243,7 +244,7 @@ function newProvider(): Provider {
     },
 
     providerName: async function (): Promise<string> {
-      let callArgs = {
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "provider_name",
@@ -253,7 +254,7 @@ function newProvider(): Provider {
     },
 
     getCapabilities: async function (): Promise<types.ProviderConfig> {
-      let callArgs = {
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "get_capabilities",
@@ -268,14 +269,14 @@ function newProvider(): Provider {
       algorithm: types.KeySpec,
       kdf: types.KDF
     ): Promise<types.KeyHandle> {
-      let salt_b64 = bufferToBase64(salt);
-      let callArgs = {
+      const salt_b64 = bufferToBase64(salt);
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "derive_key_from_password",
-        args: [password, algorithm, kdf]
+        args: [password, salt_b64, algorithm, kdf]
       };
-      let handle_id = await callHandler(handlerName, callArgs);
+      const handle_id = await callHandler(handlerName, callArgs);
       return newKeyHandle(handle_id);
     },
 
@@ -285,37 +286,37 @@ function newProvider(): Provider {
       context: string,
       algorithm: types.KeySpec
     ): Promise<types.KeyHandle> {
-      let baseKey_b64 = bufferToBase64(baseKey);
-      let callArgs = {
+      const baseKey_b64 = bufferToBase64(baseKey);
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "derive_key_from_base",
         args: [baseKey_b64, key_id, context, algorithm]
       };
-      let handle_id = await callHandler(handlerName, callArgs);
+      const handle_id = await callHandler(handlerName, callArgs);
       return newKeyHandle(handle_id);
     },
 
     getRandom: async function (len: number): Promise<Uint8Array> {
-      let callArgs = {
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "get_random",
         args: [len]
       };
-      let return_b64 = await callHandler(handlerName, callArgs);
+      const return_b64 = await callHandler(handlerName, callArgs);
       return base64toUint8Array(return_b64);
     },
 
     hash: async function (input: Uint8Array, hash: types.CryptoHash): Promise<Uint8Array> {
-      let input_b64 = bufferToBase64(input);
-      let callArgs = {
+      const input_b64 = bufferToBase64(input);
+      const callArgs = {
         object_type: "provider",
         object_id: this._id,
         method: "hash",
         args: [input_b64, hash]
       };
-      let return_base64 = await callHandler(handlerName, callArgs);
+      const return_base64 = await callHandler(handlerName, callArgs);
       return base64toUint8Array(return_base64);
     }
   };
@@ -342,8 +343,8 @@ function newKeyHandle(_id: string): KeyHandle {
     },
 
     encryptData: async function (data: Uint8Array): Promise<[Uint8Array, Uint8Array]> {
-      let e_data = bufferToBase64(data);
-      let callArgs = {
+      const e_data = bufferToBase64(data);
+      const callArgs = {
         object_type: "key",
         object_id: this._id,
         method: "encrypt_data",
@@ -358,7 +359,7 @@ function newKeyHandle(_id: string): KeyHandle {
     decryptData: async function (data: Uint8Array, iv: Uint8Array): Promise<Uint8Array> {
       const e_data = bufferToBase64(data);
       const e_iv = bufferToBase64(iv);
-      let callArgs = {
+      const callArgs = {
         object_type: "key",
         object_id: this._id,
         method: "decrypt_data",
@@ -370,7 +371,7 @@ function newKeyHandle(_id: string): KeyHandle {
 
     hmac: async function (data: Uint8Array): Promise<Uint8Array> {
       const e_data = bufferToBase64(data);
-      let callArgs = {
+      const callArgs = {
         object_type: "key",
         object_id: this._id,
         method: "hmac",
@@ -383,7 +384,7 @@ function newKeyHandle(_id: string): KeyHandle {
     verifyHmac: async function (data: Uint8Array, hmac: Uint8Array): Promise<boolean> {
       const e_data = bufferToBase64(data);
       const e_hmac = bufferToBase64(hmac);
-      let callArgs = {
+      const callArgs = {
         object_type: "key",
         object_id: this._id,
         method: "verify_hmac",
@@ -393,7 +394,7 @@ function newKeyHandle(_id: string): KeyHandle {
     },
 
     delete: async function (): Promise<void> {
-      let callArgs = {
+      const callArgs = {
         object_type: "key",
         object_id: this._id,
         method: "delete",
@@ -403,7 +404,7 @@ function newKeyHandle(_id: string): KeyHandle {
     },
 
     extractKey: async function (): Promise<Uint8Array> {
-      let callArgs = {
+      const callArgs = {
         object_type: "key",
         object_id: this._id,
         method: "extract_key",
@@ -414,7 +415,7 @@ function newKeyHandle(_id: string): KeyHandle {
     },
 
     spec: async function (): Promise<types.KeySpec> {
-      let callArgs = {
+      const callArgs = {
         object_type: "key",
         object_id: this._id,
         method: "spec",
@@ -448,7 +449,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
 
     encryptData: async function (data: Uint8Array): Promise<Uint8Array> {
       const e_data = bufferToBase64(data);
-      let callArgs = {
+      const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
         method: "encrypt_data",
@@ -460,7 +461,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
 
     decryptData: async function (data: Uint8Array): Promise<Uint8Array> {
       const e_data = bufferToBase64(data);
-      let callArgs = {
+      const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
         method: "decrypt_data",
@@ -472,7 +473,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
 
     signData: async function (data: Uint8Array): Promise<Uint8Array> {
       const e_data = await bufferToBase64(data);
-      let callArgs = {
+      const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
         method: "sign_data",
@@ -485,7 +486,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
     verifySignature: async function (data: Uint8Array, signature: Uint8Array) {
       const e_data = await bufferToBase64(data);
       const e_sign = await bufferToBase64(signature);
-      let callArgs = {
+      const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
         method: "verify_signature",
@@ -495,7 +496,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
     },
 
     delete: async function (): Promise<void> {
-      let callArgs = {
+      const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
         method: "delete",
@@ -505,7 +506,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
     },
 
     getPublicKey: async function (): Promise<Uint8Array> {
-      let callArgs = {
+      const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
         method: "extract_public_key",
@@ -516,7 +517,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
     },
 
     extractKey: async function (): Promise<Uint8Array> {
-      let callArgs = {
+      const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
         method: "extract_key",
@@ -527,7 +528,7 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
     },
 
     spec: async function (): Promise<types.KeyPairSpec> {
-      let callArgs = {
+      const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
         method: "spec",
@@ -557,7 +558,7 @@ function newDhKeyExchange(_id: string): DhKeyExchange {
     },
 
     getPublicKey: async function (): Promise<Uint8Array> {
-      let callArgs = {
+      const callArgs = {
         object_type: "dh_exchange",
         object_id: this._id,
         method: "get_public_key",
@@ -569,7 +570,7 @@ function newDhKeyExchange(_id: string): DhKeyExchange {
 
     deriveClientSessionKeys: async function (serverPk: Uint8Array): Promise<[Uint8Array, Uint8Array]> {
       const e_data = bufferToBase64(serverPk);
-      let callArgs = {
+      const callArgs = {
         object_type: "dh_exchange",
         object_id: this._id,
         method: "derive_client_session_keys",
@@ -583,7 +584,7 @@ function newDhKeyExchange(_id: string): DhKeyExchange {
 
     deriveServerSessionKeys: async function (clientPk: Uint8Array): Promise<[Uint8Array, Uint8Array]> {
       const e_data = bufferToBase64(clientPk);
-      let callArgs = {
+      const callArgs = {
         object_type: "dh_exchange",
         object_id: this._id,
         method: "derive_server_session_keys",
@@ -597,7 +598,7 @@ function newDhKeyExchange(_id: string): DhKeyExchange {
 
     deriveClientKeyHandles: async function (serverPk: Uint8Array): Promise<[types.KeyHandle, types.KeyHandle]> {
       const e_data = bufferToBase64(serverPk);
-      let callArgs = {
+      const callArgs = {
         object_type: "dh_exchange",
         object_id: this._id,
         method: "derive_client_key_handles",
@@ -611,7 +612,7 @@ function newDhKeyExchange(_id: string): DhKeyExchange {
 
     deriveServerKeyHandles: async function (clientPk: Uint8Array): Promise<[types.KeyHandle, types.KeyHandle]> {
       const e_data = bufferToBase64(clientPk);
-      let callArgs = {
+      const callArgs = {
         object_type: "dh_exchange",
         object_id: this._id,
         method: "derive_server_key_handles",
@@ -647,4 +648,5 @@ const cryptoInit: CryptoInit = {
   dhKeyExchange: newDhKeyExchange
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).cryptoInit = cryptoInit;
