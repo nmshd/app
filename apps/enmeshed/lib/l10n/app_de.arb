@@ -821,5 +821,15 @@
     }
   },
   "passwordProtection_incorrectPassword": "Sie haben ein falsches Passwort eingegeben. Versuchen Sie es erneut.",
-  "passwordProtection_incorrectPin": "Sie haben eine falsche PIN eingegeben. Versuchen Sie es erneut."
+  "passwordProtection_incorrectPin": "Sie haben eine falsche PIN eingegeben. Versuchen Sie es erneut.",
+  "identityInDeletion_title": "Das derzeit aktive Profil {profileName} wurde in Löschung versetzt.",
+  "@identityInDeletion_title": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "identityInDeletion_description": "Sie haben die Löschung dieses Profils auf einem anderen Gerät angestoßen. Wählen Sie das Profil aus um fortfzuahren oder erstellen Sie ein neues Profil.\n\nWenn Sie die Löschung des Profil nicht angestoßen haben können Sie das Profil wiederherstellen.",
+  "identityInDeletion_createNewProfile": "Neues Profil erstellen"
 }

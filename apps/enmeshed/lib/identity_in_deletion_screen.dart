@@ -46,7 +46,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      'Das derzeit aktive Profil ${widget.accountName} wurde in Löschung versetzt.',
+                      context.l10n.identityInDeletion_title(widget.accountName),
                       style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),
@@ -57,10 +57,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
                     child: VectorGraphic(height: 160, loader: AssetBytesLoader('assets/svg/unexpected_error.svg')),
                   ),
                   Gaps.h32,
-                  const Text(
-                    textAlign: TextAlign.center,
-                    'Sie haben die Löschung dieses Profils auf einem anderen Gerät angestoßen. Es befindet sich ein weiteres Profil auf ihrem Gerät. Wählen Sie das Profil aus um fortfzuahren oder erstellen Sie ein neues Profil.\n\nWenn Sie die Löschung des Profil nicht angestoßen haben können Sie das Profil wiederherstellen.',
-                  ),
+                  Text(textAlign: TextAlign.center, context.l10n.identityInDeletion_description),
                   Gaps.h16,
                   if (_accountsInDeletion!.isNotEmpty)
                     _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _loadAccountsInDeletion),
@@ -70,7 +67,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: FilledButton(
                       onPressed: () => context.go('/onboarding?skipIntroduction=true'),
-                      child: const Text('Neues Profil erstellen'),
+                      child: Text(context.l10n.identityInDeletion_createNewProfile),
                     ),
                   ),
                 ],
