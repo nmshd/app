@@ -13,6 +13,7 @@ export 'local_data_deletion/local_data_deletion.dart';
 export 'message_dvo_renderer.dart';
 export 'messages_container.dart';
 export 'modal_loading_overlay.dart';
+export 'profile_card.dart';
 export 'profile_picture.dart';
 export 'request_dvo_renderer.dart';
 export 'scan_recovery_kit_screen.dart';

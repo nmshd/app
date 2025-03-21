@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import '/profiles/profile/widgets/profile_card.dart';
 import 'core/core.dart';
 
 class IdentityInDeletionScreen extends StatefulWidget {
