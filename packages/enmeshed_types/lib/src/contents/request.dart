@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'request_item/request_item.dart';
+import 'request_items/request_item.dart';
 
 class Request extends Equatable {
   final String? id;
