@@ -30,9 +30,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (_accounts == null || _accountsInDeletion == null) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
+    if (_accounts == null || _accountsInDeletion == null) return const Scaffold(body: Center(child: CircularProgressIndicator()));
 
     return Scaffold(
       body: SafeArea(
@@ -87,7 +85,6 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
     if (!mounted) return;
 
     setState(() {
-      //_accounts = accounts.where((account) => account.id != selectedAccount.id).toList();
       _accounts = accounts;
       _accountsInDeletion = accountsInDeletion;
     });
@@ -97,7 +94,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
 class _Profiles extends StatelessWidget {
   final List<LocalAccountDTO> accounts;
 
-  const _Profiles({required this.accounts, super.key});
+  const _Profiles({required this.accounts});
 
   @override
   Widget build(BuildContext context) {
@@ -121,10 +118,10 @@ class _Profiles extends StatelessWidget {
   Future<void> _onAccountSelected(LocalAccountDTO account, BuildContext context) async {
     await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
 
-    if (context.mounted) {
-      context.go('/account/${account.id}');
-      showSuccessSnackbar(context: context, text: context.l10n.profiles_switchedToProfile(account.name), showCloseIcon: true);
-    }
+    if (!context.mounted) return;
+
+    context.go('/account/${account.id}');
+    showSuccessSnackbar(context: context, text: context.l10n.profiles_switchedToProfile(account.name), showCloseIcon: true);
   }
 }
 
