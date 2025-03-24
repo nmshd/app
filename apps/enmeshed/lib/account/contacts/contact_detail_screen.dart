@@ -26,6 +26,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   bool _showSendCertificateButton = false;
   int _unreadMessagesCount = 0;
   List<MessageDVO>? _incomingMessages;
+  List<LocalRequestDVO>? _openRequests;
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -94,8 +95,31 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
             child: ListView(
               controller: _scrollController,
               children: [
-                ContactDetailHeader(contact: contact),
+                ContactDetailHeader(contact: contact, request: _openRequests?.firstOrNull),
                 ContactStatusInfoContainer(contact: contact),
+                if (_openRequests?.isNotEmpty ?? false)
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: ComplexInformationCard(
+                      title: context.l10n.contactDetail_openRequestsTitle,
+                      icon: Icon(Icons.info, color: Theme.of(context).colorScheme.secondary),
+                      description: context.l10n.contactDetail_openRequestsDescription,
+                      actionButtons: [
+                        Expanded(
+                          child: FilledButton(
+                            onPressed: () async {
+                              await context.push(
+                                '/account/${widget.accountId}/contacts/contact-request/${_openRequests!.first.id}',
+                                extra: _openRequests!.first,
+                              );
+                              await _reloadContact();
+                            },
+                            child: Text(context.l10n.contactDetail_checkRequests),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ContactDetailIconBar(
                   session: _session,
                   accountId: widget.accountId,
@@ -139,10 +163,13 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   Future<void> _reloadContact() async {
     final contact = await _session.expander.expandAddress(widget.contactId);
 
+    final openRequests = await incomingOpenRequestsFromRelationshipTemplate(session: _session, peer: widget.contactId);
+
     if (!mounted) return;
 
     setState(() {
       _contact = contact;
+      _openRequests = openRequests;
     });
   }
 

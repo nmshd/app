@@ -31,8 +31,8 @@ class ContactsView extends StatefulWidget {
 class _ContactsViewState extends State<ContactsView> {
   late List<IdentityDVO> _relationships;
 
-  List<RequestOrRelationship>? _contacts;
-  List<RequestOrRelationship> _filteredContacts = [];
+  List<IdentityWithOpenRequests>? _contacts;
+  List<IdentityWithOpenRequests> _filteredContacts = [];
   List<PublicRelationshipTemplateReferenceDTO> _matchingPublicRelationshipTemplateReferences = [];
 
   List<IdentityDVO> _favorites = [];
@@ -102,9 +102,16 @@ class _ContactsViewState extends State<ContactsView> {
             ),
           if (!widget.contactsFilterController.isContactsFilterSet && _getNumberOfContactsRequiringAttention() > 0)
             SliverToBoxAdapter(
-              child: AttentionRequiredBanner(
-                numberOfContactsRequiringAttention: _getNumberOfContactsRequiringAttention(),
-                showContactsRequiringAttention: () => widget.contactsFilterController.value = {const ActionRequiredContactsFilterOption()},
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: BannerCard(
+                  title: context.l10n.contacts_require_attention(_getNumberOfContactsRequiringAttention()),
+                  type: BannerCardType.info,
+                  actionButton: (
+                    onPressed: () => widget.contactsFilterController.value = {const ActionRequiredContactsFilterOption()},
+                    title: context.l10n.show,
+                  ),
+                ),
               ),
             ),
           if (_favorites.isNotEmpty && !widget.contactsFilterController.isContactsFilterSet) ...[
@@ -195,7 +202,7 @@ class _ContactsViewState extends State<ContactsView> {
     widget.contactsFilterController.value = options;
   }
 
-  String _contactToCategory(RequestOrRelationship requestOrRelationship) => switch (_sortingType) {
+  String _contactToCategory(IdentityWithOpenRequests requestOrRelationship) => switch (_sortingType) {
     _ContactsSortingType.date => simpleTimeago(context, requestOrRelationship.sortingDate),
     _ContactsSortingType.name => requestOrRelationship.contact.isUnknown ? '' : requestOrRelationship.contact.initials[0].toUpperCase(),
   };
@@ -210,10 +217,17 @@ class _ContactsViewState extends State<ContactsView> {
     final relationships = await getContacts(session: session);
     final requests = await incomingOpenRequestsFromRelationshipTemplate(session: session);
 
-    final requestsAndRelationships = [
-      ...relationships.map((contact) => (contact: contact, openContactRequest: null)),
-      ...requests.map((request) => (contact: request.peer, openContactRequest: request)),
-    ];
+    final requestsAndRelationships = <IdentityWithOpenRequests>[...relationships.map((contact) => (contact: contact, openRequests: []))];
+
+    for (final request in requests) {
+      final entry = requestsAndRelationships.where((item) => item.contact.id == request.peer.id).firstOrNull;
+
+      if (entry != null) {
+        entry.openRequests.add(request);
+      } else {
+        requestsAndRelationships.add((contact: request.peer, openRequests: [request]));
+      }
+    }
 
     final templateReferences = <PublicRelationshipTemplateReferenceDTO>[];
     final referencesResult = await session.transportServices.publicRelationshipTemplateReferences.getPublicRelationshipTemplateReferences();
@@ -269,6 +283,7 @@ class _ContactsViewState extends State<ContactsView> {
           (item) => ContactItem(
             contact: item,
             query: keyword,
+            iconSize: 40,
             onTap: () {
               controller
                 ..clear()
@@ -295,6 +310,9 @@ class _ContactsViewState extends State<ContactsView> {
 
     final filteredContacts =
         _contacts!.where((contact) {
+            if (contact.requiresAttention && selectedFilterOptions.contains(const ActionRequiredContactsFilterOption())) {
+              return true;
+            }
             return switch (contact.contact.relationship?.status) {
               RelationshipStatus.Terminated => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
               RelationshipStatus.DeletionProposed => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
@@ -310,7 +328,7 @@ class _ContactsViewState extends State<ContactsView> {
     setState(() => _filteredContacts = filteredContacts);
   }
 
-  int Function(RequestOrRelationship, RequestOrRelationship) _compareFunction(_ContactsSortingType type, bool isSortedAscending) {
+  int Function(IdentityWithOpenRequests, IdentityWithOpenRequests) _compareFunction(_ContactsSortingType type, bool isSortedAscending) {
     return (a, b) {
       if (_sortingType == _ContactsSortingType.name) {
         // Sort 'i18n://dvo.identity.unknown' to the top
@@ -329,13 +347,13 @@ class _ContactsViewState extends State<ContactsView> {
   }
 }
 
-extension on RequestOrRelationship {
-  DateTime get sortingDate => DateTime.parse(openContactRequest?.createdAt ?? contact.date ?? '0000-01-01');
+extension on IdentityWithOpenRequests {
+  DateTime get sortingDate => DateTime.parse(openRequests.firstOrNull?.createdAt ?? contact.date ?? '0000-01-01');
 }
 
 class _ContactItem extends StatelessWidget {
   final String accountId;
-  final RequestOrRelationship item;
+  final IdentityWithOpenRequests item;
   final bool isFavoriteContact;
   final VoidCallback reload;
   final Future<void> Function(IdentityDVO identity) toggleContactFavorite;
@@ -364,13 +382,13 @@ class _ContactItem extends StatelessWidget {
   Future<void> _onTap(BuildContext context) async {
     final contact = item.contact;
 
-    if (item.openContactRequest == null) {
+    if (item.openRequests.isEmpty || item.contact.hasRelationship) {
       unawaited(context.push('/account/$accountId/contacts/${contact.id}'));
       return;
     }
 
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
-    final request = item.openContactRequest!;
+    final request = item.openRequests.first;
 
     final validateRelationshipCreationResponse = await validateRelationshipCreation(accountId: accountId, request: request, session: session);
 
@@ -391,12 +409,12 @@ class _ContactItem extends StatelessWidget {
   Future<void> _onDeletePressed(BuildContext context) async {
     final contact = item.contact;
 
-    if (item.openContactRequest == null) {
+    if (item.openRequests.isEmpty) {
       await deleteContact(context: context, accountId: accountId, contact: contact, onContactDeleted: reload);
       return;
     }
 
-    final request = item.openContactRequest!;
+    final request = item.openRequests.first;
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
 
     if (request.status == LocalRequestStatus.Expired) {

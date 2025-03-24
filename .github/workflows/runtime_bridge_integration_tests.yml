@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Get changed files of the enmeshed_runtime_bridge package
         id: changed-enmeshed_runtime_bridge-files
-        uses: tj-actions/changed-files@v45
+        uses: step-security/changed-files@v45
         with:
           files: packages/enmeshed_runtime_bridge/**
       - name: Start Backbone
@@ -71,7 +71,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Get changed files of the enmeshed_runtime_bridge package
         id: changed-enmeshed_runtime_bridge-files
-        uses: tj-actions/changed-files@v45
+        uses: step-security/changed-files@v45
         with:
           files: packages/enmeshed_runtime_bridge/**
       - name: Start Backbone

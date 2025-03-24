@@ -22,50 +22,23 @@ class CustomColors extends ThemeExtension<CustomColors> {
     required this.onDecorative2Container,
   });
 
-  factory CustomColors.light(
-    Color successSeedColor,
-    Color warningSeedColor,
-    Color decorativeSeedColor,
-    Color decorative2SeedColor,
-  ) {
-    final colorScheme = SeedColorScheme.fromSeeds(
+  factory CustomColors.generate({
+    required FlexTones Function(Brightness brightness) tonesConstructor,
+    required Brightness brightness,
+    required Color successSeedColor,
+    required Color warningSeedColor,
+    required Color decorativeSeedColor,
+    required Color decorative2SeedColor,
+  }) {
+    final scheme = SeedColorScheme.fromSeeds(
+      brightness: brightness,
       primaryKey: successSeedColor,
-      primary: successSeedColor,
       secondaryKey: warningSeedColor,
-      secondary: warningSeedColor,
       tertiaryKey: decorativeSeedColor,
-      tertiary: decorativeSeedColor,
       errorKey: decorative2SeedColor,
-      error: decorative2SeedColor,
-      tones: FlexTones.material(Brightness.light),
+      tones: tonesConstructor(brightness),
     );
 
-    return CustomColors._fromColorScheme(colorScheme);
-  }
-
-  factory CustomColors.dark(
-    Color successSeedColor,
-    Color warningSeedColor,
-    Color decorativeSeedColor,
-    Color decorative2SeedColor,
-  ) {
-    final colorScheme = SeedColorScheme.fromSeeds(
-      brightness: Brightness.dark,
-      primaryKey: successSeedColor,
-      primaryContainer: successSeedColor,
-      secondaryKey: warningSeedColor,
-      secondaryContainer: warningSeedColor,
-      tertiaryKey: decorativeSeedColor,
-      tertiaryContainer: decorativeSeedColor,
-      errorKey: decorative2SeedColor,
-      errorContainer: decorative2SeedColor,
-      tones: FlexTones.material(Brightness.dark),
-    );
-
-    return CustomColors._fromColorScheme(colorScheme);
-  }
-
-  factory CustomColors._fromColorScheme(ColorScheme scheme) {
     return CustomColors(
       success: scheme.primary,
       onSuccess: scheme.onPrimary,
