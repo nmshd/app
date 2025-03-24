@@ -369,7 +369,18 @@ class _ProfilesInDeletion extends StatelessWidget {
           Gaps.h16,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: DeleteDataNowCard(onDeleted: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
+            child: ComplexInformationCard(
+              title: context.l10n.profile_localDeletion_title,
+              description: context.l10n.profile_localDeletion_card_description,
+              icon: Icon(Icons.error, color: Theme.of(context).colorScheme.error),
+              actionButtons: [
+                OutlinedButton.icon(
+                  onPressed: () => showDeleteLocalDataModal(context: context, accountsInDeletion: accountsInDeletion, onDeleted: reloadAccounts),
+                  label: Text(context.l10n.profile_localDeletion_card_button),
+                  icon: const Icon(Icons.delete_forever_outlined),
+                ),
+              ],
+            ),
           ),
         ],
       ],

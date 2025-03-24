@@ -30,8 +30,8 @@ class ContactItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contactStatusWidget =
-        (ContactStatusText.canRenderStatusText(contact: contact)
-            ? ContactStatusText(contact: contact, style: Theme.of(context).textTheme.labelMedium)
+        (ContactStatusText.canRenderStatusText(contact: contact, openContactRequest: openContactRequest)
+            ? ContactStatusText(contact: contact, style: Theme.of(context).textTheme.labelMedium, openContactRequest: openContactRequest)
             : null);
 
     return ListTile(
@@ -48,7 +48,11 @@ class ContactItem extends StatelessWidget {
     );
   }
 
-  Color? _getCircularAvatarBorderColor({required BuildContext context, required IdentityDVO contact, LocalRequestDVO? openContactRequest}) {
+  Color _getCircularAvatarBorderColor({required BuildContext context, required IdentityDVO contact, LocalRequestDVO? openContactRequest}) {
+    if (contact.relationship?.status == RelationshipStatus.Pending || (openContactRequest?.peer.hasRelationship ?? false)) {
+      return Theme.of(context).colorScheme.secondary;
+    }
+
     if (openContactRequest != null ||
         contact.relationship?.peerDeletionStatus == PeerDeletionStatus.Deleted ||
         contact.relationship?.status == RelationshipStatus.Terminated ||
@@ -58,8 +62,6 @@ class ContactItem extends StatelessWidget {
 
     if (contact.relationship?.peerDeletionStatus == PeerDeletionStatus.ToBeDeleted) return context.customColors.warning;
 
-    if (contact.relationship?.status == RelationshipStatus.Pending) return Theme.of(context).colorScheme.secondary;
-
-    return null;
+    return Colors.transparent;
   }
 }

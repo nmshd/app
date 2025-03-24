@@ -120,7 +120,6 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (widget.showHeader) ...[
-                    if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Row(
@@ -136,6 +135,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                         ],
                       ),
                     ),
+                    if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
                   ],
                   if (_validationResult != null && !_validationResult!.isSuccess)
                     _RequestRenderErrorContainer(

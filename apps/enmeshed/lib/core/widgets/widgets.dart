@@ -7,7 +7,6 @@ export 'file_chooser.dart';
 export 'file_icon.dart';
 export 'file_item.dart';
 export 'highlight_text.dart';
-export 'information_container.dart';
 export 'instructions_screen.dart';
 export 'local_data_deletion/local_data_deletion.dart';
 export 'message_dvo_renderer.dart';

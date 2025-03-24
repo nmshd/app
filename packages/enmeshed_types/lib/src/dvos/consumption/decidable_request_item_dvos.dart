@@ -24,6 +24,7 @@ sealed class DecidableRequestItemDVODerivation extends RequestItemDVODerivation 
     'DecidableConsentRequestItemDVO' => DecidableConsentRequestItemDVO.fromJson(json),
     'DecidableFreeTextRequestItemDVO' => DecidableFreeTextRequestItemDVO.fromJson(json),
     'DecidableRegisterAttributeListenerRequestItemDVO' => DecidableRegisterAttributeListenerRequestItemDVO.fromJson(json),
+    'DecidableTransferFileOwnershipRequestItemDVO' => DecidableTransferFileOwnershipRequestItemDVO.fromJson(json),
     _ => throw Exception("Invalid type '${json['type']}'"),
   };
 
@@ -240,4 +241,29 @@ class DecidableRegisterAttributeListenerRequestItemDVO extends DecidableRequestI
       _$DecidableRegisterAttributeListenerRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableRegisterAttributeListenerRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class DecidableTransferFileOwnershipRequestItemDVO extends DecidableRequestItemDVODerivation {
+  final String fileReference;
+  final FileDVO file;
+
+  const DecidableTransferFileOwnershipRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    super.requireManualDecision,
+    required this.fileReference,
+    required this.file,
+  }) : super(type: 'DecidableTransferFileOwnershipRequestItemDVO', isDecidable: true);
+
+  factory DecidableTransferFileOwnershipRequestItemDVO.fromJson(Map json) =>
+      _$DecidableTransferFileOwnershipRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$DecidableTransferFileOwnershipRequestItemDVOToJson(this);
 }
