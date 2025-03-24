@@ -37,7 +37,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   Padding(
@@ -55,11 +55,11 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
                   ),
                   Gaps.h32,
                   Text(textAlign: TextAlign.center, context.l10n.identityInDeletion_description),
-                  Gaps.h16,
+                  Gaps.h32,
                   if (_accountsInDeletion!.isNotEmpty)
                     _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _loadAccountsInDeletion),
-                  if (_accounts!.isNotEmpty) ...[Gaps.h8, _Profiles(accounts: _accounts!)],
-                  Gaps.h32,
+                  if (_accounts!.isNotEmpty) ...[Gaps.h12, _Profiles(accounts: _accounts!)],
+                  Gaps.h16,
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: FilledButton(
@@ -103,13 +103,10 @@ class _Profiles extends StatelessWidget {
         ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) => Gaps.h16,
+          separatorBuilder: (context, index) => Gaps.h12,
           itemCount: accounts.length,
           itemBuilder:
-              (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ProfileCard(account: accounts[index], onAccountSelected: (account) => _onAccountSelected(account, context)),
-              ),
+              (context, index) => ProfileCard(account: accounts[index], onAccountSelected: (account) => _onAccountSelected(account, context)),
         ),
       ],
     );
@@ -138,18 +135,15 @@ class _ProfilesInDeletion extends StatelessWidget {
         ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) => Gaps.h16,
+          separatorBuilder: (context, index) => Gaps.h12,
           itemCount: accountsInDeletion.length,
           itemBuilder:
-              (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: DeletionProfileCard(
-                  accountInDeletion: accountsInDeletion[index],
-                  trailing: IconButton(
-                    icon: const Icon(Icons.refresh),
-                    onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
-                    tooltip: context.l10n.identity_restore,
-                  ),
+              (context, index) => DeletionProfileCard(
+                accountInDeletion: accountsInDeletion[index],
+                trailing: IconButton(
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
+                  tooltip: context.l10n.identity_restore,
                 ),
               ),
         ),
