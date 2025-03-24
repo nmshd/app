@@ -53,6 +53,13 @@ class _HomeViewState extends State<HomeView> {
           context.go('/identity-in-deletion', extra: event.data.name);
         }),
       );
+
+    AppLifecycleListener(
+      onResume: () async {
+        final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+        await session.transportServices.account.syncDatawallet();
+      },
+    );
   }
 
   @override
