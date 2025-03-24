@@ -25,7 +25,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
   void initState() {
     super.initState();
 
-    _loadAccountsInDeletion();
+    _loadAccounts();
   }
 
   @override
@@ -56,8 +56,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
                   Gaps.h32,
                   Text(textAlign: TextAlign.center, context.l10n.identityInDeletion_description),
                   Gaps.h32,
-                  if (_accountsInDeletion!.isNotEmpty)
-                    _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _loadAccountsInDeletion),
+                  if (_accountsInDeletion!.isNotEmpty) _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _loadAccounts),
                   if (_accounts!.isNotEmpty) ...[Gaps.h12, _Profiles(accounts: _accounts!)],
                   Gaps.h16,
                   Padding(
@@ -76,11 +75,10 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
     );
   }
 
-  Future<void> _loadAccountsInDeletion() async {
+  Future<void> _loadAccounts() async {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     final accountsInDeletion = await runtime.accountServices.getAccountsInDeletion();
     final accounts = await runtime.accountServices.getAccountsNotInDeletion();
-    accounts.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
     if (!mounted) return;
 
