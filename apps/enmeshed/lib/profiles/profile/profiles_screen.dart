@@ -39,7 +39,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       ..add(
         runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
           if (!mounted || event.data.deletionDate == null) return;
-          context.go('/identity-in-deletion', extra: event.data.name);
+          context.go('/account/${event.data.id}/identity-in-deletion');
         }),
       );
     _reloadAccounts();

@@ -141,11 +141,6 @@ final _router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/identity-in-deletion',
-      builder: (context, state) => IdentityInDeletionScreen(accountName: state.extra! as String),
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
       path: '/account/:accountId',
       redirect: (_, state) => state.fullPath == '/account/:accountId' ? '${state.matchedLocation}/home' : null,
       routes: [
@@ -471,6 +466,11 @@ final _router = GoRouter(
               ],
             ),
           ],
+        ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: '/identity-in-deletion',
+          builder: (context, state) => IdentityInDeletionScreen(accountId: state.pathParameters['accountId']!),
         ),
       ],
     ),

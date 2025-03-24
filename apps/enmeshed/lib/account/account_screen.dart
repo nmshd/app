@@ -64,7 +64,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(
         runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
           if (!mounted || event.data.deletionDate == null) return;
-          context.go('/identity-in-deletion', extra: event.data.name);
+          context.go('/account/${widget.accountId}/identity-in-deletion');
         }),
       );
 

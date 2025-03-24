@@ -37,7 +37,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
       ..add(
         eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
           if (!mounted || event.data.deletionDate == null) return;
-          context.go('/identity-in-deletion', extra: event.data.name);
+          context.go('/account/${widget.accountId}/identity-in-deletion');
         }),
       );
 
