@@ -56,7 +56,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
                   Gaps.h32,
                   Text(textAlign: TextAlign.center, context.l10n.identityInDeletion_description),
                   Gaps.h32,
-                  if (_accountsInDeletion!.isNotEmpty) _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _loadAccounts),
+                  if (_accountsInDeletion!.isNotEmpty) _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!),
                   if (_accounts!.isNotEmpty) ...[Gaps.h12, _Profiles(accounts: _accounts!)],
                   Gaps.h16,
                   Padding(
@@ -122,9 +122,8 @@ class _Profiles extends StatelessWidget {
 
 class _ProfilesInDeletion extends StatelessWidget {
   final List<LocalAccountDTO> accountsInDeletion;
-  final VoidCallback reloadAccounts;
 
-  const _ProfilesInDeletion({required this.accountsInDeletion, required this.reloadAccounts});
+  const _ProfilesInDeletion({required this.accountsInDeletion});
 
   @override
   Widget build(BuildContext context) {
