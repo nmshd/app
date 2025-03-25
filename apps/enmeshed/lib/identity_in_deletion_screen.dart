@@ -32,6 +32,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
 
     _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
       if (event.data.deletionDate != null) return;
+      if (widget.accountId != event.data.id || event.data.deletionDate != null) return;
       _onAccountSelected(event.data);
     });
 

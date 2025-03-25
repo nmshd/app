@@ -53,7 +53,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
       ..add(runtime.eventBus.on<ContactNameUpdatedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(
         runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
-          if (!mounted || event.data.deletionDate == null) return;
+          if (!mounted || widget.accountId != event.data.id || event.data.deletionDate == null) return;
           context.go('/account/${widget.accountId}/identity-in-deletion');
         }),
       );
