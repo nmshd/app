@@ -65,5 +65,7 @@ ThemeData _generateColorScheme({
     appBarTheme: appBarTheme,
     textTheme: textTheme,
     pageTransitionsTheme: const PageTransitionsTheme(builders: {TargetPlatform.android: FadeForwardsPageTransitionsBuilder()}),
+    // ignore: deprecated_member_use
+    progressIndicatorTheme: const ProgressIndicatorThemeData(year2023: false),
   );
 }
