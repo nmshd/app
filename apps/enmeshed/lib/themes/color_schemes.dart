@@ -64,5 +64,6 @@ ThemeData _generateColorScheme({
     navigationBarTheme: navigationBarTheme,
     appBarTheme: appBarTheme,
     textTheme: textTheme,
+    pageTransitionsTheme: const PageTransitionsTheme(builders: {TargetPlatform.android: FadeForwardsPageTransitionsBuilder()}),
   );
 }
