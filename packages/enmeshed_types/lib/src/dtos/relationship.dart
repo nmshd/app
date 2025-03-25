@@ -6,14 +6,13 @@ import 'identity.dart';
 import 'peer_deletion_info.dart';
 import 'relationship_audit_log_entry.dart';
 import 'relationship_status.dart';
-import 'relationship_template.dart';
 
 part 'relationship.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class RelationshipDTO extends Equatable {
   final String id;
-  final RelationshipTemplateDTO template;
+  final String templateId;
   final RelationshipStatus status;
   final String peer;
   final IdentityDTO peerIdentity;
@@ -23,7 +22,7 @@ class RelationshipDTO extends Equatable {
 
   const RelationshipDTO({
     required this.id,
-    required this.template,
+    required this.templateId,
     required this.status,
     required this.peer,
     required this.peerIdentity,
@@ -37,5 +36,5 @@ class RelationshipDTO extends Equatable {
   Map<String, dynamic> toJson() => _$RelationshipDTOToJson(this);
 
   @override
-  List<Object?> get props => [id, template, status, peer, peerIdentity, peerDeletionInfo, creationContent, auditLog];
+  List<Object?> get props => [id, templateId, status, peer, peerIdentity, peerDeletionInfo, creationContent, auditLog];
 }
