@@ -16,9 +16,10 @@ class AcceptProposeAttributeRequestItemParametersWithNewAttribute extends Accept
 
 class AcceptProposeAttributeRequestItemParametersWithExistingAttribute extends AcceptProposeAttributeRequestItemParameters {
   final String attributeId;
+  final List<String>? tags;
 
-  const AcceptProposeAttributeRequestItemParametersWithExistingAttribute({required this.attributeId});
+  const AcceptProposeAttributeRequestItemParametersWithExistingAttribute({required this.attributeId, this.tags});
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), 'attributeId': attributeId};
+  Map<String, dynamic> toJson() => {...super.toJson(), 'attributeId': attributeId, if (tags != null) 'tags': tags};
 }
