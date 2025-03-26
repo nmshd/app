@@ -170,6 +170,14 @@ class CryptoHandler {
         final dhExchangeId = await dhExchange.id();
         _dhExchangeHandles[dhExchangeId] = dhExchange;
         return dhExchangeId;
+      case 'dh_exchange_from_keys':
+        final publicKey = base64Decode(objMap['args'][0]);
+        final privateKey = base64Decode(objMap['args'][1]);
+        final spec = decodeKeyPairSpec(objMap['args'][2]);
+        final dhExchange = await provider.dhExchangeFromKeys(publicKey: publicKey, privateKey: privateKey, spec: spec);
+        final dhExchangeId = await dhExchange.id();
+        _dhExchangeHandles[dhExchangeId] = dhExchange;
+        return dhExchangeId;
       case 'get_all_keys':
         final keys = await provider.getAllKeys();
         final encodedKeys = keys.map((val) {

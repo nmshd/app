@@ -107,6 +107,7 @@ interface Provider {
   importKeyPair(spec: types.KeyPairSpec, publicData: Uint8Array, privateData: Uint8Array): Promise<types.KeyPairHandle>;
   importPublicKey(spec: types.KeyPairSpec, publicData: Uint8Array): Promise<types.KeyPairHandle>;
   startEphemeralDhExchange(): Promise<types.DHExchange>;
+  dhExchangeFromKeys(publicKey: Uint8Array, privateKey: Uint8Array, spec: types.KeyPairSpec): Promise<types.DHExchange>;
   getAllKeys(): Promise<string[]>;
   providerName(): Promise<string>;
   getCapabilities(): Promise<types.ProviderConfig>;
@@ -228,6 +229,23 @@ function newProvider(): Provider {
         object_id: this._id,
         method: "start_ephemeral_dh_exchange",
         args: []
+      };
+      const handle_id = await callHandler(handlerName, callArgs);
+      return newDhKeyExchange(handle_id);
+    },
+
+    dhExchangeFromKeys: async function (
+      publicKey: Uint8Array,
+      privateKey: Uint8Array,
+      spec: types.KeyPairSpec
+    ): Promise<types.DHExchange> {
+      const publicKeyb64 = bufferToBase64(publicKey);
+      const privateKeyb64 = bufferToBase64(privateKey);
+      const callArgs = {
+        object_type: "provider",
+        object_id: this._id,
+        method: "dh_exchange_from_key",
+        args: [publicKeyb64, privateKeyb64, spec]
       };
       const handle_id = await callHandler(handlerName, callArgs);
       return newDhKeyExchange(handle_id);
