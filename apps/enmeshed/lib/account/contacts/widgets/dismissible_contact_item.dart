@@ -6,14 +6,13 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '/core/core.dart';
 
 class DismissibleContactItem extends StatefulWidget {
-  final RequestOrRelationship item;
+  final IdentityWithOpenRequests item;
   final VoidCallback onTap;
   final void Function(BuildContext) onDeletePressed;
   final bool isFavoriteContact;
   final VoidCallback onToggleFavorite;
   final Widget? trailing;
   final String? query;
-  final int iconSize;
 
   const DismissibleContactItem({
     required this.item,
@@ -23,7 +22,6 @@ class DismissibleContactItem extends StatefulWidget {
     required this.onToggleFavorite,
     this.trailing,
     this.query,
-    this.iconSize = 56,
     super.key,
   });
 
@@ -78,7 +76,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
           shadowColor: Theme.of(context).colorScheme.shadow,
           child: ContactItem(
             contact: widget.item.contact,
-            openContactRequest: widget.item.openContactRequest,
+            openContactRequest: widget.item.openRequests.firstOrNull,
             onTap: () {
               widget.onTap();
               _slidableController.close();
@@ -86,7 +84,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
             trailing:
                 widget.trailing ??
                 _TrailingIcon(
-                  request: widget.item.openContactRequest,
+                  item: widget.item,
                   isFavoriteContact: widget.isFavoriteContact,
                   onToggleFavorite: widget.onToggleFavorite,
                   onDeletePressed: () => widget.onDeletePressed(context),
@@ -96,7 +94,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
                     ? null
                     : _Subtitle(item: widget.item),
             query: widget.query,
-            iconSize: widget.iconSize,
+            iconSize: 40,
           ),
         ),
       ),
@@ -108,15 +106,17 @@ class _TrailingIcon extends StatelessWidget {
   final bool isFavoriteContact;
   final VoidCallback onDeletePressed;
   final VoidCallback onToggleFavorite;
-  final LocalRequestDVO? request;
+  final IdentityWithOpenRequests item;
 
-  const _TrailingIcon({required this.isFavoriteContact, required this.onDeletePressed, required this.onToggleFavorite, this.request});
+  const _TrailingIcon({required this.isFavoriteContact, required this.onDeletePressed, required this.onToggleFavorite, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    if (request?.status == LocalRequestStatus.Expired) return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
+    if (item.openRequests.firstOrNull?.status == LocalRequestStatus.Expired) {
+      return IconButton(icon: const Icon(Icons.cancel_outlined), onPressed: onDeletePressed);
+    }
 
-    if (request != null) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
+    if (!item.contact.hasRelationship) return const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit));
 
     return IconButton(
       icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
@@ -127,13 +127,14 @@ class _TrailingIcon extends StatelessWidget {
 }
 
 class _Subtitle extends StatelessWidget {
-  final RequestOrRelationship item;
+  final IdentityWithOpenRequests item;
 
   const _Subtitle({required this.item});
 
   @override
   Widget build(BuildContext context) {
-    final isExpiringRequest = item.openContactRequest?.status != LocalRequestStatus.Expired && item.openContactRequest?.content.expiresAt != null;
+    final isExpiringRequest =
+        item.openRequests.firstOrNull?.status != LocalRequestStatus.Expired && item.openRequests.firstOrNull?.content.expiresAt != null;
 
     if (isExpiringRequest) {
       return Column(
@@ -143,19 +144,23 @@ class _Subtitle extends StatelessWidget {
             padding: const EdgeInsets.only(top: 2),
             child: ContactStatusText(
               contact: item.contact,
-              openContactRequest: item.openContactRequest,
+              openContactRequest: item.openRequests.firstOrNull,
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
           Gaps.h4,
           Text(
-            context.l10n.contacts_requestWithExpiryDate(DateTime.parse(item.openContactRequest?.content.expiresAt ?? '').toLocal()),
+            context.l10n.contacts_requestWithExpiryDate(DateTime.parse(item.openRequests.firstOrNull?.content.expiresAt ?? '').toLocal()),
             style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Theme.of(context).colorScheme.error),
           ),
         ],
       );
     }
 
-    return ContactStatusText(contact: item.contact, openContactRequest: item.openContactRequest, style: Theme.of(context).textTheme.labelMedium);
+    return ContactStatusText(
+      contact: item.contact,
+      openContactRequest: item.openRequests.firstOrNull,
+      style: Theme.of(context).textTheme.labelMedium,
+    );
   }
 }

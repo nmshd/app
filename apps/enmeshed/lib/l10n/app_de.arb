@@ -381,7 +381,6 @@
   "contact_information_messages": "Nachrichten",
   "contact_information_noMessages": "Keine Nachrichten vorhanden.",
   "contact_information_sharedFiles": "Geteilte Dateien",
-  "contact_requestDescription": "Nachfolgende Daten bzw. Anfragen möchte der neue Kontakt mit Ihnen teilen:",
   "contact_request_validationError": "{count, plural, =1{1 Fehlermeldung} other{{count} Fehlermeldungen}}",
   "@contact_request_validationError": {
     "placeholders": {
@@ -393,6 +392,16 @@
   "contact_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Kontaktanfrage abzuschließen.",
   "message_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Aufgabe abzuschließen.",
   "contact_request": "Kontaktanfrage",
+  "contact_request_add": "Annehmen",
+  "contact_withRelationshipTitle": "Anfrage",
+  "contact_withRelationshipDescription": "{contactName} möchte Ihnen Daten zur Verfügung stellen.",
+  "@contact_withRelationshipDescription": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
   "contacts_empty": "Kontakte hinzufügen",
   "contacts_emptyDescription": "Verbinden Sie sich mit Kontakten, um Daten oder Dokumente zu teilen oder zu empfangen.",
   "contacts_date": "Datum",
@@ -414,6 +423,7 @@
   "contacts_deleted": "Kontakt existiert nicht mehr",
   "contacts_toBeDeleted": "Wird in Kürze gelöscht",
   "contacts_terminated": "Kontakt hat die Beziehung beendet",
+  "contacts_openRequests": "Es liegen offene Anfragen vor",
   "contacts_deletionProposed": "Beziehung permanent beendet",
   "contacts_delete_title": "Kontakt <bold>{contactName}</bold> löschen?",
   "@contacts_delete_title": {
@@ -518,6 +528,9 @@
       }
     }
   },
+  "contactDetail_openRequestsTitle": "Sie haben eine oder mehrere Anfragen noch nicht abgeschlossen",
+  "contactDetail_openRequestsDescription": "Der Kontakt möchte weitere Daten mit Ihnen teilen. Sie können die ausstehenden Anfragen überprüfen und annehmen.",
+  "contactDetail_checkRequests": "Anfragen überprüfen",
   "myData_createEntryForAttributeType": "Anlegen",
   "myData_noEntryForAttributeType": "Kein Eintrag",
   "myData_allData": "Alle Daten",

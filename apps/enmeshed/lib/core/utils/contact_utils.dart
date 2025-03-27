@@ -79,7 +79,7 @@ Future<List<IdentityDVO>> getContacts({required Session session}) async {
   return dvos;
 }
 
-Future<List<LocalRequestDVO>> incomingOpenRequestsFromRelationshipTemplate({required Session session}) async {
+Future<List<LocalRequestDVO>> incomingOpenRequestsFromRelationshipTemplate({required Session session, String? peer}) async {
   final incomingRequestResult = await session.consumptionServices.incomingRequests.getRequests(
     query: {
       'status': QueryValue.stringList([
@@ -88,6 +88,7 @@ Future<List<LocalRequestDVO>> incomingOpenRequestsFromRelationshipTemplate({requ
         LocalRequestStatus.Expired.name,
       ]),
       'source.type': QueryValue.string(LocalRequestSourceType.RelationshipTemplate.name),
+      if (peer != null) 'peer': QueryValue.string(peer),
     },
   );
 
