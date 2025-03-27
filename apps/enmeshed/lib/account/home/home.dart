@@ -46,13 +46,7 @@ class _HomeViewState extends State<HomeView> {
       ..add(runtime.eventBus.on<IncomingRequestReceivedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
-      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})))
-      ..add(
-        runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
-          if (!mounted || widget.accountId != event.data.id || event.data.deletionDate == null) return;
-          context.go('/account/${widget.accountId}/identity-in-deletion');
-        }),
-      );
+      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})));
 
     AppLifecycleListener(
       onResume: () async {

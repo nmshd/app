@@ -34,14 +34,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     super.initState();
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
-    _subscriptions
-      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadAccounts().catchError((_) {})))
-      ..add(
-        runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
-          if (!mounted || _selectedAccount.id != event.data.id || event.data.deletionDate == null) return;
-          context.go('/account/${_selectedAccount.id}/identity-in-deletion');
-        }),
-      );
+    _subscriptions.add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadAccounts().catchError((_) {})));
+
     _reloadAccounts();
   }
 

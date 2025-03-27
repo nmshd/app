@@ -50,13 +50,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<RelationshipChangedEvent>().listen((_) => _reloadMessages()))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadMessages()))
-      ..add(runtime.eventBus.on<ContactNameUpdatedEvent>().listen((_) => _reload().catchError((_) {})))
-      ..add(
-        runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
-          if (!mounted || widget.accountId != event.data.id || event.data.deletionDate == null) return;
-          context.go('/account/${widget.accountId}/identity-in-deletion');
-        }),
-      );
+      ..add(runtime.eventBus.on<ContactNameUpdatedEvent>().listen((_) => _reload().catchError((_) {})));
   }
 
   @override

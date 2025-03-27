@@ -5,7 +5,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import '../modals/add_or_connect_device.dart';
@@ -21,7 +20,7 @@ class DevicesScreen extends StatefulWidget {
 }
 
 class _DevicesScreenState extends State<DevicesScreen> {
-  final List<StreamSubscription<void>> _subscriptions = [];
+  late final StreamSubscription<void> _subscription;
 
   List<DeviceDTO>? _devices;
   LocalAccountDTO? _account;
@@ -30,16 +29,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
   void initState() {
     super.initState();
 
-    final runtime = GetIt.I.get<EnmeshedRuntime>();
-
-    _subscriptions
-      ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadDevices()))
-      ..add(
-        runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
-          if (!mounted || widget.accountId != event.data.id || event.data.deletionDate == null) return;
-          context.go('/account/${widget.accountId}/identity-in-deletion');
-        }),
-      );
+    _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadDevices());
 
     _reloadDevices(syncBefore: true);
     _loadAccount();
@@ -47,9 +37,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
   @override
   void dispose() {
-    for (final subscription in _subscriptions) {
-      subscription.cancel();
-    }
+    _subscription.cancel();
 
     super.dispose();
   }
