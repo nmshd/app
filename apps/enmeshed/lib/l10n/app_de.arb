@@ -763,6 +763,7 @@
   "mailbox_filtered_noResults": "Zu den von Ihnen gesetzten Filtern liegen keine Nachrichten vor",
   "request_accepting": "Die Anfrage wird akzeptiert.",
   "request_rejecting": "Die Anfrage wird abgelehnt.",
+  "request_default": "Bevorzugt",
   "mailbox_noSubject": "Kein Betreff",
   "fileChooser_title": "Datei auswählen",
   "fileChooser_uploadFile": "Datei hochladen",
