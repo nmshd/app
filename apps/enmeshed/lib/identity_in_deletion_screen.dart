@@ -30,11 +30,15 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
   void initState() {
     super.initState();
 
-    _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((event) {
-      _loadAccounts();
-      if (widget.accountId != event.data.id || event.data.deletionDate != null) return;
-      _onAccountSelected(event.data);
-    });
+    _subscription = GetIt.I
+        .get<EnmeshedRuntime>()
+        .eventBus
+        .on<LocalAccountDeletionDateChangedEvent>(eventTargetAddress: _currentAccount?.address)
+        .listen((event) {
+          _loadAccounts();
+          if (event.data.deletionDate != null) return;
+          _onAccountSelected(event.data);
+        });
 
     _loadAccounts();
   }
