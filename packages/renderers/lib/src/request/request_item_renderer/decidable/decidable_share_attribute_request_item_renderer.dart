@@ -28,19 +28,17 @@ class DecidableShareAttributeRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableShareAttributeRequestItemRendererState extends State<DecidableShareAttributeRequestItemRenderer> {
-  late bool isChecked;
-  late bool isManualDecisionAccepted;
+  late bool _isChecked;
+  late bool _isManualDecisionAccepted;
 
   @override
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted);
-    isManualDecisionAccepted = widget.item.initallyDecided;
+    _isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted);
+    _isManualDecisionAccepted = widget.item.initallyDecided;
 
-    if (isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
-    }
+    if (_isChecked) widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
 
   @override
@@ -50,10 +48,10 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
       child: DraftAttributeRenderer(
         draftAttribute: widget.item.attribute,
         checkboxSettings: (
-          isChecked: isChecked,
+          isChecked: _isChecked,
           onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null,
           onUpdateManualDecision: null,
-          isManualDecided: isManualDecisionAccepted,
+          isManualDecided: _isManualDecisionAccepted,
         ),
         expandFileReference: widget.expandFileReference,
         openFileDetails: widget.openFileDetails,
@@ -64,10 +62,8 @@ class _DecidableShareAttributeRequestItemRendererState extends State<DecidableSh
   void onUpdateCheckbox(bool? value) {
     if (value == null) return;
 
-    setState(() {
-      isChecked = value;
-    });
+    setState(() => _isChecked = value);
 
-    handleCheckboxChange(isChecked: isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
+    handleCheckboxChange(isChecked: _isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }
 }

@@ -38,23 +38,23 @@ class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
 }
 
 class _DecidableReadAttributeRequestItemRendererState extends State<DecidableReadAttributeRequestItemRenderer> {
-  late bool isChecked;
-  late bool isManualDecisionAccepted;
+  late bool _isChecked;
+  late bool _isManualDecisionAccepted;
   AttributeSwitcherChoice? _choice;
 
   @override
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted, widget.item.requireManualDecision);
-    isManualDecisionAccepted = widget.item.initallyDecided;
+    _isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted, widget.item.requireManualDecision);
+    _isManualDecisionAccepted = widget.item.initallyDecided;
 
     final choice = _getChoices().firstOrNull;
     if (choice == null) return;
 
     _choice = choice;
 
-    if (isChecked && widget.item.requireManualDecision != true) {
+    if (_isChecked && widget.item.requireManualDecision != true) {
       widget.controller?.writeAtIndex(
         index: widget.itemIndex,
         value: AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
@@ -72,7 +72,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
           children: [
             Row(
               children: [
-                Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
+                Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(right: 12),
@@ -90,7 +90,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
             ),
             if (widget.item.requireManualDecision == true) ...[
               SizedBox(height: 12),
-              ManualDecisionRequired(isManualDecisionAccepted: isManualDecisionAccepted, onUpdateManualDecision: _onUpdateManualDecision),
+              ManualDecisionRequired(isManualDecisionAccepted: _isManualDecisionAccepted, onUpdateManualDecision: _onUpdateManualDecision),
             ],
           ],
         ),
@@ -102,7 +102,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     if (value == null) return;
 
     setState(() {
-      isChecked = value;
+      _isChecked = value;
     });
 
     if (_choice == null && value) {
@@ -113,7 +113,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       return;
     }
 
-    if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null || !value) {
+    if ((widget.item.requireManualDecision == true && _isManualDecisionAccepted == false) || _choice == null || !value) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
 
       return;
@@ -128,11 +128,9 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   void _onUpdateManualDecision(bool? value) {
     if (value == null) return;
 
-    setState(() {
-      isManualDecisionAccepted = value;
-    });
+    setState(() => _isManualDecisionAccepted = value);
 
-    if ((widget.item.requireManualDecision == true && isManualDecisionAccepted == false) || _choice == null) {
+    if ((widget.item.requireManualDecision == true && _isManualDecisionAccepted == false) || _choice == null) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
 
       return;
@@ -169,7 +167,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     setState(() {
       _choice = choice;
-      isChecked = true;
+      _isChecked = true;
     });
 
     widget.controller?.writeAtIndex(

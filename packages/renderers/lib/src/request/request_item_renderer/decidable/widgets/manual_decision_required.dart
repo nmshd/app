@@ -22,9 +22,7 @@ class _ManualDecisionRequiredState extends State<ManualDecisionRequired> {
         borderRadius: BorderRadius.circular(4),
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
         child: InkWell(
-          onTap: () {
-            setState(() => widget.onUpdateManualDecision(widget.isManualDecisionAccepted));
-          },
+          onTap: () => setState(() => widget.onUpdateManualDecision(widget.isManualDecisionAccepted)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -34,11 +32,7 @@ class _ManualDecisionRequiredState extends State<ManualDecisionRequired> {
                 ),
                 activeColor: context.customColors.success,
                 value: widget.isManualDecisionAccepted,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.onUpdateManualDecision(value);
-                  });
-                },
+                onChanged: (bool value) => setState(() => widget.onUpdateManualDecision(value)),
               ),
               SizedBox(width: 8),
               Expanded(
