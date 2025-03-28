@@ -240,7 +240,7 @@ class _ProcessedQueryRenderer extends StatelessWidget {
         visualDensity: VisualDensity.compact,
         tileColor: Theme.of(context).colorScheme.surface,
         title: Text(
-          '${FlutterI18n.translate(context, 'dvo.attribute.name.$valueType')}${item.mustBeAccepted ? '*' : ''}',
+          _getTitle(context),
           style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
         subtitle: TranslatedText(
@@ -298,5 +298,13 @@ class _ProcessedQueryRenderer extends StatelessWidget {
         openFileDetails: openFileDetails,
       ),
     };
+  }
+
+  String _getTitle(BuildContext context) {
+    final title = switch (item.query) {
+      final ProcessedRelationshipAttributeQueryDVO query => query.name,
+      _ => FlutterI18n.translate(context, 'dvo.attribute.name.$valueType'),
+    };
+    return '$title${item.mustBeAccepted ? '*' : ''}';
   }
 }
