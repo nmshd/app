@@ -87,6 +87,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
                     ),
                   ),
                 ),
+                Padding(padding: const EdgeInsets.all(8), child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary)),
               ],
             ),
             if (widget.item.requireManualDecision == true) ...[
@@ -247,7 +248,6 @@ class _ProcessedQueryRenderer extends StatelessWidget {
           'i18n://requestRenderer.noEntry',
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
         ),
-        trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
       );
     }
 
