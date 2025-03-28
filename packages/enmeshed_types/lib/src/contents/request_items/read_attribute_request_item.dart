@@ -19,6 +19,7 @@ class ReadAttributeRequestItem extends RequestItemDerivation {
   });
 
   factory ReadAttributeRequestItem.fromJson(Map json) => _$ReadAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
+  
   @override
   Map<String, dynamic> toJson() {
     final json = super.toJson();

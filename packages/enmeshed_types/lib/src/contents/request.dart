@@ -17,6 +17,7 @@ class Request extends Equatable {
   const Request({this.id, this.expiresAt, required this.items, this.title, this.description, this.metadata});
 
   factory Request.fromJson(Map json) => _$RequestFromJson(Map<String, dynamic>.from(json));
+
   Map<String, dynamic> toJson() {
     final json = _$RequestToJson(this);
     json['@type'] = 'Request';

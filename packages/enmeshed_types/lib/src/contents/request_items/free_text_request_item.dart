@@ -18,6 +18,7 @@ class FreeTextRequestItem extends RequestItemDerivation {
   });
 
   factory FreeTextRequestItem.fromJson(Map json) => _$FreeTextRequestItemFromJson(Map<String, dynamic>.from(json));
+  
   @override
   Map<String, dynamic> toJson() {
     final json = super.toJson();

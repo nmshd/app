@@ -20,6 +20,7 @@ class ConsentRequestItem extends RequestItemDerivation {
   });
 
   factory ConsentRequestItem.fromJson(Map json) => _$ConsentRequestItemFromJson(Map<String, dynamic>.from(json));
+  
   @override
   Map<String, dynamic> toJson() {
     final json = super.toJson();

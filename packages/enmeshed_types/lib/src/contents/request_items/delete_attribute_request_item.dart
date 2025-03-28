@@ -18,6 +18,7 @@ class DeleteAttributeRequestItem extends RequestItemDerivation {
   });
 
   factory DeleteAttributeRequestItem.fromJson(Map json) => _$DeleteAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
+  
   @override
   Map<String, dynamic> toJson() {
     final json = super.toJson();

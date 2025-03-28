@@ -19,6 +19,7 @@ class CreateAttributeRequestItem extends RequestItemDerivation {
   });
 
   factory CreateAttributeRequestItem.fromJson(Map json) => _$CreateAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
+  
   @override
   Map<String, dynamic> toJson() {
     final json = super.toJson();

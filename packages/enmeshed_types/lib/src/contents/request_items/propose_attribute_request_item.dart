@@ -22,6 +22,7 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
   });
 
   factory ProposeAttributeRequestItem.fromJson(Map json) => _$ProposeAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
+  
   @override
   Map<String, dynamic> toJson() {
     final json = super.toJson();
