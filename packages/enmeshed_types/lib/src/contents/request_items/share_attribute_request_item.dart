@@ -23,7 +23,7 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
   });
 
   factory ShareAttributeRequestItem.fromJson(Map json) => _$ShareAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
-  
+
   @override
   Map<String, dynamic> toJson() {
     final json = super.toJson();

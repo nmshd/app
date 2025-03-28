@@ -19,7 +19,7 @@ class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
   });
 
   factory RegisterAttributeListenerRequestItem.fromJson(Map json) => _$RegisterAttributeListenerRequestItemFromJson(Map<String, dynamic>.from(json));
-  
+
   @override
   Map<String, dynamic> toJson() {
     final json = super.toJson();

@@ -9,7 +9,7 @@ class AuthenticationRequestItem extends RequestItemDerivation {
   const AuthenticationRequestItem({super.title, super.description, super.metadata, required super.mustBeAccepted, super.requireManualDecision});
 
   factory AuthenticationRequestItem.fromJson(Map json) => _$AuthenticationRequestItemFromJson(Map<String, dynamic>.from(json));
-  
+
   @override
   Map<String, dynamic> toJson() {
     final json = super.toJson();
