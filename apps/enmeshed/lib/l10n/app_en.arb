@@ -834,5 +834,15 @@
     }
   },
   "passwordProtection_incorrectPassword": "You have entered an incorrect password. Please try again.",
-  "passwordProtection_incorrectPin": "You have entered an incorrect PIN. Please try again."
+  "passwordProtection_incorrectPin": "You have entered an incorrect PIN. Please try again.",
+  "identityInDeletion_title": "The currently active profile {profileName} has been set to delete.",
+  "@identityInDeletion_title": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "identityInDeletion_description": "You have initiated the deletion of this profile on another device. Select the profile to continue or create a new profile.\n\nIf you have not triggered the deletion of the profile, you can restore the profile.",
+  "identityInDeletion_createNewProfile": "Create new profile"
 }
