@@ -20,16 +20,16 @@ class AcceptResponseItem extends ResponseItemDerivation {
     if (type == 'AcceptResponseItem') return const AcceptResponseItem();
 
     return switch (type) {
+      'AttributeAlreadySharedAcceptResponseItem' => AttributeAlreadySharedAcceptResponseItem.fromJson(json),
+      'AttributeSuccessionAcceptResponseItem' => AttributeSuccessionAcceptResponseItem.fromJson(json),
       'CreateAttributeAcceptResponseItem' => CreateAttributeAcceptResponseItem.fromJson(json),
       'DeleteAttributeAcceptResponseItem' => DeleteAttributeAcceptResponseItem.fromJson(json),
-      'ShareAttributeAcceptResponseItem' => ShareAttributeAcceptResponseItem.fromJson(json),
+      'FreeTextAcceptResponseItem' => FreeTextAcceptResponseItem.fromJson(json),
       'ProposeAttributeAcceptResponseItem' => ProposeAttributeAcceptResponseItem.fromJson(json),
       'ReadAttributeAcceptResponseItem' => ReadAttributeAcceptResponseItem.fromJson(json),
       'RegisterAttributeListenerAcceptResponseItem' => RegisterAttributeListenerAcceptResponseItem.fromJson(json),
-      'FreeTextAcceptResponseItem' => FreeTextAcceptResponseItem.fromJson(json),
+      'ShareAttributeAcceptResponseItem' => ShareAttributeAcceptResponseItem.fromJson(json),
       'TransferFileOwnershipAcceptResponseItem' => TransferFileOwnershipAcceptResponseItem.fromJson(json),
-      'AttributeAlreadySharedAcceptResponseItem' => AttributeAlreadySharedAcceptResponseItem.fromJson(json),
-      'AttributeSuccessionAcceptResponseItem' => AttributeSuccessionAcceptResponseItem.fromJson(json),
       _ => throw Exception('Unknown type: $type'),
     };
   }
