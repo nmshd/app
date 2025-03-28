@@ -1,23 +1,26 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import '../abstract_attribute.dart';
 import 'accept_response_item.dart';
 
+part 'propose_attribute_accept_response_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class ProposeAttributeAcceptResponseItem extends AcceptResponseItem {
   final String attributeId;
   final AbstractAttribute attribute;
 
   const ProposeAttributeAcceptResponseItem({required this.attributeId, required this.attribute});
 
-  factory ProposeAttributeAcceptResponseItem.fromJson(Map json) {
-    return ProposeAttributeAcceptResponseItem(attributeId: json['attributeId'], attribute: AbstractAttribute.fromJson(json['attribute']));
-  }
+  factory ProposeAttributeAcceptResponseItem.fromJson(Map json) => _$ProposeAttributeAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson(),
-    '@type': 'ProposeAttributeAcceptResponseItem',
-    'attributeId': attributeId,
-    'attribute': attribute.toJson(),
-  };
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll(_$ProposeAttributeAcceptResponseItemToJson(this));
+    json['@type'] = 'ProposeAttributeAcceptResponseItem';
+    return json;
+  }
 
   @override
   List<Object?> get props => [super.props, attributeId, attribute];

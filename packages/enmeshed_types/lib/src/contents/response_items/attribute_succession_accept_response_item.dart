@@ -1,6 +1,11 @@
 import '../abstract_attribute.dart';
 import 'accept_response_item.dart';
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'attribute_succession_accept_response_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class AttributeSuccessionAcceptResponseItem extends AcceptResponseItem {
   final String predecessorId;
   final String successorId;
@@ -8,22 +13,16 @@ class AttributeSuccessionAcceptResponseItem extends AcceptResponseItem {
 
   const AttributeSuccessionAcceptResponseItem({required this.predecessorId, required this.successorId, required this.successorContent});
 
-  factory AttributeSuccessionAcceptResponseItem.fromJson(Map json) {
-    return AttributeSuccessionAcceptResponseItem(
-      predecessorId: json['predecessorId'],
-      successorId: json['successorId'],
-      successorContent: AbstractAttribute.fromJson(json['successorContent']),
-    );
-  }
+  factory AttributeSuccessionAcceptResponseItem.fromJson(Map json) =>
+      _$AttributeSuccessionAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson(),
-    '@type': 'AttributeSuccessionAcceptResponseItem',
-    'predecessorId': predecessorId,
-    'successorId': successorId,
-    'successorContent': successorContent.toJson(),
-  };
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll(_$AttributeSuccessionAcceptResponseItemToJson(this));
+    json['@type'] = 'AttributeSuccessionAcceptResponseItem';
+    return json;
+  }
 
   @override
   List<Object?> get props => [super.props, predecessorId, successorId, successorContent];
