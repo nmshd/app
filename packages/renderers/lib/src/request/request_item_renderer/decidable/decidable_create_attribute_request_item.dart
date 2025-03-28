@@ -44,7 +44,7 @@ class _DecidableCreateAttributeRequestItemRendererState extends State<DecidableC
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       child: DraftAttributeRenderer(
         draftAttribute: widget.item.attribute,
         checkboxSettings: (

@@ -67,10 +67,11 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     return InkWell(
       onTap: () => _onUpdateAttribute(_getQueryValueType()!),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         child: Column(
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
                 Expanded(
