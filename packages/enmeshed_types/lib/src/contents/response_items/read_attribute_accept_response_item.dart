@@ -1,4 +1,5 @@
-part of 'response_item.dart';
+import '../abstract_attribute.dart';
+import 'accept_response_item.dart';
 
 class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
   final String attributeId;

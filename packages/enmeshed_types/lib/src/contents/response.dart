@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'response_item/response_item.dart';
+import 'response_items/response_item.dart';
 
 enum ResponseResult { Accepted, Rejected }
 

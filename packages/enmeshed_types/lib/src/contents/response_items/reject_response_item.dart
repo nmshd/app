@@ -1,4 +1,5 @@
-part of 'response_item.dart';
+import 'response_item.dart';
+import 'response_item_derivation.dart';
 
 class RejectResponseItem extends ResponseItemDerivation {
   final String? code;

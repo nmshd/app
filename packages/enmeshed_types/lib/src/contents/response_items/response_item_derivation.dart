@@ -1,4 +1,7 @@
-part of 'response_item.dart';
+import 'response_item.dart';
+import 'reject_response_item.dart';
+import 'error_response_item.dart';
+import 'accept_response_item.dart';
 
 abstract class ResponseItemDerivation extends ResponseItem {
   final ResponseItemResult result;

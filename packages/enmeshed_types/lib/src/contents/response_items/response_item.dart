@@ -3,21 +3,7 @@ import 'package:meta/meta.dart';
 
 import '../contents.dart';
 
-part 'accept_response_item.dart';
-part 'attribute_already_shared_accept_response_item.dart';
-part 'attribute_succession_accept_response_item.dart';
-part 'create_attribute_accept_response_item.dart';
-part 'delete_attribute_accept_response_item.dart';
-part 'error_response_item.dart';
-part 'free_text_accept_response_item.dart';
-part 'propose_attribute_accept_response_item.dart';
-part 'read_attribute_accept_response_item.dart';
-part 'register_attribute_listener_accept_response_item.dart';
-part 'reject_response_item.dart';
-part 'response_item_derivation.dart';
 part 'response_item_group.dart';
-part 'share_attribute_accept_response_item.dart';
-part 'transfer_file_ownership_accept_response_item.dart';
 
 enum ResponseItemResult { Accepted, Rejected, Error }
 

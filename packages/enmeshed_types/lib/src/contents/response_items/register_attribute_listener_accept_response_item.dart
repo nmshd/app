@@ -1,4 +1,4 @@
-part of 'response_item.dart';
+import 'accept_response_item.dart';
 
 class RegisterAttributeListenerAcceptResponseItem extends AcceptResponseItem {
   final String listenerId;

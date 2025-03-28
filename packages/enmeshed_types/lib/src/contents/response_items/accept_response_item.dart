@@ -1,4 +1,15 @@
-part of 'response_item.dart';
+import 'attribute_already_shared_accept_response_item.dart';
+import 'attribute_succession_accept_response_item.dart';
+import 'create_attribute_accept_response_item.dart';
+import 'delete_attribute_accept_response_item.dart';
+import 'free_text_accept_response_item.dart';
+import 'propose_attribute_accept_response_item.dart';
+import 'read_attribute_accept_response_item.dart';
+import 'register_attribute_listener_accept_response_item.dart';
+import 'response_item.dart';
+import 'response_item_derivation.dart';
+import 'share_attribute_accept_response_item.dart';
+import 'transfer_file_ownership_accept_response_item.dart';
 
 class AcceptResponseItem extends ResponseItemDerivation {
   const AcceptResponseItem() : super(result: ResponseItemResult.Accepted);
@@ -16,6 +27,7 @@ class AcceptResponseItem extends ResponseItemDerivation {
       'ReadAttributeAcceptResponseItem' => ReadAttributeAcceptResponseItem.fromJson(json),
       'RegisterAttributeListenerAcceptResponseItem' => RegisterAttributeListenerAcceptResponseItem.fromJson(json),
       'FreeTextAcceptResponseItem' => FreeTextAcceptResponseItem.fromJson(json),
+      'TransferFileOwnershipAcceptResponseItem' => TransferFileOwnershipAcceptResponseItem.fromJson(json),
       'AttributeAlreadySharedAcceptResponseItem' => AttributeAlreadySharedAcceptResponseItem.fromJson(json),
       'AttributeSuccessionAcceptResponseItem' => AttributeSuccessionAcceptResponseItem.fromJson(json),
       _ => throw Exception('Unknown type: $type'),
