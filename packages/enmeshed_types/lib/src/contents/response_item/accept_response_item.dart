@@ -16,6 +16,7 @@ class AcceptResponseItem extends ResponseItemDerivation {
       'ReadAttributeAcceptResponseItem' => ReadAttributeAcceptResponseItem.fromJson(json),
       'RegisterAttributeListenerAcceptResponseItem' => RegisterAttributeListenerAcceptResponseItem.fromJson(json),
       'FreeTextAcceptResponseItem' => FreeTextAcceptResponseItem.fromJson(json),
+      'TransferFileOwnershipAcceptResponseItem' => TransferFileOwnershipAcceptResponseItem.fromJson(json),
       'AttributeAlreadySharedAcceptResponseItem' => AttributeAlreadySharedAcceptResponseItem.fromJson(json),
       'AttributeSuccessionAcceptResponseItem' => AttributeSuccessionAcceptResponseItem.fromJson(json),
       _ => throw Exception('Unknown type: $type'),
