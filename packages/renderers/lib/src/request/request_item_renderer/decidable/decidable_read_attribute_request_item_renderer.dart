@@ -244,9 +244,15 @@ class _ProcessedQueryRenderer extends StatelessWidget {
           _getTitle(context),
           style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
-        subtitle: TranslatedText(
-          'i18n://requestRenderer.noEntry',
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TranslatedText(
+              'i18n://requestRenderer.noEntry',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+            ),
+            if (item.description != null) Text(item.description!),
+          ],
         ),
       );
     }
