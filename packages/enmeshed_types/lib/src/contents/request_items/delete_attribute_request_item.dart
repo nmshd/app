@@ -22,6 +22,7 @@ class DeleteAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$DeleteAttributeRequestItemToJson(this));
+    json['@type'] = 'DeleteAttributeRequestItem';
     return json;
   }
 

@@ -24,6 +24,7 @@ class ConsentRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$ConsentRequestItemToJson(this));
+    json['@type'] = 'ConsentRequestItem';
     return json;
   }
 

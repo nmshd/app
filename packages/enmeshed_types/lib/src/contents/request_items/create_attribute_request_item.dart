@@ -23,6 +23,7 @@ class CreateAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$CreateAttributeRequestItemToJson(this));
+    json['@type'] = 'CreateAttributeRequestItem';
     return json;
   }
 

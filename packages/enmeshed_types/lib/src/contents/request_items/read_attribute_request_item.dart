@@ -23,6 +23,7 @@ class ReadAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$ReadAttributeRequestItemToJson(this));
+    json['@type'] = 'ReadAttributeRequestItem';
     return json;
   }
 

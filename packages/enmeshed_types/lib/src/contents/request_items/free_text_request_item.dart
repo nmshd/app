@@ -22,6 +22,7 @@ class FreeTextRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$FreeTextRequestItemToJson(this));
+    json['@type'] = 'FreeTextRequestItem';
     return json;
   }
 

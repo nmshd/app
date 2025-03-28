@@ -22,6 +22,7 @@ class TransferFileOwnershipRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$TransferFileOwnershipRequestItemToJson(this));
+    json['@type'] = 'TransferFileOwnershipRequestItem';
     return json;
   }
 

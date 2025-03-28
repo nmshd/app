@@ -23,6 +23,7 @@ class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$RegisterAttributeListenerRequestItemToJson(this));
+    json['@type'] = 'RegisterAttributeListenerRequestItem';
     return json;
   }
 

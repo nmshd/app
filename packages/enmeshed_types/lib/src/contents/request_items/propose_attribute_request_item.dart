@@ -26,6 +26,7 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$ProposeAttributeRequestItemToJson(this));
+    json['@type'] = 'ProposeAttributeRequestItem';
     return json;
   }
 

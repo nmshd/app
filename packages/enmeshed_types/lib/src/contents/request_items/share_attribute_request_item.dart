@@ -27,6 +27,7 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$ShareAttributeRequestItemToJson(this));
+    json['@type'] = 'ShareAttributeRequestItem';
     return json;
   }
 

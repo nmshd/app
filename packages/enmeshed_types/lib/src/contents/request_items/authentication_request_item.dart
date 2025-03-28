@@ -13,6 +13,7 @@ class AuthenticationRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() {
     final json = super.toJson();
     json.addAll(_$AuthenticationRequestItemToJson(this));
+    json['@type'] = 'AuthenticationRequestItem';
     return json;
   }
 
