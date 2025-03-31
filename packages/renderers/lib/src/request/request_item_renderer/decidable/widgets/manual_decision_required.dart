@@ -15,12 +15,12 @@ class ManualDecisionRequired extends StatefulWidget {
 class _ManualDecisionRequiredState extends State<ManualDecisionRequired> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12),
-      child: Material(
-        clipBehavior: Clip.hardEdge,
-        borderRadius: BorderRadius.circular(4),
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+    return Material(
+      clipBehavior: Clip.hardEdge,
+      borderRadius: BorderRadius.circular(4),
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: InkWell(
           onTap: () => setState(() => widget.onUpdateManualDecision(widget.isManualDecisionAccepted)),
           child: Row(
@@ -30,8 +30,9 @@ class _ManualDecisionRequiredState extends State<ManualDecisionRequired> {
                 thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
                   (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
                 ),
-                activeColor: context.customColors.success,
+                activeColor: context.customColors.onSuccess,
                 value: widget.isManualDecisionAccepted,
+                activeTrackColor: context.customColors.success,
                 onChanged: (bool value) => setState(() => widget.onUpdateManualDecision(value)),
               ),
               SizedBox(width: 8),
