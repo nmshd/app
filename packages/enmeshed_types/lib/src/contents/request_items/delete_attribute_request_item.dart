@@ -28,8 +28,5 @@ class DeleteAttributeRequestItem extends RequestItemDerivation {
   }
 
   @override
-  String toString() => 'DeleteAttributeRequestItem(attributeId: $attributeId)';
-
-  @override
   List<Object?> get props => [super.props, attributeId];
 }
