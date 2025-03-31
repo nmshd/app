@@ -382,13 +382,13 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                             onAttributeCreated: () {},
                           );
 
-                          if (context.mounted) {
-                            context.pop<AttributeSwitcherChoice>((
-                              id: localAttribute!.id,
-                              attribute: localAttribute.content,
-                              isDefaultRepositoryAttribute: null,
-                            ));
-                          }
+                          if (!context.mounted || localAttribute == null) return;
+
+                          context.pop<AttributeSwitcherChoice>((
+                            id: localAttribute.id,
+                            attribute: localAttribute.content,
+                            isDefaultRepositoryAttribute: null,
+                          ));
                         },
                       ),
                   ],
