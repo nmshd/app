@@ -21,7 +21,21 @@ class MessageDVORenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: hideAvatar ? null : ContactCircleAvatar(radius: 20, contact: message.peer),
+      leading:
+          hideAvatar
+              ? null
+              : ContactCircleAvatar(
+                radius: 20,
+                contact: message.peer,
+                borderColor: switch (message) {
+                  final MailDVO mail => mail.wasReadAt == null && !mail.isOwn ? Theme.of(context).colorScheme.secondary : Colors.transparent,
+                  final RequestMessageDVO requestMessage =>
+                    requestMessage.request.status == LocalRequestStatus.ManualDecisionRequired
+                        ? Theme.of(context).colorScheme.error
+                        : Colors.transparent,
+                  _ => Colors.transparent,
+                },
+              ),
       title: _MessagesContent(message: message, query: query),
       onTap: () => _onTap(context),
     );
@@ -102,28 +116,14 @@ class _RequestMessageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Flexible(
-          child: TranslatedText(
-            message.request.statusText,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style:
-                message.wasReadAt == null && !message.isOwn
-                    ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
-                    : Theme.of(context).textTheme.bodyLarge,
-          ),
-        ),
-        Gaps.w8,
-        Icon(
-          message.request.status == LocalRequestStatus.ManualDecisionRequired ? Icons.notification_important : Icons.notifications,
-          color:
-              message.request.status == LocalRequestStatus.ManualDecisionRequired
-                  ? Theme.of(context).colorScheme.error
-                  : Theme.of(context).colorScheme.outline,
-        ),
-      ],
+    return TranslatedText(
+      message.request.statusText,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style:
+          message.wasReadAt == null && !message.isOwn
+              ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+              : Theme.of(context).textTheme.bodyLarge,
     );
   }
 }
