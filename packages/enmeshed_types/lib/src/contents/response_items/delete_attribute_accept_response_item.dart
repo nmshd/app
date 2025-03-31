@@ -13,12 +13,11 @@ class DeleteAttributeAcceptResponseItem extends AcceptResponseItem {
   factory DeleteAttributeAcceptResponseItem.fromJson(Map json) => _$DeleteAttributeAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$DeleteAttributeAcceptResponseItemToJson(this));
-    json['@type'] = 'DeleteAttributeAcceptResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$DeleteAttributeAcceptResponseItemToJson(this),
+    '@type': 'DeleteAttributeAcceptResponseItem',
+  };
 
   @override
   List<Object?> get props => [super.props, deletionDate];

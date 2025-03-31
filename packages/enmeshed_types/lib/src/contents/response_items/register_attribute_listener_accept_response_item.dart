@@ -14,12 +14,11 @@ class RegisterAttributeListenerAcceptResponseItem extends AcceptResponseItem {
       _$RegisterAttributeListenerAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$RegisterAttributeListenerAcceptResponseItemToJson(this));
-    json['@type'] = 'RegisterAttributeListenerAcceptResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$RegisterAttributeListenerAcceptResponseItemToJson(this),
+    '@type': 'RegisterAttributeListenerAcceptResponseItem',
+  };
 
   @override
   List<Object?> get props => [super.props, listenerId];

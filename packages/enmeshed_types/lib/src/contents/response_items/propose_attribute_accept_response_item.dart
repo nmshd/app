@@ -15,12 +15,11 @@ class ProposeAttributeAcceptResponseItem extends AcceptResponseItem {
   factory ProposeAttributeAcceptResponseItem.fromJson(Map json) => _$ProposeAttributeAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$ProposeAttributeAcceptResponseItemToJson(this));
-    json['@type'] = 'ProposeAttributeAcceptResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$ProposeAttributeAcceptResponseItemToJson(this),
+    '@type': 'ProposeAttributeAcceptResponseItem',
+  };
 
   @override
   List<Object?> get props => [super.props, attributeId, attribute];

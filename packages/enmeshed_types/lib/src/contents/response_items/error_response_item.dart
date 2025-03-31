@@ -15,12 +15,7 @@ class ErrorResponseItem extends ResponseItemDerivation {
   factory ErrorResponseItem.fromJson(Map json) => _$ErrorResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$ErrorResponseItemToJson(this));
-    json['@type'] = 'ErrorResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {...super.toJson(), ..._$ErrorResponseItemToJson(this), '@type': 'ErrorResponseItem'};
 
   @override
   List<Object?> get props => [super.props, code, message];

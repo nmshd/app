@@ -22,12 +22,7 @@ class ConsentRequestItem extends RequestItemDerivation {
   factory ConsentRequestItem.fromJson(Map json) => _$ConsentRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$ConsentRequestItemToJson(this));
-    json['@type'] = 'ConsentRequestItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {...super.toJson(), ..._$ConsentRequestItemToJson(this), '@type': 'ConsentRequestItem'};
 
   @override
   List<Object?> get props => [super.props, consent, link];

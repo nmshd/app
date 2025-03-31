@@ -13,12 +13,11 @@ class ShareAttributeAcceptResponseItem extends AcceptResponseItem {
   factory ShareAttributeAcceptResponseItem.fromJson(Map json) => _$ShareAttributeAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$ShareAttributeAcceptResponseItemToJson(this));
-    json['@type'] = 'ShareAttributeAcceptResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$ShareAttributeAcceptResponseItemToJson(this),
+    '@type': 'ShareAttributeAcceptResponseItem',
+  };
 
   @override
   List<Object?> get props => [super.props, attributeId];

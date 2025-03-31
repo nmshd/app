@@ -25,12 +25,7 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
   factory ShareAttributeRequestItem.fromJson(Map json) => _$ShareAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$ShareAttributeRequestItemToJson(this));
-    json['@type'] = 'ShareAttributeRequestItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {...super.toJson(), ..._$ShareAttributeRequestItemToJson(this), '@type': 'ShareAttributeRequestItem'};
 
   @override
   List<Object?> get props => [super.props, attribute, sourceAttributeId, thirdPartyAddress];

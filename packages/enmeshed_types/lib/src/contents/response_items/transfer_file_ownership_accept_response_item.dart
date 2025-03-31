@@ -16,12 +16,11 @@ class TransferFileOwnershipAcceptResponseItem extends AcceptResponseItem {
       _$TransferFileOwnershipAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$TransferFileOwnershipAcceptResponseItemToJson(this));
-    json['@type'] = 'TransferFileOwnershipAcceptResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$TransferFileOwnershipAcceptResponseItemToJson(this),
+    '@type': 'TransferFileOwnershipAcceptResponseItem',
+  };
 
   @override
   List<Object?> get props => [super.props, attributeId, attribute];

@@ -20,12 +20,7 @@ class FreeTextRequestItem extends RequestItemDerivation {
   factory FreeTextRequestItem.fromJson(Map json) => _$FreeTextRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$FreeTextRequestItemToJson(this));
-    json['@type'] = 'FreeTextRequestItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {...super.toJson(), ..._$FreeTextRequestItemToJson(this), '@type': 'FreeTextRequestItem'};
 
   @override
   List<Object?> get props => [super.props];

@@ -1,7 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import '../abstract_attribute.dart';
 import 'accept_response_item.dart';
-
-import 'package:json_annotation/json_annotation.dart';
 
 part 'attribute_succession_accept_response_item.g.dart';
 
@@ -17,12 +17,11 @@ class AttributeSuccessionAcceptResponseItem extends AcceptResponseItem {
       _$AttributeSuccessionAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$AttributeSuccessionAcceptResponseItemToJson(this));
-    json['@type'] = 'AttributeSuccessionAcceptResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$AttributeSuccessionAcceptResponseItemToJson(this),
+    '@type': 'AttributeSuccessionAcceptResponseItem',
+  };
 
   @override
   List<Object?> get props => [super.props, predecessorId, successorId, successorContent];

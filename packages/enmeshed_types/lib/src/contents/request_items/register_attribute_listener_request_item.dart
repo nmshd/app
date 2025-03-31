@@ -21,12 +21,11 @@ class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
   factory RegisterAttributeListenerRequestItem.fromJson(Map json) => _$RegisterAttributeListenerRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$RegisterAttributeListenerRequestItemToJson(this));
-    json['@type'] = 'RegisterAttributeListenerRequestItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$RegisterAttributeListenerRequestItemToJson(this),
+    '@type': 'RegisterAttributeListenerRequestItem',
+  };
 
   @override
   List<Object?> get props => [super.props, query];

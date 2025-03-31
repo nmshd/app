@@ -11,12 +11,7 @@ class AuthenticationRequestItem extends RequestItemDerivation {
   factory AuthenticationRequestItem.fromJson(Map json) => _$AuthenticationRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$AuthenticationRequestItemToJson(this));
-    json['@type'] = 'AuthenticationRequestItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {...super.toJson(), ..._$AuthenticationRequestItemToJson(this), '@type': 'AuthenticationRequestItem'};
 
   @override
   List<Object?> get props => [super.props];

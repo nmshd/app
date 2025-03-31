@@ -13,12 +13,11 @@ class CreateAttributeAcceptResponseItem extends AcceptResponseItem {
   factory CreateAttributeAcceptResponseItem.fromJson(Map json) => _$CreateAttributeAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$CreateAttributeAcceptResponseItemToJson(this));
-    json['@type'] = 'CreateAttributeAcceptResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$CreateAttributeAcceptResponseItemToJson(this),
+    '@type': 'CreateAttributeAcceptResponseItem',
+  };
 
   @override
   List<Object?> get props => [super.props, attributeId];

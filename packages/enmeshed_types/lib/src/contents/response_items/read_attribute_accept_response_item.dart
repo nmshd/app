@@ -16,12 +16,7 @@ class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
   factory ReadAttributeAcceptResponseItem.fromJson(Map json) => _$ReadAttributeAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$ReadAttributeAcceptResponseItemToJson(this));
-    json['@type'] = 'ReadAttributeAcceptResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {...super.toJson(), ..._$ReadAttributeAcceptResponseItemToJson(this), '@type': 'ReadAttributeAcceptResponseItem'};
 
   @override
   List<Object?> get props => [super.props, attributeId, attribute, thirdPartyAddress];

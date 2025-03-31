@@ -20,12 +20,11 @@ class TransferFileOwnershipRequestItem extends RequestItemDerivation {
   factory TransferFileOwnershipRequestItem.fromJson(Map json) => _$TransferFileOwnershipRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$TransferFileOwnershipRequestItemToJson(this));
-    json['@type'] = 'TransferFileOwnershipRequestItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$TransferFileOwnershipRequestItemToJson(this),
+    '@type': 'TransferFileOwnershipRequestItem',
+  };
 
   @override
   List<Object?> get props => [super.props, fileReference];

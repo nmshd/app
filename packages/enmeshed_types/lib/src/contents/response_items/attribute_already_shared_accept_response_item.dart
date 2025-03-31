@@ -14,12 +14,11 @@ class AttributeAlreadySharedAcceptResponseItem extends AcceptResponseItem {
       _$AttributeAlreadySharedAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$AttributeAlreadySharedAcceptResponseItemToJson(this));
-    json['@type'] = 'AttributeAlreadySharedAcceptResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    ..._$AttributeAlreadySharedAcceptResponseItemToJson(this),
+    '@type': 'AttributeAlreadySharedAcceptResponseItem',
+  };
 
   @override
   List<Object?> get props => [super.props, attributeId];

@@ -10,12 +10,10 @@ class FreeTextAcceptResponseItem extends AcceptResponseItem {
 
   const FreeTextAcceptResponseItem({required this.freeText});
 
-  factory FreeTextAcceptResponseItem.fromJson(Map json) {
-    return FreeTextAcceptResponseItem(freeText: json['freeText']);
-  }
+  factory FreeTextAcceptResponseItem.fromJson(Map json) => _$FreeTextAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'FreeTextAcceptResponseItem', 'freeText': freeText};
+  Map<String, dynamic> toJson() => {...super.toJson(), ..._$FreeTextAcceptResponseItemToJson(this), '@type': 'FreeTextAcceptResponseItem'};
 
   @override
   List<Object?> get props => [super.props, freeText];

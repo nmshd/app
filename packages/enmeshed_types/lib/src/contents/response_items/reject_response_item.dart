@@ -15,12 +15,7 @@ class RejectResponseItem extends ResponseItemDerivation {
   factory RejectResponseItem.fromJson(Map json) => _$RejectResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() {
-    final json = super.toJson();
-    json.addAll(_$RejectResponseItemToJson(this));
-    json['@type'] = 'RejectResponseItem';
-    return json;
-  }
+  Map<String, dynamic> toJson() => {...super.toJson(), ..._$RejectResponseItemToJson(this), '@type': 'RejectResponseItem'};
 
   @override
   List<Object?> get props => [super.props, code, message];
