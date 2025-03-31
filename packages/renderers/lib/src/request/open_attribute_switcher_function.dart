@@ -7,6 +7,7 @@ typedef OpenAttributeSwitcherFunction =
       required String? valueType,
       required List<AttributeSwitcherChoice> choices,
       required AttributeSwitcherChoice? currentChoice,
+      String? title,
       ValueHints? valueHints,
       List<String>? tags,
     });

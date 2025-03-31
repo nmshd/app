@@ -278,6 +278,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     required String? valueType,
     required List<AttributeSwitcherChoice> choices,
     required AttributeSwitcherChoice? currentChoice,
+    String? title,
     ValueHints? valueHints,
     List<String>? tags,
   }) async {
@@ -286,6 +287,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
         context: context,
         accountId: widget.accountId,
         initialValueType: valueType,
+        title: title,
         onAttributeCreated: () {},
         tags: tags,
       );
@@ -305,6 +307,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
               choices: choices,
               currentChoice: currentChoice,
               valueHints: valueHints,
+              title: title,
               valueType: valueType,
               accountId: widget.accountId,
               currentAddress: _identityInfo!.address,
@@ -325,6 +328,7 @@ class _AttributeSwitcher extends StatefulWidget {
   final String? valueType;
   final String accountId;
   final String currentAddress;
+  final String? title;
   final ValueHints? valueHints;
 
   const _AttributeSwitcher({
@@ -333,6 +337,7 @@ class _AttributeSwitcher extends StatefulWidget {
     required this.valueType,
     required this.accountId,
     required this.currentAddress,
+    this.title,
     this.valueHints,
   });
 
@@ -380,6 +385,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                             accountId: widget.accountId,
                             initialValueType: widget.valueType,
                             onAttributeCreated: () {},
+                            title: widget.title,
                           );
 
                           if (!context.mounted || localAttribute == null) return;

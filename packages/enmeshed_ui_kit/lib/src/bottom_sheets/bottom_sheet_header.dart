@@ -21,7 +21,9 @@ class BottomSheetHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if (onBackPressed != null) IconButton(icon: const Icon(Icons.arrow_back), onPressed: onBackPressed),
-          Text(title, style: onBackPressed == null ? Theme.of(context).textTheme.titleLarge : Theme.of(context).textTheme.titleMedium),
+          Flexible(
+            child: Text(title, style: onBackPressed == null ? Theme.of(context).textTheme.titleLarge : Theme.of(context).textTheme.titleMedium),
+          ),
           IconButton(icon: const Icon(Icons.close), onPressed: canClose ? context.pop : null),
         ],
       ),

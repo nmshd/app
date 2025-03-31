@@ -20,6 +20,7 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
   required BuildContext context,
   required String accountId,
   required VoidCallback onAttributeCreated,
+  String? title,
   String? initialValueType,
   List<String>? tags,
 }) async {
@@ -29,7 +30,12 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
     builder:
         (builder) => ConstrainedBox(
           constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
-          child: _CreateAttributeModal(accountId: accountId, onAttributeCreated: onAttributeCreated, initialValueType: initialValueType),
+          child: _CreateAttributeModal(
+            accountId: accountId,
+            title: title,
+            onAttributeCreated: onAttributeCreated,
+            initialValueType: initialValueType,
+          ),
         ),
   );
 }
@@ -38,8 +44,9 @@ class _CreateAttributeModal extends StatefulWidget {
   final String accountId;
   final String? initialValueType;
   final VoidCallback onAttributeCreated;
+  final String? title;
 
-  const _CreateAttributeModal({required this.accountId, required this.initialValueType, required this.onAttributeCreated});
+  const _CreateAttributeModal({required this.accountId, required this.initialValueType, required this.onAttributeCreated, this.title});
 
   @override
   State<_CreateAttributeModal> createState() => _CreateAttributeModalState();
@@ -92,6 +99,7 @@ class _CreateAttributeModalState extends State<_CreateAttributeModal> {
                 valueHints: _valueHints,
                 onBackPressed: widget.initialValueType == null ? () => setState(() => _valueType = null) : null,
                 onAttributeCreated: widget.onAttributeCreated,
+                title: widget.title,
               ),
     );
   }
@@ -155,6 +163,7 @@ class _CreateAttributePage extends StatefulWidget {
   final ValueHints valueHints;
   final VoidCallback? onBackPressed;
   final VoidCallback onAttributeCreated;
+  final String? title;
 
   const _CreateAttributePage({
     required this.accountId,
@@ -163,6 +172,7 @@ class _CreateAttributePage extends StatefulWidget {
     required this.valueHints,
     required this.onBackPressed,
     required this.onAttributeCreated,
+    this.title,
   });
 
   @override
@@ -215,7 +225,7 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
 
   @override
   Widget build(BuildContext context) {
-    final translatedAttribute = FlutterI18n.translate(context, 'dvo.attribute.name.${widget.valueType}');
+    final translatedAttribute = widget.title ?? FlutterI18n.translate(context, 'dvo.attribute.name.${widget.valueType}');
 
     return Padding(
       padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),

@@ -153,12 +153,18 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
       _ => null,
     };
 
+    final title = switch (widget.item.query) {
+      final ProcessedRelationshipAttributeQueryDVO query => query.name,
+      _ => FlutterI18n.translate(context, 'dvo.attribute.name.$valueType'),
+    };
+
     final choice = await widget.openAttributeSwitcher!(
       valueType: valueType,
       choices: resultValues.toList(),
       currentChoice: _choice,
       valueHints: valueHints,
       tags: tags,
+      title: title,
     );
 
     if (choice == null) return;
