@@ -21,5 +21,18 @@ void main() {
       final itemJson = item.toJson();
       expect(itemJson, equals({'accept': true, 'attributeId': 'anAttributeId'}));
     });
+
+    test('is correctly converted with tags', () {
+      const item = AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: 'anAttributeId', tags: ['aTag']);
+      final itemJson = item.toJson();
+      expect(
+        itemJson,
+        equals({
+          'accept': true,
+          'attributeId': 'anAttributeId',
+          'tags': ['aTag'],
+        }),
+      );
+    });
   });
 }
