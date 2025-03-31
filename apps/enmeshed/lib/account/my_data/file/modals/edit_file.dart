@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
-import '../widgets/available_tags_section.dart';
+import '../widgets/widgets.dart';
 
 class EditFile extends StatefulWidget {
   final String accountId;
@@ -83,8 +83,14 @@ class _EditFileState extends State<EditFile> {
               ),
               Gaps.h24,
               Text(context.l10n.files_assignTags, style: Theme.of(context).textTheme.titleMedium),
-              Gaps.h24,
-              AvailableTagsSection(tagCollection: widget.tagCollection, selectedTags: _selectedTags, onTagSelected: _handleTagSelected),
+              if (_isMultiStageTag) ...[
+                if (_selectedTags.isEmpty) Gaps.h8 else Gaps.h24,
+                MultiStageTagsSection(tagCollection: widget.tagCollection, selectedTags: _selectedTags, handleTagSelection: _handleTagSelection),
+                const Spacer(),
+              ] else ...[
+                Gaps.h24,
+                AvailableTagsSection(tagCollection: widget.tagCollection, selectedTags: _selectedTags, onTagSelected: _handleTagSelection),
+              ],
               Gaps.h40,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -103,6 +109,10 @@ class _EditFileState extends State<EditFile> {
   }
 
   bool get _confirmEnabled => _titleController.text.isNotEmpty;
+
+  bool get _isMultiStageTag => widget.tagCollection.tagsForAttributeValueTypes.values.any(
+    (tags) => tags.values.any((tag) => tag.children != null && tag.children!.isNotEmpty),
+  );
 
   Future<void> _confirm() async {
     if (_confirmEnabled) setState(() => _loading = true);
@@ -136,7 +146,7 @@ class _EditFileState extends State<EditFile> {
     if (mounted) context.pop();
   }
 
-  void _handleTagSelected({required String tagPath, required bool selected}) {
+  void _handleTagSelection({required String tagPath, required bool selected}) {
     setState(() {
       if (selected) {
         _selectedTags = [..._selectedTags, tagPath];
