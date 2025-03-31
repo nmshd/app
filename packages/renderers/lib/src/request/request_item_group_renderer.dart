@@ -33,7 +33,6 @@ class RequestItemGroupRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final listView = Material(
-      color: Theme.of(context).colorScheme.surface,
       child: ListView.separated(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
