@@ -15,8 +15,8 @@
     "@js-soft/logging-abstractions": "^1.0.1",
     "@js-soft/simple-logger": "^1.0.5",
     "@js-soft/ts-utils": "^2.3.3",
-    "@nmshd/app-runtime": "6.34.0",
-    "@nmshd/runtime": "6.34.0",
+    "@nmshd/app-runtime": "6.34.1",
+    "@nmshd/runtime": "6.34.1",
     "js-logger": "^1.6.1",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21"
