@@ -75,19 +75,15 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
               children: [
                 Checkbox(value: _isChecked, onChanged: widget.item.checkboxEnabled ? _onUpdateCheckbox : null),
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 12),
-                    child: _ProcessedQueryRenderer(
-                      choice: _choice,
-                      item: widget.item,
-                      valueType: _getQueryValueType(),
-                      expandFileReference: widget.expandFileReference,
-                      openFileDetails: widget.openFileDetails,
-                      onUpdateAttribute: _onUpdateAttribute,
-                    ),
+                  child: _ProcessedQueryRenderer(
+                    choice: _choice,
+                    item: widget.item,
+                    valueType: _getQueryValueType(),
+                    expandFileReference: widget.expandFileReference,
+                    openFileDetails: widget.openFileDetails,
+                    onUpdateAttribute: _onUpdateAttribute,
                   ),
                 ),
-                Padding(padding: const EdgeInsets.all(8), child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary)),
               ],
             ),
             if (widget.item.requireManualDecision == true) ...[
@@ -239,7 +235,6 @@ class _ProcessedQueryRenderer extends StatelessWidget {
       return ListTile(
         contentPadding: EdgeInsets.only(right: 12),
         visualDensity: VisualDensity.compact,
-        tileColor: Theme.of(context).colorScheme.surface,
         title: Text(
           _getTitle(context),
           style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
@@ -254,6 +249,7 @@ class _ProcessedQueryRenderer extends StatelessWidget {
             if (item.description != null) Text(item.description!),
           ],
         ),
+        trailing: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
       );
     }
 
