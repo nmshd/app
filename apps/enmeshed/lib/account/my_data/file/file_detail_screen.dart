@@ -116,7 +116,6 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     final tagCollectionResult = await _session.consumptionServices.attributes.getAttributeTagCollection();
 
     if (tagCollectionResult.isError) return;
-
     setState(() => _tagCollection = tagCollectionResult.value);
   }
 
@@ -167,12 +166,15 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
       context: context,
       isScrollControlled: true,
       builder:
-          (_) => EditFile(
-            accountId: widget.accountId,
-            fileTitle: _fileDVO.title,
-            fileReferenceAttribute: _fileReferenceAttribute!,
-            tagCollection: _tagCollection!,
-            onSave: _loadTags,
+          (_) => ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
+            child: EditFile(
+              accountId: widget.accountId,
+              fileTitle: _fileDVO.title,
+              fileReferenceAttribute: _fileReferenceAttribute!,
+              tagCollection: _tagCollection!,
+              onSave: _loadTags,
+            ),
           ),
     );
   }
