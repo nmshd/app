@@ -20,15 +20,15 @@ abstract class RequestItemDerivation extends RequestItem {
     final type = json['@type'];
 
     return switch (type) {
-      'ReadAttributeRequestItem' => ReadAttributeRequestItem.fromJson(json),
-      'CreateAttributeRequestItem' => CreateAttributeRequestItem.fromJson(json),
-      'ShareAttributeRequestItem' => ShareAttributeRequestItem.fromJson(json),
-      'ProposeAttributeRequestItem' => ProposeAttributeRequestItem.fromJson(json),
-      'ConsentRequestItem' => ConsentRequestItem.fromJson(json),
       'AuthenticationRequestItem' => AuthenticationRequestItem.fromJson(json),
-      'RegisterAttributeListenerRequestItem' => RegisterAttributeListenerRequestItem.fromJson(json),
-      'FreeTextRequestItem' => FreeTextRequestItem.fromJson(json),
+      'ConsentRequestItem' => ConsentRequestItem.fromJson(json),
+      'CreateAttributeRequestItem' => CreateAttributeRequestItem.fromJson(json),
       'DeleteAttributeRequestItem' => DeleteAttributeRequestItem.fromJson(json),
+      'FreeTextRequestItem' => FreeTextRequestItem.fromJson(json),
+      'ProposeAttributeRequestItem' => ProposeAttributeRequestItem.fromJson(json),
+      'ReadAttributeRequestItem' => ReadAttributeRequestItem.fromJson(json),
+      'RegisterAttributeListenerRequestItem' => RegisterAttributeListenerRequestItem.fromJson(json),
+      'ShareAttributeRequestItem' => ShareAttributeRequestItem.fromJson(json),
       'TransferFileOwnershipRequestItem' => TransferFileOwnershipRequestItem.fromJson(json),
       _ => throw Exception('Unknown type: $type'),
     };
