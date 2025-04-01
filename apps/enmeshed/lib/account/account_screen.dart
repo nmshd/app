@@ -68,6 +68,13 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         }),
       );
 
+    AppLifecycleListener(
+      onResume: () async {
+        final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+        await session.transportServices.account.syncDatawallet();
+      },
+    );
+
     _loadAccount();
     _reloadContactRequests();
     _loadUnreadMessages();

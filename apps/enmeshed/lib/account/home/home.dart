@@ -47,13 +47,6 @@ class _HomeViewState extends State<HomeView> {
       ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reload().catchError((_) {})));
-
-    AppLifecycleListener(
-      onResume: () async {
-        final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-        await session.transportServices.account.syncDatawallet();
-      },
-    );
   }
 
   @override
