@@ -24,10 +24,10 @@
   "devDependencies": {
     "@types/json-stringify-safe": "^5.0.3",
     "@types/lodash": "^4.17.16",
-    "@types/luxon": "^3.4.2",
-    "@types/node": "^22.13.14",
-    "esbuild": "^0.25.1",
-    "luxon": "^3.6.0",
+    "@types/luxon": "^3.6.0",
+    "@types/node": "^22.13.16",
+    "esbuild": "^0.25.2",
+    "luxon": "^3.6.1",
     "prettier": "^3.5.3",
     "typescript": "^5.8.2"
   }
