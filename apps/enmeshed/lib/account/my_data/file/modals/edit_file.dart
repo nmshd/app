@@ -94,9 +94,9 @@ class _EditFileState extends State<EditFile> {
               Gaps.h40,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
+                spacing: 8,
                 children: [
                   OutlinedButton(onPressed: () => Navigator.of(context).pop(), child: Text(context.l10n.cancel)),
-                  Gaps.w8,
                   FilledButton(onPressed: _confirmEnabled ? _confirm : null, child: Text(context.l10n.save)),
                 ],
               ),
