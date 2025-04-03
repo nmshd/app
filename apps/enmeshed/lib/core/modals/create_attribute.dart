@@ -32,9 +32,9 @@ Future<LocalAttributeDTO?> showCreateAttributeModal({
           constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
           child: _CreateAttributeModal(
             accountId: accountId,
-            title: title,
             onAttributeCreated: onAttributeCreated,
             initialValueType: initialValueType,
+            title: title,
           ),
         ),
   );
