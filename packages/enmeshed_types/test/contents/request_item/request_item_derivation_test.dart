@@ -136,6 +136,12 @@ class MockRequestItemDerivation extends RequestItemDerivation {
 
   @override
   Map<String, dynamic> toJson() {
-    return {...super.toJson()};
+    return {
+      'mustBeAccepted': mustBeAccepted,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+      if (metadata != null) 'metadata': metadata,
+      if (requireManualDecision != null) 'requireManualDecision': requireManualDecision,
+    };
   }
 }
