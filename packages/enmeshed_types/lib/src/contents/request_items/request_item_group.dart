@@ -1,21 +1,20 @@
-part of 'request_item.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import 'request_item.dart';
+import 'request_item_derivation.dart';
+
+part 'request_item_group.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class RequestItemGroup extends RequestItem {
   final List<RequestItemDerivation> items;
 
   const RequestItemGroup({super.title, super.description, super.metadata, required this.items});
 
-  factory RequestItemGroup.fromJson(Map json) {
-    return RequestItemGroup(
-      title: json['title'],
-      description: json['description'],
-      metadata: json['metadata'] != null ? Map<String, dynamic>.from(json['metadata']) : null,
-      items: List<RequestItemDerivation>.from(json['items'].map((x) => RequestItemDerivation.fromJson(x))),
-    );
-  }
+  factory RequestItemGroup.fromJson(Map json) => _$RequestItemGroupFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'RequestItemGroup', 'items': items.map((e) => e.toJson()).toList()};
+  Map<String, dynamic> toJson() => {..._$RequestItemGroupToJson(this), '@type': 'RequestItemGroup'};
 
   @override
   List<Object?> get props => [super.props, items];

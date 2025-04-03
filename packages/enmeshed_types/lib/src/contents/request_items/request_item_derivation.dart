@@ -35,11 +35,7 @@ abstract class RequestItemDerivation extends RequestItem {
   }
 
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson(),
-    'mustBeAccepted': mustBeAccepted,
-    if (requireManualDecision != null) 'requireManualDecision': requireManualDecision,
-  };
+  Map<String, dynamic> toJson();
 
   @override
   List<Object?> get props => [super.props, requireManualDecision, mustBeAccepted];
