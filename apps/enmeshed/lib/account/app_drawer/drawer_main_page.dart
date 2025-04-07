@@ -10,8 +10,9 @@ import '/core/core.dart';
 class DrawerMainPage extends StatefulWidget {
   final VoidCallback goToNotifications;
   final VoidCallback goToHints;
+  final VoidCallback goToTheme;
 
-  const DrawerMainPage({required this.goToNotifications, required this.goToHints, super.key});
+  const DrawerMainPage({required this.goToNotifications, required this.goToHints, required this.goToTheme, super.key});
 
   @override
   State<DrawerMainPage> createState() => _DrawerMainPageState();
