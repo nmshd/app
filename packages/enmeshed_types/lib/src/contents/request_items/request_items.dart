@@ -8,5 +8,6 @@ export 'read_attribute_request_item.dart';
 export 'register_attribute_listener_request_item.dart';
 export 'request_item.dart';
 export 'request_item_derivation.dart';
+export 'request_item_group.dart';
 export 'share_attribute_request_item.dart';
 export 'transfer_file_ownership_request_item.dart';

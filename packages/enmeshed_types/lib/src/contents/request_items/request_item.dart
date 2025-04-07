@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../contents.dart';
-
-part 'request_item_group.dart';
+import 'request_item_derivation.dart';
+import 'request_item_group.dart';
 
 abstract class RequestItem extends Equatable {
   final String? title;
@@ -22,12 +21,7 @@ abstract class RequestItem extends Equatable {
     throw Exception('Unknown type: $type');
   }
 
-  @mustCallSuper
-  Map<String, dynamic> toJson() => {
-    if (title != null) 'title': title,
-    if (description != null) 'description': description,
-    if (metadata != null) 'metadata': metadata,
-  };
+  Map<String, dynamic> toJson();
 
   @mustCallSuper
   @override

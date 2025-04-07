@@ -73,6 +73,11 @@ class MockRequestItem extends RequestItem {
 
   @override
   Map<String, dynamic> toJson() {
-    return {...super.toJson(), 'mustBeAccepted': mustBeAccepted};
+    return {
+      'mustBeAccepted': mustBeAccepted,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+      if (metadata != null) 'metadata': metadata,
+    };
   }
 }
