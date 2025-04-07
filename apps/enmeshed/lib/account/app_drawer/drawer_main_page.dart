@@ -64,6 +64,11 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.drawer_hints, style: Theme.of(context).textTheme.labelLarge),
               ),
+              ListTile(
+                onTap: widget.goToTheme,
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                title: Text(context.l10n.drawer_theme, style: Theme.of(context).textTheme.labelLarge),
+              ),
               const Divider(indent: 16, endIndent: 16),
               ListTile(
                 onTap:

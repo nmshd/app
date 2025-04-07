@@ -179,6 +179,7 @@
   "drawer_hints_loadProfile": "Load existing profile",
   "drawer_hints_addContact": "Add contact",
   "drawer_hints_firstSteps": "First steps",
+  "drawer_theme": "Theme",
   "profiles_copyAddressToClipboardLabel": "Copy your profile-address to the clipboard.",
   "profiles_copiedAddressToClipboard": "The profile-address has been copied to the clipboard.",
   "profiles_settings_subtitle": "Manage your connected devices and profile settings or back up your data here.",
