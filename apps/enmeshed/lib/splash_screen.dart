@@ -10,7 +10,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:renderers/renderers.dart';
 import 'package:win32_registry/win32_registry.dart';
 
 import 'core/core.dart';
@@ -58,11 +57,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _init(GoRouter router) async {
-    await GetIt.I.reset();
+    await GetIt.I.unregister<EnmeshedRuntime>();
 
-    final logger = Logger(printer: SimplePrinter(colors: false));
-    GetIt.I.registerSingleton(logger);
-    GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
+    final logger = GetIt.I.get<Logger>();
 
     // TODO(jkoenig134): we should probably ask for permission when we need it
     final cameraStatus = await Permission.camera.request();
@@ -89,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final result = await runtime.run();
     if (result.isError) return router.go('/error');
 
-    GetIt.I.registerSingleton(runtime);
+    GetIt.I.registerSingleton(runtime, dispose: (r) => r.dispose());
 
     await setupPush(runtime);
 

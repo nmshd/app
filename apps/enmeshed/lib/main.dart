@@ -12,6 +12,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
+import 'package:renderers/renderers.dart' show AbstractUrlLauncher;
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:watch_it/watch_it.dart';
@@ -32,6 +33,10 @@ void main() async {
 
   timeago.setLocaleMessages('de', timeago.DeMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
+
+  final logger = Logger(printer: SimplePrinter(colors: false));
+  GetIt.I.registerSingleton(logger);
+  GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
 
   GetIt.I.registerSingleton(await ThemeModeModel.create());
 
