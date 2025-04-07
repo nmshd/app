@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:vector_graphics/vector_graphics.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '/themes/themes.dart';
 import 'account/account.dart';
@@ -32,6 +32,8 @@ void main() async {
 
   timeago.setLocaleMessages('de', timeago.DeMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
+
+  GetIt.I.registerSingleton(await ThemeModeModel.create());
 
   runApp(const EnmeshedApp());
 }
@@ -471,7 +473,7 @@ final _router = GoRouter(
   ],
 );
 
-class EnmeshedApp extends StatelessWidget {
+class EnmeshedApp extends StatelessWidget with WatchItMixin {
   const EnmeshedApp({super.key});
 
   @override
@@ -479,6 +481,8 @@ class EnmeshedApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     unawaited(SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge));
+
+    final themeSetting = watchValue((ThemeModeModel x) => x.notifier);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -494,10 +498,9 @@ class EnmeshedApp extends StatelessWidget {
         child: MaterialApp.router(
           routerConfig: _router,
           debugShowCheckedModeBanner: false,
-          // dark mode is disabled until we have a proper dark theme
-          themeMode: ThemeMode.light,
+          themeMode: themeSetting.themeMode,
           theme: lightTheme,
-          darkTheme: darkTheme,
+          darkTheme: themeSetting.amoled ? amoledTheme : darkTheme,
           highContrastTheme: highContrastTheme,
           highContrastDarkTheme: highContrastDarkTheme,
           scaffoldMessengerKey: snackbarKey,
