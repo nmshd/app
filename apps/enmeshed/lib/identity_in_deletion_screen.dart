@@ -132,16 +132,12 @@ class _Profiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) => Gaps.h12,
-          itemCount: accounts.length,
-          itemBuilder: (context, index) => ProfileCard(account: accounts[index], onAccountSelected: onAccountSelected),
-        ),
-      ],
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      separatorBuilder: (context, index) => Gaps.h12,
+      itemCount: accounts.length,
+      itemBuilder: (context, index) => ProfileCard(account: accounts[index], onAccountSelected: onAccountSelected),
     );
   }
 }
@@ -153,24 +149,20 @@ class _ProfilesInDeletion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) => Gaps.h12,
-          itemCount: accountsInDeletion.length,
-          itemBuilder:
-              (context, index) => DeletionProfileCard(
-                accountInDeletion: accountsInDeletion[index],
-                trailing: IconButton(
-                  icon: const Icon(Icons.refresh),
-                  onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
-                  tooltip: context.l10n.identity_restore,
-                ),
-              ),
-        ),
-      ],
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      separatorBuilder: (context, index) => Gaps.h12,
+      itemCount: accountsInDeletion.length,
+      itemBuilder:
+          (context, index) => DeletionProfileCard(
+            accountInDeletion: accountsInDeletion[index],
+            trailing: IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
+              tooltip: context.l10n.identity_restore,
+            ),
+          ),
     );
   }
 }
