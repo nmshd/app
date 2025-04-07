@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _init(GoRouter router) async {
-    await GetIt.I.unregister<EnmeshedRuntime>();
+    if (GetIt.I.isRegistered<EnmeshedRuntime>()) await GetIt.I.unregister<EnmeshedRuntime>();
 
     final logger = GetIt.I.get<Logger>();
 
