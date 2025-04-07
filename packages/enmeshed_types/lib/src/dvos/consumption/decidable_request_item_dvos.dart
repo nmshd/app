@@ -178,6 +178,7 @@ class DecidableAuthenticationRequestItemDVO extends DecidableRequestItemDVODeriv
 class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
   final String consent;
   final String? link;
+  final String? linkDisplayText;
 
   const DecidableConsentRequestItemDVO({
     required super.id,
@@ -191,6 +192,7 @@ class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
     super.requireManualDecision,
     required this.consent,
     this.link,
+    this.linkDisplayText,
   }) : super(type: 'DecidableConsentRequestItemDVO', isDecidable: true);
 
   factory DecidableConsentRequestItemDVO.fromJson(Map json) => _$DecidableConsentRequestItemDVOFromJson(Map<String, dynamic>.from(json));
