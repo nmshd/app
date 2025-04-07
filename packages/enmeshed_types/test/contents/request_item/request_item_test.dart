@@ -69,7 +69,7 @@ void main() {
 class MockRequestItem extends RequestItem {
   final bool mustBeAccepted;
 
-  const MockRequestItem({super.title, super.description, super.metadata, required this.mustBeAccepted});
+  const MockRequestItem({super.title, super.description, super.metadata, required this.mustBeAccepted}) : super(atType: 'MockRequestItem');
 
   @override
   Map<String, dynamic> toJson() {

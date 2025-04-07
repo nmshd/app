@@ -16,12 +16,12 @@ class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
     required super.mustBeAccepted,
     super.requireManualDecision,
     required this.query,
-  });
+  }) : super(atType: 'RegisterAttributeListenerRequestItem');
 
   factory RegisterAttributeListenerRequestItem.fromJson(Map json) => _$RegisterAttributeListenerRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {..._$RegisterAttributeListenerRequestItemToJson(this), '@type': 'RegisterAttributeListenerRequestItem'};
+  Map<String, dynamic> toJson() => _$RegisterAttributeListenerRequestItemToJson(this);
 
   @override
   List<Object?> get props => [super.props, query];

@@ -16,6 +16,7 @@ FreeTextRequestItem _$FreeTextRequestItemFromJson(Map<String, dynamic> json) => 
 );
 
 Map<String, dynamic> _$FreeTextRequestItemToJson(FreeTextRequestItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
   if (instance.metadata case final value?) 'metadata': value,

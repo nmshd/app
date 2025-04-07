@@ -16,12 +16,12 @@ class ReadAttributeRequestItem extends RequestItemDerivation {
     required super.mustBeAccepted,
     super.requireManualDecision,
     required this.query,
-  });
+  }) : super(atType: 'ReadAttributeRequestItem');
 
   factory ReadAttributeRequestItem.fromJson(Map json) => _$ReadAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {..._$ReadAttributeRequestItemToJson(this), '@type': 'ReadAttributeRequestItem'};
+  Map<String, dynamic> toJson() => _$ReadAttributeRequestItemToJson(this);
 
   @override
   List<Object?> get props => [super.props, query];

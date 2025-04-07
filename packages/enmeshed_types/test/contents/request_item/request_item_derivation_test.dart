@@ -132,7 +132,8 @@ void main() {
 }
 
 class MockRequestItemDerivation extends RequestItemDerivation {
-  const MockRequestItemDerivation({super.title, super.description, super.metadata, required super.mustBeAccepted, super.requireManualDecision});
+  const MockRequestItemDerivation({super.title, super.description, super.metadata, required super.mustBeAccepted, super.requireManualDecision})
+    : super(atType: 'MockRequestItemDerivation');
 
   @override
   Map<String, dynamic> toJson() {

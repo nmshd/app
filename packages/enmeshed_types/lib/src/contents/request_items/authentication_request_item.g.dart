@@ -15,6 +15,7 @@ AuthenticationRequestItem _$AuthenticationRequestItemFromJson(Map<String, dynami
 );
 
 Map<String, dynamic> _$AuthenticationRequestItemToJson(AuthenticationRequestItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
   if (instance.metadata case final value?) 'metadata': value,

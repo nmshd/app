@@ -19,12 +19,12 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
     super.requireManualDecision,
     required this.query,
     required this.attribute,
-  });
+  }) : super(atType: 'ProposeAttributeRequestItem');
 
   factory ProposeAttributeRequestItem.fromJson(Map json) => _$ProposeAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {..._$ProposeAttributeRequestItemToJson(this), '@type': 'ProposeAttributeRequestItem'};
+  Map<String, dynamic> toJson() => _$ProposeAttributeRequestItemToJson(this);
 
   @override
   List<Object?> get props => [super.props, query, attribute];

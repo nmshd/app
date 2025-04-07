@@ -17,6 +17,7 @@ ProposeAttributeRequestItem _$ProposeAttributeRequestItemFromJson(Map<String, dy
 );
 
 Map<String, dynamic> _$ProposeAttributeRequestItemToJson(ProposeAttributeRequestItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
   if (instance.metadata case final value?) 'metadata': value,

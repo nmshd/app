@@ -14,6 +14,7 @@ RequestItemGroup _$RequestItemGroupFromJson(Map<String, dynamic> json) => Reques
 );
 
 Map<String, dynamic> _$RequestItemGroupToJson(RequestItemGroup instance) => <String, dynamic>{
+  '@type': instance.atType,
   if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
   if (instance.metadata case final value?) 'metadata': value,

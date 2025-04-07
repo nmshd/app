@@ -16,6 +16,7 @@ TransferFileOwnershipRequestItem _$TransferFileOwnershipRequestItemFromJson(Map<
 );
 
 Map<String, dynamic> _$TransferFileOwnershipRequestItemToJson(TransferFileOwnershipRequestItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
   if (instance.metadata case final value?) 'metadata': value,

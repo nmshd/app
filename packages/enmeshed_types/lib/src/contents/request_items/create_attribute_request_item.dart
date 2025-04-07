@@ -16,12 +16,12 @@ class CreateAttributeRequestItem extends RequestItemDerivation {
     required super.mustBeAccepted,
     super.requireManualDecision,
     required this.attribute,
-  });
+  }) : super(atType: 'CreateAttributeRequestItem');
 
   factory CreateAttributeRequestItem.fromJson(Map json) => _$CreateAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {..._$CreateAttributeRequestItemToJson(this), '@type': 'CreateAttributeRequestItem'};
+  Map<String, dynamic> toJson() => _$CreateAttributeRequestItemToJson(this);
 
   @override
   List<Object?> get props => [super.props, attribute];
