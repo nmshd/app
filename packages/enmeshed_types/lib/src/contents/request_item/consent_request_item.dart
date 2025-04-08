@@ -3,6 +3,7 @@ part of 'request_item.dart';
 class ConsentRequestItem extends RequestItemDerivation {
   final String consent;
   final String? link;
+  final String? linkDisplayText;
 
   const ConsentRequestItem({
     super.title,
@@ -12,6 +13,7 @@ class ConsentRequestItem extends RequestItemDerivation {
     super.requireManualDecision,
     required this.consent,
     this.link,
+    this.linkDisplayText,
   });
 
   factory ConsentRequestItem.fromJson(Map json) {
@@ -23,11 +25,18 @@ class ConsentRequestItem extends RequestItemDerivation {
       requireManualDecision: json['requireManualDecision'],
       consent: json['consent'],
       link: json['link'],
+      linkDisplayText: json['linkDisplayText'],
     );
   }
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'ConsentRequestItem', 'consent': consent, if (link != null) 'link': link};
+  Map<String, dynamic> toJson() => {
+    ...super.toJson(),
+    '@type': 'ConsentRequestItem',
+    'consent': consent,
+    if (link != null) 'link': link,
+    if (linkDisplayText != null) 'linkDisplayText': linkDisplayText,
+  };
 
   @override
   List<Object?> get props => [super.props, consent, link];
