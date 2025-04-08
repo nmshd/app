@@ -179,7 +179,7 @@ final _router = GoRouter(
               subtitle: context.l10n.instructions_addContact_subtitle,
               informationTitle: context.l10n.instructions_addContact_information,
               informationDescription: context.l10n.instructions_addContact_informationDetails,
-              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/connect_with_contact.svg'), height: 104),
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/connect_with_contact.svg'), height: 160),
               informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
               instructions: [
                 context.l10n.instructions_addContact_scanQrCode,
@@ -207,7 +207,7 @@ final _router = GoRouter(
               subtitle: context.l10n.instructions_loadProfile_subtitle,
               informationTitle: context.l10n.instructions_loadProfile_information,
               informationDescription: context.l10n.instructions_loadProfile_informationDetails,
-              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/instructions_load_existing_profile.svg'), height: 104),
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/load_profile.svg'), height: 160),
               informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
               instructions: [
                 context.l10n.instructions_loadProfile_getDevice,
