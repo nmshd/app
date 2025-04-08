@@ -62,7 +62,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
       ..add(
         runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>(eventTargetAddress: _account?.address).listen((event) {
-          _reloadContactRequests().catchError((_) {});
           if (!mounted || event.data.deletionDate == null) return;
           context.go('/account/${widget.accountId}/identity-in-deletion');
         }),
