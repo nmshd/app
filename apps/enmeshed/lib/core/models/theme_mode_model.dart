@@ -21,7 +21,9 @@ class ThemeModeModel {
     final themeModeName = sharedPreferences.getString(_themeModeKey) ?? 'system';
     final loadedThemeMode = ThemeMode.values.byName(themeModeName);
 
-    final setting = (themeMode: loadedThemeMode, amoled: false);
+    final amoled = sharedPreferences.getBool(_amoledKey) ?? false;
+
+    final setting = (themeMode: loadedThemeMode, amoled: amoled);
 
     return ThemeModeModel._(sharedPreferences, initialValue: setting);
   }

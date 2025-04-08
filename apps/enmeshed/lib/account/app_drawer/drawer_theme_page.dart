@@ -5,10 +5,31 @@ import 'package:watch_it/watch_it.dart';
 
 import '/core/core.dart';
 
-class DrawerThemePage extends StatelessWidget with WatchItMixin {
+class DrawerThemePage extends StatefulWidget with WatchItStatefulWidgetMixin {
   final VoidCallback goBack;
 
   const DrawerThemePage({required this.goBack, super.key});
+
+  @override
+  State<DrawerThemePage> createState() => _DrawerThemePageState();
+}
+
+class _DrawerThemePageState extends State<DrawerThemePage> {
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +41,7 @@ class DrawerThemePage extends StatelessWidget with WatchItMixin {
       children: [
         Row(
           children: [
-            IconButton(icon: const Icon(Icons.arrow_back), onPressed: goBack),
+            IconButton(icon: const Icon(Icons.arrow_back), onPressed: widget.goBack),
             Text(
               context.l10n.drawer_theme,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.onPrimaryContainer),
@@ -31,8 +52,10 @@ class DrawerThemePage extends StatelessWidget with WatchItMixin {
         ),
         Expanded(
           child: Scrollbar(
+            controller: _scrollController,
             thumbVisibility: true,
             child: SingleChildScrollView(
+              controller: _scrollController,
               child: Column(
                 children: [
                   Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.drawer_theme_description)),
