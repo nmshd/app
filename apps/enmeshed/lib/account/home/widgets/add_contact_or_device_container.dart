@@ -16,9 +16,12 @@ class AddContactOrDeviceContainer extends StatelessWidget {
       children: [
         Text(context.l10n.home_scanQR, style: Theme.of(context).textTheme.titleLarge),
         Gaps.h8,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Expanded(child: _AddContact(accountId: accountId)), Gaps.w16, Expanded(child: _AddDevice(accountId: accountId))],
+        IntrinsicHeight(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            spacing: 16,
+            children: [Expanded(child: _AddContact(accountId: accountId)), Expanded(child: _AddDevice(accountId: accountId))],
+          ),
         ),
       ],
     );
@@ -48,6 +51,7 @@ class _AddDevice extends StatelessWidget {
                 height: 112,
                 semanticsLabel: context.l10n.home_loadProfileImageSemanticsLabel,
               ),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
@@ -87,6 +91,7 @@ class _AddContact extends StatelessWidget {
                 height: 112,
                 semanticsLabel: context.l10n.home_addContactImageSemanticsLabel,
               ),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
