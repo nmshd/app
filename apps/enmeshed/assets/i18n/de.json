@@ -1178,5 +1178,8 @@
       "selectFile": "Datei auswählen",
       "noFileSelected": "Keine Datei ausgewählt"
     }
+  },
+  "requestRenderer": {
+    "defaultLinkDisplayText": "Link öffnen"
   }
 }
