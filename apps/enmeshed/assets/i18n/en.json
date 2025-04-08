@@ -1180,6 +1180,8 @@
     }
   },
   "requestRenderer": {
-    "defaultLinkDisplayText": "Open Link"
+    "defaultLinkDisplayText": "Open Link",
+    "showFullConsent": "Show full text",
+    "consentRequired": "Please give your consent"
   }
 }
