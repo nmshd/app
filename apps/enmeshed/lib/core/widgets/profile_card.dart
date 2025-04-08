@@ -1,7 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
-import '/core/core.dart';
+import 'profile_picture.dart';
 
 class ProfileCard extends StatelessWidget {
   final LocalAccountDTO account;
