@@ -91,6 +91,7 @@ class _AddContact extends StatelessWidget {
                 height: 112,
                 semanticsLabel: context.l10n.home_addContactImageSemanticsLabel,
               ),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
