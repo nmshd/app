@@ -272,4 +272,29 @@ void run(EnmeshedRuntime runtime) {
       expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
+
+  group('FilesFacade: deleteFile', () {
+    test('should delete a file', () async {
+      final expiresAt = generateExpiryString();
+      final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
+
+      final uploadFileResult = await session.transportServices.files.uploadOwnFile(
+        content: bytes,
+        filename: 'facades/test.txt',
+        mimetype: 'plain',
+        expiresAt: expiresAt,
+        title: 'aTitle',
+      );
+      final fileId = uploadFileResult.value.id;
+
+      final getFileResult = await session.transportServices.files.getFile(fileId: fileId);
+      expect(getFileResult, isSuccessful<FileDTO>());
+
+      final deleteFileResult = await session.transportServices.files.deleteFile(fileId: fileId);
+      expect(deleteFileResult, isSuccessful());
+
+      final getFileAfterDeletionResult = await session.transportServices.files.getFile(fileId: fileId);
+      expect(getFileAfterDeletionResult.error.code, 'error.runtime.recordNotFound');
+    });
+  });
 }
