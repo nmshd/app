@@ -14,6 +14,7 @@ Future<void> showRestoreIdentityModal({required LocalAccountDTO accountInDeletio
   await showModalBottomSheet<void>(
     context: context,
     showDragHandle: false,
+    isScrollControlled: true,
     builder: (context) => _RestoreIdentity(accountInDeletion: accountInDeletion, deletionDate: accountInDeletion.deletionDate!),
   );
 }
