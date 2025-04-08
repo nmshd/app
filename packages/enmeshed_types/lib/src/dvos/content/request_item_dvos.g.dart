@@ -241,6 +241,7 @@ ConsentRequestItemDVO _$ConsentRequestItemDVOFromJson(Map<String, dynamic> json)
   requireManualDecision: json['requireManualDecision'] as bool?,
   consent: json['consent'] as String,
   link: json['link'] as String?,
+  linkDisplayText: json['linkDisplayText'] as String?,
 );
 
 Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instance) => <String, dynamic>{
@@ -258,6 +259,7 @@ Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instanc
   if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
   'consent': instance.consent,
   if (instance.link case final value?) 'link': value,
+  if (instance.linkDisplayText case final value?) 'linkDisplayText': value,
 };
 
 FreeTextRequestItemDVO _$FreeTextRequestItemDVOFromJson(Map<String, dynamic> json) => FreeTextRequestItemDVO(
@@ -544,6 +546,7 @@ DecidableConsentRequestItemDVO _$DecidableConsentRequestItemDVOFromJson(Map<Stri
   requireManualDecision: json['requireManualDecision'] as bool?,
   consent: json['consent'] as String,
   link: json['link'] as String?,
+  linkDisplayText: json['linkDisplayText'] as String?,
 );
 
 Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequestItemDVO instance) => <String, dynamic>{
@@ -559,6 +562,7 @@ Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequ
   if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
   'consent': instance.consent,
   if (instance.link case final value?) 'link': value,
+  if (instance.linkDisplayText case final value?) 'linkDisplayText': value,
 };
 
 DecidableFreeTextRequestItemDVO _$DecidableFreeTextRequestItemDVOFromJson(Map<String, dynamic> json) => DecidableFreeTextRequestItemDVO(
