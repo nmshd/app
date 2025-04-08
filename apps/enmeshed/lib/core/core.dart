@@ -3,6 +3,7 @@ export 'custom_pages.dart';
 export 'events/events.dart';
 export 'globals.dart';
 export 'modals/modals.dart';
+export 'models/models.dart';
 export 'setup_push.dart';
 export 'types/types.dart';
 export 'utils/utils.dart';
