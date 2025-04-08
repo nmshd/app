@@ -51,6 +51,7 @@ class _AddDevice extends StatelessWidget {
                 height: 112,
                 semanticsLabel: context.l10n.home_loadProfileImageSemanticsLabel,
               ),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
