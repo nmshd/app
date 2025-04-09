@@ -17,7 +17,6 @@ class DeletionProfileCard extends StatelessWidget {
 
     return Card(
       margin: EdgeInsets.zero,
-      elevation: 0,
       child: ListTile(
         tileColor: Theme.of(context).colorScheme.errorContainer,
         onTap: onTap,
