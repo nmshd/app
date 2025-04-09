@@ -65,7 +65,6 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                           width: double.infinity,
                           child: Wrap(
                             spacing: 12,
-                            // alignment: WrapAlignment.spaceBetween,
                             children:
                                 _tags!
                                     .map(
