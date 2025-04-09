@@ -60,7 +60,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
     return Card(
       color: Theme.of(context).colorScheme.surfaceContainer,
       elevation: 0,
-      margin: EdgeInsets.zero,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       clipBehavior: Clip.hardEdge,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

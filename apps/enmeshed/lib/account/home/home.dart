@@ -79,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
         child: SingleChildScrollView(
           controller: _scrollController,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             child: Column(
               spacing: 24,
               children: [
@@ -87,20 +87,22 @@ class _HomeViewState extends State<HomeView> {
                   CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
 
                 if (_showRecoveryKitWasUsedContainer)
-                  ComplexInformationCard(
-                    title: context.l10n.home_identityRecoveryKitWasUsed,
-                    description: context.l10n.home_identityRecoverKitWasUsed_description,
-                    icon: Icon(Icons.warning_rounded, color: context.customColors.warning),
-                    actionButtons: [
-                      OutlinedButton(
-                        onPressed: () => upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.accountId, value: false),
-                        child: Text(context.l10n.home_closeHint),
-                      ),
-                      FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ComplexInformationCard(
+                      title: context.l10n.home_identityRecoveryKitWasUsed,
+                      description: context.l10n.home_identityRecoverKitWasUsed_description,
+                      icon: Icon(Icons.warning_rounded, color: context.customColors.warning),
+                      actionButtons: [
+                        OutlinedButton(
+                          onPressed: () => upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.accountId, value: false),
+                          child: Text(context.l10n.home_closeHint),
+                        ),
+                        FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
+                      ],
+                    ),
                   ),
                 AddContact(accountId: widget.accountId),
-                Gaps.h16,
                 MessagesContainer(
                   accountId: widget.accountId,
                   messages: _messages,

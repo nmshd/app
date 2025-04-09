@@ -15,7 +15,7 @@ class AddContact extends StatelessWidget {
       child: Card(
         elevation: 0,
         clipBehavior: Clip.hardEdge,
-        margin: EdgeInsets.zero,
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         color: Theme.of(context).colorScheme.primaryContainer,
         child: InkWell(
           onTap: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.addContact, context: context),
