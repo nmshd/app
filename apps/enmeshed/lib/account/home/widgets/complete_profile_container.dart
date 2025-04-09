@@ -58,8 +58,9 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.onPrimary,
-      elevation: 2,
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      elevation: 0,
+      margin: EdgeInsets.zero,
       clipBehavior: Clip.hardEdge,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
