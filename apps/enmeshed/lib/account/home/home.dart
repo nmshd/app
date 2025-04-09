@@ -80,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
           controller: _scrollController,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 spacing: 24,
                 children: [
