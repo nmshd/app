@@ -26,3 +26,29 @@ Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO
     await context.push('/profiles');
   }
 }
+
+Future<void> createNewAccount({required BuildContext context, required String accountName, required void Function() goToOnboardingAccount}) async {
+  try {
+    final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: accountName);
+
+    await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+    if (context.mounted) context.go('/account/${account.id}');
+  } catch (e) {
+    GetIt.I.get<Logger>().e(e.toString());
+    if (context.mounted) {
+      context.pop();
+
+      await showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(context.l10n.error, style: Theme.of(context).textTheme.titleLarge),
+            content: Text(context.l10n.error_createAccount),
+          );
+        },
+      );
+
+      goToOnboardingAccount();
+    }
+  }
+}

@@ -4,6 +4,7 @@ export 'create_relationship_error_dialog.dart';
 export 'delete_attribute.dart';
 export 'delete_local_data.dart';
 export 'enter_password/enter_password.dart';
+export 'enter_profile_name_modal.dart';
 export 'error_dialog.dart';
 export 'restore_identity.dart';
 export 'succeed_attribute.dart';
