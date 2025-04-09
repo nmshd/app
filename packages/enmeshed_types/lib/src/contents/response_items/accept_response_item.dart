@@ -35,5 +35,5 @@ class AcceptResponseItem extends ResponseItemDerivation {
   }
 
   @override
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => {...super.toJson(), '@type': atType};
 }
