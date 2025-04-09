@@ -139,33 +139,24 @@ class _MessageHeader extends StatelessWidget {
     final contactName = message.peer.name == unknownContactName ? context.l10n.contacts_unknown : message.peer.name;
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      spacing: 8,
       children: [
-        HighlightText(
-          text: contactName,
-          query: query,
-          textStyle:
-              message.wasReadAt == null && !message.isOwn
-                  ? Theme.of(context).textTheme.labelMedium!.copyWith(fontWeight: FontWeight.w600)
-                  : Theme.of(context).textTheme.labelMedium,
-          maxLines: 1,
-        ),
-        if (message.attachments.isNotEmpty)
-          Row(children: [const SizedBox(width: 8), Icon(Icons.attachment, size: 15, color: Theme.of(context).colorScheme.outline)]),
-        Flexible(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Gaps.w8,
-              Flexible(
-                child: Text(
-                  timeago.format(DateTime.parse(message.createdAt), locale: Localizations.localeOf(context).languageCode),
-                  style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
+        Expanded(
+          child: HighlightText(
+            text: contactName,
+            query: query,
+            textStyle:
+                message.wasReadAt == null && !message.isOwn
+                    ? Theme.of(context).textTheme.labelMedium!.copyWith(fontWeight: FontWeight.w600)
+                    : Theme.of(context).textTheme.labelMedium,
+            maxLines: 1,
           ),
+        ),
+        if (message.attachments.isNotEmpty) Icon(Icons.attachment, size: 15, color: Theme.of(context).colorScheme.outline),
+        Text(
+          timeago.format(DateTime.parse(message.createdAt), locale: Localizations.localeOf(context).languageCode),
+          style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

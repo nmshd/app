@@ -41,7 +41,7 @@ class ContactItem extends StatelessWidget {
         radius: iconSize / 2,
         borderColor: _getCircularAvatarBorderColor(context: context, contact: contact, openContactRequest: openContactRequest),
       ),
-      title: HighlightText(query: query, text: contact.isUnknown ? context.l10n.contacts_unknown : contact.name),
+      title: HighlightText(query: query, text: contact.isUnknown ? context.l10n.contacts_unknown : contact.name, maxLines: 2),
       subtitle: subtitle ?? contactStatusWidget,
       trailing: trailing,
       onTap: onTap,
