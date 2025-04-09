@@ -86,7 +86,6 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                         ),
                       Card(
                         margin: EdgeInsets.zero,
-                        elevation: 0,
                         color: Theme.of(context).colorScheme.surfaceContainer,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                         child: Padding(

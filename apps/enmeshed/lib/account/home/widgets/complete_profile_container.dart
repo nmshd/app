@@ -59,7 +59,6 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
   Widget build(BuildContext context) {
     return Card(
       color: Theme.of(context).colorScheme.surfaceContainer,
-      elevation: 0,
       margin: const EdgeInsets.symmetric(horizontal: 16),
       clipBehavior: Clip.hardEdge,
       child: Column(

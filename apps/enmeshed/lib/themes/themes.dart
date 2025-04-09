@@ -54,6 +54,7 @@ ThemeData _generateColorScheme({
     extensions: [customColors],
     navigationBarTheme: NavigationBarThemeData(backgroundColor: colorScheme.surface),
     appBarTheme: appBarTheme,
+    cardTheme: const CardTheme(elevation: 0),
     textTheme: textTheme,
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {

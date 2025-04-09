@@ -13,7 +13,6 @@ class AddContact extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
-        elevation: 0,
         clipBehavior: Clip.hardEdge,
         margin: const EdgeInsets.symmetric(horizontal: 16),
         color: Theme.of(context).colorScheme.primaryContainer,
