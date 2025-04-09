@@ -8,6 +8,7 @@ part 'consent_request_item.g.dart';
 class ConsentRequestItem extends RequestItemDerivation {
   final String consent;
   final String? link;
+  final String? linkDisplayText;
 
   const ConsentRequestItem({
     super.title,
@@ -17,6 +18,7 @@ class ConsentRequestItem extends RequestItemDerivation {
     super.requireManualDecision,
     required this.consent,
     this.link,
+    this.linkDisplayText,
   }) : super(atType: 'ConsentRequestItem');
 
   factory ConsentRequestItem.fromJson(Map json) => _$ConsentRequestItemFromJson(Map<String, dynamic>.from(json));
@@ -25,5 +27,5 @@ class ConsentRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$ConsentRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, consent, link];
+  List<Object?> get props => [super.props, consent, link, linkDisplayText];
 }

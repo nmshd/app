@@ -60,7 +60,19 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
       ..add(runtime.eventBus.on<MessageReceivedEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(runtime.eventBus.on<RelationshipDecomposedBySelfEvent>().listen((_) => _loadUnreadMessages().catchError((_) {})))
       ..add(runtime.eventBus.on<DatawalletSynchronizedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})))
-      ..add(runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>().listen((_) => _reloadContactRequests().catchError((_) {})));
+      ..add(
+        runtime.eventBus.on<LocalAccountDeletionDateChangedEvent>(eventTargetAddress: _account?.address).listen((event) {
+          if (!mounted || event.data.deletionDate == null) return;
+          context.go('/account/${widget.accountId}/identity-in-deletion');
+        }),
+      );
+
+    AppLifecycleListener(
+      onResume: () async {
+        final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+        await session.transportServices.account.syncDatawallet();
+      },
+    );
 
     _loadAccount();
     _reloadContactRequests();

@@ -179,6 +179,12 @@
   "drawer_hints_loadProfile": "Bestehendes Profil laden",
   "drawer_hints_addContact": "Kontakt hinzufügen",
   "drawer_hints_firstSteps": "Erste Schritte",
+  "drawer_theme": "Erscheinungsbild",
+  "drawer_theme_description": "Hier können Sie das Erscheinungsbild der App einstellen. Wenn Sie die Einstellung System wählen, wird die aktuelle Standardeinstellung Ihres Geräts übernommen.",
+  "drawer_theme_amoled": "Der AMOLED-Modus hilft Energie zu sparen, indem Pixel, die auf schwarz gesetzt sind, vollständig abgeschaltet werden. Diese Einstellung hat nur Einfluss auf das dunkle Erscheinungsbild.",
+  "drawer_theme_modes_system": "System",
+  "drawer_theme_modes_dark": "Dunkel",
+  "drawer_theme_modes_light": "Hell",
   "profiles_copyAddressToClipboardLabel": "Die Profil-Adresse in die Zwischenablage kopieren.",
   "profiles_copiedAddressToClipboard": "Die Profil-Adresse wurde in die Zwischenablage kopiert.",
   "profiles_settings_subtitle": "Verwalten Sie hier Ihre verbundenen Geräte und Profileinstellungen oder sichern Sie Ihre Daten.",
@@ -834,5 +840,15 @@
     }
   },
   "passwordProtection_incorrectPassword": "Sie haben ein falsches Passwort eingegeben. Versuchen Sie es erneut.",
-  "passwordProtection_incorrectPin": "Sie haben eine falsche PIN eingegeben. Versuchen Sie es erneut."
+  "passwordProtection_incorrectPin": "Sie haben eine falsche PIN eingegeben. Versuchen Sie es erneut.",
+  "identityInDeletion_title": "Das derzeit aktive Profil {profileName} wurde in Löschung versetzt.",
+  "@identityInDeletion_title": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "identityInDeletion_description": "Sie haben die Löschung dieses Profils auf einem anderen Gerät angestoßen. Wählen Sie das Profil aus um fortfzuahren oder erstellen Sie ein neues Profil.\n\nWenn Sie die Löschung des Profil nicht angestoßen haben können Sie das Profil wiederherstellen.",
+  "identityInDeletion_createNewProfile": "Neues Profil erstellen"
 }
