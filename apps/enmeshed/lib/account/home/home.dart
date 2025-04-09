@@ -76,19 +76,20 @@ class _HomeViewState extends State<HomeView> {
       child: Scrollbar(
         controller: _scrollController,
         thumbVisibility: true,
-        child: ListView(
+        child: SingleChildScrollView(
           controller: _scrollController,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                spacing: 24,
-                children: [
-                  if (_isCompleteProfileContainerShown)
-                    CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              spacing: 24,
+              children: [
+                if (_isCompleteProfileContainerShown)
+                  CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
 
-                  if (_showRecoveryKitWasUsedContainer)
-                    ComplexInformationCard(
+                if (_showRecoveryKitWasUsedContainer)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ComplexInformationCard(
                       title: context.l10n.home_identityRecoveryKitWasUsed,
                       description: context.l10n.home_identityRecoverKitWasUsed_description,
                       icon: Icon(Icons.warning_rounded, color: context.customColors.warning),
@@ -100,20 +101,19 @@ class _HomeViewState extends State<HomeView> {
                         FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
                       ],
                     ),
-                  AddContactOrDeviceContainer(accountId: widget.accountId),
-                ],
-              ),
+                  ),
+                AddContact(accountId: widget.accountId),
+                MessagesContainer(
+                  accountId: widget.accountId,
+                  messages: _messages,
+                  unreadMessagesCount: _unreadMessagesCount,
+                  seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox'),
+                  title: context.l10n.home_messages,
+                  noMessagesText: context.l10n.home_noNewMessages,
+                ),
+              ],
             ),
-            Gaps.h24,
-            MessagesContainer(
-              accountId: widget.accountId,
-              messages: _messages,
-              unreadMessagesCount: _unreadMessagesCount,
-              seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox'),
-              title: context.l10n.home_messages,
-              noMessagesText: context.l10n.home_noNewMessages,
-            ),
-          ],
+          ),
         ),
       ),
     );
