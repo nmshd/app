@@ -100,7 +100,7 @@ class _HomeViewState extends State<HomeView> {
                         FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
                       ],
                     ),
-                  AddContactOrDeviceContainer(accountId: widget.accountId),
+                  AddContact(accountId: widget.accountId),
                 ],
               ),
             ),
