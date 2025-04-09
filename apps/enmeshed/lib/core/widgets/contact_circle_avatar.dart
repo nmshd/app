@@ -8,21 +8,19 @@ import '../utils/extensions.dart';
 class ContactCircleAvatar extends StatelessWidget {
   final IdentityDVO contact;
   final double radius;
-  final Color? color;
-  final Widget? child;
   final Color? borderColor;
 
-  const ContactCircleAvatar({required this.contact, required this.radius, this.color, this.child, this.borderColor, super.key});
+  const ContactCircleAvatar({required this.contact, required this.radius, this.borderColor, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final color = this.color ?? context.customColors.decorativeContainer;
+    final color = context.customColors.decorativeContainer;
     final textStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: radius * 0.75, color: context.customColors.onDecorativeContainer);
 
     final baseAvatar =
         contact.isUnknown
             ? _UnknownContactAvatar(radius: radius, color: color)
-            : CircleAvatar(radius: radius, backgroundColor: color, child: child ?? Text(_contactNameLetters(contact.name), style: textStyle));
+            : CircleAvatar(radius: radius, backgroundColor: color, child: Text(_contactNameLetters(contact.name), style: textStyle));
 
     if (borderColor != null) {
       return Container(
