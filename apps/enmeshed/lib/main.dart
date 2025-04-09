@@ -345,12 +345,12 @@ final _router = GoRouter(
                       parentNavigatorKey: _rootNavigatorKey,
                       path: ':fileId',
                       builder: (context, state) {
-                        final fileRecord = state.extra! as FileRecord;
+                        final fileRecord = state.extra as FileRecord?;
                         return FileDetailScreen(
                           accountId: state.pathParameters['accountId']!,
                           fileId: state.pathParameters['fileId']!,
-                          preLoadedFile: fileRecord.file,
-                          fileReferenceAttribute: fileRecord.fileReferenceAttribute,
+                          preLoadedFile: fileRecord?.file,
+                          fileReferenceAttribute: fileRecord?.fileReferenceAttribute,
                         );
                       },
                     ),
