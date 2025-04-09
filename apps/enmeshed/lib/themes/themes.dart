@@ -47,22 +47,14 @@ ThemeData _generateColorScheme({
     tones: tonesConstructor(brightness),
   );
 
-  final navigationBarTheme = NavigationBarThemeData(
-    indicatorColor: colorScheme.secondaryContainer,
-    surfaceTintColor: colorScheme.onPrimary,
-    backgroundColor: colorScheme.onPrimary,
-    iconTheme: WidgetStateProperty.resolveWith(
-      (states) => IconThemeData(color: states.contains(WidgetState.selected) ? colorScheme.primary : colorScheme.onSurfaceVariant),
-    ),
-  );
-
   final appBarTheme = AppBarTheme(titleTextStyle: textTheme.titleLarge!.copyWith(color: colorScheme.primary), titleSpacing: 6, centerTitle: false);
 
   return ThemeData(
     colorScheme: colorScheme,
     extensions: [customColors],
-    navigationBarTheme: navigationBarTheme,
+    navigationBarTheme: NavigationBarThemeData(backgroundColor: colorScheme.surface),
     appBarTheme: appBarTheme,
+    cardTheme: const CardTheme(elevation: 0),
     textTheme: textTheme,
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
