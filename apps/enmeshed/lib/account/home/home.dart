@@ -104,7 +104,7 @@ class _HomeViewState extends State<HomeView> {
                 ],
               ),
             ),
-            Gaps.h24,
+            Gaps.h16,
             MessagesContainer(
               accountId: widget.accountId,
               messages: _messages,
