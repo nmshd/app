@@ -288,10 +288,10 @@ class _MoreProfiles extends StatelessWidget {
               MenuAnchor(
                 onClose: () {},
                 menuChildren: [
-                  MenuItemButton(onPressed: () => _onCreateProfilePressed(context), child: const Text('Neues Profil anlegen')),
+                  MenuItemButton(onPressed: () => _onCreateProfilePressed(context), child: Text(context.l10n.profiles_createNew)),
                   MenuItemButton(
                     onPressed: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.loadProfile, context: context),
-                    child: const Text('Bestehendes Profil laden'),
+                    child: Text(context.l10n.profiles_loadExisting),
                   ),
                 ],
                 builder:

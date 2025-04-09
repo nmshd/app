@@ -193,6 +193,7 @@
   "profiles_settings_connectedDevices": "Manage connected devices",
   "profiles_settings_createIdentityRecoveryKit": "Create recovery kit",
   "profiles_createNew": "Create new profile",
+  "profiles_loadExisting": "Load existing profile",
   "profiles_lastUsed": "Last used",
   "profiles_createNewForProcessingQrDescription": "Create a new profile to process the scanned QR code or URL link.",
   "profiles_otherProfiles": "Other profiles",
