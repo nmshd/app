@@ -85,10 +85,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
                   Gaps.h16,
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
-                    child: FilledButton(
-                      onPressed: () => context.go('/onboarding?skipIntroduction=true'),
-                      child: Text(context.l10n.identityInDeletion_createNewProfile),
-                    ),
+                    child: FilledButton(onPressed: _showEnterProfileName, child: Text(context.l10n.identityInDeletion_createNewProfile)),
                   ),
                 ],
               ),
@@ -96,6 +93,18 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showEnterProfileName() async {
+    final newProfileName = await showEnterProfileNameModal(context);
+
+    if (newProfileName == null || !mounted) return;
+
+    await createNewAccount(
+      context: context,
+      accountName: newProfileName,
+      goToOnboardingAccount: () => context.go('/onboarding?skipIntroduction=true'),
     );
   }
 
