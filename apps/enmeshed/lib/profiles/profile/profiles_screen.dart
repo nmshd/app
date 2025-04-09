@@ -74,7 +74,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                     editProfile: _editProfile,
                   ),
                   Gaps.h8,
-                  _MoreProfiles(accounts: _accounts!),
+                  _MoreProfiles(accounts: _accounts!, accountId: _selectedAccount.id),
                   if (_accountsInDeletion!.isNotEmpty) ...[
                     Gaps.h8,
                     _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _reloadAccounts),
@@ -271,8 +271,9 @@ class _BackgroundPainter extends CustomPainter {
 
 class _MoreProfiles extends StatelessWidget {
   final List<LocalAccountDTO> accounts;
+  final String accountId;
 
-  const _MoreProfiles({required this.accounts});
+  const _MoreProfiles({required this.accounts, required this.accountId});
 
   @override
   Widget build(BuildContext context) {
@@ -284,7 +285,28 @@ class _MoreProfiles extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(context.l10n.profiles_additionalProfiles, style: Theme.of(context).textTheme.titleMedium),
-              IconButton(onPressed: () => _onCreateProfilePressed(context), icon: const Icon(Icons.add), tooltip: context.l10n.profiles_add),
+              MenuAnchor(
+                onClose: () {},
+                menuChildren: [
+                  MenuItemButton(onPressed: () => _onCreateProfilePressed(context), child: const Text('Neues Profil anlegen')),
+                  MenuItemButton(
+                    onPressed: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.loadProfile, context: context),
+                    child: const Text('Bestehendes Profil laden'),
+                  ),
+                ],
+                builder:
+                    (context, controller, child) => IconButton(
+                      onPressed: () {
+                        if (controller.isOpen) {
+                          controller.close();
+                        } else {
+                          controller.open();
+                        }
+                      },
+                      icon: const Icon(Icons.add),
+                      tooltip: context.l10n.profiles_add,
+                    ),
+              ),
             ],
           ),
         ),
