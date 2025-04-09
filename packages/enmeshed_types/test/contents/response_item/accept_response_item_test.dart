@@ -91,7 +91,7 @@ void main() {
 }
 
 class MockAcceptResponseItem extends AcceptResponseItem {
-  const MockAcceptResponseItem();
+  const MockAcceptResponseItem() : super(atType: 'MockAcceptResponseItem');
 
   @override
   Map<String, dynamic> toJson() {
