@@ -47,7 +47,7 @@ void main() {
 }
 
 class MockResponseItemDerivation extends ResponseItemDerivation {
-  const MockResponseItemDerivation({required super.result}): super(atType: 'MockResponseItemDerivation');
+  const MockResponseItemDerivation({required super.result}) : super(atType: 'MockResponseItemDerivation');
 
   @override
   Map<String, dynamic> toJson() {
