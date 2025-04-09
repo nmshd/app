@@ -17,15 +17,7 @@ class ContactDetailHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
-          ContactCircleAvatar(
-            contact: contact,
-            radius: 36,
-            color: contact.relationship?.status == RelationshipStatus.Pending ? Theme.of(context).colorScheme.surfaceContainerLow : null,
-            child:
-                contact.relationship?.status == RelationshipStatus.Pending
-                    ? Icon(Icons.hourglass_top, color: Theme.of(context).colorScheme.onPrimaryFixedVariant, size: 43.2)
-                    : null,
-          ),
+          ContactCircleAvatar(contact: contact, radius: 36),
           Gaps.w16,
           Expanded(
             child: Column(
