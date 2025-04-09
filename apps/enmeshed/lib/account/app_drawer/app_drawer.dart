@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'drawer_hints_page.dart';
 import 'drawer_main_page.dart';
 import 'drawer_notifications_page.dart';
+import 'drawer_theme_page.dart';
 
 class AppDrawer extends StatefulWidget {
   final String accountId;
@@ -16,7 +17,7 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  late Widget _currentPage = DrawerMainPage(goToNotifications: _goToNotifications, goToHints: _goToHints);
+  late Widget _currentPage = DrawerMainPage(goToNotifications: _goToNotifications, goToHints: _goToHints, goToTheme: _goToTheme);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,9 @@ class _AppDrawerState extends State<AppDrawer> {
     );
   }
 
-  void _goHome() => setState(() => _currentPage = DrawerMainPage(goToNotifications: _goToNotifications, goToHints: _goToHints));
+  void _goHome() =>
+      setState(() => _currentPage = DrawerMainPage(goToNotifications: _goToNotifications, goToHints: _goToHints, goToTheme: _goToTheme));
   void _goToNotifications() => setState(() => _currentPage = DrawerNotificationsPage(goBack: _goHome));
   void _goToHints() => setState(() => _currentPage = DrawerHintsPage(goBack: _goHome, accountId: widget.accountId));
+  void _goToTheme() => setState(() => _currentPage = DrawerThemePage(goBack: _goHome));
 }

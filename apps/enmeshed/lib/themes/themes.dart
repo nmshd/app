@@ -11,7 +11,7 @@ const _errorSeedColor = Color(0xFF8C1742);
 
 final lightTheme = _generateColorScheme(tonesConstructor: FlexTones.material, brightness: Brightness.light, customColors: lightCustomColors);
 final darkTheme = _generateColorScheme(tonesConstructor: FlexTones.material, brightness: Brightness.dark, customColors: darkCustomColors);
-final darkLightsOutTheme = _generateColorScheme(
+final amoledTheme = _generateColorScheme(
   tonesConstructor: FlexTones.material,
   brightness: Brightness.dark,
   customColors: darkCustomColors,

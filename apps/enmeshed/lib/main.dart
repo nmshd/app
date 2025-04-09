@@ -10,12 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
+import 'package:renderers/renderers.dart' show AbstractUrlLauncher;
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:vector_graphics/vector_graphics.dart';
+import 'package:watch_it/watch_it.dart';
 
+import '/identity_in_deletion_screen.dart';
 import '/themes/themes.dart';
 import 'account/account.dart';
 import 'core/core.dart';
@@ -32,6 +34,12 @@ void main() async {
 
   timeago.setLocaleMessages('de', timeago.DeMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
+
+  final logger = Logger(printer: SimplePrinter(colors: false));
+  GetIt.I.registerSingleton(logger);
+  GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
+
+  GetIt.I.registerSingleton(await ThemeModeModel.create());
 
   runApp(const EnmeshedApp());
 }
@@ -178,7 +186,7 @@ final _router = GoRouter(
               subtitle: context.l10n.instructions_addContact_subtitle,
               informationTitle: context.l10n.instructions_addContact_information,
               informationDescription: context.l10n.instructions_addContact_informationDetails,
-              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/connect_with_contact.svg'), height: 104),
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/connect_with_contact.svg'), height: 160),
               informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
               instructions: [
                 context.l10n.instructions_addContact_scanQrCode,
@@ -206,7 +214,7 @@ final _router = GoRouter(
               subtitle: context.l10n.instructions_loadProfile_subtitle,
               informationTitle: context.l10n.instructions_loadProfile_information,
               informationDescription: context.l10n.instructions_loadProfile_informationDetails,
-              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/instructions_load_existing_profile.svg'), height: 104),
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/load_profile.svg'), height: 160),
               informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
               instructions: [
                 context.l10n.instructions_loadProfile_getDevice,
@@ -466,12 +474,17 @@ final _router = GoRouter(
             ),
           ],
         ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: '/identity-in-deletion',
+          builder: (context, state) => IdentityInDeletionScreen(accountId: state.pathParameters['accountId']!),
+        ),
       ],
     ),
   ],
 );
 
-class EnmeshedApp extends StatelessWidget {
+class EnmeshedApp extends StatelessWidget with WatchItMixin {
   const EnmeshedApp({super.key});
 
   @override
@@ -479,6 +492,8 @@ class EnmeshedApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     unawaited(SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge));
+
+    final themeSetting = watchValue((ThemeModeModel x) => x.notifier);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -494,10 +509,9 @@ class EnmeshedApp extends StatelessWidget {
         child: MaterialApp.router(
           routerConfig: _router,
           debugShowCheckedModeBanner: false,
-          // dark mode is disabled until we have a proper dark theme
-          themeMode: ThemeMode.light,
+          themeMode: themeSetting.themeMode,
           theme: lightTheme,
-          darkTheme: darkTheme,
+          darkTheme: themeSetting.amoled ? amoledTheme : darkTheme,
           highContrastTheme: highContrastTheme,
           highContrastDarkTheme: highContrastDarkTheme,
           scaffoldMessengerKey: snackbarKey,
