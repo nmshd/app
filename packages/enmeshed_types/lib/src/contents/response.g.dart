@@ -13,6 +13,7 @@ Response _$ResponseFromJson(Map<String, dynamic> json) => Response(
 );
 
 Map<String, dynamic> _$ResponseToJson(Response instance) => <String, dynamic>{
+  '@type': instance.atType,
   'result': _$ResponseResultEnumMap[instance.result]!,
   'requestId': instance.requestId,
   'items': instance.items.map((e) => e.toJson()).toList(),

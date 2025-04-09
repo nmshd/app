@@ -7,6 +7,9 @@ part 'request.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class Request extends Equatable {
+  @JsonKey(name: '@type', includeToJson: true)
+  final String atType = 'Request';
+
   final String? id;
   final String? expiresAt;
   final List<RequestItem> items;
@@ -18,11 +21,7 @@ class Request extends Equatable {
 
   factory Request.fromJson(Map json) => _$RequestFromJson(Map<String, dynamic>.from(json));
 
-  Map<String, dynamic> toJson() {
-    final json = _$RequestToJson(this);
-    json['@type'] = 'Request';
-    return json;
-  }
+  Map<String, dynamic> toJson() => _$RequestToJson(this);
 
   @override
   List<Object?> get props => [id, expiresAt, items, title, description, metadata];

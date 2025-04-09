@@ -10,5 +10,6 @@ CreateAttributeAcceptResponseItem _$CreateAttributeAcceptResponseItemFromJson(Ma
     CreateAttributeAcceptResponseItem(attributeId: json['attributeId'] as String);
 
 Map<String, dynamic> _$CreateAttributeAcceptResponseItemToJson(CreateAttributeAcceptResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   'attributeId': instance.attributeId,
 };

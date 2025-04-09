@@ -10,5 +10,6 @@ DeleteAttributeAcceptResponseItem _$DeleteAttributeAcceptResponseItemFromJson(Ma
     DeleteAttributeAcceptResponseItem(deletionDate: json['deletionDate'] as String);
 
 Map<String, dynamic> _$DeleteAttributeAcceptResponseItemToJson(DeleteAttributeAcceptResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   'deletionDate': instance.deletionDate,
 };

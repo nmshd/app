@@ -1,12 +1,12 @@
-import 'response_item.dart';
-import 'reject_response_item.dart';
-import 'error_response_item.dart';
 import 'accept_response_item.dart';
+import 'error_response_item.dart';
+import 'reject_response_item.dart';
+import 'response_item.dart';
 
 abstract class ResponseItemDerivation extends ResponseItem {
   final ResponseItemResult result;
 
-  const ResponseItemDerivation({required this.result});
+  const ResponseItemDerivation({required this.result, required super.atType});
 
   factory ResponseItemDerivation.fromJson(Map json) {
     final type = json['@type'];

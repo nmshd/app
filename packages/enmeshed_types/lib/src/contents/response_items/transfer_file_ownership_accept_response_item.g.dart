@@ -13,6 +13,7 @@ TransferFileOwnershipAcceptResponseItem _$TransferFileOwnershipAcceptResponseIte
     );
 
 Map<String, dynamic> _$TransferFileOwnershipAcceptResponseItemToJson(TransferFileOwnershipAcceptResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
 };

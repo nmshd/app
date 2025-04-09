@@ -12,6 +12,7 @@ ProposeAttributeAcceptResponseItem _$ProposeAttributeAcceptResponseItemFromJson(
 );
 
 Map<String, dynamic> _$ProposeAttributeAcceptResponseItemToJson(ProposeAttributeAcceptResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
 };

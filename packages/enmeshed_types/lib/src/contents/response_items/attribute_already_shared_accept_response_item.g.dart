@@ -10,5 +10,6 @@ AttributeAlreadySharedAcceptResponseItem _$AttributeAlreadySharedAcceptResponseI
     AttributeAlreadySharedAcceptResponseItem(attributeId: json['attributeId'] as String);
 
 Map<String, dynamic> _$AttributeAlreadySharedAcceptResponseItemToJson(AttributeAlreadySharedAcceptResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   'attributeId': instance.attributeId,
 };

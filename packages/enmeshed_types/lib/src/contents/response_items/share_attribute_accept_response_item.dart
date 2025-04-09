@@ -8,16 +8,12 @@ part 'share_attribute_accept_response_item.g.dart';
 class ShareAttributeAcceptResponseItem extends AcceptResponseItem {
   final String attributeId;
 
-  const ShareAttributeAcceptResponseItem({required this.attributeId});
+  const ShareAttributeAcceptResponseItem({required this.attributeId}) : super(atType: 'ShareAttributeAcceptResponseItem');
 
   factory ShareAttributeAcceptResponseItem.fromJson(Map json) => _$ShareAttributeAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson(),
-    ..._$ShareAttributeAcceptResponseItemToJson(this),
-    '@type': 'ShareAttributeAcceptResponseItem',
-  };
+  Map<String, dynamic> toJson() => _$ShareAttributeAcceptResponseItemToJson(this);
 
   @override
   List<Object?> get props => [super.props, attributeId];

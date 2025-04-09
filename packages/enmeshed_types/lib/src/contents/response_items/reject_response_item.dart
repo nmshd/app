@@ -10,12 +10,12 @@ class RejectResponseItem extends ResponseItemDerivation {
   final String? code;
   final String? message;
 
-  const RejectResponseItem({this.code, this.message}) : super(result: ResponseItemResult.Rejected);
+  const RejectResponseItem({this.code, this.message}) : super(result: ResponseItemResult.Rejected, atType: 'RejectResponseItem');
 
   factory RejectResponseItem.fromJson(Map json) => _$RejectResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), ..._$RejectResponseItemToJson(this), '@type': 'RejectResponseItem'};
+  Map<String, dynamic> toJson() => _$RejectResponseItemToJson(this);
 
   @override
   List<Object?> get props => [super.props, code, message];

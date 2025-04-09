@@ -11,12 +11,13 @@ class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
   final AbstractAttribute attribute;
   final String? thirdPartyAddress;
 
-  const ReadAttributeAcceptResponseItem({required this.attributeId, required this.attribute, this.thirdPartyAddress});
+  const ReadAttributeAcceptResponseItem({required this.attributeId, required this.attribute, this.thirdPartyAddress})
+    : super(atType: 'ReadAttributeAcceptResponseItem');
 
   factory ReadAttributeAcceptResponseItem.fromJson(Map json) => _$ReadAttributeAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), ..._$ReadAttributeAcceptResponseItemToJson(this), '@type': 'ReadAttributeAcceptResponseItem'};
+  Map<String, dynamic> toJson() => _$ReadAttributeAcceptResponseItemToJson(this);
 
   @override
   List<Object?> get props => [super.props, attributeId, attribute, thirdPartyAddress];

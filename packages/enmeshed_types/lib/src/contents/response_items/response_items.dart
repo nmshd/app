@@ -11,5 +11,6 @@ export 'register_attribute_listener_accept_response_item.dart';
 export 'reject_response_item.dart';
 export 'response_item.dart';
 export 'response_item_derivation.dart';
+export 'response_item_group.dart';
 export 'share_attribute_accept_response_item.dart';
 export 'transfer_file_ownership_accept_response_item.dart';

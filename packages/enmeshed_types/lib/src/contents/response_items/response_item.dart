@@ -1,14 +1,17 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
-import '../contents.dart';
-
-part 'response_item_group.dart';
+import 'response_item_derivation.dart';
+import 'response_item_group.dart';
 
 enum ResponseItemResult { Accepted, Rejected, Error }
 
 abstract class ResponseItem extends Equatable {
-  const ResponseItem();
+  @JsonKey(name: '@type', includeToJson: true)
+  final String atType;
+
+  const ResponseItem({required this.atType});
 
   factory ResponseItem.fromJson(Map json) {
     final type = json['@type'];
@@ -20,7 +23,6 @@ abstract class ResponseItem extends Equatable {
     throw Exception('Unknown type: $type');
   }
 
-  @mustCallSuper
   Map<String, dynamic> toJson();
 
   @override

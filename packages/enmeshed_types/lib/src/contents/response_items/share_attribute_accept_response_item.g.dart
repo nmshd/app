@@ -10,5 +10,6 @@ ShareAttributeAcceptResponseItem _$ShareAttributeAcceptResponseItemFromJson(Map<
     ShareAttributeAcceptResponseItem(attributeId: json['attributeId'] as String);
 
 Map<String, dynamic> _$ShareAttributeAcceptResponseItemToJson(ShareAttributeAcceptResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   'attributeId': instance.attributeId,
 };

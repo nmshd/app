@@ -10,5 +10,6 @@ RegisterAttributeListenerAcceptResponseItem _$RegisterAttributeListenerAcceptRes
     RegisterAttributeListenerAcceptResponseItem(listenerId: json['listenerId'] as String);
 
 Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemToJson(RegisterAttributeListenerAcceptResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   'listenerId': instance.listenerId,
 };

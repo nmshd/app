@@ -10,17 +10,14 @@ class TransferFileOwnershipAcceptResponseItem extends AcceptResponseItem {
   final String attributeId;
   final AbstractAttribute attribute;
 
-  const TransferFileOwnershipAcceptResponseItem({required this.attributeId, required this.attribute});
+  const TransferFileOwnershipAcceptResponseItem({required this.attributeId, required this.attribute})
+    : super(atType: 'TransferFileOwnershipAcceptResponseItem');
 
   factory TransferFileOwnershipAcceptResponseItem.fromJson(Map json) =>
       _$TransferFileOwnershipAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson(),
-    ..._$TransferFileOwnershipAcceptResponseItemToJson(this),
-    '@type': 'TransferFileOwnershipAcceptResponseItem',
-  };
+  Map<String, dynamic> toJson() => _$TransferFileOwnershipAcceptResponseItemToJson(this);
 
   @override
   List<Object?> get props => [super.props, attributeId, attribute];

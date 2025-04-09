@@ -13,6 +13,7 @@ ReadAttributeAcceptResponseItem _$ReadAttributeAcceptResponseItemFromJson(Map<St
 );
 
 Map<String, dynamic> _$ReadAttributeAcceptResponseItemToJson(ReadAttributeAcceptResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
   if (instance.thirdPartyAddress case final value?) 'thirdPartyAddress': value,

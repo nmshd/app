@@ -12,12 +12,12 @@ import 'share_attribute_accept_response_item.dart';
 import 'transfer_file_ownership_accept_response_item.dart';
 
 class AcceptResponseItem extends ResponseItemDerivation {
-  const AcceptResponseItem() : super(result: ResponseItemResult.Accepted);
+  const AcceptResponseItem({required super.atType}) : super(result: ResponseItemResult.Accepted);
 
   factory AcceptResponseItem.fromJson(Map json) {
     final type = json['@type'];
 
-    if (type == 'AcceptResponseItem') return const AcceptResponseItem();
+    if (type == 'AcceptResponseItem') return const AcceptResponseItem(atType: 'AcceptResponseItem');
 
     return switch (type) {
       'AttributeAlreadySharedAcceptResponseItem' => AttributeAlreadySharedAcceptResponseItem.fromJson(json),
@@ -35,5 +35,5 @@ class AcceptResponseItem extends ResponseItemDerivation {
   }
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'AcceptResponseItem'};
+  Map<String, dynamic> toJson();
 }

@@ -14,6 +14,7 @@ AttributeSuccessionAcceptResponseItem _$AttributeSuccessionAcceptResponseItemFro
     );
 
 Map<String, dynamic> _$AttributeSuccessionAcceptResponseItemToJson(AttributeSuccessionAcceptResponseItem instance) => <String, dynamic>{
+  '@type': instance.atType,
   'predecessorId': instance.predecessorId,
   'successorId': instance.successorId,
   'successorContent': instance.successorContent.toJson(),

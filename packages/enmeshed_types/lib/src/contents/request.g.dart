@@ -16,6 +16,7 @@ Request _$RequestFromJson(Map<String, dynamic> json) => Request(
 );
 
 Map<String, dynamic> _$RequestToJson(Request instance) => <String, dynamic>{
+  '@type': instance.atType,
   if (instance.id case final value?) 'id': value,
   if (instance.expiresAt case final value?) 'expiresAt': value,
   'items': instance.items.map((e) => e.toJson()).toList(),

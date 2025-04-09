@@ -9,6 +9,9 @@ enum ResponseResult { Accepted, Rejected }
 
 @JsonSerializable(includeIfNull: false)
 class Response extends Equatable {
+  @JsonKey(name: '@type', includeToJson: true)
+  final String atType = 'Response';
+
   final ResponseResult result;
   final String requestId;
   final List<ResponseItem> items;
@@ -17,11 +20,7 @@ class Response extends Equatable {
 
   factory Response.fromJson(Map json) => _$ResponseFromJson(Map<String, dynamic>.from(json));
 
-  Map<String, dynamic> toJson() {
-    final json = _$ResponseToJson(this);
-    json['@type'] = 'Response';
-    return json;
-  }
+  Map<String, dynamic> toJson() => _$ResponseToJson(this);
 
   @override
   List<Object?> get props => [result, requestId, items];
