@@ -102,6 +102,7 @@ class RequestItemRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           expandFileReference: expandFileReference,
           openFileDetails: openFileDetails,
+          validationResult: validationResult,
         ),
         final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(item: dvo),
         final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(item: dvo),
