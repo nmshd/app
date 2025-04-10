@@ -1,30 +1,26 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import 'response_item/response_item.dart';
+import 'response_items/response_item.dart';
+
+part 'response.g.dart';
 
 enum ResponseResult { Accepted, Rejected }
 
+@JsonSerializable(includeIfNull: false)
 class Response extends Equatable {
+  @JsonKey(name: '@type', includeToJson: true)
+  final String atType = 'Response';
+
   final ResponseResult result;
   final String requestId;
   final List<ResponseItem> items;
 
   const Response({required this.result, required this.requestId, required this.items});
 
-  factory Response.fromJson(Map json) {
-    return Response(
-      result: ResponseResult.values.byName(json['result']),
-      requestId: json['requestId'],
-      items: List<ResponseItem>.from(json['items'].map((x) => ResponseItem.fromJson(x))),
-    );
-  }
+  factory Response.fromJson(Map json) => _$ResponseFromJson(Map<String, dynamic>.from(json));
 
-  Map<String, dynamic> toJson() => {
-    '@type': 'Response',
-    'result': result.name,
-    'requestId': requestId,
-    'items': items.map((e) => e.toJson()).toList(),
-  };
+  Map<String, dynamic> toJson() => _$ResponseToJson(this);
 
   @override
   List<Object?> get props => [result, requestId, items];
