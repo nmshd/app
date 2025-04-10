@@ -18,5 +18,5 @@ class ProprietaryEMailAddressAttributeValue extends ProprietaryAttributeValue {
   Map<String, dynamic> toJson() => {...super.toJson(), 'value': value};
 
   @override
-  List<Object?> get props => [super.props, value];
+  List<Object?> get props => [...super.props, value];
 }
