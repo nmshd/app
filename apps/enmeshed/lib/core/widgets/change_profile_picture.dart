@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:croppy/croppy.dart';
+import 'package:enmeshed/core/utils/extensions.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,7 @@ import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 
-import '/core/core.dart';
+import 'profile_picture.dart';
 
 class ChangeProfilePicture extends StatefulWidget {
   final String profileName;

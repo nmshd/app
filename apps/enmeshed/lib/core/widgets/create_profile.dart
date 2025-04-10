@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:enmeshed/core/utils/extensions.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
@@ -8,8 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-import '/core/core.dart';
+import '../utils/profile_picture_utils.dart';
 import 'change_profile_picture.dart';
+import 'modal_loading_overlay.dart';
 
 class CreateProfile extends StatefulWidget {
   final void Function(LocalAccountDTO) onProfileCreated;
