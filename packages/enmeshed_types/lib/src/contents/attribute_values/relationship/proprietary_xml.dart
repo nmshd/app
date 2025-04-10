@@ -20,5 +20,5 @@ class ProprietaryXMLAttributeValue extends ProprietaryAttributeValue {
   Map<String, dynamic> toJson() => {...super.toJson(), 'value': value, 'schemaURL': schemaURL};
 
   @override
-  List<Object?> get props => [super.props, value, schemaURL];
+  List<Object?> get props => [...super.props, value, schemaURL];
 }
