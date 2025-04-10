@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'response_item_derivation.dart';
 import 'response_item_group.dart';
 
-enum ResponseItemResult { Accepted, Rejected, Error }
+export 'response_item_result.dart';
 
 abstract class ResponseItem extends Equatable {
   @JsonKey(name: '@type', includeToJson: true)

@@ -13,6 +13,8 @@ import 'response_item_derivation.dart';
 import 'share_attribute_accept_response_item.dart';
 import 'transfer_file_ownership_accept_response_item.dart';
 
+export 'response_item_result.dart';
+
 part 'accept_response_item.g.dart';
 
 @JsonSerializable(includeIfNull: false)
