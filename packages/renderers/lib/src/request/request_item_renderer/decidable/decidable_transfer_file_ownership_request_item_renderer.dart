@@ -64,7 +64,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Deci
             children: [
               Checkbox(
                 value: _isChecked || (widget.item.requireManualDecision ?? false),
-                onChanged: widget.item.requireManualDecision ?? false ? null : _onUpdateDecision,
+                onChanged: widget.item.mustBeAccepted || (widget.item.requireManualDecision ?? false) ? null : _onUpdateDecision,
               ),
               FileIcon(filename: widget.item.file.filename, color: Theme.of(context).colorScheme.primary, size: 32),
               Expanded(
