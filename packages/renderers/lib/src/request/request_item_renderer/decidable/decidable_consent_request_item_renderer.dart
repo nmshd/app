@@ -42,7 +42,7 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.item.name, style: Theme.of(context).textTheme.titleMedium),
+          TranslatedText(widget.item.name, style: Theme.of(context).textTheme.titleMedium),
           if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),
           Padding(
             padding: const EdgeInsets.only(top: 8),
@@ -56,6 +56,7 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Switch(
                           thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
@@ -67,15 +68,19 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
                           onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
                         ),
                         Gaps.w8,
-                        Expanded(child: Text(widget.item.consent, maxLines: 4, overflow: TextOverflow.ellipsis)),
+                        Expanded(
+                          child: Column(
+                            spacing: 8,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(widget.item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
+                              if (_isTextOverflowing()) _ShowFullConsentButton(),
+                              if (widget.item.link != null) _LinkButton(link: widget.item.link!, linkDisplayText: widget.item.linkDisplayText),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                    if (_isTextOverflowing()) Padding(padding: EdgeInsets.only(top: 8, left: 68), child: _ShowFullConsentButton()),
-                    if (widget.item.link != null)
-                      Padding(
-                        padding: EdgeInsets.only(top: 8, left: 68),
-                        child: _LinkButton(link: widget.item.link!, linkDisplayText: widget.item.linkDisplayText),
-                      ),
                   ],
                 ),
               ),
@@ -150,7 +155,7 @@ class _LinkButton extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           Gaps.w8,
-          Icon(Icons.arrow_outward, color: Theme.of(context).colorScheme.primary, size: 12),
+          Icon(Icons.arrow_outward, color: Theme.of(context).colorScheme.primary, size: 14),
         ],
       ),
     );
