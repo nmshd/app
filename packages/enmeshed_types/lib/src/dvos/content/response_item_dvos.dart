@@ -303,7 +303,9 @@ class RegisterAttributeListenerAcceptResponseItemDVO extends AcceptResponseItemD
 @JsonSerializable(includeIfNull: false)
 class TransferFileOwnershipAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
-  final LocalAttributeDVO attribute;
+  final LocalAttributeDVO? repositoryAttribute;
+  final String sharedAttributeId;
+  final LocalAttributeDVO sharedAttribute;
 
   const TransferFileOwnershipAcceptResponseItemDVO({
     required super.id,
@@ -315,7 +317,9 @@ class TransferFileOwnershipAcceptResponseItemDVO extends AcceptResponseItemDVO {
     super.error,
     super.warning,
     required this.attributeId,
-    required this.attribute,
+    required this.repositoryAttribute,
+    required this.sharedAttributeId,
+    required this.sharedAttribute,
   });
 
   factory TransferFileOwnershipAcceptResponseItemDVO.fromJson(Map json) =>
