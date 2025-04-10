@@ -23,5 +23,5 @@ class DeleteAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$DeleteAttributeRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, attributeId];
+  List<Object?> get props => [...super.props, attributeId];
 }

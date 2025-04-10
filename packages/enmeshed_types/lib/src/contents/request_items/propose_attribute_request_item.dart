@@ -27,5 +27,5 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$ProposeAttributeRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, query, attribute];
+  List<Object?> get props => [...super.props, query, attribute];
 }

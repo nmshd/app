@@ -27,5 +27,5 @@ class ConsentRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$ConsentRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, consent, link, linkDisplayText];
+  List<Object?> get props => [...super.props, consent, link, linkDisplayText];
 }

@@ -21,5 +21,5 @@ class AttributeSuccessionAcceptResponseItem extends AcceptResponseItem {
   Map<String, dynamic> toJson() => _$AttributeSuccessionAcceptResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, predecessorId, successorId, successorContent];
+  List<Object?> get props => [...super.props, predecessorId, successorId, successorContent];
 }

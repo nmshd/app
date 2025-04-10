@@ -24,5 +24,5 @@ class CreateAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$CreateAttributeRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, attribute];
+  List<Object?> get props => [...super.props, attribute];
 }

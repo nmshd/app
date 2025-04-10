@@ -16,5 +16,5 @@ class FreeTextAcceptResponseItem extends AcceptResponseItem {
   Map<String, dynamic> toJson() => _$FreeTextAcceptResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, freeText];
+  List<Object?> get props => [...super.props, freeText];
 }

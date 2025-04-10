@@ -17,5 +17,5 @@ class RequestItemGroup extends RequestItem {
   Map<String, dynamic> toJson() => _$RequestItemGroupToJson(this);
 
   @override
-  List<Object?> get props => [super.props, items];
+  List<Object?> get props => [...super.props, items];
 }

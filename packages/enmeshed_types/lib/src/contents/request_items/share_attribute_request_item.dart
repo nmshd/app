@@ -28,5 +28,5 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$ShareAttributeRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, attribute, sourceAttributeId, thirdPartyAddress];
+  List<Object?> get props => [...super.props, attribute, sourceAttributeId, thirdPartyAddress];
 }

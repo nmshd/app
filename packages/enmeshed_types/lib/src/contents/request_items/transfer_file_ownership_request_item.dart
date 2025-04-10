@@ -23,5 +23,5 @@ class TransferFileOwnershipRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$TransferFileOwnershipRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, fileReference];
+  List<Object?> get props => [...super.props, fileReference];
 }

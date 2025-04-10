@@ -20,5 +20,5 @@ class ReadAttributeAcceptResponseItem extends AcceptResponseItem {
   Map<String, dynamic> toJson() => _$ReadAttributeAcceptResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, attributeId, attribute, thirdPartyAddress];
+  List<Object?> get props => [...super.props, attributeId, attribute, thirdPartyAddress];
 }

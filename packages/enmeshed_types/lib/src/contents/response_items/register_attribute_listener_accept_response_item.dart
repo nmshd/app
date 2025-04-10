@@ -17,5 +17,5 @@ class RegisterAttributeListenerAcceptResponseItem extends AcceptResponseItem {
   Map<String, dynamic> toJson() => _$RegisterAttributeListenerAcceptResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, listenerId];
+  List<Object?> get props => [...super.props, listenerId];
 }

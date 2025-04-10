@@ -20,5 +20,5 @@ class TransferFileOwnershipAcceptResponseItem extends AcceptResponseItem {
   Map<String, dynamic> toJson() => _$TransferFileOwnershipAcceptResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, attributeId, attribute];
+  List<Object?> get props => [...super.props, attributeId, attribute];
 }

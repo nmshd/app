@@ -16,5 +16,5 @@ class DeleteAttributeAcceptResponseItem extends AcceptResponseItem {
   Map<String, dynamic> toJson() => _$DeleteAttributeAcceptResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, deletionDate];
+  List<Object?> get props => [...super.props, deletionDate];
 }

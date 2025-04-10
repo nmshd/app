@@ -23,5 +23,5 @@ class FreeTextRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$FreeTextRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props];
+  List<Object?> get props => [...super.props];
 }

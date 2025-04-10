@@ -24,5 +24,5 @@ class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$RegisterAttributeListenerRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, query];
+  List<Object?> get props => [...super.props, query];
 }

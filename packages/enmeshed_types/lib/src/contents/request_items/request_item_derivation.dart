@@ -45,5 +45,5 @@ abstract class RequestItemDerivation extends RequestItem {
   Map<String, dynamic> toJson();
 
   @override
-  List<Object?> get props => [super.props, requireManualDecision, mustBeAccepted];
+  List<Object?> get props => [...super.props, requireManualDecision, mustBeAccepted];
 }

@@ -16,5 +16,5 @@ class ShareAttributeAcceptResponseItem extends AcceptResponseItem {
   Map<String, dynamic> toJson() => _$ShareAttributeAcceptResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, attributeId];
+  List<Object?> get props => [...super.props, attributeId];
 }

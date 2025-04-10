@@ -15,5 +15,5 @@ class AuthenticationRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$AuthenticationRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props];
+  List<Object?> get props => [...super.props];
 }

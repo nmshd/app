@@ -18,5 +18,5 @@ class ErrorResponseItem extends ResponseItemDerivation {
   Map<String, dynamic> toJson() => _$ErrorResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, code, message];
+  List<Object?> get props => [...super.props, code, message];
 }

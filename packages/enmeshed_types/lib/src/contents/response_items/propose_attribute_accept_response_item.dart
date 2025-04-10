@@ -19,5 +19,5 @@ class ProposeAttributeAcceptResponseItem extends AcceptResponseItem {
   Map<String, dynamic> toJson() => _$ProposeAttributeAcceptResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, attributeId, attribute];
+  List<Object?> get props => [...super.props, attributeId, attribute];
 }

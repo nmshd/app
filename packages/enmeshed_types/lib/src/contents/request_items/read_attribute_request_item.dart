@@ -24,5 +24,5 @@ class ReadAttributeRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$ReadAttributeRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, query];
+  List<Object?> get props => [...super.props, query];
 }

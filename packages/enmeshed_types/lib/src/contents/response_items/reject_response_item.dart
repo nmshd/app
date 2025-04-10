@@ -18,5 +18,5 @@ class RejectResponseItem extends ResponseItemDerivation {
   Map<String, dynamic> toJson() => _$RejectResponseItemToJson(this);
 
   @override
-  List<Object?> get props => [super.props, code, message];
+  List<Object?> get props => [...super.props, code, message];
 }
