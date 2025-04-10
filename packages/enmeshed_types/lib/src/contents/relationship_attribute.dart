@@ -30,5 +30,5 @@ class RelationshipAttribute extends AbstractAttribute {
   };
 
   @override
-  List<Object?> get props => [super.props, value, key, isTechnical, confidentiality];
+  List<Object?> get props => [...super.props, value, key, isTechnical, confidentiality];
 }

@@ -17,5 +17,5 @@ class IdentityAttribute extends AbstractAttribute {
   Map<String, dynamic> toJson() => {...super.toJson(), '@type': 'IdentityAttribute', 'value': value.toJson(), if (tags != null) 'tags': tags};
 
   @override
-  List<Object?> get props => [super.props, value, tags];
+  List<Object?> get props => [...super.props, value, tags];
 }

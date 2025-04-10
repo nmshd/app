@@ -23,5 +23,5 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
   Map<String, dynamic> toJson() => {'@type': 'ThirdPartyRelationshipAttributeQuery', ..._$ThirdPartyRelationshipAttributeQueryToJson(this)};
 
   @override
-  List<Object?> get props => [super.props, key, owner, thirdParty];
+  List<Object?> get props => [...super.props, key, owner, thirdParty];
 }

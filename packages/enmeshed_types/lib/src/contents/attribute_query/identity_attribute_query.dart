@@ -12,5 +12,5 @@ class IdentityAttributeQuery extends AttributeQuery {
   Map<String, dynamic> toJson() => {'@type': 'IdentityAttributeQuery', ..._$IdentityAttributeQueryToJson(this)};
 
   @override
-  List<Object?> get props => [super.props, valueType, tags];
+  List<Object?> get props => [...super.props, valueType, tags];
 }
