@@ -74,6 +74,6 @@
 			</dict>
 		</array>
 		<key>FlutterDeepLinkingEnabled</key>
-	    <false/>
+		<false/>
 	</dict>
 </plist>
