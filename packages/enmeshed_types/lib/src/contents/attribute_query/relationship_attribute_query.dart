@@ -15,5 +15,5 @@ class RelationshipAttributeQuery extends AttributeQuery {
   Map<String, dynamic> toJson() => {'@type': 'RelationshipAttributeQuery', ..._$RelationshipAttributeQueryToJson(this)};
 
   @override
-  List<Object?> get props => [super.props, key, owner, attributeCreationHints];
+  List<Object?> get props => [...super.props, key, owner, attributeCreationHints];
 }
