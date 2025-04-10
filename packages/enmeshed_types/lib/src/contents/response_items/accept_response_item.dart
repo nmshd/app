@@ -1,3 +1,5 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'attribute_already_shared_accept_response_item.dart';
 import 'attribute_succession_accept_response_item.dart';
 import 'create_attribute_accept_response_item.dart';
@@ -11,6 +13,9 @@ import 'response_item_derivation.dart';
 import 'share_attribute_accept_response_item.dart';
 import 'transfer_file_ownership_accept_response_item.dart';
 
+part 'accept_response_item.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class AcceptResponseItem extends ResponseItemDerivation {
   const AcceptResponseItem({required super.atType}) : super(result: ResponseItemResult.Accepted);
 
@@ -35,5 +40,5 @@ class AcceptResponseItem extends ResponseItemDerivation {
   }
 
   @override
-  Map<String, dynamic> toJson() => {...super.toJson(), '@type': atType};
+  Map<String, dynamic> toJson() => _$AcceptResponseItemToJson(this);
 }

@@ -15,7 +15,14 @@ AttributeSuccessionAcceptResponseItem _$AttributeSuccessionAcceptResponseItemFro
 
 Map<String, dynamic> _$AttributeSuccessionAcceptResponseItemToJson(AttributeSuccessionAcceptResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
+  'result': _$ResponseItemResultEnumMap[instance.result]!,
   'predecessorId': instance.predecessorId,
   'successorId': instance.successorId,
   'successorContent': instance.successorContent.toJson(),
+};
+
+const _$ResponseItemResultEnumMap = {
+  ResponseItemResult.Accepted: 'Accepted',
+  ResponseItemResult.Rejected: 'Rejected',
+  ResponseItemResult.Error: 'Error',
 };

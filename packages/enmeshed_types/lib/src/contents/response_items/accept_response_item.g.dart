@@ -1,18 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'share_attribute_accept_response_item.dart';
+part of 'accept_response_item.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ShareAttributeAcceptResponseItem _$ShareAttributeAcceptResponseItemFromJson(Map<String, dynamic> json) =>
-    ShareAttributeAcceptResponseItem(attributeId: json['attributeId'] as String);
+AcceptResponseItem _$AcceptResponseItemFromJson(Map<String, dynamic> json) => AcceptResponseItem(atType: json['@type'] as String);
 
-Map<String, dynamic> _$ShareAttributeAcceptResponseItemToJson(ShareAttributeAcceptResponseItem instance) => <String, dynamic>{
+Map<String, dynamic> _$AcceptResponseItemToJson(AcceptResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
   'result': _$ResponseItemResultEnumMap[instance.result]!,
-  'attributeId': instance.attributeId,
 };
 
 const _$ResponseItemResultEnumMap = {

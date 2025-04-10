@@ -11,5 +11,12 @@ RegisterAttributeListenerAcceptResponseItem _$RegisterAttributeListenerAcceptRes
 
 Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemToJson(RegisterAttributeListenerAcceptResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
+  'result': _$ResponseItemResultEnumMap[instance.result]!,
   'listenerId': instance.listenerId,
+};
+
+const _$ResponseItemResultEnumMap = {
+  ResponseItemResult.Accepted: 'Accepted',
+  ResponseItemResult.Rejected: 'Rejected',
+  ResponseItemResult.Error: 'Error',
 };

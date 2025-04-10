@@ -1,9 +1,13 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
+
 import 'accept_response_item.dart';
 import 'error_response_item.dart';
 import 'reject_response_item.dart';
 import 'response_item.dart';
 
 abstract class ResponseItemDerivation extends ResponseItem {
+  @JsonKey(name: 'result', includeToJson: true)
   final ResponseItemResult result;
 
   const ResponseItemDerivation({required this.result, required super.atType});
@@ -21,9 +25,7 @@ abstract class ResponseItemDerivation extends ResponseItem {
     throw Exception('Unknown type: $type');
   }
 
-  @override
-  Map<String, dynamic> toJson() => {'result': result.name};
-
+  @mustCallSuper
   @override
   List<Object?> get props => [result];
 }

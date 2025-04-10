@@ -11,5 +11,12 @@ DeleteAttributeAcceptResponseItem _$DeleteAttributeAcceptResponseItemFromJson(Ma
 
 Map<String, dynamic> _$DeleteAttributeAcceptResponseItemToJson(DeleteAttributeAcceptResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
+  'result': _$ResponseItemResultEnumMap[instance.result]!,
   'deletionDate': instance.deletionDate,
+};
+
+const _$ResponseItemResultEnumMap = {
+  ResponseItemResult.Accepted: 'Accepted',
+  ResponseItemResult.Rejected: 'Rejected',
+  ResponseItemResult.Error: 'Error',
 };

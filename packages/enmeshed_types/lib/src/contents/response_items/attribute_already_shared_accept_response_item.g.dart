@@ -11,5 +11,12 @@ AttributeAlreadySharedAcceptResponseItem _$AttributeAlreadySharedAcceptResponseI
 
 Map<String, dynamic> _$AttributeAlreadySharedAcceptResponseItemToJson(AttributeAlreadySharedAcceptResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
+  'result': _$ResponseItemResultEnumMap[instance.result]!,
   'attributeId': instance.attributeId,
+};
+
+const _$ResponseItemResultEnumMap = {
+  ResponseItemResult.Accepted: 'Accepted',
+  ResponseItemResult.Rejected: 'Rejected',
+  ResponseItemResult.Error: 'Error',
 };

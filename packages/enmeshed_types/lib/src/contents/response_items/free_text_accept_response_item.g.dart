@@ -11,5 +11,12 @@ FreeTextAcceptResponseItem _$FreeTextAcceptResponseItemFromJson(Map<String, dyna
 
 Map<String, dynamic> _$FreeTextAcceptResponseItemToJson(FreeTextAcceptResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
+  'result': _$ResponseItemResultEnumMap[instance.result]!,
   'freeText': instance.freeText,
+};
+
+const _$ResponseItemResultEnumMap = {
+  ResponseItemResult.Accepted: 'Accepted',
+  ResponseItemResult.Rejected: 'Rejected',
+  ResponseItemResult.Error: 'Error',
 };

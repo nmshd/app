@@ -14,6 +14,13 @@ TransferFileOwnershipAcceptResponseItem _$TransferFileOwnershipAcceptResponseIte
 
 Map<String, dynamic> _$TransferFileOwnershipAcceptResponseItemToJson(TransferFileOwnershipAcceptResponseItem instance) => <String, dynamic>{
   '@type': instance.atType,
+  'result': _$ResponseItemResultEnumMap[instance.result]!,
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
+};
+
+const _$ResponseItemResultEnumMap = {
+  ResponseItemResult.Accepted: 'Accepted',
+  ResponseItemResult.Rejected: 'Rejected',
+  ResponseItemResult.Error: 'Error',
 };
