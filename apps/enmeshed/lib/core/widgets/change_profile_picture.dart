@@ -10,7 +10,8 @@ import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
+import 'profile_picture.dart';
 
 class ChangeProfilePicture extends StatefulWidget {
   final String profileName;
