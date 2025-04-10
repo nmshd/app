@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../abstract_attribute.dart';
+import '../identity_attribute.dart';
 import 'accept_response_item.dart';
 
 part 'transfer_file_ownership_accept_response_item.g.dart';
@@ -8,7 +8,7 @@ part 'transfer_file_ownership_accept_response_item.g.dart';
 @JsonSerializable(includeIfNull: false)
 class TransferFileOwnershipAcceptResponseItem extends AcceptResponseItem {
   final String attributeId;
-  final AbstractAttribute attribute;
+  final IdentityAttribute attribute;
 
   const TransferFileOwnershipAcceptResponseItem({required this.attributeId, required this.attribute})
     : super(atType: 'TransferFileOwnershipAcceptResponseItem');
