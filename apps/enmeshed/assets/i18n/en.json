@@ -1178,5 +1178,26 @@
       "selectFile": "Select File",
       "noFileSelected": "No file selected"
     }
+  },
+  "requestRenderer": {
+    "errors": {
+      "error": {
+        "consumption": {
+          "requests": {
+            "decide": {
+              "validation": {
+                "mustBeAcceptedItemNotAccepted": "Give your consent."
+              }
+            }
+          }
+        }
+      }
+    },
+    "manualDecisionRequired": {
+      "description": {
+        "default": "",
+        "fileTransfer": "I confirm that this file should be included in my personal documents."
+      }
+    }
   }
 }

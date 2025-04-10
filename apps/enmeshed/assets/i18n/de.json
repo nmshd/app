@@ -1178,5 +1178,26 @@
       "selectFile": "Datei auswählen",
       "noFileSelected": "Keine Datei ausgewählt"
     }
+  },
+  "requestRenderer": {
+    "errors": {
+      "error": {
+        "consumption": {
+          "requests": {
+            "decide": {
+              "validation": {
+                "mustBeAcceptedItemNotAccepted": "Geben Sie Ihre Zustimmung."
+              }
+            }
+          }
+        }
+      }
+    },
+    "manualDecisionRequired": {
+      "description": {
+        "default": "",
+        "fileTransfer": "Ich bestätige, dass diese Datei in meine persönlichen Dokumente übernommen werden soll."
+      }
+    }
   }
 }
