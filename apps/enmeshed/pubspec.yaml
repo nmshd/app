@@ -105,11 +105,16 @@ flutter_native_splash:
   image: "assets/icon.png"
   color: "#ffffff"
 
+  color_dark: "#001945"
+  image_dark: assets/splash-invert.png
+
   android_12:
     image: "assets/splash.png"
+    image_dark: assets/splash-invert.png
     color: "#ffffff"
+    color_dark: "#001945"
     icon_background_color: "#ffffff"
-    icon_background_color_dark: "#ffffff"
+    icon_background_color_dark: "#001945"
 
   android: true
   ios: true
