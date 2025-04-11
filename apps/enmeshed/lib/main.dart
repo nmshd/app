@@ -517,8 +517,6 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         builder: (context, child) {
-          debugPrint(Theme.of(context).brightness.toString());
-
           return AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
