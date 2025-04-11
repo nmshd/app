@@ -1,10 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:renderers/src/attribute/file_reference_renderer.dart';
 
 import '../abstract_url_launcher.dart';
 import '../custom_list_tile.dart';
+import 'file_reference_renderer.dart';
 
 class RelationshipAttributeValueRenderer extends StatelessWidget {
   final RelationshipAttributeValue value;
