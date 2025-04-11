@@ -850,6 +850,6 @@
       }
     }
   },
-  "identityInDeletion_description": "Sie haben die Löschung dieses Profils auf einem anderen Gerät angestoßen. Wählen Sie das Profil aus, um fortzufahren oder erstellen Sie ein neues Profil.\n\nWenn Sie die Löschung des Profil nicht angestoßen haben, können Sie das Profil wiederherstellen.",
+  "identityInDeletion_description": "Sie haben die Löschung dieses Profils auf einem anderen Gerät angestoßen. Wählen Sie das Profil aus, um fortzufahren, oder erstellen Sie ein neues Profil.\n\nWenn Sie die Löschung des Profil nicht angestoßen haben, können Sie das Profil wiederherstellen.",
   "identityInDeletion_createNewProfile": "Neues Profil erstellen"
 }
