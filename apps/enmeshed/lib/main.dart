@@ -498,7 +498,6 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
     return Features(
       child: MaterialApp.router(
         routerConfig: _router,
-
         debugShowCheckedModeBanner: false,
         themeMode: themeSetting.themeMode,
         theme: lightTheme,
