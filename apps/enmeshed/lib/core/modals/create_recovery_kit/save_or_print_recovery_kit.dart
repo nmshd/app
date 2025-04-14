@@ -111,8 +111,8 @@ class _RecoveryCard extends StatelessWidget {
         leading: Container(
           width: 40,
           height: 40,
-          decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-          child: Center(child: Icon(icon, color: Theme.of(context).colorScheme.primary)),
+          decoration: BoxDecoration(color: Theme.of(context).colorScheme.onPrimary, shape: BoxShape.circle),
+          child: Icon(icon, color: Theme.of(context).colorScheme.primary),
         ),
         title: Text(title, style: Theme.of(context).textTheme.titleMedium),
         subtitle: Text(description, style: Theme.of(context).textTheme.bodySmall),
