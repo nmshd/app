@@ -424,7 +424,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
               ],
             ),
             child: Padding(
-              padding: EdgeInsets.only(right: 16, bottom: MediaQuery.viewPaddingOf(context).bottom, top: 8),
+              padding: EdgeInsets.only(right: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 8, top: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

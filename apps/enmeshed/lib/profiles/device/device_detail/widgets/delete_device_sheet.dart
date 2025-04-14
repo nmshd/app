@@ -39,7 +39,7 @@ class _DeleteDeviceSheetState extends State<DeleteDeviceSheet> {
               ),
               Gaps.h16,
               Padding(
-                padding: const EdgeInsets.only(right: 16),
+                padding: const EdgeInsets.only(right: 16, bottom: 8),
                 child: Column(
                   children: [
                     const VectorGraphic(loader: AssetBytesLoader('assets/svg/remove_device.svg'), height: 161),
