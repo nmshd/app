@@ -82,6 +82,7 @@ class RequestItemRenderer extends StatelessWidget {
           controller: controller,
           item: dvo,
           itemIndex: itemIndex,
+          validationResult: validationResult,
         ),
         final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
         final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(

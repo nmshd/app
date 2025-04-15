@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '../../request_item_index.dart';
@@ -8,10 +9,11 @@ import 'widgets/handle_checkbox_change.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
   final DecidableAuthenticationRequestItemDVO item;
-  final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
+  final RequestRendererController? controller;
+  final RequestValidationResultDTO? validationResult;
 
-  const DecidableAuthenticationRequestItemRenderer({super.key, required this.item, this.controller, required this.itemIndex});
+  const DecidableAuthenticationRequestItemRenderer({super.key, required this.item, required this.itemIndex, this.controller, this.validationResult});
 
   @override
   State<DecidableAuthenticationRequestItemRenderer> createState() => _DecidableAuthenticationRequestItemRendererState();
@@ -19,7 +21,6 @@ class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
 
 class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAuthenticationRequestItemRenderer> {
   late bool isChecked;
-  bool _value = false;
 
   @override
   void initState() {
@@ -27,47 +28,49 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
 
     isChecked = widget.item.initiallyChecked;
 
-    if (isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
-    }
+    if (isChecked) widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    final title = widget.item.mustBeAccepted ? '${widget.item.name}*' : widget.item.name;
+
+    return Column(
       children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(widget.item.name, style: Theme.of(context).textTheme.titleMedium),
-                SizedBox(height: 4),
-                if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),
-                Container(
-                  width: double.infinity,
-                  color: Theme.of(context).colorScheme.surfaceContainerHigh,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: _CustomToggle(value: _value, onChanged: (newValue) => setState(() => _value = newValue), text: 'Annehmen'),
-                  ),
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(title, style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 16)),
+                    Gaps.h4,
+                    if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),
+                    Container(
+                      width: double.infinity,
+                      color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: _CustomToggle(value: isChecked, onUpdateToggle: _onUpdateToggle, text: 'Annehmen'),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ],
     );
   }
 
-  void onUpdateCheckbox(bool? value) {
+  void _onUpdateToggle(bool? value) {
     if (value == null) return;
 
-    setState(() {
-      isChecked = value;
-    });
+    setState(() => isChecked = value);
 
     handleCheckboxChange(isChecked: isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }
@@ -75,10 +78,10 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
 
 class _CustomToggle extends StatefulWidget {
   final bool value;
-  final ValueChanged<bool> onChanged;
+  final ValueChanged<bool> onUpdateToggle;
   final String text;
 
-  const _CustomToggle({required this.value, required this.onChanged, required this.text});
+  const _CustomToggle({required this.value, required this.onUpdateToggle, required this.text});
 
   @override
   State<_CustomToggle> createState() => _CustomToggleState();
