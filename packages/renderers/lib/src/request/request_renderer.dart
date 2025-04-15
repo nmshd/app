@@ -31,7 +31,7 @@ class RequestRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
-    required this.validationResult,
+    this.validationResult,
   });
 
   @override
@@ -83,7 +83,7 @@ class RequestRenderer extends StatelessWidget {
               expandFileReference: expandFileReference,
               chooseFile: chooseFile,
               openFileDetails: openFileDetails,
-              validationResult: validationResult,
+              validationResult: validationResult?.items[index],
             );
           }
 
@@ -97,7 +97,7 @@ class RequestRenderer extends StatelessWidget {
             expandFileReference: expandFileReference,
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
-            validationResult: validationResult,
+            validationResult: validationResult?.items[index],
           );
         }).toList();
 
