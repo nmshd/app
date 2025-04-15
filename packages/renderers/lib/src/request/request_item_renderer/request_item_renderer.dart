@@ -22,6 +22,8 @@ class RequestItemRenderer extends StatelessWidget {
 
   final Color? backgroundColor;
 
+  final RequestValidationResultDTO? validationResult;
+
   const RequestItemRenderer({
     super.key,
     required this.currentAddress,
@@ -35,6 +37,7 @@ class RequestItemRenderer extends StatelessWidget {
     required this.chooseFile,
     required this.openFileDetails,
     this.backgroundColor,
+    this.validationResult,
   });
 
   @override

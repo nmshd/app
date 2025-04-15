@@ -153,6 +153,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
                     openFileDetails:
                         (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                    validationResult: _validationResult,
                   ),
                 ],
               ),
