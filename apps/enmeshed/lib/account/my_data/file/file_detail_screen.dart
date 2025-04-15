@@ -3,6 +3,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
@@ -39,7 +40,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: Text(_fileDVO!.title, style: Theme.of(context).textTheme.titleLarge)),
+      appBar: AppBar(title: TranslatedText(_fileDVO!.title, style: Theme.of(context).textTheme.titleLarge)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
