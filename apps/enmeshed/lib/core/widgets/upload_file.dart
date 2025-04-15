@@ -15,7 +15,6 @@ import 'package:path/path.dart' as path;
 
 import '../types/types.dart';
 import '../utils/utils.dart';
-import 'file_icon.dart';
 import 'modal_loading_overlay.dart';
 
 class UploadFile extends StatefulWidget {
