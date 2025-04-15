@@ -50,7 +50,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
             chooseFile: chooseFile,
             openFileDetails: openFileDetails,
             backgroundColor: Theme.of(context).colorScheme.surface,
-            validationResult: validationResult,
+            validationResult: validationResult?.items[index],
           );
         }).toList();
 
