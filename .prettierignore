@@ -4,5 +4,3 @@ android
 windows
 macos
 .dart_tool
-**/assets/*
-!**/assets/i18n/*.json
