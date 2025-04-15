@@ -4,4 +4,5 @@ android
 windows
 macos
 .dart_tool
-assets
+**/assets/*
+!**/assets/i18n/*.json
