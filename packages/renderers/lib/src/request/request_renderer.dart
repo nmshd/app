@@ -31,7 +31,7 @@ class RequestRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
-    required this.validationResult,
+    this.validationResult,
   });
 
   @override
