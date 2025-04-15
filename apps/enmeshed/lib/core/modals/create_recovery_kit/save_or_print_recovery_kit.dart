@@ -104,6 +104,7 @@ class _RecoveryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
+      margin: EdgeInsets.zero,
       color: Theme.of(context).colorScheme.primaryContainer,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
       child: ListTile(
