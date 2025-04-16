@@ -57,7 +57,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
   @override
   Widget build(BuildContext context) {
     final translatedTitle = widget.file.name.startsWith('i18n://') ? FlutterI18n.translate(context, widget.file.name.substring(7)) : widget.file.name;
-    final title = widget.item.mustBeAccepted ? '$translatedTitle*' : translatedTitle;
+    final title = widget.item.mustBeAccepted && widget.item.response == null ? '$translatedTitle*' : translatedTitle;
 
     return InkWell(
       onTap: () async {
