@@ -165,11 +165,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                 child: Text(context.l10n.attributeDetails_sharedWith, style: Theme.of(context).textTheme.titleMedium),
                               ),
                               if (_sharedWith!.isEmpty)
-                                EmptyListIndicator(
-                                  icon: Icons.sensors_off,
-                                  text: context.l10n.attributeDetails_sharedWithNobody,
-                                  wrapInListView: true,
-                                )
+                                EmptyListIndicator(icon: Icons.sensors_off, text: context.l10n.attributeDetails_sharedWithNobody)
                               else
                                 ListView.separated(
                                   physics: const NeverScrollableScrollPhysics(),
