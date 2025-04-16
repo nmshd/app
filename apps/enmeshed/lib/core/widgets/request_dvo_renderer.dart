@@ -152,7 +152,10 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                     chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
                     openFileDetails:
-                        (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                        (file, [LocalAttributeDVO? attribute]) => context.push(
+                          '/account/${widget.accountId}/my-data/files/${file.id}',
+                          extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
+                        ),
                     validationResult: _validationResult,
                   ),
                 ],
