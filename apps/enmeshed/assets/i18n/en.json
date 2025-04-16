@@ -1204,8 +1204,6 @@
     }
   },
   "tags": {
-    "language:de": "German",
-    "language:en": "English",
     "mimetype:application/pdf": "PDF-Document",
     "tags.urn:xbildung-de:unesco:codeliste:isced2011=3": "Secondary level II",
     "tags.urn:xbildung-de:unesco:codeliste:isced2011=34": "General education",

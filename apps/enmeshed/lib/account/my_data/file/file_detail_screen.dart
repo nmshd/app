@@ -292,6 +292,10 @@ class _TagLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (label.startsWith('language:')) {
+      return TranslatedText(context.i18nTranslate('i18n://attributes.values.languages.${label.substring(9)}'), style: style);
+    }
+
     final i18nTranslatable = 'i18n://tags.$label';
     final translatedLabel = context.i18nTranslate(i18nTranslatable);
 

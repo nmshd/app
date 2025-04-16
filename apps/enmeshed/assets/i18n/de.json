@@ -1204,8 +1204,6 @@
     }
   },
   "tags": {
-    "language:de": "Deutsch",
-    "language:en": "Englisch",
     "mimetype:application/pdf": "PDF-Dokument",
     "urn:xbildung-de:unesco:codeliste:isced2011=3": "Sekundarbereich II",
     "urn:xbildung-de:unesco:codeliste:isced2011=34": "Allgemeinbildend",
