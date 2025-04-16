@@ -28,12 +28,14 @@ class ManualDecisionRequired extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Switch(
-                thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
-                  (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
-                ),
+                thumbIcon: WidgetStateProperty.resolveWith<Icon?>((Set<WidgetState> states) {
+                  return states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close);
+                }),
                 activeColor: context.customColors.onSuccess,
+                activeTrackColor:
+                    onUpdateManualDecision == null ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
+                inactiveTrackColor: Colors.transparent,
                 value: isManualDecisionAccepted,
-                activeTrackColor: context.customColors.success,
                 onChanged: onUpdateManualDecision,
               ),
               SizedBox(width: 8),
