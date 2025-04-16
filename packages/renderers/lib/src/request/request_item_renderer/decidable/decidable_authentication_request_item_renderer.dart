@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
 import 'checkbox_enabled_extension.dart';
-import 'widgets/handle_checkbox_change.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
   final DecidableAuthenticationRequestItemDVO item;
@@ -63,6 +62,32 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
             ),
           ],
         ),
+
+        if (widget.validationResult != null && !widget.validationResult!.isSuccess)
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
+                  child: Container(
+                    color: Theme.of(context).colorScheme.error,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 6),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            child: Icon(Icons.error, color: Theme.of(context).colorScheme.onError),
+                          ),
+                          Text('Fehler', style: TextStyle(color: Theme.of(context).colorScheme.onError)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
       ],
     );
   }
@@ -72,7 +97,11 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
 
     setState(() => isChecked = value);
 
-    handleCheckboxChange(isChecked: isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
+    if (isChecked) {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    } else {
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
+    }
   }
 }
 
