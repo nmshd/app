@@ -82,7 +82,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                     _tags!
                                         .map(
                                           (e) => Chip(
-                                            label: Text(e, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
+                                            label: _TagLabel(e, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
                                             shape: RoundedRectangleBorder(
                                               borderRadius: const BorderRadius.all(Radius.circular(4)),
                                               side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
@@ -281,5 +281,22 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     } else {
       return 'other';
     }
+  }
+}
+
+class _TagLabel extends StatelessWidget {
+  final String label;
+  final TextStyle style;
+
+  const _TagLabel(this.label, {required this.style});
+
+  @override
+  Widget build(BuildContext context) {
+    final i18nTranslatable = 'i18n://tags.$label';
+    final translatedLabel = context.i18nTranslate(i18nTranslatable);
+
+    if (translatedLabel != i18nTranslatable) return Text(translatedLabel, style: style);
+
+    return Text(label, style: style);
   }
 }

@@ -1202,5 +1202,13 @@
         "fileTransfer": "I confirm that this file should be included in my personal documents."
       }
     }
+  },
+  "tags": {
+    "language:de": "German",
+    "language:en": "English",
+    "mimetype:application/pdf": "PDF-Document",
+    "tags.urn:xbildung-de:unesco:codeliste:isced2011=3": "Secondary level II",
+    "tags.urn:xbildung-de:unesco:codeliste:isced2011=34": "General education",
+    "tags.urn:xbildung-de:unesco:codeliste:isced2011=344": "Grammar schools (upper school)"
   }
 }
