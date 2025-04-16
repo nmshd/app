@@ -4,7 +4,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 class ManualDecisionRequired extends StatelessWidget {
   final bool isManualDecisionAccepted;
-  final Function(bool) onUpdateManualDecision;
+  final Function(bool)? onUpdateManualDecision;
   final String i18nKey;
 
   const ManualDecisionRequired({
@@ -21,7 +21,7 @@ class ManualDecisionRequired extends StatelessWidget {
       borderRadius: BorderRadius.circular(4),
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
       child: InkWell(
-        onTap: () => onUpdateManualDecision(!isManualDecisionAccepted),
+        onTap: onUpdateManualDecision != null ? () => onUpdateManualDecision!(!isManualDecisionAccepted) : null,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
@@ -34,7 +34,7 @@ class ManualDecisionRequired extends StatelessWidget {
                 activeColor: context.customColors.onSuccess,
                 value: isManualDecisionAccepted,
                 activeTrackColor: context.customColors.success,
-                onChanged: (bool value) => onUpdateManualDecision(value),
+                onChanged: onUpdateManualDecision,
               ),
               SizedBox(width: 8),
               Expanded(

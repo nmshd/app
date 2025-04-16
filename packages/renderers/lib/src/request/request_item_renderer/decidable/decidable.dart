@@ -6,4 +6,3 @@ export 'decidable_propose_attribute_request_item_renderer.dart';
 export 'decidable_read_attribute_request_item_renderer.dart';
 export 'decidable_register_attribute_listener_request_item_renderer.dart';
 export 'decidable_share_attribute_request_item_renderer.dart';
-export 'decidable_transfer_file_ownership_request_item_renderer.dart';
