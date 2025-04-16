@@ -7,12 +7,7 @@ class ManualDecisionRequired extends StatelessWidget {
   final Function(bool)? onUpdateManualDecision;
   final String i18nKey;
 
-  const ManualDecisionRequired({
-    super.key,
-    required this.isManualDecisionAccepted,
-    required this.onUpdateManualDecision,
-    this.i18nKey = 'i18n://requestRenderer.manualDecisionRequired.description.default',
-  });
+  const ManualDecisionRequired({super.key, required this.isManualDecisionAccepted, required this.onUpdateManualDecision, required this.i18nKey});
 
   @override
   Widget build(BuildContext context) {

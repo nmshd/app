@@ -1198,7 +1198,7 @@
     },
     "manualDecisionRequired": {
       "description": {
-        "default": "",
+        "attributes": "I confirm that this information should be shared.",
         "fileTransfer": "I confirm that this file should be included in my personal documents."
       }
     }
