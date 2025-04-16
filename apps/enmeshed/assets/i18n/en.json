@@ -1180,6 +1180,9 @@
     }
   },
   "requestRenderer": {
+    "description": {
+      "transferFileOwnership": "New document in your wallet"
+    },
     "errors": {
       "error": {
         "consumption": {
