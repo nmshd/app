@@ -186,7 +186,6 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
             : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
     final request = await session.expander.expandLocalRequestDTO(requestDto.value);
 
-    _setController(session, request);
     setState(() => _request = request);
   }
 
@@ -283,8 +282,28 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
     required String? valueType,
     required List<AttributeSwitcherChoice> choices,
     required AttributeSwitcherChoice? currentChoice,
+    String? title,
     ValueHints? valueHints,
+    List<String>? tags,
   }) async {
+    if (choices.isEmpty) {
+      final localAttribute = await showCreateAttributeModal(
+        context: context,
+        accountId: widget.accountId,
+        initialValueType: valueType,
+        title: title,
+        onAttributeCreated: () {},
+        tags: tags,
+      );
+
+      if (localAttribute == null) return null;
+
+      final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+      await _loadRequest(session);
+
+      return (id: localAttribute.id, attribute: localAttribute.content, isDefaultRepositoryAttribute: localAttribute.isDefault);
+    }
+
     final choice = await Navigator.of(context).push<AttributeSwitcherChoice?>(
       MaterialPageRoute(
         builder:
@@ -292,12 +311,16 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
               choices: choices,
               currentChoice: currentChoice,
               valueHints: valueHints,
+              title: title,
               valueType: valueType,
               accountId: widget.accountId,
               currentAddress: _identityInfo!.address,
             ),
       ),
     );
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    await _loadRequest(session);
 
     return choice;
   }
@@ -309,6 +332,7 @@ class _AttributeSwitcher extends StatefulWidget {
   final String? valueType;
   final String accountId;
   final String currentAddress;
+  final String? title;
   final ValueHints? valueHints;
 
   const _AttributeSwitcher({
@@ -317,6 +341,7 @@ class _AttributeSwitcher extends StatefulWidget {
     required this.valueType,
     required this.accountId,
     required this.currentAddress,
+    this.title,
     this.valueHints,
   });
 
@@ -358,18 +383,23 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                       TextButton.icon(
                         icon: const Icon(Icons.add, size: 16),
                         label: Text(context.l10n.contactDetail_addEntry),
-                        onPressed:
-                            () => showCreateAttributeModal(
-                              context: context,
-                              accountId: widget.accountId,
-                              onCreateAttributePressed:
-                                  ({required BuildContext context, required IdentityAttributeValue value}) =>
-                                      context
-                                        ..pop()
-                                        ..pop((id: null, attribute: IdentityAttribute(owner: widget.currentAddress, value: value))),
-                              initialValueType: widget.valueType,
-                              onAttributeCreated: null,
-                            ),
+                        onPressed: () async {
+                          final localAttribute = await showCreateAttributeModal(
+                            context: context,
+                            accountId: widget.accountId,
+                            initialValueType: widget.valueType,
+                            onAttributeCreated: () {},
+                            title: widget.title,
+                          );
+
+                          if (!context.mounted || localAttribute == null) return;
+
+                          context.pop<AttributeSwitcherChoice>((
+                            id: localAttribute.id,
+                            attribute: localAttribute.content,
+                            isDefaultRepositoryAttribute: null,
+                          ));
+                        },
                       ),
                   ],
                 ),
@@ -383,33 +413,37 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
               itemBuilder: (context, index) {
                 final item = widget.choices[index];
 
-                return ColoredBox(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (widget.valueHints != null)
-                          Expanded(
-                            child: AttributeRenderer(
-                              attribute: item.attribute,
-                              valueHints: widget.valueHints!,
-                              showTitle: false,
-                              expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                              openFileDetails:
-                                  (file) =>
-                                      context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
-                            ),
-                          ),
+                return ListTile(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (widget.valueHints != null)
                         Radio<AttributeSwitcherChoice>(
                           value: item,
                           groupValue: selectedOption,
                           onChanged: (AttributeSwitcherChoice? value) => setState(() => selectedOption = value),
                         ),
+                      Expanded(
+                        child: AttributeRenderer(
+                          attribute: item.attribute,
+                          valueHints: widget.valueHints!,
+                          showTitle: false,
+                          expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
+                          openFileDetails:
+                              (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                        ),
+                      ),
+                      if (item.isDefaultRepositoryAttribute ?? false) ...[
+                        Icon(Icons.star, color: Theme.of(context).colorScheme.primary, size: 16),
+                        Gaps.w4,
+                        Text(
+                          context.l10n.request_default,
+                          style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                        ),
                       ],
-                    ),
-                    onTap: () => setState(() => selectedOption = item),
+                    ],
                   ),
+                  onTap: () => setState(() => selectedOption = item),
                 );
               },
             ),

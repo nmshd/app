@@ -1189,6 +1189,7 @@
     }
   },
   "requestRenderer": {
+    "noEntry": "Kein Eintrag",
     "description": {
       "transferFileOwnership": "Neues Dokument in Ihrer Wallet"
     },

@@ -1,10 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '/src/attribute/attribute_renderer.dart';
 import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '/src/attribute/attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
@@ -37,7 +37,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    isChecked = widget.item.initiallyChecked(widget.item.mustBeAccepted);
 
     _choice = _getProposedChoice();
 
@@ -131,13 +131,23 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
       final ProcessedIQLQueryDVO query => query.results,
     };
 
-    return {...results.map((result) => (id: result.id, attribute: result.content)), _getProposedChoice(), _choice}.toList();
+    return {
+      ...results.map(
+        (result) => (
+          id: result.id,
+          attribute: result.content,
+          isDefaultRepositoryAttribute: result is RepositoryAttributeDVO ? result.isDefault : null,
+        ),
+      ),
+      _getProposedChoice(),
+      _choice,
+    }.toList();
   }
 
-  ({String? id, AbstractAttribute attribute}) _getProposedChoice() {
+  AttributeSwitcherChoice _getProposedChoice() {
     return switch (widget.item.attribute) {
-      final DraftIdentityAttributeDVO dvo => (id: null, attribute: dvo.content),
-      final DraftRelationshipAttributeDVO dvo => (id: null, attribute: dvo.content),
+      final DraftIdentityAttributeDVO dvo => (id: null, attribute: dvo.content, isDefaultRepositoryAttribute: null),
+      final DraftRelationshipAttributeDVO dvo => (id: null, attribute: dvo.content, isDefaultRepositoryAttribute: null),
     };
   }
 }

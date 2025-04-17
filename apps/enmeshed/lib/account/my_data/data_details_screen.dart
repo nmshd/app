@@ -142,7 +142,6 @@ class _Header extends StatelessWidget {
                       context: context,
                       accountId: accountId,
                       onAttributeCreated: onAttributeCreated,
-                      onCreateAttributePressed: null,
                     ),
               ),
             ],

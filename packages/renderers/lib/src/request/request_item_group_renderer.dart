@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
@@ -37,22 +36,27 @@ class RequestItemGroupRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final requestItems =
-        requestItemGroup.items.mapIndexed((index, item) {
-          return RequestItemRenderer(
-            item: item,
-            itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
-            controller: controller,
-            requestStatus: requestStatus,
-            openAttributeSwitcher: openAttributeSwitcher,
-            currentAddress: currentAddress,
-            expandFileReference: expandFileReference,
-            chooseFile: chooseFile,
-            openFileDetails: openFileDetails,
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            validationResult: validationResult?.items[index],
-          );
-        }).toList();
+    final listView = Material(
+      child: ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder:
+            (context, index) => RequestItemRenderer(
+              item: requestItemGroup.items[index],
+              itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
+              controller: controller,
+              requestStatus: requestStatus,
+              openAttributeSwitcher: openAttributeSwitcher,
+              currentAddress: currentAddress,
+              expandFileReference: expandFileReference,
+              chooseFile: chooseFile,
+              openFileDetails: openFileDetails,
+              validationResult: validationResult?.items[index],
+            ),
+        separatorBuilder: (context, _) => Divider(color: Theme.of(context).colorScheme.surfaceContainerHighest, thickness: 1, height: 0),
+        itemCount: requestItemGroup.items.length,
+      ),
+    );
 
     final title =
         requestItemGroup.title != null
@@ -79,7 +83,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
       title: title ?? subtitle ?? const Text(''),
       subtitle: title != null ? subtitle : null,
       iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
-      children: requestItems,
+      children: [listView],
     );
   }
 }
