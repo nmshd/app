@@ -7,6 +7,7 @@ import '../transport/file_dvo.dart';
 import 'attribute_dvos.dart';
 import 'attribute_query_dvos.dart';
 import 'response_item_dvos.dart';
+import '../../contents/request_items/settings/form_field_settings_derivation.dart';
 
 part '../consumption/decidable_request_item_dvos.dart';
 part 'request_item_dvos.g.dart';
@@ -80,6 +81,7 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
       'ShareAttributeRequestItemDVO' => ShareAttributeRequestItemDVO.fromJson(json),
       'AuthenticationRequestItemDVO' => AuthenticationRequestItemDVO.fromJson(json),
       'ConsentRequestItemDVO' => ConsentRequestItemDVO.fromJson(json),
+      'FormFieldRequestItemDVO' => FormFieldRequestItemDVO.fromJson(json),
       'FreeTextRequestItemDVO' => FreeTextRequestItemDVO.fromJson(json),
       'RegisterAttributeListenerRequestItemDVO' => RegisterAttributeListenerRequestItemDVO.fromJson(json),
       'TransferFileOwnershipRequestItemDVO' => TransferFileOwnershipRequestItemDVO.fromJson(json),
@@ -270,6 +272,32 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
   factory ConsentRequestItemDVO.fromJson(Map json) => _$ConsentRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ConsentRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class FormFieldRequestItemDVO extends RequestItemDVODerivation {
+  final String title;
+  final FormFieldSettingsDerivation settings;
+
+  const FormFieldRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
+    super.response,
+    super.requireManualDecision,
+    required this.title,
+    required this.settings,
+  }) : super(type: 'FormFieldRequestItemDVO');
+
+  factory FormFieldRequestItemDVO.fromJson(Map json) => _$FormFieldRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$FormFieldRequestItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)
