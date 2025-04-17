@@ -237,7 +237,7 @@ FormFieldAcceptResponseItemDVO _$FormFieldAcceptResponseItemDVOFromJson(Map<Stri
   date: json['date'] as String?,
   error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
   warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-  response: FormFieldAcceptResponseType.fromJson(json['response'] as Map<String, dynamic>),
+  response: FormFieldAcceptResponseType.fromJson(json['response']),
 );
 
 Map<String, dynamic> _$FormFieldAcceptResponseItemDVOToJson(FormFieldAcceptResponseItemDVO instance) => <String, dynamic>{
