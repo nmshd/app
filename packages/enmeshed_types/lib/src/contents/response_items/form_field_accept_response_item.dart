@@ -4,6 +4,21 @@ import 'accept_response_item.dart';
 
 part 'form_field_accept_response_item.g.dart';
 
+@JsonSerializable(includeIfNull: false)
+class FormFieldAcceptResponseItem extends AcceptResponseItem {
+  final FormFieldAcceptResponseType response;
+
+  const FormFieldAcceptResponseItem({required this.response}) : super(atType: 'FormFieldAcceptResponseItem');
+
+  factory FormFieldAcceptResponseItem.fromJson(Map json) => _$FormFieldAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
+
+  @override
+  Map<String, dynamic> toJson() => _$FormFieldAcceptResponseItemToJson(this);
+
+  @override
+  List<Object?> get props => [...super.props, response];
+}
+
 sealed class FormFieldAcceptResponseType {
   const FormFieldAcceptResponseType();
 
@@ -52,19 +67,4 @@ class FormFieldStringListResponse implements FormFieldAcceptResponseType {
 
   @override
   List<String> toJson() => value;
-}
-
-@JsonSerializable(includeIfNull: false)
-class FormFieldAcceptResponseItem extends AcceptResponseItem {
-  final FormFieldAcceptResponseType response;
-
-  const FormFieldAcceptResponseItem({required this.response}) : super(atType: 'FormFieldAcceptResponseItem');
-
-  factory FormFieldAcceptResponseItem.fromJson(Map json) => _$FormFieldAcceptResponseItemFromJson(Map<String, dynamic>.from(json));
-
-  @override
-  Map<String, dynamic> toJson() => _$FormFieldAcceptResponseItemToJson(this);
-
-  @override
-  List<Object?> get props => [...super.props, response];
 }
