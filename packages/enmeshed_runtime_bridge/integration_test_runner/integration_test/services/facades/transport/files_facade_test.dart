@@ -74,7 +74,7 @@ void run(EnmeshedRuntime runtime) {
         expiresAt: expiresAt,
         title: 'aTitle',
         description: 'aDescription',
-        tags: ['aTag'],
+        tags: ['x+%+aTag'],
       );
 
       expect(fileResult, isSuccessful<FileDTO>());
@@ -83,7 +83,7 @@ void run(EnmeshedRuntime runtime) {
       expect(fileResult.value.expiresAt, expiresAt);
       expect(fileResult.value.title, 'aTitle');
       expect(fileResult.value.description, 'aDescription');
-      expect(fileResult.value.tags, ['aTag']);
+      expect(fileResult.value.tags, ['x+%+aTag']);
     });
 
     test('should use default uploading own file without expiry date', () async {

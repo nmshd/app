@@ -9,8 +9,6 @@ import 'local_attribute_dvo.dart';
 part 'processed_attribute_query_dvos.g.dart';
 
 sealed class ProcessedAttributeQueryDVO extends DataViewObject {
-  final String? validFrom;
-  final String? validTo;
   final bool isProcessed = true;
 
   const ProcessedAttributeQueryDVO({
@@ -22,8 +20,6 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
     super.date,
     super.error,
     super.warning,
-    this.validFrom,
-    this.validTo,
   });
 
   factory ProcessedAttributeQueryDVO.fromJson(Map json) => switch (json['type']) {
@@ -52,8 +48,6 @@ class ProcessedIdentityAttributeQueryDVO extends ProcessedAttributeQueryDVO {
     super.date,
     super.error,
     super.warning,
-    super.validFrom,
-    super.validTo,
     required this.results,
     required this.tags,
     required this.valueType,
@@ -84,8 +78,6 @@ class ProcessedRelationshipAttributeQueryDVO extends ProcessedAttributeQueryDVO 
     super.date,
     super.error,
     super.warning,
-    super.validFrom,
-    super.validTo,
     required this.results,
     required this.key,
     required this.owner,
@@ -119,8 +111,6 @@ class ProcessedThirdPartyRelationshipAttributeQueryDVO extends ProcessedAttribut
     super.date,
     super.error,
     super.warning,
-    super.validFrom,
-    super.validTo,
     required this.results,
     required this.key,
     required this.owner,
@@ -152,8 +142,6 @@ class ProcessedIQLQueryDVO extends ProcessedAttributeQueryDVO {
     super.date,
     super.error,
     super.warning,
-    super.validFrom,
-    super.validTo,
     required this.results,
     this.valueType,
     this.renderHints,

@@ -6,8 +6,17 @@ part 'authentication_request_item.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class AuthenticationRequestItem extends RequestItemDerivation {
-  const AuthenticationRequestItem({super.title, super.description, super.metadata, required super.mustBeAccepted, super.requireManualDecision})
-    : super(atType: 'AuthenticationRequestItem');
+  @override
+  // ignore: overridden_fields
+  final String title;
+
+  const AuthenticationRequestItem({
+    required this.title,
+    super.description,
+    super.metadata,
+    required super.mustBeAccepted,
+    super.requireManualDecision,
+  }) : super(atType: 'AuthenticationRequestItem');
 
   factory AuthenticationRequestItem.fromJson(Map json) => _$AuthenticationRequestItemFromJson(Map<String, dynamic>.from(json));
 
