@@ -146,9 +146,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
   void _onUpdateDecision(bool? value) {
     if (value == null) return;
 
-    setState(() {
-      _isChecked = value;
-    });
+    setState(() => _isChecked = value);
 
     handleCheckboxChange(isChecked: _isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }

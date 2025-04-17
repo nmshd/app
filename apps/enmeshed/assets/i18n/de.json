@@ -1181,7 +1181,7 @@
   },
   "requestRenderer": {
     "description": {
-      "transferFileOwnership": "Neues Dokument in ihrer Wallet"
+      "transferFileOwnership": "Neues Dokument in Ihrer Wallet"
     },
     "errors": {
       "error": {

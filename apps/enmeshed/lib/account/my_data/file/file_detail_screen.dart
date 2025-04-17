@@ -179,7 +179,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                       contact: contact,
                                       subtitle: Text(
                                         context.l10n.attributeDetails_sharedAt(
-                                          _getDateType(DateTime.parse(sharedAttribute.createdAt).toLocal()),
+                                          DateTime.parse(sharedAttribute.createdAt).toLocal().dateType,
                                           DateTime.parse(sharedAttribute.createdAt).toLocal(),
                                           DateTime.parse(sharedAttribute.createdAt).toLocal(),
                                         ),
@@ -230,9 +230,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
 
     if (!mounted) return;
 
-    setState(() {
-      _sharedWith = sharedWith;
-    });
+    setState(() => _sharedWith = sharedWith);
   }
 
   Future<void> _downloadAndSaveFile() async {
@@ -263,20 +261,6 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     );
 
     if (mounted) setState(() => _isOpeningFile = false);
-  }
-
-  String _getDateType(DateTime dateTime) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final yesterday = today.subtract(const Duration(days: 1));
-
-    if (dateTime.year == today.year && dateTime.month == today.month && dateTime.day == today.day) {
-      return 'today';
-    } else if (dateTime.year == yesterday.year && dateTime.month == yesterday.month && dateTime.day == yesterday.day) {
-      return 'yesterday';
-    } else {
-      return 'other';
-    }
   }
 }
 

@@ -21,6 +21,7 @@ class ManualDecisionRequired extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
+            spacing: 8,
             children: [
               Switch(
                 thumbIcon: WidgetStateProperty.resolveWith<Icon?>((Set<WidgetState> states) {
@@ -33,7 +34,6 @@ class ManualDecisionRequired extends StatelessWidget {
                 value: isManualDecisionAccepted,
                 onChanged: onUpdateManualDecision,
               ),
-              SizedBox(width: 8),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
