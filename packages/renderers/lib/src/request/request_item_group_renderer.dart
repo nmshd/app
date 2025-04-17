@@ -16,7 +16,9 @@ class RequestItemGroupRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
-  final void Function(FileDVO) openFileDetails;
+  final void Function(FileDVO, [LocalAttributeDVO?]) openFileDetails;
+
+  final RequestValidationResultDTO? validationResult;
 
   const RequestItemGroupRenderer({
     super.key,
@@ -29,6 +31,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
+    this.validationResult,
   });
 
   @override
@@ -48,6 +51,7 @@ class RequestItemGroupRenderer extends StatelessWidget {
               expandFileReference: expandFileReference,
               chooseFile: chooseFile,
               openFileDetails: openFileDetails,
+              validationResult: validationResult?.items[index],
             ),
         separatorBuilder: (context, _) => Divider(color: Theme.of(context).colorScheme.surfaceContainerHighest, thickness: 1, height: 0),
         itemCount: requestItemGroup.items.length,

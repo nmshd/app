@@ -22,6 +22,7 @@ sealed class DecidableRequestItemDVODerivation extends RequestItemDVODerivation 
     'DecidableShareAttributeRequestItemDVO' => DecidableShareAttributeRequestItemDVO.fromJson(json),
     'DecidableAuthenticationRequestItemDVO' => DecidableAuthenticationRequestItemDVO.fromJson(json),
     'DecidableConsentRequestItemDVO' => DecidableConsentRequestItemDVO.fromJson(json),
+    'DecidableFormFieldRequestItemDVO' => DecidableFormFieldRequestItemDVO.fromJson(json),
     'DecidableFreeTextRequestItemDVO' => DecidableFreeTextRequestItemDVO.fromJson(json),
     'DecidableRegisterAttributeListenerRequestItemDVO' => DecidableRegisterAttributeListenerRequestItemDVO.fromJson(json),
     'DecidableTransferFileOwnershipRequestItemDVO' => DecidableTransferFileOwnershipRequestItemDVO.fromJson(json),
@@ -178,6 +179,7 @@ class DecidableAuthenticationRequestItemDVO extends DecidableRequestItemDVODeriv
 class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
   final String consent;
   final String? link;
+  final String? linkDisplayText;
 
   const DecidableConsentRequestItemDVO({
     required super.id,
@@ -191,11 +193,36 @@ class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
     super.requireManualDecision,
     required this.consent,
     this.link,
+    this.linkDisplayText,
   }) : super(type: 'DecidableConsentRequestItemDVO', isDecidable: true);
 
   factory DecidableConsentRequestItemDVO.fromJson(Map json) => _$DecidableConsentRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$DecidableConsentRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class DecidableFormFieldRequestItemDVO extends DecidableRequestItemDVODerivation {
+  final String title;
+  final FormFieldSettings settings;
+
+  const DecidableFormFieldRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    super.requireManualDecision,
+    required this.title,
+    required this.settings,
+  }) : super(type: 'DecidableFormFieldRequestItemDVO', isDecidable: true);
+
+  factory DecidableFormFieldRequestItemDVO.fromJson(Map json) => _$DecidableFormFieldRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$DecidableFormFieldRequestItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)

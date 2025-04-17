@@ -2,6 +2,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '/core/core.dart';
 
@@ -87,7 +88,7 @@ class _AttachmentItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return RawChip(
       avatar: FileIcon(filename: attachment.filename, color: Theme.of(context).colorScheme.primary),
-      label: Text(attachment.title),
+      label: TranslatedText(attachment.title),
       onDeleted: onDeleted,
       deleteIcon: const Icon(Icons.close, size: 18),
       onPressed: () => context.push('/account/$accountId/my-data/files/${attachment.id}', extra: createFileRecord(file: attachment)),

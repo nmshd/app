@@ -179,6 +179,12 @@
   "drawer_hints_loadProfile": "Load existing profile",
   "drawer_hints_addContact": "Add contact",
   "drawer_hints_firstSteps": "First steps",
+  "drawer_theme": "Theme",
+  "drawer_theme_description": "You can set the theme of the app here. If you select the System setting, the current default setting of your device is applied.",
+  "drawer_theme_amoled": "AMOLED mode helps to save energy by completely switching off pixels that are set to black. This setting only affects the dark theme.",
+  "drawer_theme_modes_system": "System",
+  "drawer_theme_modes_dark": "Dark",
+  "drawer_theme_modes_light": "Light",
   "profiles_copyAddressToClipboardLabel": "Copy your profile-address to the clipboard.",
   "profiles_copiedAddressToClipboard": "The profile-address has been copied to the clipboard.",
   "profiles_settings_subtitle": "Manage your connected devices and profile settings or back up your data here.",
@@ -187,6 +193,7 @@
   "profiles_settings_connectedDevices": "Manage connected devices",
   "profiles_settings_createIdentityRecoveryKit": "Create recovery kit",
   "profiles_createNew": "Create new profile",
+  "profiles_loadExisting": "Load existing profile",
   "profiles_lastUsed": "Last used",
   "profiles_createNewForProcessingQrDescription": "Create a new profile to process the scanned QR code or URL link.",
   "profiles_otherProfiles": "Other profiles",
@@ -835,5 +842,15 @@
     }
   },
   "passwordProtection_incorrectPassword": "You have entered an incorrect password. Please try again.",
-  "passwordProtection_incorrectPin": "You have entered an incorrect PIN. Please try again."
+  "passwordProtection_incorrectPin": "You have entered an incorrect PIN. Please try again.",
+  "identityInDeletion_title": "The currently active profile {profileName} has been set to delete.",
+  "@identityInDeletion_title": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "identityInDeletion_description": "You have initiated the deletion of this profile on another device. Select the profile to continue or create a new profile.\n\nIf you have not triggered the deletion of the profile, you can restore the profile.",
+  "identityInDeletion_createNewProfile": "Create new profile"
 }

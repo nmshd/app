@@ -467,6 +467,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  functional_listener:
+    dependency: transitive
+    description:
+      name: functional_listener
+      sha256: c096db771b4ce7ba0f886cc4a761044b11e8276a7bc24cfc812dc4b2bc6f5b16
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   get_it:
     dependency: "direct main"
     description:
@@ -487,10 +495,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "9b736a9fa879d8ad6df7932cbdcc58237c173ab004ef90d8377923d7ad731eaa"
+      sha256: "4cdfcc6a178632d1dbb7a728f8e84a1466211354704b9cdc03eee661d3277732"
       url: "https://pub.dev"
     source: hosted
-    version: "14.7.2"
+    version: "15.0.0"
   gtk:
     dependency: transitive
     description:
@@ -1059,13 +1067,13 @@ packages:
     source: hosted
     version: "0.28.0"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: a752ce92ea7540fc35a0d19722816e04d0e72828a4200e83a98cf1a1eb524c9a
+      sha256: "6e8bf70b7fef813df4e9a36f658ac46d107db4b4cfe1048b477d4e453a8159f5"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.5"
+    version: "2.5.3"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -1350,6 +1358,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.3.1"
+  watch_it:
+    dependency: "direct main"
+    description:
+      name: watch_it
+      sha256: "44ad14c66c9a4240ac39243c8e09849a85ab6511b7b9217cacde024ed45796e1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.5"
   web:
     dependency: transitive
     description:

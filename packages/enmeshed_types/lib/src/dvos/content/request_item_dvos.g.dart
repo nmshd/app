@@ -239,6 +239,7 @@ ConsentRequestItemDVO _$ConsentRequestItemDVOFromJson(Map<String, dynamic> json)
   requireManualDecision: json['requireManualDecision'] as bool?,
   consent: json['consent'] as String,
   link: json['link'] as String?,
+  linkDisplayText: json['linkDisplayText'] as String?,
 );
 
 Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instance) => <String, dynamic>{
@@ -256,6 +257,40 @@ Map<String, dynamic> _$ConsentRequestItemDVOToJson(ConsentRequestItemDVO instanc
   if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
   'consent': instance.consent,
   if (instance.link case final value?) 'link': value,
+  if (instance.linkDisplayText case final value?) 'linkDisplayText': value,
+};
+
+FormFieldRequestItemDVO _$FormFieldRequestItemDVOFromJson(Map<String, dynamic> json) => FormFieldRequestItemDVO(
+  id: json['id'] as String,
+  name: json['name'] as String,
+  description: json['description'] as String?,
+  image: json['image'] as String?,
+  date: json['date'] as String?,
+  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  mustBeAccepted: json['mustBeAccepted'] as bool,
+  isDecidable: json['isDecidable'] as bool,
+  response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
+  requireManualDecision: json['requireManualDecision'] as bool?,
+  title: json['title'] as String,
+  settings: FormFieldSettings.fromJson(json['settings'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$FormFieldRequestItemDVOToJson(FormFieldRequestItemDVO instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  if (instance.description case final value?) 'description': value,
+  if (instance.image case final value?) 'image': value,
+  'type': instance.type,
+  if (instance.date case final value?) 'date': value,
+  if (instance.error?.toJson() case final value?) 'error': value,
+  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'isDecidable': instance.isDecidable,
+  if (instance.response?.toJson() case final value?) 'response': value,
+  'mustBeAccepted': instance.mustBeAccepted,
+  if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+  'title': instance.title,
+  'settings': instance.settings.toJson(),
 };
 
 FreeTextRequestItemDVO _$FreeTextRequestItemDVOFromJson(Map<String, dynamic> json) => FreeTextRequestItemDVO(
@@ -540,6 +575,7 @@ DecidableConsentRequestItemDVO _$DecidableConsentRequestItemDVOFromJson(Map<Stri
   requireManualDecision: json['requireManualDecision'] as bool?,
   consent: json['consent'] as String,
   link: json['link'] as String?,
+  linkDisplayText: json['linkDisplayText'] as String?,
 );
 
 Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequestItemDVO instance) => <String, dynamic>{
@@ -555,6 +591,36 @@ Map<String, dynamic> _$DecidableConsentRequestItemDVOToJson(DecidableConsentRequ
   if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
   'consent': instance.consent,
   if (instance.link case final value?) 'link': value,
+  if (instance.linkDisplayText case final value?) 'linkDisplayText': value,
+};
+
+DecidableFormFieldRequestItemDVO _$DecidableFormFieldRequestItemDVOFromJson(Map<String, dynamic> json) => DecidableFormFieldRequestItemDVO(
+  id: json['id'] as String,
+  name: json['name'] as String,
+  description: json['description'] as String?,
+  image: json['image'] as String?,
+  date: json['date'] as String?,
+  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  mustBeAccepted: json['mustBeAccepted'] as bool,
+  requireManualDecision: json['requireManualDecision'] as bool?,
+  title: json['title'] as String,
+  settings: FormFieldSettings.fromJson(json['settings'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$DecidableFormFieldRequestItemDVOToJson(DecidableFormFieldRequestItemDVO instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  if (instance.description case final value?) 'description': value,
+  if (instance.image case final value?) 'image': value,
+  'type': instance.type,
+  if (instance.date case final value?) 'date': value,
+  if (instance.error?.toJson() case final value?) 'error': value,
+  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'mustBeAccepted': instance.mustBeAccepted,
+  if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
+  'title': instance.title,
+  'settings': instance.settings.toJson(),
 };
 
 DecidableFreeTextRequestItemDVO _$DecidableFreeTextRequestItemDVOFromJson(Map<String, dynamic> json) => DecidableFreeTextRequestItemDVO(

@@ -10,8 +10,9 @@ import '/core/core.dart';
 class DrawerMainPage extends StatefulWidget {
   final VoidCallback goToNotifications;
   final VoidCallback goToHints;
+  final VoidCallback goToTheme;
 
-  const DrawerMainPage({required this.goToNotifications, required this.goToHints, super.key});
+  const DrawerMainPage({required this.goToNotifications, required this.goToHints, required this.goToTheme, super.key});
 
   @override
   State<DrawerMainPage> createState() => _DrawerMainPageState();
@@ -62,6 +63,11 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
                 onTap: widget.goToHints,
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.drawer_hints, style: Theme.of(context).textTheme.labelLarge),
+              ),
+              ListTile(
+                onTap: widget.goToTheme,
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                title: Text(context.l10n.drawer_theme, style: Theme.of(context).textTheme.labelLarge),
               ),
               const Divider(indent: 16, endIndent: 16),
               ListTile(

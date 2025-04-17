@@ -14,6 +14,7 @@ Future<void> showRestoreIdentityModal({required LocalAccountDTO accountInDeletio
   await showModalBottomSheet<void>(
     context: context,
     showDragHandle: false,
+    isScrollControlled: true,
     builder: (context) => _RestoreIdentity(accountInDeletion: accountInDeletion, deletionDate: accountInDeletion.deletionDate!),
   );
 }
@@ -40,7 +41,7 @@ class _RestoreIdentityState extends State<_RestoreIdentity> {
         children: [
           BottomSheetHeader(title: context.l10n.identity_restore_title, canClose: !_isRestoring),
           Padding(
-            padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom),
+            padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 8),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

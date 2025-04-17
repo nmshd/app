@@ -158,4 +158,17 @@ class FilesFacade {
     final value = result.valueToMap();
     return Result.fromJson(value, (x) => CreateQRCodeResponse.fromJson(x));
   }
+
+  Future<VoidResult> deleteFile({required String fileId}) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await session.transportServices.files.deleteFile(request)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: result.value }''',
+      arguments: {
+        'request': {'fileId': fileId},
+      },
+    );
+
+    return VoidResult.fromJson(result.valueToMap());
+  }
 }

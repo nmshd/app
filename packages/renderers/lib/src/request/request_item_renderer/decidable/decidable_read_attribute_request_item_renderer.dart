@@ -88,7 +88,11 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
             ),
             if (widget.item.requireManualDecision == true) ...[
               SizedBox(height: 12),
-              ManualDecisionRequired(isManualDecisionAccepted: _isManualDecisionAccepted, onUpdateManualDecision: _onUpdateManualDecision),
+              ManualDecisionRequired(
+                isManualDecisionAccepted: _isManualDecisionAccepted,
+                onUpdateManualDecision: _onUpdateManualDecision,
+                i18nKey: 'i18n://requestRenderer.manualDecisionRequired.description.attributes',
+              ),
             ],
           ],
         ),
