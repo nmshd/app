@@ -6,6 +6,7 @@ build
 .flutter-plugins-dependencies
 config.json
 config.*.json
+devtools_options.yaml
 
 apps/connector_ui/android/local.properties
 .DS_Store
