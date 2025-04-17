@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'form_field_settings/form_field_settings.dart';
 import 'request_item_derivation.dart';
-import 'settings/form_field_settings.dart';
 
 part 'form_field_request_item.g.dart';
 

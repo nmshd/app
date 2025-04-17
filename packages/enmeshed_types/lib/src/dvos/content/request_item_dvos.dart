@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../contents/request_items/form_field_settings/form_field_settings.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
 import '../data_view_object.dart';
@@ -7,7 +8,6 @@ import '../transport/file_dvo.dart';
 import 'attribute_dvos.dart';
 import 'attribute_query_dvos.dart';
 import 'response_item_dvos.dart';
-import '../../contents/request_items/settings/form_field_settings.dart';
 
 part '../consumption/decidable_request_item_dvos.dart';
 part 'request_item_dvos.g.dart';
