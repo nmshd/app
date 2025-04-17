@@ -8,7 +8,6 @@ part 'boolean_form_field_settings.dart';
 part 'date_form_field_settings.dart';
 part 'rating_form_field_settings.dart';
 part 'selection_form_field_settings.dart';
-
 part 'form_field_settings.g.dart';
 
 sealed class FormFieldSettings extends Equatable {
