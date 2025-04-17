@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'form_field_settings_derivation.dart';
 
-part 'boolean_form_field_settings.g.dart';
+part 'date_form_field_settings.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class DateFormFieldSettings extends FormFieldSettingsDerivation {
