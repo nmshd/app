@@ -1178,5 +1178,35 @@
       "selectFile": "Select File",
       "noFileSelected": "No file selected"
     }
+  },
+  "requestRenderer": {
+    "description": {
+      "transferFileOwnership": "New document in your wallet"
+    },
+    "errors": {
+      "error": {
+        "consumption": {
+          "requests": {
+            "decide": {
+              "validation": {
+                "mustBeAcceptedItemNotAccepted": "Give your consent."
+              }
+            }
+          }
+        }
+      }
+    },
+    "manualDecisionRequired": {
+      "description": {
+        "attributes": "I confirm that this information should be shared.",
+        "fileTransfer": "I confirm that this file should be included in my personal documents."
+      }
+    }
+  },
+  "tags": {
+    "mimetype:application/pdf": "PDF Document",
+    "tags.urn:xbildung-de:unesco:codeliste:isced2011=3": "Secondary level II",
+    "tags.urn:xbildung-de:unesco:codeliste:isced2011=34": "General education",
+    "tags.urn:xbildung-de:unesco:codeliste:isced2011=344": "Grammar schools (upper school)"
   }
 }
