@@ -1,8 +1,10 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../utils/extensions.dart';
 import '../widgets/widgets.dart';
@@ -106,7 +108,7 @@ class _FileChooserState extends State<_FileChooser> {
                             final file = _existingFiles![index];
 
                             return ListTile(
-                              title: Text(file.title),
+                              title: TranslatedText(file.title),
                               subtitle: Text(file.filename),
                               onTap: () {
                                 if (widget.selectedFiles == null) return context.pop(file);

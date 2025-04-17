@@ -10,7 +10,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
-import '../widgets/change_profile_picture.dart';
 
 Future<void> showEditProfileModal({
   required void Function() onEditAccount,

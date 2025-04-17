@@ -1,9 +1,9 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../types/types.dart';
 import '../utils/utils.dart';
-import 'file_icon.dart';
 import 'highlight_text.dart';
 
 class FileItem extends StatelessWidget {

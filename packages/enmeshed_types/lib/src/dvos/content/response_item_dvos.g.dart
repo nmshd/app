@@ -228,6 +228,30 @@ Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeA
   'attribute': instance.attribute.toJson(),
 };
 
+FormFieldAcceptResponseItemDVO _$FormFieldAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => FormFieldAcceptResponseItemDVO(
+  id: json['id'] as String,
+  name: json['name'] as String,
+  description: json['description'] as String?,
+  image: json['image'] as String?,
+  type: json['type'] as String,
+  date: json['date'] as String?,
+  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  response: FormFieldAcceptResponseType.fromJson(json['response']),
+);
+
+Map<String, dynamic> _$FormFieldAcceptResponseItemDVOToJson(FormFieldAcceptResponseItemDVO instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  if (instance.description case final value?) 'description': value,
+  if (instance.image case final value?) 'image': value,
+  'type': instance.type,
+  if (instance.date case final value?) 'date': value,
+  if (instance.error?.toJson() case final value?) 'error': value,
+  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'response': instance.response.toJson(),
+};
+
 FreeTextAcceptResponseItemDVO _$FreeTextAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => FreeTextAcceptResponseItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
@@ -291,7 +315,10 @@ TransferFileOwnershipAcceptResponseItemDVO _$TransferFileOwnershipAcceptResponse
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       attributeId: json['attributeId'] as String,
-      attribute: LocalAttributeDVO.fromJson(json['attribute'] as Map<String, dynamic>),
+      repositoryAttribute:
+          json['repositoryAttribute'] == null ? null : LocalAttributeDVO.fromJson(json['repositoryAttribute'] as Map<String, dynamic>),
+      sharedAttributeId: json['sharedAttributeId'] as String,
+      sharedAttribute: LocalAttributeDVO.fromJson(json['sharedAttribute'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TransferFileOwnershipAcceptResponseItemDVOToJson(TransferFileOwnershipAcceptResponseItemDVO instance) => <String, dynamic>{
@@ -304,7 +331,9 @@ Map<String, dynamic> _$TransferFileOwnershipAcceptResponseItemDVOToJson(Transfer
   if (instance.error?.toJson() case final value?) 'error': value,
   if (instance.warning?.toJson() case final value?) 'warning': value,
   'attributeId': instance.attributeId,
-  'attribute': instance.attribute.toJson(),
+  if (instance.repositoryAttribute?.toJson() case final value?) 'repositoryAttribute': value,
+  'sharedAttributeId': instance.sharedAttributeId,
+  'sharedAttribute': instance.sharedAttribute.toJson(),
 };
 
 AttributeSuccessionAcceptResponseItemDVO _$AttributeSuccessionAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>

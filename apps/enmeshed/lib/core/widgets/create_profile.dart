@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
+import '../utils/profile_picture_utils.dart';
 import 'change_profile_picture.dart';
+import 'modal_loading_overlay.dart';
 
 class CreateProfile extends StatefulWidget {
   final void Function(LocalAccountDTO) onProfileCreated;

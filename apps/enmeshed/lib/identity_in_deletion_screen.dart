@@ -85,10 +85,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
                   Gaps.h16,
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
-                    child: FilledButton(
-                      onPressed: () => context.go('/onboarding?skipIntroduction=true'),
-                      child: Text(context.l10n.identityInDeletion_createNewProfile),
-                    ),
+                    child: FilledButton(onPressed: _onCreateProfilePressed, child: Text(context.l10n.identityInDeletion_createNewProfile)),
                   ),
                 ],
               ),
@@ -97,6 +94,10 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
         ),
       ),
     );
+  }
+
+  void _onCreateProfilePressed() {
+    showModalBottomSheet<void>(context: context, isScrollControlled: true, builder: (_) => CreateProfile(onProfileCreated: _onAccountSelected));
   }
 
   Future<void> _loadAccounts() async {

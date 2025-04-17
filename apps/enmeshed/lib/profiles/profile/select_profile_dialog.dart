@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '/core/core.dart';
-import 'widgets/profile_widgets.dart';
 
 class SelectProfileDialog extends StatefulWidget {
   final List<LocalAccountDTO> possibleAccounts;

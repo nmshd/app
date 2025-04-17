@@ -11,7 +11,6 @@ import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 import 'modals/modals.dart';
-import 'widgets/profile_widgets.dart';
 
 class ProfilesScreen extends StatefulWidget {
   final String? selectedAccountReference;

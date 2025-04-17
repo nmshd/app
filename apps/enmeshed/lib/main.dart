@@ -495,38 +495,41 @@ class EnmeshedApp extends StatelessWidget with WatchItMixin {
 
     final themeSetting = watchValue((ThemeModeModel x) => x.notifier);
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarDividerColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarContrastEnforced: false,
-        systemNavigationBarIconBrightness: Theme.of(context).brightness.opposite,
-        statusBarBrightness: Theme.of(context).brightness,
-        statusBarIconBrightness: Theme.of(context).brightness.opposite,
-      ),
-      child: Features(
-        child: MaterialApp.router(
-          routerConfig: _router,
-          debugShowCheckedModeBanner: false,
-          themeMode: themeSetting.themeMode,
-          theme: lightTheme,
-          darkTheme: themeSetting.amoled ? amoledTheme : darkTheme,
-          highContrastTheme: highContrastTheme,
-          highContrastDarkTheme: highContrastDarkTheme,
-          scaffoldMessengerKey: snackbarKey,
-          localizationsDelegates: [
-            CroppyLocalizations.delegate,
-            FlutterI18nDelegate(
-              translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
-              missingTranslationHandler: (key, locale) {
-                GetIt.I.get<Logger>().e('Missing Key: $key, locale: $locale');
-              },
+    return Features(
+      child: MaterialApp.router(
+        routerConfig: _router,
+        debugShowCheckedModeBanner: false,
+        themeMode: themeSetting.themeMode,
+        theme: lightTheme,
+        darkTheme: themeSetting.amoled ? amoledTheme : darkTheme,
+        highContrastTheme: highContrastTheme,
+        highContrastDarkTheme: highContrastDarkTheme,
+        scaffoldMessengerKey: snackbarKey,
+        localizationsDelegates: [
+          CroppyLocalizations.delegate,
+          FlutterI18nDelegate(
+            translationLoader: FileTranslationLoader(basePath: 'assets/i18n'),
+            missingTranslationHandler: (key, locale) {
+              GetIt.I.get<Logger>().e('Missing Key: $key, locale: $locale');
+            },
+          ),
+          ...AppLocalizations.localizationsDelegates,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        builder: (context, child) {
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              systemNavigationBarDividerColor: Colors.transparent,
+              systemNavigationBarColor: Colors.transparent,
+              systemNavigationBarContrastEnforced: false,
+              systemNavigationBarIconBrightness: Theme.of(context).brightness.opposite,
+              statusBarBrightness: Theme.of(context).brightness,
+              statusBarIconBrightness: Theme.of(context).brightness.opposite,
             ),
-            ...AppLocalizations.localizationsDelegates,
-          ],
-          supportedLocales: AppLocalizations.supportedLocales,
-        ),
+            child: child!,
+          );
+        },
       ),
     );
   }

@@ -18,10 +18,20 @@ class BottomSheetHeader extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 8, left: onBackPressed == null ? 24 : 8, right: 8, bottom: 8),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if (onBackPressed != null) IconButton(icon: const Icon(Icons.arrow_back), onPressed: onBackPressed),
-          Text(title, style: onBackPressed == null ? Theme.of(context).textTheme.titleLarge : Theme.of(context).textTheme.titleMedium),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 11),
+              child: Text(
+                title,
+                maxLines: 2,
+                style: onBackPressed == null ? Theme.of(context).textTheme.titleLarge : Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+          ),
           IconButton(icon: const Icon(Icons.close), onPressed: canClose ? context.pop : null),
         ],
       ),

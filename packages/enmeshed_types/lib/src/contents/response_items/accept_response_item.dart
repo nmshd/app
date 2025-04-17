@@ -4,6 +4,7 @@ import 'attribute_already_shared_accept_response_item.dart';
 import 'attribute_succession_accept_response_item.dart';
 import 'create_attribute_accept_response_item.dart';
 import 'delete_attribute_accept_response_item.dart';
+import 'form_field_accept_response_item.dart';
 import 'free_text_accept_response_item.dart';
 import 'propose_attribute_accept_response_item.dart';
 import 'read_attribute_accept_response_item.dart';
@@ -24,13 +25,14 @@ class AcceptResponseItem extends ResponseItemDerivation {
   factory AcceptResponseItem.fromJson(Map json) {
     final type = json['@type'];
 
-    if (type == 'AcceptResponseItem') return const AcceptResponseItem(atType: 'AcceptResponseItem');
+    if (type == 'AcceptResponseItem') return _$AcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
     return switch (type) {
       'AttributeAlreadySharedAcceptResponseItem' => AttributeAlreadySharedAcceptResponseItem.fromJson(json),
       'AttributeSuccessionAcceptResponseItem' => AttributeSuccessionAcceptResponseItem.fromJson(json),
       'CreateAttributeAcceptResponseItem' => CreateAttributeAcceptResponseItem.fromJson(json),
       'DeleteAttributeAcceptResponseItem' => DeleteAttributeAcceptResponseItem.fromJson(json),
+      'FormFieldAcceptResponseItem' => FormFieldAcceptResponseItem.fromJson(json),
       'FreeTextAcceptResponseItem' => FreeTextAcceptResponseItem.fromJson(json),
       'ProposeAttributeAcceptResponseItem' => ProposeAttributeAcceptResponseItem.fromJson(json),
       'ReadAttributeAcceptResponseItem' => ReadAttributeAcceptResponseItem.fromJson(json),

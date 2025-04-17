@@ -1,6 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
-import 'package:renderers/src/request/request_item_renderer/decidable/decidable_free_text_request_item.dart';
 
 import '../open_attribute_switcher_function.dart';
 import '../request_item_index.dart';
@@ -19,9 +18,11 @@ class RequestItemRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
-  final void Function(FileDVO) openFileDetails;
+  final void Function(FileDVO, [LocalAttributeDVO?]) openFileDetails;
 
   final Color? backgroundColor;
+
+  final RequestValidationResultDTO? validationResult;
 
   const RequestItemRenderer({
     super.key,
@@ -36,6 +37,7 @@ class RequestItemRenderer extends StatelessWidget {
     required this.chooseFile,
     required this.openFileDetails,
     this.backgroundColor,
+    this.validationResult,
   });
 
   @override
@@ -93,6 +95,15 @@ class RequestItemRenderer extends StatelessWidget {
           itemIndex: itemIndex,
           requestStatus: requestStatus,
         ),
+        final DecidableTransferFileOwnershipRequestItemDVO dvo => TransferFileOwnershipRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          file: dvo.file,
+          itemIndex: itemIndex,
+          expandFileReference: expandFileReference,
+          openFileDetails: openFileDetails,
+          validationResult: validationResult,
+        ),
         final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(item: dvo),
         final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(item: dvo),
         final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(
@@ -111,6 +122,13 @@ class RequestItemRenderer extends StatelessWidget {
         final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),
         final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(item: dvo),
         final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(item: dvo),
+        final TransferFileOwnershipRequestItemDVO dvo => TransferFileOwnershipRequestItemRenderer(
+          item: dvo,
+          file: dvo.file,
+          itemIndex: itemIndex,
+          expandFileReference: expandFileReference,
+          openFileDetails: openFileDetails,
+        ),
         _ => throw Exception("Invalid type '${item.type}'"),
       },
     );

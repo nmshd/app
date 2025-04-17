@@ -1076,6 +1076,9 @@
       "DecidableCreateRelationshipAttributeRequestItem": {
         "name": "Creates a new relationship attribute for you"
       },
+      "DecidableFormFieldRequestItem": {
+        "name": "Requests something of you via a form field"
+      },
       "DecidableFreeTextRequestItem": {
         "name": "Requests something of you"
       },
@@ -1090,6 +1093,9 @@
       },
       "DecidableShareAttributeRequestItem": {
         "name": "Shares an attribute to you"
+      },
+      "FormFieldRequestItem": {
+        "name": "Requested something of you via a form field"
       },
       "FreeTextRequestItem": {
         "name": "Requested something of you"
@@ -1125,6 +1131,9 @@
         "acceptedName": "The attribute has been created."
       },
       "error": "Errorneous item",
+      "FormFieldAcceptResponseItem": {
+        "acceptedName": "The form field has been filled out."
+      },
       "FreeTextAcceptResponseItem": {
         "acceptedName": "The free text has been accepted."
       },
@@ -1178,5 +1187,35 @@
       "selectFile": "Select File",
       "noFileSelected": "No file selected"
     }
+  },
+  "requestRenderer": {
+    "description": {
+      "transferFileOwnership": "New document in your wallet"
+    },
+    "errors": {
+      "error": {
+        "consumption": {
+          "requests": {
+            "decide": {
+              "validation": {
+                "mustBeAcceptedItemNotAccepted": "Give your consent."
+              }
+            }
+          }
+        }
+      }
+    },
+    "manualDecisionRequired": {
+      "description": {
+        "attributes": "I confirm that this information should be shared.",
+        "fileTransfer": "I confirm that this file should be included in my personal documents."
+      }
+    }
+  },
+  "tags": {
+    "mimetype:application/pdf": "PDF Document",
+    "tags.urn:xbildung-de:unesco:codeliste:isced2011=3": "Secondary level II",
+    "tags.urn:xbildung-de:unesco:codeliste:isced2011=34": "General education",
+    "tags.urn:xbildung-de:unesco:codeliste:isced2011=344": "Grammar schools (upper school)"
   }
 }

@@ -1,12 +1,12 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:renderers/src/request/request_item_renderer/decidable/checkbox_enabled_extension.dart';
 
 import '../../../abstract_url_launcher.dart';
 import '../../../custom_list_tile.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
+import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableConsentRequestItemRenderer extends StatefulWidget {

@@ -4,6 +4,7 @@ import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
 import '../data_view_object.dart';
+import '../../contents/response_items/form_field_accept_response_item.dart';
 
 part 'response_item_dvos.g.dart';
 
@@ -128,6 +129,7 @@ class AcceptResponseItemDVO extends ResponseItemDVODerivation {
     'CreateAttributeAcceptResponseItemDVO' => CreateAttributeAcceptResponseItemDVO.fromJson(json),
     'DeleteAttributeAcceptResponseItemDVO' => DeleteAttributeAcceptResponseItemDVO.fromJson(json),
     'ShareAttributeAcceptResponseItemDVO' => ShareAttributeAcceptResponseItemDVO.fromJson(json),
+    'FormFieldAcceptResponseItemDVO' => FormFieldAcceptResponseItemDVO.fromJson(json),
     'FreeTextAcceptResponseItemDVO' => FreeTextAcceptResponseItemDVO.fromJson(json),
     'RegisterAttributeListenerAcceptResponseItemDVO' => RegisterAttributeListenerAcceptResponseItemDVO.fromJson(json),
     'TransferFileOwnershipAcceptResponseItemDVO' => TransferFileOwnershipAcceptResponseItemDVO.fromJson(json),
@@ -256,6 +258,27 @@ class ShareAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
 }
 
 @JsonSerializable(includeIfNull: false)
+class FormFieldAcceptResponseItemDVO extends AcceptResponseItemDVO {
+  final FormFieldAcceptResponseType response;
+
+  const FormFieldAcceptResponseItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    required super.type,
+    super.date,
+    super.error,
+    super.warning,
+    required this.response,
+  });
+
+  factory FormFieldAcceptResponseItemDVO.fromJson(Map json) => _$FormFieldAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$FormFieldAcceptResponseItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
 class FreeTextAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String freeText;
 
@@ -303,7 +326,9 @@ class RegisterAttributeListenerAcceptResponseItemDVO extends AcceptResponseItemD
 @JsonSerializable(includeIfNull: false)
 class TransferFileOwnershipAcceptResponseItemDVO extends AcceptResponseItemDVO {
   final String attributeId;
-  final LocalAttributeDVO attribute;
+  final LocalAttributeDVO? repositoryAttribute;
+  final String sharedAttributeId;
+  final LocalAttributeDVO sharedAttribute;
 
   const TransferFileOwnershipAcceptResponseItemDVO({
     required super.id,
@@ -315,7 +340,9 @@ class TransferFileOwnershipAcceptResponseItemDVO extends AcceptResponseItemDVO {
     super.error,
     super.warning,
     required this.attributeId,
-    required this.attribute,
+    required this.repositoryAttribute,
+    required this.sharedAttributeId,
+    required this.sharedAttribute,
   });
 
   factory TransferFileOwnershipAcceptResponseItemDVO.fromJson(Map json) =>

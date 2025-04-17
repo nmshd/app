@@ -179,11 +179,11 @@ class _DeviceOnboardingQRCode extends StatelessWidget {
                     semanticsLabel: context.l10n.devices_code_qrSemanticsLabel,
                     eyeStyle: QrEyeStyle(
                       eyeShape: QrEyeShape.square,
-                      color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.scrim,
+                      color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.onSurface,
                     ),
                     dataModuleStyle: QrDataModuleStyle(
                       dataModuleShape: QrDataModuleShape.square,
-                      color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.scrim,
+                      color: isExpired ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2) : Theme.of(context).colorScheme.onSurface,
                     ),
                     size: 200,
                   ),
