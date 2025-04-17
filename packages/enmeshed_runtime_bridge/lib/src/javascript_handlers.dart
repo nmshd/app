@@ -334,7 +334,7 @@ extension LocalNotifications on InAppWebViewController {
 
     await flutterLocalNotificationsPlugin.initialize(
       InitializationSettings(
-        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+        android: AndroidInitializationSettings('@drawable/notification'),
         iOS: DarwinInitializationSettings(),
         macOS: DarwinInitializationSettings(),
       ),
