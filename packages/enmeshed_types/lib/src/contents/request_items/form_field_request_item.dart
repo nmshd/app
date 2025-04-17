@@ -7,14 +7,18 @@ part 'form_field_request_item.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class FormFieldRequestItem extends RequestItemDerivation {
+  @override
+  // ignore: overridden_fields
+  final String title;
+
   final FormFieldSettings settings;
 
   const FormFieldRequestItem({
-    required super.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,
     super.requireManualDecision,
+    required this.title,
     required this.settings,
   }) : super(atType: 'FormFieldRequestItem');
 
@@ -24,5 +28,5 @@ class FormFieldRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$FormFieldRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [...super.props];
+  List<Object?> get props => [...super.props, settings];
 }

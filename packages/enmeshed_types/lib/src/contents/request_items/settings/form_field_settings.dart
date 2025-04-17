@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
 
 part 'form_field_settings.g.dart';
+part 'selection_form_field_settings.dart';
+part 'string_form_field_settings.dart';
 
 sealed class FormFieldSettings extends Equatable {
   @JsonKey(name: '@type', includeToJson: true)
@@ -27,27 +28,6 @@ sealed class FormFieldSettings extends Equatable {
   }
 
   Map<String, dynamic> toJson();
-
-  @mustCallSuper
-  @override
-  List<Object?> get props => [];
-}
-
-@JsonSerializable(includeIfNull: false)
-class StringFormFieldSettings extends FormFieldSettings {
-  final bool? allowNewlines;
-  final int? min;
-  final int? max;
-
-  const StringFormFieldSettings({this.allowNewlines, this.min, this.max}) : super(atType: 'StringFormFieldSettings');
-
-  factory StringFormFieldSettings.fromJson(Map json) => _$StringFormFieldSettingsFromJson(Map<String, dynamic>.from(json));
-
-  @override
-  Map<String, dynamic> toJson() => _$StringFormFieldSettingsToJson(this);
-
-  @override
-  List<Object?> get props => [...super.props, allowNewlines, min, max];
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -64,7 +44,7 @@ class IntegerFormFieldSettings extends FormFieldSettings {
   Map<String, dynamic> toJson() => _$IntegerFormFieldSettingsToJson(this);
 
   @override
-  List<Object?> get props => [...super.props, unit, min, max];
+  List<Object?> get props => [unit, min, max];
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -81,7 +61,7 @@ class DoubleFormFieldSettings extends FormFieldSettings {
   Map<String, dynamic> toJson() => _$DoubleFormFieldSettingsToJson(this);
 
   @override
-  List<Object?> get props => [...super.props, unit, min, max];
+  List<Object?> get props => [unit, min, max];
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -94,7 +74,7 @@ class BooleanFormFieldSettings extends FormFieldSettings {
   Map<String, dynamic> toJson() => _$BooleanFormFieldSettingsToJson(this);
 
   @override
-  List<Object?> get props => [...super.props];
+  List<Object?> get props => [];
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -107,7 +87,7 @@ class DateFormFieldSettings extends FormFieldSettings {
   Map<String, dynamic> toJson() => _$DateFormFieldSettingsToJson(this);
 
   @override
-  List<Object?> get props => [...super.props];
+  List<Object?> get props => [];
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -122,21 +102,5 @@ class RatingFormFieldSettings extends FormFieldSettings {
   Map<String, dynamic> toJson() => _$RatingFormFieldSettingsToJson(this);
 
   @override
-  List<Object?> get props => [...super.props, maxRating];
-}
-
-@JsonSerializable(includeIfNull: false)
-class SelectionFormFieldSettings extends FormFieldSettings {
-  final List<String> options;
-  final bool? allowMultipleSelection;
-
-  const SelectionFormFieldSettings({required this.options, this.allowMultipleSelection}) : super(atType: 'SelectionFormFieldSettings');
-
-  factory SelectionFormFieldSettings.fromJson(Map json) => _$SelectionFormFieldSettingsFromJson(Map<String, dynamic>.from(json));
-
-  @override
-  Map<String, dynamic> toJson() => _$SelectionFormFieldSettingsToJson(this);
-
-  @override
-  List<Object?> get props => [...super.props, options, allowMultipleSelection];
+  List<Object?> get props => [maxRating];
 }

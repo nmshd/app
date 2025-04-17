@@ -6,16 +6,6 @@ part of 'form_field_settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-StringFormFieldSettings _$StringFormFieldSettingsFromJson(Map<String, dynamic> json) =>
-    StringFormFieldSettings(allowNewlines: json['allowNewlines'] as bool?, min: (json['min'] as num?)?.toInt(), max: (json['max'] as num?)?.toInt());
-
-Map<String, dynamic> _$StringFormFieldSettingsToJson(StringFormFieldSettings instance) => <String, dynamic>{
-  '@type': instance.atType,
-  if (instance.allowNewlines case final value?) 'allowNewlines': value,
-  if (instance.min case final value?) 'min': value,
-  if (instance.max case final value?) 'max': value,
-};
-
 IntegerFormFieldSettings _$IntegerFormFieldSettingsFromJson(Map<String, dynamic> json) =>
     IntegerFormFieldSettings(unit: json['unit'] as String?, min: (json['min'] as num?)?.toInt(), max: (json['max'] as num?)?.toInt());
 
@@ -61,4 +51,14 @@ Map<String, dynamic> _$SelectionFormFieldSettingsToJson(SelectionFormFieldSettin
   '@type': instance.atType,
   'options': instance.options,
   if (instance.allowMultipleSelection case final value?) 'allowMultipleSelection': value,
+};
+
+StringFormFieldSettings _$StringFormFieldSettingsFromJson(Map<String, dynamic> json) =>
+    StringFormFieldSettings(allowNewlines: json['allowNewlines'] as bool?, min: (json['min'] as num?)?.toInt(), max: (json['max'] as num?)?.toInt());
+
+Map<String, dynamic> _$StringFormFieldSettingsToJson(StringFormFieldSettings instance) => <String, dynamic>{
+  '@type': instance.atType,
+  if (instance.allowNewlines case final value?) 'allowNewlines': value,
+  if (instance.min case final value?) 'min': value,
+  if (instance.max case final value?) 'max': value,
 };
