@@ -1076,6 +1076,9 @@
       "DecidableCreateRelationshipAttributeRequestItem": {
         "name": "Creates a new relationship attribute for you"
       },
+      "DecidableFormFieldRequestItem": {
+        "name": "Requests something of you via a form field"
+      },
       "DecidableFreeTextRequestItem": {
         "name": "Requests something of you"
       },
@@ -1090,6 +1093,9 @@
       },
       "DecidableShareAttributeRequestItem": {
         "name": "Shares an attribute to you"
+      },
+      "FormFieldRequestItem": {
+        "name": "Requested something of you via a form field"
       },
       "FreeTextRequestItem": {
         "name": "Requested something of you"
@@ -1125,6 +1131,9 @@
         "acceptedName": "The attribute has been created."
       },
       "error": "Errorneous item",
+      "FormFieldAcceptResponseItem": {
+        "acceptedName": "The form field has been filled out."
+      },
       "FreeTextAcceptResponseItem": {
         "acceptedName": "The free text has been accepted."
       },
