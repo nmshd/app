@@ -4,7 +4,6 @@ import 'package:meta/meta.dart';
 
 part 'form_field_settings.g.dart';
 
-@JsonSerializable(includeIfNull: false)
 sealed class FormFieldSettings extends Equatable {
   @JsonKey(name: '@type', includeToJson: true)
   final String atType;

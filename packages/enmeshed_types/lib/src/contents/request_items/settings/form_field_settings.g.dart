@@ -6,10 +6,6 @@ part of 'form_field_settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-FormFieldSettings _$FormFieldSettingsFromJson(Map<String, dynamic> json) => FormFieldSettings(atType: json['@type'] as String);
-
-Map<String, dynamic> _$FormFieldSettingsToJson(FormFieldSettings instance) => <String, dynamic>{'@type': instance.atType};
-
 StringFormFieldSettings _$StringFormFieldSettingsFromJson(Map<String, dynamic> json) =>
     StringFormFieldSettings(allowNewlines: json['allowNewlines'] as bool?, min: (json['min'] as num?)?.toInt(), max: (json['max'] as num?)?.toInt());
 

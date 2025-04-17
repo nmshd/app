@@ -25,7 +25,7 @@ class AcceptResponseItem extends ResponseItemDerivation {
   factory AcceptResponseItem.fromJson(Map json) {
     final type = json['@type'];
 
-    if (type == 'AcceptResponseItem') return const AcceptResponseItem(atType: 'AcceptResponseItem');
+    if (type == 'AcceptResponseItem') return _$AcceptResponseItemFromJson(Map<String, dynamic>.from(json));
 
     return switch (type) {
       'AttributeAlreadySharedAcceptResponseItem' => AttributeAlreadySharedAcceptResponseItem.fromJson(json),
