@@ -7,7 +7,7 @@ import '../transport/file_dvo.dart';
 import 'attribute_dvos.dart';
 import 'attribute_query_dvos.dart';
 import 'response_item_dvos.dart';
-import '../../contents/request_items/settings/form_field_settings_derivation.dart';
+import '../../contents/request_items/settings/form_field_settings.dart';
 
 part '../consumption/decidable_request_item_dvos.dart';
 part 'request_item_dvos.g.dart';
@@ -277,7 +277,7 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
 @JsonSerializable(includeIfNull: false)
 class FormFieldRequestItemDVO extends RequestItemDVODerivation {
   final String title;
-  final FormFieldSettingsDerivation settings;
+  final FormFieldSettings settings;
 
   const FormFieldRequestItemDVO({
     required super.id,

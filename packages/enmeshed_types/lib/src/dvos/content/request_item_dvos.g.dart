@@ -273,7 +273,7 @@ FormFieldRequestItemDVO _$FormFieldRequestItemDVOFromJson(Map<String, dynamic> j
   response: json['response'] == null ? null : ResponseItemDVO.fromJson(json['response'] as Map<String, dynamic>),
   requireManualDecision: json['requireManualDecision'] as bool?,
   title: json['title'] as String,
-  settings: FormFieldSettingsDerivation.fromJson(json['settings'] as Map<String, dynamic>),
+  settings: FormFieldSettings.fromJson(json['settings'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$FormFieldRequestItemDVOToJson(FormFieldRequestItemDVO instance) => <String, dynamic>{
@@ -605,7 +605,7 @@ DecidableFormFieldRequestItemDVO _$DecidableFormFieldRequestItemDVOFromJson(Map<
   mustBeAccepted: json['mustBeAccepted'] as bool,
   requireManualDecision: json['requireManualDecision'] as bool?,
   title: json['title'] as String,
-  settings: FormFieldSettingsDerivation.fromJson(json['settings'] as Map<String, dynamic>),
+  settings: FormFieldSettings.fromJson(json['settings'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$DecidableFormFieldRequestItemDVOToJson(DecidableFormFieldRequestItemDVO instance) => <String, dynamic>{

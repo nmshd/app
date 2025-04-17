@@ -204,7 +204,7 @@ class DecidableConsentRequestItemDVO extends DecidableRequestItemDVODerivation {
 @JsonSerializable(includeIfNull: false)
 class DecidableFormFieldRequestItemDVO extends DecidableRequestItemDVODerivation {
   final String title;
-  final FormFieldSettingsDerivation settings;
+  final FormFieldSettings settings;
 
   const DecidableFormFieldRequestItemDVO({
     required super.id,
