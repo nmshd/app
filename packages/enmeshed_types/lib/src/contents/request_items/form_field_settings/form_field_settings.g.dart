@@ -6,12 +6,20 @@ part of 'form_field_settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-StringFormFieldSettings _$StringFormFieldSettingsFromJson(Map<String, dynamic> json) =>
-    StringFormFieldSettings(allowNewlines: json['allowNewlines'] as bool?, min: (json['min'] as num?)?.toInt(), max: (json['max'] as num?)?.toInt());
+BooleanFormFieldSettings _$BooleanFormFieldSettingsFromJson(Map<String, dynamic> json) => BooleanFormFieldSettings();
 
-Map<String, dynamic> _$StringFormFieldSettingsToJson(StringFormFieldSettings instance) => <String, dynamic>{
+Map<String, dynamic> _$BooleanFormFieldSettingsToJson(BooleanFormFieldSettings instance) => <String, dynamic>{'@type': instance.atType};
+
+DateFormFieldSettings _$DateFormFieldSettingsFromJson(Map<String, dynamic> json) => DateFormFieldSettings();
+
+Map<String, dynamic> _$DateFormFieldSettingsToJson(DateFormFieldSettings instance) => <String, dynamic>{'@type': instance.atType};
+
+DoubleFormFieldSettings _$DoubleFormFieldSettingsFromJson(Map<String, dynamic> json) =>
+    DoubleFormFieldSettings(unit: json['unit'] as String?, min: (json['min'] as num?)?.toDouble(), max: (json['max'] as num?)?.toDouble());
+
+Map<String, dynamic> _$DoubleFormFieldSettingsToJson(DoubleFormFieldSettings instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.allowNewlines case final value?) 'allowNewlines': value,
+  if (instance.unit case final value?) 'unit': value,
   if (instance.min case final value?) 'min': value,
   if (instance.max case final value?) 'max': value,
 };
@@ -25,24 +33,6 @@ Map<String, dynamic> _$IntegerFormFieldSettingsToJson(IntegerFormFieldSettings i
   if (instance.min case final value?) 'min': value,
   if (instance.max case final value?) 'max': value,
 };
-
-DoubleFormFieldSettings _$DoubleFormFieldSettingsFromJson(Map<String, dynamic> json) =>
-    DoubleFormFieldSettings(unit: json['unit'] as String?, min: (json['min'] as num?)?.toDouble(), max: (json['max'] as num?)?.toDouble());
-
-Map<String, dynamic> _$DoubleFormFieldSettingsToJson(DoubleFormFieldSettings instance) => <String, dynamic>{
-  '@type': instance.atType,
-  if (instance.unit case final value?) 'unit': value,
-  if (instance.min case final value?) 'min': value,
-  if (instance.max case final value?) 'max': value,
-};
-
-BooleanFormFieldSettings _$BooleanFormFieldSettingsFromJson(Map<String, dynamic> json) => BooleanFormFieldSettings();
-
-Map<String, dynamic> _$BooleanFormFieldSettingsToJson(BooleanFormFieldSettings instance) => <String, dynamic>{'@type': instance.atType};
-
-DateFormFieldSettings _$DateFormFieldSettingsFromJson(Map<String, dynamic> json) => DateFormFieldSettings();
-
-Map<String, dynamic> _$DateFormFieldSettingsToJson(DateFormFieldSettings instance) => <String, dynamic>{'@type': instance.atType};
 
 RatingFormFieldSettings _$RatingFormFieldSettingsFromJson(Map<String, dynamic> json) =>
     RatingFormFieldSettings(maxRating: (json['maxRating'] as num).toInt());
@@ -61,4 +51,14 @@ Map<String, dynamic> _$SelectionFormFieldSettingsToJson(SelectionFormFieldSettin
   '@type': instance.atType,
   'options': instance.options,
   if (instance.allowMultipleSelection case final value?) 'allowMultipleSelection': value,
+};
+
+StringFormFieldSettings _$StringFormFieldSettingsFromJson(Map<String, dynamic> json) =>
+    StringFormFieldSettings(allowNewlines: json['allowNewlines'] as bool?, min: (json['min'] as num?)?.toInt(), max: (json['max'] as num?)?.toInt());
+
+Map<String, dynamic> _$StringFormFieldSettingsToJson(StringFormFieldSettings instance) => <String, dynamic>{
+  '@type': instance.atType,
+  if (instance.allowNewlines case final value?) 'allowNewlines': value,
+  if (instance.min case final value?) 'min': value,
+  if (instance.max case final value?) 'max': value,
 };
