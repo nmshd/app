@@ -1187,5 +1187,35 @@
       "selectFile": "Datei auswählen",
       "noFileSelected": "Keine Datei ausgewählt"
     }
+  },
+  "requestRenderer": {
+    "description": {
+      "transferFileOwnership": "Neues Dokument in Ihrer Wallet"
+    },
+    "errors": {
+      "error": {
+        "consumption": {
+          "requests": {
+            "decide": {
+              "validation": {
+                "mustBeAcceptedItemNotAccepted": "Geben Sie Ihre Zustimmung."
+              }
+            }
+          }
+        }
+      }
+    },
+    "manualDecisionRequired": {
+      "description": {
+        "attributes": "Ich bestätige, dass diese Information geteilt werden soll.",
+        "fileTransfer": "Ich bestätige, dass diese Datei in meine persönlichen Dokumente übernommen werden soll."
+      }
+    }
+  },
+  "tags": {
+    "mimetype:application/pdf": "PDF-Dokument",
+    "urn:xbildung-de:unesco:codeliste:isced2011=3": "Sekundarbereich II",
+    "urn:xbildung-de:unesco:codeliste:isced2011=34": "Allgemeinbildend",
+    "urn:xbildung-de:unesco:codeliste:isced2011=344": "Gymnasien (Oberstufe)"
   }
 }

@@ -13,7 +13,7 @@ class ResponseItemGroupRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
-  final void Function(FileDVO) openFileDetails;
+  final void Function(FileDVO, [LocalAttributeDVO?]) openFileDetails;
 
   const ResponseItemGroupRenderer({
     super.key,
