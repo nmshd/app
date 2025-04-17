@@ -259,7 +259,7 @@ class ShareAttributeAcceptResponseItemDVO extends AcceptResponseItemDVO {
 
 @JsonSerializable(includeIfNull: false)
 class FormFieldAcceptResponseItemDVO extends AcceptResponseItemDVO {
-  final FormFieldAcceptResponseTypes response;
+  final FormFieldAcceptResponseType response;
 
   const FormFieldAcceptResponseItemDVO({
     required super.id,

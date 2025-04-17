@@ -228,6 +228,30 @@ Map<String, dynamic> _$ShareAttributeAcceptResponseItemDVOToJson(ShareAttributeA
   'attribute': instance.attribute.toJson(),
 };
 
+FormFieldAcceptResponseItemDVO _$FormFieldAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => FormFieldAcceptResponseItemDVO(
+  id: json['id'] as String,
+  name: json['name'] as String,
+  description: json['description'] as String?,
+  image: json['image'] as String?,
+  type: json['type'] as String,
+  date: json['date'] as String?,
+  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+  response: FormFieldAcceptResponseType.fromJson(json['response'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$FormFieldAcceptResponseItemDVOToJson(FormFieldAcceptResponseItemDVO instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  if (instance.description case final value?) 'description': value,
+  if (instance.image case final value?) 'image': value,
+  'type': instance.type,
+  if (instance.date case final value?) 'date': value,
+  if (instance.error?.toJson() case final value?) 'error': value,
+  if (instance.warning?.toJson() case final value?) 'warning': value,
+  'response': instance.response.toJson(),
+};
+
 FreeTextAcceptResponseItemDVO _$FreeTextAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => FreeTextAcceptResponseItemDVO(
   id: json['id'] as String,
   name: json['name'] as String,
