@@ -762,6 +762,7 @@
   "mailbox_selectAttachments_description": "Select one or more attachments or upload new files.",
   "mailbox_choose_contact": "Select recipient",
   "mailbox_choose_contact_description": "Select a contact to send the message to.",
+  "mailbox_choose_contact_sendMailDenied": "This contact cannot receive messages from you",
   "mailbox_filter_actionRequired": "Open tasks",
   "mailbox_filter_header": "Filter messages",
   "mailbox_filter_unread": "New",

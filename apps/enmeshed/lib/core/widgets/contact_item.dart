@@ -10,6 +10,7 @@ import 'highlight_text.dart';
 class ContactItem extends StatelessWidget {
   final IdentityDVO contact;
   final void Function() onTap;
+  final bool enabled;
   final Widget? trailing;
   final Widget? subtitle;
   final String? query;
@@ -19,6 +20,7 @@ class ContactItem extends StatelessWidget {
   const ContactItem({
     required this.contact,
     required this.onTap,
+    this.enabled = true,
     this.trailing,
     this.subtitle,
     this.query,
@@ -35,11 +37,13 @@ class ContactItem extends StatelessWidget {
             : null);
 
     return ListTile(
+      enabled: enabled,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       leading: ContactCircleAvatar(
         contact: contact,
         radius: iconSize / 2,
         borderColor: _getCircularAvatarBorderColor(context: context, contact: contact, openContactRequest: openContactRequest),
+        disabled: !enabled,
       ),
       title: HighlightText(query: query, text: contact.isUnknown ? context.l10n.contacts_unknown : contact.name, maxLines: 2),
       subtitle: subtitle ?? contactStatusWidget,

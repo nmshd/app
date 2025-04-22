@@ -53,7 +53,7 @@ class _ContactDetailIconBarState extends State<ContactDetailIconBar> {
               },
             ),
           IconButton(onPressed: _renameContact, icon: const Icon(Icons.edit_outlined), tooltip: context.l10n.contactDetail_editContact),
-          if (widget.contact.relationship?.status == RelationshipStatus.Active)
+          if (widget.contact.relationship?.status == RelationshipStatus.Active && widget.contact.relationship?.sendMailDisabled == false)
             IconButton(
               onPressed: () => context.push('/account/${widget.accountId}/mailbox/send', extra: widget.contact),
               icon: const Icon(Icons.mail_outlined),
