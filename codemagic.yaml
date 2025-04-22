@@ -64,12 +64,6 @@ workflows:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: internal
 
-      scripts:
-        - name: Custom MS-Teams integration publish
-          script: |
-            npm install -g @js-soft/codemagic-tools@1.0.2
-            jscm teams-production --platform "android" --projectName "enmeshed"
-
   ios-release:
     name: iOS Release
     max_build_duration: 40
