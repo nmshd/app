@@ -73,7 +73,7 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
                           ),
                           activeColor: context.customColors.onSuccess,
                           value: _isChecked,
-                          activeTrackColor: _isSwitchDisabled ? context.customColors.success.withAlpha(84) : context.customColors.success,
+                          activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
                           onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
                         ),
                         Expanded(
