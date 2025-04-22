@@ -119,30 +119,47 @@ class _CustomToggle extends StatefulWidget {
 class _CustomToggleState extends State<_CustomToggle> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => widget.onChanged(!widget.value),
-      child: Container(
-        height: 55,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: Theme.of(context).colorScheme.surface, border: Border()),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            AnimatedAlign(
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeInOutCubic,
-              alignment: widget.value ? Alignment.centerRight : Alignment.centerLeft,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 400),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: GestureDetector(
+        onTap: () => widget.onUpdateToggle(!widget.value),
+        child: Container(
+          height: 64,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: widget.isDisabled ? Theme.of(context).colorScheme.surface.withAlpha(31) : Theme.of(context).colorScheme.surface,
+            border: Border(),
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Text(widget.text, style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
+              AnimatedAlign(
+                duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOutCubic,
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(color: widget.value ? Colors.green : Colors.blue, shape: BoxShape.circle),
-                child: Icon(Icons.arrow_back_ios_new_outlined),
+                alignment: widget.value ? Alignment.centerRight : Alignment.centerLeft,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOutCubic,
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: widget.value ? context.customColors.success : Theme.of(context).colorScheme.primary,
+                    shape: BoxShape.circle,
+                  ),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 400),
+                    transitionBuilder: (child, animation) {
+                      return FadeTransition(opacity: animation, child: child);
+                    },
+                    child:
+                        widget.value
+                            ? Icon(Icons.check, key: ValueKey('check'), color: Theme.of(context).colorScheme.onPrimary)
+                            : Icon(Icons.arrow_forward_ios, key: ValueKey('arrow'), color: Theme.of(context).colorScheme.onPrimary),
+                  ),
+                ),
               ),
-            ),
-            Text(widget.text, style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
-          ],
+            ],
+          ),
         ),
       ),
     );
