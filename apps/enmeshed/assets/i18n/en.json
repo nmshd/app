@@ -1056,7 +1056,7 @@
         "name": "Requested your authentication"
       },
       "ConsentRequestItem": {
-        "name": "Requested your consent"
+        "name": "Declaration of consent"
       },
       "CreateIdentityAttributeRequestItem": {
         "name": "Created a new attribute for you"
@@ -1068,7 +1068,7 @@
         "name": "Requests you authentication"
       },
       "DecidableConsentRequestItem": {
-        "name": "Requests your consent"
+        "name": "Declaration of consent"
       },
       "DecidableCreateIdentityAttributeRequestItem": {
         "name": "Creates a new attribute for you"

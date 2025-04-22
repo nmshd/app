@@ -1,6 +1,7 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:get_it/get_it.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 
@@ -40,27 +41,31 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
 
   @override
   Widget build(BuildContext context) {
+    final translatedTitle = widget.item.name.startsWith('i18n://') ? FlutterI18n.translate(context, widget.item.name.substring(7)) : widget.item.name;
+    final title = widget.item.mustBeAccepted && widget.item.response == null ? '$translatedTitle*' : translatedTitle;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
+        spacing: 8,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TranslatedText(widget.item.name, style: Theme.of(context).textTheme.titleMedium),
+          Text(title, style: Theme.of(context).textTheme.titleMedium),
           if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Material(
-              clipBehavior: Clip.hardEdge,
-              borderRadius: BorderRadius.circular(4),
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          Material(
+            clipBehavior: Clip.hardEdge,
+            borderRadius: BorderRadius.circular(4),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            child: InkWell(
+              onTap: _isSwitchDisabled ? null : () => onUpdateCheckbox(!_isChecked),
               child: Padding(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       spacing: 8,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Switch(
                           thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
@@ -120,8 +125,7 @@ class _ShowFullConsentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // TODO: open full screen dialog
-      onTap: () {},
+      onTap: () => showDialog(context: context, builder: (context) => const _FullConsentDialog()),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -132,6 +136,24 @@ class _ShowFullConsentButton extends StatelessWidget {
           Gaps.w8,
           Icon(Icons.article_outlined, color: Theme.of(context).colorScheme.primary, size: 14),
         ],
+      ),
+    );
+  }
+}
+
+class _FullConsentDialog extends StatelessWidget {
+  const _FullConsentDialog();
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog.fullscreen(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      child: Scaffold(
+        appBar: AppBar(
+          title: TranslatedText('i18n://requestRenderer.consent.fullConsent'),
+          actions: [IconButton(icon: const Icon(Icons.close), onPressed: () => Navigator.of(context).pop())],
+        ),
+        body: const Center(child: Text('Full consent details go here.')),
       ),
     );
   }

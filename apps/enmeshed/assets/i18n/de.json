@@ -1056,7 +1056,7 @@
         "name": "Hat eine Bestätigung angefordert"
       },
       "ConsentRequestItem": {
-        "name": "Hat eine Zustimmung angefordert"
+        "name": "Einverständniserklärung"
       },
       "CreateIdentityAttributeRequestItem": {
         "name": "Erstellte ein neues Identitätsattribut"
@@ -1068,7 +1068,7 @@
         "name": "Fragt eine Bestätigung an"
       },
       "DecidableConsentRequestItem": {
-        "name": "Fordert eine Zustimmung an"
+        "name": "Einverständniserklärung"
       },
       "DecidableCreateIdentityAttributeRequestItem": {
         "name": "Erstellt ein neues Identitätsattribut"
