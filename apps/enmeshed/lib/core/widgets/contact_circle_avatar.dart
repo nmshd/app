@@ -9,13 +9,17 @@ class ContactCircleAvatar extends StatelessWidget {
   final IdentityDVO contact;
   final double radius;
   final Color? borderColor;
+  final bool disabled;
 
-  const ContactCircleAvatar({required this.contact, required this.radius, this.borderColor, super.key});
+  const ContactCircleAvatar({required this.contact, required this.radius, this.borderColor, this.disabled = false, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final color = context.customColors.decorativeContainer;
-    final textStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: radius * 0.75, color: context.customColors.onDecorativeContainer);
+    final color = context.customColors.decorativeContainer.withValues(alpha: disabled ? 0.5 : null);
+    final textStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
+      fontSize: radius * 0.75,
+      color: context.customColors.onDecorativeContainer.withValues(alpha: disabled ? 0.5 : null),
+    );
 
     final baseAvatar =
         contact.isUnknown

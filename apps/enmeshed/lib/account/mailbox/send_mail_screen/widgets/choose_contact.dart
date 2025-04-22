@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -69,14 +70,23 @@ class _ContactsSheet extends StatelessWidget {
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
+              padding: EdgeInsets.only(top: 8, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
               child: Scrollbar(
                 thumbVisibility: true,
                 child: SingleChildScrollView(
                   child: Column(
                     children: relationships
-                        .map((contact) => ContactItem(contact: contact, onTap: () => context.pop(contact)))
-                        .separated(() => const Divider(indent: 16)),
+                        .map((contact) {
+                          final enabled = contact.relationship?.sendMailDisabled == false;
+
+                          return ContactItem(
+                            enabled: enabled,
+                            contact: contact,
+                            onTap: () => context.pop(contact),
+                            subtitle: enabled ? null : Text(context.l10n.mailbox_choose_contact_sendMailDenied),
+                          );
+                        })
+                        .separated(() => const Divider(indent: 16, height: 1)),
                   ),
                 ),
               ),
