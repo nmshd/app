@@ -62,19 +62,9 @@ class _ContactsSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          BottomSheetHeader(title: context.l10n.mailbox_choose_contact),
           Padding(
-            padding: const EdgeInsets.only(left: 24, right: 8, top: 8, bottom: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(context.l10n.mailbox_choose_contact, style: Theme.of(context).textTheme.titleLarge),
-                const Spacer(),
-                IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: Text(context.l10n.mailbox_choose_contact_description, style: Theme.of(context).textTheme.bodyMedium),
           ),
           Flexible(
