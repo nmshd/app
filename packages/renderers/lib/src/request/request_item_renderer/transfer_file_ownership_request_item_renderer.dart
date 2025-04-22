@@ -6,9 +6,10 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import './decidable/checkbox_enabled_extension.dart';
-import './decidable/widgets/handle_checkbox_change.dart';
-import './decidable/widgets/manual_decision_required.dart';
+import 'decidable/checkbox_enabled_extension.dart';
+import 'decidable/widgets/handle_checkbox_change.dart';
+import 'decidable/widgets/manual_decision_required.dart';
+import 'decidable/widgets/validation_error_box.dart';
 
 class TransferFileOwnershipRequestItemRenderer extends StatefulWidget {
   final RequestItemDVODerivation item;
@@ -117,26 +118,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
                 onUpdateManualDecision: widget.isDecidable ? _onUpdateDecision : null,
                 i18nKey: 'i18n://requestRenderer.manualDecisionRequired.description.fileTransfer',
               ),
-            if (!(widget.validationResult?.isSuccess ?? true))
-              Material(
-                borderRadius: BorderRadius.circular(4),
-                color: Theme.of(context).colorScheme.error,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    spacing: 4,
-                    children: [
-                      Icon(Icons.error, color: Theme.of(context).colorScheme.onError),
-                      Expanded(
-                        child: TranslatedText(
-                          'i18n://requestRenderer.errors.${widget.validationResult!.code!}',
-                          style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onError),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            if (!(widget.validationResult?.isSuccess ?? true)) ValidationErrorBox(validationResult: widget.validationResult!),
           ],
         ),
       ),
