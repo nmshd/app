@@ -119,7 +119,12 @@ class RequestItemRenderer extends StatelessWidget {
           expandFileReference: expandFileReference,
           openFileDetails: openFileDetails,
         ),
-        final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(item: dvo),
+        final AuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          validationResult: validationResult,
+        ),
         final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),
         final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(item: dvo),
         final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(item: dvo),

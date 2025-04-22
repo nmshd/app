@@ -7,12 +7,16 @@ import '../../request_renderer_controller.dart';
 import 'checkbox_enabled_extension.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
-  final DecidableAuthenticationRequestItemDVO item;
+  final RequestItemDVODerivation item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final RequestValidationResultDTO? validationResult;
 
-  const DecidableAuthenticationRequestItemRenderer({super.key, required this.item, required this.itemIndex, this.controller, this.validationResult});
+  const DecidableAuthenticationRequestItemRenderer({super.key, required this.item, required this.itemIndex, this.controller, this.validationResult})
+    : assert(
+        item is AuthenticationRequestItemDVO || item is DecidableAuthenticationRequestItemDVO,
+        'item must be of type AuthenticationRequestItemDVO or DecidableAuthenticationRequestItemDVO',
+      );
 
   @override
   State<DecidableAuthenticationRequestItemRenderer> createState() => _DecidableAuthenticationRequestItemRendererState();
@@ -20,12 +24,18 @@ class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
 
 class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAuthenticationRequestItemRenderer> {
   late bool isChecked;
+  bool isDecidable = true;
 
   @override
   void initState() {
     super.initState();
 
-    isChecked = widget.item.initiallyChecked;
+    if (widget.item.response != null) {
+      isChecked = widget.item.response is AcceptResponseItemDVO;
+      isDecidable = false;
+    } else {
+      isChecked = widget.item.initiallyChecked;
+    }
 
     if (isChecked) widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
@@ -63,7 +73,7 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
           ],
         ),
 
-        if (widget.validationResult != null && !widget.validationResult!.isSuccess)
+        if (isDecidable && widget.validationResult != null && !widget.validationResult!.isSuccess)
           Row(
             children: [
               Expanded(
@@ -109,8 +119,9 @@ class _CustomToggle extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onUpdateToggle;
   final String text;
+  final bool isDecidable;
 
-  const _CustomToggle({required this.value, required this.onUpdateToggle, required this.text});
+  const _CustomToggle({required this.value, required this.onUpdateToggle, required this.text, required this.isDecidable});
 
   @override
   State<_CustomToggle> createState() => _CustomToggleState();
@@ -119,42 +130,45 @@ class _CustomToggle extends StatefulWidget {
 class _CustomToggleState extends State<_CustomToggle> {
   @override
   Widget build(BuildContext context) {
+    final circleColor = widget.value ? context.customColors.success : Theme.of(context).colorScheme.primary;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: GestureDetector(
-        onTap: () => widget.onUpdateToggle(!widget.value),
+        onTap: widget.isDecidable ? () => widget.onUpdateToggle(!widget.value) : null,
         child: Container(
           height: 64,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: widget.isDisabled ? Theme.of(context).colorScheme.surface.withAlpha(31) : Theme.of(context).colorScheme.surface,
-            border: Border(),
-          ),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: Theme.of(context).colorScheme.surface, border: Border()),
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Text(widget.text, style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
-              AnimatedAlign(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOutCubic,
-                alignment: widget.value ? Alignment.centerRight : Alignment.centerLeft,
-                child: AnimatedContainer(
+              Text(
+                widget.text,
+                style:
+                    widget.isDecidable
+                        ? Theme.of(context).textTheme.headlineSmall
+                        : Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.onSurface.withAlpha(96)),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: AnimatedAlign(
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOutCubic,
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: widget.value ? context.customColors.success : Theme.of(context).colorScheme.primary,
-                    shape: BoxShape.circle,
-                  ),
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 400),
-                    transitionBuilder: (child, animation) {
-                      return FadeTransition(opacity: animation, child: child);
-                    },
-                    child:
-                        widget.value
-                            ? Icon(Icons.check, key: ValueKey('check'), color: Theme.of(context).colorScheme.onPrimary)
-                            : Icon(Icons.arrow_forward_ios, key: ValueKey('arrow'), color: Theme.of(context).colorScheme.onPrimary),
+                  alignment: widget.value ? Alignment.centerRight : Alignment.centerLeft,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOutCubic,
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(color: widget.isDecidable ? circleColor : circleColor.withAlpha(41), shape: BoxShape.circle),
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 400),
+                      transitionBuilder: (child, animation) => FadeTransition(opacity: animation, child: child),
+                      child:
+                          widget.value
+                              ? Icon(Icons.check, key: ValueKey('check'), color: context.customColors.onSuccess)
+                              : Icon(Icons.arrow_forward_ios, key: ValueKey('arrow'), color: Theme.of(context).colorScheme.onPrimary),
+                    ),
                   ),
                 ),
               ),
