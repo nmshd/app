@@ -188,10 +188,3 @@ workflows:
         notify:
           success: true
           failure: true
-
-      # TODO: this script does not support setting windows as a platform yet
-      # scripts:
-      #   - name: Custom MS-Teams integration publish
-      #     script: |
-      #       npm install -g @js-soft/codemagic-tools@1.0.2
-      #       jscm teams-production --platform "windows" --projectName "enmeshed"
