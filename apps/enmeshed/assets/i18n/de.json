@@ -1220,6 +1220,6 @@
     "urn:xbildung-de:destatis:codeliste:artdesschulabschlusses=http://xbildung.de/def/destatis/1.0/code/artdesschulabschlusses/allgemeine_hochschulreife": "Allgemeine Hochschulreife",
     "urn:xschule-digital:xschule:codeliste:zeugnisart=http://xschule.digital/def/xschule/0.5/code/zeugnisart/abschlusszeugnis": "Abschlusszeugnis",
     "urn:xbildung-de:kmk:codeliste:artderschule=https://www.xbildung.de/def/kmk/kds/4.0/code/artderschule/100": "Gymnasium",
-    "urn:de:bund:destatis:bevoelkerungsstatistik:schluessel:bundesland=05": "Nordrein-Westfalen"
+    "urn:de:bund:destatis:bevoelkerungsstatistik:schluessel:bundesland=05": "Nordrhein-Westfalen"
   }
 }
