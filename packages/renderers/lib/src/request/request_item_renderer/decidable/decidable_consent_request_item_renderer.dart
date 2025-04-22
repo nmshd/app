@@ -9,13 +9,16 @@ import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
+import 'widgets/validation_error_box.dart';
 
 class DecidableConsentRequestItemRenderer extends StatefulWidget {
   final DecidableConsentRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
 
-  const DecidableConsentRequestItemRenderer({super.key, required this.item, this.controller, required this.itemIndex});
+  final RequestValidationResultDTO? validationResult;
+
+  const DecidableConsentRequestItemRenderer({super.key, required this.item, this.controller, required this.itemIndex, this.validationResult});
 
   @override
   State<DecidableConsentRequestItemRenderer> createState() => _DecidableConsentRequestItemRendererState();
@@ -56,6 +59,7 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      spacing: 8,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Switch(
@@ -67,7 +71,6 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
                           activeTrackColor: _isSwitchDisabled ? context.customColors.success.withAlpha(84) : context.customColors.success,
                           onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
                         ),
-                        Gaps.w8,
                         Expanded(
                           child: Column(
                             spacing: 8,
@@ -75,7 +78,7 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
                             children: [
                               Text(widget.item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
                               if (_isTextOverflowing()) _ShowFullConsentButton(),
-                              if (widget.item.link != null) _LinkButton(link: widget.item.link!, linkDisplayText: widget.item.linkDisplayText),
+                              if (widget.item.link != null) _LinkButton(item: widget.item),
                             ],
                           ),
                         ),
@@ -86,7 +89,7 @@ class _DecidableConsentRequestItemRendererState extends State<DecidableConsentRe
               ),
             ),
           ),
-          if (widget.item.mustBeAccepted && widget.item.requireManualDecision == true && !_isChecked) _AlertContainer(),
+          if (!(widget.validationResult?.isSuccess ?? true)) ValidationErrorBox(validationResult: widget.validationResult!),
         ],
       ),
     );
@@ -136,51 +139,25 @@ class _ShowFullConsentButton extends StatelessWidget {
 }
 
 class _LinkButton extends StatelessWidget {
-  final String link;
-  final String? linkDisplayText;
+  final DecidableConsentRequestItemDVO item;
 
-  const _LinkButton({required this.link, this.linkDisplayText});
+  const _LinkButton({required this.item});
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        final url = Uri.parse(link);
+        final url = Uri.parse(item.link!);
         await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           TranslatedText(
-            linkDisplayText ?? 'i18n://requestRenderer.defaultLinkDisplayText',
+            item.linkDisplayText ?? 'i18n://requestRenderer.defaultLinkDisplayText',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           Gaps.w8,
           Icon(Icons.arrow_outward, color: Theme.of(context).colorScheme.primary, size: 14),
-        ],
-      ),
-    );
-  }
-}
-
-class _AlertContainer extends StatelessWidget {
-  const _AlertContainer();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.error, borderRadius: BorderRadius.circular(4)),
-      margin: const EdgeInsets.only(top: 8),
-      padding: const EdgeInsets.all(4),
-      child: Row(
-        children: [
-          Icon(Icons.error, color: Theme.of(context).colorScheme.onError),
-          Gaps.w4,
-          Expanded(
-            child: TranslatedText(
-              'i18n://requestRenderer.consentRequired',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onError),
-            ),
-          ),
         ],
       ),
     );
