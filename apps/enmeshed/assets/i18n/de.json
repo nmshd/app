@@ -1189,9 +1189,10 @@
     }
   },
   "requestRenderer": {
-    "defaultLinkDisplayText": "Link öffnen",
-    "showFullConsent": "Gesamten Text anzeigen",
-    "consentRequired": "Bitte geben Sie Ihr Einverständnis",
+    "consent": {
+      "defaultLinkDisplayText": "Link öffnen",
+      "showFullConsent": "Gesamten Text anzeigen"
+    },
     "description": {
       "transferFileOwnership": "Neues Dokument in Ihrer Wallet"
     },

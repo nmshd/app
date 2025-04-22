@@ -126,7 +126,7 @@ class _ShowFullConsentButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TranslatedText(
-            'i18n://requestRenderer.showFullConsent',
+            'i18n://requestRenderer.consent.showFullConsent',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           Gaps.w8,
@@ -152,7 +152,7 @@ class _LinkButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TranslatedText(
-            item.linkDisplayText ?? 'i18n://requestRenderer.defaultLinkDisplayText',
+            item.linkDisplayText ?? 'i18n://requestRenderer.consent.defaultLinkDisplayText',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           Gaps.w8,
