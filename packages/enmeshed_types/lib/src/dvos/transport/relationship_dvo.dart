@@ -27,6 +27,7 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
   final Map<String, String> nameMap;
   final String templateId;
   final String? originalName;
+  final bool sendMailDisabled;
 
   const RelationshipDVO({
     required super.id,
@@ -51,6 +52,7 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
     required this.nameMap,
     required this.templateId,
     this.originalName,
+    required this.sendMailDisabled,
   });
 
   factory RelationshipDVO.fromJson(Map json) => _$RelationshipDVOFromJson(Map<String, dynamic>.from(json));

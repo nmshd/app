@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -62,31 +63,30 @@ class _ContactsSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          BottomSheetHeader(title: context.l10n.mailbox_choose_contact),
           Padding(
-            padding: const EdgeInsets.only(left: 24, right: 8, top: 8, bottom: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(context.l10n.mailbox_choose_contact, style: Theme.of(context).textTheme.titleLarge),
-                const Spacer(),
-                IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: Text(context.l10n.mailbox_choose_contact_description, style: Theme.of(context).textTheme.bodyMedium),
           ),
           Flexible(
             child: Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
+              padding: EdgeInsets.only(top: 8, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
               child: Scrollbar(
                 thumbVisibility: true,
                 child: SingleChildScrollView(
                   child: Column(
                     children: relationships
-                        .map((contact) => ContactItem(contact: contact, onTap: () => context.pop(contact)))
-                        .separated(() => const Divider(indent: 16)),
+                        .map((contact) {
+                          final enabled = contact.relationship?.sendMailDisabled == false;
+
+                          return ContactItem(
+                            enabled: enabled,
+                            contact: contact,
+                            onTap: () => context.pop(contact),
+                            subtitle: enabled ? null : Text(context.l10n.mailbox_choose_contact_sendMailDenied),
+                          );
+                        })
+                        .separated(() => const Divider(indent: 16, height: 1)),
                   ),
                 ),
               ),

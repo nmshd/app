@@ -9,7 +9,7 @@ environment:
 dependencies:
   collection: any
   enmeshed_types: 1.0.0
-  enmeshed_ui_kit: ^1.0.0
+  enmeshed_ui_kit: 1.0.0
   flutter:
     sdk: flutter
   flutter_i18n: ^0.36.2

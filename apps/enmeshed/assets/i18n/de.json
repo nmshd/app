@@ -1076,6 +1076,9 @@
       "DecidableCreateRelationshipAttributeRequestItem": {
         "name": "Erstellt ein neues Beziehungsattribut"
       },
+      "DecidableFormFieldRequestItem": {
+        "name": "Fordert über ein Formularfeld etwas an"
+      },
       "DecidableFreeTextRequestItem": {
         "name": "Fordert etwas an"
       },
@@ -1090,6 +1093,9 @@
       },
       "DecidableShareAttributeRequestItem": {
         "name": "Möchte ein Attribut teilen"
+      },
+      "FormFieldRequestItem": {
+        "name": "Hat über ein Formularfeld etwas angefordert"
       },
       "FreeTextRequestItem": {
         "name": "Hat etwas angefordert"
@@ -1125,6 +1131,9 @@
         "acceptedName": "Das Attribut wurde erstellt."
       },
       "error": "Fehlerhaftes Element",
+      "FormFieldAcceptResponseItem": {
+        "acceptedName": "Das Formularfeld wurde ausgefüllt."
+      },
       "FreeTextAcceptResponseItem": {
         "acceptedName": "Der Freitext wurde akzeptiert."
       },
@@ -1178,5 +1187,39 @@
       "selectFile": "Datei auswählen",
       "noFileSelected": "Keine Datei ausgewählt"
     }
+  },
+  "requestRenderer": {
+    "description": {
+      "transferFileOwnership": "Neues Dokument in Ihrer Wallet"
+    },
+    "errors": {
+      "error": {
+        "consumption": {
+          "requests": {
+            "decide": {
+              "validation": {
+                "mustBeAcceptedItemNotAccepted": "Geben Sie Ihre Zustimmung."
+              }
+            }
+          }
+        }
+      }
+    },
+    "manualDecisionRequired": {
+      "description": {
+        "attributes": "Ich bestätige, dass diese Information geteilt werden soll.",
+        "fileTransfer": "Ich bestätige, dass diese Datei in meine persönlichen Dokumente übernommen werden soll."
+      }
+    }
+  },
+  "tags": {
+    "mimetype:application/pdf": "PDF-Dokument",
+    "urn:xbildung-de:unesco:codeliste:isced2011=3": "Sekundarbereich II",
+    "urn:xbildung-de:unesco:codeliste:isced2011=34": "Allgemeinbildend",
+    "urn:xbildung-de:unesco:codeliste:isced2011=344": "Gymnasien (Oberstufe)",
+    "urn:xbildung-de:destatis:codeliste:artdesschulabschlusses=http://xbildung.de/def/destatis/1.0/code/artdesschulabschlusses/allgemeine_hochschulreife": "Allgemeine Hochschulreife",
+    "urn:xschule-digital:xschule:codeliste:zeugnisart=http://xschule.digital/def/xschule/0.5/code/zeugnisart/abschlusszeugnis": "Abschlusszeugnis",
+    "urn:xbildung-de:kmk:codeliste:artderschule=https://www.xbildung.de/def/kmk/kds/4.0/code/artderschule/100": "Gymnasium",
+    "urn:de:bund:destatis:bevoelkerungsstatistik:schluessel:bundesland=05": "Nordrhein-Westfalen"
   }
 }

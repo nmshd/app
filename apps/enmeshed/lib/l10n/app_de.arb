@@ -762,6 +762,7 @@
   "mailbox_selectAttachments_description": "Wählen Sie einen oder mehrere Anhänge oder laden Sie neue Dateien hoch.",
   "mailbox_choose_contact": "Empfänger auswählen",
   "mailbox_choose_contact_description": "Wählen Sie aus, an wen die Nachricht gesendet werden soll.",
+  "mailbox_choose_contact_sendMailDenied": "Dieser Kontakt kann keine Nachrichten von Ihnen empfangen",
   "mailbox_filter_actionRequired": "Offene Aufgaben",
   "mailbox_filter_header": "Nachrichten filtern",
   "mailbox_filter_unread": "Neu",

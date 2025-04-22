@@ -31,6 +31,7 @@ RelationshipDVO _$RelationshipDVOFromJson(Map<String, dynamic> json) => Relation
   nameMap: Map<String, String>.from(json['nameMap'] as Map),
   templateId: json['templateId'] as String,
   originalName: json['originalName'] as String?,
+  sendMailDisabled: json['sendMailDisabled'] as bool,
 );
 
 Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) => <String, dynamic>{
@@ -56,6 +57,7 @@ Map<String, dynamic> _$RelationshipDVOToJson(RelationshipDVO instance) => <Strin
   'nameMap': instance.nameMap,
   'templateId': instance.templateId,
   if (instance.originalName case final value?) 'originalName': value,
+  'sendMailDisabled': instance.sendMailDisabled,
 };
 
 const _$RelationshipStatusEnumMap = {

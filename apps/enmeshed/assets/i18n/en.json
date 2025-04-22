@@ -1076,6 +1076,9 @@
       "DecidableCreateRelationshipAttributeRequestItem": {
         "name": "Creates a new relationship attribute for you"
       },
+      "DecidableFormFieldRequestItem": {
+        "name": "Requests something of you via a form field"
+      },
       "DecidableFreeTextRequestItem": {
         "name": "Requests something of you"
       },
@@ -1090,6 +1093,9 @@
       },
       "DecidableShareAttributeRequestItem": {
         "name": "Shares an attribute to you"
+      },
+      "FormFieldRequestItem": {
+        "name": "Requested something of you via a form field"
       },
       "FreeTextRequestItem": {
         "name": "Requested something of you"
@@ -1125,6 +1131,9 @@
         "acceptedName": "The attribute has been created."
       },
       "error": "Errorneous item",
+      "FormFieldAcceptResponseItem": {
+        "acceptedName": "The form field has been filled out."
+      },
       "FreeTextAcceptResponseItem": {
         "acceptedName": "The free text has been accepted."
       },
@@ -1178,5 +1187,39 @@
       "selectFile": "Select File",
       "noFileSelected": "No file selected"
     }
+  },
+  "requestRenderer": {
+    "description": {
+      "transferFileOwnership": "New document in your wallet"
+    },
+    "errors": {
+      "error": {
+        "consumption": {
+          "requests": {
+            "decide": {
+              "validation": {
+                "mustBeAcceptedItemNotAccepted": "Give your consent."
+              }
+            }
+          }
+        }
+      }
+    },
+    "manualDecisionRequired": {
+      "description": {
+        "attributes": "I confirm that this information should be shared.",
+        "fileTransfer": "I confirm that this file should be included in my personal documents."
+      }
+    }
+  },
+  "tags": {
+    "mimetype:application/pdf": "PDF Document",
+    "urn:xbildung-de:unesco:codeliste:isced2011=3": "Secondary level II",
+    "urn:xbildung-de:unesco:codeliste:isced2011=34": "General education",
+    "urn:xbildung-de:unesco:codeliste:isced2011=344": "Grammar schools (upper school)",
+    "urn:xbildung-de:destatis:codeliste:artdesschulabschlusses=http://xbildung.de/def/destatis/1.0/code/artdesschulabschlusses/allgemeine_hochschulreife": "General higher education entrance qualification",
+    "urn:xschule-digital:xschule:codeliste:zeugnisart=http://xschule.digital/def/xschule/0.5/code/zeugnisart/abschlusszeugnis": "Final certificate",
+    "urn:xbildung-de:kmk:codeliste:artderschule=https://www.xbildung.de/def/kmk/kds/4.0/code/artderschule/100": "Grammar school",
+    "urn:de:bund:destatis:bevoelkerungsstatistik:schluessel:bundesland=05": "North Rhine-Westphalia"
   }
 }

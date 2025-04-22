@@ -60,3 +60,19 @@ extension Toggle<T> on Set<T> {
 extension IsDefaultRepositoryAttribute on LocalAttributeDVO {
   bool get isDefaultRepositoryAttribute => this is RepositoryAttributeDVO && ((this as RepositoryAttributeDVO).isDefault ?? false);
 }
+
+extension DateType on DateTime {
+  String get dateType {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+
+    if (year == today.year && month == today.month && day == today.day) {
+      return 'today';
+    } else if (year == yesterday.year && month == yesterday.month && day == yesterday.day) {
+      return 'yesterday';
+    } else {
+      return 'other';
+    }
+  }
+}
