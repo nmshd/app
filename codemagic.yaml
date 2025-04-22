@@ -130,12 +130,6 @@ workflows:
         auth: integration
         submit_to_testflight: true
 
-      scripts:
-        - name: Custom MS-Teams integration
-          script: |
-            npm install -g @js-soft/codemagic-tools@1.0.2
-            jscm teams-publish --platform "ios" --projectName "enmeshed"
-
   windows-release:
     name: Windows Release
     max_build_duration: 30
