@@ -1,3 +1,4 @@
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
 
   @override
   Widget build(BuildContext context) {
-    final title = widget.item.mustBeAccepted ? '${widget.item.name}*' : widget.item.name;
+    final title = widget.item.mustBeAccepted && widget.item.response == null ? '${widget.item.name}*' : widget.item.name;
 
     return Column(
       children: [
@@ -63,7 +64,12 @@ class _DecidableAuthenticationRequestItemRendererState extends State<DecidableAu
                       color: Theme.of(context).colorScheme.surfaceContainerHigh,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: _CustomToggle(value: isChecked, onUpdateToggle: _onUpdateToggle, text: 'Annehmen'),
+                        child: _CustomAnimatedToggleSwitch(
+                          value: isChecked,
+                          onUpdateToggle: _onUpdateToggle,
+                          text: 'Annehmen',
+                          isDecidable: isDecidable,
+                        ),
                       ),
                     ),
                   ],
@@ -174,6 +180,74 @@ class _CustomToggleState extends State<_CustomToggle> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CustomAnimatedToggleSwitch extends StatefulWidget {
+  final bool value;
+  final ValueChanged<bool> onUpdateToggle;
+  final String text;
+  final bool isDecidable;
+
+  const _CustomAnimatedToggleSwitch({required this.value, required this.onUpdateToggle, required this.text, required this.isDecidable});
+
+  @override
+  State<_CustomAnimatedToggleSwitch> createState() => _CustomAnimatedToggleSwitchState();
+}
+
+class _CustomAnimatedToggleSwitchState extends State<_CustomAnimatedToggleSwitch> {
+  @override
+  Widget build(BuildContext context) {
+    final circleColor = widget.value ? context.customColors.success : Theme.of(context).colorScheme.primary;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Container(
+        height: 64,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: Theme.of(context).colorScheme.surface, border: Border()),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Text(
+              widget.text,
+              style:
+                  widget.isDecidable
+                      ? Theme.of(context).textTheme.headlineSmall
+                      : Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.onSurface.withAlpha(96)),
+              textAlign: TextAlign.center,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: AnimatedToggleSwitch<bool>.dual(
+                    current: widget.value,
+                    first: false,
+                    second: true,
+                    spacing: 0,
+                    height: 55,
+                    indicatorSize: const Size(50, 50),
+                    indicatorTransition: ForegroundIndicatorTransition.fading(),
+                    style: ToggleStyle(
+                      borderColor: Colors.transparent,
+                      backgroundColor: Colors.transparent,
+                      indicatorColor: widget.isDecidable ? circleColor : circleColor.withAlpha(41),
+                      indicatorBorderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    onChanged: widget.isDecidable ? (value) => widget.onUpdateToggle(!widget.value) : null,
+                    iconBuilder:
+                        (value) =>
+                            value
+                                ? Icon(Icons.check, color: context.customColors.onSuccess)
+                                : Icon(Icons.arrow_forward_ios, color: Theme.of(context).colorScheme.onPrimary),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
