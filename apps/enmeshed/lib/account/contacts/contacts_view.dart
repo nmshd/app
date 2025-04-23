@@ -231,13 +231,6 @@ class _ContactsViewState extends State<ContactsView> {
         // this is only a workaround and only practical for the PoC
         referencesResult.value.where((e) => !relationships.any((r) => (r.originalName ?? r.name) == e.title)),
       );
-
-      if (mounted && context.isFeatureEnabled('SHOW_ADDITIONAL_PUBLIC_RELATIONSHIP_TEMPLATE_REFERENCES')) {
-        templateReferences.addAll([
-          const PublicRelationshipTemplateReferenceDTO(title: 'Uni Magdeburg', description: 'Uni Magdeburg', truncatedReference: 'none'),
-          const PublicRelationshipTemplateReferenceDTO(title: 'Lernpfadfinder', description: 'Uni Magdeburg', truncatedReference: 'none'),
-        ]);
-      }
     }
 
     if (mounted) {
