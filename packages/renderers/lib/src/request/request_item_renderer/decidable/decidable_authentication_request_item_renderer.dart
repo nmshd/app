@@ -8,16 +8,12 @@ import '../../request_renderer_controller.dart';
 import 'checkbox_enabled_extension.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
-  final RequestItemDVODerivation item;
-  final RequestItemIndex itemIndex;
+  final AuthenticationRequestItemDVO item;
   final RequestRendererController? controller;
+  final RequestItemIndex itemIndex;
   final RequestValidationResultDTO? validationResult;
 
-  const DecidableAuthenticationRequestItemRenderer({super.key, required this.item, required this.itemIndex, this.controller, this.validationResult})
-    : assert(
-        item is AuthenticationRequestItemDVO || item is DecidableAuthenticationRequestItemDVO,
-        'item must be of type AuthenticationRequestItemDVO or DecidableAuthenticationRequestItemDVO',
-      );
+  const DecidableAuthenticationRequestItemRenderer({super.key, required this.item, this.controller, required this.itemIndex});
 
   @override
   State<DecidableAuthenticationRequestItemRenderer> createState() => _DecidableAuthenticationRequestItemRendererState();

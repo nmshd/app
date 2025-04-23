@@ -8,7 +8,7 @@ import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableRegisterAttributeListenerRequestItemRenderer extends StatefulWidget {
-  final DecidableRegisterAttributeListenerRequestItemDVO item;
+  final RegisterAttributeListenerRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
 

@@ -10,7 +10,7 @@ import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableConsentRequestItemRenderer extends StatefulWidget {
-  final DecidableConsentRequestItemDVO item;
+  final ConsentRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
 
