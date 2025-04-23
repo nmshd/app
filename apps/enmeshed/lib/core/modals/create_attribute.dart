@@ -16,19 +16,15 @@ import '../types/types.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
 
-Future<void> showCreateAttributeModal({
+Future<LocalAttributeDTO?> showCreateAttributeModal({
   required BuildContext context,
   required String accountId,
-  required void Function({required BuildContext context, required IdentityAttributeValue value})? onCreateAttributePressed,
-  required VoidCallback? onAttributeCreated,
+  required VoidCallback onAttributeCreated,
+  String? title,
   String? initialValueType,
+  List<String>? tags,
 }) async {
-  assert(
-    (onCreateAttributePressed != null && onAttributeCreated == null) || (onCreateAttributePressed == null && onAttributeCreated != null),
-    'Either onCreateAttributePressed or onAttributeCreated must be provided',
-  );
-
-  await showModalBottomSheet<void>(
+  return showModalBottomSheet<LocalAttributeDTO>(
     context: context,
     isScrollControlled: true,
     builder:
@@ -36,9 +32,9 @@ Future<void> showCreateAttributeModal({
           constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
           child: _CreateAttributeModal(
             accountId: accountId,
-            onCreateAttributePressed: onCreateAttributePressed,
             onAttributeCreated: onAttributeCreated,
             initialValueType: initialValueType,
+            title: title,
           ),
         ),
   );
@@ -47,15 +43,10 @@ Future<void> showCreateAttributeModal({
 class _CreateAttributeModal extends StatefulWidget {
   final String accountId;
   final String? initialValueType;
-  final VoidCallback? onAttributeCreated;
-  final void Function({required BuildContext context, required IdentityAttributeValue value})? onCreateAttributePressed;
+  final VoidCallback onAttributeCreated;
+  final String? title;
 
-  const _CreateAttributeModal({
-    required this.accountId,
-    required this.initialValueType,
-    required this.onAttributeCreated,
-    required this.onCreateAttributePressed,
-  });
+  const _CreateAttributeModal({required this.accountId, required this.initialValueType, required this.onAttributeCreated, this.title});
 
   @override
   State<_CreateAttributeModal> createState() => _CreateAttributeModalState();
@@ -108,7 +99,7 @@ class _CreateAttributeModalState extends State<_CreateAttributeModal> {
                 valueHints: _valueHints,
                 onBackPressed: widget.initialValueType == null ? () => setState(() => _valueType = null) : null,
                 onAttributeCreated: widget.onAttributeCreated,
-                onCreateAttributePressed: widget.onCreateAttributePressed,
+                title: widget.title,
               ),
     );
   }
@@ -171,8 +162,8 @@ class _CreateAttributePage extends StatefulWidget {
   final RenderHints renderHints;
   final ValueHints valueHints;
   final VoidCallback? onBackPressed;
-  final VoidCallback? onAttributeCreated;
-  final void Function({required BuildContext context, required IdentityAttributeValue value})? onCreateAttributePressed;
+  final VoidCallback onAttributeCreated;
+  final String? title;
 
   const _CreateAttributePage({
     required this.accountId,
@@ -181,7 +172,7 @@ class _CreateAttributePage extends StatefulWidget {
     required this.valueHints,
     required this.onBackPressed,
     required this.onAttributeCreated,
-    required this.onCreateAttributePressed,
+    this.title,
   });
 
   @override
@@ -234,7 +225,7 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
 
   @override
   Widget build(BuildContext context) {
-    final translatedAttribute = FlutterI18n.translate(context, 'dvo.attribute.name.${widget.valueType}');
+    final translatedAttribute = widget.title ?? FlutterI18n.translate(context, 'dvo.attribute.name.${widget.valueType}');
 
     return Padding(
       padding: EdgeInsets.only(bottom: max(MediaQuery.viewInsetsOf(context).bottom, MediaQuery.viewPaddingOf(context).bottom)),
@@ -294,20 +285,14 @@ class _CreateAttributePageState extends State<_CreateAttributePage> {
   Future<void> _onCreateAttributePressed() async {
     setState(() => _confirmEnabled = false);
 
-    if (widget.onCreateAttributePressed != null) {
-      widget.onCreateAttributePressed!(context: context, value: _identityAttribute!);
-
-      return;
-    }
-
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
 
     final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(value: _identityAttribute!);
 
     if (createAttributeResult.isSuccess) {
-      if (mounted) context.pop();
+      if (mounted) context.pop(createAttributeResult.value);
 
-      widget.onAttributeCreated!();
+      widget.onAttributeCreated();
 
       return;
     }
