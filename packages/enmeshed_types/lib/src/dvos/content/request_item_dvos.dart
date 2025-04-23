@@ -9,7 +9,6 @@ import 'attribute_dvos.dart';
 import 'attribute_query_dvos.dart';
 import 'response_item_dvos.dart';
 
-part '../consumption/decidable_request_item_dvos.dart';
 part 'request_item_dvos.g.dart';
 
 sealed class RequestItemDVO extends DataViewObject {
@@ -71,8 +70,6 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
   });
 
   factory RequestItemDVODerivation.fromJson(Map json) {
-    if (json['type'].startsWith('Decidable')) return DecidableRequestItemDVODerivation.fromJson(json);
-
     return switch (json['type']) {
       'ReadAttributeRequestItemDVO' => ReadAttributeRequestItemDVO.fromJson(json),
       'ProposeAttributeRequestItemDVO' => ProposeAttributeRequestItemDVO.fromJson(json),

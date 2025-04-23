@@ -14,31 +14,13 @@ import 'decidable/widgets/handle_checkbox_change.dart';
 import 'decidable/widgets/validation_error_box.dart';
 
 class ConsentRequestItemRenderer extends StatefulWidget {
-  final RequestItemDVODerivation item;
-  final String consent;
-  final String? link;
-  final String? linkDisplayText;
-
+  final ConsentRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
 
   final RequestValidationResultDTO? validationResult;
 
-  bool get isDecidable => item is DecidableConsentRequestItemDVO;
-
-  const ConsentRequestItemRenderer({
-    super.key,
-    required this.item,
-    required this.consent,
-    required this.link,
-    required this.linkDisplayText,
-    this.controller,
-    required this.itemIndex,
-    this.validationResult,
-  }) : assert(
-         item is ConsentRequestItemDVO || item is DecidableConsentRequestItemDVO,
-         'item must be of type ConsentRequestItemDVO or DecidableConsentRequestItemDVO',
-       );
+  const ConsentRequestItemRenderer({super.key, required this.item, this.controller, required this.itemIndex, this.validationResult});
 
   @override
   State<ConsentRequestItemRenderer> createState() => _ConsentRequestItemRendererState();
@@ -102,9 +84,9 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
                               spacing: 8,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(widget.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
-                                if (_isTextOverflowing()) _ShowFullConsentButton(consent: widget.consent, description: widget.item.description),
-                                if (widget.link != null) _LinkButton(link: widget.link!, linkDisplayText: widget.linkDisplayText),
+                                Text(widget.item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
+                                if (_isTextOverflowing()) _ShowFullConsentButton(item: widget.item),
+                                if (widget.item.link != null) _LinkButton(item: widget.item),
                               ],
                             ),
                           ),
@@ -122,7 +104,7 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
     );
   }
 
-  bool get _isSwitchDisabled => !widget.isDecidable || (widget.item.mustBeAccepted && widget.item.requireManualDecision == false);
+  bool get _isSwitchDisabled => !widget.item.isDecidable || (widget.item.mustBeAccepted && widget.item.requireManualDecision == false);
 
   void onUpdateCheckbox(bool? value) {
     if (value == null) return;
@@ -133,7 +115,7 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
 
   bool _isTextOverflowing() {
     final textPainter = TextPainter(
-      text: TextSpan(text: widget.consent, style: Theme.of(context).textTheme.bodyMedium),
+      text: TextSpan(text: widget.item.consent, style: Theme.of(context).textTheme.bodyMedium),
       maxLines: 4,
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: MediaQuery.sizeOf(context).width - 116);
@@ -142,10 +124,9 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
 }
 
 class _ShowFullConsentButton extends StatelessWidget {
-  final String consent;
-  final String? description;
+  final ConsentRequestItemDVO item;
 
-  const _ShowFullConsentButton({required this.consent, required this.description});
+  const _ShowFullConsentButton({required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +136,7 @@ class _ShowFullConsentButton extends StatelessWidget {
             context: context,
             useRootNavigator: true,
             useSafeArea: false,
-            builder: (context) => _FullConsentDialog(consent: consent, description: description),
+            builder: (context) => _FullConsentDialog(consent: item.consent, description: item.description),
           ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -203,22 +184,21 @@ class _FullConsentDialog extends StatelessWidget {
 }
 
 class _LinkButton extends StatelessWidget {
-  final String link;
-  final String? linkDisplayText;
+  final ConsentRequestItemDVO item;
 
-  const _LinkButton({required this.link, required this.linkDisplayText});
+  const _LinkButton({required this.item});
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        final url = Uri.parse(link);
+        final url = Uri.parse(item.link!);
         await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           TranslatedText(
-            linkDisplayText ?? 'i18n://requestRenderer.consent.defaultLinkDisplayText',
+            item.linkDisplayText ?? 'i18n://requestRenderer.consent.defaultLinkDisplayText',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           Gaps.w8,

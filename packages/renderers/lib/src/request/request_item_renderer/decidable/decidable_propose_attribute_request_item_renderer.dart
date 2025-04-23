@@ -1,14 +1,14 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 
+import '/src/attribute/attribute_renderer.dart';
 import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '/src/attribute/attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
-  final DecidableProposeAttributeRequestItemDVO item;
+  final ProposeAttributeRequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
@@ -123,7 +123,7 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
   }
 
   List<AttributeSwitcherChoice> _getChoices() {
-    final results = switch (widget.item.query) {
+    final results = switch (widget.item.query as ProcessedAttributeQueryDVO) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
       // TODO: how to handle this (this will never happen as it is not sent from a ProposeAttributeRequestItem)
