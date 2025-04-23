@@ -83,9 +83,12 @@ class RequestItemRenderer extends StatelessWidget {
           item: dvo,
           itemIndex: itemIndex,
         ),
-        final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(
+        final DecidableConsentRequestItemDVO dvo => ConsentRequestItemRenderer(
           controller: controller,
           item: dvo,
+          consent: dvo.consent,
+          link: dvo.link,
+          linkDisplayText: dvo.linkDisplayText,
           itemIndex: itemIndex,
           validationResult: validationResult,
         ),
@@ -124,7 +127,13 @@ class RequestItemRenderer extends StatelessWidget {
           openFileDetails: openFileDetails,
         ),
         final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(item: dvo),
-        final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),
+        final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(
+          item: dvo,
+          consent: dvo.consent,
+          link: dvo.link,
+          linkDisplayText: dvo.linkDisplayText,
+          itemIndex: itemIndex,
+        ),
         final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(item: dvo),
         final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(item: dvo),
         final TransferFileOwnershipRequestItemDVO dvo => TransferFileOwnershipRequestItemRenderer(
