@@ -8,7 +8,7 @@ import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableAuthenticationRequestItemRenderer extends StatefulWidget {
-  final DecidableAuthenticationRequestItemDVO item;
+  final AuthenticationRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
 

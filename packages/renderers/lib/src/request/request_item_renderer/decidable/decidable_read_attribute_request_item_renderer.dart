@@ -9,7 +9,7 @@ import 'widgets/processed_query_renderer.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final String currentAddress;
-  final DecidableReadAttributeRequestItemDVO item;
+  final ReadAttributeRequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
@@ -60,7 +60,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
   @override
   Widget build(BuildContext context) {
-    return switch (widget.item.query) {
+    return switch (widget.item.query as ProcessedAttributeQueryDVO) {
       final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
         query: query,
         checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
@@ -211,7 +211,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   ValueHints? _getQueryValueHints() {
-    return switch (widget.item.query) {
+    return switch (widget.item.query as ProcessedAttributeQueryDVO) {
       final ProcessedIdentityAttributeQueryDVO query => query.valueHints,
       final ProcessedRelationshipAttributeQueryDVO query => query.valueHints,
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueHints,
@@ -220,7 +220,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   List<({String id, AbstractAttribute attribute})> _getChoices() {
-    final results = switch (widget.item.query) {
+    final results = switch (widget.item.query as ProcessedAttributeQueryDVO) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,

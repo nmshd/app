@@ -46,88 +46,83 @@ class RequestItemRenderer extends StatelessWidget {
       color: backgroundColor,
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: switch (item) {
-        final DecidableReadAttributeRequestItemDVO dvo => DecidableReadAttributeRequestItemRenderer(
+        final ReadAttributeRequestItemDVO dvo =>
+          dvo.isDecidable
+              ? DecidableReadAttributeRequestItemRenderer(
+                controller: controller,
+                item: dvo,
+                itemIndex: itemIndex,
+                openAttributeSwitcher: openAttributeSwitcher,
+                currentAddress: currentAddress,
+                expandFileReference: expandFileReference,
+                chooseFile: chooseFile,
+                openFileDetails: openFileDetails,
+              )
+              : ReadAttributeRequestItemRenderer(item: dvo),
+        final ProposeAttributeRequestItemDVO dvo =>
+          dvo.isDecidable
+              ? DecidableProposeAttributeRequestItemRenderer(
+                controller: controller,
+                item: dvo,
+                itemIndex: itemIndex,
+                openAttributeSwitcher: openAttributeSwitcher,
+                expandFileReference: expandFileReference,
+                openFileDetails: openFileDetails,
+              )
+              : ProposeAttributeRequestItemRenderer(item: dvo),
+        final CreateAttributeRequestItemDVO dvo =>
+          dvo.isDecidable
+              ? DecidableCreateAttributeRequestItemRenderer(
+                controller: controller,
+                item: dvo,
+                itemIndex: itemIndex,
+                expandFileReference: expandFileReference,
+                openFileDetails: openFileDetails,
+              )
+              : CreateAttributeRequestItemRenderer(
+                item: dvo,
+                isRejected: isRejected,
+                expandFileReference: expandFileReference,
+                openFileDetails: openFileDetails,
+              ),
+        final ShareAttributeRequestItemDVO dvo =>
+          dvo.isDecidable
+              ? DecidableShareAttributeRequestItemRenderer(
+                controller: controller,
+                item: dvo,
+                itemIndex: itemIndex,
+                expandFileReference: expandFileReference,
+                openFileDetails: openFileDetails,
+              )
+              : ShareAttributeRequestItemRenderer(
+                item: dvo,
+                isRejected: isRejected,
+                expandFileReference: expandFileReference,
+                openFileDetails: openFileDetails,
+              ),
+        final AuthenticationRequestItemDVO dvo =>
+          dvo.isDecidable
+              ? DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex)
+              : AuthenticationRequestItemRenderer(item: dvo),
+        final ConsentRequestItemDVO dvo =>
+          dvo.isDecidable
+              ? DecidableConsentRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex)
+              : ConsentRequestItemRenderer(item: dvo),
+        final RegisterAttributeListenerRequestItemDVO dvo =>
+          dvo.isDecidable
+              ? DecidableRegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex)
+              : RegisterAttributeListenerRequestItemRenderer(item: dvo),
+        final FreeTextRequestItemDVO dvo =>
+          dvo.isDecidable
+              ? DecidableFreeTextRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex, requestStatus: requestStatus)
+              : FreeTextRequestItemRenderer(item: dvo),
+        final TransferFileOwnershipRequestItemDVO dvo => TransferFileOwnershipRequestItemRenderer(
           controller: controller,
           item: dvo,
-          itemIndex: itemIndex,
-          openAttributeSwitcher: openAttributeSwitcher,
-          currentAddress: currentAddress,
-          expandFileReference: expandFileReference,
-          chooseFile: chooseFile,
-          openFileDetails: openFileDetails,
-        ),
-        final DecidableProposeAttributeRequestItemDVO dvo => DecidableProposeAttributeRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-          openAttributeSwitcher: openAttributeSwitcher,
-          expandFileReference: expandFileReference,
-          openFileDetails: openFileDetails,
-        ),
-        final DecidableCreateAttributeRequestItemDVO dvo => DecidableCreateAttributeRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-          expandFileReference: expandFileReference,
-          openFileDetails: openFileDetails,
-        ),
-        final DecidableShareAttributeRequestItemDVO dvo => DecidableShareAttributeRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-          expandFileReference: expandFileReference,
-          openFileDetails: openFileDetails,
-        ),
-        final DecidableAuthenticationRequestItemDVO dvo => DecidableAuthenticationRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-        ),
-        final DecidableConsentRequestItemDVO dvo => DecidableConsentRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex),
-        final DecidableRegisterAttributeListenerRequestItemDVO dvo => DecidableRegisterAttributeListenerRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-        ),
-        final DecidableFreeTextRequestItemDVO dvo => DecidableFreeTextRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          itemIndex: itemIndex,
-          requestStatus: requestStatus,
-        ),
-        final DecidableTransferFileOwnershipRequestItemDVO dvo => TransferFileOwnershipRequestItemRenderer(
-          controller: controller,
-          item: dvo,
-          file: dvo.file,
           itemIndex: itemIndex,
           expandFileReference: expandFileReference,
           openFileDetails: openFileDetails,
           validationResult: validationResult,
-        ),
-        final ReadAttributeRequestItemDVO dvo => ReadAttributeRequestItemRenderer(item: dvo),
-        final ProposeAttributeRequestItemDVO dvo => ProposeAttributeRequestItemRenderer(item: dvo),
-        final CreateAttributeRequestItemDVO dvo => CreateAttributeRequestItemRenderer(
-          item: dvo,
-          isRejected: isRejected,
-          expandFileReference: expandFileReference,
-          openFileDetails: openFileDetails,
-        ),
-        final ShareAttributeRequestItemDVO dvo => ShareAttributeRequestItemRenderer(
-          item: dvo,
-          isRejected: isRejected,
-          expandFileReference: expandFileReference,
-          openFileDetails: openFileDetails,
-        ),
-        final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(item: dvo),
-        final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(item: dvo),
-        final RegisterAttributeListenerRequestItemDVO dvo => RegisterAttributeListenerRequestItemRenderer(item: dvo),
-        final FreeTextRequestItemDVO dvo => FreeTextRequestItemRenderer(item: dvo),
-        final TransferFileOwnershipRequestItemDVO dvo => TransferFileOwnershipRequestItemRenderer(
-          item: dvo,
-          file: dvo.file,
-          itemIndex: itemIndex,
-          expandFileReference: expandFileReference,
-          openFileDetails: openFileDetails,
         ),
         _ => throw Exception("Invalid type '${item.type}'"),
       },
