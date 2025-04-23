@@ -184,7 +184,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                           DateTime.parse(sharedAttribute.createdAt).toLocal(),
                                         ),
                                       ),
-                                      onTap: () => context.go('/account/${widget.accountId}/contacts/${contact.id}'),
+                                      onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
                                       trailing: const Icon(Icons.chevron_right),
                                     );
                                   },
