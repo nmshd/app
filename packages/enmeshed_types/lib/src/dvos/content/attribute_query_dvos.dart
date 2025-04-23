@@ -38,7 +38,7 @@ sealed class AttributeQueryDVO extends DataViewObject {
       'RelationshipAttributeQueryDVO' => RelationshipAttributeQueryDVO.fromJson(json),
       'ThirdPartyRelationshipAttributeQueryDVO' => ThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
       'IQLQueryDVO' => IQLQueryDVO.fromJson(json),
-      _ => throw Exception("Invalid type '${json['type']}'"),
+      _ => throw Exception("Invalid type '$type'"),
     };
   }
   Map<String, dynamic> toJson();
