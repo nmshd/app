@@ -33,7 +33,7 @@ sealed class AttributeQueryDVO extends DataViewObject {
       return ProcessedAttributeQueryDVO.fromJson(json);
     }
 
-    return switch (json['type']) {
+    return switch (type) {
       'IdentityAttributeQueryDVO' => IdentityAttributeQueryDVO.fromJson(json),
       'RelationshipAttributeQueryDVO' => RelationshipAttributeQueryDVO.fromJson(json),
       'ThirdPartyRelationshipAttributeQueryDVO' => ThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
