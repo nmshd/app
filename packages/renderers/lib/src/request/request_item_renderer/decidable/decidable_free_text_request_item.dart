@@ -8,7 +8,7 @@ import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableFreeTextRequestItemRenderer extends StatefulWidget {
-  final DecidableFreeTextRequestItemDVO item;
+  final FreeTextRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
   final LocalRequestStatus? requestStatus;

@@ -1,14 +1,14 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/widgets.dart';
 
+import '/src/attribute/draft_attribute_renderer.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
-import '/src/attribute/draft_attribute_renderer.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableCreateAttributeRequestItemRenderer extends StatefulWidget {
-  final DecidableCreateAttributeRequestItemDVO item;
+  final CreateAttributeRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
   final Future<FileDVO> Function(String) expandFileReference;

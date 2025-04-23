@@ -1,18 +1,6 @@
-import 'package:json_annotation/json_annotation.dart';
+part of '../content/attribute_query_dvos.dart';
 
-import '../../contents/contents.dart';
-import '../common/common.dart';
-import '../data_view_object.dart';
-import '../transport/transport.dart';
-import 'local_attribute_dvo.dart';
-
-part 'processed_attribute_query_dvos.g.dart';
-
-sealed class ProcessedAttributeQueryDVO extends DataViewObject {
-  final String? validFrom;
-  final String? validTo;
-  final bool isProcessed = true;
-
+sealed class ProcessedAttributeQueryDVO extends AttributeQueryDVO {
   const ProcessedAttributeQueryDVO({
     required super.id,
     required super.name,
@@ -22,8 +10,8 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
     super.date,
     super.error,
     super.warning,
-    this.validFrom,
-    this.validTo,
+    super.validFrom,
+    super.validTo,
   });
 
   factory ProcessedAttributeQueryDVO.fromJson(Map json) => switch (json['type']) {
@@ -33,7 +21,6 @@ sealed class ProcessedAttributeQueryDVO extends DataViewObject {
     'ProcessedIQLQueryDVO' => ProcessedIQLQueryDVO.fromJson(json),
     _ => throw Exception("Invalid type '${json['type']}'"),
   };
-  Map<String, dynamic> toJson();
 }
 
 @JsonSerializable(includeIfNull: false)
