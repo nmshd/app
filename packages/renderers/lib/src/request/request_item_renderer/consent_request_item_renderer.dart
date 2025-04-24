@@ -135,55 +135,6 @@ class _ConsentBox extends StatelessWidget {
         ),
       ),
     );
-
-    // return Material(
-    //   clipBehavior: Clip.hardEdge,
-    //   borderRadius: BorderRadius.circular(4),
-    //   color: Theme.of(context).colorScheme.surfaceContainerHighest,
-    //   child: InkWell(
-    //     onTap: _isSwitchDisabled ? null : () => onUpdateCheckbox(!isChecked),
-    //     child: Padding(
-    //       padding: const EdgeInsets.symmetric(horizontal: 8),
-    //       child: Row(
-    //         mainAxisSize: MainAxisSize.min,
-    //         spacing: 8,
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           Switch(
-    //             padding: EdgeInsets.zero,
-    //             thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
-    //               (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
-    //             ),
-    //             activeColor: context.customColors.onSuccess,
-    //             value: isChecked,
-    //             activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
-    //             onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
-    //           ),
-    //           Expanded(
-    //             child: Padding(
-    //               padding: const EdgeInsets.symmetric(vertical: 8),
-    //               child: Builder(
-    //                 builder: (context) {
-    //                   return Column(
-    //                     spacing: 8,
-    //                     crossAxisAlignment: CrossAxisAlignment.start,
-    //                     mainAxisAlignment: MainAxisAlignment.center,
-    //                     mainAxisSize: MainAxisSize.max,
-    //                     children: [
-    //                       Text(item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
-    //                       if (_isTextOverflowing(context)) _ShowFullConsentButton(item: item),
-    //                       if (item.link != null) _LinkButton(item: item),
-    //                     ],
-    //                   );
-    //                 },
-    //               ),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 
   bool get _isSwitchDisabled => !item.isDecidable || item.initiallyChecked;
