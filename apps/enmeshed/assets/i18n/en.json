@@ -1014,12 +1014,12 @@
         }
       },
       "status": {
-        "Completed": "Completed",
-        "Decided": "Decided",
-        "DecisionRequired": "Waiting for Automation",
+        "Completed": "Completed task",
+        "Decided": "Decided task",
+        "DecisionRequired": "Task: Waiting for the App",
         "Draft": "Draft",
-        "Error": "Error",
-        "Expired": "Expired",
+        "Error": "Faulty task",
+        "Expired": "Expired task",
         "ManualDecisionRequired": "Open task",
         "Open": "Waiting for Response"
       },

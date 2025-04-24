@@ -1014,12 +1014,12 @@
         }
       },
       "status": {
-        "Completed": "Abgeschlossen",
-        "Decided": "Entschieden",
-        "DecisionRequired": "Auf App warten",
+        "Completed": "Abgeschlossene Aufgabe",
+        "Decided": "Abgeschlossene Aufgabe",
+        "DecisionRequired": "Aufgabe: Auf App warten",
         "Draft": "Entwurf",
-        "Error": "Fehlerhaft",
-        "Expired": "Abgelaufen",
+        "Error": "Fehlerhafte Aufgabe",
+        "Expired": "Abgelaufene Aufgabe",
         "ManualDecisionRequired": "Offene Aufgabe",
         "Open": "Auf Antwort warten"
       },
