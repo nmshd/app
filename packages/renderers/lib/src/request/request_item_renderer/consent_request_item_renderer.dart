@@ -42,15 +42,17 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
 
   @override
   Widget build(BuildContext context) {
-    final translatedTitle = widget.item.name.startsWith('i18n://') ? FlutterI18n.translate(context, widget.item.name.substring(7)) : widget.item.name;
-    final title = widget.item.mustBeAccepted ? '$translatedTitle*' : translatedTitle;
+    final title = widget.item.name.startsWith('i18n://') ? FlutterI18n.translate(context, widget.item.name.substring(7)) : widget.item.name;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: Theme.of(context).textTheme.titleMedium),
+          Text.rich(
+            TextSpan(children: [TextSpan(text: title), if (widget.item.mustBeAccepted) TextSpan(text: '*')]),
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           if (widget.item.description != null) ...[Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall), Gaps.h8],
           _ConsentBox(item: widget.item, isChecked: _isChecked, onUpdateCheckbox: _onUpdateCheckbox),
           if (!(widget.validationResult?.isSuccess ?? true)) ...[Gaps.h8, ValidationErrorBox(validationResult: widget.validationResult!)],
