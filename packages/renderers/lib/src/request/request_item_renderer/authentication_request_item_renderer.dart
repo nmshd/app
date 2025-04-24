@@ -21,19 +21,19 @@ class AuthenticationRequestItemRenderer extends StatefulWidget {
 }
 
 class _AuthenticationRequestItemRendererState extends State<AuthenticationRequestItemRenderer> {
-  late bool isChecked;
+  late bool _isChecked;
 
   @override
   void initState() {
     super.initState();
 
     if (widget.item.response != null) {
-      isChecked = widget.item.response is AcceptResponseItemDVO;
+      _isChecked = widget.item.response is AcceptResponseItemDVO;
     } else {
-      isChecked = widget.item.initiallyChecked;
+      _isChecked = widget.item.initiallyChecked;
     }
 
-    if (isChecked) widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
+    if (_isChecked) widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
   }
 
   @override
@@ -60,7 +60,7 @@ class _AuthenticationRequestItemRendererState extends State<AuthenticationReques
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: _CustomAnimatedToggleSwitch(
-                          value: isChecked,
+                          value: _isChecked,
                           onUpdateToggle: _onUpdateToggle,
                           text: 'Annehmen',
                           isDecidable: widget.item.isDecidable,
@@ -109,9 +109,9 @@ class _AuthenticationRequestItemRendererState extends State<AuthenticationReques
   void _onUpdateToggle(bool? value) {
     if (value == null) return;
 
-    setState(() => isChecked = value);
+    setState(() => _isChecked = value);
 
-    if (isChecked) {
+    if (_isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
     } else {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
