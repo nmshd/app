@@ -43,7 +43,7 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
   @override
   Widget build(BuildContext context) {
     final translatedTitle = widget.item.name.startsWith('i18n://') ? FlutterI18n.translate(context, widget.item.name.substring(7)) : widget.item.name;
-    final title = widget.item.mustBeAccepted && widget.item.response == null ? '$translatedTitle*' : translatedTitle;
+    final title = widget.item.mustBeAccepted ? '$translatedTitle*' : translatedTitle;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
