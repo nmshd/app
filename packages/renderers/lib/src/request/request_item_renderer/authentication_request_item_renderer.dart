@@ -73,7 +73,6 @@ class _AuthenticationRequestItemRendererState extends State<AuthenticationReques
             ),
           ],
         ),
-
         if (widget.item.isDecidable && widget.validationResult != null && !widget.validationResult!.isSuccess)
           Row(
             children: [
