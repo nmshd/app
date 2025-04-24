@@ -50,7 +50,7 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text.rich(
-            TextSpan(children: [TextSpan(text: title), if (widget.item.mustBeAccepted) TextSpan(text: '*')]),
+            TextSpan(children: [TextSpan(text: title), if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*')]),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           if (widget.item.description != null) ...[Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall), Gaps.h8],

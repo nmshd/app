@@ -97,7 +97,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text.rich(
-                        TextSpan(children: [TextSpan(text: title), if (widget.item.mustBeAccepted) TextSpan(text: '*')]),
+                        TextSpan(children: [TextSpan(text: title), if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*')]),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(widget.item.file.filename, style: Theme.of(context).textTheme.bodyLarge),
