@@ -48,77 +48,153 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        spacing: 8,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: Theme.of(context).textTheme.titleMedium),
-          if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),
-          Material(
-            clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.circular(4),
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
-            child: InkWell(
-              onTap: _isSwitchDisabled ? null : () => onUpdateCheckbox(!_isChecked),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      spacing: 8,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Switch(
-                          thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
-                            (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
-                          ),
-                          activeColor: context.customColors.onSuccess,
-                          value: _isChecked,
-                          activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
-                          onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Column(
-                              spacing: 8,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(widget.item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
-                                if (_isTextOverflowing()) _ShowFullConsentButton(item: widget.item),
-                                if (widget.item.link != null) _LinkButton(item: widget.item),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          if (!(widget.validationResult?.isSuccess ?? true)) ValidationErrorBox(validationResult: widget.validationResult!),
+          if (widget.item.description != null) ...[Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall), Gaps.h8],
+          _ConsentBox(item: widget.item, isChecked: _isChecked, onUpdateCheckbox: _onUpdateCheckbox),
+          if (!(widget.validationResult?.isSuccess ?? true)) ...[Gaps.h8, ValidationErrorBox(validationResult: widget.validationResult!)],
         ],
       ),
     );
   }
 
-  bool get _isSwitchDisabled => !widget.item.isDecidable || (widget.item.mustBeAccepted && widget.item.requireManualDecision == false);
-
-  void onUpdateCheckbox(bool? value) {
+  void _onUpdateCheckbox(bool? value) {
     if (value == null) return;
 
     setState(() => _isChecked = value);
     handleCheckboxChange(isChecked: _isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }
+}
 
-  bool _isTextOverflowing() {
+class _ConsentBox extends StatelessWidget {
+  final ConsentRequestItemDVO item;
+  final bool isChecked;
+  final void Function(bool?) onUpdateCheckbox;
+
+  const _ConsentBox({required this.item, required this.isChecked, required this.onUpdateCheckbox});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      clipBehavior: Clip.hardEdge,
+      borderRadius: BorderRadius.circular(4),
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+      child: InkWell(
+        onTap: _isSwitchDisabled ? null : () => onUpdateCheckbox(!isChecked),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Table(
+            columnWidths: const {0: IntrinsicColumnWidth(), 1: FlexColumnWidth()},
+            children: [
+              TableRow(
+                children: [
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: Switch(
+                        padding: EdgeInsets.zero,
+                        thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                          (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
+                        ),
+                        activeColor: context.customColors.onSuccess,
+                        value: isChecked,
+                        activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
+                        onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
+                      ),
+                    ),
+                  ),
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Text(item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
+                  ),
+                ],
+              ),
+              TableRow(
+                children: [
+                  SizedBox.shrink(),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Column(
+                        spacing: 8,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (_isTextOverflowing(context, constraints) || item.link != null) SizedBox.shrink(),
+                          if (_isTextOverflowing(context, constraints)) _ShowFullConsentButton(item: item),
+                          if (item.link != null) _LinkButton(item: item),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    // return Material(
+    //   clipBehavior: Clip.hardEdge,
+    //   borderRadius: BorderRadius.circular(4),
+    //   color: Theme.of(context).colorScheme.surfaceContainerHighest,
+    //   child: InkWell(
+    //     onTap: _isSwitchDisabled ? null : () => onUpdateCheckbox(!isChecked),
+    //     child: Padding(
+    //       padding: const EdgeInsets.symmetric(horizontal: 8),
+    //       child: Row(
+    //         mainAxisSize: MainAxisSize.min,
+    //         spacing: 8,
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: [
+    //           Switch(
+    //             padding: EdgeInsets.zero,
+    //             thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+    //               (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
+    //             ),
+    //             activeColor: context.customColors.onSuccess,
+    //             value: isChecked,
+    //             activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
+    //             onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
+    //           ),
+    //           Expanded(
+    //             child: Padding(
+    //               padding: const EdgeInsets.symmetric(vertical: 8),
+    //               child: Builder(
+    //                 builder: (context) {
+    //                   return Column(
+    //                     spacing: 8,
+    //                     crossAxisAlignment: CrossAxisAlignment.start,
+    //                     mainAxisAlignment: MainAxisAlignment.center,
+    //                     mainAxisSize: MainAxisSize.max,
+    //                     children: [
+    //                       Text(item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
+    //                       if (_isTextOverflowing(context)) _ShowFullConsentButton(item: item),
+    //                       if (item.link != null) _LinkButton(item: item),
+    //                     ],
+    //                   );
+    //                 },
+    //               ),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
+  }
+
+  bool get _isSwitchDisabled => !item.isDecidable || item.initiallyChecked;
+
+  bool _isTextOverflowing(BuildContext context, BoxConstraints constraints) {
     final textPainter = TextPainter(
-      text: TextSpan(text: widget.item.consent, style: Theme.of(context).textTheme.bodyMedium),
+      text: TextSpan(text: item.consent, style: Theme.of(context).textTheme.bodyMedium),
       maxLines: 4,
       textDirection: TextDirection.ltr,
-    )..layout(maxWidth: MediaQuery.sizeOf(context).width - 116);
+    )..layout(maxWidth: constraints.maxWidth - 8);
+
     return textPainter.didExceedMaxLines;
   }
 }
@@ -139,14 +215,14 @@ class _ShowFullConsentButton extends StatelessWidget {
             builder: (context) => _FullConsentDialog(consent: item.consent, description: item.description),
           ),
       child: Row(
+        spacing: 8,
         mainAxisSize: MainAxisSize.min,
         children: [
           TranslatedText(
             'i18n://requestRenderer.consent.showFullConsent',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
-          Gaps.w8,
-          Icon(Icons.article_outlined, color: Theme.of(context).colorScheme.primary, size: 14),
+          Icon(Icons.article_outlined, color: Theme.of(context).colorScheme.primary, size: 18),
         ],
       ),
     );
@@ -195,14 +271,14 @@ class _LinkButton extends StatelessWidget {
         await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
       },
       child: Row(
+        spacing: 8,
         mainAxisSize: MainAxisSize.min,
         children: [
           TranslatedText(
             item.linkDisplayText ?? 'i18n://requestRenderer.consent.defaultLinkDisplayText',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
-          Gaps.w8,
-          Icon(Icons.arrow_outward, color: Theme.of(context).colorScheme.primary, size: 14),
+          Icon(Icons.arrow_outward, color: Theme.of(context).colorScheme.primary, size: 20),
         ],
       ),
     );
