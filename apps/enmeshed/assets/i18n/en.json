@@ -1014,12 +1014,12 @@
         }
       },
       "status": {
-        "Completed": "Completed",
-        "Decided": "Decided",
-        "DecisionRequired": "Waiting for Automation",
+        "Completed": "Completed task",
+        "Decided": "Completed task",
+        "DecisionRequired": "Task: Waiting for the App",
         "Draft": "Draft",
-        "Error": "Error",
-        "Expired": "Expired",
+        "Error": "Faulty task",
+        "Expired": "Expired task",
         "ManualDecisionRequired": "Open task",
         "Open": "Waiting for Response"
       },
@@ -1056,7 +1056,7 @@
         "name": "Requested your authentication"
       },
       "ConsentRequestItem": {
-        "name": "Requested your consent"
+        "name": "Declaration of consent"
       },
       "CreateIdentityAttributeRequestItem": {
         "name": "Created a new attribute for you"
@@ -1068,7 +1068,7 @@
         "name": "Requests you authentication"
       },
       "DecidableConsentRequestItem": {
-        "name": "Requests your consent"
+        "name": "Declaration of consent"
       },
       "DecidableCreateIdentityAttributeRequestItem": {
         "name": "Creates a new attribute for you"
@@ -1189,6 +1189,10 @@
     }
   },
   "requestRenderer": {
+    "consent": {
+      "defaultLinkDisplayText": "Open Link",
+      "showFullConsent": "Show full text"
+    },
     "description": {
       "transferFileOwnership": "New document in your wallet"
     },

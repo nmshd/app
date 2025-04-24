@@ -23,7 +23,6 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   late final Session _session;
 
   IdentityDVO? _contact;
-  bool _showSendCertificateButton = false;
   int _unreadMessagesCount = 0;
   List<MessageDVO>? _incomingMessages;
   List<LocalRequestDVO>? _openRequests;
@@ -80,7 +79,6 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
           onRefresh: () async {
             await _reloadContact();
             await _reloadMessages();
-            await _loadShowSendCertificateButton();
             await loadSharedFiles(syncBefore: true);
           },
           child: Scrollbar(
@@ -118,7 +116,6 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                   session: _session,
                   accountId: widget.accountId,
                   contact: contact,
-                  showSendCertificateButton: _showSendCertificateButton,
                   isFavoriteContact: _isFavoriteContact,
                   reloadContact: _reloadContact,
                 ),
@@ -150,7 +147,6 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   Future<void> _reload() async {
     await _reloadContact();
 
-    unawaited(_loadShowSendCertificateButton());
     unawaited(_reloadMessages());
   }
 
@@ -184,28 +180,6 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
         _unreadMessagesCount = unreadMessagesCount;
         _incomingMessages = limitedMessages;
       });
-    }
-  }
-
-  Future<void> _loadShowSendCertificateButton() async {
-    if (_contact == null) return;
-    final peer = _contact!.id;
-
-    final attributesResult = await _session.consumptionServices.attributes.getPeerSharedAttributes(
-      peer: peer,
-      query: {
-        'content.isTechnical': QueryValue.string('true'),
-        'content.key': QueryValue.string('AllowCertificateRequest'),
-        'content.value.@type': QueryValue.string('ProprietaryBoolean'),
-      },
-    );
-
-    if (attributesResult.isError) return;
-
-    final attributes = await _session.expander.expandLocalAttributeDTOs(attributesResult.value);
-
-    if (attributes.any((element) => ((element.content as RelationshipAttribute).value as ProprietaryBooleanAttributeValue).value)) {
-      setState(() => _showSendCertificateButton = true);
     }
   }
 }

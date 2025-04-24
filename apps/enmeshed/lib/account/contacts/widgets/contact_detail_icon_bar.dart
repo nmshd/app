@@ -11,7 +11,6 @@ class ContactDetailIconBar extends StatefulWidget {
   final Session session;
   final String accountId;
   final IdentityDVO contact;
-  final bool showSendCertificateButton;
   final bool? isFavoriteContact;
   final Future<void> Function() reloadContact;
 
@@ -19,7 +18,6 @@ class ContactDetailIconBar extends StatefulWidget {
     required this.session,
     required this.accountId,
     required this.contact,
-    required this.showSendCertificateButton,
     required this.isFavoriteContact,
     required this.reloadContact,
     super.key,
@@ -58,12 +56,6 @@ class _ContactDetailIconBarState extends State<ContactDetailIconBar> {
               onPressed: () => context.push('/account/${widget.accountId}/mailbox/send', extra: widget.contact),
               icon: const Icon(Icons.mail_outlined),
               tooltip: context.l10n.contactDetail_sendMessage,
-            ),
-          if (widget.showSendCertificateButton)
-            IconButton(
-              onPressed: () => showRequestCertificateModal(context: context, session: widget.session, peer: widget.contact.id),
-              icon: const Icon(Icons.security),
-              tooltip: context.l10n.contactDetail_requestCertificate,
             ),
           IconButton(
             onPressed:
