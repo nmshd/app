@@ -89,18 +89,15 @@ class _ConsentBox extends StatelessWidget {
               children: [
                 TableCell(
                   verticalAlignment: TableCellVerticalAlignment.middle,
-                  child: Padding(
+                  child: Switch(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Switch(
-                      padding: EdgeInsets.zero,
-                      thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
-                        (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
-                      ),
-                      activeColor: context.customColors.onSuccess,
-                      value: isChecked,
-                      activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
-                      onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
+                    thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                      (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
                     ),
+                    activeColor: context.customColors.onSuccess,
+                    value: isChecked,
+                    activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
+                    onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
                   ),
                 ),
                 TableCell(
