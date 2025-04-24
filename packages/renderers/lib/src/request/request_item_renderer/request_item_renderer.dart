@@ -104,10 +104,12 @@ class RequestItemRenderer extends StatelessWidget {
           dvo.isDecidable
               ? DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex)
               : AuthenticationRequestItemRenderer(item: dvo),
-        final ConsentRequestItemDVO dvo =>
-          dvo.isDecidable
-              ? DecidableConsentRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex)
-              : ConsentRequestItemRenderer(item: dvo),
+        final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          validationResult: validationResult,
+        ),
         final RegisterAttributeListenerRequestItemDVO dvo =>
           dvo.isDecidable
               ? DecidableRegisterAttributeListenerRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex)

@@ -1,5 +1,4 @@
 export 'decidable_authentication_request_item_renderer.dart';
-export 'decidable_consent_request_item_renderer.dart';
 export 'decidable_create_attribute_request_item.dart';
 export 'decidable_free_text_request_item.dart';
 export 'decidable_propose_attribute_request_item_renderer.dart';

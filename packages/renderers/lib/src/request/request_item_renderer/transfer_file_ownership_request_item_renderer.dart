@@ -6,9 +6,10 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import './decidable/checkbox_enabled_extension.dart';
-import './decidable/widgets/handle_checkbox_change.dart';
-import './decidable/widgets/manual_decision_required.dart';
+import 'decidable/checkbox_enabled_extension.dart';
+import 'decidable/widgets/handle_checkbox_change.dart';
+import 'decidable/widgets/manual_decision_required.dart';
+import 'decidable/widgets/validation_error_box.dart';
 
 class TransferFileOwnershipRequestItemRenderer extends StatefulWidget {
   final TransferFileOwnershipRequestItemDVO item;
@@ -40,7 +41,11 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
   void initState() {
     super.initState();
 
-    _isChecked = widget.item.initiallyChecked || (widget.item.response is TransferFileOwnershipAcceptResponseItemDVO);
+    if (widget.item.response != null) {
+      _isChecked = widget.item.response is TransferFileOwnershipAcceptResponseItemDVO;
+    } else {
+      _isChecked = widget.item.initiallyChecked;
+    }
 
     if (_isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
@@ -49,9 +54,8 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
 
   @override
   Widget build(BuildContext context) {
-    final translatedTitle =
+    final title =
         widget.item.file.name.startsWith('i18n://') ? FlutterI18n.translate(context, widget.item.file.name.substring(7)) : widget.item.file.name;
-    final title = widget.item.mustBeAccepted && widget.item.response == null ? '$translatedTitle*' : translatedTitle;
 
     return InkWell(
       onTap: () async {
@@ -96,7 +100,10 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: Theme.of(context).textTheme.labelMedium),
+                      Text.rich(
+                        TextSpan(children: [TextSpan(text: title), if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*')]),
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                       Text(widget.item.file.filename, style: Theme.of(context).textTheme.bodyLarge),
                       if (widget.item.file.description != null) Text(widget.item.file.description!, style: Theme.of(context).textTheme.labelMedium),
                     ],
@@ -111,26 +118,7 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
                 onUpdateManualDecision: widget.item.isDecidable ? _onUpdateDecision : null,
                 i18nKey: 'i18n://requestRenderer.manualDecisionRequired.description.fileTransfer',
               ),
-            if (!(widget.validationResult?.isSuccess ?? true))
-              Material(
-                borderRadius: BorderRadius.circular(4),
-                color: Theme.of(context).colorScheme.error,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    spacing: 4,
-                    children: [
-                      Icon(Icons.error, color: Theme.of(context).colorScheme.onError),
-                      Expanded(
-                        child: TranslatedText(
-                          'i18n://requestRenderer.errors.${widget.validationResult!.code!}',
-                          style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onError),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            if (!(widget.validationResult?.isSuccess ?? true)) ValidationErrorBox(validationResult: widget.validationResult!),
           ],
         ),
       ),
