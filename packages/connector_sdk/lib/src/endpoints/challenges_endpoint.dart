@@ -1,6 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-import './endpoint.dart';
+import 'endpoint.dart';
 
 class ChallengesEndpoint extends Endpoint {
   ChallengesEndpoint(super.dio);
