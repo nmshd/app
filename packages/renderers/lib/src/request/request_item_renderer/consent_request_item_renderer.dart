@@ -82,56 +82,56 @@ class _ConsentBox extends StatelessWidget {
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
       child: InkWell(
         onTap: _isSwitchDisabled ? null : () => onUpdateCheckbox(!isChecked),
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Table(
-            columnWidths: const {0: IntrinsicColumnWidth(), 1: FlexColumnWidth()},
-            children: [
-              TableRow(
-                children: [
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: Switch(
-                        padding: EdgeInsets.zero,
-                        thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
-                          (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
-                        ),
-                        activeColor: context.customColors.onSuccess,
-                        value: isChecked,
-                        activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
-                        onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
+        child: Table(
+          columnWidths: const {0: IntrinsicColumnWidth(), 1: FlexColumnWidth()},
+          children: [
+            TableRow(
+              children: [
+                TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.middle,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Switch(
+                      padding: EdgeInsets.zero,
+                      thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                        (Set<WidgetState> states) => states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close),
                       ),
+                      activeColor: context.customColors.onSuccess,
+                      value: isChecked,
+                      activeTrackColor: _isSwitchDisabled ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
+                      onChanged: _isSwitchDisabled ? null : onUpdateCheckbox,
                     ),
                   ),
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: Text(item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
+                ),
+                TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.middle,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(item.consent * 2, maxLines: 4, overflow: TextOverflow.ellipsis),
                   ),
-                ],
-              ),
-              TableRow(
-                children: [
-                  SizedBox.shrink(),
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Column(
-                        spacing: 8,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (_isTextOverflowing(context, constraints) || item.link != null) SizedBox.shrink(),
-                          if (_isTextOverflowing(context, constraints)) _ShowFullConsentButton(item: item),
-                          if (item.link != null) _LinkButton(item: item),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                SizedBox.shrink(),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Column(
+                      spacing: 8,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (_isTextOverflowing(context, constraints)) _ShowFullConsentButton(item: item),
+                        if (item.link != null) _LinkButton(item: item),
+                        if (_isTextOverflowing(context, constraints) || item.link != null) SizedBox.shrink(),
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
