@@ -33,7 +33,11 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
   void initState() {
     super.initState();
 
-    _isChecked = widget.item.initiallyChecked || widget.item.response is AcceptResponseItemDVO;
+    if (widget.item.response != null) {
+      _isChecked = widget.item.response is AcceptResponseItemDVO;
+    } else {
+      _isChecked = widget.item.initiallyChecked;
+    }
 
     if (_isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
@@ -53,7 +57,8 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
             TextSpan(children: [TextSpan(text: title), if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*')]),
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          if (widget.item.description != null) ...[Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall), Gaps.h8],
+          if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),
+          Gaps.h8,
           _ConsentBox(item: widget.item, isChecked: _isChecked, onUpdateCheckbox: _onUpdateCheckbox),
           if (!(widget.validationResult?.isSuccess ?? true)) ...[Gaps.h8, ValidationErrorBox(validationResult: widget.validationResult!)],
         ],
@@ -106,7 +111,7 @@ class _ConsentBox extends StatelessWidget {
                   verticalAlignment: TableCellVerticalAlignment.middle,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Text(item.consent * 2, maxLines: 4, overflow: TextOverflow.ellipsis),
+                    child: Text(item.consent, maxLines: 4, overflow: TextOverflow.ellipsis),
                   ),
                 ),
               ],

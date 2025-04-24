@@ -41,7 +41,11 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
   void initState() {
     super.initState();
 
-    _isChecked = widget.item.initiallyChecked || widget.item.response is TransferFileOwnershipAcceptResponseItemDVO;
+    if (widget.item.response != null) {
+      _isChecked = widget.item.response is TransferFileOwnershipAcceptResponseItemDVO;
+    } else {
+      _isChecked = widget.item.initiallyChecked;
+    }
 
     if (_isChecked) {
       widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
