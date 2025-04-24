@@ -1015,7 +1015,7 @@
       },
       "status": {
         "Completed": "Completed task",
-        "Decided": "Decided task",
+        "Decided": "Completed task",
         "DecisionRequired": "Task: Waiting for the App",
         "Draft": "Draft",
         "Error": "Faulty task",
