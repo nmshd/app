@@ -179,26 +179,6 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: createQRCodeForFile', () {
-    test('should return a valid CreateQRCodeResponse', () async {
-      final responseResult = await session.transportServices.files.createQRCodeForFile(fileId: globalFile.id);
-
-      expect(responseResult, isSuccessful<CreateQRCodeResponse>());
-    });
-
-    test('throws an exception if file id does not match the pattern', () async {
-      final result = await session.transportServices.files.createQRCodeForFile(fileId: '');
-
-      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
-    });
-
-    test('throws an exception on not existing file id', () async {
-      final result = await session.transportServices.files.createQRCodeForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
-
-      expect(result, isFailing('error.runtime.recordNotFound'));
-    });
-  });
-
   group('FilesFacade: createTokenForFile', () {
     test('should return a valid TokenDTO', () async {
       final tokenResult = await session.transportServices.files.createTokenForFile(fileId: globalFile.id);
@@ -239,35 +219,6 @@ void run(EnmeshedRuntime runtime) {
 
     test('throws an exception on not existing file id', () async {
       final result = await session.transportServices.files.createTokenForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
-
-      expect(result, isFailing('error.runtime.recordNotFound'));
-    });
-  });
-
-  group('FilesFacade: createTokenQRCodeForFile', () {
-    test('should return a valid CreateQRCodeResponse', () async {
-      final tokenResult = await session.transportServices.files.createTokenQRCodeForFile(fileId: globalFile.id);
-
-      expect(tokenResult, isSuccessful<CreateQRCodeResponse>());
-    });
-
-    test('should return a valid CreateQRCodeResponse with all properties', () async {
-      final tokenResult = await session.transportServices.files.createTokenQRCodeForFile(
-        fileId: globalFile.id,
-        expiresAt: generateExpiryString(),
-      );
-
-      expect(tokenResult, isSuccessful<CreateQRCodeResponse>());
-    });
-
-    test('throws an exception if file id does not match the pattern', () async {
-      final result = await session.transportServices.files.createTokenQRCodeForFile(fileId: '');
-
-      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
-    });
-
-    test('throws an exception on not existing file id', () async {
-      final result = await session.transportServices.files.createTokenQRCodeForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
 
       expect(result, isFailing('error.runtime.recordNotFound'));
     });
