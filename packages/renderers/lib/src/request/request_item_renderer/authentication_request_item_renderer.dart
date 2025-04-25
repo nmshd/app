@@ -109,12 +109,12 @@ class _AuthenticationBox extends StatelessWidget {
                     indicatorColor: value ? context.customColors.success : Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  onChanged: active ? (value) => onUpdateToggle(!value) : null,
-                  iconBuilder:
-                      (value) =>
-                          value
-                              ? Icon(Icons.check, color: context.customColors.onSuccess)
-                              : Icon(Icons.arrow_forward_ios, color: Theme.of(context).colorScheme.onPrimary),
+                  onChanged: onUpdateToggle,
+                  iconBuilder: (checked) {
+                    if (checked) return Icon(Icons.check, color: context.customColors.onSuccess);
+
+                    return Icon(Icons.arrow_forward_ios, color: Theme.of(context).colorScheme.onPrimary);
+                  },
                 ),
               ),
             ),
