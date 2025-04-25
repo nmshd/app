@@ -49,7 +49,7 @@ class _AuthenticationRequestItemRendererState extends State<AuthenticationReques
           ),
           if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),
           Gaps.h8,
-          _AuthenticationBox(value: _isChecked, onUpdateToggle: _onUpdateToggle, text: 'Annehmen', active: widget.item.isDecidable),
+          _AuthenticationBox(item: widget.item, value: _isChecked, onUpdateToggle: _onUpdateToggle, text: 'Annehmen'),
           if (!(widget.validationResult?.isSuccess ?? true)) ...[Gaps.h8, ValidationErrorBox(validationResult: widget.validationResult!)],
         ],
       ),
@@ -68,15 +68,17 @@ class _AuthenticationRequestItemRendererState extends State<AuthenticationReques
 }
 
 class _AuthenticationBox extends StatelessWidget {
+  final AuthenticationRequestItemDVO item;
   final bool value;
   final ValueChanged<bool> onUpdateToggle;
   final String text;
-  final bool active;
 
-  const _AuthenticationBox({required this.value, required this.onUpdateToggle, required this.text, required this.active});
+  const _AuthenticationBox({required this.item, required this.value, required this.onUpdateToggle, required this.text});
 
   @override
   Widget build(BuildContext context) {
+    final active = item.isDecidable && !item.initiallyChecked;
+
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: Theme.of(context).colorScheme.surfaceContainerHigh),
       padding: const EdgeInsets.all(16),
