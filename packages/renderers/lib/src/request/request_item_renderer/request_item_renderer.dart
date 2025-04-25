@@ -100,10 +100,12 @@ class RequestItemRenderer extends StatelessWidget {
                 expandFileReference: expandFileReference,
                 openFileDetails: openFileDetails,
               ),
-        final AuthenticationRequestItemDVO dvo =>
-          dvo.isDecidable
-              ? DecidableAuthenticationRequestItemRenderer(controller: controller, item: dvo, itemIndex: itemIndex)
-              : AuthenticationRequestItemRenderer(item: dvo),
+        final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(
+          controller: controller,
+          item: dvo,
+          itemIndex: itemIndex,
+          validationResult: validationResult,
+        ),
         final ConsentRequestItemDVO dvo => ConsentRequestItemRenderer(
           controller: controller,
           item: dvo,
