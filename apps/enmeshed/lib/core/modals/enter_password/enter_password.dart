@@ -13,8 +13,15 @@ class EnterPasswordModal extends StatelessWidget {
   final UIBridgePasswordType passwordType;
   final int attempt;
   final int? pinLength;
+  final int? passwordLocationIndicator;
 
-  const EnterPasswordModal({required this.passwordType, required this.attempt, this.pinLength, super.key});
+  const EnterPasswordModal({
+    required this.passwordType,
+    required this.attempt,
+    required this.pinLength,
+    required this.passwordLocationIndicator,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +46,7 @@ class EnterPasswordModal extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             child: Text(switch (passwordType) {
+              // TODO: use passwordLocationIndicator
               UIBridgePasswordType.password => context.l10n.passwordProtection_referenceIsPasswordProtected,
               UIBridgePasswordType.pin => context.l10n.passwordProtection_referenceIsPinProtected(switch (pinLength!) {
                 4 || 5 || 6 => pinLength.toString(),

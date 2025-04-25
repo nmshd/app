@@ -134,8 +134,8 @@ class AppUIBridge extends UIBridge {
   }
 
   @override
-  Future<String?> enterPassword({required UIBridgePasswordType passwordType, int? pinLength, int? attempt}) async {
-    final extra = (passwordType: passwordType, pinLength: pinLength, attempt: attempt);
+  Future<String?> enterPassword({required UIBridgePasswordType passwordType, int? pinLength, int? attempt, int? passwordLocationIndicator}) async {
+    final extra = (passwordType: passwordType, pinLength: pinLength, attempt: attempt, passwordLocationIndicator: passwordLocationIndicator);
     final password = await router.push('/enter-password-popup', extra: extra);
     if (password is String) {
       logger.d('enterPassword entered $password');

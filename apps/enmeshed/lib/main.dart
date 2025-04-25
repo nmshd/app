@@ -114,8 +114,13 @@ final _router = GoRouter(
           (context, state) => ModalPage(
             isScrollControlled: true,
             builder: (context) {
-              final extra = state.extra! as ({UIBridgePasswordType passwordType, int? pinLength, int? attempt});
-              return EnterPasswordModal(passwordType: extra.passwordType, pinLength: extra.pinLength, attempt: extra.attempt ?? 1);
+              final extra = state.extra! as ({UIBridgePasswordType passwordType, int? pinLength, int? attempt, int? passwordLocationIndicator});
+              return EnterPasswordModal(
+                passwordType: extra.passwordType,
+                pinLength: extra.pinLength,
+                attempt: extra.attempt ?? 1,
+                passwordLocationIndicator: extra.passwordLocationIndicator,
+              );
             },
           ),
     ),
