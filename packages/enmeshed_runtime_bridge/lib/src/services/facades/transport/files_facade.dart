@@ -95,20 +95,6 @@ class FilesFacade {
     return Result.fromJson(value, (x) => FileDTO.fromJson(x));
   }
 
-  Future<Result<CreateQRCodeResponse>> createQRCodeForFile({required String fileId}) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.files.createQRCodeForFile(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {'fileId': fileId},
-      },
-    );
-
-    final value = result.valueToMap();
-    return Result.fromJson(value, (x) => CreateQRCodeResponse.fromJson(x));
-  }
-
   Future<Result<TokenDTO>> createTokenForFile({
     required String fileId,
     String? expiresAt,
@@ -133,30 +119,6 @@ class FilesFacade {
 
     final value = result.valueToMap();
     return Result.fromJson(value, (x) => TokenDTO.fromJson(x));
-  }
-
-  Future<Result<CreateQRCodeResponse>> createTokenQRCodeForFile({
-    required String fileId,
-    String? expiresAt,
-    String? forIdentity,
-    PasswordProtection? passwordProtection,
-  }) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.files.createTokenQRCodeForFile(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'fileId': fileId,
-          if (expiresAt != null) 'expiresAt': expiresAt,
-          if (forIdentity != null) 'forIdentity': forIdentity,
-          if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
-        },
-      },
-    );
-
-    final value = result.valueToMap();
-    return Result.fromJson(value, (x) => CreateQRCodeResponse.fromJson(x));
   }
 
   Future<VoidResult> deleteFile({required String fileId}) async {

@@ -145,18 +145,4 @@ void run(EnmeshedRuntime runtime) {
       expect(result.value, equals(token.value));
     });
   });
-
-  group('TokensFacade: getQRCodeForToken', () {
-    test('should return a QRCode', () async {
-      final token = await session1.transportServices.tokens.createOwnToken(
-        content: {'test': 'test'},
-        expiresAt: generateExpiryString(),
-        ephemeral: false,
-      );
-
-      final result = await session1.transportServices.tokens.getQRCodeForToken(token.value.id);
-
-      expect(result, isSuccessful<CreateQRCodeResponse>());
-    });
-  });
 }

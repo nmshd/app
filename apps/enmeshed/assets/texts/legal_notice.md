@@ -47,7 +47,6 @@ Dieses Softwareprodukt w√ºrde nicht ohne die Hilfe folgender Pakete und Unterst√
 * mocha-param by mikejsdev with license "MIT"
 * mongodb by The MongoDB NodeJS Team dbx-node@mongodb.com with license "Apache-2.0"
 * pako with license "(MIT AND Zlib)"
-* qrcode by Ryan Day soldair@gmail.com with license "MIT"
 * qs with license "BSD-3-Clause"
 * reflect-metadata by Ron Buckton ron.buckton@microsoft.com http://github.com/rbuckton with license "Apache-2.0"
 * ts-simple-nameof by IRCraziestTaxi with license "MIT"
