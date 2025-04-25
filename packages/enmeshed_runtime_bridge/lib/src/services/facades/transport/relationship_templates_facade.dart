@@ -76,44 +76,6 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(value, (x) => RelationshipTemplateDTO.fromJson(x));
   }
 
-  Future<Result<CreateQRCodeResponse>> createQRCodeForOwnTemplate({required String templateId}) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationshipTemplates.createQRCodeForOwnTemplate(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {'templateId': templateId},
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => CreateQRCodeResponse.fromJson(value));
-  }
-
-  Future<Result<CreateQRCodeResponse>> createTokenQRCodeForOwnTemplate({
-    required String templateId,
-    String? expiresAt,
-    String? forIdentity,
-    PasswordProtection? passwordProtection,
-  }) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'templateId': templateId,
-          if (expiresAt != null) 'expiresAt': expiresAt,
-          if (forIdentity != null) 'forIdentity': forIdentity,
-          if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
-        },
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => CreateQRCodeResponse.fromJson(value));
-  }
-
   Future<Result<TokenDTO>> createTokenForOwnTemplate({
     required String templateId,
     String? expiresAt,
