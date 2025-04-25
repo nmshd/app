@@ -199,59 +199,6 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: createQRCodeForOwnTemplate', () {
-    test('should return a valid CreateQRCodeResponse', () async {
-      final expiresAt = generateExpiryString();
-      final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
-
-      final createdTemplateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: content,
-      );
-
-      final response = await session1.transportServices.relationshipTemplates.createQRCodeForOwnTemplate(
-        templateId: createdTemplateResult.value.id,
-      );
-
-      expect(response, isSuccessful<CreateQRCodeResponse>());
-    });
-  });
-
-  group('RelationshipTemplatesFacade: createTokenQRCodeForOwnTemplate', () {
-    test('should return a valid CreateQRCodeResponse', () async {
-      final expiresAt = generateExpiryString();
-      final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
-
-      final createdTemplateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: content,
-      );
-
-      final response = await session1.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(
-        templateId: createdTemplateResult.value.id,
-      );
-
-      expect(response, isSuccessful<CreateQRCodeResponse>());
-    });
-
-    test('should return a valid CreateQRCodeResponse with all properties', () async {
-      final expiresAt = generateExpiryString();
-      final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
-
-      final createdTemplateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-        expiresAt: expiresAt,
-        content: content,
-      );
-
-      final response = await session1.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(
-        templateId: createdTemplateResult.value.id,
-        expiresAt: expiresAt,
-      );
-
-      expect(response, isSuccessful<CreateQRCodeResponse>());
-    });
-  });
-
   group('RelationshipTemplatesFacade: createTokenForOwnTemplate', () {
     test('should return a valid TokenDTO', () async {
       final expiresAt = generateExpiryString();
