@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../contents/request_items/form_field_settings/form_field_settings.dart';
+import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
 import '../data_view_object.dart';
