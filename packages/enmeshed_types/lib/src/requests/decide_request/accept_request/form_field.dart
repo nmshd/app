@@ -1,4 +1,4 @@
-import '../../../contents/response_items/form_field_accept_response_item.dart';
+import '../../../contents/contents.dart';
 import 'accept_request_item_parameters.dart';
 
 class AcceptFormFieldRequestItemParameters extends AcceptRequestItemParameters {

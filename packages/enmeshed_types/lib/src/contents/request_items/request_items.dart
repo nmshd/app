@@ -2,6 +2,8 @@ export 'authentication_request_item.dart';
 export 'consent_request_item.dart';
 export 'create_attribute_request_item.dart';
 export 'delete_attribute_request_item.dart';
+export 'form_field_request_item.dart';
+export 'form_field_settings/form_field_settings.dart';
 export 'free_text_request_item.dart';
 export 'propose_attribute_request_item.dart';
 export 'read_attribute_request_item.dart';

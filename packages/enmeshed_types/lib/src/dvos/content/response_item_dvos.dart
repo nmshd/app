@@ -4,7 +4,6 @@ import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
 import '../data_view_object.dart';
-import '../../contents/response_items/form_field_accept_response_item.dart';
 
 part 'response_item_dvos.g.dart';
 
