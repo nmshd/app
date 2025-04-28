@@ -12,7 +12,6 @@ class ProposeAttributeRequestItem extends RequestItemDerivation {
   final AbstractAttribute attribute;
 
   const ProposeAttributeRequestItem({
-    super.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,

@@ -14,14 +14,7 @@ abstract class RequestItemDerivation extends RequestItem {
   final bool mustBeAccepted;
   final bool? requireManualDecision;
 
-  const RequestItemDerivation({
-    super.title,
-    super.description,
-    super.metadata,
-    required this.mustBeAccepted,
-    this.requireManualDecision,
-    required super.atType,
-  });
+  const RequestItemDerivation({super.description, super.metadata, required this.mustBeAccepted, this.requireManualDecision, required super.atType});
 
   factory RequestItemDerivation.fromJson(Map json) {
     final type = json['@type'];

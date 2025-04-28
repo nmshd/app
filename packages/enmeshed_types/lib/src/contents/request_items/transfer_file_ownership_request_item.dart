@@ -9,7 +9,6 @@ class TransferFileOwnershipRequestItem extends RequestItemDerivation {
   final String fileReference;
 
   const TransferFileOwnershipRequestItem({
-    super.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,

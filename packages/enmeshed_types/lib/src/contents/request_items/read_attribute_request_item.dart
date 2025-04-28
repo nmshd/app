@@ -9,14 +9,8 @@ part 'read_attribute_request_item.g.dart';
 class ReadAttributeRequestItem extends RequestItemDerivation {
   final AttributeQuery query;
 
-  const ReadAttributeRequestItem({
-    super.title,
-    super.description,
-    super.metadata,
-    required super.mustBeAccepted,
-    super.requireManualDecision,
-    required this.query,
-  }) : super(atType: 'ReadAttributeRequestItem');
+  const ReadAttributeRequestItem({super.description, super.metadata, required super.mustBeAccepted, super.requireManualDecision, required this.query})
+    : super(atType: 'ReadAttributeRequestItem');
 
   factory ReadAttributeRequestItem.fromJson(Map json) => _$ReadAttributeRequestItemFromJson(Map<String, dynamic>.from(json));
 

@@ -250,7 +250,7 @@ class AttributesFacade {
     required String attributeId,
     required String peer,
     ({String? title, String? description, Map<String, dynamic>? metadata, String? expiresAt})? requestMetadata,
-    ({String? title, String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
+    ({String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.shareRepositoryAttribute(request)
@@ -269,7 +269,6 @@ class AttributesFacade {
             },
           if (requestItemMetadata != null)
             'requestItemMetadata': {
-              if (requestItemMetadata.title != null) 'title': requestItemMetadata.title,
               if (requestItemMetadata.description != null) 'description': requestItemMetadata.description,
               if (requestItemMetadata.metadata != null) 'metadata': requestItemMetadata.metadata,
               if (requestItemMetadata.requireManualDecision != null) 'requireManualDecision': requestItemMetadata.requireManualDecision,
@@ -306,7 +305,7 @@ class AttributesFacade {
     bool? isTechnical,
     required String peer,
     ({String? title, String? description, Map<String, dynamic>? metadata, String? expiresAt})? requestMetadata,
-    ({String? title, String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
+    ({String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.createAndShareRelationshipAttribute(request)
@@ -330,7 +329,6 @@ class AttributesFacade {
             },
           if (requestItemMetadata != null)
             'requestItemMetadata': {
-              if (requestItemMetadata.title != null) 'title': requestItemMetadata.title,
               if (requestItemMetadata.description != null) 'description': requestItemMetadata.description,
               if (requestItemMetadata.metadata != null) 'metadata': requestItemMetadata.metadata,
               if (requestItemMetadata.requireManualDecision != null) 'requireManualDecision': requestItemMetadata.requireManualDecision,
