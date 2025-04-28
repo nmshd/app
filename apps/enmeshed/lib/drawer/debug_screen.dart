@@ -45,83 +45,7 @@ class DebugScreen extends StatelessWidget {
                 builder: (_, s) => !s.hasData ? const CircularProgressIndicator() : _CopyableText(title: 'Push Token: ', text: s.data!),
                 future: Push.instance.token.timeout(const Duration(seconds: 5)).catchError((_) => 'timeout', test: (e) => e is TimeoutException),
               ),
-              if (kDebugMode) ...[
-                const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: Text('Enter Password Popups', style: Theme.of(context).textTheme.titleLarge),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: Wrap(
-                    spacing: 8,
-                    children: [
-                      for (int i = 4; i <= 16; i++)
-                        OutlinedButton(
-                          onPressed: () async {
-                            final pin = await context.push(
-                              '/enter-password-popup',
-                              extra: (passwordType: UIBridgePasswordType.pin, pinLength: i, attempt: 1),
-                            );
-
-                            if (!context.mounted) return;
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
-                          },
-                          child: Text('PIN$i'),
-                        ),
-                      OutlinedButton(
-                        onPressed: () async {
-                          final password = await context.push(
-                            '/enter-password-popup',
-                            extra: (passwordType: UIBridgePasswordType.password, pinLength: null, attempt: 1),
-                          );
-
-                          if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
-                        },
-                        child: const Text('PW'),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: Text('Enter Password Popups (Second attempt)', style: Theme.of(context).textTheme.titleLarge),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: Wrap(
-                    spacing: 8,
-                    children: [
-                      for (int i = 4; i <= 16; i++)
-                        OutlinedButton(
-                          onPressed: () async {
-                            final pin = await context.push(
-                              '/enter-password-popup',
-                              extra: (passwordType: UIBridgePasswordType.pin, pinLength: i, attempt: 2),
-                            );
-
-                            if (!context.mounted) return;
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
-                          },
-                          child: Text('PIN$i'),
-                        ),
-                      OutlinedButton(
-                        onPressed: () async {
-                          final password = await context.push(
-                            '/enter-password-popup',
-                            extra: (passwordType: UIBridgePasswordType.password, pinLength: null, attempt: 2),
-                          );
-
-                          if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered Password: $password')));
-                        },
-                        child: const Text('PW'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              if (kDebugMode) const _PasswordTester(),
               const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -333,5 +257,94 @@ class _PushDebuggerState extends State<_PushDebugger> {
         ],
       ),
     );
+  }
+}
+
+class _PasswordTester extends StatefulWidget {
+  const _PasswordTester();
+
+  @override
+  State<_PasswordTester> createState() => _PasswordTesterState();
+}
+
+class _PasswordTesterState extends State<_PasswordTester> {
+  bool _secondAttempt = false;
+  String? _locationIndicator;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Divider(indent: 20, endIndent: 20, height: 20, thickness: 1.5),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Text('Enter Password Popups', style: Theme.of(context).textTheme.titleLarge),
+        ),
+        SwitchListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+          value: _secondAttempt,
+          onChanged: (_) => setState(() => _secondAttempt = !_secondAttempt),
+          title: const Text('Second Attempt'),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+          child: Row(
+            spacing: 8,
+            children: [
+              Flexible(child: Text('Location Indicator', style: Theme.of(context).textTheme.bodyLarge)),
+              DropdownButton<String?>(
+                value: _locationIndicator,
+                items: const [
+                  DropdownMenuItem(child: Text('None')),
+                  DropdownMenuItem(value: 'RecoveryKit', child: Text('RecoveryKit')),
+                  DropdownMenuItem(value: 'Self', child: Text('Self')),
+                  DropdownMenuItem(value: 'Letter', child: Text('Letter')),
+                  DropdownMenuItem(value: 'RegistrationLetter', child: Text('RegistrationLetter')),
+                  DropdownMenuItem(value: 'Email', child: Text('Email')),
+                  DropdownMenuItem(value: 'SMS', child: Text('SMS')),
+                  DropdownMenuItem(value: 'Website', child: Text('Website')),
+                ],
+                onChanged: (value) => setState(() => _locationIndicator = value),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Wrap(
+            spacing: 8,
+            children: [
+              for (int i = 4; i <= 16; i++) OutlinedButton(onPressed: () => _trigger(i), child: Text('PIN$i')),
+              OutlinedButton(onPressed: () => _trigger(null), child: const Text('PW')),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _trigger(int? pinLength) async {
+    final pin = await context.push(
+      '/enter-password-popup',
+      extra: (
+        passwordType: pinLength != null ? UIBridgePasswordType.pin : UIBridgePasswordType.password,
+        pinLength: pinLength,
+        attempt: _secondAttempt ? 2 : 1,
+        passwordLocationIndicator: switch (_locationIndicator) {
+          'RecoveryKit' => 0,
+          'Self' => 1,
+          'Letter' => 2,
+          'RegistrationLetter' => 3,
+          'Email' => 4,
+          'SMS' => 5,
+          'Website' => 7,
+          _ => null,
+        },
+      ),
+    );
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entered PIN Code: $pin')));
   }
 }
