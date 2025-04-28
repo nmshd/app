@@ -4,7 +4,7 @@ export 'attribute_succession_accept_response_item.dart';
 export 'create_attribute_accept_response_item.dart';
 export 'delete_attribute_accept_response_item.dart';
 export 'error_response_item.dart';
-export 'free_text_accept_response_item.dart';
+export 'form_field_accept_response_item.dart';
 export 'propose_attribute_accept_response_item.dart';
 export 'read_attribute_accept_response_item.dart';
 export 'register_attribute_listener_accept_response_item.dart';

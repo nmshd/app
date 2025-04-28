@@ -4,7 +4,6 @@ import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
 import '../data_view_object.dart';
-import '../../contents/response_items/form_field_accept_response_item.dart';
 
 part 'response_item_dvos.g.dart';
 
@@ -130,7 +129,6 @@ class AcceptResponseItemDVO extends ResponseItemDVODerivation {
     'DeleteAttributeAcceptResponseItemDVO' => DeleteAttributeAcceptResponseItemDVO.fromJson(json),
     'ShareAttributeAcceptResponseItemDVO' => ShareAttributeAcceptResponseItemDVO.fromJson(json),
     'FormFieldAcceptResponseItemDVO' => FormFieldAcceptResponseItemDVO.fromJson(json),
-    'FreeTextAcceptResponseItemDVO' => FreeTextAcceptResponseItemDVO.fromJson(json),
     'RegisterAttributeListenerAcceptResponseItemDVO' => RegisterAttributeListenerAcceptResponseItemDVO.fromJson(json),
     'TransferFileOwnershipAcceptResponseItemDVO' => TransferFileOwnershipAcceptResponseItemDVO.fromJson(json),
     'AttributeSuccessionAcceptResponseItemDVO' => AttributeSuccessionAcceptResponseItemDVO.fromJson(json),
@@ -276,27 +274,6 @@ class FormFieldAcceptResponseItemDVO extends AcceptResponseItemDVO {
   factory FormFieldAcceptResponseItemDVO.fromJson(Map json) => _$FormFieldAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$FormFieldAcceptResponseItemDVOToJson(this);
-}
-
-@JsonSerializable(includeIfNull: false)
-class FreeTextAcceptResponseItemDVO extends AcceptResponseItemDVO {
-  final String freeText;
-
-  const FreeTextAcceptResponseItemDVO({
-    required super.id,
-    required super.name,
-    super.description,
-    super.image,
-    required super.type,
-    super.date,
-    super.error,
-    super.warning,
-    required this.freeText,
-  });
-
-  factory FreeTextAcceptResponseItemDVO.fromJson(Map json) => _$FreeTextAcceptResponseItemDVOFromJson(Map<String, dynamic>.from(json));
-  @override
-  Map<String, dynamic> toJson() => _$FreeTextAcceptResponseItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)

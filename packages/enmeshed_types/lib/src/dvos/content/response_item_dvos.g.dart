@@ -252,30 +252,6 @@ Map<String, dynamic> _$FormFieldAcceptResponseItemDVOToJson(FormFieldAcceptRespo
   'response': instance.response.toJson(),
 };
 
-FreeTextAcceptResponseItemDVO _$FreeTextAcceptResponseItemDVOFromJson(Map<String, dynamic> json) => FreeTextAcceptResponseItemDVO(
-  id: json['id'] as String,
-  name: json['name'] as String,
-  description: json['description'] as String?,
-  image: json['image'] as String?,
-  type: json['type'] as String,
-  date: json['date'] as String?,
-  error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
-  warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
-  freeText: json['freeText'] as String,
-);
-
-Map<String, dynamic> _$FreeTextAcceptResponseItemDVOToJson(FreeTextAcceptResponseItemDVO instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  if (instance.description case final value?) 'description': value,
-  if (instance.image case final value?) 'image': value,
-  'type': instance.type,
-  if (instance.date case final value?) 'date': value,
-  if (instance.error?.toJson() case final value?) 'error': value,
-  if (instance.warning?.toJson() case final value?) 'warning': value,
-  'freeText': instance.freeText,
-};
-
 RegisterAttributeListenerAcceptResponseItemDVO _$RegisterAttributeListenerAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
     RegisterAttributeListenerAcceptResponseItemDVO(
       id: json['id'] as String,
