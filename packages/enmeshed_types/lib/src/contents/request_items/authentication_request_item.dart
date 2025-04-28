@@ -6,8 +6,6 @@ part 'authentication_request_item.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class AuthenticationRequestItem extends RequestItemDerivation {
-  @override
-  // ignore: overridden_fields
   final String title;
 
   const AuthenticationRequestItem({
@@ -24,5 +22,5 @@ class AuthenticationRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$AuthenticationRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [...super.props];
+  List<Object?> get props => [...super.props, title];
 }

@@ -12,7 +12,6 @@ class ShareAttributeRequestItem extends RequestItemDerivation {
   final String? thirdPartyAddress;
 
   const ShareAttributeRequestItem({
-    super.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,

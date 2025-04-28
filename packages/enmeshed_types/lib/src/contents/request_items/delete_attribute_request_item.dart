@@ -9,7 +9,6 @@ class DeleteAttributeRequestItem extends RequestItemDerivation {
   final String attributeId;
 
   const DeleteAttributeRequestItem({
-    super.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,

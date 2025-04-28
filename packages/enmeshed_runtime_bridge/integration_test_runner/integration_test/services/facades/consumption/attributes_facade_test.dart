@@ -1091,7 +1091,6 @@ void run(EnmeshedRuntime runtime) {
           expiresAt: null,
         ),
         requestItemMetadata: (
-          title: 'aRequestItemTitle',
           description: 'aRequestItemDescription',
           metadata: null,
           requireManualDecision: null,
@@ -1133,7 +1132,6 @@ void run(EnmeshedRuntime runtime) {
       expect(event.request.content.title, 'aRequestTitle');
       expect(event.request.content.description, 'aRequestDescription');
       expect(event.request.content.metadata, {'a': 'b'});
-      expect(event.request.content.items.first.title, 'aRequestItemTitle');
       expect(event.request.content.items.first.description, 'aRequestItemDescription');
     });
   });
@@ -1223,7 +1221,6 @@ void run(EnmeshedRuntime runtime) {
           expiresAt: null,
         ),
         requestItemMetadata: (
-          title: 'aRequestItemTitle',
           description: 'aRequestItemDescription',
           metadata: null,
           requireManualDecision: null,
@@ -1235,7 +1232,6 @@ void run(EnmeshedRuntime runtime) {
       expect(request.content.items.first.toJson()['attribute']['value']['@type'], 'ProprietaryBoolean');
       expect(request.content.items.first.toJson()['attribute']['value']['title'], 'aTitle');
       expect(request.content.items.first.toJson()['attribute']['value']['value'], true);
-      expect(request.content.items.first.title, 'aRequestItemTitle');
       expect(request.content.items.first.description, 'aRequestItemDescription');
       expect(request.content.metadata, {'a': 'b'});
 
