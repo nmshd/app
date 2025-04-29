@@ -837,6 +837,7 @@
   "passwordProtection_referenceIsPasswordProtected_default": "Geben Sie das Passwort ein, um fortzufahren.",
   "passwordProtection_referenceIsPinProtected_default": "Geben Sie die PIN ein, um fortzufahren.",
   "passwordProtection_referenceIsPasswordProtected_recoveryKit": "Das Wiederherstellungskit ist mit einem Passwort gesichert. Geben Sie das Passwort ein, das Sie bei dessen Erstellung eingegeben haben.",
+  "passwordProtection_referenceIsPinProtected_recoveryKit": "Das Wiederherstellungskit ist mit einer PIN gesichert. Geben Sie die PIN ein, die Sie bei dessen Erstellung eingegeben haben.",
   "passwordProtection_referenceIsPasswordProtected_self": "Geben Sie hier das von Ihnen erstellte Passwort ein.",
   "passwordProtection_referenceIsPinProtected_self": "Geben Sie hier die von Ihnen erstellte PIN ein.",
   "passwordProtection_referenceIsPasswordProtected_letter": "Geben Sie hier das Passwort ein, das Sie mit dem Brief von Ihrem Kontakt erhalten haben.",

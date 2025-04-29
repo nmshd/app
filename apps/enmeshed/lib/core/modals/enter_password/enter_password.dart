@@ -80,9 +80,12 @@ class EnterPasswordModal extends StatelessWidget {
   }
 
   String _buildProtectionExplanation(BuildContext context) {
-    // 0 = RecoveryKit - will only occur with password type and get a separate message
-    if (passwordType == UIBridgePasswordType.password && passwordLocationIndicator == 0) {
-      return context.l10n.passwordProtection_referenceIsPasswordProtected_recoveryKit;
+    // 0 = RecoveryKit - get a separate message
+    if (passwordLocationIndicator == 0) {
+      return switch (passwordType) {
+        UIBridgePasswordType.password => context.l10n.passwordProtection_referenceIsPasswordProtected_recoveryKit,
+        UIBridgePasswordType.pin => context.l10n.passwordProtection_referenceIsPinProtected_recoveryKit,
+      };
     }
 
     final baseText = switch (passwordType) {

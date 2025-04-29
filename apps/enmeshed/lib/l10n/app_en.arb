@@ -837,6 +837,7 @@
   "passwordProtection_referenceIsPasswordProtected_default": "Please enter the password to continue.",
   "passwordProtection_referenceIsPinProtected_default": "Please enter the PIN to continue.",
   "passwordProtection_referenceIsPasswordProtected_recoveryKit": "The recovery kit is secured with a password. Enter the password that you entered when creating it.",
+  "passwordProtection_referenceIsPinProtected_recoveryKit": "The recovery kit is secured with a PIN. Enter the PIN that you entered when creating it.",
   "passwordProtection_referenceIsPasswordProtected_self": "Enter the password you have created here.",
   "passwordProtection_referenceIsPinProtected_self": "Enter the PIN you have created here.",
   "passwordProtection_referenceIsPasswordProtected_letter": "Enter the password you received with the letter from your contact here.",
