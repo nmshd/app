@@ -826,7 +826,7 @@
   "passwordProtection_enterPin": "Enter PIN",
   "passwordProtection_passwordEmpty": "Please enter a password.",
   "passwordProtection_referenceIsPasswordProtected": "This QR code or Link is password protected.",
-  "passwordProtection_referenceIsPinProtected": "This QR code or Link is protected with a {count, select, 4{four digits} 5{five digits} 6{six digits} other{complex}} PIN.",
+  "passwordProtection_referenceIsPinProtected": "This QR code or Link is protected with a {count, select, 4{four digit} 5{five digit} 6{six digit} other{complex}} PIN.",
   "@passwordProtection_referenceIsPinProtected": {
     "placeholders": {
       "count": {

@@ -117,7 +117,7 @@ class EnterPasswordModal extends StatelessWidget {
       (UIBridgePasswordType.password, 5) => context.l10n.passwordProtection_referenceIsPasswordProtected_sms,
       (UIBridgePasswordType.pin, 5) => context.l10n.passwordProtection_referenceIsPinProtected_sms,
 
-      // 7 = Website
+      // 6 = Website
       (UIBridgePasswordType.password, 6) => context.l10n.passwordProtection_referenceIsPasswordProtected_website,
       (UIBridgePasswordType.pin, 6) => context.l10n.passwordProtection_referenceIsPinProtected_website,
 

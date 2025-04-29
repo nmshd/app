@@ -338,7 +338,7 @@ class _PasswordTesterState extends State<_PasswordTester> {
           'RegistrationLetter' => 3,
           'Email' => 4,
           'SMS' => 5,
-          'Website' => 7,
+          'Website' => 6,
           _ => null,
         },
       ),
