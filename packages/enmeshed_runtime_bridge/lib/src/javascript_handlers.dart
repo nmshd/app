@@ -229,7 +229,19 @@ class JsToUIBridge {
           _ => throw Exception('Invalid attempt: ${args[2]}'),
         };
 
-        final password = await uiBridge.enterPassword(passwordType: passwordType, pinLength: pinLength, attempt: attempt);
+        final passwordLocationIndicator = switch (args[3]) {
+          null => null,
+          final num i => i.toInt(),
+          final String s => int.parse(s),
+          _ => throw Exception('Invalid password location indicator: ${args[3]}'),
+        };
+
+        final password = await uiBridge.enterPassword(
+          passwordType: passwordType,
+          pinLength: pinLength,
+          attempt: attempt,
+          passwordLocationIndicator: passwordLocationIndicator,
+        );
         return password;
       },
     );

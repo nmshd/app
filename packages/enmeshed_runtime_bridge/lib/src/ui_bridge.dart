@@ -25,5 +25,5 @@ abstract class UIBridge {
 
   Future<LocalAccountDTO?> requestAccountSelection(List<LocalAccountDTO> possibleAccounts, [String? title, String? description]);
 
-  Future<String?> enterPassword({required UIBridgePasswordType passwordType, int? pinLength, int? attempt});
+  Future<String?> enterPassword({required UIBridgePasswordType passwordType, int? pinLength, int? attempt, int? passwordLocationIndicator});
 }

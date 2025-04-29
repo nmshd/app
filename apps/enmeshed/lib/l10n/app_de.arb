@@ -825,8 +825,8 @@
   "passwordProtection_enterPassword": "Passwort eingeben",
   "passwordProtection_enterPin": "PIN eingeben",
   "passwordProtection_passwordEmpty": "Bitte geben Sie ein Passwort ein.",
-  "passwordProtection_referenceIsPasswordProtected": "Dieser QR-Code oder Link ist mit einem Passwort gesichert. Geben Sie das Passwort ein, um fortzufahren.",
-  "passwordProtection_referenceIsPinProtected": "Dieser QR-Code oder Link ist mit einer {count, select, 4{vierstelligen} 5{fünfstelligen} 6{sechsstelligen} other{komplexen}} PIN gesichert. Geben Sie die PIN ein, um fortzufahren.",
+  "passwordProtection_referenceIsPasswordProtected": "Dieser QR-Code oder Link ist mit einem Passwort gesichert.",
+  "passwordProtection_referenceIsPinProtected": "Dieser QR-Code oder Link ist mit einer {count, select, 4{vierstelligen} 5{fünfstelligen} 6{sechsstelligen} other{komplexen}} PIN gesichert.",
   "@passwordProtection_referenceIsPinProtected": {
     "placeholders": {
       "count": {
@@ -834,6 +834,22 @@
       }
     }
   },
+  "passwordProtection_referenceIsPasswordProtected_default": "Geben Sie das Passwort ein, um fortzufahren.",
+  "passwordProtection_referenceIsPinProtected_default": "Geben Sie die PIN ein, um fortzufahren.",
+  "passwordProtection_referenceIsPasswordProtected_recoveryKit": "Das Wiederherstellungskit ist mit einem Passwort gesichert. Geben Sie das Passwort ein, das Sie bei dessen Erstellung festgelegt haben.",
+  "passwordProtection_referenceIsPinProtected_recoveryKit": "Das Wiederherstellungskit ist mit einer PIN gesichert. Geben Sie die PIN ein, die Sie bei dessen Erstellung festgelegt haben.",
+  "passwordProtection_referenceIsPasswordProtected_self": "Geben Sie hier das von Ihnen erstellte Passwort ein.",
+  "passwordProtection_referenceIsPinProtected_self": "Geben Sie hier die von Ihnen erstellte PIN ein.",
+  "passwordProtection_referenceIsPasswordProtected_letter": "Geben Sie hier das Passwort ein, das Sie mit dem Brief von Ihrem Kontakt erhalten haben.",
+  "passwordProtection_referenceIsPinProtected_letter": "Geben Sie hier die PIN ein, die Sie mit dem Brief von Ihrem Kontakt erhalten haben.",
+  "passwordProtection_referenceIsPasswordProtected_registrationLetter": "Geben Sie hier das Passwort aus Ihrem Registrierungsbrief ein.",
+  "passwordProtection_referenceIsPinProtected_registrationLetter": "Geben Sie hier die PIN aus Ihrem Registrierungsbrief ein.",
+  "passwordProtection_referenceIsPasswordProtected_email": "Geben Sie das Passwort ein, das Sie in einer E-Mail von Ihrem Kontakt erhalten haben.",
+  "passwordProtection_referenceIsPinProtected_email": "Geben Sie hier die PIN ein, die Sie in einer E-Mail von Ihrem Kontakt erhalten haben.",
+  "passwordProtection_referenceIsPasswordProtected_sms": "Geben Sie hier das Passwort ein, das per SMS an Ihre Mobilnummer versendet wurde.",
+  "passwordProtection_referenceIsPinProtected_sms": "Geben Sie hier die PIN ein, die per SMS an Ihre Mobilnummer versendet wurde.",
+  "passwordProtection_referenceIsPasswordProtected_website": "Geben Sie hier das Passwort ein, das neben dem QR-Code auf der Webseite angezeigt wird.",
+  "passwordProtection_referenceIsPinProtected_website": "Geben Sie hier die PIN ein, die neben dem QR-Code auf der Webseite angezeigt wird.",
   "passwordProtection_incorrectPassword": "Sie haben ein falsches Passwort eingegeben. Versuchen Sie es erneut.",
   "passwordProtection_incorrectPin": "Sie haben eine falsche PIN eingegeben. Versuchen Sie es erneut.",
   "identityInDeletion_title": "Das derzeit aktive Profil {profileName} wurde in Löschung versetzt.",
