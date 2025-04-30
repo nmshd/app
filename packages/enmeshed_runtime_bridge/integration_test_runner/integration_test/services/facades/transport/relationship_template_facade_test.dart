@@ -199,7 +199,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: createTokenForOwnTemplate', () {
+  group('RelationshipTemplatesFacade: createTokenForOwnRelationshipTemplate', () {
     test('should return a valid TokenDTO', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -209,7 +209,7 @@ void run(EnmeshedRuntime runtime) {
         content: content,
       );
 
-      final tokenResult = await session1.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+      final tokenResult = await session1.transportServices.relationshipTemplates.createTokenForOwnRelationshipTemplate(
         templateId: createdTemplate.value.id,
       );
 
@@ -224,7 +224,7 @@ void run(EnmeshedRuntime runtime) {
         content: ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'}),
       );
 
-      final tokenResult = await session1.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+      final tokenResult = await session1.transportServices.relationshipTemplates.createTokenForOwnRelationshipTemplate(
         templateId: createdTemplateResult.value.id,
         expiresAt: expiresAt,
         ephemeral: true,

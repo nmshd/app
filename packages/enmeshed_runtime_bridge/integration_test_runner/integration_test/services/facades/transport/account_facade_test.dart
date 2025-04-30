@@ -133,7 +133,7 @@ void run(EnmeshedRuntime runtime) {
         ))
             .value;
         relationshipTemplateReference = relationshipTemplate.truncatedReference;
-        relationshipTemplateTokenReference = (await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(
+        relationshipTemplateTokenReference = (await session.transportServices.relationshipTemplates.createTokenForOwnRelationshipTemplate(
           templateId: relationshipTemplate.id,
         ))
             .value
