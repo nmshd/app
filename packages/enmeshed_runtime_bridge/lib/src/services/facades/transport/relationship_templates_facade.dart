@@ -76,7 +76,7 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(value, (x) => RelationshipTemplateDTO.fromJson(x));
   }
 
-  Future<Result<TokenDTO>> createTokenForOwnTemplate({
+  Future<Result<TokenDTO>> createTokenForOwnRelationshipTemplate({
     required String templateId,
     String? expiresAt,
     bool? ephemeral,
@@ -84,7 +84,7 @@ class RelationshipTemplatesFacade {
     PasswordProtection? passwordProtection,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(request)
+      '''const result = await session.transportServices.relationshipTemplates.createTokenForOwnRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {

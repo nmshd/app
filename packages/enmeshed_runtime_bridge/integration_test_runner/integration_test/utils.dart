@@ -462,7 +462,7 @@ class FakeUIBridge implements UIBridge {
   final showRequestCalls = List<(LocalAccountDTO, LocalRequestDVO)>.empty(growable: true);
   bool get showRequestCalled => showRequestCalls.isNotEmpty;
 
-  final enterPasswordCalls = List<(UIBridgePasswordType, int?, int?)>.empty(growable: true);
+  final enterPasswordCalls = List<(UIBridgePasswordType, int?, int?, int?)>.empty(growable: true);
   bool get enterPasswordCalled => enterPasswordCalls.isNotEmpty;
 
   void reset() {
@@ -502,8 +502,8 @@ class FakeUIBridge implements UIBridge {
   Future<void> showRequest(LocalAccountDTO account, LocalRequestDVO request) async => showRequestCalls.add((account, request));
 
   @override
-  Future<String> enterPassword({required UIBridgePasswordType passwordType, int? pinLength, int? attempt}) async {
-    enterPasswordCalls.add((passwordType, pinLength, attempt));
+  Future<String> enterPassword({required UIBridgePasswordType passwordType, int? pinLength, int? attempt, int? passwordLocationIndicator}) async {
+    enterPasswordCalls.add((passwordType, pinLength, attempt, passwordLocationIndicator));
 
     return switch (passwordType) {
       UIBridgePasswordType.pin => '0' * pinLength!,

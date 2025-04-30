@@ -825,8 +825,8 @@
   "passwordProtection_enterPassword": "Enter password",
   "passwordProtection_enterPin": "Enter PIN",
   "passwordProtection_passwordEmpty": "Please enter a password.",
-  "passwordProtection_referenceIsPasswordProtected": "This QR code or Link is password protected. Please enter the password to proceed.",
-  "passwordProtection_referenceIsPinProtected": "This QR code or Link is protected with a {count, select, 4{four digits} 5{five digits} 6{six digits} other{complex}} PIN. Please enter the PIN to proceed.",
+  "passwordProtection_referenceIsPasswordProtected": "This QR code or Link is password protected.",
+  "passwordProtection_referenceIsPinProtected": "This QR code or Link is protected with a {count, select, 4{four digit} 5{five digit} 6{six digit} other{complex}} PIN.",
   "@passwordProtection_referenceIsPinProtected": {
     "placeholders": {
       "count": {
@@ -834,6 +834,22 @@
       }
     }
   },
+  "passwordProtection_referenceIsPasswordProtected_default": "Please enter the password to continue.",
+  "passwordProtection_referenceIsPinProtected_default": "Please enter the PIN to continue.",
+  "passwordProtection_referenceIsPasswordProtected_recoveryKit": "The recovery kit is secured with a password. Enter the password that you defined when creating it.",
+  "passwordProtection_referenceIsPinProtected_recoveryKit": "The recovery kit is secured with a PIN. Enter the PIN that you defined when creating it.",
+  "passwordProtection_referenceIsPasswordProtected_self": "Enter the password you have created here.",
+  "passwordProtection_referenceIsPinProtected_self": "Enter the PIN you have created here.",
+  "passwordProtection_referenceIsPasswordProtected_letter": "Enter the password you received with the letter from your contact here.",
+  "passwordProtection_referenceIsPinProtected_letter": "Enter the PIN you received with the letter from your contact here.",
+  "passwordProtection_referenceIsPasswordProtected_registrationLetter": "Enter the password from your registration letter here.",
+  "passwordProtection_referenceIsPinProtected_registrationLetter": "Enter the PIN from your registration letter here.",
+  "passwordProtection_referenceIsPasswordProtected_email": "Enter the password that you received in an e-mail from your contact.",
+  "passwordProtection_referenceIsPinProtected_email": "Enter the PIN that you received in an e-mail from your contact.",
+  "passwordProtection_referenceIsPasswordProtected_sms": "Enter the password that was sent to your mobile number by SMS here.",
+  "passwordProtection_referenceIsPinProtected_sms": "Enter the PIN that was sent to your mobile number by SMS here.",
+  "passwordProtection_referenceIsPasswordProtected_website": "Enter the password here, which is displayed next to the QR code on the website.",
+  "passwordProtection_referenceIsPinProtected_website": "Enter the PIN here, which is displayed next to the QR code on the website.",
   "passwordProtection_incorrectPassword": "You have entered an incorrect password. Please try again.",
   "passwordProtection_incorrectPin": "You have entered an incorrect PIN. Please try again.",
   "identityInDeletion_title": "The currently active profile {profileName} has been set to delete.",
