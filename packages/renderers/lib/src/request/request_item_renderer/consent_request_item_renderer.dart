@@ -10,7 +10,6 @@ import '../../abstract_url_launcher.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
 import 'decidable/checkbox_enabled_extension.dart';
-import 'decidable/widgets/handle_checkbox_change.dart';
 import 'decidable/widgets/validation_error_box.dart';
 
 class ConsentRequestItemRenderer extends StatefulWidget {
@@ -70,7 +69,10 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
     if (value == null) return;
 
     setState(() => _isChecked = value);
-    handleCheckboxChange(isChecked: _isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: value ? const AcceptRequestItemParameters() : const RejectRequestItemParameters(),
+    );
   }
 }
 
