@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'decidable/widgets/validation_error_box.dart';
+import 'widgets/validation_error_box.dart';
 
 class AuthenticationRequestItemRenderer extends StatefulWidget {
   final AuthenticationRequestItemDVO item;
