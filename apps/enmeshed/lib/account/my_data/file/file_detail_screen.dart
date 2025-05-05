@@ -33,7 +33,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     super.initState();
 
     _fileDVO = widget.preLoadedFile;
-    _tags = widget.fileReferenceAttribute?.tags;
+    _tags = <String>{..._fileDVO?.tags ?? [], ...widget.preLoadedFile?.tags ?? []}.toList();
 
     if (_fileDVO == null) {
       _load();
@@ -276,7 +276,7 @@ class _TagLabel extends StatelessWidget {
       return TranslatedText(context.i18nTranslate('i18n://attributes.values.languages.${label.substring(9)}'), style: style);
     }
 
-    final i18nTranslatable = 'i18n://tags.$label';
+    final i18nTranslatable = 'i18n://tags.${label.replaceAll('.', '%')}';
     final translatedLabel = context.i18nTranslate(i18nTranslatable);
 
     if (translatedLabel != i18nTranslatable) return Text(translatedLabel, style: style);
