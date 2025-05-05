@@ -1212,9 +1212,9 @@
     "urn:xbildung-de:unesco:codeliste:isced2011=3": "Secondary level II",
     "urn:xbildung-de:unesco:codeliste:isced2011=34": "General education",
     "urn:xbildung-de:unesco:codeliste:isced2011=344": "Grammar schools (upper school)",
-    "urn:xbildung-de:destatis:codeliste:artdesschulabschlusses=http://xbildung.de/def/destatis/1.0/code/artdesschulabschlusses/allgemeine_hochschulreife": "General higher education entrance qualification",
-    "urn:xschule-digital:xschule:codeliste:zeugnisart=http://xschule.digital/def/xschule/0.5/code/zeugnisart/abschlusszeugnis": "Final certificate",
-    "urn:xbildung-de:kmk:codeliste:artderschule=https://www.xbildung.de/def/kmk/kds/4.0/code/artderschule/100": "Grammar school",
+    "urn:xbildung-de:destatis:codeliste:artdesschulabschlusses=http://xbildung%de/def/destatis/1%0/code/artdesschulabschlusses/allgemeine_hochschulreife": "General higher education entrance qualification",
+    "urn:xschule-digital:xschule:codeliste:zeugnisart=http://xschule%digital/def/xschule/0%5/code/zeugnisart/abschlusszeugnis": "Final certificate",
+    "urn:xbildung-de:kmk:codeliste:artderschule=https://www%xbildung%de/def/kmk/kds/4%0/code/artderschule/100": "Grammar school",
     "urn:de:bund:destatis:bevoelkerungsstatistik:schluessel:bundesland=05": "North Rhine-Westphalia"
   }
 }
