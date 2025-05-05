@@ -6,6 +6,4 @@ extension CheckboxExtension on RequestItemDVODerivation {
     (_, true) => false,
     _ => true,
   };
-
-  bool get initiallyChecked => (requireManualDecision == true || !mustBeAccepted ? false : true);
 }

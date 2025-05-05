@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'decidable/checkbox_enabled_extension.dart';
 import 'decidable/widgets/validation_error_box.dart';
 
 class AuthenticationRequestItemRenderer extends StatefulWidget {
