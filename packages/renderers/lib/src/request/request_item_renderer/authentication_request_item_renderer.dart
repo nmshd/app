@@ -58,11 +58,10 @@ class _AuthenticationRequestItemRendererState extends State<AuthenticationReques
   void _onUpdateToggle(bool value) {
     setState(() => _isChecked = value);
 
-    if (_isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptRequestItemParameters());
-    } else {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
-    }
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: value ? const AcceptRequestItemParameters() : const RejectRequestItemParameters(),
+    );
   }
 }
 
