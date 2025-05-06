@@ -12,5 +12,5 @@ extension BrightnessOpposite on Brightness {
 }
 
 extension InitiallyCheckedExtension on RequestItemDVODerivation {
-  bool get initiallyChecked => mustBeAccepted && (requireManualDecision == false);
+  bool get initiallyChecked => mustBeAccepted && requireManualDecision != true;
 }
