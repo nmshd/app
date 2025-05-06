@@ -28,6 +28,13 @@
       enabled: false
     },
 
+    // the enmeshed runtime
+    {
+      groupName: "runtime-updates",
+      matchDatasources: ["npm"],
+      matchPackageNames: ["@nmshd/app-runtime", "@nmshd/runtime"]
+    },
+
     {
       // all patch versions of all packages should be part of a single group
       groupName: "patch-all",
