@@ -65,7 +65,7 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
             SlidableAction(
               onPressed: widget.onDeletePressed,
               backgroundColor: Theme.of(context).colorScheme.errorContainer,
-              foregroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onErrorContainer,
               icon: Icons.delete_outline,
               spacing: 0,
             ),
