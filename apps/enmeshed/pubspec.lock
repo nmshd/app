@@ -265,12 +265,11 @@ packages:
   file_picker:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "fix-flutter-3.27-compile-error"
-      resolved-ref: "3b299bb0cf7f553a150f9074168e9a53155d2a51"
-      url: "https://github.com/abdelaziz-mahdy/flutter_file_picker"
-    source: git
-    version: "8.1.6"
+      name: file_picker
+      sha256: "8986dec4581b4bcd4b6df5d75a2ea0bede3db802f500635d05fa8be298f9467f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.1.2"
   file_selector_linux:
     dependency: transitive
     description:
