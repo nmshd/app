@@ -56,10 +56,5 @@
       matchDatasources: ["github-tags", "github-runners"],
       matchUpdateTypes: ["minor"]
     }
-  ],
-  allowedCommands: ["^cd packages/enmeshed_runtime_bridge/natives && npm i$"],
-  postUpgradeTasks: {
-    commands: ["cd packages/enmeshed_runtime_bridge/natives && npm i"],
-    executionMode: "branch"
-  }
+  ]
 }
