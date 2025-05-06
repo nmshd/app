@@ -22,7 +22,7 @@ void run(EnmeshedRuntime runtime) {
     addressSession2 = (await session2.transportServices.account.getIdentityInfo()).value.address;
   });
 
-  group('TokensFacade: createOwnToken', () {
+  group('[TokensFacade] createOwnToken', () {
     test('should create a Token', () async {
       final expiry = generateExpiryString();
 
@@ -46,31 +46,20 @@ void run(EnmeshedRuntime runtime) {
         ephemeral: true,
       );
 
-      await session1.transportServices.tokens.createOwnToken(
-        content: {'test': 'test'},
-        expiresAt: generateExpiryString(),
-        ephemeral: true,
-      );
+      await session1.transportServices.tokens.createOwnToken(content: {'test': 'test'}, expiresAt: generateExpiryString(), ephemeral: true);
 
       final result = await session1.transportServices.tokens.getToken(createTokenResult.value.id);
       expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 
-  group('TokensFacade: loadPeerToken', () {
+  group('[TokensFacade] loadPeerToken', () {
     test('should load a Token', () async {
       final expiry = generateExpiryString();
 
-      final token = await session1.transportServices.tokens.createOwnToken(
-        content: {'test': 'test'},
-        expiresAt: expiry,
-        ephemeral: true,
-      );
+      final token = await session1.transportServices.tokens.createOwnToken(content: {'test': 'test'}, expiresAt: expiry, ephemeral: true);
 
-      final peerToken = await session2.transportServices.tokens.loadPeerToken(
-        reference: token.value.truncatedReference,
-        ephemeral: false,
-      );
+      final peerToken = await session2.transportServices.tokens.loadPeerToken(reference: token.value.truncatedReference, ephemeral: false);
 
       expect(peerToken, isSuccessful<TokenDTO>());
       expect(peerToken.value.content, equals({'test': 'test'}));
@@ -80,16 +69,9 @@ void run(EnmeshedRuntime runtime) {
     test('should load a Token ephemeral', () async {
       final expiry = generateExpiryString();
 
-      final token = await session1.transportServices.tokens.createOwnToken(
-        content: {'test': 'test'},
-        expiresAt: expiry,
-        ephemeral: true,
-      );
+      final token = await session1.transportServices.tokens.createOwnToken(content: {'test': 'test'}, expiresAt: expiry, ephemeral: true);
 
-      final peerToken = await session2.transportServices.tokens.loadPeerToken(
-        reference: token.value.truncatedReference,
-        ephemeral: true,
-      );
+      final peerToken = await session2.transportServices.tokens.loadPeerToken(reference: token.value.truncatedReference, ephemeral: true);
 
       expect(peerToken, isSuccessful<TokenDTO>());
       expect(peerToken.value.content, equals({'test': 'test'}));
@@ -100,7 +82,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('TokensFacade: getTokens', () {
+  group('[TokensFacade] getTokens', () {
     test('should return all Tokens', () async {
       final newToken = await session1.transportServices.tokens.createOwnToken(
         content: {'test': 'test'},
@@ -122,16 +104,14 @@ void run(EnmeshedRuntime runtime) {
         forIdentity: addressSession2,
       );
 
-      final getTokensResult = await session1.transportServices.tokens.getTokens(
-        query: {'forIdentity': QueryValue.string(addressSession2)},
-      );
+      final getTokensResult = await session1.transportServices.tokens.getTokens(query: {'forIdentity': QueryValue.string(addressSession2)});
 
       expect(getTokensResult, isSuccessful<List<TokenDTO>>());
       expect(getTokensResult.value, contains(tokenForIdentity.value));
     });
   });
 
-  group('TokensFacade: getToken', () {
+  group('[TokensFacade] getToken', () {
     test('should return a Token', () async {
       final token = await session1.transportServices.tokens.createOwnToken(
         content: {'test': 'test'},

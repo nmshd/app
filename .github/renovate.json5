@@ -1,0 +1,80 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  rangeStrategy: "bump",
+  extends: ["config:recommended", "docker:pinDigests", ":disableDependencyDashboard"],
+  labels: ["dependencies"],
+  schedule: ["after 10pm every weekday", "before 5am every weekday", "every weekend"],
+  ignorePaths: ["**/node_modules/**"], // we have to set this, in order to override the default that comes from `config:recommended`, which ignores any packages in directories like "tests"
+  packageRules: [
+    {
+      // do not upgrade the dart sdk as it will not be compatible with the version that flutter ships
+      matchDatasources: ["dart-version"],
+      enabled: false
+    },
+
+    {
+      // the dart packages in this list is fetched directly from git and therefore doesn't have a version
+      matchDatasources: ["dart"],
+      matchPackageNames: ["window_size"],
+      enabled: false
+    },
+
+    {
+      // these packages are from this monorepo and can therefore not be updated by renovate
+      matchDatasources: ["dart"],
+      matchPackageNames: [
+        "connector_sdk",
+        "enmeshed_runtime_bridge",
+        "enmeshed_types",
+        "enmeshed_ui_kit",
+        "identity_recovery_kit",
+        "renderers",
+        "value_renderer"
+      ],
+      enabled: false
+    },
+
+    {
+      // flutter plugin loader that cannot be found / updated by renovate
+      matchDatasources: ["maven"],
+      matchPackageNames: ["/dev.flutter.flutter-plugin-loader/"],
+      enabled: false
+    },
+
+    // the enmeshed runtime
+    {
+      groupName: "runtime-updates",
+      matchDatasources: ["npm"],
+      matchPackageNames: ["@nmshd/app-runtime", "@nmshd/runtime"]
+    },
+
+    {
+      // all patch versions of all packages should be part of a single group
+      groupName: "patch-all",
+      matchUpdateTypes: ["patch", "digest"],
+      automerge: true
+    },
+
+    // ############# Minor updates (one group per datasource) #############
+    {
+      groupName: "minor-updates-npm",
+      matchDatasources: ["npm"],
+      matchUpdateTypes: ["minor"]
+    },
+    {
+      groupName: "minor-updates-dart",
+      matchDatasources: ["dart"],
+      matchUpdateTypes: ["minor"]
+    },
+    {
+      groupName: "minor-updates-docker",
+      matchDatasources: ["docker"],
+      matchUpdateTypes: ["minor"]
+    },
+    {
+      groupName: "minor-updates-github-tags-and-runners",
+      matchDatasources: ["github-tags", "github-runners"],
+      matchUpdateTypes: ["minor"]
+    }
+  ]
+}

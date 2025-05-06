@@ -98,8 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
     await runtime.triggerAppReadyEvent();
 
-    // ignore: use_build_context_synchronously
-    await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router, localizations: context.l10n));
+    if (mounted) await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router, localizations: context.l10n));
 
     await _registerWindowsSchemeForDebugMode('nmshd-dev');
 
@@ -145,9 +144,9 @@ Future<void> _registerWindowsSchemeForDebugMode(String scheme) async {
   final appPath = Platform.resolvedExecutable;
 
   final protocolRegKey = 'Software\\Classes\\$scheme';
-  const protocolRegValue = RegistryValue('URL Protocol', RegistryValueType.string, '');
+  const protocolRegValue = RegistryValue.string('URL Protocol', '');
   const protocolCmdRegKey = r'shell\open\command';
-  final protocolCmdRegValue = RegistryValue('', RegistryValueType.string, '"$appPath" "%1"');
+  final protocolCmdRegValue = RegistryValue.string('', '"$appPath" "%1"');
 
   Registry.currentUser.createKey(protocolRegKey)
     ..createValue(protocolRegValue)

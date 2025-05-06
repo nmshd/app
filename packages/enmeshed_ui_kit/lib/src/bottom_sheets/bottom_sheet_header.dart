@@ -6,12 +6,7 @@ class BottomSheetHeader extends StatelessWidget {
   final VoidCallback? onBackPressed;
   final bool canClose;
 
-  const BottomSheetHeader({
-    required this.title,
-    this.onBackPressed,
-    this.canClose = true,
-    super.key,
-  });
+  const BottomSheetHeader({required this.title, this.onBackPressed, this.canClose = true, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -59,7 +59,7 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
             }
           });
 
-    _startScanning();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _startScanning());
   }
 
   @override

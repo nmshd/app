@@ -82,11 +82,14 @@ void run(EnmeshedRuntime runtime) {
 
         test('recipient: call canAccept for incoming Request', () async {
           final result = await recipient.consumptionServices.incomingRequests.canAccept(
-            params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
-              AcceptReadAttributeRequestItemParametersWithNewAttribute(
-                newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
-              ),
-            ]),
+            params: DecideRequestParameters(
+              requestId: rLocalRequest.id,
+              items: [
+                AcceptReadAttributeRequestItemParametersWithNewAttribute(
+                  newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
+                ),
+              ],
+            ),
           );
 
           expect(result, isSuccessful<RequestValidationResultDTO>());
@@ -97,11 +100,14 @@ void run(EnmeshedRuntime runtime) {
 
         test('recipient: accept incoming Request', () async {
           final result = await recipient.consumptionServices.incomingRequests.accept(
-            params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
-              AcceptReadAttributeRequestItemParametersWithNewAttribute(
-                newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
-              ),
-            ]),
+            params: DecideRequestParameters(
+              requestId: rLocalRequest.id,
+              items: [
+                AcceptReadAttributeRequestItemParametersWithNewAttribute(
+                  newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
+                ),
+              ],
+            ),
           );
 
           final triggeredIncomingEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address!);
@@ -285,11 +291,14 @@ void run(EnmeshedRuntime runtime) {
 
         test('recipient: call canAccept for incoming Request', () async {
           final result = await recipient.consumptionServices.incomingRequests.canAccept(
-            params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
-              AcceptReadAttributeRequestItemParametersWithNewAttribute(
-                newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
-              ),
-            ]),
+            params: DecideRequestParameters(
+              requestId: rLocalRequest.id,
+              items: [
+                AcceptReadAttributeRequestItemParametersWithNewAttribute(
+                  newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
+                ),
+              ],
+            ),
           );
 
           expect(result, isSuccessful<RequestValidationResultDTO>());
@@ -300,11 +309,14 @@ void run(EnmeshedRuntime runtime) {
 
         test('recipient: accept incoming Request', () async {
           final result = await recipient.consumptionServices.incomingRequests.accept(
-            params: DecideRequestParameters(requestId: rLocalRequest.id, items: [
-              AcceptReadAttributeRequestItemParametersWithNewAttribute(
-                newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
-              ),
-            ]),
+            params: DecideRequestParameters(
+              requestId: rLocalRequest.id,
+              items: [
+                AcceptReadAttributeRequestItemParametersWithNewAttribute(
+                  newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
+                ),
+              ],
+            ),
           );
 
           final triggeredEvent = await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(eventTargetAddress: account2.address!);
@@ -433,8 +445,9 @@ void run(EnmeshedRuntime runtime) {
           expiresAt: generateExpiryString(),
           content: const RelationshipTemplateContent(
             onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
-            onExistingRelationship:
-                Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
+            onExistingRelationship: Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))],
+            ),
           ),
         );
 

@@ -43,7 +43,7 @@ void run(EnmeshedRuntime runtime) {
     expect(fileResult.value.title, 'aTitle');
   });
 
-  group('FilesFacade: uploadOwnFile', () {
+  group('[FilesFacade] uploadOwnFile', () {
     test('should upload own file', () async {
       final expiresAt = generateExpiryString();
       final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
@@ -102,7 +102,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: getFiles', () {
+  group('[FilesFacade] getFiles', () {
     test('should give access to uploaded files', () async {
       final filesResult = await session.transportServices.files.getFiles();
       final files = filesResult.value;
@@ -112,7 +112,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: getOrLoadFile', () {
+  group('[FilesFacade] getOrLoadFile', () {
     test('should be able to load files by entering reference', () async {
       final fileResult = await session.transportServices.files.getOrLoadFile(reference: globalFile.truncatedReference);
 
@@ -136,7 +136,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: downloadFile', () {
+  group('[FilesFacade] downloadFile', () {
     // TODO: re-enable test
     test('should allow to download a file', skip: true, () async {
       final responseResult = await session.transportServices.files.downloadFile(fileId: globalFile.id);
@@ -158,7 +158,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: getFile', () {
+  group('[FilesFacade] getFile', () {
     test('should return a valid file', () async {
       final fileResult = await session.transportServices.files.getFile(fileId: globalFile.id);
 
@@ -179,7 +179,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: createTokenForFile', () {
+  group('[FilesFacade] createTokenForFile', () {
     test('should return a valid TokenDTO', () async {
       final tokenResult = await session.transportServices.files.createTokenForFile(fileId: globalFile.id);
 
@@ -194,11 +194,7 @@ void run(EnmeshedRuntime runtime) {
     test('should return a valid TokenDTO with all properties', () async {
       final expiresAt = generateExpiryString();
 
-      final tokenResult = await session.transportServices.files.createTokenForFile(
-        fileId: globalFile.id,
-        expiresAt: expiresAt,
-        ephemeral: true,
-      );
+      final tokenResult = await session.transportServices.files.createTokenForFile(fileId: globalFile.id, expiresAt: expiresAt, ephemeral: true);
 
       expect(tokenResult, isSuccessful<TokenDTO>());
 
@@ -224,7 +220,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: deleteFile', () {
+  group('[FilesFacade] deleteFile', () {
     test('should delete a file', () async {
       final expiresAt = generateExpiryString();
       final bytes = Uint8List.fromList(utf8.encode('a String')).toList();

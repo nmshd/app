@@ -16,7 +16,7 @@ void run(EnmeshedRuntime runtime) {
     session = runtime.getSession(account.id);
   });
 
-  group('DevicesFacade', () {
+  group('[DevicesFacade]', () {
     test('getDevice', () async {
       final devicesResult = await session.transportServices.devices.getDevices();
       final devices = devicesResult.value;
@@ -37,10 +37,7 @@ void run(EnmeshedRuntime runtime) {
       final devices1 = (await session.transportServices.devices.getDevices()).value;
       expect(devices1, hasLength(1));
 
-      final deviceResult = await session.transportServices.devices.createDevice(
-        name: 'name',
-        description: 'description',
-      );
+      final deviceResult = await session.transportServices.devices.createDevice(name: 'name', description: 'description');
       expect(deviceResult, isSuccessful<DeviceDTO>());
 
       final device = deviceResult.value;
@@ -92,11 +89,7 @@ void run(EnmeshedRuntime runtime) {
     test('updateDevice', () async {
       final device = (await session.transportServices.devices.createDevice(name: 'name', description: 'description')).value;
 
-      final updatedDeviceResult = await session.transportServices.devices.updateDevice(
-        device.id,
-        name: 'new name',
-        description: 'new description',
-      );
+      final updatedDeviceResult = await session.transportServices.devices.updateDevice(device.id, name: 'new name', description: 'new description');
       expect(updatedDeviceResult, isSuccessful<DeviceDTO>());
 
       final updatedDevice = updatedDeviceResult.value;

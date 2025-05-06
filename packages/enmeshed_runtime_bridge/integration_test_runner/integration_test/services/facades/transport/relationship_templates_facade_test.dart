@@ -22,7 +22,7 @@ void run(EnmeshedRuntime runtime) {
     addressSession2 = (await session2.transportServices.account.getIdentityInfo()).value.address;
   });
 
-  group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
+  group('[RelationshipTemplatesFacade] createOwnRelationshipTemplate', () {
     test('should create a template', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -58,7 +58,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: loadPeerRelationshipTemplate', () {
+  group('[RelationshipTemplatesFacade] loadPeerRelationshipTemplate', () {
     test('should allow to load template of peer by entering reference', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -79,7 +79,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: getRelationshipTemplates', () {
+  group('[RelationshipTemplatesFacade] getRelationshipTemplates', () {
     late String expiryDate = generateExpiryString();
 
     setUpAll(() async {
@@ -155,7 +155,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: getRelationshipTemplate', () {
+  group('[RelationshipTemplatesFacade] getRelationshipTemplate', () {
     test('should return a valid relationship template', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -175,31 +175,25 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('throws an exception on empty template id', () async {
-      final result = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(
-        relationshipTemplateId: '',
-      );
+      final result = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(relationshipTemplateId: '');
 
       expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception if template id do not match the pattern', () async {
-      final result = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(
-        relationshipTemplateId: 'RTLX123456789',
-      );
+      final result = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(relationshipTemplateId: 'RTLX123456789');
 
       expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
 
     test('throws an exception on not existing template id', () async {
-      final result = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(
-        relationshipTemplateId: 'RLTXZKg9TestveduKiGs',
-      );
+      final result = await session1.transportServices.relationshipTemplates.getRelationshipTemplate(relationshipTemplateId: 'RLTXZKg9TestveduKiGs');
 
       expect(result, isFailing('error.runtime.recordNotFound'));
     });
   });
 
-  group('RelationshipTemplatesFacade: createTokenForOwnRelationshipTemplate', () {
+  group('[RelationshipTemplatesFacade] createTokenForOwnRelationshipTemplate', () {
     test('should return a valid TokenDTO', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -237,47 +231,46 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: Password Protection', () {
+  group('[RelationshipTemplatesFacade] Password Protection', () {
     final relationshipTemplateContent = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
 
-    final passwordProtections = [
-      PasswordProtection(password: 'aPassword'),
-      PasswordProtection(password: '1234', passwordIsPin: true),
-    ];
+    final passwordProtections = [PasswordProtection(password: 'aPassword'), PasswordProtection(password: '1234', passwordIsPin: true)];
 
     for (final passwordProtection in passwordProtections) {
       test(
-          'should create a password protected template with password \'${passwordProtection.password}\' and passwordIsPin \'${passwordProtection.passwordIsPin}\'',
-          () async {
-        final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-          expiresAt: generateExpiryString(),
-          content: relationshipTemplateContent,
-          passwordProtection: passwordProtection,
-        );
+        'should create a password protected template with password \'${passwordProtection.password}\' and passwordIsPin \'${passwordProtection.passwordIsPin}\'',
+        () async {
+          final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+            expiresAt: generateExpiryString(),
+            content: relationshipTemplateContent,
+            passwordProtection: passwordProtection,
+          );
 
-        expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
-        expect(templateResult.value.passwordProtection, passwordProtection);
-      });
+          expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
+          expect(templateResult.value.passwordProtection, passwordProtection);
+        },
+      );
 
       test(
-          'should exchange a password protected template with password \'${passwordProtection.password}\' and passwordIsPin \'${passwordProtection.passwordIsPin}\'',
-          () async {
-        final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-          expiresAt: generateExpiryString(),
-          content: relationshipTemplateContent,
-          passwordProtection: passwordProtection,
-        );
+        'should exchange a password protected template with password \'${passwordProtection.password}\' and passwordIsPin \'${passwordProtection.passwordIsPin}\'',
+        () async {
+          final templateResult = await session1.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+            expiresAt: generateExpiryString(),
+            content: relationshipTemplateContent,
+            passwordProtection: passwordProtection,
+          );
 
-        expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
+          expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
 
-        final loadResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
-          reference: templateResult.value.truncatedReference,
-          password: passwordProtection.password,
-        );
+          final loadResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
+            reference: templateResult.value.truncatedReference,
+            password: passwordProtection.password,
+          );
 
-        expect(loadResult, isSuccessful<RelationshipTemplateDTO>());
-        expect(loadResult.value.passwordProtection, passwordProtection);
-      });
+          expect(loadResult, isSuccessful<RelationshipTemplateDTO>());
+          expect(loadResult.value.passwordProtection, passwordProtection);
+        },
+      );
     }
   });
 }

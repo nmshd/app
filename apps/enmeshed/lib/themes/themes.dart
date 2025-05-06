@@ -63,7 +63,7 @@ ThemeData _generateColorScheme({
         TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
       },
     ),
-    // ignore: deprecated_member_use
+    // ignore: deprecated_member_use seems like this is deprecated despite it will be the default in the future
     progressIndicatorTheme: const ProgressIndicatorThemeData(year2023: false),
   );
 }
