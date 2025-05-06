@@ -28,6 +28,13 @@
       enabled: false
     },
 
+    // the enmeshed runtime
+    {
+      groupName: "runtime-updates",
+      matchDatasources: ["npm"],
+      matchPackageNames: ["@nmshd/app-runtime", "@nmshd/runtime"]
+    },
+
     {
       // all patch versions of all packages should be part of a single group
       groupName: "patch-all",
@@ -56,10 +63,5 @@
       matchDatasources: ["github-tags", "github-runners"],
       matchUpdateTypes: ["minor"]
     }
-  ],
-  allowedCommands: ["^cd packages/enmeshed_runtime_bridge/natives && npm i$"],
-  postUpgradeTasks: {
-    commands: ["cd packages/enmeshed_runtime_bridge/natives && npm i"],
-    executionMode: "branch"
-  }
+  ]
 }
