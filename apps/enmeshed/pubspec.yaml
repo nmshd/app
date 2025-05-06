@@ -38,7 +38,7 @@ dependencies:
   intl: any
   logger: ^2.5.0
   mime_type: ^1.0.1
-  mobile_scanner: ^6.0.10
+  mobile_scanner: ^7.0.0
   open_file: ^3.5.10
   package_info_plus: ^8.3.0
   path: any
