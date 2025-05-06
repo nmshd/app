@@ -7,6 +7,12 @@
   ignorePaths: ["**/node_modules/**"], // we have to set this, in order to override the default that comes from `config:recommended`, which ignores any packages in directories like "tests"
   packageRules: [
     {
+      // do not upgrade the dart sdk as it will not be compatible with the version that flutter ships
+      matchDatasources: ["dart-version"],
+      enabled: false
+    },
+
+    {
       // the dart packages in this list is fetched directly from git and therefore doesn't have a version
       matchDatasources: ["dart"],
       packageNames: ["window_size"],
