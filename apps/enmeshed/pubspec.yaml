@@ -46,7 +46,7 @@ dependencies:
   pdf: ^3.11.3
   permission_handler: ^12.0.0+1
   printing: ^5.14.2
-  push: ^2.3.0
+  push: ^3.3.3
   qr_flutter: ^4.1.0
   renderers: ^1.0.0
   shared_preferences: ^2.5.3

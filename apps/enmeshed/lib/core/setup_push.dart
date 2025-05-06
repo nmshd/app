@@ -22,7 +22,7 @@ Future<void> setupPush(EnmeshedRuntime runtime) async {
     await runtime.setPushToken(existingToken);
   }
 
-  Push.instance.onNewToken.listen((token) async {
+  Push.instance.addOnNewToken((token) async {
     logger.d('New push token received: $token');
     await runtime.setPushToken(token);
   });
@@ -36,7 +36,7 @@ Future<void> setupPush(EnmeshedRuntime runtime) async {
     }
   });
 
-  Push.instance.onNotificationTap.listen((data) {
+  Push.instance.addOnNotificationTap((data) {
     logger.i('Notification was tapped:\nData: $data');
   });
 
