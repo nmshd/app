@@ -3,8 +3,8 @@ description: A UI for the enmeshed Connector.
 publish_to: "none"
 
 environment:
-  sdk: "^3.7.0"
-  flutter: ">=3.29.0"
+  sdk: "^3.7.2"
+  flutter: ">=3.29.3"
 
 dependencies:
   collection: any
