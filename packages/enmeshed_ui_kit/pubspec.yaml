@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   enmeshed_types: ^1.0.0
-  flex_seed_scheme: ^3.5.0
+  flex_seed_scheme: ^3.5.1
   flutter:
     sdk: flutter
   go_router: ">=15.0.0"
