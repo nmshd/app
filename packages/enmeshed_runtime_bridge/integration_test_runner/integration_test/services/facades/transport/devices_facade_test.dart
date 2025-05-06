@@ -16,7 +16,7 @@ void run(EnmeshedRuntime runtime) {
     session = runtime.getSession(account.id);
   });
 
-  group('DevicesFacade', () {
+  group('[DevicesFacade]', () {
     test('getDevice', () async {
       final devicesResult = await session.transportServices.devices.getDevices();
       final devices = devicesResult.value;

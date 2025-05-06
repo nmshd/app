@@ -30,7 +30,7 @@ void run(EnmeshedRuntime runtime) {
     await ensureActiveRelationship(session1, session2);
   });
 
-  group('Messaging', () {
+  group('[MessagesFacade]', () {
     late String session2Address;
     late String fileId;
     late String messageId;

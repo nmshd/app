@@ -18,7 +18,7 @@ void run(EnmeshedRuntime runtime) {
     session = runtime.getSession(account.id);
   });
 
-  group('AccountFacade: getIdentityInfo', () {
+  group('[AttributesFacade] getIdentityInfo', () {
     test('should return identity information', () async {
       final identityInfoResult = await session.transportServices.account.getIdentityInfo();
 
@@ -29,7 +29,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AccountFacade: getDeviceInfo', () {
+  group('[AttributesFacade] getDeviceInfo', () {
     test('should return device information', () async {
       final deviceInfoResult = await session.transportServices.account.getDeviceInfo();
 
@@ -37,7 +37,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AccountFacade: syncDatawallet', () {
+  group('[AttributesFacade] syncDatawallet', () {
     Future<SyncInfoResponse> getSyncInfo() async {
       final sync = await session.transportServices.account.getSyncInfo();
       return sync.value;
@@ -68,7 +68,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AccountFacade: syncEverything', () {
+  group('[AttributesFacade] syncEverything', () {
     test('should return a valid SyncEverythingResponse', () async {
       final syncResult = await session.transportServices.account.syncEverything();
 
@@ -88,7 +88,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AccountFacade: getSyncInfo', () {
+  group('[AttributesFacade] getSyncInfo', () {
     test('should return a valid SyncInfoResponse', () async {
       final syncResult = await session.transportServices.account.getSyncInfo();
 
@@ -96,7 +96,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AccountFacade: LoadItemFromTruncatedReference', () {
+  group('[AttributesFacade] LoadItemFromTruncatedReference', () {
     group('File', () {
       String fileReference = '';
       String fileTokenReference = '';
