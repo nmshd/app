@@ -144,9 +144,9 @@ Future<void> _registerWindowsSchemeForDebugMode(String scheme) async {
   final appPath = Platform.resolvedExecutable;
 
   final protocolRegKey = 'Software\\Classes\\$scheme';
-  const protocolRegValue = RegistryValue('URL Protocol', RegistryValueType.string, '');
+  const protocolRegValue = RegistryValue.string('URL Protocol', '');
   const protocolCmdRegKey = r'shell\open\command';
-  final protocolCmdRegValue = RegistryValue('', RegistryValueType.string, '"$appPath" "%1"');
+  final protocolCmdRegValue = RegistryValue.string('', '"$appPath" "%1"');
 
   Registry.currentUser.createKey(protocolRegKey)
     ..createValue(protocolRegValue)
