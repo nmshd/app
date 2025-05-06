@@ -15,14 +15,14 @@
     {
       // the dart packages in this list is fetched directly from git and therefore doesn't have a version
       matchDatasources: ["dart"],
-      packageNames: ["window_size"],
+      matchPackageNames: ["window_size"],
       enabled: false
     },
 
     {
       // these packages are from this monorepo and can therefore not be updated by renovate
       matchDatasources: ["dart"],
-      packageNames: [
+      matchPackageNames: [
         "connector_sdk",
         "enmeshed_runtime_bridge",
         "enmeshed_types",
@@ -31,6 +31,13 @@
         "renderers",
         "value_renderer"
       ],
+      enabled: false
+    },
+
+    {
+      // flutter plugin loader that cannot be found / updated by renovate
+      matchDatasources: ["maven"],
+      matchPackageNames: ["dev.flutter.flutter-plugin-loader"],
       enabled: false
     },
 
