@@ -89,9 +89,7 @@ void run(EnmeshedRuntime runtime) {
         content: emptyRelationshipTemplateContent,
       );
 
-      final item = await session1.transportServices.account.loadItemFromTruncatedReference(
-        reference: responseTemplate.value.truncatedReference,
-      );
+      final item = await session1.transportServices.account.loadItemFromTruncatedReference(reference: responseTemplate.value.truncatedReference);
 
       final canCreateRelationshipResult = await session1.transportServices.relationships.canCreateRelationship(
         templateId: item.value.relationshipTemplateValue.id,
@@ -114,9 +112,7 @@ void run(EnmeshedRuntime runtime) {
         content: emptyRelationshipTemplateContent,
       );
 
-      final item = await session1.transportServices.account.loadItemFromTruncatedReference(
-        reference: responseTemplate.value.truncatedReference,
-      );
+      final item = await session1.transportServices.account.loadItemFromTruncatedReference(reference: responseTemplate.value.truncatedReference);
 
       await session2.transportServices.identityDeletionProcesses.initiateIdentityDeletionProcess();
 

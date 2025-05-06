@@ -17,10 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Generate PDF',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple), useMaterial3: true),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -88,48 +85,30 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.inversePrimary, title: Text(widget.title)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: [
-            TextField(
-              controller: _backupURLController,
-              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Backup URL'),
-            ),
+            TextField(controller: _backupURLController, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Backup URL')),
             const SizedBox(height: 12),
-            TextField(
-              controller: _headerTitleController,
-              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Header title'),
-            ),
+            TextField(controller: _headerTitleController, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Header title')),
             const SizedBox(height: 12),
             TextField(
               controller: _keepSafeTextController,
               decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Keep safe text'),
             ),
             const SizedBox(height: 12),
-            TextField(
-              controller: _infoText1Controller,
-              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Info text 1'),
-            ),
+            TextField(controller: _infoText1Controller, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Info text 1')),
             const SizedBox(height: 12),
-            TextField(
-              controller: _infoText2Controller,
-              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Info text 2'),
-            ),
+            TextField(controller: _infoText2Controller, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Info text 2')),
             const SizedBox(height: 12),
             TextField(
               controller: _addressLabelController,
               decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Address label'),
             ),
             const SizedBox(height: 12),
-            TextField(
-              controller: _addressController,
-              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Address'),
-            ),
+            TextField(controller: _addressController, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Address')),
             const SizedBox(height: 12),
             TextField(
               controller: _passwordLabelController,
@@ -253,11 +232,7 @@ class _MyHomePageState extends State<MyHomePage> {
         needHelpText: _needHelpTextController.text,
       ),
       qrSettings: (errorCorrectionLevel: _selectedErrorCorrectionLevel, qrPixelSize: null),
-    ).generate(
-      logoBytes: logoBytes,
-      spacerSvgImage: spacerSvgImage,
-      backupURL: _backupURLController.text,
-    );
+    ).generate(logoBytes: logoBytes, spacerSvgImage: spacerSvgImage, backupURL: _backupURLController.text);
 
     final directory = await getTemporaryDirectory();
     final filePath = '${directory.path}/Identity Recovery Kit.pdf';

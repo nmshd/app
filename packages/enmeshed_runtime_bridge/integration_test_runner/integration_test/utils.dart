@@ -27,9 +27,7 @@ Future<RelationshipDTO> establishRelationship({required Session requestor, requi
     content: emptyRelationshipTemplateContent,
   );
 
-  final item = await requestor.transportServices.account.loadItemFromTruncatedReference(
-    reference: createTemplateResult.value.truncatedReference,
-  );
+  final item = await requestor.transportServices.account.loadItemFromTruncatedReference(reference: createTemplateResult.value.truncatedReference);
 
   final template = item.value.relationshipTemplateValue;
 
@@ -186,10 +184,9 @@ Future<LocalAttributeDTO> exchangeIdentityAttribute(Session sender, Session reci
 
   await syncUntilHasMessage(sender);
 
-  final localAttributes = await sender.consumptionServices.attributes.getAttributes(query: {
-    'content.@type': QueryValue.string('IdentityAttribute'),
-    'shareInfo.requestReference': QueryValue.string(request.id),
-  });
+  final localAttributes = await sender.consumptionServices.attributes.getAttributes(
+    query: {'content.@type': QueryValue.string('IdentityAttribute'), 'shareInfo.requestReference': QueryValue.string(request.id)},
+  );
   assert(localAttributes.value.isNotEmpty);
   assert(localAttributes.value.first.shareInfo?.requestReference == request.id);
 
@@ -223,10 +220,9 @@ Future<LocalAttributeDTO> exchangeRelationshipAttribute(
 
   await syncUntilHasMessage(sender);
 
-  final localAttributes = await sender.consumptionServices.attributes.getAttributes(query: {
-    'content.@type': QueryValue.string('RelationshipAttribute'),
-    'shareInfo.requestReference': QueryValue.string(request.id),
-  });
+  final localAttributes = await sender.consumptionServices.attributes.getAttributes(
+    query: {'content.@type': QueryValue.string('RelationshipAttribute'), 'shareInfo.requestReference': QueryValue.string(request.id)},
+  );
   assert(localAttributes.value.isNotEmpty);
   assert(localAttributes.value.first.shareInfo?.requestReference == request.id);
 
@@ -245,8 +241,10 @@ Future<void> exchangeAndAcceptRequestByMessage(
   final createRequestResult = await sender.consumptionServices.outgoingRequests.create(content: request, peer: recipientAddress);
   assert(createRequestResult.isSuccess);
 
-  await sender.transportServices.messages
-      .sendMessage(recipients: [recipientAddress], content: MessageContentRequest(request: createRequestResult.value.content));
+  await sender.transportServices.messages.sendMessage(
+    recipients: [recipientAddress],
+    content: MessageContentRequest(request: createRequestResult.value.content),
+  );
   await syncUntilHasMessage(recipient);
 
   await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
@@ -289,10 +287,7 @@ Future<LocalAttributeDTO> acceptIncomingShareAttributeRequest(
   );
 
   final acceptRequestResult = await recipient.consumptionServices.incomingRequests.accept(
-    params: DecideRequestParameters(
-      requestId: request.id,
-      items: [const AcceptRequestItemParameters()],
-    ),
+    params: DecideRequestParameters(requestId: request.id, items: [const AcceptRequestItemParameters()]),
   );
 
   assert(acceptRequestResult.isSuccess);

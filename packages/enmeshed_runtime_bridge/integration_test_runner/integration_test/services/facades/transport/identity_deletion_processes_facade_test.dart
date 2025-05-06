@@ -158,19 +158,23 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('Approve IdentityDeletionProcess', () {
-    test('should approve a waiting for approval IdentityDeletionProcess', () async {
-      // start IdentityDeletionProcessFromBackboneAdminApi
+    test(
+      'should approve a waiting for approval IdentityDeletionProcess',
+      () async {
+        // start IdentityDeletionProcessFromBackboneAdminApi
 
-      final result = await session.transportServices.identityDeletionProcesses.approveIdentityDeletionProcess();
-      expect(result, isSuccessful<List<IdentityDeletionProcessDTO>>());
+        final result = await session.transportServices.identityDeletionProcesses.approveIdentityDeletionProcess();
+        expect(result, isSuccessful<List<IdentityDeletionProcessDTO>>());
 
-      final identityDeletionProcess = result.value;
-      expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Approved);
+        final identityDeletionProcess = result.value;
+        expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Approved);
 
-      final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
-      expect(event.data.id, identityDeletionProcess.id);
-      expect(event.data.status, IdentityDeletionProcessStatus.Approved);
-    }, skip: 'skipped for now since we cannot start an IdentityDeletionProcess from the Backbone Admin API here');
+        final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
+        expect(event.data.id, identityDeletionProcess.id);
+        expect(event.data.status, IdentityDeletionProcessStatus.Approved);
+      },
+      skip: 'skipped for now since we cannot start an IdentityDeletionProcess from the Backbone Admin API here',
+    );
 
     test('should return an error trying to approve an IdentityDeletionProcess if there is none active', () async {
       final result = await session.transportServices.identityDeletionProcesses.approveIdentityDeletionProcess();
@@ -179,19 +183,23 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('Reject IdentityDeletionProcess', () {
-    test('should reject a waiting for approval IdentityDeletionProcess', () async {
-      // start IdentityDeletionProcessFromBackboneAdminApi
+    test(
+      'should reject a waiting for approval IdentityDeletionProcess',
+      () async {
+        // start IdentityDeletionProcessFromBackboneAdminApi
 
-      final result = await session.transportServices.identityDeletionProcesses.rejectIdentityDeletionProcess();
-      expect(result, isSuccessful<List<IdentityDeletionProcessDTO>>());
+        final result = await session.transportServices.identityDeletionProcesses.rejectIdentityDeletionProcess();
+        expect(result, isSuccessful<List<IdentityDeletionProcessDTO>>());
 
-      final identityDeletionProcess = result.value;
-      expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Rejected);
+        final identityDeletionProcess = result.value;
+        expect(identityDeletionProcess.status, IdentityDeletionProcessStatus.Rejected);
 
-      final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
-      expect(event.data.id, identityDeletionProcess.id);
-      expect(event.data.status, IdentityDeletionProcessStatus.Rejected);
-    }, skip: 'skipped for now since we cannot start an IdentityDeletionProcess from the Backbone Admin API here');
+        final event = await eventBus.waitForEvent<IdentityDeletionProcessStatusChangedEvent>(eventTargetAddress: account.address!);
+        expect(event.data.id, identityDeletionProcess.id);
+        expect(event.data.status, IdentityDeletionProcessStatus.Rejected);
+      },
+      skip: 'skipped for now since we cannot start an IdentityDeletionProcess from the Backbone Admin API here',
+    );
 
     test('should return an error trying to reject an IdentityDeletionProcess if there is none active', () async {
       final result = await session.transportServices.identityDeletionProcesses.rejectIdentityDeletionProcess();

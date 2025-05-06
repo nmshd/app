@@ -8,14 +8,7 @@ class ComplexInformationCard extends StatelessWidget {
   final Color? backgroundColor;
   final List<Widget>? actionButtons;
 
-  const ComplexInformationCard({
-    required this.title,
-    required this.icon,
-    this.description,
-    this.backgroundColor,
-    this.actionButtons,
-    super.key,
-  });
+  const ComplexInformationCard({required this.title, required this.icon, this.description, this.backgroundColor, this.actionButtons, super.key});
 
   @override
   Widget build(BuildContext context) {

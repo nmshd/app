@@ -76,10 +76,7 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should return the same future when calling syncEverything twice without awaiting', () async {
-      final syncResults = await Future.wait([
-        session.transportServices.account.syncEverything(),
-        session.transportServices.account.syncEverything(),
-      ]);
+      final syncResults = await Future.wait([session.transportServices.account.syncEverything(), session.transportServices.account.syncEverything()]);
 
       final sync1 = syncResults[0].value;
       final sync2 = syncResults[1].value;
@@ -127,17 +124,16 @@ void run(EnmeshedRuntime runtime) {
       String relationshipTemplateTokenReference = '';
 
       setUpAll(() async {
-        final relationshipTemplate = (await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
-          expiresAt: generateExpiryString(),
-          content: emptyRelationshipTemplateContent,
-        ))
-            .value;
+        final relationshipTemplate =
+            (await session.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+              expiresAt: generateExpiryString(),
+              content: emptyRelationshipTemplateContent,
+            )).value;
         relationshipTemplateReference = relationshipTemplate.truncatedReference;
-        relationshipTemplateTokenReference = (await session.transportServices.relationshipTemplates.createTokenForOwnRelationshipTemplate(
-          templateId: relationshipTemplate.id,
-        ))
-            .value
-            .truncatedReference;
+        relationshipTemplateTokenReference =
+            (await session.transportServices.relationshipTemplates.createTokenForOwnRelationshipTemplate(
+              templateId: relationshipTemplate.id,
+            )).value.truncatedReference;
       });
 
       test('should load the RelationshipTemplate with the truncated reference', () async {
