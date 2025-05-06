@@ -25,8 +25,8 @@
     "@types/json-stringify-safe": "^5.0.3",
     "@types/lodash": "^4.17.16",
     "@types/luxon": "^3.6.2",
-    "@types/node": "^22.15.3",
-    "esbuild": "^0.25.3",
+    "@types/node": "^22.15.11",
+    "esbuild": "^0.25.4",
     "luxon": "^3.6.1",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
