@@ -37,7 +37,7 @@
     {
       // flutter plugin loader that cannot be found / updated by renovate
       matchDatasources: ["maven"],
-      matchPackageNames: ["dev.flutter.flutter-plugin-loader"],
+      matchPackageNames: ["/dev.flutter.flutter-plugin-loader/"],
       enabled: false
     },
 
