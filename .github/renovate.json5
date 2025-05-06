@@ -61,4 +61,5 @@
   postUpgradeTasks: {
     commands: ["cd packages/enmeshed_runtime_bridge/natives && npm i"],
     executionMode: "branch"
+  }
 }
