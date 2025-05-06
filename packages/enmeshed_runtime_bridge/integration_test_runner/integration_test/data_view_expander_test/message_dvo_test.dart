@@ -44,12 +44,7 @@ void run(EnmeshedRuntime runtime) {
 
       final mailResult = await transportServices1.messages.sendMessage(
         recipients: [transportService2Address],
-        content: Mail(
-          body: 'This is a Mail.',
-          cc: const [],
-          subject: 'Mail Subject',
-          to: [transportService2Address],
-        ),
+        content: Mail(body: 'This is a Mail.', cc: const [], subject: 'Mail Subject', to: [transportService2Address]),
         attachments: [fileId],
       );
       mailId = mailResult.value.id;

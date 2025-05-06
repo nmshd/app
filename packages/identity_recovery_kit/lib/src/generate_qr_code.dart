@@ -32,10 +32,7 @@ Future<pw.MemoryImage> generateQrCode(
   final pictureRecorder = ui.PictureRecorder();
   final canvas = ui.Canvas(pictureRecorder);
 
-  canvas.drawRect(
-    ui.Rect.fromLTWH(0, 0, size.toDouble(), size.toDouble()),
-    ui.Paint()..color = backgroundColor,
-  );
+  canvas.drawRect(ui.Rect.fromLTWH(0, 0, size.toDouble(), size.toDouble()), ui.Paint()..color = backgroundColor);
 
   for (int x = 0; x < qrImage.moduleCount; x++) {
     for (int y = 0; y < qrImage.moduleCount; y++) {

@@ -6,18 +6,19 @@ import 'package:pdf/widgets.dart' as pw;
 import 'generate_qr_code.dart';
 
 typedef QRSettings = ({QRErrorCorrectionLevel? errorCorrectionLevel, int? qrPixelSize});
-typedef PdfTexts = ({
-  String headerTitle,
-  String keepSafeText,
-  String infoText1,
-  String infoText2,
-  String addressLabel,
-  String address,
-  String passwordLabel,
-  String qrDescription,
-  String needHelpTitle,
-  String needHelpText,
-});
+typedef PdfTexts =
+    ({
+      String headerTitle,
+      String keepSafeText,
+      String infoText1,
+      String infoText2,
+      String addressLabel,
+      String address,
+      String passwordLabel,
+      String qrDescription,
+      String needHelpTitle,
+      String needHelpText,
+    });
 
 class PdfGenerator {
   final PdfColor headerTitleColor;
@@ -40,38 +41,26 @@ class PdfGenerator {
     required String addressHexColor,
     required this.pdfTexts,
     this.qrSettings,
-  })  : headerTitleColor = PdfColor.fromHex(headerTitleHexColor),
-        backgroundColor = PdfColor.fromHex(backgroundHexColor),
-        defaultTextColor = PdfColor.fromHex(defaultTextHexColor),
-        borderColor = PdfColor.fromHex(borderHexColor),
-        labelColor = PdfColor.fromHex(labelHexColor),
-        addressColor = PdfColor.fromHex(addressHexColor);
+  }) : headerTitleColor = PdfColor.fromHex(headerTitleHexColor),
+       backgroundColor = PdfColor.fromHex(backgroundHexColor),
+       defaultTextColor = PdfColor.fromHex(defaultTextHexColor),
+       borderColor = PdfColor.fromHex(borderHexColor),
+       labelColor = PdfColor.fromHex(labelHexColor),
+       addressColor = PdfColor.fromHex(addressHexColor);
 
-  Future<Uint8List> generate({
-    required Uint8List logoBytes,
-    required String spacerSvgImage,
-    required String backupURL,
-  }) async {
+  Future<Uint8List> generate({required Uint8List logoBytes, required String spacerSvgImage, required String backupURL}) async {
     final pdf = pw.Document();
 
     final logoImage = pw.MemoryImage(logoBytes);
 
-    final qrImage = await generateQrCode(
-      backupURL,
-      errorCorrectionLevel: qrSettings?.errorCorrectionLevel,
-      pixelSize: qrSettings?.qrPixelSize,
-    );
+    final qrImage = await generateQrCode(backupURL, errorCorrectionLevel: qrSettings?.errorCorrectionLevel, pixelSize: qrSettings?.qrPixelSize);
 
     pdf.addPage(_buildPage(logoImage: logoImage, spacerSvgImage: spacerSvgImage, qrImage: pw.MemoryImage(qrImage.bytes)));
 
     return pdf.save();
   }
 
-  pw.Page _buildPage({
-    required pw.MemoryImage logoImage,
-    required String spacerSvgImage,
-    required pw.MemoryImage qrImage,
-  }) {
+  pw.Page _buildPage({required pw.MemoryImage logoImage, required String spacerSvgImage, required pw.MemoryImage qrImage}) {
     return pw.Page(
       margin: pw.EdgeInsets.all(_getSize(150)),
       build: (context) {
@@ -87,10 +76,7 @@ class PdfGenerator {
                     width: double.infinity,
                     decoration: pw.BoxDecoration(
                       color: backgroundColor,
-                      borderRadius: pw.BorderRadius.only(
-                        bottomLeft: pw.Radius.circular(_getSize(40)),
-                        bottomRight: pw.Radius.circular(_getSize(40)),
-                      ),
+                      borderRadius: pw.BorderRadius.only(bottomLeft: pw.Radius.circular(_getSize(40)), bottomRight: pw.Radius.circular(_getSize(40))),
                     ),
                   ),
                   pw.Padding(
@@ -131,9 +117,7 @@ class PdfGenerator {
       children: [
         pw.SizedBox(
           width: _getSize(800),
-          child: pw.Expanded(
-            child: pw.Text(pdfTexts.headerTitle, style: pw.TextStyle(fontSize: _getFontSizeTitle(72), color: headerTitleColor)),
-          ),
+          child: pw.Expanded(child: pw.Text(pdfTexts.headerTitle, style: pw.TextStyle(fontSize: _getFontSizeTitle(72), color: headerTitleColor))),
         ),
         pw.SizedBox(width: _getSize(100)),
         pw.Align(alignment: pw.Alignment.topRight, child: pw.Image(logoImage, width: _getSize(764), height: _getSize(173))),
@@ -229,13 +213,7 @@ class PdfGenerator {
         borderRadius: pw.BorderRadius.circular(_getSize(40)),
         border: pw.Border.all(color: borderColor, width: _getSize(2)),
       ),
-      child: pw.Center(
-        child: pw.SizedBox(
-          height: _getSize(440),
-          width: _getSize(440),
-          child: pw.Center(child: pw.Image(qrImage)),
-        ),
-      ),
+      child: pw.Center(child: pw.SizedBox(height: _getSize(440), width: _getSize(440), child: pw.Center(child: pw.Image(qrImage)))),
     );
   }
 }

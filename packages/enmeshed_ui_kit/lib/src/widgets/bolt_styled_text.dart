@@ -9,12 +9,6 @@ class BoldStyledText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StyledText(
-      text: text,
-      style: style,
-      tags: {
-        'bold': StyledTextTag(style: TextStyle(fontWeight: FontWeight.bold)),
-      },
-    );
+    return StyledText(text: text, style: style, tags: {'bold': StyledTextTag(style: TextStyle(fontWeight: FontWeight.bold))});
   }
 }

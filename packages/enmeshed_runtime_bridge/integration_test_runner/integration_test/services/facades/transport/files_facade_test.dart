@@ -194,11 +194,7 @@ void run(EnmeshedRuntime runtime) {
     test('should return a valid TokenDTO with all properties', () async {
       final expiresAt = generateExpiryString();
 
-      final tokenResult = await session.transportServices.files.createTokenForFile(
-        fileId: globalFile.id,
-        expiresAt: expiresAt,
-        ephemeral: true,
-      );
+      final tokenResult = await session.transportServices.files.createTokenForFile(fileId: globalFile.id, expiresAt: expiresAt, ephemeral: true);
 
       expect(tokenResult, isSuccessful<TokenDTO>());
 

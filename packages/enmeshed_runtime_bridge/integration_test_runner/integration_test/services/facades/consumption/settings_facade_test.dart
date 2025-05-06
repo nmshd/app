@@ -79,14 +79,17 @@ void run(EnmeshedRuntime runtime) {
     });
 
     test('should get the setting by key', () async {
-      final toBeSucceeded = await session.consumptionServices.settings.createSetting(key: 'a-key', value: {
-        'key': ['value']
-      });
+      final toBeSucceeded = await session.consumptionServices.settings.createSetting(
+        key: 'a-key',
+        value: {
+          'key': ['value'],
+        },
+      );
 
       await session.consumptionServices.settings.createSetting(
         key: 'a-key',
         value: {
-          'key': ['newValue']
+          'key': ['newValue'],
         },
         succeedsItem: toBeSucceeded.value.id,
         succeedsAt: DateTime.now().toRuntimeIsoString(),
@@ -97,7 +100,7 @@ void run(EnmeshedRuntime runtime) {
 
       final setting = result.value;
       expect(setting.value, {
-        'key': ['newValue']
+        'key': ['newValue'],
       });
     });
 
