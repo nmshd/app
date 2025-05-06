@@ -22,7 +22,7 @@ void run(EnmeshedRuntime runtime) {
     addressSession2 = (await session2.transportServices.account.getIdentityInfo()).value.address;
   });
 
-  group('RelationshipTemplatesFacade: createOwnRelationshipTemplate', () {
+  group('[RelationshipTemplatesFacade] createOwnRelationshipTemplate', () {
     test('should create a template', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -58,7 +58,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: loadPeerRelationshipTemplate', () {
+  group('[RelationshipTemplatesFacade] loadPeerRelationshipTemplate', () {
     test('should allow to load template of peer by entering reference', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -79,7 +79,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: getRelationshipTemplates', () {
+  group('[RelationshipTemplatesFacade] getRelationshipTemplates', () {
     late String expiryDate = generateExpiryString();
 
     setUpAll(() async {
@@ -155,7 +155,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: getRelationshipTemplate', () {
+  group('[RelationshipTemplatesFacade] getRelationshipTemplate', () {
     test('should return a valid relationship template', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -199,7 +199,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: createTokenForOwnRelationshipTemplate', () {
+  group('[RelationshipTemplatesFacade] createTokenForOwnRelationshipTemplate', () {
     test('should return a valid TokenDTO', () async {
       final expiresAt = generateExpiryString();
       final content = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
@@ -237,7 +237,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipTemplatesFacade: Password Protection', () {
+  group('[RelationshipTemplatesFacade] Password Protection', () {
     final relationshipTemplateContent = ArbitraryRelationshipTemplateContent(const {'aKey': 'aValue'});
 
     final passwordProtections = [

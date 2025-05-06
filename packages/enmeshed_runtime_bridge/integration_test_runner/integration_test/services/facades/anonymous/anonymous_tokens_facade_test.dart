@@ -24,7 +24,7 @@ void run(EnmeshedRuntime runtime) {
     uploadedToken = result.value;
   });
 
-  group('AnonymousTokensFacade', () {
+  group('[AnonymousTokensFacade]', () {
     test('should load a Token by truncatedReference', () async {
       final result = await runtime.anonymousServices.tokens.loadPeerToken(uploadedToken.truncatedReference);
       expect(result, isSuccessful<TokenDTO>());

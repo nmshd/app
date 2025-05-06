@@ -15,7 +15,7 @@ void run(EnmeshedRuntime runtime) {
     session = runtime.getSession(account.id);
   });
 
-  group('PublicRelationshipTemplateReferencesFacade: getPublicRelationshipTemplateReferences', () {
+  group('[PublicRelationshipTemplateReferencesFacade] getPublicRelationshipTemplateReferences', () {
     test('should get the PublicRelationshipTemplateReferences', () async {
       final referencesResult = await session.transportServices.publicRelationshipTemplateReferences.getPublicRelationshipTemplateReferences();
 

@@ -32,7 +32,7 @@ void run(EnmeshedRuntime runtime) {
     await ensureActiveRelationship(sender, thirdParty);
   });
 
-  group('AttributesFacade: canCreateRepositoryAttribute', () {
+  group('[AttributesFacade] canCreateRepositoryAttribute', () {
     test('should return that it is possible to create an identity attribute', () async {
       final attributeResult = await sender.consumptionServices.attributes.canCreateRepositoryAttribute(
         value: const CityAttributeValue(value: 'aRandomCityNobodyWillEverUse'),
@@ -55,7 +55,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: createRepositoryAttribute', () {
+  group('[AttributesFacade] createRepositoryAttribute', () {
     test('should create an identity attribute', () async {
       final attributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(value: const CityAttributeValue(value: 'aCity'));
 
@@ -65,7 +65,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: getPeerSharedAttributes', () {
+  group('[AttributesFacade] getPeerSharedAttributes', () {
     test('should return a valid list of peer shared', () async {
       final sharedAttribute = await exchangeIdentityAttribute(sender, recipient, const PhoneNumberAttributeValue(value: '012345678910'));
 
@@ -165,7 +165,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: getOwnSharedAttributes', () {
+  group('[AttributesFacade] getOwnSharedAttributes', () {
     test('should return a valid list of own shared attributes', () async {
       final peer = account2.address!;
 
@@ -289,7 +289,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: getRepositoryAttributes', () {
+  group('[AttributesFacade] getRepositoryAttributes', () {
     test('should return a valid list of repository attributes', () async {
       await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
       exchangeIdentityAttribute(sender, recipient, const SurnameAttributeValue(value: 'aSurname'));
@@ -318,7 +318,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: getAttribute', () {
+  group('[AttributesFacade] getAttribute', () {
     test('should return a valid LocalAttributeDTO', () async {
       final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const SurnameAttributeValue(value: 'aSurname'),
@@ -345,7 +345,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: getAttributes', () {
+  group('[AttributesFacade] getAttributes', () {
     test('should return a valid list of LocalAttributeDTOs', () async {
       await sender.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
       await sender.consumptionServices.attributes.createRepositoryAttribute(value: const GivenNameAttributeValue(value: 'aGivenName'));
@@ -448,7 +448,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: getVersionsOfAttribute', () {
+  group('[AttributesFacade] getVersionsOfAttribute', () {
     test('should get all versions of a repository attribute', () async {
       final recipientAddress = account2.address!;
 
@@ -511,7 +511,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
 
-  group('AttributesFacade: getSharedVersionsOfAttribute', () {
+  group('[AttributesFacade] getSharedVersionsOfAttribute', () {
     test('should get only latest shared versions of a repository attribute', () async {
       final recipientAddress = account2.address!;
       final List<LocalAttributeDTO> versions = [];
@@ -1000,7 +1000,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
 
-  group('AttributesFacade: executeIdentityAttributeQuery', () {
+  group('[AttributesFacade] executeIdentityAttributeQuery', () {
     test('should allow to execute an identityAttributeQuery', () async {
       final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const PhoneNumberAttributeValue(value: '012345678910'),
@@ -1027,7 +1027,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: executeRelationshipAttributeQuery', () {
+  group('[AttributesFacade] executeRelationshipAttributeQuery', () {
     test('should allow to execute a RelationshipAttributeQuery', () async {
       final relationshipAttribute = await exchangeRelationshipAttribute(
         sender,
@@ -1052,7 +1052,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: executeThirdPartyRelationshipAttributeQuery', () {
+  group('[AttributesFacade] executeThirdPartyRelationshipAttributeQuery', () {
     test('should allow to execute a thirdPartyRelationshipAttributeQuery', () async {
       await exchangeAndAcceptRequestByMessage(
         sender,
@@ -1088,7 +1088,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: executeIQLQuery', () {
+  group('[AttributesFacade] executeIQLQuery', () {
     test('should allow to execute an IQLQuery', () async {
       await recipient.consumptionServices.attributes.createRepositoryAttribute(value: const SurnameAttributeValue(value: 'aSurname'));
 
@@ -1101,7 +1101,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: succeedRepositoryAttribute', () {
+  group('[AttributesFacade] succeedRepositoryAttribute', () {
     test('should succeed an identity attribute', () async {
       final attributesResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const SurnameAttributeValue(value: 'aSurname'),
@@ -1144,7 +1144,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: shareRepositoryAttribute', () {
+  group('[AttributesFacade] shareRepositoryAttribute', () {
     test('should allow to share an attribute', () async {
       final recipientAddress = account2.address!;
 
@@ -1257,7 +1257,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: notifyPeerAboutRepositoryAttributeSuccession', () {
+  group('[AttributesFacade] notifyPeerAboutRepositoryAttributeSuccession', () {
     test('should successfully notify peer about attribute succession', () async {
       final recipientAddress = account2.address!;
 
@@ -1298,7 +1298,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: createAndShareRelationshipAttribute', () {
+  group('[AttributesFacade] createAndShareRelationshipAttribute', () {
     test('should create and share relationship attribute', () async {
       final recipientAddress = account2.address!;
       final requestResult = await sender.consumptionServices.attributes.createAndShareRelationshipAttribute(
@@ -1375,7 +1375,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: succeedRelationshipAttributeAndNotifyPeer', () {
+  group('[AttributesFacade] succeedRelationshipAttributeAndNotifyPeer', () {
     test('should succeed a relationship attribute and notify peer', () async {
       final recipientAddress = account2.address!;
       const attributeValue = ProprietaryStringAttributeValue(title: 'aTitle', value: 'aValue');
@@ -1465,7 +1465,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
 
-  group('AttributesFacade: changeDefaultRepositoryAttributes', () {
+  group('[AttributesFacade] changeDefaultRepositoryAttributes', () {
     test('should change default repository attributes', () async {
       final defaultAttribute = (await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const GivenNameAttributeValue(value: 'aDefaultGivenName'),
@@ -1527,7 +1527,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: deleteRepositoryAttribute', () {
+  group('[AttributesFacade] deleteRepositoryAttribute', () {
     test('should delete a repository attribute', () async {
       final identityAttributeResult = await sender.consumptionServices.attributes.createRepositoryAttribute(
         value: const PhoneNumberAttributeValue(value: '012345678910'),
@@ -1552,7 +1552,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: deleteOwnSharedAttributeAndNotifyPeer', () {
+  group('[AttributesFacade] deleteOwnSharedAttributeAndNotifyPeer', () {
     test('should delete an own shared identity attribute', () async {
       final recipientAddress = account2.address!;
 
@@ -1641,7 +1641,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: deletePeerSharedAttributeAndNotifyOwner', () {
+  group('[AttributesFacade] deletePeerSharedAttributeAndNotifyOwner', () {
     test('should delete a peer shared identity attribute', () async {
       final recipientAddress = account2.address!;
 
@@ -1731,7 +1731,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('AttributesFacade: deleteThirdPartyRelationshipAttributeAndNotifyPeer', () {
+  group('[AttributesFacade] deleteThirdPartyRelationshipAttributeAndNotifyPeer', () {
     test('should delete a third party owned relationship attribute as the sender of it', () async {
       final senderAddress = account1.address!;
       final recipientAddress = account2.address!;
@@ -1951,7 +1951,7 @@ void run(EnmeshedRuntime runtime) {
     }, timeout: const Timeout(Duration(seconds: 60)));
   });
 
-  group('AttributesFacade: getAttributeTagCollection', () {
+  group('[AttributesFacade] getAttributeTagCollection', () {
     test('should get the tag collection', () async {
       final result = await sender.consumptionServices.attributes.getAttributeTagCollection();
       expect(result, isSuccessful<AttributeTagCollectionDTO>());

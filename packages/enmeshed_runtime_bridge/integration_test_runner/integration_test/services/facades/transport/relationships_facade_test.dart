@@ -20,7 +20,7 @@ void run(EnmeshedRuntime runtime) {
     session2 = runtime.getSession(account2.id);
   });
 
-  group('RelationshipsFacade: getRelationships', () {
+  group('[RelationshipsFacade] getRelationships', () {
     test('should return an empty list when no relationships exists', () async {
       final relationshipsResult = await session1.transportServices.relationships.getRelationships();
 
@@ -39,7 +39,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: getRelationship', () {
+  group('[RelationshipsFacade] getRelationship', () {
     test('should return a valid relationship by entering id', () async {
       final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
 
@@ -68,7 +68,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: getRelationshipByAddress', () {
+  group('[RelationshipsFacade] getRelationshipByAddress', () {
     test('should return a valid relationship by entering address', () async {
       final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
       final relationships = await session1.transportServices.relationships.getRelationships();
@@ -82,7 +82,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: createRelationship', () {
+  group('[RelationshipsFacade] createRelationship', () {
     test('should create a relationship', () async {
       final responseTemplate = await session2.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
         expiresAt: generateExpiryString(),
@@ -145,7 +145,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: acceptRelationship', () {
+  group('[RelationshipsFacade] acceptRelationship', () {
     test('should accept a relationship', () async {
       final establishedRelationship = await establishRelationshipAndSync(requestor: session1, templator: session2);
 
@@ -156,7 +156,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: rejectRelationship', () {
+  group('[RelationshipsFacade] rejectRelationship', () {
     test('should reject a relationship', () async {
       final establishedRelationship = await establishRelationshipAndSync(requestor: session1, templator: session2);
 
@@ -167,7 +167,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: revokeRelationship', () {
+  group('[RelationshipsFacade] revokeRelationship', () {
     test('should revoke a relationship', () async {
       final establishedRelationship = await establishRelationship(requestor: session1, templator: session2);
 
@@ -178,7 +178,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: getAttributesForRelationship', () {
+  group('[RelationshipsFacade] getAttributesForRelationship', () {
     test('should return a valid list of LocalAttributeDTOs', () async {
       final establishedRelationship = await ensureActiveRelationship(session1, session2);
 
@@ -192,7 +192,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: terminateRelationship', () {
+  group('[RelationshipsFacade] terminateRelationship', () {
     test('should terminate a relationship', () async {
       final establishedRelationship = await ensureActiveRelationship(session1, session2);
 
@@ -203,7 +203,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: requestRelationshipReactivation / acceptRelationshipReactivation', () {
+  group('[RelationshipsFacade] requestRelationshipReactivation / acceptRelationshipReactivation', () {
     test('should request the reactivation of a relationship and then accept it', () async {
       final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
 
@@ -223,7 +223,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: requestRelationshipReactivation / revokeRelationshipReactivation', () {
+  group('[RelationshipsFacade] requestRelationshipReactivation / revokeRelationshipReactivation', () {
     test('should request the reactivation of a relationship and then revoke it', () async {
       final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
 
@@ -242,7 +242,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: requestRelationshipReactivation / rejectRelationshipReactivation', () {
+  group('[RelationshipsFacade] requestRelationshipReactivation / rejectRelationshipReactivation', () {
     test('should request the reactivation of a relationship and then reject it', () async {
       final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
 
@@ -262,7 +262,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('RelationshipsFacade: decomposeRelationship', () {
+  group('[RelationshipsFacade] decomposeRelationship', () {
     test('should decompose a relationship', () async {
       final establishedRelationship = await ensureTerminatedRelationship(session1, session2);
 

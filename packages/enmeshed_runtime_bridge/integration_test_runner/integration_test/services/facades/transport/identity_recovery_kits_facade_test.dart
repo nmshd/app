@@ -16,7 +16,7 @@ void run(EnmeshedRuntime runtime) {
     session = runtime.getSession(account.id);
   });
 
-  group('IdentityRecoveryKitsFacade', () {
+  group('[IdentityRecoveryKitsFacade]', () {
     test('createIdentityRecoveryKit', () async {
       final result = await session.transportServices.identityRecoveryKits.createIdentityRecoveryKit(
         profileName: 'aProfileName',

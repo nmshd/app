@@ -24,7 +24,7 @@ void run(EnmeshedRuntime runtime) {
     }
   });
 
-  group('SettingsFacade', () {
+  group('[SettingsFacade]', () {
     test('should create a setting', () async {
       const value = {'aKey': 'a-value'};
       final result = await session.consumptionServices.settings.createSetting(key: 'a-key', value: value);
