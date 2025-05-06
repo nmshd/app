@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: animated_toggle_switch
-      sha256: f2e021b1bbbaa76c664b29f6932ed9a37fbd75870da19053a0cc6cd9f790d83a
+      sha256: "31ba41bb2b13b1324da8370bda934cd569e77d42ce5950cf1d31707b6061a0d0"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.4"
+    version: "0.8.5"
   ansicolor:
     dependency: transitive
     description:
@@ -53,18 +53,18 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: cb6a278ef2dbb298455e1a713bda08524a175630ec643a242c399c932a0a1f7d
+      sha256: "2fde1607386ab523f7a36bb3e7edb43bd58e6edaf2ffb29d8a6d578b297fdbbd"
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.1"
+    version: "4.0.7"
   args:
     dependency: transitive
     description:
       name: args
-      sha256: bf9f5caeea8d8fe6721a9c358dd8a5c1947b27f1cfaa18b39c301273594919e6
+      sha256: d0481093c50b1da8910eb0bb301626d4d8eb7284aa739614d2b394ee09e3ea04
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "2.7.0"
   async:
     dependency: transitive
     description:
@@ -157,10 +157,10 @@ packages:
     dependency: "direct main"
     description:
       name: croppy
-      sha256: "14bb40fd6c1771b093a907ddbf24df9aa49a4e6e379dd630602eb446e30ec629"
+      sha256: "2a69059d9ec007b79d6a494854094b2e3c0a4f7ed609cf55a4805c9de9ec171d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.1"
+    version: "1.3.6"
   cross_file:
     dependency: transitive
     description:
@@ -307,10 +307,10 @@ packages:
     dependency: "direct main"
     description:
       name: flex_seed_scheme
-      sha256: d3ba3c5c92d2d79d45e94b4c6c71d01fac3c15017da1545880c53864da5dfeb0
+      sha256: b06d8b367b84cbf7ca5c5603c858fa5edae88486c4e4da79ac1044d73b6c62ec
       url: "https://pub.dev"
     source: hosted
-    version: "3.5.0"
+    version: "3.5.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -392,10 +392,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_launcher_icons
-      sha256: "31cd0885738e87c72d6f055564d37fabcdacee743b396b78c7636c169cac64f5"
+      sha256: bfa04787c85d80ecb3f8777bde5fc10c3de809240c48fa061a2c2bf15ea5211c
       url: "https://pub.dev"
     source: hosted
-    version: "0.14.2"
+    version: "0.14.3"
   flutter_local_notifications:
     dependency: transitive
     description:
@@ -429,18 +429,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_markdown
-      sha256: e37f4c69a07b07bb92622ef6b131a53c9aae48f64b176340af9e8e5238718487
+      sha256: "634622a3a826d67cb05c0e3e576d1812c430fa98404e95b60b131775c73d76ec"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.5"
+    version: "0.7.7"
   flutter_native_splash:
     dependency: "direct main"
     description:
       name: flutter_native_splash
-      sha256: "7062602e0dbd29141fb8eb19220b5871ca650be5197ab9c1f193a28b17537bc7"
+      sha256: "8321a6d11a8d13977fa780c89de8d257cce3d841eecfb7a4cadffcc4f12d82dc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "2.4.6"
   flutter_pin_code_fields:
     dependency: "direct main"
     description:
@@ -558,10 +558,10 @@ packages:
     dependency: "direct main"
     description:
       name: image
-      sha256: f31d52537dc417fdcde36088fdf11d191026fd5e4fae742491ebd40e5a8bea7d
+      sha256: "4e973fcf4caae1a4be2fa0a13157aa38a8f9cb049db6529aa00b4d71abc4d928"
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.0"
+    version: "4.5.4"
   image_picker:
     dependency: "direct main"
     description:
@@ -734,10 +734,10 @@ packages:
     dependency: "direct main"
     description:
       name: mobile_scanner
-      sha256: "728828a798d1a2ee506beb652ca23d974c542c96ed03dcbd5eaf97bef96cdaad"
+      sha256: f536c5b8cadcf73d764bdce09c94744f06aa832264730f8971b21a60c5666826
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.2"
+    version: "6.0.10"
   msix:
     dependency: "direct dev"
     description:
@@ -903,10 +903,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdf
-      sha256: "05df53f8791587402493ac97b9869d3824eccbc77d97855f4545cf72df3cae07"
+      sha256: "28eacad99bffcce2e05bba24e50153890ad0255294f4dd78a17075a2ba5c8416"
       url: "https://pub.dev"
     source: hosted
-    version: "3.11.1"
+    version: "3.11.3"
   pdf_widget_wrapper:
     dependency: transitive
     description:
@@ -987,6 +987,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  posix:
+    dependency: transitive
+    description:
+      name: posix
+      sha256: f0d7856b6ca1887cfa6d1d394056a296ae33489db914e365e2044fdada449e62
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.2"
   printing:
     dependency: "direct main"
     description:
@@ -1139,10 +1147,10 @@ packages:
     dependency: "direct main"
     description:
       name: smooth_page_indicator
-      sha256: "3b28b0c545fa67ed9e5997d9f9720d486f54c0c607e056a1094544e36934dff3"
+      sha256: b21ebb8bc39cf72d11c7cfd809162a48c3800668ced1c9da3aade13a32cf6c1c
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0+3"
+    version: "1.2.1"
   source_span:
     dependency: transitive
     description:
@@ -1322,10 +1330,10 @@ packages:
     dependency: "direct main"
     description:
       name: vector_graphics
-      sha256: "27d5fefe86fb9aace4a9f8375b56b3c292b64d8c04510df230f849850d912cb7"
+      sha256: "44cc7104ff32563122a929e4620cf3efd584194eec6d1d913eb5ba593dbcf6de"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.15"
+    version: "1.1.18"
   vector_graphics_codec:
     dependency: transitive
     description:
