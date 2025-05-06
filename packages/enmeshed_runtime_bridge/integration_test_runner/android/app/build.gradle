@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.integration_test_runner"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -47,5 +47,5 @@ flutter {
 
 dependencies {
     // https://github.com/Levi-Lesches/flutter_local_notifications/blob/readme-refactor/flutter_local_notifications/docs/android-setup.md
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 }
