@@ -98,8 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
     await runtime.triggerAppReadyEvent();
 
-    // ignore: use_build_context_synchronously
-    await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router, localizations: context.l10n));
+    if (mounted) await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router, localizations: context.l10n));
 
     await _registerWindowsSchemeForDebugMode('nmshd-dev');
 
