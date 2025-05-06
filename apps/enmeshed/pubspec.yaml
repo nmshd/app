@@ -44,7 +44,7 @@ dependencies:
   path: any
   path_provider: ^2.1.5
   pdf: ^3.11.3
-  permission_handler: ^11.4.0
+  permission_handler: ^12.0.0+1
   printing: ^5.14.2
   push: ^2.3.0
   qr_flutter: ^4.1.0
