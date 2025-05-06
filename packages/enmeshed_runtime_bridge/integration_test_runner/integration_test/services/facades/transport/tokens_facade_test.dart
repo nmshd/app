@@ -22,7 +22,7 @@ void run(EnmeshedRuntime runtime) {
     addressSession2 = (await session2.transportServices.account.getIdentityInfo()).value.address;
   });
 
-  group('TokensFacade: createOwnToken', () {
+  group('[TokensFacade] createOwnToken', () {
     test('should create a Token', () async {
       final expiry = generateExpiryString();
 
@@ -57,7 +57,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('TokensFacade: loadPeerToken', () {
+  group('[TokensFacade] loadPeerToken', () {
     test('should load a Token', () async {
       final expiry = generateExpiryString();
 
@@ -100,7 +100,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('TokensFacade: getTokens', () {
+  group('[TokensFacade] getTokens', () {
     test('should return all Tokens', () async {
       final newToken = await session1.transportServices.tokens.createOwnToken(
         content: {'test': 'test'},
@@ -131,7 +131,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('TokensFacade: getToken', () {
+  group('[TokensFacade] getToken', () {
     test('should return a Token', () async {
       final token = await session1.transportServices.tokens.createOwnToken(
         content: {'test': 'test'},
