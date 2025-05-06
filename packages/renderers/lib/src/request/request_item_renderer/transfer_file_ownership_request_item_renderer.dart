@@ -6,10 +6,8 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
-import 'decidable/checkbox_enabled_extension.dart';
-import 'decidable/widgets/handle_checkbox_change.dart';
-import 'decidable/widgets/manual_decision_required.dart';
-import 'decidable/widgets/validation_error_box.dart';
+import 'widgets/manual_decision_required.dart';
+import 'widgets/validation_error_box.dart';
 
 class TransferFileOwnershipRequestItemRenderer extends StatefulWidget {
   final TransferFileOwnershipRequestItemDVO item;
@@ -130,6 +128,9 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
 
     setState(() => _isChecked = value);
 
-    handleCheckboxChange(isChecked: _isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
+    widget.controller?.writeAtIndex(
+      index: widget.itemIndex,
+      value: value ? const AcceptRequestItemParameters() : const RejectRequestItemParameters(),
+    );
   }
 }

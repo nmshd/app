@@ -1,5 +1,4 @@
 export 'decidable_create_attribute_request_item.dart';
-export 'decidable_free_text_request_item.dart';
 export 'decidable_propose_attribute_request_item_renderer.dart';
 export 'decidable_read_attribute_request_item_renderer.dart';
 export 'decidable_register_attribute_listener_request_item_renderer.dart';
