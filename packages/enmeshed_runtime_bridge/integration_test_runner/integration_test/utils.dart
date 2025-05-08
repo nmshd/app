@@ -27,7 +27,7 @@ Future<RelationshipDTO> establishRelationship({required Session requestor, requi
     content: emptyRelationshipTemplateContent,
   );
 
-  final item = await requestor.transportServices.account.loadItemFromTruncatedReference(reference: createTemplateResult.value.reference.truncated);
+  final item = await requestor.transportServices.account.loadItemFromReference(reference: createTemplateResult.value.reference.truncated);
 
   final template = item.value.relationshipTemplateValue;
 

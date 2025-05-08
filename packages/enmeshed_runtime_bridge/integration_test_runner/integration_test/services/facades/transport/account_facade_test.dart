@@ -93,7 +93,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('[AttributesFacade] LoadItemFromTruncatedReference', () {
+  group('[AttributesFacade] LoadItemFromReference', () {
     group('File', () {
       String fileReference = '';
       String fileTokenReference = '';
@@ -105,17 +105,17 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('should load the File with the truncated reference', () async {
-        final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: fileReference);
+        final result = await session.transportServices.account.loadItemFromReference(reference: fileReference);
 
-        expect(result, isSuccessful<LoadItemFromTruncatedReferenceResponse>());
-        expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.File);
+        expect(result, isSuccessful<LoadItemFromReferenceResponse>());
+        expect(result.value.type, LoadItemFromReferenceResponseType.File);
       });
 
       test('should load the File with the truncated Token reference', () async {
-        final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: fileTokenReference);
+        final result = await session.transportServices.account.loadItemFromReference(reference: fileTokenReference);
 
-        expect(result, isSuccessful<LoadItemFromTruncatedReferenceResponse>());
-        expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.File);
+        expect(result, isSuccessful<LoadItemFromReferenceResponse>());
+        expect(result.value.type, LoadItemFromReferenceResponseType.File);
       });
     });
 
@@ -137,17 +137,17 @@ void run(EnmeshedRuntime runtime) {
       });
 
       test('should load the RelationshipTemplate with the truncated reference', () async {
-        final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: relationshipTemplateReference);
+        final result = await session.transportServices.account.loadItemFromReference(reference: relationshipTemplateReference);
 
-        expect(result, isSuccessful<LoadItemFromTruncatedReferenceResponse>());
-        expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate);
+        expect(result, isSuccessful<LoadItemFromReferenceResponse>());
+        expect(result.value.type, LoadItemFromReferenceResponseType.RelationshipTemplate);
       });
 
       test('should load the RelationshipTemplate with the truncated Token reference', () async {
-        final result = await session.transportServices.account.loadItemFromTruncatedReference(reference: relationshipTemplateTokenReference);
+        final result = await session.transportServices.account.loadItemFromReference(reference: relationshipTemplateTokenReference);
 
-        expect(result, isSuccessful<LoadItemFromTruncatedReferenceResponse>());
-        expect(result.value.type, LoadItemFromTruncatedReferenceResponseType.RelationshipTemplate);
+        expect(result, isSuccessful<LoadItemFromReferenceResponse>());
+        expect(result.value.type, LoadItemFromReferenceResponseType.RelationshipTemplate);
       });
     });
 
