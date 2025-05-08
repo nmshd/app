@@ -95,7 +95,7 @@ class _UrlEntryState extends State<UrlEntry> {
   bool get isUrlValid => validateUrl(_controller.text) == null;
 
   String? validateUrl(String? value) {
-    final urlRegExp = RegExp(r'^(nmshd:\/\/(qr#|tr#))|(https:\/\/)');
+    final urlRegExp = RegExp(r'^(nmshd:\/\/(qr#|tr#))|(https?:\/\/)|(nmshds?:\/\/.*\/r/)');
 
     if (value != null && (!urlRegExp.hasMatch(value) || value.length < 15)) {
       return widget.urlValidationErrorText;
