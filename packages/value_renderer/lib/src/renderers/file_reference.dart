@@ -58,7 +58,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
           });
         }
 
-        widget.controller?.value = ValueRendererInputValueString(value.truncatedReference);
+        widget.controller?.value = ValueRendererInputValueString(value.reference.truncated);
       });
     } else {
       initialLoadComplete = true;
@@ -98,7 +98,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
                   selectedFile = file;
                 });
 
-                widget.controller?.value = ValueRendererInputValueString(file.truncatedReference);
+                widget.controller?.value = ValueRendererInputValueString(file.reference.truncated);
               }
             },
           ),
