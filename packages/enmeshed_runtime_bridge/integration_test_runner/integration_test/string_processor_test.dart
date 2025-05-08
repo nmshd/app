@@ -38,8 +38,8 @@ void run(EnmeshedRuntime enmeshedRuntime) {
       });
     });
 
-    group('processTruncatedReference', () {
-      test('should handle an invalid truncated reference', () async {
+    group('processReference', () {
+      test('should handle an invalid reference', () async {
         final result = await enmeshedRuntime.stringProcessor.processReference(reference: 'invalid');
         expect(result, isFailingVoidResult('error.appruntime.appStringProcessor.invalidReference'));
       });
