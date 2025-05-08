@@ -23,8 +23,13 @@ void run(EnmeshedRuntime enmeshedRuntime) {
 
     group('processURL', () {
       test('should handle an invalid URL', () async {
-        final result = await enmeshedRuntime.stringProcessor.processURL(url: 'https://qr#invalid');
+        final result = await enmeshedRuntime.stringProcessor.processURL(url: 'enmeshed://qr#invalid');
         expect(result, isFailingVoidResult('error.appruntime.appStringProcessor.wrongURL'));
+      });
+
+      test('should handle an invalid truncated reference in the https URL', () async {
+        final result = await enmeshedRuntime.stringProcessor.processURL(url: 'https://qr#invalid');
+        expect(result, isFailingVoidResult('error.appruntime.appStringProcessor.invalidReference'));
       });
 
       test('should handle an invalid truncated reference in the URL', () async {
