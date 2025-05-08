@@ -100,8 +100,8 @@ void run(EnmeshedRuntime runtime) {
 
       setUpAll(() async {
         final file = await uploadFile(session);
-        fileReference = file.truncatedReference;
-        fileTokenReference = (await session.transportServices.files.createTokenForFile(fileId: file.id)).value.truncatedReference;
+        fileReference = file.reference.truncated;
+        fileTokenReference = (await session.transportServices.files.createTokenForFile(fileId: file.id)).value.reference.truncated;
       });
 
       test('should load the File with the truncated reference', () async {
@@ -129,11 +129,11 @@ void run(EnmeshedRuntime runtime) {
               expiresAt: generateExpiryString(),
               content: emptyRelationshipTemplateContent,
             )).value;
-        relationshipTemplateReference = relationshipTemplate.truncatedReference;
+        relationshipTemplateReference = relationshipTemplate.reference.truncated;
         relationshipTemplateTokenReference =
             (await session.transportServices.relationshipTemplates.createTokenForOwnRelationshipTemplate(
               templateId: relationshipTemplate.id,
-            )).value.truncatedReference;
+            )).value.reference.truncated;
       });
 
       test('should load the RelationshipTemplate with the truncated reference', () async {

@@ -120,7 +120,7 @@ class _CreateRecoveryKitModalState extends State<_CreateRecoveryKitModal> {
       addressHexColor: '#1A80D9',
       pdfTexts: pdfTexts,
       qrSettings: (errorCorrectionLevel: QRErrorCorrectionLevel.L, qrPixelSize: null),
-    ).generate(logoBytes: logoBytes, spacerSvgImage: spacerSvgImage, backupURL: 'nmshd://tr#${token.value.truncatedReference}');
+    ).generate(logoBytes: logoBytes, spacerSvgImage: spacerSvgImage, backupURL: 'nmshd://tr#${token.value.reference.truncated}');
 
     return generatedPdf;
   }

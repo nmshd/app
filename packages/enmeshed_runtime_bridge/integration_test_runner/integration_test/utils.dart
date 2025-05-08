@@ -27,7 +27,7 @@ Future<RelationshipDTO> establishRelationship({required Session requestor, requi
     content: emptyRelationshipTemplateContent,
   );
 
-  final item = await requestor.transportServices.account.loadItemFromTruncatedReference(reference: createTemplateResult.value.truncatedReference);
+  final item = await requestor.transportServices.account.loadItemFromTruncatedReference(reference: createTemplateResult.value.reference.truncated);
 
   final template = item.value.relationshipTemplateValue;
 
@@ -151,7 +151,7 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
     content: emptyRelationshipTemplateContent,
   );
   final connectorLoadTemplateResult = await session2.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
-    reference: createTemplateResult.value.truncatedReference,
+    reference: createTemplateResult.value.reference.truncated,
   );
   assert(connectorLoadTemplateResult.isSuccess);
 
