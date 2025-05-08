@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../dtos/object_reference.dart';
 import '../common/common.dart';
 import '../data_view_object.dart';
 import '../integer_converter.dart';
@@ -21,7 +22,7 @@ class FileDVO extends DataViewObject with EquatableMixin {
   final String mimetype;
   final bool isOwn;
   final String title;
-  final String truncatedReference;
+  final ObjectReferenceDTO reference;
 
   const FileDVO({
     required super.id,
@@ -42,7 +43,7 @@ class FileDVO extends DataViewObject with EquatableMixin {
     required this.mimetype,
     required this.isOwn,
     required this.title,
-    required this.truncatedReference,
+    required this.reference,
   });
 
   factory FileDVO.fromJson(Map json) => _$FileDVOFromJson(Map<String, dynamic>.from(json));
@@ -68,6 +69,6 @@ class FileDVO extends DataViewObject with EquatableMixin {
     mimetype,
     isOwn,
     title,
-    truncatedReference,
+    reference,
   ];
 }

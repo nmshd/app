@@ -60,7 +60,7 @@ class _DeviceOnboardingState extends State<DeviceOnboarding> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    final link = 'nmshd://tr#${_token.truncatedReference}';
+    final link = 'nmshd://tr#${_token.reference.truncated}';
 
     final expiryTime = DateTime.parse(_token.expiresAt).toLocal();
     final isExpired = DateTime.now().isAfter(expiryTime);

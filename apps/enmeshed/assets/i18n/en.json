@@ -962,15 +962,15 @@
       "RelationshipTemplate": {
         "incoming": {
           "Completed": {
-            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You decided on it. If you accepted the Contact Request, the App sent the response to the peer. If you declined the Contact Request, it was completed without communicating any data to the peer.",
+            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up a link. You decided on it. If you accepted the Contact Request, the App sent the response to the peer. If you declined the Contact Request, it was completed without communicating any data to the peer.",
             "name": "Completed Incoming Contact Request"
           },
           "Decided": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. It was decided by you, but the decision has not yet been sent to the peer by your App. Please be patient and check again soon.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up a link. It was decided by you, but the decision has not yet been sent to the peer by your App. Please be patient and check again soon.",
             "name": "Decided Incoming Contact Request"
           },
           "DecisionRequired": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up a link. The App still needs to process it. Please be patient and check again soon.",
             "name": "Open Incoming Contact Request"
           },
           "Error": {
@@ -978,15 +978,15 @@
             "name": "Errorneous Incoming Contact Request"
           },
           "Expired": {
-            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. Before a decision was made by you, the request has been expired and could no longer be processed. It has thus been completed without communicating any data to the peer.",
+            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up a link. Before a decision was made by you, the request has been expired and could no longer be processed. It has thus been completed without communicating any data to the peer.",
             "name": "Expired Incoming Contact Request"
           },
           "ManualDecisionRequired": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You can decide if you want to communicate with the peer, which data you want to share and which consents you would like to give.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up a link. You can decide if you want to communicate with the peer, which data you want to share and which consents you would like to give.",
             "name": "To Decide: Scanned Contact Opportunity"
           },
           "Open": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up a link. The App still needs to process it. Please be patient and check again soon.",
             "name": "Open Incoming Contact Request"
           }
         },
