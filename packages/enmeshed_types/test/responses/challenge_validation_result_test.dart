@@ -18,7 +18,7 @@ void main() {
           createdByDevice: 'createdByDevice',
           createdAt: 'createdAt',
           content: ArbitraryRelationshipTemplateContent(const {}),
-          truncatedReference: 'truncatedReference',
+          reference: ObjectReferenceDTO(truncated: 'aTruncatedReference', url: 'aUrl'),
         ),
         status: RelationshipStatus.Active,
         peer: 'peer',
