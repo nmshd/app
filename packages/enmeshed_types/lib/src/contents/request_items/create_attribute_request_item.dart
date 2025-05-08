@@ -10,7 +10,6 @@ class CreateAttributeRequestItem extends RequestItemDerivation {
   final AbstractAttribute attribute;
 
   const CreateAttributeRequestItem({
-    super.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,

@@ -11,15 +11,7 @@ void main() {
     test('is correctly converted with property "correspondingRelationship"', () {
       final relationshipDTO = RelationshipDTO(
         id: 'id',
-        template: RelationshipTemplateDTO(
-          id: 'id',
-          isOwn: false,
-          createdBy: 'createdBy',
-          createdByDevice: 'createdByDevice',
-          createdAt: 'createdAt',
-          content: ArbitraryRelationshipTemplateContent(const {}),
-          truncatedReference: 'truncatedReference',
-        ),
+        templateId: 'templateId',
         status: RelationshipStatus.Active,
         peer: 'peer',
         peerIdentity: const IdentityDTO(address: 'address', publicKey: 'publicKey'),

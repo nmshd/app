@@ -10,7 +10,6 @@ class RegisterAttributeListenerRequestItem extends RequestItemDerivation {
   final AttributeQuery query;
 
   const RegisterAttributeListenerRequestItem({
-    super.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,

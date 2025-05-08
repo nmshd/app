@@ -11,7 +11,6 @@ class ConsentRequestItem extends RequestItemDerivation {
   final String? linkDisplayText;
 
   const ConsentRequestItem({
-    super.title,
     super.description,
     super.metadata,
     required super.mustBeAccepted,

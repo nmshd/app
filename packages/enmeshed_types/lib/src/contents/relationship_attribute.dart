@@ -9,20 +9,10 @@ class RelationshipAttribute extends AbstractAttribute {
   final bool? isTechnical;
   final RelationshipAttributeConfidentiality confidentiality;
 
-  const RelationshipAttribute({
-    required super.owner,
-    super.validFrom,
-    super.validTo,
-    required this.value,
-    required this.key,
-    this.isTechnical,
-    required this.confidentiality,
-  });
+  const RelationshipAttribute({required super.owner, required this.value, required this.key, this.isTechnical, required this.confidentiality});
 
   factory RelationshipAttribute.fromJson(Map json) => RelationshipAttribute(
     owner: json['owner'],
-    validFrom: json['validFrom'],
-    validTo: json['validTo'],
     value: RelationshipAttributeValue.fromJson(json['value']),
     key: json['key'],
     isTechnical: json['isTechnical'],

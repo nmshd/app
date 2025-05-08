@@ -17,7 +17,7 @@ FileDTO _$FileDTOFromJson(Map<String, dynamic> json) => FileDTO(
   expiresAt: json['expiresAt'] as String,
   mimetype: json['mimetype'] as String,
   isOwn: json['isOwn'] as bool,
-  title: json['title'] as String,
+  title: json['title'] as String?,
   description: json['description'] as String?,
   truncatedReference: json['truncatedReference'] as String,
 );
@@ -33,7 +33,7 @@ Map<String, dynamic> _$FileDTOToJson(FileDTO instance) => <String, dynamic>{
   'expiresAt': instance.expiresAt,
   'mimetype': instance.mimetype,
   'isOwn': instance.isOwn,
-  'title': instance.title,
+  if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
   'truncatedReference': instance.truncatedReference,
 };
