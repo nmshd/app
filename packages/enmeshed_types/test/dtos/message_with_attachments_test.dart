@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_types/src/dtos/object_reference.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -24,7 +25,7 @@ void main() {
             mimetype: 'aMimetype',
             isOwn: true,
             title: 'aTitle',
-            truncatedReference: 'aTruncatedReference',
+            reference: ObjectReferenceDTO(truncated: 'aTruncatedReference', url: 'aUrl'),
           ),
         ],
       );
@@ -53,7 +54,7 @@ void main() {
               mimetype: 'aMimetype',
               isOwn: true,
               title: 'aTitle',
-              truncatedReference: 'aTruncatedReference',
+              reference: ObjectReferenceDTO(truncated: 'aTruncatedReference', url: 'aUrl'),
             ).toJson(),
           ],
         }),
@@ -85,7 +86,7 @@ void main() {
             mimetype: 'aMimetype',
             isOwn: true,
             title: 'aTitle',
-            truncatedReference: 'aTruncatedReference',
+            reference: ObjectReferenceDTO(truncated: 'aTruncatedReference', url: 'aUrl'),
           ).toJson(),
         ],
       };
@@ -112,7 +113,7 @@ void main() {
                 mimetype: 'aMimetype',
                 isOwn: true,
                 title: 'aTitle',
-                truncatedReference: 'aTruncatedReference',
+                reference: ObjectReferenceDTO(truncated: 'aTruncatedReference', url: 'aUrl'),
               ),
             ],
           ),

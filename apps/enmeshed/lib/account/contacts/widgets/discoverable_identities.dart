@@ -39,7 +39,7 @@ class DiscoverableIdentities extends StatelessWidget {
                 final runtime = GetIt.I.get<EnmeshedRuntime>();
                 final account = await runtime.accountServices.getAccount(accountId);
 
-                await runtime.stringProcessor.processTruncatedReference(truncatedReference: reference.truncatedReference, account: account);
+                await runtime.stringProcessor.processReference(reference: reference.truncatedReference, account: account);
               },
               children: publicRelationshipTemplateReferences.map((reference) => _DiscoverableIdentity(reference: reference)).toList(),
             ),

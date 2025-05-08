@@ -225,7 +225,7 @@ class _UploadFileState extends State<UploadFile> {
   Future<RepositoryAttributeDVO> _createFileReferenceAttribute(FileDVO file) async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
     final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(
-      value: IdentityFileReferenceAttributeValue(value: file.truncatedReference),
+      value: IdentityFileReferenceAttributeValue(value: file.reference.truncated),
       tags: _tagController.text.isNotEmpty ? [_tagController.text] : null,
     );
 

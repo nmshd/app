@@ -110,9 +110,9 @@ class AccountFacade {
     return VoidResult.fromJson(value);
   }
 
-  Future<Result<LoadItemFromTruncatedReferenceResponse>> loadItemFromTruncatedReference({required String reference, String? password}) async {
+  Future<Result<LoadItemFromReferenceResponse>> loadItemFromReference({required String reference, String? password}) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.loadItemFromTruncatedReference(request)
+      '''const result = await session.transportServices.account.loadItemFromReference(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
@@ -121,6 +121,6 @@ class AccountFacade {
     );
 
     final value = result.valueToMap();
-    return Result.fromJson(value, (x) => LoadItemFromTruncatedReferenceResponse.fromJson(x));
+    return Result.fromJson(value, (x) => LoadItemFromReferenceResponse.fromJson(x));
   }
 }

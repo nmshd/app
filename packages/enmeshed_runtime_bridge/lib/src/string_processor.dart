@@ -20,12 +20,12 @@ class StringProcessor {
     return VoidResult.fromJson(result.valueToMap());
   }
 
-  Future<VoidResult> processTruncatedReference({required String truncatedReference, LocalAccountDTO? account}) async {
+  Future<VoidResult> processReference({required String reference, LocalAccountDTO? account}) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await runtime.stringProcessor.processTruncatedReference(truncatedReference, account ?? undefined)
+      '''const result = await runtime.stringProcessor.processReference(reference, account ?? undefined)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: {} }''',
-      arguments: {'truncatedReference': truncatedReference, 'account': account?.toJson()},
+      arguments: {'reference': reference, 'account': account?.toJson()},
     );
 
     return VoidResult.fromJson(result.valueToMap());

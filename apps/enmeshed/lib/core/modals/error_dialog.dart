@@ -26,21 +26,27 @@ class ErrorDialog extends StatelessWidget {
     _ => Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
   };
 
-  String _title(BuildContext context) => switch (code) {
-    'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
-    'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_title,
-    'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
-    'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit,
-    'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorTitleOnExistingProfile,
-    _ => context.l10n.errorDialog_title,
-  };
+  String _title(BuildContext context) {
+    if (code != null && code!.startsWith('error.appruntime.appStringProcessor')) return context.l10n.errorDialog_invalidQRCode_title;
 
-  String _content(BuildContext context) => switch (code) {
-    'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' ||
-    'error.appStringProcessor.truncatedReferenceInvalid' => context.l10n.errorDialog_invalidQRCode_description,
-    'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_description,
-    'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit,
-    'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnExistingProfile,
-    _ => context.l10n.errorDialog_description,
-  };
+    return switch (code) {
+      'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' => context.l10n.errorDialog_invalidQRCode_title,
+      'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_title,
+      'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit,
+      'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorTitleOnExistingProfile,
+      _ => context.l10n.errorDialog_title,
+    };
+  }
+
+  String _content(BuildContext context) {
+    if (code != null && code!.startsWith('error.appruntime.appStringProcessor')) return context.l10n.errorDialog_invalidQRCode_description;
+
+    return switch (code) {
+      'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' => context.l10n.errorDialog_invalidQRCode_description,
+      'error.relationshipTemplateProcessedModule.relationshipTemplateProcessingError' => context.l10n.errorDialog_QRCodeProcessingFailed_description,
+      'error.recordNotFoundOnScanRecoveryKit' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit,
+      'error.app-runtime.onboardedAccountAlreadyExists' => context.l10n.restoreFromIdentityRecovery_errorDescriptionOnExistingProfile,
+      _ => context.l10n.errorDialog_description,
+    };
+  }
 }
