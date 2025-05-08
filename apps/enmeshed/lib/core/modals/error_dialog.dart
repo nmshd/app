@@ -27,7 +27,7 @@ class ErrorDialog extends StatelessWidget {
   };
 
   String _title(BuildContext context) {
-    if (code != null && code!.startsWith('error.appruntime.AppStringProcessor')) return context.l10n.errorDialog_invalidQRCode_title;
+    if (code != null && code!.startsWith('error.appruntime.appStringProcessor')) return context.l10n.errorDialog_invalidQRCode_title;
 
     return switch (code) {
       'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' => context.l10n.errorDialog_invalidQRCode_title,
@@ -39,7 +39,7 @@ class ErrorDialog extends StatelessWidget {
   }
 
   String _content(BuildContext context) {
-    if (code != null && code!.startsWith('error.appruntime.AppStringProcessor')) return context.l10n.errorDialog_invalidQRCode_description;
+    if (code != null && code!.startsWith('error.appruntime.appStringProcessor')) return context.l10n.errorDialog_invalidQRCode_description;
 
     return switch (code) {
       'error.relationshipTemplateProcessedModule.relationshipTemplateNotSupported' => context.l10n.errorDialog_invalidQRCode_description,
