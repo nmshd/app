@@ -89,7 +89,7 @@ services:
   database:
     container_name: bkb-postgres
     hostname: postgres
-    image: postgres@sha256:304ab813518754228f9f792f79d6da36359b82d8ecf418096c636725f8c930ad
+    image: postgres@sha256:864831322bf2520e7d03d899b01b542de6de9ece6fe29c89f19dc5e1d5568ccf
     environment:
       - POSTGRES_PASSWORD=Passw0rd
       - POSTGRES_DB=enmeshed
@@ -113,7 +113,7 @@ services:
   rabbitmq:
     container_name: bkb-rabbitmq
     hostname: rabbitmq
-    image: rabbitmq:4.1.0-alpine@sha256:834ceb903a42b768ba713881b88b7a532f32541d2a28944579f1eb120963f9f3
+    image: rabbitmq:4.1.0-alpine@sha256:a9d1c4f50eb1be66f33271d9eca0dd73858db32cfa25ad2c78bf094f24ee0a7a
     ports:
       - "5672:5672"
 
@@ -121,7 +121,7 @@ services:
 
   seed-database:
     container_name: seed-database
-    image: postgres@sha256:304ab813518754228f9f792f79d6da36359b82d8ecf418096c636725f8c930ad
+    image: postgres@sha256:864831322bf2520e7d03d899b01b542de6de9ece6fe29c89f19dc5e1d5568ccf
     environment:
       - PGPASSWORD=Passw0rd
     command: /bin/bash -c 'env && apt update -y && apt install -y wget && wget https://raw.githubusercontent.com/nmshd/backbone/${BACKBONE_VERSION}/scripts/sql/postgres/setup.sql -O /setup-postgres.sql && psql -h postgres -U postgres -d enmeshed -f /setup-postgres.sql'
