@@ -336,8 +336,9 @@ void run(EnmeshedRuntime runtime) {
         test('sender: sync Relationship', () async {
           final result = await syncUntilHasRelationship(sender);
 
-          final resultTemplate =
-              await sender.transportServices.relationshipTemplates.getRelationshipTemplate(relationshipTemplateId: result.templateId);
+          final resultTemplate = await sender.transportServices.relationshipTemplates.getRelationshipTemplate(
+            relationshipTemplateId: result.templateId,
+          );
 
           expect((resultTemplate.value.content as RelationshipTemplateContent).onNewRelationship.items.length, 1);
           expect((resultTemplate.value.content as RelationshipTemplateContent).onNewRelationship.items.first, rLocalRequest.content.items.first);
