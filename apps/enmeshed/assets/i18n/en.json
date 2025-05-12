@@ -905,7 +905,7 @@
       "Message": {
         "incoming": {
           "Completed": {
-            "description": "This was an incoming Request which you received by a peer and you have already decided on it.",
+            "description": "This was an incoming Request which you received by a peer and you have already decided it.",
             "name": "Completed Incoming Request"
           },
           "Decided": {
@@ -921,7 +921,7 @@
             "name": "Errorneous Incoming Request"
           },
           "Expired": {
-            "description": "This was an incoming Request which you received by a peer and was expired before you decided on it.",
+            "description": "This was an incoming Request which you received by a peer and was expired before you decided it.",
             "name": "Expired Incoming Request"
           },
           "ManualDecisionRequired": {
@@ -935,7 +935,7 @@
         },
         "outgoing": {
           "Completed": {
-            "description": "This was an outgoing Request which you sent to a peer and the peer decided on it.",
+            "description": "This was an outgoing Request which you sent to a peer and the peer decided it.",
             "name": "Completed Outgoing Request"
           },
           "Draft": {
@@ -947,11 +947,11 @@
             "name": "Errorneous Outgoing Request"
           },
           "Expired": {
-            "description": "This was an outgoing Request which you sent to a peer, but the request expired before the peer could decide on it.",
+            "description": "This was an outgoing Request which you sent to a peer, but the request expired before the peer could decide it.",
             "name": "Expired Outgoing Request"
           },
           "Open": {
-            "description": "This is an outgoing Request which the peer still needs to decide on.",
+            "description": "This is an outgoing Request which the peer still needs to decide.",
             "name": "Open Outgoing Request"
           }
         }
@@ -962,15 +962,15 @@
       "RelationshipTemplate": {
         "incoming": {
           "Completed": {
-            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You decided on it. If you accepted the Contact Request, the App sent the response to the peer. If you declined the Contact Request, it was completed without communicating any data to the peer.",
+            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. You decided it. If you accepted the Contact Request, the App sent the response to the peer. If you declined the Contact Request, it was completed without communicating any data to the peer.",
             "name": "Completed Incoming Contact Request"
           },
           "Decided": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. It was decided by you, but the decision has not yet been sent to the peer by your App. Please be patient and check again soon.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. It was decided by you, but the decision has not yet been sent to the peer by your App. Please be patient and check again soon.",
             "name": "Decided Incoming Contact Request"
           },
           "DecisionRequired": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. The App still needs to process it. Please be patient and check again soon.",
             "name": "Open Incoming Contact Request"
           },
           "Error": {
@@ -978,15 +978,15 @@
             "name": "Errorneous Incoming Contact Request"
           },
           "Expired": {
-            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. Before a decision was made by you, the request has been expired and could no longer be processed. It has thus been completed without communicating any data to the peer.",
+            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. Before a decision was made by you, the request has been expired and could no longer be processed. It has thus been completed without communicating any data to the peer.",
             "name": "Expired Incoming Contact Request"
           },
           "ManualDecisionRequired": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You can decide if you want to communicate with the peer, which data you want to share and which consents you would like to give.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. You can decide if you want to communicate with the peer, which data you want to share and which consents you would like to give.",
             "name": "To Decide: Scanned Contact Opportunity"
           },
           "Open": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. The App still needs to process it. Please be patient and check again soon.",
             "name": "Open Incoming Contact Request"
           }
         },
@@ -1004,7 +1004,7 @@
             "name": "Errorneous Outgoing Contact Request"
           },
           "Expired": {
-            "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. Your request expired before the peer decided on it. This could also mean that the peer rejected the request.",
+            "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. Your request expired before the peer decided it. This could also mean that the peer rejected the request.",
             "name": "Expired Outgoing Contact Request"
           },
           "Open": {

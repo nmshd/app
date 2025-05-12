@@ -59,7 +59,7 @@ void run(EnmeshedRuntime runtime) {
 
       final token = await session1.transportServices.tokens.createOwnToken(content: {'test': 'test'}, expiresAt: expiry, ephemeral: true);
 
-      final peerToken = await session2.transportServices.tokens.loadPeerToken(reference: token.value.truncatedReference, ephemeral: false);
+      final peerToken = await session2.transportServices.tokens.loadPeerToken(reference: token.value.reference.truncated, ephemeral: false);
 
       expect(peerToken, isSuccessful<TokenDTO>());
       expect(peerToken.value.content, equals({'test': 'test'}));
@@ -71,7 +71,7 @@ void run(EnmeshedRuntime runtime) {
 
       final token = await session1.transportServices.tokens.createOwnToken(content: {'test': 'test'}, expiresAt: expiry, ephemeral: true);
 
-      final peerToken = await session2.transportServices.tokens.loadPeerToken(reference: token.value.truncatedReference, ephemeral: true);
+      final peerToken = await session2.transportServices.tokens.loadPeerToken(reference: token.value.reference.truncated, ephemeral: true);
 
       expect(peerToken, isSuccessful<TokenDTO>());
       expect(peerToken.value.content, equals({'test': 'test'}));

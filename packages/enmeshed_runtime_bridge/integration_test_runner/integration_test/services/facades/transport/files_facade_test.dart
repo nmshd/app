@@ -114,7 +114,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('[FilesFacade] getOrLoadFile', () {
     test('should be able to load files by entering reference', () async {
-      final fileResult = await session.transportServices.files.getOrLoadFile(reference: globalFile.truncatedReference);
+      final fileResult = await session.transportServices.files.getOrLoadFile(reference: globalFile.reference.truncated);
 
       expect(fileResult, isSuccessful<FileDTO>());
       expect(fileResult.value.id, globalFile.id);
@@ -185,7 +185,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(tokenResult, isSuccessful<TokenDTO>());
 
-      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.truncatedReference);
+      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.reference.truncated);
 
       expect(responseResult, isSuccessful<FileDTO>());
       expect(responseResult.value.isOwn, false);
@@ -198,7 +198,7 @@ void run(EnmeshedRuntime runtime) {
 
       expect(tokenResult, isSuccessful<TokenDTO>());
 
-      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.truncatedReference);
+      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.reference.truncated);
       final response = responseResult.value;
 
       expect(tokenResult.value.expiresAt, expiresAt);

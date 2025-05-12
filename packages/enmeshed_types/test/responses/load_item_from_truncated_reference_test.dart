@@ -2,9 +2,9 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('LoadItemFromTruncatedReferenceResponse toJson', () {
+  group('LoadItemFromReferenceResponse toJson', () {
     test('is correctly converted', () {
-      const response = LoadItemFromTruncatedReferenceResponse(type: LoadItemFromTruncatedReferenceResponseType.File, value: {'aKey': 'aValue'});
+      const response = LoadItemFromReferenceResponse(type: LoadItemFromReferenceResponseType.File, value: {'aKey': 'aValue'});
       final responseJson = response.toJson();
 
       expect(
@@ -17,7 +17,7 @@ void main() {
     });
   });
 
-  group('LoadItemFromTruncatedReferenceResponse fromJson', () {
+  group('LoadItemFromReferenceResponse fromJson', () {
     test('is correctly converted', () {
       final json = {
         'type': 'File',
@@ -25,8 +25,8 @@ void main() {
       };
 
       expect(
-        LoadItemFromTruncatedReferenceResponse.fromJson(json),
-        equals(const LoadItemFromTruncatedReferenceResponse(type: LoadItemFromTruncatedReferenceResponseType.File, value: {'aKey': 'aValue'})),
+        LoadItemFromReferenceResponse.fromJson(json),
+        equals(const LoadItemFromReferenceResponse(type: LoadItemFromReferenceResponseType.File, value: {'aKey': 'aValue'})),
       );
     });
   });

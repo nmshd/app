@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'object_reference.dart';
+
 part 'file.g.dart';
 
 @JsonSerializable(includeIfNull: false)
@@ -17,7 +19,7 @@ class FileDTO extends Equatable {
   final bool isOwn;
   final String? title;
   final String? description;
-  final String truncatedReference;
+  final ObjectReferenceDTO reference;
 
   const FileDTO({
     required this.id,
@@ -32,7 +34,7 @@ class FileDTO extends Equatable {
     required this.isOwn,
     this.title,
     this.description,
-    required this.truncatedReference,
+    required this.reference,
   });
 
   factory FileDTO.fromJson(Map json) => _$FileDTOFromJson(Map<String, dynamic>.from(json));
@@ -52,6 +54,6 @@ class FileDTO extends Equatable {
     isOwn,
     title,
     description,
-    truncatedReference,
+    reference,
   ];
 }

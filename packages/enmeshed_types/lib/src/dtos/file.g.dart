@@ -19,7 +19,7 @@ FileDTO _$FileDTOFromJson(Map<String, dynamic> json) => FileDTO(
   isOwn: json['isOwn'] as bool,
   title: json['title'] as String?,
   description: json['description'] as String?,
-  truncatedReference: json['truncatedReference'] as String,
+  reference: ObjectReferenceDTO.fromJson(json['reference'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$FileDTOToJson(FileDTO instance) => <String, dynamic>{
@@ -35,5 +35,5 @@ Map<String, dynamic> _$FileDTOToJson(FileDTO instance) => <String, dynamic>{
   'isOwn': instance.isOwn,
   if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
-  'truncatedReference': instance.truncatedReference,
+  'reference': instance.reference.toJson(),
 };

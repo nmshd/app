@@ -69,13 +69,13 @@ void run(EnmeshedRuntime runtime) {
       );
 
       final templateResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
-        reference: responseTemplate.value.truncatedReference,
+        reference: responseTemplate.value.reference.truncated,
       );
 
       expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
       expect(templateResult.value.expiresAt, expiresAt);
       expect(templateResult.value.content, content);
-      expect(templateResult.value.truncatedReference, responseTemplate.value.truncatedReference);
+      expect(templateResult.value.reference.truncated, responseTemplate.value.reference.truncated);
     });
   });
 
@@ -263,7 +263,7 @@ void run(EnmeshedRuntime runtime) {
           expect(templateResult, isSuccessful<RelationshipTemplateDTO>());
 
           final loadResult = await session1.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
-            reference: templateResult.value.truncatedReference,
+            reference: templateResult.value.reference.truncated,
             password: passwordProtection.password,
           );
 

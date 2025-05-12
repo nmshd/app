@@ -25,7 +25,7 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
   mimetype: json['mimetype'] as String,
   isOwn: json['isOwn'] as bool,
   title: json['title'] as String,
-  truncatedReference: json['truncatedReference'] as String,
+  reference: ObjectReferenceDTO.fromJson(json['reference'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$FileDVOToJson(FileDVO instance) => <String, dynamic>{
@@ -47,5 +47,5 @@ Map<String, dynamic> _$FileDVOToJson(FileDVO instance) => <String, dynamic>{
   'mimetype': instance.mimetype,
   'isOwn': instance.isOwn,
   'title': instance.title,
-  'truncatedReference': instance.truncatedReference,
+  'reference': instance.reference.toJson(),
 };
