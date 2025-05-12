@@ -962,15 +962,15 @@
       "RelationshipTemplate": {
         "incoming": {
           "Completed": {
-            "description": "Dies war eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das klicken eines Links in die App. Sie wurde von dir beantwortet. Falls du die Kontaktanfrage akzeptiert hast, wurden die Daten an das Gegenüber geteilt. Falls nicht, wurden keine Daten an das Gegenüber kommuniziert.",
+            "description": "Dies war eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines Links in die App. Sie wurde von dir beantwortet. Falls du die Kontaktanfrage akzeptiert hast, wurden die Daten an das Gegenüber geteilt. Falls nicht, wurden keine Daten an das Gegenüber kommuniziert.",
             "name": "Abgeschlossene eingehende Kontaktanfrage"
           },
           "Decided": {
-            "description": "Dies war eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das klicken eines Links in die App. Sie wurde von dir beantwortet, doch die Antwort wurde noch nicht an das Gegenüber geteilt. Bitte warte noch kurz.",
+            "description": "Dies war eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines Links in die App. Sie wurde von dir beantwortet, doch die Antwort wurde noch nicht an das Gegenüber geteilt. Bitte warte noch kurz.",
             "name": "Entschiedene eingehende Kontaktanfrage"
           },
           "DecisionRequired": {
-            "description": "Dies ist eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das klicken eines Links in die App. Die App muss diese Anfrage noch prozessieren. Bitte warte noch kurz.",
+            "description": "Dies ist eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines Links in die App. Die App muss diese Anfrage noch prozessieren. Bitte warte noch kurz.",
             "name": "Offene eingehende Kontaktanfrage"
           },
           "Error": {
@@ -978,15 +978,15 @@
             "name": "Fehlerhafte eingehende Kontaktanfrage"
           },
           "Expired": {
-            "description": "Dies war eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das klicken eines Links in die App. Noch bevor du dich entscheiden konntest, ist die Anfrage abgelaufen und konnte nicht mehr beantwortet werden. Es wurden daher keine Daten an das Gegenüber geteilt.",
+            "description": "Dies war eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines Links in die App. Noch bevor du dich entscheiden konntest, ist die Anfrage abgelaufen und konnte nicht mehr beantwortet werden. Es wurden daher keine Daten an das Gegenüber geteilt.",
             "name": "Abgelaufene eingehende Kontaktanfrage"
           },
           "ManualDecisionRequired": {
-            "description": "Dies ist eine eingehende Kontaktanfrage bzw. eingescannte Kontaktmöglichkeit eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das klicken eines Links in die App. Du kannst nun entscheiden, ob du mit dem Gegenüber Kontakt aufnehmen möchtest, welche Daten du von dir teilen möchtest bzw. welche Einverständniserklärungen du abgibst.",
+            "description": "Dies ist eine eingehende Kontaktanfrage bzw. eingescannte Kontaktmöglichkeit eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines Links in die App. Du kannst nun entscheiden, ob du mit dem Gegenüber Kontakt aufnehmen möchtest, welche Daten du von dir teilen möchtest bzw. welche Einverständniserklärungen du abgibst.",
             "name": "Zu entscheiden: Eingescannte Kontaktmöglichkeit"
           },
           "Open": {
-            "description": "Dies ist eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das klicken eines Links in die App. Die App muss diese Anfrage noch prozessieren. Bitte warte noch kurz.",
+            "description": "Dies ist eine eingehende Kontaktanfrage eines Gegenübers. Sie kam über das Einscannen eines QR-Codes oder das Klicken eines Links in die App. Die App muss diese Anfrage noch prozessieren. Bitte warte noch kurz.",
             "name": "Offene eingehende Kontaktanfrage"
           }
         },
