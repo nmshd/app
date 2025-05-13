@@ -1,5 +1,4 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:enmeshed_types/src/dtos/object_reference.dart';
 import 'package:test/test.dart';
 
 void main() {
