@@ -949,14 +949,14 @@ void run(EnmeshedRuntime runtime) {
       final succeededAttributeResult = await sender.consumptionServices.attributes.succeedRepositoryAttribute(
         predecessorId: attribute.id,
         value: const SurnameAttributeValue(value: 'aNewSurname'),
-        tags: ['x+%+tag1', 'x+%+tag2', 'x+%+tag3'],
+        tags: ['x:tag1', 'x:tag2', 'x:tag3'],
       );
       final succeededAttribute = succeededAttributeResult.value;
 
       expect(succeededAttributeResult, isSuccessful<SucceedRepositoryAttributeResponse>());
       expect(succeededAttribute.successor.content.toJson()['@type'], 'IdentityAttribute');
       expect(succeededAttribute.successor.content.toJson()['value']['value'], 'aNewSurname');
-      expect(succeededAttribute.successor.content.toJson()['tags'], ['x+%+tag1', 'x+%+tag2', 'x+%+tag3']);
+      expect(succeededAttribute.successor.content.toJson()['tags'], ['x:tag1', 'x:tag2', 'x:tag3']);
     });
   });
 
