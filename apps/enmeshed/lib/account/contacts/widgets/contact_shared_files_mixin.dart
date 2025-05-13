@@ -60,11 +60,21 @@ mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
       );
     }
 
-    final attributes = await session.consumptionServices.attributes.getAttributes(
-      query: {'participant': QueryValue.string(widget.contactId), 'content.value.@type': QueryValue.string('IdentityFileReference')},
+    final peerAttributes = await session.consumptionServices.attributes.getPeerSharedAttributes(
+      peer: widget.contactId,
+      query: {'content.value.@type': QueryValue.string('IdentityFileReference')},
     );
 
-    final fileReferenceAttributes = await session.expander.expandLocalAttributeDTOs(attributes.value);
+    final peerFileReferenceAttributes = await session.expander.expandLocalAttributeDTOs(peerAttributes.value);
+
+    final ownAttributes = await session.consumptionServices.attributes.getOwnSharedAttributes(
+      peer: widget.contactId,
+      query: {'content.value.@type': QueryValue.string('IdentityFileReference')},
+    );
+
+    final ownFileReferenceAttributes = await session.expander.expandLocalAttributeDTOs(ownAttributes.value);
+
+    final fileReferenceAttributes = [...peerFileReferenceAttributes, ...ownFileReferenceAttributes];
 
     for (final fileReferenceAttribute in fileReferenceAttributes) {
       final fileReference = fileReferenceAttribute.value as IdentityFileReferenceAttributeValue;
