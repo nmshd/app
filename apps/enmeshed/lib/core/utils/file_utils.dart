@@ -9,6 +9,7 @@ import 'package:logger/logger.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '/core/core.dart';
 
@@ -50,6 +51,22 @@ Future<void> openFile({required Session session, required FileDVO fileDVO, requi
   }
 
   await OpenFile.open(cachedFile.path);
+}
+
+Future<void> shareFile({required Session session, required FileDVO fileDVO, required VoidCallback onError}) async {
+  final cachedFile = await _getCachedFile(session: session, fileDVO: fileDVO);
+  if (cachedFile == null) {
+    onError();
+    return;
+  }
+
+  final params = ShareParams(files: [XFile(cachedFile.path, name: fileDVO.filename, mimeType: fileDVO.mimetype)]);
+
+  final result = await SharePlus.instance.share(params);
+
+  if (result.status == ShareResultStatus.success || result.status == ShareResultStatus.dismissed) return;
+
+  onError();
 }
 
 Future<File?> _getCachedFile({required Session session, required FileDVO fileDVO}) async {
