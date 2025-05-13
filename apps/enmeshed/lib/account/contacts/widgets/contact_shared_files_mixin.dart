@@ -77,6 +77,8 @@ mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
       sharedFiles.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute));
     }
 
+    sharedFiles.sort((a, b) => (b.file.date ?? '').compareTo(a.file.date ?? ''));
+
     if (mounted) {
       setState(() => this.sharedFiles = sharedFiles);
     }
