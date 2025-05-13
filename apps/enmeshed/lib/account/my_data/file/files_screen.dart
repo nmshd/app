@@ -31,11 +31,22 @@ class _FilesScreenState extends State<FilesScreen> {
   _FilesSortingType _sortingType = _FilesSortingType.date;
   bool _isSortedAscending = false;
 
+  late final StreamSubscription<void> _subscription;
+
   @override
   void initState() {
     super.initState();
 
+    _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<AttributeDeletedEvent>().listen((_) => _loadFiles().catchError((_) {}));
+
     _loadFiles().then((_) => widget.initialCreation ? _uploadFile() : null);
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+
+    super.dispose();
   }
 
   @override

@@ -17,6 +17,7 @@ Future<void> showDeleteAttributeModal({
   required String accountId,
   required LocalAttributeDVO attribute,
   required VoidCallback onAttributeDeleted,
+  String? attributeNameOverride,
 }) async {
   await showModalBottomSheet<void>(
     context: context,
@@ -24,7 +25,12 @@ Future<void> showDeleteAttributeModal({
     builder:
         (context) => ConstrainedBox(
           constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
-          child: _DeleteConfirmation(accountId: accountId, onAttributeDeleted: onAttributeDeleted, attribute: attribute as RepositoryAttributeDVO),
+          child: _DeleteConfirmation(
+            accountId: accountId,
+            onAttributeDeleted: onAttributeDeleted,
+            attribute: attribute as RepositoryAttributeDVO,
+            attributeNameOverride: attributeNameOverride,
+          ),
         ),
   );
 }
@@ -33,8 +39,14 @@ class _DeleteConfirmation extends StatefulWidget {
   final String accountId;
   final VoidCallback onAttributeDeleted;
   final RepositoryAttributeDVO attribute;
+  final String? attributeNameOverride;
 
-  const _DeleteConfirmation({required this.accountId, required this.onAttributeDeleted, required this.attribute});
+  const _DeleteConfirmation({
+    required this.accountId,
+    required this.onAttributeDeleted,
+    required this.attribute,
+    required this.attributeNameOverride,
+  });
 
   @override
   State<_DeleteConfirmation> createState() => _DeleteConfirmationState();
@@ -93,6 +105,8 @@ class _DeleteConfirmationState extends State<_DeleteConfirmation> {
   }
 
   String _getDisplayValue(BuildContext context, AttributeValue value) {
+    if (widget.attributeNameOverride != null) return widget.attributeNameOverride!;
+
     return switch (value) {
       final AffiliationAttributeValue affiliation => affiliation.role,
       final BirthDateAttributeValue birthDate => _getBirtDateValue(context, birthDate),
