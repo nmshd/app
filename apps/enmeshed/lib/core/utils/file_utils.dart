@@ -61,12 +61,7 @@ Future<void> shareFile({required Session session, required FileDVO fileDVO, requ
   }
 
   final params = ShareParams(files: [XFile(cachedFile.path, name: fileDVO.filename, mimeType: fileDVO.mimetype)]);
-
-  final result = await SharePlus.instance.share(params);
-
-  if (result.status == ShareResultStatus.success || result.status == ShareResultStatus.dismissed) return;
-
-  onError();
+  await SharePlus.instance.share(params);
 }
 
 Future<File?> _getCachedFile({required Session session, required FileDVO fileDVO}) async {
