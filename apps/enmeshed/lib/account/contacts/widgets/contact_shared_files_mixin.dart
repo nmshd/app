@@ -65,7 +65,6 @@ mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
         'content.value.@type': QueryValue.string('IdentityFileReference'),
         'shareInfo.peer': QueryValue.string(widget.contactId),
         'succeededBy': QueryValue.string('!'),
-        'deletionInfo.deletionStatus': QueryValue.string('!'),
       },
     );
 
