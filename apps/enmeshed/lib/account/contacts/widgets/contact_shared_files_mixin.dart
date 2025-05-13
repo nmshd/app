@@ -79,7 +79,7 @@ mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
     for (final fileReferenceAttribute in fileReferenceAttributes) {
       final fileReference = fileReferenceAttribute.value as IdentityFileReferenceAttributeValue;
       final file = await expandFileReference(accountId: widget.accountId, fileReference: fileReference.value);
-      sharedFiles.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute as RepositoryAttributeDVO));
+      sharedFiles.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute));
     }
 
     if (mounted) {
