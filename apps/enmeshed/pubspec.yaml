@@ -15,7 +15,7 @@ dependencies:
   enmeshed_types: ^1.0.0
   enmeshed_ui_kit: ^1.0.0
   feature_flags: ^0.1.4
-  file_picker: ^10.1.7
+  file_picker: ^10.1.8
   flex_seed_scheme: ^3.5.1
   flutter:
     sdk: flutter
