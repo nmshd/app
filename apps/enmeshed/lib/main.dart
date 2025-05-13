@@ -313,7 +313,7 @@ final _router = GoRouter(
                           (context, state) => ContactSharedFilesScreen(
                             accountId: state.pathParameters['accountId']!,
                             contactId: state.pathParameters['contactId']!,
-                            sharedFiles: state.extra is Set<FileDVO> ? state.extra! as Set<FileDVO> : null,
+                            sharedFiles: state.extra is List<FileRecord> ? state.extra! as List<FileRecord> : null,
                           ),
                     ),
                   ],
