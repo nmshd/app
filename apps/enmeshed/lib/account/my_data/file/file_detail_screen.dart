@@ -25,6 +25,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
   FileDVO? _fileDVO;
   List<String>? _tags;
   List<({IdentityDVO contact, LocalAttributeDVO sharedAttribute})>? _sharedWith;
+  bool _isSharingFile = false;
   bool _isLoadingFile = false;
   bool _isOpeningFile = false;
 
@@ -139,12 +140,19 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                             spacing: 8,
                             children: [
                               IconButton(
+                                onPressed: _isSharingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _shareFile,
+                                icon:
+                                    _isSharingFile
+                                        ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
+                                        : const Icon(Icons.share_outlined, size: 24),
+                              ),
+                              IconButton(
                                 onPressed:
                                     _isLoadingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
                                 icon:
                                     _isLoadingFile
                                         ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
-                                        : const Icon(Icons.file_download_outlined, size: 24),
+                                        : const Icon(Icons.file_download_outlined, size: 28),
                               ),
                               IconButton(
                                 onPressed: _isOpeningFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
@@ -246,6 +254,21 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     if (!mounted) return;
 
     setState(() => _sharedWith = sharedWith);
+  }
+
+  Future<void> _shareFile() async {
+    setState(() => _isSharingFile = true);
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    await shareFile(
+      session: session,
+      fileDVO: _fileDVO!,
+      onError: () {
+        if (mounted) showDownloadFileErrorDialog(context);
+      },
+    );
+
+    if (mounted) setState(() => _isSharingFile = false);
   }
 
   Future<void> _downloadAndSaveFile() async {
