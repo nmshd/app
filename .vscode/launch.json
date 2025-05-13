@@ -6,6 +6,7 @@
       "request": "launch",
       "type": "dart",
       "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"],
+      "args": ["--no-pub"],
       "templateFor": "packages/enmeshed_runtime_bridge"
     },
     {
@@ -13,6 +14,7 @@
       "request": "launch",
       "type": "dart",
       "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"],
+      "args": ["--no-pub"],
       "templateFor": "packages/renderers"
     },
     {
@@ -20,6 +22,7 @@
       "request": "launch",
       "type": "dart",
       "toolArgs": ["--dart-define-from-file=${workspaceFolder}/config.json"],
+      "args": ["--no-pub"],
       "templateFor": "apps/enmeshed"
     }
   ]
