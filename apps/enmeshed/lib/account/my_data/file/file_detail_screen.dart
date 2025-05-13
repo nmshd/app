@@ -153,6 +153,21 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                         ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
                                         : const Icon(Icons.file_open_outlined, size: 24),
                               ),
+                              if (widget.fileReferenceAttribute is RepositoryAttributeDVO)
+                                IconButton(
+                                  icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                                  onPressed:
+                                      () => showDeleteAttributeModal(
+                                        context: context,
+                                        accountId: widget.accountId,
+                                        attribute: widget.fileReferenceAttribute!,
+                                        onAttributeDeleted: () {
+                                          if (mounted && context.canPop()) context.pop();
+                                          showSuccessSnackbar(context: context, text: context.l10n.personalData_details_attributeSuccessfullyDeleted);
+                                        },
+                                        attributeNameOverride: _fileDVO!.title,
+                                      ),
+                                ),
                             ],
                           ),
                         ),

@@ -1,11 +1,10 @@
-import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 
 class ContactSharedFiles extends StatelessWidget {
-  final Set<FileDVO>? sharedFiles;
+  final List<FileRecord>? sharedFiles;
   final String accountId;
   final String contactId;
 
@@ -41,11 +40,8 @@ class ContactSharedFiles extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder:
-                    (context, index) => FileItem(
-                      accountId: accountId,
-                      fileRecord: createFileRecord(file: sharedFiles!.elementAt(index)),
-                      trailing: const Icon(Icons.chevron_right),
-                    ),
+                    (context, index) =>
+                        FileItem(accountId: accountId, fileRecord: sharedFiles!.elementAt(index), trailing: const Icon(Icons.chevron_right)),
                 itemCount: sharedFiles!.length,
                 separatorBuilder: (context, index) => const Divider(height: 2),
               ),
