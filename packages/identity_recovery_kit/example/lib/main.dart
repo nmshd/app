@@ -40,7 +40,7 @@ const infoText1 = 'Print this document or save it in a secure location, such as 
 const infoText2 =
     'Write the password you set when creating the kit in the field below. To restore your encrypted data, you will need the QR code and the password you created.';
 const addressLabel = 'Enmeshed ID';
-const address = 'did:e:nmshd-bkb.enmeshed.de:dids:4fe203de633a66b56730e3';
+const address = 'did:e:backbone.example.com:dids:4fe203de633a66b56730e3';
 const passwordLabel = 'Password';
 const qrDescription =
     'If you have lost your device or no longer have access to it, simply scan the QR code with a new device to regain access to your Enmeshed data.';
