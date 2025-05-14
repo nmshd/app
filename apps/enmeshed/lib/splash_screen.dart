@@ -100,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (mounted) await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router, localizations: context.l10n));
 
-    await _registerWindowsSchemeForDebugMode('nmshd-dev');
+    await _registerWindowsSchemeForDebugMode('enmeshed-dev');
 
     final appLinks = AppLinks();
     appLinks.uriLinkStream.listen(_processUri);
