@@ -128,7 +128,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _processUri(Uri? uri) async {
     if (uri == null) return;
 
-    final uriString = uri.toString().replaceAll('nmshd-dev://', 'nmshd://').replaceAll('qr/#', 'qr#').replaceAll('enmeshed://', 'https://');
+    final uriString = uri.toString().replaceAll('enmeshed-dev://', 'https://').replaceAll('qr/#', 'qr#').replaceAll('enmeshed://', 'https://');
     GetIt.I.get<Logger>().i("Processing URL '$uriString'");
 
     final result = await GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: uriString);
