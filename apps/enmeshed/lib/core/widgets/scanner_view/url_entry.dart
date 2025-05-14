@@ -95,6 +95,7 @@ class _UrlEntryState extends State<UrlEntry> {
   bool get isUrlValid => validateUrl(_controller.text) == null;
 
   String? validateUrl(String? value) {
+    // https://regex101.com/r/dnkzPG/1
     final urlRegExp = RegExp(r'^https?:\/\/.*\/r\/[a-zA-Z0-9]+#[a-zA-Z0-9]+$');
 
     if (value != null && (!urlRegExp.hasMatch(value) || value.length < 15)) {
