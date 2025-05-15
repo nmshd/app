@@ -1,6 +1,6 @@
 services:
   consumer-api:
-    image: ghcr.io/nmshd/backbone-consumer-api:${BACKBONE_VERSION}
+    image: ghcr.io/nmshd/backbone-consumer-api:6.43.0
     container_name: consumer-api
     hostname: consumer-api
     environment:
@@ -12,8 +12,6 @@ services:
         condition: service_started
       rabbitmq:
         condition: service_started
-      seed-database:
-        condition: service_completed_successfully
       azure-storage-emulator:
         condition: service_started
       database-migrator:
@@ -25,7 +23,7 @@ services:
         target: app/appsettings.override.json
 
   event-handler-service:
-    image: ghcr.io/nmshd/backbone-event-handler:${BACKBONE_VERSION}
+    image: ghcr.io/nmshd/backbone-event-handler:6.43.0
     container_name: event-handler-service
     depends_on:
       database:
@@ -39,7 +37,7 @@ services:
         target: app/appsettings.override.json
 
   sse-server:
-    image: ghcr.io/nmshd/backbone-sse-server:${BACKBONE_VERSION}
+    image: ghcr.io/nmshd/backbone-sse-server:6.43.0
     container_name: sse-server
     hostname: sse-server
     ports:
@@ -52,7 +50,7 @@ services:
         target: app/appsettings.override.json
 
   admin-ui:
-    image: ghcr.io/nmshd/backbone-admin-ui:${BACKBONE_VERSION}
+    image: ghcr.io/nmshd/backbone-admin-ui:6.43.0
     container_name: admin-ui
     hostname: admin-ui
     ports:
@@ -72,14 +70,14 @@ services:
 
   database-migrator:
     container_name: database-migrator-test
-    image: ghcr.io/nmshd/backbone-database-migrator:${BACKBONE_VERSION}
-    depends_on:
-      seed-database:
-        condition: service_completed_successfully
+    image: ghcr.io/nmshd/backbone-database-migrator:6.43.0
     environment:
       Infrastructure__SqlDatabase__Provider: Postgres
       Infrastructure__SqlDatabase__ConnectionString: "Server=postgres;Database=enmeshed;User Id=postgres;Password=Passw0rd;Port=5432"
       ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      database:
+        condition: service_healthy
     configs:
       - source: Config
         target: app/appsettings.override.json
@@ -119,19 +117,9 @@ services:
 
   ### seeds ###
 
-  seed-database:
-    container_name: seed-database
-    image: postgres@sha256:864831322bf2520e7d03d899b01b542de6de9ece6fe29c89f19dc5e1d5568ccf
-    environment:
-      - PGPASSWORD=Passw0rd
-    command: /bin/bash -c 'env && apt update -y && apt install -y wget && wget https://raw.githubusercontent.com/nmshd/backbone/${BACKBONE_VERSION}/scripts/sql/postgres/setup.sql -O /setup-postgres.sql && psql -h postgres -U postgres -d enmeshed -f /setup-postgres.sql'
-    depends_on:
-      database:
-        condition: service_healthy
-
   seed-client:
     container_name: seed-client
-    image: ghcr.io/nmshd/backbone-admin-cli:${BACKBONE_VERSION}
+    image: ghcr.io/nmshd/backbone-admin-cli:6.43.0
     depends_on:
       consumer-api:
         condition: service_healthy
