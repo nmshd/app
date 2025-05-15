@@ -4,7 +4,7 @@
   extends: ["config:recommended", "docker:pinDigests", ":disableDependencyDashboard"],
   labels: ["dependencies"],
   schedule: ["after 10pm every weekday", "before 5am every weekday", "every weekend"],
-  reviewers: ["jkoenig134", "Milena-Czierlinski"],
+  reviewers: ["jkoenig134"],
   packageRules: [
     {
       // do not upgrade the dart sdk as it will not be compatible with the version that flutter ships
