@@ -4,7 +4,7 @@
   extends: ["config:recommended", "docker:pinDigests", ":disableDependencyDashboard"],
   labels: ["dependencies"],
   schedule: ["after 10pm every weekday", "before 5am every weekday", "every weekend"],
-  ignorePaths: ["**/node_modules/**"], // we have to set this, in order to override the default that comes from `config:recommended`, which ignores any packages in directories like "tests"
+  reviewers: ["jkoenig134", "Milena-Czierlinski"],
   packageRules: [
     {
       // do not upgrade the dart sdk as it will not be compatible with the version that flutter ships
@@ -53,6 +53,13 @@
       groupName: "patch-all",
       matchUpdateTypes: ["patch", "digest"],
       automerge: true
+    },
+
+    {
+      groupName: "backbone",
+      matchPackageNames: ["ghcr.io/nmshd/backbone-*"],
+      matchDatasources: ["docker"],
+      additionalReviewers: ["tnotheis"]
     },
 
     // ############# Minor updates (one group per datasource) #############
