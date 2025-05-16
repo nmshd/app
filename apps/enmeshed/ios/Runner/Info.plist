@@ -69,7 +69,6 @@
 			<dict>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>nmshd</string>
 					<string>enmeshed</string>
 				</array>
 			</dict>

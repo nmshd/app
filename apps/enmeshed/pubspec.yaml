@@ -118,7 +118,7 @@ msix_config:
   identity_name: js-soft.enmeshed
   publisher: CN=CB3048C3-A086-471C-AF11-83ABB7396C98
   store: true
-  protocol_activation: nmshd, enmeshed, https
+  protocol_activation: enmeshed, https
   app_uri_handler_hosts: pilot.enmeshed.eu
   logo_path: assets/icon-512.png
   start_menu_icon_path: assets/icon-512.png

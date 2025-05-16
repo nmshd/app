@@ -9,11 +9,10 @@ abstract class RequestItem extends Equatable {
   @JsonKey(name: '@type', includeToJson: true)
   final String atType;
 
-  final String? title;
   final String? description;
   final Map<String, dynamic>? metadata;
 
-  const RequestItem({this.title, this.description, this.metadata, required this.atType});
+  const RequestItem({this.description, this.metadata, required this.atType});
 
   factory RequestItem.fromJson(Map json) {
     final type = json['@type'];
@@ -29,5 +28,5 @@ abstract class RequestItem extends Equatable {
 
   @mustCallSuper
   @override
-  List<Object?> get props => [title, description, metadata];
+  List<Object?> get props => [description, metadata];
 }
