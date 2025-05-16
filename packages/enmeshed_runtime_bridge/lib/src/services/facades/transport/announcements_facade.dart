@@ -8,13 +8,13 @@ class AnnouncementsFacade {
   final AbstractEvaluator _evaluator;
   AnnouncementsFacade(this._evaluator);
 
-  Future<Result<List<AnnouncementDTO>>> getAnnouncements({Map<String, QueryValue>? query}) async {
+  Future<Result<List<AnnouncementDTO>>> getAnnouncements({required String language}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.announcements.getAnnouncements(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {if (query != null) 'query': query.toJson()},
+        'request': {'language': language},
       },
     );
 

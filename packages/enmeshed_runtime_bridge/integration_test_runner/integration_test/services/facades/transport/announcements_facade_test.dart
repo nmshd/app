@@ -17,7 +17,7 @@ void run(EnmeshedRuntime runtime) {
 
   group('[AnnouncementsFacade] getAnnouncements', () {
     test('should give access to existing Announcements', () async {
-      final announcementsResult = await session.transportServices.announcements.getAnnouncements();
+      final announcementsResult = await session.transportServices.announcements.getAnnouncements(language: 'de');
       final announcements = announcementsResult.value;
 
       expect(announcementsResult, isSuccessful<List<AnnouncementDTO>>());
