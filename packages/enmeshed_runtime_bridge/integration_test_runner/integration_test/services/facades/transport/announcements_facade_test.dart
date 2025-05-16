@@ -16,7 +16,7 @@ void run(EnmeshedRuntime runtime) {
   });
 
   group('[AnnouncementsFacade] getAnnouncements', () {
-    test('should give access to uploaded Announcements', () async {
+    test('should give access to existing Announcements', () async {
       final announcementsResult = await session.transportServices.announcements.getAnnouncements();
       final announcements = announcementsResult.value;
 
