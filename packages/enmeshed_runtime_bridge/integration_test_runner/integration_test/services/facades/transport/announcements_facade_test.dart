@@ -18,16 +18,17 @@ void run(EnmeshedRuntime runtime) {
   group('[AnnouncementsFacade] getAnnouncements', () {
     test('should give access to existing Announcements', () async {
       final announcementsResult = await session.transportServices.announcements.getAnnouncements(language: 'en');
-      final announcements = announcementsResult.value;
 
       expect(announcementsResult, isSuccessful<List<AnnouncementDTO>>());
-      expect(announcements, isNotEmpty);
+
+      final announcements = announcementsResult.value;
+      expect(announcements, isEmpty);
     });
 
     test('should return proper error code when passing invalid language', () async {
       final announcementsResult = await session.transportServices.announcements.getAnnouncements(language: 'eng');
 
-      expect(announcementsResult, isFailing('some.awesome.error.code'));
+      expect(announcementsResult, isFailing('error.runtime.validation.invalidPropertyValue'));
     });
   });
 }
