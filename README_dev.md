@@ -20,7 +20,7 @@ For an overview of all available melos scripts, run `melos run` or `melos run --
 ## Update the Runtime
 
 Basically, the whole enmeshed Runtime is written in the file `packages/enmeshed_runtime_bridge/assets/index.js`.
-Its respective version is specified in `packages/enmeshed_runtime_bridge/natives/package.json`.
+Its respective version is specified in [`packages/enmeshed_runtime_bridge/natives/package.json`](packages/enmeshed_runtime_bridge/natives/package.json).
 In order to update it, you must adjust the version there, navigate to `packages/enmeshed_runtime_bridge/natives` and run `npm i`.
 Afterwards, run `npm run build` in the same location, which will update the `index.js` file.
 

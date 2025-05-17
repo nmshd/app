@@ -1,3 +1,4 @@
+export 'announcement.dart';
 export 'attribute_tag_collection.dart';
 export 'challenge.dart';
 export 'device.dart';
