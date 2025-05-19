@@ -7,7 +7,7 @@ import 'package:logger/logger.dart';
 
 import '../core.dart';
 
-Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO account) async {
+Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO account, void Function(LocalAccountDTO)? onRestoredIdentity) async {
   final session = GetIt.I.get<EnmeshedRuntime>().getSession(account.id);
 
   final cancelIdentityDeletionProcessResult = await session.transportServices.identityDeletionProcesses.cancelIdentityDeletionProcess();
@@ -19,10 +19,14 @@ Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO
 
   await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
 
-  if (context.mounted) {
-    context.go('/account/${account.id}');
-    showSuccessSnackbar(context: context, text: context.l10n.identity_restore_successful(account.name), showCloseIcon: true);
+  if (!context.mounted) return;
 
+  context.go('/account/${account.id}');
+  showSuccessSnackbar(context: context, text: context.l10n.identity_restore_successful(account.name), showCloseIcon: true);
+
+  if (onRestoredIdentity != null) {
+    onRestoredIdentity(account);
+  } else {
     await context.push('/profiles');
   }
 }

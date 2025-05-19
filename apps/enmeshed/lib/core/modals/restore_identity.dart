@@ -6,7 +6,11 @@ import 'package:vector_graphics/vector_graphics.dart';
 
 import '../utils/utils.dart';
 
-Future<void> showRestoreIdentityModal({required LocalAccountDTO accountInDeletion, required BuildContext context}) async {
+Future<void> showRestoreIdentityModal({
+  required LocalAccountDTO accountInDeletion,
+  required BuildContext context,
+  void Function(LocalAccountDTO)? onRestoredIdentity,
+}) async {
   if (!context.mounted) return;
 
   assert(accountInDeletion.deletionDate != null, 'Account deletion date must not be null');
@@ -15,15 +19,21 @@ Future<void> showRestoreIdentityModal({required LocalAccountDTO accountInDeletio
     context: context,
     showDragHandle: false,
     isScrollControlled: true,
-    builder: (context) => _RestoreIdentity(accountInDeletion: accountInDeletion, deletionDate: accountInDeletion.deletionDate!),
+    builder:
+        (context) => _RestoreIdentity(
+          accountInDeletion: accountInDeletion,
+          deletionDate: accountInDeletion.deletionDate!,
+          onRestoredIdentity: onRestoredIdentity,
+        ),
   );
 }
 
 class _RestoreIdentity extends StatefulWidget {
   final LocalAccountDTO accountInDeletion;
   final String deletionDate;
+  final void Function(LocalAccountDTO)? onRestoredIdentity;
 
-  const _RestoreIdentity({required this.accountInDeletion, required this.deletionDate});
+  const _RestoreIdentity({required this.accountInDeletion, required this.deletionDate, this.onRestoredIdentity});
 
   @override
   State<_RestoreIdentity> createState() => _RestoreIdentityState();
@@ -72,6 +82,6 @@ class _RestoreIdentityState extends State<_RestoreIdentity> {
 
     setState(() => _isRestoring = true);
 
-    await cancelIdentityDeletionProcess(context, widget.accountInDeletion);
+    await cancelIdentityDeletionProcess(context, widget.accountInDeletion, widget.onRestoredIdentity);
   }
 }
