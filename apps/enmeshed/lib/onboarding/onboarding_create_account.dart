@@ -9,8 +9,9 @@ import '/core/core.dart';
 
 class OnboardingCreateAccount extends StatefulWidget {
   final VoidCallback goToOnboardingAccount;
+  final String? appLink;
 
-  const OnboardingCreateAccount({required this.goToOnboardingAccount, super.key});
+  const OnboardingCreateAccount({required this.goToOnboardingAccount, required this.appLink, super.key});
 
   @override
   State<OnboardingCreateAccount> createState() => _OnboardingCreateAccountState();
@@ -58,8 +59,11 @@ class _OnboardingCreateAccountState extends State<OnboardingCreateAccount> {
     try {
       final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: accountName);
 
-      await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
+      final runtime = GetIt.I.get<EnmeshedRuntime>();
+      await runtime.selectAccount(account.id);
       if (mounted) context.go('/account/${account.id}');
+
+      if (widget.appLink != null) await runtime.stringProcessor.processURL(url: widget.appLink!, account: account);
     } catch (e) {
       GetIt.I.get<Logger>().e(e.toString());
       if (mounted) {

@@ -13,8 +13,9 @@ import 'widgets/profiles_in_deletion_container.dart';
 
 class OnboardingAccount extends StatefulWidget {
   final VoidCallback goToOnboardingLoading;
+  final String? appLink;
 
-  const OnboardingAccount({required this.goToOnboardingLoading, super.key});
+  const OnboardingAccount({required this.goToOnboardingLoading, required this.appLink, super.key});
 
   @override
   State<OnboardingAccount> createState() => _OnboardingAccountState();
@@ -57,7 +58,11 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
                 if (_accountsInDeletion.isNotEmpty) ...[
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: ProfilesInDeletionContainer(accountsInDeletion: _accountsInDeletion, onDeleted: _loadAccountsInDeletion),
+                    child: ProfilesInDeletionContainer(
+                      accountsInDeletion: _accountsInDeletion,
+                      onDeleted: _loadAccountsInDeletion,
+                      onRestoredIdentity: widget.appLink == null ? null : _handleAppLink,
+                    ),
                   ),
                   Gaps.h48,
                 ],
@@ -154,6 +159,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     if (!context.mounted) return;
 
+    // TODO(jkoenig134): this should NOT call processURL, instead it should call a "safer" method that only handles an onboarding qr code, in that case we can expect a LocalAccountDTO to be returned and can process the appLink with it if defined.
     final result = await runtime.stringProcessor.processURL(url: content);
     if (result.isSuccess) {
       resume();
@@ -169,6 +175,15 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
     if (context.canPop()) context.pop();
 
     resume();
+  }
+
+  Future<void> _handleAppLink(LocalAccountDTO account) async {
+    if (widget.appLink == null) return;
+
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+    await runtime.stringProcessor.processURL(url: widget.appLink!, account: account);
+
+    // TODO(jkoenig134): when this didn't work, we should show an error dialog that allows the user to retry
   }
 }
 
