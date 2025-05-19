@@ -19,12 +19,13 @@ Future<void> showRestoreIdentityModal({
     context: context,
     showDragHandle: false,
     isScrollControlled: true,
-    builder:
-        (context) => _RestoreIdentity(
-          accountInDeletion: accountInDeletion,
-          deletionDate: accountInDeletion.deletionDate!,
-          onRestoredIdentity: onRestoredIdentity,
-        ),
+    builder: (context) {
+      return _RestoreIdentity(
+        accountInDeletion: accountInDeletion,
+        deletionDate: accountInDeletion.deletionDate!,
+        onRestoredIdentity: onRestoredIdentity,
+      );
+    },
   );
 }
 
