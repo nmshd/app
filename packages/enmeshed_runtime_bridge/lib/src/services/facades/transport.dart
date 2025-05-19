@@ -1,4 +1,5 @@
 export 'transport/account_facade.dart';
+export 'transport/announcements_facade.dart';
 export 'transport/devices_facade.dart';
 export 'transport/files_facade.dart';
 export 'transport/identity_deletion_processes_facade.dart';
