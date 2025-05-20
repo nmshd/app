@@ -15,7 +15,10 @@ class ScanScreen extends StatelessWidget {
   final String? accountId;
 
   const ScanScreen({required this.scannerType, this.accountId, super.key})
-    : assert(scannerType == ScannerType.addContact && accountId != null || scannerType == ScannerType.loadProfile && accountId == null);
+    : assert(
+        scannerType == ScannerType.addContact && accountId != null || scannerType == ScannerType.loadProfile && accountId == null,
+        'accountId must be null for ScannerType.loadProfile and not null for ScannerType.addContact',
+      );
 
   @override
   Widget build(BuildContext context) {
