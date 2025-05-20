@@ -7,12 +7,15 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '../utils/utils.dart';
+import 'instructions_screen.dart';
 import 'scanner_view/scanner_view.dart';
 
 class ScanScreen extends StatelessWidget {
+  final ScannerType scannerType;
   final String? accountId;
 
-  const ScanScreen({this.accountId, super.key});
+  const ScanScreen({required this.scannerType, this.accountId, super.key})
+    : assert(scannerType == ScannerType.addContact && accountId != null || scannerType == ScannerType.loadProfile && accountId == null);
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,13 @@ class ScanScreen extends StatelessWidget {
     pause();
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
-    final account = accountId != null ? await runtime.accountServices.getAccount(accountId!) : null;
     if (!context.mounted) return;
 
-    final result = await runtime.stringProcessor.processURL(url: content, account: account);
+    final result = switch (scannerType) {
+      ScannerType.loadProfile => await runtime.stringProcessor.processDeviceOnboardingReference(url: content),
+      ScannerType.addContact => await runtime.stringProcessor.processURL(url: content, account: await runtime.accountServices.getAccount(accountId!)),
+    };
+
     if (result.isSuccess) {
       resume();
       return;

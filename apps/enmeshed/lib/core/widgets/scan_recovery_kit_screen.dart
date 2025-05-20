@@ -55,7 +55,7 @@ class ScanRecoveryKitScreen extends StatelessWidget {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     if (!context.mounted) return;
 
-    final result = await runtime.stringProcessor.processURL(url: content);
+    final result = await runtime.stringProcessor.processDeviceOnboardingReference(url: content);
     if (result.isSuccess) {
       if (!context.mounted) return;
       if (context.canPop()) context.pop();

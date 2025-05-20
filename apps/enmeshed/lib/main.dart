@@ -124,7 +124,11 @@ final _router = GoRouter(
             },
           ),
     ),
-    GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/load-profile', builder: (context, state) => const ScanScreen()),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/load-profile',
+      builder: (context, state) => const ScanScreen(scannerType: ScannerType.loadProfile),
+    ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/legal-notice',
@@ -172,7 +176,7 @@ final _router = GoRouter(
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
           path: 'scan',
-          builder: (context, state) => ScanScreen(accountId: state.pathParameters['accountId']),
+          builder: (context, state) => ScanScreen(scannerType: ScannerType.addContact, accountId: state.pathParameters['accountId']),
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
