@@ -11,9 +11,8 @@ import 'scanner_view/scanner_view.dart';
 
 class ScanScreen extends StatelessWidget {
   final String? accountId;
-  final bool? showContactHints;
 
-  const ScanScreen({this.accountId, this.showContactHints, super.key});
+  const ScanScreen({this.accountId, super.key});
 
   @override
   Widget build(BuildContext context) {
