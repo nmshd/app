@@ -287,7 +287,7 @@ RegisterAttributeListenerAcceptResponseItemDVO _$RegisterAttributeListenerAccept
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       listenerId: json['listenerId'] as String,
-      listener: LocalAttributeListenerDVO.fromJson(json['listener'] as Map<String, dynamic>),
+      listener: json['listener'] == null ? null : LocalAttributeListenerDVO.fromJson(json['listener'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(RegisterAttributeListenerAcceptResponseItemDVO instance) =>
@@ -301,7 +301,7 @@ Map<String, dynamic> _$RegisterAttributeListenerAcceptResponseItemDVOToJson(Regi
       if (instance.error?.toJson() case final value?) 'error': value,
       if (instance.warning?.toJson() case final value?) 'warning': value,
       'listenerId': instance.listenerId,
-      'listener': instance.listener.toJson(),
+      if (instance.listener?.toJson() case final value?) 'listener': value,
     };
 
 TransferFileOwnershipAcceptResponseItemDVO _$TransferFileOwnershipAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
@@ -348,7 +348,7 @@ AttributeSuccessionAcceptResponseItemDVO _$AttributeSuccessionAcceptResponseItem
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       predecessorId: json['predecessorId'] as String,
       successorId: json['successorId'] as String,
-      predecessor: LocalAttributeDVO.fromJson(json['predecessor'] as Map<String, dynamic>),
+      predecessor: json['predecessor'] == null ? null : LocalAttributeDVO.fromJson(json['predecessor'] as Map<String, dynamic>),
       successor: LocalAttributeDVO.fromJson(json['successor'] as Map<String, dynamic>),
     );
 
@@ -363,7 +363,7 @@ Map<String, dynamic> _$AttributeSuccessionAcceptResponseItemDVOToJson(AttributeS
   if (instance.warning?.toJson() case final value?) 'warning': value,
   'predecessorId': instance.predecessorId,
   'successorId': instance.successorId,
-  'predecessor': instance.predecessor.toJson(),
+  if (instance.predecessor?.toJson() case final value?) 'predecessor': value,
   'successor': instance.successor.toJson(),
 };
 
@@ -392,4 +392,27 @@ Map<String, dynamic> _$AttributeAlreadySharedAcceptResponseItemDVOToJson(Attribu
   if (instance.warning?.toJson() case final value?) 'warning': value,
   'attributeId': instance.attributeId,
   'attribute': instance.attribute.toJson(),
+};
+
+AttributeAlreadyDeletedAcceptResponseItemDVO _$AttributeAlreadyDeletedAcceptResponseItemDVOFromJson(Map<String, dynamic> json) =>
+    AttributeAlreadyDeletedAcceptResponseItemDVO(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      type: json['type'] as String,
+      date: json['date'] as String?,
+      error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
+      warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$AttributeAlreadyDeletedAcceptResponseItemDVOToJson(AttributeAlreadyDeletedAcceptResponseItemDVO instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  if (instance.description case final value?) 'description': value,
+  if (instance.image case final value?) 'image': value,
+  'type': instance.type,
+  if (instance.date case final value?) 'date': value,
+  if (instance.error?.toJson() case final value?) 'error': value,
+  if (instance.warning?.toJson() case final value?) 'warning': value,
 };
