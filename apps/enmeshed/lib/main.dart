@@ -124,7 +124,7 @@ final _router = GoRouter(
             },
           ),
     ),
-    GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/scan', builder: (context, state) => const ScanScreen()),
+    GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/load-profile', builder: (context, state) => const ScanScreen()),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/legal-notice',
@@ -214,7 +214,7 @@ final _router = GoRouter(
                   (context) =>
                       context
                         ..pop()
-                        ..push('/scan'),
+                        ..push('/load-profile'),
               title: context.l10n.instructions_loadProfile_title,
               subtitle: context.l10n.instructions_loadProfile_subtitle,
               informationTitle: context.l10n.instructions_loadProfile_information,
