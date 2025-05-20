@@ -30,4 +30,15 @@ class StringProcessor {
 
     return VoidResult.fromJson(result.valueToMap());
   }
+
+  Future<VoidResult> processDeviceOnboardingReference({required String url}) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await runtime.stringProcessor.processDeviceOnboardingReference(url)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: {} }''',
+      arguments: {'reference': url},
+    );
+
+    return VoidResult.fromJson(result.valueToMap());
+  }
 }
