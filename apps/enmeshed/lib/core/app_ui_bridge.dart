@@ -22,6 +22,11 @@ class AppUIBridge extends UIBridge {
   Future<LocalAccountDTO?> requestAccountSelection(List<LocalAccountDTO> possibleAccounts, [String? title, String? description]) async {
     logger.d('requestAccountSelection for accounts ${possibleAccounts.map((e) => e.id).toList()} with title $title and description $description');
 
+    if (possibleAccounts.length == 1) {
+      logger.d('requestAccountSelection only one account, returning it');
+      return possibleAccounts.first;
+    }
+
     final extra = (possibleAccounts: possibleAccounts, title: title, description: description);
     final selectedAccount = await router.push('/select-profile-popup', extra: extra);
     if (selectedAccount is LocalAccountDTO) {
