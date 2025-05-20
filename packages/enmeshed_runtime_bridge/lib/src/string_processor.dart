@@ -36,7 +36,7 @@ class StringProcessor {
       '''const result = await runtime.stringProcessor.processDeviceOnboardingReference(url)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: {} }''',
-      arguments: {'reference': url},
+      arguments: {'url': url},
     );
 
     return VoidResult.fromJson(result.valueToMap());
