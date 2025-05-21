@@ -62,7 +62,10 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
                   style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               if (expandedFileReference == null)
-                const Padding(padding: EdgeInsets.symmetric(vertical: 16), child: SizedBox(width: 80, child: LinearProgressIndicator()))
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: SizedBox(width: 80, child: LinearProgressIndicator()),
+                )
               else
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

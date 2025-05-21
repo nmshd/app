@@ -151,11 +151,10 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     openAttributeSwitcher: _openAttributeSwitcher,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                     chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                    openFileDetails:
-                        (file, [LocalAttributeDVO? attribute]) => context.push(
-                          '/account/${widget.accountId}/my-data/files/${file.id}',
-                          extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
-                        ),
+                    openFileDetails: (file, [LocalAttributeDVO? attribute]) => context.push(
+                      '/account/${widget.accountId}/my-data/files/${file.id}',
+                      extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
+                    ),
                     validationResult: _validationResult,
                   ),
                 ],
@@ -180,10 +179,9 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   }
 
   Future<void> _loadRequest(Session session) async {
-    final requestDto =
-        widget.isIncoming
-            ? await session.consumptionServices.incomingRequests.getRequest(requestId: widget.requestId)
-            : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
+    final requestDto = widget.isIncoming
+        ? await session.consumptionServices.incomingRequests.getRequest(requestId: widget.requestId)
+        : await session.consumptionServices.outgoingRequests.getRequest(requestId: widget.requestId);
     final request = await session.expander.expandLocalRequestDTO(requestDto.value);
 
     _setController(session, request);
@@ -287,15 +285,14 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   }) async {
     final choice = await Navigator.of(context).push<AttributeSwitcherChoice?>(
       MaterialPageRoute(
-        builder:
-            (ctx) => _AttributeSwitcher(
-              choices: choices,
-              currentChoice: currentChoice,
-              valueHints: valueHints,
-              valueType: valueType,
-              accountId: widget.accountId,
-              currentAddress: _identityInfo!.address,
-            ),
+        builder: (ctx) => _AttributeSwitcher(
+          choices: choices,
+          currentChoice: currentChoice,
+          valueHints: valueHints,
+          valueType: valueType,
+          accountId: widget.accountId,
+          currentAddress: _identityInfo!.address,
+        ),
       ),
     );
 
@@ -358,18 +355,15 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                       TextButton.icon(
                         icon: const Icon(Icons.add, size: 16),
                         label: Text(context.l10n.contactDetail_addEntry),
-                        onPressed:
-                            () => showCreateAttributeModal(
-                              context: context,
-                              accountId: widget.accountId,
-                              onCreateAttributePressed:
-                                  ({required BuildContext context, required IdentityAttributeValue value}) =>
-                                      context
-                                        ..pop()
-                                        ..pop((id: null, attribute: IdentityAttribute(owner: widget.currentAddress, value: value))),
-                              initialValueType: widget.valueType,
-                              onAttributeCreated: null,
-                            ),
+                        onPressed: () => showCreateAttributeModal(
+                          context: context,
+                          accountId: widget.accountId,
+                          onCreateAttributePressed: ({required BuildContext context, required IdentityAttributeValue value}) => context
+                            ..pop()
+                            ..pop((id: null, attribute: IdentityAttribute(owner: widget.currentAddress, value: value))),
+                          initialValueType: widget.valueType,
+                          onAttributeCreated: null,
+                        ),
                       ),
                   ],
                 ),
@@ -396,9 +390,8 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                               valueHints: widget.valueHints!,
                               showTitle: false,
                               expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                              openFileDetails:
-                                  (file) =>
-                                      context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                              openFileDetails: (file) =>
+                                  context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                             ),
                           ),
                         Radio<AttributeSwitcherChoice>(

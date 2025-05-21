@@ -17,12 +17,11 @@ void main() {
         dtoJson,
         equals({
           'createdAt': '2023',
-          'content':
-              const Response(
-                result: ResponseResult.Accepted,
-                requestId: 'aRequestId',
-                items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-              ).toJson(),
+          'content': const Response(
+            result: ResponseResult.Accepted,
+            requestId: 'aRequestId',
+            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+          ).toJson(),
         }),
       );
     });
@@ -42,12 +41,11 @@ void main() {
         dtoJson,
         equals({
           'createdAt': '2023',
-          'content':
-              const Response(
-                result: ResponseResult.Accepted,
-                requestId: 'aRequestId',
-                items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-              ).toJson(),
+          'content': const Response(
+            result: ResponseResult.Accepted,
+            requestId: 'aRequestId',
+            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+          ).toJson(),
           'source': const LocalResponseSourceDTO(type: LocalResponseSourceType.Message, reference: 'aReference').toJson(),
         }),
       );
@@ -58,12 +56,11 @@ void main() {
     test('is correctly converted', () {
       final json = {
         'createdAt': '2023',
-        'content':
-            const Response(
-              result: ResponseResult.Accepted,
-              requestId: 'aRequestId',
-              items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-            ).toJson(),
+        'content': const Response(
+          result: ResponseResult.Accepted,
+          requestId: 'aRequestId',
+          items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        ).toJson(),
       };
       expect(
         LocalResponseDTO.fromJson(json),
@@ -83,12 +80,11 @@ void main() {
     test('is correctly converted with property "source"', () {
       final json = {
         'createdAt': '2023',
-        'content':
-            const Response(
-              result: ResponseResult.Accepted,
-              requestId: 'aRequestId',
-              items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-            ).toJson(),
+        'content': const Response(
+          result: ResponseResult.Accepted,
+          requestId: 'aRequestId',
+          items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        ).toJson(),
         'source': const LocalResponseSourceDTO(type: LocalResponseSourceType.Message, reference: 'aReference').toJson(),
       };
       expect(

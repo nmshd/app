@@ -32,11 +32,10 @@ Future<void> showCreateRecoveryKitModal({required BuildContext context, required
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder:
-        (context) => ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
-          child: _CreateRecoveryKitModal(account: account, session: session, pdfTexts: pdfTexts),
-        ),
+    builder: (context) => ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
+      child: _CreateRecoveryKitModal(account: account, session: session, pdfTexts: pdfTexts),
+    ),
   );
 }
 
@@ -76,23 +75,22 @@ class _CreateRecoveryKitModalState extends State<_CreateRecoveryKitModal> {
           child: child,
         );
       },
-      child:
-          _recoveryKit == null
-              ? EnterPassword(
-                onPasswordEntered: (String enteredPassword) async {
-                  final recoveryKit = await _generatePDF(
-                    session: widget.session,
-                    pdfTexts: widget.pdfTexts,
-                    account: widget.account,
-                    password: enteredPassword,
-                  );
+      child: _recoveryKit == null
+          ? EnterPassword(
+              onPasswordEntered: (String enteredPassword) async {
+                final recoveryKit = await _generatePDF(
+                  session: widget.session,
+                  pdfTexts: widget.pdfTexts,
+                  account: widget.account,
+                  password: enteredPassword,
+                );
 
-                  await upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.account.id, value: false);
+                await upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.account.id, value: false);
 
-                  setState(() => _recoveryKit = recoveryKit);
-                },
-              )
-              : SaveOrPrintRecoveryKit(recoveryKit: _recoveryKit!, onBackPressed: () => setState(() => _recoveryKit = null)),
+                setState(() => _recoveryKit = recoveryKit);
+              },
+            )
+          : SaveOrPrintRecoveryKit(recoveryKit: _recoveryKit!, onBackPressed: () => setState(() => _recoveryKit = null)),
     );
   }
 

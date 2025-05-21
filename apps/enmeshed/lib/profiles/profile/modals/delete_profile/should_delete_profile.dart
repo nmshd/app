@@ -35,21 +35,20 @@ class ShouldDeleteProfile extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Wrap(
                     spacing: 8,
-                    children:
-                        otherActiveDevices
-                            .map(
-                              (e) => Chip(
-                                label: Text(e.name),
-                                color: WidgetStatePropertyAll(Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.12)),
-                                labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                                padding: const EdgeInsets.all(4),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  side: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                                ),
-                              ),
-                            )
-                            .toList(),
+                    children: otherActiveDevices
+                        .map(
+                          (e) => Chip(
+                            label: Text(e.name),
+                            color: WidgetStatePropertyAll(Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.12)),
+                            labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            padding: const EdgeInsets.all(4),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              side: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
               ] else

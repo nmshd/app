@@ -49,11 +49,10 @@ class _AddOrConnectDeviceModal extends StatefulWidget {
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      builder:
-          (context) => ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
-            child: _AddOrConnectDeviceModal(accountId: accountId, reload: reload, existingDeviceAndToken: existingDeviceAndToken),
-          ),
+      builder: (context) => ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
+        child: _AddOrConnectDeviceModal(accountId: accountId, reload: reload, existingDeviceAndToken: existingDeviceAndToken),
+      ),
     );
   }
 

@@ -315,8 +315,9 @@ TransferFileOwnershipAcceptResponseItemDVO _$TransferFileOwnershipAcceptResponse
       error: json['error'] == null ? null : DVOError.fromJson(json['error'] as Map<String, dynamic>),
       warning: json['warning'] == null ? null : DVOWarning.fromJson(json['warning'] as Map<String, dynamic>),
       attributeId: json['attributeId'] as String,
-      repositoryAttribute:
-          json['repositoryAttribute'] == null ? null : LocalAttributeDVO.fromJson(json['repositoryAttribute'] as Map<String, dynamic>),
+      repositoryAttribute: json['repositoryAttribute'] == null
+          ? null
+          : LocalAttributeDVO.fromJson(json['repositoryAttribute'] as Map<String, dynamic>),
       sharedAttributeId: json['sharedAttributeId'] as String,
       sharedAttribute: LocalAttributeDVO.fromJson(json['sharedAttribute'] as Map<String, dynamic>),
     );

@@ -34,16 +34,15 @@ class DraftAttributeRenderer extends StatelessWidget {
       children: [
         if (checkboxSettings != null) Checkbox(value: checkboxSettings!.isChecked, onChanged: checkboxSettings!.onUpdateCheckbox),
         Expanded(
-          child:
-              isRejected ?? false
-                  ? CustomListTile(title: attributeContent.valueTypeAtTypeI18n)
-                  : AttributeRenderer(
-                    attribute: attributeContent,
-                    trailing: trailing,
-                    valueHints: draftAttribute.valueHints,
-                    expandFileReference: expandFileReference,
-                    openFileDetails: openFileDetails,
-                  ),
+          child: isRejected ?? false
+              ? CustomListTile(title: attributeContent.valueTypeAtTypeI18n)
+              : AttributeRenderer(
+                  attribute: attributeContent,
+                  trailing: trailing,
+                  valueHints: draftAttribute.valueHints,
+                  expandFileReference: expandFileReference,
+                  openFileDetails: openFileDetails,
+                ),
         ),
       ],
     );

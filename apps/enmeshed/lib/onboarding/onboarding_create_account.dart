@@ -113,7 +113,10 @@ class _EnterProfileNameDialogState extends State<_EnterProfileNameDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(context.l10n.onboarding_enterProfileName, style: Theme.of(context).textTheme.titleLarge),
-                Align(alignment: Alignment.centerRight, child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop())),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
+                ),
               ],
             ),
           ),

@@ -58,15 +58,14 @@ class _ContactDetailIconBarState extends State<ContactDetailIconBar> {
               tooltip: context.l10n.contactDetail_sendMessage,
             ),
           IconButton(
-            onPressed:
-                () => deleteContact(
-                  context: context,
-                  accountId: widget.accountId,
-                  contact: widget.contact,
-                  onContactDeleted: () {
-                    if (context.mounted) context.pop();
-                  },
-                ),
+            onPressed: () => deleteContact(
+              context: context,
+              accountId: widget.accountId,
+              contact: widget.contact,
+              onContactDeleted: () {
+                if (context.mounted) context.pop();
+              },
+            ),
             icon: const Icon(Icons.delete_outline),
             tooltip: context.l10n.contacts_delete_deleteContact,
           ),

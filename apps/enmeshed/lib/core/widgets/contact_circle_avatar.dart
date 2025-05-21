@@ -21,14 +21,20 @@ class ContactCircleAvatar extends StatelessWidget {
       color: context.customColors.onDecorativeContainer.withValues(alpha: disabled ? 0.5 : null),
     );
 
-    final baseAvatar =
-        contact.isUnknown
-            ? _UnknownContactAvatar(radius: radius, color: color)
-            : CircleAvatar(radius: radius, backgroundColor: color, child: Text(_contactNameLetters(contact.name), style: textStyle));
+    final baseAvatar = contact.isUnknown
+        ? _UnknownContactAvatar(radius: radius, color: color)
+        : CircleAvatar(
+            radius: radius,
+            backgroundColor: color,
+            child: Text(_contactNameLetters(contact.name), style: textStyle),
+          );
 
     if (borderColor != null) {
       return Container(
-        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: borderColor!, width: 3)),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: borderColor!, width: 3),
+        ),
         padding: const EdgeInsets.all(1),
         child: baseAvatar,
       );

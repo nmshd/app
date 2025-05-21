@@ -91,8 +91,8 @@ class _DismissibleContactItemState extends State<DismissibleContactItem> with Si
                 ),
             subtitle:
                 widget.item.contact.relationship?.status == RelationshipStatus.Active && widget.item.contact.relationship?.peerDeletionStatus == null
-                    ? null
-                    : _Subtitle(item: widget.item),
+                ? null
+                : _Subtitle(item: widget.item),
             query: widget.query,
             iconSize: 40,
           ),

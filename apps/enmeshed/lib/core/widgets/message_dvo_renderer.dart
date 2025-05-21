@@ -21,21 +21,20 @@ class MessageDVORenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading:
-          hideAvatar
-              ? null
-              : ContactCircleAvatar(
-                radius: 20,
-                contact: message.peer,
-                borderColor: switch (message) {
-                  final MailDVO mail => mail.wasReadAt == null && !mail.isOwn ? Theme.of(context).colorScheme.secondary : Colors.transparent,
-                  final RequestMessageDVO requestMessage =>
-                    requestMessage.request.status == LocalRequestStatus.ManualDecisionRequired
-                        ? Theme.of(context).colorScheme.error
-                        : Colors.transparent,
-                  _ => Colors.transparent,
-                },
-              ),
+      leading: hideAvatar
+          ? null
+          : ContactCircleAvatar(
+              radius: 20,
+              contact: message.peer,
+              borderColor: switch (message) {
+                final MailDVO mail => mail.wasReadAt == null && !mail.isOwn ? Theme.of(context).colorScheme.secondary : Colors.transparent,
+                final RequestMessageDVO requestMessage =>
+                  requestMessage.request.status == LocalRequestStatus.ManualDecisionRequired
+                      ? Theme.of(context).colorScheme.error
+                      : Colors.transparent,
+                _ => Colors.transparent,
+              },
+            ),
       title: _MessagesContent(message: message, query: query),
       onTap: () => _onTap(context),
     );
@@ -89,10 +88,9 @@ class _MailContent extends StatelessWidget {
           HighlightText(
             text: message.subject,
             query: query,
-            textStyle:
-                message.wasReadAt == null && !message.isOwn
-                    ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
-                    : Theme.of(context).textTheme.bodyLarge,
+            textStyle: message.wasReadAt == null && !message.isOwn
+                ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+                : Theme.of(context).textTheme.bodyLarge,
             maxLines: 1,
           )
         else
@@ -120,10 +118,9 @@ class _RequestMessageContent extends StatelessWidget {
       message.request.statusText,
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
-      style:
-          message.wasReadAt == null && !message.isOwn
-              ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
-              : Theme.of(context).textTheme.bodyLarge,
+      style: message.wasReadAt == null && !message.isOwn
+          ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+          : Theme.of(context).textTheme.bodyLarge,
     );
   }
 }
@@ -145,10 +142,9 @@ class _MessageHeader extends StatelessWidget {
           child: HighlightText(
             text: contactName,
             query: query,
-            textStyle:
-                message.wasReadAt == null && !message.isOwn
-                    ? Theme.of(context).textTheme.labelMedium!.copyWith(fontWeight: FontWeight.w600)
-                    : Theme.of(context).textTheme.labelMedium,
+            textStyle: message.wasReadAt == null && !message.isOwn
+                ? Theme.of(context).textTheme.labelMedium!.copyWith(fontWeight: FontWeight.w600)
+                : Theme.of(context).textTheme.labelMedium,
             maxLines: 1,
           ),
         ),

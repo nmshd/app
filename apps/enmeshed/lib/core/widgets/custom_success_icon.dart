@@ -13,7 +13,9 @@ class CustomSuccessIcon extends StatelessWidget {
       width: containerSize,
       height: containerSize,
       decoration: BoxDecoration(color: context.customColors.success, shape: BoxShape.circle),
-      child: Center(child: Icon(Icons.check, color: context.customColors.onSuccess, size: iconSize)),
+      child: Center(
+        child: Icon(Icons.check, color: context.customColors.onSuccess, size: iconSize),
+      ),
     );
   }
 }

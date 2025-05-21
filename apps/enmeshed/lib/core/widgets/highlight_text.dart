@@ -29,10 +29,9 @@ class _HighlightTextState extends State<HighlightText> {
       textSpans.add(
         TextSpan(
           text: widget.text.substring(match.start, match.end),
-          style:
-              widget.textStyle != null
-                  ? widget.textStyle?.copyWith(backgroundColor: Theme.of(context).colorScheme.primaryContainer)
-                  : TextStyle(backgroundColor: Theme.of(context).colorScheme.primaryContainer),
+          style: widget.textStyle != null
+              ? widget.textStyle?.copyWith(backgroundColor: Theme.of(context).colorScheme.primaryContainer)
+              : TextStyle(backgroundColor: Theme.of(context).colorScheme.primaryContainer),
         ),
       );
 
@@ -44,6 +43,10 @@ class _HighlightTextState extends State<HighlightText> {
       textSpans.add(TextSpan(text: remainingText, style: widget.textStyle));
     }
 
-    return Text.rich(TextSpan(children: textSpans), maxLines: widget.maxLines, overflow: TextOverflow.ellipsis);
+    return Text.rich(
+      TextSpan(children: textSpans),
+      maxLines: widget.maxLines,
+      overflow: TextOverflow.ellipsis,
+    );
   }
 }
