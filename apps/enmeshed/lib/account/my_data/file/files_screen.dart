@@ -77,11 +77,12 @@ class _FilesScreenState extends State<FilesScreen> {
       ],
     );
 
-    if (_fileRecords == null)
+    if (_fileRecords == null) {
       return Scaffold(
         appBar: appBar,
         body: const Center(child: CircularProgressIndicator()),
       );
+    }
 
     if (_fileRecords!.isEmpty) {
       return Scaffold(

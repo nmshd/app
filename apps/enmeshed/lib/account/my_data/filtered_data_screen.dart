@@ -43,11 +43,12 @@ class _FilteredDataScreenState extends State<FilteredDataScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(widget.title));
 
-    if (_attributes == null)
+    if (_attributes == null) {
       return Scaffold(
         appBar: appBar,
         body: const Center(child: CircularProgressIndicator()),
       );
+    }
 
     return Scaffold(
       appBar: appBar,

@@ -38,11 +38,12 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(_attribute != null ? context.i18nTranslate(_attribute!.name) : ''));
 
-    if (_attribute == null)
+    if (_attribute == null) {
       return Scaffold(
         appBar: appBar,
         body: const Center(child: CircularProgressIndicator()),
       );
+    }
 
     final lastEditingDate = _firstVersionCreationDate != null ? _attribute!.createdAt : null;
     final creationDate = _firstVersionCreationDate != null ? _firstVersionCreationDate! : _attribute!.createdAt;

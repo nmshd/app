@@ -67,11 +67,12 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.contact_information));
 
-    if (_contact == null)
+    if (_contact == null) {
       return Scaffold(
         appBar: appBar,
         body: const Center(child: CircularProgressIndicator()),
       );
+    }
 
     final contact = _contact!;
 

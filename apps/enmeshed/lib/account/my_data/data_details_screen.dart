@@ -44,11 +44,12 @@ class _DataDetailsScreenState extends State<DataDetailsScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: TranslatedText('i18n://dvo.attribute.name.${widget.valueType}'));
 
-    if (_attributes == null)
+    if (_attributes == null) {
       return Scaffold(
         appBar: appBar,
         body: const Center(child: CircularProgressIndicator()),
       );
+    }
 
     return Scaffold(
       appBar: appBar,

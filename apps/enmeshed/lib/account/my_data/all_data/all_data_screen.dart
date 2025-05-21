@@ -46,11 +46,12 @@ class _AllDataScreenState extends State<AllDataScreen> {
       ],
     );
 
-    if (_attributes == null)
+    if (_attributes == null) {
       return Scaffold(
         appBar: appBar,
         body: const Center(child: CircularProgressIndicator()),
       );
+    }
 
     return Scaffold(
       appBar: appBar,

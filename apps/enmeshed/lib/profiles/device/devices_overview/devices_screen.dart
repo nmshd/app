@@ -46,11 +46,12 @@ class _DevicesScreenState extends State<DevicesScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.devices_title));
 
-    if (_devices == null || _account == null)
+    if (_devices == null || _account == null) {
       return Scaffold(
         appBar: appBar,
         body: const Center(child: CircularProgressIndicator()),
       );
+    }
 
     final currentDevice = _devices!.firstWhere((e) => e.isCurrentDevice);
     final otherDevices = _devices!.where((e) => !e.isCurrentDevice).toList();

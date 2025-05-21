@@ -36,11 +36,12 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.mailbox_message));
 
-    if (_message == null || _account == null)
+    if (_message == null || _account == null) {
       return Scaffold(
         appBar: appBar,
         body: const Center(child: CircularProgressIndicator()),
       );
+    }
 
     final column = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
