@@ -69,6 +69,7 @@ dev_dependencies:
   vector_graphics_compiler: ^1.1.16
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - path: assets/i18n/
