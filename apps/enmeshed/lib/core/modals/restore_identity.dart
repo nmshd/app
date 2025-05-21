@@ -15,9 +15,7 @@ Future<void> showRestoreIdentityModal({required LocalAccountDTO accountInDeletio
     context: context,
     showDragHandle: false,
     isScrollControlled: true,
-    builder: (context) {
-      return _RestoreIdentity(accountInDeletion: accountInDeletion, deletionDate: accountInDeletion.deletionDate!);
-    },
+    builder: (context) => _RestoreIdentity(accountInDeletion: accountInDeletion, deletionDate: accountInDeletion.deletionDate!),
   );
 }
 
