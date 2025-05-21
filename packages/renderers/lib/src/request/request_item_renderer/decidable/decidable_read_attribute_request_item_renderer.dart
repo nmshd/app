@@ -1,10 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 import '../../request_item_index.dart';
+import '../extensions/extensions.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/processed_query_renderer.dart';
 

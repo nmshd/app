@@ -6,6 +6,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
+import 'extensions/extensions.dart';
 import 'widgets/manual_decision_required.dart';
 import 'widgets/validation_error_box.dart';
 
