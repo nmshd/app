@@ -50,7 +50,7 @@ Future<void> goToInstructionsOrScanScreen({required String accountId, required S
   } else {
     await context.push(switch (instructionsType) {
       ScannerType.addContact => '/account/$accountId/scan',
-      ScannerType.loadProfile => '/scan',
+      ScannerType.loadProfile => '/load-profile',
     });
   }
 }

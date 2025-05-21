@@ -44,5 +44,12 @@ void run(EnmeshedRuntime enmeshedRuntime) {
         expect(result, isFailingVoidResult('error.appruntime.appStringProcessor.invalidReference'));
       });
     });
+
+    group('processDeviceOnboardingReference', () {
+      test('should handle an invalid reference', () async {
+        final result = await enmeshedRuntime.stringProcessor.processDeviceOnboardingReference(url: 'invalid');
+        expect(result, isFailingVoidResult('error.appruntime.appStringProcessor.invalidReference'));
+      });
+    });
   });
 }
