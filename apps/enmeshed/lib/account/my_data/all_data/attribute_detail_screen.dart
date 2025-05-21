@@ -38,7 +38,11 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(_attribute != null ? context.i18nTranslate(_attribute!.name) : ''));
 
-    if (_attribute == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_attribute == null)
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
 
     final lastEditingDate = _firstVersionCreationDate != null ? _attribute!.createdAt : null;
     final creationDate = _firstVersionCreationDate != null ? _firstVersionCreationDate! : _attribute!.createdAt;
@@ -60,11 +64,10 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
                       showTitle: false,
                       valueTextStyle: Theme.of(context).textTheme.titleLarge!,
                       expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                      openFileDetails:
-                          (file) => context.push(
-                            '/account/${widget.accountId}/my-data/files/${file.id}',
-                            extra: createFileRecord(file: file, fileReferenceAttribute: _attribute),
-                          ),
+                      openFileDetails: (file) => context.push(
+                        '/account/${widget.accountId}/my-data/files/${file.id}',
+                        extra: createFileRecord(file: file, fileReferenceAttribute: _attribute),
+                      ),
                     ),
                     if (lastEditingDate != null) ...[
                       Gaps.h8,
@@ -104,30 +107,29 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () => _reload(syncBefore: true),
-                child:
-                    _sharedWith.isEmpty
-                        ? EmptyListIndicator(icon: Icons.sensors_off, text: context.l10n.attributeDetails_sharedWithNobody, wrapInListView: true)
-                        : ListView.separated(
-                          itemCount: _sharedWith.length,
-                          itemBuilder: (context, index) {
-                            final contact = _sharedWith[index].contact;
-                            final sharedAttribute = _sharedWith[index].sharedAttribute;
+                child: _sharedWith.isEmpty
+                    ? EmptyListIndicator(icon: Icons.sensors_off, text: context.l10n.attributeDetails_sharedWithNobody, wrapInListView: true)
+                    : ListView.separated(
+                        itemCount: _sharedWith.length,
+                        itemBuilder: (context, index) {
+                          final contact = _sharedWith[index].contact;
+                          final sharedAttribute = _sharedWith[index].sharedAttribute;
 
-                            return ContactItem(
-                              contact: contact,
-                              subtitle: Text(
-                                context.l10n.attributeDetails_sharedAt(
-                                  DateTime.parse(sharedAttribute.createdAt).toLocal().dateType,
-                                  DateTime.parse(sharedAttribute.createdAt).toLocal(),
-                                  DateTime.parse(sharedAttribute.createdAt).toLocal(),
-                                ),
+                          return ContactItem(
+                            contact: contact,
+                            subtitle: Text(
+                              context.l10n.attributeDetails_sharedAt(
+                                DateTime.parse(sharedAttribute.createdAt).toLocal().dateType,
+                                DateTime.parse(sharedAttribute.createdAt).toLocal(),
+                                DateTime.parse(sharedAttribute.createdAt).toLocal(),
                               ),
-                              onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
-                              trailing: const Icon(Icons.chevron_right),
-                            );
-                          },
-                          separatorBuilder: (context, index) => const Divider(indent: 16),
-                        ),
+                            ),
+                            onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
+                            trailing: const Icon(Icons.chevron_right),
+                          );
+                        },
+                        separatorBuilder: (context, index) => const Divider(indent: 16),
+                      ),
               ),
             ),
           ],
@@ -157,11 +159,9 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
             content: Text(context.l10n.errorDialog_description, textAlign: TextAlign.center),
             actions: [
               FilledButton(
-                onPressed:
-                    () =>
-                        context
-                          ..pop()
-                          ..pop(),
+                onPressed: () => context
+                  ..pop()
+                  ..pop(),
                 child: Text(context.l10n.back),
               ),
             ],

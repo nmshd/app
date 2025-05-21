@@ -16,7 +16,11 @@ void main() {
     });
 
     test('is correctly converted with property "code"', () {
-      const dto = RequestValidationResultDTO(isSuccess: true, code: 'aCode', items: [RequestValidationResultDTO(isSuccess: true, items: [])]);
+      const dto = RequestValidationResultDTO(
+        isSuccess: true,
+        code: 'aCode',
+        items: [RequestValidationResultDTO(isSuccess: true, items: [])],
+      );
       final dtoJson = dto.toJson();
       expect(
         dtoJson,
@@ -29,7 +33,11 @@ void main() {
     });
 
     test('is correctly converted with property "message"', () {
-      const dto = RequestValidationResultDTO(isSuccess: true, message: 'aMessage', items: [RequestValidationResultDTO(isSuccess: true, items: [])]);
+      const dto = RequestValidationResultDTO(
+        isSuccess: true,
+        message: 'aMessage',
+        items: [RequestValidationResultDTO(isSuccess: true, items: [])],
+      );
       final dtoJson = dto.toJson();
       expect(
         dtoJson,
@@ -81,7 +89,13 @@ void main() {
       };
       expect(
         RequestValidationResultDTO.fromJson(json),
-        equals(const RequestValidationResultDTO(isSuccess: true, code: 'aCode', items: [RequestValidationResultDTO(isSuccess: true, items: [])])),
+        equals(
+          const RequestValidationResultDTO(
+            isSuccess: true,
+            code: 'aCode',
+            items: [RequestValidationResultDTO(isSuccess: true, items: [])],
+          ),
+        ),
       );
     });
 
@@ -94,7 +108,11 @@ void main() {
       expect(
         RequestValidationResultDTO.fromJson(json),
         equals(
-          const RequestValidationResultDTO(isSuccess: true, message: 'aMessage', items: [RequestValidationResultDTO(isSuccess: true, items: [])]),
+          const RequestValidationResultDTO(
+            isSuccess: true,
+            message: 'aMessage',
+            items: [RequestValidationResultDTO(isSuccess: true, items: [])],
+          ),
         ),
       );
     });

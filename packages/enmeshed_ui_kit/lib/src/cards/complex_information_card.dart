@@ -20,10 +20,17 @@ class ComplexInformationCard extends StatelessWidget {
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [icon, Gaps.w8, Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium))],
+              children: [
+                icon,
+                Gaps.w8,
+                Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium)),
+              ],
             ),
             if (description != null) ...[
-              Padding(padding: const EdgeInsets.symmetric(vertical: 16), child: Text(description!, style: Theme.of(context).textTheme.bodySmall)),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(description!, style: Theme.of(context).textTheme.bodySmall),
+              ),
             ],
             if (actionButtons != null)
               Padding(

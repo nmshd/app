@@ -44,7 +44,10 @@ class _UrlEntryState extends State<UrlEntry> {
     final smallerSide = math.min(size.height, size.width);
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.urlTitle), leading: BackButton(onPressed: widget.toggleScannerMode)),
+      appBar: AppBar(
+        title: Text(widget.urlTitle),
+        leading: BackButton(onPressed: widget.toggleScannerMode),
+      ),
       body: SizedBox(
         width: smallerSide,
         child: Padding(
@@ -66,12 +69,11 @@ class _UrlEntryState extends State<UrlEntry> {
                     labelText: widget.urlLabelText,
                     labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                     errorMaxLines: 3,
-                    suffixIcon:
-                        _controller.text.isNotEmpty
-                            ? _formKey.currentState!.validate()
-                                ? IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined))
-                                : Icon(Icons.error, color: Theme.of(context).colorScheme.error)
-                            : null,
+                    suffixIcon: _controller.text.isNotEmpty
+                        ? _formKey.currentState!.validate()
+                              ? IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined))
+                              : Icon(Icons.error, color: Theme.of(context).colorScheme.error)
+                        : null,
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: validateUrl,

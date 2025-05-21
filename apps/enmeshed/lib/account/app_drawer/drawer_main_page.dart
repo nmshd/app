@@ -71,29 +71,23 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
               ),
               const Divider(indent: 16, endIndent: 16),
               ListTile(
-                onTap:
-                    () =>
-                        context
-                          ..pop()
-                          ..push('/legal-notice'),
+                onTap: () => context
+                  ..pop()
+                  ..push('/legal-notice'),
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.legalNotice, style: Theme.of(context).textTheme.labelLarge),
               ),
               ListTile(
-                onTap:
-                    () =>
-                        context
-                          ..pop()
-                          ..push('/data-protection'),
+                onTap: () => context
+                  ..pop()
+                  ..push('/data-protection'),
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.dataProtection, style: Theme.of(context).textTheme.labelLarge),
               ),
               ListTile(
-                onTap:
-                    () =>
-                        context
-                          ..pop()
-                          ..push('/imprint'),
+                onTap: () => context
+                  ..pop()
+                  ..push('/imprint'),
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.imprint, style: Theme.of(context).textTheme.labelLarge),
               ),
@@ -106,17 +100,14 @@ class _DrawerMainPageState extends State<DrawerMainPage> {
             children: [
               Expanded(
                 child: TenTapDetector(
-                  onTenTap:
-                      () =>
-                          context
-                            ..pop()
-                            ..push('/debug'),
+                  onTenTap: () => context
+                    ..pop()
+                    ..push('/debug'),
                   child: FutureBuilder(
-                    builder:
-                        (ctx, snap) => Text(
-                          'App-Version\n${snap.hasData ? snap.data : '...'}',
-                          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
-                        ),
+                    builder: (ctx, snap) => Text(
+                      'App-Version\n${snap.hasData ? snap.data : '...'}',
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
+                    ),
                     future: PackageInfo.fromPlatform().then((info) => info.version),
                   ),
                 ),

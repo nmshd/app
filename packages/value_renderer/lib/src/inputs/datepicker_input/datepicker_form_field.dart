@@ -39,23 +39,22 @@ class DatepickerFormField extends FormField<DateTime> {
            }
 
            return Builder(
-             builder:
-                 (context) => DatepickerInput(
-                   dateFormat: dateFormat,
-                   enabled: enabled,
-                   firstDate: firstDate,
-                   fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
-                   initialDate: getInitialDateAttribute(initialValueAttribute),
-                   lastDate: lastDate,
-                   onDateSelected: onChangedHandler,
-                   selectedDate: field.value,
-                   decoration: (decoration ?? inputDecoration(context)).copyWith(
-                     labelText: context.translateFieldName(fieldName, mustBeFilledOut),
-                     errorText: field.errorText,
-                     suffixIcon: const Icon(Icons.calendar_month),
-                     floatingLabelBehavior: FloatingLabelBehavior.auto,
-                   ),
-                 ),
+             builder: (context) => DatepickerInput(
+               dateFormat: dateFormat,
+               enabled: enabled,
+               firstDate: firstDate,
+               fieldName: context.translateFieldName(fieldName, mustBeFilledOut),
+               initialDate: getInitialDateAttribute(initialValueAttribute),
+               lastDate: lastDate,
+               onDateSelected: onChangedHandler,
+               selectedDate: field.value,
+               decoration: (decoration ?? inputDecoration(context)).copyWith(
+                 labelText: context.translateFieldName(fieldName, mustBeFilledOut),
+                 errorText: field.errorText,
+                 suffixIcon: const Icon(Icons.calendar_month),
+                 floatingLabelBehavior: FloatingLabelBehavior.auto,
+               ),
+             ),
            );
          },
        );

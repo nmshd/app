@@ -34,7 +34,9 @@ void main() {
     });
 
     test('is correctly converted with property "values"', () {
-      const valueHints = ValueHints(values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')]);
+      const valueHints = ValueHints(
+        values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')],
+      );
       final valueHintsJson = valueHints.toJson();
       expect(
         valueHintsJson,
@@ -129,7 +131,11 @@ void main() {
       };
       expect(
         ValueHints.fromJson(json),
-        equals(const ValueHints(values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')])),
+        equals(
+          const ValueHints(
+            values: [ValueHintsValue(key: ValueHintsDefaultValueString('aKey'), displayName: 'aDisplayName')],
+          ),
+        ),
       );
     });
 

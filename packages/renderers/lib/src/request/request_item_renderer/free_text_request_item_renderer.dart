@@ -28,7 +28,10 @@ class _FreeTextRequestItemRendererState extends State<FreeTextRequestItemRendere
     _isChecked = widget.item.initiallyChecked;
 
     if (_isChecked) {
-      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const AcceptFreeTextRequestItemParameters(freeText: ''));
+      widget.controller?.writeAtIndex(
+        index: widget.itemIndex,
+        value: const AcceptFreeTextRequestItemParameters(freeText: ''),
+      );
     }
   }
 
@@ -42,7 +45,9 @@ class _FreeTextRequestItemRendererState extends State<FreeTextRequestItemRendere
     return Row(
       children: [
         Checkbox(value: _isChecked, onChanged: active ? onUpdateCheckbox : null),
-        Expanded(child: CustomListTile(title: widget.item.name, description: widget.item.description, thirdLine: widget.item.freeText)),
+        Expanded(
+          child: CustomListTile(title: widget.item.name, description: widget.item.description, thirdLine: widget.item.freeText),
+        ),
       ],
     );
   }

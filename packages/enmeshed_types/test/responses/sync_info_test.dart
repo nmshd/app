@@ -22,7 +22,10 @@ void main() {
     });
 
     test('is correctly converted with properties "lastDatawalletSync" and "lastSyncRun"', () {
-      const response = SyncInfoResponse(lastDatawalletSync: SyncInfoEntry(completedAt: '2023'), lastSyncRun: SyncInfoEntry(completedAt: '2023'));
+      const response = SyncInfoResponse(
+        lastDatawalletSync: SyncInfoEntry(completedAt: '2023'),
+        lastSyncRun: SyncInfoEntry(completedAt: '2023'),
+      );
       final responseJson = response.toJson();
       expect(
         responseJson,
@@ -56,7 +59,12 @@ void main() {
       };
       expect(
         SyncInfoResponse.fromJson(json),
-        equals(const SyncInfoResponse(lastDatawalletSync: SyncInfoEntry(completedAt: '2023'), lastSyncRun: SyncInfoEntry(completedAt: '2023'))),
+        equals(
+          const SyncInfoResponse(
+            lastDatawalletSync: SyncInfoEntry(completedAt: '2023'),
+            lastSyncRun: SyncInfoEntry(completedAt: '2023'),
+          ),
+        ),
       );
     });
   });

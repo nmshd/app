@@ -97,7 +97,11 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
   }
 
   void _onCreateProfilePressed() {
-    showModalBottomSheet<void>(context: context, isScrollControlled: true, builder: (_) => CreateProfile(onProfileCreated: _onAccountSelected));
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (_) => CreateProfile(onProfileCreated: _onAccountSelected),
+    );
   }
 
   Future<void> _loadAccounts() async {
@@ -155,15 +159,14 @@ class _ProfilesInDeletion extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       separatorBuilder: (context, index) => Gaps.h12,
       itemCount: accountsInDeletion.length,
-      itemBuilder:
-          (context, index) => DeletionProfileCard(
-            accountInDeletion: accountsInDeletion[index],
-            trailing: IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
-              tooltip: context.l10n.identity_restore,
-            ),
-          ),
+      itemBuilder: (context, index) => DeletionProfileCard(
+        accountInDeletion: accountsInDeletion[index],
+        trailing: IconButton(
+          icon: const Icon(Icons.refresh),
+          onPressed: () => showRestoreIdentityModal(accountInDeletion: accountsInDeletion[index], context: context),
+          tooltip: context.l10n.identity_restore,
+        ),
+      ),
     );
   }
 }

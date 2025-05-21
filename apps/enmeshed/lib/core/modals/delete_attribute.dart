@@ -22,16 +22,15 @@ Future<void> showDeleteAttributeModal({
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder:
-        (context) => ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
-          child: _DeleteConfirmation(
-            accountId: accountId,
-            onAttributeDeleted: onAttributeDeleted,
-            attribute: attribute as RepositoryAttributeDVO,
-            attributeNameOverride: attributeNameOverride,
-          ),
-        ),
+    builder: (context) => ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+      child: _DeleteConfirmation(
+        accountId: accountId,
+        onAttributeDeleted: onAttributeDeleted,
+        attribute: attribute as RepositoryAttributeDVO,
+        attributeNameOverride: attributeNameOverride,
+      ),
+    ),
   );
 }
 
@@ -75,15 +74,14 @@ class _DeleteConfirmationState extends State<_DeleteConfirmation> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child:
-                isShared
-                    ? BoldStyledText(
-                      context.l10n.personalData_details_deleteDescriptionShared(
-                        widget.attribute.sharedWith.length,
-                        _getDisplayValue(context, widget.attribute.value),
-                      ),
-                    )
-                    : BoldStyledText(context.l10n.personalData_details_deleteDescription(_getDisplayValue(context, widget.attribute.value))),
+            child: isShared
+                ? BoldStyledText(
+                    context.l10n.personalData_details_deleteDescriptionShared(
+                      widget.attribute.sharedWith.length,
+                      _getDisplayValue(context, widget.attribute.value),
+                    ),
+                  )
+                : BoldStyledText(context.l10n.personalData_details_deleteDescription(_getDisplayValue(context, widget.attribute.value))),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24).add(EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom)),

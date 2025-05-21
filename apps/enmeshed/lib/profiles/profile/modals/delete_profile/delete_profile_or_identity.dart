@@ -36,7 +36,9 @@ class DeleteProfileOrIdentity extends StatelessWidget {
                 decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
                 child: Column(
                   children: [
-                    Align(child: AutoLoadingProfilePicture(accountId: accountId, profileName: profileName, decorative: true, radius: 60)),
+                    Align(
+                      child: AutoLoadingProfilePicture(accountId: accountId, profileName: profileName, decorative: true, radius: 60),
+                    ),
                     Gaps.h16,
                     Text(profileName, style: Theme.of(context).textTheme.titleLarge),
                   ],

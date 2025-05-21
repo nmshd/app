@@ -93,8 +93,9 @@ class _UploadFileState extends State<UploadFile> {
                         decoration: InputDecoration(
                           labelText: '${context.l10n.title}*',
                           errorMaxLines: 3,
-                          suffixIcon:
-                              _titleController.text.isEmpty ? null : IconButton(onPressed: _titleController.clear, icon: const Icon(Icons.clear)),
+                          suffixIcon: _titleController.text.isEmpty
+                              ? null
+                              : IconButton(onPressed: _titleController.clear, icon: const Icon(Icons.clear)),
                           border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                           focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                         ),

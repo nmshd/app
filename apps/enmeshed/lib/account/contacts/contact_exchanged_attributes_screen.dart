@@ -56,29 +56,28 @@ class _ContactExchangedAttributesScreenState extends State<ContactExchangedAttri
         ),
         body: SafeArea(
           child: TabBarView(
-            children:
-                _sentAttributes == null || _receivedAttributes == null || _contactName == null
-                    ? [const Center(child: CircularProgressIndicator()), const Center(child: CircularProgressIndicator())]
-                    : [
-                      RefreshIndicator(
-                        onRefresh: () => _loadReceivedPeerAttributes(syncBefore: true),
-                        child: _AttributeListView(
-                          attributes: _receivedAttributes!,
-                          headerText: context.l10n.contactDetail_receivedAttributesDescription(_contactName!),
-                          emptyText: context.l10n.contactDetail_noReceivedAttributes,
-                          accountId: widget.accountId,
-                        ),
+            children: _sentAttributes == null || _receivedAttributes == null || _contactName == null
+                ? [const Center(child: CircularProgressIndicator()), const Center(child: CircularProgressIndicator())]
+                : [
+                    RefreshIndicator(
+                      onRefresh: () => _loadReceivedPeerAttributes(syncBefore: true),
+                      child: _AttributeListView(
+                        attributes: _receivedAttributes!,
+                        headerText: context.l10n.contactDetail_receivedAttributesDescription(_contactName!),
+                        emptyText: context.l10n.contactDetail_noReceivedAttributes,
+                        accountId: widget.accountId,
                       ),
-                      RefreshIndicator(
-                        onRefresh: () => _loadSentPeerAttribute(syncBefore: true),
-                        child: _AttributeListView(
-                          attributes: _sentAttributes!,
-                          headerText: context.l10n.contactDetail_overviewSharedAttributes(_contactName!),
-                          emptyText: context.l10n.contactDetail_noSharedAttributes,
-                          accountId: widget.accountId,
-                        ),
+                    ),
+                    RefreshIndicator(
+                      onRefresh: () => _loadSentPeerAttribute(syncBefore: true),
+                      child: _AttributeListView(
+                        attributes: _sentAttributes!,
+                        headerText: context.l10n.contactDetail_overviewSharedAttributes(_contactName!),
+                        emptyText: context.l10n.contactDetail_noSharedAttributes,
+                        accountId: widget.accountId,
                       ),
-                    ],
+                    ),
+                  ],
           ),
         ),
       ),
@@ -166,11 +165,10 @@ class _AttributeListView extends StatelessWidget {
           child: AttributeRenderer.localAttribute(
             attribute: attribute,
             expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-            openFileDetails:
-                (file) => context.push(
-                  '/account/$accountId/my-data/files/${file.id}',
-                  extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
-                ),
+            openFileDetails: (file) => context.push(
+              '/account/$accountId/my-data/files/${file.id}',
+              extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
+            ),
             extraLine: extraLine,
           ),
         );

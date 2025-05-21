@@ -36,12 +36,19 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.mailbox_message));
 
-    if (_message == null || _account == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_message == null || _account == null)
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
 
     final column = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(padding: const EdgeInsets.all(16), child: _MessageInformationHeader(account: _account!, message: _message!)),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: _MessageInformationHeader(account: _account!, message: _message!),
+        ),
         const Divider(height: 2),
         Padding(
           padding: const EdgeInsets.all(16),
@@ -52,7 +59,10 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
         ),
         if (_message!.attachments.isNotEmpty) ...[
           const Divider(height: 2),
-          Padding(padding: const EdgeInsets.all(16), child: AttachmentsList(accountId: _account!.id, attachments: _message!.attachments)),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: AttachmentsList(accountId: _account!.id, attachments: _message!.attachments),
+          ),
         ],
         const Divider(height: 2),
         switch (_message!) {
@@ -68,7 +78,9 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
 
     return Scaffold(
       appBar: appBar,
-      body: SafeArea(child: _message is RequestMessageDVO ? column : Scrollbar(thumbVisibility: true, child: SingleChildScrollView(child: column))),
+      body: SafeArea(
+        child: _message is RequestMessageDVO ? column : Scrollbar(thumbVisibility: true, child: SingleChildScrollView(child: column)),
+      ),
     );
   }
 

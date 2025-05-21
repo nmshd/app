@@ -12,19 +12,18 @@ void main() {
     test('parsed valid TokenContentDeviceSharedSecret', () {
       final json = {
         '@type': 'TokenContentDeviceSharedSecret',
-        'sharedSecret':
-            const DeviceSharedSecret(
-              id: 'anId',
-              createdAt: '2023',
-              createdByDevice: 'aCreatorDeviceId',
-              secretBaseKey: 'aSecretBaseKey',
-              deviceIndex: 1,
-              synchronizationKey: 'aSynchronizationKey',
-              identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
-              password: 'aPassword',
-              username: 'anUsername',
-              isBackupDevice: true,
-            ).toJson(),
+        'sharedSecret': const DeviceSharedSecret(
+          id: 'anId',
+          createdAt: '2023',
+          createdByDevice: 'aCreatorDeviceId',
+          secretBaseKey: 'aSecretBaseKey',
+          deviceIndex: 1,
+          synchronizationKey: 'aSynchronizationKey',
+          identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
+          password: 'aPassword',
+          username: 'anUsername',
+          isBackupDevice: true,
+        ).toJson(),
       };
 
       final content = TokenContent.fromJson(json);

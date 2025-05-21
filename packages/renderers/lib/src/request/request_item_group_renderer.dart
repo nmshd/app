@@ -37,38 +37,32 @@ class RequestItemGroupRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final requestItems =
-        requestItemGroup.items.mapIndexed((index, item) {
-          return RequestItemRenderer(
-            item: item,
-            itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
-            controller: controller,
-            requestStatus: requestStatus,
-            openAttributeSwitcher: openAttributeSwitcher,
-            currentAddress: currentAddress,
-            expandFileReference: expandFileReference,
-            chooseFile: chooseFile,
-            openFileDetails: openFileDetails,
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            validationResult: validationResult?.items[index],
-          );
-        }).toList();
+    final requestItems = requestItemGroup.items.mapIndexed((index, item) {
+      return RequestItemRenderer(
+        item: item,
+        itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
+        controller: controller,
+        requestStatus: requestStatus,
+        openAttributeSwitcher: openAttributeSwitcher,
+        currentAddress: currentAddress,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        validationResult: validationResult?.items[index],
+      );
+    }).toList();
 
-    final title =
-        requestItemGroup.title != null
-            ? Text(
-              requestItemGroup.title ?? '',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface),
-            )
-            : null;
+    final title = requestItemGroup.title != null
+        ? Text(requestItemGroup.title ?? '', style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface))
+        : null;
 
-    final subtitle =
-        requestItemGroup.description != null
-            ? Text(
-              requestItemGroup.description!,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-            )
-            : null;
+    final subtitle = requestItemGroup.description != null
+        ? Text(
+            requestItemGroup.description!,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          )
+        : null;
 
     return ExpansionTile(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainer,

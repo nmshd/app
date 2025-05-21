@@ -43,7 +43,11 @@ class _FilteredDataScreenState extends State<FilteredDataScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(widget.title));
 
-    if (_attributes == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_attributes == null)
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
 
     return Scaffold(
       appBar: appBar,
@@ -207,14 +211,13 @@ class _EmptyAttributeEntry extends StatelessWidget {
           TextButton.icon(
             icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
             label: Text(context.l10n.myData_createEntryForAttributeType),
-            onPressed:
-                () => showCreateAttributeModal(
-                  initialValueType: valueType,
-                  context: context,
-                  accountId: accountId,
-                  onAttributeCreated: onAttributeCreated,
-                  onCreateAttributePressed: null,
-                ),
+            onPressed: () => showCreateAttributeModal(
+              initialValueType: valueType,
+              context: context,
+              accountId: accountId,
+              onAttributeCreated: onAttributeCreated,
+              onCreateAttributePressed: null,
+            ),
           ),
         ],
       );
@@ -235,14 +238,13 @@ class _EmptyAttributeEntry extends StatelessWidget {
       trailing: TextButton.icon(
         icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
         label: Text(context.l10n.myData_createEntryForAttributeType),
-        onPressed:
-            () => showCreateAttributeModal(
-              initialValueType: valueType,
-              context: context,
-              accountId: accountId,
-              onAttributeCreated: onAttributeCreated,
-              onCreateAttributePressed: null,
-            ),
+        onPressed: () => showCreateAttributeModal(
+          initialValueType: valueType,
+          context: context,
+          accountId: accountId,
+          onAttributeCreated: onAttributeCreated,
+          onCreateAttributePressed: null,
+        ),
       ),
     );
   }

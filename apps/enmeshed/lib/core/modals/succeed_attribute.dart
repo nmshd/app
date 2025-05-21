@@ -35,11 +35,9 @@ Future<void> showSucceedAttributeModal({
           content: Text(context.l10n.errorDialog_description, textAlign: TextAlign.center),
           actions: [
             FilledButton(
-              onPressed:
-                  () =>
-                      context
-                        ..pop()
-                        ..pop(),
+              onPressed: () => context
+                ..pop()
+                ..pop(),
               child: Text(context.l10n.back),
             ),
           ],
@@ -53,16 +51,15 @@ Future<void> showSucceedAttributeModal({
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder:
-        (context) => ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
-          child: _SucceedAttributeModal(
-            accountId: accountId,
-            attribute: attribute,
-            onAttributeSucceeded: onAttributeSucceeded,
-            sameTypeAttributes: sameTypeAttributes,
-          ),
-        ),
+    builder: (context) => ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
+      child: _SucceedAttributeModal(
+        accountId: accountId,
+        attribute: attribute,
+        onAttributeSucceeded: onAttributeSucceeded,
+        sameTypeAttributes: sameTypeAttributes,
+      ),
+    ),
   );
 }
 
@@ -140,8 +137,8 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
                         valueType: widget.attribute.valueType,
                         expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                         chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                        openFileDetails:
-                            (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                        openFileDetails: (file) =>
+                            context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                       ),
                       if (_errorText != null) ...[
                         if (widget.attribute.renderHints.editType != RenderHintsEditType.InputLike) Gaps.h16 else Gaps.h8,

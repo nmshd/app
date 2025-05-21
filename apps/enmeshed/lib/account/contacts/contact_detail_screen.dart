@@ -67,7 +67,11 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.contact_information));
 
-    if (_contact == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_contact == null)
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
 
     final contact = _contact!;
 
@@ -126,10 +130,9 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                   accountId: widget.accountId,
                   messages: _incomingMessages,
                   unreadMessagesCount: _unreadMessagesCount,
-                  seeAllMessages:
-                      _incomingMessages != null && _incomingMessages!.isNotEmpty
-                          ? () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId)
-                          : null,
+                  seeAllMessages: _incomingMessages != null && _incomingMessages!.isNotEmpty
+                      ? () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId)
+                      : null,
                   title: context.l10n.contact_information_messages,
                   noMessagesText: context.l10n.contact_information_noMessages,
                   hideAvatar: true,

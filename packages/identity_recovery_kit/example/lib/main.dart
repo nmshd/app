@@ -90,25 +90,40 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: [
-            TextField(controller: _backupURLController, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Backup URL')),
+            TextField(
+              controller: _backupURLController,
+              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Backup URL'),
+            ),
             const SizedBox(height: 12),
-            TextField(controller: _headerTitleController, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Header title')),
+            TextField(
+              controller: _headerTitleController,
+              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Header title'),
+            ),
             const SizedBox(height: 12),
             TextField(
               controller: _keepSafeTextController,
               decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Keep safe text'),
             ),
             const SizedBox(height: 12),
-            TextField(controller: _infoText1Controller, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Info text 1')),
+            TextField(
+              controller: _infoText1Controller,
+              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Info text 1'),
+            ),
             const SizedBox(height: 12),
-            TextField(controller: _infoText2Controller, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Info text 2')),
+            TextField(
+              controller: _infoText2Controller,
+              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Info text 2'),
+            ),
             const SizedBox(height: 12),
             TextField(
               controller: _addressLabelController,
               decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Address label'),
             ),
             const SizedBox(height: 12),
-            TextField(controller: _addressController, decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Address')),
+            TextField(
+              controller: _addressController,
+              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Address'),
+            ),
             const SizedBox(height: 12),
             TextField(
               controller: _passwordLabelController,

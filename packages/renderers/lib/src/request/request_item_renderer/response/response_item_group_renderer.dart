@@ -28,18 +28,17 @@ class ResponseItemGroupRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final responseItems =
-        responseItemGroup.items.mapIndexed((index, item) {
-          return ResponseItemRenderer(
-            responseItem: item,
-            requestItem: requestItemGroup.items[index],
-            itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
-            currentAddress: currentAddress,
-            expandFileReference: expandFileReference,
-            chooseFile: chooseFile,
-            openFileDetails: openFileDetails,
-          );
-        }).toList();
+    final responseItems = responseItemGroup.items.mapIndexed((index, item) {
+      return ResponseItemRenderer(
+        responseItem: item,
+        requestItem: requestItemGroup.items[index],
+        itemIndex: (rootIndex: itemIndex.rootIndex, innerIndex: index),
+        currentAddress: currentAddress,
+        expandFileReference: expandFileReference,
+        chooseFile: chooseFile,
+        openFileDetails: openFileDetails,
+      );
+    }).toList();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems);
   }
 }

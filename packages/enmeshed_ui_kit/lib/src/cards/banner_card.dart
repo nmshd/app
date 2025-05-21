@@ -26,7 +26,9 @@ class BannerCard extends StatelessWidget {
           children: [
             _BannerCardIcon(type: type),
             Gaps.w8,
-            Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: _getTextColor(context, type)))),
+            Expanded(
+              child: Text(title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: _getTextColor(context, type))),
+            ),
             if (actionButton != null) ...[
               Gaps.w8,
               TextButton(
