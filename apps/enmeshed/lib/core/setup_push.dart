@@ -13,18 +13,9 @@ Future<void> setupPush(EnmeshedRuntime runtime) async {
 
   final logger = GetIt.I.get<Logger>();
 
-  // this will timeout e.g. on the ios simulator
-  final existingToken = await Push.instance.token
-      .timeout(const Duration(seconds: 5))
-      .catchError((_) => 'timed out', test: (e) => e is TimeoutException);
-  if (existingToken != null && existingToken != 'timed out') {
-    logger.d('Push token already exists: $existingToken');
-    await runtime.setPushToken(existingToken);
-  }
-
   Push.instance.addOnNewToken((token) async {
     logger.d('New push token received: $token');
-    await runtime.setPushToken(token);
+    await runtime.triggerRemoteNotificationRegistrationEvent(token);
   });
 
   // Handle notification launching app from terminated state

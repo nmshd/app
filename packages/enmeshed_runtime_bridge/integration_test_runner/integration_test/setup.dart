@@ -25,6 +25,7 @@ Future<EnmeshedRuntime> setup() async {
     ),
     logger: Logger(printer: SimplePrinter(colors: false), level: Level.warning),
     eventBus: eventBus,
+    getPushTokenCallback: () async => 'testPushToken',
   );
   await runtime.run();
 

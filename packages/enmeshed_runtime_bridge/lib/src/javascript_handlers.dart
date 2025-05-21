@@ -187,7 +187,6 @@ class JsToUIBridge {
         await uiBridge.showError((
           code: error['code'] as String,
           message: error['message'] as String,
-          userfriendlyMessage: error['userfriendlyMessage'] as String?,
           data: error['data'] as Map<String, dynamic>?,
         ), args[1] != null ? LocalAccountDTO.fromJson(args[1]) : null);
       },

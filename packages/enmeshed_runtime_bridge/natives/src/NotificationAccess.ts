@@ -1,14 +1,21 @@
 import { ILogger, ILoggerFactory } from "@js-soft/logging-abstractions";
-import { Result } from "@js-soft/ts-utils";
-import { INativeConfigAccess, INativeNotificationAccess, INativeNotificationScheduleOptions } from "@nmshd/app-runtime";
+import { ApplicationError, Result } from "@js-soft/ts-utils";
+import { INativeNotificationAccess, INativeNotificationScheduleOptions } from "@nmshd/app-runtime";
 
 export class NotificationAccess implements INativeNotificationAccess {
   private logger: ILogger;
 
-  public constructor(
-    private readonly loggerFactory: ILoggerFactory,
-    private readonly config: INativeConfigAccess
-  ) {}
+  public constructor(private readonly loggerFactory: ILoggerFactory) {}
+
+  public async getPushToken(): Promise<Result<string>> {
+    const result: { ok: true; token: string } | { ok: false; error: string } =
+      await window.flutter_inappwebview.callHandler("notifications_getPushToken");
+    if (!result.ok) {
+      return Result.fail(new ApplicationError("error.app.gettingPushTokenFailed", result.error));
+    }
+
+    return Result.ok(result.token);
+  }
 
   public init(): Promise<Result<void>> {
     this.logger = this.loggerFactory.getLogger("NotificationAccess");
