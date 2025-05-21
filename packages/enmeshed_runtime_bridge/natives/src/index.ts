@@ -39,13 +39,8 @@ window.registerUIBridge = function () {
   window.runtime.registerUIBridge(new UIBridge());
 };
 
-window.setPushToken = async function (token: string) {
-  const alreadySetToken = window.runtime.nativeEnvironment.configAccess.get("pushToken");
-  if (alreadySetToken.value === token) return;
-
-  window.runtime.nativeEnvironment.configAccess.set("pushToken", token);
+window.triggerRemoteNotificationRegistrationEvent = async function (token: string) {
   window.runtime.eventBus.publish(new RemoteNotificationRegistrationEvent(token));
-  await window.runtime.nativeEnvironment.configAccess.save();
 };
 
 window.triggerRemoteNotificationEvent = async function (notification: RemoteNotification) {
@@ -83,4 +78,3 @@ main()
     console.log("Runtime init failed", e);
     window.flutter_inappwebview.callHandler("runtimeInitFailed", e.message);
   });
-

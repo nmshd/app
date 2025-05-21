@@ -24,10 +24,10 @@ class SettingsFacade {
         'request': {
           'key': key,
           'value': value,
-          if (reference != null) 'reference': reference,
+          'reference': ?reference,
           if (scope != null) 'scope': scope.toString().split('.').last,
-          if (succeedsAt != null) 'succeedsAt': succeedsAt,
-          if (succeedsItem != null) 'succeedsItem': succeedsItem,
+          'succeedsAt': ?succeedsAt,
+          'succeedsItem': ?succeedsItem,
         },
       },
     );
@@ -54,7 +54,7 @@ class SettingsFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'key': key, if (reference != null) 'reference': reference, if (scope != null) 'scope': scope.name},
+        'request': {'key': key, 'reference': ?reference, if (scope != null) 'scope': scope.name},
       },
     );
 
@@ -107,7 +107,7 @@ class SettingsFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'key': key, 'value': value, if (reference != null) 'reference': reference, if (scope != null) 'scope': scope.name},
+        'request': {'key': key, 'value': value, 'reference': ?reference, if (scope != null) 'scope': scope.name},
       },
     );
 

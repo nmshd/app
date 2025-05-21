@@ -81,7 +81,7 @@ class _CreateAttributeModalState extends State<_CreateAttributeModal> {
       layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
         return AnimatedSize(
           duration: const Duration(milliseconds: 300),
-          child: Stack(alignment: Alignment.center, children: [...previousChildren, if (currentChild != null) currentChild]),
+          child: Stack(alignment: Alignment.center, children: [...previousChildren, ?currentChild]),
         );
       },
       duration: const Duration(milliseconds: 300),

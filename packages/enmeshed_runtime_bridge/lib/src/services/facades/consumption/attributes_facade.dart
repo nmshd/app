@@ -18,7 +18,7 @@ class AttributesFacade {
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {'value': value.toJson(), if (tags != null) 'tags': tags},
+          'content': {'value': value.toJson(), 'tags': ?tags},
         },
       },
     );
@@ -34,7 +34,7 @@ class AttributesFacade {
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {'value': value.toJson(), if (tags != null) 'tags': tags},
+          'content': {'value': value.toJson(), 'tags': ?tags},
         },
       },
     );
@@ -56,9 +56,9 @@ class AttributesFacade {
       arguments: {
         'request': {
           'peer': peer,
-          if (hideTechnical != null) 'hideTechnical': hideTechnical,
+          'hideTechnical': ?hideTechnical,
           if (query != null) 'query': query.toJson(),
-          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
+          'onlyLatestVersions': ?onlyLatestVersions,
         },
       },
     );
@@ -80,9 +80,9 @@ class AttributesFacade {
       arguments: {
         'request': {
           'peer': peer,
-          if (hideTechnical != null) 'hideTechnical': hideTechnical,
+          'hideTechnical': ?hideTechnical,
           if (query != null) 'query': query.toJson(),
-          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
+          'onlyLatestVersions': ?onlyLatestVersions,
         },
       },
     );
@@ -97,7 +97,7 @@ class AttributesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions, if (query != null) 'query': query.toJson()},
+        'request': {'onlyLatestVersions': ?onlyLatestVersions, if (query != null) 'query': query.toJson()},
       },
     );
 
@@ -125,7 +125,7 @@ class AttributesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {if (query != null) 'query': query.toJson(), if (hideTechnical != null) 'hideTechnical': hideTechnical},
+        'request': {if (query != null) 'query': query.toJson(), 'hideTechnical': ?hideTechnical},
       },
     );
 
@@ -157,11 +157,7 @@ class AttributesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'attributeId': attributeId,
-          if (peers != null) 'peers': peers,
-          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
-        },
+        'request': {'attributeId': attributeId, 'peers': ?peers, 'onlyLatestVersions': ?onlyLatestVersions},
       },
     );
 
@@ -237,7 +233,7 @@ class AttributesFacade {
       arguments: {
         'request': {
           'predecessorId': predecessorId,
-          'successorContent': {'value': value.toJson(), if (tags != null) 'tags': tags},
+          'successorContent': {'value': value.toJson(), 'tags': ?tags},
         },
       },
     );
@@ -313,12 +309,7 @@ class AttributesFacade {
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {
-            'value': value.toJson(),
-            'key': key,
-            'confidentiality': confidentiality.name,
-            if (isTechnical != null) 'isTechnical': isTechnical,
-          },
+          'content': {'value': value.toJson(), 'key': key, 'confidentiality': confidentiality.name, 'isTechnical': ?isTechnical},
           'peer': peer,
           if (requestMetadata != null)
             'requestMetadata': {
