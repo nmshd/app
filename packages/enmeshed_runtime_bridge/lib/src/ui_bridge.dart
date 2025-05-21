@@ -1,6 +1,6 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
 
-typedef UIBridgeError = ({String code, String message, String? userfriendlyMessage, Map<String, dynamic>? data});
+typedef UIBridgeError = ({String code, String message, Map<String, dynamic>? data});
 
 enum UIBridgePasswordType { password, pin }
 
