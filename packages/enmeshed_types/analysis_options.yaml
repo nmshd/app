@@ -7,3 +7,4 @@ analyzer:
 linter:
   rules:
     constant_identifier_names: false
+    use_null_aware_elements: false
