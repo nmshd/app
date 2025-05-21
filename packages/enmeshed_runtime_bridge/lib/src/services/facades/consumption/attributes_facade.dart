@@ -22,9 +22,9 @@ class AttributesFacade {
         'request': {
           'content': {
             'value': value.toJson(),
-            if (tags != null) 'tags': tags,
-            if (validFrom != null) 'validFrom': validFrom,
-            if (validTo != null) 'validTo': validTo,
+            'tags': ?tags,
+            'validFrom': ?validFrom,
+            'validTo': ?validTo,
           },
         },
       },
@@ -48,9 +48,9 @@ class AttributesFacade {
         'request': {
           'content': {
             'value': value.toJson(),
-            if (tags != null) 'tags': tags,
-            if (validFrom != null) 'validFrom': validFrom,
-            if (validTo != null) 'validTo': validTo,
+            'tags': ?tags,
+            'validFrom': ?validFrom,
+            'validTo': ?validTo,
           },
         },
       },
@@ -74,10 +74,10 @@ class AttributesFacade {
       arguments: {
         'request': {
           'peer': peer,
-          if (onlyValid != null) 'onlyValid': onlyValid,
-          if (hideTechnical != null) 'hideTechnical': hideTechnical,
+          'onlyValid': ?onlyValid,
+          'hideTechnical': ?hideTechnical,
           if (query != null) 'query': query.toJson(),
-          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
+          'onlyLatestVersions': ?onlyLatestVersions,
         },
       },
     );
@@ -100,10 +100,10 @@ class AttributesFacade {
       arguments: {
         'request': {
           'peer': peer,
-          if (onlyValid != null) 'onlyValid': onlyValid,
-          if (hideTechnical != null) 'hideTechnical': hideTechnical,
+          'onlyValid': ?onlyValid,
+          'hideTechnical': ?hideTechnical,
           if (query != null) 'query': query.toJson(),
-          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
+          'onlyLatestVersions': ?onlyLatestVersions,
         },
       },
     );
@@ -118,7 +118,7 @@ class AttributesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions, if (query != null) 'query': query.toJson()},
+        'request': {'onlyLatestVersions': ?onlyLatestVersions, if (query != null) 'query': query.toJson()},
       },
     );
 
@@ -148,8 +148,8 @@ class AttributesFacade {
       arguments: {
         'request': {
           if (query != null) 'query': query.toJson(),
-          if (onlyValid != null) 'onlyValid': onlyValid,
-          if (hideTechnical != null) 'hideTechnical': hideTechnical,
+          'onlyValid': ?onlyValid,
+          'hideTechnical': ?hideTechnical,
         },
       },
     );
@@ -184,8 +184,8 @@ class AttributesFacade {
       arguments: {
         'request': {
           'attributeId': attributeId,
-          if (peers != null) 'peers': peers,
-          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
+          'peers': ?peers,
+          'onlyLatestVersions': ?onlyLatestVersions,
         },
       },
     );
@@ -266,9 +266,9 @@ class AttributesFacade {
           'predecessorId': predecessorId,
           'successorContent': {
             'value': value.toJson(),
-            if (tags != null) 'tags': tags,
-            if (validFrom != null) 'validFrom': validFrom,
-            if (validTo != null) 'validTo': validTo,
+            'tags': ?tags,
+            'validFrom': ?validFrom,
+            'validTo': ?validTo,
           },
         },
       },
@@ -352,9 +352,9 @@ class AttributesFacade {
             'value': value.toJson(),
             'key': key,
             'confidentiality': confidentiality.name,
-            if (isTechnical != null) 'isTechnical': isTechnical,
-            if (validFrom != null) 'validFrom': validFrom,
-            if (validTo != null) 'validTo': validTo,
+            'isTechnical': ?isTechnical,
+            'validFrom': ?validFrom,
+            'validTo': ?validTo,
           },
           'peer': peer,
           if (requestMetadata != null)
@@ -392,7 +392,7 @@ class AttributesFacade {
       arguments: {
         'request': {
           'predecessorId': predecessorId,
-          'successorContent': {'value': value.toJson(), if (validFrom != null) 'validFrom': validFrom, if (validTo != null) 'validTo': validTo},
+          'successorContent': {'value': value.toJson(), 'validFrom': ?validFrom, 'validTo': ?validTo},
         },
       },
     );

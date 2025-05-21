@@ -222,8 +222,8 @@ class RelationshipsFacade {
       arguments: {
         'request': {
           'id': relationshipId,
-          if (hideTechnical != null) 'hideTechnical': hideTechnical,
-          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
+          'hideTechnical': ?hideTechnical,
+          'onlyLatestVersions': ?onlyLatestVersions,
         },
       },
     );

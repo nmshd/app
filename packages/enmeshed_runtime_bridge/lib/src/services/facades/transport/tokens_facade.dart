@@ -24,7 +24,7 @@ class TokensFacade {
           'content': content,
           'expiresAt': expiresAt,
           'ephemeral': ephemeral,
-          if (forIdentity != null) 'forIdentity': forIdentity,
+          'forIdentity': ?forIdentity,
           if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
@@ -40,7 +40,7 @@ class TokensFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'reference': reference, 'ephemeral': ephemeral, if (password != null) 'password': password},
+        'request': {'reference': reference, 'ephemeral': ephemeral, 'password': ?password},
       },
     );
 
