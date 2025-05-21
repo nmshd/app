@@ -271,10 +271,10 @@ class EnmeshedRuntime {
     }
   }
 
-  Future<void> setPushToken(String token) async {
+  Future<void> triggerRemoteNotificationRegistrationEvent(String token) async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await _evaluateJavaScript('await window.setPushToken(token)', arguments: {'token': token});
+    final result = await _evaluateJavaScript('await window.triggerRemoteNotificationRegistrationEvent(token)', arguments: {'token': token});
     result.throwOnError();
   }
 
