@@ -60,7 +60,9 @@ Future<void> shareFile({required Session session, required FileDVO fileDVO, requ
     return;
   }
 
-  final params = ShareParams(files: [XFile(cachedFile.path, name: fileDVO.filename, mimeType: fileDVO.mimetype)]);
+  final params = ShareParams(
+    files: [XFile(cachedFile.path, name: fileDVO.filename, mimeType: fileDVO.mimetype)],
+  );
   await SharePlus.instance.share(params);
 }
 

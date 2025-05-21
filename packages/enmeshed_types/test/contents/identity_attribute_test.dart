@@ -4,7 +4,10 @@ import 'package:test/test.dart';
 void main() {
   group('IdentityAttribute toJson', () {
     test('is correctly converted', () {
-      const identityAttribute = IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'));
+      const identityAttribute = IdentityAttribute(
+        owner: 'anOwner',
+        value: CityAttributeValue(value: 'aCity'),
+      );
       final identityAttributeJson = identityAttribute.toJson();
       expect(
         identityAttributeJson,
@@ -13,7 +16,11 @@ void main() {
     });
 
     test('is correctly converted with property "tags"', () {
-      const identityAttribute = IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'), tags: ['tag1', 'tag2']);
+      const identityAttribute = IdentityAttribute(
+        owner: 'anOwner',
+        value: CityAttributeValue(value: 'aCity'),
+        tags: ['tag1', 'tag2'],
+      );
       final identityAttributeJson = identityAttribute.toJson();
       expect(
         identityAttributeJson,
@@ -30,7 +37,15 @@ void main() {
   group('IdentityAttribute fromJson', () {
     test('is correctly converted', () {
       final json = {'owner': 'anOwner', 'value': const CityAttributeValue(value: 'aCity').toJson()};
-      expect(IdentityAttribute.fromJson(json), equals(const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'))));
+      expect(
+        IdentityAttribute.fromJson(json),
+        equals(
+          const IdentityAttribute(
+            owner: 'anOwner',
+            value: CityAttributeValue(value: 'aCity'),
+          ),
+        ),
+      );
     });
 
     test('is correctly converted with property "tags"', () {
@@ -41,7 +56,13 @@ void main() {
       };
       expect(
         IdentityAttribute.fromJson(json),
-        equals(const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity'), tags: ['tag1', 'tag2'])),
+        equals(
+          const IdentityAttribute(
+            owner: 'anOwner',
+            value: CityAttributeValue(value: 'aCity'),
+            tags: ['tag1', 'tag2'],
+          ),
+        ),
       );
     });
   });

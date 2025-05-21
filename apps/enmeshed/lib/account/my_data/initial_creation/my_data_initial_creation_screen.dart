@@ -64,10 +64,16 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(title: Text(widget.title, maxLines: 2), leading: BackButton(onPressed: widget.resetType ?? () => context.pop()));
+    final appBar = AppBar(
+      title: Text(widget.title, maxLines: 2),
+      leading: BackButton(onPressed: widget.resetType ?? () => context.pop()),
+    );
 
     if (!_controllersInitialized || !_rendererHintsLoaded) {
-      return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
     }
 
     return Scaffold(
@@ -102,37 +108,36 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
                   child: Column(
                     children: [
                       ValueRenderer(
-                        fieldName:
-                            addressDataInitialAttributeTypes.contains(widget.valueTypes[index])
-                                ? null
-                                : 'i18n://dvo.attribute.name.${widget.valueTypes[index]}',
+                        fieldName: addressDataInitialAttributeTypes.contains(widget.valueTypes[index])
+                            ? null
+                            : 'i18n://dvo.attribute.name.${widget.valueTypes[index]}',
                         renderHints: _hintResponses[widget.valueTypes[index]]!.renderHints,
                         valueHints: _hintResponses[widget.valueTypes[index]]!.valueHints,
                         controller: _controllers[widget.valueTypes[index]],
                         valueType: widget.valueTypes[index],
                         decoration:
                             widget.valueTypes[index] == 'BirthDate' ||
-                                    _hintResponses[widget.valueTypes[index]]!.renderHints.editType != RenderHintsEditType.Complex
-                                ? InputDecoration(
-                                  counterText: '',
-                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
-                                  hintMaxLines: 150,
-                                  errorMaxLines: 150,
-                                  helperMaxLines: 150,
-                                  border: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                    borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                    borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
-                                  ),
-                                )
-                                : null,
+                                _hintResponses[widget.valueTypes[index]]!.renderHints.editType != RenderHintsEditType.Complex
+                            ? InputDecoration(
+                                counterText: '',
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                hintMaxLines: 150,
+                                errorMaxLines: 150,
+                                helperMaxLines: 150,
+                                border: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+                                ),
+                              )
+                            : null,
                         expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                         chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                        openFileDetails:
-                            (file) => context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
+                        openFileDetails: (file) =>
+                            context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                       ),
                       _getExplanationForAttribute(widget.valueTypes[index], context),
                     ],

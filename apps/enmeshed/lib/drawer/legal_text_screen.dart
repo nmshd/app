@@ -31,19 +31,18 @@ class _LegalTextScreenState extends State<LegalTextScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
-      body:
-          _legalText == null
-              ? const Center(child: CircularProgressIndicator())
-              : SafeArea(
-                minimum: const EdgeInsets.only(bottom: 16),
-                child: Scrollbar(
-                  thumbVisibility: true,
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: MarkdownBody(data: _legalText!, onTapLink: (_, href, __) => _onTapLink(href)),
-                  ),
+      body: _legalText == null
+          ? const Center(child: CircularProgressIndicator())
+          : SafeArea(
+              minimum: const EdgeInsets.only(bottom: 16),
+              child: Scrollbar(
+                thumbVisibility: true,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: MarkdownBody(data: _legalText!, onTapLink: (_, href, __) => _onTapLink(href)),
                 ),
               ),
+            ),
     );
   }
 

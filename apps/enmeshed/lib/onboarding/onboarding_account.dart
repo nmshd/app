@@ -130,18 +130,17 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
   void _onboardingPressed(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder:
-            (_) => ScannerView(
-              onSubmit: _onSubmit,
-              lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
-              scanQrOrEnterUrlText: context.l10n.scanner_scanQrOrEnterUrl,
-              enterUrlText: context.l10n.scanner_enterUrl,
-              urlTitle: context.l10n.onboarding_connectWithUrl_title,
-              urlDescription: context.l10n.onboarding_connectWithUrl_description,
-              urlLabelText: context.l10n.scanner_enterUrl,
-              urlValidationErrorText: context.l10n.scanner_urlValidationError,
-              urlButtonText: context.l10n.onboarding_linkAccount,
-            ),
+        builder: (_) => ScannerView(
+          onSubmit: _onSubmit,
+          lineUpQrCodeText: context.l10n.scanner_lineUpQrCode,
+          scanQrOrEnterUrlText: context.l10n.scanner_scanQrOrEnterUrl,
+          enterUrlText: context.l10n.scanner_enterUrl,
+          urlTitle: context.l10n.onboarding_connectWithUrl_title,
+          urlDescription: context.l10n.onboarding_connectWithUrl_description,
+          urlLabelText: context.l10n.scanner_enterUrl,
+          urlValidationErrorText: context.l10n.scanner_urlValidationError,
+          urlButtonText: context.l10n.onboarding_linkAccount,
+        ),
       ),
     );
   }
@@ -154,7 +153,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     if (!context.mounted) return;
 
-    final result = await runtime.stringProcessor.processURL(url: content);
+    final result = await runtime.stringProcessor.processDeviceOnboardingReference(url: content);
     if (result.isSuccess) {
       resume();
       return;
@@ -181,41 +180,35 @@ class _BackgroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rightPaint =
-        Paint()
-          ..color = rightTriangleColor
-          ..style = PaintingStyle.fill;
+    final rightPaint = Paint()
+      ..color = rightTriangleColor
+      ..style = PaintingStyle.fill;
 
-    final leftPaint =
-        Paint()
-          ..color = leftTriangleColor
-          ..style = PaintingStyle.fill;
+    final leftPaint = Paint()
+      ..color = leftTriangleColor
+      ..style = PaintingStyle.fill;
 
-    final bottomPaint =
-        Paint()
-          ..color = bottomColor
-          ..style = PaintingStyle.fill;
+    final bottomPaint = Paint()
+      ..color = bottomColor
+      ..style = PaintingStyle.fill;
 
-    final leftPath =
-        Path()
-          ..moveTo(0, 0)
-          ..lineTo(size.width / 2, size.height / 2)
-          ..lineTo(0, size.height)
-          ..close();
+    final leftPath = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(0, size.height)
+      ..close();
 
-    final bottomPath =
-        Path()
-          ..moveTo(0, size.height)
-          ..lineTo(size.width / 2, size.height / 2)
-          ..lineTo(size.width, size.height)
-          ..close();
+    final bottomPath = Path()
+      ..moveTo(0, size.height)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(size.width, size.height)
+      ..close();
 
-    final rightPath =
-        Path()
-          ..moveTo(size.width, 0)
-          ..lineTo(size.width / 2, size.height / 2)
-          ..lineTo(size.width, size.height)
-          ..close();
+    final rightPath = Path()
+      ..moveTo(size.width, 0)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(size.width, size.height)
+      ..close();
 
     canvas
       ..drawPath(leftPath, leftPaint)

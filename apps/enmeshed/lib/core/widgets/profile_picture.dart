@@ -25,14 +25,13 @@ class AutoLoadingProfilePicture extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: loadProfilePicture(accountReference: accountId),
-      builder:
-          (context, snapshot) => ProfilePicture(
-            profileName: profileName,
-            image: snapshot.data is File ? FileImage(snapshot.data!) : null,
-            radius: radius,
-            decorative: decorative,
-            onPressed: onPressed,
-          ),
+      builder: (context, snapshot) => ProfilePicture(
+        profileName: profileName,
+        image: snapshot.data is File ? FileImage(snapshot.data!) : null,
+        radius: radius,
+        decorative: decorative,
+        onPressed: onPressed,
+      ),
     );
   }
 }
@@ -54,7 +53,12 @@ class ProfilePicture extends StatelessWidget {
       return Material(
         clipBehavior: Clip.hardEdge,
         shape: const CircleBorder(),
-        child: Ink.image(image: image!, width: radius * 2, height: radius * 2, child: InkWell(onTap: onPressed)),
+        child: Ink.image(
+          image: image!,
+          width: radius * 2,
+          height: radius * 2,
+          child: InkWell(onTap: onPressed),
+        ),
       );
     }
 
@@ -112,7 +116,10 @@ class _AlternativeProfilePicture extends StatelessWidget {
     return CircleAvatar(
       radius: radius,
       backgroundColor: circleAvatarColor,
-      child: Text(_profileNameLetters(profileName).trim(), style: TextStyle(fontSize: radius * 0.8, fontWeight: FontWeight.bold, color: textColor)),
+      child: Text(
+        _profileNameLetters(profileName).trim(),
+        style: TextStyle(fontSize: radius * 0.8, fontWeight: FontWeight.bold, color: textColor),
+      ),
     );
   }
 

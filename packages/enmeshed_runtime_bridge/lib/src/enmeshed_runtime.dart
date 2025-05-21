@@ -132,28 +132,22 @@ class EnmeshedRuntime {
 
     controller.addJavaScriptHandler(
       handlerName: 'getRuntimeConfig',
-      callback:
-          (_) => {
-            'applicationId': runtimeConfig.applicationId,
-            if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
-            if (Platform.isIOS || Platform.isMacOS)
-              'pushService': 'apns'
-            else if (Platform.isAndroid)
-              'pushService': 'fcm'
-            else
-              'pushService': 'none',
-            'transportLibrary': {
-              'baseUrl': runtimeConfig.baseUrl,
-              'platformClientId': runtimeConfig.clientId,
-              'platformClientSecret': runtimeConfig.clientSecret,
-            },
-            'databaseFolder': runtimeConfig.databaseFolder,
-            if (Platform.isWindows)
-              'modules': {
-                'pushNotification': {'enabled': false},
-                'sse': {'enabled': true},
-              },
+      callback: (_) => {
+        'applicationId': runtimeConfig.applicationId,
+        if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
+        if (Platform.isIOS || Platform.isMacOS) 'pushService': 'apns' else if (Platform.isAndroid) 'pushService': 'fcm' else 'pushService': 'none',
+        'transportLibrary': {
+          'baseUrl': runtimeConfig.baseUrl,
+          'platformClientId': runtimeConfig.clientId,
+          'platformClientSecret': runtimeConfig.clientSecret,
+        },
+        'databaseFolder': runtimeConfig.databaseFolder,
+        if (Platform.isWindows)
+          'modules': {
+            'pushNotification': {'enabled': false},
+            'sse': {'enabled': true},
           },
+      },
     );
 
     await controller.addLocalNotificationsJavaScriptHandlers();

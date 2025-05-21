@@ -49,57 +49,57 @@ class RequestItemRenderer extends StatelessWidget {
         final ReadAttributeRequestItemDVO dvo =>
           dvo.isDecidable
               ? DecidableReadAttributeRequestItemRenderer(
-                controller: controller,
-                item: dvo,
-                itemIndex: itemIndex,
-                openAttributeSwitcher: openAttributeSwitcher,
-                currentAddress: currentAddress,
-                expandFileReference: expandFileReference,
-                chooseFile: chooseFile,
-                openFileDetails: openFileDetails,
-              )
+                  controller: controller,
+                  item: dvo,
+                  itemIndex: itemIndex,
+                  openAttributeSwitcher: openAttributeSwitcher,
+                  currentAddress: currentAddress,
+                  expandFileReference: expandFileReference,
+                  chooseFile: chooseFile,
+                  openFileDetails: openFileDetails,
+                )
               : ReadAttributeRequestItemRenderer(item: dvo),
         final ProposeAttributeRequestItemDVO dvo =>
           dvo.isDecidable
               ? DecidableProposeAttributeRequestItemRenderer(
-                controller: controller,
-                item: dvo,
-                itemIndex: itemIndex,
-                openAttributeSwitcher: openAttributeSwitcher,
-                expandFileReference: expandFileReference,
-                openFileDetails: openFileDetails,
-              )
+                  controller: controller,
+                  item: dvo,
+                  itemIndex: itemIndex,
+                  openAttributeSwitcher: openAttributeSwitcher,
+                  expandFileReference: expandFileReference,
+                  openFileDetails: openFileDetails,
+                )
               : ProposeAttributeRequestItemRenderer(item: dvo),
         final CreateAttributeRequestItemDVO dvo =>
           dvo.isDecidable
               ? DecidableCreateAttributeRequestItemRenderer(
-                controller: controller,
-                item: dvo,
-                itemIndex: itemIndex,
-                expandFileReference: expandFileReference,
-                openFileDetails: openFileDetails,
-              )
+                  controller: controller,
+                  item: dvo,
+                  itemIndex: itemIndex,
+                  expandFileReference: expandFileReference,
+                  openFileDetails: openFileDetails,
+                )
               : CreateAttributeRequestItemRenderer(
-                item: dvo,
-                isRejected: isRejected,
-                expandFileReference: expandFileReference,
-                openFileDetails: openFileDetails,
-              ),
+                  item: dvo,
+                  isRejected: isRejected,
+                  expandFileReference: expandFileReference,
+                  openFileDetails: openFileDetails,
+                ),
         final ShareAttributeRequestItemDVO dvo =>
           dvo.isDecidable
               ? DecidableShareAttributeRequestItemRenderer(
-                controller: controller,
-                item: dvo,
-                itemIndex: itemIndex,
-                expandFileReference: expandFileReference,
-                openFileDetails: openFileDetails,
-              )
+                  controller: controller,
+                  item: dvo,
+                  itemIndex: itemIndex,
+                  expandFileReference: expandFileReference,
+                  openFileDetails: openFileDetails,
+                )
               : ShareAttributeRequestItemRenderer(
-                item: dvo,
-                isRejected: isRejected,
-                expandFileReference: expandFileReference,
-                openFileDetails: openFileDetails,
-              ),
+                  item: dvo,
+                  isRejected: isRejected,
+                  expandFileReference: expandFileReference,
+                  openFileDetails: openFileDetails,
+                ),
         final AuthenticationRequestItemDVO dvo => AuthenticationRequestItemRenderer(
           controller: controller,
           item: dvo,

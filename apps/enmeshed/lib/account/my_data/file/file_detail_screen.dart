@@ -51,174 +51,167 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 8),
-          child:
-              _fileDVO == null
-                  ? const Center(child: CircularProgressIndicator())
-                  : SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 16,
-                      children: [
+          child: _fileDVO == null
+              ? const Center(child: CircularProgressIndicator())
+              : SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 16,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Center(
+                          child: Column(
+                            children: [
+                              FileIcon(filename: _fileDVO!.filename, color: Theme.of(context).colorScheme.primary, size: 40),
+                              Gaps.h8,
+                              Text(_fileDVO!.filename, style: Theme.of(context).textTheme.labelLarge),
+                              Text('${bytesText(context: context, bytes: _fileDVO!.filesize)} - ${getFileExtension(_fileDVO!.filename)}'),
+                            ],
+                          ),
+                        ),
+                      ),
+                      if (_tags != null)
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Center(
-                            child: Column(
-                              children: [
-                                FileIcon(filename: _fileDVO!.filename, color: Theme.of(context).colorScheme.primary, size: 40),
-                                Gaps.h8,
-                                Text(_fileDVO!.filename, style: Theme.of(context).textTheme.labelLarge),
-                                Text('${bytesText(context: context, bytes: _fileDVO!.filesize)} - ${getFileExtension(_fileDVO!.filename)}'),
-                              ],
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Wrap(
+                              spacing: 12,
+                              children: _tags!
+                                  .map(
+                                    (e) => Chip(
+                                      label: _TagLabel(e, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: const BorderRadius.all(Radius.circular(4)),
+                                        side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
+                                      ),
+                                      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                                      padding: EdgeInsets.zero,
+                                      labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+                                      visualDensity: const VisualDensity(horizontal: -2),
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                         ),
-                        if (_tags != null)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: Wrap(
-                                spacing: 12,
-                                children:
-                                    _tags!
-                                        .map(
-                                          (e) => Chip(
-                                            label: _TagLabel(e, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: const BorderRadius.all(Radius.circular(4)),
-                                              side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
-                                            ),
-                                            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                                            padding: EdgeInsets.zero,
-                                            labelPadding: const EdgeInsets.symmetric(horizontal: 6),
-                                            visualDensity: const VisualDensity(horizontal: -2),
-                                          ),
-                                        )
-                                        .toList(),
-                              ),
-                            ),
-                          ),
-                        Card(
-                          margin: const EdgeInsets.symmetric(horizontal: 16),
-                          color: Theme.of(context).colorScheme.surfaceContainer,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            child: Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '${context.l10n.files_owner}: ',
-                                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                                    ),
-                                    Text(
-                                      '${context.l10n.files_createdAt}: ',
-                                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                                    ),
-                                  ],
-                                ),
-                                Gaps.w24,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(context.i18nTranslate(_fileDVO!.createdBy.name), style: Theme.of(context).textTheme.bodyMedium),
-                                    Text(
-                                      context.i18nTranslate(_formatDate(context, _fileDVO!.createdAt)),
-                                      style: Theme.of(context).textTheme.bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                      Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        color: Theme.of(context).colorScheme.surfaceContainer,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           child: Row(
-                            spacing: 8,
                             children: [
-                              IconButton(
-                                onPressed: _isSharingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _shareFile,
-                                icon:
-                                    _isSharingFile
-                                        ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
-                                        : const Icon(Icons.share_outlined, size: 24),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${context.l10n.files_owner}: ',
+                                    style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                  ),
+                                  Text(
+                                    '${context.l10n.files_createdAt}: ',
+                                    style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                  ),
+                                ],
                               ),
-                              IconButton(
-                                onPressed:
-                                    _isLoadingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
-                                icon:
-                                    _isLoadingFile
-                                        ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
-                                        : const Icon(Icons.file_download_outlined, size: 28),
+                              Gaps.w24,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(context.i18nTranslate(_fileDVO!.createdBy.name), style: Theme.of(context).textTheme.bodyMedium),
+                                  Text(
+                                    context.i18nTranslate(_formatDate(context, _fileDVO!.createdAt)),
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
                               ),
-                              IconButton(
-                                onPressed: _isOpeningFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
-                                icon:
-                                    _isOpeningFile
-                                        ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
-                                        : const Icon(Icons.file_open_outlined, size: 24),
-                              ),
-                              if (widget.fileReferenceAttribute is RepositoryAttributeDVO)
-                                IconButton(
-                                  icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
-                                  onPressed:
-                                      () => showDeleteAttributeModal(
-                                        context: context,
-                                        accountId: widget.accountId,
-                                        attribute: widget.fileReferenceAttribute!,
-                                        onAttributeDeleted: () {
-                                          if (mounted && context.canPop()) context.pop();
-                                          showSuccessSnackbar(context: context, text: context.l10n.personalData_details_attributeSuccessfullyDeleted);
-                                        },
-                                        attributeNameOverride: _fileDVO!.title,
-                                      ),
-                                ),
                             ],
                           ),
                         ),
-                        if (_sharedWith != null) ...[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(context.l10n.attributeDetails_sharedWith, style: Theme.of(context).textTheme.titleMedium),
-                              ),
-                              if (_sharedWith!.isEmpty)
-                                EmptyListIndicator(icon: Icons.sensors_off, text: context.l10n.attributeDetails_sharedWithNobody)
-                              else
-                                ListView.separated(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: _sharedWith!.length,
-                                  itemBuilder: (context, index) {
-                                    final contact = _sharedWith![index].contact;
-                                    final sharedAttribute = _sharedWith![index].sharedAttribute;
-
-                                    return ContactItem(
-                                      contact: contact,
-                                      subtitle: Text(
-                                        context.l10n.attributeDetails_sharedAt(
-                                          DateTime.parse(sharedAttribute.createdAt).toLocal().dateType,
-                                          DateTime.parse(sharedAttribute.createdAt).toLocal(),
-                                          DateTime.parse(sharedAttribute.createdAt).toLocal(),
-                                        ),
-                                      ),
-                                      onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
-                                      trailing: const Icon(Icons.chevron_right),
-                                    );
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            IconButton(
+                              onPressed: _isSharingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _shareFile,
+                              icon: _isSharingFile
+                                  ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
+                                  : const Icon(Icons.share_outlined, size: 24),
+                            ),
+                            IconButton(
+                              onPressed: _isLoadingFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _downloadAndSaveFile,
+                              icon: _isLoadingFile
+                                  ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
+                                  : const Icon(Icons.file_download_outlined, size: 28),
+                            ),
+                            IconButton(
+                              onPressed: _isOpeningFile || DateTime.parse(_fileDVO!.expiresAt).isBefore(DateTime.now()) ? null : _openFile,
+                              icon: _isOpeningFile
+                                  ? const SizedBox(width: 28, height: 28, child: CircularProgressIndicator(strokeWidth: 3))
+                                  : const Icon(Icons.file_open_outlined, size: 24),
+                            ),
+                            if (widget.fileReferenceAttribute is RepositoryAttributeDVO)
+                              IconButton(
+                                icon: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
+                                onPressed: () => showDeleteAttributeModal(
+                                  context: context,
+                                  accountId: widget.accountId,
+                                  attribute: widget.fileReferenceAttribute!,
+                                  onAttributeDeleted: () {
+                                    if (mounted && context.canPop()) context.pop();
+                                    showSuccessSnackbar(context: context, text: context.l10n.personalData_details_attributeSuccessfullyDeleted);
                                   },
-                                  separatorBuilder: (context, index) => const Divider(indent: 16),
+                                  attributeNameOverride: _fileDVO!.title,
                                 ),
-                            ],
-                          ),
-                        ],
+                              ),
+                          ],
+                        ),
+                      ),
+                      if (_sharedWith != null) ...[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(context.l10n.attributeDetails_sharedWith, style: Theme.of(context).textTheme.titleMedium),
+                            ),
+                            if (_sharedWith!.isEmpty)
+                              EmptyListIndicator(icon: Icons.sensors_off, text: context.l10n.attributeDetails_sharedWithNobody)
+                            else
+                              ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: _sharedWith!.length,
+                                itemBuilder: (context, index) {
+                                  final contact = _sharedWith![index].contact;
+                                  final sharedAttribute = _sharedWith![index].sharedAttribute;
+
+                                  return ContactItem(
+                                    contact: contact,
+                                    subtitle: Text(
+                                      context.l10n.attributeDetails_sharedAt(
+                                        DateTime.parse(sharedAttribute.createdAt).toLocal().dateType,
+                                        DateTime.parse(sharedAttribute.createdAt).toLocal(),
+                                        DateTime.parse(sharedAttribute.createdAt).toLocal(),
+                                      ),
+                                    ),
+                                    onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
+                                    trailing: const Icon(Icons.chevron_right),
+                                  );
+                                },
+                                separatorBuilder: (context, index) => const Divider(indent: 16),
+                              ),
+                          ],
+                        ),
                       ],
-                    ),
+                    ],
                   ),
+                ),
         ),
       ),
     );

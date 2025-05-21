@@ -37,7 +37,13 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
                 ),
               TranslatedText(value.recipient, style: valueTextStyle),
               TranslatedText(value.boxId, style: valueTextStyle),
-              Row(spacing: 4, children: [TranslatedText(value.zipCode, style: valueTextStyle), TranslatedText(value.city, style: valueTextStyle)]),
+              Row(
+                spacing: 4,
+                children: [
+                  TranslatedText(value.zipCode, style: valueTextStyle),
+                  TranslatedText(value.city, style: valueTextStyle),
+                ],
+              ),
               TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
               if (value.state != null) TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
               if (extraLine != null) ...[const SizedBox(height: 2), extraLine!],

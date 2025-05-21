@@ -32,19 +32,20 @@ class ContactSharedFiles extends StatelessWidget {
           ),
         ),
         if (sharedFiles == null)
-          const Center(child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator()))
+          const Center(
+            child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator()),
+          )
         else
           sharedFiles!.isEmpty
               ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.files_noFilesAvailable)
               : ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder:
-                    (context, index) =>
-                        FileItem(accountId: accountId, fileRecord: sharedFiles!.elementAt(index), trailing: const Icon(Icons.chevron_right)),
-                itemCount: sharedFiles!.length,
-                separatorBuilder: (context, index) => const Divider(height: 2),
-              ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) =>
+                      FileItem(accountId: accountId, fileRecord: sharedFiles!.elementAt(index), trailing: const Icon(Icons.chevron_right)),
+                  itemCount: sharedFiles!.length,
+                  separatorBuilder: (context, index) => const Divider(height: 2),
+                ),
       ],
     );
   }

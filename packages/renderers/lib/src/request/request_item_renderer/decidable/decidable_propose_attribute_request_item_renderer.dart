@@ -84,10 +84,9 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value:
-          _choice.id != null
-              ? AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.id!)
-              : AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
+      value: _choice.id != null
+          ? AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.id!)
+          : AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
     );
   }
 

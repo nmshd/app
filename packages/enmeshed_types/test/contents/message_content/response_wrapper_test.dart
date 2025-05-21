@@ -22,12 +22,11 @@ void main() {
           'requestId': 'aRequestId',
           'requestSourceReference': 'aRequestSourceReference',
           'requestSourceType': 'Message',
-          'response':
-              const Response(
-                result: ResponseResult.Accepted,
-                requestId: 'aRequestId',
-                items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-              ).toJson(),
+          'response': const Response(
+            result: ResponseResult.Accepted,
+            requestId: 'aRequestId',
+            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+          ).toJson(),
         }),
       );
     });
@@ -40,12 +39,11 @@ void main() {
         'requestId': 'aRequestId',
         'requestSourceReference': 'aRequestSourceReference',
         'requestSourceType': 'Message',
-        'response':
-            const Response(
-              result: ResponseResult.Accepted,
-              requestId: 'aRequestId',
-              items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-            ).toJson(),
+        'response': const Response(
+          result: ResponseResult.Accepted,
+          requestId: 'aRequestId',
+          items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        ).toJson(),
       };
       expect(
         ResponseWrapper.fromJson(json),

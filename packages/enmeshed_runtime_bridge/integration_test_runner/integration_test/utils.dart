@@ -108,8 +108,9 @@ Future<List<MessageDTO>> syncUntilHasMessages(Session session, {required int exp
 
 Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session session2) async {
   final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
-  List<RelationshipDTO> relationships =
-      (await session1.transportServices.relationships.getRelationships(query: {'peer': QueryValue.string(session2Address)})).value;
+  List<RelationshipDTO> relationships = (await session1.transportServices.relationships.getRelationships(
+    query: {'peer': QueryValue.string(session2Address)},
+  )).value;
 
   if (relationships.isEmpty) {
     await establishRelationshipBetweenSessionsAndSync(session1, session2);
@@ -125,8 +126,9 @@ Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session sessi
 
 Future<RelationshipDTO> ensureTerminatedRelationship(Session session1, Session session2) async {
   final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
-  List<RelationshipDTO> relationships =
-      (await session1.transportServices.relationships.getRelationships(query: {'peer': QueryValue.string(session2Address)})).value;
+  List<RelationshipDTO> relationships = (await session1.transportServices.relationships.getRelationships(
+    query: {'peer': QueryValue.string(session2Address)},
+  )).value;
 
   if (relationships.isEmpty) {
     await establishRelationshipBetweenSessionsAndSync(session1, session2);

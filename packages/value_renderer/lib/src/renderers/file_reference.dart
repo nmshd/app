@@ -67,19 +67,20 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
 
   @override
   Widget build(BuildContext context) {
-    final title =
-        widget.fieldName != null
-            ? TranslatedText(widget.fieldName!, style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant))
-            : null;
-    final subtitle =
-        !initialLoadComplete
-            ? const LinearProgressIndicator()
-            : selectedFile != null
-            ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text(selectedFile!.title, style: widget.valueTextStyle), Text(selectedFile!.filename, style: widget.valueTextStyle)],
-            )
-            : TranslatedText('i18n://valueRenderer.fileReference.noFileSelected', style: widget.valueTextStyle);
+    final title = widget.fieldName != null
+        ? TranslatedText(widget.fieldName!, style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant))
+        : null;
+    final subtitle = !initialLoadComplete
+        ? const LinearProgressIndicator()
+        : selectedFile != null
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(selectedFile!.title, style: widget.valueTextStyle),
+              Text(selectedFile!.filename, style: widget.valueTextStyle),
+            ],
+          )
+        : TranslatedText('i18n://valueRenderer.fileReference.noFileSelected', style: widget.valueTextStyle);
 
     return ListTile(
       contentPadding: EdgeInsets.zero,

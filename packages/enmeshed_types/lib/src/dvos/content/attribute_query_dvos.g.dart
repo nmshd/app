@@ -117,8 +117,9 @@ IQLQueryDVO _$IQLQueryDVOFromJson(Map<String, dynamic> json) => IQLQueryDVO(
   queryString: json['queryString'] as String,
   isProcessed: json['isProcessed'] as bool,
   valueType: json['valueType'] as String?,
-  attributeCreationHints:
-      json['attributeCreationHints'] == null ? null : IQLQueryCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
+  attributeCreationHints: json['attributeCreationHints'] == null
+      ? null
+      : IQLQueryCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
   renderHints: json['renderHints'] == null ? null : RenderHints.fromJson(json['renderHints'] as Map<String, dynamic>),
   valueHints: json['valueHints'] == null ? null : ValueHints.fromJson(json['valueHints'] as Map<String, dynamic>),
   tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),

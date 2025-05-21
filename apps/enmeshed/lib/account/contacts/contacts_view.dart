@@ -109,7 +109,9 @@ class _ContactsViewState extends State<ContactsView> {
               ),
             ),
           if (_favorites.isNotEmpty && !widget.contactsFilterController.isContactsFilterSet) ...[
-            SliverToBoxAdapter(child: ContactHeadline(text: context.l10n.favorites, icon: const Icon(Icons.star))),
+            SliverToBoxAdapter(
+              child: ContactHeadline(text: context.l10n.favorites, icon: const Icon(Icons.star)),
+            ),
             SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.75),
               delegate: SliverChildBuilderDelegate((context, index) {
@@ -122,11 +124,10 @@ class _ContactsViewState extends State<ContactsView> {
             child: SortBar<_ContactsSortingType>(
               sortingType: _sortingType,
               isSortedAscending: _isSortedAscending,
-              translate:
-                  (s) => switch (s) {
-                    _ContactsSortingType.name => context.l10n.sortedByName,
-                    _ContactsSortingType.date => context.l10n.sortedByDate,
-                  },
+              translate: (s) => switch (s) {
+                _ContactsSortingType.name => context.l10n.sortedByName,
+                _ContactsSortingType.date => context.l10n.sortedByDate,
+              },
               sortMenuItem: [
                 (value: _ContactsSortingType.name, label: context.l10n.name),
                 (value: _ContactsSortingType.date, label: context.l10n.contacts_date),
@@ -170,7 +171,12 @@ class _ContactsViewState extends State<ContactsView> {
                   return contactItem;
                 }
 
-                return Column(children: [ContactHeadline(text: _contactToCategory(item)), contactItem]);
+                return Column(
+                  children: [
+                    ContactHeadline(text: _contactToCategory(item)),
+                    contactItem,
+                  ],
+                );
               },
               separatorBuilder: (context, index) {
                 final currentCategory = _contactToCategory(_filteredContacts[index]);
@@ -295,22 +301,20 @@ class _ContactsViewState extends State<ContactsView> {
 
     final selectedFilterOptions = widget.contactsFilterController.value;
 
-    final filteredContacts =
-        _contacts!.where((contact) {
-            if (contact.requiresAttention && selectedFilterOptions.contains(const ActionRequiredContactsFilterOption())) {
-              return true;
-            }
-            return switch (contact.contact.relationship?.status) {
-              RelationshipStatus.Terminated => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
-              RelationshipStatus.DeletionProposed => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
-              RelationshipStatus.Active => selectedFilterOptions.contains(const ActiveContactsFilterOption()),
-              RelationshipStatus.Pending => selectedFilterOptions.contains(const PendingContactsFilterOption()),
-              RelationshipStatus.Revoked => false,
-              RelationshipStatus.Rejected => false,
-              null => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
-            };
-          }).toList()
-          ..sort(_compareFunction(_sortingType, _isSortedAscending));
+    final filteredContacts = _contacts!.where((contact) {
+      if (contact.requiresAttention && selectedFilterOptions.contains(const ActionRequiredContactsFilterOption())) {
+        return true;
+      }
+      return switch (contact.contact.relationship?.status) {
+        RelationshipStatus.Terminated => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
+        RelationshipStatus.DeletionProposed => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
+        RelationshipStatus.Active => selectedFilterOptions.contains(const ActiveContactsFilterOption()),
+        RelationshipStatus.Pending => selectedFilterOptions.contains(const PendingContactsFilterOption()),
+        RelationshipStatus.Revoked => false,
+        RelationshipStatus.Rejected => false,
+        null => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
+      };
+    }).toList()..sort(_compareFunction(_sortingType, _isSortedAscending));
 
     setState(() => _filteredContacts = filteredContacts);
   }

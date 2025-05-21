@@ -34,7 +34,9 @@ void run(EnmeshedRuntime runtime) {
 
         test('sender: create an outgoing Request in status Draft', () async {
           final result = await sender.consumptionServices.outgoingRequests.create(
-            content: const Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
+            content: const Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))],
+            ),
             peer: (await recipient.transportServices.account.getIdentityInfo()).value.address,
           );
 
@@ -86,7 +88,10 @@ void run(EnmeshedRuntime runtime) {
               requestId: rLocalRequest.id,
               items: [
                 AcceptReadAttributeRequestItemParametersWithNewAttribute(
-                  newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
+                  newAttribute: IdentityAttribute(
+                    owner: account2.address!,
+                    value: const CityAttributeValue(value: 'aCity'),
+                  ),
                 ),
               ],
             ),
@@ -104,7 +109,10 @@ void run(EnmeshedRuntime runtime) {
               requestId: rLocalRequest.id,
               items: [
                 AcceptReadAttributeRequestItemParametersWithNewAttribute(
-                  newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
+                  newAttribute: IdentityAttribute(
+                    owner: account2.address!,
+                    value: const CityAttributeValue(value: 'aCity'),
+                  ),
                 ),
               ],
             ),
@@ -153,7 +161,9 @@ void run(EnmeshedRuntime runtime) {
 
         test('sender: create an outgoing Request in status Draft', () async {
           final result = await sender.consumptionServices.outgoingRequests.create(
-            content: const Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
+            content: const Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))],
+            ),
             peer: (await recipient.transportServices.account.getIdentityInfo()).value.address,
           );
 
@@ -260,7 +270,9 @@ void run(EnmeshedRuntime runtime) {
           final result = await sender.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
             expiresAt: generateExpiryString(),
             content: const RelationshipTemplateContent(
-              onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
+              onNewRelationship: Request(
+                items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))],
+              ),
             ),
           );
 
@@ -295,7 +307,10 @@ void run(EnmeshedRuntime runtime) {
               requestId: rLocalRequest.id,
               items: [
                 AcceptReadAttributeRequestItemParametersWithNewAttribute(
-                  newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
+                  newAttribute: IdentityAttribute(
+                    owner: account2.address!,
+                    value: const CityAttributeValue(value: 'aCity'),
+                  ),
                 ),
               ],
             ),
@@ -313,7 +328,10 @@ void run(EnmeshedRuntime runtime) {
               requestId: rLocalRequest.id,
               items: [
                 AcceptReadAttributeRequestItemParametersWithNewAttribute(
-                  newAttribute: IdentityAttribute(owner: account2.address!, value: const CityAttributeValue(value: 'aCity')),
+                  newAttribute: IdentityAttribute(
+                    owner: account2.address!,
+                    value: const CityAttributeValue(value: 'aCity'),
+                  ),
                 ),
               ],
             ),
@@ -365,7 +383,9 @@ void run(EnmeshedRuntime runtime) {
           final result = await sender.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
             expiresAt: generateExpiryString(),
             content: const RelationshipTemplateContent(
-              onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
+              onNewRelationship: Request(
+                items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))],
+              ),
             ),
           );
 
@@ -445,7 +465,9 @@ void run(EnmeshedRuntime runtime) {
         final result = await sender.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
           expiresAt: generateExpiryString(),
           content: const RelationshipTemplateContent(
-            onNewRelationship: Request(items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))]),
+            onNewRelationship: Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))],
+            ),
             onExistingRelationship: Request(
               items: [ReadAttributeRequestItem(mustBeAccepted: false, query: IdentityAttributeQuery(valueType: 'City'))],
             ),

@@ -10,7 +10,9 @@ void main() {
         peer: 'aPeer',
         createdAt: '2023',
         status: LocalRequestStatus.Open,
-        content: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))]),
+        content: Request(
+          items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+        ),
       );
       final dtoJson = dto.toJson();
       expect(
@@ -21,8 +23,9 @@ void main() {
           'peer': 'aPeer',
           'createdAt': '2023',
           'status': 'Open',
-          'content':
-              const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))]).toJson(),
+          'content': const Request(
+            items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+          ).toJson(),
         }),
       );
     });
@@ -34,7 +37,9 @@ void main() {
         peer: 'aPeer',
         createdAt: '2023',
         status: LocalRequestStatus.Open,
-        content: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))]),
+        content: Request(
+          items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+        ),
         source: LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference'),
       );
       final dtoJson = dto.toJson();
@@ -46,8 +51,9 @@ void main() {
           'peer': 'aPeer',
           'createdAt': '2023',
           'status': 'Open',
-          'content':
-              const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))]).toJson(),
+          'content': const Request(
+            items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+          ).toJson(),
           'source': const LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference').toJson(),
         }),
       );
@@ -62,8 +68,9 @@ void main() {
         'peer': 'aPeer',
         'createdAt': '2023',
         'status': 'Open',
-        'content':
-            const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))]).toJson(),
+        'content': const Request(
+          items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+        ).toJson(),
       };
       expect(
         LocalRequestDTO.fromJson(json),
@@ -74,7 +81,9 @@ void main() {
             peer: 'aPeer',
             createdAt: '2023',
             status: LocalRequestStatus.Open,
-            content: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))]),
+            content: Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+            ),
           ),
         ),
       );
@@ -87,8 +96,9 @@ void main() {
         'peer': 'aPeer',
         'createdAt': '2023',
         'status': 'Open',
-        'content':
-            const Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))]).toJson(),
+        'content': const Request(
+          items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+        ).toJson(),
         'source': const LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference').toJson(),
       };
       expect(
@@ -100,7 +110,9 @@ void main() {
             peer: 'aPeer',
             createdAt: '2023',
             status: LocalRequestStatus.Open,
-            content: Request(items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))]),
+            content: Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+            ),
             source: LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference'),
           ),
         ),

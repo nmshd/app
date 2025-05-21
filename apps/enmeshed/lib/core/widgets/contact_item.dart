@@ -31,10 +31,9 @@ class ContactItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final contactStatusWidget =
-        (ContactStatusText.canRenderStatusText(contact: contact, openContactRequest: openContactRequest)
-            ? ContactStatusText(contact: contact, style: Theme.of(context).textTheme.labelMedium, openContactRequest: openContactRequest)
-            : null);
+    final contactStatusWidget = (ContactStatusText.canRenderStatusText(contact: contact, openContactRequest: openContactRequest)
+        ? ContactStatusText(contact: contact, style: Theme.of(context).textTheme.labelMedium, openContactRequest: openContactRequest)
+        : null);
 
     return ListTile(
       enabled: enabled,

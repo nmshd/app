@@ -124,10 +124,9 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value:
-          choice.id == null
-              ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
-              : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      value: choice.id == null
+          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
     );
   }
 
@@ -138,10 +137,9 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         valueType: valueType,
         isComplex: isComplex,
         currentAddress: widget.currentAddress,
-        tags:
-            widget.item.query is ProcessedIQLQueryDVO
-                ? (widget.item.query as ProcessedIQLQueryDVO).tags
-                : (widget.item.query as ProcessedIdentityAttributeQueryDVO).tags,
+        tags: widget.item.query is ProcessedIQLQueryDVO
+            ? (widget.item.query as ProcessedIQLQueryDVO).tags
+            : (widget.item.query as ProcessedIdentityAttributeQueryDVO).tags,
       );
 
       if (composedValue != null) {

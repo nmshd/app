@@ -46,7 +46,12 @@ class _DevicesScreenState extends State<DevicesScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.devices_title));
 
-    if (_devices == null || _account == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_devices == null || _account == null) {
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     final currentDevice = _devices!.firstWhere((e) => e.isCurrentDevice);
     final otherDevices = _devices!.where((e) => !e.isCurrentDevice).toList();
@@ -78,21 +83,19 @@ class _DevicesScreenState extends State<DevicesScreen> {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: _reloadDevices,
-                  child:
-                      otherDevices.isEmpty
-                          ? EmptyListIndicator(
-                            icon: Icons.send_to_mobile_outlined,
-                            text: context.l10n.devices_empty,
-                            wrapInListView: true,
-                            description: context.l10n.devices_empty_description,
-                          )
-                          : ListView.separated(
-                            itemCount: otherDevices.length,
-                            separatorBuilder: (_, __) => Gaps.h16,
-                            itemBuilder:
-                                (context, index) =>
-                                    DeviceCard(accountId: widget.accountId, device: otherDevices[index], reloadDevices: _reloadDevices),
-                          ),
+                  child: otherDevices.isEmpty
+                      ? EmptyListIndicator(
+                          icon: Icons.send_to_mobile_outlined,
+                          text: context.l10n.devices_empty,
+                          wrapInListView: true,
+                          description: context.l10n.devices_empty_description,
+                        )
+                      : ListView.separated(
+                          itemCount: otherDevices.length,
+                          separatorBuilder: (_, __) => Gaps.h16,
+                          itemBuilder: (context, index) =>
+                              DeviceCard(accountId: widget.accountId, device: otherDevices[index], reloadDevices: _reloadDevices),
+                        ),
                 ),
               ),
             ],

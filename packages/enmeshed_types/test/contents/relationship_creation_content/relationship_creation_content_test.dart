@@ -16,12 +16,11 @@ void main() {
         relationshipCreationContentJson,
         equals({
           '@type': 'RelationshipCreationContent',
-          'response':
-              const Response(
-                result: ResponseResult.Accepted,
-                requestId: 'aRequestId',
-                items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-              ).toJson(),
+          'response': const Response(
+            result: ResponseResult.Accepted,
+            requestId: 'aRequestId',
+            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+          ).toJson(),
         }),
       );
     });
@@ -31,12 +30,11 @@ void main() {
     test('is correctly converted', () {
       final json = {
         '@type': 'RelationshipCreationContent',
-        'response':
-            const Response(
-              result: ResponseResult.Accepted,
-              requestId: 'aRequestId',
-              items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
-            ).toJson(),
+        'response': const Response(
+          result: ResponseResult.Accepted,
+          requestId: 'aRequestId',
+          items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        ).toJson(),
       };
       expect(
         RelationshipCreationContent.fromJson(json),

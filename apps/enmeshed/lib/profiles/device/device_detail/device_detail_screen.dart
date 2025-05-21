@@ -38,7 +38,12 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.deviceInfo_title));
 
-    if (_deviceDTO == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_deviceDTO == null) {
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n.deviceInfo_title)),
@@ -237,7 +242,10 @@ class _DeviceInstructions extends StatelessWidget {
 
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text('$itemNumber. ', style: textStyle), Expanded(child: BoldStyledText(instructions.elementAt(index), style: textStyle))],
+                children: [
+                  Text('$itemNumber. ', style: textStyle),
+                  Expanded(child: BoldStyledText(instructions.elementAt(index), style: textStyle)),
+                ],
               );
             },
             itemCount: instructions.length,
