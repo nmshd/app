@@ -60,7 +60,7 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
       layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
         return AnimatedSize(
           duration: const Duration(milliseconds: 200),
-          child: Stack(alignment: Alignment.center, children: <Widget>[...previousChildren, if (currentChild != null) currentChild]),
+          child: Stack(alignment: Alignment.center, children: <Widget>[...previousChildren, ?currentChild]),
         );
       },
       duration: const Duration(milliseconds: 200),
