@@ -30,6 +30,7 @@ class EnmeshedRuntime {
   final _jsToUIBridge = JsToUIBridge();
 
   final VoidCallback? _runtimeReadyCallback;
+  final Future<String?> Function() getPushTokenCallback;
 
   late final AccountServices _accountServices;
   AccountServices get accountServices => _accountServices;
@@ -55,10 +56,15 @@ class EnmeshedRuntime {
     return _runtimeVersion!;
   }
 
-  EnmeshedRuntime({Logger? logger, VoidCallback? runtimeReadyCallback, required this.runtimeConfig, EventBus? eventBus})
-    : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
-      _runtimeReadyCallback = runtimeReadyCallback,
-      eventBus = eventBus ?? EventBus() {
+  EnmeshedRuntime({
+    Logger? logger,
+    VoidCallback? runtimeReadyCallback,
+    required this.getPushTokenCallback,
+    required this.runtimeConfig,
+    EventBus? eventBus,
+  }) : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
+       _runtimeReadyCallback = runtimeReadyCallback,
+       eventBus = eventBus ?? EventBus() {
     if (runtimeConfig.baseUrl.isEmpty) throw Exception('Missing runtimeConfig value: baseUrl');
     if (runtimeConfig.clientId.isEmpty) throw Exception('Missing runtimeConfig value: clientId');
     if (runtimeConfig.clientSecret.isEmpty) throw Exception('Missing runtimeConfig value: clientSecret');
@@ -109,6 +115,25 @@ class EnmeshedRuntime {
   }
 
   Future<void> _addJavaScriptHandlers(InAppWebViewController controller) async {
+    _controller.addJavaScriptHandler(
+      handlerName: 'notifications_getPushToken',
+      callback: (_) async {
+        try {
+          final token = await getPushTokenCallback();
+
+          if (token == null) {
+            _logger.w('Push token is null');
+            return {'ok': false, 'error': 'No Push token is available'};
+          }
+
+          return {'ok': true, 'token': token};
+        } catch (e) {
+          _logger.e('Error getting push token: $e');
+          return {'ok': false, 'error': e.toString()};
+        }
+      },
+    );
+
     controller.addJavaScriptHandler(handlerName: 'handleRuntimeEvent', callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger));
 
     controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
@@ -132,28 +157,22 @@ class EnmeshedRuntime {
 
     controller.addJavaScriptHandler(
       handlerName: 'getRuntimeConfig',
-      callback:
-          (_) => {
-            'applicationId': runtimeConfig.applicationId,
-            if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
-            if (Platform.isIOS || Platform.isMacOS)
-              'pushService': 'apns'
-            else if (Platform.isAndroid)
-              'pushService': 'fcm'
-            else
-              'pushService': 'none',
-            'transportLibrary': {
-              'baseUrl': runtimeConfig.baseUrl,
-              'platformClientId': runtimeConfig.clientId,
-              'platformClientSecret': runtimeConfig.clientSecret,
-            },
-            'databaseFolder': runtimeConfig.databaseFolder,
-            if (Platform.isWindows)
-              'modules': {
-                'pushNotification': {'enabled': false},
-                'sse': {'enabled': true},
-              },
+      callback: (_) => {
+        'applicationId': runtimeConfig.applicationId,
+        if (Platform.isIOS || Platform.isMacOS) 'applePushEnvironment': runtimeConfig.useAppleSandbox ? 'Development' : 'Production',
+        if (Platform.isIOS || Platform.isMacOS) 'pushService': 'apns' else if (Platform.isAndroid) 'pushService': 'fcm' else 'pushService': 'none',
+        'transportLibrary': {
+          'baseUrl': runtimeConfig.baseUrl,
+          'platformClientId': runtimeConfig.clientId,
+          'platformClientSecret': runtimeConfig.clientSecret,
+        },
+        'databaseFolder': runtimeConfig.databaseFolder,
+        if (Platform.isWindows)
+          'modules': {
+            'pushNotification': {'enabled': false},
+            'sse': {'enabled': true},
           },
+      },
     );
 
     await controller.addLocalNotificationsJavaScriptHandlers();
@@ -252,10 +271,10 @@ class EnmeshedRuntime {
     }
   }
 
-  Future<void> setPushToken(String token) async {
+  Future<void> triggerRemoteNotificationRegistrationEvent(String token) async {
     assert(_isReady, 'Runtime not ready');
 
-    final result = await _evaluateJavaScript('await window.setPushToken(token)', arguments: {'token': token});
+    final result = await _evaluateJavaScript('await window.triggerRemoteNotificationRegistrationEvent(token)', arguments: {'token': token});
     result.throwOnError();
   }
 

@@ -16,25 +16,18 @@ Future<void> showDeleteProfileOrIdentityModal({required LocalAccountDTO localAcc
   final devicesResult = await session.transportServices.devices.getDevices();
   final devices = devicesResult.isSuccess ? devicesResult.value : <DeviceDTO>[];
 
-  final otherActiveDevices =
-      devices.where((element) => element.isOnboarded && element.isOffboarded != true && !element.isCurrentDevice).toList()
-        ..sort((a, b) => a.name.compareTo(b.name));
+  final otherActiveDevices = devices.where((element) => element.isOnboarded && element.isOffboarded != true && !element.isCurrentDevice).toList()
+    ..sort((a, b) => a.name.compareTo(b.name));
 
   if (!context.mounted) return;
 
   await showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder:
-        (context) => ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
-          child: _DeleteProfileOrIdentityModal(
-            localAccount: localAccount,
-            otherActiveDevices: otherActiveDevices,
-            devices: devices,
-            session: session,
-          ),
-        ),
+    builder: (context) => ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
+      child: _DeleteProfileOrIdentityModal(localAccount: localAccount, otherActiveDevices: otherActiveDevices, devices: devices, session: session),
+    ),
   );
 }
 
@@ -67,21 +60,17 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
       layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
         return AnimatedSize(
           duration: const Duration(milliseconds: 200),
-          child: Stack(alignment: Alignment.center, children: <Widget>[...previousChildren, if (currentChild != null) currentChild]),
+          child: Stack(alignment: Alignment.center, children: <Widget>[...previousChildren, ?currentChild]),
         );
       },
       duration: const Duration(milliseconds: 200),
       reverseDuration: Duration.zero,
-      transitionBuilder:
-          (child, animation) => SlideTransition(
-            position: animation.drive(
-              Tween(
-                begin: _index > _lastIndex ? const Offset(1, 0) : const Offset(-1, 0),
-                end: Offset.zero,
-              ).chain(CurveTween(curve: Curves.easeInOut)),
-            ),
-            child: child,
-          ),
+      transitionBuilder: (child, animation) => SlideTransition(
+        position: animation.drive(
+          Tween(begin: _index > _lastIndex ? const Offset(1, 0) : const Offset(-1, 0), end: Offset.zero).chain(CurveTween(curve: Curves.easeInOut)),
+        ),
+        child: child,
+      ),
       child: switch (_index) {
         0 => DeleteProfileOrIdentity(
           profileName: widget.localAccount.name,
@@ -92,21 +81,19 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
         ),
         1 => ShouldDeleteProfile(
           cancel: () => setState(() => _currentIndex = 0),
-          delete:
-              () => setState(() {
-                _deletionType = DeletionType.profile;
-                _currentIndex = 3;
-              }),
+          delete: () => setState(() {
+            _deletionType = DeletionType.profile;
+            _currentIndex = 3;
+          }),
           profileName: widget.localAccount.name,
           otherActiveDevices: widget.otherActiveDevices,
         ),
         2 => ShouldDeleteIdentity(
           cancel: () => setState(() => _currentIndex = 0),
-          delete:
-              () => setState(() {
-                _deletionType = DeletionType.identity;
-                _currentIndex = 3;
-              }),
+          delete: () => setState(() {
+            _deletionType = DeletionType.identity;
+            _currentIndex = 3;
+          }),
           profileName: widget.localAccount.name,
           devices: widget.devices,
         ),

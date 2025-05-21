@@ -36,7 +36,9 @@ class _AttachmentsListState extends State<AttachmentsList> {
                 children: [
                   TextSpan(text: context.l10n.mailbox_attachments(widget.attachments.length)),
                   const TextSpan(text: ' - '),
-                  TextSpan(text: bytesText(bytes: widget.attachments.fold(0, (filesizeSum, e) => filesizeSum + e.filesize), context: context)),
+                  TextSpan(
+                    text: bytesText(bytes: widget.attachments.fold(0, (filesizeSum, e) => filesizeSum + e.filesize), context: context),
+                  ),
                   const TextSpan(text: ' '),
                   TextSpan(text: context.l10n.mailbox_attachments_total),
                 ],
@@ -47,16 +49,15 @@ class _AttachmentsListState extends State<AttachmentsList> {
         Gaps.h8,
         Wrap(
           spacing: 8,
-          children:
-              _visibleAttachments
-                  .map(
-                    (e) => _AttachmentItem(
-                      attachment: e,
-                      accountId: widget.accountId,
-                      onDeleted: widget.removeFile != null ? () => widget.removeFile!(e) : null,
-                    ),
-                  )
-                  .toList(),
+          children: _visibleAttachments
+              .map(
+                (e) => _AttachmentItem(
+                  attachment: e,
+                  accountId: widget.accountId,
+                  onDeleted: widget.removeFile != null ? () => widget.removeFile!(e) : null,
+                ),
+              )
+              .toList(),
         ),
         Row(
           children: [

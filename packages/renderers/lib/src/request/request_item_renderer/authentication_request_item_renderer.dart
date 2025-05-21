@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
+import 'extensions/extensions.dart';
 import 'widgets/validation_error_box.dart';
 
 class AuthenticationRequestItemRenderer extends StatefulWidget {
@@ -43,7 +44,12 @@ class _AuthenticationRequestItemRendererState extends State<AuthenticationReques
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text.rich(
-            TextSpan(children: [TextSpan(text: widget.item.name), if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*')]),
+            TextSpan(
+              children: [
+                TextSpan(text: widget.item.name),
+                if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*'),
+              ],
+            ),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),

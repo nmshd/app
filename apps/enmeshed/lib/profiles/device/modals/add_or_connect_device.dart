@@ -49,11 +49,10 @@ class _AddOrConnectDeviceModal extends StatefulWidget {
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      builder:
-          (context) => ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
-            child: _AddOrConnectDeviceModal(accountId: accountId, reload: reload, existingDeviceAndToken: existingDeviceAndToken),
-          ),
+      builder: (context) => ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
+        child: _AddOrConnectDeviceModal(accountId: accountId, reload: reload, existingDeviceAndToken: existingDeviceAndToken),
+      ),
     );
   }
 
@@ -78,7 +77,7 @@ class _AddOrConnectDeviceModalState extends State<_AddOrConnectDeviceModal> {
       layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
         return AnimatedSize(
           duration: const Duration(milliseconds: 300),
-          child: Stack(alignment: Alignment.center, children: [...previousChildren, if (currentChild != null) currentChild]),
+          child: Stack(alignment: Alignment.center, children: [...previousChildren, ?currentChild]),
         );
       },
       duration: const Duration(milliseconds: 300),

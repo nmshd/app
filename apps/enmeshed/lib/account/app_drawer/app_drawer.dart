@@ -31,16 +31,15 @@ class _AppDrawerState extends State<AppDrawer> {
           padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
-            transitionBuilder:
-                (child, animation) => SlideTransition(
-                  position: animation.drive(
-                    Tween(
-                      begin: child is DrawerMainPage ? const Offset(-1, 0) : const Offset(1, 0),
-                      end: Offset.zero,
-                    ).chain(CurveTween(curve: Curves.easeInOut)),
-                  ),
-                  child: child,
-                ),
+            transitionBuilder: (child, animation) => SlideTransition(
+              position: animation.drive(
+                Tween(
+                  begin: child is DrawerMainPage ? const Offset(-1, 0) : const Offset(1, 0),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: Curves.easeInOut)),
+              ),
+              child: child,
+            ),
             child: _currentPage,
           ),
         ),

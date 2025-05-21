@@ -50,24 +50,15 @@ class NumberInputState extends State<NumberInput> {
 
     if (widget.controller != null) {
       _controller.addListener(
-        () =>
-            widget.controller!.value =
-                validateInput(_controller.text) == null
-                    ? ControllerTypeResolver.resolveType(
-                      inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)),
-                      type: widget.technicalType,
-                    )
-                    : ValueRendererValidationError(),
+        () => widget.controller!.value = validateInput(_controller.text) == null
+            ? ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType)
+            : ValueRendererValidationError(),
       );
 
       if (initialValue != null) {
-        widget.controller!.value =
-            validateInput(_controller.text) == null
-                ? ControllerTypeResolver.resolveType(
-                  inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)),
-                  type: widget.technicalType,
-                )
-                : ValueRendererValidationError();
+        widget.controller!.value = validateInput(_controller.text) == null
+            ? ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(double.parse(_controller.text)), type: widget.technicalType)
+            : ValueRendererValidationError();
       }
     }
   }
@@ -91,10 +82,9 @@ class NumberInputState extends State<NumberInput> {
               ? FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))
               : FilteringTextInputFormatter.digitsOnly,
         ],
-        decoration:
-            widget.decoration != null
-                ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
-                : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
+        decoration: widget.decoration != null
+            ? widget.decoration!.copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut))
+            : inputDecoration(context).copyWith(labelText: context.translateFieldName(widget.fieldName, widget.mustBeFilledOut)),
       ),
     );
   }

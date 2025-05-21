@@ -1,5 +1,5 @@
 import { ApplicationError, Result } from "@js-soft/ts-utils";
-import { IUIBridge, LocalAccountDTO, UserfriendlyApplicationError } from "@nmshd/app-runtime";
+import { IUIBridge, LocalAccountDTO } from "@nmshd/app-runtime";
 import {
   DeviceOnboardingInfoDTO,
   FileDVO,
@@ -40,16 +40,12 @@ export class UIBridge implements IUIBridge {
     return Result.ok(undefined);
   }
 
-  public async showError(
-    error: UserfriendlyApplicationError,
-    account?: LocalAccountDTO | undefined
-  ): Promise<Result<void>> {
+  public async showError(error: ApplicationError, account?: LocalAccountDTO | undefined): Promise<Result<void>> {
     await window.flutter_inappwebview.callHandler(
       "uibridge_showError",
       {
         code: error.code,
         message: error.message,
-        userfriendlyMessage: error.userfriendlyMessage,
         data: error.data
       },
       account

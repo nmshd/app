@@ -24,20 +24,19 @@ class _SelectProfileDialogState extends State<SelectProfileDialog> {
     return Dialog(
       child: AnimatedSize(
         duration: const Duration(milliseconds: 200),
-        child:
-            _chooseExisting && widget.possibleAccounts.isNotEmpty
-                ? _ChooseExistingProfile(
-                  possibleAccounts: widget.possibleAccounts,
-                  title: widget.title,
-                  description: widget.description,
-                  createNewProfilePressed: () => setState(() => _chooseExisting = false),
-                )
-                : CreateProfile(
-                  onProfileCreated: (account) => context.pop(account),
-                  onBackPressed: widget.possibleAccounts.isEmpty ? null : () => setState(() => _chooseExisting = true),
-                  description: context.l10n.profiles_createNewForProcessingQrDescription,
-                  isInDialog: true,
-                ),
+        child: _chooseExisting && widget.possibleAccounts.isNotEmpty
+            ? _ChooseExistingProfile(
+                possibleAccounts: widget.possibleAccounts,
+                title: widget.title,
+                description: widget.description,
+                createNewProfilePressed: () => setState(() => _chooseExisting = false),
+              )
+            : CreateProfile(
+                onProfileCreated: (account) => context.pop(account),
+                onBackPressed: widget.possibleAccounts.isEmpty ? null : () => setState(() => _chooseExisting = true),
+                description: context.l10n.profiles_createNewForProcessingQrDescription,
+                isInDialog: true,
+              ),
       ),
     );
   }
@@ -73,7 +72,10 @@ class _ChooseExistingProfile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: TranslatedText(description ?? 'i18n://uibridge.accountSelection.description'),
           ),
-          Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: _ProfileListTile(localAccountDTO: active, isActiveAccount: true)),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: _ProfileListTile(localAccountDTO: active, isActiveAccount: true),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: Row(
@@ -95,7 +97,9 @@ class _ChooseExistingProfile extends StatelessWidget {
               shrinkWrap: true,
             ),
           ),
-          Align(child: TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel))),
+          Align(
+            child: TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+          ),
         ],
       ),
     );

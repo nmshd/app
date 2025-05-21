@@ -6,6 +6,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
+import 'extensions/extensions.dart';
 import 'widgets/manual_decision_required.dart';
 import 'widgets/validation_error_box.dart';
 
@@ -52,8 +53,9 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
 
   @override
   Widget build(BuildContext context) {
-    final title =
-        widget.item.file.name.startsWith('i18n://') ? FlutterI18n.translate(context, widget.item.file.name.substring(7)) : widget.item.file.name;
+    final title = widget.item.file.name.startsWith('i18n://')
+        ? FlutterI18n.translate(context, widget.item.file.name.substring(7))
+        : widget.item.file.name;
 
     return InkWell(
       onTap: () async {
@@ -99,7 +101,12 @@ class _DecidableTransferFileOwnershipRequestItemRendererState extends State<Tran
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text.rich(
-                        TextSpan(children: [TextSpan(text: title), if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*')]),
+                        TextSpan(
+                          children: [
+                            TextSpan(text: title),
+                            if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*'),
+                          ],
+                        ),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(widget.item.file.filename, style: Theme.of(context).textTheme.bodyLarge),

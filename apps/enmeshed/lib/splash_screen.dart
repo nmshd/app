@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:app_links/app_links.dart';
@@ -10,6 +11,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:push/push.dart';
 import 'package:win32_registry/win32_registry.dart';
 
 import 'core/core.dart';
@@ -81,6 +83,8 @@ class _SplashScreenState extends State<SplashScreen> {
         useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
         databaseFolder: './database',
       ),
+      getPushTokenCallback: () async =>
+          Push.instance.token.timeout(const Duration(seconds: 5)).catchError((_) => 'timed out', test: (e) => e is TimeoutException),
     );
 
     final result = await runtime.run();

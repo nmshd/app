@@ -246,55 +246,54 @@ class _MessageListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: onRefresh,
-      child:
-          (messages.isEmpty)
-              ? EmptyListIndicator(
-                icon: Icons.mail_outline,
-                text: context.l10n.mailbox_empty,
-                wrapInListView: true,
-                isFiltered: isFiltered,
-                filteredText: context.l10n.mailbox_filtered_noResults,
-              )
-              : ListView.separated(
-                itemCount: messages.length,
-                separatorBuilder: (context, index) {
-                  if (createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt), context: context) ==
-                      createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt), context: context)) {
-                    return const Divider(indent: 16);
-                  }
+      child: (messages.isEmpty)
+          ? EmptyListIndicator(
+              icon: Icons.mail_outline,
+              text: context.l10n.mailbox_empty,
+              wrapInListView: true,
+              isFiltered: isFiltered,
+              filteredText: context.l10n.mailbox_filtered_noResults,
+            )
+          : ListView.separated(
+              itemCount: messages.length,
+              separatorBuilder: (context, index) {
+                if (createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt), context: context) ==
+                    createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt), context: context)) {
+                  return const Divider(indent: 16);
+                }
 
-                  return Container(
-                    alignment: Alignment.centerLeft,
-                    height: 40,
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Text(
-                      createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt).toLocal(), context: context),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  );
-                },
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          height: 40,
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Text(
-                            createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt).toLocal(), context: context),
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
+                return Container(
+                  alignment: Alignment.centerLeft,
+                  height: 40,
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(
+                    createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt).toLocal(), context: context),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                );
+              },
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        height: 40,
+                        padding: const EdgeInsets.only(left: 16),
+                        child: Text(
+                          createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt).toLocal(), context: context),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
-                        MessageDVORenderer(message: messages[index], accountId: accountId),
-                      ],
-                    );
-                  }
+                      ),
+                      MessageDVORenderer(message: messages[index], accountId: accountId),
+                    ],
+                  );
+                }
 
-                  return MessageDVORenderer(message: messages[index], accountId: accountId);
-                },
-              ),
+                return MessageDVORenderer(message: messages[index], accountId: accountId);
+              },
+            ),
     );
   }
 }

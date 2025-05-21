@@ -1,10 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 import '../../request_item_index.dart';
+import '../extensions/extensions.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/processed_query_renderer.dart';
 
@@ -124,10 +124,9 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value:
-          choice.id == null
-              ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
-              : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
+      value: choice.id == null
+          ? AcceptReadAttributeRequestItemParametersWithNewAttribute(newAttribute: choice.attribute)
+          : AcceptReadAttributeRequestItemParametersWithExistingAttribute(existingAttributeId: choice.id!),
     );
   }
 
@@ -138,10 +137,9 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
         valueType: valueType,
         isComplex: isComplex,
         currentAddress: widget.currentAddress,
-        tags:
-            widget.item.query is ProcessedIQLQueryDVO
-                ? (widget.item.query as ProcessedIQLQueryDVO).tags
-                : (widget.item.query as ProcessedIdentityAttributeQueryDVO).tags,
+        tags: widget.item.query is ProcessedIQLQueryDVO
+            ? (widget.item.query as ProcessedIQLQueryDVO).tags
+            : (widget.item.query as ProcessedIdentityAttributeQueryDVO).tags,
       );
 
       if (composedValue != null) {

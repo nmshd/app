@@ -58,22 +58,20 @@ class DebugScreen extends StatelessWidget {
                   children: [
                     if (kDebugMode) ...[
                       OutlinedButton(
-                        onPressed:
-                            () => DebugFeatures.show(
-                              context,
-                              availableFeatures: [const Feature('SHOW_TECHNICAL_MESSAGES', name: 'Show Technical Messages')],
-                            ),
+                        onPressed: () => DebugFeatures.show(
+                          context,
+                          availableFeatures: [const Feature('SHOW_TECHNICAL_MESSAGES', name: 'Show Technical Messages')],
+                        ),
                         child: const Text('Feature Flags'),
                       ),
                       OutlinedButton(onPressed: () async => _clearProfiles(context), child: const Text('Clear Profiles')),
                     ],
                     OutlinedButton(
-                      onPressed:
-                          () => showModalBottomSheet<void>(
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) => const SafeArea(minimum: EdgeInsets.only(bottom: 16), child: _PushDebugger()),
-                          ),
+                      onPressed: () => showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => const SafeArea(minimum: EdgeInsets.only(bottom: 16), child: _PushDebugger()),
+                      ),
                       child: const Text('Push Debugger'),
                     ),
                     OutlinedButton(onPressed: _extractAppDataAsZip, child: const Text('Export App Data')),
@@ -90,15 +88,14 @@ class DebugScreen extends StatelessWidget {
   Future<void> _clearProfiles(BuildContext context) async {
     final confirmed = await showDialog<bool>(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Delete all Profiles?'),
-            content: const Text('This will delete all profiles and their data. This action cannot be undone.'),
-            actions: [
-              TextButton(onPressed: () => context.pop(false), child: const Text('Cancel')),
-              TextButton(onPressed: () => context.pop(true), child: const Text('Delete')),
-            ],
-          ),
+      builder: (context) => AlertDialog(
+        title: const Text('Delete all Profiles?'),
+        content: const Text('This will delete all profiles and their data. This action cannot be undone.'),
+        actions: [
+          TextButton(onPressed: () => context.pop(false), child: const Text('Cancel')),
+          TextButton(onPressed: () => context.pop(true), child: const Text('Delete')),
+        ],
+      ),
     );
 
     if (confirmed == null || !confirmed) return;
@@ -189,7 +186,10 @@ class _CopyableText extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(icon: const Icon(Icons.copy), onPressed: text == 'timeout' ? null : () => Clipboard.setData(ClipboardData(text: text))),
+          IconButton(
+            icon: const Icon(Icons.copy),
+            onPressed: text == 'timeout' ? null : () => Clipboard.setData(ClipboardData(text: text)),
+          ),
         ],
       ),
     );
@@ -242,17 +242,15 @@ class _PushDebuggerState extends State<_PushDebugger> {
             ),
           ),
           Expanded(
-            child:
-                messages.isEmpty
-                    ? const EmptyListIndicator(icon: Icons.message, text: 'No Push Notification received yet.', backgroundColor: Colors.transparent)
-                    : ListView.builder(
-                      itemCount: messages.length,
-                      itemBuilder:
-                          (context, index) => ExpansionTile(
-                            title: Text(DateFormat.Hms(Localizations.localeOf(context).languageCode).format(messages[index].$1)),
-                            children: [Text(_encoder.convert(messages[index].$2.data))],
-                          ),
+            child: messages.isEmpty
+                ? const EmptyListIndicator(icon: Icons.message, text: 'No Push Notification received yet.', backgroundColor: Colors.transparent)
+                : ListView.builder(
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) => ExpansionTile(
+                      title: Text(DateFormat.Hms(Localizations.localeOf(context).languageCode).format(messages[index].$1)),
+                      children: [Text(_encoder.convert(messages[index].$2.data))],
                     ),
+                  ),
           ),
         ],
       ),

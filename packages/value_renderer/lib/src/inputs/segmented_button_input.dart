@@ -39,10 +39,9 @@ class SegmentedButtonInput extends FormField<ValueHintsDefaultValue?> {
                  child: SegmentedButton<ValueHintsDefaultValue>(
                    emptySelectionAllowed: true,
                    selected: field.value == null ? {} : {field.value!},
-                   segments:
-                       values.map((ValueHintsValue value) {
-                         return ButtonSegment<ValueHintsDefaultValue>(value: value.key, label: TranslatedText(value.displayName));
-                       }).toList(),
+                   segments: values.map((ValueHintsValue value) {
+                     return ButtonSegment<ValueHintsDefaultValue>(value: value.key, label: TranslatedText(value.displayName));
+                   }).toList(),
                    onSelectionChanged: (Set<ValueHintsDefaultValue> newSelection) {
                      controller?.value = ControllerTypeResolver.resolveType(inputValue: newSelection.first, type: technicalType);
                      field.didChange(newSelection.first);

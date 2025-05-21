@@ -116,7 +116,7 @@ class AccountFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'reference': reference, if (password != null) 'password': password},
+        'request': {'reference': reference, 'password': ?password},
       },
     );
 

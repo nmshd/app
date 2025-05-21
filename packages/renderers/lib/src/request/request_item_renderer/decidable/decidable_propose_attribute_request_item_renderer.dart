@@ -1,11 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/src/attribute/attribute_renderer.dart';
 import '../../open_attribute_switcher_function.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
+import '../extensions/extensions.dart';
 import 'checkbox_enabled_extension.dart';
 
 class DecidableProposeAttributeRequestItemRenderer extends StatefulWidget {
@@ -84,10 +84,9 @@ class _DecidableProposeAttributeRequestItemRendererState extends State<Decidable
 
     widget.controller?.writeAtIndex(
       index: widget.itemIndex,
-      value:
-          _choice.id != null
-              ? AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.id!)
-              : AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
+      value: _choice.id != null
+          ? AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: _choice.id!)
+          : AcceptProposeAttributeRequestItemParametersWithNewAttribute(attribute: _choice.attribute),
     );
   }
 

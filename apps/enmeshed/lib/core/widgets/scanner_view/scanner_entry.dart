@@ -46,18 +46,17 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
 
     _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 3));
 
-    _animation =
-        Tween<double>(begin: 0, end: 1).animate(_animationController)
-          ..addListener(() => setState(() {}))
-          ..addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              _animationController.reverse();
-              animationDirection = ScannerAnimationDirection.reverse;
-            } else if (status == AnimationStatus.dismissed) {
-              _animationController.forward();
-              animationDirection = ScannerAnimationDirection.forward;
-            }
-          });
+    _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
+      ..addListener(() => setState(() {}))
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _animationController.reverse();
+          animationDirection = ScannerAnimationDirection.reverse;
+        } else if (status == AnimationStatus.dismissed) {
+          _animationController.forward();
+          animationDirection = ScannerAnimationDirection.forward;
+        }
+      });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => _startScanning());
   }
@@ -93,7 +92,9 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
         fit: StackFit.expand,
         children: [
           MobileScanner(controller: _cameraController, onDetect: onDetect, scanWindow: scanWindow),
-          CustomPaint(painter: StaticScannerOverlay(scanWindow: scanWindow, scanWindowColor: scanWindowColor)),
+          CustomPaint(
+            painter: StaticScannerOverlay(scanWindow: scanWindow, scanWindowColor: scanWindowColor),
+          ),
           CustomPaint(
             painter: AnimatedScannerOverlay(
               scanWindow: scanWindow,
@@ -133,23 +134,22 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
             right: 16,
             child: ValueListenableBuilder(
               valueListenable: _cameraController,
-              builder:
-                  (context, state, child) => IconButton(
-                    style: switch (state.torchState) {
-                      TorchState.on => IconButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shape: CircleBorder(side: BorderSide(color: Theme.of(context).colorScheme.secondaryFixed)),
-                      ),
-                      _ => IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.secondaryFixed),
-                    },
-                    onPressed: state.torchState == TorchState.unavailable ? null : _cameraController.toggleTorch,
-                    icon: switch (state.torchState) {
-                      TorchState.unavailable => Icon(Icons.flashlight_off, color: Theme.of(context).colorScheme.secondaryFixed, size: 18),
-                      TorchState.off => Icon(Icons.flashlight_off, color: Theme.of(context).colorScheme.onSecondaryFixed, size: 18),
-                      TorchState.on => Icon(Icons.flashlight_on, color: Theme.of(context).colorScheme.secondaryFixed, size: 18),
-                      TorchState.auto => Icon(Icons.flash_auto, color: Theme.of(context).colorScheme.onSecondaryFixed, size: 18),
-                    },
+              builder: (context, state, child) => IconButton(
+                style: switch (state.torchState) {
+                  TorchState.on => IconButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shape: CircleBorder(side: BorderSide(color: Theme.of(context).colorScheme.secondaryFixed)),
                   ),
+                  _ => IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.secondaryFixed),
+                },
+                onPressed: state.torchState == TorchState.unavailable ? null : _cameraController.toggleTorch,
+                icon: switch (state.torchState) {
+                  TorchState.unavailable => Icon(Icons.flashlight_off, color: Theme.of(context).colorScheme.secondaryFixed, size: 18),
+                  TorchState.off => Icon(Icons.flashlight_off, color: Theme.of(context).colorScheme.onSecondaryFixed, size: 18),
+                  TorchState.on => Icon(Icons.flashlight_on, color: Theme.of(context).colorScheme.secondaryFixed, size: 18),
+                  TorchState.auto => Icon(Icons.flash_auto, color: Theme.of(context).colorScheme.onSecondaryFixed, size: 18),
+                },
+              ),
             ),
           ),
           Positioned(
@@ -196,28 +196,25 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
       if (mounted) {
         await showDialog<void>(
           context: context,
-          builder:
-              (context) => AlertDialog(
-                title: Text(context.l10n.scanner_failedStartingScanner_title),
-                content: Text(context.l10n.scanner_failedStartingScanner_description),
-                actions: [
-                  TextButton(
-                    onPressed:
-                        () =>
-                            context
-                              ..pop()
-                              ..pop(),
-                    child: Text(context.l10n.cancel),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.pop();
-                      widget.toggleScannerMode();
-                    },
-                    child: Text(context.l10n.scanner_enterUrl),
-                  ),
-                ],
+          builder: (context) => AlertDialog(
+            title: Text(context.l10n.scanner_failedStartingScanner_title),
+            content: Text(context.l10n.scanner_failedStartingScanner_description),
+            actions: [
+              TextButton(
+                onPressed: () => context
+                  ..pop()
+                  ..pop(),
+                child: Text(context.l10n.cancel),
               ),
+              TextButton(
+                onPressed: () {
+                  context.pop();
+                  widget.toggleScannerMode();
+                },
+                child: Text(context.l10n.scanner_enterUrl),
+              ),
+            ],
+          ),
         );
       }
     }
@@ -247,20 +244,18 @@ class StaticScannerOverlay extends CustomPainter {
     final backgroundPath = Path()..addRect(Rect.largest);
     final cutoutPath = Path()..addRRect(RRect.fromRectAndRadius(scanWindow, const Radius.circular(12)));
 
-    final backgroundPaint =
-        Paint()
-          ..color = const Color(0xFF33333D).withValues(alpha: 0.65)
-          ..style = PaintingStyle.fill
-          ..blendMode = BlendMode.dstOut;
+    final backgroundPaint = Paint()
+      ..color = const Color(0xFF33333D).withValues(alpha: 0.65)
+      ..style = PaintingStyle.fill
+      ..blendMode = BlendMode.dstOut;
 
     final backgroundWithCutout = Path.combine(PathOperation.difference, backgroundPath, cutoutPath);
     canvas.drawPath(backgroundWithCutout, backgroundPaint);
 
-    final cornerPaint =
-        Paint()
-          ..color = scanWindowColor
-          ..strokeWidth = 6
-          ..style = PaintingStyle.stroke;
+    final cornerPaint = Paint()
+      ..color = scanWindowColor
+      ..strokeWidth = 6
+      ..style = PaintingStyle.stroke;
 
     canvas
       ..save()
@@ -277,13 +272,12 @@ class StaticScannerOverlay extends CustomPainter {
   }
 
   void _drawArc(Canvas canvas, Paint cornerPaint) {
-    final topLeftArcPath =
-        Path()
-          ..moveTo(12, 0)
-          ..lineTo(26, 0)
-          ..moveTo(0, 12)
-          ..lineTo(0, 26)
-          ..addArc(Rect.fromCircle(center: const Offset(12, 12), radius: 12), -math.pi, math.pi / 2);
+    final topLeftArcPath = Path()
+      ..moveTo(12, 0)
+      ..lineTo(26, 0)
+      ..moveTo(0, 12)
+      ..lineTo(0, 26)
+      ..addArc(Rect.fromCircle(center: const Offset(12, 12), radius: 12), -math.pi, math.pi / 2);
 
     canvas.drawPath(topLeftArcPath, cornerPaint);
   }
@@ -315,11 +309,10 @@ class AnimatedScannerOverlay extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint =
-        Paint()
-          ..color = scanWindowColor
-          ..strokeWidth = 2.0
-          ..style = PaintingStyle.fill;
+    final paint = Paint()
+      ..color = scanWindowColor
+      ..strokeWidth = 2.0
+      ..style = PaintingStyle.fill;
 
     final lineY = scanWindow.top + (scanWindow.height * animationValue);
     final lineP1 = Offset(scanWindow.left - 7, lineY);
@@ -327,12 +320,11 @@ class AnimatedScannerOverlay extends CustomPainter {
 
     canvas.drawLine(lineP1, lineP2, paint);
 
-    final shadowPaint =
-        Paint()
-          ..color = scanWindowColor
-          ..strokeWidth = 10.0
-          ..style = PaintingStyle.stroke
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
+    final shadowPaint = Paint()
+      ..color = scanWindowColor
+      ..strokeWidth = 10.0
+      ..style = PaintingStyle.stroke
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
 
     final shadowOffset = switch (animateDirection) {
       ScannerAnimationDirection.forward => -this.shadowOffset,

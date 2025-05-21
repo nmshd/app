@@ -37,7 +37,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {if (name != null) 'name': name, if (description != null) 'description': description, if (isAdmin != null) 'isAdmin': isAdmin},
+        'request': {'name': ?name, 'description': ?description, 'isAdmin': ?isAdmin},
       },
     );
 
@@ -51,7 +51,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'id': id, if (profileName != null) 'profileName': profileName},
+        'request': {'id': id, 'profileName': ?profileName},
       },
     );
 
@@ -65,7 +65,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'id': id, if (expiresAt != null) 'expiresAt': expiresAt, if (profileName != null) 'profileName': profileName},
+        'request': {'id': id, 'expiresAt': ?expiresAt, 'profileName': ?profileName},
       },
     );
 
@@ -79,7 +79,7 @@ class DevicesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'id': id, if (name != null) 'name': name, if (description != null) 'description': description},
+        'request': {'id': id, 'name': ?name, 'description': ?description},
       },
     );
 

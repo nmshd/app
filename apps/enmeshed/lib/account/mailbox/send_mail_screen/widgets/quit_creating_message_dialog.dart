@@ -31,11 +31,9 @@ class QuitCreatingMessageDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed:
-                      () =>
-                          context
-                            ..pop()
-                            ..pop(),
+                  onPressed: () => context
+                    ..pop()
+                    ..pop(),
                   child: Text(context.l10n.mailbox_yesButton, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
                 Gaps.w16,

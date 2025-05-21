@@ -20,7 +20,11 @@ class InformationCard extends StatelessWidget {
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [icon, Gaps.w8, Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium))],
+              children: [
+                icon,
+                Gaps.w8,
+                Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium)),
+              ],
             ),
             if (description != null) ...[Gaps.h8, Text(description!, style: Theme.of(context).textTheme.bodySmall)],
           ],

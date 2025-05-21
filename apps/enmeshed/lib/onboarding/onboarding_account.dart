@@ -154,8 +154,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     if (!context.mounted) return;
 
-    // TODO(jkoenig134): this should NOT call processURL, instead it should call a "safer" method that only handles an onboarding qr code, in that case we can expect a LocalAccountDTO to be returned and can process the appLink with it if defined.
-    final result = await runtime.stringProcessor.processURL(url: content);
+    final result = await runtime.stringProcessor.processDeviceOnboardingReference(url: content);
     if (result.isSuccess) {
       resume();
       return;

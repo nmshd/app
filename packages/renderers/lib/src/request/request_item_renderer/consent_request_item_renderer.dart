@@ -9,6 +9,7 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 import '../../abstract_url_launcher.dart';
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
+import 'extensions/extensions.dart';
 import 'widgets/validation_error_box.dart';
 
 class ConsentRequestItemRenderer extends StatefulWidget {
@@ -52,7 +53,12 @@ class _ConsentRequestItemRendererState extends State<ConsentRequestItemRenderer>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text.rich(
-            TextSpan(children: [TextSpan(text: title), if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*')]),
+            TextSpan(
+              children: [
+                TextSpan(text: title),
+                if (widget.item.isDecidable && widget.item.mustBeAccepted) TextSpan(text: '*'),
+              ],
+            ),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),
@@ -163,13 +169,12 @@ class _ShowFullConsentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:
-          () => showDialog(
-            context: context,
-            useRootNavigator: true,
-            useSafeArea: false,
-            builder: (context) => _FullConsentDialog(consent: item.consent, description: item.description),
-          ),
+      onTap: () => showDialog(
+        context: context,
+        useRootNavigator: true,
+        useSafeArea: false,
+        builder: (context) => _FullConsentDialog(consent: item.consent, description: item.description),
+      ),
       child: Row(
         spacing: 8,
         mainAxisSize: MainAxisSize.min,
@@ -196,7 +201,10 @@ class _FullConsentDialog extends StatelessWidget {
     return Dialog.fullscreen(
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: Scaffold(
-        appBar: AppBar(leading: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()), title: Text('Einverständniserklärung')),
+        appBar: AppBar(
+          leading: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
+          title: Text('Einverständniserklärung'),
+        ),
         body: Scrollbar(
           thumbVisibility: true,
           child: SingleChildScrollView(

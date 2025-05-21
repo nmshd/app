@@ -129,10 +129,9 @@ Future<void> deleteContact({
   final accepted = await showDeleteRelationshipConfirmationDialog(
     context,
     contactName: contact.name,
-    content:
-        relationship.status == RelationshipStatus.Active && relationship.peerDeletionStatus == null
-            ? context.l10n.contacts_delete_descriptionOnActive
-            : context.l10n.contacts_delete_description,
+    content: relationship.status == RelationshipStatus.Active && relationship.peerDeletionStatus == null
+        ? context.l10n.contacts_delete_descriptionOnActive
+        : context.l10n.contacts_delete_description,
   );
   if (!accepted) return;
 

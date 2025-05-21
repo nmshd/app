@@ -33,7 +33,9 @@ class MessagesContainer extends StatelessWidget {
         _MessagesHeader(unreadMessagesCount: unreadMessagesCount, seeAllMessages: seeAllMessages, title: title),
         Gaps.h8,
         if (messages == null)
-          const Center(child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator()))
+          const Center(
+            child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator()),
+          )
         else if (messages!.isNotEmpty)
           ListView.separated(
             shrinkWrap: true,

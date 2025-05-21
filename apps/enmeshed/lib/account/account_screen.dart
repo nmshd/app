@@ -121,11 +121,10 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
           2 => 0,
           _ => 3,
         },
-        notificationPredicate:
-            (notification) => switch (_selectedIndex) {
-              3 => notification.depth == 1,
-              _ => notification.depth == 0,
-            },
+        notificationPredicate: (notification) => switch (_selectedIndex) {
+          3 => notification.depth == 1,
+          _ => notification.depth == 0,
+        },
         bottom: switch (_selectedIndex) {
           3 => TabBar(
             controller: _tabController,
@@ -197,16 +196,15 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         builder: (BuildContext context, SearchController controller) {
           return IconButton(icon: const Icon(Icons.search), onPressed: () => controller.openView());
         },
-        suggestionsBuilder:
-            (context, controller) => widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
+        suggestionsBuilder: (context, controller) =>
+            widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
       ),
       ValueListenableBuilder(
         valueListenable: widget.contactsFilterController,
-        builder:
-            (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
-              icon: const Icon(Icons.filter_list),
-              onPressed: () => widget.contactsFilterController.openContactsFilter(),
-            ),
+        builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
+          icon: const Icon(Icons.filter_list),
+          onPressed: () => widget.contactsFilterController.openContactsFilter(),
+        ),
       ),
       IconButton(
         icon: const Icon(Icons.person_add),
@@ -218,16 +216,15 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
         builder: (BuildContext context, SearchController controller) {
           return IconButton(icon: const Icon(Icons.search), onPressed: () => controller.openView());
         },
-        suggestionsBuilder:
-            (context, controller) => widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
+        suggestionsBuilder: (context, controller) =>
+            widget.suggestionsBuilder.value == null ? [] : widget.suggestionsBuilder.value!(context, controller),
       ),
       ValueListenableBuilder(
         valueListenable: widget.mailboxFilterController,
-        builder:
-            (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
-              icon: const Icon(Icons.filter_list),
-              onPressed: () => widget.mailboxFilterController.openMailboxFilter(),
-            ),
+        builder: (context, value, child) => (value.isNotEmpty ? IconButton.filledTonal : IconButton.new)(
+          icon: const Icon(Icons.filter_list),
+          onPressed: () => widget.mailboxFilterController.openMailboxFilter(),
+        ),
       ),
       IconButton(icon: const Icon(Icons.add), onPressed: () => context.go('/account/${widget.accountId}/mailbox/send')),
     ],

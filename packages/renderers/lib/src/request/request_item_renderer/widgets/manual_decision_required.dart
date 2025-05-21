@@ -28,8 +28,9 @@ class ManualDecisionRequired extends StatelessWidget {
                   return states.contains(WidgetState.selected) ? const Icon(Icons.check) : const Icon(Icons.close);
                 }),
                 activeColor: context.customColors.onSuccess,
-                activeTrackColor:
-                    onUpdateManualDecision == null ? context.customColors.success.withValues(alpha: 0.16) : context.customColors.success,
+                activeTrackColor: onUpdateManualDecision == null
+                    ? context.customColors.success.withValues(alpha: 0.16)
+                    : context.customColors.success,
                 inactiveTrackColor: Colors.transparent,
                 value: isManualDecisionAccepted,
                 onChanged: onUpdateManualDecision,

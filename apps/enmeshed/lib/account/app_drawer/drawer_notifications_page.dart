@@ -55,7 +55,13 @@ class DrawerNotificationsPageState extends State<DrawerNotificationsPage> with W
     );
 
     if (_permissionStatus == null) {
-      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [title, const Center(child: CircularProgressIndicator())]);
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          title,
+          const Center(child: CircularProgressIndicator()),
+        ],
+      );
     }
 
     return Column(

@@ -22,8 +22,9 @@ Map<String, dynamic> _$IdentityAttributeQueryToJson(IdentityAttributeQuery insta
 
 IQLQuery _$IQLQueryFromJson(Map<String, dynamic> json) => IQLQuery(
   queryString: json['queryString'] as String,
-  attributeCreationHints:
-      json['attributeCreationHints'] == null ? null : IQLQueryCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
+  attributeCreationHints: json['attributeCreationHints'] == null
+      ? null
+      : IQLQueryCreationHints.fromJson(json['attributeCreationHints'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$IQLQueryToJson(IQLQuery instance) => <String, dynamic>{

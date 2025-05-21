@@ -35,19 +35,18 @@ class RelationshipAttributeValueRenderer extends StatelessWidget {
         description: consentAttributeValue.consent,
         showTitle: showTitle,
         valueTextStyle: valueTextStyle,
-        trailing:
-            consentAttributeValue.link != null
-                ? SizedBox(
-                  width: 50,
-                  child: IconButton(
-                    icon: const Icon(Icons.open_in_new),
-                    onPressed: () async {
-                      final url = Uri.parse(consentAttributeValue.link!);
-                      await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
-                    },
-                  ),
-                )
-                : null,
+        trailing: consentAttributeValue.link != null
+            ? SizedBox(
+                width: 50,
+                child: IconButton(
+                  icon: const Icon(Icons.open_in_new),
+                  onPressed: () async {
+                    final url = Uri.parse(consentAttributeValue.link!);
+                    await GetIt.I.get<AbstractUrlLauncher>().launchSafe(url);
+                  },
+                ),
+              )
+            : null,
       ),
       final ProprietaryJSONAttributeValue proprietaryJSONAttributeValue => CustomListTile(
         title: proprietaryJSONAttributeValue.title,

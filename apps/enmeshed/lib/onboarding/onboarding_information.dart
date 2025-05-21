@@ -105,10 +105,9 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: FilledButton(
-                    onPressed:
-                        _currentPageIndex == pages.length - 1
-                            ? widget.goToOnboardingLegalTexts
-                            : () => _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn),
+                    onPressed: _currentPageIndex == pages.length - 1
+                        ? widget.goToOnboardingLegalTexts
+                        : () => _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn),
                     child: Text(context.l10n.next),
                   ),
                 ),
@@ -163,7 +162,10 @@ class _OnboardingPageState extends State<_OnboardingPage> {
         SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: screenHeight / 2, child: VectorGraphic(loader: AssetBytesLoader(widget.imagePath))),
+              SizedBox(
+                height: screenHeight / 2,
+                child: VectorGraphic(loader: AssetBytesLoader(widget.imagePath)),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
@@ -205,7 +207,11 @@ class _OnboardingPageState extends State<_OnboardingPage> {
   }
 
   double _calculateWordWidth(String text, TextStyle style) {
-    final textPainter = TextPainter(text: TextSpan(text: text, style: style), maxLines: 1, textDirection: TextDirection.ltr)..layout();
+    final textPainter = TextPainter(
+      text: TextSpan(text: text, style: style),
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    )..layout();
     return textPainter.size.width;
   }
 }
@@ -219,43 +225,37 @@ class _BackgroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint1 =
-        Paint()
-          ..color = leftTriangleColor
-          ..style = PaintingStyle.fill;
+    final paint1 = Paint()
+      ..color = leftTriangleColor
+      ..style = PaintingStyle.fill;
 
-    final paint2 =
-        Paint()
-          ..color = rightTriangleColor
-          ..style = PaintingStyle.fill;
+    final paint2 = Paint()
+      ..color = rightTriangleColor
+      ..style = PaintingStyle.fill;
 
-    final paint3 =
-        Paint()
-          ..color = bottomColor
-          ..style = PaintingStyle.fill;
+    final paint3 = Paint()
+      ..color = bottomColor
+      ..style = PaintingStyle.fill;
 
-    final path1 =
-        Path()
-          ..moveTo(0, size.height * 0.54)
-          ..lineTo(size.width / 2, size.height * 0.475)
-          ..lineTo(0, size.height * 0.41)
-          ..close();
+    final path1 = Path()
+      ..moveTo(0, size.height * 0.54)
+      ..lineTo(size.width / 2, size.height * 0.475)
+      ..lineTo(0, size.height * 0.41)
+      ..close();
 
-    final path2 =
-        Path()
-          ..moveTo(size.width, size.height * 0.54)
-          ..lineTo(size.width / 2, size.height * 0.475)
-          ..lineTo(size.width, size.height * 0.41)
-          ..close();
+    final path2 = Path()
+      ..moveTo(size.width, size.height * 0.54)
+      ..lineTo(size.width / 2, size.height * 0.475)
+      ..lineTo(size.width, size.height * 0.41)
+      ..close();
 
-    final path3 =
-        Path()
-          ..moveTo(0, size.height * 0.54)
-          ..lineTo(size.width / 2, size.height * 0.475)
-          ..lineTo(size.width, size.height * 0.54)
-          ..lineTo(size.width, size.height)
-          ..lineTo(0, size.height)
-          ..close();
+    final path3 = Path()
+      ..moveTo(0, size.height * 0.54)
+      ..lineTo(size.width / 2, size.height * 0.475)
+      ..lineTo(size.width, size.height * 0.54)
+      ..lineTo(size.width, size.height)
+      ..lineTo(0, size.height)
+      ..close();
 
     canvas
       ..drawPath(path1, paint1)
