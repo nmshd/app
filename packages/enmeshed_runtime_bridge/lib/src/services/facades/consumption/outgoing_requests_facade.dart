@@ -16,7 +16,7 @@ class OutgoingRequestsFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'content': content.toJson(), if (peer != null) 'peer': peer},
+        'request': {'content': content.toJson(), 'peer': ?peer},
       },
     );
 

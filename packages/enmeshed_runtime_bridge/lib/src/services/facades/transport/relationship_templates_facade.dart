@@ -23,8 +23,8 @@ class RelationshipTemplatesFacade {
         'request': {
           'expiresAt': expiresAt,
           'content': content.toJson(),
-          if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
-          if (forIdentity != null) 'forIdentity': forIdentity,
+          'maxNumberOfAllocations': ?maxNumberOfAllocations,
+          'forIdentity': ?forIdentity,
           if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
@@ -40,7 +40,7 @@ class RelationshipTemplatesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'reference': reference, if (password != null) 'password': password},
+        'request': {'reference': reference, 'password': ?password},
       },
     );
 
@@ -90,9 +90,9 @@ class RelationshipTemplatesFacade {
       arguments: {
         'request': {
           'templateId': templateId,
-          if (expiresAt != null) 'expiresAt': expiresAt,
-          if (ephemeral != null) 'ephemeral': ephemeral,
-          if (forIdentity != null) 'forIdentity': forIdentity,
+          'expiresAt': ?expiresAt,
+          'ephemeral': ?ephemeral,
+          'forIdentity': ?forIdentity,
           if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },

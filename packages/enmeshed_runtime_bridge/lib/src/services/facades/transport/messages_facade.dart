@@ -18,7 +18,7 @@ class MessagesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'recipients': recipients, 'content': content.toJson(), if (attachments != null) 'attachments': attachments},
+        'request': {'recipients': recipients, 'content': content.toJson(), 'attachments': ?attachments},
       },
     );
 

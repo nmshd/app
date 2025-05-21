@@ -28,7 +28,7 @@ class FilesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'reference': reference, if (password != null) 'password': password},
+        'request': {'reference': reference, 'password': ?password},
       },
     );
 
@@ -83,10 +83,10 @@ class FilesFacade {
           'content': content,
           'filename': filename,
           'mimetype': mimetype,
-          if (expiresAt != null) 'expiresAt': expiresAt,
-          if (title != null) 'title': title,
-          if (description != null) 'description': description,
-          if (tags != null) 'tags': tags,
+          'expiresAt': ?expiresAt,
+          'title': ?title,
+          'description': ?description,
+          'tags': ?tags,
         },
       },
     );
@@ -109,9 +109,9 @@ class FilesFacade {
       arguments: {
         'request': {
           'fileId': fileId,
-          if (expiresAt != null) 'expiresAt': expiresAt,
-          if (ephemeral != null) 'ephemeral': ephemeral,
-          if (forIdentity != null) 'forIdentity': forIdentity,
+          'expiresAt': ?expiresAt,
+          'ephemeral': ?ephemeral,
+          'forIdentity': ?forIdentity,
           if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
