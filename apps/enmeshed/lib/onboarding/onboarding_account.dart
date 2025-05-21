@@ -170,15 +170,6 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
 
     resume();
   }
-
-  Future<void> _handleAppLink(LocalAccountDTO account) async {
-    if (widget.appLink == null) return;
-
-    final runtime = GetIt.I.get<EnmeshedRuntime>();
-    await runtime.stringProcessor.processURL(url: widget.appLink!, account: account);
-
-    // TODO(jkoenig134): when this didn't work, we should show an error dialog that allows the user to retry
-  }
 }
 
 class _BackgroundPainter extends CustomPainter {
