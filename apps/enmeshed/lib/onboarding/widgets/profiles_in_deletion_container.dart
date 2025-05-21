@@ -7,9 +7,8 @@ import '/core/core.dart';
 class ProfilesInDeletionContainer extends StatefulWidget {
   final List<LocalAccountDTO> accountsInDeletion;
   final VoidCallback onDeleted;
-  final void Function(LocalAccountDTO)? onRestoredIdentity;
 
-  const ProfilesInDeletionContainer({required this.accountsInDeletion, required this.onDeleted, this.onRestoredIdentity, super.key});
+  const ProfilesInDeletionContainer({required this.accountsInDeletion, required this.onDeleted, super.key});
 
   @override
   State<ProfilesInDeletionContainer> createState() => _ProfilesInDeletionContainerState();
@@ -42,9 +41,7 @@ class _ProfilesInDeletionContainerState extends State<ProfilesInDeletionContaine
             accountInDeletion: accountInDeletion,
             trailing: IconButton(
               icon: const Icon(Icons.refresh),
-              onPressed:
-                  () =>
-                      showRestoreIdentityModal(accountInDeletion: accountInDeletion, context: context, onRestoredIdentity: widget.onRestoredIdentity),
+              onPressed: () => showRestoreIdentityModal(accountInDeletion: accountInDeletion, context: context),
               tooltip: context.l10n.identity_restore,
             ),
           ),
