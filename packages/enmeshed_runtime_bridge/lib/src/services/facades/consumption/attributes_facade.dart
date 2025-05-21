@@ -20,12 +20,7 @@ class AttributesFacade {
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {
-            'value': value.toJson(),
-            'tags': ?tags,
-            'validFrom': ?validFrom,
-            'validTo': ?validTo,
-          },
+          'content': {'value': value.toJson(), 'tags': ?tags, 'validFrom': ?validFrom, 'validTo': ?validTo},
         },
       },
     );
@@ -46,12 +41,7 @@ class AttributesFacade {
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {
-            'value': value.toJson(),
-            'tags': ?tags,
-            'validFrom': ?validFrom,
-            'validTo': ?validTo,
-          },
+          'content': {'value': value.toJson(), 'tags': ?tags, 'validFrom': ?validFrom, 'validTo': ?validTo},
         },
       },
     );
@@ -146,11 +136,7 @@ class AttributesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (query != null) 'query': query.toJson(),
-          'onlyValid': ?onlyValid,
-          'hideTechnical': ?hideTechnical,
-        },
+        'request': {if (query != null) 'query': query.toJson(), 'onlyValid': ?onlyValid, 'hideTechnical': ?hideTechnical},
       },
     );
 
@@ -182,11 +168,7 @@ class AttributesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'attributeId': attributeId,
-          'peers': ?peers,
-          'onlyLatestVersions': ?onlyLatestVersions,
-        },
+        'request': {'attributeId': attributeId, 'peers': ?peers, 'onlyLatestVersions': ?onlyLatestVersions},
       },
     );
 
@@ -264,12 +246,7 @@ class AttributesFacade {
       arguments: {
         'request': {
           'predecessorId': predecessorId,
-          'successorContent': {
-            'value': value.toJson(),
-            'tags': ?tags,
-            'validFrom': ?validFrom,
-            'validTo': ?validTo,
-          },
+          'successorContent': {'value': value.toJson(), 'tags': ?tags, 'validFrom': ?validFrom, 'validTo': ?validTo},
         },
       },
     );
