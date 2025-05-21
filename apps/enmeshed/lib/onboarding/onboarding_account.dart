@@ -154,7 +154,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
     final runtime = GetIt.I.get<EnmeshedRuntime>();
     if (!context.mounted) return;
 
-    final result = await runtime.stringProcessor.processURL(url: content);
+    final result = await runtime.stringProcessor.processDeviceOnboardingReference(url: content);
     if (result.isSuccess) {
       resume();
       return;
