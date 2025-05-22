@@ -151,6 +151,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final result = await runtime.stringProcessor.processURL(url: uriString);
     if (result.isError) {
       GetIt.I.get<Logger>().e("Processing URL '$uriString' failed with code '${result.error.code}' and message '${result.error.message}'");
+      unawaited(router.push('/error-dialog', extra: result.error.code));
     }
   }
 }
