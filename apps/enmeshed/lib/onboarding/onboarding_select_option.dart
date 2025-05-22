@@ -12,7 +12,9 @@ import '/core/core.dart';
 import 'widgets/profiles_in_deletion_container.dart';
 
 class OnboardingSelectOption extends StatefulWidget {
-  const OnboardingSelectOption({super.key});
+  final VoidCallback createAccount;
+
+  const OnboardingSelectOption({required this.createAccount, super.key});
 
   @override
   State<OnboardingSelectOption> createState() => _OnboardingSelectOptionState();
@@ -87,7 +89,7 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
                       Gaps.h16,
                       Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
                       Gaps.h16,
-                      FilledButton(onPressed: _createAccount, child: Text(context.l10n.onboarding_createNewAccount_button)),
+                      FilledButton(onPressed: widget.createAccount, child: Text(context.l10n.onboarding_createNewAccount_button)),
                       Gaps.h24,
                       Row(
                         children: [
@@ -116,10 +118,6 @@ class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
         ),
       ),
     );
-  }
-
-  Future<void> _createAccount() async {
-    // TODO: open create account popup
   }
 
   Future<void> _loadAccountsInDeletion() async {
