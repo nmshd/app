@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'onboarding_account.dart';
-import 'onboarding_create_account.dart';
+import 'onboarding_app_link_available.dart';
 import 'onboarding_information.dart';
 import 'onboarding_legal_texts.dart';
+import 'onboarding_select_option.dart';
 import 'onboarding_welcome.dart';
 
-enum _OnboardingMode { welcome, info, legalTexts, selectOption, createAccount }
+enum _OnboardingMode { welcome, info, legalTexts, selectOption, appLinkAvailable }
 
 class OnboardingScreen extends StatefulWidget {
   final bool skipIntroduction;
@@ -25,7 +25,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void initState() {
     super.initState();
 
-    _mode = widget.skipIntroduction ? _OnboardingMode.selectOption : _OnboardingMode.welcome;
+    if (widget.appLink != null) {
+      _mode = _OnboardingMode.appLinkAvailable;
+    } else {
+      _mode = widget.skipIntroduction ? _OnboardingMode.selectOption : _OnboardingMode.welcome;
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant OnboardingScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.appLink != widget.appLink && widget.appLink != null) {
+      setState(() => _mode = _OnboardingMode.appLinkAvailable);
+    }
   }
 
   @override
@@ -33,17 +46,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: switch (_mode) {
-        _OnboardingMode.welcome => OnboardingWelcome(goToOnboardingInformation: () => setState(() => _mode = _OnboardingMode.info)),
-        _OnboardingMode.info => OnboardingInformation(goToOnboardingLegalTexts: () => setState(() => _mode = _OnboardingMode.legalTexts)),
-        _OnboardingMode.legalTexts => OnboardingLegalTexts(goToOnboardingCreateAccount: () => setState(() => _mode = _OnboardingMode.selectOption)),
-        _OnboardingMode.selectOption => OnboardingAccount(
-          goToOnboardingLoading: () => setState(() => _mode = _OnboardingMode.createAccount),
-          appLink: widget.appLink,
-        ),
-        _OnboardingMode.createAccount => OnboardingCreateAccount(
-          goToOnboardingAccount: () => setState(() => _mode = _OnboardingMode.selectOption),
-          appLink: widget.appLink,
-        ),
+        _OnboardingMode.appLinkAvailable => OnboardingAppLinkAvailable(next: () => setState(() => _mode = _OnboardingMode.legalTexts)),
+        _OnboardingMode.welcome => OnboardingWelcome(next: () => setState(() => _mode = _OnboardingMode.info)),
+        _OnboardingMode.info => OnboardingInformation(next: () => setState(() => _mode = _OnboardingMode.legalTexts)),
+        _OnboardingMode.legalTexts => OnboardingLegalTexts(next: () => setState(() => _mode = _OnboardingMode.selectOption), appLink: widget.appLink),
+        _OnboardingMode.selectOption => const OnboardingSelectOption(),
       },
     );
   }

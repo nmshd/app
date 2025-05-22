@@ -6,9 +6,10 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 
 class OnboardingLegalTexts extends StatefulWidget {
-  final VoidCallback goToOnboardingCreateAccount;
+  final VoidCallback next;
+  final String? appLink;
 
-  const OnboardingLegalTexts({required this.goToOnboardingCreateAccount, super.key});
+  const OnboardingLegalTexts({required this.next, required this.appLink, super.key});
 
   @override
   State<OnboardingLegalTexts> createState() => _OnboardingLegalTextsState();
@@ -19,6 +20,8 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: repect app link amd remder other buttons (also create account on finished)
+
     return SafeArea(
       minimum: const EdgeInsets.only(bottom: 16),
       child: Column(
@@ -75,7 +78,7 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: Align(
               child: FilledButton(
-                onPressed: isLegalAgreementCompleted ? widget.goToOnboardingCreateAccount : null,
+                onPressed: isLegalAgreementCompleted ? widget.next : null,
                 child: Text(context.l10n.onboarding_yourConsent_acceptAndContinue),
               ),
             ),
