@@ -136,15 +136,10 @@ class _SplashScreenState extends State<SplashScreen> {
     GetIt.I.get<Logger>().i("Processing URL '$uriString'");
 
     final runtime = GetIt.I.get<EnmeshedRuntime>();
-    final accounts = await runtime.accountServices.getAccounts();
-    if (accounts.isEmpty) {
-      router.go('/onboarding', extra: uriString);
-      return;
-    }
 
     final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
     if (accountsNotInDeletion.isEmpty) {
-      router.go('/onboarding?skipIntroduction=true', extra: uriString);
+      router.go('/onboarding', extra: uriString);
       return;
     }
 
