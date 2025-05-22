@@ -6,10 +6,11 @@ import 'package:go_router/go_router.dart';
 import '/core/core.dart';
 
 class OnboardingLegalTexts extends StatefulWidget {
+  final VoidCallback cancel;
   final VoidCallback next;
-  final String? appLink;
+  final bool appLinkAvailable;
 
-  const OnboardingLegalTexts({required this.next, required this.appLink, super.key});
+  const OnboardingLegalTexts({required this.cancel, required this.next, required this.appLinkAvailable, super.key});
 
   @override
   State<OnboardingLegalTexts> createState() => _OnboardingLegalTextsState();
@@ -20,9 +21,8 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: repect app link amd remder other buttons (also create account on finished)
-
     return SafeArea(
+      maintainBottomViewPadding: true,
       minimum: const EdgeInsets.only(bottom: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,11 +76,17 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            child: Align(
-              child: FilledButton(
-                onPressed: isLegalAgreementCompleted ? widget.next : null,
-                child: Text(context.l10n.onboarding_yourConsent_acceptAndContinue),
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: 4,
+              children: [
+                OutlinedButton(onPressed: widget.cancel, child: Text(context.l10n.cancel)),
+                FilledButton(
+                  onPressed: isLegalAgreementCompleted ? widget.next : null,
+                  // TODO: translation
+                  child: Text(widget.appLinkAvailable ? 'Akzeptieren und Profil anlegen' : context.l10n.onboarding_yourConsent_acceptAndContinue),
+                ),
+              ],
             ),
           ),
         ],
