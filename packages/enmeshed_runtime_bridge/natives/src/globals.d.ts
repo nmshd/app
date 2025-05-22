@@ -8,7 +8,7 @@ declare global {
     runtime: AppRuntime;
     flutter_inappwebview: FlutterInAppWebView;
     registerUIBridge: () => void;
-    setPushToken: (token: string) => Promise<void>;
+    triggerRemoteNotificationRegistrationEvent: (token: string) => Promise<void>;
     triggerRemoteNotificationEvent: (notification: RemoteNotification) => Promise<void>;
     triggerAppReadyEvent: () => Promise<void>;
     runtimeVersion: string;

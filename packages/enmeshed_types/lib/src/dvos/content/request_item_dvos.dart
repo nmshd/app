@@ -1,13 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../contents/contents.dart';
 import '../common/common.dart';
 import '../consumption/consumption.dart';
 import '../data_view_object.dart';
+import '../transport/file_dvo.dart';
 import 'attribute_dvos.dart';
 import 'attribute_query_dvos.dart';
 import 'response_item_dvos.dart';
 
-part '../consumption/decidable_request_item_dvos.dart';
 part 'request_item_dvos.g.dart';
 
 sealed class RequestItemDVO extends DataViewObject {
@@ -40,13 +41,8 @@ class RequestItemGroupDVO extends RequestItemDVO {
   final String? title;
   final ResponseItemGroupDVO? response;
 
-  const RequestItemGroupDVO({
-    required super.isDecidable,
-    required this.items,
-    this.title,
-    super.description,
-    this.response,
-  }) : super(id: 'n/a', name: 'n/a', type: 'RequestItemGroupDVO');
+  const RequestItemGroupDVO({required super.isDecidable, required this.items, this.title, super.description, this.response})
+    : super(id: 'n/a', name: 'n/a', type: 'RequestItemGroupDVO');
 
   factory RequestItemGroupDVO.fromJson(Map json) => _$RequestItemGroupDVOFromJson(Map<String, dynamic>.from(json));
   @override
@@ -74,8 +70,6 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
   });
 
   factory RequestItemDVODerivation.fromJson(Map json) {
-    if (json['type'].startsWith('Decidable')) return DecidableRequestItemDVODerivation.fromJson(json);
-
     return switch (json['type']) {
       'ReadAttributeRequestItemDVO' => ReadAttributeRequestItemDVO.fromJson(json),
       'ProposeAttributeRequestItemDVO' => ProposeAttributeRequestItemDVO.fromJson(json),
@@ -84,8 +78,10 @@ sealed class RequestItemDVODerivation extends RequestItemDVO {
       'ShareAttributeRequestItemDVO' => ShareAttributeRequestItemDVO.fromJson(json),
       'AuthenticationRequestItemDVO' => AuthenticationRequestItemDVO.fromJson(json),
       'ConsentRequestItemDVO' => ConsentRequestItemDVO.fromJson(json),
+      'FormFieldRequestItemDVO' => FormFieldRequestItemDVO.fromJson(json),
       'FreeTextRequestItemDVO' => FreeTextRequestItemDVO.fromJson(json),
       'RegisterAttributeListenerRequestItemDVO' => RegisterAttributeListenerRequestItemDVO.fromJson(json),
+      'TransferFileOwnershipRequestItemDVO' => TransferFileOwnershipRequestItemDVO.fromJson(json),
       _ => throw Exception("Invalid type '${json['type']}'"),
     };
   }
@@ -251,6 +247,7 @@ class AuthenticationRequestItemDVO extends RequestItemDVODerivation {
 class ConsentRequestItemDVO extends RequestItemDVODerivation {
   final String consent;
   final String? link;
+  final String? linkDisplayText;
 
   const ConsentRequestItemDVO({
     required super.id,
@@ -266,11 +263,38 @@ class ConsentRequestItemDVO extends RequestItemDVODerivation {
     super.requireManualDecision,
     required this.consent,
     this.link,
+    this.linkDisplayText,
   }) : super(type: 'ConsentRequestItemDVO');
 
   factory ConsentRequestItemDVO.fromJson(Map json) => _$ConsentRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$ConsentRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class FormFieldRequestItemDVO extends RequestItemDVODerivation {
+  final String title;
+  final FormFieldSettings settings;
+
+  const FormFieldRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
+    super.response,
+    super.requireManualDecision,
+    required this.title,
+    required this.settings,
+  }) : super(type: 'FormFieldRequestItemDVO');
+
+  factory FormFieldRequestItemDVO.fromJson(Map json) => _$FormFieldRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$FormFieldRequestItemDVOToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -320,4 +344,30 @@ class RegisterAttributeListenerRequestItemDVO extends RequestItemDVODerivation {
       _$RegisterAttributeListenerRequestItemDVOFromJson(Map<String, dynamic>.from(json));
   @override
   Map<String, dynamic> toJson() => _$RegisterAttributeListenerRequestItemDVOToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
+class TransferFileOwnershipRequestItemDVO extends RequestItemDVODerivation {
+  final String fileReference;
+  final FileDVO file;
+
+  const TransferFileOwnershipRequestItemDVO({
+    required super.id,
+    required super.name,
+    super.description,
+    super.image,
+    super.date,
+    super.error,
+    super.warning,
+    required super.mustBeAccepted,
+    required super.isDecidable,
+    super.response,
+    super.requireManualDecision,
+    required this.fileReference,
+    required this.file,
+  }) : super(type: 'TransferFileOwnershipRequestItemDVO');
+
+  factory TransferFileOwnershipRequestItemDVO.fromJson(Map json) => _$TransferFileOwnershipRequestItemDVOFromJson(Map<String, dynamic>.from(json));
+  @override
+  Map<String, dynamic> toJson() => _$TransferFileOwnershipRequestItemDVOToJson(this);
 }

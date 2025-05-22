@@ -7,3 +7,9 @@ linter:
     public_member_api_docs: false
     always_use_package_imports: false
     avoid_setters_without_getters: false
+    require_trailing_commas: false
+    avoid_catches_without_on_clauses: false
+    use_null_aware_elements: true
+
+formatter:
+  page_width: 150

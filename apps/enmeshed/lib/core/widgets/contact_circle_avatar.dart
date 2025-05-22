@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
@@ -7,20 +8,39 @@ import '../utils/extensions.dart';
 class ContactCircleAvatar extends StatelessWidget {
   final IdentityDVO contact;
   final double radius;
-  final Color? color;
-  final Widget? child;
+  final Color? borderColor;
+  final bool disabled;
 
-  const ContactCircleAvatar({required this.contact, required this.radius, this.color, this.child, super.key});
+  const ContactCircleAvatar({required this.contact, required this.radius, this.borderColor, this.disabled = false, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final color = this.color ?? context.customColors.decorativeContainer;
-    if (contact.isUnknown) return _UnknownContactAvatar(radius: radius, color: color);
+    final color = context.customColors.decorativeContainer.withValues(alpha: disabled ? 0.5 : null);
+    final textStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
+      fontSize: radius * 0.75,
+      color: context.customColors.onDecorativeContainer.withValues(alpha: disabled ? 0.5 : null),
+    );
 
-    final textStyle = Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: radius * 0.75, color: context.customColors.onDecorativeContainer);
-    final initials = _contactNameLetters(contact.name);
+    final baseAvatar = contact.isUnknown
+        ? _UnknownContactAvatar(radius: radius, color: color)
+        : CircleAvatar(
+            radius: radius,
+            backgroundColor: color,
+            child: Text(_contactNameLetters(contact.name), style: textStyle),
+          );
 
-    return CircleAvatar(radius: radius, backgroundColor: color, child: child ?? Text(initials, style: textStyle));
+    if (borderColor != null) {
+      return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: borderColor!, width: 3),
+        ),
+        padding: const EdgeInsets.all(1),
+        child: baseAvatar,
+      );
+    }
+
+    return baseAvatar;
   }
 
   String _contactNameLetters(String contactName) {

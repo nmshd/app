@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
@@ -33,10 +34,7 @@ class ContactStatusInfoContainer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (_getInfoTitle(context) != null) ...[
-                      Text(_getInfoTitle(context)!),
-                      Gaps.h8,
-                    ],
+                    if (_getInfoTitle(context) != null) ...[Text(_getInfoTitle(context)!), Gaps.h8],
                     Text(
                       contact.relationship?.status == RelationshipStatus.Terminated
                           ? context.l10n.contactDetail_terminatedDescription1

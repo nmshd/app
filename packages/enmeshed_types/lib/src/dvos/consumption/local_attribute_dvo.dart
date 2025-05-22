@@ -51,13 +51,13 @@ sealed class LocalAttributeDVO extends DataViewObject {
   });
 
   factory LocalAttributeDVO.fromJson(Map json) => switch (json['type']) {
-        'RepositoryAttributeDVO' => RepositoryAttributeDVO.fromJson(json),
-        'SharedToPeerAttributeDVO' => SharedToPeerAttributeDVO.fromJson(json),
-        'PeerAttributeDVO' => PeerAttributeDVO.fromJson(json),
-        'OwnRelationshipAttributeDVO' => OwnRelationshipAttributeDVO.fromJson(json),
-        'PeerRelationshipAttributeDVO' => PeerRelationshipAttributeDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
-      };
+    'RepositoryAttributeDVO' => RepositoryAttributeDVO.fromJson(json),
+    'SharedToPeerAttributeDVO' => SharedToPeerAttributeDVO.fromJson(json),
+    'PeerAttributeDVO' => PeerAttributeDVO.fromJson(json),
+    'OwnRelationshipAttributeDVO' => OwnRelationshipAttributeDVO.fromJson(json),
+    'PeerRelationshipAttributeDVO' => PeerRelationshipAttributeDVO.fromJson(json),
+    _ => throw Exception("Invalid type '${json['type']}'"),
+  };
   Map<String, dynamic> toJson();
 }
 
@@ -86,10 +86,10 @@ sealed class IdentityAttributeDVO extends LocalAttributeDVO {
   }) : super(isOwn: true);
 
   factory IdentityAttributeDVO.fromJson(Map json) => switch (json['type']) {
-        'RepositoryAttributeDVO' => RepositoryAttributeDVO.fromJson(json),
-        'SharedToPeerAttributeDVO' => SharedToPeerAttributeDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
-      };
+    'RepositoryAttributeDVO' => RepositoryAttributeDVO.fromJson(json),
+    'SharedToPeerAttributeDVO' => SharedToPeerAttributeDVO.fromJson(json),
+    _ => throw Exception("Invalid type '${json['type']}'"),
+  };
   @override
   Map<String, dynamic> toJson();
 }
@@ -256,10 +256,10 @@ sealed class RelationshipAttributeDVO extends LocalAttributeDVO {
   }) : super(tags: null);
 
   factory RelationshipAttributeDVO.fromJson(Map json) => switch (json['type']) {
-        'OwnRelationshipAttributeDVO' => OwnRelationshipAttributeDVO.fromJson(json),
-        'PeerRelationshipAttributeDVO' => PeerRelationshipAttributeDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
-      };
+    'OwnRelationshipAttributeDVO' => OwnRelationshipAttributeDVO.fromJson(json),
+    'PeerRelationshipAttributeDVO' => PeerRelationshipAttributeDVO.fromJson(json),
+    _ => throw Exception("Invalid type '${json['type']}'"),
+  };
   @override
   Map<String, dynamic> toJson();
 }

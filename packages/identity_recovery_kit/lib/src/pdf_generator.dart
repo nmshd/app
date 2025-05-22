@@ -40,38 +40,26 @@ class PdfGenerator {
     required String addressHexColor,
     required this.pdfTexts,
     this.qrSettings,
-  })  : headerTitleColor = PdfColor.fromHex(headerTitleHexColor),
-        backgroundColor = PdfColor.fromHex(backgroundHexColor),
-        defaultTextColor = PdfColor.fromHex(defaultTextHexColor),
-        borderColor = PdfColor.fromHex(borderHexColor),
-        labelColor = PdfColor.fromHex(labelHexColor),
-        addressColor = PdfColor.fromHex(addressHexColor);
+  }) : headerTitleColor = PdfColor.fromHex(headerTitleHexColor),
+       backgroundColor = PdfColor.fromHex(backgroundHexColor),
+       defaultTextColor = PdfColor.fromHex(defaultTextHexColor),
+       borderColor = PdfColor.fromHex(borderHexColor),
+       labelColor = PdfColor.fromHex(labelHexColor),
+       addressColor = PdfColor.fromHex(addressHexColor);
 
-  Future<Uint8List> generate({
-    required Uint8List logoBytes,
-    required String spacerSvgImage,
-    required String backupURL,
-  }) async {
+  Future<Uint8List> generate({required Uint8List logoBytes, required String spacerSvgImage, required String backupURL}) async {
     final pdf = pw.Document();
 
     final logoImage = pw.MemoryImage(logoBytes);
 
-    final qrImage = await generateQrCode(
-      backupURL,
-      errorCorrectionLevel: qrSettings?.errorCorrectionLevel,
-      pixelSize: qrSettings?.qrPixelSize,
-    );
+    final qrImage = await generateQrCode(backupURL, errorCorrectionLevel: qrSettings?.errorCorrectionLevel, pixelSize: qrSettings?.qrPixelSize);
 
     pdf.addPage(_buildPage(logoImage: logoImage, spacerSvgImage: spacerSvgImage, qrImage: pw.MemoryImage(qrImage.bytes)));
 
     return pdf.save();
   }
 
-  pw.Page _buildPage({
-    required pw.MemoryImage logoImage,
-    required String spacerSvgImage,
-    required pw.MemoryImage qrImage,
-  }) {
+  pw.Page _buildPage({required pw.MemoryImage logoImage, required String spacerSvgImage, required pw.MemoryImage qrImage}) {
     return pw.Page(
       margin: pw.EdgeInsets.all(_getSize(150)),
       build: (context) {
@@ -87,10 +75,7 @@ class PdfGenerator {
                     width: double.infinity,
                     decoration: pw.BoxDecoration(
                       color: backgroundColor,
-                      borderRadius: pw.BorderRadius.only(
-                        bottomLeft: pw.Radius.circular(_getSize(40)),
-                        bottomRight: pw.Radius.circular(_getSize(40)),
-                      ),
+                      borderRadius: pw.BorderRadius.only(bottomLeft: pw.Radius.circular(_getSize(40)), bottomRight: pw.Radius.circular(_getSize(40))),
                     ),
                   ),
                   pw.Padding(
@@ -132,26 +117,43 @@ class PdfGenerator {
         pw.SizedBox(
           width: _getSize(800),
           child: pw.Expanded(
-            child: pw.Text(pdfTexts.headerTitle, style: pw.TextStyle(fontSize: _getFontSizeTitle(72), color: headerTitleColor)),
+            child: pw.Text(
+              pdfTexts.headerTitle,
+              style: pw.TextStyle(fontSize: _getFontSizeTitle(72), color: headerTitleColor),
+            ),
           ),
         ),
         pw.SizedBox(width: _getSize(100)),
-        pw.Align(alignment: pw.Alignment.topRight, child: pw.Image(logoImage, width: _getSize(764), height: _getSize(173))),
+        pw.Align(
+          alignment: pw.Alignment.topRight,
+          child: pw.Image(logoImage, width: _getSize(764), height: _getSize(173)),
+        ),
       ],
     );
   }
 
   pw.Text _buildInfoText() {
-    return pw.Text(pdfTexts.keepSafeText, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor));
+    return pw.Text(
+      pdfTexts.keepSafeText,
+      style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor),
+    );
   }
 
   pw.Row _buildNumberedText(int number, String infoText) {
     return pw.Row(
       crossAxisAlignment: pw.CrossAxisAlignment.center,
       children: [
-        pw.Text('$number.', style: pw.TextStyle(fontSize: _getFontSize(84), color: defaultTextColor)),
+        pw.Text(
+          '$number.',
+          style: pw.TextStyle(fontSize: _getFontSize(84), color: defaultTextColor),
+        ),
         pw.SizedBox(width: _getSize(37)),
-        pw.Expanded(child: pw.Text(infoText, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor))),
+        pw.Expanded(
+          child: pw.Text(
+            infoText,
+            style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor),
+          ),
+        ),
       ],
     );
   }
@@ -161,8 +163,14 @@ class PdfGenerator {
       child: pw.Row(
         mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
-          pw.Text('${pdfTexts.addressLabel}: ', style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: labelColor)),
-          pw.Text(pdfTexts.address, style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: addressColor)),
+          pw.Text(
+            '${pdfTexts.addressLabel}: ',
+            style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: labelColor),
+          ),
+          pw.Text(
+            pdfTexts.address,
+            style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: addressColor),
+          ),
         ],
       ),
     );
@@ -170,7 +178,10 @@ class PdfGenerator {
 
   pw.Container _buildPasswordContainer() {
     return _buildTextContainer(
-      child: pw.Text('${pdfTexts.passwordLabel}:', style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: labelColor)),
+      child: pw.Text(
+        '${pdfTexts.passwordLabel}:',
+        style: pw.TextStyle(fontSize: _getFontContainer(34.375), color: labelColor),
+      ),
     );
   }
 
@@ -196,7 +207,10 @@ class PdfGenerator {
           width: _getSize(485),
           child: pw.Padding(
             padding: pw.EdgeInsets.only(top: _getSize(52)),
-            child: pw.Text(pdfTexts.qrDescription, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor)),
+            child: pw.Text(
+              pdfTexts.qrDescription,
+              style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor),
+            ),
           ),
         ),
         _buildQr(qrImage),
@@ -212,7 +226,10 @@ class PdfGenerator {
                 style: pw.TextStyle(fontSize: _getFontSize(36), fontWeight: pw.FontWeight.bold, color: defaultTextColor),
               ),
               pw.SizedBox(height: _getSize(36)),
-              pw.Text(pdfTexts.needHelpText, style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor)),
+              pw.Text(
+                pdfTexts.needHelpText,
+                style: pw.TextStyle(fontSize: _getFontSize(36), color: defaultTextColor),
+              ),
             ],
           ),
         ),

@@ -2,9 +2,11 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../contents/contents.dart';
 import '../common/common.dart';
+import '../consumption/consumption.dart';
 import '../data_view_object.dart';
 import '../transport/transport.dart';
 
+part '../consumption/processed_attribute_query_dvos.dart';
 part 'attribute_query_dvos.g.dart';
 
 sealed class AttributeQueryDVO extends DataViewObject {
@@ -24,13 +26,21 @@ sealed class AttributeQueryDVO extends DataViewObject {
     this.validTo,
   });
 
-  factory AttributeQueryDVO.fromJson(Map json) => switch (json['type']) {
-        'IdentityAttributeQueryDVO' => IdentityAttributeQueryDVO.fromJson(json),
-        'RelationshipAttributeQueryDVO' => RelationshipAttributeQueryDVO.fromJson(json),
-        'ThirdPartyRelationshipAttributeQueryDVO' => ThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
-        'IQLQueryDVO' => IQLQueryDVO.fromJson(json),
-        _ => throw Exception("Invalid type '${json['type']}'"),
-      };
+  factory AttributeQueryDVO.fromJson(Map json) {
+    final type = json['type'];
+
+    if (type is String && type.startsWith('Processed')) {
+      return ProcessedAttributeQueryDVO.fromJson(json);
+    }
+
+    return switch (type) {
+      'IdentityAttributeQueryDVO' => IdentityAttributeQueryDVO.fromJson(json),
+      'RelationshipAttributeQueryDVO' => RelationshipAttributeQueryDVO.fromJson(json),
+      'ThirdPartyRelationshipAttributeQueryDVO' => ThirdPartyRelationshipAttributeQueryDVO.fromJson(json),
+      'IQLQueryDVO' => IQLQueryDVO.fromJson(json),
+      _ => throw Exception("Invalid type '$type'"),
+    };
+  }
   Map<String, dynamic> toJson();
 }
 

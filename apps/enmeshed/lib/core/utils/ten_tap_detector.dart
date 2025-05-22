@@ -5,11 +5,7 @@ class TenTapDetector extends StatelessWidget {
   final Widget child;
   final VoidCallback onTenTap;
 
-  const TenTapDetector({
-    required this.child,
-    required this.onTenTap,
-    super.key,
-  });
+  const TenTapDetector({required this.child, required this.onTenTap, super.key});
 
   @override
   Widget build(BuildContext context) {

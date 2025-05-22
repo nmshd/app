@@ -9,25 +9,14 @@ class DeletionProfileCard extends StatelessWidget {
   final Widget? trailing;
   final VoidCallback? onTap;
 
-  const DeletionProfileCard({
-    required this.accountInDeletion,
-    this.leading,
-    this.trailing,
-    this.onTap,
-    super.key,
-  });
+  const DeletionProfileCard({required this.accountInDeletion, this.leading, this.trailing, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final profilePicture = AutoLoadingProfilePicture(
-      accountId: accountInDeletion.id,
-      profileName: accountInDeletion.name,
-      circleAvatarColor: context.customColors.decorativeContainer,
-    );
+    final profilePicture = AutoLoadingProfilePicture(accountId: accountInDeletion.id, profileName: accountInDeletion.name, decorative: true);
 
     return Card(
       margin: EdgeInsets.zero,
-      elevation: 0,
       child: ListTile(
         tileColor: Theme.of(context).colorScheme.errorContainer,
         onTap: onTap,

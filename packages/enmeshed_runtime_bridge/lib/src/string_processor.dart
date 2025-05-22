@@ -14,24 +14,29 @@ class StringProcessor {
       '''const result = await runtime.stringProcessor.processURL(url, account ?? undefined)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: {} }''',
-      arguments: {
-        'url': url,
-        'account': account?.toJson(),
-      },
+      arguments: {'url': url, 'account': account?.toJson()},
     );
 
     return VoidResult.fromJson(result.valueToMap());
   }
 
-  Future<VoidResult> processTruncatedReference({required String truncatedReference, LocalAccountDTO? account}) async {
+  Future<VoidResult> processReference({required String reference, LocalAccountDTO? account}) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await runtime.stringProcessor.processTruncatedReference(truncatedReference, account ?? undefined)
+      '''const result = await runtime.stringProcessor.processReference(reference, account ?? undefined)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: {} }''',
-      arguments: {
-        'truncatedReference': truncatedReference,
-        'account': account?.toJson(),
-      },
+      arguments: {'reference': reference, 'account': account?.toJson()},
+    );
+
+    return VoidResult.fromJson(result.valueToMap());
+  }
+
+  Future<VoidResult> processDeviceOnboardingReference({required String url}) async {
+    final result = await _evaluator.evaluateJavaScript(
+      '''const result = await runtime.stringProcessor.processDeviceOnboardingReference(url)
+      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
+      return { value: {} }''',
+      arguments: {'url': url},
     );
 
     return VoidResult.fromJson(result.valueToMap());

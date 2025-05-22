@@ -39,10 +39,7 @@ class _LegalTextScreenState extends State<LegalTextScreen> {
                 thumbVisibility: true,
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: MarkdownBody(
-                    data: _legalText!,
-                    onTapLink: (_, href, __) => _onTapLink(href),
-                  ),
+                  child: MarkdownBody(data: _legalText!, onTapLink: (_, href, __) => _onTapLink(href)),
                 ),
               ),
             ),

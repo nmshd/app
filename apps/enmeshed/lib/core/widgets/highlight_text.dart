@@ -6,13 +6,7 @@ class HighlightText extends StatefulWidget {
   final TextStyle? textStyle;
   final int? maxLines;
 
-  const HighlightText({
-    required this.text,
-    super.key,
-    this.query,
-    this.textStyle,
-    this.maxLines,
-  });
+  const HighlightText({required this.text, super.key, this.query, this.textStyle, this.maxLines});
 
   @override
   State<HighlightText> createState() => _HighlightTextState();
@@ -49,6 +43,10 @@ class _HighlightTextState extends State<HighlightText> {
       textSpans.add(TextSpan(text: remainingText, style: widget.textStyle));
     }
 
-    return Text.rich(TextSpan(children: textSpans), maxLines: widget.maxLines, overflow: TextOverflow.ellipsis);
+    return Text.rich(
+      TextSpan(children: textSpans),
+      maxLines: widget.maxLines,
+      overflow: TextOverflow.ellipsis,
+    );
   }
 }

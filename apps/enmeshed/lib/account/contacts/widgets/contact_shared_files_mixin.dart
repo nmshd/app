@@ -5,6 +5,8 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import '/core/core.dart';
+
 abstract class ContactSharedFilesWidget extends StatefulWidget {
   final String accountId;
   final String contactId;
@@ -15,7 +17,7 @@ abstract class ContactSharedFilesWidget extends StatefulWidget {
 mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
   final List<StreamSubscription<void>> _subscriptions = [];
   @protected
-  Set<FileDVO>? sharedFiles;
+  List<FileRecord>? sharedFiles;
 
   @override
   void initState() {
@@ -44,26 +46,40 @@ mixin ContactSharedFilesMixin<T extends ContactSharedFilesWidget> on State<T> {
 
     if (syncBefore) await session.transportServices.account.syncEverything();
 
-    final messageResult = await session.transportServices.messages.getMessages(
-      query: {
-        'participant': QueryValue.string(widget.contactId),
-      },
-    );
+    final messageResult = await session.transportServices.messages.getMessages(query: {'participant': QueryValue.string(widget.contactId)});
 
     final messages = await session.expander.expandMessageDTOs(messageResult.value);
     messages.sort((a, b) => (b.date ?? '').compareTo(a.date ?? ''));
 
+    final sharedFiles = <FileRecord>[];
+    for (final message in messages) {
+      sharedFiles.addAll(
+        message.attachments
+            .where((attachment) => !sharedFiles.any((FileRecord file) => file.file.id == attachment.id))
+            .map((file) => (file: file, fileReferenceAttribute: null)),
+      );
+    }
+
+    final attributes = await session.consumptionServices.attributes.getAttributes(
+      query: {
+        'content.value.@type': QueryValue.string('IdentityFileReference'),
+        'shareInfo.peer': QueryValue.string(widget.contactId),
+        'succeededBy': QueryValue.string('!'),
+      },
+    );
+
+    final fileReferenceAttributes = await session.expander.expandLocalAttributeDTOs(attributes.value);
+
+    for (final fileReferenceAttribute in fileReferenceAttributes) {
+      final fileReference = fileReferenceAttribute.value as IdentityFileReferenceAttributeValue;
+      final file = await expandFileReference(accountId: widget.accountId, fileReference: fileReference.value);
+      sharedFiles.add(createFileRecord(file: file, fileReferenceAttribute: fileReferenceAttribute));
+    }
+
+    sharedFiles.sort((a, b) => (b.file.date ?? '').compareTo(a.file.date ?? ''));
+
     if (mounted) {
-      setState(() {
-        sharedFiles = <FileDVO>{};
-        for (final message in messages) {
-          sharedFiles!.addAll(
-            message.attachments.where(
-              (attachment) => !sharedFiles!.any((file) => file.id == attachment.id),
-            ),
-          );
-        }
-      });
+      setState(() => this.sharedFiles = sharedFiles);
     }
   }
 }

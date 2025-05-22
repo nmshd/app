@@ -38,22 +38,19 @@ class PostOfficeBoxAddressAttributeRenderer extends StatelessWidget {
               TranslatedText(value.recipient, style: valueTextStyle),
               TranslatedText(value.boxId, style: valueTextStyle),
               Row(
+                spacing: 4,
                 children: [
                   TranslatedText(value.zipCode, style: valueTextStyle),
-                  const SizedBox(width: 4),
                   TranslatedText(value.city, style: valueTextStyle),
                 ],
               ),
               TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
               if (value.state != null) TranslatedText(valueHints.propertyHints!['state']!.getTranslation(value.state), style: valueTextStyle),
-              if (extraLine != null) ...[
-                const SizedBox(height: 2),
-                extraLine!,
-              ],
+              if (extraLine != null) ...[const SizedBox(height: 2), extraLine!],
             ],
           ),
         ),
-        if (trailing != null) trailing!
+        if (trailing != null) trailing!,
       ],
     );
   }

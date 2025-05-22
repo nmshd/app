@@ -64,14 +64,16 @@ void main() {
       };
       expect(
         LocalResponseDTO.fromJson(json),
-        equals(const LocalResponseDTO(
-          createdAt: '2023',
-          content: Response(
-            result: ResponseResult.Accepted,
-            requestId: 'aRequestId',
-            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        equals(
+          const LocalResponseDTO(
+            createdAt: '2023',
+            content: Response(
+              result: ResponseResult.Accepted,
+              requestId: 'aRequestId',
+              items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+            ),
           ),
-        )),
+        ),
       );
     });
 
@@ -87,15 +89,17 @@ void main() {
       };
       expect(
         LocalResponseDTO.fromJson(json),
-        equals(const LocalResponseDTO(
-          createdAt: '2023',
-          content: Response(
-            result: ResponseResult.Accepted,
-            requestId: 'aRequestId',
-            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        equals(
+          const LocalResponseDTO(
+            createdAt: '2023',
+            content: Response(
+              result: ResponseResult.Accepted,
+              requestId: 'aRequestId',
+              items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+            ),
+            source: LocalResponseSourceDTO(type: LocalResponseSourceType.Message, reference: 'aReference'),
           ),
-          source: LocalResponseSourceDTO(type: LocalResponseSourceType.Message, reference: 'aReference'),
-        )),
+        ),
       );
     });
   });

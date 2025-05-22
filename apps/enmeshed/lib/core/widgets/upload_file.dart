@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,10 +13,8 @@ import 'package:logger/logger.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart' as path;
 
-import '../constants.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
-import 'file_icon.dart';
 import 'modal_loading_overlay.dart';
 
 class UploadFile extends StatefulWidget {
@@ -23,13 +23,7 @@ class UploadFile extends StatefulWidget {
   final bool popOnUpload;
   final Widget? leading;
 
-  const UploadFile({
-    required this.accountId,
-    required this.onFileUploaded,
-    this.popOnUpload = true,
-    this.leading,
-    super.key,
-  });
+  const UploadFile({required this.accountId, required this.onFileUploaded, this.popOnUpload = true, this.leading, super.key});
 
   @override
   State<UploadFile> createState() => _UploadFileState();
@@ -79,7 +73,12 @@ class _UploadFileState extends State<UploadFile> {
             ),
             Flexible(
               child: Padding(
-                padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom, top: 16),
+                padding: EdgeInsets.only(
+                  left: 24,
+                  right: 24,
+                  bottom: max(MediaQuery.viewPaddingOf(context).bottom, MediaQuery.viewInsetsOf(context).bottom) + 8,
+                  top: 16,
+                ),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,8 +93,9 @@ class _UploadFileState extends State<UploadFile> {
                         decoration: InputDecoration(
                           labelText: '${context.l10n.title}*',
                           errorMaxLines: 3,
-                          suffixIcon:
-                              _titleController.text.isEmpty ? null : IconButton(onPressed: _titleController.clear, icon: const Icon(Icons.clear)),
+                          suffixIcon: _titleController.text.isEmpty
+                              ? null
+                              : IconButton(onPressed: _titleController.clear, icon: const Icon(Icons.clear)),
                           border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                           focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                         ),
@@ -124,10 +124,7 @@ class _UploadFileState extends State<UploadFile> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          OutlinedButton(
-                            onPressed: () => context.pop(),
-                            child: Text(context.l10n.cancel),
-                          ),
+                          OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
                           Gaps.w8,
                           FilledButton(
                             onPressed: validateEverything() ? _submit : null,
@@ -136,7 +133,6 @@ class _UploadFileState extends State<UploadFile> {
                           ),
                         ],
                       ),
-                      Gaps.h24,
                     ],
                   ),
                 ),
@@ -228,19 +224,15 @@ class _UploadFileState extends State<UploadFile> {
   bool validateEverything() => _selectedFile != null && isTitleValid && !_isFileTooLarge;
 
   Future<RepositoryAttributeDVO> _createFileReferenceAttribute(FileDVO file) async {
-    final createEnabledNotifier = ValueNotifier<bool>(false);
-
-    final fileReferenceResult = await createRepositoryAttribute(
-      accountId: widget.accountId,
-      context: context,
-      createEnabledNotifier: createEnabledNotifier,
-      value: IdentityFileReferenceAttributeValue(value: file.truncatedReference),
-      onAttributeCreated: () => createEnabledNotifier.value = true,
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final createAttributeResult = await session.consumptionServices.attributes.createRepositoryAttribute(
+      value: IdentityFileReferenceAttributeValue(value: file.reference.truncated),
       tags: _tagController.text.isNotEmpty ? [_tagController.text] : null,
     );
 
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
-    return (await session.expander.expandLocalAttributeDTO(fileReferenceResult!)) as RepositoryAttributeDVO;
+    // TODO(jkoenig134): error handling
+
+    return (await session.expander.expandLocalAttributeDTO(createAttributeResult.value)) as RepositoryAttributeDVO;
   }
 }
 
@@ -279,27 +271,13 @@ class _FileSelectedState extends State<_FileSelected> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FileIcon(
-              filename: widget.file.path,
-              color: Theme.of(context).colorScheme.primaryContainer,
-              size: 48,
-            ),
+            FileIcon(filename: widget.file.path, color: Theme.of(context).colorScheme.primaryContainer, size: 48),
             Gaps.h8,
-            Text(
-              path.basename(widget.file.path),
-              style: Theme.of(context).textTheme.labelLarge,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            Text(path.basename(widget.file.path), style: Theme.of(context).textTheme.labelLarge, maxLines: 1, overflow: TextOverflow.ellipsis),
             if (isLoading)
               const CircularProgressIndicator()
             else if (fileSize != null)
-              Text(
-                fileSize!,
-                style: Theme.of(context).textTheme.bodyMedium,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+              Text(fileSize!, style: Theme.of(context).textTheme.bodyMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
           ],
         ),
       ),
@@ -339,12 +317,7 @@ class _NoFileSelected extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 24),
-          child: FilledButton(
-            onPressed: selectFile,
-            child: Text(
-              context.l10n.files_selectFile,
-            ),
-          ),
+          child: FilledButton(onPressed: selectFile, child: Text(context.l10n.files_selectFile)),
         ),
       ],
     );

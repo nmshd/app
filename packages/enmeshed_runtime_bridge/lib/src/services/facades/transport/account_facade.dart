@@ -18,22 +18,18 @@ class AccountFacade {
   AccountFacade(this._evaluator);
 
   Future<Result<GetIdentityInfoResponse>> getIdentityInfo() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.getIdentityInfo()
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.transportServices.account.getIdentityInfo()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final value = result.valueToMap();
     return Result.fromJson(value, (x) => GetIdentityInfoResponse.fromJson(x));
   }
 
   Future<Result<DeviceDTO>> getDeviceInfo() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.getDeviceInfo()
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.transportServices.account.getDeviceInfo()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final value = result.valueToMap();
     return Result.fromJson(value, (x) => DeviceDTO.fromJson(x));
@@ -52,12 +48,7 @@ class AccountFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'handle': handle,
-          'appId': appId,
-          'platform': platform,
-          if (environment != null) 'environment': environment.name,
-        },
+        'request': {'handle': handle, 'appId': appId, 'platform': platform, if (environment != null) 'environment': environment.name},
       },
     );
 
@@ -66,88 +57,70 @@ class AccountFacade {
   }
 
   Future<VoidResult> unregisterPushNotificationToken() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.unregisterPushNotificationToken()
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.transportServices.account.unregisterPushNotificationToken()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final value = result.valueToMap();
     return VoidResult.fromJson(value);
   }
 
   Future<VoidResult> syncDatawallet() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.syncDatawallet({})
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.transportServices.account.syncDatawallet({})
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final value = result.valueToMap();
     return VoidResult.fromJson(value);
   }
 
   Future<Result<SyncEverythingResponse>> syncEverything() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.syncEverything({})
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.transportServices.account.syncEverything({})
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final value = result.valueToMap();
     return Result.fromJson(value, (x) => SyncEverythingResponse.fromJson(x));
   }
 
   Future<Result<SyncInfoResponse>> getSyncInfo() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.getSyncInfo()
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.transportServices.account.getSyncInfo()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final value = result.valueToMap();
     return Result.fromJson(value, (x) => SyncInfoResponse.fromJson(x));
   }
 
   Future<VoidResult> enableAutoSync() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.enableAutoSync()
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.transportServices.account.enableAutoSync()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final value = result.valueToMap();
     return VoidResult.fromJson(value);
   }
 
   Future<VoidResult> disableAutoSync() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.disableAutoSync()
+    final result = await _evaluator.evaluateJavaScript('''const result = await session.transportServices.account.disableAutoSync()
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-    );
+      return { value: result.value }''');
 
     final value = result.valueToMap();
     return VoidResult.fromJson(value);
   }
 
-  Future<Result<LoadItemFromTruncatedReferenceResponse>> loadItemFromTruncatedReference({
-    required String reference,
-    String? password,
-  }) async {
+  Future<Result<LoadItemFromReferenceResponse>> loadItemFromReference({required String reference, String? password}) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.account.loadItemFromTruncatedReference(request)
+      '''const result = await session.transportServices.account.loadItemFromReference(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'reference': reference,
-          if (password != null) 'password': password,
-        },
+        'request': {'reference': reference, 'password': ?password},
       },
     );
 
     final value = result.valueToMap();
-    return Result.fromJson(value, (x) => LoadItemFromTruncatedReferenceResponse.fromJson(x));
+    return Result.fromJson(value, (x) => LoadItemFromReferenceResponse.fromJson(x));
   }
 }

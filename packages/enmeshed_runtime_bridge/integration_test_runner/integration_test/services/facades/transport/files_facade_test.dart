@@ -43,7 +43,7 @@ void run(EnmeshedRuntime runtime) {
     expect(fileResult.value.title, 'aTitle');
   });
 
-  group('FilesFacade: uploadOwnFile', () {
+  group('[FilesFacade] uploadOwnFile', () {
     test('should upload own file', () async {
       final expiresAt = generateExpiryString();
       final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
@@ -74,6 +74,7 @@ void run(EnmeshedRuntime runtime) {
         expiresAt: expiresAt,
         title: 'aTitle',
         description: 'aDescription',
+        tags: ['aTag'],
       );
 
       expect(fileResult, isSuccessful<FileDTO>());
@@ -82,6 +83,7 @@ void run(EnmeshedRuntime runtime) {
       expect(fileResult.value.expiresAt, expiresAt);
       expect(fileResult.value.title, 'aTitle');
       expect(fileResult.value.description, 'aDescription');
+      expect(fileResult.value.tags, ['aTag']);
     });
 
     test('should use default uploading own file without expiry date', () async {
@@ -100,7 +102,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: getFiles', () {
+  group('[FilesFacade] getFiles', () {
     test('should give access to uploaded files', () async {
       final filesResult = await session.transportServices.files.getFiles();
       final files = filesResult.value;
@@ -110,9 +112,9 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: getOrLoadFile', () {
+  group('[FilesFacade] getOrLoadFile', () {
     test('should be able to load files by entering reference', () async {
-      final fileResult = await session.transportServices.files.getOrLoadFile(reference: globalFile.truncatedReference);
+      final fileResult = await session.transportServices.files.getOrLoadFile(reference: globalFile.reference.truncated);
 
       expect(fileResult, isSuccessful<FileDTO>());
       expect(fileResult.value.id, globalFile.id);
@@ -134,7 +136,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: downloadFile', () {
+  group('[FilesFacade] downloadFile', () {
     // TODO: re-enable test
     test('should allow to download a file', skip: true, () async {
       final responseResult = await session.transportServices.files.downloadFile(fileId: globalFile.id);
@@ -156,7 +158,7 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: getFile', () {
+  group('[FilesFacade] getFile', () {
     test('should return a valid file', () async {
       final fileResult = await session.transportServices.files.getFile(fileId: globalFile.id);
 
@@ -177,33 +179,13 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: createQRCodeForFile', () {
-    test('should return a valid CreateQRCodeResponse', () async {
-      final responseResult = await session.transportServices.files.createQRCodeForFile(fileId: globalFile.id);
-
-      expect(responseResult, isSuccessful<CreateQRCodeResponse>());
-    });
-
-    test('throws an exception if file id does not match the pattern', () async {
-      final result = await session.transportServices.files.createQRCodeForFile(fileId: '');
-
-      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
-    });
-
-    test('throws an exception on not existing file id', () async {
-      final result = await session.transportServices.files.createQRCodeForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
-
-      expect(result, isFailing('error.runtime.recordNotFound'));
-    });
-  });
-
-  group('FilesFacade: createTokenForFile', () {
+  group('[FilesFacade] createTokenForFile', () {
     test('should return a valid TokenDTO', () async {
       final tokenResult = await session.transportServices.files.createTokenForFile(fileId: globalFile.id);
 
       expect(tokenResult, isSuccessful<TokenDTO>());
 
-      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.truncatedReference);
+      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.reference.truncated);
 
       expect(responseResult, isSuccessful<FileDTO>());
       expect(responseResult.value.isOwn, false);
@@ -212,15 +194,11 @@ void run(EnmeshedRuntime runtime) {
     test('should return a valid TokenDTO with all properties', () async {
       final expiresAt = generateExpiryString();
 
-      final tokenResult = await session.transportServices.files.createTokenForFile(
-        fileId: globalFile.id,
-        expiresAt: expiresAt,
-        ephemeral: true,
-      );
+      final tokenResult = await session.transportServices.files.createTokenForFile(fileId: globalFile.id, expiresAt: expiresAt, ephemeral: true);
 
       expect(tokenResult, isSuccessful<TokenDTO>());
 
-      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.truncatedReference);
+      final responseResult = await session2.transportServices.files.getOrLoadFile(reference: tokenResult.value.reference.truncated);
       final response = responseResult.value;
 
       expect(tokenResult.value.expiresAt, expiresAt);
@@ -242,32 +220,28 @@ void run(EnmeshedRuntime runtime) {
     });
   });
 
-  group('FilesFacade: createTokenQRCodeForFile', () {
-    test('should return a valid CreateQRCodeResponse', () async {
-      final tokenResult = await session.transportServices.files.createTokenQRCodeForFile(fileId: globalFile.id);
+  group('[FilesFacade] deleteFile', () {
+    test('should delete a file', () async {
+      final expiresAt = generateExpiryString();
+      final bytes = Uint8List.fromList(utf8.encode('a String')).toList();
 
-      expect(tokenResult, isSuccessful<CreateQRCodeResponse>());
-    });
-
-    test('should return a valid CreateQRCodeResponse with all properties', () async {
-      final tokenResult = await session.transportServices.files.createTokenQRCodeForFile(
-        fileId: globalFile.id,
-        expiresAt: generateExpiryString(),
+      final uploadFileResult = await session.transportServices.files.uploadOwnFile(
+        content: bytes,
+        filename: 'facades/test.txt',
+        mimetype: 'plain',
+        expiresAt: expiresAt,
+        title: 'aTitle',
       );
+      final fileId = uploadFileResult.value.id;
 
-      expect(tokenResult, isSuccessful<CreateQRCodeResponse>());
-    });
+      final getFileResult = await session.transportServices.files.getFile(fileId: fileId);
+      expect(getFileResult, isSuccessful<FileDTO>());
 
-    test('throws an exception if file id does not match the pattern', () async {
-      final result = await session.transportServices.files.createTokenQRCodeForFile(fileId: '');
+      final deleteFileResult = await session.transportServices.files.deleteFile(fileId: fileId);
+      expect(deleteFileResult, isSuccessful());
 
-      expect(result, isFailing('error.runtime.validation.invalidPropertyValue'));
-    });
-
-    test('throws an exception on not existing file id', () async {
-      final result = await session.transportServices.files.createTokenQRCodeForFile(fileId: 'FILXXXXXXXXXXXXXXXXX');
-
-      expect(result, isFailing('error.runtime.recordNotFound'));
+      final getFileAfterDeletionResult = await session.transportServices.files.getFile(fileId: fileId);
+      expect(getFileAfterDeletionResult.error.code, 'error.runtime.recordNotFound');
     });
   });
 }

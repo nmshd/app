@@ -58,7 +58,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
           });
         }
 
-        widget.controller?.value = ValueRendererInputValueString(value.truncatedReference);
+        widget.controller?.value = ValueRendererInputValueString(value.reference.truncated);
       });
     } else {
       initialLoadComplete = true;
@@ -73,14 +73,14 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
     final subtitle = !initialLoadComplete
         ? const LinearProgressIndicator()
         : selectedFile != null
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(selectedFile!.title, style: widget.valueTextStyle),
-                  Text(selectedFile!.filename, style: widget.valueTextStyle),
-                ],
-              )
-            : TranslatedText('i18n://valueRenderer.fileReference.noFileSelected', style: widget.valueTextStyle);
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(selectedFile!.title, style: widget.valueTextStyle),
+              Text(selectedFile!.filename, style: widget.valueTextStyle),
+            ],
+          )
+        : TranslatedText('i18n://valueRenderer.fileReference.noFileSelected', style: widget.valueTextStyle);
 
     return ListTile(
       contentPadding: EdgeInsets.zero,
@@ -89,10 +89,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          IconButton(
-            onPressed: selectedFile != null ? () => widget.openFileDetails(selectedFile!) : null,
-            icon: const Icon(Icons.info),
-          ),
+          IconButton(onPressed: selectedFile != null ? () => widget.openFileDetails(selectedFile!) : null, icon: const Icon(Icons.info)),
           TextButton(
             child: const TranslatedText('i18n://valueRenderer.fileReference.selectFile'),
             onPressed: () async {
@@ -102,7 +99,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
                   selectedFile = file;
                 });
 
-                widget.controller?.value = ValueRendererInputValueString(file.truncatedReference);
+                widget.controller?.value = ValueRendererInputValueString(file.reference.truncated);
               }
             },
           ),

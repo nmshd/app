@@ -37,10 +37,7 @@ void main() {
         'title': 'aTitle',
         'value': {'value': 'aValue'},
       };
-      expect(
-        ProprietaryJSONAttributeValue.fromJson(json),
-        equals(const ProprietaryJSONAttributeValue(title: 'aTitle', value: {'value': 'aValue'})),
-      );
+      expect(ProprietaryJSONAttributeValue.fromJson(json), equals(const ProprietaryJSONAttributeValue(title: 'aTitle', value: {'value': 'aValue'})));
     });
 
     test('is correctly converted with property "description"', () {

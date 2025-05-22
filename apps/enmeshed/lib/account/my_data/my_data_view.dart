@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -53,22 +54,12 @@ class _MyDataViewState extends State<MyDataView> {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: AutoLoadingProfilePicture(
-              accountId: widget.accountId,
-              profileName: _account?.name ?? '',
-              circleAvatarColor: context.customColors.decorativeContainer,
-              radius: 80,
-            ),
+            child: AutoLoadingProfilePicture(accountId: widget.accountId, profileName: _account?.name ?? '', decorative: true, radius: 80),
           ),
           Gaps.h8,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              _account?.name ?? '',
-              style: Theme.of(context).textTheme.titleLarge,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            ),
+            child: Text(_account?.name ?? '', style: Theme.of(context).textTheme.titleLarge, overflow: TextOverflow.ellipsis, maxLines: 2),
           ),
           Gaps.h32,
           ColoredBox(

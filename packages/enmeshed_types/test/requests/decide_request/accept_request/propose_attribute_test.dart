@@ -5,12 +5,21 @@ void main() {
   group('AcceptProposeAttributeRequestItemParametersWithNewAttribute toJson', () {
     test('is correctly converted', () {
       const item = AcceptProposeAttributeRequestItemParametersWithNewAttribute(
-        attribute: IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')),
+        attribute: IdentityAttribute(
+          owner: 'anOwner',
+          value: CityAttributeValue(value: 'aCity'),
+        ),
       );
       final itemJson = item.toJson();
       expect(
         itemJson,
-        equals({'accept': true, 'attribute': const IdentityAttribute(owner: 'anOwner', value: CityAttributeValue(value: 'aCity')).toJson()}),
+        equals({
+          'accept': true,
+          'attribute': const IdentityAttribute(
+            owner: 'anOwner',
+            value: CityAttributeValue(value: 'aCity'),
+          ).toJson(),
+        }),
       );
     });
   });
@@ -19,9 +28,19 @@ void main() {
     test('is correctly converted', () {
       const item = AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: 'anAttributeId');
       final itemJson = item.toJson();
+      expect(itemJson, equals({'accept': true, 'attributeId': 'anAttributeId'}));
+    });
+
+    test('is correctly converted with tags', () {
+      const item = AcceptProposeAttributeRequestItemParametersWithExistingAttribute(attributeId: 'anAttributeId', tags: ['aTag']);
+      final itemJson = item.toJson();
       expect(
         itemJson,
-        equals({'accept': true, 'attributeId': 'anAttributeId'}),
+        equals({
+          'accept': true,
+          'attributeId': 'anAttributeId',
+          'tags': ['aTag'],
+        }),
       );
     });
   });

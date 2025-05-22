@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,6 @@ import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:logger/logger.dart';
 import 'package:renderers/renderers.dart';
 
-import '../constants.dart';
 import '../modals/create_attribute.dart';
 import '../types/types.dart';
 import '../utils/utils.dart';
@@ -26,6 +26,7 @@ class RequestDVORenderer extends StatefulWidget {
   final bool showHeader;
   final LocalRequestDVO? requestDVO;
   final String? description;
+  final Future<bool> Function()? validateCreateRelationship;
 
   const RequestDVORenderer({
     required this.accountId,
@@ -34,6 +35,7 @@ class RequestDVORenderer extends StatefulWidget {
     required this.acceptRequestText,
     required this.validationErrorDescription,
     required this.onAfterAccept,
+    required this.validateCreateRelationship,
     this.showHeader = true,
     this.requestDVO,
     this.description,
@@ -118,11 +120,6 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (widget.showHeader) ...[
-                    if (widget.description != null)
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Text(widget.description!),
-                      ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Row(
@@ -138,17 +135,14 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                         ],
                       ),
                     ),
+                    if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
                   ],
                   if (_validationResult != null && !_validationResult!.isSuccess)
                     _RequestRenderErrorContainer(
                       errorCount: _validationResult!.countOfValidationErrors,
                       validationErrorDescription: widget.validationErrorDescription,
                     ),
-                  if (_request!.isDecidable)
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text(context.l10n.mandatoryField),
-                    ),
+                  if (_request!.isDecidable) Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.mandatoryField)),
                   RequestRenderer(
                     formKey: _formKey,
                     request: _request!,
@@ -157,10 +151,11 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     openAttributeSwitcher: _openAttributeSwitcher,
                     expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
                     chooseFile: () => openFileChooser(context: context, accountId: widget.accountId),
-                    openFileDetails: (file) => context.push(
+                    openFileDetails: (file, [LocalAttributeDVO? attribute]) => context.push(
                       '/account/${widget.accountId}/my-data/files/${file.id}',
-                      extra: createFileRecord(file: file),
+                      extra: createFileRecord(file: file, fileReferenceAttribute: attribute),
                     ),
+                    validationResult: _validationResult,
                   ),
                 ],
               ),
@@ -175,7 +170,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
               children: [
                 OutlinedButton(onPressed: _loading && _request != null ? null : _rejectRequest, child: Text(context.l10n.reject)),
                 Gaps.w8,
-                FilledButton(onPressed: _acceptRequest, child: Text(widget.acceptRequestText)),
+                FilledButton(onPressed: _onAcceptButtonPressed, child: Text(widget.acceptRequestText)),
               ],
             ),
           ),
@@ -202,6 +197,14 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
   }
 
   void _setController(Session session, LocalRequestDVO request) => _controller = RequestRendererController(request: request);
+
+  Future<void> _onAcceptButtonPressed() async {
+    final canCreateRelationship = await widget.validateCreateRelationship?.call();
+
+    if (canCreateRelationship == false) return;
+
+    await _acceptRequest();
+  }
 
   Future<void> _acceptRequest() async {
     if (_loading) return;
@@ -347,10 +350,7 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      context.l10n.myEntries,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    Text(context.l10n.myEntries, style: const TextStyle(fontWeight: FontWeight.bold)),
                     if (widget.valueType != null)
                       TextButton.icon(
                         icon: const Icon(Icons.add, size: 16),
@@ -390,10 +390,8 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
                               valueHints: widget.valueHints!,
                               showTitle: false,
                               expandFileReference: (fileReference) => expandFileReference(accountId: widget.accountId, fileReference: fileReference),
-                              openFileDetails: (file) => context.push(
-                                '/account/${widget.accountId}/my-data/files/${file.id}',
-                                extra: createFileRecord(file: file),
-                              ),
+                              openFileDetails: (file) =>
+                                  context.push('/account/${widget.accountId}/my-data/files/${file.id}', extra: createFileRecord(file: file)),
                             ),
                           ),
                         Radio<AttributeSwitcherChoice>(
@@ -422,14 +420,11 @@ class _AttributeSwitcherState extends State<_AttributeSwitcher> {
               ],
             ),
             child: Padding(
-              padding: EdgeInsets.only(right: 16, bottom: MediaQuery.viewInsetsOf(context).bottom + 24, top: 8),
+              padding: EdgeInsets.only(right: 16, bottom: MediaQuery.viewPaddingOf(context).bottom + 8, top: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
-                    onPressed: () => context.pop(),
-                    child: Text(context.l10n.cancel),
-                  ),
+                  TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
                   FilledButton(
                     style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
                     onPressed: () => context.pop(selectedOption),
@@ -456,10 +451,7 @@ class _RequestRenderErrorContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.errorContainer,
-          borderRadius: BorderRadius.circular(4),
-        ),
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.errorContainer, borderRadius: BorderRadius.circular(4)),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(

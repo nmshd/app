@@ -74,16 +74,18 @@ void main() {
       };
       expect(
         LocalRequestDTO.fromJson(json),
-        equals(const LocalRequestDTO(
-          id: 'anId',
-          isOwn: true,
-          peer: 'aPeer',
-          createdAt: '2023',
-          status: LocalRequestStatus.Open,
-          content: Request(
-            items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+        equals(
+          const LocalRequestDTO(
+            id: 'anId',
+            isOwn: true,
+            peer: 'aPeer',
+            createdAt: '2023',
+            status: LocalRequestStatus.Open,
+            content: Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+            ),
           ),
-        )),
+        ),
       );
     });
 
@@ -101,17 +103,19 @@ void main() {
       };
       expect(
         LocalRequestDTO.fromJson(json),
-        equals(const LocalRequestDTO(
-          id: 'anId',
-          isOwn: true,
-          peer: 'aPeer',
-          createdAt: '2023',
-          status: LocalRequestStatus.Open,
-          content: Request(
-            items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+        equals(
+          const LocalRequestDTO(
+            id: 'anId',
+            isOwn: true,
+            peer: 'aPeer',
+            createdAt: '2023',
+            status: LocalRequestStatus.Open,
+            content: Request(
+              items: [ReadAttributeRequestItem(mustBeAccepted: true, query: IdentityAttributeQuery(valueType: 'aValueType'))],
+            ),
+            source: LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference'),
           ),
-          source: LocalRequestSourceDTO(type: LocalRequestSourceType.Message, reference: 'aReference'),
-        )),
+        ),
       );
     });
   });

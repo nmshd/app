@@ -47,16 +47,18 @@ void main() {
       };
       expect(
         ResponseWrapper.fromJson(json),
-        equals(const ResponseWrapper(
-          requestId: 'aRequestId',
-          requestSourceReference: 'aRequestSourceReference',
-          requestSourceType: RequestSourceType.Message,
-          response: Response(
-            result: ResponseResult.Accepted,
+        equals(
+          const ResponseWrapper(
             requestId: 'aRequestId',
-            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+            requestSourceReference: 'aRequestSourceReference',
+            requestSourceType: RequestSourceType.Message,
+            response: Response(
+              result: ResponseResult.Accepted,
+              requestId: 'aRequestId',
+              items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+            ),
           ),
-        )),
+        ),
       );
     });
   });

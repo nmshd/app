@@ -27,9 +27,7 @@ Future<RelationshipDTO> establishRelationship({required Session requestor, requi
     content: emptyRelationshipTemplateContent,
   );
 
-  final item = await requestor.transportServices.account.loadItemFromTruncatedReference(
-    reference: createTemplateResult.value.truncatedReference,
-  );
+  final item = await requestor.transportServices.account.loadItemFromReference(reference: createTemplateResult.value.reference.truncated);
 
   final template = item.value.relationshipTemplateValue;
 
@@ -110,8 +108,9 @@ Future<List<MessageDTO>> syncUntilHasMessages(Session session, {required int exp
 
 Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session session2) async {
   final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
-  List<RelationshipDTO> relationships =
-      (await session1.transportServices.relationships.getRelationships(query: {'peer': QueryValue.string(session2Address)})).value;
+  List<RelationshipDTO> relationships = (await session1.transportServices.relationships.getRelationships(
+    query: {'peer': QueryValue.string(session2Address)},
+  )).value;
 
   if (relationships.isEmpty) {
     await establishRelationshipBetweenSessionsAndSync(session1, session2);
@@ -127,8 +126,9 @@ Future<RelationshipDTO> ensureActiveRelationship(Session session1, Session sessi
 
 Future<RelationshipDTO> ensureTerminatedRelationship(Session session1, Session session2) async {
   final session2Address = (await session2.transportServices.account.getIdentityInfo()).value.address;
-  List<RelationshipDTO> relationships =
-      (await session1.transportServices.relationships.getRelationships(query: {'peer': QueryValue.string(session2Address)})).value;
+  List<RelationshipDTO> relationships = (await session1.transportServices.relationships.getRelationships(
+    query: {'peer': QueryValue.string(session2Address)},
+  )).value;
 
   if (relationships.isEmpty) {
     await establishRelationshipBetweenSessionsAndSync(session1, session2);
@@ -153,7 +153,7 @@ Future<RelationshipDTO> establishRelationshipBetweenSessionsAndSync(Session sess
     content: emptyRelationshipTemplateContent,
   );
   final connectorLoadTemplateResult = await session2.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
-    reference: createTemplateResult.value.truncatedReference,
+    reference: createTemplateResult.value.reference.truncated,
   );
   assert(connectorLoadTemplateResult.isSuccess);
 
@@ -186,10 +186,9 @@ Future<LocalAttributeDTO> exchangeIdentityAttribute(Session sender, Session reci
 
   await syncUntilHasMessage(sender);
 
-  final localAttributes = await sender.consumptionServices.attributes.getAttributes(query: {
-    'content.@type': QueryValue.string('IdentityAttribute'),
-    'shareInfo.requestReference': QueryValue.string(request.id),
-  });
+  final localAttributes = await sender.consumptionServices.attributes.getAttributes(
+    query: {'content.@type': QueryValue.string('IdentityAttribute'), 'shareInfo.requestReference': QueryValue.string(request.id)},
+  );
   assert(localAttributes.value.isNotEmpty);
   assert(localAttributes.value.first.shareInfo?.requestReference == request.id);
 
@@ -223,10 +222,9 @@ Future<LocalAttributeDTO> exchangeRelationshipAttribute(
 
   await syncUntilHasMessage(sender);
 
-  final localAttributes = await sender.consumptionServices.attributes.getAttributes(query: {
-    'content.@type': QueryValue.string('RelationshipAttribute'),
-    'shareInfo.requestReference': QueryValue.string(request.id),
-  });
+  final localAttributes = await sender.consumptionServices.attributes.getAttributes(
+    query: {'content.@type': QueryValue.string('RelationshipAttribute'), 'shareInfo.requestReference': QueryValue.string(request.id)},
+  );
   assert(localAttributes.value.isNotEmpty);
   assert(localAttributes.value.first.shareInfo?.requestReference == request.id);
 
@@ -245,8 +243,10 @@ Future<void> exchangeAndAcceptRequestByMessage(
   final createRequestResult = await sender.consumptionServices.outgoingRequests.create(content: request, peer: recipientAddress);
   assert(createRequestResult.isSuccess);
 
-  await sender.transportServices.messages
-      .sendMessage(recipients: [recipientAddress], content: MessageContentRequest(request: createRequestResult.value.content));
+  await sender.transportServices.messages.sendMessage(
+    recipients: [recipientAddress],
+    content: MessageContentRequest(request: createRequestResult.value.content),
+  );
   await syncUntilHasMessage(recipient);
 
   await eventBus.waitForEvent<IncomingRequestStatusChangedEvent>(
@@ -289,10 +289,7 @@ Future<LocalAttributeDTO> acceptIncomingShareAttributeRequest(
   );
 
   final acceptRequestResult = await recipient.consumptionServices.incomingRequests.accept(
-    params: DecideRequestParameters(
-      requestId: request.id,
-      items: [const AcceptRequestItemParameters()],
-    ),
+    params: DecideRequestParameters(requestId: request.id, items: [const AcceptRequestItemParameters()]),
   );
 
   assert(acceptRequestResult.isSuccess);
@@ -464,7 +461,7 @@ class FakeUIBridge implements UIBridge {
   final showRequestCalls = List<(LocalAccountDTO, LocalRequestDVO)>.empty(growable: true);
   bool get showRequestCalled => showRequestCalls.isNotEmpty;
 
-  final enterPasswordCalls = List<(UIBridgePasswordType, int?, int?)>.empty(growable: true);
+  final enterPasswordCalls = List<(UIBridgePasswordType, int?, int?, int?)>.empty(growable: true);
   bool get enterPasswordCalled => enterPasswordCalls.isNotEmpty;
 
   void reset() {
@@ -504,8 +501,8 @@ class FakeUIBridge implements UIBridge {
   Future<void> showRequest(LocalAccountDTO account, LocalRequestDVO request) async => showRequestCalls.add((account, request));
 
   @override
-  Future<String> enterPassword({required UIBridgePasswordType passwordType, int? pinLength, int? attempt}) async {
-    enterPasswordCalls.add((passwordType, pinLength, attempt));
+  Future<String> enterPassword({required UIBridgePasswordType passwordType, int? pinLength, int? attempt, int? passwordLocationIndicator}) async {
+    enterPasswordCalls.add((passwordType, pinLength, attempt, passwordLocationIndicator));
 
     return switch (passwordType) {
       UIBridgePasswordType.pin => '0' * pinLength!,

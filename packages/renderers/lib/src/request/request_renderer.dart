@@ -17,7 +17,9 @@ class RequestRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
-  final void Function(FileDVO) openFileDetails;
+  final void Function(FileDVO, [LocalAttributeDVO?]) openFileDetails;
+
+  final RequestValidationResultDTO? validationResult;
 
   const RequestRenderer({
     super.key,
@@ -29,6 +31,7 @@ class RequestRenderer extends StatelessWidget {
     required this.expandFileReference,
     required this.chooseFile,
     required this.openFileDetails,
+    this.validationResult,
   });
 
   @override
@@ -78,6 +81,7 @@ class RequestRenderer extends StatelessWidget {
           expandFileReference: expandFileReference,
           chooseFile: chooseFile,
           openFileDetails: openFileDetails,
+          validationResult: validationResult?.items[index],
         );
       }
 
@@ -91,6 +95,7 @@ class RequestRenderer extends StatelessWidget {
         expandFileReference: expandFileReference,
         chooseFile: chooseFile,
         openFileDetails: openFileDetails,
+        validationResult: validationResult?.items[index],
       );
     }).toList();
 

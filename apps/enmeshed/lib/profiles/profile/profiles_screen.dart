@@ -3,15 +3,14 @@ import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
-import 'modals/delete_profile/delete_profile_or_identity_modal.dart';
 import 'modals/modals.dart';
-import 'widgets/profile_widgets.dart';
 
 class ProfilesScreen extends StatefulWidget {
   final String? selectedAccountReference;
@@ -76,41 +75,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                     selectedAccountProfilePicture: _selectedAccountProfilePicture,
                     editProfile: _editProfile,
                   ),
-                  Theme(
-                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                    child: ExpansionTile(
-                      backgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
-                      collapsedBackgroundColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.53),
-                      title: Text(context.l10n.profiles_settings_title),
-                      subtitle: Text(context.l10n.profiles_settings_subtitle),
-                      children: [
-                        ListTile(
-                          leading: const Icon(Icons.edit_outlined),
-                          title: Text(context.l10n.profiles_settings_editProfile),
-                          onTap: _editProfile,
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.devices_outlined),
-                          title: Text(context.l10n.profiles_settings_connectedDevices),
-                          onTap: () => context.push('/account/${_selectedAccount.id}/devices'),
-                        ),
-                        if (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS'))
-                          ListTile(
-                            leading: const Icon(Icons.history_outlined),
-                            title: Text(context.l10n.profiles_settings_createIdentityRecoveryKit),
-                            onTap: () => context.push('/account/${_selectedAccount.id}/create-identity-recovery-kit'),
-                          ),
-                        ListTile(
-                          leading: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.error),
-                          title: Text(context.l10n.profiles_settings_deleteProfile),
-                          onTap: () => showDeleteProfileOrIdentityModal(context: context, localAccount: _selectedAccount),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Divider(height: 2),
                   Gaps.h8,
-                  _MoreProfiles(accounts: _accounts!),
+                  _MoreProfiles(accounts: _accounts!, accountId: _selectedAccount.id),
                   if (_accountsInDeletion!.isNotEmpty) ...[
                     Gaps.h8,
                     _ProfilesInDeletion(accountsInDeletion: _accountsInDeletion!, reloadAccounts: _reloadAccounts),
@@ -167,33 +133,36 @@ class _CurrentProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
       children: [
-        Positioned.fill(
-          child: CustomPaint(
-            painter: _BackgroundPainter(
-              leftTriangleColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.36),
-              rightTriangleColor: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.25),
+        Stack(
+          children: [
+            Positioned.fill(
+              child: CustomPaint(
+                painter: _BackgroundPainter(
+                  leftTriangleColor: Theme.of(context).colorScheme.surfaceContainerLow,
+                  rightTriangleColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+                  bottomColor: Theme.of(context).colorScheme.secondaryContainer,
+                ),
+              ),
             ),
-          ),
+            Center(
+              child: ProfilePicture(
+                radius: 60,
+                profileName: selectedAccount.name,
+                image: selectedAccountProfilePicture != null ? FileImage(selectedAccountProfilePicture!) : null,
+                decorative: true,
+                onPressed: editProfile,
+              ),
+            ),
+          ],
         ),
-        Padding(
+        Container(
+          width: double.infinity,
+          color: Theme.of(context).colorScheme.secondaryContainer,
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Align(
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(45),
-                  onTap: editProfile,
-                  child: ProfilePicture(
-                    radius: 40,
-                    profileName: selectedAccount.name,
-                    image: selectedAccountProfilePicture != null ? FileImage(selectedAccountProfilePicture!) : null,
-                    circleAvatarColor: Theme.of(context).colorScheme.secondaryContainer,
-                  ),
-                ),
-              ),
-              Gaps.h16,
               Text(
                 selectedAccount.name,
                 style: Theme.of(context).textTheme.titleLarge,
@@ -201,9 +170,9 @@ class _CurrentProfileHeader extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
               ),
-              Gaps.h16,
-              InkWell(
-                onTap: () {
+              TextButton(
+                style: TextButton.styleFrom(padding: const EdgeInsets.all(8), minimumSize: Size.zero),
+                onPressed: () {
                   Clipboard.setData(ClipboardData(text: selectedAccount.address!));
                   showSuccessSnackbar(context: context, text: context.l10n.profiles_copiedAddressToClipboard, showCloseIcon: true);
                 },
@@ -214,6 +183,29 @@ class _CurrentProfileHeader extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   semanticsLabel: context.l10n.profiles_copyAddressToClipboardLabel,
                 ),
+              ),
+              Gaps.h8,
+              Text(context.l10n.profiles_settings_subtitle),
+              Gaps.h16,
+              Row(
+                children: [
+                  IconButton(icon: const Icon(Icons.edit_outlined), tooltip: context.l10n.profiles_settings_editProfile, onPressed: editProfile),
+                  IconButton(
+                    icon: const Icon(Icons.devices_outlined),
+                    tooltip: context.l10n.profiles_settings_connectedDevices,
+                    onPressed: () => context.push('/account/${selectedAccount.id}/devices'),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.history_outlined),
+                    tooltip: context.l10n.profiles_settings_createIdentityRecoveryKit,
+                    onPressed: () => context.push('/account/${selectedAccount.id}/create-identity-recovery-kit'),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete_outline),
+                    tooltip: context.l10n.profiles_settings_deleteProfile,
+                    onPressed: () => showDeleteProfileOrIdentityModal(context: context, localAccount: selectedAccount),
+                  ),
+                ],
               ),
             ],
           ),
@@ -226,39 +218,46 @@ class _CurrentProfileHeader extends StatelessWidget {
 class _BackgroundPainter extends CustomPainter {
   final Color leftTriangleColor;
   final Color rightTriangleColor;
+  final Color bottomColor;
 
-  _BackgroundPainter({
-    required this.leftTriangleColor,
-    required this.rightTriangleColor,
-  });
+  _BackgroundPainter({required this.leftTriangleColor, required this.rightTriangleColor, required this.bottomColor});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint1 = Paint()
-      ..color = leftTriangleColor
-      ..style = PaintingStyle.fill;
-
-    final paint2 = Paint()
+    final rightPaint = Paint()
       ..color = rightTriangleColor
       ..style = PaintingStyle.fill;
 
-    final path1 = Path()
-      ..moveTo(0, size.height)
-      ..lineTo(size.width, size.height)
-      ..lineTo(size.width, size.height * 0.9)
-      ..lineTo(0, size.height * 0.5)
+    final leftPaint = Paint()
+      ..color = leftTriangleColor
+      ..style = PaintingStyle.fill;
+
+    final bottomPaint = Paint()
+      ..color = bottomColor
+      ..style = PaintingStyle.fill;
+
+    final leftPath = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(0, size.height)
       ..close();
 
-    final path2 = Path()
-      ..moveTo(size.width, size.height)
-      ..lineTo(0, size.height)
-      ..lineTo(0, size.height * 0.9)
-      ..lineTo(size.width, size.height * 0.5)
+    final bottomPath = Path()
+      ..moveTo(0, size.height)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(size.width, size.height)
+      ..close();
+
+    final rightPath = Path()
+      ..moveTo(size.width, 0)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(size.width, size.height)
       ..close();
 
     canvas
-      ..drawPath(path1, paint1)
-      ..drawPath(path2, paint2);
+      ..drawPath(leftPath, leftPaint)
+      ..drawPath(bottomPath, bottomPaint)
+      ..drawPath(rightPath, rightPaint);
   }
 
   @override
@@ -267,23 +266,44 @@ class _BackgroundPainter extends CustomPainter {
 
 class _MoreProfiles extends StatelessWidget {
   final List<LocalAccountDTO> accounts;
+  final String accountId;
 
-  const _MoreProfiles({required this.accounts});
+  const _MoreProfiles({required this.accounts, required this.accountId});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.only(left: 16, right: 8, bottom: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(context.l10n.profiles_additionalProfiles, style: const TextStyle(fontWeight: FontWeight.bold)),
-              TextButton.icon(
-                onPressed: () => _onCreateProfilePressed(context),
-                icon: const Icon(Icons.add),
-                label: Text(context.l10n.profiles_add),
+              Text(context.l10n.profiles_additionalProfiles, style: Theme.of(context).textTheme.titleMedium),
+              MenuAnchor(
+                onClose: () {},
+                menuChildren: [
+                  MenuItemButton(onPressed: () => _onCreateProfilePressed(context), child: Text(context.l10n.profiles_createNew)),
+                  MenuItemButton(
+                    onPressed: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.loadProfile, context: context),
+                    child: Text(context.l10n.profiles_loadExisting),
+                  ),
+                  MenuItemButton(
+                    onPressed: () => context.push('/restore-from-identity-recovery-kit'),
+                    child: Text(context.l10n.profiles_useRecoveryKit),
+                  ),
+                ],
+                builder: (context, controller, child) => IconButton(
+                  onPressed: () {
+                    if (controller.isOpen) {
+                      controller.close();
+                    } else {
+                      controller.open();
+                    }
+                  },
+                  icon: const Icon(Icons.add),
+                  tooltip: context.l10n.profiles_add,
+                ),
               ),
             ],
           ),
@@ -298,10 +318,7 @@ class _MoreProfiles extends StatelessWidget {
             itemCount: accounts.length,
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ProfileCard(
-                account: accounts[index],
-                onAccountSelected: (account) => _onAccountSelected(account, context),
-              ),
+              child: ProfileCard(account: accounts[index], onAccountSelected: (account) => _onAccountSelected(account, context)),
             ),
           ),
       ],
@@ -338,11 +355,9 @@ class _ProfilesInDeletion extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(context.l10n.identities_in_deletion, style: const TextStyle(fontWeight: FontWeight.bold)),
-            ],
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(context.l10n.identities_in_deletion, style: Theme.of(context).textTheme.titleMedium),
           ),
         ),
         ListView.separated(
@@ -366,7 +381,18 @@ class _ProfilesInDeletion extends StatelessWidget {
           Gaps.h16,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: DeleteDataNowCard(onDeleted: reloadAccounts, accountsInDeletion: accountsInDeletion.where((e) => e.deletionDate != null).toList()),
+            child: ComplexInformationCard(
+              title: context.l10n.profile_localDeletion_title,
+              description: context.l10n.profile_localDeletion_card_description,
+              icon: Icon(Icons.error, color: Theme.of(context).colorScheme.error),
+              actionButtons: [
+                OutlinedButton.icon(
+                  onPressed: () => showDeleteLocalDataModal(context: context, accountsInDeletion: accountsInDeletion, onDeleted: reloadAccounts),
+                  label: Text(context.l10n.profile_localDeletion_card_button),
+                  icon: const Icon(Icons.delete_forever_outlined),
+                ),
+              ],
+            ),
           ),
         ],
       ],

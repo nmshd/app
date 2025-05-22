@@ -1,12 +1,13 @@
 import 'dart:math' as math;
 
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../../constants.dart';
 import '../../utils/utils.dart';
 
 enum ScannerAnimationDirection { forward, reverse }
@@ -32,9 +33,7 @@ class ScannerEntry extends StatefulWidget {
 }
 
 class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderStateMixin {
-  final MobileScannerController _cameraController = MobileScannerController(
-    autoStart: false,
-  );
+  final MobileScannerController _cameraController = MobileScannerController(autoStart: false);
 
   late final Animation<double> _animation;
   late final AnimationController _animationController;
@@ -59,7 +58,7 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
         }
       });
 
-    _startScanning();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _startScanning());
   }
 
   @override
@@ -73,115 +72,117 @@ class _ScannerEntryState extends State<ScannerEntry> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     const scannerWindowSize = 240.0;
-    final scanWindowColor = Theme.of(context).colorScheme.tertiary;
+    final scanWindowColor = Theme.of(context).colorScheme.tertiaryFixedDim;
     final screenSize = MediaQuery.sizeOf(context);
     final scanWindowX = (screenSize.width - scannerWindowSize) / 2;
     final scanWindowY = (screenSize.height - scannerWindowSize) / 2;
     final scanWindow = Rect.fromLTWH(scanWindowX, scanWindowY, scannerWindowSize, scannerWindowSize);
 
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        MobileScanner(
-          controller: _cameraController,
-          onDetect: onDetect,
-          scanWindow: scanWindow,
-        ),
-        CustomPaint(
-          painter: StaticScannerOverlay(
-            scanWindow: scanWindow,
-            scanWindowColor: scanWindowColor,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          MobileScanner(controller: _cameraController, onDetect: onDetect, scanWindow: scanWindow),
+          CustomPaint(
+            painter: StaticScannerOverlay(scanWindow: scanWindow, scanWindowColor: scanWindowColor),
           ),
-        ),
-        CustomPaint(
-          painter: AnimatedScannerOverlay(
-            scanWindow: scanWindow,
-            animationValue: _animation.value,
-            animateDirection: animationDirection,
-            scanWindowColor: scanWindowColor,
+          CustomPaint(
+            painter: AnimatedScannerOverlay(
+              scanWindow: scanWindow,
+              animationValue: _animation.value,
+              animateDirection: animationDirection,
+              scanWindowColor: scanWindowColor,
+            ),
           ),
-        ),
-        Positioned.fill(
-          top: -355,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.qr_code_scanner, size: 45, color: Theme.of(context).colorScheme.onPrimary),
-              Gaps.w16,
-              SizedBox(
-                width: 200,
-                child: Text(
-                  widget.lineUpQrCodeText,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+          Positioned.fill(
+            top: -355,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.qr_code_scanner, size: 45, color: Theme.of(context).colorScheme.secondaryFixed),
+                Gaps.w16,
+                SizedBox(
+                  width: 200,
+                  child: Text(
+                    widget.lineUpQrCodeText,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.secondaryFixed),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 56,
+            left: 16,
+            child: IconButton(
+              style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.secondaryFixed),
+              icon: Icon(context.adaptiveBackIcon, color: Theme.of(context).colorScheme.onSecondaryFixed, size: 18),
+              onPressed: () => context.pop(),
+            ),
+          ),
+          Positioned(
+            top: 56,
+            right: 16,
+            child: ValueListenableBuilder(
+              valueListenable: _cameraController,
+              builder: (context, state, child) => IconButton(
+                style: switch (state.torchState) {
+                  TorchState.on => IconButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shape: CircleBorder(side: BorderSide(color: Theme.of(context).colorScheme.secondaryFixed)),
+                  ),
+                  _ => IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.secondaryFixed),
+                },
+                onPressed: state.torchState == TorchState.unavailable ? null : _cameraController.toggleTorch,
+                icon: switch (state.torchState) {
+                  TorchState.unavailable => Icon(Icons.flashlight_off, color: Theme.of(context).colorScheme.secondaryFixed, size: 18),
+                  TorchState.off => Icon(Icons.flashlight_off, color: Theme.of(context).colorScheme.onSecondaryFixed, size: 18),
+                  TorchState.on => Icon(Icons.flashlight_on, color: Theme.of(context).colorScheme.secondaryFixed, size: 18),
+                  TorchState.auto => Icon(Icons.flash_auto, color: Theme.of(context).colorScheme.onSecondaryFixed, size: 18),
+                },
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSecondaryFixed),
+              child: Padding(
+                padding: EdgeInsets.only(top: 24, bottom: math.max(MediaQuery.paddingOf(context).bottom, 24) + 8),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Text(
+                        widget.scanQrOrEnterUrlText,
+                        style: TextStyle(color: Theme.of(context).colorScheme.secondaryFixed),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Gaps.h32,
+                    FilledButton(
+                      onPressed: widget.toggleScannerMode,
+                      style: FilledButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.secondaryFixed),
+                      child: Text(widget.enterUrlText, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryFixed)),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-        Positioned(
-          top: 56,
-          left: 8,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              backgroundColor: Theme.of(context).colorScheme.primary,
-            ),
-            child: Icon(context.adaptiveBackIcon, color: Theme.of(context).colorScheme.onPrimary, size: 18),
-            onPressed: () => context.pop(),
-          ),
-        ),
-        Positioned(
-          top: 56,
-          right: 8,
-          child: ValueListenableBuilder(
-            valueListenable: _cameraController,
-            builder: (context, state, child) => IconButton(
-              style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
-              onPressed: state.torchState == TorchState.unavailable ? null : _cameraController.toggleTorch,
-              icon: switch (state.torchState) {
-                TorchState.off || TorchState.unavailable => Icon(Icons.flashlight_off, color: Theme.of(context).colorScheme.onPrimary, size: 18),
-                TorchState.on => Icon(Icons.flashlight_on, color: context.customColors.decorativeContainer, size: 18),
-                TorchState.auto => Icon(Icons.flash_auto, color: Theme.of(context).colorScheme.onPrimary, size: 18),
-              },
             ),
           ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(top: 24, bottom: math.max(MediaQuery.paddingOf(context).bottom, 24)),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 203,
-                    child: Text(
-                      widget.scanQrOrEnterUrlText,
-                      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Gaps.h16,
-                  OutlinedButton(
-                    onPressed: widget.toggleScannerMode,
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Theme.of(context).colorScheme.onPrimary),
-                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                    child: Text(widget.enterUrlText),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -236,10 +237,7 @@ class StaticScannerOverlay extends CustomPainter {
   final Rect scanWindow;
   final Color scanWindowColor;
 
-  const StaticScannerOverlay({
-    required this.scanWindow,
-    required this.scanWindowColor,
-  });
+  const StaticScannerOverlay({required this.scanWindow, required this.scanWindowColor});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -279,11 +277,7 @@ class StaticScannerOverlay extends CustomPainter {
       ..lineTo(26, 0)
       ..moveTo(0, 12)
       ..lineTo(0, 26)
-      ..addArc(
-        Rect.fromCircle(center: const Offset(12, 12), radius: 12),
-        -math.pi,
-        math.pi / 2,
-      );
+      ..addArc(Rect.fromCircle(center: const Offset(12, 12), radius: 12), -math.pi, math.pi / 2);
 
     canvas.drawPath(topLeftArcPath, cornerPaint);
   }
@@ -310,8 +304,8 @@ class AnimatedScannerOverlay extends CustomPainter {
     required this.animateDirection,
     required this.scanWindowColor,
     this.shadowOffset = 6.0,
-  })  : maxOffsetUp = scanWindow.top + shadowOffset,
-        maxOffsetDown = scanWindow.bottom - shadowOffset;
+  }) : maxOffsetUp = scanWindow.top + shadowOffset,
+       maxOffsetDown = scanWindow.bottom - shadowOffset;
 
   @override
   void paint(Canvas canvas, Size size) {

@@ -52,7 +52,7 @@ class TextInputState extends State<TextInput> {
       _controller.addListener(() {
         widget.controller!.value = validateInput(_controller.text) == null
             ? //
-            ValueRendererInputValueString(_controller.text)
+              ValueRendererInputValueString(_controller.text)
             : ValueRendererValidationError();
       });
       if (initialValue != null) {

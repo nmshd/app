@@ -3,14 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '/core/core.dart';
 
-class DrawerMainPage extends StatelessWidget {
+class DrawerMainPage extends StatefulWidget {
   final VoidCallback goToNotifications;
   final VoidCallback goToHints;
+  final VoidCallback goToTheme;
 
-  const DrawerMainPage({required this.goToNotifications, required this.goToHints, super.key});
+  const DrawerMainPage({required this.goToNotifications, required this.goToHints, required this.goToTheme, super.key});
+
+  @override
+  State<DrawerMainPage> createState() => _DrawerMainPageState();
+}
+
+class _DrawerMainPageState extends State<DrawerMainPage> {
+  bool _isNotificationsEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _checkNotificationPermission();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +52,22 @@ class DrawerMainPage extends StatelessWidget {
           child: ListView(
             children: [
               ListTile(
-                onTap: goToNotifications,
+                onTap: widget.goToNotifications,
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-                title: Text(context.l10n.drawer_notifications, style: Theme.of(context).textTheme.labelLarge),
+                title: Text(
+                  _isNotificationsEnabled ? context.l10n.drawer_notifications : context.l10n.drawer_notifications_activate,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
               ),
               ListTile(
-                onTap: goToHints,
+                onTap: widget.goToHints,
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 title: Text(context.l10n.drawer_hints, style: Theme.of(context).textTheme.labelLarge),
+              ),
+              ListTile(
+                onTap: widget.goToTheme,
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                title: Text(context.l10n.drawer_theme, style: Theme.of(context).textTheme.labelLarge),
               ),
               const Divider(indent: 16, endIndent: 16),
               ListTile(
@@ -99,5 +123,11 @@ class DrawerMainPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _checkNotificationPermission() async {
+    final permissionStatus = await Permission.notification.status;
+
+    if (mounted) setState(() => _isNotificationsEnabled = permissionStatus.isGranted);
   }
 }

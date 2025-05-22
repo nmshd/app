@@ -18,11 +18,7 @@ class MessagesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'recipients': recipients,
-          'content': content.toJson(),
-          if (attachments != null) 'attachments': attachments,
-        },
+        'request': {'recipients': recipients, 'content': content.toJson(), 'attachments': ?attachments},
       },
     );
 
@@ -36,9 +32,7 @@ class MessagesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (query != null) 'query': query.toJson(),
-        },
+        'request': {if (query != null) 'query': query.toJson()},
       },
     );
 
@@ -52,9 +46,7 @@ class MessagesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': messageId,
-        },
+        'request': {'id': messageId},
       },
     );
 
@@ -62,19 +54,13 @@ class MessagesFacade {
     return Result.fromJson(value, (x) => MessageWithAttachmentsDTO.fromJson(x));
   }
 
-  Future<Result<DownloadFileResponse>> downloadAttachment({
-    required String messageId,
-    required String attachmentId,
-  }) async {
+  Future<Result<DownloadFileResponse>> downloadAttachment({required String messageId, required String attachmentId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.messages.downloadAttachment(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: { ...result.value, content: Array.from(result.value.content) } }''',
       arguments: {
-        'request': {
-          'id': messageId,
-          'attachmentId': attachmentId,
-        },
+        'request': {'id': messageId, 'attachmentId': attachmentId},
       },
     );
 
@@ -82,19 +68,13 @@ class MessagesFacade {
     return Result.fromJson(value, (x) => DownloadFileResponse.fromJson(x));
   }
 
-  Future<Result<FileDTO>> getAttachmentMetadata({
-    required String messageId,
-    required String attachmentId,
-  }) async {
+  Future<Result<FileDTO>> getAttachmentMetadata({required String messageId, required String attachmentId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.messages.getAttachmentMetadata(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': messageId,
-          'attachmentId': attachmentId,
-        },
+        'request': {'id': messageId, 'attachmentId': attachmentId},
       },
     );
 
@@ -108,9 +88,7 @@ class MessagesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': messageId,
-        },
+        'request': {'id': messageId},
       },
     );
 
@@ -124,9 +102,7 @@ class MessagesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': messageId,
-        },
+        'request': {'id': messageId},
       },
     );
 

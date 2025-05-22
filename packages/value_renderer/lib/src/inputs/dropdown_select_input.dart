@@ -49,10 +49,7 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
     _selectedOption = widget.initialValue;
 
     if (widget.initialValue != null) {
-      widget.controller?.value = ControllerTypeResolver.resolveType(
-        inputValue: widget.initialValue,
-        type: widget.technicalType,
-      );
+      widget.controller?.value = ControllerTypeResolver.resolveType(inputValue: widget.initialValue, type: widget.technicalType);
     }
   }
 
@@ -123,11 +120,6 @@ class _DropdownSelectInputState extends State<DropdownSelectInput> {
       ]);
     }
 
-    return translated
-        .map((e) => DropdownMenuItem<ValueHintsDefaultValue>(
-              value: e.key,
-              child: TranslatedText(e.translation),
-            ))
-        .toList();
+    return translated.map((e) => DropdownMenuItem<ValueHintsDefaultValue>(value: e.key, child: TranslatedText(e.translation))).toList();
   }
 }

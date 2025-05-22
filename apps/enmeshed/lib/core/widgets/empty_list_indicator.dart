@@ -1,6 +1,7 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
 
 class EmptyListIndicator extends StatelessWidget {
   final IconData icon;
@@ -29,30 +30,22 @@ class EmptyListIndicator extends StatelessWidget {
     final container = Container(
       width: double.infinity,
       color: backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(isFiltered ? Icons.filter_alt_outlined : icon, size: 40, color: Theme.of(context).colorScheme.primary),
-            if (isFiltered) ...[
-              Gaps.h16,
-              Text(context.l10n.noEntries, style: Theme.of(context).textTheme.titleMedium),
-            ],
-            Gaps.h16,
-            Text(
-              isFiltered ? filteredText! : text,
-              style: description != null ? Theme.of(context).textTheme.titleMedium : Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
-            if (description != null) ...[
-              Gaps.h8,
-              Text(description!, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
-            ],
-            if (action != null) ...[Gaps.h12, action!],
-          ],
-        ),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(isFiltered ? Icons.filter_alt_outlined : icon, size: 40, color: Theme.of(context).colorScheme.primary),
+          if (isFiltered) ...[Gaps.h16, Text(context.l10n.noEntries, style: Theme.of(context).textTheme.titleMedium)],
+          Gaps.h16,
+          Text(
+            isFiltered ? filteredText! : text,
+            style: description != null ? Theme.of(context).textTheme.titleMedium : Theme.of(context).textTheme.bodyMedium,
+            textAlign: TextAlign.center,
+          ),
+          if (description != null) ...[Gaps.h8, Text(description!, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center)],
+          if (action != null) ...[Gaps.h12, action!],
+        ],
       ),
     );
 

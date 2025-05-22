@@ -23,8 +23,8 @@ class RelationshipTemplatesFacade {
         'request': {
           'expiresAt': expiresAt,
           'content': content.toJson(),
-          if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
-          if (forIdentity != null) 'forIdentity': forIdentity,
+          'maxNumberOfAllocations': ?maxNumberOfAllocations,
+          'forIdentity': ?forIdentity,
           if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },
@@ -34,19 +34,13 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(json, (value) => RelationshipTemplateDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipTemplateDTO>> loadPeerRelationshipTemplate({
-    required String reference,
-    String? password,
-  }) async {
+  Future<Result<RelationshipTemplateDTO>> loadPeerRelationshipTemplate({required String reference, String? password}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'reference': reference,
-          if (password != null) 'password': password,
-        },
+        'request': {'reference': reference, 'password': ?password},
       },
     );
 
@@ -60,9 +54,7 @@ class RelationshipTemplatesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (query != null) 'query': query.toJson(),
-        },
+        'request': {if (query != null) 'query': query.toJson()},
       },
     );
 
@@ -70,17 +62,13 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(json, (value) => List<RelationshipTemplateDTO>.from(value.map((e) => RelationshipTemplateDTO.fromJson(e))));
   }
 
-  Future<Result<RelationshipTemplateDTO>> getRelationshipTemplate({
-    required String relationshipTemplateId,
-  }) async {
+  Future<Result<RelationshipTemplateDTO>> getRelationshipTemplate({required String relationshipTemplateId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationshipTemplates.getRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': relationshipTemplateId,
-        },
+        'request': {'id': relationshipTemplateId},
       },
     );
 
@@ -88,49 +76,7 @@ class RelationshipTemplatesFacade {
     return Result.fromJson(value, (x) => RelationshipTemplateDTO.fromJson(x));
   }
 
-  Future<Result<CreateQRCodeResponse>> createQRCodeForOwnTemplate({
-    required String templateId,
-  }) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationshipTemplates.createQRCodeForOwnTemplate(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'templateId': templateId,
-        },
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => CreateQRCodeResponse.fromJson(value));
-  }
-
-  Future<Result<CreateQRCodeResponse>> createTokenQRCodeForOwnTemplate({
-    required String templateId,
-    String? expiresAt,
-    String? forIdentity,
-    PasswordProtection? passwordProtection,
-  }) async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationshipTemplates.createTokenQRCodeForOwnTemplate(request)
-      if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
-      return { value: result.value }''',
-      arguments: {
-        'request': {
-          'templateId': templateId,
-          if (expiresAt != null) 'expiresAt': expiresAt,
-          if (forIdentity != null) 'forIdentity': forIdentity,
-          if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
-        },
-      },
-    );
-
-    final json = result.valueToMap();
-    return Result.fromJson(json, (value) => CreateQRCodeResponse.fromJson(value));
-  }
-
-  Future<Result<TokenDTO>> createTokenForOwnTemplate({
+  Future<Result<TokenDTO>> createTokenForOwnRelationshipTemplate({
     required String templateId,
     String? expiresAt,
     bool? ephemeral,
@@ -138,15 +84,15 @@ class RelationshipTemplatesFacade {
     PasswordProtection? passwordProtection,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
-      '''const result = await session.transportServices.relationshipTemplates.createTokenForOwnTemplate(request)
+      '''const result = await session.transportServices.relationshipTemplates.createTokenForOwnRelationshipTemplate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
         'request': {
           'templateId': templateId,
-          if (expiresAt != null) 'expiresAt': expiresAt,
-          if (ephemeral != null) 'ephemeral': ephemeral,
-          if (forIdentity != null) 'forIdentity': forIdentity,
+          'expiresAt': ?expiresAt,
+          'ephemeral': ?ephemeral,
+          'forIdentity': ?forIdentity,
           if (passwordProtection != null) 'passwordProtection': passwordProtection.toJson(),
         },
       },

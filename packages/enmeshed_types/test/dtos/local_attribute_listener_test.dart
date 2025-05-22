@@ -4,12 +4,13 @@ import 'package:test/test.dart';
 void main() {
   group('LocalAttributeListenerDTO toJson', () {
     test('is correctly converted', () {
-      const dto = LocalAttributeListenerDTO(id: 'anId', query: IdentityAttributeQuery(valueType: 'aValueType'), peer: 'aPeer');
-      final dtoJson = dto.toJson();
-      expect(
-        dtoJson,
-        equals({'id': 'anId', 'query': const IdentityAttributeQuery(valueType: 'aValueType').toJson(), 'peer': 'aPeer'}),
+      const dto = LocalAttributeListenerDTO(
+        id: 'anId',
+        query: IdentityAttributeQuery(valueType: 'aValueType'),
+        peer: 'aPeer',
       );
+      final dtoJson = dto.toJson();
+      expect(dtoJson, equals({'id': 'anId', 'query': const IdentityAttributeQuery(valueType: 'aValueType').toJson(), 'peer': 'aPeer'}));
     });
   });
 
@@ -18,7 +19,13 @@ void main() {
       final json = {'id': 'anId', 'query': const IdentityAttributeQuery(valueType: 'aValueType').toJson(), 'peer': 'aPeer'};
       expect(
         LocalAttributeListenerDTO.fromJson(json),
-        equals(const LocalAttributeListenerDTO(id: 'anId', query: IdentityAttributeQuery(valueType: 'aValueType'), peer: 'aPeer')),
+        equals(
+          const LocalAttributeListenerDTO(
+            id: 'anId',
+            query: IdentityAttributeQuery(valueType: 'aValueType'),
+            peer: 'aPeer',
+          ),
+        ),
       );
     });
   });

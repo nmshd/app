@@ -38,13 +38,15 @@ void main() {
       };
       expect(
         RelationshipCreationContent.fromJson(json),
-        equals(const RelationshipCreationContent(
-          response: Response(
-            result: ResponseResult.Accepted,
-            requestId: 'aRequestId',
-            items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+        equals(
+          const RelationshipCreationContent(
+            response: Response(
+              result: ResponseResult.Accepted,
+              requestId: 'aRequestId',
+              items: [CreateAttributeAcceptResponseItem(attributeId: 'anAttributeId')],
+            ),
           ),
-        )),
+        ),
       );
     });
   });

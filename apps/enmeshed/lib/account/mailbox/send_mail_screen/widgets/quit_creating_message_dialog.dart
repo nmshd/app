@@ -1,3 +1,4 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,18 +22,10 @@ class QuitCreatingMessageDialog extends StatelessWidget {
             Gaps.h8,
             SizedBox(
               width: 250,
-              child: Text(
-                context.l10n.mailbox_quitDialogTitle,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
+              child: Text(context.l10n.mailbox_quitDialogTitle, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall),
             ),
             Gaps.h16,
-            Text(
-              context.l10n.mailbox_quitDialogDescription,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+            Text(context.l10n.mailbox_quitDialogDescription, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium),
             Gaps.h16,
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -41,16 +34,10 @@ class QuitCreatingMessageDialog extends StatelessWidget {
                   onPressed: () => context
                     ..pop()
                     ..pop(),
-                  child: Text(
-                    context.l10n.mailbox_yesButton,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  child: Text(context.l10n.mailbox_yesButton, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
                 Gaps.w16,
-                FilledButton(
-                  onPressed: () => context.pop(),
-                  child: Text(context.l10n.mailbox_noButton),
-                ),
+                FilledButton(onPressed: () => context.pop(), child: Text(context.l10n.mailbox_noButton)),
               ],
             ),
           ],

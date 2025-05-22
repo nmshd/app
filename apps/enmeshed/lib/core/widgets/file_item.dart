@@ -1,9 +1,9 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../types/types.dart';
 import '../utils/utils.dart';
-import 'file_icon.dart';
 import 'highlight_text.dart';
 
 class FileItem extends StatelessWidget {
@@ -13,14 +13,7 @@ class FileItem extends StatelessWidget {
   final String? query;
   final void Function()? onTap;
 
-  const FileItem({
-    required this.accountId,
-    required this.fileRecord,
-    this.trailing,
-    this.query,
-    this.onTap,
-    super.key,
-  });
+  const FileItem({required this.accountId, required this.fileRecord, this.trailing, this.query, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {

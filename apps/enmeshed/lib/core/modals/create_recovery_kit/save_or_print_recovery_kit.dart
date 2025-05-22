@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'dart:math' as math;
 
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 
-import '../../constants.dart';
 import '../../utils/utils.dart';
 
 class SaveOrPrintRecoveryKit extends StatefulWidget {
@@ -25,20 +24,11 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
+        BottomSheetHeader(title: context.l10n.identityRecovery_saveKit, onBackPressed: widget.onBackPressed),
         Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              BackButton(onPressed: widget.onBackPressed),
-              Text(context.l10n.identityRecovery_saveKit, style: Theme.of(context).textTheme.titleMedium),
-              IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close)),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: math.max(MediaQuery.paddingOf(context).bottom, 16) + 16),
+          padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: MediaQuery.viewPaddingOf(context).bottom + 16),
           child: Column(
             children: [
               Text(context.l10n.identityRecovery_saveKitDescription),
@@ -88,9 +78,7 @@ class _SaveOrPrintRecoveryKitState extends State<SaveOrPrintRecoveryKit> {
   }
 
   Future<void> _printFile() async {
-    final success = await Printing.layoutPdf(
-      onLayout: (PdfPageFormat format) async => widget.recoveryKit.buffer.asUint8List(),
-    );
+    final success = await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => widget.recoveryKit.buffer.asUint8List());
 
     if (!success) return;
 
@@ -116,6 +104,7 @@ class _RecoveryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
+      margin: EdgeInsets.zero,
       color: Theme.of(context).colorScheme.primaryContainer,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
       child: ListTile(
@@ -123,8 +112,8 @@ class _RecoveryCard extends StatelessWidget {
         leading: Container(
           width: 40,
           height: 40,
-          decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-          child: Center(child: Icon(icon, color: Theme.of(context).colorScheme.primary)),
+          decoration: BoxDecoration(color: Theme.of(context).colorScheme.onPrimary, shape: BoxShape.circle),
+          child: Icon(icon, color: Theme.of(context).colorScheme.primary),
         ),
         title: Text(title, style: Theme.of(context).textTheme.titleMedium),
         subtitle: Text(description, style: Theme.of(context).textTheme.bodySmall),

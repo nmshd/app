@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,12 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.deviceInfo_title));
 
-    if (_deviceDTO == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_deviceDTO == null) {
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n.deviceInfo_title)),
@@ -105,11 +111,7 @@ class _DeviceDetailScreenState extends State<DeviceDetailScreen> {
     await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
-      builder: (_) => EditDevice(
-        accountId: widget.accountId,
-        device: _deviceDTO!,
-        onDevicesChanged: _loadDevice,
-      ),
+      builder: (_) => EditDevice(accountId: widget.accountId, device: _deviceDTO!, onDevicesChanged: _loadDevice),
     );
   }
 }
@@ -242,7 +244,7 @@ class _DeviceInstructions extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('$itemNumber. ', style: textStyle),
-                  Expanded(child: Text(instructions.elementAt(index), style: textStyle)),
+                  Expanded(child: BoldStyledText(instructions.elementAt(index), style: textStyle)),
                 ],
               );
             },

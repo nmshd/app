@@ -72,10 +72,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
                   children: [
                     Text(expandedFileReference!.title),
                     Text(expandedFileReference!.filename),
-                    if (widget.extraLine != null) ...[
-                      const SizedBox(height: 2),
-                      widget.extraLine!,
-                    ],
+                    if (widget.extraLine != null) ...[const SizedBox(height: 2), widget.extraLine!],
                   ],
                 ),
             ],
@@ -85,7 +82,7 @@ class _FileReferenceRendererState extends State<FileReferenceRenderer> {
           onPressed: expandedFileReference != null ? () => widget.openFileDetails(expandedFileReference!) : null,
           icon: const Icon(Icons.info),
         ),
-        if (widget.trailing != null) widget.trailing!
+        if (widget.trailing != null) widget.trailing!,
       ],
     );
   }

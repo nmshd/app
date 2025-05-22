@@ -1,3 +1,4 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
@@ -13,8 +14,9 @@ class OnboardingWelcome extends StatelessWidget {
     final screenHeight = MediaQuery.sizeOf(context).height;
 
     return SafeArea(
+      minimum: const EdgeInsets.only(bottom: 24),
       child: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, bottom: MediaQuery.viewInsetsOf(context).bottom + 16),
+        padding: const EdgeInsets.only(left: 24, right: 24),
         child: Column(
           children: [
             Expanded(
@@ -26,12 +28,10 @@ class OnboardingWelcome extends StatelessWidget {
                       child: Center(
                         child: Hero(
                           tag: 'logo',
-                          child: Image.asset(
-                            switch (Theme.of(context).brightness) {
-                              Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
-                              Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
-                            },
-                          ),
+                          child: Image.asset(switch (Theme.of(context).brightness) {
+                            Brightness.light => 'assets/pictures/enmeshed_logo_light_cut.png',
+                            Brightness.dark => 'assets/pictures/enmeshed_logo_dark_cut.png',
+                          }),
                         ),
                       ),
                     ),
@@ -43,11 +43,7 @@ class OnboardingWelcome extends StatelessWidget {
                     Gaps.h32,
                     const RedShrinkedDivider(width: 108),
                     Gaps.h32,
-                    Text(
-                      context.l10n.onboarding_description,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
+                    Text(context.l10n.onboarding_description, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
                   ],
                 ),
               ),

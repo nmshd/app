@@ -64,12 +64,7 @@ class _ScannerViewState extends State<ScannerView> {
   void _onSubmit({required String content}) {
     if (_paused) return;
 
-    widget.onSubmit(
-      content: content,
-      pause: () => _paused = true,
-      resume: () => _paused = false,
-      context: context,
-    );
+    widget.onSubmit(content: content, pause: () => _paused = true, resume: () => _paused = false, context: context);
   }
 
   Future<void> _toggleScannerMode() async {

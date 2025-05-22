@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants.dart';
 
 class UrlEntry extends StatefulWidget {
   final void Function({required String content}) onSubmit;
@@ -72,8 +71,8 @@ class _UrlEntryState extends State<UrlEntry> {
                     errorMaxLines: 3,
                     suffixIcon: _controller.text.isNotEmpty
                         ? _formKey.currentState!.validate()
-                            ? IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined))
-                            : Icon(Icons.error, color: Theme.of(context).colorScheme.error)
+                              ? IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined))
+                              : Icon(Icons.error, color: Theme.of(context).colorScheme.error)
                         : null,
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -98,7 +97,7 @@ class _UrlEntryState extends State<UrlEntry> {
   bool get isUrlValid => validateUrl(_controller.text) == null;
 
   String? validateUrl(String? value) {
-    final urlRegExp = RegExp(r'^nmshd:\/\/(qr#|tr#)');
+    final urlRegExp = RegExp(r'^(nmshd:\/\/(qr#|tr#))|(https?:\/\/)');
 
     if (value != null && (!urlRegExp.hasMatch(value) || value.length < 15)) {
       return widget.urlValidationErrorText;

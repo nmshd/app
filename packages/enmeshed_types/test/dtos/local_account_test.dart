@@ -5,10 +5,7 @@ void main() {
   group('LocalAccountDTO toJson', () {
     test('is correctly converted', () {
       const dto = LocalAccountDTO(id: 'anId', address: 'anAddress', name: 'aName', directory: 'aDirectory', order: 1);
-      expect(
-        dto.toJson(),
-        equals({'id': 'anId', 'address': 'anAddress', 'name': 'aName', 'directory': 'aDirectory', 'order': 1}),
-      );
+      expect(dto.toJson(), equals({'id': 'anId', 'address': 'anAddress', 'name': 'aName', 'directory': 'aDirectory', 'order': 1}));
     });
   });
 

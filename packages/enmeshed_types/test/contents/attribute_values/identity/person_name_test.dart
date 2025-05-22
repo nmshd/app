@@ -6,37 +6,25 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = PersonNameAttributeValue(givenName: 'aGivenName', surname: 'aSurname');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({'@type': 'PersonName', 'givenName': 'aGivenName', 'surname': 'aSurname'}),
-      );
+      expect(identityJson, equals({'@type': 'PersonName', 'givenName': 'aGivenName', 'surname': 'aSurname'}));
     });
 
     test('is correctly converted with property "middleName"', () {
       const identityAttributeValue = PersonNameAttributeValue(givenName: 'aGivenName', middleName: 'aMiddleName', surname: 'aSurname');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({'@type': 'PersonName', 'givenName': 'aGivenName', 'middleName': 'aMiddleName', 'surname': 'aSurname'}),
-      );
+      expect(identityJson, equals({'@type': 'PersonName', 'givenName': 'aGivenName', 'middleName': 'aMiddleName', 'surname': 'aSurname'}));
     });
 
     test('is correctly converted with property "honorificSuffix"', () {
       const identityAttributeValue = PersonNameAttributeValue(givenName: 'aGivenName', surname: 'aSurname', honorificSuffix: 'aHonorificSuffix');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({'@type': 'PersonName', 'givenName': 'aGivenName', 'surname': 'aSurname', 'honorificSuffix': 'aHonorificSuffix'}),
-      );
+      expect(identityJson, equals({'@type': 'PersonName', 'givenName': 'aGivenName', 'surname': 'aSurname', 'honorificSuffix': 'aHonorificSuffix'}));
     });
 
     test('is correctly converted with property "honorificPrefix"', () {
       const identityAttributeValue = PersonNameAttributeValue(givenName: 'aGivenName', surname: 'aSurname', honorificPrefix: 'aHonorificPrefix');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({'@type': 'PersonName', 'givenName': 'aGivenName', 'surname': 'aSurname', 'honorificPrefix': 'aHonorificPrefix'}),
-      );
+      expect(identityJson, equals({'@type': 'PersonName', 'givenName': 'aGivenName', 'surname': 'aSurname', 'honorificPrefix': 'aHonorificPrefix'}));
     });
 
     test('is correctly converted with properties "middleName", "honorificSuffix" and "honorificPrefix"', () {
@@ -102,13 +90,15 @@ void main() {
       };
       expect(
         PersonNameAttributeValue.fromJson(json),
-        equals(const PersonNameAttributeValue(
-          givenName: 'aGivenName',
-          middleName: 'aMiddleName',
-          surname: 'aSurname',
-          honorificSuffix: 'aHonorificSuffix',
-          honorificPrefix: 'aHonorificPrefix',
-        )),
+        equals(
+          const PersonNameAttributeValue(
+            givenName: 'aGivenName',
+            middleName: 'aMiddleName',
+            surname: 'aSurname',
+            honorificSuffix: 'aHonorificSuffix',
+            honorificPrefix: 'aHonorificPrefix',
+          ),
+        ),
       );
     });
   });

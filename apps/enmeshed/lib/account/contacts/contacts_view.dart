@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -21,35 +22,17 @@ class ContactsView extends StatefulWidget {
   final ContactsFilterController contactsFilterController;
   final void Function(SuggestionsBuilder?) setSuggestionsBuilder;
 
-  const ContactsView({
-    required this.accountId,
-    required this.setSuggestionsBuilder,
-    required this.contactsFilterController,
-    super.key,
-  });
+  const ContactsView({required this.accountId, required this.setSuggestionsBuilder, required this.contactsFilterController, super.key});
 
   @override
   State<ContactsView> createState() => _ContactsViewState();
 }
 
-typedef RequestOrRelationship = ({IdentityDVO contact, LocalRequestDVO? openContactRequest});
-
-extension on RequestOrRelationship {
-  bool get requiresAttention {
-    if (openContactRequest != null) return true;
-
-    return switch (contact.relationship?.status) {
-      null || RelationshipStatus.Terminated || RelationshipStatus.DeletionProposed => true,
-      _ => false,
-    };
-  }
-}
-
 class _ContactsViewState extends State<ContactsView> {
   late List<IdentityDVO> _relationships;
 
-  List<RequestOrRelationship>? _contacts;
-  List<RequestOrRelationship> _filteredContacts = [];
+  List<IdentityWithOpenRequests>? _contacts;
+  List<IdentityWithOpenRequests> _filteredContacts = [];
   List<PublicRelationshipTemplateReferenceDTO> _matchingPublicRelationshipTemplateReferences = [];
 
   List<IdentityDVO> _favorites = [];
@@ -113,25 +96,28 @@ class _ContactsViewState extends State<ContactsView> {
             ),
           if (!widget.contactsFilterController.isContactsFilterSet && _getNumberOfContactsRequiringAttention() > 0)
             SliverToBoxAdapter(
-              child: AttentionRequiredBanner(
-                numberOfContactsRequiringAttention: _getNumberOfContactsRequiringAttention(),
-                showContactsRequiringAttention: () => widget.contactsFilterController.value = {const ActionRequiredContactsFilterOption()},
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: BannerCard(
+                  title: context.l10n.contacts_require_attention(_getNumberOfContactsRequiringAttention()),
+                  type: BannerCardType.info,
+                  actionButton: (
+                    onPressed: () => widget.contactsFilterController.value = {const ActionRequiredContactsFilterOption()},
+                    title: context.l10n.show,
+                  ),
+                ),
               ),
             ),
           if (_favorites.isNotEmpty && !widget.contactsFilterController.isContactsFilterSet) ...[
-            SliverToBoxAdapter(child: ContactHeadline(text: context.l10n.favorites, icon: const Icon(Icons.star))),
+            SliverToBoxAdapter(
+              child: ContactHeadline(text: context.l10n.favorites, icon: const Icon(Icons.star)),
+            ),
             SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.75),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final contact = _favorites[index];
-                  return ContactFavorite(
-                    contact: contact,
-                    onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
-                  );
-                },
-                childCount: _favorites.length,
-              ),
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final contact = _favorites[index];
+                return ContactFavorite(contact: contact, onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'));
+              }, childCount: _favorites.length),
             ),
           ],
           SliverToBoxAdapter(
@@ -209,20 +195,17 @@ class _ContactsViewState extends State<ContactsView> {
   }
 
   Future<void> _onOpenFilterPressed() async {
-    final options = await showSelectContactsFiltersModal(
-      contactsFilterController: widget.contactsFilterController,
-      context: context,
-    );
+    final options = await showSelectContactsFiltersModal(contactsFilterController: widget.contactsFilterController, context: context);
 
     if (options == null) return;
 
     widget.contactsFilterController.value = options;
   }
 
-  String _contactToCategory(RequestOrRelationship requestOrRelationship) => switch (_sortingType) {
-        _ContactsSortingType.date => simpleTimeago(context, requestOrRelationship.sortingDate),
-        _ContactsSortingType.name => requestOrRelationship.contact.isUnknown ? '' : requestOrRelationship.contact.initials[0].toUpperCase(),
-      };
+  String _contactToCategory(IdentityWithOpenRequests requestOrRelationship) => switch (_sortingType) {
+    _ContactsSortingType.date => simpleTimeago(context, requestOrRelationship.sortingDate),
+    _ContactsSortingType.name => requestOrRelationship.contact.isUnknown ? '' : requestOrRelationship.contact.initials[0].toUpperCase(),
+  };
 
   Future<void> _reload({bool syncBefore = false, bool isFirstTime = false}) async {
     final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
@@ -234,10 +217,17 @@ class _ContactsViewState extends State<ContactsView> {
     final relationships = await getContacts(session: session);
     final requests = await incomingOpenRequestsFromRelationshipTemplate(session: session);
 
-    final requestsAndRelationships = [
-      ...relationships.map((contact) => (contact: contact, openContactRequest: null)),
-      ...requests.map((request) => (contact: request.peer, openContactRequest: request)),
-    ];
+    final requestsAndRelationships = <IdentityWithOpenRequests>[...relationships.map((contact) => (contact: contact, openRequests: []))];
+
+    for (final request in requests) {
+      final entry = requestsAndRelationships.where((item) => item.contact.id == request.peer.id).firstOrNull;
+
+      if (entry != null) {
+        entry.openRequests.add(request);
+      } else {
+        requestsAndRelationships.add((contact: request.peer, openRequests: [request]));
+      }
+    }
 
     final templateReferences = <PublicRelationshipTemplateReferenceDTO>[];
     final referencesResult = await session.transportServices.publicRelationshipTemplateReferences.getPublicRelationshipTemplateReferences();
@@ -247,13 +237,6 @@ class _ContactsViewState extends State<ContactsView> {
         // this is only a workaround and only practical for the PoC
         referencesResult.value.where((e) => !relationships.any((r) => (r.originalName ?? r.name) == e.title)),
       );
-
-      if (mounted && context.isFeatureEnabled('SHOW_ADDITIONAL_PUBLIC_RELATIONSHIP_TEMPLATE_REFERENCES')) {
-        templateReferences.addAll([
-          const PublicRelationshipTemplateReferenceDTO(title: 'Uni Magdeburg', description: 'Uni Magdeburg', truncatedReference: 'none'),
-          const PublicRelationshipTemplateReferenceDTO(title: 'Lernpfadfinder', description: 'Uni Magdeburg', truncatedReference: 'none'),
-        ]);
-      }
     }
 
     if (mounted) {
@@ -281,10 +264,7 @@ class _ContactsViewState extends State<ContactsView> {
       }
     });
 
-    await toggleContactPinned(
-      relationshipId: identity.relationship!.id,
-      session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId),
-    );
+    await toggleContactPinned(relationshipId: identity.relationship!.id, session: GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId));
   }
 
   Iterable<Widget> _buildSuggestions(BuildContext context, SearchController controller) {
@@ -296,6 +276,7 @@ class _ContactsViewState extends State<ContactsView> {
           (item) => ContactItem(
             contact: item,
             query: keyword,
+            iconSize: 40,
             onTap: () {
               controller
                 ..clear()
@@ -321,6 +302,9 @@ class _ContactsViewState extends State<ContactsView> {
     final selectedFilterOptions = widget.contactsFilterController.value;
 
     final filteredContacts = _contacts!.where((contact) {
+      if (contact.requiresAttention && selectedFilterOptions.contains(const ActionRequiredContactsFilterOption())) {
+        return true;
+      }
       return switch (contact.contact.relationship?.status) {
         RelationshipStatus.Terminated => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
         RelationshipStatus.DeletionProposed => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
@@ -330,13 +314,12 @@ class _ContactsViewState extends State<ContactsView> {
         RelationshipStatus.Rejected => false,
         null => selectedFilterOptions.contains(const ActionRequiredContactsFilterOption()),
       };
-    }).toList()
-      ..sort(_compareFunction(_sortingType, _isSortedAscending));
+    }).toList()..sort(_compareFunction(_sortingType, _isSortedAscending));
 
     setState(() => _filteredContacts = filteredContacts);
   }
 
-  int Function(RequestOrRelationship, RequestOrRelationship) _compareFunction(_ContactsSortingType type, bool isSortedAscending) {
+  int Function(IdentityWithOpenRequests, IdentityWithOpenRequests) _compareFunction(_ContactsSortingType type, bool isSortedAscending) {
     return (a, b) {
       if (_sortingType == _ContactsSortingType.name) {
         // Sort 'i18n://dvo.identity.unknown' to the top
@@ -346,21 +329,22 @@ class _ContactsViewState extends State<ContactsView> {
 
       return switch (type) {
         _ContactsSortingType.date => isSortedAscending ? b.sortingDate.compareTo(a.sortingDate) : a.sortingDate.compareTo(b.sortingDate),
-        _ContactsSortingType.name => isSortedAscending
-            ? a.contact.name.toLowerCase().compareTo(b.contact.name.toLowerCase())
-            : b.contact.name.toLowerCase().compareTo(a.contact.name.toLowerCase()),
+        _ContactsSortingType.name =>
+          isSortedAscending
+              ? a.contact.name.toLowerCase().compareTo(b.contact.name.toLowerCase())
+              : b.contact.name.toLowerCase().compareTo(a.contact.name.toLowerCase()),
       };
     };
   }
 }
 
-extension on RequestOrRelationship {
-  DateTime get sortingDate => DateTime.parse(openContactRequest?.createdAt ?? contact.date ?? '0000-01-01');
+extension on IdentityWithOpenRequests {
+  DateTime get sortingDate => DateTime.parse(openRequests.firstOrNull?.createdAt ?? contact.date ?? '0000-01-01');
 }
 
 class _ContactItem extends StatelessWidget {
   final String accountId;
-  final RequestOrRelationship item;
+  final IdentityWithOpenRequests item;
   final bool isFavoriteContact;
   final VoidCallback reload;
   final Future<void> Function(IdentityDVO identity) toggleContactFavorite;
@@ -378,40 +362,64 @@ class _ContactItem extends StatelessWidget {
     final contact = item.contact;
 
     return DismissibleContactItem(
-      contact: contact,
+      item: item,
       onTap: () => _onTap(context),
-      trailing: item.openContactRequest != null
-          ? const Padding(padding: EdgeInsets.all(8), child: Icon(Icons.edit))
-          : IconButton(
-              icon: isFavoriteContact ? const Icon(Icons.star) : const Icon(Icons.star_border),
-              color: isFavoriteContact ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.shadow,
-              onPressed: () => toggleContactFavorite(contact),
-            ),
+      isFavoriteContact: isFavoriteContact,
+      onToggleFavorite: () => toggleContactFavorite(contact),
       onDeletePressed: _onDeletePressed,
     );
   }
 
-  void _onTap(BuildContext context) {
+  Future<void> _onTap(BuildContext context) async {
     final contact = item.contact;
 
-    if (item.openContactRequest == null) {
-      context.push('/account/$accountId/contacts/${contact.id}');
+    if (item.openRequests.isEmpty || item.contact.hasRelationship) {
+      unawaited(context.push('/account/$accountId/contacts/${contact.id}'));
       return;
     }
 
-    final request = item.openContactRequest!;
-    context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
+    final request = item.openRequests.first;
+
+    final validateRelationshipCreationResponse = await validateRelationshipCreation(accountId: accountId, request: request, session: session);
+
+    if (!context.mounted) return;
+
+    if (validateRelationshipCreationResponse.success) return context.go('/account/$accountId/contacts/contact-request/${request.id}', extra: request);
+
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => CreateRelationshipErrorDialog(errorCode: validateRelationshipCreationResponse.errorCode!),
+    );
+
+    if (!context.mounted) return;
+
+    if (result ?? false) await _onDeletePressed(context);
   }
 
   Future<void> _onDeletePressed(BuildContext context) async {
     final contact = item.contact;
 
-    if (item.openContactRequest == null) {
+    if (item.openRequests.isEmpty) {
       await deleteContact(context: context, accountId: accountId, contact: contact, onContactDeleted: reload);
       return;
     }
 
-    final request = item.openContactRequest!;
+    final request = item.openRequests.first;
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
+
+    if (request.status == LocalRequestStatus.Expired) {
+      final deleteResult = await session.consumptionServices.incomingRequests.delete(requestId: request.id);
+
+      if (deleteResult.isError) {
+        GetIt.I.get<Logger>().e(deleteResult.error);
+
+        if (!context.mounted) return;
+
+        showErrorSnackbar(context: context, text: context.l10n.error_deleteRequestFailed);
+      }
+      return;
+    }
 
     final rejectItems = List<DecideRequestParametersItem>.from(
       request.items.map((e) {
@@ -426,7 +434,6 @@ class _ContactItem extends StatelessWidget {
 
     final rejectParams = DecideRequestParameters(requestId: request.id, items: rejectItems);
 
-    final session = GetIt.I.get<EnmeshedRuntime>().getSession(accountId);
     final result = await session.consumptionServices.incomingRequests.reject(params: rejectParams);
     if (result.isError) GetIt.I.get<Logger>().e(result.error);
   }
@@ -445,11 +452,7 @@ class _EmptyContactsIndicator extends StatelessWidget {
         text: context.l10n.contacts_empty,
         description: context.l10n.contacts_emptyDescription,
         action: TextButton(
-          onPressed: () => goToInstructionsOrScanScreen(
-            accountId: accountId,
-            instructionsType: ScannerType.addContact,
-            context: context,
-          ),
+          onPressed: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.addContact, context: context),
           child: Text(context.l10n.contacts_addContact),
         ),
       ),

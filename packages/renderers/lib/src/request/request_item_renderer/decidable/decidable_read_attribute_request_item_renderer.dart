@@ -4,12 +4,13 @@ import 'package:renderers/renderers.dart';
 import 'package:value_renderer/value_renderer.dart';
 
 import '../../request_item_index.dart';
+import '../extensions/extensions.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/processed_query_renderer.dart';
 
 class DecidableReadAttributeRequestItemRenderer extends StatefulWidget {
   final String currentAddress;
-  final DecidableReadAttributeRequestItemDVO item;
+  final ReadAttributeRequestItemDVO item;
   final RequestItemIndex itemIndex;
   final RequestRendererController? controller;
   final OpenAttributeSwitcherFunction? openAttributeSwitcher;
@@ -60,49 +61,49 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
   @override
   Widget build(BuildContext context) {
-    return switch (widget.item.query) {
+    return switch (widget.item.query as ProcessedAttributeQueryDVO) {
       final ProcessedIdentityAttributeQueryDVO query => ProcessedIdentityAttributeQueryRenderer(
-          query: query,
-          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          onUpdateAttribute: _onUpdateAttribute,
-          onUpdateInput: _onUpdateInput,
-          selectedAttribute: _choice?.attribute,
-          mustBeAccepted: widget.item.mustBeAccepted,
-          expandFileReference: widget.expandFileReference,
-          chooseFile: widget.chooseFile,
-          openFileDetails: widget.openFileDetails,
-        ),
+        query: query,
+        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        onUpdateAttribute: _onUpdateAttribute,
+        onUpdateInput: _onUpdateInput,
+        selectedAttribute: _choice?.attribute,
+        mustBeAccepted: widget.item.mustBeAccepted,
+        expandFileReference: widget.expandFileReference,
+        chooseFile: widget.chooseFile,
+        openFileDetails: widget.openFileDetails,
+      ),
       final ProcessedRelationshipAttributeQueryDVO query => ProcessedRelationshipAttributeQueryRenderer(
-          query: query,
-          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          onUpdateAttribute: _onUpdateAttribute,
-          onUpdateInput: _onUpdateInput,
-          selectedAttribute: _choice?.attribute,
-          mustBeAccepted: widget.item.mustBeAccepted,
-          expandFileReference: widget.expandFileReference,
-          chooseFile: widget.chooseFile,
-          openFileDetails: widget.openFileDetails,
-        ),
+        query: query,
+        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        onUpdateAttribute: _onUpdateAttribute,
+        onUpdateInput: _onUpdateInput,
+        selectedAttribute: _choice?.attribute,
+        mustBeAccepted: widget.item.mustBeAccepted,
+        expandFileReference: widget.expandFileReference,
+        chooseFile: widget.chooseFile,
+        openFileDetails: widget.openFileDetails,
+      ),
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => ProcessedThirdPartyRelationshipAttributeQueryRenderer(
-          query: query,
-          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          onUpdateAttribute: _onUpdateAttribute,
-          selectedAttribute: _choice?.attribute,
-          expandFileReference: widget.expandFileReference,
-          openFileDetails: widget.openFileDetails,
-        ),
+        query: query,
+        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        onUpdateAttribute: _onUpdateAttribute,
+        selectedAttribute: _choice?.attribute,
+        expandFileReference: widget.expandFileReference,
+        openFileDetails: widget.openFileDetails,
+      ),
       final ProcessedIQLQueryDVO query => ProcessedIQLQueryRenderer(
-          requestItemTitle: widget.item.name,
-          query: query,
-          checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-          onUpdateAttribute: _onUpdateAttribute,
-          selectedAttribute: _choice?.attribute,
-          expandFileReference: widget.expandFileReference,
-          chooseFile: widget.chooseFile,
-          mustBeAccepted: widget.item.mustBeAccepted,
-          onUpdateInput: _onUpdateInput,
-          openFileDetails: widget.openFileDetails,
-        ),
+        requestItemTitle: widget.item.name,
+        query: query,
+        checkboxSettings: (isChecked: isChecked, onUpdateCheckbox: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
+        onUpdateAttribute: _onUpdateAttribute,
+        selectedAttribute: _choice?.attribute,
+        expandFileReference: widget.expandFileReference,
+        chooseFile: widget.chooseFile,
+        mustBeAccepted: widget.item.mustBeAccepted,
+        onUpdateInput: _onUpdateInput,
+        openFileDetails: widget.openFileDetails,
+      ),
     };
   }
 
@@ -114,10 +115,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
     });
 
     if (_choice == null || !value) {
-      widget.controller?.writeAtIndex(
-        index: widget.itemIndex,
-        value: const RejectRequestItemParameters(),
-      );
+      widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
 
       return;
     }
@@ -152,10 +150,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
         if (!isChecked) setState(() => isChecked = true);
       } else {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: const RejectRequestItemParameters(),
-        );
+        widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
       }
     } else if (widget.item.query is ProcessedRelationshipAttributeQueryDVO) {
       final RelationshipAttribute? composedValue = composeRelationshipAttributeValue(
@@ -174,10 +169,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
 
         if (!isChecked) setState(() => isChecked = true);
       } else {
-        widget.controller?.writeAtIndex(
-          index: widget.itemIndex,
-          value: const RejectRequestItemParameters(),
-        );
+        widget.controller?.writeAtIndex(index: widget.itemIndex, value: const RejectRequestItemParameters());
       }
     }
   }
@@ -218,7 +210,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   ValueHints? _getQueryValueHints() {
-    return switch (widget.item.query) {
+    return switch (widget.item.query as ProcessedAttributeQueryDVO) {
       final ProcessedIdentityAttributeQueryDVO query => query.valueHints,
       final ProcessedRelationshipAttributeQueryDVO query => query.valueHints,
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.valueHints,
@@ -227,7 +219,7 @@ class _DecidableReadAttributeRequestItemRendererState extends State<DecidableRea
   }
 
   List<({String id, AbstractAttribute attribute})> _getChoices() {
-    final results = switch (widget.item.query) {
+    final results = switch (widget.item.query as ProcessedAttributeQueryDVO) {
       final ProcessedIdentityAttributeQueryDVO query => query.results,
       final ProcessedRelationshipAttributeQueryDVO query => query.results,
       final ProcessedThirdPartyRelationshipAttributeQueryDVO query => query.results,

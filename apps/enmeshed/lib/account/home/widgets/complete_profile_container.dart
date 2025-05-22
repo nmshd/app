@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -57,10 +58,11 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.onPrimary,
-      elevation: 2,
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       clipBehavior: Clip.hardEdge,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +71,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               Padding(
                 padding: const EdgeInsets.only(left: 16, top: 16),
                 child: _CompleteProfileHeader(
-                  count: context.isFeatureEnabled('IDENTITY_RECOVERY_KITS') ? 4 : 3,
+                  count: 4,
                   countCompleted: [_isPersonalDataStored, _hasRelationship, _isFileDataStored, _createdIdentityRecoveryKit].where((e) => e).length,
                 ),
               ),
@@ -82,14 +84,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Text(
-              context.isFeatureEnabled('IDENTITY_RECOVERY_KITS')
-                  ? context.l10n.home_completeProfileDescription
-                  : context.l10n.home_completeProfileDescription_recoverykitDisabled,
-            ),
-          ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), child: Text(context.l10n.home_completeProfileDescription)),
           _TodoListTile(
             done: _isPersonalDataStored,
             text: context.l10n.home_initialPersonalInformation,
@@ -98,11 +93,7 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
           _TodoListTile(
             done: _hasRelationship,
             text: context.l10n.home_initialContact,
-            onPressed: () => goToInstructionsOrScanScreen(
-              accountId: widget.accountId,
-              instructionsType: ScannerType.addContact,
-              context: context,
-            ),
+            onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
           ),
           _TodoListTile(
             done: _isFileDataStored,
@@ -112,15 +103,14 @@ class _CompleteProfileContainerState extends State<CompleteProfileContainer> {
               await _reload();
             },
           ),
-          if (context.isFeatureEnabled('IDENTITY_RECOVERY_KITS'))
-            _TodoListTile(
-              done: _createdIdentityRecoveryKit,
-              text: context.l10n.home_createIdentityRecoveryKit,
-              onPressed: () async {
-                await context.push('/account/${widget.accountId}/create-identity-recovery-kit');
-                await _reload();
-              },
-            ),
+          _TodoListTile(
+            done: _createdIdentityRecoveryKit,
+            text: context.l10n.home_createIdentityRecoveryKit,
+            onPressed: () async {
+              await context.push('/account/${widget.accountId}/create-identity-recovery-kit');
+              await _reload();
+            },
+          ),
         ],
       ),
     );
@@ -149,11 +139,7 @@ class _TodoListTile extends StatelessWidget {
   final String text;
   final void Function() onPressed;
 
-  const _TodoListTile({
-    required this.done,
-    required this.text,
-    required this.onPressed,
-  });
+  const _TodoListTile({required this.done, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

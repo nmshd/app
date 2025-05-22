@@ -17,10 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Generate PDF',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple), useMaterial3: true),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -88,10 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.inversePrimary, title: Text(widget.title)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -253,11 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
         needHelpText: _needHelpTextController.text,
       ),
       qrSettings: (errorCorrectionLevel: _selectedErrorCorrectionLevel, qrPixelSize: null),
-    ).generate(
-      logoBytes: logoBytes,
-      spacerSvgImage: spacerSvgImage,
-      backupURL: _backupURLController.text,
-    );
+    ).generate(logoBytes: logoBytes, spacerSvgImage: spacerSvgImage, backupURL: _backupURLController.text);
 
     final directory = await getTemporaryDirectory();
     final filePath = '${directory.path}/Identity Recovery Kit.pdf';

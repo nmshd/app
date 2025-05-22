@@ -10,7 +10,7 @@ import '../utils.dart';
 void main() async => run(await setup());
 
 void run(EnmeshedRuntime runtime) {
-  group('MessageDVO', () {
+  group('[MessageDVO]', () {
     late TransportServices transportServices1;
     late DataViewExpander expander1;
     late TransportServices transportServices2;
@@ -44,12 +44,7 @@ void run(EnmeshedRuntime runtime) {
 
       final mailResult = await transportServices1.messages.sendMessage(
         recipients: [transportService2Address],
-        content: Mail(
-          body: 'This is a Mail.',
-          cc: const [],
-          subject: 'Mail Subject',
-          to: [transportService2Address],
-        ),
+        content: Mail(body: 'This is a Mail.', cc: const [], subject: 'Mail Subject', to: [transportService2Address]),
         attachments: [fileId],
       );
       mailId = mailResult.value.id;

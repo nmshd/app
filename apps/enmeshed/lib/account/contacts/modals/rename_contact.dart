@@ -1,13 +1,11 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '/core/core.dart';
 
-Future<String?> showRenameContactModal({
-  required IdentityDVO contact,
-  required BuildContext context,
-}) {
+Future<String?> showRenameContactModal({required IdentityDVO contact, required BuildContext context}) {
   final options = showModalBottomSheet<String?>(
     useRootNavigator: true,
     context: context,
@@ -95,10 +93,7 @@ class _RenameContactModalState extends State<_RenameContactModal> {
             ),
           ),
           Gaps.h24,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: Text(context.l10n.contactDetail_editContact_description),
-          ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16), child: Text(context.l10n.contactDetail_editContact_description)),
           Gaps.h24,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),

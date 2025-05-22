@@ -896,10 +896,7 @@
         "initials": "Me",
         "name": "Me"
       },
-      "unknown": {
-        "description": "Unknown Identity",
-        "publicKey": "Unknown Public Key"
-      }
+      "unknown": "Unknown Identity"
     },
     "localRequest": {
       "incoming": {
@@ -908,7 +905,7 @@
       "Message": {
         "incoming": {
           "Completed": {
-            "description": "This was an incoming Request which you received by a peer and you have already decided on it.",
+            "description": "This was an incoming Request which you received by a peer and you have already decided it.",
             "name": "Completed Incoming Request"
           },
           "Decided": {
@@ -924,7 +921,7 @@
             "name": "Errorneous Incoming Request"
           },
           "Expired": {
-            "description": "This was an incoming Request which you received by a peer and was expired before you decided on it.",
+            "description": "This was an incoming Request which you received by a peer and was expired before you decided it.",
             "name": "Expired Incoming Request"
           },
           "ManualDecisionRequired": {
@@ -938,7 +935,7 @@
         },
         "outgoing": {
           "Completed": {
-            "description": "This was an outgoing Request which you sent to a peer and the peer decided on it.",
+            "description": "This was an outgoing Request which you sent to a peer and the peer decided it.",
             "name": "Completed Outgoing Request"
           },
           "Draft": {
@@ -950,11 +947,11 @@
             "name": "Errorneous Outgoing Request"
           },
           "Expired": {
-            "description": "This was an outgoing Request which you sent to a peer, but the request expired before the peer could decide on it.",
+            "description": "This was an outgoing Request which you sent to a peer, but the request expired before the peer could decide it.",
             "name": "Expired Outgoing Request"
           },
           "Open": {
-            "description": "This is an outgoing Request which the peer still needs to decide on.",
+            "description": "This is an outgoing Request which the peer still needs to decide.",
             "name": "Open Outgoing Request"
           }
         }
@@ -965,15 +962,15 @@
       "RelationshipTemplate": {
         "incoming": {
           "Completed": {
-            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You decided on it. If you accepted the Contact Request, the App sent the response to the peer. If you declined the Contact Request, it was completed without communicating any data to the peer.",
+            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. You decided it. If you accepted the Contact Request, the App sent the response to the peer. If you declined the Contact Request, it was completed without communicating any data to the peer.",
             "name": "Completed Incoming Contact Request"
           },
           "Decided": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. It was decided by you, but the decision has not yet been sent to the peer by your App. Please be patient and check again soon.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. It was decided by you, but the decision has not yet been sent to the peer by your App. Please be patient and check again soon.",
             "name": "Decided Incoming Contact Request"
           },
           "DecisionRequired": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. The App still needs to process it. Please be patient and check again soon.",
             "name": "Open Incoming Contact Request"
           },
           "Error": {
@@ -981,15 +978,15 @@
             "name": "Errorneous Incoming Contact Request"
           },
           "Expired": {
-            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. Before a decision was made by you, the request has been expired and could no longer be processed. It has thus been completed without communicating any data to the peer.",
+            "description": "This was an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. Before a decision was made by you, the request has been expired and could no longer be processed. It has thus been completed without communicating any data to the peer.",
             "name": "Expired Incoming Contact Request"
           },
           "ManualDecisionRequired": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. You can decide if you want to communicate with the peer, which data you want to share and which consents you would like to give.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. You can decide if you want to communicate with the peer, which data you want to share and which consents you would like to give.",
             "name": "To Decide: Scanned Contact Opportunity"
           },
           "Open": {
-            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening up an nmshd:// link. The App still needs to process it. Please be patient and check again soon.",
+            "description": "This is an incoming Contact Request from a peer. The App received this by scanning in a QR-Code or opening a link. The App still needs to process it. Please be patient and check again soon.",
             "name": "Open Incoming Contact Request"
           }
         },
@@ -1007,7 +1004,7 @@
             "name": "Errorneous Outgoing Contact Request"
           },
           "Expired": {
-            "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. Your request expired before the peer decided on it. This could also mean that the peer rejected the request.",
+            "description": "This was an outgoing Contact Request based on a Relationship Template which you sent to or created for a peer. Your request expired before the peer decided it. This could also mean that the peer rejected the request.",
             "name": "Expired Outgoing Contact Request"
           },
           "Open": {
@@ -1017,12 +1014,12 @@
         }
       },
       "status": {
-        "Completed": "Completed",
-        "Decided": "Decided",
-        "DecisionRequired": "Waiting for Automation",
+        "Completed": "Completed task",
+        "Decided": "Completed task",
+        "DecisionRequired": "Task: Waiting for the App",
         "Draft": "Draft",
-        "Error": "Error",
-        "Expired": "Expired",
+        "Error": "Faulty task",
+        "Expired": "Expired task",
         "ManualDecisionRequired": "Open task",
         "Open": "Waiting for Response"
       },
@@ -1059,7 +1056,7 @@
         "name": "Requested your authentication"
       },
       "ConsentRequestItem": {
-        "name": "Requested your consent"
+        "name": "Declaration of consent"
       },
       "CreateIdentityAttributeRequestItem": {
         "name": "Created a new attribute for you"
@@ -1071,13 +1068,16 @@
         "name": "Requests you authentication"
       },
       "DecidableConsentRequestItem": {
-        "name": "Requests your consent"
+        "name": "Declaration of consent"
       },
       "DecidableCreateIdentityAttributeRequestItem": {
         "name": "Creates a new attribute for you"
       },
       "DecidableCreateRelationshipAttributeRequestItem": {
         "name": "Creates a new relationship attribute for you"
+      },
+      "DecidableFormFieldRequestItem": {
+        "name": "Requests something of you via a form field"
       },
       "DecidableFreeTextRequestItem": {
         "name": "Requests something of you"
@@ -1093,6 +1093,9 @@
       },
       "DecidableShareAttributeRequestItem": {
         "name": "Shares an attribute to you"
+      },
+      "FormFieldRequestItem": {
+        "name": "Requested something of you via a form field"
       },
       "FreeTextRequestItem": {
         "name": "Requested something of you"
@@ -1128,6 +1131,9 @@
         "acceptedName": "The attribute has been created."
       },
       "error": "Errorneous item",
+      "FormFieldAcceptResponseItem": {
+        "acceptedName": "The form field has been filled out."
+      },
       "FreeTextAcceptResponseItem": {
         "acceptedName": "The free text has been accepted."
       },
@@ -1181,5 +1187,43 @@
       "selectFile": "Select File",
       "noFileSelected": "No file selected"
     }
+  },
+  "requestRenderer": {
+    "consent": {
+      "defaultLinkDisplayText": "Open Link",
+      "showFullConsent": "Show full text"
+    },
+    "description": {
+      "transferFileOwnership": "New document in your wallet"
+    },
+    "errors": {
+      "error": {
+        "consumption": {
+          "requests": {
+            "decide": {
+              "validation": {
+                "mustBeAcceptedItemNotAccepted": "Give your consent."
+              }
+            }
+          }
+        }
+      }
+    },
+    "manualDecisionRequired": {
+      "description": {
+        "attributes": "I confirm that this information should be shared.",
+        "fileTransfer": "I confirm that this file should be included in my personal documents."
+      }
+    }
+  },
+  "tags": {
+    "mimetype:application/pdf": "PDF Document",
+    "urn:xbildung-de:unesco:codeliste:isced2011=3": "Secondary level II",
+    "urn:xbildung-de:unesco:codeliste:isced2011=34": "General education",
+    "urn:xbildung-de:unesco:codeliste:isced2011=344": "Grammar schools (upper school)",
+    "urn:xbildung-de:destatis:codeliste:artdesschulabschlusses=http://xbildung%de/def/destatis/1%0/code/artdesschulabschlusses/allgemeine_hochschulreife": "General higher education entrance qualification",
+    "urn:xschule-digital:xschule:codeliste:zeugnisart=http://xschule%digital/def/xschule/0%5/code/zeugnisart/abschlusszeugnis": "Final certificate",
+    "urn:xbildung-de:kmk:codeliste:artderschule=https://www%xbildung%de/def/kmk/kds/4%0/code/artderschule/100": "Grammar school",
+    "urn:de:bund:destatis:bevoelkerungsstatistik:schluessel:bundesland=05": "North Rhine-Westphalia"
   }
 }

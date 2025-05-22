@@ -3,16 +3,22 @@ import 'dart:async';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
 import '../utils/utils.dart';
+import 'instructions_screen.dart';
 import 'scanner_view/scanner_view.dart';
 
 class ScanScreen extends StatelessWidget {
+  final ScannerType scannerType;
   final String? accountId;
-  final bool? showContactHints;
 
-  const ScanScreen({this.accountId, this.showContactHints, super.key});
+  const ScanScreen({required this.scannerType, this.accountId, super.key})
+    : assert(
+        scannerType == ScannerType.addContact && accountId != null || scannerType == ScannerType.loadProfile && accountId == null,
+        'accountId must be null for ScannerType.loadProfile and not null for ScannerType.addContact',
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +35,17 @@ class ScanScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _onSubmit({
-    required String content,
-    required VoidCallback pause,
-    required VoidCallback resume,
-    required BuildContext context,
-  }) async {
+  Future<void> _onSubmit({required String content, required VoidCallback pause, required VoidCallback resume, required BuildContext context}) async {
     pause();
     final runtime = GetIt.I.get<EnmeshedRuntime>();
 
-    final account = accountId != null ? await runtime.accountServices.getAccount(accountId!) : null;
     if (!context.mounted) return;
 
-    final result = await runtime.stringProcessor.processURL(url: content, account: account);
+    final result = switch (scannerType) {
+      ScannerType.loadProfile => await runtime.stringProcessor.processDeviceOnboardingReference(url: content),
+      ScannerType.addContact => await runtime.stringProcessor.processURL(url: content, account: await runtime.accountServices.getAccount(accountId!)),
+    };
+
     if (result.isSuccess) {
       resume();
       return;
@@ -50,7 +54,7 @@ class ScanScreen extends StatelessWidget {
     GetIt.I.get<Logger>().e('Error while processing url $content: ${result.error.message}');
     if (!context.mounted) return;
 
-    await showWrongTokenErrorDialog(context);
+    await context.push('/error-dialog', extra: result.error.code);
 
     resume();
   }

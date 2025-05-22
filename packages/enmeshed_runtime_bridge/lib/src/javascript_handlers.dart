@@ -1,10 +1,11 @@
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
+import 'package:windows_notification/notification_message.dart';
+import 'package:windows_notification/windows_notification.dart';
 
 import 'event_bus.dart';
 import 'events/events.dart';
@@ -13,6 +14,9 @@ import 'ui_bridge.dart';
 
 Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus, Logger logger) async {
   final payload = args[0];
+
+  // do not handle events without eventTargetAddress, because they are used for internal stuff
+  if (payload['eventTargetAddress'] == null) return;
 
   final eventTargetAddress = payload['eventTargetAddress'] as String;
 
@@ -38,139 +42,88 @@ Future<dynamic> handleRuntimeEventCallback(List<dynamic> args, EventBus eventBus
     'transport.messageSent' => MessageSentEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.messageReceived' => MessageReceivedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.relationshipChanged' => RelationshipChangedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
-    'transport.relationshipReactivationRequested' =>
-      RelationshipReactivationRequestedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
-    'transport.relationshipReactivationCompleted' =>
-      RelationshipReactivationCompletedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
+    'transport.relationshipReactivationRequested' => RelationshipReactivationRequestedEvent(
+      eventTargetAddress: eventTargetAddress,
+      data: RelationshipDTO.fromJson(data),
+    ),
+    'transport.relationshipReactivationCompleted' => RelationshipReactivationCompletedEvent(
+      eventTargetAddress: eventTargetAddress,
+      data: RelationshipDTO.fromJson(data),
+    ),
     'transport.relationshipDecomposedBySelf' => RelationshipDecomposedBySelfEvent(
-        eventTargetAddress: eventTargetAddress,
-        relationshipId: data['relationshipId'] as String,
-      ),
+      eventTargetAddress: eventTargetAddress,
+      relationshipId: data['relationshipId'] as String,
+    ),
     'transport.messageWasReadAtChanged' => MessageWasReadAtChangedEvent(eventTargetAddress: eventTargetAddress, data: MessageDTO.fromJson(data)),
     'transport.identityDeletionProcessStatusChanged' => IdentityDeletionProcessStatusChangedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: IdentityDeletionProcessDTO.fromJson(data),
-      ),
-    'transport.peerToBeDeleted' => PeerToBeDeletedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: RelationshipDTO.fromJson(data),
-      ),
-    'transport.peerDeletionCancelled' => PeerDeletionCancelledEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: RelationshipDTO.fromJson(data),
-      ),
-    'transport.peerDeleted' => PeerDeletedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: RelationshipDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: IdentityDeletionProcessDTO.fromJson(data),
+    ),
+    'transport.peerToBeDeleted' => PeerToBeDeletedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
+    'transport.peerDeletionCancelled' => PeerDeletionCancelledEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
+    'transport.peerDeleted' => PeerDeletedEvent(eventTargetAddress: eventTargetAddress, data: RelationshipDTO.fromJson(data)),
     'consumption.ownSharedAttributeSucceeded' => OwnSharedAttributeSucceededEvent(
-        eventTargetAddress: eventTargetAddress,
-        predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
-        successor: LocalAttributeDTO.fromJson(data['successor']),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
+      successor: LocalAttributeDTO.fromJson(data['successor']),
+    ),
     'consumption.peerSharedAttributeSucceeded' => PeerSharedAttributeSucceededEvent(
-        eventTargetAddress: eventTargetAddress,
-        predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
-        successor: LocalAttributeDTO.fromJson(data['successor']),
-      ),
-    'consumption.attributeCreated' => AttributeCreatedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
-    'consumption.attributeDeleted' => AttributeDeletedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      predecessor: LocalAttributeDTO.fromJson(data['predecessor']),
+      successor: LocalAttributeDTO.fromJson(data['successor']),
+    ),
+    'consumption.attributeCreated' => AttributeCreatedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
+    'consumption.attributeDeleted' => AttributeDeletedEvent(eventTargetAddress: eventTargetAddress, data: LocalAttributeDTO.fromJson(data)),
     'consumption.ownSharedAttributeDeletedByOwner' => OwnSharedAttributeDeletedByOwnerEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAttributeDTO.fromJson(data),
+    ),
     'consumption.peerSharedAttributeDeletedByPeer' => PeerSharedAttributeDeletedByPeerEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAttributeDTO.fromJson(data),
+    ),
     'consumption.thirdPartyRelationshipAttributeDeletedByPeer' => ThirdPartyRelationshipAttributeDeletedByPeerEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAttributeDTO.fromJson(data),
-      ),
-    'consumption.outgoingRequestCreated' => OutgoingRequestCreatedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalRequestDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAttributeDTO.fromJson(data),
+    ),
+    'consumption.outgoingRequestCreated' => OutgoingRequestCreatedEvent(eventTargetAddress: eventTargetAddress, data: LocalRequestDTO.fromJson(data)),
     'consumption.incomingRequestReceived' => IncomingRequestReceivedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalRequestDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalRequestDTO.fromJson(data),
+    ),
     'consumption.incomingRequestStatusChanged' => IncomingRequestStatusChangedEvent(
-        eventTargetAddress: eventTargetAddress,
-        request: LocalRequestDTO.fromJson(data['request']),
-        oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
-        newStatus: LocalRequestStatus.values.byName(data['newStatus']),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      request: LocalRequestDTO.fromJson(data['request']),
+      oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
+      newStatus: LocalRequestStatus.values.byName(data['newStatus']),
+    ),
     'consumption.outgoingRequestStatusChanged' => OutgoingRequestStatusChangedEvent(
-        eventTargetAddress: eventTargetAddress,
-        request: LocalRequestDTO.fromJson(data['request']),
-        oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
-        newStatus: LocalRequestStatus.values.byName(data['newStatus']),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      request: LocalRequestDTO.fromJson(data['request']),
+      oldStatus: LocalRequestStatus.values.byName(data['oldStatus']),
+      newStatus: LocalRequestStatus.values.byName(data['newStatus']),
+    ),
     'app.externalEventReceived' => ExternalEventReceivedEvent(
-        eventTargetAddress: eventTargetAddress,
-        messages: List<MessageDTO>.from((data['messages'] as List<dynamic>).map((e) => MessageDTO.fromJson(e))),
-        relationships: List<RelationshipDTO>.from((data['relationships'] as List<dynamic>).map((e) => RelationshipDTO.fromJson(e))),
+      eventTargetAddress: eventTargetAddress,
+      messages: List<MessageDTO>.from((data['messages'] as List<dynamic>).map((e) => MessageDTO.fromJson(e))),
+      relationships: List<RelationshipDTO>.from((data['relationships'] as List<dynamic>).map((e) => RelationshipDTO.fromJson(e))),
+      identityDeletionProcesses: List<IdentityDeletionProcessDTO>.from(
+        (data['identityDeletionProcesses'] as List<dynamic>).map((e) => IdentityDeletionProcessDTO.fromJson(e)),
       ),
+    ),
     'app.localAccountDeletionDateChanged' => LocalAccountDeletionDateChangedEvent(
-        eventTargetAddress: eventTargetAddress,
-        data: LocalAccountDTO.fromJson(data),
-      ),
+      eventTargetAddress: eventTargetAddress,
+      data: LocalAccountDTO.fromJson(data),
+    ),
     'runtime.accountSelected' => AccountSelectedEvent(
-        eventTargetAddress: eventTargetAddress,
-        localAccountId: data['localAccountId'] as String,
-        address: data['address'] as String,
-      ),
+      eventTargetAddress: eventTargetAddress,
+      localAccountId: data['localAccountId'] as String,
+      address: data['address'] as String,
+    ),
     _ => ArbitraryEvent(namespace: namespace, eventTargetAddress: eventTargetAddress, data: data),
   };
 
   eventBus.publish(event);
-}
-
-extension DeviceInfo on InAppWebViewController {
-  void addDeviceInfoJavaScriptHandler() => addJavaScriptHandler(handlerName: 'getDeviceInfo', callback: _getDeviceInfo);
-}
-
-Future<Map<String, dynamic>> _getDeviceInfo(List<dynamic> args) async {
-  final deviceInfoPlugin = DeviceInfoPlugin();
-
-  if (Platform.isAndroid) {
-    final deviceInfo = await deviceInfoPlugin.androidInfo;
-
-    return {
-      'model': deviceInfo.model,
-      'platform': 'Android',
-      'uuid': deviceInfo.id,
-      'manufacturer': deviceInfo.manufacturer,
-      'isVirtual': !deviceInfo.isPhysicalDevice,
-      'languageCode': Platform.localeName,
-      'version': deviceInfo.version.release,
-      'pushService': 'fcm',
-    };
-  }
-
-  if (Platform.isIOS) {
-    final deviceInfo = await deviceInfoPlugin.iosInfo;
-
-    return {
-      'model': deviceInfo.model,
-      'platform': 'IOS',
-      'uuid': deviceInfo.identifierForVendor ?? '',
-      'manufacturer': 'Apple',
-      'isVirtual': !deviceInfo.isPhysicalDevice,
-      'languageCode': Platform.localeName,
-      'version': deviceInfo.systemVersion,
-      'pushService': 'apns',
-    };
-  }
-
-  throw Exception('Unsupported platform');
 }
 
 class JsToUIBridge {
@@ -231,15 +184,11 @@ class JsToUIBridge {
       callback: (args) async {
         final error = args[0] as Map<String, dynamic>;
 
-        await uiBridge.showError(
-          (
-            code: error['code'] as String,
-            message: error['message'] as String,
-            userfriendlyMessage: error['userfriendlyMessage'] as String?,
-            data: error['data'] as Map<String, dynamic>?,
-          ),
-          args[1] != null ? LocalAccountDTO.fromJson(args[1]) : null,
-        );
+        await uiBridge.showError((
+          code: error['code'] as String,
+          message: error['message'] as String,
+          data: error['data'] as Map<String, dynamic>?,
+        ), args[1] != null ? LocalAccountDTO.fromJson(args[1]) : null);
       },
     );
 
@@ -279,7 +228,19 @@ class JsToUIBridge {
           _ => throw Exception('Invalid attempt: ${args[2]}'),
         };
 
-        final password = await uiBridge.enterPassword(passwordType: passwordType, pinLength: pinLength, attempt: attempt);
+        final passwordLocationIndicator = switch (args[3]) {
+          null => null,
+          final num i => i.toInt(),
+          final String s => int.parse(s),
+          _ => throw Exception('Invalid password location indicator: ${args[3]}'),
+        };
+
+        final password = await uiBridge.enterPassword(
+          passwordType: passwordType,
+          pinLength: pinLength,
+          attempt: attempt,
+          passwordLocationIndicator: passwordLocationIndicator,
+        );
         return password;
       },
     );
@@ -369,8 +330,31 @@ extension Filesystem on InAppWebViewController {
 }
 
 extension LocalNotifications on InAppWebViewController {
-  void addLocalNotificationsJavaScriptHandlers() {
+  Future<void> addLocalNotificationsJavaScriptHandlers() async {
+    if (Platform.isAndroid || Platform.isIOS || Platform.isLinux || Platform.isMacOS) {
+      await _addLocalNotificationsJavaScriptHandlers();
+    } else if (Platform.isWindows) {
+      _addWindowsNotificationsJavaScriptHandlers();
+    } else {
+      throw Exception('Unsupported platform');
+    }
+  }
+
+  Future<void> _addLocalNotificationsJavaScriptHandlers() async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    await flutterLocalNotificationsPlugin.initialize(
+      InitializationSettings(
+        android: AndroidInitializationSettings('@drawable/notification'),
+        iOS: DarwinInitializationSettings(),
+        macOS: DarwinInitializationSettings(),
+      ),
+    );
+
+    final notificationDetails = NotificationDetails(
+      android: AndroidNotificationDetails('all_local_notifications', 'Notifications', importance: Importance.max, priority: Priority.high),
+      iOS: DarwinNotificationDetails(),
+    );
 
     addJavaScriptHandler(
       handlerName: 'notifications_schedule',
@@ -379,7 +363,7 @@ extension LocalNotifications on InAppWebViewController {
         final body = args[1] as String;
         final id = args[2] as int;
 
-        await flutterLocalNotificationsPlugin.show(id, title, body, null);
+        await flutterLocalNotificationsPlugin.show(id, title, body, notificationDetails);
       },
     );
 
@@ -404,6 +388,49 @@ extension LocalNotifications on InAppWebViewController {
       callback: (args) async {
         final notifications = await flutterLocalNotificationsPlugin.getActiveNotifications();
         return notifications.map((e) => e.id).toList();
+      },
+    );
+  }
+
+  void _addWindowsNotificationsJavaScriptHandlers() {
+    final winNotifyPlugin = WindowsNotification(applicationId: null);
+
+    winNotifyPlugin.initNotificationCallBack((details) {
+      // TODO: handle notification click
+    });
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_schedule',
+      callback: (args) async {
+        final title = args[0] as String;
+        final body = args[1] as String;
+        final id = args[2] as int;
+
+        await winNotifyPlugin.showNotificationPluginTemplate(NotificationMessage.fromPluginTemplate(id.toString(), title, body, group: 'nmshd'));
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_clear',
+      callback: (args) async {
+        final id = args[0] as int;
+
+        await winNotifyPlugin.removeNotificationId(id.toString(), 'nmshd');
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_clearAll',
+      callback: (args) async {
+        await winNotifyPlugin.clearNotificationHistory();
+      },
+    );
+
+    addJavaScriptHandler(
+      handlerName: 'notifications_getAll',
+      callback: (args) {
+        // no support for listing notifications on Windows
+        return [];
       },
     );
   }

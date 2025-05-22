@@ -7,18 +7,18 @@ repository: https://github.com/nmshd/app
 homepage: https://enmeshed.eu
 
 environment:
-  sdk: "^3.6.0"
-  flutter: ">=3.27.0"
+  sdk: "^3.8.0"
+  flutter: ">=3.32.0"
 
 dependencies:
-  device_info_plus: ^11.1.0
   enmeshed_types: 1.0.0
   flutter:
     sdk: flutter
   flutter_inappwebview: ^6.1.5
-  flutter_local_notifications: ^18.0.0
-  logger: ^2.4.0
+  flutter_local_notifications: ^19.2.1
+  logger: ^2.5.0
   path_provider: ^2.1.5
+  windows_notification: ^1.3.0
   cal_flutter_plugin:
     git:
       url: https://github.com/nmshd/rust-crypto.git

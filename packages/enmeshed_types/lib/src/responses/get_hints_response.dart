@@ -9,10 +9,7 @@ class GetHintsResponse {
   final ValueHints valueHints;
   final RenderHints renderHints;
 
-  GetHintsResponse({
-    required this.valueHints,
-    required this.renderHints,
-  });
+  GetHintsResponse({required this.valueHints, required this.renderHints});
 
   factory GetHintsResponse.fromJson(Map<String, dynamic> json) => _$GetHintsResponseFromJson(json);
 

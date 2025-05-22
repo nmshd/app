@@ -1,6 +1,5 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
-
-import '/core/utils/extensions.dart';
 
 class CustomSuccessIcon extends StatelessWidget {
   final double containerSize;
@@ -14,7 +13,9 @@ class CustomSuccessIcon extends StatelessWidget {
       width: containerSize,
       height: containerSize,
       decoration: BoxDecoration(color: context.customColors.success, shape: BoxShape.circle),
-      child: Center(child: Icon(Icons.check, color: context.customColors.onSuccess, size: iconSize)),
+      child: Center(
+        child: Icon(Icons.check, color: context.customColors.onSuccess, size: iconSize),
+      ),
     );
   }
 }

@@ -4,20 +4,16 @@ import 'package:flutter/material.dart';
 import '../../../custom_list_tile.dart';
 import '../../request_item_index.dart';
 import '../../request_renderer_controller.dart';
+import '../extensions/extensions.dart';
 import 'checkbox_enabled_extension.dart';
 import 'widgets/handle_checkbox_change.dart';
 
 class DecidableRegisterAttributeListenerRequestItemRenderer extends StatefulWidget {
-  final DecidableRegisterAttributeListenerRequestItemDVO item;
+  final RegisterAttributeListenerRequestItemDVO item;
   final RequestRendererController? controller;
   final RequestItemIndex itemIndex;
 
-  const DecidableRegisterAttributeListenerRequestItemRenderer({
-    super.key,
-    required this.item,
-    this.controller,
-    required this.itemIndex,
-  });
+  const DecidableRegisterAttributeListenerRequestItemRenderer({super.key, required this.item, this.controller, required this.itemIndex});
 
   @override
   State<DecidableRegisterAttributeListenerRequestItemRenderer> createState() => _DecidableRegisterAttributeListenerRequestItemRendererState();
@@ -42,11 +38,7 @@ class _DecidableRegisterAttributeListenerRequestItemRendererState extends State<
     return Row(
       children: [
         Checkbox(value: isChecked, onChanged: widget.item.checkboxEnabled ? onUpdateCheckbox : null),
-        Expanded(
-          child: CustomListTile(
-            title: widget.item.query.name,
-          ),
-        ),
+        Expanded(child: CustomListTile(title: widget.item.query.name)),
       ],
     );
   }
@@ -58,10 +50,6 @@ class _DecidableRegisterAttributeListenerRequestItemRendererState extends State<
       isChecked = value;
     });
 
-    handleCheckboxChange(
-      isChecked: isChecked,
-      controller: widget.controller,
-      itemIndex: widget.itemIndex,
-    );
+    handleCheckboxChange(isChecked: isChecked, controller: widget.controller, itemIndex: widget.itemIndex);
   }
 }

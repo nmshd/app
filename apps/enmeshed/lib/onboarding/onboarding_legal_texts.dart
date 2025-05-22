@@ -1,3 +1,4 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -70,9 +71,8 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
             isLegalTextAccepted: _isPrivacyPolicyAccepted,
             toggleIsLegalTextAccepted: () => setState(() => _isPrivacyPolicyAccepted = !_isPrivacyPolicyAccepted),
           ),
-          Gaps.h8,
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: Align(
               child: FilledButton(
                 onPressed: isLegalAgreementCompleted ? widget.goToOnboardingCreateAccount : null,

@@ -46,8 +46,7 @@ class ProcessedIdentityAttributeQueryRenderer extends StatelessWidget {
           'DeliveryBoxAddress' ||
           'PersonName' ||
           'PostOfficeBoxAddress' ||
-          'StreetAddress' =>
-            'i18n://attributes.values.${query.valueType}._title',
+          'StreetAddress' => 'i18n://attributes.values.${query.valueType}._title',
           _ => 'i18n://dvo.attribute.name.${query.valueType}',
         },
         renderHints: query.renderHints,
@@ -135,10 +134,7 @@ class ProcessedRelationshipAttributeQueryRenderer extends StatelessWidget {
                 ? null
                 : SizedBox(
                     width: 50,
-                    child: IconButton(
-                      onPressed: () => onUpdateAttribute!(query.valueType),
-                      icon: const Icon(Icons.chevron_right),
-                    ),
+                    child: IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
                   ),
             expandFileReference: expandFileReference,
             openFileDetails: openFileDetails,
@@ -183,19 +179,18 @@ class ProcessedThirdPartyRelationshipAttributeQueryRenderer extends StatelessWid
                   ? null
                   : SizedBox(
                       width: 50,
-                      child: IconButton(
-                        onPressed: () => onUpdateAttribute!(),
-                        icon: const Icon(Icons.chevron_right),
-                      ),
+                      child: IconButton(onPressed: () => onUpdateAttribute!(), icon: const Icon(Icons.chevron_right)),
                     ),
               expandFileReference: expandFileReference,
               openFileDetails: openFileDetails,
             ),
           )
         else
-          TranslatedText(
-            'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
-            style: TextStyle(color: Theme.of(context).colorScheme.error),
+          Expanded(
+            child: TranslatedText(
+              'i18n://dvo.attributeQuery.ThirdPartyRelationshipAttributeQuery.noResults',
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
           ),
       ],
     );
@@ -235,7 +230,8 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
     if (query.results.isEmpty) {
       if (query.valueType != null && query.valueHints != null && query.renderHints != null) {
         return ValueRendererListTile(
-          fieldName: requestItemTitle ??
+          fieldName:
+              requestItemTitle ??
               switch (query.valueType) {
                 'Affiliation' ||
                 'BirthDate' ||
@@ -243,8 +239,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
                 'DeliveryBoxAddress' ||
                 'PersonName' ||
                 'PostOfficeBoxAddress' ||
-                'StreetAddress' =>
-                  'i18n://attributes.values.${query.valueType}._title',
+                'StreetAddress' => 'i18n://attributes.values.${query.valueType}._title',
                 _ => 'i18n://dvo.attribute.name.${query.valueType}',
               },
           renderHints: query.renderHints!,
@@ -279,10 +274,7 @@ class ProcessedIQLQueryRenderer extends StatelessWidget {
                 ? null
                 : SizedBox(
                     width: 50,
-                    child: IconButton(
-                      onPressed: () => onUpdateAttribute!(query.valueType),
-                      icon: const Icon(Icons.chevron_right),
-                    ),
+                    child: IconButton(onPressed: () => onUpdateAttribute!(query.valueType), icon: const Icon(Icons.chevron_right)),
                   ),
             expandFileReference: expandFileReference,
             openFileDetails: openFileDetails,

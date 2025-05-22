@@ -5,8 +5,5 @@ import '../event.dart';
 class RelationshipReactivationRequestedEvent extends Event {
   final RelationshipDTO data;
 
-  const RelationshipReactivationRequestedEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const RelationshipReactivationRequestedEvent({required this.data, required super.eventTargetAddress});
 }

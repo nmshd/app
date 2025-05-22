@@ -31,11 +31,22 @@ class _FilesScreenState extends State<FilesScreen> {
   _FilesSortingType _sortingType = _FilesSortingType.date;
   bool _isSortedAscending = false;
 
+  late final StreamSubscription<void> _subscription;
+
   @override
   void initState() {
     super.initState();
 
+    _subscription = GetIt.I.get<EnmeshedRuntime>().eventBus.on<AttributeDeletedEvent>().listen((_) => _loadFiles().catchError((_) {}));
+
     _loadFiles().then((_) => widget.initialCreation ? _uploadFile() : null);
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+
+    super.dispose();
   }
 
   @override
@@ -45,22 +56,20 @@ class _FilesScreenState extends State<FilesScreen> {
       actions: [
         SearchAnchor(
           suggestionsBuilder: _buildSuggestions,
-          builder: (BuildContext context, SearchController controller) => IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () => controller.openView(),
-          ),
+          builder: (BuildContext context, SearchController controller) =>
+              IconButton(icon: const Icon(Icons.search), onPressed: () => controller.openView()),
         ),
         IconButton(
           onPressed: _fileRecords != null && _fileRecords!.isNotEmpty
               ? () => showSelectFileFilters(
-                    context,
-                    availableFilters: _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
-                    activeFilters: _activeFilters,
-                    onApplyFilters: (selectedFilters) {
-                      setState(() => _activeFilters = selectedFilters);
-                      _filterAndSort();
-                    },
-                  )
+                  context,
+                  availableFilters: _fileRecords!.map((fileRecord) => fileRecord.file.mimetype).toSet().map(FileFilterType.fromMimetype).toSet(),
+                  activeFilters: _activeFilters,
+                  onApplyFilters: (selectedFilters) {
+                    setState(() => _activeFilters = selectedFilters);
+                    _filterAndSort();
+                  },
+                )
               : null,
           icon: Badge(isLabelVisible: _activeFilters.isNotEmpty, child: const Icon(Icons.filter_list)),
         ),
@@ -68,7 +77,12 @@ class _FilesScreenState extends State<FilesScreen> {
       ],
     );
 
-    if (_fileRecords == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_fileRecords == null) {
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     if (_fileRecords!.isEmpty) {
       return Scaffold(
@@ -123,11 +137,8 @@ class _FilesScreenState extends State<FilesScreen> {
               child: RefreshIndicator(
                 onRefresh: () => _loadFiles(syncBefore: true),
                 child: ListView.separated(
-                  itemBuilder: (context, index) => FileItem(
-                    accountId: widget.accountId,
-                    fileRecord: _filteredFileRecords[index],
-                    trailing: const Icon(Icons.chevron_right),
-                  ),
+                  itemBuilder: (context, index) =>
+                      FileItem(accountId: widget.accountId, fileRecord: _filteredFileRecords[index], trailing: const Icon(Icons.chevron_right)),
                   itemCount: _filteredFileRecords.length,
                   separatorBuilder: (context, index) => const Divider(height: 2, indent: 16),
                 ),
@@ -192,20 +203,19 @@ class _FilesScreenState extends State<FilesScreen> {
   }
 
   int Function(FileRecord, FileRecord) _compareFunction(_FilesSortingType type, bool isSortedAscending) => switch (type) {
-        _FilesSortingType.date => (a, b) =>
-            isSortedAscending ? a.file.createdAt.compareTo(b.file.createdAt) : b.file.createdAt.compareTo(a.file.createdAt),
-        _FilesSortingType.name => (a, b) {
-            if (isSortedAscending) return a.file.name.toLowerCase().compareTo(b.file.name.toLowerCase());
-            return b.file.name.toLowerCase().compareTo(a.file.name.toLowerCase());
-          },
-        _FilesSortingType.type => (a, b) {
-            final aType = a.file.mimetype.split('/').last;
-            final bType = b.file.mimetype.split('/').last;
-            return isSortedAscending ? aType.compareTo(bType) : bType.compareTo(aType);
-          },
-        _FilesSortingType.size => (a, b) =>
-            isSortedAscending ? a.file.filesize.compareTo(b.file.filesize) : b.file.filesize.compareTo(a.file.filesize),
-      };
+    _FilesSortingType.date =>
+      (a, b) => isSortedAscending ? a.file.createdAt.compareTo(b.file.createdAt) : b.file.createdAt.compareTo(a.file.createdAt),
+    _FilesSortingType.name => (a, b) {
+      if (isSortedAscending) return a.file.name.toLowerCase().compareTo(b.file.name.toLowerCase());
+      return b.file.name.toLowerCase().compareTo(a.file.name.toLowerCase());
+    },
+    _FilesSortingType.type => (a, b) {
+      final aType = a.file.mimetype.split('/').last;
+      final bType = b.file.mimetype.split('/').last;
+      return isSortedAscending ? aType.compareTo(bType) : bType.compareTo(aType);
+    },
+    _FilesSortingType.size => (a, b) => isSortedAscending ? a.file.filesize.compareTo(b.file.filesize) : b.file.filesize.compareTo(a.file.filesize),
+  };
 
   void _uploadFile() {
     showModalBottomSheet<void>(
@@ -273,11 +283,7 @@ class _FilterBar extends StatelessWidget {
   final void Function(FileFilterType) onRemoveFilter;
   final void Function() onResetFilters;
 
-  const _FilterBar({
-    required this.activeFilters,
-    required this.onRemoveFilter,
-    required this.onResetFilters,
-  });
+  const _FilterBar({required this.activeFilters, required this.onRemoveFilter, required this.onResetFilters});
 
   @override
   Widget build(BuildContext context) {

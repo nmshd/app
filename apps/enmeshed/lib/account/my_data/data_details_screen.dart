@@ -1,5 +1,6 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -21,40 +22,56 @@ class DataDetailsScreen extends StatefulWidget {
 
 class _DataDetailsScreenState extends State<DataDetailsScreen> {
   List<LocalAttributeDVO>? _attributes;
+  late final ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
 
+    _scrollController = ScrollController();
+
     _loadAttributes();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(title: TranslatedText('i18n://dvo.attribute.name.${widget.valueType}'));
 
-    if (_attributes == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_attributes == null) {
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
         child: Column(
           children: [
-            _CreateAttribute(
-              accountId: widget.accountId,
-              valueType: widget.valueType,
-              onAttributeCreated: () => _loadAttributes(syncBefore: true),
-            ),
+            _Header(accountId: widget.accountId, valueType: widget.valueType, onAttributeCreated: () => _loadAttributes(syncBefore: true)),
             Expanded(
-              child: ListView.separated(
-                itemCount: _attributes!.length,
-                itemBuilder: (context, index) => _AttributeItem(
-                  attribute: _attributes![index],
-                  sameTypeAttributes: _attributes!,
-                  accountId: widget.accountId,
-                  reload: () => _loadAttributes(syncBefore: true),
+              child: Scrollbar(
+                controller: _scrollController,
+                thumbVisibility: true,
+                child: ListView.separated(
+                  controller: _scrollController,
+                  itemCount: _attributes!.length,
+                  itemBuilder: (context, index) => _AttributeItem(
+                    attribute: _attributes![index],
+                    sameTypeAttributes: _attributes!,
+                    accountId: widget.accountId,
+                    reload: () => _loadAttributes(syncBefore: true),
+                  ),
+                  separatorBuilder: (context, index) => const Divider(indent: 16),
                 ),
-                separatorBuilder: (context, index) => const Divider(indent: 16),
               ),
             ),
           ],
@@ -101,12 +118,12 @@ class _DataDetailsScreenState extends State<DataDetailsScreen> {
   }
 }
 
-class _CreateAttribute extends StatelessWidget {
+class _Header extends StatelessWidget {
   final String valueType;
   final String accountId;
   final VoidCallback onAttributeCreated;
 
-  const _CreateAttribute({required this.valueType, required this.accountId, required this.onAttributeCreated});
+  const _Header({required this.valueType, required this.accountId, required this.onAttributeCreated});
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +132,7 @@ class _CreateAttribute extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(context.l10n.personalData_details_manageEntries),
-          ),
+          Padding(padding: const EdgeInsets.symmetric(vertical: 16), child: Text(context.l10n.personalData_details_manageEntries)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

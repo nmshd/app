@@ -1,9 +1,10 @@
 include: ../../analysis_options.yaml
 
 analyzer:
-  exclude:
-    - lib/**.g.dart
+  errors:
+    unnecessary_null_check_pattern: false
 
 linter:
   rules:
     constant_identifier_names: false
+    use_null_aware_elements: false

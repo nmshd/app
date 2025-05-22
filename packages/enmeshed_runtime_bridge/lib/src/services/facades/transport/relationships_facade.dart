@@ -14,9 +14,7 @@ class RelationshipsFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (query != null) 'query': query.toJson(),
-        },
+        'request': {if (query != null) 'query': query.toJson()},
       },
     );
 
@@ -24,17 +22,13 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => List<RelationshipDTO>.from(value.map((e) => RelationshipDTO.fromJson(e))));
   }
 
-  Future<Result<RelationshipDTO>> getRelationship({
-    required String relationshipId,
-  }) async {
+  Future<Result<RelationshipDTO>> getRelationship({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.getRelationship(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': relationshipId,
-        },
+        'request': {'id': relationshipId},
       },
     );
 
@@ -42,17 +36,13 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> getRelationshipByAddress({
-    required String address,
-  }) async {
+  Future<Result<RelationshipDTO>> getRelationshipByAddress({required String address}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.getRelationshipByAddress(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'address': address,
-        },
+        'request': {'address': address},
       },
     );
 
@@ -69,10 +59,7 @@ class RelationshipsFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'templateId': templateId,
-          if (creationContent != null) 'creationContent': creationContent.toJson(),
-        },
+        'request': {'templateId': templateId, if (creationContent != null) 'creationContent': creationContent.toJson()},
       },
     );
 
@@ -89,10 +76,7 @@ class RelationshipsFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'templateId': templateId,
-          'creationContent': creationContent.toJson(),
-        },
+        'request': {'templateId': templateId, 'creationContent': creationContent.toJson()},
       },
     );
 
@@ -114,9 +98,7 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> rejectRelationship({
-    required String relationshipId,
-  }) async {
+  Future<Result<RelationshipDTO>> rejectRelationship({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.rejectRelationship(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -130,9 +112,7 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> revokeRelationship({
-    required String relationshipId,
-  }) async {
+  Future<Result<RelationshipDTO>> revokeRelationship({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.revokeRelationship(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -146,9 +126,7 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> terminateRelationship({
-    required String relationshipId,
-  }) async {
+  Future<Result<RelationshipDTO>> terminateRelationship({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.terminateRelationship(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -162,9 +140,7 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> requestRelationshipReactivation({
-    required String relationshipId,
-  }) async {
+  Future<Result<RelationshipDTO>> requestRelationshipReactivation({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.requestRelationshipReactivation(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -178,9 +154,7 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> acceptRelationshipReactivation({
-    required String relationshipId,
-  }) async {
+  Future<Result<RelationshipDTO>> acceptRelationshipReactivation({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.acceptRelationshipReactivation(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -194,9 +168,7 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> rejectRelationshipReactivation({
-    required String relationshipId,
-  }) async {
+  Future<Result<RelationshipDTO>> rejectRelationshipReactivation({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.rejectRelationshipReactivation(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -210,9 +182,7 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<Result<RelationshipDTO>> revokeRelationshipReactivation({
-    required String relationshipId,
-  }) async {
+  Future<Result<RelationshipDTO>> revokeRelationshipReactivation({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.revokeRelationshipReactivation(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -226,9 +196,7 @@ class RelationshipsFacade {
     return Result.fromJson(json, (value) => RelationshipDTO.fromJson(value));
   }
 
-  Future<VoidResult> decomposeRelationship({
-    required String relationshipId,
-  }) async {
+  Future<VoidResult> decomposeRelationship({required String relationshipId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.transportServices.relationships.decomposeRelationship(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
@@ -252,11 +220,7 @@ class RelationshipsFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': relationshipId,
-          if (hideTechnical != null) 'hideTechnical': hideTechnical,
-          if (onlyLatestVersions != null) 'onlyLatestVersions': onlyLatestVersions,
-        },
+        'request': {'id': relationshipId, 'hideTechnical': ?hideTechnical, 'onlyLatestVersions': ?onlyLatestVersions},
       },
     );
 

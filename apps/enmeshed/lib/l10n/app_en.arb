@@ -27,17 +27,38 @@
   "imprint": "Imprint",
   "safetyInformation": "Safety Information",
   "error": "Error",
+  "errorDialog_title": "Error",
   "errorDialog_description": "An error has occurred. Please try again later.",
+  "errorDialog_invalidQRCode_title": "Invalid QR code",
+  "errorDialog_invalidQRCode_description": "The scanned QR code is not supported by this app. If you have an alternative QR code available, please use it.\n\nMake sure you are using the latest version of the app. Go to the store and update the app if necessary.",
+  "errorDialog_QRCodeProcessingFailed_title": "Error when processing the QR code",
+  "errorDialog_QRCodeProcessingFailed_description": "The scanned QR code could not be processed. If you have an alternative QR code available, please use it.\n\nMake sure you are using the latest version of the app. Go to the store and update the app if necessary.",
+  "errorDialog_relationshipNotYetDecomposedByPeer_title": "You cannot currently enter into a new relationship with this contact.",
+  "errorDialog_relationshipNotYetDecomposedByPeer_description": "Try again at a later date",
+  "errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_title": "The contact no longer exists",
+  "errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description": "The contact for this QR code no longer exists or is no longer part of \"enmeshed\". You can no longer establish a contact relationship.",
+  "errorDialog_relationshipTemplateIsExpired_title": "The contact request has expired",
+  "errorDialog_relationshipTemplateIsExpired_description": "The contact has preset a response deadline for this QR code. The contact request associated with this QR code has expired.",
+  "errorDialog_requestExpired_title": "The QR code has already expired",
+  "errorDialog_requestExpired_description": "This QR code is no longer valid. Try to get a new QR code from the contact.",
   "error_image": "Failed to pick image.",
   "error_upload_file": "Failed to upload the file.",
   "error_download_file": "Failed to download the file.",
   "error_createAccount": "Failed to create user profile. Please try again later.",
   "error_createDevice": "Failed to create device. Please try again later.",
   "error_couldNotOpenLink": "The link could not be opened.",
-  "error_createAttribute": "No new information could be created.",
   "error_succeedAttribute": "The entry could not be updated.",
   "error_deleteAttribute": "The entry could not be deleted.",
   "error_changeFavoriteRepositoryAttribute": "The attribute could not be favored.",
+  "error_backboneNotAvailable": "Backbone not available",
+  "error_backboneNotAvailable_description": "No connection to the server can currently be established. If the problem persists, you are welcome to contact our support team.",
+  "error_unexpected": "We are sorry, but an unexpected error has occurred. If the problem persists, you are welcome to contact our support team.",
+  "error_supportButton": "Write e-mail to the support team",
+  "error_openMailApp": "Error when opening the e-mail app",
+  "error_openMailApp_description": "The e-mail app on your device could not be opened. Write to support using a different device.\n\nThe e-mail address is:\nenmeshed.support@js-soft.com",
+  "error_understood": "Understood",
+  "error_deleteRequest": "Delete request",
+  "error_deleteRequestFailed": "The contact request could not be deleted. Please try again later.",
   "favorites": "Favorites",
   "tryAgain": "Try again",
   "title": "Title",
@@ -55,11 +76,8 @@
   "sorting_group_date_thisMonth": "This Month",
   "sorting_group_date_thisYear": "This Year",
   "sorting_group_date_older": "Older",
-  "notImplemented": "This feature isn't implemented yet.",
   "scanner_scanQR": "Scan QR code",
   "scanner_enterUrl": "Enter URL link",
-  "scanner_invalidCode": "The code is invalid",
-  "scanner_invalidCode_tryAnother": "Try another one.",
   "scanner_lineUpQrCode": "Position QR code in the frame.",
   "scanner_scanQrOrEnterUrl": "Scan a QR code or alternatively enter a URL link.",
   "scanner_urlValidationError": "The URL link could not be verified. Please check your input.",
@@ -82,6 +100,7 @@
   "onboarding_createNewAccount": "Create new user profile",
   "onboarding_createNewAccount_description": "First time here?\nCreate a new profile.",
   "onboarding_createNewAccount_button": "Create user profile",
+  "onboarding_restoreProfile_button": "Restore profile",
   "onboarding_chooseOption": "You need a user profile to be able to use the enmeshed app.\nHere are two options for creating your user profile:",
   "onboarding_createIdentity": "Create your user profile",
   "onboarding_defaultIdentityName": "Profile",
@@ -103,6 +122,25 @@
   "onboarding_consentParagraph4": "By actively participating in the test phase - including receiving push messages on your mobile device and analyzing the volume of data moved - you consent to the processing of your personal data as required in each case.",
   "onboarding_enterProfileName": "Choose a profile name",
   "onboarding_acceptProfileName": "Accept",
+  "restoreFromIdentityRecovery_loading": "Profile is being restored ...",
+  "restoreFromIdentityRecovery_instructions_title": "Restore profile with recovery kit",
+  "restoreFromIdentityRecovery_instructions_subtitle": "How to restore an existing profile",
+  "restoreFromIdentityRecovery_instructions_search": "Find your recovery kit and have your password ready.",
+  "restoreFromIdentityRecovery_instructions_scan": "Scan the QR code on the recovery kit.",
+  "restoreFromIdentityRecovery_instructions_password": "Enter the corresponding password.",
+  "restoreFromIdentityRecovery_instructions_confirmation": "After confirmation, you have full access to your profile again.",
+  "restoreFromIdentityRecovery_instructions_informationTitle": "The recovery kit can only be used once.",
+  "restoreFromIdentityRecovery_instructions_informationDescription": "After successfully restoring your profile, you can create a new recovery kit at any time via the profile management.",
+  "restoreFromIdentityRecovery_scanner_scanQrOrEnterUrl": "Scan the QR code to download a profile to your device. Alternatively, enter a URL link.",
+  "restoreFromIdentityRecovery_scanner_connectWithUrl_title": "Enter URL link",
+  "restoreFromIdentityRecovery_scanner_connectWithUrl_description": "Enter the URL link to restore your profile on this device. In the next step, you will be asked to enter the password that you created together with the recovery kit.",
+  "restoreFromIdentityRecovery_scanner_connectWithUrl_urlLabel": "URL",
+  "restoreFromIdentityRecovery_errorTitleOnExistingProfile": "The profile is already activated on this device",
+  "restoreFromIdentityRecovery_errorDescriptionOnExistingProfile": "You cannot use the recovery kit again, the associated profile is already activated.",
+  "restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit": "This recovery kit cannot be applied",
+  "restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit": "Perhaps this recovery kit has already been used.",
+  "restoreFromIdentityRecovery_success": "The profile was successfully transferred to this device.",
+  "restoreFromIdentityRecovery_success_butInDeletion": "The profile was successfully transferred to this device, but it is in deletion. You can restore it to use it again.",
   "home_title": "enmeshed",
   "home_seeAll": "See all",
   "home_complete": "Complete",
@@ -114,7 +152,6 @@
   "home_messages": "New messages",
   "home_noNewMessages": "No new messages. You are up to date.",
   "home_completeProfile": "First steps",
-  "home_completeProfileDescription_recoverykitDisabled": "Three steps to help you get the most out of the enmeshed app:",
   "home_completeProfileDescription": "Four steps to help you get the most out of the enmeshed app:",
   "home_completeProfileCloseIconSemanticsLabel": "Hide card",
   "home_of": "of",
@@ -123,35 +160,48 @@
   "home_initialContact": "Connect to initial contacts",
   "home_initialDocuments": "Load initial documents",
   "home_createIdentityRecoveryKit": "Create recovery kit",
+  "home_identityRecoveryKitWasUsed": "Your recovery kit has been used. Would you like to create a new one?",
+  "home_identityRecoverKitWasUsed_description": "Your recovery kit has been used and has expired. Create a new one to ensure continued access to your data. You can also do this later in the profile management.",
+  "home_closeHint": "Close hint",
+  "home_create": "Create",
   "drawer_manageProfiles": "Manage profiles",
   "drawer_title": "Information & help",
   "drawer_notifications": "Notifications",
+  "drawer_notifications_activate": "Enable notifications",
   "drawer_notifications_stayInformed": "Stay informed!",
-  "drawer_notifications_getNotifications": "This will provide you with important information about what is happening in your profile(s). We will also send you notifications about new services in the app.",
-  "drawer_notifications_howToActivate": "To receive notifications, go to your system settings and enable notifications from the \"enmeshed\" app.",
-  "drawer_notifications_activate": "Activate now",
+  "drawer_notifications_getNotifications": "You will receive important information about processes in your profile(s) via notifications. We also send notifications about new services in the app.",
+  "drawer_notifications_howToActivate": "To receive notifications, go to the system settings of your device and activate notifications from the \"enmeshed\" app.",
+  "drawer_notifications_activateButton": "Activate now",
   "drawer_notifications_granted": "Great, you stay informed!",
-  "drawer_notifications_grantedInformation": "You have activated notifications so you always stay up to date.",
+  "drawer_notifications_grantedInformation": "You have activated notifications in the system settings of your device and are therefore always up to date.",
   "drawer_hints": "Hints",
+  "drawer_hints_description": "You can reactivate supporting notes that you have marked as 'no longer show' in various places in the app.",
   "drawer_hints_loadProfile": "Load existing profile",
   "drawer_hints_addContact": "Add contact",
   "drawer_hints_firstSteps": "First steps",
+  "drawer_theme": "Theme",
+  "drawer_theme_description": "You can set the theme of the app here. If you select the System setting, the current default setting of your device is applied.",
+  "drawer_theme_amoled": "AMOLED mode helps to save energy by completely switching off pixels that are set to black. This setting only affects the dark theme.",
+  "drawer_theme_modes_system": "System",
+  "drawer_theme_modes_dark": "Dark",
+  "drawer_theme_modes_light": "Light",
   "profiles_copyAddressToClipboardLabel": "Copy your profile-address to the clipboard.",
   "profiles_copiedAddressToClipboard": "The profile-address has been copied to the clipboard.",
-  "profiles_settings_title": "Settings",
   "profiles_settings_subtitle": "Manage your connected devices and profile settings or back up your data here.",
   "profiles_settings_editProfile": "Edit profile",
   "profiles_settings_deleteProfile": "Delete profile",
   "profiles_settings_connectedDevices": "Manage connected devices",
   "profiles_settings_createIdentityRecoveryKit": "Create recovery kit",
   "profiles_createNew": "Create new profile",
+  "profiles_loadExisting": "Load existing profile",
+  "profiles_useRecoveryKit": "Use recovery kit",
   "profiles_lastUsed": "Last used",
   "profiles_createNewForProcessingQrDescription": "Create a new profile to process the scanned QR code or URL link.",
   "profiles_otherProfiles": "Other profiles",
   "profiles_additionalProfiles": "Additional profiles",
   "profiles_add": "Add",
   "profiles_noAdditionalProfiles": "You can create different profiles for different roles or other people and switch between them.",
-  "profiles_switchedToProfile": "Switched to profile \"{profileName}\".",
+  "profiles_switchedToProfile": "Switched to profile <bold>{profileName}</bold>.",
   "@profiles_switchedToProfile": {
     "placeholders": {
       "profileName": {
@@ -159,11 +209,11 @@
       }
     }
   },
-  "profile_or_identity_deletion": "Would you like to remove your profile from this device only (i.e. log the device out of the profile) or delete your entire profile with all stored data and documents?",
-  "profile_or_identity_deletion_oneDevice": "This profile is only available via this device. For this reason, no distinction is made between \"Remove profile from device\" and \"Delete profile\". You can only delete your entire profile.",
+  "profile_or_identity_deletion": "Would you like to remove your profile from this device or delete your entire profile with all stored data and documents from the enmeshed platform?",
+  "profile_or_identity_deletion_oneDevice": "This profile is only available via this device. Therefore, no distinction is made between removing a profile from the device and deleting a profile. You can only delete your entire profile.",
   "identity_delete_cancel": "No, cancel",
   "identity_delete_confirm": "Yes, delete",
-  "identity_delete_confirmation": "Would you like to delete the \"{profileName}\" profile and all the data, contacts and documents it contains? It will be removed from all your connected devices ({devices})",
+  "identity_delete_confirmation": "Would you like to delete the profile <bold>{profileName}</bold> and all the data, contacts and documents it contains? The profile will be marked for deletion; you can no longer reactivate the profile after the deletion period has expired. It will be removed from all your connected devices ({devices}) after the deletion period.",
   "@identity_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -174,25 +224,31 @@
       }
     }
   },
+  "identity_delete_success": "The profile <bold>{profileName}</bold> is now in deletion.",
+  "@identity_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
   "identities_in_deletion": "Profiles in deletion",
-  "identity_restore_cancel": "No, cancel",
-  "identity_restore_confirm": "Yes, activate",
-  "identity_restore_description": "Would you like to restore and activate the profile?",
-  "identity_restore_title": "Your Profile is in deletion.",
-  "identity_reactivate_description": "You can still restore and activate your profile \"{profileName}\" until {deletionDate}.",
-  "@identity_reactivate_description": {
+  "identity_restore_confirm": "Restore",
+  "identity_restore_title": "Restore profile",
+  "identity_restore_description": "Would you like to restore and continue using the <bold>{profileName}</bold> profile that was in deletion? This is still possible until {deletionDate}.",
+  "@identity_restore_description": {
     "placeholders": {
       "profileName": {
         "type": "String"
       },
       "deletionDate": {
         "type": "DateTime",
-        "format": "yMMMd"
+        "format": "yMd"
       }
     }
   },
-  "identity_delete_activated_and_switchedToProfile": "Profile \"{profileName}\" activated and selected.",
-  "@identity_delete_activated_and_switchedToProfile": {
+  "identity_restore_successful": "The Profile <bold>{profileName}</bold> has been successfully restored.",
+  "@identity_restore_successful": {
     "placeholders": {
       "profileName": {
         "type": "String"
@@ -217,10 +273,15 @@
   "profile_delete_cancel": "No, cancel",
   "profile_delete_confirm": "Yes, remove",
   "profile_delete_inProgress": "Deleting the profile.",
-  "profile_delete_success": "The profile has been deleted.\nPlease select another profile to continue.",
-  "profile_delete_success_noProfilesAvailable": "The profile has been deleted. All your data has been removed from this device.",
-  "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Do you really want to delete the profile \"{profileName}\"? It will be permanently deleted from this device.",
+  "profile_delete_success": "The profile <bold>{profileName}</bold> has been removed from this device.",
+  "@profile_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "profile_delete_confirmation": "Do you really want to remove the <bold>{profileName}</bold> profile from this device? You can no longer access it from this device.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -229,22 +290,23 @@
     }
   },
   "profile_delete_confirmation_lastDevice": "As your profile only exists on this device, it will be irrevocably deleted.",
-  "profile_delete_confirmation_devicesLeft": "You can still access your profile data on your following connected devices:",
+  "profile_delete_confirmation_devicesLeft": "The profile remains available on the enmeshed platform and you can continue to access it from the following linked devices:",
   "profile_delete_error": "An error occurred while deleting the profile. Please try again.",
   "profile_delete_error_cancel": "Cancel",
   "profile_delete_error_retry": "Retry",
   "profile_localDeletion_title": "Delete local data",
-  "profile_localDeletion_card_description": "You can force the deletion of local data for profiles in Deletion. All data stored on this device will be deleted immediately. The data in the enmeshed platform remains unaffected by this until the deletion period expires.",
+  "profile_localDeletion_card_description": "You can force the deletion of local data for profiles in deletion. All data stored on this device will be deleted immediately. The data in the enmeshed platform remains unaffected by this until the deletion period expires.",
   "profile_localDeletion_card_button": "Delete local data now",
   "profile_localDeletion_selectProfiles": "Select which profiles and associated locally stored data are to be permanently deleted from this device:",
   "profile_localDeletion_singleProfile": "The data of the following profile saved locally on this device will be irrevocably deleted:",
   "profile_localDeletion_acceptDeletion": "Delete data",
   "profile_create": "Create",
   "profile_create_inProgress": "Creating profile",
-  "profile_deletePhoto": "Delete profile picture",
-  "profile_editPhoto": "Edit profile picture",
+  "profile_addPhoto": "Add profile picture",
+  "profile_deletePhoto": "Remove",
+  "profile_editPhoto": "Change",
   "devices_title": "Manage Devices",
-  "devices_description": "Your \"{profileName}\" profile is shared with the following devices. If you want to end synchronisation with one of the devices, remove it from the list.",
+  "devices_description": "Your <bold>{profileName}</bold> profile is shared with the following devices. If you want to end synchronisation with one of the devices, remove it from the list.",
   "@devices_description": {
     "placeholders": {
       "profileName": {
@@ -274,7 +336,7 @@
   "devices_code_copy": "Copy URL link",
   "devices_delete": "Yes, delete",
   "devices_delete_cancel": "No, cancel",
-  "devices_delete_fromApp": "Do you really want to delete the device \"{deviceName}\" from the app?",
+  "devices_delete_fromApp": "Do you really want to delete the device <bold>{deviceName}</bold> from the app?",
   "@devices_delete_fromApp": {
     "placeholders": {
       "deviceName": {
@@ -299,7 +361,7 @@
   "deviceInfo_removeCurrentDevice": "Remove profile from this device",
   "deviceInfo_removeRemainingDevice_title": "You cannot disconnect the device from your profile as it is the only connected one. How to delete your profile:",
   "deviceInfo_removeConnectedDevice_title": "To remove the device from the list of connected devices:",
-  "deviceInfo_removeDevice_successful": "The device \"{deviceName}\" has been removed from your device list.",
+  "deviceInfo_removeDevice_successful": "The device <bold>{deviceName}</bold> has been removed from your device list.",
   "@deviceInfo_removeDevice_successful": {
     "placeholders": {
       "deviceName": {
@@ -315,7 +377,7 @@
   "deviceInfo_connectDevice_title": "To connect the device to your profile:",
   "deviceInfo_connectDevice_startConnecting": "Start connecting with an existing profile there.",
   "deviceInfo_connectDevice_scan": "Scan the QR code displayed here.",
-  "deviceInfo_openApp": "Take the device \"{deviceName}\" and open the enmeshed app.",
+  "deviceInfo_openApp": "Take the device <bold>{deviceName}</bold> and open the enmeshed app.",
   "@deviceInfo_openApp": {
     "placeholders": {
       "deviceName": {
@@ -327,7 +389,6 @@
   "contact_information_messages": "Messages",
   "contact_information_noMessages": "No messages available.",
   "contact_information_sharedFiles": "Shared Files",
-  "contact_requestDescription": "The new contact would like to share the following data or requests with you:",
   "contact_request_validationError": "{count, plural, =1{1 Error message} other{{count} Error messages}}",
   "@contact_request_validationError": {
     "placeholders": {
@@ -339,20 +400,40 @@
   "contact_request_validationErrorDescription": "Please correct all fields marked with an error to complete the contact request.",
   "message_request_validationErrorDescription": "Please correct all fields marked with an error to complete the task.",
   "contact_request": "Contact Request",
+  "contact_request_add": "Accept",
+  "contact_withRelationshipTitle": "Request",
+  "contact_withRelationshipDescription": "{contactName} would like to provide you with data.",
+  "@contact_withRelationshipDescription": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
   "contacts_empty": "Add contacts",
   "contacts_emptyDescription": "Connect with contacts to share or receive data and documents.",
   "contacts_date": "Date",
   "contacts_addContact": "Add contact",
   "contacts_unknown": "Contact name not available",
   "contacts_notYetRequested": "Contact request not yet sent",
+  "contacts_requestWithExpiryDate": "Expires on {date}",
+  "@contacts_requestWithExpiryDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
   "contacts_requestExpired": "Contact request expired",
   "contacts_pending": "Contact has not yet been confirmed",
   "contacts_terminatedOrDeletionProposed": "Relationship ended",
   "contacts_deleted": "Contact no longer exists",
   "contacts_toBeDeleted": "Will be deleted shortly",
   "contacts_terminated": "Contact terminated the relationship",
+  "contacts_openRequests": "There are open requests",
   "contacts_deletionProposed": "Relationship permanently terminated",
-  "contacts_delete_title": "Delete contact \"{contactName}\"?",
+  "contacts_delete_title": "Delete contact <bold>{contactName}</bold>?",
   "@contacts_delete_title": {
     "placeholders": {
       "contactName": {
@@ -398,7 +479,7 @@
       }
     }
   },
-  "contactDetail_deletedTitle": "The contact no longer exists or is no longer part of \"Enmeshed\".",
+  "contactDetail_deletedTitle": "The contact no longer exists or is no longer part of \"enmeshed\".",
   "contactDetail_terminatedTitle": "The contact has terminated the contact relationship with you.",
   "contactDetail_terminatedDescription1": "If you also want to end the relationship, you can delete the contact.",
   "contactDetail_description1": "You can keep the contact in your contact list, but it is no longer possible to exchange information with the contact.",
@@ -416,14 +497,6 @@
   "contactDetail_editContact_restoreDefault": "Restore Default",
   "contactDetail_editContact_description": "You can change the display name of your contact here. This change will take effect everywhere in the app. You can also restore the originally supplied display name.",
   "contactDetail_sendMessage": "Send Message",
-  "contactDetail_requestCertificate": "Request Certificate",
-  "contactDetail_requestCertificate_subject": "Subject",
-  "contactDetail_requestCertificate_text": "Text",
-  "contactDetail_requestCertificate_send": "Send",
-  "contactDetail_requestCertificate_inProgress": "Requesting certificate.",
-  "contactDetail_requestCertificate_success": "Your request for a certificate has been sent. You will find the message in your mailbox.",
-  "contactDetail_requestCertificate_successOk": "Okay!",
-  "contactDetail_requestCertificate_error": "The certificate could not be requested. Make sure that your device is connected to the internet.",
   "contactDetail_sharedAttributes": "Shared by me",
   "contactDetail_receivedAttributes": "Shared with me",
   "contactDetail_sharedInformation": "Shared information",
@@ -456,6 +529,9 @@
       }
     }
   },
+  "contactDetail_openRequestsTitle": "You have not yet completed one or more requests",
+  "contactDetail_openRequestsDescription": "The contact would like to share more data with you. You can check and accept the pending requests.",
+  "contactDetail_checkRequests": "Check requests",
   "myData_createEntryForAttributeType": "Create",
   "myData_noEntryForAttributeType": "No entry",
   "myData_allData": "All Data",
@@ -517,6 +593,8 @@
   "personalData_details_attributeSuccessfullyFavored": "The entry was successfully favored.",
   "personalData_details_confirmAttributeDeletion": "Yes, delete",
   "personalData_details_cancelDeletion": "No, cancel",
+  "personalData_details_errorTitleOnCreate": "Entry creation failed",
+  "personalData_details_errorContentOnCreate": "The entry could not be created. Please try again later.",
   "personalData_details_warningOnSuccession": "The newly assigned value already exists. This could lead to confusion.",
   "personalData_details_errorOnSuccession": "The newly assigned value is identical to the previous value.",
   "personalData_details_notifyContacts": "{count, plural, =1 {This entry is currently shared with a contact. If you edit this entry again, the change will also be sent to the contact with whom you have shared this entry.} other {This entry is currently shared with {count} contacts. If you edit this entry again, the change will also be sent to all contacts with whom you have shared this entry.}}",
@@ -527,7 +605,7 @@
       }
     }
   },
-  "personalData_details_deleteDescription": "Do you want to delete the entry {entry} from your data?",
+  "personalData_details_deleteDescription": "Do you want to delete the entry <bold>{entry}</bold> from your data?",
   "@personalData_details_deleteDescription": {
     "placeholders": {
       "entry": {
@@ -535,14 +613,18 @@
       }
     }
   },
-  "personalData_details_deleteDescriptionShared": "{count, plural, =1{This entry is currently shared with a contact. If you delete the entry, it will also be deleted for the contact with whom you shared it.} other{This entry is currently shared with {count} contacts. If you delete the entry, it will also be deleted from the contacts with whom you share it.}}",
+  "personalData_details_deleteDescriptionShared": "{count, plural, =1{The entry <bold>{entry}</bold> is currently shared with a contact. If you delete the entry, it will also be deleted for the contact with whom you shared it.} other{The entry <bold>{entry}</bold> is currently shared with {count} contacts. If you delete the entry, it will also be deleted from the contacts with whom you share it.}}",
   "@personalData_details_deleteDescriptionShared": {
     "placeholders": {
       "count": {
         "type": "num"
+      },
+      "entry": {
+        "type": "String"
       }
     }
   },
+  "createAttribute_error_duplicateValue": "An entry with this value already exists. Please select a different value.",
   "no_data_available": "No data available",
   "attributeDetails_createdOn": "{dateType, select, today {created today, {time}} yesterday {created yesterday} other {created on {date}}}",
   "@attributeDetails_createdOn": {
@@ -674,6 +756,7 @@
   "mailbox_selectAttachments_description": "Select one or more attachments or upload new files.",
   "mailbox_choose_contact": "Select recipient",
   "mailbox_choose_contact_description": "Select a contact to send the message to.",
+  "mailbox_choose_contact_sendMailDenied": "This contact cannot receive messages from you",
   "mailbox_filter_actionRequired": "Open tasks",
   "mailbox_filter_header": "Filter messages",
   "mailbox_filter_unread": "New",
@@ -743,13 +826,41 @@
   "passwordProtection_enterPassword": "Enter password",
   "passwordProtection_enterPin": "Enter PIN",
   "passwordProtection_passwordEmpty": "Please enter a password.",
-  "passwordProtection_referenceIsPasswordProtected": "This QR code or Link is password protected. Please enter the password to proceed.",
-  "passwordProtection_referenceIsPinProtected": "This QR code or Link is protected with a {count, select, 4{four digits} 5{five digits} 6{six digits} other{complex}} PIN. Please enter the PIN to proceed.",
+  "passwordProtection_referenceIsPasswordProtected": "This QR code or Link is password protected.",
+  "passwordProtection_referenceIsPinProtected": "This QR code or Link is protected with a {count, select, 4{four digit} 5{five digit} 6{six digit} other{complex}} PIN.",
   "@passwordProtection_referenceIsPinProtected": {
     "placeholders": {
-      "count": {}
+      "count": {
+        "type": "String"
+      }
     }
   },
+  "passwordProtection_referenceIsPasswordProtected_default": "Please enter the password to continue.",
+  "passwordProtection_referenceIsPinProtected_default": "Please enter the PIN to continue.",
+  "passwordProtection_referenceIsPasswordProtected_recoveryKit": "The recovery kit is secured with a password. Enter the password that you defined when creating it.",
+  "passwordProtection_referenceIsPinProtected_recoveryKit": "The recovery kit is secured with a PIN. Enter the PIN that you defined when creating it.",
+  "passwordProtection_referenceIsPasswordProtected_self": "Enter the password you have created here.",
+  "passwordProtection_referenceIsPinProtected_self": "Enter the PIN you have created here.",
+  "passwordProtection_referenceIsPasswordProtected_letter": "Enter the password you received with the letter from your contact here.",
+  "passwordProtection_referenceIsPinProtected_letter": "Enter the PIN you received with the letter from your contact here.",
+  "passwordProtection_referenceIsPasswordProtected_registrationLetter": "Enter the password from your registration letter here.",
+  "passwordProtection_referenceIsPinProtected_registrationLetter": "Enter the PIN from your registration letter here.",
+  "passwordProtection_referenceIsPasswordProtected_email": "Enter the password that you received in an e-mail from your contact.",
+  "passwordProtection_referenceIsPinProtected_email": "Enter the PIN that you received in an e-mail from your contact.",
+  "passwordProtection_referenceIsPasswordProtected_sms": "Enter the password that was sent to your mobile number by SMS here.",
+  "passwordProtection_referenceIsPinProtected_sms": "Enter the PIN that was sent to your mobile number by SMS here.",
+  "passwordProtection_referenceIsPasswordProtected_website": "Enter the password here, which is displayed next to the QR code on the website.",
+  "passwordProtection_referenceIsPinProtected_website": "Enter the PIN here, which is displayed next to the QR code on the website.",
   "passwordProtection_incorrectPassword": "You have entered an incorrect password. Please try again.",
-  "passwordProtection_incorrectPin": "You have entered an incorrect PIN. Please try again."
+  "passwordProtection_incorrectPin": "You have entered an incorrect PIN. Please try again.",
+  "identityInDeletion_title": "The currently active profile {profileName} has been set to delete.",
+  "@identityInDeletion_title": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "identityInDeletion_description": "You have initiated the deletion of this profile on another device. Select the profile to continue or create a new profile.\n\nIf you have not triggered the deletion of the profile, you can restore the profile.",
+  "identityInDeletion_createNewProfile": "Create new profile"
 }

@@ -1,14 +1,15 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '/core/core.dart';
-import 'widgets.dart';
 
 class ContactDetailHeader extends StatelessWidget {
   final IdentityDVO contact;
+  final LocalRequestDVO? request;
 
-  const ContactDetailHeader({required this.contact, super.key});
+  const ContactDetailHeader({required this.contact, this.request, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +17,7 @@ class ContactDetailHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
-          ContactCircleAvatar(
-            contact: contact,
-            radius: 36,
-            color: contact.relationship?.status == RelationshipStatus.Pending ? Theme.of(context).colorScheme.surfaceContainerLow : null,
-            child: contact.relationship?.status == RelationshipStatus.Pending
-                ? Icon(Icons.hourglass_top, color: Theme.of(context).colorScheme.onPrimaryFixedVariant, size: 43.2)
-                : null,
-          ),
+          ContactCircleAvatar(contact: contact, radius: 36),
           Gaps.w16,
           Expanded(
             child: Column(
@@ -38,7 +32,7 @@ class ContactDetailHeader extends StatelessWidget {
                     ),
                     style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
-                ContactStatusText(contact: contact, openContactRequest: null),
+                ContactStatusText(contact: contact, openContactRequest: request),
               ],
             ),
           ),

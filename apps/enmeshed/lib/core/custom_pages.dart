@@ -27,17 +27,17 @@ class DialogPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) => DialogRoute<T>(
-        context: context,
-        settings: this,
-        builder: (context) => Dialog(child: builder(context)),
-        anchorPoint: anchorPoint,
-        barrierColor: barrierColor,
-        barrierDismissible: barrierDismissible,
-        barrierLabel: barrierLabel,
-        useSafeArea: useSafeArea,
-        themes: themes,
-        traversalEdgeBehavior: traversalEdgeBehavior,
-      );
+    context: context,
+    settings: this,
+    builder: builder,
+    anchorPoint: anchorPoint,
+    barrierColor: barrierColor,
+    barrierDismissible: barrierDismissible,
+    barrierLabel: barrierLabel,
+    useSafeArea: useSafeArea,
+    themes: themes,
+    traversalEdgeBehavior: traversalEdgeBehavior,
+  );
 }
 
 class ModalPage<T> extends Page<T> {
@@ -81,23 +81,23 @@ class ModalPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) => ModalBottomSheetRoute<T>(
-        settings: this,
-        builder: builder,
-        capturedThemes: capturedThemes,
-        barrierLabel: barrierLabel,
-        isScrollControlled: isScrollControlled,
-        backgroundColor: backgroundColor,
-        elevation: elevation,
-        shape: shape,
-        clipBehavior: clipBehavior,
-        constraints: constraints,
-        modalBarrierColor: modalBarrierColor,
-        isDismissible: isDismissible,
-        enableDrag: enableDrag,
-        showDragHandle: showDragHandle,
-        transitionAnimationController: transitionAnimationController,
-        anchorPoint: anchorPoint,
-        useSafeArea: useSafeArea,
-        barrierOnTapHint: barrierOnTapHint,
-      );
+    settings: this,
+    builder: builder,
+    capturedThemes: capturedThemes,
+    barrierLabel: barrierLabel,
+    isScrollControlled: isScrollControlled,
+    backgroundColor: backgroundColor,
+    elevation: elevation,
+    shape: shape,
+    clipBehavior: clipBehavior,
+    constraints: constraints,
+    modalBarrierColor: modalBarrierColor,
+    isDismissible: isDismissible,
+    enableDrag: enableDrag,
+    showDragHandle: showDragHandle,
+    transitionAnimationController: transitionAnimationController,
+    anchorPoint: anchorPoint,
+    useSafeArea: useSafeArea,
+    barrierOnTapHint: barrierOnTapHint,
+  );
 }

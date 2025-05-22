@@ -37,28 +37,25 @@ class StreetAddressAttributeRenderer extends StatelessWidget {
                 ),
               TranslatedText(value.recipient, style: valueTextStyle),
               Row(
+                spacing: 4,
                 children: [
                   TranslatedText(value.street, style: valueTextStyle),
-                  const SizedBox(width: 4),
-                  TranslatedText(value.houseNumber, style: valueTextStyle)
+                  TranslatedText(value.houseNumber, style: valueTextStyle),
                 ],
               ),
               Row(
+                spacing: 4,
                 children: [
                   TranslatedText(value.zipCode, style: valueTextStyle),
-                  const SizedBox(width: 4),
                   TranslatedText(value.city, style: valueTextStyle),
                 ],
               ),
               TranslatedText(valueHints.propertyHints!['country']!.getTranslation(value.country), style: valueTextStyle),
-              if (extraLine != null) ...[
-                const SizedBox(height: 2),
-                extraLine!,
-              ],
+              if (extraLine != null) ...[const SizedBox(height: 2), extraLine!],
             ],
           ),
         ),
-        if (trailing != null) trailing!
+        if (trailing != null) trailing!,
       ],
     );
   }

@@ -1,8 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../common/common.dart';
 import '../contents/contents.dart';
+import 'object_reference.dart';
 
+part 'relationship_template.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class RelationshipTemplateDTO extends Equatable {
   final String id;
   final bool isOwn;
@@ -12,9 +17,9 @@ class RelationshipTemplateDTO extends Equatable {
   final RelationshipTemplateContentDerivation content;
   final String? expiresAt;
   final int? maxNumberOfAllocations;
-  final String truncatedReference;
   final String? forIdentity;
   final PasswordProtection? passwordProtection;
+  final ObjectReferenceDTO reference;
 
   const RelationshipTemplateDTO({
     required this.id,
@@ -25,51 +30,26 @@ class RelationshipTemplateDTO extends Equatable {
     required this.content,
     this.expiresAt,
     this.maxNumberOfAllocations,
-    required this.truncatedReference,
     this.forIdentity,
     this.passwordProtection,
+    required this.reference,
   });
 
-  factory RelationshipTemplateDTO.fromJson(Map json) => RelationshipTemplateDTO(
-        id: json['id'],
-        isOwn: json['isOwn'],
-        createdBy: json['createdBy'],
-        createdByDevice: json['createdByDevice'],
-        createdAt: json['createdAt'],
-        content: RelationshipTemplateContentDerivation.fromJson(json['content']),
-        expiresAt: json['expiresAt'],
-        maxNumberOfAllocations: json['maxNumberOfAllocations']?.toInt(),
-        truncatedReference: json['truncatedReference'],
-        forIdentity: json['forIdentity'],
-        passwordProtection: json['passwordProtection'] != null ? PasswordProtection.fromJson(json['passwordProtection']) : null,
-      );
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'isOwn': isOwn,
-        'createdBy': createdBy,
-        'createdByDevice': createdByDevice,
-        'createdAt': createdAt,
-        'content': content.toJson(),
-        if (expiresAt != null) 'expiresAt': expiresAt,
-        if (maxNumberOfAllocations != null) 'maxNumberOfAllocations': maxNumberOfAllocations,
-        'truncatedReference': truncatedReference,
-        if (forIdentity != null) 'forIdentity': forIdentity,
-        if (passwordProtection != null) 'passwordProtection': passwordProtection!.toJson(),
-      };
+  factory RelationshipTemplateDTO.fromJson(Map json) => _$RelationshipTemplateDTOFromJson(Map<String, dynamic>.from(json));
+  Map<String, dynamic> toJson() => _$RelationshipTemplateDTOToJson(this);
 
   @override
   List<Object?> get props => [
-        id,
-        isOwn,
-        createdBy,
-        createdByDevice,
-        createdAt,
-        content,
-        expiresAt,
-        maxNumberOfAllocations,
-        truncatedReference,
-        forIdentity,
-        passwordProtection,
-      ];
+    id,
+    isOwn,
+    createdBy,
+    createdByDevice,
+    createdAt,
+    content,
+    expiresAt,
+    maxNumberOfAllocations,
+    forIdentity,
+    passwordProtection,
+    reference,
+  ];
 }

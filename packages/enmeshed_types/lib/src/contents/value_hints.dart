@@ -19,15 +19,7 @@ class ValueHints extends Equatable {
   final ValueHintsDefaultValue? defaultValue;
   final Map<String, ValueHints>? propertyHints;
 
-  const ValueHints({
-    this.editHelp,
-    this.min,
-    this.max,
-    this.pattern,
-    this.values,
-    this.defaultValue,
-    this.propertyHints,
-  });
+  const ValueHints({this.editHelp, this.min, this.max, this.pattern, this.values, this.defaultValue, this.propertyHints});
 
   factory ValueHints.fromJson(Map json) => _$ValueHintsFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => {'@type': 'ValueHints', ..._$ValueHintsToJson(this)};
@@ -40,11 +32,11 @@ sealed class ValueHintsDefaultValue {
   const ValueHintsDefaultValue();
 
   factory ValueHintsDefaultValue.fromJson(dynamic json) => switch (json) {
-        String() => ValueHintsDefaultValueString(json),
-        num() => ValueHintsDefaultValueNum(json),
-        bool() => ValueHintsDefaultValueBool(json),
-        _ => throw Exception('Invalid type for ValueHintsDefaultValue: ${json.runtimeType}'),
-      };
+    String() => ValueHintsDefaultValueString(json),
+    num() => ValueHintsDefaultValueNum(json),
+    bool() => ValueHintsDefaultValueBool(json),
+    _ => throw Exception('Invalid type for ValueHintsDefaultValue: ${json.runtimeType}'),
+  };
 
   dynamic toJson();
 }

@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '/core/core.dart';
+import '../modals/add_or_connect_device.dart';
 import '../widgets/device_widgets.dart';
 
 class DevicesScreen extends StatefulWidget {
@@ -44,7 +46,12 @@ class _DevicesScreenState extends State<DevicesScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(context.l10n.devices_title));
 
-    if (_devices == null || _account == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_devices == null || _account == null) {
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     final currentDevice = _devices!.firstWhere((e) => e.isCurrentDevice);
     final otherDevices = _devices!.where((e) => !e.isCurrentDevice).toList();
@@ -58,13 +65,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(context.l10n.devices_description(_account!.name)),
+              BoldStyledText(context.l10n.devices_description(_account!.name)),
               Gaps.h24,
-              DeviceCard(
-                accountId: widget.accountId,
-                device: currentDevice,
-                reloadDevices: _reloadDevices,
-              ),
+              DeviceCard(accountId: widget.accountId, device: currentDevice, reloadDevices: _reloadDevices),
               Gaps.h24,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,11 +93,8 @@ class _DevicesScreenState extends State<DevicesScreen> {
                       : ListView.separated(
                           itemCount: otherDevices.length,
                           separatorBuilder: (_, __) => Gaps.h16,
-                          itemBuilder: (context, index) => DeviceCard(
-                            accountId: widget.accountId,
-                            device: otherDevices[index],
-                            reloadDevices: _reloadDevices,
-                          ),
+                          itemBuilder: (context, index) =>
+                              DeviceCard(accountId: widget.accountId, device: otherDevices[index], reloadDevices: _reloadDevices),
                         ),
                 ),
               ),

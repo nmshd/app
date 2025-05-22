@@ -13,7 +13,7 @@ class ResponseItemGroupRenderer extends StatelessWidget {
 
   final Future<FileDVO> Function(String) expandFileReference;
   final Future<FileDVO?> Function() chooseFile;
-  final void Function(FileDVO) openFileDetails;
+  final void Function(FileDVO, [LocalAttributeDVO?]) openFileDetails;
 
   const ResponseItemGroupRenderer({
     super.key,
@@ -39,9 +39,6 @@ class ResponseItemGroupRenderer extends StatelessWidget {
         openFileDetails: openFileDetails,
       );
     }).toList();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: responseItems,
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: responseItems);
   }
 }

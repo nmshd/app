@@ -14,39 +14,27 @@ PeerSharedAttributeSucceededNotificationItem _$PeerSharedAttributeSucceededNotif
     );
 
 Map<String, dynamic> _$PeerSharedAttributeSucceededNotificationItemToJson(PeerSharedAttributeSucceededNotificationItem instance) => <String, dynamic>{
-      'predecessorId': instance.predecessorId,
-      'successorId': instance.successorId,
-      'successorContent': instance.successorContent.toJson(),
-    };
+  'predecessorId': instance.predecessorId,
+  'successorId': instance.successorId,
+  'successorContent': instance.successorContent.toJson(),
+};
 
 OwnSharedAttributeDeletedByOwnerNotificationItem _$OwnSharedAttributeDeletedByOwnerNotificationItemFromJson(Map<String, dynamic> json) =>
-    OwnSharedAttributeDeletedByOwnerNotificationItem(
-      attributeId: json['attributeId'] as String,
-    );
+    OwnSharedAttributeDeletedByOwnerNotificationItem(attributeId: json['attributeId'] as String);
 
 Map<String, dynamic> _$OwnSharedAttributeDeletedByOwnerNotificationItemToJson(OwnSharedAttributeDeletedByOwnerNotificationItem instance) =>
-    <String, dynamic>{
-      'attributeId': instance.attributeId,
-    };
+    <String, dynamic>{'attributeId': instance.attributeId};
 
 PeerSharedAttributeDeletedByPeerNotificationItem _$PeerSharedAttributeDeletedByPeerNotificationItemFromJson(Map<String, dynamic> json) =>
-    PeerSharedAttributeDeletedByPeerNotificationItem(
-      attributeId: json['attributeId'] as String,
-    );
+    PeerSharedAttributeDeletedByPeerNotificationItem(attributeId: json['attributeId'] as String);
 
 Map<String, dynamic> _$PeerSharedAttributeDeletedByPeerNotificationItemToJson(PeerSharedAttributeDeletedByPeerNotificationItem instance) =>
-    <String, dynamic>{
-      'attributeId': instance.attributeId,
-    };
+    <String, dynamic>{'attributeId': instance.attributeId};
 
 ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem _$ThirdPartyRelationshipAttributeDeletedByPeerNotificationItemFromJson(
-        Map<String, dynamic> json) =>
-    ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem(
-      attributeId: json['attributeId'] as String,
-    );
+  Map<String, dynamic> json,
+) => ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem(attributeId: json['attributeId'] as String);
 
 Map<String, dynamic> _$ThirdPartyRelationshipAttributeDeletedByPeerNotificationItemToJson(
-        ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem instance) =>
-    <String, dynamic>{
-      'attributeId': instance.attributeId,
-    };
+  ThirdPartyRelationshipAttributeDeletedByPeerNotificationItem instance,
+) => <String, dynamic>{'attributeId': instance.attributeId};

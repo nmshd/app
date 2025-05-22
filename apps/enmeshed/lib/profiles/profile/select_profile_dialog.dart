@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '/core/core.dart';
-import 'widgets/profile_widgets.dart';
 
 class SelectProfileDialog extends StatefulWidget {
   final List<LocalAccountDTO> possibleAccounts;
@@ -22,20 +21,23 @@ class _SelectProfileDialogState extends State<SelectProfileDialog> {
 
   @override
   Widget build(BuildContext context) {
-    if (_chooseExisting && widget.possibleAccounts.isNotEmpty) {
-      return _ChooseExistingProfile(
-        possibleAccounts: widget.possibleAccounts,
-        title: widget.title,
-        description: widget.description,
-        createNewProfilePressed: () => setState(() => _chooseExisting = false),
-      );
-    }
-
-    return CreateProfile(
-      onProfileCreated: (account) => context.pop(account),
-      onBackPressed: widget.possibleAccounts.isEmpty ? null : () => setState(() => _chooseExisting = true),
-      description: context.l10n.profiles_createNewForProcessingQrDescription,
-      isInDialog: true,
+    return Dialog(
+      child: AnimatedSize(
+        duration: const Duration(milliseconds: 200),
+        child: _chooseExisting && widget.possibleAccounts.isNotEmpty
+            ? _ChooseExistingProfile(
+                possibleAccounts: widget.possibleAccounts,
+                title: widget.title,
+                description: widget.description,
+                createNewProfilePressed: () => setState(() => _chooseExisting = false),
+              )
+            : CreateProfile(
+                onProfileCreated: (account) => context.pop(account),
+                onBackPressed: widget.possibleAccounts.isEmpty ? null : () => setState(() => _chooseExisting = true),
+                description: context.l10n.profiles_createNewForProcessingQrDescription,
+                isInDialog: true,
+              ),
+      ),
     );
   }
 }
@@ -96,10 +98,7 @@ class _ChooseExistingProfile extends StatelessWidget {
             ),
           ),
           Align(
-            child: TextButton(
-              onPressed: () => context.pop(),
-              child: Text(context.l10n.cancel),
-            ),
+            child: TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
           ),
         ],
       ),
@@ -116,11 +115,7 @@ class _ProfileListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: AutoLoadingProfilePicture(
-        accountId: localAccountDTO.id,
-        profileName: localAccountDTO.name,
-        circleAvatarColor: context.customColors.decorativeContainer,
-      ),
+      leading: AutoLoadingProfilePicture(accountId: localAccountDTO.id, profileName: localAccountDTO.name, decorative: true),
       title: Text(localAccountDTO.name),
       subtitle: isActiveAccount ? Text(context.l10n.profiles_lastUsed) : null,
       trailing: const Icon(Icons.chevron_right),

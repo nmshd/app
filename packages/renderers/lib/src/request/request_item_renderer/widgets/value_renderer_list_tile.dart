@@ -79,14 +79,11 @@ class _ValueRendererListTileState extends State<ValueRendererListTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
+      padding: const EdgeInsets.only(right: 8),
       child: Row(
         children: [
           if (widget.checkboxSettings != null)
-            Checkbox(
-              value: widget.checkboxSettings!.isChecked,
-              onChanged: widget.checkboxSettings!.onUpdateCheckbox,
-            ),
+            Checkbox(value: widget.checkboxSettings!.isChecked, onChanged: widget.checkboxSettings!.onUpdateCheckbox),
           Expanded(
             child: ValueRenderer(
               fieldName: widget.fieldName,

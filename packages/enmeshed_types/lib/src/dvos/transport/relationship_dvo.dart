@@ -27,6 +27,7 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
   final Map<String, String> nameMap;
   final String templateId;
   final String? originalName;
+  final bool sendMailDisabled;
 
   const RelationshipDVO({
     required super.id,
@@ -51,6 +52,7 @@ class RelationshipDVO extends DataViewObject with EquatableMixin {
     required this.nameMap,
     required this.templateId,
     this.originalName,
+    required this.sendMailDisabled,
   });
 
   factory RelationshipDVO.fromJson(Map json) => _$RelationshipDVOFromJson(Map<String, dynamic>.from(json));
@@ -68,12 +70,7 @@ class RelationshipTheme {
   String? backgroundColor;
   String? foregroundColor;
 
-  RelationshipTheme({
-    this.image,
-    this.headerImage,
-    this.backgroundColor,
-    this.foregroundColor,
-  });
+  RelationshipTheme({this.image, this.headerImage, this.backgroundColor, this.foregroundColor});
 
   factory RelationshipTheme.fromJson(Map json) => _$RelationshipThemeFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$RelationshipThemeToJson(this);

@@ -31,22 +31,14 @@ class CustomListTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (showTitle) TranslatedText(title, style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant)),
-              if (description != null) ...[
-                const SizedBox(height: 2),
-                TranslatedText(description!, style: valueTextStyle),
-              ],
-              if (thirdLine != null) ...[
-                const SizedBox(height: 2),
-                TranslatedText(thirdLine!, style: valueTextStyle),
-              ],
-              if (extraLine != null) ...[
-                const SizedBox(height: 2),
-                extraLine!,
-              ]
+              if (description != null) ...[const SizedBox(height: 2), TranslatedText(description!, style: valueTextStyle)],
+              if (thirdLine != null) ...[const SizedBox(height: 2), TranslatedText(thirdLine!, style: valueTextStyle)],
+              if (extraLine != null) ...[const SizedBox(height: 2), extraLine!],
             ],
           ),
         ),
-        if (trailing != null) trailing!
+        if (trailing != null) trailing!,
+        if (trailing == null) const SizedBox(width: 16),
       ],
     );
   }

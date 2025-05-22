@@ -8,7 +8,7 @@ import '../../../setup.dart';
 void main() async => run(await setup());
 
 void run(EnmeshedRuntime runtime) {
-  group('BackboneCompatibilityFacade', () {
+  group('[BackboneCompatibilityFacade]', () {
     test('should successfully check the compatibility', () async {
       final result = await runtime.anonymousServices.backboneCompatibility.checkBackboneCompatibility();
       expect(result, isSuccessful<CheckBackboneCompatibilityResponse>());

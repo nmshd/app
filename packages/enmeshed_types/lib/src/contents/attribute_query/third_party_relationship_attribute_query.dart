@@ -17,13 +17,7 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
   final String? validFrom;
   final String? validTo;
 
-  const ThirdPartyRelationshipAttributeQuery({
-    required this.key,
-    required this.owner,
-    required this.thirdParty,
-    this.validFrom,
-    this.validTo,
-  });
+  const ThirdPartyRelationshipAttributeQuery({required this.key, required this.owner, required this.thirdParty, this.validFrom, this.validTo});
 
   factory ThirdPartyRelationshipAttributeQuery.fromJson(Map json) => _$ThirdPartyRelationshipAttributeQueryFromJson(Map<String, dynamic>.from(json));
 
@@ -31,10 +25,5 @@ class ThirdPartyRelationshipAttributeQuery extends AttributeQuery {
   Map<String, dynamic> toJson() => {'@type': 'ThirdPartyRelationshipAttributeQuery', ..._$ThirdPartyRelationshipAttributeQueryToJson(this)};
 
   @override
-  List<Object?> get props => [
-        super.props,
-        key,
-        owner,
-        thirdParty,
-      ];
+  List<Object?> get props => [...super.props, key, owner, thirdParty];
 }

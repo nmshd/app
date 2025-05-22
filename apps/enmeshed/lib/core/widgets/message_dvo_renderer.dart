@@ -1,10 +1,13 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
+import 'contact_circle_avatar.dart';
+import 'highlight_text.dart';
 
 class MessageDVORenderer extends StatelessWidget {
   final MessageDVO message;
@@ -13,19 +16,25 @@ class MessageDVORenderer extends StatelessWidget {
   final String? query;
   final bool hideAvatar;
 
-  const MessageDVORenderer({
-    required this.message,
-    required this.accountId,
-    super.key,
-    this.controller,
-    this.query,
-    this.hideAvatar = false,
-  });
+  const MessageDVORenderer({required this.message, required this.accountId, super.key, this.controller, this.query, this.hideAvatar = false});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: hideAvatar ? null : ContactCircleAvatar(radius: 20, contact: message.peer),
+      leading: hideAvatar
+          ? null
+          : ContactCircleAvatar(
+              radius: 20,
+              contact: message.peer,
+              borderColor: switch (message) {
+                final MailDVO mail => mail.wasReadAt == null && !mail.isOwn ? Theme.of(context).colorScheme.secondary : Colors.transparent,
+                final RequestMessageDVO requestMessage =>
+                  requestMessage.request.status == LocalRequestStatus.ManualDecisionRequired
+                      ? Theme.of(context).colorScheme.error
+                      : Colors.transparent,
+                _ => Colors.transparent,
+              },
+            ),
       title: _MessagesContent(message: message, query: query),
       onTap: () => _onTap(context),
     );
@@ -80,17 +89,12 @@ class _MailContent extends StatelessWidget {
             text: message.subject,
             query: query,
             textStyle: message.wasReadAt == null && !message.isOwn
-                ? Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.w600,
-                    )
+                ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
                 : Theme.of(context).textTheme.bodyLarge,
             maxLines: 1,
           )
         else
-          Text(
-            context.l10n.mailbox_noSubject,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline),
-          ),
+          Text(context.l10n.mailbox_noSubject, style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline)),
         if (message.body.isNotEmpty)
           HighlightText(
             text: message.body.replaceAll(CustomRegExp.html, ''),
@@ -110,28 +114,13 @@ class _RequestMessageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Flexible(
-          child: TranslatedText(
-            message.request.statusText,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: message.wasReadAt == null && !message.isOwn
-                ? Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.w600,
-                    )
-                : Theme.of(context).textTheme.bodyLarge,
-          ),
-        ),
-        Gaps.w8,
-        Icon(
-          message.request.status == LocalRequestStatus.ManualDecisionRequired ? Icons.notification_important : Icons.notifications,
-          color: message.request.status == LocalRequestStatus.ManualDecisionRequired
-              ? Theme.of(context).colorScheme.error
-              : Theme.of(context).colorScheme.outline,
-        ),
-      ],
+    return TranslatedText(
+      message.request.statusText,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: message.wasReadAt == null && !message.isOwn
+          ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+          : Theme.of(context).textTheme.bodyLarge,
     );
   }
 }
@@ -147,39 +136,23 @@ class _MessageHeader extends StatelessWidget {
     final contactName = message.peer.name == unknownContactName ? context.l10n.contacts_unknown : message.peer.name;
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      spacing: 8,
       children: [
-        HighlightText(
-          text: contactName,
-          query: query,
-          textStyle: message.wasReadAt == null && !message.isOwn
-              ? Theme.of(context).textTheme.labelMedium!.copyWith(
-                    fontWeight: FontWeight.w600,
-                  )
-              : Theme.of(context).textTheme.labelMedium,
-          maxLines: 1,
+        Expanded(
+          child: HighlightText(
+            text: contactName,
+            query: query,
+            textStyle: message.wasReadAt == null && !message.isOwn
+                ? Theme.of(context).textTheme.labelMedium!.copyWith(fontWeight: FontWeight.w600)
+                : Theme.of(context).textTheme.labelMedium,
+            maxLines: 1,
+          ),
         ),
-        if (message.attachments.isNotEmpty)
-          Row(
-            children: [
-              const SizedBox(width: 8),
-              Icon(Icons.attachment, size: 15, color: Theme.of(context).colorScheme.outline),
-            ],
-          ),
-        Flexible(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Gaps.w8,
-              Flexible(
-                child: Text(
-                  timeago.format(DateTime.parse(message.createdAt), locale: Localizations.localeOf(context).languageCode),
-                  style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
+        if (message.attachments.isNotEmpty) Icon(Icons.attachment, size: 15, color: Theme.of(context).colorScheme.outline),
+        Text(
+          timeago.format(DateTime.parse(message.createdAt), locale: Localizations.localeOf(context).languageCode),
+          style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

@@ -40,15 +40,15 @@ class LocalRequestDTO extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'isOwn': isOwn,
-        'peer': peer,
-        'createdAt': createdAt,
-        'status': status.name,
-        'content': content.toJson(),
-        if (source != null) 'source': source?.toJson(),
-        if (response != null) 'response': response?.toJson(),
-      };
+    'id': id,
+    'isOwn': isOwn,
+    'peer': peer,
+    'createdAt': createdAt,
+    'status': status.name,
+    'content': content.toJson(),
+    if (source != null) 'source': source?.toJson(),
+    if (response != null) 'response': response?.toJson(),
+  };
 
   @override
   List<Object?> get props => [id, isOwn, peer, createdAt, status, content, source, response];

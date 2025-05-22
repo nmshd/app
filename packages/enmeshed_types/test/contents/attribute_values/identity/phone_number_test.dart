@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = PhoneNumberAttributeValue(value: 'aPhoneNumber');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'PhoneNumber',
-          'value': 'aPhoneNumber',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'PhoneNumber', 'value': 'aPhoneNumber'}));
     });
   });
 

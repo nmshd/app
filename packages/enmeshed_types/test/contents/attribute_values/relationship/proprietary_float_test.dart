@@ -6,19 +6,13 @@ void main() {
     test('is correctly converted', () {
       const relationshipAttributeValue = ProprietaryFloatAttributeValue(title: 'aTitle', value: 10.5);
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryFloat', 'title': 'aTitle', 'value': 10.5}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryFloat', 'title': 'aTitle', 'value': 10.5}));
     });
 
     test('is correctly converted with property "description"', () {
       const relationshipAttributeValue = ProprietaryFloatAttributeValue(title: 'aTitle', description: 'aDescription', value: 10.5);
       final relationshipJson = relationshipAttributeValue.toJson();
-      expect(
-        relationshipJson,
-        equals({'@type': 'ProprietaryFloat', 'title': 'aTitle', 'description': 'aDescription', 'value': 10.5}),
-      );
+      expect(relationshipJson, equals({'@type': 'ProprietaryFloat', 'title': 'aTitle', 'description': 'aDescription', 'value': 10.5}));
     });
 
     test('is correctly converted with property "valueHintsOverride"', () {
@@ -54,10 +48,7 @@ void main() {
   group('ProprietaryFloatAttributeValue fromJson', () {
     test('is correctly converted', () {
       final json = {'title': 'aTitle', 'value': 10.5};
-      expect(
-        ProprietaryFloatAttributeValue.fromJson(json),
-        equals(const ProprietaryFloatAttributeValue(title: 'aTitle', value: 10.5)),
-      );
+      expect(ProprietaryFloatAttributeValue.fromJson(json), equals(const ProprietaryFloatAttributeValue(title: 'aTitle', value: 10.5)));
     });
 
     test('is correctly converted with property "description"', () {

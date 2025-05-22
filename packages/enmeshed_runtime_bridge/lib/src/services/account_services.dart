@@ -8,15 +8,8 @@ class AccountServices {
 
   AccountServices(this._evaluator);
 
-  Future<LocalAccountDTO> createAccount({
-    required String name,
-  }) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.createAccount(name)',
-      arguments: {
-        'name': name,
-      },
-    );
+  Future<LocalAccountDTO> createAccount({required String name}) async {
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.createAccount(name)', arguments: {'name': name});
 
     final value = result.valueToMap();
     final account = LocalAccountDTO.fromJson(value);
@@ -26,10 +19,7 @@ class AccountServices {
   Future<LocalAccountDTO> onboardAccount(DeviceSharedSecret onboardingInfo, {String? name}) async {
     final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.onboardAccount(onboardingInfo, name ?? undefined)',
-      arguments: {
-        'onboardingInfo': onboardingInfo.toJson(),
-        if (name != null) 'name': name,
-      },
+      arguments: {'onboardingInfo': onboardingInfo.toJson(), 'name': ?name},
     );
 
     final value = result.valueToMap();
@@ -38,9 +28,7 @@ class AccountServices {
   }
 
   Future<List<LocalAccountDTO>> getAccounts() async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.getAccounts()',
-    );
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.getAccounts()');
 
     final value = result.valueToList();
     final accounts = value.map((e) => LocalAccountDTO.fromJson(e)).toList();
@@ -48,9 +36,7 @@ class AccountServices {
   }
 
   Future<List<LocalAccountDTO>> getAccountsInDeletion() async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.getAccountsInDeletion()',
-    );
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.getAccountsInDeletion()');
 
     final value = result.valueToList();
     final accounts = value.map((e) => LocalAccountDTO.fromJson(e)).toList();
@@ -58,9 +44,7 @@ class AccountServices {
   }
 
   Future<List<LocalAccountDTO>> getAccountsNotInDeletion() async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.getAccountsNotInDeletion()',
-    );
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.getAccountsNotInDeletion()');
 
     final value = result.valueToList();
     final accounts = value.map((e) => LocalAccountDTO.fromJson(e)).toList();
@@ -68,10 +52,7 @@ class AccountServices {
   }
 
   Future<LocalAccountDTO> getAccount(String id) async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.getAccount(id)',
-      arguments: {'id': id},
-    );
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.getAccount(id)', arguments: {'id': id});
 
     final value = result.valueToMap();
     final account = LocalAccountDTO.fromJson(value);
@@ -91,23 +72,15 @@ class AccountServices {
   }
 
   Future<void> clearAccounts() async {
-    final result = await _evaluator.evaluateJavaScript(
-      'return await runtime.accountServices.clearAccounts()',
-    );
+    final result = await _evaluator.evaluateJavaScript('return await runtime.accountServices.clearAccounts()');
 
     result.throwOnError();
   }
 
-  Future<void> renameAccount({
-    required String localAccountId,
-    required String newAccountName,
-  }) async {
+  Future<void> renameAccount({required String localAccountId, required String newAccountName}) async {
     final result = await _evaluator.evaluateJavaScript(
       'return await runtime.accountServices.renameAccount(localAccountId, newAccountName)',
-      arguments: {
-        'localAccountId': localAccountId,
-        'newAccountName': newAccountName,
-      },
+      arguments: {'localAccountId': localAccountId, 'newAccountName': newAccountName},
     );
 
     result.throwOnError();

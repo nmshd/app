@@ -5,8 +5,5 @@ import '../event.dart';
 class AttributeCreatedEvent extends Event {
   final LocalAttributeDTO data;
 
-  const AttributeCreatedEvent({
-    required this.data,
-    required super.eventTargetAddress,
-  });
+  const AttributeCreatedEvent({required this.data, required super.eventTargetAddress});
 }

@@ -2,13 +2,13 @@ sealed class ValueRendererInputValue {
   const ValueRendererInputValue();
 
   factory ValueRendererInputValue.fromJson(dynamic json) => switch (json) {
-        String() => ValueRendererInputValueString(json),
-        num() => ValueRendererInputValueNum(json),
-        bool() => ValueRendererInputValueBool(json),
-        Map() => ValueRendererInputValueMap(json),
-        DateTime() => ValueRendererInputValueDateTime(json),
-        _ => throw Exception('Invalid type for ValueRendererInputValue: ${json.runtimeType}'),
-      };
+    String() => ValueRendererInputValueString(json),
+    num() => ValueRendererInputValueNum(json),
+    bool() => ValueRendererInputValueBool(json),
+    Map() => ValueRendererInputValueMap(json),
+    DateTime() => ValueRendererInputValueDateTime(json),
+    _ => throw Exception('Invalid type for ValueRendererInputValue: ${json.runtimeType}'),
+  };
 
   dynamic toJson();
 }

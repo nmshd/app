@@ -112,11 +112,7 @@ class IdentityAttributeValueRenderer extends StatelessWidget {
 
     final List<({String label, String key, String value})> fields = attributeValueMap.entries
         .where((e) => e.key != '@type')
-        .map((e) => (
-              label: 'i18n://attributes.values.${value.atType}.${e.key}.label',
-              key: e.key,
-              value: e.value.toString(),
-            ))
+        .map((e) => (label: 'i18n://attributes.values.${value.atType}.${e.key}.label', key: e.key, value: e.value.toString()))
         .toList();
 
     return ComplexAttributeListTile(

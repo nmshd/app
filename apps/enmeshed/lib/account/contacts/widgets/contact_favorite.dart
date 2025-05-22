@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 import '/core/core.dart';
@@ -7,11 +8,7 @@ class ContactFavorite extends StatelessWidget {
   final IdentityDVO contact;
   final VoidCallback onTap;
 
-  const ContactFavorite({
-    required this.contact,
-    required this.onTap,
-    super.key,
-  });
+  const ContactFavorite({required this.contact, required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +35,12 @@ class ContactFavorite extends StatelessWidget {
   }
 
   Color? _getColor(BuildContext context) => switch ((contact.relationship?.peerDeletionStatus, contact.relationship?.status)) {
-        (PeerDeletionStatus.ToBeDeleted, _) => context.customColors.warning,
-        (PeerDeletionStatus.Deleted, _) => Theme.of(context).colorScheme.error,
-        (_, RelationshipStatus.Pending) => Theme.of(context).colorScheme.secondary,
-        (_, RelationshipStatus.Terminated || RelationshipStatus.DeletionProposed) => Theme.of(context).colorScheme.error,
-        _ => null,
-      };
+    (PeerDeletionStatus.ToBeDeleted, _) => context.customColors.warning,
+    (PeerDeletionStatus.Deleted, _) => Theme.of(context).colorScheme.error,
+    (_, RelationshipStatus.Pending) => Theme.of(context).colorScheme.secondary,
+    (_, RelationshipStatus.Terminated || RelationshipStatus.DeletionProposed) => Theme.of(context).colorScheme.error,
+    _ => null,
+  };
 }
 
 class _ContactFavoriteIcon extends StatelessWidget {
@@ -60,10 +57,10 @@ class _ContactFavoriteIcon extends StatelessWidget {
       (PeerDeletionStatus.Deleted, _) => Icon(Icons.cancel, color: Theme.of(context).colorScheme.error, size: iconSize),
       (_, RelationshipStatus.Pending) => Icon(Icons.info, color: Theme.of(context).colorScheme.secondary, size: iconSize),
       (_, RelationshipStatus.Terminated || RelationshipStatus.DeletionProposed) => Icon(
-          Icons.error,
-          color: Theme.of(context).colorScheme.error,
-          size: iconSize,
-        ),
+        Icons.error,
+        color: Theme.of(context).colorScheme.error,
+        size: iconSize,
+      ),
       (_, _) => null,
     };
 

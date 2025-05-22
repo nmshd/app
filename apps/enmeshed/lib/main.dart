@@ -1,34 +1,45 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:croppy/croppy.dart';
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
+import 'package:renderers/renderers.dart' show AbstractUrlLauncher;
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:vector_graphics/vector_graphics.dart';
+import 'package:watch_it/watch_it.dart';
 
+import '/identity_in_deletion_screen.dart';
 import '/themes/themes.dart';
 import 'account/account.dart';
 import 'core/core.dart';
 import 'drawer/drawer.dart';
+import 'error_screen.dart';
+import 'generated/l10n/app_localizations.dart';
 import 'onboarding/onboarding.dart';
 import 'profiles/profiles.dart';
 import 'splash_screen.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  if (Platform.isAndroid || Platform.isIOS) FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   timeago.setLocaleMessages('de', timeago.DeMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
+
+  final logger = Logger(printer: SimplePrinter(colors: false));
+  GetIt.I.registerSingleton(logger);
+  GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
+
+  GetIt.I.registerSingleton(await ThemeModeModel.create());
 
   runApp(const EnmeshedApp());
 }
@@ -45,16 +56,35 @@ final _router = GoRouter(
   initialLocation: '/splash',
   navigatorKey: _rootNavigatorKey,
   routes: [
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: '/splash',
-      builder: (context, state) => const SplashScreen(),
-    ),
+    GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/splash', builder: (context, state) => const SplashScreen()),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/onboarding',
       builder: (context, state) => OnboardingScreen(skipIntroduction: state.uri.queryParameters['skipIntroduction'] == 'true'),
     ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/restore-from-identity-recovery-kit',
+      builder: (context, state) {
+        return InstructionsScreen(
+          onContinue: (_) => context.pushReplacement('/scan-recovery-kit'),
+          title: context.l10n.restoreFromIdentityRecovery_instructions_title,
+          subtitle: context.l10n.restoreFromIdentityRecovery_instructions_subtitle,
+          informationTitle: context.l10n.restoreFromIdentityRecovery_instructions_informationTitle,
+          informationDescription: context.l10n.restoreFromIdentityRecovery_instructions_informationDescription,
+          illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/create_recovery_kit.svg'), height: 160),
+          buttonContinueText: context.l10n.onboarding_restoreProfile_button,
+          instructions: [
+            context.l10n.restoreFromIdentityRecovery_instructions_search,
+            context.l10n.restoreFromIdentityRecovery_instructions_scan,
+            context.l10n.restoreFromIdentityRecovery_instructions_password,
+            context.l10n.restoreFromIdentityRecovery_instructions_confirmation,
+          ],
+          informationCardIcon: Icon(Icons.warning_amber_rounded, color: context.customColors.warning, size: 40),
+        );
+      },
+    ),
+    GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/scan-recovery-kit', builder: (context, state) => const ScanRecoveryKitScreen()),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/device-onboarding',
@@ -72,11 +102,7 @@ final _router = GoRouter(
         builder: (context) {
           final extra = state.extra! as ({List<LocalAccountDTO> possibleAccounts, String? title, String? description});
 
-          return SelectProfileDialog(
-            possibleAccounts: extra.possibleAccounts,
-            title: extra.title,
-            description: extra.description,
-          );
+          return SelectProfileDialog(possibleAccounts: extra.possibleAccounts, title: extra.title, description: extra.description);
         },
       ),
     ),
@@ -86,54 +112,46 @@ final _router = GoRouter(
       pageBuilder: (context, state) => ModalPage(
         isScrollControlled: true,
         builder: (context) {
-          final extra = state.extra! as ({UIBridgePasswordType passwordType, int? pinLength, int? attempt});
-          return EnterPasswordModal(passwordType: extra.passwordType, pinLength: extra.pinLength, attempt: extra.attempt ?? 1);
+          final extra = state.extra! as ({UIBridgePasswordType passwordType, int? pinLength, int? attempt, int? passwordLocationIndicator});
+          return EnterPasswordModal(
+            passwordType: extra.passwordType,
+            pinLength: extra.pinLength,
+            attempt: extra.attempt ?? 1,
+            passwordLocationIndicator: extra.passwordLocationIndicator,
+          );
         },
       ),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/scan',
-      builder: (context, state) => const ScanScreen(),
+      path: '/load-profile',
+      builder: (context, state) => const ScanScreen(scannerType: ScannerType.loadProfile),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/legal-notice',
-      builder: (context, state) => LegalTextScreen(
-        filePath: 'assets/texts/legal_notice.md',
-        title: context.l10n.legalNotice,
-      ),
+      builder: (context, state) => LegalTextScreen(filePath: 'assets/texts/legal_notice.md', title: context.l10n.legalNotice),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/data-protection',
-      builder: (context, state) => LegalTextScreen(
-        filePath: 'assets/texts/privacy.md',
-        title: context.l10n.dataProtection,
-      ),
+      builder: (context, state) => LegalTextScreen(filePath: 'assets/texts/privacy.md', title: context.l10n.dataProtection),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/imprint',
-      builder: (context, state) => LegalTextScreen(
-        filePath: 'assets/texts/imprint.md',
-        title: context.l10n.imprint,
-      ),
+      builder: (context, state) => LegalTextScreen(filePath: 'assets/texts/imprint.md', title: context.l10n.imprint),
     ),
+    GoRoute(parentNavigatorKey: _rootNavigatorKey, path: '/debug', builder: (context, state) => const DebugScreen()),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/debug',
-      builder: (context, state) => const DebugScreen(),
+      path: '/error-dialog',
+      pageBuilder: (context, state) => DialogPage(builder: (context) => ErrorDialog(code: state.extra as String?)),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/error',
-      pageBuilder: (context, state) => DialogPage(
-        builder: (context) => AlertDialog(
-          title: Text(context.l10n.error),
-          content: Text(context.l10n.errorDialog_description),
-        ),
-      ),
+      builder: (context, state) => ErrorScreen(backboneNotAvailable: state.uri.queryParameters['backboneNotAvailable'] == 'true'),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -148,17 +166,15 @@ final _router = GoRouter(
             GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: ':deviceId',
-              builder: (context, state) => DeviceDetailScreen(
-                accountId: state.pathParameters['accountId']!,
-                deviceId: state.pathParameters['deviceId']!,
-              ),
+              builder: (context, state) =>
+                  DeviceDetailScreen(accountId: state.pathParameters['accountId']!, deviceId: state.pathParameters['deviceId']!),
             ),
           ],
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
           path: 'scan',
-          builder: (context, state) => ScanScreen(accountId: state.pathParameters['accountId']),
+          builder: (context, state) => ScanScreen(scannerType: ScannerType.addContact, accountId: state.pathParameters['accountId']),
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
@@ -167,16 +183,14 @@ final _router = GoRouter(
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
-              accountId: accountId,
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.addContact}', value: false),
-              onContinue: (context) => context
-                ..pop()
-                ..push('/account/$accountId/scan'),
+              onContinue: (context) => context.pushReplacement('/account/$accountId/scan'),
               title: context.l10n.instructions_addContact_title,
               subtitle: context.l10n.instructions_addContact_subtitle,
               informationTitle: context.l10n.instructions_addContact_information,
               informationDescription: context.l10n.instructions_addContact_informationDetails,
-              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/connect_with_contact.svg'), height: 104),
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/connect_with_contact.svg'), height: 160),
+              informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
               instructions: [
                 context.l10n.instructions_addContact_scanQrCode,
                 context.l10n.instructions_addContact_requestedData,
@@ -193,16 +207,14 @@ final _router = GoRouter(
             final accountId = state.pathParameters['accountId']!;
 
             return InstructionsScreen(
-              accountId: accountId,
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.loadProfile}', value: false),
-              onContinue: (context) => context
-                ..pop()
-                ..push('/scan'),
+              onContinue: (context) => context.pushReplacement('/load-profile'),
               title: context.l10n.instructions_loadProfile_title,
               subtitle: context.l10n.instructions_loadProfile_subtitle,
               informationTitle: context.l10n.instructions_loadProfile_information,
               informationDescription: context.l10n.instructions_loadProfile_informationDetails,
-              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/instructions_load_existing_profile.svg'), height: 104),
+              illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/load_profile.svg'), height: 160),
+              informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
               instructions: [
                 context.l10n.instructions_loadProfile_getDevice,
                 context.l10n.instructions_loadProfile_createNewDevice,
@@ -221,13 +233,13 @@ final _router = GoRouter(
 
             return InstructionsScreen(
               showNumberedExplanation: false,
-              accountId: accountId,
               onContinue: (context) => showCreateRecoveryKitModal(context: context, accountId: accountId),
               title: context.l10n.identityRecovery_instructions_title,
               subtitle: context.l10n.identityRecovery_instructions_subtitle,
               informationTitle: context.l10n.identityRecovery_instructions_information,
               informationDescription: context.l10n.identityRecovery_instructions_informationDescription,
               illustration: const VectorGraphic(loader: AssetBytesLoader('assets/svg/create_recovery_kit.svg'), height: 160),
+              informationCardIcon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 40),
               buttonContinueText: context.l10n.next,
               instructions: [
                 context.l10n.identityRecovery_instructions_secure,
@@ -274,10 +286,8 @@ final _router = GoRouter(
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
                   path: ':contactId',
-                  builder: (context, state) => ContactDetailScreen(
-                    accountId: state.pathParameters['accountId']!,
-                    contactId: state.pathParameters['contactId']!,
-                  ),
+                  builder: (context, state) =>
+                      ContactDetailScreen(accountId: state.pathParameters['accountId']!, contactId: state.pathParameters['contactId']!),
                   routes: [
                     GoRoute(
                       parentNavigatorKey: _rootNavigatorKey,
@@ -294,7 +304,7 @@ final _router = GoRouter(
                       builder: (context, state) => ContactSharedFilesScreen(
                         accountId: state.pathParameters['accountId']!,
                         contactId: state.pathParameters['contactId']!,
-                        sharedFiles: state.extra is Set<FileDVO> ? state.extra! as Set<FileDVO> : null,
+                        sharedFiles: state.extra is List<FileRecord> ? state.extra! as List<FileRecord> : null,
                       ),
                     ),
                   ],
@@ -331,12 +341,12 @@ final _router = GoRouter(
                       parentNavigatorKey: _rootNavigatorKey,
                       path: ':fileId',
                       builder: (context, state) {
-                        final fileRecord = state.extra! as FileRecord;
+                        final fileRecord = state.extra as FileRecord?;
                         return FileDetailScreen(
                           accountId: state.pathParameters['accountId']!,
                           fileId: state.pathParameters['fileId']!,
-                          preLoadedFile: fileRecord.file,
-                          fileReferenceAttribute: fileRecord.fileReferenceAttribute,
+                          preLoadedFile: fileRecord?.file,
+                          fileReferenceAttribute: fileRecord?.fileReferenceAttribute,
                         );
                       },
                     ),
@@ -350,10 +360,8 @@ final _router = GoRouter(
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
                   path: 'details/:attributeId',
-                  builder: (context, state) => AttributeDetailScreen(
-                    accountId: state.pathParameters['accountId']!,
-                    attributeId: state.pathParameters['attributeId']!,
-                  ),
+                  builder: (context, state) =>
+                      AttributeDetailScreen(accountId: state.pathParameters['accountId']!, attributeId: state.pathParameters['attributeId']!),
                 ),
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
@@ -416,10 +424,8 @@ final _router = GoRouter(
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
                   path: 'data-details/:valueType',
-                  builder: (context, state) => DataDetailsScreen(
-                    accountId: state.pathParameters['accountId']!,
-                    valueType: state.pathParameters['valueType']!,
-                  ),
+                  builder: (context, state) =>
+                      DataDetailsScreen(accountId: state.pathParameters['accountId']!, valueType: state.pathParameters['valueType']!),
                 ),
               ],
             ),
@@ -447,61 +453,44 @@ final _router = GoRouter(
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
                   path: ':messageId',
-                  builder: (context, state) => MessageDetailScreen(
-                    messageId: state.pathParameters['messageId']!,
-                    accountId: state.pathParameters['accountId']!,
-                  ),
+                  builder: (context, state) =>
+                      MessageDetailScreen(messageId: state.pathParameters['messageId']!, accountId: state.pathParameters['accountId']!),
                 ),
               ],
             ),
           ],
+        ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: '/identity-in-deletion',
+          builder: (context, state) => IdentityInDeletionScreen(accountId: state.pathParameters['accountId']!),
         ),
       ],
     ),
   ],
 );
 
-class EnmeshedApp extends StatelessWidget {
+class EnmeshedApp extends StatelessWidget with WatchItMixin {
   const EnmeshedApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     unawaited(SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge));
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarDividerColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarContrastEnforced: false,
-        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-      ),
-    );
+
+    final themeSetting = watchValue((ThemeModeModel x) => x.notifier);
 
     return Features(
       child: MaterialApp.router(
         routerConfig: _router,
         debugShowCheckedModeBanner: false,
-        // dark mode is disabled until we have a proper dark theme
-        themeMode: ThemeMode.light,
-        theme: ThemeData(
-          colorScheme: lightColorScheme,
-          extensions: [lightCustomColors, woltThemeData],
-          navigationBarTheme: lightNavigationBarTheme,
-          appBarTheme: lightAppBarTheme,
-          textTheme: textTheme,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: darkColorScheme,
-          extensions: [darkCustomColors, woltThemeData],
-          navigationBarTheme: darkNavigationBarTheme,
-          appBarTheme: darkAppBarTheme,
-          textTheme: textTheme,
-        ),
+        themeMode: themeSetting.themeMode,
+        theme: lightTheme,
+        darkTheme: themeSetting.amoled ? amoledTheme : darkTheme,
+        highContrastTheme: highContrastTheme,
+        highContrastDarkTheme: highContrastDarkTheme,
+        scaffoldMessengerKey: snackbarKey,
         localizationsDelegates: [
           CroppyLocalizations.delegate,
           FlutterI18nDelegate(
@@ -513,6 +502,20 @@ class EnmeshedApp extends StatelessWidget {
           ...AppLocalizations.localizationsDelegates,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
+        builder: (context, child) {
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              systemNavigationBarDividerColor: Colors.transparent,
+              systemNavigationBarColor: Colors.transparent,
+              systemNavigationBarContrastEnforced: false,
+              systemNavigationBarIconBrightness: Theme.of(context).brightness.opposite,
+              statusBarBrightness: Theme.of(context).brightness,
+              statusBarIconBrightness: Theme.of(context).brightness.opposite,
+            ),
+            child: child!,
+          );
+        },
       ),
     );
   }

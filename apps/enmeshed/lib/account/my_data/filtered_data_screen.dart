@@ -43,7 +43,12 @@ class _FilteredDataScreenState extends State<FilteredDataScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(widget.title));
 
-    if (_attributes == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_attributes == null) {
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       appBar: appBar,
@@ -53,10 +58,7 @@ class _FilteredDataScreenState extends State<FilteredDataScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(widget.description),
-              ),
+              Padding(padding: const EdgeInsets.all(16), child: Text(widget.description)),
               Expanded(
                 child: ListView.separated(
                   itemCount: widget.valueTypes.length,
@@ -110,12 +112,7 @@ class _FilteredDataScreenState extends State<FilteredDataScreen> {
     final attributes = await session.expander.expandLocalAttributeDTOs(result.value);
 
     final map = Map.fromEntries(
-      widget.valueTypes.map(
-        (e) => MapEntry(
-          e,
-          attributes.where((element) => (element.content as IdentityAttribute).value.atType == e).toList(),
-        ),
-      ),
+      widget.valueTypes.map((e) => MapEntry(e, attributes.where((element) => (element.content as IdentityAttribute).value.atType == e).toList())),
     );
 
     if (mounted) setState(() => _attributes = map);
@@ -170,10 +167,7 @@ class _AttributeEntry extends StatelessWidget {
               ],
             ),
             expandFileReference: (fileReference) => expandFileReference(accountId: accountId, fileReference: fileReference),
-            openFileDetails: (file) => context.push(
-              '/account/$accountId/my-data/files/${file.id}',
-              extra: createFileRecord(file: file),
-            ),
+            openFileDetails: (file) => context.push('/account/$accountId/my-data/files/${file.id}', extra: createFileRecord(file: file)),
             valueTextStyle: Theme.of(context).textTheme.bodyLarge!,
           ),
         ),
@@ -189,10 +183,7 @@ class _AttributeEntry extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Text(context.i18nTranslate('i18n://attributes.values.$valueType._title'), style: Theme.of(context).textTheme.labelMedium),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: renderer,
-        ),
+        Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: renderer),
       ],
     );
   }
@@ -217,10 +208,7 @@ class _EmptyAttributeEntry extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            context.i18nTranslate('i18n://attributes.values.$valueType._title'),
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
+          Text(context.i18nTranslate('i18n://attributes.values.$valueType._title'), style: Theme.of(context).textTheme.labelMedium),
           TextButton.icon(
             icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary, size: 20),
             label: Text(context.l10n.myData_createEntryForAttributeType),

@@ -1,3 +1,4 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:go_router/go_router.dart';
@@ -50,10 +51,7 @@ class _SelectAddressTypeView extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(context.l10n.myData_initialCreation_addressData_description),
-            ),
+            Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: Text(context.l10n.myData_initialCreation_addressData_description)),
             Gaps.h16,
             ColoredBox(
               color: Theme.of(context).colorScheme.surface,

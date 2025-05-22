@@ -22,6 +22,7 @@ void main() {
           identity: IdentityDTO(address: 'anAddress', publicKey: 'aPublicKey'),
           password: 'aPassword',
           username: 'anUsername',
+          isBackupDevice: true,
         ).toJson(),
       };
 

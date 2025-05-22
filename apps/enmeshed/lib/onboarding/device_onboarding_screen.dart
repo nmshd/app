@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -87,13 +88,8 @@ class _DeviceOnboardingScreenState extends State<DeviceOnboardingScreen> {
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   labelText: context.l10n.onboarding_enterProfileName,
                   hintText: _defaultProfileName,
-                  suffixIcon: IconButton(
-                    onPressed: _controller.clear,
-                    icon: const Icon(Icons.cancel_outlined),
-                  ),
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
+                  suffixIcon: IconButton(onPressed: _controller.clear, icon: const Icon(Icons.cancel_outlined)),
+                  border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -104,15 +100,9 @@ class _DeviceOnboardingScreenState extends State<DeviceOnboardingScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  OutlinedButton(
-                    onPressed: _otherAccounts == null ? null : _cancel,
-                    child: Text(context.l10n.cancel),
-                  ),
+                  OutlinedButton(onPressed: _otherAccounts == null ? null : _cancel, child: Text(context.l10n.cancel)),
                   Gaps.w8,
-                  FilledButton(
-                    onPressed: _otherAccounts == null ? null : _onboardDevice,
-                    child: Text(context.l10n.deviceOnboarding_confirm),
-                  ),
+                  FilledButton(onPressed: _otherAccounts == null ? null : _onboardDevice, child: Text(context.l10n.deviceOnboarding_confirm)),
                 ],
               ),
             ],
@@ -198,10 +188,7 @@ class _ProfileAlreadyExistsDialog extends StatelessWidget {
   final LocalAccountDTO existingAccount;
   final VoidCallback onBackPressed;
 
-  const _ProfileAlreadyExistsDialog({
-    required this.existingAccount,
-    required this.onBackPressed,
-  });
+  const _ProfileAlreadyExistsDialog({required this.existingAccount, required this.onBackPressed});
 
   @override
   Widget build(BuildContext context) {

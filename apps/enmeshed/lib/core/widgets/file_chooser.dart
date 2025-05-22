@@ -1,8 +1,10 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../utils/extensions.dart';
 import '../widgets/widgets.dart';
@@ -69,8 +71,8 @@ class _FileChooserState extends State<_FileChooser> {
     }
 
     if (_mode == _FileChooserMode.existing) {
-      return FractionallySizedBox(
-        heightFactor: 0.8,
+      return ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.8),
         child: Column(
           children: [
             Padding(
@@ -83,11 +85,7 @@ class _FileChooserState extends State<_FileChooser> {
                 ],
               ),
             ),
-            if (widget.description != null)
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(widget.description!),
-              ),
+            if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: OutlinedButton(
@@ -96,43 +94,41 @@ class _FileChooserState extends State<_FileChooser> {
               ),
             ),
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-                child: _existingFiles!.isEmpty
-                    ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.fileChooser_noFilesFound)
-                    : Scrollbar(
-                        thumbVisibility: true,
-                        child: ListView.separated(
-                          clipBehavior: Clip.antiAlias,
-                          itemCount: _existingFiles!.length,
-                          itemBuilder: (context, index) {
-                            final file = _existingFiles![index];
+              child: _existingFiles!.isEmpty
+                  ? EmptyListIndicator(icon: Icons.file_copy, text: context.l10n.fileChooser_noFilesFound)
+                  : Scrollbar(
+                      thumbVisibility: true,
+                      child: ListView.separated(
+                        clipBehavior: Clip.antiAlias,
+                        itemCount: _existingFiles!.length,
+                        padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(context).bottom),
+                        itemBuilder: (context, index) {
+                          final file = _existingFiles![index];
 
-                            return ListTile(
-                              title: Text(file.title),
-                              subtitle: Text(file.filename),
-                              onTap: () {
-                                if (widget.selectedFiles == null) return context.pop(file);
+                          return ListTile(
+                            title: TranslatedText(file.title),
+                            subtitle: Text(file.filename),
+                            onTap: () {
+                              if (widget.selectedFiles == null) return context.pop(file);
 
-                                setState(() => widget.selectedFiles!.toggle(file));
-                                widget.onSelectedAttachmentsChanged?.call();
-                              },
-                              leading: FileIcon(filename: file.filename),
-                              trailing: widget.selectedFiles == null
-                                  ? const Icon(Icons.chevron_right)
-                                  : Checkbox(
-                                      value: widget.selectedFiles!.contains(file),
-                                      onChanged: (_) {
-                                        setState(() => widget.selectedFiles!.toggle(file));
-                                        widget.onSelectedAttachmentsChanged?.call();
-                                      },
-                                    ),
-                            );
-                          },
-                          separatorBuilder: (context, index) => const Divider(height: 0, indent: 16),
-                        ),
+                              setState(() => widget.selectedFiles!.toggle(file));
+                              widget.onSelectedAttachmentsChanged?.call();
+                            },
+                            leading: FileIcon(filename: file.filename),
+                            trailing: widget.selectedFiles == null
+                                ? const Icon(Icons.chevron_right)
+                                : Checkbox(
+                                    value: widget.selectedFiles!.contains(file),
+                                    onChanged: (_) {
+                                      setState(() => widget.selectedFiles!.toggle(file));
+                                      widget.onSelectedAttachmentsChanged?.call();
+                                    },
+                                  ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => const Divider(height: 0, indent: 16),
                       ),
-              ),
+                    ),
             ),
           ],
         ),
@@ -153,10 +149,7 @@ class _FileChooserState extends State<_FileChooser> {
         widget.onSelectedAttachmentsChanged?.call();
       },
       popOnUpload: false,
-      leading: IconButton(
-        icon: Icon(context.adaptiveBackIcon),
-        onPressed: () => setState(() => _mode = _FileChooserMode.existing),
-      ),
+      leading: IconButton(icon: Icon(context.adaptiveBackIcon), onPressed: () => setState(() => _mode = _FileChooserMode.existing)),
     );
   }
 

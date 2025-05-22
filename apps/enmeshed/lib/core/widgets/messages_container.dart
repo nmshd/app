@@ -1,7 +1,10 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
+import 'empty_list_indicator.dart';
+import 'message_dvo_renderer.dart';
 
 class MessagesContainer extends StatelessWidget {
   final String accountId;
@@ -30,17 +33,15 @@ class MessagesContainer extends StatelessWidget {
         _MessagesHeader(unreadMessagesCount: unreadMessagesCount, seeAllMessages: seeAllMessages, title: title),
         Gaps.h8,
         if (messages == null)
-          const Center(child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator()))
+          const Center(
+            child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator()),
+          )
         else if (messages!.isNotEmpty)
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const Divider(indent: 16),
-            itemBuilder: (context, index) => MessageDVORenderer(
-              message: messages![index],
-              accountId: accountId,
-              hideAvatar: hideAvatar,
-            ),
+            itemBuilder: (context, index) => MessageDVORenderer(message: messages![index], accountId: accountId, hideAvatar: hideAvatar),
             itemCount: messages!.length,
           )
         else
@@ -55,11 +56,7 @@ class _MessagesHeader extends StatelessWidget {
   final VoidCallback? seeAllMessages;
   final String title;
 
-  const _MessagesHeader({
-    required this.unreadMessagesCount,
-    required this.seeAllMessages,
-    required this.title,
-  });
+  const _MessagesHeader({required this.unreadMessagesCount, required this.seeAllMessages, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +68,7 @@ class _MessagesHeader extends StatelessWidget {
           children: [
             Text(title, style: Theme.of(context).textTheme.titleLarge),
             Gaps.w8,
-            if (unreadMessagesCount > 0)
-              Badge(
-                label: Text(unreadMessagesCount.toString()),
-                backgroundColor: Theme.of(context).colorScheme.error,
-              ),
+            if (unreadMessagesCount > 0) Badge(label: Text(unreadMessagesCount.toString()), backgroundColor: Theme.of(context).colorScheme.error),
             const Spacer(),
             if (seeAllMessages != null) TextButton(onPressed: seeAllMessages, child: Text(context.l10n.home_seeAll)),
           ],

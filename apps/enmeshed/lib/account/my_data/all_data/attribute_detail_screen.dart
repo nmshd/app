@@ -1,5 +1,6 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -11,11 +12,7 @@ class AttributeDetailScreen extends StatefulWidget {
   final String accountId;
   final String attributeId;
 
-  const AttributeDetailScreen({
-    required this.accountId,
-    required this.attributeId,
-    super.key,
-  });
+  const AttributeDetailScreen({required this.accountId, required this.attributeId, super.key});
 
   @override
   State<AttributeDetailScreen> createState() => _AttributeDetailScreenState();
@@ -41,7 +38,12 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
   Widget build(BuildContext context) {
     final appBar = AppBar(title: Text(_attribute != null ? context.i18nTranslate(_attribute!.name) : ''));
 
-    if (_attribute == null) return Scaffold(appBar: appBar, body: const Center(child: CircularProgressIndicator()));
+    if (_attribute == null) {
+      return Scaffold(
+        appBar: appBar,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     final lastEditingDate = _firstVersionCreationDate != null ? _attribute!.createdAt : null;
     final creationDate = _firstVersionCreationDate != null ? _firstVersionCreationDate! : _attribute!.createdAt;
@@ -72,7 +74,7 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
                       Gaps.h8,
                       Text(
                         context.l10n.attributeDetails_succeededAt(
-                          _getDateType(DateTime.parse(lastEditingDate).toLocal()),
+                          DateTime.parse(lastEditingDate).toLocal().dateType,
                           DateTime.parse(lastEditingDate).toLocal(),
                           DateTime.parse(lastEditingDate).toLocal(),
                         ),
@@ -82,7 +84,7 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
                     Gaps.h8,
                     Text(
                       context.l10n.attributeDetails_createdOn(
-                        _getDateType(DateTime.parse(creationDate).toLocal()),
+                        DateTime.parse(creationDate).toLocal().dateType,
                         DateTime.parse(creationDate).toLocal(),
                         DateTime.parse(creationDate).toLocal(),
                       ),
@@ -118,12 +120,12 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
                             contact: contact,
                             subtitle: Text(
                               context.l10n.attributeDetails_sharedAt(
-                                _getDateType(DateTime.parse(sharedAttribute.createdAt).toLocal()),
+                                DateTime.parse(sharedAttribute.createdAt).toLocal().dateType,
                                 DateTime.parse(sharedAttribute.createdAt).toLocal(),
                                 DateTime.parse(sharedAttribute.createdAt).toLocal(),
                               ),
                             ),
-                            onTap: () => context.go('/account/${widget.accountId}/contacts/${contact.id}'),
+                            onTap: () => context.push('/account/${widget.accountId}/contacts/${contact.id}'),
                             trailing: const Icon(Icons.chevron_right),
                           );
                         },
@@ -176,12 +178,7 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
 
   Future<void> _loadSharedWith(RepositoryAttributeDVO attribute, String? firstVersionCreationDate) async {
     final sharedWith = await Future.wait(
-      attribute.sharedWith.map(
-        (e) async => (
-          contact: await _session.expander.expandAddress(e.peer),
-          sharedAttribute: e,
-        ),
-      ),
+      attribute.sharedWith.map((e) async => (contact: await _session.expander.expandAddress(e.peer), sharedAttribute: e)),
     );
 
     if (!mounted) return;
@@ -191,19 +188,5 @@ class _AttributeDetailScreenState extends State<AttributeDetailScreen> {
       _firstVersionCreationDate = firstVersionCreationDate;
       _sharedWith = sharedWith;
     });
-  }
-
-  String _getDateType(DateTime dateTime) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final yesterday = today.subtract(const Duration(days: 1));
-
-    if (dateTime.year == today.year && dateTime.month == today.month && dateTime.day == today.day) {
-      return 'today';
-    } else if (dateTime.year == yesterday.year && dateTime.month == yesterday.month && dateTime.day == yesterday.day) {
-      return 'yesterday';
-    } else {
-      return 'other';
-    }
   }
 }

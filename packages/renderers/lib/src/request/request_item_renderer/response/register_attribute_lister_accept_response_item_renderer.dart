@@ -10,9 +10,6 @@ class RegisterAttributeListenerAcceptResponseItemRenderer extends StatelessWidge
 
   @override
   Widget build(BuildContext context) {
-    return CustomListTile(
-      title: item.listener.name,
-      description: item.listener.query.name,
-    );
+    return CustomListTile(title: item.listener?.name ?? '', description: item.listener?.query.name);
   }
 }

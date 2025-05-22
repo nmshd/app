@@ -10,19 +10,13 @@ class OutgoingRequestsFacade {
   final AbstractEvaluator _evaluator;
   OutgoingRequestsFacade(this._evaluator);
 
-  Future<Result<RequestValidationResultDTO>> canCreate({
-    required Request content,
-    String? peer,
-  }) async {
+  Future<Result<RequestValidationResultDTO>> canCreate({required Request content, String? peer}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.canCreate(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'content': content.toJson(),
-          if (peer != null) 'peer': peer,
-        },
+        'request': {'content': content.toJson(), 'peer': ?peer},
       },
     );
 
@@ -30,19 +24,13 @@ class OutgoingRequestsFacade {
     return Result.fromJson(value, (x) => RequestValidationResultDTO.fromJson(x));
   }
 
-  Future<Result<LocalRequestDTO>> create({
-    required Request content,
-    required String peer,
-  }) async {
+  Future<Result<LocalRequestDTO>> create({required Request content, required String peer}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.create(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'content': content.toJson(),
-          'peer': peer,
-        },
+        'request': {'content': content.toJson(), 'peer': peer},
       },
     );
 
@@ -50,17 +38,13 @@ class OutgoingRequestsFacade {
     return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
   }
 
-  Future<Result<LocalRequestDTO>> getRequest({
-    required String requestId,
-  }) async {
+  Future<Result<LocalRequestDTO>> getRequest({required String requestId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.getRequest(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': requestId,
-        },
+        'request': {'id': requestId},
       },
     );
 
@@ -68,17 +52,13 @@ class OutgoingRequestsFacade {
     return Result.fromJson(value, (x) => LocalRequestDTO.fromJson(x));
   }
 
-  Future<Result<List<LocalRequestDTO>>> getRequests({
-    Map<String, QueryValue>? query,
-  }) async {
+  Future<Result<List<LocalRequestDTO>>> getRequests({Map<String, QueryValue>? query}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.getRequests(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          if (query != null) 'query': query.toJson(),
-        },
+        'request': {if (query != null) 'query': query.toJson()},
       },
     );
 
@@ -86,17 +66,13 @@ class OutgoingRequestsFacade {
     return Result.fromJson(json, (value) => List<LocalRequestDTO>.from(value.map((e) => LocalRequestDTO.fromJson(e))));
   }
 
-  Future<VoidResult> discard({
-    required String requestId,
-  }) async {
+  Future<VoidResult> discard({required String requestId}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.outgoingRequests.discard(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {
-          'id': requestId,
-        },
+        'request': {'id': requestId},
       },
     );
 

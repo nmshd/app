@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -40,9 +41,7 @@ class _MailboxViewState extends State<MailboxView> {
   void initState() {
     super.initState();
 
-    widget.mailboxFilterController.value = {
-      if (widget.filteredContactId != null) ContactFilterOption(widget.filteredContactId!),
-    };
+    widget.mailboxFilterController.value = {if (widget.filteredContactId != null) ContactFilterOption(widget.filteredContactId!)};
 
     widget.mailboxFilterController.onOpenMailboxFilter = _onOpenFilterPressed;
     widget.mailboxFilterController.addListener(_reload);
@@ -173,14 +172,7 @@ class _MailboxViewState extends State<MailboxView> {
 
     return List<MessageDVO>.of(messages)
         .where((element) => containsKeyword(element, keyword))
-        .map(
-          (item) => MessageDVORenderer(
-            message: item,
-            accountId: widget.accountId,
-            controller: controller,
-            query: keyword,
-          ),
-        )
+        .map((item) => MessageDVORenderer(message: item, accountId: widget.accountId, controller: controller, query: keyword))
         .separated(() => const Divider(height: 2));
   }
 
@@ -204,11 +196,7 @@ class _FilterChipBar extends StatelessWidget {
   final List<IdentityDVO> contacts;
   final void Function(MailboxFilterOption option) removeFilter;
 
-  const _FilterChipBar({
-    required this.selectedFilterOptions,
-    required this.contacts,
-    required this.removeFilter,
-  });
+  const _FilterChipBar({required this.selectedFilterOptions, required this.contacts, required this.removeFilter});
 
   @override
   Widget build(BuildContext context) {
@@ -222,15 +210,12 @@ class _FilterChipBar extends StatelessWidget {
           final option = selectedFilterOptions.elementAt(index);
 
           return Chip(
-            label: Text(
-              switch (option) {
-                ActionRequiredFilterOption() => context.l10n.mailbox_filter_actionRequired,
-                UnreadFilterOption() => context.l10n.mailbox_filter_unread,
-                WithAttachmentFilterOption() => context.l10n.mailbox_filter_withAttachment,
-                final ContactFilterOption contactFilterOption => contacts.firstWhere((element) => element.id == contactFilterOption.contactId).name,
-              },
-              style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),
-            ),
+            label: Text(switch (option) {
+              ActionRequiredFilterOption() => context.l10n.mailbox_filter_actionRequired,
+              UnreadFilterOption() => context.l10n.mailbox_filter_unread,
+              WithAttachmentFilterOption() => context.l10n.mailbox_filter_withAttachment,
+              final ContactFilterOption contactFilterOption => contacts.firstWhere((element) => element.id == contactFilterOption.contactId).name,
+            }, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
             shape: RoundedRectangleBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
@@ -255,12 +240,7 @@ class _MessageListView extends StatelessWidget {
   final Future<void> Function() onRefresh;
   final bool isFiltered;
 
-  const _MessageListView({
-    required this.messages,
-    required this.accountId,
-    required this.onRefresh,
-    required this.isFiltered,
-  });
+  const _MessageListView({required this.messages, required this.accountId, required this.onRefresh, required this.isFiltered});
 
   @override
   Widget build(BuildContext context) {

@@ -27,17 +27,38 @@
   "imprint": "Impressum",
   "safetyInformation": "Sicherheitshinweis",
   "error": "Fehler",
+  "errorDialog_title": "Fehler",
   "errorDialog_description": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
+  "errorDialog_invalidQRCode_title": "Ungültiger QR-Code",
+  "errorDialog_invalidQRCode_description": "Der gescannte QR-Code wird von dieser App nicht unterstützt. Falls Ihnen ein alternativer QR-Code zur Verfügung steht, nutzen Sie diesen.\n\nStellen Sie sicher, dass Sie die neueste Version der App verwenden. Gehen Sie zum Store und aktualisieren Sie die App, falls nötig.",
+  "errorDialog_QRCodeProcessingFailed_title": "Fehler bei der Verarbeitung des QR-Codes",
+  "errorDialog_QRCodeProcessingFailed_description": "Der gescannte QR-Code konnte nicht verarbeitet werden. Falls Ihnen ein alternativer QR-Code zur Verfügung steht, nutzen Sie diesen.\n\nStellen Sie sicher, dass Sie die neueste Version der App verwenden. Gehen Sie zum Store und aktualisieren Sie die App, falls nötig.",
+  "errorDialog_relationshipNotYetDecomposedByPeer_title": "Sie können mit diesem Kontakt aktuell keine erneute Beziehung eingehen.",
+  "errorDialog_relationshipNotYetDecomposedByPeer_description": "Versuchen Sie es zu einem späteren Zeitpunkt erneut.",
+  "errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_title": "Der Kontakt existiert nicht mehr",
+  "errorDialog_activeIdentityDeletionProcessOfOwnerOfRelationshipTemplate_description": "Der Kontakt zu diesem QR-Code existiert nicht mehr oder ist nicht mehr Teil von \"enmeshed\". Sie können keine Kontakt-Beziehung mehr herstellen.",
+  "errorDialog_relationshipTemplateIsExpired_title": "Die Kontaktanfrage ist abgelaufen",
+  "errorDialog_relationshipTemplateIsExpired_description": "Der Kontakt hat für diesen QR-Code eine Antwortfrist voreingestellt. Die mit diesem QR-Code verbundene Kontaktanfrage ist abgelaufen.",
+  "errorDialog_requestExpired_title": "Der QR-Code ist bereits abgelaufen",
+  "errorDialog_requestExpired_description": "Dieser QR-Code ist nicht mehr gültig. Versuchen Sie, einen neuen QR-Code von dem Kontakt zu erhalten.",
   "error_image": "Es konnte kein Bild ausgewählt werden.",
   "error_upload_file": "Die Datei konnte nicht hochgeladen werden.",
   "error_download_file": "Die Datei konnte nicht heruntergeladen werden.",
   "error_createAccount": "Ihr Profil konnte nicht erstellt werden. Bitte versuchen Sie es später erneut.",
   "error_createDevice": "Das Gerät konnte nicht erstellt werden. Bitte versuchen Sie es später erneut.",
   "error_couldNotOpenLink": "Der Link konnte nicht geöffnet werden.",
-  "error_createAttribute": "Es konnte keine neue Information angelegt werden.",
   "error_succeedAttribute": "Der Eintrag konnte nicht aktualisiert werden.",
   "error_deleteAttribute": "Der Eintrag konnte nicht gelöscht werden.",
   "error_changeFavoriteRepositoryAttribute": "Das Attribut konnte nicht favorisiert werden.",
+  "error_backboneNotAvailable": "Backbone nicht erreichbar",
+  "error_backboneNotAvailable_description": "Es kann aktuell keine Verbindung zum Server aufgebaut werden. Wenn das Problem weiterhin besteht, können Sie sich gerne an unseren Support wenden.",
+  "error_unexpected": "Es tut uns leid, aber es ist ein unerwarteter Fehler aufgetreten. Wenn das Problem weiterhin besteht, können Sie sich gerne an unseren Support wenden.",
+  "error_supportButton": "E-Mail an den Support schreiben",
+  "error_openMailApp": "Fehler beim Öffnen der E-Mail-App",
+  "error_openMailApp_description": "Die E-Mail-App auf Ihrem Gerät konnte nicht geöffnet werden. Schreiben Sie mit einem anderen Gerät an den Support.\n\nDie E-Mail-Adresse lautet:\nenmeshed.support@js-soft.com",
+  "error_understood": "Verstanden",
+  "error_deleteRequest": "Anfrage löschen",
+  "error_deleteRequestFailed": "Die Kontakanfrage konnte nicht gelöscht werden. Versuchen Sie es später erneut.",
   "favorites": "Favoriten",
   "tryAgain": "Erneut versuchen",
   "title": "Titel",
@@ -55,13 +76,10 @@
   "sorting_group_date_thisMonth": "Dieser Monat",
   "sorting_group_date_thisYear": "Dieses Jahr",
   "sorting_group_date_older": "Älter",
-  "notImplemented": "Diese Funktion ist noch nicht implementiert.",
   "scanner_scanQR": "QR-Code scannen",
   "scanner_enterUrl": "URL-Link eingeben",
-  "scanner_invalidCode": "Der Code ist ungültig",
-  "scanner_invalidCode_tryAnother": "Versuchen Sie es mit einem anderen.",
   "scanner_lineUpQrCode": "Richten Sie den QR-Code am Rahmen aus.",
-  "scanner_scanQrOrEnterUrl": "Scannen Sie einen QR-Code oder geben Sie alternativ eine URL-Link ein.",
+  "scanner_scanQrOrEnterUrl": "Scannen Sie einen QR-Code oder geben Sie alternativ einen URL-Link ein.",
   "scanner_urlValidationError": "Der eingegebene URL-Link ist ungültig. Bitte überprüfen Sie Ihre Eingabe.",
   "scanner_enterUrl_title": "URL-Link eingeben",
   "scanner_enterUrl_description": "Geben Sie den URL-Link ein um eine Aktion auszuführen.",
@@ -82,6 +100,7 @@
   "onboarding_createNewAccount": "Neues Profil erstellen",
   "onboarding_createNewAccount_description": "Zum ersten Mal hier?\nLegen Sie ein neues Profil an.",
   "onboarding_createNewAccount_button": "Profil anlegen",
+  "onboarding_restoreProfile_button": "Profil wiederherstellen",
   "onboarding_chooseOption": "Sie benötigen ein Profil, um die\nenmeshed App nutzen zu können.\nHierfür gibt es zwei Möglichkeiten.",
   "onboarding_createIdentity": "Erstellen Sie Ihr Profil",
   "onboarding_defaultIdentityName": "Profil",
@@ -103,6 +122,25 @@
   "onboarding_consentParagraph4": "Durch Ihre aktive Teilnahme in der Testphase - inklusive Empfang von Push-Nachrichten auf Ihr mobiles Endgerät sowie die Analyse bewegter Datenvolumen - erklären Sie sich mit der jeweils erforderlichen Verarbeitung Ihrer personenbezogenen Daten einverstanden.",
   "onboarding_enterProfileName": "Profilname vergeben",
   "onboarding_acceptProfileName": "Übernehmen",
+  "restoreFromIdentityRecovery_loading": "Profil wird wiederhergestellt ...",
+  "restoreFromIdentityRecovery_instructions_title": "Profil mit Wiederherstellungskit wiederherstellen",
+  "restoreFromIdentityRecovery_instructions_subtitle": "So stellen Sie ein bestehendes Profil wieder her",
+  "restoreFromIdentityRecovery_instructions_search": "Suchen Sie ihr Wiederherstellungskit heraus und legen Sie Ihr Passwort bereit.",
+  "restoreFromIdentityRecovery_instructions_scan": "Scannen Sie den QR-Code auf dem Wiederherstellungskit.",
+  "restoreFromIdentityRecovery_instructions_password": "Geben Sie das dazugehörige Passwort ein.",
+  "restoreFromIdentityRecovery_instructions_confirmation": "Nach der Bestätigung haben Sie wieder vollen Zugriff auf Ihr Profil.",
+  "restoreFromIdentityRecovery_instructions_informationTitle": "Das Wiederherstellungskit kann nur einmal verwendet werden.",
+  "restoreFromIdentityRecovery_instructions_informationDescription": "Nach der erfolgreichen Wiederherstellungs Ihres Profils können Sie über die Profilverwaltung jederzeit ein neues Wiederherstellungskit erstellen.",
+  "restoreFromIdentityRecovery_scanner_scanQrOrEnterUrl": "Scannen Sie den QR-Code, um ein Profil auf Ihr Gerät zu laden. Oder geben Sie alternativ einen URL-Link ein.",
+  "restoreFromIdentityRecovery_scanner_connectWithUrl_title": "URL-Link eingeben",
+  "restoreFromIdentityRecovery_scanner_connectWithUrl_description": "Geben Sie den URL-Link ein, um Ihr Profil auf diesem Gerät wiederherzustellen. Im nächsten Schritt werden Sie aufgefordert, Ihr Passwort einzugeben, das Sie zusammen mit dem Wiederherstellungskit erstellt haben.",
+  "restoreFromIdentityRecovery_scanner_connectWithUrl_urlLabel": "URL",
+  "restoreFromIdentityRecovery_errorTitleOnExistingProfile": "Das Profil ist bereits auf diesem Gerät aktiviert",
+  "restoreFromIdentityRecovery_errorDescriptionOnExistingProfile": "Sie können das Recovery Kit nicht erneut einsetzen, das zugehörige Profil ist bereits aktiviert.",
+  "restoreFromIdentityRecovery_errorTitleOnAlreadyUsedRecoveryKit": "Dieses Recovery Kit kann nicht angewendet werden",
+  "restoreFromIdentityRecovery_errorDescriptionOnAlreadyUsedRecoveryKit": "Möglicherweise wurde dieses Recovery Kit bereits eingesetzt.",
+  "restoreFromIdentityRecovery_success": "Das Profil wurde erfolgreich auf dieses Gerät übertragen.",
+  "restoreFromIdentityRecovery_success_butInDeletion": "Das Profil wurde erfolgreich auf dieses Gerät übertragen, aber es befindet sich in Löschung. Sie können es wiederherstellen um es zu verwenden.",
   "home_title": "enmeshed",
   "home_seeAll": "Alle ansehen",
   "home_complete": "Abschließen",
@@ -114,7 +152,6 @@
   "home_messages": "Neue Nachrichten",
   "home_noNewMessages": "Keine neuen Nachrichten.\nSie sind auf dem neuesten Stand.",
   "home_completeProfile": "Erste Schritte",
-  "home_completeProfileDescription_recoverykitDisabled": "Drei Schritte, die Ihnen helfen, die enmeshed App optimal zu nutzen:",
   "home_completeProfileDescription": "Vier Schritte, die Ihnen helfen, die enmeshed App optimal zu nutzen:",
   "home_completeProfileCloseIconSemanticsLabel": "Karte ausblenden",
   "home_of": "von",
@@ -123,35 +160,48 @@
   "home_initialContact": "Erste Kontakte verknüpfen",
   "home_initialDocuments": "Erste Dokumente laden",
   "home_createIdentityRecoveryKit": "Wiederherstellungskit erstellen",
+  "home_identityRecoveryKitWasUsed": "Ihr Wiederherstellungskit wurde verwendet. Möchten Sie ein neues erstellen?",
+  "home_identityRecoverKitWasUsed_description": "Ihr Wiederherstellungskit wurde eingesetzt und ist abgelaufen. Erstellen Sie ein neues, um weiterhin Zugriff auf Ihre Daten zu gewährleisten. Sie können dies auch später in der Profilverwaltung ausführen.",
+  "home_closeHint": "Hinweis schließen",
+  "home_create": "Erstellen",
   "drawer_manageProfiles": "Profile verwalten",
   "drawer_title": "Informationen & Hilfe",
-  "drawer_notifications": "Benachrichtigungen",
+  "drawer_notifications": "Mitteilungen",
+  "drawer_notifications_activate": "Mitteilungen aktivieren",
   "drawer_notifications_stayInformed": "Bleiben Sie informiert!",
-  "drawer_notifications_getNotifications": "Hiermit erhalten Sie wichtige Informationen zu Vorgängen in Ihrem Profil bzw. Ihren Profilen. Außerdem schicken wir Mitteilungen zu neuen Services der App.",
-  "drawer_notifications_activate": "Jetzt aktivieren",
-  "drawer_notifications_howToActivate": "Um Benachrichtigungen zu erhalten, gehen Sie in Ihre Systemeinstellungen und aktivieren Benachrichtigungen von der \"enmeshed\"-App.",
+  "drawer_notifications_getNotifications": "Über Mitteilungen erhalten Sie wichtige Informationen zu Vorgängen in Ihrem Profil bzw. Ihren Profilen. Außerdem schicken wir Mitteilungen zu neuen Services der App.",
+  "drawer_notifications_howToActivate": "Um Mitteilungen zu erhalten, gehen Sie in die Systemeinstellungen Ihres Gerätes und aktivieren Sie Mitteilungen von der \"enmeshed\"-App.",
+  "drawer_notifications_activateButton": "Jetzt aktivieren",
   "drawer_notifications_granted": "Super, Sie bleiben informiert!",
-  "drawer_notifications_grantedInformation": "Sie haben Benachrichtigungen aktiviert und bleiben somit immer auf dem neusten Stand.",
+  "drawer_notifications_grantedInformation": "Sie haben Mitteilungen in den Systemeinstellungen Ihres Gerätes aktiviert und bleiben somit immer auf dem aktuellsten Stand.",
   "drawer_hints": "Hinweise",
+  "drawer_hints_description": "Unterstützende Hinweise, die Sie an verschiedenen Stellen in der App als 'nicht mehr anzeigen' markiert hatten, können Sie wieder aktivieren.",
   "drawer_hints_loadProfile": "Bestehendes Profil laden",
   "drawer_hints_addContact": "Kontakt hinzufügen",
   "drawer_hints_firstSteps": "Erste Schritte",
+  "drawer_theme": "Erscheinungsbild",
+  "drawer_theme_description": "Hier können Sie das Erscheinungsbild der App einstellen. Wenn Sie die Einstellung System wählen, wird die aktuelle Standardeinstellung Ihres Geräts übernommen.",
+  "drawer_theme_amoled": "Der AMOLED-Modus hilft Energie zu sparen, indem Pixel, die auf schwarz gesetzt sind, vollständig abgeschaltet werden. Diese Einstellung hat nur Einfluss auf das dunkle Erscheinungsbild.",
+  "drawer_theme_modes_system": "System",
+  "drawer_theme_modes_dark": "Dunkel",
+  "drawer_theme_modes_light": "Hell",
   "profiles_copyAddressToClipboardLabel": "Die Profil-Adresse in die Zwischenablage kopieren.",
   "profiles_copiedAddressToClipboard": "Die Profil-Adresse wurde in die Zwischenablage kopiert.",
-  "profiles_settings_title": "Einstellungen",
   "profiles_settings_subtitle": "Verwalten Sie hier Ihre verbundenen Geräte und Profileinstellungen oder sichern Sie Ihre Daten.",
   "profiles_settings_editProfile": "Profil bearbeiten",
   "profiles_settings_deleteProfile": "Profil löschen",
   "profiles_settings_connectedDevices": "Verknüpfte Geräte verwalten",
   "profiles_settings_createIdentityRecoveryKit": "Wiederherstellungskit erstellen",
   "profiles_createNew": "Neues Profil anlegen",
+  "profiles_loadExisting": "Bestehendes Profil laden",
+  "profiles_useRecoveryKit": "Wiederherstellungskit verwenden",
   "profiles_lastUsed": "Zuletzt verwendet",
   "profiles_createNewForProcessingQrDescription": "Erstellen Sie ein neues Profil um den gescannten QR-Code oder URL-Link zu verarbeiten.",
   "profiles_otherProfiles": "Andere Profile",
   "profiles_additionalProfiles": "Weitere Profile",
   "profiles_add": "Hinzufügen",
   "profiles_noAdditionalProfiles": "Sie können verschiedene Profile für unterschiedliche Rollen oder andere Personen erstellen und zwischen diesen wechseln.",
-  "profiles_switchedToProfile": "Zum Profil \"{profileName}\" gewechselt.",
+  "profiles_switchedToProfile": "Zum Profil <bold>{profileName}</bold> gewechselt.",
   "@profiles_switchedToProfile": {
     "placeholders": {
       "profileName": {
@@ -159,11 +209,11 @@
       }
     }
   },
-  "profile_or_identity_deletion": "Möchten Sie Ihr Profil nur von diesem Gerät entfernen (also das Gerät aus dem Profil abmelden) oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten löschen?",
-  "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschliesslich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen “Profil vom Gerät entfernen” und “Profil löschen”. Sie können nur Ihr gesamtes Profil löschen.",
+  "profile_or_identity_deletion": "Möchten Sie Ihr Profil von diesem Gerät entfernen oder Ihr gesamtes Profil mit sämtlichen hinterlegten Daten und Dokumenten von der enmeshed-Plattform löschen?",
+  "profile_or_identity_deletion_oneDevice": "Dieses Profil ist ausschließlich über dieses Gerät verfügbar. Darum wird nicht unterschieden zwischen Profil von Gerät entfernen und Profil löschen. Sie können nur Ihr gesamtes Profil löschen.",
   "identity_delete_cancel": "Nein, abbrechen",
   "identity_delete_confirm": "Ja, löschen",
-  "identity_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Es wird von allen Ihren verbundenen Geräten ({devices}) entfernt.",
+  "identity_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> und alle darin enthaltenen Daten, Kontakte und Dokumente löschen? Das Profil wird für die Löschung vorgemerkt, Sie können das Profil nach Ablauf der Löschfrist nicht mehr reaktivieren. Es wird nach der Löschfrist von allen Ihren verbundenen Geräten ({devices}) entfernt.",
   "@identity_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -174,25 +224,31 @@
       }
     }
   },
+  "identity_delete_success": "Das Profil <bold>{profileName}</bold> befindet sich nun in Löschung.",
+  "@identity_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
   "identities_in_deletion": "Profile in Löschung",
-  "identity_restore_cancel": "Nein, abbrechen",
-  "identity_restore_confirm": "Ja, aktivieren",
-  "identity_restore_description": "Möchten Sie das Profil wiederherstellen und aktiveren?",
-  "identity_restore_title": "Ihr Profil wird gelöscht",
-  "identity_reactivate_description": "Bis zum {deletionDate} können Sie ihr Profil \"{profileName}\" wiederherstellen und aktivieren.",
-  "@identity_reactivate_description": {
+  "identity_restore_confirm": "Wiederherstellen",
+  "identity_restore_title": "Profil wiederherstellen",
+  "identity_restore_description": "Möchten Sie das in Löschung befindliche Profil <bold>{profileName}</bold> wiederherstellen und weiterverwenden? Dies ist noch bis zum {deletionDate} möglich.",
+  "@identity_restore_description": {
     "placeholders": {
       "profileName": {
         "type": "String"
       },
       "deletionDate": {
         "type": "DateTime",
-        "format": "yMMMd"
+        "format": "yMd"
       }
     }
   },
-  "identity_delete_activated_and_switchedToProfile": "Profil \"{profileName}\" wieder aktiviert und ausgewählt.",
-  "@identity_delete_activated_and_switchedToProfile": {
+  "identity_restore_successful": "Das Profil <bold>{profileName}</bold> wurde erfolgreich wiederhergestellt.",
+  "@identity_restore_successful": {
     "placeholders": {
       "profileName": {
         "type": "String"
@@ -217,10 +273,15 @@
   "profile_delete_cancel": "Nein, abbrechen",
   "profile_delete_confirm": "Ja, entfernen",
   "profile_delete_inProgress": "Das Profil wird gelöscht.",
-  "profile_delete_success": "Das Profil wurde gelöscht.\nBitte wählen Sie aus mit welchem Profil Sie jetzt fortfahren möchten.",
-  "profile_delete_success_noProfilesAvailable": "Das Profil wurde gelöscht. Alle Ihre Daten wurden aus der App entfernt.",
-  "profile_delete_success_noProfilesAvailable_okay": "Okay",
-  "profile_delete_confirmation": "Möchten Sie das Profil \"{profileName}\" wirklich löschen? Es wird permanent von diesem Gerät gelöscht.",
+  "profile_delete_success": "Das Profil <bold>{profileName}</bold> wurde von diesem Gerät entfernt.",
+  "@profile_delete_success": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "profile_delete_confirmation": "Möchten Sie das Profil <bold>{profileName}</bold> wirklich von diesem Gerät entfernen? Sie können von diesem Gerät nicht mehr darauf zugreifen.",
   "@profile_delete_confirmation": {
     "placeholders": {
       "profileName": {
@@ -229,7 +290,7 @@
     }
   },
   "profile_delete_confirmation_lastDevice": "Da Ihr Profil nur auf diesem Gerät existiert, wird es unwiderruflich gelöscht.",
-  "profile_delete_confirmation_devicesLeft": "Sie können auf Ihren folgenden verknüpften Geräten weiterhin auf Ihre Profilddaten zugreifen:",
+  "profile_delete_confirmation_devicesLeft": "Das Profil bleibt auf der enmeshed-Plattform verfügbar und Sie können von den folgenden verknüpften Geräten weiterhin darauf zugreifen:",
   "profile_delete_error": "Beim Löschen des Profils ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
   "profile_delete_error_cancel": "Abbrechen",
   "profile_delete_error_retry": "Nochmal versuchen",
@@ -241,10 +302,11 @@
   "profile_localDeletion_acceptDeletion": "Daten löschen",
   "profile_create": "Anlegen",
   "profile_create_inProgress": "Profil wird angelegt",
-  "profile_deletePhoto": "Profilbild löschen",
-  "profile_editPhoto": "Profilbild ändern",
+  "profile_addPhoto": "Profilbild hinzufügen",
+  "profile_deletePhoto": "Entfernen",
+  "profile_editPhoto": "Ändern",
   "devices_title": "Geräte verwalten",
-  "devices_description": "Mit folgenden Geräten wird Ihr Profil \"{profileName}\" geteilt. Wenn Sie die Synchronisation mit einem der Geräte beenden möchten, entfernen Sie dieses aus der Liste.",
+  "devices_description": "Mit folgenden Geräten wird Ihr Profil <bold>{profileName}</bold> geteilt. Wenn Sie die Synchronisation mit einem der Geräte beenden möchten, entfernen Sie dieses aus der Liste.",
   "@devices_description": {
     "placeholders": {
       "profileName": {
@@ -274,7 +336,7 @@
   "devices_code_copy": "URL-Link kopieren",
   "devices_delete": "Ja, löschen",
   "devices_delete_cancel": "Nein, abbrechen",
-  "devices_delete_fromApp": "Möchtest du das Gerät \"{deviceName}\" aus der Liste Ihrer Geräte löschen?",
+  "devices_delete_fromApp": "Möchten Sie das Gerät <bold>{deviceName}</bold> aus der Liste Ihrer Geräte löschen?",
   "@devices_delete_fromApp": {
     "placeholders": {
       "deviceName": {
@@ -299,7 +361,7 @@
   "deviceInfo_removeCurrentDevice": "Profil von diesem Gerät entfernen",
   "deviceInfo_removeRemainingDevice_title": "Sie können das Gerät nicht von Ihrem Profil trennen, da es das einzige verbundene ist. So löschen Sie Ihr Profil:",
   "deviceInfo_removeConnectedDevice_title": "So entfernen Sie das Gerät aus der Liste der verbundenen Geräte:",
-  "deviceInfo_removeDevice_successful": "Das Gerät \"{deviceName}\" wurde aus der Liste Ihrer Geräte entfernt.",
+  "deviceInfo_removeDevice_successful": "Das Gerät <bold>{deviceName}</bold> wurde aus der Liste Ihrer Geräte entfernt.",
   "@deviceInfo_removeDevice_successful": {
     "placeholders": {
       "deviceName": {
@@ -315,7 +377,7 @@
   "deviceInfo_connectDevice_title": "So verknüpfen Sie das Gerät mit Ihrem Profil:",
   "deviceInfo_connectDevice_startConnecting": "Starten Sie dort die Verknüpfung mit einem bestehenden Profil.",
   "deviceInfo_connectDevice_scan": "Scannen Sie den hier angezeigten QR-Code ein.",
-  "deviceInfo_openApp": "Nehmen Sie das Gerät \"{deviceName}\" zur Hand und öffnen Sie die enmeshed App.",
+  "deviceInfo_openApp": "Nehmen Sie das Gerät <bold>{deviceName}</bold> zur Hand und öffnen Sie die enmeshed App.",
   "@deviceInfo_openApp": {
     "placeholders": {
       "deviceName": {
@@ -327,7 +389,6 @@
   "contact_information_messages": "Nachrichten",
   "contact_information_noMessages": "Keine Nachrichten vorhanden.",
   "contact_information_sharedFiles": "Geteilte Dateien",
-  "contact_requestDescription": "Nachfolgende Daten bzw. Anfragen möchte der neue Kontakt mit Ihnen teilen:",
   "contact_request_validationError": "{count, plural, =1{1 Fehlermeldung} other{{count} Fehlermeldungen}}",
   "@contact_request_validationError": {
     "placeholders": {
@@ -339,20 +400,40 @@
   "contact_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Kontaktanfrage abzuschließen.",
   "message_request_validationErrorDescription": "Bitte korrigieren Sie alle mit einem Fehler markierten Felder, um die Aufgabe abzuschließen.",
   "contact_request": "Kontaktanfrage",
+  "contact_request_add": "Annehmen",
+  "contact_withRelationshipTitle": "Anfrage",
+  "contact_withRelationshipDescription": "{contactName} möchte Ihnen Daten zur Verfügung stellen.",
+  "@contact_withRelationshipDescription": {
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
   "contacts_empty": "Kontakte hinzufügen",
   "contacts_emptyDescription": "Verbinden Sie sich mit Kontakten, um Daten oder Dokumente zu teilen oder zu empfangen.",
   "contacts_date": "Datum",
   "contacts_addContact": "Kontakt hinzufügen",
   "contacts_unknown": "Kontaktname nicht verfügbar",
   "contacts_notYetRequested": "Kontaktanfrage noch nicht abgeschickt",
+  "contacts_requestWithExpiryDate": "Läuft ab am {date}",
+  "@contacts_requestWithExpiryDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
   "contacts_requestExpired": "Kontaktanfrage abgelaufen",
   "contacts_pending": "Kontakt wurde noch nicht bestätigt",
   "contacts_terminatedOrDeletionProposed": "Beziehung wurde beendet",
   "contacts_deleted": "Kontakt existiert nicht mehr",
   "contacts_toBeDeleted": "Wird in Kürze gelöscht",
   "contacts_terminated": "Kontakt hat die Beziehung beendet",
+  "contacts_openRequests": "Es liegen offene Anfragen vor",
   "contacts_deletionProposed": "Beziehung permanent beendet",
-  "contacts_delete_title": "Kontakt \"{contactName}\" löschen?",
+  "contacts_delete_title": "Kontakt <bold>{contactName}</bold> löschen?",
   "@contacts_delete_title": {
     "placeholders": {
       "contactName": {
@@ -398,12 +479,12 @@
       }
     }
   },
-  "contactDetail_deletedTitle": "Der Kontakt existiert nicht mehr oder ist nicht mehr Teil von \"Enmeshed\".",
+  "contactDetail_deletedTitle": "Der Kontakt existiert nicht mehr oder ist nicht mehr Teil von \"enmeshed\".",
   "contactDetail_terminatedTitle": "Der Kontakt hat die Kontaktbeziehung zu Ihnen beendet.",
-  "contactDetail_terminatedDescription1": "Wenn Sie die Beziehung ebenfalls beenden möchten können Sie den Kontakt löschen.",
+  "contactDetail_terminatedDescription1": "Wenn Sie die Beziehung ebenfalls beenden möchten, können Sie den Kontakt löschen.",
   "contactDetail_description1": "Sie können den Kontakt in Ihrer Kontaktliste behalten, ein Austausch mit dem Kontakt ist jedoch nicht mehr möglich.",
-  "contactDetail_description2": "Wenn Sie den Kontakt in Ihrer Kontaktliste behalten bleiben sämtliche Nachrichten in Ihrem Profil gespeichert.",
-  "contactDetail_description3": "Wenn Sie den Kontakt aus Ihrer Kontaktliste löschen werden sämtliche Nachrichten mit dem Kontakt aus Ihrem Postfach gelöscht. Dokumente, die der Kontakt mit Ihnen geteilt hat bleiben erhalten.",
+  "contactDetail_description2": "Wenn Sie den Kontakt in Ihrer Kontaktliste behalten, bleiben sämtliche Nachrichten in Ihrem Profil gespeichert.",
+  "contactDetail_description3": "Wenn Sie den Kontakt aus Ihrer Kontaktliste löschen, werden sämtliche Nachrichten mit dem Kontakt aus Ihrem Postfach gelöscht. Dokumente, die der Kontakt mit Ihnen geteilt hat, bleiben erhalten.",
   "contactDetail_entry": "Eintrag",
   "contactDetail_addEntry": "Hinzufügen",
   "contactDetail_selectOrCreateEntryMessage": "Teilen Sie einen bereits angelegten Eintrag mit Ihrem Kontakt oder legen Sie einen neuen dafür an.",
@@ -416,19 +497,11 @@
   "contactDetail_editContact_restoreDefault": "Standard Wiederherstellen",
   "contactDetail_editContact_description": "Sie können den Anzeigenamen des Kontaktes hier ändern. Diese Änderung tritt an allen Stellen in der App in Kraft. Sie können auch den ursprünglich mitgelieferten Anzeigenamen wiederherstellen.",
   "contactDetail_sendMessage": "Nachricht senden",
-  "contactDetail_requestCertificate": "Zertifikat anfordern",
-  "contactDetail_requestCertificate_subject": "Betreff",
-  "contactDetail_requestCertificate_text": "Text",
-  "contactDetail_requestCertificate_send": "Senden",
-  "contactDetail_requestCertificate_inProgress": "Das Zertifikat wird angefordert.",
-  "contactDetail_requestCertificate_success": "Ihre Anforderung für ein Zertifikat wurde übermittelt. Sie finden die Nachricht in Ihrem Postausgang.",
-  "contactDetail_requestCertificate_successOk": "Okay!",
-  "contactDetail_requestCertificate_error": "Das Zertifikat konnte nicht angefragt werden. Stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.",
   "contactDetail_sharedAttributes": "Von mir geteilt",
   "contactDetail_receivedAttributes": "Mit mir geteilt",
   "contactDetail_sharedInformation": "Geteilte Informationen",
   "contactDetail_noReceivedAttributes": "Der Kontakt teilt keine Informationen mit dir",
-  "contactDetail_noSharedAttributes": "Der Kontakt erhält keine Informtionen von dir",
+  "contactDetail_noSharedAttributes": "Der Kontakt erhält keine Informationen von dir",
   "contactDetail_receivedAttributesDescription": "Empfangene Daten von {contactName} können hier eingesehen werden",
   "@contactDetail_receivedAttributesDescription": {
     "placeholders": {
@@ -456,6 +529,9 @@
       }
     }
   },
+  "contactDetail_openRequestsTitle": "Sie haben eine oder mehrere Anfragen noch nicht abgeschlossen",
+  "contactDetail_openRequestsDescription": "Der Kontakt möchte weitere Daten mit Ihnen teilen. Sie können die ausstehenden Anfragen überprüfen und annehmen.",
+  "contactDetail_checkRequests": "Anfragen überprüfen",
   "myData_createEntryForAttributeType": "Anlegen",
   "myData_noEntryForAttributeType": "Kein Eintrag",
   "myData_allData": "Alle Daten",
@@ -517,7 +593,9 @@
   "personalData_details_attributeSuccessfullyFavored": "Der Eintrag wurde erfolgreich favorisiert.",
   "personalData_details_confirmAttributeDeletion": "Ja, löschen",
   "personalData_details_cancelDeletion": "Nein, abbrechen",
-  "personalData_details_warningOnSuccession": "Der neu vergebene Wert Existiert bereits. Das könnte zu Verwirrung führen.",
+  "personalData_details_errorTitleOnCreate": "Eintrag anlegen fehlgeschlagen",
+  "personalData_details_errorContentOnCreate": "Der Eintrag konnte nicht angelegt werden. Bitte versuchen Sie es später erneut.",
+  "personalData_details_warningOnSuccession": "Der neu vergebene Wert existiert bereits. Das könnte zu Verwirrung führen.",
   "personalData_details_errorOnSuccession": "Der neu vergebene Wert ist identisch mit dem bisherigen Wert.",
   "personalData_details_notifyContacts": "{count, plural, =1 {Dieser Eintrag wird aktuell mit einem Kontakt geteilt. Wenn Sie diesen Eintrag bearbeiten, wird die Änderung auch an den Kontakt übermittelt, mit dem Sie diesen Eintrag geteilt haben.} other {Dieser Eintrag wird aktuell mit {count} Kontakten geteilt. Wenn Sie diesen Eintrag bearbeiten, wird die Änderung auch an alle Kontakte übermittelt, mit denen Sie diesen Eintrag geteilt haben.}}",
   "@personalData_details_notifyContacts": {
@@ -527,7 +605,7 @@
       }
     }
   },
-  "personalData_details_deleteDescription": "Möchten Sie den Eintrag {entry} aus Ihren Daten löschen?",
+  "personalData_details_deleteDescription": "Möchten Sie den Eintrag <bold>{entry}</bold> aus Ihren Daten löschen?",
   "@personalData_details_deleteDescription": {
     "placeholders": {
       "entry": {
@@ -535,14 +613,18 @@
       }
     }
   },
-  "personalData_details_deleteDescriptionShared": "{count, plural, =1{Dieser Eintrag wird aktuell mit einem Kontakt geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei dem Kontakt gelöscht, mit dem Sie ihn teilen.} other{Dieser Eintrag wird aktuell mit {count} Kontakten geteilt. Wenn Sie den Eintrag löschen wird dieser auch bei den Kontakten gelöscht, mit denen Sie ihn teilen.}}",
+  "personalData_details_deleteDescriptionShared": "{count, plural, =1{Der Eintrag <bold>{entry}</bold> wird aktuell mit einem Kontakt geteilt. Wenn Sie den Eintrag löschen, wird dieser auch bei dem Kontakt gelöscht, mit dem Sie ihn teilen.} other{Der Eintrag <bold>{entry}</bold> wird aktuell mit {count} Kontakten geteilt. Wenn Sie den Eintrag löschen, wird dieser auch bei den Kontakten gelöscht, mit denen Sie ihn teilen.}}",
   "@personalData_details_deleteDescriptionShared": {
     "placeholders": {
       "count": {
         "type": "num"
+      },
+      "entry": {
+        "type": "String"
       }
     }
   },
+  "createAttribute_error_duplicateValue": "Es existiert bereits ein Eintrag mit diesem Wert. Bitte wählen Sie einen anderen Wert.",
   "no_data_available": "Keine Daten hinterlegt",
   "attributeDetails_createdOn": "{dateType, select, today {angelegt heute, {time}} yesterday {angelegt gestern} other {angelegt am {date}}}",
   "@attributeDetails_createdOn": {
@@ -674,6 +756,7 @@
   "mailbox_selectAttachments_description": "Wählen Sie einen oder mehrere Anhänge oder laden Sie neue Dateien hoch.",
   "mailbox_choose_contact": "Empfänger auswählen",
   "mailbox_choose_contact_description": "Wählen Sie aus, an wen die Nachricht gesendet werden soll.",
+  "mailbox_choose_contact_sendMailDenied": "Dieser Kontakt kann keine Nachrichten von Ihnen empfangen",
   "mailbox_filter_actionRequired": "Offene Aufgaben",
   "mailbox_filter_header": "Nachrichten filtern",
   "mailbox_filter_unread": "Neu",
@@ -697,7 +780,7 @@
   "instructions_loadProfile_title": "Bestehendes Profil laden",
   "instructions_loadProfile_subtitle": "So laden Sie ein bestehendes Profil auf Ihr neues Gerät",
   "instructions_loadProfile_getDevice": "Sie benötigen das Gerät, auf dem das Profil angelegt ist, welches Sie hier laden möchten.",
-  "instructions_loadProfile_createNewDevice": "Legen Sie auf diesem Gerät in der Profilverwaltung im Bereich \"Einstellungen\", unter \"Verknüpfte Geräte verwalten\" ein neues Gerät an.",
+  "instructions_loadProfile_createNewDevice": "Legen Sie auf diesem Gerät in der Profilverwaltung im Bereich \"Einstellungen\" unter \"Verknüpfte Geräte verwalten\" ein neues Gerät an.",
   "instructions_loadProfile_displayedQRCode": "Dann wird Ihnen ein QR-Code angezeigt.",
   "instructions_loadProfile_scanQRCode": "Scannen Sie diesen QR-Code mit dem neuen Gerät.",
   "instructions_loadProfile_confirmation": "Nach der Bestätigung haben Sie von beiden Geräten aus vollen Zugriff auf das Profil.",
@@ -718,7 +801,7 @@
   "identityRecovery_passwordTitle": "Passwort erstellen",
   "identityRecovery_passwordMismatch": "Passwörter stimmen nicht überein",
   "identityRecovery_passwordEmptyError": "Dieses Feld kann nicht leer sein",
-  "identityRecovery_passwordDescription": "Bitte legen Sie jetzt ein Passwort fest. Das Passwort wird benötigt sobald Sie das Wiederherstellungskit einmal einsetzen müssen.",
+  "identityRecovery_passwordDescription": "Bitte legen Sie jetzt ein Passwort fest. Das Passwort wird benötigt, sobald Sie das Wiederherstellungskit einmal einsetzen müssen.",
   "identityRecovery_passwordAttention": "Achtung: Sie müssen das Passwort separat zu Ihrem Wiederherstellungskit sichern.",
   "identityRecovery_startNow": "Jetzt loslegen",
   "identityRecovery_generatingInProgress": "Wiederherstellungskit wird erstellt.",
@@ -728,14 +811,14 @@
   "identityRecovery_downloadDescription": "Wiederherstellungskit als PDF speichern.",
   "identityRecovery_print": "Drucken",
   "identityRecovery_printDescription": "Wiederherstellungskit ausdrucken.",
-  "identityRecovery_information": "Wenn Sie das Wiederherstellungskit ausdrucken können Sie Ihr erstelltes Passwort direkt dort notieren bevor Sie es vergessen. Wenn Sie das Widerherstellungskit herunterladen stellen Sie sicher, dass Sie es auf ein weiteres Gerät sichern.",
+  "identityRecovery_information": "Wenn Sie das Wiederherstellungskit ausdrucken, können Sie Ihr erstelltes Passwort direkt dort notieren, bevor Sie es vergessen. Wenn Sie das Wiederherstellungskit herunterladen, stellen Sie sicher, dass Sie es auf ein weiteres Gerät sichern.",
   "identityRecovery_pdfHeaderTitle": "Wiederherstellungskit für Ihre enmeshed-Daten",
-  "identityRecovery_pdfKeepSafeText": "Bitte bewahren Sie dieses Wiederherstellungs-Kit an einem für Dritte unzugänglichen Ort auf. Sobald Sie das selbst gewählte Master Passwort hier notiert haben ist ein Zugriff auf Ihre enmeshed-Daten möglich.",
+  "identityRecovery_pdfKeepSafeText": "Bitte bewahren Sie dieses Wiederherstellungs-Kit an einem für Dritte unzugänglichen Ort auf. Sobald Sie das selbst gewählte Master Passwort hier notiert haben, ist ein Zugriff auf Ihre enmeshed-Daten möglich.",
   "identityRecovery_pdfInfoText1": "Drucken Sie dieses Dokument aus oder speichern Sie es an einem sicheren Ort, beispielsweise einem weiteren Mobilgerät oder Ihrem Computer.",
   "identityRecovery_pdfInfoText2": "Schreiben Sie in das untenstehende Feld das Passwort, das Sie bei der Erstellung des Kits vergeben haben. Zur Wiederherstellung Ihrer verschlüsselten Daten benötigen Sie den QR Code und das von Ihnen vergebene Passwort.",
   "identityRecovery_pdfAddressLabel": "enmeshed ID",
   "identityRecovery_pdfPasswordLabel": "Passwort",
-  "identityRecovery_pdfQRDescription": "Wenn Sie Ihr Endgerät verloren haben sollten oder keinen Zugriff mehr darauf haben, scannen Sie einfach den QR Code mit einem neuen Endgerät um wieder Zugang zu Ihren enmeshed-Daten zu erhalten.",
+  "identityRecovery_pdfQRDescription": "Wenn Sie Ihr Endgerät verloren haben sollten oder keinen Zugriff mehr darauf haben, scannen Sie einfach den QR Code mit einem neuen Endgerät, um wieder Zugang zu Ihren enmeshed-Daten zu erhalten.",
   "identityRecovery_pdfNeedHelpTitle": "Benötigen Sie Hilfe?",
   "identityRecovery_pdfNeedHelpText": "Benötigen Sie Hilfe? Wenden Sie sich an den enmeshed-Support: support@enmeshed.de",
   "identityRecovery_saveKitSuccess": "Wiederherstellungskit erfolgreich gespeichert",
@@ -743,13 +826,41 @@
   "passwordProtection_enterPassword": "Passwort eingeben",
   "passwordProtection_enterPin": "PIN eingeben",
   "passwordProtection_passwordEmpty": "Bitte geben Sie ein Passwort ein.",
-  "passwordProtection_referenceIsPasswordProtected": "Dieser QR-Code oder Link ist mit einem Passwort gesichert. Geben Sie das Passwort ein, um fortzufahren.",
-  "passwordProtection_referenceIsPinProtected": "Dieser QR-Code oder Link ist mit einer {count, select, 4{vierstelligen} 5{fünfstelligen} 6{sechsstelligen} other{komplexen}} PIN gesichert. Geben Sie die PIN ein, um fortzufahren.",
+  "passwordProtection_referenceIsPasswordProtected": "Dieser QR-Code oder Link ist mit einem Passwort gesichert.",
+  "passwordProtection_referenceIsPinProtected": "Dieser QR-Code oder Link ist mit einer {count, select, 4{vierstelligen} 5{fünfstelligen} 6{sechsstelligen} other{komplexen}} PIN gesichert.",
   "@passwordProtection_referenceIsPinProtected": {
     "placeholders": {
-      "count": {}
+      "count": {
+        "type": "String"
+      }
     }
   },
+  "passwordProtection_referenceIsPasswordProtected_default": "Geben Sie das Passwort ein, um fortzufahren.",
+  "passwordProtection_referenceIsPinProtected_default": "Geben Sie die PIN ein, um fortzufahren.",
+  "passwordProtection_referenceIsPasswordProtected_recoveryKit": "Das Wiederherstellungskit ist mit einem Passwort gesichert. Geben Sie das Passwort ein, das Sie bei dessen Erstellung festgelegt haben.",
+  "passwordProtection_referenceIsPinProtected_recoveryKit": "Das Wiederherstellungskit ist mit einer PIN gesichert. Geben Sie die PIN ein, die Sie bei dessen Erstellung festgelegt haben.",
+  "passwordProtection_referenceIsPasswordProtected_self": "Geben Sie hier das von Ihnen erstellte Passwort ein.",
+  "passwordProtection_referenceIsPinProtected_self": "Geben Sie hier die von Ihnen erstellte PIN ein.",
+  "passwordProtection_referenceIsPasswordProtected_letter": "Geben Sie hier das Passwort ein, das Sie mit dem Brief von Ihrem Kontakt erhalten haben.",
+  "passwordProtection_referenceIsPinProtected_letter": "Geben Sie hier die PIN ein, die Sie mit dem Brief von Ihrem Kontakt erhalten haben.",
+  "passwordProtection_referenceIsPasswordProtected_registrationLetter": "Geben Sie hier das Passwort aus Ihrem Registrierungsbrief ein.",
+  "passwordProtection_referenceIsPinProtected_registrationLetter": "Geben Sie hier die PIN aus Ihrem Registrierungsbrief ein.",
+  "passwordProtection_referenceIsPasswordProtected_email": "Geben Sie das Passwort ein, das Sie in einer E-Mail von Ihrem Kontakt erhalten haben.",
+  "passwordProtection_referenceIsPinProtected_email": "Geben Sie hier die PIN ein, die Sie in einer E-Mail von Ihrem Kontakt erhalten haben.",
+  "passwordProtection_referenceIsPasswordProtected_sms": "Geben Sie hier das Passwort ein, das per SMS an Ihre Mobilnummer versendet wurde.",
+  "passwordProtection_referenceIsPinProtected_sms": "Geben Sie hier die PIN ein, die per SMS an Ihre Mobilnummer versendet wurde.",
+  "passwordProtection_referenceIsPasswordProtected_website": "Geben Sie hier das Passwort ein, das neben dem QR-Code auf der Webseite angezeigt wird.",
+  "passwordProtection_referenceIsPinProtected_website": "Geben Sie hier die PIN ein, die neben dem QR-Code auf der Webseite angezeigt wird.",
   "passwordProtection_incorrectPassword": "Sie haben ein falsches Passwort eingegeben. Versuchen Sie es erneut.",
-  "passwordProtection_incorrectPin": "Sie haben eine falsche PIN eingegeben. Versuchen Sie es erneut."
+  "passwordProtection_incorrectPin": "Sie haben eine falsche PIN eingegeben. Versuchen Sie es erneut.",
+  "identityInDeletion_title": "Das derzeit aktive Profil {profileName} wurde in Löschung versetzt.",
+  "@identityInDeletion_title": {
+    "placeholders": {
+      "profileName": {
+        "type": "String"
+      }
+    }
+  },
+  "identityInDeletion_description": "Sie haben die Löschung dieses Profils auf einem anderen Gerät angestoßen. Wählen Sie das Profil aus, um fortzufahren, oder erstellen Sie ein neues Profil.\n\nWenn Sie die Löschung des Profils nicht angestoßen haben, können Sie das Profil wiederherstellen.",
+  "identityInDeletion_createNewProfile": "Neues Profil erstellen"
 }

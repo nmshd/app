@@ -13,15 +13,7 @@ class SliderInput extends StatefulWidget {
   final num min;
   final RenderHintsTechnicalType? technicalType;
 
-  const SliderInput({
-    super.key,
-    this.controller,
-    this.fieldName,
-    this.initialValue,
-    required this.max,
-    required this.min,
-    this.technicalType,
-  });
+  const SliderInput({super.key, this.controller, this.fieldName, this.initialValue, required this.max, required this.min, this.technicalType});
 
   @override
   State<SliderInput> createState() => _SliderInputState();
@@ -54,13 +46,11 @@ class _SliderInputState extends State<SliderInput> {
           min: widget.min.toDouble(),
           max: widget.max.toDouble(),
           divisions: widget.technicalType == RenderHintsTechnicalType.Float ? widget.max.toInt() * 10 : widget.max.toInt() - widget.min.toInt(),
-          label:
-              widget.technicalType == RenderHintsTechnicalType.Float ? currentSliderValue.toStringAsFixed(2) : currentSliderValue.round().toString(),
+          label: widget.technicalType == RenderHintsTechnicalType.Float
+              ? currentSliderValue.toStringAsFixed(2)
+              : currentSliderValue.round().toString(),
           onChanged: (num value) {
-            widget.controller?.value = ControllerTypeResolver.resolveType(
-              inputValue: ValueHintsDefaultValueNum(value),
-              type: widget.technicalType!,
-            );
+            widget.controller?.value = ControllerTypeResolver.resolveType(inputValue: ValueHintsDefaultValueNum(value), type: widget.technicalType!);
 
             setState(() {
               currentSliderValue = value;

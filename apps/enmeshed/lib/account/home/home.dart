@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -19,16 +20,21 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  late final ScrollController _scrollController;
+
   int _unreadMessagesCount = 0;
   List<MessageDVO>? _messages;
   List<LocalRequestDVO>? _requests;
   bool _isCompleteProfileContainerShown = false;
+  bool _showRecoveryKitWasUsedContainer = false;
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
   @override
   void initState() {
     super.initState();
+
+    _scrollController = ScrollController();
 
     _reload();
 
@@ -45,6 +51,8 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
+
     for (final subscription in _subscriptions) {
       subscription.cancel();
     }
@@ -66,31 +74,46 @@ class _HomeViewState extends State<HomeView> {
     return RefreshIndicator(
       onRefresh: () => _reload(syncBefore: true),
       child: Scrollbar(
+        controller: _scrollController,
         thumbVisibility: true,
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  if (_isCompleteProfileContainerShown) ...[
-                    CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
-                    Gaps.h24,
-                  ],
-                  AddContactOrDeviceContainer(accountId: widget.accountId),
-                ],
-              ),
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              spacing: 24,
+              children: [
+                if (_isCompleteProfileContainerShown)
+                  CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
+
+                if (_showRecoveryKitWasUsedContainer)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ComplexInformationCard(
+                      title: context.l10n.home_identityRecoveryKitWasUsed,
+                      description: context.l10n.home_identityRecoverKitWasUsed_description,
+                      icon: Icon(Icons.warning_rounded, color: context.customColors.warning),
+                      actionButtons: [
+                        OutlinedButton(
+                          onPressed: () => upsertRestoreFromIdentityRecoveryKitSetting(accountId: widget.accountId, value: false),
+                          child: Text(context.l10n.home_closeHint),
+                        ),
+                        FilledButton(onPressed: () => context.push('/profiles'), child: Text(context.l10n.home_create)),
+                      ],
+                    ),
+                  ),
+                AddContact(accountId: widget.accountId),
+                MessagesContainer(
+                  accountId: widget.accountId,
+                  messages: _messages,
+                  unreadMessagesCount: _unreadMessagesCount,
+                  seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox'),
+                  title: context.l10n.home_messages,
+                  noMessagesText: context.l10n.home_noNewMessages,
+                ),
+              ],
             ),
-            Gaps.h24,
-            MessagesContainer(
-              accountId: widget.accountId,
-              messages: _messages,
-              unreadMessagesCount: _unreadMessagesCount,
-              seeAllMessages: () => context.go('/account/${widget.accountId}/mailbox'),
-              title: context.l10n.home_messages,
-              noMessagesText: context.l10n.home_noNewMessages,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -117,12 +140,20 @@ class _HomeViewState extends State<HomeView> {
       valueKey: 'isShown',
     );
 
+    final showRecoveryKitWasUsedContainer = await getSetting(
+      accountId: widget.accountId,
+      key: 'home.restoredIdentity',
+      valueKey: 'showContainer',
+      ignoreRecordNotFoundError: true,
+    );
+
     if (!mounted) return;
     setState(() {
       _unreadMessagesCount = messages.length;
       _messages = messageDVOs;
       _requests = requests;
       _isCompleteProfileContainerShown = isCompleteProfileContainerShown;
+      _showRecoveryKitWasUsedContainer = showRecoveryKitWasUsedContainer;
     });
   }
 

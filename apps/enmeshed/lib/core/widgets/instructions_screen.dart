@@ -1,8 +1,9 @@
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import '/core/core.dart';
+import '../utils/extensions.dart';
 
 enum ScannerType {
   addContact,
@@ -13,7 +14,6 @@ enum ScannerType {
 }
 
 class InstructionsScreen extends StatefulWidget {
-  final String accountId;
   final void Function(BuildContext) onContinue;
   final String title;
   final String subtitle;
@@ -21,12 +21,12 @@ class InstructionsScreen extends StatefulWidget {
   final String informationTitle;
   final String informationDescription;
   final VectorGraphic illustration;
+  final Icon informationCardIcon;
   final void Function()? deactivateHint;
   final bool showNumberedExplanation;
   final String? buttonContinueText;
 
   const InstructionsScreen({
-    required this.accountId,
     required this.onContinue,
     required this.title,
     required this.subtitle,
@@ -34,6 +34,7 @@ class InstructionsScreen extends StatefulWidget {
     required this.informationTitle,
     required this.informationDescription,
     required this.illustration,
+    required this.informationCardIcon,
     this.deactivateHint,
     this.showNumberedExplanation = true,
     this.buttonContinueText,
@@ -50,41 +51,52 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
-        title: Text(
-          widget.title,
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
-        ),
-      ),
       body: SafeArea(
         minimum: const EdgeInsets.only(bottom: 16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            IconButton(icon: const Icon(Icons.clear), onPressed: () => context.pop()),
+            Gaps.h4,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                widget.title,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                maxLines: 2,
+              ),
+            ),
+            Gaps.h24,
             Expanded(
               child: Scrollbar(
                 thumbVisibility: true,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _InstructionHeader(illustration: widget.illustration, subtitle: widget.subtitle),
-                        Gaps.h12,
+                        Gaps.h24,
                         if (widget.showNumberedExplanation)
                           _NumberedExplanation(instructions: widget.instructions)
                         else
                           _Explanation(instructions: widget.instructions),
-                        Gaps.h32,
-                        InformationContainer(title: widget.informationTitle, description: widget.informationDescription),
+                        Gaps.h8,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: InformationCard(
+                            title: widget.informationTitle,
+                            description: widget.informationDescription,
+                            icon: widget.informationCardIcon,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-            Gaps.h16,
             _InstructionsBottom(
               showCheckbox: widget.deactivateHint != null,
               hideHints: _hideHints,
@@ -115,10 +127,7 @@ class _InstructionHeader extends StatelessWidget {
       children: [
         Center(child: illustration),
         Gaps.h32,
-        Text(
-          subtitle,
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary),
-        ),
+        Text(subtitle, style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary)),
       ],
     );
   }
@@ -140,10 +149,7 @@ class _NumberedExplanation extends StatelessWidget {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '$itemNumber. ',
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
-            ),
+            Text('$itemNumber. ', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).colorScheme.primary)),
             Expanded(child: Text(instructions.elementAt(index))),
           ],
         );
@@ -188,35 +194,39 @@ class _InstructionsBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (showCheckbox)
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
-            child: InkWell(
-              onTap: toggleHideHints,
-              child: Row(
-                children: [
-                  Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()),
-                  Gaps.w16,
-                  Text(context.l10n.instructions_notShowAgain),
-                ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        children: [
+          if (showCheckbox) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: InkWell(
+                onTap: toggleHideHints,
+                child: Row(
+                  spacing: 4,
+                  children: [
+                    Checkbox(value: hideHints, onChanged: (_) => toggleHideHints()),
+                    Expanded(child: Text(context.l10n.instructions_notShowAgain)),
+                  ],
+                ),
               ),
             ),
+            Gaps.h8,
+          ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              spacing: 8,
+              children: [
+                OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+                FilledButton(onPressed: onContinue, child: Text(buttonContinueText ?? context.l10n.instructions_scanQrCode)),
+              ],
+            ),
           ),
-        Gaps.h8,
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
-              Gaps.w8,
-              FilledButton(onPressed: onContinue, child: Text(buttonContinueText ?? context.l10n.instructions_scanQrCode)),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

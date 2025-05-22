@@ -6,13 +6,7 @@ void main() {
     test('is correctly converted', () {
       const identityAttributeValue = CommunicationLanguageAttributeValue(value: 'de');
       final identityJson = identityAttributeValue.toJson();
-      expect(
-        identityJson,
-        equals({
-          '@type': 'CommunicationLanguage',
-          'value': 'de',
-        }),
-      );
+      expect(identityJson, equals({'@type': 'CommunicationLanguage', 'value': 'de'}));
     });
   });
 

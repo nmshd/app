@@ -1,5 +1,6 @@
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -9,11 +10,7 @@ class DiscoverableIdentities extends StatelessWidget {
   final String accountId;
   final List<PublicRelationshipTemplateReferenceDTO> publicRelationshipTemplateReferences;
 
-  const DiscoverableIdentities({
-    required this.accountId,
-    required this.publicRelationshipTemplateReferences,
-    super.key,
-  });
+  const DiscoverableIdentities({required this.accountId, required this.publicRelationshipTemplateReferences, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +39,7 @@ class DiscoverableIdentities extends StatelessWidget {
                 final runtime = GetIt.I.get<EnmeshedRuntime>();
                 final account = await runtime.accountServices.getAccount(accountId);
 
-                await runtime.stringProcessor.processTruncatedReference(truncatedReference: reference.truncatedReference, account: account);
+                await runtime.stringProcessor.processReference(reference: reference.truncatedReference, account: account);
               },
               children: publicRelationshipTemplateReferences.map((reference) => _DiscoverableIdentity(reference: reference)).toList(),
             ),
