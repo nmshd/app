@@ -288,6 +288,10 @@ class _MoreProfiles extends StatelessWidget {
                     onPressed: () => goToInstructionsOrScanScreen(accountId: accountId, instructionsType: ScannerType.loadProfile, context: context),
                     child: Text(context.l10n.profiles_loadExisting),
                   ),
+                  MenuItemButton(
+                    onPressed: () => context.push('/restore-from-identity-recovery-kit'),
+                    child: Text(context.l10n.profiles_useRecoveryKit),
+                  ),
                 ],
                 builder: (context, controller, child) => IconButton(
                   onPressed: () {

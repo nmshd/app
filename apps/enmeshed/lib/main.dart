@@ -72,7 +72,7 @@ final _router = GoRouter(
       path: '/restore-from-identity-recovery-kit',
       builder: (context, state) {
         return InstructionsScreen(
-          onContinue: (_) => context.push('/scan-recovery-kit'),
+          onContinue: (_) => context.pushReplacement('/scan-recovery-kit'),
           title: context.l10n.restoreFromIdentityRecovery_instructions_title,
           subtitle: context.l10n.restoreFromIdentityRecovery_instructions_subtitle,
           informationTitle: context.l10n.restoreFromIdentityRecovery_instructions_informationTitle,
@@ -189,9 +189,7 @@ final _router = GoRouter(
 
             return InstructionsScreen(
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.addContact}', value: false),
-              onContinue: (context) => context
-                ..pop()
-                ..push('/account/$accountId/scan'),
+              onContinue: (context) => context.pushReplacement('/account/$accountId/scan'),
               title: context.l10n.instructions_addContact_title,
               subtitle: context.l10n.instructions_addContact_subtitle,
               informationTitle: context.l10n.instructions_addContact_information,
@@ -215,9 +213,7 @@ final _router = GoRouter(
 
             return InstructionsScreen(
               deactivateHint: () => upsertHintsSetting(accountId: accountId, key: 'hints.${ScannerType.loadProfile}', value: false),
-              onContinue: (context) => context
-                ..pop()
-                ..push('/load-profile'),
+              onContinue: (context) => context.pushReplacement('/load-profile'),
               title: context.l10n.instructions_loadProfile_title,
               subtitle: context.l10n.instructions_loadProfile_subtitle,
               informationTitle: context.l10n.instructions_loadProfile_information,
