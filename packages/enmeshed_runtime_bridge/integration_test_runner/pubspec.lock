@@ -37,8 +37,8 @@ packages:
     dependency: "direct main"
     description:
       path: flutter_plugin
-      ref: a1cdf8a
-      resolved-ref: a1cdf8aa0213d0036024ea102a731983ec17b0b9
+      ref: "7ad4abb"
+      resolved-ref: "7ad4abb7e5f922802c727f3f43213496bf7e428d"
       url: "https://github.com/nmshd/rust-crypto.git"
     source: git
     version: "0.0.1"
