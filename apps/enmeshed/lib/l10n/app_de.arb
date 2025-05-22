@@ -194,6 +194,7 @@
   "profiles_settings_createIdentityRecoveryKit": "Wiederherstellungskit erstellen",
   "profiles_createNew": "Neues Profil anlegen",
   "profiles_loadExisting": "Bestehendes Profil laden",
+  "profiles_useRecoveryKit": "Wiederherstellungskit verwenden",
   "profiles_lastUsed": "Zuletzt verwendet",
   "profiles_createNewForProcessingQrDescription": "Erstellen Sie ein neues Profil um den gescannten QR-Code oder URL-Link zu verarbeiten.",
   "profiles_otherProfiles": "Andere Profile",
