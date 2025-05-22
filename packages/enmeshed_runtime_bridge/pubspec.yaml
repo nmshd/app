@@ -23,7 +23,7 @@ dependencies:
     git:
       url: https://github.com/nmshd/rust-crypto.git
       path: flutter_plugin/
-      ref: a1cdf8a
+      ref: 7ad4abb
 
 dev_dependencies:
   flutter_lints: ^5.0.0

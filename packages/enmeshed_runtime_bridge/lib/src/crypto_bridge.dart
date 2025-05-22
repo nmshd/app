@@ -3,20 +3,20 @@ import 'dart:convert';
 
 import 'package:cal_flutter_plugin/cal_flutter_plugin.dart';
 
-class TsDartBridgeException implements Exception {
+class TsDartCryptoBridgeException implements Exception {
   final String value;
   final String type;
   String? json;
-  TsDartBridgeException(this.type, this.value);
+  TsDartCryptoBridgeException(this.type, this.value);
 
   void addJsonContext(String json) => this.json = json;
 
   @override
   String toString() {
     if (json == null) {
-      return 'TsDartBridgeException: (Kind: $type). Unknown Value: $value';
+      return 'TsDartCryptoBridgeException: (Kind: $type). Unknown Value: $value';
     } else {
-      return 'TsDartBridgeException: (Kind: $type). Unknown Value: $value\nPassed JSON:\n$json';
+      return 'TsDartCryptoBridgeException: (Kind: $type). Unknown Value: $value\nPassed JSON:\n$json';
     }
   }
 }
@@ -58,10 +58,10 @@ class CryptoHandler {
     // }
 
     if (args.length != 1) {
-      throw TsDartBridgeException('not exactly 1 arg passed to handle', args.length.toString());
+      throw TsDartCryptoBridgeException('not exactly 1 arg passed to handle', args.length.toString());
     }
     if (args[0] is! String) {
-      throw TsDartBridgeException('the argument passed to the handle is not a string', args[0].toString());
+      throw TsDartCryptoBridgeException('the argument passed to the handle is not a string', args[0].toString());
     }
 
     final String callObj = args[0];
@@ -74,10 +74,10 @@ class CryptoHandler {
         'key' => await _handleKeyCall(objMap),
         'key_pair' => await _handleKeyPairCall(objMap),
         'dh_exchange' => await _handleDhExchangeCall(objMap),
-        _ => throw TsDartBridgeException('Unkown handle type', objMap['object_type']),
+        _ => throw TsDartCryptoBridgeException('Unkown handle type', objMap['object_type']),
       };
       return jsonEncode({'status': 'ok', 'data': returnedMap});
-    } on TsDartBridgeException catch (e) {
+    } on TsDartCryptoBridgeException catch (e) {
       e.addJsonContext(callObj);
       return jsonEncode({'status': 'error', 'message': e.toString()});
     } catch (e) {
@@ -109,7 +109,7 @@ class CryptoHandler {
         final capabilities = await getProviderCapabilities(implConfig: implConfig);
         return capabilities.map((e) => [e.$1, encodeProviderConfig(e.$2)]).toList();
       default:
-        throw TsDartBridgeException('Unknown method', objMap['method']);
+        throw TsDartCryptoBridgeException('Unknown method', objMap['method']);
     }
   }
 
@@ -207,25 +207,25 @@ class CryptoHandler {
         _keyHandles[keyId] = key;
         return keyId;
       case 'derive_key_from_base':
-        final base_key = base64Decode(objMap['args'][0]);
-        final key_id = objMap['args'][1];
+        final baseKey = base64Decode(objMap['args'][0]);
+        final keyId = objMap['args'][1];
         final context = objMap['args'][2];
         final spec = decodeKeySpec(objMap['args'][3]);
-        final key = await provider.deriveKeyFromBase(baseKey: base_key, keyId: key_id, context: context, spec: spec);
-        final keyId = await key.id();
-        _keyHandles[keyId] = key;
+        final key = await provider.deriveKeyFromBase(baseKey: baseKey, keyId: keyId, context: context, spec: spec);
+        final keyIdOut = await key.id();
+        _keyHandles[keyIdOut] = key;
         return keyId;
       case 'hash':
         final input = base64Decode(objMap['args'][0]);
-        final hash_kind = decodeCryptoHash(objMap['args'][1]);
-        final hash = await provider.hash(input: input, hash: hash_kind);
+        final hashKind = decodeCryptoHash(objMap['args'][1]);
+        final hash = await provider.hash(input: input, hash: hashKind);
         return base64Encode(hash);
       case 'get_random':
         final len = objMap['args'][0];
         final random = await provider.getRandom(len: len);
         return base64Encode(random);
       default:
-        throw TsDartBridgeException('Unknown method', objMap['method']);
+        throw TsDartCryptoBridgeException('Unknown method', objMap['method']);
     }
   }
 
@@ -239,9 +239,23 @@ class CryptoHandler {
         return base64Encode(keyData);
       case 'encrypt_data':
         final dataBase64 = objMap['args'][0];
+        final ivBase64 = objMap['args'][1];
         final data = base64Decode(dataBase64);
-        final (dataOut, iv) = await key.encryptData(data: data);
-        return {'data': base64Encode(dataOut), 'iv': iv};
+        final iv = base64Decode(ivBase64);
+        final (dataOut, ivOut) = await key.encryptData(data: data, iv: iv);
+        return {'data': base64Encode(dataOut), 'iv': base64Encode(ivOut)};
+      case 'decrypt':
+        final dataBase64 = objMap['args'][0];
+        final data = base64Decode(dataBase64);
+        final (dataOut, ivOut) = await key.encrypt(data: data);
+        return {'data': base64Encode(dataOut), 'iv': base64Encode(ivOut)};
+      case 'encrypt_with_iv':
+        final dataBase64 = objMap['args'][0];
+        final ivBase64 = objMap['args'][1];
+        final data = base64Decode(dataBase64);
+        final iv = base64Decode(ivBase64);
+        final dataOut = await key.encryptWithIv(data: data, iv: iv);
+        return {'data': base64Encode(dataOut)};
       case 'decrypt_data':
         final dataBase64 = objMap['args'][0];
         final iv = objMap['args'][1];
@@ -268,7 +282,7 @@ class CryptoHandler {
         final spec = await key.spec();
         return encodeKeySpec(spec);
       default:
-        throw TsDartBridgeException('Unknown method', objMap['method']);
+        throw TsDartCryptoBridgeException('Unknown method', objMap['method']);
     }
   }
 
@@ -279,8 +293,10 @@ class CryptoHandler {
         return await keyPair.id();
       case 'encrypt_data':
         final dataBase64 = objMap['args'][0];
+        final ivBase64 = objMap['args'][1];
         final data = base64Decode(dataBase64);
-        final dataOut = await keyPair.encryptData(data: data);
+        final iv = base64Decode(ivBase64);
+        final dataOut = await keyPair.encryptData(data: data, iv: iv);
         return base64Encode(dataOut);
       case 'decrypt_data':
         final dataBase64 = objMap['args'][0];
@@ -289,7 +305,6 @@ class CryptoHandler {
         return base64Encode(dataOut);
       case 'sign_data':
         final dataBase64 = objMap['args'][0];
-        print('dataBase64: $dataBase64');
         final data = base64Decode(dataBase64);
         final signature = await keyPair.signData(data: data);
         return base64Encode(signature);
@@ -316,7 +331,7 @@ class CryptoHandler {
         final spec = await keyPair.spec();
         return encodeKeyPairSpec(spec);
       default:
-        throw TsDartBridgeException('Unknown method', objMap['method']);
+        throw TsDartCryptoBridgeException('Unknown method', objMap['method']);
     }
   }
 
@@ -355,7 +370,7 @@ class CryptoHandler {
         _keyHandles[txHandleId] = txHandle;
         return [rxHandleId, txHandleId];
       default:
-        throw TsDartBridgeException('Unknown method', objMap['method']);
+        throw TsDartCryptoBridgeException('Unknown method', objMap['method']);
     }
   }
 
@@ -392,7 +407,7 @@ class CryptoHandler {
       case 'NETWORK':
         return SecurityLevel.network;
       default:
-        throw TsDartBridgeException('Unknown security level', json);
+        throw TsDartCryptoBridgeException('Unknown security level', json);
     }
   }
 
@@ -405,7 +420,7 @@ class CryptoHandler {
       case SecurityLevel.network:
         return 'NETWORK';
       default:
-        throw TsDartBridgeException('Unknown security level', level.toString());
+        throw TsDartCryptoBridgeException('Unknown security level', level.toString());
     }
   }
 
@@ -430,7 +445,7 @@ class CryptoHandler {
       case 'xChaCha20Poly1305':
         return Cipher.xChaCha20Poly1305;
       default:
-        throw TsDartBridgeException('Unknown cipher', json);
+        throw TsDartCryptoBridgeException('Unknown cipher', json);
     }
   }
 
@@ -486,7 +501,7 @@ class CryptoHandler {
       case 'blake2B':
         return CryptoHash.blake2B;
       default:
-        throw TsDartBridgeException('Unknown hash', json);
+        throw TsDartCryptoBridgeException('Unknown hash', json);
     }
   }
 
@@ -569,7 +584,7 @@ class CryptoHandler {
       case 'frp256V1':
         return AsymmetricKeySpec.frp256V1;
       default:
-        throw TsDartBridgeException('Unknown asymmetric key spec', json);
+        throw TsDartCryptoBridgeException('Unknown asymmetric key spec', json);
     }
   }
 
@@ -634,7 +649,7 @@ class CryptoHandler {
       case 'StorageConfigPass':
         return AdditionalConfig.storageConfigPass(map['pass']);
       default:
-        throw TsDartBridgeException('Unknown additional config type', map['type']);
+        throw TsDartCryptoBridgeException('Unknown additional config type', map['type']);
     }
   }
 
@@ -661,7 +676,7 @@ class CryptoHandler {
           'pass': field0,
         };
       default:
-        throw TsDartBridgeException('Unknown additional config type', config.runtimeType.toString());
+        throw TsDartCryptoBridgeException('Unknown additional config type', config.runtimeType.toString());
     }
   }
 
@@ -720,7 +735,7 @@ class CryptoHandler {
       case 'argon2id':
         return KDF.argon2Id(options);
       default:
-        throw TsDartBridgeException('Unknown KDF', map['type']);
+        throw TsDartCryptoBridgeException('Unknown KDF', map['type']);
     }
   }
 
@@ -734,6 +749,11 @@ class CryptoHandler {
       case KDF_Argon2id(:final field0):
         return {
           'type': 'argon2id',
+          'options': encodeArgon2Options(field0),
+        };
+      case KDF_Argon2i(:final field0):
+        return {
+          'type': 'argon2d',
           'options': encodeArgon2Options(field0),
         };
     }
