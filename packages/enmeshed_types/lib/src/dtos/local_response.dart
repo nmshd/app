@@ -1,8 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../contents/contents.dart';
 import 'local_response_source.dart';
 
+part 'local_response.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class LocalResponseDTO extends Equatable {
   final String createdAt;
   final Response content;
@@ -10,17 +14,9 @@ class LocalResponseDTO extends Equatable {
 
   const LocalResponseDTO({required this.createdAt, required this.content, this.source});
 
-  factory LocalResponseDTO.fromJson(Map json) {
-    return LocalResponseDTO(
-      createdAt: json['createdAt'],
-      content: Response.fromJson(json['content']),
-      source: json['source'] != null ? LocalResponseSourceDTO.fromJson(json['source']) : null,
-    );
-  }
+  factory LocalResponseDTO.fromJson(Map json) => _$LocalResponseDTOFromJson(Map<String, dynamic>.from(json));
 
-  static LocalResponseDTO? fromJsonNullable(Map? json) => json != null ? LocalResponseDTO.fromJson(json) : null;
-
-  Map<String, dynamic> toJson() => {'createdAt': createdAt, 'content': content.toJson(), if (source != null) 'source': source?.toJson()};
+  Map<String, dynamic> toJson() => _$LocalResponseDTOToJson(this);
 
   @override
   List<Object?> get props => [createdAt, content, source];
