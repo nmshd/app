@@ -107,7 +107,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await _registerWindowsSchemeForDebugMode('nmshd-dev');
 
     final appLinks = AppLinks();
-    appLinks.uriLinkStream.listen(_processUri);
+    appLinks.uriLinkStream.listen((link) => _processUri(link, router));
 
     final accounts = await runtime.accountServices.getAccounts();
     final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
@@ -126,18 +126,27 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     final initialAppLink = await appLinks.getInitialLink();
-    await _processUri(initialAppLink);
+    await _processUri(initialAppLink, router);
   }
 
-  Future<void> _processUri(Uri? uri) async {
+  Future<void> _processUri(Uri? uri, GoRouter router) async {
     if (uri == null) return;
 
     final uriString = uri.toString().replaceAll('nmshd-dev://', 'nmshd://').replaceAll('qr/#', 'qr#').replaceAll('enmeshed://', 'https://');
     GetIt.I.get<Logger>().i("Processing URL '$uriString'");
 
-    final result = await GetIt.I.get<EnmeshedRuntime>().stringProcessor.processURL(url: uriString);
+    final runtime = GetIt.I.get<EnmeshedRuntime>();
+
+    final accountsNotInDeletion = await runtime.accountServices.getAccountsNotInDeletion();
+    if (accountsNotInDeletion.isEmpty) {
+      router.go('/onboarding', extra: uriString);
+      return;
+    }
+
+    final result = await runtime.stringProcessor.processURL(url: uriString);
     if (result.isError) {
       GetIt.I.get<Logger>().e("Processing URL '$uriString' failed with code '${result.error.code}' and message '${result.error.message}'");
+      unawaited(router.push('/error-dialog', extra: result.error.code));
     }
   }
 }
