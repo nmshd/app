@@ -19,10 +19,10 @@ Future<void> cancelIdentityDeletionProcess(BuildContext context, LocalAccountDTO
 
   await GetIt.I.get<EnmeshedRuntime>().selectAccount(account.id);
 
-  if (context.mounted) {
-    context.go('/account/${account.id}');
-    showSuccessSnackbar(context: context, text: context.l10n.identity_restore_successful(account.name), showCloseIcon: true);
+  if (!context.mounted) return;
 
-    await context.push('/profiles');
-  }
+  context.go('/account/${account.id}');
+  showSuccessSnackbar(context: context, text: context.l10n.identity_restore_successful(account.name), showCloseIcon: true);
+
+  await context.push('/profiles');
 }

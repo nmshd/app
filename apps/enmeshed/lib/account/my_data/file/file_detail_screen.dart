@@ -117,16 +117,23 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
                                   ),
                                 ],
                               ),
-                              Gaps.w24,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(context.i18nTranslate(_fileDVO!.createdBy.name), style: Theme.of(context).textTheme.bodyMedium),
-                                  Text(
-                                    context.i18nTranslate(_formatDate(context, _fileDVO!.createdAt)),
-                                    style: Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ],
+                              Gaps.w8,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      context.i18nTranslate(_fileDVO!.createdBy.name),
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      context.i18nTranslate(_formatDate(context, _fileDVO!.createdAt)),
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
