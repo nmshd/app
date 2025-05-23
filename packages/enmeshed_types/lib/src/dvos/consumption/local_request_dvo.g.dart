@@ -29,6 +29,7 @@ LocalRequestDVO _$LocalRequestDVOFromJson(Map<String, dynamic> json) => LocalReq
   decider: IdentityDVO.fromJson(json['decider'] as Map<String, dynamic>),
   isDecidable: json['isDecidable'] as bool,
   items: (json['items'] as List<dynamic>).map((e) => RequestItemDVO.fromJson(e as Map<String, dynamic>)).toList(),
+  wasAutomaticallyDecided: json['wasAutomaticallyDecided'] as bool?,
 );
 
 Map<String, dynamic> _$LocalRequestDVOToJson(LocalRequestDVO instance) => <String, dynamic>{
@@ -54,6 +55,7 @@ Map<String, dynamic> _$LocalRequestDVOToJson(LocalRequestDVO instance) => <Strin
   'decider': instance.decider.toJson(),
   'isDecidable': instance.isDecidable,
   'items': instance.items.map((e) => e.toJson()).toList(),
+  if (instance.wasAutomaticallyDecided case final value?) 'wasAutomaticallyDecided': value,
 };
 
 const _$LocalRequestStatusEnumMap = {

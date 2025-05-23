@@ -1,10 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../contents/contents.dart';
 import '../dtos/dtos.dart';
 
+part 'local_request.g.dart';
+
 enum LocalRequestStatus { Draft, Open, DecisionRequired, ManualDecisionRequired, Decided, Completed, Expired }
 
+@JsonSerializable(includeIfNull: false)
 class LocalRequestDTO extends Equatable {
   final String id;
   final bool isOwn;
@@ -14,6 +18,7 @@ class LocalRequestDTO extends Equatable {
   final Request content;
   final LocalRequestSourceDTO? source;
   final LocalResponseDTO? response;
+  final bool? wasAutomaticallyDecided;
 
   const LocalRequestDTO({
     required this.id,
@@ -24,32 +29,13 @@ class LocalRequestDTO extends Equatable {
     required this.content,
     this.source,
     this.response,
+    this.wasAutomaticallyDecided,
   });
 
-  factory LocalRequestDTO.fromJson(Map json) {
-    return LocalRequestDTO(
-      id: json['id'],
-      isOwn: json['isOwn'],
-      peer: json['peer'],
-      createdAt: json['createdAt'],
-      status: LocalRequestStatus.values.byName(json['status']),
-      content: Request.fromJson(json['content']),
-      source: LocalRequestSourceDTO.fromJsonNullable(json['source']),
-      response: LocalResponseDTO.fromJsonNullable(json['response']),
-    );
-  }
+  factory LocalRequestDTO.fromJson(Map json) => _$LocalRequestDTOFromJson(Map<String, dynamic>.from(json));
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'isOwn': isOwn,
-    'peer': peer,
-    'createdAt': createdAt,
-    'status': status.name,
-    'content': content.toJson(),
-    if (source != null) 'source': source?.toJson(),
-    if (response != null) 'response': response?.toJson(),
-  };
+  Map<String, dynamic> toJson() => _$LocalRequestDTOToJson(this);
 
   @override
-  List<Object?> get props => [id, isOwn, peer, createdAt, status, content, source, response];
+  List<Object?> get props => [id, isOwn, peer, createdAt, status, content, source, response, wasAutomaticallyDecided];
 }
