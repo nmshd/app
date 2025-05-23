@@ -7,7 +7,6 @@ part of 'consent_request_item.dart';
 // **************************************************************************
 
 ConsentRequestItem _$ConsentRequestItemFromJson(Map<String, dynamic> json) => ConsentRequestItem(
-  title: json['title'] as String?,
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
@@ -19,7 +18,6 @@ ConsentRequestItem _$ConsentRequestItemFromJson(Map<String, dynamic> json) => Co
 
 Map<String, dynamic> _$ConsentRequestItemToJson(ConsentRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
   if (instance.metadata case final value?) 'metadata': value,
   'mustBeAccepted': instance.mustBeAccepted,
