@@ -9,9 +9,9 @@ import '/core/core.dart';
 import 'widgets/red_shrinked_divider.dart';
 
 class OnboardingInformation extends StatefulWidget {
-  final VoidCallback goToOnboardingLegalTexts;
+  final VoidCallback next;
 
-  const OnboardingInformation({required this.goToOnboardingLegalTexts, super.key});
+  const OnboardingInformation({required this.next, super.key});
 
   @override
   State<OnboardingInformation> createState() => _OnboardingInformationState();
@@ -86,7 +86,7 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
                   visible: _currentPageIndex < pages.length - 1,
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: TextButton(onPressed: widget.goToOnboardingLegalTexts, child: Text(context.l10n.skip)),
+                    child: TextButton(onPressed: widget.next, child: Text(context.l10n.skip)),
                   ),
                 ),
                 SmoothPageIndicator(
@@ -106,7 +106,7 @@ class _OnboardingInformationState extends State<OnboardingInformation> {
                   alignment: Alignment.centerRight,
                   child: FilledButton(
                     onPressed: _currentPageIndex == pages.length - 1
-                        ? widget.goToOnboardingLegalTexts
+                        ? widget.next
                         : () => _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn),
                     child: Text(context.l10n.next),
                   ),
