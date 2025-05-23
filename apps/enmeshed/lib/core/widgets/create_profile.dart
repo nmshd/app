@@ -18,6 +18,7 @@ class CreateProfile extends StatefulWidget {
   final VoidCallback? onBackPressed;
   final String? description;
   final String? loadingDescription;
+  final String? createProfileButtonText;
   final bool isInDialog;
 
   const CreateProfile({
@@ -26,6 +27,7 @@ class CreateProfile extends StatefulWidget {
     this.onBackPressed,
     this.description,
     this.loadingDescription,
+    this.createProfileButtonText,
     this.isInDialog = false,
   });
 
@@ -144,8 +146,7 @@ class _CreateProfileState extends State<CreateProfile> {
                       alignment: Alignment.centerRight,
                       child: FilledButton(
                         onPressed: _confirmEnabled ? _confirm : null,
-                        style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                        child: Text(context.l10n.profile_create),
+                        child: Text(widget.createProfileButtonText ?? context.l10n.profile_create),
                       ),
                     ),
                   ),

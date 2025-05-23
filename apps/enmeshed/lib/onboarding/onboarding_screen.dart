@@ -75,6 +75,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       isScrollControlled: true,
       builder: (_) => CreateProfile(
         loadingDescription: widget.appLink == null ? null : context.l10n.onboarding_appLinkAvailable_profileCreating_description,
+        createProfileButtonText: widget.appLink == null ? null : context.l10n.onboarding_appLinkAvailable_profileCreating_button,
         onProfileCreated: (account) async {
           context.go('/account/${account.id}');
           if (widget.appLink != null) {

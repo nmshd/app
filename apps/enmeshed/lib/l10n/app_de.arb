@@ -129,6 +129,7 @@
   "onboarding_appLinkAvailable_continue": "Profil anlegen und mit Code fortfahren",
   "onboarding_appLinkAvailable_acceptAndContinue": "Akzeptieren und Profil anlegen",
   "onboarding_appLinkAvailable_profileCreating_description": "Sie werden im Anschluss zur Kontaktanfrage aus dem QR-Code weitergeleitet.",
+  "onboarding_appLinkAvailable_profileCreating_button": "Anlegen und mit Code fortfahren",
   "restoreFromIdentityRecovery_loading": "Profil wird wiederhergestellt ...",
   "restoreFromIdentityRecovery_instructions_title": "Profil mit Wiederherstellungskit wiederherstellen",
   "restoreFromIdentityRecovery_instructions_subtitle": "So stellen Sie ein bestehendes Profil wieder her",

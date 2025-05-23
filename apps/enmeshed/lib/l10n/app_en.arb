@@ -129,6 +129,7 @@
   "onboarding_appLinkAvailable_continue": "Create profile and continue with code",
   "onboarding_appLinkAvailable_acceptAndContinue": "Accept and create profile",
   "onboarding_appLinkAvailable_profileCreating_description": "You will then be redirected to the contact request from the QR code.",
+  "onboarding_appLinkAvailable_profileCreating_button": "Create and continue with code",
   "restoreFromIdentityRecovery_loading": "Profile is being restored ...",
   "restoreFromIdentityRecovery_instructions_title": "Restore profile with recovery kit",
   "restoreFromIdentityRecovery_instructions_subtitle": "How to restore an existing profile",
