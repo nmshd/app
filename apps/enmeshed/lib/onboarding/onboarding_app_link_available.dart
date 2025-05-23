@@ -13,8 +13,9 @@ class OnboardingAppLinkAvailable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        minimum: const EdgeInsets.only(bottom: 16),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             spacing: 24,
             children: [
@@ -24,9 +25,12 @@ class OnboardingAppLinkAvailable extends StatelessWidget {
                     spacing: 24,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        context.l10n.onboarding_appLinkAvailable_welcome,
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Text(
+                          context.l10n.onboarding_appLinkAvailable_welcome,
+                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                        ),
                       ),
                       Text(context.l10n.onboarding_appLinkAvailable_information),
                       Text(context.l10n.onboarding_appLinkAvailable_howToProceed),
@@ -38,13 +42,16 @@ class OnboardingAppLinkAvailable extends StatelessWidget {
                   ),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: 4,
-                children: [
-                  OutlinedButton(onPressed: () => context.pushReplacement('/onboarding'), child: Text(context.l10n.cancel)),
-                  FilledButton(onPressed: next, child: Text(context.l10n.onboarding_appLinkAvailable_continue)),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  spacing: 4,
+                  children: [
+                    OutlinedButton(onPressed: () => context.pushReplacement('/onboarding'), child: Text(context.l10n.cancel)),
+                    FilledButton(onPressed: next, child: Text(context.l10n.onboarding_appLinkAvailable_continue)),
+                  ],
+                ),
               ),
             ],
           ),

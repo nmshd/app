@@ -28,7 +28,7 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 16),
             child: Text(
               context.l10n.onboarding_yourConsent,
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
