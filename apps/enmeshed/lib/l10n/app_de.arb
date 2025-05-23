@@ -87,7 +87,7 @@
   "scanner_failedStartingScanner_title": "Der Scanner konnte nicht gestartet werden",
   "scanner_failedStartingScanner_description": "Bitte überprüfen Sie, ob die Berechtigung zum Zugriff auf die Kamera erteilt wurde und ob Ihr Gerät über eine Kamera verfügt.\nAlternativ können Sie auch einen URL-Link manuell eingeben.",
   "onboarding_welcome": "Willkommen in der enmeshed App",
-  "onboarding_description": "Ihre Zentrale für personenbezogene Daten und Datenaustausch rund um ihren Bildungs- und Lebensweg.",
+  "onboarding_description": "Ihre Zentrale für personenbezogene Daten und Datenaustausch rund um Ihren Bildungs- und Lebensweg.",
   "onboarding_letsStart": "Los geht’s",
   "onboarding_info_titlePage1": "Dokumente und Daten verwalten",
   "onboarding_info_titlePage2": "Kontakte organisieren",
