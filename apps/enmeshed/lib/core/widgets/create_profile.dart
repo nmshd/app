@@ -157,7 +157,6 @@ class _CreateProfileState extends State<CreateProfile> {
               ModalLoadingOverlay(
                 text: context.l10n.profile_create_inProgress,
                 isDialog: widget.isInDialog,
-                backgroundColor: Theme.of(context).colorScheme.surface,
                 headlineColor: Theme.of(context).colorScheme.primary,
                 subline: widget.loadingDescription,
               ),

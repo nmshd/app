@@ -5,10 +5,9 @@ class ModalLoadingOverlay extends StatelessWidget {
   final String text;
   final bool isDialog;
   final String? subline;
-  final Color? backgroundColor;
   final Color? headlineColor;
 
-  const ModalLoadingOverlay({required this.text, required this.isDialog, this.subline, this.backgroundColor, this.headlineColor, super.key});
+  const ModalLoadingOverlay({required this.text, required this.isDialog, this.subline, this.headlineColor, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class ModalLoadingOverlay extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.vertical(top: const Radius.circular(28), bottom: isDialog ? const Radius.circular(28) : Radius.zero),
-          color: backgroundColor ?? Theme.of(context).colorScheme.outline.withValues(alpha: 0.9),
+          color: Theme.of(context).colorScheme.surface,
         ),
         child: Center(
           child: Padding(
