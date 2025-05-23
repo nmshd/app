@@ -16,12 +16,13 @@ class OnboardingAppLinkAvailable extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             spacing: 24,
             children: [
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
+                    spacing: 24,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
                         context.l10n.onboarding_appLinkAvailable_welcome,
