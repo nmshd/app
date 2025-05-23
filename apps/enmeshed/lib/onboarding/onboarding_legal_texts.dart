@@ -83,8 +83,11 @@ class _OnboardingLegalTextsState extends State<OnboardingLegalTexts> {
                 OutlinedButton(onPressed: widget.cancel, child: Text(context.l10n.cancel)),
                 FilledButton(
                   onPressed: isLegalAgreementCompleted ? widget.next : null,
-                  // TODO: translation
-                  child: Text(widget.appLinkAvailable ? 'Akzeptieren und Profil anlegen' : context.l10n.onboarding_yourConsent_acceptAndContinue),
+                  child: Text(
+                    widget.appLinkAvailable
+                        ? context.l10n.onboarding_appLinkAvailable_acceptAndContinue
+                        : context.l10n.onboarding_yourConsent_acceptAndContinue,
+                  ),
                 ),
               ],
             ),

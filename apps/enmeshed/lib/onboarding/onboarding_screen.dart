@@ -74,8 +74,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       context: context,
       isScrollControlled: true,
       builder: (_) => CreateProfile(
-        // TODO: translation
-        loadingDescription: widget.appLink == null ? null : 'Sie werden im Anschluss zur Kontaktanfrage aus dem QR-Code weitergeleitet.',
+        loadingDescription: widget.appLink == null ? null : context.l10n.onboarding_appLinkAvailable_profileCreating_description,
         onProfileCreated: (account) async {
           context.go('/account/${account.id}');
           if (widget.appLink != null) {

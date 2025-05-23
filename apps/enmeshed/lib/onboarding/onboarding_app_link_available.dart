@@ -19,36 +19,30 @@ class OnboardingAppLinkAvailable extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             spacing: 24,
             children: [
-              Text(
-                // TODO: translation
-                'Willkommen bei\nEnmeshed',
-                style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text(
+                        context.l10n.onboarding_appLinkAvailable_welcome,
+                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.primary),
+                      ),
+                      Text(context.l10n.onboarding_appLinkAvailable_information),
+                      Text(context.l10n.onboarding_appLinkAvailable_howToProceed),
+                      InformationCard(
+                        title: context.l10n.onboarding_appLinkAvailable_nextSteps,
+                        icon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              const Text(
-                // TODO: translation
-                'Sie haben einen QR-Code der Bildungsraum-Plattform gescannt. Mit der Mein Bildungsraum-App können Sie persönliche Dokumente und Daten verwalten, Ihre Bildungs-Kontakte organisieren und Bildungsnachweise mit Bildungspartnern teilen.',
-              ),
-              const Text(
-                // TODO: translation
-                'Um mit dem gerade gescannten QR-Code fortfahren zu können müssen Sie ein persönliches Profil in der Bildungsraum-App anlegen.',
-              ),
-              InformationCard(
-                // TODO: translation
-                title:
-                    'Sie werden im Folgenden durch die wenigen Schritte zur Erstellung Ihres persönlichen Profils geführt. Im nächsten Schritt müssen Sie den Nutzungsbestimmungen zustimmen.',
-                icon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary),
-              ),
-              const Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 spacing: 4,
                 children: [
                   OutlinedButton(onPressed: () => context.pushReplacement('/onboarding'), child: Text(context.l10n.cancel)),
-                  FilledButton(
-                    onPressed: next,
-                    // TODO: translation
-                    child: const Text('Profil anlegen und mit Code fortfahren'),
-                  ),
+                  FilledButton(onPressed: next, child: Text(context.l10n.onboarding_appLinkAvailable_continue)),
                 ],
               ),
             ],
