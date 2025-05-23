@@ -1,4 +1,5 @@
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:i18n_translated_text/i18n_translated_text.dart';
@@ -62,7 +63,7 @@ class _ChooseExistingProfile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -77,7 +78,7 @@ class _ChooseExistingProfile extends StatelessWidget {
             child: _ProfileListTile(localAccountDTO: active, isActiveAccount: true),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: 8).copyWith(left: 24, right: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -89,16 +90,24 @@ class _ChooseExistingProfile extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, index) => _ProfileListTile(localAccountDTO: otherAccounts[index]),
-              separatorBuilder: (_, __) => Divider(indent: 16, endIndent: 16, thickness: 1, color: Theme.of(context).colorScheme.outline),
-              itemCount: otherAccounts.length,
-              shrinkWrap: true,
+          Flexible(
+            child: Scrollbar(
+              thumbVisibility: true,
+              child: SingleChildScrollView(
+                child: ListView.separated(
+                  itemBuilder: (context, index) => _ProfileListTile(localAccountDTO: otherAccounts[index]),
+                  separatorBuilder: (_, __) => Divider(indent: 16, endIndent: 16, height: 1, color: Theme.of(context).colorScheme.outline),
+                  itemCount: otherAccounts.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                ),
+              ),
             ),
           ),
-          Align(
-            child: TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+          Gaps.h16,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            child: OutlinedButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
           ),
         ],
       ),
@@ -115,6 +124,7 @@ class _ProfileListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       leading: AutoLoadingProfilePicture(accountId: localAccountDTO.id, profileName: localAccountDTO.name, decorative: true),
       title: Text(localAccountDTO.name),
       subtitle: isActiveAccount ? Text(context.l10n.profiles_lastUsed) : null,
