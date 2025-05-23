@@ -15,7 +15,6 @@ LocalRequestDTO _$LocalRequestDTOFromJson(Map<String, dynamic> json) => LocalReq
   content: Request.fromJson(json['content'] as Map<String, dynamic>),
   source: json['source'] == null ? null : LocalRequestSourceDTO.fromJson(json['source'] as Map<String, dynamic>),
   response: json['response'] == null ? null : LocalResponseDTO.fromJson(json['response'] as Map<String, dynamic>),
-  wasAutomaticallyDecided: json['wasAutomaticallyDecided'] as bool?,
 );
 
 Map<String, dynamic> _$LocalRequestDTOToJson(LocalRequestDTO instance) => <String, dynamic>{
@@ -27,7 +26,6 @@ Map<String, dynamic> _$LocalRequestDTOToJson(LocalRequestDTO instance) => <Strin
   'content': instance.content.toJson(),
   if (instance.source?.toJson() case final value?) 'source': value,
   if (instance.response?.toJson() case final value?) 'response': value,
-  if (instance.wasAutomaticallyDecided case final value?) 'wasAutomaticallyDecided': value,
 };
 
 const _$LocalRequestStatusEnumMap = {
