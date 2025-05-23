@@ -11,16 +11,16 @@ import 'package:logger/logger.dart';
 import '/core/core.dart';
 import 'widgets/profiles_in_deletion_container.dart';
 
-class OnboardingAccount extends StatefulWidget {
-  final VoidCallback goToOnboardingLoading;
+class OnboardingSelectOption extends StatefulWidget {
+  final VoidCallback createAccount;
 
-  const OnboardingAccount({required this.goToOnboardingLoading, super.key});
+  const OnboardingSelectOption({required this.createAccount, super.key});
 
   @override
-  State<OnboardingAccount> createState() => _OnboardingAccountState();
+  State<OnboardingSelectOption> createState() => _OnboardingSelectOptionState();
 }
 
-class _OnboardingAccountState extends State<OnboardingAccount> {
+class _OnboardingSelectOptionState extends State<OnboardingSelectOption> {
   List<LocalAccountDTO> _accountsInDeletion = [];
 
   @override
@@ -31,7 +31,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
   }
 
   @override
-  void didUpdateWidget(covariant OnboardingAccount oldWidget) {
+  void didUpdateWidget(covariant OnboardingSelectOption oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     _loadAccountsInDeletion();
@@ -89,7 +89,7 @@ class _OnboardingAccountState extends State<OnboardingAccount> {
                       Gaps.h16,
                       Text(context.l10n.onboarding_createNewAccount_description, textAlign: TextAlign.center),
                       Gaps.h16,
-                      FilledButton(onPressed: widget.goToOnboardingLoading, child: Text(context.l10n.onboarding_createNewAccount_button)),
+                      FilledButton(onPressed: widget.createAccount, child: Text(context.l10n.onboarding_createNewAccount_button)),
                       Gaps.h24,
                       Row(
                         children: [
