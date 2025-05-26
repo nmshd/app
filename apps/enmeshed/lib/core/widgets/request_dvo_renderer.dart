@@ -137,6 +137,8 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     ),
                     if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
                   ],
+                  if (_request?.status == LocalRequestStatus.Completed || _request?.status == LocalRequestStatus.Decided)
+                    _RequestDecisionCard(request: _request!),
                   if (_validationResult != null && !_validationResult!.isSuccess)
                     _RequestRenderErrorContainer(
                       errorCount: _validationResult!.countOfValidationErrors,
@@ -147,7 +149,6 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                       padding: const EdgeInsets.all(16),
                       child: Text(_request!.content.description!, style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.left),
                     ),
-                  if (_request!.isDecidable) Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.mandatoryField)),
                   RequestRenderer(
                     formKey: _formKey,
                     request: _request!,
@@ -493,5 +494,41 @@ extension on RequestValidationResultDTO {
     if (items.isEmpty) return isSuccess ? 0 : 1;
 
     return items.map((item) => item.countOfValidationErrors).reduce((a, b) => a + b);
+  }
+}
+
+class _RequestDecisionCard extends StatelessWidget {
+  final LocalRequestDVO request;
+
+  const _RequestDecisionCard({required this.request});
+
+  @override
+  Widget build(BuildContext context) {
+    final title = switch ((request.response!.content.result, request.wasAutomaticallyDecided)) {
+      (ResponseResult.Accepted, true) => 'context.l10n.request_acceptedBySystem',
+      (ResponseResult.Accepted, _) => 'context.l10n.request_accepted',
+      (ResponseResult.Rejected, true) => 'context.l10n.request_declinedBySystem',
+      (ResponseResult.Rejected, _) => 'context.l10n.request_declined',
+    };
+
+    final icon = request.response!.content.result == ResponseResult.Accepted ? Icons.check_circle : Icons.cancel;
+    final color = request.response!.content.result == ResponseResult.Accepted ? context.customColors.success : Theme.of(context).colorScheme.error;
+
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
+        padding: const EdgeInsets.all(6),
+        child: Row(
+          children: [
+            Icon(icon, color: color, size: 20),
+            Gaps.w8,
+            Expanded(
+              child: Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: color)),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
