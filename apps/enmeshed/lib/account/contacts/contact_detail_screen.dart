@@ -128,6 +128,18 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> with ContactS
                 ContactDetailSharedInformation(accountId: widget.accountId, contactId: widget.contactId),
                 Gaps.h16,
                 if (contact.relationship?.status != RelationshipStatus.Pending) ...[
+                  MessagesContainer(
+                    accountId: widget.accountId,
+                    messages: _incomingMessages,
+                    unreadMessagesCount: _unreadMessagesCount,
+                    seeAllMessages: _incomingMessages != null && _incomingMessages!.isNotEmpty
+                        ? () => context.go('/account/${widget.accountId}/mailbox', extra: widget.contactId)
+                        : null,
+                    title: context.l10n.contact_information_messages,
+                    noMessagesText: context.l10n.contact_information_noMessages,
+                    hideAvatar: true,
+                  ),
+                  Gaps.h16,
                 ],
                 ContactSharedFiles(accountId: widget.accountId, contactId: widget.contactId, sharedFiles: sharedFiles),
               ],
