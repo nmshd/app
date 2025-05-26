@@ -142,6 +142,11 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                       errorCount: _validationResult!.countOfValidationErrors,
                       validationErrorDescription: widget.validationErrorDescription,
                     ),
+                  if (_request?.content.description != null && _request!.content.description!.trim().isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(_request!.content.description!, style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.left),
+                    ),
                   if (_request!.isDecidable) Padding(padding: const EdgeInsets.all(16), child: Text(context.l10n.mandatoryField)),
                   RequestRenderer(
                     formKey: _formKey,
