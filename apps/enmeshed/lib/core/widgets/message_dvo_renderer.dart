@@ -19,22 +19,19 @@ class MessageDVORenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = switch (message) {
+      final MailDVO mail => mail.wasReadAt == null && !mail.isOwn ? Theme.of(context).colorScheme.secondary : Colors.transparent,
+      final RequestMessageDVO requestMessage =>
+        requestMessage.request.status == LocalRequestStatus.ManualDecisionRequired ? Theme.of(context).colorScheme.error : Colors.transparent,
+      _ => Colors.transparent,
+    };
+
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      minLeadingWidth: 0,
       leading: hideAvatar
-          ? null
-          : ContactCircleAvatar(
-              radius: 20,
-              contact: message.peer,
-              borderColor: switch (message) {
-                final MailDVO mail => mail.wasReadAt == null && !mail.isOwn ? Theme.of(context).colorScheme.secondary : Colors.transparent,
-                final RequestMessageDVO requestMessage =>
-                  requestMessage.request.status == LocalRequestStatus.ManualDecisionRequired
-                      ? Theme.of(context).colorScheme.error
-                      : Colors.transparent,
-                _ => Colors.transparent,
-              },
-            ),
+          ? CircleAvatar(radius: 4, backgroundColor: color)
+          : ContactCircleAvatar(radius: 20, contact: message.peer, borderColor: color),
       title: _MessagesContent(message: message, query: query),
       onTap: () => _onTap(context),
     );
