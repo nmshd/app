@@ -5,9 +5,9 @@ import '/core/core.dart';
 import 'widgets/red_shrinked_divider.dart';
 
 class OnboardingWelcome extends StatelessWidget {
-  final VoidCallback goToOnboardingInformation;
+  final VoidCallback next;
 
-  const OnboardingWelcome({required this.goToOnboardingInformation, super.key});
+  const OnboardingWelcome({required this.next, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class OnboardingWelcome extends StatelessWidget {
                 ),
               ),
             ),
-            FilledButton(onPressed: goToOnboardingInformation, child: Text(context.l10n.onboarding_letsStart)),
+            FilledButton(onPressed: next, child: Text(context.l10n.onboarding_letsStart)),
           ],
         ),
       ),

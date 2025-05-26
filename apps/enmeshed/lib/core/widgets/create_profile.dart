@@ -17,9 +17,19 @@ class CreateProfile extends StatefulWidget {
   final void Function(LocalAccountDTO) onProfileCreated;
   final VoidCallback? onBackPressed;
   final String? description;
+  final String? loadingDescription;
+  final String? createProfileButtonText;
   final bool isInDialog;
 
-  const CreateProfile({required this.onProfileCreated, super.key, this.onBackPressed, this.description, this.isInDialog = false});
+  const CreateProfile({
+    required this.onProfileCreated,
+    super.key,
+    this.onBackPressed,
+    this.description,
+    this.loadingDescription,
+    this.createProfileButtonText,
+    this.isInDialog = false,
+  });
 
   @override
   State<CreateProfile> createState() => _CreateProfileState();
@@ -30,6 +40,7 @@ class _CreateProfileState extends State<CreateProfile> {
   bool _loading = false;
 
   final _controller = TextEditingController();
+  final _focusNode = FocusNode();
 
   Uint8List? _newProfilePicture;
 
@@ -38,11 +49,13 @@ class _CreateProfileState extends State<CreateProfile> {
     super.initState();
 
     _controller.addListener(() => setState(() {}));
+    _focusNode.requestFocus();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
 
     super.dispose();
   }
@@ -102,6 +115,7 @@ class _CreateProfileState extends State<CreateProfile> {
                               padding: const EdgeInsets.symmetric(horizontal: 24),
                               child: TextField(
                                 controller: _controller,
+                                focusNode: _focusNode,
                                 maxLength: MaxLength.profileName,
                                 textCapitalization: TextCapitalization.sentences,
                                 scrollPadding: EdgeInsets.only(
@@ -132,15 +146,20 @@ class _CreateProfileState extends State<CreateProfile> {
                       alignment: Alignment.centerRight,
                       child: FilledButton(
                         onPressed: _confirmEnabled ? _confirm : null,
-                        style: OutlinedButton.styleFrom(minimumSize: const Size(100, 36)),
-                        child: Text(context.l10n.profile_create),
+                        child: Text(widget.createProfileButtonText ?? context.l10n.profile_create),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            if (_loading) ModalLoadingOverlay(text: context.l10n.profile_create_inProgress, isDialog: widget.isInDialog),
+            if (_loading)
+              ModalLoadingOverlay(
+                text: context.l10n.profile_create_inProgress,
+                isDialog: widget.isInDialog,
+                headlineColor: Theme.of(context).colorScheme.primary,
+                subline: widget.loadingDescription,
+              ),
           ],
         ),
       ),
@@ -152,9 +171,7 @@ class _CreateProfileState extends State<CreateProfile> {
   Future<void> _confirm() async {
     FocusScope.of(context).unfocus();
 
-    setState(() {
-      _loading = true;
-    });
+    setState(() => _loading = true);
 
     final account = await GetIt.I.get<EnmeshedRuntime>().accountServices.createAccount(name: _controller.text);
 
