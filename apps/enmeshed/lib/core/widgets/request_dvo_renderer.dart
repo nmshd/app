@@ -504,6 +504,7 @@ class _RequestDecisionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: translations
     final title = switch ((request.response!.content.result, request.wasAutomaticallyDecided)) {
       (ResponseResult.Accepted, true) => 'context.l10n.request_acceptedBySystem',
       (ResponseResult.Accepted, _) => 'context.l10n.request_accepted',
