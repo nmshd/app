@@ -2,7 +2,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../utils/extensions.dart';
@@ -85,7 +84,7 @@ class _MailContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (message.subject.isNotEmpty)
+        if (message.subject.trim().isNotEmpty)
           HighlightText(
             text: message.subject,
             query: query,
@@ -115,13 +114,22 @@ class _RequestMessageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TranslatedText(
-      message.request.statusText,
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      style: message.wasReadAt == null && !message.isOwn
-          ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
-          : Theme.of(context).textTheme.bodyLarge,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (message.request.content.title != null && message.request.content.title!.trim().isNotEmpty)
+          Text(
+            message.request.content.title!,
+            style: message.wasReadAt == null && !message.isOwn
+                ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+                : Theme.of(context).textTheme.bodyLarge,
+            maxLines: 1,
+          )
+        else
+          Text(context.l10n.mailbox_noSubject, style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline)),
+        if (message.request.content.description != null)
+          Text(message.request.content.description!.replaceAll(CustomRegExp.html, ''), style: Theme.of(context).textTheme.bodyMedium, maxLines: 1),
+      ],
     );
   }
 }

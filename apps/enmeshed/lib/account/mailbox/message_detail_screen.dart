@@ -3,7 +3,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:intl/intl.dart';
 import 'package:styled_text/styled_text.dart';
 import 'package:url_launcher/url_launcher_string.dart' as url_launcher;
@@ -43,6 +42,12 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
       );
     }
 
+    final canRenderSubject = switch (_message!) {
+      final MailDVO mail => mail.subject.trim().isNotEmpty,
+      final RequestMessageDVO requestMessage => requestMessage.request.content.title?.isNotEmpty ?? false,
+      _ => false,
+    };
+
     final column = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -50,14 +55,17 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
           padding: const EdgeInsets.all(16),
           child: _MessageInformationHeader(account: _account!, message: _message!),
         ),
-        const Divider(height: 2),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: switch (_message!) {
-            final RequestMessageDVO requestMessage => TranslatedText(requestMessage.request.statusText, style: Theme.of(context).textTheme.bodyLarge),
-            _ => TranslatedText(_message!.name, style: Theme.of(context).textTheme.bodyLarge),
-          },
-        ),
+        if (canRenderSubject) ...[
+          const Divider(height: 2),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(switch (_message!) {
+              final RequestMessageDVO requestMessage => requestMessage.request.content.title!,
+              final MailDVO mail => mail.subject.trim(),
+              _ => _message!.name,
+            }, style: Theme.of(context).textTheme.bodyLarge),
+          ),
+        ],
         if (_message!.attachments.isNotEmpty) ...[
           const Divider(height: 2),
           Padding(
@@ -211,17 +219,67 @@ class _RequestInformationState extends State<_RequestInformation> {
 
   @override
   Widget build(BuildContext context) {
+    final request = widget.message.request;
+
     return Expanded(
-      child: RequestDVORenderer(
-        accountId: widget.account.id,
-        requestId: widget.message.request.id,
-        isIncoming: !widget.message.request.isOwn,
-        requestDVO: useRequestFromMessage ? widget.message.request : null,
-        acceptRequestText: context.l10n.accept,
-        validationErrorDescription: context.l10n.message_request_validationErrorDescription,
-        showHeader: false,
-        onAfterAccept: () => setState(() => useRequestFromMessage = false),
-        validateCreateRelationship: null,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (request.status == LocalRequestStatus.Completed || request.status == LocalRequestStatus.Decided) _RequestDecisionCard(request: request),
+          Expanded(
+            child: RequestDVORenderer(
+              accountId: widget.account.id,
+              requestId: request.id,
+              isIncoming: !request.isOwn,
+              requestDVO: useRequestFromMessage ? request : null,
+              acceptRequestText: context.l10n.accept,
+              validationErrorDescription: context.l10n.message_request_validationErrorDescription,
+              showHeader: false,
+              onAfterAccept: () => setState(() => useRequestFromMessage = false),
+              validateCreateRelationship: null,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RequestDecisionCard extends StatelessWidget {
+  final LocalRequestDVO request;
+
+  const _RequestDecisionCard({required this.request});
+
+  @override
+  Widget build(BuildContext context) {
+    final title = switch ((request.response!.content.result, request.wasAutomaticallyDecided)) {
+      (ResponseResult.Accepted, true) => 'context.l10n.message_request_acceptedBySystem',
+      (ResponseResult.Accepted, _) => 'context.l10n.message_request_accepted',
+      (ResponseResult.Rejected, true) => 'context.l10n.message_request_declinedBySystem',
+      (ResponseResult.Rejected, _) => 'context.l10n.message_request_declined',
+    };
+
+    final icon = request.response!.content.result == ResponseResult.Accepted ? Icons.check : Icons.close;
+    final color = request.response!.content.result == ResponseResult.Accepted ? context.customColors.success : Theme.of(context).colorScheme.error;
+
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              child: Center(child: Icon(icon, color: Theme.of(context).colorScheme.surfaceContainer, size: 20)),
+            ),
+            Gaps.w8,
+            Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium)),
+          ],
+        ),
       ),
     );
   }
