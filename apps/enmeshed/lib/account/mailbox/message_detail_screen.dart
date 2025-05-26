@@ -141,6 +141,7 @@ class _MessageInformationHeader extends StatelessWidget {
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 4,
                     children: [
                       Expanded(
                         child: Text(
