@@ -81,20 +81,17 @@ class _MailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final subjectStyle = message.wasReadAt == null && !message.isOwn
+        ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+        : Theme.of(context).textTheme.bodyLarge;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (message.subject.trim().isNotEmpty)
-          HighlightText(
-            text: message.subject,
-            query: query,
-            textStyle: message.wasReadAt == null && !message.isOwn
-                ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
-                : Theme.of(context).textTheme.bodyLarge,
-            maxLines: 1,
-          )
+          HighlightText(text: message.subject, query: query, textStyle: subjectStyle, maxLines: 1)
         else
-          Text(context.l10n.mailbox_noSubject, style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.outline)),
+          Text(context.l10n.mailbox_noSubject, style: subjectStyle!.copyWith(color: Theme.of(context).colorScheme.outline)),
         if (message.body.isNotEmpty)
           HighlightText(
             text: message.body.replaceAll(CustomRegExp.html, ''),
