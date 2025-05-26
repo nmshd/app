@@ -18,6 +18,7 @@ class LocalRequestDTO extends Equatable {
   final Request content;
   final LocalRequestSourceDTO? source;
   final LocalResponseDTO? response;
+  final bool? wasAutomaticallyDecided;
 
   const LocalRequestDTO({
     required this.id,
@@ -28,6 +29,7 @@ class LocalRequestDTO extends Equatable {
     required this.content,
     this.source,
     this.response,
+    this.wasAutomaticallyDecided,
   });
 
   factory LocalRequestDTO.fromJson(Map json) => _$LocalRequestDTOFromJson(Map<String, dynamic>.from(json));
@@ -35,5 +37,5 @@ class LocalRequestDTO extends Equatable {
   Map<String, dynamic> toJson() => _$LocalRequestDTOToJson(this);
 
   @override
-  List<Object?> get props => [id, isOwn, peer, createdAt, status, content, source, response];
+  List<Object?> get props => [id, isOwn, peer, createdAt, status, content, source, response, wasAutomaticallyDecided];
 }
