@@ -222,64 +222,16 @@ class _RequestInformationState extends State<_RequestInformation> {
     final request = widget.message.request;
 
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (request.status == LocalRequestStatus.Completed || request.status == LocalRequestStatus.Decided) _RequestDecisionCard(request: request),
-          Expanded(
-            child: RequestDVORenderer(
-              accountId: widget.account.id,
-              requestId: request.id,
-              isIncoming: !request.isOwn,
-              requestDVO: useRequestFromMessage ? request : null,
-              acceptRequestText: context.l10n.accept,
-              validationErrorDescription: context.l10n.message_request_validationErrorDescription,
-              showHeader: false,
-              onAfterAccept: () => setState(() => useRequestFromMessage = false),
-              validateCreateRelationship: null,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _RequestDecisionCard extends StatelessWidget {
-  final LocalRequestDVO request;
-
-  const _RequestDecisionCard({required this.request});
-
-  @override
-  Widget build(BuildContext context) {
-    final title = switch ((request.response!.content.result, request.wasAutomaticallyDecided)) {
-      (ResponseResult.Accepted, true) => 'context.l10n.message_request_acceptedBySystem',
-      (ResponseResult.Accepted, _) => 'context.l10n.message_request_accepted',
-      (ResponseResult.Rejected, true) => 'context.l10n.message_request_declinedBySystem',
-      (ResponseResult.Rejected, _) => 'context.l10n.message_request_declined',
-    };
-
-    final icon = request.response!.content.result == ResponseResult.Accepted ? Icons.check : Icons.close;
-    final color = request.response!.content.result == ResponseResult.Accepted ? context.customColors.success : Theme.of(context).colorScheme.error;
-
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Container(
-        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 24,
-              height: 24,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-              child: Center(child: Icon(icon, color: Theme.of(context).colorScheme.surfaceContainer, size: 20)),
-            ),
-            Gaps.w8,
-            Expanded(child: Text(title, style: Theme.of(context).textTheme.bodyMedium)),
-          ],
-        ),
+      child: RequestDVORenderer(
+        accountId: widget.account.id,
+        requestId: request.id,
+        isIncoming: !request.isOwn,
+        requestDVO: useRequestFromMessage ? request : null,
+        acceptRequestText: context.l10n.accept,
+        validationErrorDescription: context.l10n.message_request_validationErrorDescription,
+        showHeader: false,
+        onAfterAccept: () => setState(() => useRequestFromMessage = false),
+        validateCreateRelationship: null,
       ),
     );
   }
