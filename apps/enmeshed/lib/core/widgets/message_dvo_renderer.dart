@@ -21,6 +21,7 @@ class MessageDVORenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       leading: hideAvatar
           ? null
           : ContactCircleAvatar(

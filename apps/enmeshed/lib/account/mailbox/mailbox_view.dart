@@ -259,7 +259,7 @@ class _MessageListView extends StatelessWidget {
               separatorBuilder: (context, index) {
                 if (createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt), context: context) ==
                     createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt), context: context)) {
-                  return const Divider(indent: 16);
+                  return const Divider(indent: 16, height: 1);
                 }
 
                 return Container(

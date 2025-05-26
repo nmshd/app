@@ -40,7 +40,7 @@ class MessagesContainer extends StatelessWidget {
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => const Divider(indent: 16),
+            separatorBuilder: (context, index) => const Divider(indent: 16, height: 1),
             itemBuilder: (context, index) => MessageDVORenderer(message: messages![index], accountId: accountId, hideAvatar: hideAvatar),
             itemCount: messages!.length,
           )
