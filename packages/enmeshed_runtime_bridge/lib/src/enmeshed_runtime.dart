@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
+import 'package:enmeshed_runtime_bridge/src/crypto_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -62,9 +63,9 @@ class EnmeshedRuntime {
     required this.getPushTokenCallback,
     required this.runtimeConfig,
     EventBus? eventBus,
-  }) : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
-       _runtimeReadyCallback = runtimeReadyCallback,
-       eventBus = eventBus ?? EventBus() {
+  })  : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
+        _runtimeReadyCallback = runtimeReadyCallback,
+        eventBus = eventBus ?? EventBus() {
     if (runtimeConfig.baseUrl.isEmpty) throw Exception('Missing runtimeConfig value: baseUrl');
     if (runtimeConfig.clientId.isEmpty) throw Exception('Missing runtimeConfig value: clientId');
     if (runtimeConfig.clientSecret.isEmpty) throw Exception('Missing runtimeConfig value: clientSecret');
@@ -136,6 +137,8 @@ class EnmeshedRuntime {
 
     controller.addJavaScriptHandler(handlerName: 'handleRuntimeEvent', callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger));
 
+    controller.addJavaScriptHandler(handlerName: "handleCryptoEvent", callback: (args) => CryptoHandler().handleCall(args));
+
     controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
 
     controller.addJavaScriptHandler(
@@ -197,6 +200,7 @@ class EnmeshedRuntime {
 
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/loki.js');
     await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/index.js');
+    await controller.injectJavascriptFileFromAsset(assetFilePath: '$assetsFolder/cryptoBridge.js');
   }
 
   Future<VoidResult> run() async {
@@ -333,7 +337,9 @@ class Evaluator extends AbstractEvaluator {
   String get sessionEvaluation => (_accountReference == null) ? 'null' : 'await runtime.getOrCreateSession("$_accountReference")';
   String get sessionStorage => _isAnonymous ? '' : 'const session = $sessionEvaluation;\n';
 
-  Evaluator._(this._runtime, {String? accountReference, bool isAnonymous = false}) : _accountReference = accountReference, _isAnonymous = isAnonymous;
+  Evaluator._(this._runtime, {String? accountReference, bool isAnonymous = false})
+      : _accountReference = accountReference,
+        _isAnonymous = isAnonymous;
 
   Evaluator.account(EnmeshedRuntime runtime, String accountReference) : this._(runtime, accountReference: accountReference);
   Evaluator.anonymous(EnmeshedRuntime runtime) : this._(runtime, isAnonymous: true);
@@ -355,7 +361,7 @@ class Session {
   DataViewExpander get expander => _expander;
 
   Session(AbstractEvaluator evaluator)
-    : _transportServices = TransportServices(evaluator),
-      _consumptionServices = ConsumptionServices(evaluator),
-      _expander = DataViewExpander(evaluator);
+      : _transportServices = TransportServices(evaluator),
+        _consumptionServices = ConsumptionServices(evaluator),
+        _expander = DataViewExpander(evaluator);
 }
