@@ -137,8 +137,7 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     ),
                     if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
                   ],
-                  if (_request?.status == LocalRequestStatus.Completed || _request?.status == LocalRequestStatus.Decided)
-                    _RequestDecisionCard(request: _request!),
+                  if (_RequestStatusCard.canShowStatus(_request)) _RequestStatusCard(request: _request!),
                   if (_validationResult != null && !_validationResult!.isSuccess)
                     _RequestRenderErrorContainer(
                       errorCount: _validationResult!.countOfValidationErrors,
@@ -497,20 +496,25 @@ extension on RequestValidationResultDTO {
   }
 }
 
-class _RequestDecisionCard extends StatelessWidget {
+class _RequestStatusCard extends StatelessWidget {
   final LocalRequestDVO request;
 
-  const _RequestDecisionCard({required this.request});
+  const _RequestStatusCard({required this.request});
+
+  static bool canShowStatus(LocalRequestDVO? request) {
+    if (request == null) return false;
+
+    return request.status == LocalRequestStatus.Completed || request.status == LocalRequestStatus.Decided;
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: add date
-    // TODO: translations
     final title = switch ((request.response!.content.result, request.wasAutomaticallyDecided)) {
-      (ResponseResult.Accepted, true) => 'context.l10n.request_acceptedBySystem',
-      (ResponseResult.Accepted, _) => 'context.l10n.request_accepted',
-      (ResponseResult.Rejected, true) => 'context.l10n.request_declinedBySystem',
-      (ResponseResult.Rejected, _) => 'context.l10n.request_declined',
+      (ResponseResult.Accepted, true) => context.l10n.request_status_acceptedBySystem,
+      (ResponseResult.Accepted, _) => context.l10n.request_status_accepted,
+      (ResponseResult.Rejected, true) => context.l10n.request_status_declinedBySystem,
+      (ResponseResult.Rejected, _) => context.l10n.request_status_declined,
     };
 
     final icon = request.response!.content.result == ResponseResult.Accepted ? Icons.check_circle : Icons.info;
