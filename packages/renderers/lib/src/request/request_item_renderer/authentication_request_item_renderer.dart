@@ -2,6 +2,7 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n_translated_text/i18n_translated_text.dart';
 
 import '../request_item_index.dart';
 import '../request_renderer_controller.dart';
@@ -54,7 +55,7 @@ class _AuthenticationRequestItemRendererState extends State<AuthenticationReques
           ),
           if (widget.item.description != null) Text(widget.item.description!, style: Theme.of(context).textTheme.bodySmall),
           Gaps.h8,
-          _AuthenticationBox(item: widget.item, value: _isChecked, onUpdateToggle: _onUpdateToggle, text: 'Annehmen'),
+          _AuthenticationBox(item: widget.item, value: _isChecked, onUpdateToggle: _onUpdateToggle),
           if (!(widget.validationResult?.isSuccess ?? true)) ...[Gaps.h8, ValidationErrorBox(validationResult: widget.validationResult!)],
         ],
       ),
@@ -75,9 +76,8 @@ class _AuthenticationBox extends StatelessWidget {
   final AuthenticationRequestItemDVO item;
   final bool value;
   final ValueChanged<bool> onUpdateToggle;
-  final String text;
 
-  const _AuthenticationBox({required this.item, required this.value, required this.onUpdateToggle, required this.text});
+  const _AuthenticationBox({required this.item, required this.value, required this.onUpdateToggle});
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +91,8 @@ class _AuthenticationBox extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Text(
-              text,
+            TranslatedText(
+              'i18n://requestRenderer.authentication.accept',
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: active ? null : 0.16)),
