@@ -96,7 +96,7 @@ class _ChooseExistingProfile extends StatelessWidget {
               child: SingleChildScrollView(
                 child: ListView.separated(
                   itemBuilder: (context, index) => _ProfileListTile(localAccountDTO: otherAccounts[index]),
-                  separatorBuilder: (_, __) => Divider(indent: 16, endIndent: 16, height: 1, color: Theme.of(context).colorScheme.outline),
+                  separatorBuilder: (_, _) => Divider(indent: 16, endIndent: 16, height: 1, color: Theme.of(context).colorScheme.outline),
                   itemCount: otherAccounts.length,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
