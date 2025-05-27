@@ -1189,9 +1189,13 @@
     }
   },
   "requestRenderer": {
+    "authentication": {
+      "accept": "Accept"
+    },
     "consent": {
       "defaultLinkDisplayText": "Open Link",
-      "showFullConsent": "Show full text"
+      "showFullConsent": "Show full text",
+      "title": "Declaration of consent"
     },
     "description": {
       "transferFileOwnership": "New document in your wallet"
