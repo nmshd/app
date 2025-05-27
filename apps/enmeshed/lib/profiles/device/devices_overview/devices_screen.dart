@@ -92,7 +92,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
                         )
                       : ListView.separated(
                           itemCount: otherDevices.length,
-                          separatorBuilder: (_, __) => Gaps.h16,
+                          separatorBuilder: (_, _) => Gaps.h16,
                           itemBuilder: (context, index) =>
                               DeviceCard(accountId: widget.accountId, device: otherDevices[index], reloadDevices: _reloadDevices),
                         ),
