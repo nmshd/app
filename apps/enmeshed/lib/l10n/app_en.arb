@@ -490,6 +490,8 @@
   "contactDetail_description1": "You can keep the contact in your contact list, but it is no longer possible to exchange information with the contact.",
   "contactDetail_description2": "If you keep the contact in your contact list, all messages will remain saved in your profile.",
   "contactDetail_description3": "If you delete the contact from your contact list, all messages with the contact will be deleted from your mailbox. Documents that the contact has shared with you will be retained.",
+  "contactDetail_pendingTitle": "The answer from the new contact is still pending.",
+  "contactDetail_pendingDescription": "You can make full use of the contact function as soon as the contact has confirmed the relationship.",
   "contactDetail_entry": "Entry",
   "contactDetail_addEntry": "Add",
   "contactDetail_selectOrCreateEntryMessage": "Share an entry you have already created with your contact or create a new one.",
