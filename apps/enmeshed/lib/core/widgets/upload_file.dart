@@ -85,7 +85,6 @@ class _UploadFileState extends State<UploadFile> {
                     children: [
                       if (_selectedFile != null) _FileSelected(file: _selectedFile!) else _NoFileSelected(selectFile: _selectFile),
                       if (_isFileTooLarge) const _FileSizeError(),
-                      Text(context.l10n.mandatoryField),
                       Gaps.h24,
                       TextFormField(
                         maxLength: MaxLength.fileName,
