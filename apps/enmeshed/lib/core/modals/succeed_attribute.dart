@@ -125,10 +125,6 @@ class _SucceedAttributeModalState extends State<_SucceedAttributeModal> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (addressDataInitialAttributeTypes.contains(widget.attribute.valueType)) ...[
-                        Text(context.l10n.mandatoryField, style: const TextStyle(fontSize: 14)),
-                        Gaps.h24,
-                      ],
                       ValueRenderer(
                         renderHints: widget.attribute.renderHints,
                         valueHints: widget.attribute.valueHints,
