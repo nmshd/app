@@ -192,7 +192,10 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   }
 
   FloatingActionButton? get _fab => switch (_selectedIndex) {
-    0 || 1 => FloatingActionButton(onPressed: () => context.push('/account/${widget.accountId}/scan'), child: const Icon(Icons.qr_code_scanner)),
+    0 || 1 => FloatingActionButton(
+      onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
+      child: const Icon(Icons.qr_code_scanner),
+    ),
     3 => FloatingActionButton(onPressed: () => context.go('/account/${widget.accountId}/mailbox/send'), child: const Icon(Icons.send)),
     _ => null,
   };
