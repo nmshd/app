@@ -504,6 +504,7 @@ class _RequestDecisionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: add date
     // TODO: translations
     final title = switch ((request.response!.content.result, request.wasAutomaticallyDecided)) {
       (ResponseResult.Accepted, true) => 'context.l10n.request_acceptedBySystem',
@@ -512,23 +513,20 @@ class _RequestDecisionCard extends StatelessWidget {
       (ResponseResult.Rejected, _) => 'context.l10n.request_declined',
     };
 
-    final icon = request.response!.content.result == ResponseResult.Accepted ? Icons.check_circle : Icons.cancel;
-    final color = request.response!.content.result == ResponseResult.Accepted ? context.customColors.success : Theme.of(context).colorScheme.error;
+    final icon = request.response!.content.result == ResponseResult.Accepted ? Icons.check_circle : Icons.info;
+    final color = Theme.of(context).colorScheme.onSurfaceVariant;
 
-    return Padding(
+    return Container(
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer),
       padding: const EdgeInsets.all(16),
-      child: Container(
-        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer, borderRadius: BorderRadius.circular(4)),
-        padding: const EdgeInsets.all(6),
-        child: Row(
-          children: [
-            Icon(icon, color: color, size: 20),
-            Gaps.w8,
-            Expanded(
-              child: Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: color)),
-            ),
-          ],
-        ),
+      child: Row(
+        children: [
+          Icon(icon, color: color, size: 24),
+          Gaps.w8,
+          Expanded(
+            child: Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: color)),
+          ),
+        ],
       ),
     );
   }
