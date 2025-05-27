@@ -164,10 +164,12 @@ class _MailboxViewState extends State<MailboxView> {
       return [
         if (message is MailDVO) message.body.toLowerCase(),
         if (message is MailDVO) message.subject.toLowerCase(),
+        if (message is RequestMessageDVO) message.request.content.title?.toLowerCase(),
+        if (message is RequestMessageDVO) message.request.content.description?.toLowerCase(),
         if (message.description != null) message.description!.toLowerCase(),
         message.name.toLowerCase(),
         message.peer.name.toLowerCase(),
-      ].any((element) => element.contains(keyword.toLowerCase()));
+      ].any((element) => element != null && element.contains(keyword.toLowerCase()));
     }
 
     return List<MessageDVO>.of(messages)
