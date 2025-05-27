@@ -15,6 +15,17 @@ class ContactStatusInfoContainer extends StatelessWidget {
 
     final textStyle = Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant);
 
+    if (contact.relationship?.status == RelationshipStatus.Pending) {
+      return Padding(
+        padding: const EdgeInsets.all(16),
+        child: ComplexInformationCard(
+          title: context.l10n.contactDetail_pendingTitle,
+          description: context.l10n.contactDetail_pendingDescription,
+          icon: Icon(Icons.info, color: Theme.of(context).colorScheme.secondary),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Container(
@@ -25,8 +36,8 @@ class ContactStatusInfoContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               switch (contact.relationship?.peerDeletionStatus) {
-                (PeerDeletionStatus.ToBeDeleted) => Icon(Icons.warning_rounded, color: context.customColors.warning),
-                (PeerDeletionStatus.Deleted) => Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
+                PeerDeletionStatus.ToBeDeleted => Icon(Icons.warning_rounded, color: context.customColors.warning),
+                PeerDeletionStatus.Deleted => Icon(Icons.cancel, color: Theme.of(context).colorScheme.error),
                 _ => Icon(Icons.error, color: Theme.of(context).colorScheme.error),
               },
               Gaps.w8,
@@ -59,7 +70,8 @@ class ContactStatusInfoContainer extends StatelessWidget {
     return contact.relationship?.peerDeletionStatus == PeerDeletionStatus.ToBeDeleted ||
         contact.relationship?.peerDeletionStatus == PeerDeletionStatus.Deleted ||
         contact.relationship?.status == RelationshipStatus.Terminated ||
-        contact.relationship?.status == RelationshipStatus.DeletionProposed;
+        contact.relationship?.status == RelationshipStatus.DeletionProposed ||
+        contact.relationship?.status == RelationshipStatus.Pending;
   }
 
   String? _getInfoTitle(BuildContext context) {

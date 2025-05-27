@@ -19,26 +19,24 @@ class BannerCard extends StatelessWidget {
         color: _getBackgroundColor(context, type),
         borderRadius: isFullWidth ? BorderRadius.zero : const BorderRadius.all(Radius.circular(4)),
       ),
-      child: Padding(
-        padding: EdgeInsets.only(left: 16, right: onClosePressed != null ? 0 : 16, top: 16, bottom: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _BannerCardIcon(type: type),
+      padding: EdgeInsets.only(left: 16, right: onClosePressed != null ? 0 : 16, top: 16, bottom: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _BannerCardIcon(type: type),
+          Gaps.w8,
+          Expanded(
+            child: Text(title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: _getTextColor(context, type))),
+          ),
+          if (actionButton != null) ...[
             Gaps.w8,
-            Expanded(
-              child: Text(title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: _getTextColor(context, type))),
+            TextButton(
+              onPressed: actionButton!.onPressed,
+              child: Text(actionButton!.title, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: _getTextColor(context, type))),
             ),
-            if (actionButton != null) ...[
-              Gaps.w8,
-              TextButton(
-                onPressed: actionButton!.onPressed,
-                child: Text(actionButton!.title, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: _getTextColor(context, type))),
-              ),
-            ],
-            if (onClosePressed != null) ...[Gaps.w8, IconButton(onPressed: onClosePressed, icon: const Icon(Icons.close))],
           ],
-        ),
+          if (onClosePressed != null) ...[Gaps.w8, IconButton(onPressed: onClosePressed, icon: const Icon(Icons.close))],
+        ],
       ),
     );
   }
