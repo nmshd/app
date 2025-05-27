@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../utils/extensions.dart';
 import 'empty_list_indicator.dart';
-import 'message_dvo_renderer.dart';
+import 'message_list_tile.dart';
 
 class MessagesContainer extends StatelessWidget {
   final String accountId;
@@ -41,7 +41,7 @@ class MessagesContainer extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const Divider(indent: 16, height: 1),
-            itemBuilder: (context, index) => MessageDVORenderer(message: messages![index], accountId: accountId, hideAvatar: hideAvatar),
+            itemBuilder: (context, index) => MessageListTile(message: messages![index], accountId: accountId, hideAvatar: hideAvatar),
             itemCount: messages!.length,
           )
         else

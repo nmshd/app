@@ -174,7 +174,7 @@ class _MailboxViewState extends State<MailboxView> {
 
     return List<MessageDVO>.of(messages)
         .where((element) => containsKeyword(element, keyword))
-        .map((item) => MessageDVORenderer(message: item, accountId: widget.accountId, controller: controller, query: keyword))
+        .map((item) => MessageListTile(message: item, accountId: widget.accountId, controller: controller, query: keyword))
         .separated(() => const Divider(height: 2));
   }
 
@@ -288,12 +288,12 @@ class _MessageListView extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
-                      MessageDVORenderer(message: messages[index], accountId: accountId),
+                      MessageListTile(message: messages[index], accountId: accountId),
                     ],
                   );
                 }
 
-                return MessageDVORenderer(message: messages[index], accountId: accountId);
+                return MessageListTile(message: messages[index], accountId: accountId);
               },
             ),
     );
