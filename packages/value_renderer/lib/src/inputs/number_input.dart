@@ -97,15 +97,21 @@ class NumberInputState extends State<NumberInput> {
 
     if (!validateMaxValue(numInput)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.maxValue', translationParams: {'value': widget.max!.toString()});
-    } else if (input.isNotEmpty && !validateMinValue(numInput)) {
-      return FlutterI18n.translate(context, 'errors.value_renderer.minValue', translationParams: {'value': widget.min!.toString()});
-    } else if (input.isNotEmpty && !validateFormat(input)) {
-      return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
-    } else if (input.isNotEmpty && !validateEquality(numInput)) {
-      return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
-    } else {
-      return null;
     }
+
+    if (input.isNotEmpty && !validateMinValue(numInput)) {
+      return FlutterI18n.translate(context, 'errors.value_renderer.minValue', translationParams: {'value': widget.min!.toString()});
+    }
+
+    if (input.isNotEmpty && !validateFormat(input)) {
+      return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
+    }
+
+    if (input.isNotEmpty && !validateEquality(numInput)) {
+      return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
+    }
+
+    return null;
   }
 
   bool validateMaxValue(num input) {
