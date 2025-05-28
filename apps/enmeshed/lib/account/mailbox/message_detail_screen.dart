@@ -42,10 +42,10 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
       );
     }
 
-    final canRenderSubject = switch (_message!) {
-      final MailDVO mail => mail.subject.trim().isNotEmpty,
-      final RequestMessageDVO requestMessage => requestMessage.request.content.title?.isNotEmpty ?? false,
-      _ => false,
+    final subject = switch (_message!) {
+      final MailDVO mail => mail.subject.trim(),
+      final RequestMessageDVO requestMessage => requestMessage.request.content.title?.trim(),
+      _ => null,
     };
 
     final column = Column(
@@ -55,15 +55,11 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
           padding: const EdgeInsets.all(16),
           child: _MessageInformationHeader(account: _account!, message: _message!),
         ),
-        if (canRenderSubject) ...[
+        if (subject != null && subject.isNotEmpty) ...[
           const Divider(height: 2),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text(switch (_message!) {
-              final RequestMessageDVO requestMessage => requestMessage.request.content.title!,
-              final MailDVO mail => mail.subject.trim(),
-              _ => _message!.name,
-            }, style: Theme.of(context).textTheme.bodyLarge),
+            child: Text(subject, style: Theme.of(context).textTheme.bodyLarge),
           ),
         ],
         if (_message!.attachments.isNotEmpty) ...[
