@@ -81,18 +81,28 @@ class TextInputState extends State<TextInput> {
     );
   }
 
-  String? validateInput(input) {
+  String? validateInput(String? input) {
+    if (input == null) {
+      return widget.mustBeFilledOut ? FlutterI18n.translate(context, 'errors.value_renderer.emptyField') : null;
+    }
+
     if (input.isEmpty && widget.mustBeFilledOut) {
       return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
-    } else if (input.isNotEmpty && !validateEquality(input)) {
+    }
+
+    if (input.isNotEmpty && !validateEquality(input)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
-    } else if (input.isNotEmpty && widget.formatValidations != null) {
+    }
+
+    if (input.isNotEmpty && widget.formatValidations != null) {
       for (final entry in widget.formatValidations!.entries) {
         if (!validateFormat(input, entry.key)) {
           return FlutterI18n.translate(context, entry.value);
         }
       }
-    } else if (input.isNotEmpty && !validateFormat(input, widget.pattern)) {
+    }
+
+    if (input.isNotEmpty && !validateFormat(input, widget.pattern)) {
       return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
     }
     return null;

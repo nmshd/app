@@ -89,24 +89,29 @@ class NumberInputState extends State<NumberInput> {
     );
   }
 
-  String? validateInput(input) {
-    if (input.isEmpty && widget.mustBeFilledOut) {
-      return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
-    } else {
-      final numInput = num.parse(input);
+  String? validateInput(String? input) {
+    if ((input == null || input.isEmpty) && widget.mustBeFilledOut) return FlutterI18n.translate(context, 'errors.value_renderer.emptyField');
+    if (input == null || input.isEmpty) return null;
 
-      if (!validateMaxValue(numInput)) {
-        return FlutterI18n.translate(context, 'errors.value_renderer.maxValue', translationParams: {'value': widget.max!.toString()});
-      } else if (input.isNotEmpty && !validateMinValue(numInput)) {
-        return FlutterI18n.translate(context, 'errors.value_renderer.minValue', translationParams: {'value': widget.min!.toString()});
-      } else if (input.isNotEmpty && !validateFormat(input)) {
-        return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
-      } else if (input.isNotEmpty && !validateEquality(numInput)) {
-        return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
-      } else {
-        return null;
-      }
+    final numInput = num.parse(input);
+
+    if (!validateMaxValue(numInput)) {
+      return FlutterI18n.translate(context, 'errors.value_renderer.maxValue', translationParams: {'value': widget.max!.toString()});
     }
+
+    if (input.isNotEmpty && !validateMinValue(numInput)) {
+      return FlutterI18n.translate(context, 'errors.value_renderer.minValue', translationParams: {'value': widget.min!.toString()});
+    }
+
+    if (input.isNotEmpty && !validateFormat(input)) {
+      return FlutterI18n.translate(context, 'errors.value_renderer.invalidFormat');
+    }
+
+    if (input.isNotEmpty && !validateEquality(numInput)) {
+      return FlutterI18n.translate(context, 'errors.value_renderer.invalidInput');
+    }
+
+    return null;
   }
 
   bool validateMaxValue(num input) {
