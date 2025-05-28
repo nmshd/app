@@ -41,13 +41,28 @@ class MessagesContainer extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const Divider(indent: 16, height: 1),
-            itemBuilder: (context, index) => MessageListTile(message: messages![index], accountId: accountId, hideAvatar: hideAvatar),
+            itemBuilder: (context, index) => MessageListTile(
+              message: messages![index],
+              accountId: accountId,
+              avatarStyle: messages!.every((m) => !m._shouldShowAvatar) ? MessageListTileLeadingStyle.none : MessageListTileLeadingStyle.dot,
+            ),
             itemCount: messages!.length,
           )
         else
           EmptyListIndicator(icon: Icons.mail_outline, text: noMessagesText),
       ],
     );
+  }
+}
+
+extension on MessageDVO {
+  bool get _shouldShowAvatar {
+    if (wasReadAt == null && !isOwn) return true;
+
+    return switch (this) {
+      final RequestMessageDVO requestMessage => requestMessage.request.status == LocalRequestStatus.ManualDecisionRequired,
+      _ => false,
+    };
   }
 }
 

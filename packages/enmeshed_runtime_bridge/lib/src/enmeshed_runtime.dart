@@ -167,11 +167,18 @@ class EnmeshedRuntime {
           'platformClientSecret': runtimeConfig.clientSecret,
         },
         'databaseFolder': runtimeConfig.databaseFolder,
-        if (Platform.isWindows)
-          'modules': {
-            'pushNotification': {'enabled': false},
-            'sse': {'enabled': true},
+        'modules': {
+          if (Platform.isWindows) 'pushNotification': {'enabled': false},
+          if (Platform.isWindows) 'sse': {'enabled': true},
+          'decider': {
+            'automationConfig': [
+              {
+                'requestConfig': {'content.item.@type': 'TransferFileOwnershipRequestItem'},
+                'responseConfig': {'accept': true},
+              },
+            ],
           },
+        },
       },
     );
 

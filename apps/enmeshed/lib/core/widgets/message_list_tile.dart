@@ -8,31 +8,37 @@ import '../utils/extensions.dart';
 import 'contact_circle_avatar.dart';
 import 'highlight_text.dart';
 
+enum MessageListTileLeadingStyle { avatar, dot, none }
+
 class MessageListTile extends StatelessWidget {
   final MessageDVO message;
   final String accountId;
   final SearchController? controller;
   final String? query;
-  final bool hideAvatar;
+  final MessageListTileLeadingStyle avatarStyle;
 
-  const MessageListTile({required this.message, required this.accountId, super.key, this.controller, this.query, this.hideAvatar = false});
+  const MessageListTile({
+    required this.message,
+    required this.accountId,
+    super.key,
+    this.controller,
+    this.query,
+    this.avatarStyle = MessageListTileLeadingStyle.avatar,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final color = switch (message) {
-      final MailDVO mail => mail.wasReadAt == null && !mail.isOwn ? Theme.of(context).colorScheme.secondary : Colors.transparent,
-      final RequestMessageDVO requestMessage =>
-        requestMessage.request.status == LocalRequestStatus.ManualDecisionRequired ? Theme.of(context).colorScheme.error : Colors.transparent,
-      _ => Colors.transparent,
-    };
+    final color = _avatarColor(context);
 
     return ListTile(
-      visualDensity: hideAvatar ? VisualDensity.compact : null,
+      visualDensity: avatarStyle == MessageListTileLeadingStyle.dot ? VisualDensity.compact : null,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       minLeadingWidth: 0,
-      leading: hideAvatar
-          ? CircleAvatar(radius: 4, backgroundColor: color)
-          : ContactCircleAvatar(radius: 20, contact: message.peer, borderColor: color),
+      leading: switch (avatarStyle) {
+        MessageListTileLeadingStyle.dot => CircleAvatar(radius: 4, backgroundColor: color),
+        MessageListTileLeadingStyle.avatar => ContactCircleAvatar(radius: 20, contact: message.peer, borderColor: color),
+        MessageListTileLeadingStyle.none => null,
+      },
       title: _MessageListTileTitle(message: message, query: query),
       onTap: () => _onTap(context),
     );
@@ -45,6 +51,18 @@ class MessageListTile extends StatelessWidget {
     }
 
     context.push('/account/$accountId/mailbox/${message.id}');
+  }
+
+  Color _avatarColor(BuildContext context) {
+    if (message is RequestMessageDVO && (message as RequestMessageDVO).request.status == LocalRequestStatus.ManualDecisionRequired) {
+      return Theme.of(context).colorScheme.error;
+    }
+
+    if (message.wasReadAt == null && !message.isOwn) {
+      return Theme.of(context).colorScheme.secondary;
+    }
+
+    return Colors.transparent;
   }
 }
 
