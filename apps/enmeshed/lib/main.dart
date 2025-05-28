@@ -60,7 +60,12 @@ final _router = GoRouter(
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/onboarding',
-      builder: (context, state) => OnboardingScreen(skipIntroduction: state.uri.queryParameters['skipIntroduction'] == 'true'),
+      builder: (context, state) {
+        return OnboardingScreen(
+          skipIntroduction: state.uri.queryParameters['skipIntroduction'] == 'true',
+          appLink: state.extra is String ? state.extra! as String : null,
+        );
+      },
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

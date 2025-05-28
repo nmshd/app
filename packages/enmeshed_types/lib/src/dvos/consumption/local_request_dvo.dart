@@ -26,6 +26,7 @@ class LocalRequestDVO extends DataViewObject {
   final IdentityDVO decider;
   final bool isDecidable;
   final List<RequestItemDVO> items;
+  final bool? wasAutomaticallyDecided;
 
   const LocalRequestDVO({
     required super.id,
@@ -50,6 +51,7 @@ class LocalRequestDVO extends DataViewObject {
     required this.decider,
     required this.isDecidable,
     required this.items,
+    this.wasAutomaticallyDecided,
   });
 
   factory LocalRequestDVO.fromJson(Map json) => _$LocalRequestDVOFromJson(Map<String, dynamic>.from(json));

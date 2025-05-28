@@ -203,7 +203,7 @@ class _FullConsentDialog extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(icon: const Icon(Icons.close), onPressed: () => context.pop()),
-          title: Text('Einverständniserklärung'),
+          title: TranslatedText('i18n://requestRenderer.consent.title'),
         ),
         body: Scrollbar(
           thumbVisibility: true,

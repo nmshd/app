@@ -52,6 +52,7 @@ class _MailboxViewState extends State<MailboxView> {
     _subscriptions
       ..add(runtime.eventBus.on<MessageSentEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<MessageReceivedEvent>().listen((_) => _reload().catchError((_) {})))
+      ..add(runtime.eventBus.on<IncomingRequestStatusChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<MessageWasReadAtChangedEvent>().listen((_) => _reload().catchError((_) {})))
       ..add(runtime.eventBus.on<AccountSelectedEvent>().listen((_) => _reload().catchError((_) {})));
   }
@@ -164,15 +165,17 @@ class _MailboxViewState extends State<MailboxView> {
       return [
         if (message is MailDVO) message.body.toLowerCase(),
         if (message is MailDVO) message.subject.toLowerCase(),
+        if (message is RequestMessageDVO) message.request.content.title?.toLowerCase(),
+        if (message is RequestMessageDVO) message.request.content.description?.toLowerCase(),
         if (message.description != null) message.description!.toLowerCase(),
         message.name.toLowerCase(),
         message.peer.name.toLowerCase(),
-      ].any((element) => element.contains(keyword.toLowerCase()));
+      ].any((element) => element != null && element.contains(keyword.toLowerCase()));
     }
 
     return List<MessageDVO>.of(messages)
         .where((element) => containsKeyword(element, keyword))
-        .map((item) => MessageDVORenderer(message: item, accountId: widget.accountId, controller: controller, query: keyword))
+        .map((item) => MessageListTile(message: item, accountId: widget.accountId, controller: controller, query: keyword))
         .separated(() => const Divider(height: 2));
   }
 
@@ -259,7 +262,7 @@ class _MessageListView extends StatelessWidget {
               separatorBuilder: (context, index) {
                 if (createdDayText(itemCreatedAt: DateTime.parse(messages[index].createdAt), context: context) ==
                     createdDayText(itemCreatedAt: DateTime.parse(messages[index + 1].createdAt), context: context)) {
-                  return const Divider(indent: 16);
+                  return const Divider(indent: 16, height: 1);
                 }
 
                 return Container(
@@ -286,12 +289,12 @@ class _MessageListView extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
-                      MessageDVORenderer(message: messages[index], accountId: accountId),
+                      MessageListTile(message: messages[index], accountId: accountId),
                     ],
                   );
                 }
 
-                return MessageDVORenderer(message: messages[index], accountId: accountId);
+                return MessageListTile(message: messages[index], accountId: accountId);
               },
             ),
     );
