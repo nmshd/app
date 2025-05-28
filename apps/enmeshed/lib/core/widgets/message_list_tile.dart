@@ -33,7 +33,7 @@ class MessageListTile extends StatelessWidget {
       leading: hideAvatar
           ? CircleAvatar(radius: 4, backgroundColor: color)
           : ContactCircleAvatar(radius: 20, contact: message.peer, borderColor: color),
-      title: _MessagesContent(message: message, query: query),
+      title: _MessageListTileTitle(message: message, query: query),
       onTap: () => _onTap(context),
     );
   }
@@ -48,11 +48,11 @@ class MessageListTile extends StatelessWidget {
   }
 }
 
-class _MessagesContent extends StatelessWidget {
+class _MessageListTileTitle extends StatelessWidget {
   final MessageDVO message;
   final String? query;
 
-  const _MessagesContent({required this.message, this.query});
+  const _MessageListTileTitle({required this.message, this.query});
 
   @override
   Widget build(BuildContext context) {
