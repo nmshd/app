@@ -570,7 +570,7 @@ class _RequestStatusCard extends StatelessWidget {
       );
     }
 
-    final expiresAt = DateTime.parse(request.content.expiresAt!);
+    final expiresAt = DateTime.parse(request.content.expiresAt!).toLocal();
 
     return Container(
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
