@@ -139,7 +139,7 @@ class _UploadFileState extends State<UploadFile> {
             ),
           ],
         ),
-        if (_loading) ModalLoadingOverlay(text: context.l10n.files_uploadInProgress, isDialog: false),
+        if (_loading) ModalLoadingOverlay(text: context.l10n.files_uploadInProgress),
       ],
     );
   }

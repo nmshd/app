@@ -144,7 +144,7 @@ class _EditProfileState extends State<_EditProfile> {
                 ],
               ),
             ),
-            if (_loading) ModalLoadingOverlay(text: context.l10n.profile_edit_inProgress, isDialog: false),
+            if (_loading) ModalLoadingOverlay(text: context.l10n.profile_edit_inProgress),
           ],
         ),
       ),
