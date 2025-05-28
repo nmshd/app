@@ -167,10 +167,11 @@ class EnmeshedRuntime {
           'platformClientSecret': runtimeConfig.clientSecret,
         },
         'databaseFolder': runtimeConfig.databaseFolder,
-        'modules': {
-          if (Platform.isWindows) 'pushNotification': {'enabled': false},
-          if (Platform.isWindows) 'sse': {'enabled': true},
-        },
+        if (Platform.isWindows)
+          'modules': {
+            'pushNotification': {'enabled': false},
+            'sse': {'enabled': true},
+          },
       },
     );
 
