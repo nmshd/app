@@ -99,9 +99,6 @@ class _SplashScreenState extends State<SplashScreen> {
       logger.w('Notification permission is (permanently) denied');
     }
 
-    // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
-    await runtime.triggerAppReadyEvent();
-
     if (mounted) await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router, localizations: context.l10n));
 
     await _registerWindowsSchemeForDebugMode('nmshd-dev');
