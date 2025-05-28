@@ -504,31 +504,92 @@ class _RequestStatusCard extends StatelessWidget {
   static bool canShowStatus(LocalRequestDVO? request) {
     if (request == null) return false;
 
-    return request.status == LocalRequestStatus.Completed || request.status == LocalRequestStatus.Decided;
+    if (request.status == LocalRequestStatus.Completed ||
+        request.status == LocalRequestStatus.Decided ||
+        request.status == LocalRequestStatus.Expired) {
+      return true;
+    }
+
+    if (request.content.expiresAt != null) return true;
+
+    return false;
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: add date
-    final title = switch ((request.response!.content.result, request.wasAutomaticallyDecided)) {
-      (ResponseResult.Accepted, true) => context.l10n.request_status_acceptedBySystem,
-      (ResponseResult.Accepted, _) => context.l10n.request_status_accepted,
-      (ResponseResult.Rejected, true) => context.l10n.request_status_declinedBySystem,
-      (ResponseResult.Rejected, _) => context.l10n.request_status_declined,
-    };
+    final textColor = Theme.of(context).colorScheme.secondary;
 
-    final icon = request.response!.content.result == ResponseResult.Accepted ? Icons.check_circle : Icons.info;
-    final color = Theme.of(context).colorScheme.onSurfaceVariant;
+    if (request.status == LocalRequestStatus.Completed || request.status == LocalRequestStatus.Decided) {
+      final title = switch ((request.response!.content.result, request.wasAutomaticallyDecided)) {
+        (ResponseResult.Accepted, true) => context.l10n.request_status_acceptedBySystem,
+        (ResponseResult.Accepted, _) => context.l10n.request_status_accepted,
+        (ResponseResult.Rejected, true) => context.l10n.request_status_declinedBySystem,
+        (ResponseResult.Rejected, _) => context.l10n.request_status_declined,
+      };
+
+      return Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Icon(request.response!.content.result == ResponseResult.Accepted ? Icons.check_circle : Icons.info, color: textColor, size: 24),
+            Gaps.w8,
+            Expanded(
+              child: Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor)),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (request.status == LocalRequestStatus.Expired) {
+      return Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Icon(Icons.do_not_disturb_on, color: textColor, size: 24),
+            Gaps.w8,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    context.l10n.request_status_expired,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                  Text(
+                    context.l10n.request_status_expired_description,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final expiresAt = DateTime.parse(request.content.expiresAt!);
 
     return Container(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainer),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          Icon(icon, color: color, size: 24),
+          Icon(Icons.info, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 24),
           Gaps.w8,
           Expanded(
-            child: Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: color)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(context.l10n.request_status_expiring, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor)),
+                Text(
+                  context.l10n.request_status_expiring_description(expiresAt, expiresAt),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(color: textColor),
+                ),
+              ],
+            ),
           ),
         ],
       ),

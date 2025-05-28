@@ -775,6 +775,22 @@
   "request_status_accepted": "You have accepted this request.",
   "request_status_declinedBySystem": "This request was automatically rejected.",
   "request_status_declined": "You have rejected this request.",
+  "request_status_expiring": "This request has an expiration date.",
+  "request_status_expiring_description": "You can respond to this request until {date}, {time}.",
+  "@request_status_expiring_description": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "Hm"
+      }
+    }
+  },
+  "request_status_expired": "This request has expired.",
+  "request_status_expired_description": "You can no longer respond to this request.",
   "mailbox_noSubject": "No Subject",
   "fileChooser_title": "Select file",
   "fileChooser_uploadFile": "Upload file",

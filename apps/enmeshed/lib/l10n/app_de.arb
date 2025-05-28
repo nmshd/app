@@ -775,6 +775,22 @@
   "request_status_accepted": "Sie haben diese Anfrage angenommen.",
   "request_status_declinedBySystem": "Diese Anfrage wurde automatisch abgelehnt.",
   "request_status_declined": "Sie haben diese Anfrage abgelehnt.",
+  "request_status_expiring": "Diese Anfrage ist mit einem Ablaufdatum versehen.",
+  "request_status_expiring_description": "Sie können diese Anfrage bis zum {date}, {time} bearbeiten.",
+  "@request_status_expiring_description": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "Hm"
+      }
+    }
+  },
+  "request_status_expired": "Diese Anfrage ist abgelaufen.",
+  "request_status_expired_description": "Sie können auf diese Anfrage nicht mehr antworten.",
   "mailbox_noSubject": "Kein Betreff",
   "fileChooser_title": "Datei auswählen",
   "fileChooser_uploadFile": "Datei hochladen",
