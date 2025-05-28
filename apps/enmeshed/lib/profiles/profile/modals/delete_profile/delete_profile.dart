@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '/core/core.dart';
-import 'delete_profile_and_choose_next.dart';
 import 'delete_profile_or_identity.dart';
+import 'deleting_profile.dart';
 import 'deletion_type.dart';
 import 'should_delete_identity.dart';
 import 'should_delete_profile.dart';
@@ -97,7 +97,7 @@ class _DeleteProfileOrIdentityModalState extends State<_DeleteProfileOrIdentityM
           profileName: widget.localAccount.name,
           devices: widget.devices,
         ),
-        _ => DeleteProfileAndChooseNext(
+        _ => DeletingProfile(
           session: widget.session,
           localAccount: widget.localAccount,
           deletionType: _deletionType,
