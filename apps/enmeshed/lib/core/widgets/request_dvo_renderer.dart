@@ -577,7 +577,7 @@ class _RequestStatusCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          Icon(Icons.info, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 24),
+          Icon(Icons.warning_rounded, color: context.customColors.warningFixed, size: 24),
           Gaps.w8,
           Expanded(
             child: Column(
