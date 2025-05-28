@@ -251,6 +251,7 @@
       }
     }
   },
+  "identity_restore_inProgress": "Das Profil wird wiederhergestellt.",
   "identity_restore_successful": "Das Profil <bold>{profileName}</bold> wurde erfolgreich wiederhergestellt.",
   "@identity_restore_successful": {
     "placeholders": {
