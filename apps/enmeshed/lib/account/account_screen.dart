@@ -95,9 +95,8 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     return Scaffold(
       drawer: AppDrawer(accountId: widget.accountId),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
         onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
-        child: Icon(Icons.qr_code_scanner, color: Theme.of(context).colorScheme.onTertiaryContainer),
+        child: const Icon(Icons.qr_code_scanner),
       ),
       appBar: AppBar(
         title: Text(switch (_selectedIndex) {
