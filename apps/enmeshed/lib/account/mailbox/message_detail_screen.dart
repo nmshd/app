@@ -3,7 +3,6 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:i18n_translated_text/i18n_translated_text.dart';
 import 'package:intl/intl.dart';
 import 'package:styled_text/styled_text.dart';
 import 'package:url_launcher/url_launcher_string.dart' as url_launcher;
@@ -43,6 +42,12 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
       );
     }
 
+    final subject = switch (_message!) {
+      final MailDVO mail => mail.subject.trim(),
+      final RequestMessageDVO requestMessage => requestMessage.request.content.title?.trim(),
+      _ => null,
+    };
+
     final column = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -50,14 +55,13 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
           padding: const EdgeInsets.all(16),
           child: _MessageInformationHeader(account: _account!, message: _message!),
         ),
-        const Divider(height: 2),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: switch (_message!) {
-            final RequestMessageDVO requestMessage => TranslatedText(requestMessage.request.statusText, style: Theme.of(context).textTheme.bodyLarge),
-            _ => TranslatedText(_message!.name, style: Theme.of(context).textTheme.bodyLarge),
-          },
-        ),
+        if (subject != null && subject.isNotEmpty) ...[
+          const Divider(height: 2),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(subject, style: Theme.of(context).textTheme.bodyLarge),
+          ),
+        ],
         if (_message!.attachments.isNotEmpty) ...[
           const Divider(height: 2),
           Padding(
@@ -141,6 +145,7 @@ class _MessageInformationHeader extends StatelessWidget {
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 4,
                     children: [
                       Expanded(
                         child: Text(
@@ -210,12 +215,14 @@ class _RequestInformationState extends State<_RequestInformation> {
 
   @override
   Widget build(BuildContext context) {
+    final request = widget.message.request;
+
     return Expanded(
       child: RequestDVORenderer(
         accountId: widget.account.id,
-        requestId: widget.message.request.id,
-        isIncoming: !widget.message.request.isOwn,
-        requestDVO: useRequestFromMessage ? widget.message.request : null,
+        requestId: request.id,
+        isIncoming: !request.isOwn,
+        requestDVO: useRequestFromMessage ? request : null,
         acceptRequestText: context.l10n.accept,
         validationErrorDescription: context.l10n.message_request_validationErrorDescription,
         showHeader: false,

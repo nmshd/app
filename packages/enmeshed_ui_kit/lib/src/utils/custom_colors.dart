@@ -8,6 +8,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     required this.onSuccess,
     required this.successContainer,
     required this.onSuccessContainer,
+    required this.warningFixed,
     required this.warning,
     required this.onWarning,
     required this.warningContainer,
@@ -44,6 +45,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
       onSuccess: scheme.onPrimary,
       successContainer: scheme.primaryContainer,
       onSuccessContainer: scheme.onPrimaryContainer,
+      warningFixed: warningSeedColor,
       warning: scheme.secondary,
       onWarning: scheme.onSecondary,
       warningContainer: scheme.secondaryContainer,
@@ -63,6 +65,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color onSuccess;
   final Color successContainer;
   final Color onSuccessContainer;
+  final Color warningFixed;
   final Color warning;
   final Color onWarning;
   final Color warningContainer;
@@ -82,6 +85,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     Color? onSuccess,
     Color? successContainer,
     Color? onSuccessContainer,
+    Color? warningFixed,
     Color? warning,
     Color? onWarning,
     Color? warningContainer,
@@ -100,6 +104,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
       onSuccess: onSuccess ?? this.onSuccess,
       successContainer: successContainer ?? this.successContainer,
       onSuccessContainer: onSuccessContainer ?? this.onSuccessContainer,
+      warningFixed: warningFixed ?? this.warningFixed,
       warning: warning ?? this.warning,
       onWarning: onWarning ?? this.onWarning,
       warningContainer: warningContainer ?? this.warningContainer,
@@ -126,6 +131,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
       onSuccess: Color.lerp(onSuccess, other.onSuccess, t) ?? onSuccess,
       successContainer: Color.lerp(successContainer, other.successContainer, t) ?? successContainer,
       onSuccessContainer: Color.lerp(onSuccessContainer, other.onSuccessContainer, t) ?? onSuccessContainer,
+      warningFixed: Color.lerp(warningFixed, other.warningFixed, t) ?? warningFixed,
       warning: Color.lerp(warning, other.warning, t) ?? warning,
       onWarning: Color.lerp(onWarning, other.onWarning, t) ?? onWarning,
       warningContainer: Color.lerp(warningContainer, other.warningContainer, t) ?? warningContainer,

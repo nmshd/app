@@ -9,6 +9,7 @@ part 'request_dvo.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class RequestDVO extends DataViewObject {
+  final String? title;
   final String? expiresAt;
   final List<RequestItemDVO> items;
   final ResponseDVO? response;
@@ -22,6 +23,7 @@ class RequestDVO extends DataViewObject {
     super.date,
     super.error,
     super.warning,
+    this.title,
     this.expiresAt,
     required this.items,
     this.response,

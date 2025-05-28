@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../utils/extensions.dart';
 import 'empty_list_indicator.dart';
-import 'message_dvo_renderer.dart';
+import 'message_list_tile.dart';
 
 class MessagesContainer extends StatelessWidget {
   final String accountId;
@@ -40,14 +40,29 @@ class MessagesContainer extends StatelessWidget {
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => const Divider(indent: 16),
-            itemBuilder: (context, index) => MessageDVORenderer(message: messages![index], accountId: accountId, hideAvatar: hideAvatar),
+            separatorBuilder: (context, index) => const Divider(indent: 16, height: 1),
+            itemBuilder: (context, index) => MessageListTile(
+              message: messages![index],
+              accountId: accountId,
+              avatarStyle: messages!.every((m) => !m._shouldShowAvatar) ? MessageListTileLeadingStyle.none : MessageListTileLeadingStyle.dot,
+            ),
             itemCount: messages!.length,
           )
         else
           EmptyListIndicator(icon: Icons.mail_outline, text: noMessagesText),
       ],
     );
+  }
+}
+
+extension on MessageDVO {
+  bool get _shouldShowAvatar {
+    if (wasReadAt == null && !isOwn) return true;
+
+    return switch (this) {
+      final RequestMessageDVO requestMessage => requestMessage.request.status == LocalRequestStatus.ManualDecisionRequired,
+      _ => false,
+    };
   }
 }
 

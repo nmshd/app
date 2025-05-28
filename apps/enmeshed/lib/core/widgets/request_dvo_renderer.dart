@@ -137,10 +137,16 @@ class _RequestDVORendererState extends State<RequestDVORenderer> {
                     ),
                     if (widget.description != null) Padding(padding: const EdgeInsets.all(16), child: Text(widget.description!)),
                   ],
+                  if (_RequestStatusCard.canShowStatus(_request)) _RequestStatusCard(request: _request!),
                   if (_validationResult != null && !_validationResult!.isSuccess)
                     _RequestRenderErrorContainer(
                       errorCount: _validationResult!.countOfValidationErrors,
                       validationErrorDescription: widget.validationErrorDescription,
+                    ),
+                  if (_request?.content.description != null && _request!.content.description!.trim().isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(_request!.content.description!, style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.left),
                     ),
                   RequestRenderer(
                     formKey: _formKey,
@@ -487,5 +493,106 @@ extension on RequestValidationResultDTO {
     if (items.isEmpty) return isSuccess ? 0 : 1;
 
     return items.map((item) => item.countOfValidationErrors).reduce((a, b) => a + b);
+  }
+}
+
+class _RequestStatusCard extends StatelessWidget {
+  final LocalRequestDVO request;
+
+  const _RequestStatusCard({required this.request});
+
+  static bool canShowStatus(LocalRequestDVO? request) {
+    if (request == null) return false;
+
+    if (request.status == LocalRequestStatus.Completed ||
+        request.status == LocalRequestStatus.Decided ||
+        request.status == LocalRequestStatus.Expired) {
+      return true;
+    }
+
+    if (request.content.expiresAt != null) return true;
+
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textColor = Theme.of(context).colorScheme.secondary;
+
+    if (request.status == LocalRequestStatus.Completed || request.status == LocalRequestStatus.Decided) {
+      final title = switch ((request.response!.content.result, request.wasAutomaticallyDecided)) {
+        (ResponseResult.Accepted, true) => context.l10n.request_status_acceptedBySystem,
+        (ResponseResult.Accepted, _) => context.l10n.request_status_accepted,
+        (ResponseResult.Rejected, true) => context.l10n.request_status_declinedBySystem,
+        (ResponseResult.Rejected, _) => context.l10n.request_status_declined,
+      };
+
+      return Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Icon(request.response!.content.result == ResponseResult.Accepted ? Icons.check_circle : Icons.info, color: textColor, size: 24),
+            Gaps.w8,
+            Expanded(
+              child: Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor)),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (request.status == LocalRequestStatus.Expired) {
+      return Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Icon(Icons.do_not_disturb_on, color: textColor, size: 24),
+            Gaps.w8,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    context.l10n.request_status_expired,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                  Text(
+                    context.l10n.request_status_expired_description,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final expiresAt = DateTime.parse(request.content.expiresAt!).toLocal();
+
+    return Container(
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Icon(Icons.warning_rounded, color: context.customColors.warningFixed, size: 24),
+          Gaps.w8,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(context.l10n.request_status_expiring, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: textColor)),
+                Text(
+                  context.l10n.request_status_expiring_description(expiresAt, expiresAt),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(color: textColor),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

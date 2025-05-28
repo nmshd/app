@@ -505,8 +505,8 @@
   "contactDetail_editContact_description": "You can change the display name of your contact here. This change will take effect everywhere in the app. You can also restore the originally supplied display name.",
   "contactDetail_sendMessage": "Send Message",
   "contactDetail_sharedAttributes": "Shared by me",
-  "contactDetail_receivedAttributes": "Shared with me",
-  "contactDetail_sharedInformation": "Shared information",
+  "contactDetail_receivedAttributes": "Data of the contact",
+  "contactDetail_sharedInformation": "My data",
   "contactDetail_noReceivedAttributes": "The contact does not share information with you",
   "contactDetail_noSharedAttributes": "The contact receives no information from you",
   "contactDetail_receivedAttributesDescription": "Received data from {contactName} is displayed here",
@@ -772,6 +772,26 @@
   "mailbox_filtered_noResults": "There are no messages for the filters you have set.",
   "request_accepting": "Accepting request.",
   "request_rejecting": "Rejecting request.",
+  "request_status_acceptedBySystem": "This request was automatically accepted.",
+  "request_status_accepted": "You have accepted this request.",
+  "request_status_declinedBySystem": "This request was automatically rejected.",
+  "request_status_declined": "You have rejected this request.",
+  "request_status_expiring": "This request has an expiration date.",
+  "request_status_expiring_description": "You can respond to this request until {date}, {time}.",
+  "@request_status_expiring_description": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "Hm"
+      }
+    }
+  },
+  "request_status_expired": "This request has expired.",
+  "request_status_expired_description": "You can no longer respond to this request.",
   "mailbox_noSubject": "No Subject",
   "fileChooser_title": "Select file",
   "fileChooser_uploadFile": "Upload file",
