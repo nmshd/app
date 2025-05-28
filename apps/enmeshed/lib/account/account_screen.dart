@@ -94,7 +94,11 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(accountId: widget.accountId),
-      floatingActionButton: _fab,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+        onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
+        child: Icon(Icons.qr_code_scanner, color: Theme.of(context).colorScheme.onTertiaryContainer),
+      ),
       appBar: AppBar(
         title: Text(switch (_selectedIndex) {
           0 => context.l10n.home_title,
@@ -191,15 +195,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
     throw Exception();
   }
 
-  FloatingActionButton? get _fab => switch (_selectedIndex) {
-    0 || 1 => FloatingActionButton(
-      onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
-      child: const Icon(Icons.qr_code_scanner),
-    ),
-    3 => FloatingActionButton(onPressed: () => context.go('/account/${widget.accountId}/mailbox/send'), child: const Icon(Icons.send)),
-    _ => null,
-  };
-
   List<Widget>? get _actions => switch (_selectedIndex) {
     1 => [
       SearchAnchor(
@@ -232,6 +227,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
           onPressed: () => widget.mailboxFilterController.openMailboxFilter(),
         ),
       ),
+      IconButton(icon: const Icon(Icons.add), onPressed: () => context.go('/account/${widget.accountId}/mailbox/send')),
     ],
     _ => null,
   };
