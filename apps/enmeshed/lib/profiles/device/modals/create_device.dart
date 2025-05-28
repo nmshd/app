@@ -116,7 +116,7 @@ class _CreateDeviceState extends State<CreateDevice> {
             ),
           ],
         ),
-        if (_loading) ModalLoadingOverlay(text: context.l10n.devices_create_inProgress, isDialog: false),
+        if (_loading) ModalLoadingOverlay(text: context.l10n.devices_create_inProgress),
       ],
     );
   }

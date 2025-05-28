@@ -251,6 +251,7 @@
       }
     }
   },
+  "identity_restore_inProgress": "Restoring the profile.",
   "identity_restore_successful": "The Profile <bold>{profileName}</bold> has been successfully restored.",
   "@identity_restore_successful": {
     "placeholders": {
