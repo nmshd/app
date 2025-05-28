@@ -63,7 +63,7 @@ class _DeleteDeviceSheetState extends State<DeleteDeviceSheet> {
             ],
           ),
         ),
-        if (_isLoading) ModalLoadingOverlay(text: context.l10n.deviceInfo_delete_inProgress, isDialog: false),
+        if (_isLoading) ModalLoadingOverlay(text: context.l10n.deviceInfo_delete_inProgress),
       ],
     );
   }

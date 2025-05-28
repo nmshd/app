@@ -85,16 +85,7 @@ class _MyDataInitialCreationScreenState extends State<MyDataInitialCreationScree
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(widget.description, style: Theme.of(context).textTheme.bodyMedium),
-                  if (addressDataInitialAttributeTypes.any(widget.valueTypes.contains)) ...[
-                    Gaps.h16,
-                    Text(context.l10n.mandatoryField, style: Theme.of(context).textTheme.bodyMedium),
-                  ],
-                ],
-              ),
+              child: Text(widget.description, style: Theme.of(context).textTheme.bodyMedium),
             ),
             Gaps.h24,
             ListView.separated(

@@ -94,6 +94,10 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(accountId: widget.accountId),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
+        child: const Icon(Icons.qr_code_scanner),
+      ),
       appBar: AppBar(
         title: Text(switch (_selectedIndex) {
           0 => context.l10n.home_title,
@@ -205,10 +209,6 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
           icon: const Icon(Icons.filter_list),
           onPressed: () => widget.contactsFilterController.openContactsFilter(),
         ),
-      ),
-      IconButton(
-        icon: const Icon(Icons.person_add),
-        onPressed: () => goToInstructionsOrScanScreen(accountId: widget.accountId, instructionsType: ScannerType.addContact, context: context),
       ),
     ],
     3 => [

@@ -21,7 +21,6 @@
   "back": "Zurück",
   "reset": "Zurücksetzen",
   "noEntries": "Keine Ergebnisse",
-  "mandatoryField": "* Pflichtfeld",
   "legalNotice": "Rechtliche Hinweise",
   "dataProtection": "Datenschutzerklärung",
   "imprint": "Impressum",
@@ -252,6 +251,7 @@
       }
     }
   },
+  "identity_restore_inProgress": "Das Profil wird wiederhergestellt.",
   "identity_restore_successful": "Das Profil <bold>{profileName}</bold> wurde erfolgreich wiederhergestellt.",
   "@identity_restore_successful": {
     "placeholders": {
@@ -490,6 +490,8 @@
   "contactDetail_description1": "Sie können den Kontakt in Ihrer Kontaktliste behalten, ein Austausch mit dem Kontakt ist jedoch nicht mehr möglich.",
   "contactDetail_description2": "Wenn Sie den Kontakt in Ihrer Kontaktliste behalten, bleiben sämtliche Nachrichten in Ihrem Profil gespeichert.",
   "contactDetail_description3": "Wenn Sie den Kontakt aus Ihrer Kontaktliste löschen, werden sämtliche Nachrichten mit dem Kontakt aus Ihrem Postfach gelöscht. Dokumente, die der Kontakt mit Ihnen geteilt hat, bleiben erhalten.",
+  "contactDetail_pendingTitle": "Die Antwort des neuen Kontaktes steht noch aus.",
+  "contactDetail_pendingDescription": "Sie können die Kontaktfunktion vollumfänglich nutzen, sobald der Kontakt die Beziehung bestätigt hat.",
   "contactDetail_entry": "Eintrag",
   "contactDetail_addEntry": "Hinzufügen",
   "contactDetail_selectOrCreateEntryMessage": "Teilen Sie einen bereits angelegten Eintrag mit Ihrem Kontakt oder legen Sie einen neuen dafür an.",
@@ -502,8 +504,8 @@
   "contactDetail_editContact_restoreDefault": "Standard Wiederherstellen",
   "contactDetail_editContact_description": "Sie können den Anzeigenamen des Kontaktes hier ändern. Diese Änderung tritt an allen Stellen in der App in Kraft. Sie können auch den ursprünglich mitgelieferten Anzeigenamen wiederherstellen.",
   "contactDetail_sendMessage": "Nachricht senden",
-  "contactDetail_sharedAttributes": "Von mir geteilt",
-  "contactDetail_receivedAttributes": "Mit mir geteilt",
+  "contactDetail_sharedAttributes": "Daten des Kontakts",
+  "contactDetail_receivedAttributes": "Meine Daten",
   "contactDetail_sharedInformation": "Geteilte Informationen",
   "contactDetail_noReceivedAttributes": "Der Kontakt teilt keine Informationen mit dir",
   "contactDetail_noSharedAttributes": "Der Kontakt erhält keine Informationen von dir",
@@ -770,6 +772,26 @@
   "mailbox_filtered_noResults": "Zu den von Ihnen gesetzten Filtern liegen keine Nachrichten vor",
   "request_accepting": "Die Anfrage wird akzeptiert.",
   "request_rejecting": "Die Anfrage wird abgelehnt.",
+  "request_status_acceptedBySystem": "Diese Anfrage wurde automatisch angenommen.",
+  "request_status_accepted": "Sie haben diese Anfrage angenommen.",
+  "request_status_declinedBySystem": "Diese Anfrage wurde automatisch abgelehnt.",
+  "request_status_declined": "Sie haben diese Anfrage abgelehnt.",
+  "request_status_expiring": "Diese Anfrage ist mit einem Ablaufdatum versehen.",
+  "request_status_expiring_description": "Sie können diese Anfrage bis zum {date}, {time} bearbeiten.",
+  "@request_status_expiring_description": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "Hm"
+      }
+    }
+  },
+  "request_status_expired": "Diese Anfrage ist abgelaufen.",
+  "request_status_expired_description": "Sie können auf diese Anfrage nicht mehr antworten.",
   "mailbox_noSubject": "Kein Betreff",
   "fileChooser_title": "Datei auswählen",
   "fileChooser_uploadFile": "Datei hochladen",

@@ -295,13 +295,6 @@ class EnmeshedRuntime {
     result.throwOnError();
   }
 
-  Future<void> triggerAppReadyEvent() async {
-    assert(_isReady, 'Runtime not ready');
-
-    final result = await _evaluateJavaScript('await window.triggerAppReadyEvent()');
-    result.throwOnError();
-  }
-
   Future<List<String>> getEditableAttributes() async {
     assert(_isReady, 'Runtime not ready');
 

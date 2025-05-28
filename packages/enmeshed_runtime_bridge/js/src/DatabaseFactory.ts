@@ -1,20 +1,16 @@
 import { ILokiJsDatabaseFactory } from "@js-soft/docdb-access-loki";
-import { ILogger } from "@js-soft/logging-abstractions";
 import loki from "lokijs";
 import { FileAccess } from "./FileAccess";
 
 export class DatabaseFactory implements ILokiJsDatabaseFactory {
-  public constructor(
-    private fileAccess: FileAccess,
-    private readonly logger: ILogger
-  ) {}
+  public constructor(private fileAccess: FileAccess) {}
 
   public create(
     name: string,
     options?: Partial<LokiConstructorOptions> & Partial<LokiConfigOptions> & Partial<ThrottledSaveDrainOptions>
   ): Loki {
     return new loki(name, {
-      adapter: new NativeDBPersitenceAdapter(this.fileAccess, this.logger),
+      adapter: new DBPersitenceAdapter(this.fileAccess),
       autosave: true,
       autoload: true,
       autosaveInterval: 1000,
@@ -23,11 +19,8 @@ export class DatabaseFactory implements ILokiJsDatabaseFactory {
   }
 }
 
-export class NativeDBPersitenceAdapter implements LokiPersistenceAdapter {
-  public constructor(
-    private readonly fileAccess: FileAccess,
-    private readonly logger: ILogger
-  ) {}
+export class DBPersitenceAdapter implements LokiPersistenceAdapter {
+  public constructor(private readonly fileAccess: FileAccess) {}
 
   public loadDatabase(dbname: string, callback: (value: any) => void): void {
     this.loadDatabaseAsync(dbname).then((res) => callback(res));

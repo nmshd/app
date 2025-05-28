@@ -10,7 +10,6 @@ declare global {
     registerUIBridge: () => void;
     triggerRemoteNotificationRegistrationEvent: (token: string) => Promise<void>;
     triggerRemoteNotificationEvent: (notification: RemoteNotification) => Promise<void>;
-    triggerAppReadyEvent: () => Promise<void>;
     runtimeVersion: string;
     NMSHDContent: typeof import("@nmshd/content");
     getHints: (valueType: string) => Result<{ renderHints: RenderHintsJSON; valueHints: ValueHintsJSON }>;

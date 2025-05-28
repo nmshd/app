@@ -1,6 +1,6 @@
 import { ApplicationError, Result } from "@js-soft/ts-utils";
 
-export enum NativeFileStorage {
+export enum FileStorage {
   Temp = "temp",
   Home = "home",
   Data = "data",
@@ -10,10 +10,10 @@ export enum NativeFileStorage {
 export class FileAccess {
   public async readFileAsText(
     path: string,
-    storage?: NativeFileStorage | undefined
+    storage?: FileStorage | undefined
   ): Promise<Result<string, ApplicationError>> {
     const result: { ok: true; content: string } | { ok: false; error: string } =
-      await window.flutter_inappwebview.callHandler("readFile", path, storage ?? NativeFileStorage.Data);
+      await window.flutter_inappwebview.callHandler("readFile", path, storage ?? FileStorage.Data);
 
     if (!result.ok) {
       return Result.fail(new ApplicationError("err.filesystem.read", result.error));
@@ -22,10 +22,7 @@ export class FileAccess {
     return Result.ok(result.content);
   }
 
-  public async readFileAsBinary(
-    path: string,
-    storage: NativeFileStorage = NativeFileStorage.Data
-  ): Promise<Result<Uint8Array>> {
+  public async readFileAsBinary(path: string, storage: FileStorage = FileStorage.Data): Promise<Result<Uint8Array>> {
     const result: { ok: true; content: number[] } | { ok: false; error: string } =
       await window.flutter_inappwebview.callHandler("readFileAsBinary", path, storage);
 
@@ -39,13 +36,13 @@ export class FileAccess {
   public async writeFile(
     path: string,
     data: string | Uint8Array,
-    storage?: NativeFileStorage | undefined,
+    storage?: FileStorage | undefined,
     append?: boolean | undefined
   ): Promise<Result<void, ApplicationError>> {
     const result: { ok: true } | { ok: false; error: string } = await window.flutter_inappwebview.callHandler(
       "writeFile",
       path,
-      storage ?? NativeFileStorage.Data,
+      storage ?? FileStorage.Data,
       data,
       append ?? false
     );
@@ -57,14 +54,11 @@ export class FileAccess {
     return Result.ok(undefined);
   }
 
-  public async deleteFile(
-    path: string,
-    storage?: NativeFileStorage | undefined
-  ): Promise<Result<void, ApplicationError>> {
+  public async deleteFile(path: string, storage?: FileStorage | undefined): Promise<Result<void, ApplicationError>> {
     const result: { ok: true } | { ok: false; error: string } = await window.flutter_inappwebview.callHandler(
       "deleteFile",
       path,
-      storage ?? NativeFileStorage.Data
+      storage ?? FileStorage.Data
     );
 
     if (!result.ok) {
@@ -74,11 +68,11 @@ export class FileAccess {
     return Result.ok(undefined);
   }
 
-  public async existsFile(path: string, storage?: NativeFileStorage): Promise<Result<boolean>> {
+  public async existsFile(path: string, storage?: FileStorage): Promise<Result<boolean>> {
     const result: boolean = await window.flutter_inappwebview.callHandler(
       "existsFile",
       path,
-      storage ?? NativeFileStorage.Data
+      storage ?? FileStorage.Data
     );
 
     return Result.ok(result);
