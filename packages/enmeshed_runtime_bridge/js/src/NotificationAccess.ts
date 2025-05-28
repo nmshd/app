@@ -1,8 +1,8 @@
 import { ILogger, ILoggerFactory } from "@js-soft/logging-abstractions";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
-import { INativeNotificationAccess, INativeNotificationScheduleOptions } from "@nmshd/app-runtime";
+import { INotificationAccess, INotificationScheduleOptions } from "@nmshd/app-runtime";
 
-export class NotificationAccess implements INativeNotificationAccess {
+export class NotificationAccess implements INotificationAccess {
   private logger: ILogger;
 
   public constructor(private readonly loggerFactory: ILoggerFactory) {}
@@ -22,11 +22,7 @@ export class NotificationAccess implements INativeNotificationAccess {
     return Promise.resolve(Result.ok(undefined));
   }
 
-  public async schedule(
-    title: string,
-    body: string,
-    options?: INativeNotificationScheduleOptions
-  ): Promise<Result<number>> {
+  public async schedule(title: string, body: string, options?: INotificationScheduleOptions): Promise<Result<number>> {
     if (options?.textInput) this.logger.warn("Notification text input actions not supported on this platform");
 
     const id = options?.id ? options.id : Math.round(Math.random() * 1000);
@@ -39,7 +35,7 @@ export class NotificationAccess implements INativeNotificationAccess {
     id: number,
     title: string,
     body: string,
-    options?: INativeNotificationScheduleOptions
+    options?: INotificationScheduleOptions
   ): Promise<Result<void>> {
     await this.schedule(title, body, { ...options, id });
     return Result.ok(undefined);

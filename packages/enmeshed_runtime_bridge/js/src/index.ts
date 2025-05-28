@@ -1,8 +1,8 @@
+import { SimpleLoggerFactory } from "@js-soft/simple-logger";
 import { Serializable } from "@js-soft/ts-serval";
 import { ApplicationError, Result } from "@js-soft/ts-utils";
 import {
   AppConfigOverwrite,
-  AppReadyEvent,
   AppRuntime,
   RemoteNotification,
   RemoteNotificationEvent,
@@ -11,7 +11,10 @@ import {
 import * as contentLib from "@nmshd/content";
 import { RenderHints, RenderHintsJSON, ValueHints, ValueHintsJSON } from "@nmshd/content";
 import { buildInformation } from "@nmshd/runtime";
-import { NativeBootstrapper } from "./NativeBootstrapper";
+import { LogLevel } from "typescript-logging";
+import { DatabaseFactory } from "./DatabaseFactory";
+import { FileAccess } from "./FileAccess";
+import { NotificationAccess } from "./NotificationAccess";
 import { UIBridge } from "./uiBridge";
 
 window.NMSHDContent = contentLib;
@@ -47,20 +50,25 @@ window.triggerRemoteNotificationEvent = async function (notification: RemoteNoti
   window.runtime.eventBus.publish(new RemoteNotificationEvent(notification));
 };
 
-window.triggerAppReadyEvent = async function () {
-  window.runtime.eventBus.publish(new AppReadyEvent());
-};
-
 window.runtimeVersion = buildInformation.version;
 
 async function main() {
   const config: AppConfigOverwrite = await window.flutter_inappwebview.callHandler("getRuntimeConfig");
 
-  const bootstrapper = new NativeBootstrapper();
-  await bootstrapper.init();
-  const runtime = await AppRuntime.createAndStart(bootstrapper, config);
+  const loggerFactory = new SimpleLoggerFactory(LogLevel.Info);
+  const fileAccess = new FileAccess();
+  const notificationAccess = new NotificationAccess(loggerFactory);
 
-  const runtimeBridgeLogger = bootstrapper.loggerFactory.getLogger("RuntimeBridge");
+  const runtime = await AppRuntime.create(
+    config,
+    loggerFactory,
+    notificationAccess,
+    undefined,
+    new DatabaseFactory(fileAccess)
+  );
+  await runtime.start();
+
+  const runtimeBridgeLogger = loggerFactory.getLogger("RuntimeBridge");
   runtime.eventBus.subscribe("**", async (event) => {
     try {
       await window.flutter_inappwebview.callHandler("handleRuntimeEvent", event);
