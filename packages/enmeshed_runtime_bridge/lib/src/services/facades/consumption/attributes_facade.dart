@@ -11,8 +11,6 @@ class AttributesFacade {
   Future<Result<CanCreateRepositoryAttributeResponse>> canCreateRepositoryAttribute({
     required IdentityAttributeValue value,
     List<String>? tags,
-    String? validFrom,
-    String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.canCreateRepositoryAttribute(request)
@@ -20,7 +18,7 @@ class AttributesFacade {
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {'value': value.toJson(), 'tags': ?tags, 'validFrom': ?validFrom, 'validTo': ?validTo},
+          'content': {'value': value.toJson(), 'tags': ?tags},
         },
       },
     );
@@ -29,19 +27,14 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => CanCreateRepositoryAttributeResponse.fromJson(value));
   }
 
-  Future<Result<LocalAttributeDTO>> createRepositoryAttribute({
-    required IdentityAttributeValue value,
-    List<String>? tags,
-    String? validFrom,
-    String? validTo,
-  }) async {
+  Future<Result<LocalAttributeDTO>> createRepositoryAttribute({required IdentityAttributeValue value, List<String>? tags}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.createRepositoryAttribute(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {'value': value.toJson(), 'tags': ?tags, 'validFrom': ?validFrom, 'validTo': ?validTo},
+          'content': {'value': value.toJson(), 'tags': ?tags},
         },
       },
     );
@@ -53,7 +46,6 @@ class AttributesFacade {
   Future<Result<List<LocalAttributeDTO>>> getPeerSharedAttributes({
     required String peer,
     Map<String, QueryValue>? query,
-    bool? onlyValid,
     bool? hideTechnical,
     bool? onlyLatestVersions,
   }) async {
@@ -64,7 +56,6 @@ class AttributesFacade {
       arguments: {
         'request': {
           'peer': peer,
-          'onlyValid': ?onlyValid,
           'hideTechnical': ?hideTechnical,
           if (query != null) 'query': query.toJson(),
           'onlyLatestVersions': ?onlyLatestVersions,
@@ -79,7 +70,6 @@ class AttributesFacade {
   Future<Result<List<LocalAttributeDTO>>> getOwnSharedAttributes({
     required String peer,
     Map<String, QueryValue>? query,
-    bool? onlyValid,
     bool? hideTechnical,
     bool? onlyLatestVersions,
   }) async {
@@ -90,7 +80,6 @@ class AttributesFacade {
       arguments: {
         'request': {
           'peer': peer,
-          'onlyValid': ?onlyValid,
           'hideTechnical': ?hideTechnical,
           if (query != null) 'query': query.toJson(),
           'onlyLatestVersions': ?onlyLatestVersions,
@@ -130,13 +119,13 @@ class AttributesFacade {
     return Result.fromJson(json, (value) => LocalAttributeDTO.fromJson(value));
   }
 
-  Future<Result<List<LocalAttributeDTO>>> getAttributes({Map<String, QueryValue>? query, bool? onlyValid, bool? hideTechnical}) async {
+  Future<Result<List<LocalAttributeDTO>>> getAttributes({Map<String, QueryValue>? query, bool? hideTechnical}) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.getAttributes(request)
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {if (query != null) 'query': query.toJson(), 'onlyValid': ?onlyValid, 'hideTechnical': ?hideTechnical},
+        'request': {if (query != null) 'query': query.toJson(), 'hideTechnical': ?hideTechnical},
       },
     );
 
@@ -236,8 +225,6 @@ class AttributesFacade {
     required String predecessorId,
     required IdentityAttributeValue value,
     List<String>? tags,
-    String? validFrom,
-    String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.succeedRepositoryAttribute(request)
@@ -246,7 +233,7 @@ class AttributesFacade {
       arguments: {
         'request': {
           'predecessorId': predecessorId,
-          'successorContent': {'value': value.toJson(), 'tags': ?tags, 'validFrom': ?validFrom, 'validTo': ?validTo},
+          'successorContent': {'value': value.toJson(), 'tags': ?tags},
         },
       },
     );
@@ -259,7 +246,7 @@ class AttributesFacade {
     required String attributeId,
     required String peer,
     ({String? title, String? description, Map<String, dynamic>? metadata, String? expiresAt})? requestMetadata,
-    ({String? title, String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
+    ({String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.shareRepositoryAttribute(request)
@@ -278,7 +265,6 @@ class AttributesFacade {
             },
           if (requestItemMetadata != null)
             'requestItemMetadata': {
-              if (requestItemMetadata.title != null) 'title': requestItemMetadata.title,
               if (requestItemMetadata.description != null) 'description': requestItemMetadata.description,
               if (requestItemMetadata.metadata != null) 'metadata': requestItemMetadata.metadata,
               if (requestItemMetadata.requireManualDecision != null) 'requireManualDecision': requestItemMetadata.requireManualDecision,
@@ -313,11 +299,9 @@ class AttributesFacade {
     required String key,
     required RelationshipAttributeConfidentiality confidentiality,
     bool? isTechnical,
-    String? validFrom,
-    String? validTo,
     required String peer,
     ({String? title, String? description, Map<String, dynamic>? metadata, String? expiresAt})? requestMetadata,
-    ({String? title, String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
+    ({String? description, Map<String, dynamic>? metadata, bool? requireManualDecision})? requestItemMetadata,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.createAndShareRelationshipAttribute(request)
@@ -325,14 +309,7 @@ class AttributesFacade {
       return { value: result.value }''',
       arguments: {
         'request': {
-          'content': {
-            'value': value.toJson(),
-            'key': key,
-            'confidentiality': confidentiality.name,
-            'isTechnical': ?isTechnical,
-            'validFrom': ?validFrom,
-            'validTo': ?validTo,
-          },
+          'content': {'value': value.toJson(), 'key': key, 'confidentiality': confidentiality.name, 'isTechnical': ?isTechnical},
           'peer': peer,
           if (requestMetadata != null)
             'requestMetadata': {
@@ -343,7 +320,6 @@ class AttributesFacade {
             },
           if (requestItemMetadata != null)
             'requestItemMetadata': {
-              if (requestItemMetadata.title != null) 'title': requestItemMetadata.title,
               if (requestItemMetadata.description != null) 'description': requestItemMetadata.description,
               if (requestItemMetadata.metadata != null) 'metadata': requestItemMetadata.metadata,
               if (requestItemMetadata.requireManualDecision != null) 'requireManualDecision': requestItemMetadata.requireManualDecision,
@@ -359,8 +335,6 @@ class AttributesFacade {
   Future<Result<SucceedRelationshipAttributeAndNotifyPeerResponse>> succeedRelationshipAttributeAndNotifyPeer({
     required String predecessorId,
     required RelationshipAttributeValue value,
-    String? validFrom,
-    String? validTo,
   }) async {
     final result = await _evaluator.evaluateJavaScript(
       '''const result = await session.consumptionServices.attributes.succeedRelationshipAttributeAndNotifyPeer(request)
@@ -369,7 +343,7 @@ class AttributesFacade {
       arguments: {
         'request': {
           'predecessorId': predecessorId,
-          'successorContent': {'value': value.toJson(), 'validFrom': ?validFrom, 'validTo': ?validTo},
+          'successorContent': {'value': value.toJson()},
         },
       },
     );

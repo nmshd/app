@@ -7,7 +7,7 @@ import 'transport/files_facade_test.dart' as files_facade_test;
 import 'transport/identity_deletion_processes_facade_test.dart' as identity_deletion_processes_facade_test;
 import 'transport/identity_recovery_kits_facade_test.dart' as identity_recovery_kits_facade_test;
 import 'transport/messages_facade_test.dart' as messages_facade_test;
-import 'transport/relationship_template_facade_test.dart' as relationship_template_facade_test;
+import 'transport/relationship_templates_facade_test.dart' as relationship_template_facade_test;
 import 'transport/relationships_facade_test.dart' as relationships_facade_test;
 import 'transport/tokens_facade_test.dart' as tokens_facade_test;
 

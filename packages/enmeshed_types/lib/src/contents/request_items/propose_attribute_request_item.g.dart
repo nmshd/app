@@ -7,7 +7,6 @@ part of 'propose_attribute_request_item.dart';
 // **************************************************************************
 
 ProposeAttributeRequestItem _$ProposeAttributeRequestItemFromJson(Map<String, dynamic> json) => ProposeAttributeRequestItem(
-  title: json['title'] as String?,
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
@@ -18,7 +17,6 @@ ProposeAttributeRequestItem _$ProposeAttributeRequestItemFromJson(Map<String, dy
 
 Map<String, dynamic> _$ProposeAttributeRequestItemToJson(ProposeAttributeRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
   if (instance.metadata case final value?) 'metadata': value,
   'mustBeAccepted': instance.mustBeAccepted,

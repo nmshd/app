@@ -7,7 +7,6 @@ part of 'transfer_file_ownership_request_item.dart';
 // **************************************************************************
 
 TransferFileOwnershipRequestItem _$TransferFileOwnershipRequestItemFromJson(Map<String, dynamic> json) => TransferFileOwnershipRequestItem(
-  title: json['title'] as String?,
   description: json['description'] as String?,
   metadata: json['metadata'] as Map<String, dynamic>?,
   mustBeAccepted: json['mustBeAccepted'] as bool,
@@ -17,7 +16,6 @@ TransferFileOwnershipRequestItem _$TransferFileOwnershipRequestItemFromJson(Map<
 
 Map<String, dynamic> _$TransferFileOwnershipRequestItemToJson(TransferFileOwnershipRequestItem instance) => <String, dynamic>{
   '@type': instance.atType,
-  if (instance.title case final value?) 'title': value,
   if (instance.description case final value?) 'description': value,
   if (instance.metadata case final value?) 'metadata': value,
   'mustBeAccepted': instance.mustBeAccepted,
