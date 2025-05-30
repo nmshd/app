@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:enmeshed_types/enmeshed_types.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
@@ -352,7 +353,14 @@ extension LocalNotifications on InAppWebViewController {
     );
 
     final notificationDetails = NotificationDetails(
-      android: AndroidNotificationDetails('all_local_notifications', 'Notifications', importance: Importance.max, priority: Priority.high),
+      android: AndroidNotificationDetails(
+        'all_local_notifications',
+        'Notifications',
+        importance: Importance.max,
+        priority: Priority.high,
+        color: Colors.red,
+        largeIcon: DrawableResourceAndroidBitmap('@drawable/android12splash'),
+      ),
       iOS: DarwinNotificationDetails(),
     );
 
