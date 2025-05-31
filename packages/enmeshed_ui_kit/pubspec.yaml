@@ -4,7 +4,7 @@ version: 1.0.0
 
 environment:
   sdk: ^3.8.0
-  flutter: ">=3.32.0"
+  flutter: ">=3.32.1"
 
 dependencies:
   flex_seed_scheme: ^3.5.1
