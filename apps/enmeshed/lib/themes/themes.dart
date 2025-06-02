@@ -58,7 +58,7 @@ ThemeData _generateColorScheme({
     extensions: [customColors],
     navigationBarTheme: NavigationBarThemeData(backgroundColor: colorScheme.surface),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: colorScheme.tertiaryContainer,
+      backgroundColor: colorScheme.primary,
       foregroundColor: colorScheme.onTertiaryContainer,
     ),
     appBarTheme: appBarTheme,
