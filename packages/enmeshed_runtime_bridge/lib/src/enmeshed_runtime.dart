@@ -14,7 +14,15 @@ import 'services/services.dart';
 import 'string_processor.dart';
 import 'webview_constants.dart' as webview_constants;
 
-typedef RuntimeConfig = ({String baseUrl, String clientId, String clientSecret, String applicationId, bool useAppleSandbox, String databaseFolder});
+typedef RuntimeConfig = ({
+  String baseUrl,
+  String clientId,
+  String clientSecret,
+  String applicationId,
+  bool useAppleSandbox,
+  String databaseFolder,
+  Map<String, dynamic>? deciderModuleConfig,
+});
 
 class EnmeshedRuntime {
   bool _isReady = false;
@@ -167,11 +175,11 @@ class EnmeshedRuntime {
           'platformClientSecret': runtimeConfig.clientSecret,
         },
         'databaseFolder': runtimeConfig.databaseFolder,
-        if (Platform.isWindows)
-          'modules': {
-            'pushNotification': {'enabled': false},
-            'sse': {'enabled': true},
-          },
+        'modules': {
+          if (Platform.isWindows) 'pushNotification': {'enabled': false},
+          if (Platform.isWindows) 'sse': {'enabled': true},
+          'decider': ?runtimeConfig.deciderModuleConfig,
+        },
       },
     );
 
