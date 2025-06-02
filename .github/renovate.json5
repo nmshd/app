@@ -41,11 +41,12 @@
       enabled: false
     },
 
-    // the enmeshed runtime
+    // the enmeshed runtime, when updated, requires a rebuild of the index file which cannot be done by renovate
     {
       groupName: "runtime-updates",
       matchDatasources: ["npm"],
-      matchPackageNames: ["@nmshd/app-runtime", "@nmshd/runtime"]
+      matchPackageNames: ["@nmshd/app-runtime", "@nmshd/runtime"],
+      enabled: false
     },
 
     {

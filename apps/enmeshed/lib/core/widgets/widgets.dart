@@ -10,7 +10,7 @@ export 'file_item.dart';
 export 'highlight_text.dart';
 export 'instructions_screen.dart';
 export 'local_data_deletion/local_data_deletion.dart';
-export 'message_dvo_renderer.dart';
+export 'message_list_tile.dart';
 export 'messages_container.dart';
 export 'modal_loading_overlay.dart';
 export 'profile_card.dart';

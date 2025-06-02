@@ -82,6 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
         clientSecret: const String.fromEnvironment('app_clientSecret'),
         useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
         databaseFolder: './database',
+        deciderModuleConfig: null,
       ),
       getPushTokenCallback: () async =>
           Push.instance.token.timeout(const Duration(seconds: 5)).catchError((_) => 'timed out', test: (e) => e is TimeoutException),
@@ -98,9 +99,6 @@ class _SplashScreenState extends State<SplashScreen> {
     if (!status.isGranted) {
       logger.w('Notification permission is (permanently) denied');
     }
-
-    // TODO(jkoenig134): maybe this isn't the best place for this as the app couldn't be ready yet
-    await runtime.triggerAppReadyEvent();
 
     if (mounted) await runtime.registerUIBridge(AppUIBridge(logger: logger, router: router, localizations: context.l10n));
 

@@ -85,7 +85,6 @@ class _UploadFileState extends State<UploadFile> {
                     children: [
                       if (_selectedFile != null) _FileSelected(file: _selectedFile!) else _NoFileSelected(selectFile: _selectFile),
                       if (_isFileTooLarge) const _FileSizeError(),
-                      Text(context.l10n.mandatoryField),
                       Gaps.h24,
                       TextFormField(
                         maxLength: MaxLength.fileName,
@@ -140,7 +139,7 @@ class _UploadFileState extends State<UploadFile> {
             ),
           ],
         ),
-        if (_loading) ModalLoadingOverlay(text: context.l10n.files_uploadInProgress, isDialog: false),
+        if (_loading) ModalLoadingOverlay(text: context.l10n.files_uploadInProgress),
       ],
     );
   }

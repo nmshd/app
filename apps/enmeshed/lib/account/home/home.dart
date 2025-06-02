@@ -102,7 +102,6 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   ),
-                AddContact(accountId: widget.accountId),
                 MessagesContainer(
                   accountId: widget.accountId,
                   messages: _messages,
