@@ -119,7 +119,7 @@ flutter_launcher_icons:
   image_path_android: "assets/icon-foreground.png"
   #image_path_ios: "assets/images/icon-1024x1024.png"
   android: true
-  adaptive_icon_background: "assets/christmas-background.png"
+  adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "assets/icon-foreground.png"
   adaptive_icon_monochrome: "assets/icon-monochrome-432x432.png"
   background_color_ios: "#ffffff"
