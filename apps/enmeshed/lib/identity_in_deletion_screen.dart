@@ -125,7 +125,7 @@ class _IdentityInDeletionScreenState extends State<IdentityInDeletionScreen> {
     if (!mounted) return;
 
     context.go('/account/${account.id}');
-    showSuccessSnackbar(context: context, text: context.l10n.profiles_switchedToProfile(account.name), showCloseIcon: true);
+    showSuccessSnackbar(context: context, text: context.l10n.profiles_switchedToProfile(account.name));
   }
 }
 

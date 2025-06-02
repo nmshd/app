@@ -86,7 +86,6 @@ class _DeletingProfileState extends State<DeletingProfile> {
         DeletionType.profile => context.l10n.profile_delete_success(widget.localAccount.name),
         DeletionType.identity => context.l10n.identity_delete_success(widget.localAccount.name),
       },
-      showCloseIcon: true,
     );
 
     if (accounts.isEmpty) {
