@@ -59,7 +59,7 @@ ThemeData _generateColorScheme({
     navigationBarTheme: NavigationBarThemeData(backgroundColor: colorScheme.surface),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: colorScheme.primary,
-      foregroundColor: colorScheme.onTertiaryContainer,
+      foregroundColor: colorScheme.onPrimary,
     ),
     appBarTheme: appBarTheme,
     cardTheme: const CardThemeData(elevation: 0),
