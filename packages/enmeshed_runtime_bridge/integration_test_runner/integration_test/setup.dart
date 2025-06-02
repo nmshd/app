@@ -22,6 +22,7 @@ Future<EnmeshedRuntime> setup() async {
       applicationId: 'eu.enmeshed.test',
       useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
       databaseFolder: './database',
+      deciderModuleConfig: null,
     ),
     logger: Logger(printer: SimplePrinter(colors: false), level: Level.warning),
     eventBus: eventBus,
