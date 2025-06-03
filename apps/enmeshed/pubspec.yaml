@@ -82,18 +82,6 @@ flutter:
         - package: vector_graphics_compiler
     - path: assets/svg_without_transforming/
 
-# dart run flutter_launcher_icons
-#flutter_icons:
- # image_path: "assets/icon.png"
-  #android: true
- # ios: true
-#  windows:
-  #  generate: true
-   # image_path: "assets/icon-512.png"
-  #remove_alpha_ios: true
-  #image_path_ios_dark_transparent: "assets/icon_dark.png"
-  #image_path_ios_tinted_grayscale: "assets/icon_grayscale.png" 
-
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.
