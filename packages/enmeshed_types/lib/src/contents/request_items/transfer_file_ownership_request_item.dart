@@ -7,6 +7,7 @@ part 'transfer_file_ownership_request_item.g.dart';
 @JsonSerializable(includeIfNull: false)
 class TransferFileOwnershipRequestItem extends RequestItemDerivation {
   final String fileReference;
+  final String? ownershipToken;
 
   const TransferFileOwnershipRequestItem({
     super.title,
@@ -15,6 +16,7 @@ class TransferFileOwnershipRequestItem extends RequestItemDerivation {
     required super.mustBeAccepted,
     super.requireManualDecision,
     required this.fileReference,
+    this.ownershipToken,
   }) : super(atType: 'TransferFileOwnershipRequestItem');
 
   factory TransferFileOwnershipRequestItem.fromJson(Map json) => _$TransferFileOwnershipRequestItemFromJson(Map<String, dynamic>.from(json));
@@ -23,5 +25,5 @@ class TransferFileOwnershipRequestItem extends RequestItemDerivation {
   Map<String, dynamic> toJson() => _$TransferFileOwnershipRequestItemToJson(this);
 
   @override
-  List<Object?> get props => [...super.props, fileReference];
+  List<Object?> get props => [...super.props, fileReference, ownershipToken];
 }
