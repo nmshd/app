@@ -102,6 +102,7 @@ flutter_native_splash:
   android: true
   ios: true
 
+# dart run flutter_launcher_icons
 flutter_launcher_icons:
   image_path: "assets/icon.png"
   android: true
