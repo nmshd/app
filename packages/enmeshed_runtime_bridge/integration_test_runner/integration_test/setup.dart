@@ -23,7 +23,7 @@ Future<EnmeshedRuntime> setup() async {
       useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
       databaseFolder: './database',
       deciderModuleConfig: null,
-      notificationColor: const String.fromEnvironment('app_notificationColor'),
+      notificationColor: null,
     ),
     logger: Logger(printer: SimplePrinter(colors: false), level: Level.warning),
     eventBus: eventBus,

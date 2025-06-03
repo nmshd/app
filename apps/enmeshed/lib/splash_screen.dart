@@ -83,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen> {
         useAppleSandbox: const bool.fromEnvironment('app_useAppleSandbox'),
         databaseFolder: './database',
         deciderModuleConfig: null,
-        notificationColor: const String.fromEnvironment('app_notificationColor'),
+        notificationColor: null,
       ),
       getPushTokenCallback: () async =>
           Push.instance.token.timeout(const Duration(seconds: 5)).catchError((_) => 'timed out', test: (e) => e is TimeoutException),
