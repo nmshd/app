@@ -105,7 +105,7 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
           2 => context.l10n.myData,
           3 => context.l10n.mailbox,
           _ => throw Exception('Unknown index: $_selectedIndex'),
-        }, style: _selectedIndex == 0 ? Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary) : null),
+        }),
         actions: [
           ..._actions ?? [],
           Padding(
