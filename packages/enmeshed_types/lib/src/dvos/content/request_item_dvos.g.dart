@@ -341,6 +341,7 @@ TransferFileOwnershipRequestItemDVO _$TransferFileOwnershipRequestItemDVOFromJso
   requireManualDecision: json['requireManualDecision'] as bool?,
   fileReference: json['fileReference'] as String,
   file: FileDVO.fromJson(json['file'] as Map<String, dynamic>),
+  ownershipToken: json['ownershipToken'] as String?,
 );
 
 Map<String, dynamic> _$TransferFileOwnershipRequestItemDVOToJson(TransferFileOwnershipRequestItemDVO instance) => <String, dynamic>{
@@ -358,4 +359,5 @@ Map<String, dynamic> _$TransferFileOwnershipRequestItemDVOToJson(TransferFileOwn
   if (instance.requireManualDecision case final value?) 'requireManualDecision': value,
   'fileReference': instance.fileReference,
   'file': instance.file.toJson(),
+  if (instance.ownershipToken case final value?) 'ownershipToken': value,
 };

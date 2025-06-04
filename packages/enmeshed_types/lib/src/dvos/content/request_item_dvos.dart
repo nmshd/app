@@ -328,6 +328,7 @@ class RegisterAttributeListenerRequestItemDVO extends RequestItemDVODerivation {
 class TransferFileOwnershipRequestItemDVO extends RequestItemDVODerivation {
   final String fileReference;
   final FileDVO file;
+  final String? ownershipToken;
 
   const TransferFileOwnershipRequestItemDVO({
     required super.id,
@@ -343,6 +344,7 @@ class TransferFileOwnershipRequestItemDVO extends RequestItemDVODerivation {
     super.requireManualDecision,
     required this.fileReference,
     required this.file,
+    this.ownershipToken,
   }) : super(type: 'TransferFileOwnershipRequestItemDVO');
 
   factory TransferFileOwnershipRequestItemDVO.fromJson(Map json) => _$TransferFileOwnershipRequestItemDVOFromJson(Map<String, dynamic>.from(json));
