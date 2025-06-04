@@ -82,6 +82,21 @@ flutter:
         - package: vector_graphics_compiler
     - path: assets/svg_without_transforming/
 
+# dart run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: "assets/icon.png"
+  android: true
+  ios: true
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icon_foreground.png"
+  adaptive_icon_monochrome: "assets/icon_monochrome.png"
+  remove_alpha_ios: true
+  image_path_ios_dark_transparent: "assets/icon_dark.png"
+  image_path_ios_tinted_grayscale: "assets/icon_grayscale.png" 
+  windows:
+    generate: true
+    image_path: "assets/icon-512.png"
+
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.
@@ -101,21 +116,6 @@ flutter_native_splash:
 
   android: true
   ios: true
-
-# dart run flutter_launcher_icons
-flutter_launcher_icons:
-  image_path: "assets/icon.png"
-  android: true
-  ios: true
-  adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/icon_foreground.png"
-  adaptive_icon_monochrome: "assets/icon_monochrome.png"
-  remove_alpha_ios: true
-  image_path_ios_dark_transparent: "assets/icon_dark.png"
-  image_path_ios_tinted_grayscale: "assets/icon_grayscale.png" 
-  windows:
-    generate: true
-    image_path: "assets/icon-512.png"
 
 # dart run msix:create
 msix_config:
