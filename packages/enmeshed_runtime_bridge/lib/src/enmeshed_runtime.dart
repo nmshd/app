@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
@@ -21,6 +22,7 @@ typedef RuntimeConfig = ({
   String applicationId,
   bool useAppleSandbox,
   String databaseFolder,
+  Color? androidNotificationColor,
   Map<String, dynamic>? deciderModuleConfig,
 });
 
@@ -173,6 +175,7 @@ class EnmeshedRuntime {
           'baseUrl': runtimeConfig.baseUrl,
           'platformClientId': runtimeConfig.clientId,
           'platformClientSecret': runtimeConfig.clientSecret,
+          'androidNotificationColor': ?runtimeConfig.androidNotificationColor,
         },
         'databaseFolder': runtimeConfig.databaseFolder,
         'modules': {
@@ -183,7 +186,7 @@ class EnmeshedRuntime {
       },
     );
 
-    await controller.addLocalNotificationsJavaScriptHandlers();
+    await controller.addLocalNotificationsJavaScriptHandlers(runtimeConfig.androidNotificationColor);
   }
 
   /// Register the [UIBridge] to communicate with the native UI.
