@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
@@ -21,7 +22,7 @@ typedef RuntimeConfig = ({
   String applicationId,
   bool useAppleSandbox,
   String databaseFolder,
-  String? notificationColor,
+  Color? notificationColor,
   Map<String, dynamic>? deciderModuleConfig,
 });
 

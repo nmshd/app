@@ -331,7 +331,7 @@ extension Filesystem on InAppWebViewController {
 }
 
 extension LocalNotifications on InAppWebViewController {
-  Future<void> addLocalNotificationsJavaScriptHandlers(String? notificationColor) async {
+  Future<void> addLocalNotificationsJavaScriptHandlers(Color? notificationColor) async {
     if (Platform.isAndroid || Platform.isIOS || Platform.isLinux || Platform.isMacOS) {
       await _addLocalNotificationsJavaScriptHandlers(notificationColor);
     } else if (Platform.isWindows) {
@@ -341,7 +341,7 @@ extension LocalNotifications on InAppWebViewController {
     }
   }
 
-  Future<void> _addLocalNotificationsJavaScriptHandlers(String? notificationColor) async {
+  Future<void> _addLocalNotificationsJavaScriptHandlers(Color? notificationColor) async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     await flutterLocalNotificationsPlugin.initialize(
@@ -358,7 +358,7 @@ extension LocalNotifications on InAppWebViewController {
         'Notifications',
         importance: Importance.max,
         priority: Priority.high,
-        color: notificationColor != null && notificationColor.isNotEmpty ? Color(int.parse(notificationColor, radix: 16)) : null,
+        color: notificationColor,
       ),
       iOS: DarwinNotificationDetails(),
     );
