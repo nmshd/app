@@ -22,7 +22,7 @@ typedef RuntimeConfig = ({
   String applicationId,
   bool useAppleSandbox,
   String databaseFolder,
-  Color? notificationColor,
+  Color? androidNotificationColor,
   Map<String, dynamic>? deciderModuleConfig,
 });
 
@@ -175,7 +175,7 @@ class EnmeshedRuntime {
           'baseUrl': runtimeConfig.baseUrl,
           'platformClientId': runtimeConfig.clientId,
           'platformClientSecret': runtimeConfig.clientSecret,
-          'notificationColor': ?runtimeConfig.notificationColor,
+          'androidNotificationColor': ?runtimeConfig.androidNotificationColor,
         },
         'databaseFolder': runtimeConfig.databaseFolder,
         'modules': {
@@ -186,7 +186,7 @@ class EnmeshedRuntime {
       },
     );
 
-    await controller.addLocalNotificationsJavaScriptHandlers(runtimeConfig.notificationColor);
+    await controller.addLocalNotificationsJavaScriptHandlers(runtimeConfig.androidNotificationColor);
   }
 
   /// Register the [UIBridge] to communicate with the native UI.
