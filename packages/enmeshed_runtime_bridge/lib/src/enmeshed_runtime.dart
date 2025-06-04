@@ -175,7 +175,6 @@ class EnmeshedRuntime {
           'baseUrl': runtimeConfig.baseUrl,
           'platformClientId': runtimeConfig.clientId,
           'platformClientSecret': runtimeConfig.clientSecret,
-          'androidNotificationColor': ?runtimeConfig.androidNotificationColor,
         },
         'databaseFolder': runtimeConfig.databaseFolder,
         'modules': {
