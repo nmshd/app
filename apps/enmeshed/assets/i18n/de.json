@@ -1079,9 +1079,6 @@
       "DecidableFormFieldRequestItem": {
         "name": "Fordert über ein Formularfeld etwas an"
       },
-      "DecidableFreeTextRequestItem": {
-        "name": "Fordert etwas an"
-      },
       "DecidableProposeAttributeRequestItem": {
         "name": "Schlägt ein Attribut vor"
       },
@@ -1096,9 +1093,6 @@
       },
       "FormFieldRequestItem": {
         "name": "Hat über ein Formularfeld etwas angefordert"
-      },
-      "FreeTextRequestItem": {
-        "name": "Hat etwas angefordert"
       },
       "name": "Anfrage",
       "ProposeAttributeRequestItem": {
@@ -1133,9 +1127,6 @@
       "error": "Fehlerhaftes Element",
       "FormFieldAcceptResponseItem": {
         "acceptedName": "Das Formularfeld wurde ausgefüllt."
-      },
-      "FreeTextAcceptResponseItem": {
-        "acceptedName": "Der Freitext wurde akzeptiert."
       },
       "ProposeAttributeAcceptResponseItem": {
         "acceptedName": "Das vorgeschlagene Attribut wurde empfangen."

@@ -1079,9 +1079,6 @@
       "DecidableFormFieldRequestItem": {
         "name": "Requests something of you via a form field"
       },
-      "DecidableFreeTextRequestItem": {
-        "name": "Requests something of you"
-      },
       "DecidableProposeAttributeRequestItem": {
         "name": "Proposes an attribute for you"
       },
@@ -1096,9 +1093,6 @@
       },
       "FormFieldRequestItem": {
         "name": "Requested something of you via a form field"
-      },
-      "FreeTextRequestItem": {
-        "name": "Requested something of you"
       },
       "name": "Request item",
       "ProposeAttributeRequestItem": {
@@ -1133,9 +1127,6 @@
       "error": "Errorneous item",
       "FormFieldAcceptResponseItem": {
         "acceptedName": "The form field has been filled out."
-      },
-      "FreeTextAcceptResponseItem": {
-        "acceptedName": "The free text has been accepted."
       },
       "ProposeAttributeAcceptResponseItem": {
         "acceptedName": "The proposed attribute has been received."
