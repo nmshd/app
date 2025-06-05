@@ -16,8 +16,9 @@
     "@js-soft/simple-logger": "^1.0.5",
     "@js-soft/ts-utils": "^2.3.3",
     "@nmshd/app-runtime": "6.49.0",
-    "@nmshd/rs-crypto-types": "0.9.0",
+    "@nmshd/rs-crypto-types": "0.10.0",
     "@nmshd/runtime": "6.49.0",
+    "@nmshd/crypto": "2.2.0-alpha.1",
     "js-logger": "^1.6.1",
     "json-stringify-safe": "^5.0.1",
     "lodash": "^4.17.21"

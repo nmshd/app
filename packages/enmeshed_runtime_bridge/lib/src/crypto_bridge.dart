@@ -1,7 +1,9 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:cal_flutter_plugin/cal_flutter_plugin.dart';
+import 'package:enmeshed_runtime_bridge/src/services/services.dart';
 
 class TsDartCryptoBridgeException implements Exception {
   final String value;
@@ -22,14 +24,21 @@ class TsDartCryptoBridgeException implements Exception {
 }
 
 class CryptoHandler {
-  static final CryptoHandler _singleton = CryptoHandler._internal();
+  static CryptoHandler? _instance;
+  final AbstractEvaluator _evaluator;
+  final store = KVStore();
 
-  factory CryptoHandler() {
-    return _singleton;
-  }
+  factory CryptoHandler(AbstractEvaluator evaluator) => _instance ??= CryptoHandler._internal(evaluator);
 
-  CryptoHandler._internal() {
+  CryptoHandler._internal(this._evaluator) {
     RustLib.init();
+    // TODO: find out if running on Android or iOS and initialize the crypto provider accordingly
+    _evaluator.evaluateJavaScript(
+      '''
+      await window.cryptoInit.initializeCrypto(providerName);
+    ''',
+      arguments: {'providerName': 'AndroidProvider'},
+    );
   }
 
   final HashMap<String, Provider> _providers = HashMap();
@@ -89,14 +98,14 @@ class CryptoHandler {
     switch (objMap['method']) {
       case 'create_provider':
         final conf = decodeProviderConfig(objMap['args'][0]);
-        final implConfig = decodeProviderImplConfig(objMap['args'][1]);
+        final implConfig = await decodeProviderImplConfig(objMap['args'][1]);
         final provider = await createProvider(conf: conf, implConf: implConfig);
         final providerName = await provider!.providerName();
         _providers[providerName] = provider;
         return providerName;
       case 'create_provider_from_name':
         final String name = objMap['args'][0];
-        final implConfig = decodeProviderImplConfig(objMap['args'][1]);
+        final implConfig = await decodeProviderImplConfig(objMap['args'][1]);
         final provider = await createProviderFromName(name: name, implConf: implConfig);
         final providerName = await provider!.providerName();
         _providers[providerName] = provider;
@@ -105,7 +114,7 @@ class CryptoHandler {
         final providers = await getAllProviders();
         return providers;
       case 'get_provider_capabilities':
-        final implConfig = decodeProviderImplConfig(objMap['args'][0]);
+        final implConfig = await decodeProviderImplConfig(objMap['args'][0]);
         final capabilities = await getProviderCapabilities(implConfig: implConfig);
         return capabilities.map((e) => [e.$1, encodeProviderConfig(e.$2)]).toList();
       default:
@@ -293,10 +302,8 @@ class CryptoHandler {
         return await keyPair.id();
       case 'encrypt_data':
         final dataBase64 = objMap['args'][0];
-        final ivBase64 = objMap['args'][1];
         final data = base64Decode(dataBase64);
-        final iv = base64Decode(ivBase64);
-        final dataOut = await keyPair.encryptData(data: data, iv: iv);
+        final dataOut = await keyPair.encryptData(data: data);
         return base64Encode(dataOut);
       case 'decrypt_data':
         final dataBase64 = objMap['args'][0];
@@ -381,11 +388,12 @@ class CryptoHandler {
     final supportedHashes = map['supported_hashes'].map((e) => decodeCryptoHash(e)).toList().cast<CryptoHash>();
     final supportedAsymSpec = map['supported_asym_spec'].map((e) => decodeAsymmetricKeySpec(e)).toList().cast<AsymmetricKeySpec>();
     return ProviderConfig(
-        maxSecurityLevel: maxSecurityLevel,
-        minSecurityLevel: minSecurityLevel,
-        supportedCiphers: supportedCiphers.toSet(),
-        supportedHashes: supportedHashes.toSet(),
-        supportedAsymSpec: supportedAsymSpec.toSet());
+      maxSecurityLevel: maxSecurityLevel,
+      minSecurityLevel: minSecurityLevel,
+      supportedCiphers: supportedCiphers.toSet(),
+      supportedHashes: supportedHashes.toSet(),
+      supportedAsymSpec: supportedAsymSpec.toSet(),
+    );
   }
 
   Map<String, Object> encodeProviderConfig(ProviderConfig config) {
@@ -424,12 +432,6 @@ class CryptoHandler {
     }
   }
 
-// aesGcm128,
-// aesGcm256,
-// aesCbc128,
-// aesCbc256,
-// chaCha20Poly1305,
-// xChaCha20Poly1305,
   Cipher decodeCipher(String json) {
     switch (json) {
       case 'aesGcm128':
@@ -466,16 +468,6 @@ class CryptoHandler {
     }
   }
 
-// sha2224,
-// sha2256,
-// sha2384,
-// sha2512,
-// sha2512224,
-// sha2512256,
-// sha3224,
-// sha3256,
-// sha3384,
-// sha3512,
   CryptoHash decodeCryptoHash(String json) {
     switch (json) {
       case 'sha2224':
@@ -531,23 +523,6 @@ class CryptoHandler {
         return 'blake2B';
     }
   }
-
-// rsa1024,
-// rsa2048,
-// rsa3072,
-// rsa4096,
-// rsa8192,
-// p256,
-// p384,
-// p521,
-// secp256K1,
-// brainpoolP256R1,
-// brainpoolP384R1,
-// brainpoolP512R1,
-// brainpoolP638,
-// curve25519,
-// curve448,
-// frp256V1,
 
   AsymmetricKeySpec decodeAsymmetricKeySpec(String json) {
     switch (json) {
@@ -625,56 +600,51 @@ class CryptoHandler {
     }
   }
 
-  ProviderImplConfig decodeProviderImplConfig(Map<String, dynamic> map) {
+  Future<ProviderImplConfig> decodeProviderImplConfig(Map<String, dynamic> map) async {
     final additionalConfig = map['additional_config'].map((e) => decodeAdditionalConfig(e)).toList().cast<AdditionalConfig>();
-    return ProviderImplConfig(additionalConfig: additionalConfig);
+
+    // inject KV store config. This has to be done on the Dart side, because the JS side cannot access the KV functions.
+    final implConfig = await createWithKvConfig(
+      getFn: store.get,
+      storeFn: store.store,
+      deleteFn: store.delete,
+      allKeysFn: store.allKeys,
+      additionalConfig: additionalConfig,
+    );
+
+    return implConfig;
   }
 
   Map<String, dynamic> encodeProviderImplConfig(ProviderImplConfig config) {
-    return {
-      'additional_config': config.additionalConfig.map((e) => encodeAdditionalConfig(e)).toList(),
-    };
+    return {'additional_config': config.additionalConfig.map((e) => encodeAdditionalConfig(e)).toList()};
   }
 
   AdditionalConfig decodeAdditionalConfig(Map<String, dynamic> map) {
-    switch (map['type']) {
-      case 'FileStoreConfig':
-        return AdditionalConfig.fileStoreConfig(dbDir: map['db_dir']);
-      case 'StorageConfigHMAC':
-        final keyHandle = _keyHandles[map['key_handle']]!;
-        return AdditionalConfig.storageConfigHmac(keyHandle);
-      case 'StorageConfigDSA':
-        final keyPairHandle = _keyPairHandles[map['key_pair_handle']]!;
-        return AdditionalConfig.storageConfigDsa(keyPairHandle);
-      case 'StorageConfigPass':
-        return AdditionalConfig.storageConfigPass(map['pass']);
-      default:
-        throw TsDartCryptoBridgeException('Unknown additional config type', map['type']);
+    if (map['FileStoreConfig'] != null) {
+      return AdditionalConfig.fileStoreConfig(dbDir: map['FileStoreConfig']['db_dir']);
+    } else if (map['StorageConfigHMAC'] != null) {
+      final keyHandle = _keyHandles[map['StorageConfigHMAC']]!;
+      return AdditionalConfig.storageConfigHmac(keyHandle);
+    } else if (map['StorageConfigDSA'] != null) {
+      final keyPairHandle = _keyPairHandles[map['StorageConfigDSA']]!;
+      return AdditionalConfig.storageConfigDsa(keyPairHandle);
+    } else if (map['StorageConfigPass'] != null) {
+      return AdditionalConfig.storageConfigPass(map['StorageConfigPass']);
+    } else {
+      throw TsDartCryptoBridgeException('Unknown additional config type', map.keys.toString());
     }
   }
 
   Map<String, dynamic> encodeAdditionalConfig(AdditionalConfig config) {
     switch (config) {
       case AdditionalConfig_FileStoreConfig(:final dbDir):
-        return {
-          'type': 'FileStoreConfig',
-          'db_dir': dbDir,
-        };
+        return {'FileStoreConfig': dbDir};
       case AdditionalConfig_StorageConfigHMAC(:final field0):
-        return {
-          'type': 'StorageConfigHMAC',
-          'key_handle': field0,
-        };
+        return {'StorageConfigHMAC': field0};
       case AdditionalConfig_StorageConfigDSA(:final field0):
-        return {
-          'type': 'StorageConfigDSA',
-          'key_pair_handle': field0,
-        };
+        return {'StorageConfigDSA': field0};
       case AdditionalConfig_StorageConfigPass(:final field0):
-        return {
-          'type': 'StorageConfigPass',
-          'pass': field0,
-        };
+        return {'StorageConfigPass': field0};
       default:
         throw TsDartCryptoBridgeException('Unknown additional config type', config.runtimeType.toString());
     }
@@ -683,15 +653,11 @@ class CryptoHandler {
   KeySpec decodeKeySpec(Map<String, dynamic> map) {
     final cipher = decodeCipher(map['cipher']);
     final signingHash = decodeCryptoHash(map['signing_hash']);
-    return KeySpec(cipher: cipher, signingHash: signingHash, ephemeral: map['ephemeral']);
+    return KeySpec(cipher: cipher, signingHash: signingHash, ephemeral: map['ephemeral'], nonExportable: map['non_exportable']);
   }
 
   Map<String, dynamic> encodeKeySpec(KeySpec spec) {
-    return {
-      'cipher': encodeCipher(spec.cipher),
-      'signing_hash': encodeCryptoHash(spec.signingHash),
-      'ephemeral': spec.ephemeral,
-    };
+    return {'cipher': encodeCipher(spec.cipher), 'signing_hash': encodeCryptoHash(spec.signingHash), 'ephemeral': spec.ephemeral};
   }
 
   KeyPairSpec decodeKeyPairSpec(Map<String, dynamic> map) {
@@ -699,7 +665,12 @@ class CryptoHandler {
     final cipher = map['cipher'] == null ? null : decodeCipher(map['cipher']);
     final signingHash = decodeCryptoHash(map['signing_hash']);
     return KeyPairSpec(
-        asymSpec: asymSpec, cipher: cipher, signingHash: signingHash, ephemeral: map['ephemeral'], nonExportable: map['non_exportable']);
+      asymSpec: asymSpec,
+      cipher: cipher,
+      signingHash: signingHash,
+      ephemeral: map['ephemeral'],
+      nonExportable: map['non_exportable'],
+    );
   }
 
   Map<String, dynamic> encodeKeyPairSpec(KeyPairSpec spec) {
@@ -720,42 +691,59 @@ class CryptoHandler {
   }
 
   Map<String, dynamic> encodeArgon2Options(Argon2Options options) {
-    return {
-      'memory': options.memory,
-      'iterations': options.iterations,
-      'parallelism': options.parallelism,
-    };
+    return {'memory': options.memory, 'iterations': options.iterations, 'parallelism': options.parallelism};
   }
 
   KDF decodeKdf(Map<String, dynamic> map) {
-    final options = decodeArgon2Options(map['options']);
-    switch (map['type']) {
-      case 'argon2d':
-        return KDF.argon2D(options);
-      case 'argon2id':
-        return KDF.argon2Id(options);
-      default:
-        throw TsDartCryptoBridgeException('Unknown KDF', map['type']);
+    if (map['Argon2d'] != null) {
+      return KDF.argon2D(decodeArgon2Options(map['Argon2d']));
+    } else if (map['Argon2id'] != null) {
+      return KDF.argon2Id(decodeArgon2Options(map['Argon2id']));
+    } else if (map['Argon2i'] != null) {
+      return KDF.argon2I(decodeArgon2Options(map['Argon2i']));
+    } else {
+      throw TsDartCryptoBridgeException('Unknown KDF type', map.keys.toString());
     }
   }
 
   Map<String, dynamic> encodeKdf(KDF kdf) {
     switch (kdf) {
       case KDF_Argon2d(:final field0):
-        return {
-          'type': 'argon2d',
-          'options': encodeArgon2Options(field0),
-        };
+        return {'Argon2d': encodeArgon2Options(field0)};
       case KDF_Argon2id(:final field0):
-        return {
-          'type': 'argon2id',
-          'options': encodeArgon2Options(field0),
-        };
+        return {'Argon2id': encodeArgon2Options(field0)};
       case KDF_Argon2i(:final field0):
-        return {
-          'type': 'argon2d',
-          'options': encodeArgon2Options(field0),
-        };
+        return {'Argon2d': encodeArgon2Options(field0)};
     }
+  }
+}
+
+// TODO: Where should this be?
+class KVStore {
+  HashMap<String, Uint8List> inner = HashMap<String, Uint8List>();
+
+  bool store(String key, Uint8List value) {
+    inner.addAll({key: value});
+    return true;
+  }
+
+  Uint8List? get(String key) {
+    return inner[key];
+  }
+
+  void delete(String key) {
+    inner.remove(key);
+  }
+
+  List<String> allKeys() {
+    return inner.entries.map((e) => e.key).toList();
+  }
+
+  int count() {
+    return inner.length;
+  }
+
+  void clear() {
+    inner.clear();
   }
 }

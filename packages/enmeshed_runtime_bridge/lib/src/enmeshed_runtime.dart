@@ -63,9 +63,9 @@ class EnmeshedRuntime {
     required this.getPushTokenCallback,
     required this.runtimeConfig,
     EventBus? eventBus,
-  })  : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
-        _runtimeReadyCallback = runtimeReadyCallback,
-        eventBus = eventBus ?? EventBus() {
+  }) : _logger = logger ?? Logger(printer: SimplePrinter(colors: false)),
+       _runtimeReadyCallback = runtimeReadyCallback,
+       eventBus = eventBus ?? EventBus() {
     if (runtimeConfig.baseUrl.isEmpty) throw Exception('Missing runtimeConfig value: baseUrl');
     if (runtimeConfig.clientId.isEmpty) throw Exception('Missing runtimeConfig value: clientId');
     if (runtimeConfig.clientSecret.isEmpty) throw Exception('Missing runtimeConfig value: clientSecret');
@@ -137,7 +137,7 @@ class EnmeshedRuntime {
 
     controller.addJavaScriptHandler(handlerName: 'handleRuntimeEvent', callback: (args) => handleRuntimeEventCallback(args, eventBus, _logger));
 
-    controller.addJavaScriptHandler(handlerName: "handleCryptoEvent", callback: (args) => CryptoHandler().handleCall(args));
+    controller.addJavaScriptHandler(handlerName: 'handleCryptoEvent', callback: (args) => CryptoHandler(Evaluator.anonymous(this)).handleCall(args));
 
     controller.addFilesystemJavaScriptHandlers(_filesystemAdapter);
 
@@ -337,9 +337,7 @@ class Evaluator extends AbstractEvaluator {
   String get sessionEvaluation => (_accountReference == null) ? 'null' : 'await runtime.getOrCreateSession("$_accountReference")';
   String get sessionStorage => _isAnonymous ? '' : 'const session = $sessionEvaluation;\n';
 
-  Evaluator._(this._runtime, {String? accountReference, bool isAnonymous = false})
-      : _accountReference = accountReference,
-        _isAnonymous = isAnonymous;
+  Evaluator._(this._runtime, {String? accountReference, bool isAnonymous = false}) : _accountReference = accountReference, _isAnonymous = isAnonymous;
 
   Evaluator.account(EnmeshedRuntime runtime, String accountReference) : this._(runtime, accountReference: accountReference);
   Evaluator.anonymous(EnmeshedRuntime runtime) : this._(runtime, isAnonymous: true);
@@ -361,7 +359,7 @@ class Session {
   DataViewExpander get expander => _expander;
 
   Session(AbstractEvaluator evaluator)
-      : _transportServices = TransportServices(evaluator),
-        _consumptionServices = ConsumptionServices(evaluator),
-        _expander = DataViewExpander(evaluator);
+    : _transportServices = TransportServices(evaluator),
+      _consumptionServices = ConsumptionServices(evaluator),
+      _expander = DataViewExpander(evaluator);
 }

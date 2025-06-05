@@ -1,3 +1,4 @@
+import { initCryptoLayerProviders } from "@nmshd/crypto";
 import * as types from "@nmshd/rs-crypto-types";
 
 class TsDartBridgeError extends Error {
@@ -490,7 +491,7 @@ function newKeyHandle(_id: string): KeyHandle {
 interface KeyPairHandle {
   _id: string;
   id(): Promise<string>;
-  encryptData(data: Uint8Array, iv: Uint8Array): Promise<Uint8Array>;
+  encryptData(data: Uint8Array): Promise<Uint8Array>;
   decryptData(data: Uint8Array): Promise<Uint8Array>;
   signData(data: Uint8Array): Promise<Uint8Array>;
   verifySignature(data: Uint8Array, signature: Uint8Array): Promise<boolean>;
@@ -509,14 +510,13 @@ function newKeyPairHandle(_id: string): KeyPairHandle {
       return Promise.resolve(this._id);
     },
 
-    encryptData: async function (data: Uint8Array, iv: Uint8Array): Promise<Uint8Array> {
+    encryptData: async function (data: Uint8Array): Promise<Uint8Array> {
       const e_data = bufferToBase64(data);
-      const e_iv = bufferToBase64(iv);
       const callArgs = {
         object_type: "key_pair",
         object_id: this._id,
         method: "encrypt_data",
-        args: [e_data, e_iv]
+        args: [e_data]
       };
       const outData = await callHandler(handlerName, callArgs);
       return base64toUint8Array(outData);
@@ -701,7 +701,25 @@ function newDhKeyExchange(_id: string): DhKeyExchange {
   };
 }
 
+const f: types.ProviderFactoryFunctions = {
+  getAllProviders: getAllProviders,
+  getProviderCapabilities: getProviderCapabilities,
+  createProvider: createProvider,
+  createProviderFromName: createProviderFromName
+};
+
+function initializeCrypto(providerName: string) {
+  const implConfig: types.ProviderImplConfig = {
+    additional_config: [{ StorageConfigPass: "testpass" }]
+  };
+  initCryptoLayerProviders({
+    factoryFunctions: f,
+    providersToBeInitialized: [[{ providerName: "SoftwareProvider" }, implConfig]]
+  });
+}
+
 type CryptoInit = {
+  initializeCrypto: typeof initializeCrypto;
   createProvider: types.CreateProviderFunc;
   createProviderFromName: types.CreateProviderFromNameFunc;
   getAllProviders: types.GetAllProvidersFunc;
@@ -713,6 +731,7 @@ type CryptoInit = {
 };
 
 const cryptoInit: CryptoInit = {
+  initializeCrypto: initializeCrypto,
   createProvider: createProvider,
   createProviderFromName: createProviderFromName,
   getAllProviders: getAllProviders,

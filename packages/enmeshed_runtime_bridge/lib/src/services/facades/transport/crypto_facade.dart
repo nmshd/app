@@ -18,8 +18,10 @@ class CryptoFacadeException implements Exception {
 
 class CryptoFacade {
   final AbstractEvaluator _evaluator;
-  final CryptoHandler _handler = CryptoHandler();
-  CryptoFacade(this._evaluator);
+  late final CryptoHandler _handler;
+  CryptoFacade(this._evaluator) {
+    _handler = CryptoHandler(_evaluator);
+  }
 
   Future<CryptoFacadeProvider> createProvider(cal.ProviderConfig config, cal.ProviderImplConfig implConfig) async {
     final result = await _evaluator.evaluateJavaScript(
@@ -59,13 +61,11 @@ class CryptoFacade {
   }
 
   Future<List<String>> getAllProviders() async {
-    final result = await _evaluator.evaluateJavaScript(
-      '''
+    final result = await _evaluator.evaluateJavaScript('''
       const providers = await window.cryptoInit.getAllProviders()
       if (providers) return providers;
       return [];
-    ''',
-    );
+    ''');
     if (result.toMap()['value'] == null) {
       throw CryptoFacadeException(result.toMap()['error'].toString());
     }
