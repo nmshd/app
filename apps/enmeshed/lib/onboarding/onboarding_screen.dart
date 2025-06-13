@@ -81,6 +81,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           if (widget.appLink != null) {
             final url = widget.appLink!;
             final result = await GetIt.I<EnmeshedRuntime>().stringProcessor.processURL(url: url, account: account);
+
+            if (result.isSuccess) return;
+
             GetIt.I.get<Logger>().e('Error while processing url $url: ${result.error.message}');
 
             if (!mounted) return;
