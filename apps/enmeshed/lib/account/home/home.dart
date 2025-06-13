@@ -85,7 +85,14 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 if (_isCompleteProfileContainerShown)
                   CompleteProfileContainer(hideContainer: _hideCompleteProfileContainer, accountId: widget.accountId),
-
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: BannerCard(
+                    title: 'Neue Dateien in Ihrer Wallet',
+                    type: BannerCardType.info,
+                    actionButton: (onPressed: () => {}, title: context.l10n.show),
+                  ),
+                ),
                 if (_showRecoveryKitWasUsedContainer)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
