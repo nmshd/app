@@ -31,7 +31,7 @@ class FileItem extends StatelessWidget {
               query: query,
               text: date,
               maxLines: 1,
-              textStyle: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           HighlightText(query: query, text: fileRecord.file.name, maxLines: 1),
         ],
