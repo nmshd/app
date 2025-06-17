@@ -1,6 +1,8 @@
+import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../types/types.dart';
 import '../utils/utils.dart';
@@ -17,6 +19,8 @@ class FileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final date = DateFormat.yMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(fileRecord.file.createdAt));
+
     return ListTile(
       contentPadding: const EdgeInsets.only(left: 16, right: 24, top: 12, bottom: 12),
       title: Column(
@@ -25,7 +29,7 @@ class FileItem extends StatelessWidget {
           if (fileRecord.file.name != fileRecord.file.filename)
             HighlightText(
               query: query,
-              text: fileRecord.file.filename,
+              text: date,
               maxLines: 1,
               textStyle: Theme.of(context).textTheme.labelMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
