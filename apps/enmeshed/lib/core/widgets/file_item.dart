@@ -19,6 +19,10 @@ class FileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fileNameStyle = (fileRecord.file.wasViewed ?? true)
+        ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
+        : Theme.of(context).textTheme.bodyLarge;
+
     final date = DateFormat.yMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(fileRecord.file.createdAt));
 
     return ListTile(
@@ -33,7 +37,7 @@ class FileItem extends StatelessWidget {
               maxLines: 1,
               textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
-          HighlightText(query: query, text: fileRecord.file.name, maxLines: 1),
+          HighlightText(query: query, text: fileRecord.file.name, maxLines: 1, textStyle: fileNameStyle),
         ],
       ),
       subtitle: Row(
