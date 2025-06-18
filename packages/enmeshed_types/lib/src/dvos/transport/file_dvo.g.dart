@@ -26,6 +26,7 @@ FileDVO _$FileDVOFromJson(Map<String, dynamic> json) => FileDVO(
   isOwn: json['isOwn'] as bool,
   title: json['title'] as String,
   reference: ObjectReferenceDTO.fromJson(json['reference'] as Map<String, dynamic>),
+  wasViewed: json['wasViewed'] as bool?,
 );
 
 Map<String, dynamic> _$FileDVOToJson(FileDVO instance) => <String, dynamic>{
@@ -48,4 +49,5 @@ Map<String, dynamic> _$FileDVOToJson(FileDVO instance) => <String, dynamic>{
   'isOwn': instance.isOwn,
   'title': instance.title,
   'reference': instance.reference.toJson(),
+  if (instance.wasViewed case final value?) 'wasViewed': value,
 };
