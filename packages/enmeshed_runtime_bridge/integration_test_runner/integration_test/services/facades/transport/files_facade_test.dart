@@ -262,7 +262,7 @@ void run(EnmeshedRuntime runtime) {
       final getFileResult = await session.transportServices.files.getFile(fileId: fileId);
       expect(getFileResult.value.wasViewed, null);
 
-      final markFileAsViewedResult = await session.transportServices.files.markFileAsViewed(fileId: fileId);
+      final markFileAsViewedResult = await session.transportServices.files.markFileAsViewed(id: fileId);
       expect(markFileAsViewedResult, isSuccessful<FileDTO>());
       expect(markFileAsViewedResult.value.wasViewed, true);
     });
