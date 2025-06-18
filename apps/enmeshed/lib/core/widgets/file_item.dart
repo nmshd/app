@@ -46,9 +46,50 @@ class FileItem extends StatelessWidget {
           HighlightText(text: getFileExtension(fileRecord.file.filename), query: query),
         ],
       ),
-      leading: FileIcon(filename: fileRecord.file.filename),
+      leading: _FileCircleAvatar(file: fileRecord.file),
       trailing: trailing,
       onTap: onTap ?? () => context.push('/account/$accountId/my-data/files/${fileRecord.file.id}', extra: fileRecord),
+    );
+  }
+}
+
+class _FileCircleAvatar extends StatelessWidget {
+  final FileDVO file;
+
+  const _FileCircleAvatar({required this.file});
+
+  @override
+  Widget build(BuildContext context) {
+    Color? backgroundColor;
+    Color? iconColor;
+    Color? borderColor;
+
+    if (DateTime.parse(file.expiresAt).isBefore(DateTime.now())) {
+      backgroundColor = Theme.of(context).colorScheme.errorContainer;
+      iconColor = Theme.of(context).colorScheme.onErrorContainer;
+      borderColor = Theme.of(context).colorScheme.error;
+    } else if (file.wasViewed ?? true) {
+      backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
+      iconColor = Theme.of(context).colorScheme.onSecondaryContainer;
+      borderColor = Theme.of(context).colorScheme.secondary;
+    } else {
+      iconColor = Theme.of(context).colorScheme.onSurfaceVariant;
+    }
+
+    final circleAvatar = CircleAvatar(
+      backgroundColor: backgroundColor,
+      child: FileIcon(filename: file.filename, color: iconColor),
+    );
+
+    if (borderColor == null) return circleAvatar;
+
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: borderColor, width: 3),
+      ),
+      padding: const EdgeInsets.all(1),
+      child: circleAvatar,
     );
   }
 }
