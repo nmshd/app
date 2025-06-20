@@ -81,6 +81,7 @@ class _FileCircleAvatar extends StatelessWidget {
       borderColor = Theme.of(context).colorScheme.secondary;
     } else {
       iconColor = Theme.of(context).colorScheme.onSurfaceVariant;
+      backgroundColor = Theme.of(context).colorScheme.surfaceContainer;
     }
 
     final circleAvatar = CircleAvatar(
