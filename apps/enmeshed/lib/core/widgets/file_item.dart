@@ -23,6 +23,8 @@ class FileItem extends StatelessWidget {
         ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
         : Theme.of(context).textTheme.bodyLarge;
 
+    final fileIsExpired = DateTime.parse(fileRecord.file.expiresAt).isBefore(DateTime.now());
+
     final date = DateFormat.yMd(Localizations.localeOf(context).languageCode).format(DateTime.parse(fileRecord.file.createdAt));
 
     return ListTile(
@@ -30,13 +32,18 @@ class FileItem extends StatelessWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (fileRecord.file.name != fileRecord.file.filename)
-            HighlightText(
-              query: query,
-              text: date,
-              maxLines: 1,
-              textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-            ),
+          Row(
+            children: [
+              HighlightText(
+                query: query,
+                text: date,
+                maxLines: 1,
+                textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              ),
+              if (fileIsExpired)
+                Text(' abgelaufen', style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.error)),
+            ],
+          ),
           HighlightText(query: query, text: fileRecord.file.name, maxLines: 1, textStyle: fileNameStyle),
         ],
       ),
