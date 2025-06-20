@@ -19,7 +19,7 @@ class FileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fileNameStyle = (fileRecord.file.wasViewed ?? true)
+    final fileNameStyle = fileRecord.file.wasViewed != true
         ? Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w600)
         : Theme.of(context).textTheme.bodyLarge;
 
@@ -68,7 +68,7 @@ class _FileCircleAvatar extends StatelessWidget {
       backgroundColor = Theme.of(context).colorScheme.errorContainer;
       iconColor = Theme.of(context).colorScheme.onErrorContainer;
       borderColor = Theme.of(context).colorScheme.error;
-    } else if (file.wasViewed ?? true) {
+    } else if (file.wasViewed != true) {
       backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
       iconColor = Theme.of(context).colorScheme.onSecondaryContainer;
       borderColor = Theme.of(context).colorScheme.secondary;
