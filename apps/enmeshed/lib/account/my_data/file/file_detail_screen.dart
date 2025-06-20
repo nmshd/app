@@ -41,6 +41,7 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     } else {
       _loadSharedWith();
     }
+    _markFileAsViewed();
   }
 
   @override
@@ -299,6 +300,13 @@ class _FileDetailScreenState extends State<FileDetailScreen> {
     );
 
     if (mounted) setState(() => _isOpeningFile = false);
+  }
+
+  Future<void> _markFileAsViewed() async {
+    if (_fileDVO?.wasViewed ?? false) return;
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    await session.transportServices.files.markFileAsViewed(id: _fileDVO!.id);
   }
 }
 
