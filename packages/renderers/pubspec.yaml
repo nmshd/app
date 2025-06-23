@@ -21,6 +21,7 @@ dependencies:
   i18n_translated_text: ^1.0.2
   intl: any
   logger: ^2.5.0
+  styled_text: ^8.1.0
   url_launcher: ^6.3.1
   value_renderer: 1.0.0
 
