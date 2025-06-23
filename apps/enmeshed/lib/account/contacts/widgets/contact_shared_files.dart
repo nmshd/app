@@ -41,8 +41,12 @@ class ContactSharedFiles extends StatelessWidget {
               : ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemBuilder: (context, index) =>
-                      FileItem(accountId: accountId, fileRecord: sharedFiles!.elementAt(index), trailing: const Icon(Icons.chevron_right)),
+                  itemBuilder: (context, index) => FileItem(
+                    accountId: accountId,
+                    fileRecord: sharedFiles!.elementAt(index),
+                    trailing: const Icon(Icons.chevron_right),
+                    onAfterFileViewed: () {},
+                  ),
                   itemCount: sharedFiles!.length,
                   separatorBuilder: (context, index) => const Divider(height: 2),
                 ),

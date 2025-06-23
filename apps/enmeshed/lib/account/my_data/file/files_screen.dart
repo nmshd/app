@@ -139,7 +139,12 @@ class _FilesScreenState extends State<FilesScreen> {
                 child: ListView.builder(
                   itemCount: _filteredFileRecords.length,
                   itemBuilder: (context, index) {
-                    return FileItem(accountId: widget.accountId, fileRecord: _filteredFileRecords[index], trailing: const Icon(Icons.chevron_right));
+                    return FileItem(
+                      accountId: widget.accountId,
+                      fileRecord: _filteredFileRecords[index],
+                      trailing: const Icon(Icons.chevron_right),
+                      onAfterFileViewed: _loadFiles,
+                    );
                   },
                 ),
               ),
@@ -265,6 +270,7 @@ class _FilesScreenState extends State<FilesScreen> {
         fileRecord: item,
         query: keyword,
         accountId: widget.accountId,
+        onAfterFileViewed: _loadFiles,
         onTap: () {
           controller
             ..clear()
