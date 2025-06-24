@@ -289,7 +289,7 @@ class _CustomSelectionChip extends StatelessWidget {
       return Theme(
         data: Theme.of(context).copyWith(splashColor: Colors.transparent),
         child: RawChip(
-          label: Icon(icon, size: 20, color: foregroundColor),
+          label: Icon(icon, size: 24, color: foregroundColor),
           onPressed: onPressed,
           backgroundColor: backgroundColor,
           padding: const EdgeInsets.all(2),
@@ -299,11 +299,11 @@ class _CustomSelectionChip extends StatelessWidget {
     }
 
     return RawChip(
-      avatar: Icon(icon, size: 20, color: foregroundColor),
+      avatar: Icon(icon, size: 24, color: foregroundColor),
       label: Text(label, style: TextStyle(color: foregroundColor)),
       backgroundColor: backgroundColor,
       padding: const EdgeInsets.all(2),
-      labelPadding: const EdgeInsets.only(left: 2, right: 4),
+      labelPadding: const EdgeInsets.only(left: 4, right: 8),
       side: const BorderSide(color: Colors.transparent),
     );
   }
@@ -325,16 +325,16 @@ class _ContactSelectionChip extends StatelessWidget {
     if (filteredContactId != null) {
       return RawChip(
         labelPadding: EdgeInsets.zero,
-        label: ContactCircleAvatar(contact: contacts.singleWhere((v) => v.id == filteredContactId), radius: 10),
+        label: ContactCircleAvatar(contact: contacts.singleWhere((v) => v.id == filteredContactId), radius: 14),
         onDeleted: () => setFilteredContactId(null),
         backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.only(left: 4),
         side: const BorderSide(color: Colors.transparent),
       );
     }
 
     return RawChip(
-      label: Icon(Icons.person_search, size: 20, color: Theme.of(context).colorScheme.onSurface),
+      label: Icon(Icons.person, size: 24, color: Theme.of(context).colorScheme.onSurface),
       onPressed: () async {
         final contact = await showSelectContactFilterModal(context: context, contacts: contacts);
         if (contact == null) return;
