@@ -464,7 +464,7 @@ class AttributesFacade {
       if (result.isError) return { error: { message: result.error.message, code: result.error.code } }
       return { value: result.value }''',
       arguments: {
-        'request': {'id': attributeId},
+        'request': {'attributeId': attributeId},
       },
     );
 
