@@ -84,7 +84,10 @@ class _MailboxViewState extends State<MailboxView> {
             },
             filteredContactId: _filteredContactId,
             contacts: _contacts!,
-            setFilteredContactId: (contactId) => setState(() => _filteredContactId = contactId),
+            setFilteredContactId: (contactId) {
+              setState(() => _filteredContactId = contactId);
+              _reload();
+            },
           ),
         ),
         Expanded(
