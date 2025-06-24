@@ -38,11 +38,7 @@ void main() async {
   timeago.setLocaleMessages('en', timeago.EnMessages());
 
   final output = await getLogOutput();
-  final logger = Logger(
-    printer: SimplePrinter(colors: false),
-    filter: ProductionFilter(),
-    output: output,
-  );
+  final logger = Logger(printer: SimplePrinter(colors: false), filter: ProductionFilter(), output: output);
   GetIt.I.registerSingleton(logger);
 
   GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
