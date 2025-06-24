@@ -23,6 +23,7 @@ class MessageDetailScreen extends StatefulWidget {
 class _MessageDetailScreenState extends State<MessageDetailScreen> {
   MessageDVO? _message;
   LocalAccountDTO? _account;
+  bool _markingMessageAsUnread = false;
 
   @override
   void initState() {
@@ -104,6 +105,24 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
     }
 
     if (message.wasReadAt == null) await session.transportServices.messages.markMessageAsRead(widget.messageId);
+  }
+
+  Future<void> _markMessageAsUnread() async {
+    if (_markingMessageAsUnread) return;
+
+    setState(() => _markingMessageAsUnread = true);
+
+    final session = GetIt.I.get<EnmeshedRuntime>().getSession(widget.accountId);
+    final result = await session.transportServices.messages.markMessageAsUnread(widget.messageId);
+
+    if (!mounted) return;
+
+    if (result.isError) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('context.l10n.mailbox_markAsUnreadError')));
+      return;
+    }
+
+    context.pop();
   }
 }
 
