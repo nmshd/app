@@ -107,9 +107,9 @@ class _AccountScreenState extends State<AccountScreen> with SingleTickerProvider
           _ => throw Exception('Unknown index: $_selectedIndex'),
         }),
         actions: [
-          ..._actions ?? [],
+          ...?_actions,
           Padding(
-            padding: const EdgeInsets.only(left: 6, right: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Badge(
               isLabelVisible: _accountsInDeletion.isNotEmpty,
               child: AutoLoadingProfilePicture(
