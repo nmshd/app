@@ -3,6 +3,7 @@ import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:styled_text/styled_text.dart';
 import 'package:url_launcher/url_launcher_string.dart' as url_launcher;
@@ -34,7 +35,15 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(title: Text(context.l10n.mailbox_message));
+    final appBar = AppBar(
+      title: Text(context.l10n.mailbox_message),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.mark_email_unread),
+          onPressed: _markingMessageAsUnread ? null : _markMessageAsUnread,
+        ),
+      ],
+    );
 
     if (_message == null || _account == null) {
       return Scaffold(
