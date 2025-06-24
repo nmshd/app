@@ -139,6 +139,9 @@ class DebugScreen extends StatelessWidget {
     final cacheDir = Directory('${dir.path}/cache');
     if (cacheDir.existsSync()) await encoder.addDirectory(cacheDir);
 
+    final logsDir = Directory('${dir.path}/logs');
+    if (logsDir.existsSync()) await encoder.addDirectory(logsDir);
+
     await encoder.addFile(File('${dir.path}/config.json'));
 
     encoder.closeSync();
