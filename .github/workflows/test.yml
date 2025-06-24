@@ -14,7 +14,7 @@ jobs:
       - run: melos generate_translations
       - run: melos analyze
       - run: melos format
-      - run: melos check_translations
+      - run: melos clean_generated_translations && melos check_translations
 
   test:
     runs-on: ubuntu-latest
