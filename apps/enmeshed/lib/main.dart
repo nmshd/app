@@ -37,12 +37,8 @@ void main() async {
   timeago.setLocaleMessages('de', timeago.DeMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
 
-  final logPath = '${(await getApplicationDocumentsDirectory()).path}/logs';
-  final output = kDebugMode ? MultiOutput([ConsoleOutput(), AdvancedFileOutput(path: logPath)]) : AdvancedFileOutput(path: logPath);
-  final logger = Logger(
-    printer: SimplePrinter(colors: false),
-    output: output,
-  );
+  final output = await getLogOutput();
+  final logger = Logger(printer: SimplePrinter(colors: false), filter: ProductionFilter(), output: output);
   GetIt.I.registerSingleton(logger);
 
   GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
@@ -50,6 +46,14 @@ void main() async {
   GetIt.I.registerSingleton(await ThemeModeModel.create());
 
   runApp(const EnmeshedApp());
+}
+
+Future<LogOutput> getLogOutput() async {
+  final logPath = '${(await getApplicationDocumentsDirectory()).path}/logs';
+
+  if (kDebugMode) return MultiOutput([ConsoleOutput(), FileOutput(file: File('$logPath/debug.log'))]);
+
+  return AdvancedFileOutput(path: logPath, maxRotatedFilesCount: 20);
 }
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
