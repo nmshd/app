@@ -43,7 +43,6 @@
   "error_image": "Es konnte kein Bild ausgewählt werden.",
   "error_upload_file": "Die Datei konnte nicht hochgeladen werden.",
   "error_download_file": "Die Datei konnte nicht heruntergeladen werden.",
-  "error_createDevice": "Das Gerät konnte nicht erstellt werden. Bitte versuchen Sie es später erneut.",
   "error_couldNotOpenLink": "Der Link konnte nicht geöffnet werden.",
   "error_succeedAttribute": "Der Eintrag konnte nicht aktualisiert werden.",
   "error_deleteAttribute": "Der Eintrag konnte nicht gelöscht werden.",
@@ -148,11 +147,7 @@
   "home_title": "enmeshed",
   "home_seeAll": "Alle ansehen",
   "home_complete": "Abschließen",
-  "home_scanQR": "QR-Code scannen",
   "home_addContact": "Kontakt hinzufügen",
-  "home_addContactImageSemanticsLabel": "Illustration eines Schulgebäudes mit einem Schild davor, das einen QR-Code zeigt",
-  "home_loadProfile": "Profil laden",
-  "home_loadProfileImageSemanticsLabel": "Illustration einer Person mit Handy, dessen Bildschirm einen QR-Code zeigt",
   "home_messages": "Neue Nachrichten",
   "home_noNewMessages": "Keine neuen Nachrichten.\nSie sind auf dem neuesten Stand.",
   "home_completeProfile": "Erste Schritte",
@@ -327,7 +322,6 @@
   "devices_create": "Gerät hinzufügen",
   "devices_create_inProgress": "Ihr Gerät wird erstellt.",
   "devices_add": "Gerät hinzufügen",
-  "devices_connected": "Gerät verbunden",
   "devices_code_qrSemanticsLabel": "QR-Code zum einscannen",
   "devices_code_qrDescription": "Scannen Sie den QR-Code mit der\nenmeshed App auf dem neuen Gerät, um es zu verbinden.",
   "devices_code_urlDescription": "Verwenden Sie diesen URL-Link in der\nenmeshed App auf dem neuen Gerät, um es zu verbinden.",
@@ -350,7 +344,6 @@
     }
   },
   "devices_otherDeviceOnboardedSuccess": "Ihr Gerät wurde erfolgreich verbunden.",
-  "devices_onboardingSuccessButton": "Okay",
   "deviceInfo_warningSemanticsLabel": "Warnhinweis",
   "deviceInfo_hintSemanticsLabel": "Hinweis",
   "deviceInfo_title": "Geräteinformationen",
@@ -437,7 +430,6 @@
   "contacts_toBeDeleted": "Wird in Kürze gelöscht",
   "contacts_terminated": "Kontakt hat die Beziehung beendet",
   "contacts_openRequests": "Es liegen offene Anfragen vor",
-  "contacts_deletionProposed": "Beziehung permanent beendet",
   "contacts_delete_title": "Kontakt <bold>{contactName}</bold> löschen?",
   "@contacts_delete_title": {
     "placeholders": {
