@@ -13,7 +13,8 @@ class FileIcon extends StatelessWidget {
     return Icon(
       switch (path.extension(filename)) {
         '.pdf' => Icons.picture_as_pdf,
-        '.jpg' || '.jpeg' || '.png' => Icons.image,
+
+        '.jpg' || '.jpeg' || '.png' || '.webp' => Icons.image,
         '.doc' || '.docx' || '.txt' => Icons.description,
         _ => Icons.question_mark,
       },
