@@ -38,7 +38,10 @@ void main() async {
   timeago.setLocaleMessages('en', timeago.EnMessages());
 
   final logPath = '${(await getApplicationDocumentsDirectory()).path}/logs';
-  final output = kDebugMode ? MultiOutput([ConsoleOutput(), AdvancedFileOutput(path: logPath)]) : AdvancedFileOutput(path: logPath);
+
+  final debugOutput = MultiOutput([ConsoleOutput(), FileOutput(file: File('$logPath/debug.log'))]);
+  final productionOutput = AdvancedFileOutput(path: logPath, maxRotatedFilesCount: 20);
+
   final logger = Logger(
     printer: SimplePrinter(colors: false),
     output: output,
