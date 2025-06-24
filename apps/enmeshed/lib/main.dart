@@ -6,12 +6,14 @@ import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
 import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:feature_flags/feature_flags.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:renderers/renderers.dart' show AbstractUrlLauncher;
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:vector_graphics/vector_graphics.dart';
@@ -35,8 +37,16 @@ void main() async {
   timeago.setLocaleMessages('de', timeago.DeMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
 
-  final logPath = await getApplicationDocumentsDirectory();
+  final logPath = '${(await getApplicationDocumentsDirectory()).path}/logs';
+  final logger = Logger(
+    printer: SimplePrinter(colors: false),
+    output: MultiOutput([
+      if (kDebugMode) ConsoleOutput(),
+      AdvancedFileOutput(path: logPath),
+    ]),
+  );
   GetIt.I.registerSingleton(logger);
+
   GetIt.I.registerSingleton<AbstractUrlLauncher>(UrlLauncher());
 
   GetIt.I.registerSingleton(await ThemeModeModel.create());
