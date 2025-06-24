@@ -43,7 +43,6 @@
   "error_image": "Failed to pick image.",
   "error_upload_file": "Failed to upload the file.",
   "error_download_file": "Failed to download the file.",
-  "error_createDevice": "Failed to create device. Please try again later.",
   "error_couldNotOpenLink": "The link could not be opened.",
   "error_succeedAttribute": "The entry could not be updated.",
   "error_deleteAttribute": "The entry could not be deleted.",
@@ -148,11 +147,7 @@
   "home_title": "enmeshed",
   "home_seeAll": "See all",
   "home_complete": "Complete",
-  "home_scanQR": "Scan a QR code",
   "home_addContact": "Add contact",
-  "home_addContactImageSemanticsLabel": "Illustration of a school building with a sign in front of it that shows a QR code",
-  "home_loadProfile": "Load profile",
-  "home_loadProfileImageSemanticsLabel": "Illustration of a person with a cell phone whose screen shows a QR code",
   "home_messages": "New messages",
   "home_noNewMessages": "No new messages. You are up to date.",
   "home_completeProfile": "First steps",
@@ -327,7 +322,6 @@
   "devices_create": "Create Device",
   "devices_create_inProgress": "Your device is being created.",
   "devices_add": "Add device",
-  "devices_connected": "Device connected",
   "devices_code_qrSemanticsLabel": "QR code for scanning",
   "devices_code_qrDescription": "Scan the QR code with the enmeshed app on the new device to connect it.",
   "devices_code_urlDescription": "Use this URL link in the enmeshed app on the new device to connect it.",
@@ -350,7 +344,6 @@
     }
   },
   "devices_otherDeviceOnboardedSuccess": "Your device has been connected.",
-  "devices_onboardingSuccessButton": "Okay",
   "deviceInfo_warningSemanticsLabel": "Warning",
   "deviceInfo_hintSemanticsLabel": "Hint",
   "deviceInfo_title": "Device information",
@@ -437,7 +430,6 @@
   "contacts_toBeDeleted": "Will be deleted shortly",
   "contacts_terminated": "Contact terminated the relationship",
   "contacts_openRequests": "There are open requests",
-  "contacts_deletionProposed": "Relationship permanently terminated",
   "contacts_delete_title": "Delete contact <bold>{contactName}</bold>?",
   "@contacts_delete_title": {
     "placeholders": {
