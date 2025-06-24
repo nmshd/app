@@ -2,25 +2,26 @@ import 'dart:async';
 
 import 'package:enmeshed_runtime_bridge/enmeshed_runtime_bridge.dart';
 import 'package:enmeshed_types/enmeshed_types.dart';
-import 'package:enmeshed_ui_kit/enmeshed_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '/core/core.dart';
-import '../account_tab_controller.dart';
-import 'mailbox_filter_controller.dart';
-import 'mailbox_filter_option.dart';
-import 'modals/select_mailbox_filters.dart';
+
+enum MailboxFilterOption {
+  incoming,
+  actionRequired,
+  unread,
+  withAttachment,
+  outgoing,
+}
 
 class MailboxView extends StatefulWidget {
   final String accountId;
-  final MailboxFilterController mailboxFilterController;
   final void Function(SuggestionsBuilder?) setSuggestionsBuilder;
   final String? filteredContactId;
 
   const MailboxView({
     required this.accountId,
-    required this.mailboxFilterController,
     required this.setSuggestionsBuilder,
     this.filteredContactId,
     super.key,
@@ -31,9 +32,11 @@ class MailboxView extends StatefulWidget {
 }
 
 class _MailboxViewState extends State<MailboxView> {
-  List<MessageDVO>? _incomingMessages;
-  List<MessageDVO>? _outgoingMessages;
+  List<MessageDVO>? _messages;
   List<IdentityDVO>? _contacts;
+
+  late MailboxFilterOption _filterOption;
+  late String? _filteredContactId;
 
   final List<StreamSubscription<void>> _subscriptions = [];
 
@@ -41,10 +44,8 @@ class _MailboxViewState extends State<MailboxView> {
   void initState() {
     super.initState();
 
-    widget.mailboxFilterController.value = {if (widget.filteredContactId != null) ContactFilterOption(widget.filteredContactId!)};
-
-    widget.mailboxFilterController.onOpenMailboxFilter = _onOpenFilterPressed;
-    widget.mailboxFilterController.addListener(_reload);
+    _filterOption = MailboxFilterOption.incoming;
+    _filteredContactId = widget.filteredContactId;
 
     _reload(isFirstTime: true, syncBefore: true);
 
@@ -59,8 +60,6 @@ class _MailboxViewState extends State<MailboxView> {
 
   @override
   void dispose() {
-    widget.mailboxFilterController.removeListener(_reload);
-
     for (final subscription in _subscriptions) {
       subscription.cancel();
     }
@@ -70,44 +69,28 @@ class _MailboxViewState extends State<MailboxView> {
 
   @override
   Widget build(BuildContext context) {
-    if (_incomingMessages == null || _outgoingMessages == null || _contacts == null) return const Center(child: CircularProgressIndicator());
-
-    final controller = AccountTabController.of(context);
+    if (_messages == null || _contacts == null) return const Center(child: CircularProgressIndicator());
 
     return Column(
       children: [
-        if (widget.mailboxFilterController.isMailboxFilterSet)
-          Align(
-            alignment: Alignment.centerLeft,
-            child: _FilterChipBar(
-              selectedFilterOptions: widget.mailboxFilterController.value,
-              contacts: _contacts!,
-              removeFilter: (filter) => widget.mailboxFilterController.removeFilter(filter),
-            ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: _FilterChipBar(
+            selectedFilterOption: _filterOption,
+            contacts: _contacts!,
+            setFilter: (filter) {
+              setState(() => _filterOption = filter);
+              _reload();
+            },
+            setFilteredContactId: (contactId) => setState(() => _filteredContactId = contactId),
           ),
+        ),
         Expanded(
-          child: TabBarView(
-            controller: controller,
-            children: [
-              if (_incomingMessages == null)
-                const Center(child: CircularProgressIndicator())
-              else
-                _MessageListView(
-                  messages: _incomingMessages!,
-                  accountId: widget.accountId,
-                  onRefresh: () => _reload(syncBefore: true),
-                  isFiltered: widget.mailboxFilterController.isMailboxFilterSet,
-                ),
-              if (_outgoingMessages == null)
-                const Center(child: CircularProgressIndicator())
-              else
-                _MessageListView(
-                  messages: _outgoingMessages!,
-                  accountId: widget.accountId,
-                  onRefresh: () => _reload(syncBefore: true),
-                  isFiltered: widget.mailboxFilterController.isMailboxFilterSet,
-                ),
-            ],
+          child: _MessageListView(
+            messages: _messages!,
+            accountId: widget.accountId,
+            onRefresh: () => _reload(syncBefore: true),
+            filterOption: _filterOption,
           ),
         ),
       ],
@@ -121,21 +104,30 @@ class _MailboxViewState extends State<MailboxView> {
 
     if (!mounted) return;
 
-    final filteredContactIds = widget.mailboxFilterController.value.whereType<ContactFilterOption>().map((e) => e.contactId).toList();
     final query = {
       if (!context.showTechnicalMessages) 'content.@type': QueryValue.string(r'~^(Request|Mail)$'),
-      if (filteredContactIds.isNotEmpty) 'participant': QueryValue.stringList(filteredContactIds),
+      if (_filteredContactId != null) 'participant': QueryValue.string(_filteredContactId!),
     };
 
-    if (widget.mailboxFilterController.value.contains(const ActionRequiredFilterOption())) {
-      query['content.@type'] = QueryValue.string('Request');
-    }
+    final identityInfo = await session.transportServices.account.getIdentityInfo();
+    final ownAddress = identityInfo.value.address;
 
-    if (widget.mailboxFilterController.value.contains(const WithAttachmentFilterOption())) {
-      query['attachments'] = QueryValue.string('+');
+    switch (_filterOption) {
+      case MailboxFilterOption.incoming:
+        query['createdBy'] = QueryValue.string('!$ownAddress');
+      case MailboxFilterOption.actionRequired:
+        query['createdBy'] = QueryValue.string('!$ownAddress');
+        query['content.@type'] = QueryValue.string('Request');
+      case MailboxFilterOption.unread:
+        query['createdBy'] = QueryValue.string('!$ownAddress');
+      // TODO: how to implement unread filter?
+      case MailboxFilterOption.withAttachment:
+        query['createdBy'] = QueryValue.string('!$ownAddress');
+        query['attachments'] = QueryValue.string('+');
+      case MailboxFilterOption.outgoing:
+        query['createdBy'] = QueryValue.string(ownAddress);
+        query['content.@type'] = QueryValue.string('Mail');
     }
-
-    final isUnreadFiltered = widget.mailboxFilterController.value.contains(const UnreadFilterOption());
 
     final messageResult = await session.transportServices.messages.getMessages(query: query);
     final messages = await session.expander.expandMessageDTOs(messageResult.value);
@@ -145,8 +137,7 @@ class _MailboxViewState extends State<MailboxView> {
 
     if (mounted) {
       setState(() {
-        _incomingMessages = messages.where((element) => isUnreadFiltered ? !element.isOwn && element.wasReadAt == null : !element.isOwn).toList();
-        _outgoingMessages = messages.where((element) => element.isOwn).toList();
+        _messages = messages;
         _contacts = contacts;
       });
     }
@@ -159,7 +150,7 @@ class _MailboxViewState extends State<MailboxView> {
   Iterable<Widget> _buildSuggestions(BuildContext context, SearchController controller) {
     final keyword = controller.value.text;
 
-    final messages = [...?_incomingMessages, ...?_outgoingMessages];
+    final messages = _messages ?? [];
 
     bool containsKeyword(MessageDVO message, String keyword) {
       return [
@@ -178,61 +169,139 @@ class _MailboxViewState extends State<MailboxView> {
         .map((item) => MessageListTile(message: item, accountId: widget.accountId, controller: controller, query: keyword))
         .separated(() => const Divider(height: 2));
   }
-
-  Future<void> _onOpenFilterPressed() async {
-    if (_contacts == null) return;
-
-    final options = await showSelectMailboxFiltersModal(
-      contacts: _contacts!,
-      mailboxFilterController: widget.mailboxFilterController,
-      context: context,
-    );
-
-    if (options == null) return;
-
-    widget.mailboxFilterController.value = options;
-  }
 }
 
 class _FilterChipBar extends StatelessWidget {
-  final Set<MailboxFilterOption> selectedFilterOptions;
+  final MailboxFilterOption selectedFilterOption;
   final List<IdentityDVO> contacts;
-  final void Function(MailboxFilterOption option) removeFilter;
+  final void Function(MailboxFilterOption option) setFilter;
+  final void Function(String? contactId) setFilteredContactId;
 
-  const _FilterChipBar({required this.selectedFilterOptions, required this.contacts, required this.removeFilter});
+  const _FilterChipBar({
+    required this.selectedFilterOption,
+    required this.contacts,
+    required this.setFilter,
+    required this.setFilteredContactId,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
-      child: ListView.separated(
-        padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) {
-          final option = selectedFilterOptions.elementAt(index);
-
-          return Chip(
-            label: Text(switch (option) {
-              ActionRequiredFilterOption() => context.l10n.mailbox_filter_actionRequired,
-              UnreadFilterOption() => context.l10n.mailbox_filter_unread,
-              WithAttachmentFilterOption() => context.l10n.mailbox_filter_withAttachment,
-              final ContactFilterOption contactFilterOption => contacts.firstWhere((element) => element.id == contactFilterOption.contactId).name,
-            }, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              side: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer),
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          physics: const ScrollPhysics(),
+          child: Row(
+            spacing: 4,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 12),
+                child: _CustomSelectionChip(
+                  icon: Icons.mail,
+                  label: 'Nachrichten',
+                  isSelected: selectedFilterOption == MailboxFilterOption.incoming,
+                  onPressed: () => setFilter(MailboxFilterOption.incoming),
+                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                  foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
+              ),
+              _CustomSelectionChip(
+                icon: Icons.chat_bubble,
+                label: 'Anfragen',
+                isSelected: selectedFilterOption == MailboxFilterOption.actionRequired,
+                onPressed: () => setFilter(MailboxFilterOption.actionRequired),
+                backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                foregroundColor: Theme.of(context).colorScheme.onErrorContainer,
+              ),
+              _CustomSelectionChip(
+                icon: Icons.mark_email_unread,
+                label: 'Ungelesen',
+                isSelected: selectedFilterOption == MailboxFilterOption.unread,
+                onPressed: () => setFilter(MailboxFilterOption.unread),
+              ),
+              _CustomSelectionChip(
+                icon: Icons.attachment,
+                label: 'Anhang',
+                isSelected: selectedFilterOption == MailboxFilterOption.withAttachment,
+                onPressed: () => setFilter(MailboxFilterOption.withAttachment),
+              ),
+              _CustomSelectionChip(
+                icon: Icons.send,
+                label: 'Gesendet',
+                isSelected: selectedFilterOption == MailboxFilterOption.outgoing,
+                onPressed: () => setFilter(MailboxFilterOption.outgoing),
+              ),
+              _CustomSelectionChip(
+                icon: Icons.person_outline_sharp,
+                label: 'Kontakt',
+                isSelected: false,
+                onPressed: () {},
+              ),
+              const SizedBox(width: 52),
+            ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16)),
+              color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.8),
             ),
-            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-            padding: EdgeInsets.zero,
-            labelPadding: const EdgeInsets.only(left: 8),
-            deleteIcon: const Icon(Icons.close),
-            onDeleted: () => removeFilter(option),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) => Gaps.w8,
-        itemCount: selectedFilterOptions.length,
-      ),
+
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: IconButton(onPressed: () {}, icon: const Icon(Icons.info)),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CustomSelectionChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onPressed;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+
+  const _CustomSelectionChip({
+    required this.icon,
+    required this.label,
+    required this.isSelected,
+    required this.onPressed,
+    this.backgroundColor,
+    this.foregroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final backgroundColor = this.backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerHighest;
+    final foregroundColor = this.foregroundColor ?? Theme.of(context).colorScheme.onSurface;
+
+    if (!isSelected) {
+      return Theme(
+        data: Theme.of(context).copyWith(splashColor: Colors.transparent),
+        child: RawChip(
+          label: Icon(icon, size: 20, color: foregroundColor),
+          onPressed: onPressed,
+          backgroundColor: backgroundColor,
+          padding: const EdgeInsets.all(2),
+          side: const BorderSide(color: Colors.transparent),
+        ),
+      );
+    }
+
+    return RawChip(
+      avatar: Icon(icon, size: 20, color: foregroundColor),
+      label: Text(label, style: TextStyle(color: foregroundColor)),
+      backgroundColor: backgroundColor,
+      padding: const EdgeInsets.all(2),
+      labelPadding: const EdgeInsets.only(left: 2, right: 4),
+      side: const BorderSide(color: Colors.transparent),
     );
   }
 }
@@ -241,9 +310,9 @@ class _MessageListView extends StatelessWidget {
   final List<MessageDVO> messages;
   final String accountId;
   final Future<void> Function() onRefresh;
-  final bool isFiltered;
+  final MailboxFilterOption filterOption;
 
-  const _MessageListView({required this.messages, required this.accountId, required this.onRefresh, required this.isFiltered});
+  const _MessageListView({required this.messages, required this.accountId, required this.onRefresh, required this.filterOption});
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +323,10 @@ class _MessageListView extends StatelessWidget {
               icon: Icons.mail_outline,
               text: context.l10n.mailbox_empty,
               wrapInListView: true,
-              isFiltered: isFiltered,
+
+              // TODO: add filter text
+              // ignore: avoid_redundant_argument_values
+              isFiltered: false,
               filteredText: context.l10n.mailbox_filtered_noResults,
             )
           : ListView.separated(
