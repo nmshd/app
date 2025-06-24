@@ -75,6 +75,7 @@ class DebugScreen extends StatelessWidget {
                       child: const Text('Push Debugger'),
                     ),
                     OutlinedButton(onPressed: _extractAppDataAsZip, child: const Text('Export App Data')),
+                    OutlinedButton(onPressed: () => _extractLogsAsZip(context), child: const Text('Export Logs')),
                   ],
                 ),
               ),
@@ -146,6 +147,40 @@ class DebugScreen extends StatelessWidget {
 
     final deviceDir = await FilePicker.platform.saveFile(
       fileName: 'app_data.zip',
+      allowedExtensions: ['zip'],
+      bytes: Platform.isIOS || Platform.isAndroid ? bytes : null,
+    );
+
+    if (Platform.isIOS || Platform.isAndroid || deviceDir == null) {
+      await zipFile.delete();
+      return;
+    }
+
+    final savedFile = File(deviceDir);
+    await savedFile.writeAsBytes(bytes);
+    await zipFile.delete();
+  }
+
+  Future<void> _extractLogsAsZip(BuildContext context) async {
+    final dir = await getApplicationDocumentsDirectory();
+
+    final zipFile = File('${dir.path}/logs.zip');
+
+    final encoder = ZipFileEncoder()..create(zipFile.path);
+
+    final logsDir = Directory('${dir.path}/logs');
+    if (!logsDir.existsSync()) {
+      if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Logs directory does not exist.')));
+      return;
+    }
+
+    await encoder.addDirectory(logsDir);
+    encoder.closeSync();
+
+    final bytes = zipFile.readAsBytesSync();
+
+    final deviceDir = await FilePicker.platform.saveFile(
+      fileName: 'logs.zip',
       allowedExtensions: ['zip'],
       bytes: Platform.isIOS || Platform.isAndroid ? bytes : null,
     );
