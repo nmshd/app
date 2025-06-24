@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '/core/core.dart';
+import 'modals/select_contact_filter.dart';
 
 enum MailboxFilterOption {
   incoming,
@@ -77,11 +78,12 @@ class _MailboxViewState extends State<MailboxView> {
           alignment: Alignment.centerLeft,
           child: _FilterChipBar(
             selectedFilterOption: _filterOption,
-            contacts: _contacts!,
             setFilter: (filter) {
               setState(() => _filterOption = filter);
               _reload();
             },
+            filteredContactId: _filteredContactId,
+            contacts: _contacts!,
             setFilteredContactId: (contactId) => setState(() => _filteredContactId = contactId),
           ),
         ),
@@ -173,14 +175,17 @@ class _MailboxViewState extends State<MailboxView> {
 
 class _FilterChipBar extends StatelessWidget {
   final MailboxFilterOption selectedFilterOption;
-  final List<IdentityDVO> contacts;
   final void Function(MailboxFilterOption option) setFilter;
+
+  final String? filteredContactId;
+  final List<IdentityDVO> contacts;
   final void Function(String? contactId) setFilteredContactId;
 
   const _FilterChipBar({
     required this.selectedFilterOption,
-    required this.contacts,
     required this.setFilter,
+    required this.filteredContactId,
+    required this.contacts,
     required this.setFilteredContactId,
   });
 
@@ -198,7 +203,7 @@ class _FilterChipBar extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 12),
                 child: _CustomSelectionChip(
                   icon: Icons.mail,
-                  label: 'Nachrichten',
+                  label: 'Eingang',
                   isSelected: selectedFilterOption == MailboxFilterOption.incoming,
                   onPressed: () => setFilter(MailboxFilterOption.incoming),
                   backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
@@ -231,12 +236,7 @@ class _FilterChipBar extends StatelessWidget {
                 isSelected: selectedFilterOption == MailboxFilterOption.outgoing,
                 onPressed: () => setFilter(MailboxFilterOption.outgoing),
               ),
-              _CustomSelectionChip(
-                icon: Icons.person_outline_sharp,
-                label: 'Kontakt',
-                isSelected: false,
-                onPressed: () {},
-              ),
+              _ContactSelectionChip(contacts: contacts, filteredContactId: filteredContactId, setFilteredContactId: setFilteredContactId),
               const SizedBox(width: 52),
             ],
           ),
@@ -301,6 +301,45 @@ class _CustomSelectionChip extends StatelessWidget {
       backgroundColor: backgroundColor,
       padding: const EdgeInsets.all(2),
       labelPadding: const EdgeInsets.only(left: 2, right: 4),
+      side: const BorderSide(color: Colors.transparent),
+    );
+  }
+}
+
+class _ContactSelectionChip extends StatelessWidget {
+  final List<IdentityDVO> contacts;
+  final String? filteredContactId;
+  final void Function(String? contact) setFilteredContactId;
+
+  const _ContactSelectionChip({
+    required this.contacts,
+    required this.filteredContactId,
+    required this.setFilteredContactId,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (filteredContactId != null) {
+      return RawChip(
+        labelPadding: EdgeInsets.zero,
+        label: ContactCircleAvatar(contact: contacts.singleWhere((v) => v.id == filteredContactId), radius: 10),
+        onDeleted: () => setFilteredContactId(null),
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+        padding: const EdgeInsets.all(4),
+        side: const BorderSide(color: Colors.transparent),
+      );
+    }
+
+    return RawChip(
+      label: Icon(Icons.person_search, size: 20, color: Theme.of(context).colorScheme.onSurface),
+      onPressed: () async {
+        final contact = await showSelectContactFilterModal(context: context, contacts: contacts);
+        if (contact == null) return;
+
+        setFilteredContactId(contact.id);
+      },
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+      padding: const EdgeInsets.all(2),
       side: const BorderSide(color: Colors.transparent),
     );
   }
