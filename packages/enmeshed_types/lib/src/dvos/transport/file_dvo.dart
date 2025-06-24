@@ -23,7 +23,6 @@ class FileDVO extends DataViewObject with EquatableMixin {
   final bool isOwn;
   final String title;
   final ObjectReferenceDTO reference;
-  final bool? wasViewed;
 
   const FileDVO({
     required super.id,
@@ -45,7 +44,6 @@ class FileDVO extends DataViewObject with EquatableMixin {
     required this.isOwn,
     required this.title,
     required this.reference,
-    this.wasViewed,
   });
 
   factory FileDVO.fromJson(Map json) => _$FileDVOFromJson(Map<String, dynamic>.from(json));
@@ -72,6 +70,5 @@ class FileDVO extends DataViewObject with EquatableMixin {
     isOwn,
     title,
     reference,
-    wasViewed,
   ];
 }
